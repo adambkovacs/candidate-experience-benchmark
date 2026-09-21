@@ -39,12 +39,12 @@ class FreeOnlyTests(unittest.TestCase):
         self.assertNotIn('models',one)
 
     def test_run_stops_after_service_error_and_never_reads_labels(self):
-        endpoint={'tag':'provider/fp4','provider_name':'Provider','pricing':{'prompt':'0','completion':'0'},'supported_parameters':['structured_outputs']}
-        responses=[{'data':[{'id':'qwen/test:free','pricing':{'prompt':'0','completion':'0'}}]},
+        endpoint={'tag':'provider/fp4','provider_name':'Provider','pricing':{'prompt':'0','completion':'0'},'supported_parameters':['structured_outputs','reasoning']}
+        responses=[{'data':[{'id':'qwen/test:free','pricing':{'prompt':'0','completion':'0'},'reasoning':{'mandatory':False,'supported_efforts':['low','medium','xhigh']}}]},
                    {'data':{'endpoints':[endpoint]}}, RuntimeError('private error')]
         with tempfile.TemporaryDirectory() as tmp:
             args=SimpleNamespace(output=str(Path(tmp)/'run.jsonl'),env_file=None,timeout=2,
-                                 model='qwen/test:free',provider='provider/fp4',limit=3)
+                                 model='qwen/test:free',provider='provider/fp4',limit=3,reasoning='off',max_tokens=8192)
             with mock.patch.object(runner,'fetch',side_effect=responses) as fetch, mock.patch.object(runner,'load_key',return_value='SECRET'):
                 runner.run(args)
             rows=[json.loads(x) for x in Path(args.output).read_text().splitlines()]
@@ -62,6 +62,25 @@ class FreeOnlyTests(unittest.TestCase):
         self.assertEqual(names,{'qwen/qwen3.8-27b:free','qwen/qwen3.8-27b',
             'qwen/qwen3.8-27b-20260814:free','qwen/qwen3.8-27b-20260814'})
         self.assertNotIn('qwen/qwen3.8-27b-OTHER',names)
+
+    def test_reasoning_native_wire_values(self):
+        for effort in ['off','low','medium','xhigh']:
+            payload=runner.make_payload('qwen/test:free','provider/fp4','text','rubric',{},effort,1234)
+            expected={'enabled':False} if effort=='off' else {'enabled':True,'effort':effort}
+            self.assertEqual(payload['reasoning'],expected)
+            self.assertEqual(payload['max_tokens'],1234)
+        with self.assertRaises(ValueError):runner.reasoning_config('none')
+
+    def test_reasoning_capability_fail_closed(self):
+        entry={'id':'qwen/test:free','reasoning':{'mandatory':False,'supported_efforts':['low','medium','xhigh']}}
+        catalog={'data':[entry]};endpoint={'supported_parameters':['reasoning']}
+        for effort in ['off','low','medium','xhigh']:
+            runner.validate_reasoning(entry['id'],endpoint,catalog,effort)
+        entry['reasoning']['mandatory']=True
+        with self.assertRaises(ValueError):runner.validate_reasoning(entry['id'],endpoint,catalog,'off')
+        entry['reasoning']['supported_efforts']=['low']
+        with self.assertRaises(ValueError):runner.validate_reasoning(entry['id'],endpoint,catalog,'xhigh')
+        with self.assertRaises(ValueError):runner.validate_reasoning(entry['id'],{},catalog,'low')
 
     def test_no_redirect(self):
         with self.assertRaises(ValueError): runner.NoRedirect().redirect_request(None,None,302,'',{},'https://example.org')

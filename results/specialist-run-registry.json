@@ -132,7 +132,7 @@
       "results/openrouter/qwen38-smoke-attempt2.jsonl",
       "results/openrouter/qwen38-smoke-attempt3.jsonl"
     ],
-    "notes": "Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback."
+    "notes": "Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback. Later metadata lists supported_efforts xhigh/medium/low, mandatory=false; original effort:none request is not a validated successful configuration. Future disabled-reasoning config should be explicit and verified separately."
   },
   {
     "id": "openrouter-deepseek-free",
@@ -187,5 +187,50 @@
     "predictions_file": null,
     "attempt_files": [],
     "notes": "Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed."
+  },
+  {
+    "id": "alex-openjev4b",
+    "model": "AlexWortega/openjev qwen3.5-4b-nli-v2",
+    "effort": "NLI entailment option ranking; staged",
+    "status": "staged_metadata_required",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Cached model card at revisionf004f37e52695d6ddfb914a64dbf93942839ba1e recommends qwen3.5-4b-nli-v2/ and documents the same OpenJevCrossEncoder class. Exact artifact file list, total bytes and load compatibility still require verification. No additional weights downloaded; staged within disk budget."
+  },
+  {
+    "id": "openrouter-qwen38-free-low",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning low; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-medium",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning medium; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-xhigh",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning xhigh; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-off",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning disabled explicitly; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Future request uses reasoning.enabled=false; public metadata mandatory=false. No inference at this configuration. Original effort:none429attempts are preserved separately and do not validate reasoning-off behavior."
   }
 ]
