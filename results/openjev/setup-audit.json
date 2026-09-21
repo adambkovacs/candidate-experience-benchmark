@@ -1,0 +1,53 @@
+{
+  "source": "https://github.com/razorback16/openjev",
+  "source_commit": "e04794ab36e4f7e6040c2547baecdb2737ce2e79",
+  "package_version": "0.3.0",
+  "api_model": "openjev-0.1",
+  "artifact": "mlx-community/diffusiongemma-26B-A4B-it-4bit",
+  "artifact_revision": "a7a81407613811e8ba63af92ac0d852b809e191f",
+  "artifact_total_bytes": 16575472949,
+  "quantization": {
+    "default_bits": 4,
+    "group_size": 64,
+    "mode": "affine",
+    "8bit_layer_overrides": 236
+  },
+  "required_mlx_vlm": "0.6.15",
+  "backend": "mlx",
+  "settings": {
+    "OPENJEV_CANVAS": 64,
+    "OPENJEV_AUTO_MAX": 4,
+    "OPENJEV_AUTO_THRESHOLD": 0.1,
+    "OPENJEV_MLX_MAX_PROMPT": 32768
+  },
+  "fixed_request": {
+    "steps": 1,
+    "samples": 1,
+    "think": 0,
+    "sequential": false
+  },
+  "adaptive_request": {
+    "steps": 1,
+    "think": 0,
+    "sequential": false
+  },
+  "read_count_caveat": "Source engine.read_group may perform 4 total reads when any initial entropy exceeds0.1. Adaptive rereads excluded from usage.input_tokens. Actual count not returned by API. samples1 replaces adaptive policy.",
+  "identity_caveat": "OpenJev is an independent DiffusionGemma-based server, not official TypeSafe weights. API models description says NVFP4 even on MLX and must not be used as actual artifact provenance.",
+  "setup_status": "Dependencies installed and imports verified; weight download blocked by shared network outage; partials preserved; no local inference completed",
+  "sources": [
+    "https://github.com/razorback16/openjev/blob/e04794ab36e4f7e6040c2547baecdb2737ce2e79/openjev/engine.py",
+    "https://github.com/razorback16/openjev/blob/e04794ab36e4f7e6040c2547baecdb2737ce2e79/pyproject.toml",
+    "https://huggingface.co/mlx-community/diffusiongemma-26B-A4B-it-4bit/tree/a7a81407613811e8ba63af92ac0d852b809e191f",
+    "https://docs.typesafe.ai/api",
+    "https://docs.typesafe.ai/models"
+  ],
+  "runtime_versions": {
+    "python": "3.12.12",
+    "openjev": "0.3.0",
+    "mlx-vlm": "0.6.15",
+    "mlx": "0.32.2",
+    "transformers": "5.17.0",
+    "fastapi": "0.141.1",
+    "uvicorn": "0.53.0"
+  }
+}
