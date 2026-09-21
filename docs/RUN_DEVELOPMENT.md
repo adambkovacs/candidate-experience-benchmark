@@ -1,6 +1,6 @@
 # Run the development smoke test
 
-No model has been benchmarked yet. The [local preflight](LOCAL_PREFLIGHT.md) verified the Mac setup and offline tests, but found no suitable downloaded instruction model. This runner executes on the Mac with LM Studio.
+The [first local development run](LOCAL_DEVELOPMENT_RESULTS.md) is complete. This runner executes on the Mac with LM Studio. The original [preflight](LOCAL_PREFLIGHT.md) and run artifacts document the setup.
 
 ## Setup and execution
 

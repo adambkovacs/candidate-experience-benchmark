@@ -1,5 +1,7 @@
 # Local preflight, 2026-09-21
 
+This is the initial inventory snapshot. The user subsequently authorized a download and the [first local run completed](LOCAL_DEVELOPMENT_RESULTS.md).
+
 Offline checks passed on the requested Mac checkout. Live inference is blocked: all six artifacts in the LM Studio inventory are embedding or reranking models. None is a suitable instruction model for the four-judgment task. A model appearing under the CLI's LLM category does not establish task suitability.
 
 ## Verified setup

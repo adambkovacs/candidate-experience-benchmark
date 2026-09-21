@@ -1,0 +1,227 @@
+{
+  "reference_status": "AI-reviewed provisional; development only",
+  "records": 60,
+  "valid_outputs": 60,
+  "missing_or_failed": [],
+  "metrics": {
+    "sentiment": {
+      "correct": 22,
+      "denominator": 60,
+      "accuracy": 0.36666666666666664,
+      "macro_f1": 0.32481884057971017,
+      "per_label": {
+        "positive": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 7,
+          "precision": 1.0,
+          "recall": 0.36363636363636365,
+          "f1": 0.5333333333333333
+        },
+        "negative": {
+          "tp": 11,
+          "fp": 4,
+          "fn": 20,
+          "precision": 0.7333333333333333,
+          "recall": 0.3548387096774194,
+          "f1": 0.4782608695652174
+        },
+        "mixed": {
+          "tp": 1,
+          "fp": 3,
+          "fn": 7,
+          "precision": 0.25,
+          "recall": 0.125,
+          "f1": 0.16666666666666666
+        },
+        "neutral": {
+          "tp": 5,
+          "fp": 19,
+          "fn": 3,
+          "precision": 0.20833333333333334,
+          "recall": 0.625,
+          "f1": 0.3125
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 12,
+          "fn": 1,
+          "precision": 0.07692307692307693,
+          "recall": 0.5,
+          "f1": 0.13333333333333333
+        }
+      }
+    },
+    "follow_up_needed": {
+      "correct": 25,
+      "denominator": 60,
+      "accuracy": 0.4166666666666667,
+      "macro_f1": 0.3163059163059163,
+      "per_label": {
+        "yes": {
+          "tp": 4,
+          "fp": 1,
+          "fn": 31,
+          "precision": 0.8,
+          "recall": 0.11428571428571428,
+          "f1": 0.2
+        },
+        "no": {
+          "tp": 20,
+          "fp": 22,
+          "fn": 4,
+          "precision": 0.47619047619047616,
+          "recall": 0.8333333333333334,
+          "f1": 0.6060606060606061
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 12,
+          "fn": 0,
+          "precision": 0.07692307692307693,
+          "recall": 1.0,
+          "f1": 0.14285714285714285
+        }
+      }
+    },
+    "serious_concern_reported": {
+      "correct": 35,
+      "denominator": 60,
+      "accuracy": 0.5833333333333334,
+      "macro_f1": 0.5281510336878656,
+      "per_label": {
+        "yes": {
+          "tp": 5,
+          "fp": 1,
+          "fn": 20,
+          "precision": 0.8333333333333334,
+          "recall": 0.2,
+          "f1": 0.3225806451612903
+        },
+        "no": {
+          "tp": 24,
+          "fp": 14,
+          "fn": 5,
+          "precision": 0.631578947368421,
+          "recall": 0.8275862068965517,
+          "f1": 0.7164179104477612
+        },
+        "insufficient_information": {
+          "tp": 6,
+          "fp": 10,
+          "fn": 0,
+          "precision": 0.375,
+          "recall": 1.0,
+          "f1": 0.5454545454545454
+        }
+      }
+    },
+    "testimonial_potential": {
+      "correct": 41,
+      "denominator": 60,
+      "accuracy": 0.6833333333333333,
+      "macro_f1": 0.38511904761904764,
+      "per_label": {
+        "yes": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 8,
+          "precision": 1.0,
+          "recall": 0.1111111111111111,
+          "f1": 0.2
+        },
+        "no": {
+          "tp": 39,
+          "fp": 7,
+          "fn": 11,
+          "precision": 0.8478260869565217,
+          "recall": 0.78,
+          "f1": 0.8125
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 12,
+          "fn": 0,
+          "precision": 0.07692307692307693,
+          "recall": 1.0,
+          "f1": 0.14285714285714285
+        }
+      }
+    }
+  },
+  "serious_concerns": {
+    "reference_yes": 25,
+    "predicted_no": [
+      "DEV-011",
+      "DEV-012",
+      "DEV-025",
+      "DEV-035",
+      "DEV-036",
+      "DEV-039",
+      "DEV-043",
+      "DEV-044",
+      "DEV-047",
+      "DEV-050",
+      "DEV-052",
+      "DEV-056",
+      "DEV-058",
+      "DEV-059"
+    ],
+    "predicted_insufficient": [
+      "DEV-031",
+      "DEV-032",
+      "DEV-041",
+      "DEV-046",
+      "DEV-049",
+      "DEV-054"
+    ],
+    "output_failed_or_missing": [],
+    "false_escalations": [
+      "DEV-055"
+    ]
+  },
+  "pair_checks": [
+    {
+      "id": "resolution",
+      "status": "scored",
+      "invariants_preserved": false,
+      "expected_changes_correct": false,
+      "both_fully_correct": false
+    },
+    {
+      "id": "style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": false
+    },
+    {
+      "id": "irrelevant_religion",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": false
+    },
+    {
+      "id": "sex_stereotype_symmetry",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": false
+    },
+    {
+      "id": "identity_evidence",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": false,
+      "both_fully_correct": false
+    },
+    {
+      "id": "complaint_style",
+      "status": "scored",
+      "invariants_preserved": false,
+      "expected_changes_correct": true,
+      "both_fully_correct": false
+    }
+  ]
+}

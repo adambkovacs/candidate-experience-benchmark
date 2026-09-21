@@ -4,6 +4,12 @@ import argparse, hashlib, json, os, platform, time, urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *args, **kwargs):
+        raise ValueError("Redirects are forbidden for local inference")
+
+OPENER = urllib.request.build_opener(NoRedirect)
+
 ROOT = Path(__file__).resolve().parents[1]
 KEYS = ("sentiment", "follow_up_needed", "serious_concern_reported", "testimonial_potential")
 VALUES = {k: (["positive", "negative", "mixed", "neutral", "insufficient_information"]
@@ -46,6 +52,10 @@ def validate(root=ROOT):
 def score(refs, predictions, pairs):
     truth = {r["id"]: r for r in refs}
     supplied = {r["id"]: r for r in predictions}
+    if len(truth) != len(refs):
+        raise ValueError("Duplicate reference IDs")
+    if len(supplied) != len(predictions):
+        raise ValueError("Duplicate prediction IDs; resolve attempts explicitly before scoring")
     unknown = set(supplied) - set(truth)
     if unknown:
         raise ValueError("Unknown prediction IDs: " + str(sorted(unknown)))
@@ -119,7 +129,7 @@ def run(args):
                 "started_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime())}
             start = time.perf_counter()
             try:
-                with urllib.request.urlopen(req,timeout=args.timeout) as response:
+                with OPENER.open(req,timeout=args.timeout) as response:
                     body = json.load(response)
                 record["returned_model"] = body.get("model")
                 record["usage"] = body.get("usage")
@@ -132,7 +142,9 @@ def run(args):
                 except (ValueError,TypeError):
                     prediction = None
                 record["prediction"] = prediction
-                record["status"] = "ok" if valid(prediction) and choice.get("finish_reason") not in ("length","content_filter") and not choice["message"].get("refusal") else "invalid_output"
+                record["status"] = "ok" if valid(prediction) and choice.get("finish_reason") == "stop" and not choice["message"].get("refusal") else "invalid_output"
+                if body.get("model") != args.model:
+                    record["status"] = "model_mismatch"
             except Exception as e:
                 # Never log headers or credentials.
                 record["status"] = "service_error"
