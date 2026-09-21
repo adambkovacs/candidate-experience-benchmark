@@ -1,0 +1,44 @@
+{
+  "cli": "Claude Code 2.1.274",
+  "auth": {
+    "loggedIn": true,
+    "authMethod": "claude.ai",
+    "apiProvider": "firstParty",
+    "subscriptionType": "max"
+  },
+  "usage_credits": "off, verified via supported interactive /usage without changes",
+  "weekly_all_models_used_percent": 81,
+  "session_used_percent": 4,
+  "model_picker": [
+    "Opus 5",
+    "Fable 5.1",
+    "Sonnet 5",
+    "Haiku 4.5"
+  ],
+  "selected_configs": [
+    {
+      "model": "claude-sonnet-5",
+      "effort": "low"
+    },
+    {
+      "model": "claude-opus-5",
+      "effort": "low"
+    }
+  ],
+  "remote_hardware": "undisclosed",
+  "quantization": "undisclosed",
+  "local_host": "macOS 26.6 arm64; parent local preflight records chip/RAM",
+  "initial_failure": "CLI rejects draft2020-12 $schema annotation before inference; omitted annotation only, constraints unchanged",
+  "diagnostic_requests": "One non-benchmark tiny JSON diagnostic executed to inspect CLI result envelope; separate from benchmark record counts. No usage credits enabled.",
+  "sources": [
+    "https://code.claude.com/docs/en/headless",
+    "https://code.claude.com/docs/en/cli-reference",
+    "https://code.claude.com/docs/en/model-config",
+    "https://code.claude.com/docs/en/env-vars",
+    "https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan"
+  ],
+  "observed_before_first_smoke_utc": "2026-09-21T17:22:38Z",
+  "execution_overlap": "Opus smoke and beginning of development run overlapped Sonnet development; Sonnet continuation/retry overlapped remaining Opus. Hosted end-to-end timing includes shared client contention.",
+  "raw_output_limitations": "Sonnet first part and both smoke runs retained structured predictions and selected CLI metadata, not the original wrapper envelope. Later runner preserves safe result text/errors and structured output. No successful benchmark inputs were rerun solely for logging.",
+  "retry_semantics": "Earlier records field retries=0 means zero controller retries within that invocation. CLI-internal retries are not exposed. DEV030 timeout has one explicit retry in a separate artifact."
+}
