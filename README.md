@@ -1,29 +1,30 @@
-# Recruitment Feedback Demo
+# Recruitment Feedback Comparison
 
-An interactive candidate-experience feedback triage showcase using TypeSafe Jev.
+A reproducible case study of candidate-experience feedback triage across TypeSafe Jev, Codex, Claude Code, hosted DeepSeek/Qwen, and local models.
 
-**Status: planning.** No dataset, model results, or application yet.
+**Status: planning. No dataset generated or benchmark results yet.**
 
-## First demo
+## Agreed scope
 
-Classify candidate feedback across sentiment, topics, unresolved issues, serious reported concerns, and testimonial potential. Combine independent judgments into simulated action queues, with uncertainty routed to human review.
+- **400 synthetic records:** 60 development (including 30 pilot), 40 validation, 200 ordinary-case test, 100 challenge test.
+- Four judgments: sentiment, follow-up needed, serious concern reported, and testimonial potential.
+- Equivalent tasks with provider-appropriate structured output and isolated contexts.
+- Codex and Claude Code subscription runs where supported; Jev/DeepSeek/Qwen API runs; two local model configurations on an M4 MacBook Pro with 128 GB unified memory.
+- Separate ordinary-case quality, challenge failures, review workload, execution-surface latency, and actual cost/usage.
+- No real candidate data or consent workflow. Invented testimonials are never presented as real endorsements.
 
-Start with **30 reviewed pilot examples**, then expand to **200 synthetic records**: 100 development, 40 validation, and 60 held-out test records. Showcase 8–12 development examples and report measured results separately.
+Read [the full plan](docs/PLAN.md) for the roster, dataset design, evaluation protocol, Kaggle reconnaissance, and milestones.
 
-Read [the full project plan](docs/PLAN.md) for dataset composition, labels, routing, evaluation, and the five-minute demo flow.
+## Next milestone
 
-## Build checklist
+Finalize the labeling guide and create 30 development examples before generating the remaining 370. Build the evaluator before the showcase.
 
-- [x] Create private repository and planning documents.
-- [ ] Finalize label definitions and escalation rubric.
-- [ ] Create and review 30 calibration examples.
-- [ ] Expand to 200; review labels and freeze splits.
-- [ ] Configure server-side TypeSafe access and versioned questions.
-- [ ] Implement evaluation runner and record actual latency/usage.
-- [ ] Tune on development/validation; evaluate held-out data.
-- [ ] Build feedback inbox, judgment cards, simulated queues, and threshold controls.
-- [ ] Add labeled playback, error handling, and presentation script.
+## Deliverables
 
-Version 2: interviewer evidence versus hire/no-hire vote, using a separate rubric and benchmark.
+1. Versioned dataset, reference labels, and rubric.
+2. Reproducible runners and evaluation manifest.
+3. Comparison tables with explicit configuration and execution-surface details.
+4. Failure explorer and concise case study.
+5. Optional cascade experiment after standalone comparisons.
 
-All initial records will be synthetic. This demo evaluates feedback routing, not candidate suitability. No automatic messages or career-site publication.
+Future study: interviewer evidence versus hire/no-hire vote, evaluated separately.
