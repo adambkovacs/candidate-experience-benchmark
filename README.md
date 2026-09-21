@@ -15,6 +15,8 @@ A reproducible case study of candidate-experience feedback triage across TypeSaf
 
 Read [the full plan](docs/PLAN.md) for the roster, dataset design, evaluation protocol, Kaggle reconnaissance, and milestones.
 
+See the [local preflight](docs/LOCAL_PREFLIGHT.md) for verified hardware, runtime and downloaded-model inventory. Live inference awaits a suitable instruction model.
+
 ## Next milestone
 
 Read [the critical audit](docs/PILOT_AUDIT.md), [v0.2 labeling guide](docs/LABELING_GUIDE.md), and [60 feedback examples](docs/PILOT_REVIEW.md). The [proposed labels](docs/PILOT_PROPOSED_LABELS.md) were reviewed by the same assistant, not a human or independent reviewer. Run the [local development smoke test](docs/RUN_DEVELOPMENT.md) before generating the remaining 340.

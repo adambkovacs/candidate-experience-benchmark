@@ -1,6 +1,6 @@
 # Run the development smoke test
 
-No model has been benchmarked yet. This runner is for the user's Mac with LM Studio; it does not connect this cloud workspace to that Mac.
+No model has been benchmarked yet. The [local preflight](LOCAL_PREFLIGHT.md) verified the Mac setup and offline tests, but found no suitable downloaded instruction model. This runner executes on the Mac with LM Studio.
 
 ## Setup and execution
 
