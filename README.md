@@ -2,7 +2,7 @@
 
 A reproducible case study of candidate-experience feedback triage across TypeSafe Jev, Codex, Claude Code, Gemini, hosted DeepSeek/Qwen, and local models.
 
-**Status: planning. No dataset generated or benchmark results yet.**
+**Status: 30 synthetic pilot records drafted; labels await human review. No benchmark results yet.**
 
 ## Agreed scope
 
@@ -17,7 +17,9 @@ Read [the full plan](docs/PLAN.md) for the roster, dataset design, evaluation pr
 
 ## Next milestone
 
-Finalize the labeling guide and create 30 development examples before generating the remaining 370. Build the evaluator before the showcase.
+Review [the labeling guide](docs/LABELING_GUIDE.md) and [30 feedback examples](docs/PILOT_REVIEW.md), then compare with [proposed labels and rationales](docs/PILOT_PROPOSED_LABELS.md). Resolve rubric disagreements before generating the remaining 370.
+
+Machine-readable [inputs](data/pilot/inputs.jsonl), [provisional labels](data/pilot/proposed_labels.jsonl), and [output schema](schemas/judgments.schema.json) are included. Keep the labels and metadata out of model contexts. All examples are fictional and development-only.
 
 ## Deliverables
 
