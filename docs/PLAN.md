@@ -1,6 +1,6 @@
 # Recruitment Feedback Comparison — project plan
 
-Updated: 2026-09-21. Status: development runs in progress. Claude completed all 16 model/effort configurations; hosted Jev and local Qwen0.6B/1.7B runs completed; see RUN_MVP.md and results/. Labels remain provisional.
+Updated: 2026-09-21. Status: development runs in progress. Claude completed all 16 model/effort configurations; hosted Jev and local Qwen0.6B/1.7B/4B runs completed; see RUN_MVP.md and results/. Labels remain provisional.
 Repository: https://github.com/adambkovacs/recruitment-feedback-demo (private).
 
 ## Research question
@@ -70,7 +70,7 @@ Code composes judgments into simulated routes: escalation review, ordinary follo
 
 ## Comparison roster and scope control
 
-Original target: 9 model configurations plus a rules baseline. Expanded candidate research now includes Gemini, tiny generators, and open decision models; see [model research](MODEL_RESEARCH.md). The final roster is selected on development data and frozen before held-out testing.
+The original target was 9 model configurations plus a rules baseline. The current user-authorized development roster below supersedes that initial shortlist and includes Gemini, tiny generators, and open decision models; see [model research](MODEL_RESEARCH.md). The final roster is selected on development data and frozen before held-out testing.
 - Jev: one pinned version.
 - Codex: two supported model/settings configurations available to the user's ChatGPT Pro subscription.
 - Claude Code: two supported configurations available to the user's Claude Max subscription.
@@ -154,7 +154,7 @@ Search-page access was unreliable and no files were downloaded. No dataset is se
 
 ## Remaining execution inputs
 
-Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Remaining: actual model availability and client versions; exact Mac chip variant; reviewer availability; paid API budget and credentials. These do not block drafting the rubric and synthetic pilot. Execution now runs on the user's Mac in the local checkout. Hosted TypeSafe has an approved aggregate $1 cap; other hosted API calls remain free-only unless separately approved.
+Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Verified runtime and hardware are recorded in result manifests. Remaining execution dependencies include local weight downloads and disk capacity, Gemini isolation, subscription quota, and the pending choice of individual versus multi-record prompts for new expensive sweeps. Development references have same-assistant AI review; independent human adjudication remains absent. Execution now runs on the user's Mac in the local checkout. Hosted TypeSafe has an approved aggregate $1 cap; other hosted API calls remain free-only unless separately approved.
 
 ## Sources checked
 
@@ -192,7 +192,7 @@ All 60 are development records, generated and provisionally labeled/reviewed by 
 
 All 60 development records now exist; 340 remain ungenerated. Preserve the 400 ceiling. The 100-record challenge set will include at least 40 bias/concern probes overlapping existing families. Within its existing 20 pairs, allocate at least eight to identity/style invariance and four to meaningful evidence changes. Controlled development pairs never migrate into held-out sets. Report false escalations on benign identity mentions and missed reports separately; synthetic pair consistency cannot establish real-world demographic fairness.
 
-The development smoke runner records transport failures without retries; final evaluation must implement and freeze the planned retry protocol. Jev, subscription and specialist adapters, calibrated review thresholds, latency summaries and hosted cost capture remain unimplemented. The user-delegated AI review allows development to proceed without falsely claiming human validation.
+The development smoke runner records transport failures without retries; final evaluation must implement and freeze the planned retry protocol. Jev, subscription and specialist adapters now exist; completed runs include latency summaries and hosted TypeSafe cost capture. Specialist inference is still awaiting verified weights. Calibrated review thresholds and held-out evaluation remain future work. The user-delegated AI review allows development to proceed without falsely claiming human validation.
 
 ## Current execution scope (user clarification, 2026-09-21)
 
@@ -205,3 +205,9 @@ Downloads and hosted jobs may run in parallel. Serialize local inference and sta
 ## Follow-up prompt experiment (user request, 2026-09-21)
 
 After the current model/settings comparison is finished, compare the existing baseline with two new generative-LLM prompt conditions: explicit classifier framing, and the same framing plus a rubric-derived SOP and decision tree. Preserve model settings and the same 60-record development scope, log exact prompt versions and role placement, and compare response changes, failures, quality, token usage and latency. See [the prompt experiment protocol](PROMPT_VARIANTS.md). This does not alter active runs or expand paid API authorization.
+
+## Roster reconciliation (user clarification, 2026-09-21)
+
+Include Codex Sol and Terra alongside Luna and Astra at verified supported effort levels. Reconcile the account catalogue and runner version before each smoke. The user also requested larger Qwen, DeepSeek and Mistral candidates. [ROSTER_RECONCILIATION.md](ROSTER_RECONCILIATION.md) pins the practical Qwen3.6-35B-A3B, DeepSeek-R1-Distill-Qwen-32B and Mistral-Small-3.2-24B artifacts, with Mistral-Small-4-119B separately staged pending disk and memory capacity. The DeepSeek distill is a Qwen-based variant; the original hosted DeepSeek slot remains separately recorded. Verify runtime/template support, inspect smoke responses, then run the existing 60. No paid endpoint substitution is authorized.
+
+The user raised the quota cost of 60 individual expensive reasoning calls. A 10-record multi-input configuration has been proposed; its adoption is pending. Keep it distinct from individual-request results. Previously completed Claude runs are retained. Do not launch new expensive full sweeps until this method choice is resolved.

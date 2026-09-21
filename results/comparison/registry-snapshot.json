@@ -75,17 +75,19 @@
     "id": "qwen3-8b-sdk-thinking-on",
     "model": "Qwen3-8B Q4_K_M",
     "effort": "on",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3-8b-2026-09-21/thinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3-8b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3-8b-sdk-thinking-off",
     "model": "Qwen3-8B Q4_K_M",
     "effort": "off",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3-8b-2026-09-21/nonthinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3-8b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-low",
@@ -182,6 +184,54 @@
     "status": "blocked_model_download_network",
     "predictions_file": null,
     "notes": "Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage."
+  },
+  {
+    "id": "qwen36-35b-a3b-on",
+    "model": "Qwen3.6-35B-A3B UD-Q4_K_M",
+    "effort": "on",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "qwen36-35b-a3b-off",
+    "model": "Qwen3.6-35B-A3B UD-Q4_K_M",
+    "effort": "off",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "deepseek-r1-distill-qwen32b-native-reasoning",
+    "model": "DeepSeek-R1-Distill-Qwen-32B Q4_K_M",
+    "effort": "native reasoning",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "mistral-small32-24b-not-applicable",
+    "model": "Mistral-Small-3.2-24B-Instruct-2506 Q4_K_M",
+    "effort": "not applicable",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "mistral-small4-119b-none",
+    "model": "Mistral-Small-4-119B-2603 Q4_K_M",
+    "effort": "none",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "mistral-small4-119b-high",
+    "model": "Mistral-Small-4-119B-2603 Q4_K_M",
+    "effort": "high",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
   },
   {
     "id": "sonnet5-low-first-pass",
@@ -560,10 +610,10 @@
     "id": "codex-gpt-5.6-luna-low",
     "model": "gpt-5.6-luna",
     "effort": "low",
-    "status": "partial",
+    "status": "continuation_running",
     "predictions_file": null,
-    "completed_records": 21,
-    "notes": "Runtime sqlite_home/log_dir now isolated per record. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "completed_records": 36,
+    "notes": "Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision."
   },
   {
     "id": "codex-gpt-5.6-luna-medium",
@@ -605,10 +655,10 @@
     "id": "codex-gpt-6-astra-low",
     "model": "gpt-6-astra",
     "effort": "low",
-    "status": "partial",
+    "status": "continuation_running",
     "predictions_file": null,
-    "completed_records": 11,
-    "notes": "Runtime sqlite_home/log_dir now isolated per record. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "completed_records": 27,
+    "notes": "Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision."
   },
   {
     "id": "codex-gpt-6-astra-medium",
@@ -654,6 +704,108 @@
     "predictions_file": null,
     "completed_records": 0,
     "notes": "Cached account catalog lists this effort; live configuration not yet tested. Ultra auto-delegation requires live isolation verification; separate agent-workflow result if tool isolation cannot hold. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+  },
+  {
+    "id": "codex-gpt-5.6-sol-low",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "status": "smoke_complete_development_held",
+    "predictions_file": null,
+    "notes": "Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable.",
+    "smoke_files": [
+      "results/codex-gpt-5.6-sol-low-2026-09-21/smoke.jsonl"
+    ]
+  },
+  {
+    "id": "codex-gpt-5.6-sol-medium",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-sol-high",
+    "model": "gpt-5.6-sol",
+    "effort": "high",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-sol-xhigh",
+    "model": "gpt-5.6-sol",
+    "effort": "xhigh",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-sol-max",
+    "model": "gpt-5.6-sol",
+    "effort": "max",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-sol-ultra",
+    "model": "gpt-5.6-sol",
+    "effort": "ultra",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-terra-low",
+    "model": "gpt-5.6-terra",
+    "effort": "low",
+    "status": "smoke_complete_development_held",
+    "predictions_file": null,
+    "notes": "Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable.",
+    "smoke_files": [
+      "results/codex-gpt-5.6-terra-low-2026-09-21/smoke.jsonl"
+    ]
+  },
+  {
+    "id": "codex-gpt-5.6-terra-medium",
+    "model": "gpt-5.6-terra",
+    "effort": "medium",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-terra-high",
+    "model": "gpt-5.6-terra",
+    "effort": "high",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-terra-xhigh",
+    "model": "gpt-5.6-terra",
+    "effort": "xhigh",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-terra-max",
+    "model": "gpt-5.6-terra",
+    "effort": "max",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+  },
+  {
+    "id": "codex-gpt-5.6-terra-ultra",
+    "model": "gpt-5.6-terra",
+    "effort": "ultra",
+    "status": "pending_batching_decision",
+    "predictions_file": null,
+    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
   },
   {
     "id": "antigravity-gemini-3.8-flash-high",

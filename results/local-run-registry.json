@@ -75,17 +75,19 @@
     "id": "qwen3-8b-sdk-thinking-on",
     "model": "Qwen3-8B Q4_K_M",
     "effort": "on",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3-8b-2026-09-21/thinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3-8b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3-8b-sdk-thinking-off",
     "model": "Qwen3-8B Q4_K_M",
     "effort": "off",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3-8b-2026-09-21/nonthinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3-8b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-low",
@@ -182,5 +184,53 @@
     "status": "blocked_model_download_network",
     "predictions_file": null,
     "notes": "Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage."
+  },
+  {
+    "id": "qwen36-35b-a3b-on",
+    "model": "Qwen3.6-35B-A3B UD-Q4_K_M",
+    "effort": "on",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "qwen36-35b-a3b-off",
+    "model": "Qwen3.6-35B-A3B UD-Q4_K_M",
+    "effort": "off",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "deepseek-r1-distill-qwen32b-native-reasoning",
+    "model": "DeepSeek-R1-Distill-Qwen-32B Q4_K_M",
+    "effort": "native reasoning",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "mistral-small32-24b-not-applicable",
+    "model": "Mistral-Small-3.2-24B-Instruct-2506 Q4_K_M",
+    "effort": "not applicable",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "mistral-small4-119b-none",
+    "model": "Mistral-Small-4-119B-2603 Q4_K_M",
+    "effort": "none",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
+  },
+  {
+    "id": "mistral-small4-119b-high",
+    "model": "Mistral-Small-4-119B-2603 Q4_K_M",
+    "effort": "high",
+    "status": "staged_capacity_and_runtime_unverified",
+    "predictions_file": null,
+    "notes": "User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet."
   }
 ]

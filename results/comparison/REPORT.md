@@ -14,8 +14,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3-1.7b-sdk-thinking-off | complete | 60 | 51 | 55 | 44 | 43 | 28 |
 | qwen3.5-4b-sdk-thinking-on | complete | 52 | 51 | 52 | 50 | 52 | 49 |
 | qwen3.5-4b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
-| qwen3-8b-sdk-thinking-on | pending | — | — | — | — | — | — |
-| qwen3-8b-sdk-thinking-off | pending | — | — | — | — | — | — |
+| qwen3-8b-sdk-thinking-on | complete | 60 | 51 | 59 | 55 | 55 | 47 |
+| qwen3-8b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
 | qwen3.8-27b-sdk-thinking-low | blocked_model_download_network | — | — | — | — | — | — |
 | qwen3.8-27b-sdk-thinking-medium | blocked_model_download_network | — | — | — | — | — | — |
 | qwen3.8-27b-sdk-thinking-xhigh | blocked_model_download_network | — | — | — | — | — | — |
@@ -28,6 +28,12 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | gemma4-31b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-off | pending | — | — | — | — | — | — |
 | qwen3.8-27b-sdk-thinking-off | blocked_model_download_network | — | — | — | — | — | — |
+| qwen36-35b-a3b-on | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| qwen36-35b-a3b-off | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| deepseek-r1-distill-qwen32b-native-reasoning | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| mistral-small32-24b-not-applicable | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| mistral-small4-119b-none | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| mistral-small4-119b-high | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
 | sonnet5-low-first-pass | completed_with_service_failure | 59 | 59 | 58 | 58 | 56 | 54 |
 | sonnet5-low-with-retry | completed | 60 | 59 | 59 | 59 | 57 | 54 |
 | opus5-low | completed | 60 | 59 | 60 | 59 | 57 | 55 |
@@ -65,17 +71,29 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-generated-bf16 | blocked_model_download_network | — | — | — | — | — | — |
 | laya-multilingual | blocked_model_download_network | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-low | partial | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-low | continuation_running | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-medium | pending | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-high | pending | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-xhigh | pending | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-max | pending | — | — | — | — | — | — |
-| codex-gpt-6-astra-low | partial | — | — | — | — | — | — |
+| codex-gpt-6-astra-low | continuation_running | — | — | — | — | — | — |
 | codex-gpt-6-astra-medium | pending | — | — | — | — | — | — |
 | codex-gpt-6-astra-high | pending | — | — | — | — | — | — |
 | codex-gpt-6-astra-xhigh | pending | — | — | — | — | — | — |
 | codex-gpt-6-astra-max | pending | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | pending | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-low | smoke_complete_development_held | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-medium | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-high | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-xhigh | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-max | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-ultra | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-low | smoke_complete_development_held | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-medium | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-high | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-xhigh | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-max | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-ultra | pending_batching_decision | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
@@ -140,11 +158,15 @@ Evidence: `results/qwen3.5-4b-2026-09-21/nonthinking-development.jsonl`; SHA-256
 
 **qwen3-8b-sdk-thinking-on**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Exact artifact/runtime/request controls in results/qwen3-8b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/qwen3-8b-2026-09-21/thinking-development.jsonl`; SHA-256 `a3420a642d88b0154d203f2fdc3b1a06b1e67f606a43ab3d6ab1f349216c60dc`.
 
 **qwen3-8b-sdk-thinking-off**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Exact artifact/runtime/request controls in results/qwen3-8b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/qwen3-8b-2026-09-21/nonthinking-development.jsonl`; SHA-256 `adb637d71341d3c4013d0b4dc37b0eb90f3998c70f59ea797c53bffdb7524bf2`.
 
 **qwen3.8-27b-sdk-thinking-low**
 
@@ -193,6 +215,30 @@ Authorized existing60 only. Artifact/runtime support and smoke review required b
 **qwen3.8-27b-sdk-thinking-off**
 
 Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage.
+
+**qwen36-35b-a3b-on**
+
+User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+
+**qwen36-35b-a3b-off**
+
+User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+
+**deepseek-r1-distill-qwen32b-native-reasoning**
+
+User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+
+**mistral-small32-24b-not-applicable**
+
+User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+
+**mistral-small4-119b-none**
+
+User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+
+**mistral-small4-119b-high**
+
+User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
 
 **sonnet5-low-first-pass**
 
@@ -380,7 +426,7 @@ Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc1
 
 **codex-gpt-5.6-luna-low**
 
-Runtime sqlite_home/log_dir now isolated per record. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision.
 
 **codex-gpt-5.6-luna-medium**
 
@@ -400,7 +446,7 @@ Cached account catalog lists this effort; live configuration not yet tested. Net
 
 **codex-gpt-6-astra-low**
 
-Runtime sqlite_home/log_dir now isolated per record. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision.
 
 **codex-gpt-6-astra-medium**
 
@@ -421,6 +467,54 @@ Cached account catalog lists this effort; live configuration not yet tested. Net
 **codex-gpt-6-astra-ultra**
 
 Cached account catalog lists this effort; live configuration not yet tested. Ultra auto-delegation requires live isolation verification; separate agent-workflow result if tool isolation cannot hold. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+
+**codex-gpt-5.6-sol-low**
+
+Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable.
+
+**codex-gpt-5.6-sol-medium**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-sol-high**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-sol-xhigh**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-sol-max**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-sol-ultra**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-terra-low**
+
+Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable.
+
+**codex-gpt-5.6-terra-medium**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-terra-high**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-terra-xhigh**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-terra-max**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+
+**codex-gpt-5.6-terra-ultra**
+
+New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
 
 **antigravity-gemini-3.8-flash-high**
 

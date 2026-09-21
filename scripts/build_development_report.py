@@ -149,7 +149,7 @@ def build(registries, output):
             lines += ['Evidence: `'+item['predictions_file']+'`; SHA-256 `'+item['prediction_sha256']+'`.', '']
     (output/'REPORT.md').write_text('\n'.join(lines)+'\n')
     with (output/'judgment-counts.csv').open('w',newline='') as file:
-        writer=csv.writer(file);writer.writerow(['configuration','status','valid',*KEYS,'exact_match','denominator'])
+        writer=csv.writer(file,lineterminator="\n");writer.writerow(['configuration','status','valid',*KEYS,'exact_match','denominator'])
         for item in summaries:
             e=item.get('evaluation')
             if e:writer.writerow([item['id'],item['status'],e['valid_outputs'],*[e['metrics'][k]['correct'] for k in KEYS],item['exact_match'],60])
