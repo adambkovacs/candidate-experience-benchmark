@@ -55,3 +55,19 @@ test('journal is durable before request and records final state separately',()=>
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'journal-test-'));const p=path.join(dir,'attempts.jsonl');const fd=fs.openSync(p,'wx');
  try {writeJournal(fd,{event:'started',id:'DEV-001'});assert.equal(JSON.parse(fs.readFileSync(p,'utf8')).event,'started');writeJournal(fd,{event:'finished',id:'DEV-001',status:'ok'});assert.equal(fs.readFileSync(p,'utf8').trim().split('\n').length,2);} finally {fs.closeSync(fd);fs.rmSync(dir,{recursive:true});}
 });
+const {selectRows}=require('../scripts/lmstudio_reasoning_benchmark.cjs');
+test('one-based start preserves default first-three and selects continuation',()=>{
+ const rows=Array.from({length:60},(_,i)=>({id:'DEV-'+(i+1),feedback:'text'}));
+ assert.deepEqual(selectRows(rows,{}),rows.slice(0,3));
+ assert.deepEqual(selectRows(rows,{start:'31',limit:'30'}),rows.slice(30));
+ assert.deepEqual(selectRows(rows,{start:'60',limit:'1'}),[rows[59]]);
+});
+test('range rejects overflow, fractions, malformed and non-positive values',()=>{
+ const rows=Array.from({length:60},(_,i)=>({id:String(i),feedback:'text'}));
+ for(const options of [{start:'0'},{start:'61'},{start:'60',limit:'2'},{start:'1.5'},{start:'1x'},{start:''},{limit:'0'},{limit:'61'},{limit:'2.5'},{limit:'1e1'},{start:'-1'}]) assert.throws(()=>selectRows(rows,options),/range|integer/);
+});
+test('duplicate and malformed inputs rejected even outside selected range',()=>{
+ const rows=Array.from({length:60},(_,i)=>({id:String(i),feedback:'text'}));
+ rows[59].id=rows[58].id; assert.throws(()=>selectRows(rows,{limit:'1'}),/Duplicate/);
+ rows[59]={id:'59',feedback:'x',reference:'yes'};assert.throws(()=>selectRows(rows,{limit:'1'}),/contract/);
+});
