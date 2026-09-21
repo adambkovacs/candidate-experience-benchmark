@@ -9,6 +9,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import codex_benchmark as c
 
 class CodexTests(unittest.TestCase):
+    def test_sol_terra_catalogue_efforts(self):
+        for model in ('gpt-5.6-sol', 'gpt-5.6-terra'):
+            for effort in ('low','medium','high','xhigh','max','ultra'):
+                c.validate_model_effort(model, effort)
+
+    def test_unknown_model_or_effort_rejected(self):
+        for model, effort in [('unknown','low'),('gpt-5.6-luna','ultra'),('gpt-5.6-sol','minimal')]:
+            with self.assertRaises(ValueError): c.validate_model_effort(model, effort)
+
     def test_run_isolates_each_record_and_excludes_labels(self):
         prediction={'sentiment':'positive','follow_up_needed':'no','serious_concern_reported':'no','testimonial_potential':'yes'}
         contexts=[]
@@ -24,12 +33,28 @@ class CodexTests(unittest.TestCase):
             (cwd/'response.json').write_text(json.dumps(prediction))
             return SimpleNamespace(returncode=0,stdout='{"type":"turn.completed"}',stderr='')
         with tempfile.TemporaryDirectory() as d, patch.object(c.subprocess,'run',side_effect=fake_run), patch.object(c.platform,'platform',return_value='test-host'):
-            args=SimpleNamespace(codex='codex',model='fixture',effort='low',limit=2,timeout=1,output=str(Path(d)/'out.jsonl'))
+            args=SimpleNamespace(codex='codex',model='gpt-5.6-sol',effort='low',limit=2,timeout=1,output=str(Path(d)/'out.jsonl'))
             c.run(args)
             self.assertEqual(len(set(contexts)),2)
             self.assertTrue(all(not p.exists() for p in contexts))
             self.assertEqual(len(Path(args.output).read_text().splitlines()),2)
             with self.assertRaises(FileExistsError): c.run(args)
+    def test_timeout_preserves_partial_transport_evidence(self):
+        def fake_run(cmd, **kwargs):
+            if cmd[1:] == ['login', 'status']:
+                return SimpleNamespace(returncode=0,stdout='Logged in using ChatGPT',stderr='')
+            if cmd[1:] == ['--version']:
+                return SimpleNamespace(returncode=0,stdout='fixture',stderr='')
+            raise c.subprocess.TimeoutExpired(cmd, 1, output=b'partial event', stderr=b'transport detail')
+        with tempfile.TemporaryDirectory() as temp, patch.object(c.subprocess, 'run', side_effect=fake_run), patch.object(c.platform, 'platform', return_value='test-host'):
+            output = Path(temp)/'attempt.jsonl'
+            args = SimpleNamespace(codex='codex',model='gpt-5.6-sol',effort='low',limit=1,timeout=1,output=str(output))
+            with self.assertRaises(RuntimeError): c.run(args)
+            row = json.loads(output.read_text())
+            self.assertEqual(row['raw_stdout'], 'partial event')
+            self.assertEqual(row['raw_stderr'], 'transport detail')
+            self.assertEqual(row['status'], 'service_error')
+
     def test_environment_allowlist(self):
         env = c.clean_environment({'HOME':'/home/test', 'PATH':'/bin', 'OPENAI_API_KEY':'secret', 'CODEX_API_KEY':'secret', 'CODEX_THREAD_ID':'other', 'CODEX_HOME':'evil'})
         self.assertEqual(env, {'HOME':'/home/test', 'PATH':'/bin'})

@@ -1,0 +1,11 @@
+# Codex subscription configurations
+
+The user explicitly requested Sol and Terra alongside Luna and Astra. The installed account catalogue fetched 2026-09-21 advertises `gpt-5.6-sol` and `gpt-5.6-terra`, each with low, medium, high, xhigh, max and ultra. Sol defaults to low and Terra to medium. Evidence: `results/codex-catalogue-2026-09-21.json`. Catalogue client 0.155.0 differs from the executable runner 0.154.0; live smoke results must establish compatibility.
+
+Each record runs in a fresh ephemeral context outside the repository, with only the policy and synthetic feedback. Reference labels never enter inference. The adapter strips API credentials, requires ChatGPT sign-in and disables user rules, memory, skills, MCP and supported tools. Built-in CLI instructions remain; server model revision is not exposed. Ultra is advertised with automatic task delegation; any tool or delegation event invalidates the primary isolated run.
+
+Smoke artifacts and development attempts remain separate. Three smoke responses must be inspected before 60 development records. The new Sol/Terra request received fresh scoped approval: both low-effort smoke tests completed with three valid outputs, no observed tools and no event parsing failures. Their full development runs remain held pending the batching decision, with 5% of weekly quota remaining at the latest check (ordinary subscription use still allowed). Fresh scoped reviews also approved resuming the existing Luna/Astra low-effort runs. No paid API fallback or credit redemption is permitted.
+
+Sources: [Codex authentication](https://learn.chatgpt.com/docs/auth), [noninteractive mode](https://learn.chatgpt.com/docs/non-interactive-mode), [configuration](https://learn.chatgpt.com/docs/config-file/config-reference), and the installed account catalogue above.
+
+Luna low and Astra low each completed 60 unique valid development outputs after approved continuations. Each timing view includes 64 attempts: 60 completed records plus four initialization failures. Original and reclassified copies are not double-counted; smoke artifacts are excluded. No observed tool or delegation events occurred. Records and timing evidence are linked by `results/codex-run-registry.json`.

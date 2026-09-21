@@ -17,6 +17,19 @@ import time
 from pathlib import Path
 from development_benchmark import ROOT, digest, read_rows, valid
 
+SUPPORTED_EFFORTS = {
+    'gpt-5.6-luna': ('low', 'medium', 'high', 'xhigh', 'max'),
+    'gpt-6-astra': ('low', 'medium', 'high', 'xhigh', 'max', 'ultra'),
+    'gpt-5.6-sol': ('low', 'medium', 'high', 'xhigh', 'max', 'ultra'),
+    'gpt-5.6-terra': ('low', 'medium', 'high', 'xhigh', 'max', 'ultra'),
+}
+
+
+def validate_model_effort(model, effort):
+    if model not in SUPPORTED_EFFORTS or effort not in SUPPORTED_EFFORTS[model]:
+        raise ValueError('Model/effort pair not in verified subscription catalogue')
+
+
 DISABLED = ('shell_tool','unified_exec','apps','plugins','remote_plugin','hooks',
             'memories','multi_agent','multi_agent_v2','browser_use','browser_use_external',
             'in_app_browser','image_generation','view_image','skill_search',
@@ -85,6 +98,7 @@ def parse_result(returncode, stdout, raw):
 
 
 def run(args):
+    validate_model_effort(args.model, args.effort)
     env=clean_environment()
     auth=subprocess.run([args.codex,'login','status'],env=env,capture_output=True,text=True,check=False)
     if auth.returncode or 'Logged in using ChatGPT' not in auth.stdout+auth.stderr:
@@ -121,8 +135,11 @@ def run(args):
                     raw=(cwd/'response.json').read_text() if (cwd/'response.json').exists() else ''
                     record.update(parse_result(proc.returncode,proc.stdout,raw))
                     record['raw_stderr']=proc.stderr
-                except subprocess.TimeoutExpired:
-                    record.update(status='service_error',error_type='TimeoutExpired')
+                except subprocess.TimeoutExpired as exc:
+                    decode=lambda value: value.decode(errors='replace') if isinstance(value,bytes) else (value or '')
+                    record.update(status='service_error',error_type='TimeoutExpired',
+                                  raw_stdout=decode(exc.stdout),raw_stderr=decode(exc.stderr),
+                                  raw_response=(cwd/'response.json').read_text() if (cwd/'response.json').exists() else '')
                 record['elapsed_seconds']=time.perf_counter()-start
                 out.write(json.dumps(record)+'\n'); out.flush()
                 print(row['id'],record['status'],round(record['elapsed_seconds'],2),flush=True)
@@ -133,7 +150,7 @@ def run(args):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--codex',default='/opt/homebrew/bin/codex')
-    p.add_argument('--model',required=True)
+    p.add_argument('--model',required=True,choices=tuple(SUPPORTED_EFFORTS))
     p.add_argument('--effort',default='low',choices=('low','medium','high','xhigh','max','ultra'))
     p.add_argument('--limit',type=int,choices=range(1,61),default=3)
     p.add_argument('--offset',type=int,choices=range(60),default=0,help='Skip already attempted records; write a new continuation artifact.')

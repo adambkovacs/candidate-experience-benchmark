@@ -12,7 +12,7 @@ Status snapshot: 2026-09-21. Execution is continuing; the linked run registries 
 | Claude Opus 5 and Fable 5.1, all five efforts | 60/60 valid per configuration | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
 | Claude Haiku 4.5, effort not applicable | 60/60 valid | [Haiku evaluation](../results/claude-subscription-2026-09-21/haiku45-not_applicable-evaluation.json) |
 | Codex gpt-5.6-luna, low effort | 60/60 valid after explicit continuation; four initialization failures retained in timing | [Codex registry](../results/codex-run-registry.json) |
-| Codex gpt-6-astra, low effort | Continuation in progress; consult registry for reconciled completion | [Codex registry](../results/codex-run-registry.json) |
+| Codex gpt-6-astra, low effort | 60/60 valid after explicit continuation; four initialization failures retained in timing | [Codex registry](../results/codex-run-registry.json) |
 | Codex Sol/Terra, low effort | Three valid smoke responses each; development sweeps held pending batching decision and quota | [Codex registry](../results/codex-run-registry.json) |
 | Local Qwen 0.6B, 1.7B, 4B and 8B, SDK thinking on/off | All eight 60-record attempts completed; schema validity varies by configuration | [Local registry](../results/local-run-registry.json) |
 | OpenRouter qwen/qwen3.8-27b:free, modelrun/fp4 | Three smoke attempts received HTTP 429; no successful benchmark response | [Attempt artifacts](../results/openrouter/) |
@@ -105,7 +105,7 @@ Verify `codex login status` reports ChatGPT authentication. The controller exclu
 python3 scripts/codex_benchmark.py --model gpt-5.6-luna --effort low --limit 3 --output luna-smoke-new.jsonl
 ```
 
-Use `--model gpt-6-astra` for the other configuration and `--limit 60` after smoke inspection. The recorded CLI version is 0.154.0. Returned model revisions are not exposed. Luna low has 60 valid outputs; Astra low is being continued and reconciled. Check the [Codex registry](../results/codex-run-registry.json) for its latest status. Sol and Terra low each passed three-record smoke checks. Their full runs and additional effort sweeps remain held pending the batching decision and available subscription quota. Some valid responses were initially classified as errors because of CLI warnings or recovered transport events; reclassified artifacts use retained responses, not new inference. Keep original attempts and parser provenance.
+Use `--model gpt-6-astra` for the other configuration and `--limit 60` after smoke inspection. The recorded CLI version is 0.154.0. Returned model revisions are not exposed. Luna low and Astra low each have 60 valid outputs. Each reconciled timing view retains four initialization failures alongside the 60 completed requests; see the [Codex registry](../results/codex-run-registry.json). Sol and Terra low each passed three-record smoke checks. Their full runs and additional effort sweeps remain held pending the batching decision and available subscription quota. Some valid responses were initially classified as errors because of CLI warnings or recovered transport events; reclassified artifacts use retained responses, not new inference. Keep original attempts and parser provenance.
 
 Claude and Codex accept `--offset N` for explicit continuation into a new artifact. It skips N input rows, not N successful rows. Reconcile IDs before continuing; the evaluator rejects duplicate IDs. Keep retries separate and resolve them explicitly for any retry-inclusive report.
 
