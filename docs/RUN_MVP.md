@@ -56,6 +56,18 @@ The local SDK runner accepts `--start N` as a one-based input position and `--li
 
 New SDK runs write `OUTPUT.attempts.jsonl` beside the predictions. Each `started` event is flushed before calling the model, and each `finished` event follows a flushed prediction row. An unmatched start means the outcome is unknown; reconcile it before retrying. `--timeout-seconds` defaults to 600 per record. On timeout the runner calls the [SDK cancellation API](https://lmstudio.ai/docs/typescript/llm-prediction/cancelling-predictions), waits up to five seconds for acknowledgement, saves any partial result and stops the batch. A timeout is never a valid judgment. Cancellation not acknowledged means server completion remains uncertain. Previously completed local outputs and the Qwen3.5-4B process already running when this change was introduced have no sidecar journal; their saved completed responses remain usable, but absence of a saved row cannot prove no request occurred.
 
+## Native DeepSeek and Mistral paths
+
+The SDK runner accepts three explicit families only for the exact converted weight hashes recorded in [roster reconciliation](ROSTER_RECONCILIATION.md). It still verifies the local file hash and loaded model identity. Alternate artifacts require review; a family name alone is insufficient. Runtime support remains pending a three-record smoke test on downloaded, verified weights.
+
+| Family flag | Required controls | Prompt placement and parsing |
+| --- | --- | --- |
+| `--family deepseek-r1-distill-qwen32b` | `--thinking native`; omit effort | Preserve the native think prefix. Put the unchanged rubric/schema instructions and quoted feedback in one user message, following [DeepSeek's recommendation](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B#usage-recommendations). Parse think tags. No invented off condition. |
+| `--family mistral-small3.2` | `--thinking not_applicable`; omit effort | Preserve the instruction template and system/user placement; disable reasoning parsing. No documented thinking toggle. [Model card](https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506). |
+| `--family mistral-small4` | `--thinking on --effort high` or `--thinking off --effort none` | Require the artifact's model-settings control and THINK delimiters; prepend only the selected effort variable. Preserve system/user placement. [Official template](https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/blob/a11f36bebf709121056b1dbcc943d1c6afbe494d/chat_template.jinja). |
+
+Every result records `artifact_family`, `instruction_role` and the complete request. DeepSeek's role change is specific to that family and is an execution difference in comparisons. Existing Qwen/Gemma invocations omit the family flag and retain their previous request messages, template controls and sampling. Template mismatches fail before inference; do not silently replace a converted template or remove a control to make it pass.
+
 ## Expanded effort roster
 
 The user expanded the development sweep to every supported effort level. [The live run registry](../results/claude-subscription-2026-09-21/run-registry.json) records all 16 completed configurations in 17 views, keeping Sonnet low first-pass and retry-inclusive results separate. The earlier Sonnet/Opus low runs were reused. Each of the 14 added configurations passed an inspected three-record smoke test and then produced 60 valid development outputs without controller retries.
@@ -110,6 +122,10 @@ Gemini's adapter currently refuses inference. Its `preflight --agy PATH_TO_OFFIC
 Local OpenJev is an independent server, not TypeSafe Jev weights. The selected artifact is `mlx-community/diffusiongemma-26B-A4B-it-4bit`, revision `a7a81407613811e8ba63af92ac0d852b809e191f`, using MLX. After download and server verification, use `jev_benchmark.py --surface openjev --base-url http://localhost:PORT --model openjev-0.1 --mode fixed --limit 3 --output NEW.jsonl --config-note 'Verified server and artifact configuration'`. Fixed mode requests one read. Adaptive mode may reread; the wire API does not expose actual read counts, and reported input tokens exclude adaptive rereads.
 
 Hosted Jev requires `TYPESAFE_API_KEY`, `--surface typesafe`, `--base-url https://api.typesafe.ai`, `--model jev-1.13.0`, `--mode official`, `--authorize-hosted-inference` and an explicitly approved `--max-usd`. Do not run it before obtaining the key and cap. The adapter's reserve is a client stop rule, not a provider-enforced billing limit. Recorded token-price estimates exclude unknown fees or price changes.
+
+## Hugging Face access
+
+Hugging Face is used to discover public artifacts, inspect model cards and metadata, pin revisions and hashes, and download weights. It is not used for hosted inference in this benchmark. Feedback and reference labels are not sent to Hugging Face. Downloaded weights run in LM Studio or a local specialist runtime; separate hosted runs use their explicitly recorded providers.
 
 ## Cost and interpretation
 

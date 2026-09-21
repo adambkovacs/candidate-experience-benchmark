@@ -71,3 +71,40 @@ test('duplicate and malformed inputs rejected even outside selected range',()=>{
  rows[59].id=rows[58].id; assert.throws(()=>selectRows(rows,{limit:'1'}),/Duplicate/);
  rows[59]={id:'59',feedback:'x',reference:'yes'};assert.throws(()=>selectRows(rows,{limit:'1'}),/contract/);
 });
+const {configureArtifact,buildMessages}=require('../scripts/lmstudio_reasoning_benchmark.cjs');
+const dsHash='d0f0b016bb20e4e9f4978ef82123240a7f31750f675154e469664b8f292a0f1a';
+const ms3Hash='9829cc54f2105c79499b783e81fbb476b610e91ee9373cc68334c267e49f6bbc';
+const ms4Hash='c83250ae5b88eb5d0e8702d02b495c6f0c305527dfc9ad915b89f800f49f13b0';
+const artifact=(hash,t)=>({artifact_sha256:hash,metadata:{'tokenizer.chat_template':t}});
+test('DeepSeek verified artifact keeps native prefix and uses user instructions',()=>{
+ const t="{% if add_generation_prompt %}{{'<｜Assistant｜><think>\\n'}}{% endif %}";
+ const a=artifact(dsHash,t),options={family:'deepseek-r1-distill-qwen32b',thinking:'native'};
+ const x=configureArtifact(a,options);assert.equal(x.template,t);assert.equal(x.instructionRole,'user');
+ assert.deepEqual(buildMessages('RUBRIC',{type:'object'},'feedback',true,x.instructionRole),[{role:'user',content:'RUBRIC\n\n'+JSON.stringify({feedback:'feedback'})}]);
+ assert.throws(()=>configureArtifact(a,{...options,thinking:'off'}),/native/);
+ assert.throws(()=>configureArtifact(a,{...options,effort:'high'}),/effort/);
+ assert.throws(()=>configureArtifact(artifact('wrong',t),options),/verified/);
+});
+test('Mistral3 effort is N/A and reasoning parsing disabled',()=>{
+ const t='[INST]user[/INST]',a=artifact(ms3Hash,t),options={family:'mistral-small3.2',thinking:'not_applicable'};
+ const x=configureArtifact(a,options);assert.equal(x.template,t);assert.deepEqual(x.parsing,{enabled:false});
+ assert.throws(()=>configureArtifact(a,{...options,thinking:'on'}),/not_applicable/);
+ assert.throws(()=>configureArtifact(a,{...options,effort:'low'}),/effort/);
+});
+test('Mistral4 none/high use verified settings tokens and parser',()=>{
+ const t="[INST][/INST][THINK][/THINK][MODEL_SETTINGS]reasoning_effort[/MODEL_SETTINGS]";
+ for(const [thinking,effort] of [['on','high'],['off','none']]) {
+  const x=configureArtifact(artifact(ms4Hash,t),{family:'mistral-small4',thinking,effort});
+  assert.equal(x.template,"{%- set reasoning_effort = '"+effort+"' %}\n"+t);
+  assert.deepEqual(x.parsing,{enabled:true,startString:'[THINK]',endString:'[/THINK]'});
+ }
+ assert.throws(()=>configureArtifact(artifact(ms4Hash,t),{family:'mistral-small4',thinking:'on',effort:'none'}),/requires/);
+ assert.throws(()=>configureArtifact(artifact(ms4Hash,'[INST]'),{family:'mistral-small4',thinking:'on',effort:'high'}),/template/);
+});
+test('legacy artifact configuration and messages remain identical',()=>{
+ const a=artifact('legacy',qwen);
+ assert.deepEqual(configureArtifact(a,{thinking:'on'}),{...configureThinking(qwen,'on'),instructionRole:'system',family:'template-controlled'});
+ const schema={type:'object'};
+ assert.deepEqual(buildMessages('policy',schema,'feedback',false,'system'),[{role:'system',content:'policy\nReturn raw JSON only, with no Markdown code fences and no text outside the JSON object. Output must satisfy this JSON schema: '+JSON.stringify(schema)},{role:'user',content:JSON.stringify({feedback:'feedback'})}]);
+ assert.throws(()=>configureArtifact(a,{family:'made-up',thinking:'on'}),/family/);
+});
