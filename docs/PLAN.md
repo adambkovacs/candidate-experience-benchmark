@@ -1,6 +1,6 @@
 # Recruitment Feedback Comparison — project plan
 
-Updated: 2026-09-21. Status: planning; no dataset generated or model performance measured.
+Updated: 2026-09-21. Status: 30 synthetic development examples drafted with provisional labels; awaiting human review. No model performance measured.
 Repository: https://github.com/adambkovacs/recruitment-feedback-demo (private).
 
 ## Research question
@@ -36,7 +36,7 @@ Proposed ordinary-case allocation: 40 ordinary positive, 40 ordinary negative, 5
 
 Challenge set: ten families of ten records each: politeness versus severity; negation; resolved versus unresolved; mixed praise and complaint; attribution and quoted allegations; missing context; instruction injection; irrelevant hire/reject outcome; style/typos/paraphrases; off-topic or unusable content. Within the 100, reserve 40 records for 20 paired tests (ten invariant-meaning pairs and ten meaning-changing pairs). Keep pairs together and account for their dependence in uncertainty estimates.
 
-Generate from a scenario specification with varied stage, role, length, writing style, and outcome. Use fictional people and employers; never imply that synthetic quotes are real endorsements or allegations. English first.
+Generate from a scenario specification with varied stage, role, length, writing style, and outcome. Use fictional people and employers; never imply that synthetic quotes are real endorsements or allegations. English first. Broad industries and seniority levels, as confirmed by the user.
 
 ## Generation and reference-label workflow
 
@@ -129,7 +129,8 @@ Failure explorer classifies errors as model judgment, rubric ambiguity, missing 
 
 - [x] Repository and original plan.
 - [x] Agree 400 synthetic records and expanded comparison scope.
-- [ ] Finalize labeling guide, record schema, and 30 development examples.
+- [x] Draft labeling guide, judgment schema, and 30 broad-industry development examples.
+- [ ] Human-review pilot labels and finalize rubric before generating the remaining 370.
 - [ ] Review pilot; discover available CLI models and local runtime.
 - [ ] Build minimal adapters and evaluator; smoke-test on development only.
 - [ ] Complete dataset, blinded review, and frozen split manifest.
@@ -173,3 +174,13 @@ No model performance or production-readiness claims have been established.
 See [MODEL_RESEARCH.md](MODEL_RESEARCH.md) for the dense/MoE distinction, OpenJev name disambiguation, Laya limitations, and candidate-screening approach. Candidate additions are untested. The user's March 2025 reference is confirmed as SalesRLAgent, distinct from the separately discovered Laya typed-decision checkpoint; see the research notes for the supplied checkpoint and confidence-routing paper. The 400-record split and four-label task remain unchanged.
 
 OpenJev-specific protocol: record automatic re-reads, optional thinking, and all settings. Separate fixed single-read from adaptive default results. A matched same-model direct-decision versus generated-label experiment is a priority diagnostic. DiffusionGemma is a distinct diffusion checkpoint, not interchangeable with regular Gemma 4 26B A4B. Validate output schema independently for text-generation runs.
+
+## Pilot artifacts
+
+- [Draft labeling guide](LABELING_GUIDE.md)
+- [Feedback-only review sheet](PILOT_REVIEW.md)
+- [Proposed answers and rationales](PILOT_PROPOSED_LABELS.md)
+- [Model inputs](../data/pilot/inputs.jsonl) and [provisional labels/metadata](../data/pilot/proposed_labels.jsonl)
+- [Judgment output schema](../schemas/judgments.schema.json)
+
+All 30 are development records, generated and provisionally labeled by one assistant. Exact generator model ID is not exposed. None are human-adjudicated. Paired scenario families remain in development. Inference runners must receive only feedback and the rubric, never the answer key or generation metadata. The current drafting conversation has seen the key and cannot serve as an isolated benchmark run.
