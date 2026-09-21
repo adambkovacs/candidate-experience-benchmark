@@ -15,7 +15,7 @@ The study can find that Jev wins, loses, or fits only some operating conditions.
 - Candidate-experience triage first. Interviewer evidence versus hire/no-hire vote remains a separate future study.
 - Compare equivalent tasks with provider-appropriate interfaces.
 - Use the user's Codex and Claude Code subscriptions for supported local CLI runs. Use direct provider APIs for Jev and hosted DeepSeek/Qwen as available.
-- Local test machine: M4 MacBook Pro, 128 GB unified memory. Exact chip variant, runtime, and installed tools remain to be recorded.
+- Local test machine: M4 MacBook Pro, 128 GB unified memory. LM Studio is installed. Exact chip variant and runtime version remain to be recorded.
 - Evaluate small local models and a roughly 27B-class model. Gemma 4 and Qwen are candidate families.
 - Keep reference labels hidden from evaluated models; freeze settings before testing.
 - Build a failure explorer and case-study presentation after results are available.
@@ -70,13 +70,15 @@ Code composes judgments into simulated routes: escalation review, ordinary follo
 
 ## Comparison roster and scope control
 
-Initial target: 9 model configurations plus a rules baseline.
+Original target: 9 model configurations plus a rules baseline. Expanded candidate research now includes Gemini, tiny generators, and open decision models; see [model research](MODEL_RESEARCH.md). The final roster is selected on development data and frozen before held-out testing.
 - Jev: one pinned version.
-- Codex: two supported model/settings configurations available to the user's subscription.
-- Claude Code: two supported configurations available to the user's subscription.
+- Codex: two supported model/settings configurations available to the user's ChatGPT Pro subscription.
+- Claude Code: two supported configurations available to the user's Claude Max subscription.
+- Gemini: Pro-class and Flash-class candidate configurations through a supported Google AI Pro client; verify actual exposed models, pinning, and noninteractive access locally.
 - Hosted DeepSeek: one pinned model and provider endpoint.
 - Hosted Qwen: one pinned model and provider endpoint.
-- Local: two models, one small and one roughly 27B-class.
+- Local generative candidates: Qwen3-0.6B, Qwen3.5-4B, Gemma 4 26B A4B, and Qwen3.8-27B. Use development screening to select a compact final roster.
+- Local specialist candidates: SemIf direct scoring, AlexWortega/OpenJev 0.8B NLI, and Laya 421M. No assumption that these custom classification paths run through LM Studio.
 - Rules baseline: fixed keyword/negation heuristics, with limitations documented.
 
 Exact model availability must be checked on the user's accounts; never claim that all ChatGPT or Claude web models are available in the CLIs. Avoid expanding the roster until the pilot establishes a reason.
@@ -119,7 +121,7 @@ Show raw counts and denominators, ordinary versus challenge results, and paired 
 
 Review comparison: evaluate at matched review budgets (10%, 20%, 30%). Freeze ranking methods and thresholds on validation data; show realized test coverage, including tie handling. Jev probabilities and distribution-derived confidence are not equivalent to an LLM's self-reported confidence. Label each uncertainty method and evaluate its usefulness empirically. Do not apply one numerical threshold across providers.
 
-Repeat a fixed 40-record test subset three times total to assess instability; keep repeats out of headline unique-case metrics. For nine configurations, the first pass over 400 records is 3,600 record evaluations; two extra passes over 40 add 720, before development tuning or transport retries. This is an estimate of evaluations, not a token or price estimate.
+Repeat a fixed 40-record test subset three times total to assess instability; keep repeats out of headline unique-case metrics. For illustration only, with nine configurations the first pass over 400 records is 3,600 record evaluations; two extra passes over 40 add 720, before development tuning or transport retries. This is an estimate of evaluations, not a token or price estimate.
 
 Failure explorer classifies errors as model judgment, rubric ambiguity, missing information, reference-label error, output/schema failure, or service/runtime failure. Inspect confident mistakes and cases where systems disagree. Do not assume a more expensive model is the reference truth.
 
@@ -150,7 +152,7 @@ Search-page access was unreliable and no files were downloaded. No dataset is se
 
 ## Remaining execution inputs
 
-Actual Codex/Claude plan tiers and model availability; installed local runtime (if any); exact Mac chip variant; reviewer availability; paid API budget and credentials. These do not block drafting the rubric and synthetic pilot. The current cloud workspace does not have direct access to the user's Mac; local runs will require a local checkout and runner.
+Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Remaining: actual model availability and client versions; exact Mac chip variant; reviewer availability; paid API budget and credentials. These do not block drafting the rubric and synthetic pilot. The current cloud workspace does not have direct access to the user's Mac; local runs will require a local checkout and runner.
 
 ## Sources checked
 
@@ -165,3 +167,7 @@ Actual Codex/Claude plan tiers and model availability; installed local runtime (
 - https://www.kaggle.com/datasets/murtazaziya/best-buy-interviews
 
 No model performance or production-readiness claims have been established.
+
+## Model-research update
+
+See [MODEL_RESEARCH.md](MODEL_RESEARCH.md) for the dense/MoE distinction, OpenJev name disambiguation, Laya limitations, and candidate-screening approach. Candidate additions are untested. The reported March 2025 Laya date remains unverified. The 400-record split and four-label task remain unchanged.
