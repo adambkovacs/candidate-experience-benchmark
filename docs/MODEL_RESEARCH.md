@@ -36,13 +36,22 @@ Sources:
 - https://github.com/TheoLeeCJ/SemIf
 - https://huggingface.co/AlexWortega/openjev
 
-## Laya
+## Laya and the user-supplied DeepMost research
 
-The identified project is NandhaKishorM/laya / convaiinnovations/laya. The English and typed-decision checkpoints are listed as 421M parameters; the multilingual checkpoint as 322M. Its documentation describes narrow token budgets and weak base zero-shot performance on its typed-decisions benchmark. Its Jev comparisons use external published figures rather than identical live runs.
+The user's exact references are now resolved:
+- March 30, 2025: SalesRLAgent, a sales-conversion prediction framework: https://arxiv.org/abs/2503.23303
+- Confidence-aware routing research: https://arxiv.org/abs/2510.01237
+- Supplied sales checkpoint: https://huggingface.co/DeepMostInnovations/sales-conversion-model-reinf-learning
 
-Include one pinned English typed-decisions checkpoint as a research candidate, with no recruitment fine-tuning in the primary comparison. Report token-budget failures or truncation explicitly. Test CPU/Apple backend support separately; published NVIDIA timings are not Mac timings. The user's March 2025 date was not verified, and this may not be the exact referenced project.
+These artifacts must not be conflated with the separately discovered NandhaKishorM/laya / convaiinnovations/laya typed-decision checkpoints. Shared authorship does not establish identical weights, architecture, or evaluation.
 
-Sources:
+The sales checkpoint uses Stable Baselines3 PPO, embeddings, and LLM-derived metrics to estimate conversion probability over conversation turns. It does not expose our four custom recruitment judgments. Exclude it from the primary equivalent-task comparison; adapting/retraining it would be a separate experiment. Count the full feature-extraction pipeline in any future timing, not just the prediction head.
+
+The routing paper combines semantic alignment, internal-layer convergence, and learned confidence, using SmolLM2-360M-Instruct and MiniLM embeddings. It describes 72 confidence-training examples. Treat this as exploratory routing research, not demonstrated recruitment calibration or a drop-in wrapper for closed subscription models. A future small-model-to-strong-model/human cascade should use validation-selected routing and count all inference costs; this would be inspired by the paper, not a reproduction.
+
+The separately discovered Laya typed-decision model remains optional, not a confirmed match to the supplied sales checkpoint. Its documented 421M English/typed-decision and 322M multilingual checkpoints, token budgets, and reported weak base zero-shot performance require independent screening. No recruitment fine-tuning in the primary comparison.
+
+Additional sources:
 - https://github.com/NandhaKishorM/laya
 - https://huggingface.co/convaiinnovations/laya
 
@@ -77,7 +86,7 @@ Sources:
 
 Candidate reconnaissance is not a commitment to a full run for every candidate. Screen candidates on the same 30 development records, recording setup time, errors, memory, speed, and rough quality. Select and freeze the final roster before either held-out set, retaining provider diversity and meaningful failure baselines. Publish all screening outcomes and exclusion reasons.
 
-Suggested priority additions: Gemini, razorback16/OpenJev with MLX, Laya 421M, and Qwen3-0.6B. AlexWortega/OpenJev 0.8B, SemIf/Qwen3.5-4B, 1.7B, 8B, and a second large Gemma are optional diagnostics. They are distinct projects, not interchangeable OpenJev implementations.
+Suggested priority additions: Gemini, razorback16/OpenJev with MLX, and Qwen3-0.6B. The separately discovered Laya 421M is optional; the user-supplied sales checkpoint is excluded from the equivalent-task roster. AlexWortega/OpenJev 0.8B, SemIf/Qwen3.5-4B, 1.7B, 8B, and a second large Gemma are optional diagnostics. They are distinct projects, not interchangeable OpenJev implementations.
 
 LM Studio remains the default for supported generative models. Specialized classification/logit readers use separate supported local runners when required. Do not substitute ordinary chat completions while claiming to evaluate their specialized mechanism.
 
