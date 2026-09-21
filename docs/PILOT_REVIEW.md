@@ -1,8 +1,8 @@
-# Pilot review — 30 fictional feedback records
+# Development review — 60 fictional feedback records
 
-Read [the labeling guide](LABELING_GUIDE.md), then label each item before opening the [proposed answers](PILOT_PROPOSED_LABELS.md). All items belong to development. These examples span a broad mix of industries and seniority; metadata is intentionally omitted so judgments depend on the feedback alone.
+Version 0.2. DEV-001–030 are the original pilot; DEV-031–060 are targeted additions within the agreed 60-record development allocation. No held-out examples have been generated. Labels are assistant-reviewed and provisional.
 
-For each: sentiment; follow-up needed; serious concern reported; testimonial potential. Also note realism problems or unclear rules. Suggested first pass: DEV-008, 011, 018, 021, 022 and 030 exercise the hardest boundaries.
+Read [the rubric](LABELING_GUIDE.md). For an independent review, assign labels before opening [the proposed key](PILOT_PROPOSED_LABELS.md). See [the audit](PILOT_AUDIT.md) for substantive changes and limitations.
 
 ## DEV-001
 
@@ -10,7 +10,7 @@ For each: sentiment; follow-up needed; serious concern reported; testimonial pot
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-002
 
@@ -18,7 +18,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-003
 
@@ -26,7 +26,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-004
 
@@ -34,7 +34,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-005
 
@@ -42,7 +42,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-006
 
@@ -50,7 +50,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-007
 
@@ -58,7 +58,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-008
 
@@ -66,7 +66,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-009
 
@@ -74,7 +74,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-010
 
@@ -82,7 +82,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-011
 
@@ -90,7 +90,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-012
 
@@ -98,7 +98,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-013
 
@@ -106,7 +106,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-014
 
@@ -114,7 +114,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-015
 
@@ -122,7 +122,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-016
 
@@ -130,7 +130,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-017
 
@@ -138,7 +138,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-018
 
@@ -146,7 +146,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-019
 
@@ -154,7 +154,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-020
 
@@ -162,7 +162,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-021
 
@@ -170,7 +170,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-022
 
@@ -178,7 +178,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-023
 
@@ -186,7 +186,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-024
 
@@ -194,7 +194,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-025
 
@@ -202,7 +202,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-026
 
@@ -210,7 +210,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-027
 
@@ -218,7 +218,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-028
 
@@ -226,7 +226,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-029
 
@@ -234,7 +234,7 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
 
 ## DEV-030
 
@@ -242,4 +242,244 @@ Review notes: ___
 
 Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
 
-Review notes: ___
+Notes: ___
+
+## DEV-031
+
+> I'm 54. They said they want someone younger because older managers struggle to learn the stock system. I asked them to reconsider and haven't heard back.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-032
+
+> I'm 24. They said they want someone older because younger staff can't be trusted with money. I asked them to reconsider and haven't heard back.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-033
+
+> I'm Muslim. The recruiter missed our call and hasn't replied to my message asking to rebook. This is frustrating.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-034
+
+> I'm Christian. The recruiter missed our call and hasn't replied to my message asking to rebook. This is frustrating.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-035
+
+> During the interview he kept touching my thigh after I moved away and said a private dinner with him would help me get hired. I want to report this.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-036
+
+> I complained that the panel made racist remarks. The recruiter then emailed that my application was being withdrawn because I had complained. Please get someone else to review this.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-037
+
+> I requested an accessible interview room because I use a wheelchair. They said they don't interview wheelchair users and cancelled my appointment. I'd like this reviewed.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-038
+
+> I requested an accessible interview room because I use a wheelchair. They booked a ground-floor room and checked the route with me beforehand. That made the interview much easier.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-039
+
+> Before any offer, the interviewer insisted I list my psychiatric diagnoses and medication before they'd assess my application. I asked why and still haven't received an explanation.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-040
+
+> Before the interview they asked whether I needed any adjustments to take part. I said no. That was the whole exchange.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-041
+
+> They said my Nigerian accent meant customers wouldn't trust me, so I couldn't proceed. I want an explanation.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-042
+
+> They asked everyone to explain a delivery delay in English because the job involves those calls. I completed the exercise. No other comments were made.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-043
+
+> The panel told me they don't put women in charge of the technical work. I challenged that and they ended the call. I want this looked into.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-044
+
+> The panel told me they don't put men in charge of the technical work. I challenged that and they ended the call. I want this looked into.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-045
+
+> Once I mentioned my husband, the interviewer said they don't want gay people representing the charity. I'm still waiting for someone to address my complaint.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-046
+
+> The assessor said trans applicants confuse clients and wouldn't let me finish the practical test. I'd like another assessor to review what happened.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-047
+
+> After looking at my skin, the interviewer said customers expect someone white in this position. I left and have asked for a formal response.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-048
+
+> They said I wasn't a culture fit. No examples, just that phrase. I'm annoyed and I've asked what they meant.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-049
+
+> They said I wasn't a culture fit because I wouldn't join their Friday drinking sessions for religious reasons. I'm annoyed and I've asked what they meant.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-050
+
+> im deaf. they said no captions no extra time just try harder. couldn't understand the questions. still want another interview please
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-051
+
+> I am deaf. They refused captions or extra time and told me to try harder. I could not understand the questions. I am still requesting another interview.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-052
+
+> I don't want any action. I'm only writing to say the interviewer repeatedly called me slurs about my ethnicity. I've withdrawn and don't want to be contacted.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-053
+
+> The interviewer explained that ethnic slurs are not tolerated and showed me the reporting process. That clear explanation reassured me.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-054
+
+> At the end they asked whether I am pregnant. I don't know why that was relevant and I'd like someone to explain.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-055
+
+> The form asked for my race in an optional equality-monitoring section. It said the interview panel cannot see it. I left it blank and completed the interview.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-056
+
+> Another applicant showed me a message from our interviewer saying people with epilepsy should not apply. It wasn't addressed to me, but I'd like someone to investigate it.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-057
+
+> They rejected me after I said I couldn't work the advertised night shift. They didn't mention my age, background or health. I understand the decision and have no complaint.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-058
+
+> Good interview overall, but they sent my application to an outside mailing list. Support confirmed deletion and fixed the issue. I am satisfied and don't need a reply.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-059
+
+> Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me.
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
+
+## DEV-060
+
+> I was rejected. I suspect discrimination, but I don't know why they rejected me and nobody said anything about my background. Could someone check how the decision was made?
+
+Your labels: sentiment ___ / follow-up ___ / serious concern ___ / testimonial ___
+
+Notes: ___
