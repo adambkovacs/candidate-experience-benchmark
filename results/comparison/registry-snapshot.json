@@ -57,17 +57,19 @@
     "id": "qwen3.5-4b-sdk-thinking-on",
     "model": "Qwen3.5-4B Q4_K_M",
     "effort": "on",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3.5-4b-2026-09-21/thinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3.5-4b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3.5-4b-sdk-thinking-off",
     "model": "Qwen3.5-4B Q4_K_M",
     "effort": "off",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3.5-4b-2026-09-21/nonthinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3.5-4b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3-8b-sdk-thinking-on",
@@ -89,25 +91,25 @@
     "id": "qwen3.8-27b-sdk-thinking-low",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "low",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-medium",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "medium",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-xhigh",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "xhigh",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "gemma4-e2b-sdk-thinking-on",
@@ -129,17 +131,17 @@
     "id": "gemma4-e4b-sdk-thinking-on",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "on",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "gemma4-e4b-sdk-thinking-off",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "off",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "gemma4-26b-a4b-sdk-thinking-on",
@@ -172,6 +174,14 @@
     "status": "pending",
     "predictions_file": null,
     "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3.8-27b-sdk-thinking-off",
+    "model": "Qwen3.8-27B Q4_K_M",
+    "effort": "off",
+    "status": "blocked_model_download_network",
+    "predictions_file": null,
+    "notes": "Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage."
   },
   {
     "id": "sonnet5-low-first-pass",
@@ -397,73 +407,73 @@
     "id": "openjev-fixed",
     "model": "openjev-0.1",
     "effort": "samples1 steps1 think0",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "openjev-adaptive",
     "model": "openjev-0.1",
     "effort": "automatic rereads steps1 think0",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "openjev-thinking",
     "model": "openjev-0.1",
     "effort": "samples1 steps1 think512",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "openjev-generated-off",
     "model": "diffusiongemma-26b",
     "effort": "JSON generation thinkingoff",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "openjev-generated-on",
     "model": "diffusiongemma-26b",
     "effort": "JSON generation thinkingon",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "semif-direct",
     "model": "Qwen3.5-4B",
     "effort": "MLX direct BF16",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "semif-serial",
     "model": "Qwen3.5-4B",
     "effort": "MLX serial BF16",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "semif-shared",
     "model": "Qwen3.5-4B",
     "effort": "MLX shared BF16",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "alex-openjev08",
     "model": "AlexWortega/openjev qwen3.5-0.8b-nli-v2s-long",
     "effort": "NLI entailment option ranking",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "laya-english",
@@ -510,17 +520,41 @@
     "id": "laya-english-expanded-cpu",
     "model": "convaiinnovations/laya",
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded."
+    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
   },
   {
     "id": "laya-typed-expanded-cpu",
     "model": "convaiinnovations/laya typed-decisions",
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
-    "status": "downloading",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded."
+    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
+  },
+  {
+    "id": "semif-generated-bf16",
+    "model": "Qwen3.5-4B",
+    "effort": "MLX generated JSON BF16; thinking off",
+    "status": "blocked_model_download_network",
+    "predictions_file": null,
+    "notes": "Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed."
+  },
+  {
+    "id": "laya-multilingual",
+    "model": "convaiinnovations/laya multilingual",
+    "effort": "322M native context1024/head256",
+    "status": "blocked_model_download_network",
+    "predictions_file": null,
+    "notes": "Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed."
+  },
+  {
+    "id": "laya-multilingual-expanded-cpu",
+    "model": "convaiinnovations/laya multilingual",
+    "effort": "322M CPU; proposed context4096/head512",
+    "status": "blocked_model_download_network",
+    "predictions_file": null,
+    "notes": "Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed."
   },
   {
     "id": "codex-gpt-5.6-luna-low",
@@ -622,11 +656,91 @@
     "notes": "Cached account catalog lists this effort; live configuration not yet tested. Ultra auto-delegation requires live isolation verification; separate agent-workflow result if tool isolation cannot hold. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
   },
   {
-    "id": "antigravity-gemini-discovery",
-    "model": null,
-    "effort": null,
-    "status": "pending",
+    "id": "antigravity-gemini-3.8-flash-high",
+    "model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "status": "pending_approval_and_isolation",
     "predictions_file": null,
-    "notes": "User reports signed in. Live re-verification blocked by current sandbox: runtime logs/crashes writes and localhost bind denied. Pro/Flash exact account roster/efforts not yet verified; no inference."
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.8-flash-medium",
+    "model": "gemini-3.8-flash-medium",
+    "effort": "medium",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.8-flash-low",
+    "model": "gemini-3.8-flash-low",
+    "effort": "low",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.7-flash-high",
+    "model": "gemini-3.7-flash-high",
+    "effort": "high",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.7-flash-medium",
+    "model": "gemini-3.7-flash-medium",
+    "effort": "medium",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.7-flash-low",
+    "model": "gemini-3.7-flash-low",
+    "effort": "low",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.6-flash-high",
+    "model": "gemini-3.6-flash-high",
+    "effort": "high",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.6-flash-medium",
+    "model": "gemini-3.6-flash-medium",
+    "effort": "medium",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.6-flash-low",
+    "model": "gemini-3.6-flash-low",
+    "effort": "low",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.1-pro-high",
+    "model": "gemini-3.1-pro-high",
+    "effort": "high",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
+  },
+  {
+    "id": "antigravity-gemini-3.1-pro-low",
+    "model": "gemini-3.1-pro-low",
+    "effort": "low",
+    "status": "pending_approval_and_isolation",
+    "predictions_file": null,
+    "notes": "NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json."
   }
 ]

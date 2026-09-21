@@ -57,17 +57,19 @@
     "id": "qwen3.5-4b-sdk-thinking-on",
     "model": "Qwen3.5-4B Q4_K_M",
     "effort": "on",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3.5-4b-2026-09-21/thinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3.5-4b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3.5-4b-sdk-thinking-off",
     "model": "Qwen3.5-4B Q4_K_M",
     "effort": "off",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/qwen3.5-4b-2026-09-21/nonthinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3.5-4b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3-8b-sdk-thinking-on",
@@ -89,25 +91,25 @@
     "id": "qwen3.8-27b-sdk-thinking-low",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "low",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-medium",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "medium",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-xhigh",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "xhigh",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "gemma4-e2b-sdk-thinking-on",
@@ -129,17 +131,17 @@
     "id": "gemma4-e4b-sdk-thinking-on",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "on",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "gemma4-e4b-sdk-thinking-off",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "off",
-    "status": "pending",
+    "status": "blocked_model_download_network",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
   },
   {
     "id": "gemma4-26b-a4b-sdk-thinking-on",
@@ -172,5 +174,13 @@
     "status": "pending",
     "predictions_file": null,
     "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3.8-27b-sdk-thinking-off",
+    "model": "Qwen3.8-27B Q4_K_M",
+    "effort": "off",
+    "status": "blocked_model_download_network",
+    "predictions_file": null,
+    "notes": "Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage."
   }
 ]

@@ -12,21 +12,22 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3-0.6b-sdk-thinking-off | complete | 0 | 0 | 0 | 0 | 0 | 0 |
 | qwen3-1.7b-sdk-thinking-on | complete | 60 | 49 | 56 | 45 | 35 | 23 |
 | qwen3-1.7b-sdk-thinking-off | complete | 60 | 51 | 55 | 44 | 43 | 28 |
-| qwen3.5-4b-sdk-thinking-on | pending | — | — | — | — | — | — |
-| qwen3.5-4b-sdk-thinking-off | pending | — | — | — | — | — | — |
+| qwen3.5-4b-sdk-thinking-on | complete | 52 | 51 | 52 | 50 | 52 | 49 |
+| qwen3.5-4b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
 | qwen3-8b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | qwen3-8b-sdk-thinking-off | pending | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-low | pending | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-medium | pending | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-xhigh | pending | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-low | blocked_model_download_network | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-medium | blocked_model_download_network | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-xhigh | blocked_model_download_network | — | — | — | — | — | — |
 | gemma4-e2b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-e2b-sdk-thinking-off | pending | — | — | — | — | — | — |
-| gemma4-e4b-sdk-thinking-on | pending | — | — | — | — | — | — |
-| gemma4-e4b-sdk-thinking-off | pending | — | — | — | — | — | — |
+| gemma4-e4b-sdk-thinking-on | blocked_model_download_network | — | — | — | — | — | — |
+| gemma4-e4b-sdk-thinking-off | blocked_model_download_network | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-off | pending | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-off | pending | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-off | blocked_model_download_network | — | — | — | — | — | — |
 | sonnet5-low-first-pass | completed_with_service_failure | 59 | 59 | 58 | 58 | 56 | 54 |
 | sonnet5-low-with-retry | completed | 60 | 59 | 59 | 59 | 57 | 54 |
 | opus5-low | completed | 60 | 59 | 60 | 59 | 57 | 55 |
@@ -45,22 +46,25 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | fable51-xhigh | completed | 60 | 59 | 60 | 59 | 60 | 58 |
 | fable51-max | completed | 60 | 59 | 60 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
-| openjev-fixed | downloading | — | — | — | — | — | — |
-| openjev-adaptive | downloading | — | — | — | — | — | — |
-| openjev-thinking | downloading | — | — | — | — | — | — |
-| openjev-generated-off | downloading | — | — | — | — | — | — |
-| openjev-generated-on | downloading | — | — | — | — | — | — |
-| semif-direct | downloading | — | — | — | — | — | — |
-| semif-serial | downloading | — | — | — | — | — | — |
-| semif-shared | downloading | — | — | — | — | — | — |
-| alex-openjev08 | downloading | — | — | — | — | — | — |
+| openjev-fixed | blocked_model_download_network | — | — | — | — | — | — |
+| openjev-adaptive | blocked_model_download_network | — | — | — | — | — | — |
+| openjev-thinking | blocked_model_download_network | — | — | — | — | — | — |
+| openjev-generated-off | blocked_model_download_network | — | — | — | — | — | — |
+| openjev-generated-on | blocked_model_download_network | — | — | — | — | — | — |
+| semif-direct | blocked_model_download_network | — | — | — | — | — | — |
+| semif-serial | blocked_model_download_network | — | — | — | — | — | — |
+| semif-shared | blocked_model_download_network | — | — | — | — | — | — |
+| alex-openjev08 | blocked_model_download_network | — | — | — | — | — | — |
 | laya-english | unsupported_length | — | — | — | — | — | — |
 | laya-typed | unsupported_length | — | — | — | — | — | — |
 | salesrlagent | task_incompatible | — | — | — | — | — | — |
 | openrouter-qwen38-free | blocked_provider_429 | — | — | — | — | — | — |
 | openrouter-deepseek-free | unavailable_no_free_model | — | — | — | — | — | — |
-| laya-english-expanded-cpu | downloading | — | — | — | — | — | — |
-| laya-typed-expanded-cpu | downloading | — | — | — | — | — | — |
+| laya-english-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
+| laya-typed-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
+| semif-generated-bf16 | blocked_model_download_network | — | — | — | — | — | — |
+| laya-multilingual | blocked_model_download_network | — | — | — | — | — | — |
+| laya-multilingual-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-low | partial | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-medium | pending | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-high | pending | — | — | — | — | — | — |
@@ -72,7 +76,17 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-astra-xhigh | pending | — | — | — | — | — | — |
 | codex-gpt-6-astra-max | pending | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | pending | — | — | — | — | — | — |
-| antigravity-gemini-discovery | pending | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-high | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-low | pending_approval_and_isolation | — | — | — | — | — | — |
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
 
@@ -114,11 +128,15 @@ Evidence: `results/qwen3-1.7b-2026-09-21/nonthinking-development.jsonl`; SHA-256
 
 **qwen3.5-4b-sdk-thinking-on**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Exact artifact/runtime/request controls in results/qwen3.5-4b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/qwen3.5-4b-2026-09-21/thinking-development.jsonl`; SHA-256 `4c588165b2980c8cb089e4c1574b65ccec8916135206e457a235863990f955e9`.
 
 **qwen3.5-4b-sdk-thinking-off**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Exact artifact/runtime/request controls in results/qwen3.5-4b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/qwen3.5-4b-2026-09-21/nonthinking-development.jsonl`; SHA-256 `3704162ff632311c4595497595f3463debb0be2df7e9b7270d3be41b381efae4`.
 
 **qwen3-8b-sdk-thinking-on**
 
@@ -130,15 +148,15 @@ Authorized existing60 only. Artifact/runtime support and smoke review required b
 
 **qwen3.8-27b-sdk-thinking-low**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
 
 **qwen3.8-27b-sdk-thinking-medium**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
 
 **qwen3.8-27b-sdk-thinking-xhigh**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
 
 **gemma4-e2b-sdk-thinking-on**
 
@@ -150,11 +168,11 @@ Authorized existing60 only. Artifact/runtime support and smoke review required b
 
 **gemma4-e4b-sdk-thinking-on**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
 
 **gemma4-e4b-sdk-thinking-off**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
 
 **gemma4-26b-a4b-sdk-thinking-on**
 
@@ -171,6 +189,10 @@ Authorized existing60 only. Artifact/runtime support and smoke review required b
 **gemma4-31b-sdk-thinking-off**
 
 Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+
+**qwen3.8-27b-sdk-thinking-off**
+
+Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage.
 
 **sonnet5-low-first-pass**
 
@@ -282,39 +304,39 @@ Evidence: `results/openjev/typesafe-development-v2-reconciled.jsonl`; SHA-256 `5
 
 **openjev-fixed**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **openjev-adaptive**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **openjev-thinking**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **openjev-generated-off**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **openjev-generated-on**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **semif-direct**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **semif-serial**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **semif-shared**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **alex-openjev08**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **laya-english**
 
@@ -338,11 +360,23 @@ Livecatalog rechecked2026-09-21; noDeepSeek :free variant. No paidsubstitution a
 
 **laya-english-expanded-cpu**
 
-Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded.
+Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
 
 **laya-typed-expanded-cpu**
 
-Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded.
+Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+
+**semif-generated-bf16**
+
+Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed.
+
+**laya-multilingual**
+
+Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed.
+
+**laya-multilingual-expanded-cpu**
+
+Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed.
 
 **codex-gpt-5.6-luna-low**
 
@@ -388,7 +422,47 @@ Cached account catalog lists this effort; live configuration not yet tested. Net
 
 Cached account catalog lists this effort; live configuration not yet tested. Ultra auto-delegation requires live isolation verification; separate agent-workflow result if tool isolation cannot hold. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
 
-**antigravity-gemini-discovery**
+**antigravity-gemini-3.8-flash-high**
 
-User reports signed in. Live re-verification blocked by current sandbox: runtime logs/crashes writes and localhost bind denied. Pro/Flash exact account roster/efforts not yet verified; no inference.
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.8-flash-medium**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.8-flash-low**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.7-flash-high**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.7-flash-medium**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.7-flash-low**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.6-flash-high**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.6-flash-medium**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.6-flash-low**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.1-pro-high**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**antigravity-gemini-3.1-pro-low**
+
+NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
 
