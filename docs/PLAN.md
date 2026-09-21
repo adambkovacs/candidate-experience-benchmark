@@ -1,147 +1,167 @@
-# Recruitment Feedback Demo — project plan
+# Recruitment Feedback Comparison — project plan
 
-Status: planning only. No dataset generated, model calls made, application built, or results measured.
+Updated: 2026-09-21. Status: planning; no dataset generated or model performance measured.
 Repository: https://github.com/adambkovacs/recruitment-feedback-demo (private).
-Owner: adambkovacs.
 
-## Goal and scope
+## Research question
 
-Build an interactive showcase of TypeSafe Jev classifying candidate feedback about the recruitment experience, separating sentiment from operational action. Demonstrate overlapping signals, uncertainty, human review, and measured performance on a small synthetic benchmark.
+Which tested configuration routes synthetic candidate-experience feedback reliably, at what observed cost and speed, and where does it fail or need human review?
 
-Version 1 covers candidate-experience feedback. Version 2 may check interviewer notes against hire/no-hire votes using a role rubric. Keep those datasets and evaluation tasks separate.
+The study can find that Jev wins, loses, or fits only some operating conditions. Build the evaluation before the showcase. This is a comparison of specified configurations, not a universal model ranking.
 
-## Dataset size: 200
+## Accepted decisions
 
-Start with 30 carefully written calibration examples, included in the final 200. Review the label definitions before generating the remaining 170. Two hundred is a practical demo budget, not a statistically established production validation sample. Expand to 500 only to fill observed coverage gaps or improve evaluation precision; use 1,000 later for throughput demonstrations.
+- 400 entirely synthetic feedback records. No actual candidate records or real-data consent workflow.
+- Candidate-experience triage first. Interviewer evidence versus hire/no-hire vote remains a separate future study.
+- Compare equivalent tasks with provider-appropriate interfaces.
+- Use the user's Codex and Claude Code subscriptions for supported local CLI runs. Use direct provider APIs for Jev and hosted DeepSeek/Qwen as available.
+- Local test machine: M4 MacBook Pro, 128 GB unified memory. Exact chip variant, runtime, and installed tools remain to be recorded.
+- Evaluate small local models and a roughly 27B-class model. Gemma 4 and Qwen are candidate families.
+- Keep reference labels hidden from evaluated models; freeze settings before testing.
+- Build a failure explorer and case-study presentation after results are available.
 
-Proposed primary scenario allocation (each record counted once here; output labels may overlap):
+## Dataset: exactly 400 unique records
 
-| Primary scenario | Count |
-| --- | ---: |
-| Ordinary positive experiences | 35 |
-| Ordinary negative experiences | 35 |
-| Mixed praise and criticism | 40 |
-| Neutral, vague, or insufficient context | 25 |
-| Specific praise with testimonial potential | 25 |
-| Serious reported concerns requiring escalation review | 25 |
-| Off-topic, empty, or instruction-like input | 15 |
-| Total | 200 |
+| Split | Count | Use |
+| --- | ---: | --- |
+| Development | 60 | Includes first 30 pilot records; refine rubric and prompts |
+| Validation | 40 | Select settings and review thresholds |
+| Ordinary-case test | 200 | Plausible everyday synthetic feedback |
+| Challenge test | 100 | Deliberate stress tests |
+| Total | 400 | |
 
-These proportions deliberately enrich difficult cases; they are not estimates of real candidate sentiment or complaint prevalence.
+The ordinary-case set is synthetic, not statistically representative of recruitment traffic. Report ordinary and challenge results separately. Related scenarios and paraphrases stay in one split. Repeated inference does not increase the unique-record count.
 
-Vary interview stage, job family, seniority, writing length, formality, typos, indirectness, sarcasm, and explicit hiring outcome. Include courteous serious complaints, angry resolved complaints, rejected candidates with excellent experiences, hired candidates with bad experiences, and praise that also requests no public attribution. English first; multilingual evaluation is a separate expansion.
+Proposed ordinary-case allocation: 40 ordinary positive, 40 ordinary negative, 50 mixed, 30 neutral/vague, 25 specific praise, 15 serious reported concerns. These are primary generation categories; output labels can overlap. Development and validation cover every output label and each routing branch.
 
-Reserve 20 of the 200 records for 10 paired tests: five same-meaning paraphrase pairs and five minimal-change pairs where a condition materially changes. Pairs remain in the same split. Avoid near-duplicate scenarios across splits.
+Challenge set: ten families of ten records each: politeness versus severity; negation; resolved versus unresolved; mixed praise and complaint; attribution and quoted allegations; missing context; instruction injection; irrelevant hire/reject outcome; style/typos/paraphrases; off-topic or unusable content. Within the 100, reserve 40 records for 20 paired tests (ten invariant-meaning pairs and ten meaning-changing pairs). Keep pairs together and account for their dependence in uncertainty estimates.
 
-Split by scenario family before tuning:
-- Development: 100, including the initial 30.
-- Validation: 40, for selecting routing thresholds.
-- Held-out test: 60, untouched until questions and thresholds are frozen.
+Generate from a scenario specification with varied stage, role, length, writing style, and outcome. Use fictional people and employers; never imply that synthetic quotes are real endorsements or allegations. English first.
 
-Stratify the scenario categories across splits where possible. A held-out set this small gives preliminary evidence; report denominators and uncertainty, especially for rare escalation cases. Once a test item informs tuning, it is no longer unseen for that revised version.
+## Generation and reference-label workflow
 
-## Label contract
+1. Define label meanings and scenario facts before generating prose.
+2. Draft 30 development examples and refine the rubric.
+3. Produce the remaining 370 with multiple available generators and manually written seed scenarios; record generator provenance. If multiple generators are unavailable, disclose the single-generator limitation.
+4. Deduplicate and assign stable IDs and scenario-family IDs.
+5. Humans label without seeing generator identity, intended category, or model predictions. AI-generated labels remain provisional until reviewed.
+6. Prioritize independent second review for held-out records and serious concerns. If only one human reviewer is available, disclose it; do not describe model consensus as human ground truth.
+7. Preserve ambiguity, acceptable answer sets where justified, and reviewer disagreement.
+8. Freeze dataset, reference labels, rubric, and split manifest before final evaluation.
 
-| Field | Meaning | Intended judgment |
-| --- | --- | --- |
-| sentiment | positive / negative / mixed / neutral / insufficient_information | Choice |
-| topics | communication, scheduling, interviewer_conduct, assessment_burden, role_clarity, accessibility, other | Independent yes/no probabilities |
-| unresolved_issue | Feedback explicitly describes a problem that remains unresolved | Noul |
-| resolution_requested | Candidate asks for a response or remedy | Noul |
-| serious_concern_reported | Describes conduct covered by the written escalation rubric | Noul |
-| issue_severity | No problem / minor friction / substantial disruption / serious reported concern | Score with concrete anchors |
-| testimonial_potential | Contains specific, self-contained praise useful for editorial review | Noul |
-| publication_restriction_present | Explicitly asks not to publish or attribute the feedback | Noul |
-| input_usable | Contains interpretable feedback relevant to recruitment experience | Noul |
+No publication-consent fields or workflow are required for invented records. Testimonial potential means suitability as a hypothetical editorial shortlist, not permission to pass fictional quotes off as real.
 
-The escalation rubric should list concrete reported events: threatening conduct, harassment allegations, discriminatory remarks, exposure of private information, and ignored agreed accessibility arrangements. Flag reported concerns for human review; do not declare allegations proven. Routine dissatisfaction is distinct from a serious concern.
+## Four core judgments
 
-Mixed sentiment is a content label, not model uncertainty. An uncertain answer routes to review regardless of whether sentiment is positive or negative. Noul is a yes probability, not an intensity score. Choice/Score confidence describes distribution concentration, not a guarantee of correctness.
+| Judgment | Contract |
+| --- | --- |
+| Sentiment | positive / negative / mixed / neutral / insufficient_information |
+| Follow-up needed | yes / no / insufficient_information: an unresolved recruitment issue calls for a response or remedy |
+| Serious concern reported | yes / no / insufficient_information under an explicit escalation rubric |
+| Testimonial potential | yes / no / insufficient_information: specific, self-contained praise with usable context |
 
-## Routing rules
+Sentiment is independent of operational labels. Mixed is not uncertainty. Topics and severity scoring are deferred.
 
-Keep judgment outputs reusable and routing policy in ordinary code. Multiple flags may coexist.
+Escalation rubric: reports of threats, harassment, discriminatory remarks, exposure of private information, or ignored agreed accessibility arrangements go to escalation review; the model is not determining whether allegations are proven. Ordinary frustration alone is not escalation.
 
-1. Serious reported concern: prioritize escalation review according to validated thresholds, even when the tone is positive.
-2. Missing/uncertain information on an action-relevant question: human review. Ignore uncertainty on unused branches.
-3. Unresolved ordinary issue or requested remedy: candidate-support follow-up queue.
-4. Specific praise: testimonial editorial shortlist, with no publication implied.
-5. Ordinary usable feedback without a required action: analytics queue.
-6. Unusable/off-topic input: excluded or manual review, visibly distinguished from valid neutral feedback.
+Each adapter returns the same categorical contract. For Jev, map primitives explicitly: Choice for sentiment; separate answerability checks plus yes/no probabilities for the other judgments, or equivalent Choice questions with all three outcomes. Freeze and document that mapping. Never equate a probability near 0.5 with objectively insufficient information.
 
-Publication consent is a separate explicit metadata field: unknown / granted / declined. Sentiment never grants consent. No emails, escalations, or career-site publication occur automatically in the demo; destinations are simulated queues.
+Code composes judgments into simulated routes: escalation review, ordinary follow-up, testimonial shortlist, analytics, or human review. Multiple flags may coexist. No real messages or publication.
 
-## Record format and reference labels
+## Comparison roster and scope control
 
-Each record includes: id, feedback_text, interview_stage, job_family, synthetic=true, scenario_family_id, pair_id if applicable, split, and publication_consent.
+Initial target: 9 model configurations plus a rules baseline.
+- Jev: one pinned version.
+- Codex: two supported model/settings configurations available to the user's subscription.
+- Claude Code: two supported configurations available to the user's subscription.
+- Hosted DeepSeek: one pinned model and provider endpoint.
+- Hosted Qwen: one pinned model and provider endpoint.
+- Local: two models, one small and one roughly 27B-class.
+- Rules baseline: fixed keyword/negation heuristics, with limitations documented.
 
-Store reference labels separately from model inputs: expected_labels, expected_routes, supporting_source_spans, short human rationale, reviewer_status, disagreement_notes, and rubric_version. Do not pass generation instructions, scenario category, expected answers, or rationales into inference.
+Exact model availability must be checked on the user's accounts; never claim that all ChatGPT or Claude web models are available in the CLIs. Avoid expanding the roster until the pilot establishes a reason.
 
-Generation produces draft labels only. A human reviewer validates all 200. Ideally a second reviewer independently labels the held-out 60 and all serious-concern examples without seeing model predictions. Preserve disagreement; adjudicate or mark genuinely ambiguous examples. Do not manufacture a single definite answer where the input cannot support one.
+Local candidate pool, verified in official sources on 2026-09-21:
+- Gemma 4 E4B for the small-model slot.
+- Qwen3.8-27B for the larger slot.
+- Gemma 4 26B A4B or 31B as an alternative or targeted follow-up. Gemma 4 has no 27B size in the current official overview.
+Select actual artifacts only after checking runtime support and doing a short local fit/speed test. Record total versus active MoE parameters accurately. Memory fit does not establish acceptable speed. Start with a supported 4-bit artifact, then test another precision only if a concrete quality issue warrants it.
 
-## Model integration plan
+## Equivalent tasks and isolation
 
-Use the TypeSafe skill and recheck live API/SDK/model documentation when implementation begins. Server-side API key only. Choose and record the exact Jev version at that point; do not assume today's model name remains current.
+Same rubric, source text, required output fields, and allowed task context for every configuration. Use provider-supported structured output. Do not demand generated explanations in the main test.
 
-Send independent questions over one feedback record together. Use narrow questions with explicit definitions and no-match outcomes where needed. The application owns thresholding, routing, counts, and display. Jev supplies structured judgments; it does not generate explanatory paragraphs. Evidence highlighting can later select exact source spans; initially show the original feedback beside field definitions and stored reference rationales, clearly attributed.
+Fixed development-only tuning budget: up to three prompt/settings candidates per configuration. Freeze the selected candidate before held-out runs. No test-informed retries or prompt edits.
 
-Persist dataset version, question version, model version, thresholds, timestamps, latency, usage, errors, and outputs for each run. API failure is not ambiguity. Live results and recorded playback must be visibly distinguished. Never silently substitute invented outputs for an unavailable API.
+One independent record per fresh model context in the primary test; no 400-record conversation. CLI runs use a clean workspace with no reference labels, prior outputs, repository instructions, memories, or unrelated tools available. Disable unnecessary capabilities through supported controls; document unavoidable agent instructions, tools, and wrapper behavior. The controller logs results outside the inference workspace. If isolation cannot be enforced, label that run as a distinct agent workflow.
 
-## Evaluation
+Primary retry policy: up to two retries for transient transport/rate-limit failures with backoff; record every attempt and elapsed time. Invalid schema/model output is an observed failure, not silently repaired. Any optional repair workflow is evaluated separately.
 
-Measure sentiment macro-F1 and confusion matrix; per-flag precision and recall; serious-concern misses; unnecessary escalations; human-review share; accuracy among automatically routed records; paired-test consistency/sensitivity; and median/p95 end-to-end latency. Report usage and cost only from actual usage and verified pricing.
+Codex exec and Claude Code print mode support structured outputs. Use ordinary supported subscription sign-in, respect account limits, and pause on quota exhaustion. Do not extract subscription credentials into custom provider API clients or silently enable paid overage. Hosted APIs require securely configured credentials and an agreed spend cap before execution.
 
-Compare with a simple keyword/sentiment baseline on the same held-out set. A general-purpose LLM baseline is optional for a later comparison. Measure correctness and latency separately from presentation animation.
+## What the comparisons mean
 
-Provisional readiness checks:
-- All 200 records reviewed, deduplicated, and assigned to fixed splits.
-- Questions and thresholds frozen before held-out evaluation.
-- Every missed serious concern and false escalation inspected and reported.
-- Routing trade-offs visible; no single aggregate accuracy hides failure cases.
-- Secret handling, error display, and playback labeling verified.
-- Claims limited to this synthetic benchmark; no invented target accuracy or production-readiness claim.
+Report a shared task-quality table with explicit execution-surface columns (CLI subscription / direct API / local runtime). This compares observed configurations, not isolated model intelligence.
 
-Set numerical accuracy goals after reviewing the pilot and human agreement, before evaluating the held-out test. Do not tune goals retrospectively to make results look good.
+Report speed by workflow: end-to-end CLI timing includes process and agent overhead; hosted timing includes network; local timing includes the selected runtime. Record model-only timing only when genuinely exposed. Separate cold startup, warm interactive latency, and batch throughput. Randomize/interleave hosted runs to reduce ordering effects. Run local models one at a time, plugged in, without competing inference, recording runtime version, chip variant, quantization, context, power mode, and memory use.
 
-## Showcase interface
+Cost columns:
+- Hosted API: actual billed usage and verified pricing, with retries/caching.
+- Subscription: plan and date, observed quota use if available, and incremental charge; not fictitious API-equivalent dollars. Show unknown quota use as unknown.
+- Local: runtime and hardware context; energy only if measured. Do not call it free or invent amortization.
+Optional subscription allocation and human-review cost are separately labeled scenarios with explicit assumptions.
 
-A feedback inbox with filters, a selected feedback card, structured judgments, topic tags, and simulated action queues. Show probability/confidence using accurate field-specific terminology. Include a human-review panel with editable labels, a threshold control, an evaluation panel, and clearly labeled live/playback modes.
+## Metrics and failure analysis
 
-Proposed five-minute presentation:
-1. Let the audience route three contrasting examples.
-2. Reveal Jev outputs and reference labels, including disagreement.
-3. Show a positive comment that still warrants follow-up.
-4. Run the 200-record set or replay a labeled recorded run with original measured timings.
-5. Adjust review thresholds to show workload versus errors on validation data.
-6. Show the frozen held-out result separately and invite a fresh audience example.
+Core: per-judgment precision/recall, sentiment macro-F1, serious-concern missed count, unnecessary escalations, testimonial precision, schema failure and service failure rates, median/p95 end-to-end latency, total runtime, and observed cost/usage.
 
-Select 8–12 memorable showcase records from development data. Keep the held-out test out of interactive prompt tuning. Audience-entered examples are exploratory, not benchmark results.
+Show raw counts and denominators, ordinary versus challenge results, and paired uncertainty estimates that respect scenario-family grouping. Do not declare a winner for small inconclusive differences.
 
-## Implementation backlog
+Review comparison: evaluate at matched review budgets (10%, 20%, 30%). Freeze ranking methods and thresholds on validation data; show realized test coverage, including tie handling. Jev probabilities and distribution-derived confidence are not equivalent to an LLM's self-reported confidence. Label each uncertainty method and evaluate its usefulness empirically. Do not apply one numerical threshold across providers.
 
-1. Create private GitHub repository and commit this plan and README.
-2. Finalize label definitions, escalation rubric, and routing examples.
-3. Produce and review 30 calibration records.
-4. Generate the remaining 170; deduplicate, split, and validate reference labels.
-5. Implement versioned questions, server-side evaluation runner, and result persistence.
-6. Tune using development/validation data, then run frozen held-out evaluation.
-7. Build inbox, judgment cards, simulated queues, and threshold controls.
-8. Add playback, error handling, presentation script, and documented limitations.
+Repeat a fixed 40-record test subset three times total to assess instability; keep repeats out of headline unique-case metrics. For nine configurations, the first pass over 400 records is 3,600 record evaluations; two extra passes over 40 add 720, before development tuning or transport retries. This is an estimate of evaluations, not a token or price estimate.
 
-Suggested repository structure: README.md; docs/PLAN.md; docs/LABELING_GUIDE.md; docs/DEMO_SCRIPT.md; data/inputs/; data/reference/; questions/; evaluation/; app/. Decide framework when building starts; no ATS or database integration is required for the first 200-record demo.
+Failure explorer classifies errors as model judgment, rubric ambiguity, missing information, reference-label error, output/schema failure, or service/runtime failure. Inspect confident mistakes and cases where systems disagree. Do not assume a more expensive model is the reference truth.
 
-## Inputs needed before implementation
+## Milestones
 
-- GitHub repository created; commit the planning documents before implementation.
-- TypeSafe API access configured securely, never pasted into source control.
-- A reviewer familiar with recruitment to validate the pilot and reference labels.
-- Intended audience and presentation length; default assumption is a five-minute recruiter-facing showcase.
-- Hosting choice only when the interface is ready to build or share.
+- [x] Repository and original plan.
+- [x] Agree 400 synthetic records and expanded comparison scope.
+- [ ] Finalize labeling guide, record schema, and 30 development examples.
+- [ ] Review pilot; discover available CLI models and local runtime.
+- [ ] Build minimal adapters and evaluator; smoke-test on development only.
+- [ ] Complete dataset, blinded review, and frozen split manifest.
+- [ ] Tune within fixed budget; freeze configurations.
+- [ ] Run both held-out sets and fixed stability subset.
+- [ ] Publish result tables, failure examples, reproducibility manifest, and limitations.
+- [ ] Build lightweight failure explorer and five-minute showcase.
+- [ ] Optional: test a cheap/local-to-strong-model cascade after standalone results.
 
-## Reference patterns
+No full app, ATS integration, elaborate dashboard, or second recruitment task before baseline results.
 
+## Kaggle reconnaissance
+
+Kaggle's public dataset-list endpoint returned:
+- murtazaziya/best-buy-interviews: titled Best Buy Interviews, described as interview reviews, license listed as Unknown. Full content and reuse terms were not verified.
+- thisiserfan/wikitajrobe-dataset: experiences/comments/company data; license listed as Other. Suitability not verified.
+- noeyislearning/it-job-market-insights: company ratings/reviews, listed CC0; candidate-interview narrative coverage not verified.
+
+Search-page access was unreliable and no files were downloaded. No dataset is selected. Synthetic remains the agreed primary path. Kaggle listing availability does not establish suitability or reuse rights. Revisit only if a clearly suitable, licensed source can save effort; any imported public records would be marked as a separate non-synthetic source.
+
+## Remaining execution inputs
+
+Actual Codex/Claude plan tiers and model availability; installed local runtime (if any); exact Mac chip variant; reviewer availability; paid API budget and credentials. These do not block drafting the rubric and synthetic pilot. The current cloud workspace does not have direct access to the user's Mac; local runs will require a local checkout and runner.
+
+## Sources checked
+
+- https://learn.chatgpt.com/docs/auth
+- https://learn.chatgpt.com/docs/non-interactive-mode
+- https://code.claude.com/docs/en/authentication
+- https://code.claude.com/docs/en/headless
+- https://ai.google.dev/gemma/docs/core
+- https://huggingface.co/Qwen/Qwen3.8-27B
 - https://docs.typesafe.ai/primitives
 - https://docs.typesafe.ai/confidence
-- https://docs.typesafe.ai/concepts/how-to-build-with-system-one
+- https://www.kaggle.com/datasets/murtazaziya/best-buy-interviews
 
-These establish the intended programming approach; this plan reports no measured Jev recruitment performance.
+No model performance or production-readiness claims have been established.
