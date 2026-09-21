@@ -1,6 +1,6 @@
 # Recruitment Feedback Comparison — project plan
 
-Updated: 2026-09-21. Status: 30 synthetic development examples drafted with provisional labels; awaiting human review. No model performance measured.
+Updated: 2026-09-21. Status: 60 synthetic development examples drafted and AI-reviewed with provisional labels; local runner/evaluator added. No model performance measured.
 Repository: https://github.com/adambkovacs/recruitment-feedback-demo (private).
 
 ## Research question
@@ -42,9 +42,9 @@ Generate from a scenario specification with varied stage, role, length, writing 
 
 1. Define label meanings and scenario facts before generating prose.
 2. Draft 30 development examples and refine the rubric.
-3. Produce the remaining 370 with multiple available generators and manually written seed scenarios; record generator provenance. If multiple generators are unavailable, disclose the single-generator limitation.
+3. Development allocation is now complete (60); produce the remaining 340 with multiple available generators and independently authored seed scenarios where available; record generator provenance. If multiple generators are unavailable, disclose the single-generator limitation.
 4. Deduplicate and assign stable IDs and scenario-family IDs.
-5. Humans label without seeing generator identity, intended category, or model predictions. AI-generated labels remain provisional until reviewed.
+5. The user delegated development review to the assistant. Record this as same-assistant AI review, not human ground truth. For independent review, hide generator identity, intended category and model predictions.
 6. Prioritize independent second review for held-out records and serious concerns. If only one human reviewer is available, disclose it; do not describe model consensus as human ground truth.
 7. Preserve ambiguity, acceptable answer sets where justified, and reviewer disagreement.
 8. Freeze dataset, reference labels, rubric, and split manifest before final evaluation.
@@ -62,7 +62,7 @@ No publication-consent fields or workflow are required for invented records. Tes
 
 Sentiment is independent of operational labels. Mixed is not uncertainty. Topics and severity scoring are deferred.
 
-Escalation rubric: reports of threats, harassment, discriminatory remarks, exposure of private information, or ignored agreed accessibility arrangements go to escalation review; the model is not determining whether allegations are proven. Ordinary frustration alone is not escalation.
+Escalation rubric: see LABELING_GUIDE.md v0.2 for threats, harassment, identity-linked exclusion, retaliation, intrusive selection inquiries, exposure of private information and refused/ignored requested accessibility arrangements. Prior agreement is not required. The model flags reported concerns for review, not proven allegations or legal violations. Ordinary frustration alone is not escalation.
 
 Each adapter returns the same categorical contract. For Jev, map primitives explicitly: Choice for sentiment; separate answerability checks plus yes/no probabilities for the other judgments, or equivalent Choice questions with all three outcomes. Freeze and document that mapping. Never equate a probability near 0.5 with objectively insufficient information.
 
@@ -129,8 +129,9 @@ Failure explorer classifies errors as model judgment, rubric ambiguity, missing 
 
 - [x] Repository and original plan.
 - [x] Agree 400 synthetic records and expanded comparison scope.
-- [x] Draft labeling guide, judgment schema, and 30 broad-industry development examples.
-- [ ] Human-review pilot labels and finalize rubric before generating the remaining 370.
+- [x] Draft and AI-review v0.2 rubric, schema and all 60 development records.
+- [x] Add minimal LM Studio runner/evaluator and verify with offline fixtures and mocked transport.
+- [ ] Run live development configurations; finalize rubric before generating the remaining 340.
 - [ ] Review pilot; discover available CLI models and local runtime.
 - [ ] Build minimal adapters and evaluator; smoke-test on development only.
 - [ ] Complete dataset, blinded review, and frozen split manifest.
@@ -183,4 +184,12 @@ OpenJev-specific protocol: record automatic re-reads, optional thinking, and all
 - [Model inputs](../data/pilot/inputs.jsonl) and [provisional labels/metadata](../data/pilot/proposed_labels.jsonl)
 - [Judgment output schema](../schemas/judgments.schema.json)
 
-All 30 are development records, generated and provisionally labeled by one assistant. Exact generator model ID is not exposed. None are human-adjudicated. Paired scenario families remain in development. Inference runners must receive only feedback and the rubric, never the answer key or generation metadata. The current drafting conversation has seen the key and cannot serve as an isolated benchmark run.
+All 60 are development records, generated and provisionally labeled/reviewed by one assistant. Exact generator model ID is not exposed. None are human-adjudicated. Paired scenario families remain in development. Inference runners must receive only feedback and the rubric, never the answer key or generation metadata. The current drafting conversation has seen the key and cannot serve as an isolated benchmark run.
+
+## Critical review and executable development phase
+
+[Audit](PILOT_AUDIT.md) records five corrected records (six label corrections), rubric gaps and source grounding. [Local run instructions](RUN_DEVELOPMENT.md) describe the standard-library LM Studio adapter and evaluator. Run offline checks with `python3 tests/test_development_benchmark.py`. Tests use fixtures and mocked HTTP, not live model predictions.
+
+All 60 development records now exist; 340 remain ungenerated. Preserve the 400 ceiling. The 100-record challenge set will include at least 40 bias/concern probes overlapping existing families. Within its existing 20 pairs, allocate at least eight to identity/style invariance and four to meaningful evidence changes. Controlled development pairs never migrate into held-out sets. Report false escalations on benign identity mentions and missed reports separately; synthetic pair consistency cannot establish real-world demographic fairness.
+
+The development smoke runner records transport failures without retries; final evaluation must implement and freeze the planned retry protocol. Jev, subscription and specialist adapters, calibrated review thresholds, latency summaries and hosted cost capture remain unimplemented. The user-delegated AI review allows development to proceed without falsely claiming human validation.
