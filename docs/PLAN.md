@@ -1,6 +1,6 @@
 # Recruitment Feedback Comparison — project plan
 
-Updated: 2026-09-21. Status: 60 synthetic development examples drafted and AI-reviewed with provisional labels; local runner/evaluator added. No model performance measured.
+Updated: 2026-09-21. Status: development runs in progress. Claude completed all 16 model/effort configurations; hosted Jev and local Qwen0.6B/1.7B runs completed; see RUN_MVP.md and results/. Labels remain provisional.
 Repository: https://github.com/adambkovacs/recruitment-feedback-demo (private).
 
 ## Research question
@@ -15,7 +15,7 @@ The study can find that Jev wins, loses, or fits only some operating conditions.
 - Candidate-experience triage first. Interviewer evidence versus hire/no-hire vote remains a separate future study.
 - Compare equivalent tasks with provider-appropriate interfaces.
 - Use the user's Codex and Claude Code subscriptions for supported local CLI runs. Use direct provider APIs for Jev and hosted DeepSeek/Qwen as available.
-- Local test machine: M4 MacBook Pro, 128 GB unified memory. LM Studio is installed. Exact chip variant and runtime version remain to be recorded.
+- Local test machine: M4 MacBook Pro, 128 GB unified memory. LM Studio is installed. Verified Apple M4 Max, 16 CPU / 40 GPU cores, 128 GB; LM Studio 0.4.16+2, llama.cpp Metal 2.22.0. See results manifests.
 - Evaluate small local models and a roughly 27B-class model. Gemma 4 and Qwen are candidate families.
 - Keep reference labels hidden from evaluated models; freeze settings before testing.
 - Build a failure explorer and case-study presentation after results are available.
@@ -42,7 +42,7 @@ Generate from a scenario specification with varied stage, role, length, writing 
 
 1. Define label meanings and scenario facts before generating prose.
 2. Draft 30 development examples and refine the rubric.
-3. Development allocation is now complete (60); produce the remaining 340 with multiple available generators and independently authored seed scenarios where available; record generator provenance. If multiple generators are unavailable, disclose the single-generator limitation.
+3. Development allocation is now complete (60). The remaining 340 are ON HOLD until separately authorized. The future generation plan is to use multiple available generators and independently authored seed scenarios where available; record generator provenance. If multiple generators are unavailable, disclose the single-generator limitation.
 4. Deduplicate and assign stable IDs and scenario-family IDs.
 5. The user delegated development review to the assistant. Record this as same-assistant AI review, not human ground truth. For independent review, hide generator identity, intended category and model predictions.
 6. Prioritize independent second review for held-out records and serious concerns. If only one human reviewer is available, disclose it; do not describe model consensus as human ground truth.
@@ -78,10 +78,10 @@ Original target: 9 model configurations plus a rules baseline. Expanded candidat
 - Hosted DeepSeek: one pinned model and provider endpoint.
 - Hosted Qwen: one pinned model and provider endpoint.
 - Local generative candidates: Qwen3-0.6B, Qwen3.5-4B, Gemma 4 26B A4B, and Qwen3.8-27B. Use development screening to select a compact final roster.
-- Primary local decision-server candidate: razorback16/OpenJev on DiffusionGemma 26B A4B through its documented MLX backend. This is the exact project the user supplied. The separately discovered Laya 421M is optional; exclude the user-supplied SalesRLAgent checkpoint because it predicts sales conversion rather than our four judgments; SemIf and AlexWortega/OpenJev 0.8B NLI are optional distinct alternatives. No assumption that custom classification paths run through LM Studio.
+- Primary local decision-server candidate: razorback16/OpenJev on DiffusionGemma 26B A4B through its documented MLX backend. This is the exact project the user supplied. The separately discovered Laya 421M is included; exclude the user-supplied SalesRLAgent checkpoint because it predicts sales conversion rather than our four judgments; SemIf and AlexWortega/OpenJev 0.8B NLI are included distinct alternatives. No assumption that custom classification paths run through LM Studio.
 - Rules baseline: fixed keyword/negation heuristics, with limitations documented.
 
-Exact model availability must be checked on the user's accounts; never claim that all ChatGPT or Claude web models are available in the CLIs. Avoid expanding the roster until the pilot establishes a reason.
+Exact model availability must be checked on the user's accounts; never claim that all ChatGPT or Claude web models are available in the CLIs. The user has authorized the expanded development roster and supported thinking levels; unsupported configurations must have explicit evidence rather than disappear from the comparison.
 
 Local candidate pool, verified in official sources on 2026-09-21:
 - Gemma 4 E4B for the small-model slot.
@@ -154,7 +154,7 @@ Search-page access was unreliable and no files were downloaded. No dataset is se
 
 ## Remaining execution inputs
 
-Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Remaining: actual model availability and client versions; exact Mac chip variant; reviewer availability; paid API budget and credentials. These do not block drafting the rubric and synthetic pilot. The current cloud workspace does not have direct access to the user's Mac; local runs will require a local checkout and runner.
+Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Remaining: actual model availability and client versions; exact Mac chip variant; reviewer availability; paid API budget and credentials. These do not block drafting the rubric and synthetic pilot. Execution now runs on the user's Mac in the local checkout. Hosted TypeSafe has an approved aggregate $1 cap; other hosted API calls remain free-only unless separately approved.
 
 ## Sources checked
 
@@ -168,7 +168,7 @@ Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Remaining: act
 - https://docs.typesafe.ai/confidence
 - https://www.kaggle.com/datasets/murtazaziya/best-buy-interviews
 
-No model performance or production-readiness claims have been established.
+Development measurements now exist; no held-out performance or production-readiness claims have been established.
 
 ## Model-research update
 
@@ -193,3 +193,11 @@ All 60 are development records, generated and provisionally labeled/reviewed by 
 All 60 development records now exist; 340 remain ungenerated. Preserve the 400 ceiling. The 100-record challenge set will include at least 40 bias/concern probes overlapping existing families. Within its existing 20 pairs, allocate at least eight to identity/style invariance and four to meaningful evidence changes. Controlled development pairs never migrate into held-out sets. Report false escalations on benign identity mentions and missed reports separately; synthetic pair consistency cannot establish real-world demographic fairness.
 
 The development smoke runner records transport failures without retries; final evaluation must implement and freeze the planned retry protocol. Jev, subscription and specialist adapters, calibrated review thresholds, latency summaries and hosted cost capture remain unimplemented. The user-delegated AI review allows development to proceed without falsely claiming human validation.
+
+## Current execution scope (user clarification, 2026-09-21)
+
+Run the existing 60 development records only. Do not generate the remaining 340. Reuse completed configuration artifacts instead of repeating them. Each new configuration starts with three records and response inspection before the full 60.
+
+The user expanded the MVP to cover supported reasoning-effort levels, Haiku, and verification of Fable 5.1 availability. Include all listed Qwen sizes (0.6B, 1.7B, 4B, 8B, 27B), Gemma candidates, and the previously optional specialist projects and OpenJev variations. A model without a supported task mapping or accessible artifact must receive an explicit documented blocker; do not silently substitute another model or claim a completed run. SalesRLAgent remains incompatible with the four-label task without a separate adaptation experiment.
+
+Downloads and hosted jobs may run in parallel. Serialize local inference and stage large downloads to fit available disk space. Exact effort support is model-specific; unavailable controls are recorded as such rather than sent as ignored parameters. TypeSafe's **$1 total** authorization covers all its configurations and retries together. Other paid API use is not authorized.

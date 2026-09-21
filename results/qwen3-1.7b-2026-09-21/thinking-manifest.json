@@ -1,0 +1,62 @@
+{
+  "hardware": {
+    "model": "MacBook Pro",
+    "identifier": "Mac16,5",
+    "chip": "Apple M4 Max",
+    "cpu_cores": 16,
+    "performance_cores": 12,
+    "efficiency_cores": 4,
+    "gpu_cores": 40,
+    "unified_memory_gb": 128
+  },
+  "os": {
+    "version": "26.6",
+    "build": "25G5028f"
+  },
+  "lm_studio": "0.4.16+2",
+  "lms_commit": "efce996",
+  "selected_gguf_runtime": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+  "artifact": {
+    "repo": "lmstudio-community/Qwen3-1.7B-GGUF",
+    "revision": "e5e31bf4d96de5da2ce124fa86673f0be7c82346",
+    "file": "Qwen3-1.7B-Q4_K_M.gguf",
+    "bytes": 1282439328,
+    "sha256": "e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e",
+    "quantization": "Q4_K_M",
+    "source": "https://huggingface.co/lmstudio-community/Qwen3-1.7B-GGUF/tree/e5e31bf4d96de5da2ce124fa86673f0be7c82346"
+  },
+  "load_command": "lms load qwen3-1.7b --identifier recruitment-qwen3-1.7b-q4km --context-length 8192 --parallel 1 --gpu max -y",
+  "prompt_cache": {
+    "enabled": true,
+    "size_limit_mib": 8192,
+    "notes": "Fresh message lists per record; runtime reuses shared prompt prefixes. Timing is warm and cache-enabled, not independent cold requests."
+  },
+  "status": "completed",
+  "observed_utc": "2026-09-21T18:19:39.475Z",
+  "surface": "LM Studio JavaScript SDK1.5.0",
+  "node": "26.4.0",
+  "thinking": "on",
+  "sampling": {
+    "temperature": 0.6,
+    "top_k": 20,
+    "top_p": 0.95,
+    "min_p": false,
+    "max_tokens": 4096,
+    "context_length": 8192
+  },
+  "format": "Unconstrained raw JSON requested; entire non-reasoning response must parse. No Markdown fence stripping.",
+  "template": "Embedded artifact Jinja with enable_thinking=true prepended",
+  "input_audit": "Runner reads feedback-only inputs, rubric, output schema and artifact template. No reference reads or repository context.",
+  "nonempty_reasoning_responses": 12,
+  "valid_outputs": 60,
+  "unique_records": 60,
+  "inference_requests": 63,
+  "smoke_gate": "Three smoke responses inspected before full60; no prompt changes.",
+  "power_snapshot": "Not separately sampled for this run; shared-machine timings.",
+  "limitations": [
+    "Development labels provisional and AI reviewed.",
+    "Same hardware/runtime as earlier baseline. Power and competing workloads not continuously sampled.",
+    "Separate from original constrained HTTP baseline: sampling, output method, template and token budget differ.",
+    "Thinking on/off SDK runs share all controls other than enable_thinking; stochastic sampling, one pass only."
+  ]
+}

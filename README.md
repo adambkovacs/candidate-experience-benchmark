@@ -2,7 +2,9 @@
 
 A reproducible case study of candidate-experience feedback triage across TypeSafe Jev, Codex, Claude Code, Gemini, hosted DeepSeek/Qwen, and local models.
 
-**Status: 60 synthetic development records drafted and AI-reviewed; local runner and evaluator tested offline. No live benchmark results yet.**
+**Status: development comparison in progress on the existing 60 fictional records only. Claude completed 16 model/effort configurations; hosted Jev and local Qwen 0.6B/1.7B runs are available. Larger local and specialist runs remain in progress. The remaining 340 records are ungenerated.**
+
+See the [current comparison](results/comparison/REPORT.md), [failure explorer](results/comparison/explorer.html), and [MVP run notes](docs/RUN_MVP.md). Labels remain provisional AI references; this is not a held-out ranking.
 
 ## Agreed scope
 
@@ -15,11 +17,11 @@ A reproducible case study of candidate-experience feedback triage across TypeSaf
 
 Read [the full plan](docs/PLAN.md) for the roster, dataset design, evaluation protocol, Kaggle reconnaissance, and milestones.
 
-See the [local preflight](docs/LOCAL_PREFLIGHT.md) for verified hardware, runtime and downloaded-model inventory. Live inference awaits a suitable instruction model.
+See the [first local results](docs/LOCAL_DEVELOPMENT_RESULTS.md) and [initial preflight](docs/LOCAL_PREFLIGHT.md) for evidence and reproducibility details.
 
 ## Next milestone
 
-Read [the critical audit](docs/PILOT_AUDIT.md), [v0.2 labeling guide](docs/LABELING_GUIDE.md), and [60 feedback examples](docs/PILOT_REVIEW.md). The [proposed labels](docs/PILOT_PROPOSED_LABELS.md) were reviewed by the same assistant, not a human or independent reviewer. Run the [local development smoke test](docs/RUN_DEVELOPMENT.md) before generating the remaining 340.
+Read [the critical audit](docs/PILOT_AUDIT.md), [v0.2 labeling guide](docs/LABELING_GUIDE.md), and [60 feedback examples](docs/PILOT_REVIEW.md). The [proposed labels](docs/PILOT_PROPOSED_LABELS.md) were reviewed by the same assistant, not a human or independent reviewer. Follow the [local development smoke test](docs/RUN_DEVELOPMENT.md) for each new configuration. Generation of the remaining 340 remains on hold.
 
 Machine-readable [inputs](data/pilot/inputs.jsonl), [provisional labels](data/pilot/proposed_labels.jsonl), and [output schema](schemas/judgments.schema.json) are included. Keep the labels and metadata out of model contexts. All examples are fictional and development-only.
 
@@ -35,12 +37,12 @@ Future study: interviewer evidence versus hire/no-hire vote, evaluated separatel
 
 ## Expanded candidate research
 
-[Model research](docs/MODEL_RESEARCH.md) covers Gemma dense versus MoE, smaller Qwen models, SemIf (formerly OpenJev), AlexWortega/OpenJev, and Laya. Screen on the 30 development examples before freezing the full benchmark roster.
+[Model research](docs/MODEL_RESEARCH.md) covers Gemma dense versus MoE, smaller Qwen models, SemIf (formerly OpenJev), AlexWortega/OpenJev, and Laya. Run three-record smoke checks, inspect responses, then benchmark the existing 60 development records for supported configurations. The user expanded all listed local sizes and specialist variations into the current scope.
 
 ## Offline verification
 
 `python3 scripts/development_benchmark.py validate`
 
-`python3 tests/test_development_benchmark.py`
+`python3 -m unittest discover -s tests -q`
 
-The development set includes reported bias, harassment, retaliation, privacy and accommodation concerns, benign counterexamples, and six controlled pairs. This evaluates feedback routing; it does not rank candidates or certify hiring compliance. Actual model quality remains unmeasured.
+The development set includes reported bias, harassment, retaliation, privacy and accommodation concerns, benign counterexamples, and six controlled pairs. This evaluates feedback routing; it does not rank candidates or certify hiring compliance. Results measure agreement with provisional development references, not general model quality.

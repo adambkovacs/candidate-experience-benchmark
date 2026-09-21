@@ -1,0 +1,176 @@
+[
+  {
+    "id": "qwen3-0.6b-q4km-nonthinking",
+    "model": "Qwen3-0.6B",
+    "effort": "off",
+    "status": "complete",
+    "predictions_file": "results/qwen3-0.6b-q4_k_m-2026-09-21/development.jsonl",
+    "notes": "LM Studio0.4.16+2 / llama.cpp2.22.0 Metal, Q4_K_M on M4Max128GB. Temperature0, 512outputtokens, context8192. Shared machine, low power on, warm cache. See local manifest for exact artifact and request audit.",
+    "attempt_phase": "development"
+  },
+  {
+    "id": "rules-v1",
+    "model": "fixed regex heuristics",
+    "effort": "not applicable",
+    "status": "complete",
+    "predictions_file": "results/rules-v1-2026-09-21/development.jsonl",
+    "notes": "Deterministic rubric-derived baseline; no model inference. Author had seen development labels; not blinded. No tuning after this run.",
+    "attempt_phase": "development"
+  },
+  {
+    "id": "qwen3-0.6b-sdk-thinking-on",
+    "model": "Qwen3-0.6B Q4_K_M",
+    "effort": "on",
+    "status": "complete",
+    "predictions_file": "results/qwen3-0.6b-sdk-thinking-2026-09-21/development.jsonl",
+    "notes": "LM Studio SDK1.5.0, explicit thinking on, raw JSON prompt, temperature0.6, top_k20, top_p0.95,4096token budget. Formatting errors count as failures. Matched on/off settings; differs from constrained HTTP baseline. See manifest.",
+    "attempt_phase": "development"
+  },
+  {
+    "id": "qwen3-0.6b-sdk-thinking-off",
+    "model": "Qwen3-0.6B Q4_K_M",
+    "effort": "off",
+    "status": "complete",
+    "predictions_file": "results/qwen3-0.6b-sdk-nonthinking-2026-09-21/development.jsonl",
+    "notes": "LM Studio SDK1.5.0, explicit thinking off, raw JSON prompt, temperature0.6, top_k20, top_p0.95,4096token budget. Formatting errors count as failures. Matched on/off settings; differs from constrained HTTP baseline. See manifest.",
+    "attempt_phase": "development"
+  },
+  {
+    "id": "qwen3-1.7b-sdk-thinking-on",
+    "model": "Qwen3-1.7B Q4_K_M",
+    "effort": "on",
+    "status": "complete",
+    "predictions_file": "results/qwen3-1.7b-2026-09-21/thinking-development.jsonl",
+    "attempt_phase": "development",
+    "notes": "LM Studio SDK1.5.0, llama.cpp2.22.0 Metal, M4 Max128GB. Matched raw JSON prompt, temperature0.6, top_k20, top_p0.95,4096 tokens,8192 context. See per-mode manifest. Thinking enabled does not ensure nonempty reasoning on every record."
+  },
+  {
+    "id": "qwen3-1.7b-sdk-thinking-off",
+    "model": "Qwen3-1.7B Q4_K_M",
+    "effort": "off",
+    "status": "complete",
+    "predictions_file": "results/qwen3-1.7b-2026-09-21/nonthinking-development.jsonl",
+    "attempt_phase": "development",
+    "notes": "LM Studio SDK1.5.0, llama.cpp2.22.0 Metal, M4 Max128GB. Matched raw JSON prompt, temperature0.6, top_k20, top_p0.95,4096 tokens,8192 context. See per-mode manifest. Thinking enabled does not ensure nonempty reasoning on every record."
+  },
+  {
+    "id": "qwen3.5-4b-sdk-thinking-on",
+    "model": "Qwen3.5-4B Q4_K_M",
+    "effort": "on",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3.5-4b-sdk-thinking-off",
+    "model": "Qwen3.5-4B Q4_K_M",
+    "effort": "off",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3-8b-sdk-thinking-on",
+    "model": "Qwen3-8B Q4_K_M",
+    "effort": "on",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3-8b-sdk-thinking-off",
+    "model": "Qwen3-8B Q4_K_M",
+    "effort": "off",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3.8-27b-sdk-thinking-low",
+    "model": "Qwen3.8-27B Q4_K_M",
+    "effort": "low",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3.8-27b-sdk-thinking-medium",
+    "model": "Qwen3.8-27B Q4_K_M",
+    "effort": "medium",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "qwen3.8-27b-sdk-thinking-xhigh",
+    "model": "Qwen3.8-27B Q4_K_M",
+    "effort": "xhigh",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-e2b-sdk-thinking-on",
+    "model": "Gemma4 E2B Q4_K_M",
+    "effort": "on",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-e2b-sdk-thinking-off",
+    "model": "Gemma4 E2B Q4_K_M",
+    "effort": "off",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-e4b-sdk-thinking-on",
+    "model": "Gemma4 E4B Q4_K_M",
+    "effort": "on",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-e4b-sdk-thinking-off",
+    "model": "Gemma4 E4B Q4_K_M",
+    "effort": "off",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-26b-a4b-sdk-thinking-on",
+    "model": "Gemma4 26B-A4B Q4_K_M",
+    "effort": "on",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-26b-a4b-sdk-thinking-off",
+    "model": "Gemma4 26B-A4B Q4_K_M",
+    "effort": "off",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-31b-sdk-thinking-on",
+    "model": "Gemma4 31B Q4_K_M",
+    "effort": "on",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  },
+  {
+    "id": "gemma4-31b-sdk-thinking-off",
+    "model": "Gemma4 31B Q4_K_M",
+    "effort": "off",
+    "status": "pending",
+    "predictions_file": null,
+    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+  }
+]

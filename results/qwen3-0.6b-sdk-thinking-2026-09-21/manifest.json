@@ -1,0 +1,62 @@
+{
+  "hardware": {
+    "model": "MacBook Pro",
+    "identifier": "Mac16,5",
+    "chip": "Apple M4 Max",
+    "cpu_cores": 16,
+    "performance_cores": 12,
+    "efficiency_cores": 4,
+    "gpu_cores": 40,
+    "unified_memory_gb": 128
+  },
+  "os": {
+    "version": "26.6",
+    "build": "25G5028f"
+  },
+  "lm_studio": "0.4.16+2",
+  "lms_commit": "efce996",
+  "selected_gguf_runtime": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+  "artifact": {
+    "repo": "lmstudio-community/Qwen3-0.6B-GGUF",
+    "revision": "3334d820ab76652cf6e242d7c6302b10f0951f23",
+    "file": "Qwen3-0.6B-Q4_K_M.gguf",
+    "bytes": 484219808,
+    "sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+    "quantization": "Q4_K_M",
+    "source": "https://huggingface.co/lmstudio-community/Qwen3-0.6B-GGUF/blob/3334d820ab76652cf6e242d7c6302b10f0951f23/Qwen3-0.6B-Q4_K_M.gguf"
+  },
+  "load_command": "lms load qwen3-0.6b --identifier recruitment-qwen3-0.6b-q4km --context-length 8192 --parallel 1 --gpu max -y",
+  "prompt_cache": {
+    "enabled": true,
+    "size_limit_mib": 8192,
+    "notes": "Fresh message lists per record; runtime reuses shared prompt prefixes. Timing is warm and cache-enabled, not independent cold requests."
+  },
+  "status": "completed",
+  "observed_utc": "2026-09-21T18:14:08.665596+00:00",
+  "surface": "LM Studio JavaScript SDK1.5.0",
+  "node": "26.4.0",
+  "thinking": "on",
+  "sampling": {
+    "temperature": 0.6,
+    "top_k": 20,
+    "top_p": 0.95,
+    "min_p": false,
+    "max_tokens": 4096,
+    "context_length": 8192
+  },
+  "format": "Unconstrained raw JSON requested; entire non-reasoning response must parse. No Markdown fence stripping.",
+  "template": "Embedded artifact Jinja with enable_thinking=true prepended",
+  "input_audit": "Runner reads feedback-only inputs, rubric, output schema and artifact template. No reference reads or repository context.",
+  "nonempty_reasoning_responses": 60,
+  "valid_outputs": 31,
+  "unique_records": 60,
+  "inference_requests": 69,
+  "smoke_gate": "Final prompt smoke inspected before60; formatting and semantic errors accepted as measured model failures.",
+  "power_snapshot": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=22610019)\t26%; charging; 2:49 remaining present: true",
+  "limitations": [
+    "Development labels provisional and AI reviewed.",
+    "Same hardware/runtime as earlier baseline. Power and competing workloads not continuously sampled.",
+    "Separate from original constrained HTTP baseline: sampling, output method, template and token budget differ.",
+    "Thinking on/off SDK runs share all controls other than enable_thinking; stochastic sampling, one pass only."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "cli_version": "codex-cli 0.154.0",
+  "requested_model": "gpt-5.6-luna",
+  "served_revision": "Not exposed by codex exec JSON",
+  "reasoning_effort": "low",
+  "sampling_temperature": "Not exposed by CLI",
+  "model_quantization": "Hosted provider internal; not exposed",
+  "auth": "codex login status verified ChatGPT; forced_login_method=chatgpt; API environment credentials excluded",
+  "surface": "fresh ephemeral Codex exec per record",
+  "runtime": "Codex CLI 0.154.0, Python standard library controller",
+  "inference_hardware": "Hosted provider hardware not exposed",
+  "client_hardware": "See docs/LOCAL_PREFLIGHT.md for measured Mac client hardware",
+  "isolation": "Clean /private/tmp context each record, project doc bytes zero, config/rules ignored, skills instructions/bundled skills/memory disabled, host skill discovery skipped via experimental supported flag, tool capability flags disabled. Built-in Codex agent scaffold and environment metadata remain. All observed tool activity invalidates run. No labels or reference metadata included in prompt.",
+  "timing": "elapsed_seconds includes process startup, request, generation and shutdown; model-only timing not exposed. Cloud configurations run concurrently and can affect CLI overhead.",
+  "sources": [
+    "https://learn.chatgpt.com/docs/auth",
+    "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "https://learn.chatgpt.com/docs/config-file/config-reference"
+  ],
+  "smoke_inspection": "DEV001 specific useful feedback: positive, no followup, no serious concern, testimonial yes. DEV002 generic positive: testimonial no. DEV003 unanswered rearrangement: negative, followup yes, no serious concern/testimonial. All three valid and no tool activity.",
+  "billing": "Existing subscription only. No API keys passed and no custom subscription credential extraction. CLI does not expose incremental charges or quota percentages.",
+  "retry_policy": "No automatic retries. Stop at service/isolation failure for inspection; retain failed attempts separately.",
+  "preflight_attempts": {
+    "smoke.jsonl": "Sandbox prevented CLI initialization before inference.",
+    "smoke-retry1.jsonl": "Valid DEV001 response incorrectly classified by initial parser because CLI experimental-feature warning used item.error; no tools used. Parser fixed, separate verified smoke completed."
+  }
+}

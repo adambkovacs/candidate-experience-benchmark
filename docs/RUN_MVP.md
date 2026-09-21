@@ -20,7 +20,7 @@ Status snapshot: 2026-09-21. Execution is continuing. This guide covers the exis
 
 ## Common procedure
 
-Run from the repository root with Python 3.10 or later. The benchmark controllers use the standard library. External CLIs and the OpenJev server have their own dependencies.
+Run from the repository root with Python 3.11 or later. The benchmark controllers use the standard library. External CLIs and the OpenJev server have their own dependencies.
 
 ```bash
 python3 scripts/development_benchmark.py validate
@@ -45,6 +45,14 @@ python3 scripts/rules_baseline.py --output rules-new.jsonl
 ```
 
 Load the matching artifact before invoking the local command. Omit `--limit` for all 60 local records. The runner refuses redirects, checks the returned model and requires a normal stop. The recorded Qwen configuration used strict JSON schema, no observed reasoning tokens and temperature 0. All responses finished normally in 41 to 43 tokens. Do not attribute its errors to model size alone: conversion, quantization, template, decoding and task design were not independently controlled. The publisher recommends different non-thinking sampling settings. Local timing was warm and cache-enabled, with Low Power Mode on and other models resident.
+
+## Local reasoning runner controls
+
+The JavaScript SDK runner deliberately freezes a common sampling profile across local artifacts: prompt-format runs use temperature 0.6, top-p 0.95, top-k 20 and min-p disabled; constrained-format runs use temperature 0. Other effective settings are retained in each response's prediction configuration. This is an experimental control, not a claim that these are publisher-recommended settings. [Google recommends](https://huggingface.co/google/gemma-4-E2B-it) temperature 1.0, top-p 0.95 and top-k 64 for Gemma 4. [Qwen3.8 recommends](https://huggingface.co/Qwen/Qwen3.8-27B) different thinking and non-thinking profiles. Comparisons between prompt and constrained formats also change sampling and must not be interpreted as isolated effects of JSON constraints.
+
+Thinking controls are taken from the verified artifact template. Gemma uses thought-channel delimiters; Qwen uses think tags. Qwen3.8 thinking runs require explicit `--effort low`, `medium` or `xhigh`; off-mode runs omit effort. Inspect each smoke response to confirm the final answer is separated from reasoning. The GGUF inspector and runner reject split artifacts because verifying one shard does not establish the identity of every loaded weight file. The inspector uses Python 3.11's `hashlib.file_digest`.
+
+New SDK runs write `OUTPUT.attempts.jsonl` beside the predictions. Each `started` event is flushed before calling the model, and each `finished` event follows a flushed prediction row. An unmatched start means the outcome is unknown; reconcile it before retrying. `--timeout-seconds` defaults to 600 per record. On timeout the runner calls the [SDK cancellation API](https://lmstudio.ai/docs/typescript/llm-prediction/cancelling-predictions), waits up to five seconds for acknowledgement, saves any partial result and stops the batch. A timeout is never a valid judgment. Cancellation not acknowledged means server completion remains uncertain. Previously completed local outputs and the Qwen3.5-4B process already running when this change was introduced have no sidecar journal; their saved completed responses remain usable, but absence of a saved row cannot prove no request occurred.
 
 ## Expanded effort roster
 

@@ -1,6 +1,6 @@
 # Model research and candidate roster
 
-Research date: 2026-09-21. No local compatibility or performance tests performed.
+Research date: 2026-09-21. Research below describes the original candidate selection. Live development results and execution status are tracked in RUN_MVP.md and results/. The user subsequently requested all listed candidates and supported effort variants; historical “optional” wording below no longer excludes a candidate from execution.
 
 ## Confirmed setup
 

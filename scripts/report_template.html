@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recruitment feedback — development results</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#17251e;background:#f7f8f5}body{margin:0 auto;max-width:1280px;padding:32px 24px}h1{font-size:32px;margin:12px 0}p{max-width:900px;line-height:1.6;color:#46574b}.tag{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#476452}.notice{padding:14px 18px;background:#edf1e9;border-left:3px solid #6c836d}table{border-collapse:collapse;width:100%;background:white;font-size:14px}th,td{text-align:left;padding:11px;border-bottom:1px solid #dbe1d9;vertical-align:top}th{font-size:12px;color:#4f6154}td.num{text-align:right;font-variant-numeric:tabular-nums}.scroll{overflow:auto;margin:24px 0}label{display:inline-flex;flex-direction:column;gap:6px;font-size:13px;margin:0 14px 12px 0}select,input{font:inherit;padding:9px;border:1px solid #a8b5a9;border-radius:4px;background:white;min-width:180px}article{background:white;border:1px solid #dbe1d9;border-radius:6px;padding:20px;margin:16px 0}article h3{margin:0;font-size:17px}.bad{background:#fff0eb;color:#783020}.good{color:#28633f}.muted{color:#657368;font-size:13px}details{margin:12px 0}summary{cursor:pointer}a{color:#215d42}footer{margin:40px 0;color:#657368;font-size:13px}
+</style>
+<div class="tag">Synthetic data · Development only · 60 records</div>
+<h1>Recruitment feedback benchmark</h1>
+<p class="notice">Reference labels were drafted and reviewed by one AI assistant. They are provisional, not human ground truth. Differences below require inspection; they do not automatically prove a model error. The remaining 340 records have not been generated.</p>
+<h2>Saved configuration results</h2>
+<p>Counts are out of 60; missing and failed outputs count as incorrect. Partial runs are not comparable to complete runs. Retry-inclusive rows reuse the same records. Timing and costs belong to different execution surfaces and are not a model-only speed ranking.</p>
+<div class="scroll"><table id="summary"><thead><tr><th>Configuration</th><th>Status</th><th>Valid</th><th>Sentiment</th><th>Follow-up</th><th>Serious concern</th><th>Testimonial</th><th>All four</th></tr></thead><tbody></tbody></table></div>
+<details><summary>Configuration notes and evidence</summary><div id="notes"></div></details>
+<h2>Inspect individual records</h2>
+<label>Configuration<select id="config"></select></label>
+<label>Judgment<select id="field"><option value="">All four judgments</option><option>sentiment</option><option>follow_up_needed</option><option>serious_concern_reported</option><option>testimonial_potential</option></select></label>
+<label>Show<select id="filter"><option value="different">Disagreements and failures</option><option value="all">All records</option><option value="failed">Missing or failed output</option></select></label>
+<label>Search<input id="search" placeholder="Record ID or feedback"></label>
+<div id="count" class="muted" aria-live="polite"></div><div id="cases"></div>
+<footer>Generated from saved benchmark artifacts. This page makes no network requests and performs no inference. Source project: <a href="https://github.com/adambkovacs/recruitment-feedback-demo">recruitment-feedback-demo</a>.</footer>
+<script id="data" type="application/json">__BENCHMARK_DATA__</script>
+<script>
+const data=JSON.parse(document.getElementById('data').textContent);
+const keys=['sentiment','follow_up_needed','serious_concern_reported','testimonial_potential'];
+const make=(tag,text,parent,cls)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(cls)el.className=cls;if(parent)parent.append(el);return el;};
+const config=document.getElementById('config'),field=document.getElementById('field'),filter=document.getElementById('filter'),search=document.getElementById('search');
+for(const item of data.summaries){const tr=make('tr',undefined,document.querySelector('#summary tbody'));make('td',item.id,tr);make('td',item.status,tr);const e=item.evaluation;for(const value of e?[e.valid_outputs,...keys.map(k=>e.metrics[k].correct),item.exact_match]:Array(6).fill('—'))make('td',String(value),tr,'num');const p=make('p',undefined,document.getElementById('notes'));make('strong',item.id+': ',p);make('span',typeof item.notes==='string'?item.notes:JSON.stringify(item.notes),p);if(item.predictions_file)make('div','Evidence: '+item.predictions_file,p,'muted');if(e){const o=make('option',item.id,config);o.value=item.id;}}
+function render(){const k=field.value,term=search.value.toLowerCase();const rows=data.cases.filter(r=>r.configuration===config.value&&(!term||(r.id+' '+r.feedback).toLowerCase().includes(term))&&(filter.value==='all'||filter.value==='failed'&&r.classification==='output_or_service_failure'||filter.value==='different'&&(k?r.different_fields.includes(k):r.different_fields.length)));
+const container=document.getElementById('cases');container.replaceChildren();document.getElementById('count').textContent=rows.length+' of 60 records shown';for(const r of rows){const article=make('article',undefined,container);make('h3',r.id,article);make('div',r.status+' · '+r.classification.replaceAll('_',' '),article,'muted');make('p',r.feedback,article);const t=make('table',undefined,article),head=make('tr',undefined,t);for(const label of ['Judgment','Provisional reference','Model output'])make('th',label,head);for(const key of k?[k]:keys){const tr=make('tr',undefined,t,r.different_fields.includes(key)?'bad':'');make('td',key.replaceAll('_',' '),tr);make('td',r.reference[key],tr);make('td',r.prediction?.[key]??'No usable value',tr);}}}
+for(const el of [config,field,filter,search])el.addEventListener('input',render);render();
+</script></html>
