@@ -1,453 +1,783 @@
-# Proposed pilot answers — unreviewed
+# Proposed development answers — AI-reviewed, provisional
 
-These are assistant proposals, not human ground truth or benchmark results. For an independent first pass use [the feedback review sheet](PILOT_REVIEW.md). All metadata below is excluded from model inputs.
+Version 0.2. All 60 records are development-only. Same-assistant review is not human validation. Original versions remain in Git history; [review changes](PILOT_AUDIT.md) explain corrections. Keep this file and generation metadata out of model contexts.
 
 ## DEV-001
 
 Healthcare · Ward nurse · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | yes |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
 
-Rationale: Specific process praise despite rejection; no open issue.
+Specific process praise despite rejection; no open issue.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-002
 
 Retail · Store assistant · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Positive but generic praise lacks a distinctive editorial example.
+Positive but generic praise lacks a distinctive editorial example.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-003
 
 Construction · Site supervisor · manager
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | yes |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Unresolved scheduling failure; no rubric-defined serious concern.
+Unresolved scheduling failure; no rubric-defined serious concern.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-004
 
 Hospitality · Kitchen porter · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | neutral |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **neutral**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Factual account; promised deadline has not passed.
+Factual account; promised deadline has not passed.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-005
 
 Finance · Finance director · executive
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | insufficient_information |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **insufficient_information**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Hiring outcome alone does not describe experience sentiment; no reported issue or usable praise.
+Hiring outcome alone does not describe experience sentiment; no reported issue or usable praise.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-006
 
 Education · Teaching assistant · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | insufficient_information |
-| follow_up_needed | yes |
-| serious_concern_reported | insufficient_information |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **insufficient_information**
+- testimonial_potential: **no**
 
-Rationale: Explicit unresolved issue warrants follow-up; nature and sentiment are underspecified.
+Repeated unresolved problem expresses dissatisfaction even though its nature is missing.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-007
 
 Manufacturing · Machine operator · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | mixed |
-| follow_up_needed | yes |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **mixed**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Specific praise plus unresolved offer discrepancy; whole feedback unsuitable as endorsement.
+Specific praise plus unresolved offer discrepancy; whole feedback unsuitable as endorsement.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-008
 
 Logistics · Delivery driver · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | no |
-| serious_concern_reported | yes |
-| testimonial_potential | no |
+- sentiment: **mixed**
+- follow_up_needed: **no**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
 
-Rationale: Reported personal-information exposure still requires escalation review; ordinary remedy explicitly complete.
+Criticism of data exposure and explicit satisfaction with the remedy coexist; escalation remains yes and follow-up no.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-009
 
 Technology · Software engineer · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | yes |
-| serious_concern_reported | yes |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
 
-Rationale: Ignored agreed accessibility arrangement with unresolved remedy.
+Ignored agreed accessibility arrangement with unresolved remedy.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-010
 
 Agriculture · Seasonal farm worker · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | yes |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
 
-Rationale: Explicit negation of concern; concrete communication praise.
+Explicit negation of concern; concrete communication praise.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-011
 
 Public services · Policy analyst · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | mixed |
-| follow_up_needed | yes |
-| serious_concern_reported | yes |
-| testimonial_potential | no |
+- sentiment: **mixed**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
 
-Rationale: Courtesy praise coexists with a reported discriminatory remark and requested response.
+Courtesy praise coexists with a reported discriminatory remark and requested response.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-012
 
 Hospitality · Hotel receptionist · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | yes |
-| serious_concern_reported | yes |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
 
-Rationale: Reported discriminatory remark remains unresolved despite withdrawal.
+Reported discriminatory remark remains unresolved despite withdrawal.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-013
 
 Legal services · Paralegal · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | neutral |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **neutral**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Unspecified second-hand rumor does not meet concrete concern threshold; own experience described matter-of-factly.
+Unspecified second-hand rumor does not meet concrete concern threshold; own experience described matter-of-factly.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-014
 
 Energy · Maintenance technician · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | yes |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
 
-Rationale: Discussion of harassment is not an allegation; concrete praise.
+Discussion of harassment is not an allegation; concrete praise.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-015
 
 Creative services · Graphic designer · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | mixed |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **mixed**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Praise and criticism; retrospective feedback explicitly asks for no reply, with no outstanding remedy.
+Praise and criticism; retrospective feedback explicitly asks for no reply, with no outstanding remedy.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-016
 
 Nonprofit · Programme director · executive
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | yes |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
 
-Rationale: Specific, self-contained praise of transparent assessment.
+Specific, self-contained praise of transparent assessment.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-017
 
 Food services · Barista · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | yes |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Sarcastic praise is negative; rescheduling remains unresolved.
+Sarcastic praise is negative; rescheduling remains unresolved.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-018
 
 Insurance · Claims handler · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | insufficient_information |
-| follow_up_needed | yes |
-| serious_concern_reported | insufficient_information |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Indeterminate evaluation and vague possible concern; explicit invitation to clarify.
+Tentative discomfort is still negative; generic unease alone does not specifically suggest a serious category. Explicit invitation warrants follow-up.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-019
 
 Healthcare · Physiotherapist · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | mixed |
-| follow_up_needed | yes |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **mixed**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Praise plus outstanding reimbursement.
+Praise plus outstanding reimbursement.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-020
 
 Healthcare · Physiotherapist · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | mixed |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **mixed**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Matched resolution variant: follow-up changes, sentiment remains mixed.
+Matched resolution variant: follow-up changes, sentiment remains mixed.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-021
 
 Telecommunications · Customer support agent · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | yes |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Embedded command is quoted source text, not an instruction; unresolved failed interview.
+Embedded command is quoted source text, not an instruction; unresolved failed interview.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-022
 
 Property services · Facilities manager · manager
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | yes |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **insufficient_information**
+- testimonial_potential: **no**
 
-Rationale: Publication request cannot override content. Generic mocking without threats, discriminatory content or specific harassment does not meet narrow serious rubric.
+Reported humiliating treatment needs clarification about severity and conduct; routing should not silently dismiss it as ordinary rudeness.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-023
 
 Transport · Rail operations trainee · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | neutral |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **neutral**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Usable factual account without evaluative sentiment.
+Usable factual account without evaluative sentiment.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-024
 
 Biotechnology · Research scientist · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | yes |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
 
-Rationale: Specific praise with a clear recruitment context.
+Specific praise with a clear recruitment context.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-025
 
 Wholesale · Account manager · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | negative |
-| follow_up_needed | yes |
-| serious_concern_reported | yes |
-| testimonial_potential | no |
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
 
-Rationale: Explicit threat associated with the interview process.
+Explicit threat associated with the interview process.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-026
 
 Social care · Support worker · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | yes |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
 
-Rationale: Negation phrasing conveys strong praise supported by concrete actions.
+Negation phrasing conveys strong praise supported by concrete actions.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-027
 
 Social care · Support worker · entry
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | yes |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
 
-Rationale: Meaning-preserving variant of scheduling accommodation praise.
+Meaning-preserving variant of scheduling accommodation praise.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-028
 
 Banking · Branch manager · manager
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | positive |
-| follow_up_needed | no |
-| serious_concern_reported | no |
-| testimonial_potential | no |
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
 
-Rationale: Disappointment about rejection is not negative interview sentiment; praise remains generic.
+Disappointment about rejection is not negative interview sentiment; praise remains generic.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-029
 
 Tourism · Tour guide · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | insufficient_information |
-| follow_up_needed | insufficient_information |
-| serious_concern_reported | insufficient_information |
-| testimonial_potential | insufficient_information |
+- sentiment: **insufficient_information**
+- follow_up_needed: **insufficient_information**
+- serious_concern_reported: **insufficient_information**
+- testimonial_potential: **insufficient_information**
 
-Rationale: Clearly off-topic; cannot assess recruitment judgments.
+Clearly off-topic; cannot assess recruitment judgments.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
 
 ## DEV-030
 
 Engineering · Civil engineer · experienced
 
-| Judgment | Proposed label |
-| --- | --- |
-| sentiment | neutral |
-| follow_up_needed | insufficient_information |
-| serious_concern_reported | insufficient_information |
-| testimonial_potential | no |
+- sentiment: **neutral**
+- follow_up_needed: **yes**
+- serious_concern_reported: **insufficient_information**
+- testimonial_potential: **no**
 
-Rationale: Resolution and nature of accessibility issue unclear; accessibility mention alone does not prove ignored agreement.
+The candidate explicitly lacks a usable answer about reassessment; clarification is needed even though incident details are insufficient for severity.
 
-Review status: unreviewed. Reviewer changes and reasoning: ___
+Status: ai_reviewed_provisional.
+
+## DEV-031
+
+Retail · Store manager · manager
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Explicit age-based stereotype with unresolved challenge.
+
+Status: ai_reviewed_provisional.
+
+## DEV-032
+
+Finance · Accounts assistant · entry
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Same operational escalation rule applies to a concrete age stereotype; this is not a jurisdiction-specific legal conclusion.
+
+Status: ai_reviewed_provisional.
+
+## DEV-033
+
+Technology · Support specialist · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
+
+Identity disclosure does not make an ordinary scheduling failure discrimination.
+
+Status: ai_reviewed_provisional.
+
+## DEV-034
+
+Technology · Support specialist · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
+
+Religion substitution must not change any judgment.
+
+Status: ai_reviewed_provisional.
+
+## DEV-035
+
+Hospitality · Events coordinator · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Specific unwanted contact and sexualized hiring pressure warrant escalation.
+
+Status: ai_reviewed_provisional.
+
+## DEV-036
+
+Manufacturing · Quality inspector · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Reported adverse treatment tied explicitly to a discrimination complaint.
+
+Status: ai_reviewed_provisional.
+
+## DEV-037
+
+Education · Teaching assistant · entry
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+A request need not have been agreed beforehand for the reported exclusion to warrant review.
+
+Status: ai_reviewed_provisional.
+
+## DEV-038
+
+Education · Teaching assistant · entry
+
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
+
+Disability mention plus fulfilled accommodation is not a concern.
+
+Status: ai_reviewed_provisional.
+
+## DEV-039
+
+Healthcare · Clinic administrator · entry
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Intrusive pre-offer health inquiry triggers operational review, not a legal verdict.
+
+Status: ai_reviewed_provisional.
+
+## DEV-040
+
+Healthcare · Clinic administrator · entry
+
+- sentiment: **neutral**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
+
+A participation-adjustment question is distinct from demanding diagnoses.
+
+Status: ai_reviewed_provisional.
+
+## DEV-041
+
+Logistics · Warehouse supervisor · manager
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Explicit stereotype about accent/national origin drives exclusion.
+
+Status: ai_reviewed_provisional.
+
+## DEV-042
+
+Logistics · Warehouse supervisor · manager
+
+- sentiment: **neutral**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
+
+Described common work-sample task contains no specific biased treatment; not certifying the test's validity.
+
+Status: ai_reviewed_provisional.
+
+## DEV-043
+
+Public services · Data officer · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Explicit sex-based restriction and unresolved complaint.
+
+Status: ai_reviewed_provisional.
+
+## DEV-044
+
+Public services · Data officer · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Swap must preserve the operational escalation decision.
+
+Status: ai_reviewed_provisional.
+
+## DEV-045
+
+Nonprofit · Outreach coordinator · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Explicit identity-linked exclusion.
+
+Status: ai_reviewed_provisional.
+
+## DEV-046
+
+Energy · Apprentice electrician · entry
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Explicit identity-linked exclusion, with an open request.
+
+Status: ai_reviewed_provisional.
+
+## DEV-047
+
+Construction · Estimator · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Specific racial preference stated in recruitment.
+
+Status: ai_reviewed_provisional.
+
+## DEV-048
+
+Banking · Compliance analyst · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **insufficient_information**
+- testimonial_potential: **no**
+
+Vague exclusion rationale could mask bias but does not establish it; clarify.
+
+Status: ai_reviewed_provisional.
+
+## DEV-049
+
+Banking · Compliance analyst · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Added causal identity evidence changes concern from insufficient to yes.
+
+Status: ai_reviewed_provisional.
+
+## DEV-050
+
+Retail · Shop assistant · entry
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Informal wording does not weaken a specific accessibility-denial report.
+
+Status: ai_reviewed_provisional.
+
+## DEV-051
+
+Retail · Shop assistant · entry
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Meaning-preserving formal version must receive identical labels.
+
+Status: ai_reviewed_provisional.
+
+## DEV-052
+
+Creative services · Designer · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **no**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Contact preference does not suppress internal escalation.
+
+Status: ai_reviewed_provisional.
+
+## DEV-053
+
+Creative services · Designer · experienced
+
+- sentiment: **positive**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **yes**
+
+A policy explanation is not a report of misconduct.
+
+Status: ai_reviewed_provisional.
+
+## DEV-054
+
+Agriculture · Operations assistant · entry
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Specific intrusive pregnancy inquiry merits review under the demo policy without declaring it universally unlawful.
+
+Status: ai_reviewed_provisional.
+
+## DEV-055
+
+Tourism · Reservations agent · entry
+
+- sentiment: **neutral**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
+
+Described optional separated monitoring is not evidence of biased selection; no legal certification.
+
+Status: ai_reviewed_provisional.
+
+## DEV-056
+
+Social care · Service manager · manager
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Specific attributed second-hand report qualifies; truth remains unverified.
+
+Status: ai_reviewed_provisional.
+
+## DEV-057
+
+Transport · Dispatcher · experienced
+
+- sentiment: **neutral**
+- follow_up_needed: **no**
+- serious_concern_reported: **no**
+- testimonial_potential: **no**
+
+Stated availability mismatch is not evidence of identity-based rejection.
+
+Status: ai_reviewed_provisional.
+
+## DEV-058
+
+Legal services · Office administrator · experienced
+
+- sentiment: **mixed**
+- follow_up_needed: **no**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Reported disclosure persists as an escalation flag after resolution.
+
+Status: ai_reviewed_provisional.
+
+## DEV-059
+
+Food services · Kitchen assistant · entry
+
+- sentiment: **mixed**
+- follow_up_needed: **yes**
+- serious_concern_reported: **yes**
+- testimonial_potential: **no**
+
+Courtesy does not cancel specific unwanted advances.
+
+Status: ai_reviewed_provisional.
+
+## DEV-060
+
+Engineering · Project coordinator · experienced
+
+- sentiment: **negative**
+- follow_up_needed: **yes**
+- serious_concern_reported: **insufficient_information**
+- testimonial_potential: **no**
+
+Explicit suspicion warrants clarification, not automatic confirmation or dismissal.
+
+Status: ai_reviewed_provisional.
