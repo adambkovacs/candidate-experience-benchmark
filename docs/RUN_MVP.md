@@ -1,6 +1,6 @@
 # Reproduce the development MVP
 
-Status snapshot: 2026-09-21. Execution is continuing. This guide covers the existing 60 synthetic development records; the remaining 340 records have not been generated. References are provisional labels reviewed by the same assistant that authored the examples. These runs do not establish held-out performance.
+Status snapshot: 2026-09-21. Execution is continuing; the linked run registries are the current source for active and completed configurations. This guide covers the existing 60 synthetic development records; the remaining 340 records have not been generated. References are provisional labels reviewed by the same assistant that authored the examples. These runs do not establish held-out performance.
 
 ## Recorded status
 
@@ -11,12 +11,14 @@ Status snapshot: 2026-09-21. Execution is continuing. This guide covers the exis
 | Claude Sonnet 5, all five efforts | 60/60 valid per effort; low required one timeout retry | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
 | Claude Opus 5 and Fable 5.1, all five efforts | 60/60 valid per configuration | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
 | Claude Haiku 4.5, effort not applicable | 60/60 valid | [Haiku evaluation](../results/claude-subscription-2026-09-21/haiku45-not_applicable-evaluation.json) |
-| Codex gpt-5.6-luna, low effort | Incomplete: 17 valid development outputs after parser reclassification | [Retained outputs](../results/codex-gpt-5.6-luna-low-2026-09-21/development-reclassified.jsonl) |
-| Codex gpt-6-astra, low effort | Incomplete: 11 valid development outputs after parser reclassification | [Retained outputs](../results/codex-gpt-6-astra-low-2026-09-21/development-reclassified.jsonl) |
-| OpenRouter qwen/qwen3.8-27b:free, modelrun/fp4 | Two smoke attempts received HTTP 429; no successful benchmark response | [Attempt artifacts](../results/openrouter/) |
-| Gemini through Antigravity CLI 1.2.7 | Login and supported context/tool isolation pending; no inference | [Preflight](../results/gemini-preflight-2026-09-21/preflight.json) |
-| Local razorback16/OpenJev, DiffusionGemma 26B A4B | Model download and dependencies underway; no inference | [Setup audit](../results/openjev/setup-audit.json) |
-| Hosted TypeSafe Jev 1.13.0 | API key and user-approved spending cap pending; no inference | [Adapter](../scripts/jev_benchmark.py) |
+| Codex gpt-5.6-luna, low effort | 60/60 valid after explicit continuation; four initialization failures retained in timing | [Codex registry](../results/codex-run-registry.json) |
+| Codex gpt-6-astra, low effort | Continuation in progress; consult registry for reconciled completion | [Codex registry](../results/codex-run-registry.json) |
+| Codex Sol/Terra, low effort | Three valid smoke responses each; development sweeps held pending batching decision and quota | [Codex registry](../results/codex-run-registry.json) |
+| Local Qwen 0.6B, 1.7B, 4B and 8B, SDK thinking on/off | All eight 60-record attempts completed; schema validity varies by configuration | [Local registry](../results/local-run-registry.json) |
+| OpenRouter qwen/qwen3.8-27b:free, modelrun/fp4 | Three smoke attempts received HTTP 429; no successful benchmark response | [Attempt artifacts](../results/openrouter/) |
+| Gemini through Antigravity CLI 1.2.7 | Authenticated model inventory verified; credits explicitly off; smoke awaits destination approval and runtime tool-control verification | [Workflow audit](../results/gemini-preflight-2026-09-21/agent-workflow-audit.json) |
+| Local razorback16/OpenJev, DiffusionGemma 26B A4B | Incomplete weights after network interruption; no inference | [Specialist registry](../results/specialist-run-registry.json) |
+| Hosted TypeSafe Jev 1.13.0 | 60 development outputs completed under the aggregate $1 authorization | [Specialist registry](../results/specialist-run-registry.json) |
 
 ## Common procedure
 
@@ -103,7 +105,7 @@ Verify `codex login status` reports ChatGPT authentication. The controller exclu
 python3 scripts/codex_benchmark.py --model gpt-5.6-luna --effort low --limit 3 --output luna-smoke-new.jsonl
 ```
 
-Use `--model gpt-6-astra` for the other configuration and `--limit 60` after smoke inspection. The recorded CLI version is 0.154.0. Returned model revisions are not exposed. Both development runs remain incomplete. Some valid responses were initially classified as errors because of CLI warnings or recovered transport events; reclassified artifacts use retained responses, not new inference. Keep original attempts and parser provenance.
+Use `--model gpt-6-astra` for the other configuration and `--limit 60` after smoke inspection. The recorded CLI version is 0.154.0. Returned model revisions are not exposed. Luna low has 60 valid outputs; Astra low is being continued and reconciled. Check the [Codex registry](../results/codex-run-registry.json) for its latest status. Sol and Terra low each passed three-record smoke checks. Their full runs and additional effort sweeps remain held pending the batching decision and available subscription quota. Some valid responses were initially classified as errors because of CLI warnings or recovered transport events; reclassified artifacts use retained responses, not new inference. Keep original attempts and parser provenance.
 
 Claude and Codex accept `--offset N` for explicit continuation into a new artifact. It skips N input rows, not N successful rows. Reconcile IDs before continuing; the evaluator rejects duplicate IDs. Keep retries separate and resolve them explicitly for any retry-inclusive report.
 
@@ -117,11 +119,11 @@ python3 scripts/openrouter_benchmark.py --model qwen/qwen3.8-27b:free --provider
 
 Provide `OPENROUTER_API_KEY` through the environment or an untracked `--env-file`. Never print or commit credentials. HTTP 429 attempts are service failures, not model judgments. No paid endpoint is authorized by this command.
 
-Gemini's adapter currently refuses inference. Its `preflight --agy PATH_TO_OFFICIAL_CLI` command checks inventory and overage settings; successful login alone does not satisfy the remaining isolation requirement.
+Gemini's adapter currently refuses inference. Authenticated Antigravity inventory succeeded and the documented `useG1Credits` setting is explicitly false. A fresh custom agent with empty tools, MCP, skills and plugins is prepared. Its first smoke request was rejected by automatic approval review pending explicit authorization to send the synthetic feedback to Google. No inference occurred. Any future smoke must verify runtime controls and be labeled an agent workflow if wrapper context remains; see the [audit](../results/gemini-preflight-2026-09-21/agent-workflow-audit.json).
 
 Local OpenJev is an independent server, not TypeSafe Jev weights. The selected artifact is `mlx-community/diffusiongemma-26B-A4B-it-4bit`, revision `a7a81407613811e8ba63af92ac0d852b809e191f`, using MLX. After download and server verification, use `jev_benchmark.py --surface openjev --base-url http://localhost:PORT --model openjev-0.1 --mode fixed --limit 3 --output NEW.jsonl --config-note 'Verified server and artifact configuration'`. Fixed mode requests one read. Adaptive mode may reread; the wire API does not expose actual read counts, and reported input tokens exclude adaptive rereads.
 
-Hosted Jev requires `TYPESAFE_API_KEY`, `--surface typesafe`, `--base-url https://api.typesafe.ai`, `--model jev-1.13.0`, `--mode official`, `--authorize-hosted-inference` and an explicitly approved `--max-usd`. Do not run it before obtaining the key and cap. The adapter's reserve is a client stop rule, not a provider-enforced billing limit. Recorded token-price estimates exclude unknown fees or price changes.
+Hosted Jev requires `TYPESAFE_API_KEY`, `--surface typesafe`, `--base-url https://api.typesafe.ai`, `--model jev-1.13.0`, `--mode official`, `--authorize-hosted-inference` and an explicitly approved `--max-usd`. The existing run used an authorized key and a $1 aggregate cap covering all TypeSafe configurations and retries. Reuse its artifacts and reconcile consumed cost before any additional run. The adapter's reserve is a client stop rule, not a provider-enforced billing limit. Recorded token-price estimates exclude unknown fees or price changes.
 
 ## Hugging Face access
 

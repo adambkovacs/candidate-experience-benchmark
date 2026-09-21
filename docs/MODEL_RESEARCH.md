@@ -4,7 +4,7 @@ Research date: 2026-09-21. Research below describes the original candidate selec
 
 ## Confirmed setup
 
-ChatGPT Pro, Claude Max, Google AI Pro; LM Studio on M4 MacBook Pro with 128 GB unified memory. Exact chip variant and runtime version remain to be logged.
+ChatGPT Pro, Claude Max, Google AI Pro; LM Studio on M4 MacBook Pro with 128 GB unified memory. Verified hardware is Apple M4 Max, 16 CPU / 40 GPU cores and 128 GB unified memory. The initial LM Studio run used 0.4.16+2 with llama.cpp Metal 2.22.0; see the [recorded manifest](../results/qwen3-0.6b-q4_k_m-2026-09-21/manifest.json). Each subsequent run must retain its own runtime evidence.
 
 ## Gemma dense versus MoE
 
