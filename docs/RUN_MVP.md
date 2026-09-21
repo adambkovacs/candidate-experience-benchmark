@@ -125,3 +125,7 @@ All reported accuracies use 60-record denominators, including failures and missi
 - [Codex authentication](https://learn.chatgpt.com/docs/auth), [noninteractive mode](https://learn.chatgpt.com/docs/non-interactive-mode)
 - [OpenRouter provider routing](https://openrouter.ai/docs/features/provider-routing), [API limits](https://openrouter.ai/docs/api-reference/limits)
 - [OpenJev pinned source](https://github.com/razorback16/openjev/tree/e04794ab36e4f7e6040c2547baecdb2737ce2e79), [TypeSafe API](https://docs.typesafe.ai/api), [TypeSafe models](https://docs.typesafe.ai/models)
+
+## Later prompt comparison
+
+The user requested a follow-up with classifier framing and a second condition adding an SOP and decision tree. Follow [PROMPT_VARIANTS.md](PROMPT_VARIANTS.md) after the current comparison is finished. Keep these future conditions separate from active baseline runs; no prompt changes are applied retroactively.

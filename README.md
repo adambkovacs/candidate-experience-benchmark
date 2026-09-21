@@ -46,3 +46,7 @@ Future study: interviewer evidence versus hire/no-hire vote, evaluated separatel
 `python3 -m unittest discover -s tests -q`
 
 The development set includes reported bias, harassment, retaliation, privacy and accommodation concerns, benign counterexamples, and six controlled pairs. This evaluates feedback routing; it does not rank candidates or certify hiring compliance. Results measure agreement with provisional development references, not general model quality.
+
+## Planned follow-up
+
+After the current runs, [compare two prompt variations](docs/PROMPT_VARIANTS.md): classifier framing, and classifier framing plus an SOP and decision tree. The existing rubric-and-schema prompt remains the baseline. This phase is planned and has not run.
