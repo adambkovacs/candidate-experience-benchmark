@@ -1,6 +1,6 @@
-# Labeling guide — pilot v0.1
+# Labeling guide — development v0.2
 
-Status: draft for human review. Applies to the 30 development examples; not frozen.
+Status: AI-reviewed development rubric. Applies to 60 development examples; not frozen for held-out evaluation.
 All records are fictional candidate-experience feedback, across industries and seniority levels. They are not interviewer assessments of candidates.
 
 ## What the model sees
@@ -24,19 +24,19 @@ Evaluate the recruitment experience described, not unrelated emotions or hire/re
 - negative: unfavorable evaluation without material praise. Sarcastic praise counts as criticism.
 - mixed: both meaningful praise and criticism. Resolution does not erase criticism of the original experience.
 - neutral: relevant, interpretable factual description without a clear favorable/unfavorable evaluation.
-- insufficient_information: no interpretable experience evaluation or neutral account, off-topic/unusable text, or an unresolved vague evaluation whose direction is unclear.
+- insufficient_information: no interpretable experience evaluation or neutral account, off-topic/unusable text, or a fragment with no discernible evaluation. Vague event details alone do not make sentiment insufficient.
 
 An offer/rejection alone is insufficient. "Four questions in forty minutes" is neutral. "Friendly people" is positive but may not be testimonial-worthy. "Polite, but discriminatory remarks" is mixed; serious concerns remain independent.
-Negative events such as a missed interview or privacy exposure can express criticism without an explicit adjective. Reviewer disagreement about implied evaluation should be recorded.
+Negative events such as a missed interview or privacy exposure can express criticism without an explicit adjective. Tentative criticism such as 'felt off' and 'still not sorted' is negative. Explicit satisfaction with a remedy plus criticism of the original incident is mixed. Reviewer disagreement about implied evaluation should be recorded.
 
 ## 2. Follow-up needed
 
 This means ordinary candidate-facing clarification, response or remedy, separate from internal escalation review.
 - yes: a specific unresolved process issue, overdue promise, open request, or explicit request to discuss a vague problem.
 - no: no open issue/request is reported; a promised deadline has not passed; remedy explicitly complete; or retrospective criticism explicitly requires no response and identifies no outstanding remedy.
-- insufficient_information: an issue is mentioned but whether a candidate-facing response/remedy remains needed cannot be determined; or text is off-topic/unusable.
+- insufficient_information: an issue is referenced without enough evidence to establish any open response/remedy; or text is off-topic/unusable.
 
-Do not send every negative review to follow-up. Do not infer an unresolved issue solely from rejection. A request to discuss an unspecified problem is enough for yes, even if the seriousness is unknown.
+Do not send every negative review to follow-up. Do not infer an unresolved issue solely from rejection. A request to discuss an unspecified problem is enough for yes, even if the seriousness is unknown. A candidate explicitly unable to tell whether they will be reassessed needs clarification: yes.
 An explicit "do not contact me" can make this field no while serious_concern_reported stays yes. This demo does not decide real-world contact obligations.
 
 ## 3. Serious concern reported
@@ -44,15 +44,19 @@ An explicit "do not contact me" can make this field no while serious_concern_rep
 Use yes for a concrete recruitment-related report of:
 - a threat;
 - sexual harassment, unwanted sexual conduct, or specific repeated targeted harassment;
-- discriminatory remarks or treatment explicitly connected to an identity characteristic;
+- discriminatory remarks or treatment explicitly connected to race/color, age, religion, sex, pregnancy, disability, national origin/accent, sexual orientation, gender identity or another stated identity characteristic;
+- adverse treatment explicitly linked to a complaint about discrimination or harassment;
+- a specific intrusive question or demand about pregnancy, family plans, diagnoses, medication or genetic/family medical history during selection, without a stated appropriate accommodation/occupational-health context;
 - private personal information exposed to an unintended recipient;
-- an agreed accessibility arrangement explicitly ignored/refused.
+- a requested or agreed accessibility arrangement explicitly refused/ignored, or an explicit exclusion because of disability. Prior agreement is not required.
 
 Specific second-hand allegations about this recruitment process can qualify: they are reports requiring review, not proven facts.
 Use no when there is no qualifying report in otherwise usable feedback, or the concern is explicitly negated, hypothetical, part of a policy explanation, an unspecified rumor about other experiences, or ordinary rudeness/delay/frustration.
-Use insufficient_information when a possibly serious event is referenced but its nature or attribution is missing. An "accessibility issue" alone does not establish an ignored agreement.
+Use insufficient_information for a specifically alleged but underspecified serious issue, reported humiliating treatment without enough conduct detail, an unexplained 'culture fit' exclusion, or explicit discrimination suspicion without supporting detail. Generic unease alone is no reported serious concern; do not manufacture an allegation. An "accessibility issue" alone does not establish an ignored agreement.
 Resolution/apology does not erase a qualifying report. A request not to be contacted does not erase it.
-Generic mocking without specified harassment, threat or discriminatory content falls outside this deliberately narrow draft threshold. Human reviewers should scrutinize this boundary before it is frozen.
+Generic humiliating treatment needs clarification instead of automatic dismissal; specific repeated targeted harassment is yes. Ordinary disagreement about answer quality is no. This operational threshold deliberately triggers review before establishing a legal violation.
+
+A person's identity, informal grammar, accent mention, or rejection alone never establishes misconduct. Appropriate participation-adjustment questions, stated optional monitoring kept separate from selection, and described job-related exercises do not automatically qualify. Do not certify them legally compliant either. Operational escalation criteria apply consistently across identity substitutions; actual legal protections vary by jurisdiction.
 
 ## 4. Testimonial potential
 
@@ -90,10 +94,16 @@ Model uncertainty may later add a separate review flag using validation-selected
 5. Record reviewer identity, date, labels, and rationale in a separate adjudication artifact. Do not replace provisional labels without a review record.
 6. Revise this guide and recheck all affected development examples.
 
-All 30 proposed answers were authored by the same assistant that wrote the text. None are human-approved ground truth. The pilot explores boundaries and is not representative traffic.
-DEV-019/020 differ in resolution; DEV-026/027 preserve meaning across wording. Keep each family in development, including future variants. Do not reuse their scenario families in held-out sets.
+All 60 proposed answers were authored and reviewed by the same assistant. This is a documented self-review, not a blinded independent review or human ground truth. The user delegated review; human review is no longer a prerequisite for development work. Publish AI-reference limitations in any results. The original 30 pilot records plus 30 targeted additions fill the existing development allocation, leaving 340 records ungenerated.
+See data/pilot/pairs.json for all controlled pairs, their invariants and expected changes. Keep each family in development, including future variants. Do not reuse their scenario families in held-out sets.
 
 ## TypeSafe mapping for later implementation
 
 Four independent Choice questions over the same feedback/policy state preserve all semantic outcomes. Keep model distributions separate from categorical outputs. No integration or API behavior is implemented by this guide.
 Skill guidance informed this decomposition. Live Markdown documentation fetches failed during this drafting turn; verify current API contracts before implementation.
+
+## Source grounding and limits
+
+The US EEOC describes identity-based discrimination, retaliation and accommodation issues in recruitment: https://www.eeoc.gov/prohibited-employment-policiespractices
+Its guidance distinguishes pre-offer disability inquiries from limited accommodation questions: https://www.eeoc.gov/pre-employment-inquiries-and-disability
+Checked 2026-09-21. These sources inform scenario selection, not a worldwide legal decision rule. The model flags reports for review; no compliance certification, candidate ranking or hiring decisions are in scope. A claim of demographic fairness requires more than these synthetic pairs.
