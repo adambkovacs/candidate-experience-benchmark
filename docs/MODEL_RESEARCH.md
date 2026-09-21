@@ -16,7 +16,17 @@ Sources:
 - https://ai.google.dev/gemma/docs/core/model_card_4
 - https://ai.google.dev/gemma/docs/core
 
-## OpenJev is ambiguous
+## User-specified OpenJev: razorback16/openjev
+
+Primary candidate: https://github.com/razorback16/openjev (explicitly identified by the user). Independent Jev-compatible server, not official Jev weights. It uses DiffusionGemma 26B A4B with MLX on Apple Silicon. README documents roughly 16 GB for the 4-bit Mac weights. No local verification yet.
+
+Add to priority screening. Log defaults and adaptive re-reads; compare a fixed single-read configuration with the default policy separately. Optional thinking must be explicitly labeled and timed. Test its generated-label endpoint against direct decisions using the same weights, precision, and backend. This is an inference-method comparison; DiffusionGemma text generation is diffusion-based, not ordinary autoregressive decoding.
+
+The documentation says its chat endpoint treats requested JSON schemas as instructions rather than hard schema constraints. Validate results and count failures. Question chunking/sequential options can affect independence; freeze question order and settings, then test perturbations separately. Verify wire/SDK compatibility rather than assuming identical semantics.
+
+Source: https://github.com/razorback16/openjev/blob/main/README.md
+
+## Other projects with similar names
 
 SemIf (formerly TheoLeeCJ/openjev) is independent of TypeSafe and reads declared-option logits from frozen open models. It is not Jev's released weights or training. It documents an Apple Silicon MLX backend. Candidate: frozen Qwen3.5-4B direct scoring, paired with generated structured labels from the same base revision and precision where feasible. Different runtimes must be disclosed.
 
@@ -67,7 +77,7 @@ Sources:
 
 Candidate reconnaissance is not a commitment to a full run for every candidate. Screen candidates on the same 30 development records, recording setup time, errors, memory, speed, and rough quality. Select and freeze the final roster before either held-out set, retaining provider diversity and meaningful failure baselines. Publish all screening outcomes and exclusion reasons.
 
-Suggested priority additions: Gemini, SemIf/Qwen3.5-4B, OpenJev 0.8B, Laya 421M, and Qwen3-0.6B. 1.7B, 8B, and a second large Gemma are optional diagnostics.
+Suggested priority additions: Gemini, razorback16/OpenJev with MLX, Laya 421M, and Qwen3-0.6B. AlexWortega/OpenJev 0.8B, SemIf/Qwen3.5-4B, 1.7B, 8B, and a second large Gemma are optional diagnostics. They are distinct projects, not interchangeable OpenJev implementations.
 
 LM Studio remains the default for supported generative models. Specialized classification/logit readers use separate supported local runners when required. Do not substitute ordinary chat completions while claiming to evaluate their specialized mechanism.
 
