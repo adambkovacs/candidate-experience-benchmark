@@ -78,7 +78,7 @@ Original target: 9 model configurations plus a rules baseline. Expanded candidat
 - Hosted DeepSeek: one pinned model and provider endpoint.
 - Hosted Qwen: one pinned model and provider endpoint.
 - Local generative candidates: Qwen3-0.6B, Qwen3.5-4B, Gemma 4 26B A4B, and Qwen3.8-27B. Use development screening to select a compact final roster.
-- Local specialist candidates: SemIf direct scoring, AlexWortega/OpenJev 0.8B NLI, and Laya 421M. No assumption that these custom classification paths run through LM Studio.
+- Primary local decision-server candidate: razorback16/OpenJev on DiffusionGemma 26B A4B through its documented MLX backend. This is the exact project the user supplied. Include Laya 421M in screening; SemIf and AlexWortega/OpenJev 0.8B NLI are optional distinct alternatives. No assumption that custom classification paths run through LM Studio.
 - Rules baseline: fixed keyword/negation heuristics, with limitations documented.
 
 Exact model availability must be checked on the user's accounts; never claim that all ChatGPT or Claude web models are available in the CLIs. Avoid expanding the roster until the pilot establishes a reason.
@@ -171,3 +171,5 @@ No model performance or production-readiness claims have been established.
 ## Model-research update
 
 See [MODEL_RESEARCH.md](MODEL_RESEARCH.md) for the dense/MoE distinction, OpenJev name disambiguation, Laya limitations, and candidate-screening approach. Candidate additions are untested. The reported March 2025 Laya date remains unverified. The 400-record split and four-label task remain unchanged.
+
+OpenJev-specific protocol: record automatic re-reads, optional thinking, and all settings. Separate fixed single-read from adaptive default results. A matched same-model direct-decision versus generated-label experiment is a priority diagnostic. DiffusionGemma is a distinct diffusion checkpoint, not interchangeable with regular Gemma 4 26B A4B. Validate output schema independently for text-generation runs.
