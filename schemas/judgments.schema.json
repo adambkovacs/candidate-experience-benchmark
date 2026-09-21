@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recruitment feedback judgments",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sentiment",
+    "follow_up_needed",
+    "serious_concern_reported",
+    "testimonial_potential"
+  ],
+  "properties": {
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "negative",
+        "mixed",
+        "neutral",
+        "insufficient_information"
+      ]
+    },
+    "follow_up_needed": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "insufficient_information"
+      ]
+    },
+    "serious_concern_reported": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "insufficient_information"
+      ]
+    },
+    "testimonial_potential": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "insufficient_information"
+      ]
+    }
+  }
+}
