@@ -19800,50 +19800,509 @@
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
-    "status": "running",
-    "predictions_file": null,
+    "status": "complete_with_service_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
+    "notes": "All 60 records attempted once; 59 valid outputs. DEV-048 transport failure retained with full $0.047001600 unknown charge bound; continuation covered only DEV-049\u2013060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.",
+    "partition_id": "qwen27-medium",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development-from049.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-medium-2026-09-23/smoke.jsonl"
+    ],
     "cost": {
       "scope": "declared development attempts only",
-      "availability": "unavailable",
-      "attempt_count": 0,
-      "known_actual_attempts": 0,
-      "unknown_cost_attempts": 0,
-      "unknown_bounded_attempts": 0,
+      "availability": "reported",
+      "attempt_count": 60,
+      "known_actual_attempts": 59,
+      "unknown_cost_attempts": 1,
+      "unknown_bounded_attempts": 1,
       "missing_financial_attempts": 0,
-      "known_actual_usd": null,
-      "unknown_reserved_upper_bound_usd": null,
-      "known_plus_unknown_upper_bound_usd": null,
+      "known_actual_usd": "0.065762400",
+      "unknown_reserved_upper_bound_usd": "0.047001600",
+      "known_plus_unknown_upper_bound_usd": "0.112764000",
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/openrouter-partition-qwen27-medium-2026-09-23/development.jsonl",
+        "results/openrouter-partition-qwen27-medium-2026-09-23/development-from049.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 59,
+      "missing_or_failed": [
+        "DEV-048"
+      ],
+      "metrics": {
+        "sentiment": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.9746923259681635,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9166666666666666,
+              "recall": 1.0,
+              "f1": 0.9565217391304348
+            },
+            "negative": {
+              "tp": 30,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.967741935483871,
+              "f1": 0.9836065573770492
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9951690821256038,
+          "per_label": {
+            "yes": {
+              "tp": 34,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9714285714285714,
+              "f1": 0.9855072463768116
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.927683615819209,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9666666666666667,
+              "recall": 1.0,
+              "f1": 0.9830508474576272
+            },
+            "insufficient_information": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.6666666666666666,
+              "f1": 0.8
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.9737254901960783,
+          "per_label": {
+            "yes": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8888888888888888,
+              "f1": 0.9411764705882353
+            },
+            "no": {
+              "tp": 49,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.98,
+              "recall": 0.98,
+              "f1": 0.98
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "missing_or_failed"
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "5704234c79b3952e5545cb27fd08426da390068c01e645e99392bf918a3a9a14",
+    "attempt_records": 60,
+    "exact_match": 56,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 1765.5458339150064,
+      "median_seconds": 27.945334271062165,
+      "p95_nearest_rank_seconds": 58.02039912506007,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-xhigh",
     "model": "qwen/qwen3.8-27b",
     "effort": "xhigh",
-    "status": "running_continuation",
-    "predictions_file": null,
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
+    "notes": "All 60 records attempted once; 59 valid outputs. DEV-013 length/content-null failure retained at the unchanged 4096-token limit; continuation covered only DEV-014\u2013060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.",
+    "partition_id": "qwen27-xhigh",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-from014.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/smoke.jsonl"
+    ],
     "cost": {
       "scope": "declared development attempts only",
-      "availability": "unavailable",
-      "attempt_count": 0,
-      "known_actual_attempts": 0,
+      "availability": "reported",
+      "attempt_count": 60,
+      "known_actual_attempts": 60,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
       "missing_financial_attempts": 0,
-      "known_actual_usd": null,
-      "unknown_reserved_upper_bound_usd": null,
-      "known_plus_unknown_upper_bound_usd": null,
-      "total_actual_usd": null,
-      "source_paths": [],
+      "known_actual_usd": "0.061920600",
+      "unknown_reserved_upper_bound_usd": "0",
+      "known_plus_unknown_upper_bound_usd": "0.061920600",
+      "total_actual_usd": "0.061920600",
+      "source_paths": [
+        "results/openrouter-partition-qwen27-xhigh-2026-09-23/development.jsonl",
+        "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-from014.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 59,
+      "missing_or_failed": [
+        "DEV-013"
+      ],
+      "metrics": {
+        "sentiment": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9866666666666667,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9929078014184397,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 23,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9583333333333334,
+              "f1": 0.9787234042553191
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.8666666666666667,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 28,
+              "fp": 3,
+              "fn": 1,
+              "precision": 0.9032258064516129,
+              "recall": 0.9655172413793104,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 3,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9966329966329966,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 49,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.98,
+              "f1": 0.98989898989899
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "dc129d32aed007ddcaf7041ff179ee6458f924c5569bd77948e8ac784f353d8d",
+    "attempt_records": 60,
+    "exact_match": 56,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 1785.9305704545695,
+      "median_seconds": 24.26154424995184,
+      "p95_nearest_rank_seconds": 86.77155720815063,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {
@@ -22001,6 +22460,35 @@
     "status": "running_continuation",
     "predictions_file": null,
     "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
+    "cost": {
+      "scope": "declared development attempts only",
+      "availability": "unavailable",
+      "attempt_count": 0,
+      "known_actual_attempts": 0,
+      "unknown_cost_attempts": 0,
+      "unknown_bounded_attempts": 0,
+      "missing_financial_attempts": 0,
+      "known_actual_usd": null,
+      "unknown_reserved_upper_bound_usd": null,
+      "known_plus_unknown_upper_bound_usd": null,
+      "total_actual_usd": null,
+      "source_paths": [],
+      "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    }
+  },
+  {
+    "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+    "model": "mistralai/mistral-small-3.2-24b-instruct",
+    "effort": "not-applicable",
+    "status": "running",
+    "predictions_file": null,
+    "provider": "venice/fp8",
+    "quantization": "fp8",
+    "partition_id": "mistral24-venice-na",
+    "smoke_files": [
+      "results/openrouter-mistral24-venice-na-2026-09-23/smoke.jsonl"
+    ],
+    "notes": "Separate Venice FP8 provider configuration after repeated DeepInfra rate limits. Three smoke responses inspected and valid; full60 running. Earlier DeepInfra attempts remain separate. Same approved model; endpoint pinned without fallback, price ceilings $0.09375/$0.25 per million input/output tokens, $0.35 child within total $5 cap. Runtime and hardware limitations are recorded in smoke-inspection.json.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",

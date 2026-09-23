@@ -27,5 +27,29 @@
     "attempt_phase": "development",
     "smoke_file": "results/openrouter-partition-mistral119-high-2026-09-23/smoke.jsonl",
     "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed."
+  },
+  {
+    "partition_id": "qwen27-xhigh",
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-from014.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_file": "results/openrouter-partition-qwen27-xhigh-2026-09-23/smoke.jsonl",
+    "notes": "60 records attempted once,59valid; original DEV013length/content-null failure preserved at4096max tokens. Continuation only14\u201360, no retry/tuning. All costs known; sealed budget."
+  },
+  {
+    "partition_id": "qwen27-medium",
+    "status": "complete_with_service_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development-from049.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_file": "results/openrouter-partition-qwen27-medium-2026-09-23/smoke.jsonl",
+    "notes": "60records attempted once,59valid; original DEV048transport failure retained with full $0.047001600 unknown bound, no retry. Continuation only49\u201360 with unchanged controls. Child sealed."
   }
 ]

@@ -1682,21 +1682,39 @@
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
-    "status": "running",
-    "predictions_file": null,
+    "status": "complete_with_service_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
+    "notes": "All 60 records attempted once; 59 valid outputs. DEV-048 transport failure retained with full $0.047001600 unknown charge bound; continuation covered only DEV-049\u2013060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.",
+    "partition_id": "qwen27-medium",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development-from049.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-medium-2026-09-23/smoke.jsonl"
+    ]
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-xhigh",
     "model": "qwen/qwen3.8-27b",
     "effort": "xhigh",
-    "status": "running_continuation",
-    "predictions_file": null,
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
+    "notes": "All 60 records attempted once; 59 valid outputs. DEV-013 length/content-null failure retained at the unchanged 4096-token limit; continuation covered only DEV-014\u2013060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.",
+    "partition_id": "qwen27-xhigh",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-from014.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/smoke.jsonl"
+    ]
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-off",
@@ -1918,5 +1936,19 @@
     "status": "running_continuation",
     "predictions_file": null,
     "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
+  },
+  {
+    "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+    "model": "mistralai/mistral-small-3.2-24b-instruct",
+    "effort": "not-applicable",
+    "status": "running",
+    "predictions_file": null,
+    "provider": "venice/fp8",
+    "quantization": "fp8",
+    "partition_id": "mistral24-venice-na",
+    "smoke_files": [
+      "results/openrouter-mistral24-venice-na-2026-09-23/smoke.jsonl"
+    ],
+    "notes": "Separate Venice FP8 provider configuration after repeated DeepInfra rate limits. Three smoke responses inspected and valid; full60 running. Earlier DeepInfra attempts remain separate. Same approved model; endpoint pinned without fallback, price ceilings $0.09375/$0.25 per million input/output tokens, $0.35 child within total $5 cap. Runtime and hardware limitations are recorded in smoke-inspection.json."
   }
 ]

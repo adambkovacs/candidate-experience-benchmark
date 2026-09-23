@@ -128,8 +128,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-medium | running | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-xhigh | running_continuation | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-medium | complete_with_service_failure | 59 | 58 | 59 | 58 | 58 | 56 |
+| openrouter-paid-qwen3.8-27b-xhigh | complete_with_output_failure | 59 | 59 | 59 | 56 | 59 | 56 |
 | openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
@@ -143,12 +143,15 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-deepseek-v41-flash-off | complete | 60 | 57 | 59 | 59 | 56 | 54 |
 | openrouter-paid-deepseek-v41-flash-low | running_continuation | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-high | running_continuation | — | — | — | — | — | — |
+| openrouter-paid-mistral-small32-24b-venice-not-applicable | running | — | — | — | — | — | — |
 
 Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
 
 | Configuration | Billing coverage | Known actual USD | Unknown-cost reserved upper bound USD | Sources |
 | --- | --- | ---: | ---: | --- |
 | typesafe-jev113-v2 | partial | unavailable | 0.002123688 | `results/openjev/typesafe-development-v2.jsonl`; `results/openjev/typesafe-development-v2-continuation.jsonl` |
+| openrouter-paid-qwen3.8-27b-medium | reported | 0.065762400 | 0.047001600 | `results/openrouter-partition-qwen27-medium-2026-09-23/development.jsonl`; `results/openrouter-partition-qwen27-medium-2026-09-23/development-from049.jsonl` |
+| openrouter-paid-qwen3.8-27b-xhigh | reported | 0.061920600 | 0 | `results/openrouter-partition-qwen27-xhigh-2026-09-23/development.jsonl`; `results/openrouter-partition-qwen27-xhigh-2026-09-23/development-from014.jsonl` |
 | openrouter-paid-qwen3.8-27b-off | reported | 0.013049550 | 0 | `results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-on | reported | 0.0636796 | 0 | `results/openrouter-qwen35-on-2026-09-23/development.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-off | reported | 0.0072576 | 0 | `results/openrouter-qwen35-off-2026-09-23/development.jsonl` |
@@ -795,11 +798,15 @@ Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed wit
 
 **openrouter-paid-qwen3.8-27b-medium**
 
-Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
+All 60 records attempted once; 59 valid outputs. DEV-048 transport failure retained with full $0.047001600 unknown charge bound; continuation covered only DEV-049–060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.
+
+Evidence: `results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl`; SHA-256 `5704234c79b3952e5545cb27fd08426da390068c01e645e99392bf918a3a9a14`.
 
 **openrouter-paid-qwen3.8-27b-xhigh**
 
-Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
+All 60 records attempted once; 59 valid outputs. DEV-013 length/content-null failure retained at the unchanged 4096-token limit; continuation covered only DEV-014–060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.
+
+Evidence: `results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl`; SHA-256 `dc129d32aed007ddcaf7041ff179ee6458f924c5569bd77948e8ac784f353d8d`.
 
 **openrouter-paid-qwen3.8-27b-off**
 
@@ -868,4 +875,8 @@ Concurrent hosted execution under a reserved child budget. Existing completed re
 **openrouter-paid-deepseek-v41-flash-high**
 
 Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
+
+**openrouter-paid-mistral-small32-24b-venice-not-applicable**
+
+Separate Venice FP8 provider configuration after repeated DeepInfra rate limits. Three smoke responses inspected and valid; full60 running. Earlier DeepInfra attempts remain separate. Same approved model; endpoint pinned without fallback, price ceilings $0.09375/$0.25 per million input/output tokens, $0.35 child within total $5 cap. Runtime and hardware limitations are recorded in smoke-inspection.json.
 

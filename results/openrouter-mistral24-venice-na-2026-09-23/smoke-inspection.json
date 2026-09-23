@@ -1,0 +1,25 @@
+{
+  "status": "smoke_inspected_passed",
+  "records": 3,
+  "smoke_sha256": "136c9125fb3d5019bdf436be24d45c1dc3d8e87e58d6b5af7af05ea6c7234fc4",
+  "model": "mistralai/mistral-small-3.2-24b-instruct",
+  "provider": "venice/fp8",
+  "quantization": "fp8",
+  "reasoning": "not-applicable",
+  "runtime": "OpenRouter HTTP v1",
+  "hardware": "Remote provider undisclosed",
+  "serving_weight_revision": "Undisclosed",
+  "temperature": 0,
+  "max_tokens": 4096,
+  "timeout_seconds": 600,
+  "output_contract": "strict four-field JSON schema",
+  "inspection": "All three raw responses contain only valid categorical judgments; finish stop, no refusal, tools or reasoning. Returned model and Venice provider match requested route. Feedback inputs and rubric only; labels not read.",
+  "configuration_boundary": "New explicit Venice provider configuration. Earlier partial DeepInfra FP8 attempts remain separate and are not pooled or overwritten.",
+  "retry_policy": "No automatic retry or output repair; known-billing invalid outputs may continue to next unattempted record.",
+  "price_ceiling_usd_per_million": {
+    "input": 0.09375,
+    "output": 0.25
+  },
+  "budget": "Existing aggregate $5 cap; reserved child $0.35, including smoke and development.",
+  "approval_review": "Initial automatic review rejected new provider on sensitive-data grounds. Same command approved after repository evidence established fictional synthetic inputs and existing user OpenRouter spending authorization."
+}
