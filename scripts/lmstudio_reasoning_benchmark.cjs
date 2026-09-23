@@ -99,15 +99,40 @@ function configureArtifact(artifact,options) {
   if(!['reasoning_effort','[MODEL_SETTINGS]','[/MODEL_SETTINGS]','[THINK]','[/THINK]'].every(marker=>template.includes(marker))) throw Error('Mistral Small4 template lacks verified reasoning settings');
   return {...common,template:"{%- set reasoning_effort = '"+options.effort+"' %}\n"+template,parsing:{enabled:true,startString:'[THINK]',endString:'[/THINK]'}};
 }
-function buildMessages(policy,schema,feedback,constrained,instructionRole) {
-  const instructions=policy+(constrained?'':'\nReturn raw JSON only, with no Markdown code fences and no text outside the JSON object. Output must satisfy this JSON schema: '+JSON.stringify(schema));
+function buildInstruction(policy,schema,constrained) {
+  return policy+(constrained?'':'\nReturn raw JSON only, with no Markdown code fences and no text outside the JSON object. Output must satisfy this JSON schema: '+JSON.stringify(schema));
+}
+function instructionMessages(instructions,feedback,instructionRole) {
   const content=JSON.stringify({feedback});
   if(instructionRole==='user') return [{role:'user',content:instructions+'\n\n'+content}];
   return [{role:'system',content:instructions},{role:'user',content}];
 }
+function buildMessages(policy,schema,feedback,constrained,instructionRole) {
+  return instructionMessages(buildInstruction(policy,schema,constrained),feedback,instructionRole);
+}
+function buildVariantMessages(policy,schema,feedback,constrained,instructionRole,options={}) {
+  const variant=options['prompt-variant'],parent=options['parent-baseline-id'];
+  if(!Object.hasOwn(options,'prompt-variant')) {
+    if(parent!==undefined) throw Error('Parent baseline requires explicit prompt variant');
+    return {messages:buildMessages(policy,schema,feedback,constrained,instructionRole),audit:null};
+  }
+  const {compose_instruction}=require('./frozen_prompt_variants.cjs');
+  const composed=compose_instruction(buildInstruction(policy,schema,constrained),variant,{role:instructionRole,parent_baseline_id:parent});
+  return {messages:instructionMessages(composed.instruction,feedback,instructionRole),audit:composed.audit};
+}
+function variantGate(options) {
+  const explicit=Object.hasOwn(options,'prompt-variant'),variant=options['prompt-variant'];
+  const preview=Object.hasOwn(options,'variant-preview-output');
+  if(explicit && !['P0','P1','P2'].includes(variant)) throw Error('Unknown prompt variant');
+  if(preview && (!explicit || !options['variant-preview-output'])) throw Error('Offline preview requires explicit prompt variant and destination');
+  if(!explicit && Object.hasOwn(options,'parent-baseline-id')) throw Error('Parent baseline requires explicit prompt variant');
+  if(!preview && ['P1','P2'].includes(variant)) throw Error('Phase-two protocol gates are pending; use --variant-preview-output for offline composition');
+  return preview;
+}
 async function main() {
+  const preview=variantGate(args);
   validateOptions(args);
-  if (!args.model || !args.output || !args.metadata) throw Error('Require --model --output --metadata and valid --thinking');
+  if (!args.model || (!preview && !args.output) || !args.metadata) throw Error('Require --model --output --metadata and valid --thinking');
   const timeoutSeconds=Number(args['timeout-seconds'] || 600);
   if(!Number.isFinite(timeoutSeconds) || timeoutSeconds<=0) throw Error('Timeout must be positive seconds');
   const rows = selectRows(fs.readFileSync(path.join(root,'data/pilot/inputs.jsonl'),'utf8').trim().split('\n').map(JSON.parse),args);
@@ -126,6 +151,20 @@ async function main() {
     promptTemplate:{type:'jinja',jinjaPromptTemplate:{template:effectiveTemplate},stopStrings:[]},
     reasoningParsing:reasoning.parsing,
     ...(constrained?{structured:{type:'json',jsonSchema:schema}}:{topKSampling:20,topPSampling:0.95,minPSampling:false})};
+  // Compose before SDK import/auth/model lookup. The default path never loads the
+  // frozen bundle; explicit selectors carry its provenance without changing roles.
+  const requests=rows.map(row=>({row,...buildVariantMessages(policy,schema,row.feedback,constrained,reasoning.instructionRole,args)}));
+  if(preview) {
+    const data={offline_only:true,inference_performed:false,reference_labels_read:false,
+      workflow:'lmstudio_sdk_single_record',protocol_gates:'pending; not execution approval',
+      artifact_verification:'metadata and template digest only; weights and loaded runtime not verified',
+      requested_model:args.model,artifact_sha256:artifact.artifact_sha256,artifact_path:artifact.model_path,
+      template_sha256:hash(effectiveTemplate),instruction_role:reasoning.instructionRole,artifact_family:reasoning.family,
+      thinking:args.thinking,...(args.effort?{effort:args.effort}:{}),format:constrained?'constrained':'prompt',
+      requests:requests.map(({row,messages,audit})=>({record_ids:[row.id],request:{messages,config},prompt_variant:audit}))};
+    fs.writeFileSync(args['variant-preview-output'],JSON.stringify(data,null,2)+'\n',{flag:'wx'});
+    return;
+  }
   const { LMStudioClient } = require(process.env.LMSTUDIO_SDK_PATH || '@lmstudio/sdk');
   const client = new LMStudioClient();
   const model = await client.llm.model(args.model);
@@ -140,11 +179,11 @@ async function main() {
   let journal;
   try {
     journal=fs.openSync(args.output+'.attempts.jsonl','wx');
-    for (const row of rows) {
-      const messages=buildMessages(policy,schema,row.feedback,constrained,reasoning.instructionRole);
+    for (const {row,messages,audit} of requests) {
       const record={id:row.id,requested_model:args.model,surface:'LM Studio JavaScript SDK',thinking:args.thinking,...(args.effort?{effort:args.effort}:{}),format:constrained?'constrained':'prompt',
         started_utc:new Date().toISOString(),policy_sha256:hash(policy),input_sha256:hash(row.feedback),
         artifact_sha256:artifact.artifact_sha256,artifact_path:artifact.model_path,template_sha256:hash(effectiveTemplate),request:{messages,config},reference_labels_read:false};
+      if(audit!==null) record.prompt_variant=audit;
       record.instruction_role=reasoning.instructionRole;record.artifact_family=reasoning.family;
       record.attempt_id=crypto.randomUUID();record.timeout_seconds=timeoutSeconds;
       writeJournal(journal,{event:'started',attempt_id:record.attempt_id,id:row.id,requested_model:args.model,artifact_sha256:artifact.artifact_sha256,request_sha256:hash(JSON.stringify(record.request)),timeout_seconds:timeoutSeconds});
@@ -175,4 +214,4 @@ async function main() {
 }
 if(require.main===module) main().catch(error=>{console.error(error.message);process.exitCode=1;});
 
-module.exports={configureThinking,validateOptions,predictWithTimeout,writeJournal,selectRows,configureArtifact,buildMessages};
+module.exports={configureThinking,validateOptions,predictWithTimeout,writeJournal,selectRows,configureArtifact,buildMessages,buildVariantMessages,variantGate};
