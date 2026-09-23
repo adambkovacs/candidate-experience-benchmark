@@ -25,11 +25,14 @@ inspected_utc,inspection:passed|accepted_unchanged,records:[{id,status,predictio
 Intrinsic-invalid records additionally require failure_class:intrinsic_schema,
 accepted_unchanged:true and nonempty inspection_reason. Transport, identity and
 truncation failures block. Historical P0 may predate the new freeze; P1/P2 may not.
-raw_attempts:{file,sha256},inspector (nonempty string).
+raw_attempts:{file,sha256},inspector (nonempty string), optional extractor.
+extractor=openrouter_paid_v1 requires controls.adapter_controls using the paired
+evaluator extract_controls contract, native system role, single-record context,
+strict_json parsing, json_schema output and sampling:{temperature}.
 
 All paths are rooted and hash-bound. No references are read. This module verifies
-STRUCTURE only: runtime measurement/smoke extractors are intentionally not yet
-implemented. It ALWAYS returns execution_allowed:false with concrete blockers.
+STRUCTURE plus explicit OpenRouter paid raw smoke verification. Other smoke
+surfaces and runtime token measurement remain unimplemented. It ALWAYS returns execution_allowed:false with concrete blockers.
 Hashes bind supplied bytes. Git freeze records and actual chronology are the experimental record; this structural module does not enforce controller launch order.
 Controllers must not treat structural validity as execution permission.
 """
@@ -63,6 +66,49 @@ def bound(spec,root):
 def json_bound(spec,root):return json.loads(bound(spec,root))
 def nonnegative(value):return type(value) is int and value>=0
 
+def verify_openrouter_smoke(smoke,inputs,instruction,schema,controls,role,root):
+    """Verify three original paid-adapter requests; no retry selection or repair."""
+    from evaluate_prompt_variants import audit_requests,extract_controls
+    from openrouter_benchmark import allowed_returned_models
+    from datetime import timedelta
+    import math
+    raw=[json.loads(line) for line in bound(smoke['raw_attempts'],root).decode().splitlines() if line.strip()]
+    selected={r['id']:r for r in inputs[:3]}
+    if role!='system' or len(raw)!=3 or [r.get('id') for r in raw]!=list(selected) or any(r.get('phase')!='smoke' for r in raw):raise ValueError('Require exactly three original ordered OpenRouter smoke attempts')
+    if 'adapter_controls' not in controls:raise ValueError('OpenRouter paired adapter controls required')
+    expected=controls['adapter_controls']
+    for row,inspected in zip(raw,smoke['records']):
+        body=row.get('raw_response');endpoint=row['provider_endpoint'];request=row['request']
+        if row.get('status') not in ('ok','invalid_output') or not isinstance(body,dict) or body.get('error'):raise ValueError('OpenRouter transport failure blocks smoke')
+        choices=body.get('choices')
+        if not isinstance(choices,list) or len(choices)!=1:raise ValueError('OpenRouter response choice ambiguity')
+        choice=choices[0];message=choice.get('message',{})
+        if choice.get('finish_reason')!='stop' or message.get('refusal') or message.get('tool_calls') or message.get('function_call') or choice.get('error'):raise ValueError('OpenRouter truncation/refusal/tool failure blocks smoke')
+        if body.get('model') not in allowed_returned_models(row['requested_model'],endpoint) or body.get('provider')!=endpoint['provider_name']:raise ValueError('OpenRouter model/provider mismatch')
+        for field,actual in [('returned_model',body.get('model')),('returned_provider',body.get('provider')),('finish_reason',choice.get('finish_reason'))]:
+            if row.get(field)!=actual:raise ValueError('OpenRouter mirrored identity/finish mismatch')
+        try:prediction=json.loads(message.get('content'))
+        except (ValueError,TypeError):prediction=None
+        status='ok' if valid(prediction) else 'invalid_output'
+        if row.get('prediction')!=prediction or row.get('status')!=status or inspected.get('id')!=row['id'] or inspected.get('status')!=status or inspected.get('prediction')!=prediction:raise ValueError('Inspected smoke does not match strict raw output')
+        if status=='invalid_output' and not (smoke.get('inspection')=='accepted_unchanged' and inspected.get('failure_class')=='intrinsic_schema' and inspected.get('accepted_unchanged') is True and inspected.get('inspection_reason')):raise ValueError('Intrinsic schema failure requires unchanged inspection acceptance')
+        if row.get('reference_labels_read') is not False or row.get('schema_sha256')!=canonical(schema):raise ValueError('OpenRouter schema/reference isolation mismatch')
+        required_format={'type':'json_schema','json_schema':{'name':'judgments','strict':True,'schema':schema}}
+        if request.get('response_format')!=required_format:raise ValueError('OpenRouter output schema mismatch')
+        mapped={'model':row['requested_model'],'effort':row['reasoning_effort'],'quantization':row['quantization'],'runtime':row.get('runtime'),'hardware':row.get('hardware'),'retry_policy':row['retry_policy'],'output_reserve_tokens':request['max_tokens'],'context_tokens':endpoint['context_length']}
+        if any(controls.get(k)!=v for k,v in mapped.items()):raise ValueError('OpenRouter generic/adapter control mismatch')
+        if controls.get('sampling')!={'temperature':request['temperature']} or controls.get('output_method')!='json_schema' or controls.get('parsing')!='strict_json':raise ValueError('OpenRouter sampling/output method mismatch')
+        elapsed=row.get('elapsed_seconds')
+        if isinstance(elapsed,bool) or not isinstance(elapsed,(int,float)) or not math.isfinite(elapsed) or elapsed<0:raise ValueError('OpenRouter elapsed evidence invalid')
+        started=stamp(row['started_utc'])
+        if started<stamp(smoke['started_utc']) or started+timedelta(seconds=elapsed)>stamp(smoke['finished_utc']):raise ValueError('OpenRouter raw chronology outside inspected smoke interval')
+    # Reuse the evaluator's body hashes, exact policy/input, provider controls,
+    # mirrored billing, attempt identity and chronological ordering checks.
+    normalized=[{**r,'phase':'development'} for r in raw]
+    audit_requests(normalized,{r['id']:r for r in normalized},selected,instruction,expected,'first_chronological',[])
+    return {'extractor':'openrouter_paid_v1','verified':True,'attempts':3,'intrinsic_invalid_outputs':sum(r['status']=='invalid_output' for r in raw),'raw_sha256':smoke['raw_attempts']['sha256']}
+
+
 def validate(manifest,root):
     root=Path(root)
     if manifest.get('contract')!='prompt-execution-gates-v1':raise ValueError('Unknown execution gate contract')
@@ -87,7 +133,7 @@ def validate(manifest,root):
     schedule=json_bound(manifest['schedule'],root)['order']
     expected=[{'id':r['id'],'conditions':['P1','P2'] if i%2==0 else ['P2','P1']} for i,r in enumerate(scheduled)]
     if schedule!=expected:raise ValueError('Fixed counterbalanced schedule mismatch')
-    checked=[]
+    checked=[];smoke_verifications=[];unsupported_smoke=False
     for index,c in enumerate(configs):
         parent=json_bound(c['parent_baseline'],root);baseline=bound(c['baseline_instruction'],root).decode()
         if c['parent_baseline_id']!=scheduled[index]['parent_baseline_id'] or parent['id']!=c['parent_baseline_id']:raise ValueError('Parent baseline identity mismatch')
@@ -122,11 +168,17 @@ def validate(manifest,root):
                 if record.get('status')=='ok' and valid(record.get('prediction')):continue
                 if not (record.get('status')=='invalid_output' and record.get('failure_class')=='intrinsic_schema' and record.get('accepted_unchanged') is True and record.get('inspection_reason') and smoke.get('inspection')=='accepted_unchanged'):
                     raise ValueError('Smoke transport/identity/truncation or unaccepted output failure blocks development')
-            bound(smoke['raw_attempts'],root);times[variant]=development
+            bound(smoke['raw_attempts'],root)
+            if smoke.get('extractor')=='openrouter_paid_v1':
+                if parent['context_unit']!='single_record':raise ValueError('OpenRouter paid smoke requires single-record context')
+                smoke_verifications.append({'configuration':c['id'],'condition':variant,**verify_openrouter_smoke(smoke,inputs,instruction,json_bound(manifest['schema'],root),c['controls'],c['role'],root)})
+            elif smoke.get('extractor') in (None,'declared_only'):unsupported_smoke=True
+            else:raise ValueError('Unsupported smoke extractor')
+            times[variant]=development
         first,second=expected[index]['conditions']
         if times[first]>=times[second]:raise ValueError('Development schedule contradicts counterbalance order')
         checked.append(c['id'])
-    return {'contract':'prompt-execution-gates-v1','structural_checks_passed':True,'execution_allowed':False,'eligible_paired_comparison':False,'configurations':checked,'blockers':['Runtime token measurement verification is not implemented; declarations and hash-bound raw files alone are insufficient.','Runtime smoke request/response, exact controls and inspection verification is not implemented.','Actual launch-order enforcement and Git freeze/chronology verification are not implemented in this structural module.'],'reference_labels_read':False,'inference_performed':False}
+    return {'contract':'prompt-execution-gates-v1','structural_checks_passed':True,'execution_allowed':False,'eligible_paired_comparison':False,'configurations':checked,'smoke_verifications':smoke_verifications,'blockers':['Runtime token measurement verification is not implemented; declarations and hash-bound raw files alone are insufficient.',*(['Runtime smoke request/response verification is unavailable for one or more declared-only conditions.'] if unsupported_smoke else []),'Actual launch-order enforcement and Git freeze/chronology verification are not implemented in this structural module.'],'reference_labels_read':False,'inference_performed':False}
 
 
 def main():
