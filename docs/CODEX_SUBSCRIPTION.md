@@ -47,3 +47,5 @@ gpt-5.6-sol high completed 60 valid outputs in six sequential batches after its 
 gpt-5.6-sol xhigh completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-5.6-sol-xhigh-batch10-2026-09-23/evaluation.json`.
 
 gpt-5.6-luna medium completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/evaluation.json`.
+
+gpt-5.6-luna high completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-5.6-luna-high-batch10-2026-09-23/evaluation.json`.

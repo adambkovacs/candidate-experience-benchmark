@@ -64,7 +64,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-direct | downloading | — | — | — | — | — | — |
 | semif-serial | downloading | — | — | — | — | — | — |
 | semif-shared | downloading | — | — | — | — | — | — |
-| alex-openjev08 | running | — | — | — | — | — | — |
+| alex-openjev08 | complete | 60 | 39 | 37 | 20 | 9 | 3 |
 | laya-english | unsupported_length | — | — | — | — | — | — |
 | laya-typed | unsupported_length | — | — | — | — | — | — |
 | salesrlagent | task_incompatible | — | — | — | — | — | — |
@@ -87,8 +87,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | anyjev-qwen06-generated-control | complete | 0 | 0 | 0 | 0 | 0 | 0 |
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
 | codex-gpt-5.6-luna-medium | completed | 60 | 58 | 60 | 58 | 58 | 54 |
-| codex-gpt-5.6-luna-high | pending_batch10_service_recovery | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-high | completed | 60 | 58 | 59 | 59 | 59 | 57 |
+| codex-gpt-5.6-luna-xhigh | development_running | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
 | codex-gpt-6-astra-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
@@ -462,7 +462,9 @@ Pinned artifact download/runtime preparation in progress; localGPU coordinated w
 
 **alex-openjev08**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 fresh verification: all10/10 pinned artifact files complete and cryptographic hashes valid. Awaiting serialized local smoke and development inference; earlier incomplete-weight load failure retained as historical evidence. September23 MPS FP32 smoke3 inspected:14 normalized NLI triples perrecord, fullinput1463–1508tokens below4096; allvalid. Native reference PyTorch convolution/gated-delta kernels used because optional optimized kernels unavailable. Full60 running; no other benchmark inference.
+Pinned0.8B NLI artifact verified; MPS FP32 no quantization. Three-record smoke inspected then60 unique valid development outputs; all14 NLI triples finite/normalized and predictions independently reconstructed by maximum entailment. Full rubric+feedback1463–1514tokens, no truncation. Native reference PyTorch convolution/gated-delta kernels used; optional optimized kernels unavailable. No concurrent benchmark inference. Earlier incomplete-weight load failure remains historical. Provisional evaluation saved alongside raw responses.
+
+Evidence: `results/alex-openjev08-mps-2026-09-23/development.jsonl`; SHA-256 `8a85a1070e073dbea00c165ca7995de93949bcd01d2e8f2da4cb615d0302d14a`.
 
 **laya-english**
 
@@ -566,11 +568,13 @@ Evidence: `results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development.json
 
 **codex-gpt-5.6-luna-high**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development.jsonl`; SHA-256 `d4ef884d488c2715721795882da9484e14bf469c95aaeb69011424dcb94310fa`.
 
 **codex-gpt-5.6-luna-xhigh**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Xhigh smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
 
 **codex-gpt-5.6-luna-max**
 
