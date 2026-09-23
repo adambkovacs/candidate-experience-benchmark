@@ -48,6 +48,32 @@ Automatic approval review rejected two three-record smoke commands on September 
 
 Both commands specified 4,096 maximum output tokens, a 300-second timeout and the shared $1 cap. Neither command ran: no feedback payload was sent, no inference charge was incurred, and no budget reservation or smoke output was created by these rejected commands. Neither was retried or routed through another execution path.
 
-The earlier authorization to use reasonably priced OpenRouter replacements remains recorded above. The repository describes the feedback as entirely synthetic, with no actual candidate records ([agreed scope](../README.md#agreed-scope), [accepted decisions](PLAN.md#accepted-decisions)). Approval review nevertheless required confirmation scoped to these destinations. Their off configurations were recorded as `pending_explicit_destination_approval` in the [paid registry](../results/openrouter-paid-run-registry.json). The user subsequently explicitly approved paid OpenRouter for models outside GPT and Claude and raised the total cap to $5. Those approvals resolve the requested destination scope for this synthetic benchmark; execution still requires the price, endpoint, smoke and ledger checks. Existing successful outputs and recorded charges remain unchanged.
+The earlier authorization to use reasonably priced OpenRouter replacements remains recorded above. The repository describes the feedback as entirely synthetic, with no actual candidate records ([agreed scope](../README.md#agreed-scope), [accepted decisions](PLAN.md#accepted-decisions)). Approval review nevertheless required confirmation scoped to these destinations. Their off configurations were recorded as `pending_explicit_destination_approval` in the [paid registry](../results/openrouter-paid-run-registry.json). The user subsequently explicitly approved paid OpenRouter for models outside GPT and Claude and raised the total cap to $5. The controller treated those approvals as authorization for this synthetic benchmark, but the subsequent automatic review below still required exact route and payload confirmation. Execution also requires the price, endpoint, smoke and ledger checks. Existing successful outputs and recorded charges remain unchanged.
 
 The cap increase is recorded as an append-only ledger amendment, preserving every earlier reservation and settlement. With the $0.1274796 checkpoint accounted above, the amended cap leaves $4.8725204 before new runs. Paid GPT/Claude calls remain excluded; those benchmarks use subscriptions. No top-up or credit purchase is authorized.
+
+## Renewed Gemma review rejection after the $5 approval
+
+The user then stated: "paid openrouter usage is approved for models outside of gpt and claude, prioritize them over running them on lm studio, use lm studio where its a must and no other option" and "you can use up 5 dollars, but dont go wild".
+
+After the tested cap amendment, the controller submitted one Gemma smoke command for `google/gemma-4-26b-a4b-it`, provider `deepinfra/fp8`, reasoning off, price ceilings $0.07/$0.34 per million input/output tokens, 4,096 output tokens and a 300-second timeout. Its approval justification explicitly identified the synthetic feedback, absence of real candidate data/reference labels, exact destination and $5 aggregate cap.
+
+Automatic approval review rejected that command before execution. It said general paid OpenRouter authorization did not explicitly authorize the exact provider/model route and payload for external transmission. No command ran, payload was sent, reservation was created or charge was incurred by this rejection. There was no retry or workaround. The Gemma26 off registry entry returns to `pending_explicit_destination_approval`; all paid dispatch is paused for one scoped approval covering the table below. Other configuration statuses retain their existing evidence.
+
+The ledger remains unchanged by this rejected command: $0.0752812 observed charges plus $0.0521984 retained unknown-cost upper bounds, $0.1274796 accounted, $4.8725204 remaining under the $5 total cap, and no unresolved reservation. Retained bounds are not observed charges.
+
+### Exact planned destinations for scoped approval
+
+All requests go through OpenRouter to only the specified provider route, without provider fallback. The payload is the existing 60 entirely synthetic feedback texts plus the classification policy and JSON output schema, sent one feedback record per independent request. Each new configuration first uses DEV001-003 for smoke, then the existing 60 development records after inspection. Reference labels, generation metadata, real candidate information and authentication secrets are excluded from prompt payloads. The API credential is used only for the normal authenticated request. No paid GPT or Claude route, top-up or cap increase is included.
+
+| Exact model ID | Exact provider route | Planned controls | Current execution boundary |
+| --- | --- | --- | --- |
+| `qwen/qwen3.8-27b` | `deepinfra/bf16` | off, medium, xhigh | Smoke then development; separate hosted configuration from local low |
+| `qwen/qwen3.6-35b-a3b` | `akashml/fp8` | off, on | Already complete; included for destination accounting, no rerun planned |
+| `google/gemma-4-26b-a4b-it` | `deepinfra/fp8` | off, on | Off command rejected before execution; smoke required for each |
+| `google/gemma-4-31b-it` | `deepinfra/turbo` | off, on | Smoke required for each |
+| `mistralai/mistral-small-3.2-24b-instruct` | `deepinfra/fp8` | reasoning not applicable | Existing 8 valid development records retained; any explicit continuation starts at DEV009 in a new attempt file |
+| `mistralai/mistral-small-2603` | `mistral/zdr` | none, high | Earlier none smoke HTTP429 retained; no automatic retry; high needs smoke |
+| `deepseek/deepseek-v4.1-flash` | `open-inference/fp4` | off, low, high | Separate hosted DeepSeek slot; smoke required for each |
+
+The [paid registry](../results/openrouter-paid-run-registry.json) is the configuration source. Live endpoint status, reasoning support and prices must still pass the adapter's strict checks before any request. These rows do not imply that a route is currently healthy or that all runs will fit the remaining cap.
