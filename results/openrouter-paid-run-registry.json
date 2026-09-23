@@ -1,0 +1,129 @@
+[
+  {
+    "id": "openrouter-paid-qwen3.8-27b-medium",
+    "model": "qwen/qwen3.8-27b",
+    "effort": "medium",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "deepinfra/bf16",
+    "quantization": "bf16",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-qwen3.8-27b-xhigh",
+    "model": "qwen/qwen3.8-27b",
+    "effort": "xhigh",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "deepinfra/bf16",
+    "quantization": "bf16",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-qwen3.8-27b-off",
+    "model": "qwen/qwen3.8-27b",
+    "effort": "off",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "deepinfra/bf16",
+    "quantization": "bf16",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-qwen36-35b-a3b-on",
+    "model": "qwen/qwen3.6-35b-a3b",
+    "effort": "on",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "akashml/fp8",
+    "quantization": "fp8",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-qwen36-35b-a3b-off",
+    "model": "qwen/qwen3.6-35b-a3b",
+    "effort": "off",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "akashml/fp8",
+    "quantization": "fp8",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-gemma4-26b-a4b-on",
+    "model": "google/gemma-4-26b-a4b-it",
+    "effort": "on",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "deepinfra/fp8",
+    "quantization": "fp8",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-gemma4-26b-a4b-off",
+    "model": "google/gemma-4-26b-a4b-it",
+    "effort": "off",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "deepinfra/fp8",
+    "quantization": "fp8",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-gemma4-31b-on",
+    "model": "google/gemma-4-31b-it",
+    "effort": "on",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "deepinfra/turbo",
+    "quantization": "fp4",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-gemma4-31b-off",
+    "model": "google/gemma-4-31b-it",
+    "effort": "off",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "deepinfra/turbo",
+    "quantization": "fp4",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-mistral-small32-24b-not-applicable",
+    "model": "mistralai/mistral-small-3.2-24b-instruct",
+    "effort": "not-applicable",
+    "status": "development_running",
+    "predictions_file": null,
+    "provider": "deepinfra/fp8",
+    "quantization": "fp8",
+    "notes": "Three smoke responses inspected: valid exact model/provider, billed total $0.00034845. Full60 active unchanged; DeepInfra FP8, effort not applicable (no reasoning parameter). Shared aggregate $1 cap includes Mistral119 unknown-cost reservation.",
+    "smoke_files": [
+      "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
+    ]
+  },
+  {
+    "id": "openrouter-paid-mistral-small4-119b-none",
+    "model": "mistralai/mistral-small-2603",
+    "effort": "none",
+    "status": "blocked_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "mistral/zdr",
+    "quantization": "unknown",
+    "notes": "First authorized smoke request received HTTP429 from Mistral upstream shared pool; no prediction or reported cost. No automatic retry. Maximum request reservation $0.04177920 retained against aggregate $1 budget; actual charge unknown.",
+    "attempt_phase": "smoke",
+    "attempt_files": [
+      "results/openrouter-mistral119-none-2026-09-23/smoke.jsonl"
+    ]
+  },
+  {
+    "id": "openrouter-paid-mistral-small4-119b-high",
+    "model": "mistralai/mistral-small-2603",
+    "effort": "high",
+    "status": "pending_budget_guard_and_smoke",
+    "predictions_file": null,
+    "provider": "mistral/zdr",
+    "quantization": "unknown",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  }
+]

@@ -1,6 +1,6 @@
 # OpenRouter cost review — 2026-09-23
 
-The user requested a low-effort agent to assess whether hosted models could reduce download and local execution time. This was a read-only review. Paid OpenRouter inference is not authorized; the existing TypeSafe $1 cap is separate.
+The user requested a low-effort agent to assess whether hosted models could reduce download and local execution time. This was a read-only review. The subsequent user instruction authorized reasonably priced hosted matches instead of downloading them. Execution is bounded to an aggregate $1 OpenRouter inference cap; the existing TypeSafe $1 cap is separate.
 
 The [official model catalog](https://openrouter.ai/api/v1/models) advertised the following routes and prices at review time. A listing is not proof of successful inference or a latency guarantee.
 
@@ -21,4 +21,10 @@ No exact catalog entry was found for DeepSeek-R1-Distill-Qwen-32B or Gemma 4 E4B
 
 The free `qwen/qwen3.8-27b:free` listing remains advertised, but the September 23 reasoning-off smoke returned HTTP 429 before any prediction. See `results/openrouter/qwen38-off-smoke-2026-09-23.jsonl`. Do not treat the paid listing as proof that its route is healthy either.
 
-The [official billing FAQ](https://openrouter.ai/docs/faq) describes credit purchases and a purchase fee. This review did not establish a current minimum deposit or numerical fee. A proposed separate $1 inference cap is a recommendation only; it is not a credit purchase or spending authorization. Prices and provider availability must be checked again before any authorized paid run.
+The [official billing FAQ](https://openrouter.ai/docs/faq) describes credit purchases and a purchase fee. This review did not establish a current minimum deposit or numerical fee. After this review, the user authorized reasonably priced hosted matches. The implementation uses a separate aggregate $1 inference cap; no credit purchase or automatic top-up is authorized. Prices and provider availability must be checked again before any authorized paid run.
+
+## Hosted execution decision
+
+The live endpoint snapshot and model reasoning metadata are saved in `results/openrouter-paid-planning-2026-09-23/`. Exact providers and remaining configurations are listed in `results/openrouter-paid-run-registry.json`; they must be revalidated before requests. Existing completed local results remain intact. DeepSeek-R1-Distill-Qwen-32B, Gemma E4B and specialist models stay local because no exact hosted route was established. Stopped partial downloads are preserved. The paid runner must reserve each request against the shared budget before sending, reconcile reported cost, stop on unknown billing or the first request failure, and inspect three smoke responses before a full60 run.
+
+The first Mistral119B smoke returned an upstream HTTP429 without reported usage cost. Its full $0.04177920 maximum reservation is permanently counted against the cap, with actual cost still unknown; an explicit ledger event records the evidence hash. This is not a zero-charge assertion or an automatic retry. The separate Mistral24B/DeepInfra FP8 smoke passed all three records and reported $0.00034845 total cost. Hosted development proceeds only after smoke inspection, with no fallback provider.
