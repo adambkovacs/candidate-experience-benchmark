@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Explicit paid OpenRouter roster; shared $1 cap across smoke/development/retries.
+"""Explicit paid OpenRouter roster; shared $5 cap across smoke/development/retries.
 
 Provider max_price is USD/million tokens, catalog pricing USD/token:
 https://openrouter.ai/docs/guides/routing/provider-selection#max-price
@@ -21,7 +21,7 @@ import uuid
 from development_benchmark import ROOT, digest, read_rows, valid
 from openrouter_benchmark import fetch, load_key, allowed_returned_models
 
-CAP = Decimal('1')
+CAP = Decimal('5')
 MILLION = Decimal(1000000)
 LEDGER_PATH = ROOT / 'results/openrouter-paid-budget.jsonl'
 ALLOWED_MODELS = frozenset(('qwen/qwen3.8-27b','qwen/qwen3.6-35b-a3b',
@@ -118,12 +118,13 @@ class BudgetLedger:
         try:
             fcntl.flock(self.file,fcntl.LOCK_EX|fcntl.LOCK_NB)
             self.file.seek(0);self.events=[json.loads(x) for x in self.file if x.strip()]
-            if self.events and self.events[0]!={'event':'budget','cap_usd':'1'}:raise ValueError('Ledger cap mismatch')
-            if not self.events:self.append({'event':'budget','cap_usd':'1'})
+            if self.events and self.events[0] not in ({'event':'budget','cap_usd':'1'},{'event':'budget','cap_usd':str(CAP)}):raise ValueError('Ledger cap mismatch')
+            if not self.events:self.append({'event':'budget','cap_usd':str(CAP)})
+            self.state()
         except BaseException:self.file.close();raise
     def append(self,event):durable(self.file,event);self.events.append(event)
     def state(self):
-        amounts={};pending=set();blocked=False
+        amounts={};pending=set();blocked=False;cap=number(self.events[0]['cap_usd'])
         for e in self.events:
             if e['event']=='reserve':
                 if e['attempt_id'] in amounts:raise ValueError('Duplicate reservation')
@@ -139,13 +140,24 @@ class BudgetLedger:
                     raise ValueError('Unknown-cost accounting requires audit evidence')
                 pending.remove(attempt)
             elif e['event']=='blocked':blocked=True
+            elif e['event']=='cap_amendment':
+                if pending or number(e['previous_cap_usd'])!=cap or not cap<number(e['cap_usd'])<=CAP or not e.get('reason'):
+                    raise ValueError('Invalid or unsafe cap amendment')
+                cap=number(e['cap_usd'])
             elif e['event']!='budget':raise ValueError('Unknown ledger event')
+        self.cap=cap
         return amounts,pending,blocked
+    def amend_cap(self,new_cap,reason):
+        _,pending,blocked=self.state();new_cap=number(new_cap)
+        if pending or blocked or not self.cap<new_cap<=CAP or not isinstance(reason,str) or not reason.strip():
+            raise ValueError('Cap amendment requires idle ledger and explicit increased approved cap')
+        self.append({'event':'cap_amendment','previous_cap_usd':str(self.cap),'cap_usd':str(new_cap),'reason':reason})
+        self.state()
     def accounted(self):return sum(self.state()[0].values(),Decimal(0))
     def reserve(self,amount,record_id):
         amount=number(amount);amounts,pending,blocked=self.state()
         if pending or blocked:raise ValueError('Unresolved charge or billing anomaly blocks new calls')
-        if sum(amounts.values(),Decimal(0))+amount>CAP:raise ValueError('Aggregate $1 cap reached')
+        if sum(amounts.values(),Decimal(0))+amount>self.cap:raise ValueError('Aggregate $'+str(self.cap)+' cap reached')
         attempt=str(uuid.uuid4());self.append({'event':'reserve','attempt_id':attempt,'record_id':record_id,'usd':str(amount)})
         return attempt
     def settle(self,attempt,actual):
@@ -154,7 +166,7 @@ class BudgetLedger:
         if actual is None:return False
         actual=number(actual);within=actual<=amounts[attempt]
         self.append({'event':'settle','attempt_id':attempt,'usd':str(actual)})
-        if not within or self.accounted()>CAP:self.append({'event':'blocked','reason':'Actual cost exceeds reserved bound'});return False
+        if not within or self.accounted()>self.cap:self.append({'event':'blocked','reason':'Actual cost exceeds reserved bound'});return False
         return True
     def finalize_unknown_at_reserved_upper_bound(self,attempt,reason,evidencepath):
         """Explicit operator action only; retain full reserve as unknown-cost bound."""
@@ -214,7 +226,7 @@ def run(args):
                 record={'id':row['id'],'phase':args.phase,'range_selection':selection,'request_timeout_seconds':args.timeout,'attempt_id':attempt,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
                     'requested_model':args.model,'provider_endpoint':endpoint,'model_catalog_entry':model,'request':payload,
                     'request_sha256':digest(json.dumps(payload,sort_keys=True)),'policy_sha256':digest(policy),'schema_sha256':digest(json.dumps(schema,sort_keys=True)),
-                    'input_sha256':digest(row['feedback']),'reference_labels_read':False,'surface':'OpenRouter paid HTTP, aggregate cap $1',
+                    'input_sha256':digest(row['feedback']),'reference_labels_read':False,'surface':'OpenRouter paid HTTP','aggregate_cap_usd':str(ledger.cap),
                     'hardware':'Remote provider undisclosed','runtime':'OpenRouter HTTP v1','quantization':endpoint.get('quantization'),
                     'reasoning_effort':args.reasoning,'reserved_cost_usd':str(reserve),'budget_ledger':str(LEDGER_PATH.relative_to(ROOT)) if LEDGER_PATH.is_relative_to(ROOT) else str(LEDGER_PATH),
                     'retry_policy':'none; exclusive files; every attempt reserves against shared cap'}

@@ -36,9 +36,9 @@ class PaidTests(unittest.TestCase):
   with self.assertRaises(ValueError):r.reasoning({'reasoning':{'mandatory':True}},e,'off')
  def test_ledger_durable_reserve_settle_and_cap(self):
   with tempfile.TemporaryDirectory() as d:
-   p=Path(d)/'ledger';a=r.BudgetLedger(p);i=a.reserve(Decimal('.6'),'A');a.settle(i,Decimal('.4'));j=a.reserve(Decimal('.6'),'B');a.settle(j,Decimal('.6'))
+   p=Path(d)/'ledger';a=r.BudgetLedger(p);i=a.reserve(Decimal('.6'),'A');a.settle(i,Decimal('.4'));j=a.reserve(Decimal('4.6'),'B');a.settle(j,Decimal('4.6'))
    with self.assertRaises(ValueError):a.reserve(Decimal('.00001'),'C')
-   a.close();b=r.BudgetLedger(p);self.assertEqual(b.accounted(),Decimal('1.0'));b.close()
+   a.close();b=r.BudgetLedger(p);self.assertEqual(b.accounted(),Decimal('5.0'));b.close()
  def test_unknown_and_crash_reservations_block_future_runs(self):
   with tempfile.TemporaryDirectory() as d:
    p=Path(d)/'ledger';a=r.BudgetLedger(p);i=a.reserve(Decimal('.1'),'A');a.settle(i,None);a.close();b=r.BudgetLedger(p)
@@ -109,8 +109,8 @@ class UnknownUpperBoundTests(unittest.TestCase):
    with self.assertRaises(ValueError):a.finalize_unknown_at_reserved_upper_bound(i,'duplicate',proof)
    with self.assertRaises(ValueError):a.settle(i,Decimal('0'))
    a.close();b=r.BudgetLedger(path);self.assertEqual(b.accounted(),Decimal('.6'))
-   with self.assertRaises(ValueError):b.reserve(Decimal('.400001'),'B')
-   j=b.reserve(Decimal('.4'),'B');b.settle(j,Decimal('.4'));self.assertEqual(b.accounted(),Decimal('1'));b.close()
+   with self.assertRaises(ValueError):b.reserve(Decimal('4.400001'),'B')
+   j=b.reserve(Decimal('4.4'),'B');b.settle(j,Decimal('4.4'));self.assertEqual(b.accounted(),Decimal('5'));b.close()
  def test_evidence_and_pending_required(self):
   with tempfile.TemporaryDirectory() as d:
    a=r.BudgetLedger(Path(d)/'ledger');i=a.reserve(Decimal('.6'),'A');proof=Path(d)/'attempt'
@@ -173,3 +173,25 @@ class DeepSeekSnapshotTests(unittest.TestCase):
   with self.assertRaises(ValueError):r.check_prices(changed,Decimal('.10'),Decimal('.50'))
 
 if __name__=='__main__':unittest.main()
+
+class CapAmendmentTests(unittest.TestCase):
+ def test_old_cap_requires_explicit_amendment_and_preserves_spend(self):
+  with tempfile.TemporaryDirectory() as d:
+   p=Path(d)/'ledger';p.write_text(json.dumps({'event':'budget','cap_usd':'1'})+'\n')
+   a=r.BudgetLedger(p);i=a.reserve(Decimal('.8'),'A');a.settle(i,Decimal('.8'))
+   with self.assertRaises(ValueError):a.reserve(Decimal('.3'),'B')
+   before=p.read_bytes();a.amend_cap(Decimal('5'),'User approved total $5 on 2026-09-23')
+   self.assertTrue(p.read_bytes().startswith(before));self.assertEqual(a.accounted(),Decimal('.8'));a.close()
+   b=r.BudgetLedger(p);self.assertEqual(b.cap,Decimal('5'))
+   j=b.reserve(Decimal('4.2'),'B');b.settle(j,Decimal('4.2'))
+   with self.assertRaises(ValueError):b.reserve(Decimal('.00001'),'C')
+   b.close()
+ def test_pending_or_unapproved_amendment_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   p=Path(d)/'ledger';p.write_text(json.dumps({'event':'budget','cap_usd':'1'})+'\n')
+   a=r.BudgetLedger(p)
+   for cap,reason in [(Decimal('6'),'too high'),(Decimal('5'),''),(Decimal('1'),'same')]:
+    with self.assertRaises(ValueError):a.amend_cap(cap,reason)
+   a.reserve(Decimal('.1'),'A')
+   with self.assertRaises(ValueError):a.amend_cap(Decimal('5'),'pending')
+   a.close()

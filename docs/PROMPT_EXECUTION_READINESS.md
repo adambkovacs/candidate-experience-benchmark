@@ -2,7 +2,7 @@
 
 Audited offline on 2026-09-23 against the [frozen protocol](PROMPT_VARIANTS.md), current adapters and run registries. No model requests, reference-label reads or prompt edits were made during this audit. This is a readiness snapshot, not permission to start phase two or a reduced experiment roster.
 
-Phase two is not ready to execute. Baseline work remains pending, and only the Claude adapters expose frozen P0/P1/P2 selectors, with P1/P2 restricted to offline previews. The [protocol](PROMPT_VARIANTS.md#controls-and-execution) requires baseline completion or explicit scope resolution first. Blocked configurations remain open; newer hosted replacements are separate configurations, not substitutes for an existing local P0 in a prompt comparison. Further paid calls currently await [destination approval](OPENROUTER_COST_REVIEW.md#destination-approval-pending).
+Phase two is not ready to execute. Baseline work remains pending, and only the Claude adapters expose frozen P0/P1/P2 selectors, with P1/P2 restricted to offline previews. The [protocol](PROMPT_VARIANTS.md#controls-and-execution) requires baseline completion or explicit scope resolution first. Blocked configurations remain open; newer hosted replacements are separate configurations, not substitutes for an existing local P0 in a prompt comparison. Paid non-GPT/Claude OpenRouter calls now have [explicit approval and a $5 total cap](OPENROUTER_COST_REVIEW.md); this does not remove the prompt experiment gates.
 
 ## What is already usable
 
@@ -54,7 +54,7 @@ A real 60-record P2 batch preview was also generated offline: six ordered groups
 
 ## Next steps, in order
 
-1. Finish or explicitly resolve pending baseline work, including existing destination approvals. Keep the full registry roster visible.
+1. Finish or explicitly resolve pending baseline work, including any remaining surface-specific destination approvals. Keep the full registry roster visible.
 2. Build an offline pairing manifest from immutable P0 evidence. Confirm which historical versions/settings remain reproducible; mark unsupported matches with their reason. Preserve historical P0 reuse dates, cache/load uncertainty, concurrent work and stochastic limitations.
 3. Integrate the tested shared frozen-candidate loaders into per-surface composition adapters. Test P0 byte identity, P2's P1 prefix, role placement, absent references/generation metadata, unchanged controls, exact batch membership, hash tampering and overlength rejection. Tests should use synthetic fixtures rather than tuning additions from reference failures.
 4. Extend the implemented offline evaluator with remaining raw-evidence extractors and audited protocol gates, then add its separate report/explorer. Preserve tested handling of invalid/missing outputs, chronological retries, raw cost evidence and incomplete pairs. Keep native specialist methods distinct from their generated controls.

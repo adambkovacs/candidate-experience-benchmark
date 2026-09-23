@@ -1,6 +1,6 @@
 # OpenRouter cost review — 2026-09-23
 
-The user requested a low-effort agent to assess whether hosted models could reduce download and local execution time. This was a read-only review. The subsequent user instruction authorized reasonably priced hosted matches instead of downloading them. Execution is bounded to an aggregate $1 OpenRouter inference cap; the existing TypeSafe $1 cap is separate.
+The user requested a low-effort agent to assess whether hosted models could reduce download and local execution time. This was a read-only review. The subsequent user instruction authorized reasonably priced hosted matches instead of downloading them. The latest user instruction explicitly approves paid OpenRouter for non-GPT/Claude models, prioritizes hosted execution over LM Studio where equivalent routes exist, and sets a $5 total OpenRouter inference cap. Earlier spending counts toward $5; the existing TypeSafe $1 cap is separate.
 
 The [official model catalog](https://openrouter.ai/api/v1/models) advertised the following routes and prices at review time. A listing is not proof of successful inference or a latency guarantee.
 
@@ -21,7 +21,7 @@ No exact catalog entry was found for DeepSeek-R1-Distill-Qwen-32B or Gemma 4 E4B
 
 The free `qwen/qwen3.8-27b:free` listing remains advertised, but the September 23 reasoning-off smoke returned HTTP 429 before any prediction. See `results/openrouter/qwen38-off-smoke-2026-09-23.jsonl`. Do not treat the paid listing as proof that its route is healthy either.
 
-The [official billing FAQ](https://openrouter.ai/docs/faq) describes credit purchases and a purchase fee. This review did not establish a current minimum deposit or numerical fee. After this review, the user authorized reasonably priced hosted matches. The implementation uses a separate aggregate $1 inference cap; no credit purchase or automatic top-up is authorized. Prices and provider availability must be checked again before any authorized paid run.
+The [official billing FAQ](https://openrouter.ai/docs/faq) describes credit purchases and a purchase fee. This review did not establish a current minimum deposit or numerical fee. After this review, the user authorized reasonably priced hosted matches. The implementation now uses a separate aggregate $5 inference cap; no credit purchase or automatic top-up is authorized. Prices and provider availability must be checked again before any authorized paid run.
 
 ## Hosted execution decision
 
@@ -37,7 +37,7 @@ The Qwen3.6-35B-A3B hosted runs completed all 60 records with thinking off and o
 
 At this checkpoint, the [shared ledger](../results/openrouter-paid-budget.jsonl) records $0.0752812 in known charges and $0.0521984 in conservative upper bounds for two attempts with unknown charges. Total accounted spending is $0.1274796, leaving $0.8725204 of the $1 cap; there are no unresolved reservations. The upper bounds are not measured charges. No additional deposit is needed for this capped work based on the previously checked account balance, although balance and endpoint availability must be rechecked before further authorized calls.
 
-## Destination approval pending
+## Earlier destination review and subsequent approval
 
 Automatic approval review rejected two three-record smoke commands on September 23 before either command executed:
 
@@ -48,4 +48,6 @@ Automatic approval review rejected two three-record smoke commands on September 
 
 Both commands specified 4,096 maximum output tokens, a 300-second timeout and the shared $1 cap. Neither command ran: no feedback payload was sent, no inference charge was incurred, and no budget reservation or smoke output was created by these rejected commands. Neither was retried or routed through another execution path.
 
-The earlier authorization to use reasonably priced OpenRouter replacements remains recorded above. The repository describes the feedback as entirely synthetic, with no actual candidate records ([agreed scope](../README.md#agreed-scope), [accepted decisions](PLAN.md#accepted-decisions)). Approval review nevertheless required confirmation scoped to these destinations. Their off configurations are now `pending_explicit_destination_approval` in the [paid registry](../results/openrouter-paid-run-registry.json). Further paid calls are paused pending that explicit approval; existing successful outputs and recorded charges remain unchanged.
+The earlier authorization to use reasonably priced OpenRouter replacements remains recorded above. The repository describes the feedback as entirely synthetic, with no actual candidate records ([agreed scope](../README.md#agreed-scope), [accepted decisions](PLAN.md#accepted-decisions)). Approval review nevertheless required confirmation scoped to these destinations. Their off configurations were recorded as `pending_explicit_destination_approval` in the [paid registry](../results/openrouter-paid-run-registry.json). The user subsequently explicitly approved paid OpenRouter for models outside GPT and Claude and raised the total cap to $5. Those approvals resolve the requested destination scope for this synthetic benchmark; execution still requires the price, endpoint, smoke and ledger checks. Existing successful outputs and recorded charges remain unchanged.
+
+The cap increase is recorded as an append-only ledger amendment, preserving every earlier reservation and settlement. With the $0.1274796 checkpoint accounted above, the amended cap leaves $4.8725204 before new runs. Paid GPT/Claude calls remain excluded; those benchmarks use subscriptions. No top-up or credit purchase is authorized.

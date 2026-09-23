@@ -25,7 +25,7 @@ Status snapshot: 2026-09-23. Execution is continuing; the linked run registries 
 | Laya English/typed expanded CPU; AlexWortega 0.8B NLI; AnyJev raw/L0 | Completed 60 valid records each; native limits and expanded variants remain distinct | [Specialist registry](../results/specialist-run-registry.json) |
 | AnyJev matched generative control | All 60 responses failed strict output validity because of Markdown fences; raw outputs retained without repair | [Format audit](../results/anyjev-qwen06-generated-mps-2026-09-23/format-audit.json) |
 
-Historical max-effort rows remain as recorded evidence. Max and ultra are excluded from new runs. GPT-6 Sol/Luna have partial or smoke-only results after timeouts; do not treat them as completed sweeps. Luna 5.6 medium/high and Astra 6 medium have also completed all 60 records. Luna xhigh stopped on a DNS-related timeout; further Astra efforts and local specialists remain in progress. Further paid OpenRouter requests await the explicit destination approval described in the [cost review](OPENROUTER_COST_REVIEW.md).
+Historical max-effort rows remain as recorded evidence. Max and ultra are excluded from new runs. GPT-6 Sol/Luna have partial or smoke-only results after timeouts; do not treat them as completed sweeps. Luna 5.6 medium/high and Astra 6 medium have also completed all 60 records. Luna xhigh stopped on a DNS-related timeout; further Astra efforts and local specialists remain in progress. Paid non-GPT/Claude OpenRouter requests now have explicit approval under the $5 total cap described in the [cost review](OPENROUTER_COST_REVIEW.md).
 
 ## Common procedure
 
