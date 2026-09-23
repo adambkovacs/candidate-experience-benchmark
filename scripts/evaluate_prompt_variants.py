@@ -6,8 +6,11 @@ pairs, baseline_instruction each {file,sha256}; parent_baseline_id, role; contro
 and controls_sha256; allow_missing_outputs boolean; attempt_selection
 latest_chronological|first_chronological; retry_authorizations mapping condition
 to exact explicitly authorized retry attempt IDs; conditions P0/P1/P2 each
-{predictions:{file,sha256}, extractor:openrouter_paid_v1|declared_only,
+{predictions:{file,sha256}, extractor:openrouter_paid_v1|lmstudio_sdk_v1|declared_only,
  request_evidence:{file,sha256}}. request_evidence is required for the extractor.
+SDK conditions additionally require artifact_evidence:{file,sha256} containing
+inspect_gguf metadata and request_evidence_phase:development. SDK records without
+returned model/load/prediction evidence fail closed; no repaired evidence is inferred.
 The baseline text plus frozen additions define each expected instruction exactly.
 Other surfaces remain declared_only, never eligible audited paired comparisons.
 """
@@ -15,6 +18,8 @@ import argparse
 import hashlib
 import json
 import math
+import subprocess
+from functools import lru_cache
 from pathlib import Path
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
@@ -105,6 +110,109 @@ def audit_requests(rawrows,predictions,inputs,text,controls,selection,retry_auth
         if original is None or original['id']!=rid or original.get('status')!=row.get('status') or original.get('prediction')!=row.get('prediction'):raise ValueError('Prediction lacks matching raw attempt')
     return list(attempts.values())
 
+def config_fields(config):
+    fields=config.get('fields')
+    if not isinstance(fields,list) or len({f['key'] for f in fields})!=len(fields):raise ValueError('Missing or duplicate resolved config fields')
+    return {f['key']:f['value'] for f in fields}
+
+
+def extract_lmstudio_controls(row):
+    model={k:v for k,v in row['model_info'].items() if k!='instanceReference'}
+    load=config_fields(row['load_config']);resolved=config_fields(row['prediction_config'])
+    return {'workflow':'single_record','surface':row['surface'],'requested_model':row['requested_model'],
+        'artifact_sha256':row['artifact_sha256'],'artifact_path':row['artifact_path'],'template_sha256':row['template_sha256'],
+        'artifact_family':row['artifact_family'],'thinking':row['thinking'],'reasoning_effort':row.get('effort'),
+        'format':row['format'],'instruction_role':row['instruction_role'],'request_config':row['request']['config'],
+        'model_info':model,'load_config':load,'load_config_sha256':canonical_hash(load),
+        'prediction_config':resolved,'prediction_config_sha256':canonical_hash(resolved),'timeout_seconds':row['timeout_seconds']}
+
+
+@lru_cache(maxsize=128)
+def canonical_sdk_artifact(artifact_json,options_json,runner_sha256):
+    """Run only the runner's pure configuration export; importing it performs no inference."""
+    runner=Path(__file__).with_name('lmstudio_reasoning_benchmark.cjs')
+    if hashlib.sha256(runner.read_bytes()).hexdigest()!=runner_sha256:
+        raise ValueError('SDK runner changed during audit')
+    code="const fs=require('node:fs');const x=JSON.parse(fs.readFileSync(0,'utf8'));const r=require(process.argv[1]);process.stdout.write(JSON.stringify(r.configureArtifact(x.artifact,x.options)));"
+    try:
+        result=subprocess.run(['node','-e',code,str(runner)],input=json.dumps({'artifact':json.loads(artifact_json),'options':json.loads(options_json)}),text=True,capture_output=True,timeout=10,check=True)
+        return json.loads(result.stdout)
+    except (OSError,subprocess.SubprocessError,ValueError) as error:
+        raise ValueError('Canonical SDK artifact configuration unavailable or rejected') from error
+
+
+def reject_json_constant(value):
+    raise ValueError('Non-JSON numeric constant: '+value)
+
+
+def audit_lmstudio(rawrows,predictions,inputs,text,controls,selection,retry_authorizations,artifact,role):
+    if not rawrows:raise ValueError('No SDK raw evidence')
+    original_template=artifact['metadata']['tokenizer.chat_template']
+    if digest(original_template)!=artifact['template_sha256']:raise ValueError('Artifact original template hash mismatch')
+    attempts={};by_record={};order=[];last=None;observed_retries=[]
+    if not isinstance(retry_authorizations,list) or len(set(retry_authorizations))!=len(retry_authorizations):raise ValueError('Invalid retry authorization')
+    for row in rawrows:
+        rid=row.get('id');aid=row.get('attempt_id')
+        if rid not in inputs or not aid or aid in attempts or row.get('phase','development')!='development':raise ValueError('Invalid SDK attempt identity')
+        try:stamp=datetime.fromisoformat(row['started_utc'].replace('Z','+00:00'))
+        except (KeyError,ValueError,AttributeError):raise ValueError('Invalid SDK timestamp') from None
+        if stamp.tzinfo is None or (last is not None and stamp<last):raise ValueError('SDK attempt chronology reversed')
+        last=stamp
+        if rid in by_record:
+            if stamp<=by_record[rid][-1][0] or aid not in retry_authorizations:raise ValueError('SDK retry lacks authorization/later timestamp')
+            observed_retries.append(aid)
+        else:order.append(rid)
+        by_record.setdefault(rid,[]).append((stamp,row));attempts[aid]=row
+        request=row['request'];config=request['config'];messages=request['messages'];feedback=inputs[rid]['feedback']
+        if role!=row.get('instruction_role') or row.get('reference_labels_read') is not False or row.get('input_sha256')!=digest(feedback):raise ValueError('SDK role/input/isolation mismatch')
+        if role=='system':
+            if len(messages)!=2 or messages[0]!={'role':'system','content':text} or set(messages[1])!={'role','content'} or messages[1]['role']!='user' or json.loads(messages[1]['content'])!={'feedback':feedback}:raise ValueError('SDK messages differ from composed instruction and input')
+        elif role=='user':
+            # Native DeepSeek path serializes both into one provider-appropriate user message.
+            content=text+'\n\n'+json.dumps({'feedback':feedback},ensure_ascii=False,separators=(',',':'))
+            if messages!=[{'role':'user','content':content}]:raise ValueError('SDK user-role instruction/input mismatch')
+        else:raise ValueError('Unsupported SDK instruction role')
+        effective=config['promptTemplate']['jinjaPromptTemplate']['template']
+        if row['artifact_sha256']!=artifact['artifact_sha256'] or row['artifact_path']!=artifact['model_path'] or digest(effective)!=row['template_sha256']:raise ValueError('SDK artifact/template mismatch')
+        options={'thinking':row['thinking']}
+        if row['artifact_family']!='template-controlled':options['family']=row['artifact_family']
+        if row.get('effort') is not None:options['effort']=row['effort']
+        runner=Path(__file__).with_name('lmstudio_reasoning_benchmark.cjs')
+        expected=canonical_sdk_artifact(json.dumps(artifact,sort_keys=True),json.dumps(options,sort_keys=True),hashlib.sha256(runner.read_bytes()).hexdigest())
+        if expected['template']!=effective or expected['parsing']!=config['reasoningParsing'] or expected['instructionRole']!=role or expected['family']!=row['artifact_family']:
+            raise ValueError('SDK template/parser/role differs from canonical artifact configuration')
+        if row['format'] not in ('prompt','constrained') or (row['format']=='constrained')!=('structured' in config):raise ValueError('SDK output method differs from controls')
+        if extract_lmstudio_controls(row)!=controls:raise ValueError('SDK actual controls differ from paired controls')
+        model=row['model_info'];load=config_fields(row['load_config']);resolved=config_fields(row['prediction_config'])
+        if model['identifier']!=row['requested_model'] or model['path']!=row['artifact_path'] or model.get('contextLength')!=load.get('llm.load.contextLength'):raise ValueError('SDK model identity/context mismatch')
+        mappings={'promptTemplate':'llm.prediction.promptTemplate','temperature':'llm.prediction.temperature','contextOverflowPolicy':'llm.prediction.contextOverflowPolicy','reasoningParsing':'llm.prediction.reasoning.parsing','topKSampling':'llm.prediction.topKSampling'}
+        for requested,actual in mappings.items():
+            if requested in config and resolved.get(actual)!=config[requested]:raise ValueError('SDK resolved prediction control mismatch: '+requested)
+        if resolved.get('llm.prediction.maxPredictedTokens')!={'checked':True,'value':config['maxTokens']}:raise ValueError('SDK output budget mismatch')
+        if 'topPSampling' in config and resolved.get('llm.prediction.topPSampling')!={'checked':True,'value':config['topPSampling']}:raise ValueError('SDK top-p mismatch')
+        if config.get('minPSampling') is False and resolved.get('llm.prediction.minPSampling',{}).get('checked') is not False:raise ValueError('SDK min-p mismatch')
+        if resolved.get('llm.prediction.tools')!={'type':'none'}:raise ValueError('SDK tool configuration mismatch')
+        if 'structured' in config and resolved.get('llm.prediction.structured')!=config['structured']:raise ValueError('SDK structured-output configuration mapping unavailable/mismatched')
+        raw=row.get('raw_response');reason=row.get('reasoning_content');non=row.get('non_reasoning_content');parsing=config['reasoningParsing']
+        if not all(isinstance(x,str) for x in (raw,reason,non)):raise ValueError('SDK native response split unavailable')
+        permitted={non} if reason=='' else set()
+        if parsing.get('enabled') is True:
+            start=parsing['startString'];end=parsing['endString']
+            permitted.update((start+reason+end+non,reason+end+non))
+            if non=='':permitted.update((start+reason,reason))
+        if raw not in permitted or (parsing.get('enabled') is False and reason):raise ValueError('SDK native reasoning split does not match raw response')
+        try:parsed=json.loads(non,parse_constant=reject_json_constant)
+        except (ValueError,TypeError):parsed=None
+        if parsed!=row.get('prediction'):raise ValueError('SDK prediction repairs or differs from strict native non-reasoning JSON')
+        expected_status='ok' if valid(parsed) and row['stats']['stopReason'] in ('eosFound','stopStringFound') else 'invalid_output'
+        if row.get('status')!=expected_status:raise ValueError('SDK status does not match raw parse and stop reason')
+    if set(observed_retries)!=set(retry_authorizations) or order!=list(inputs):raise ValueError('SDK request order/retry authorizations mismatch')
+    for rid,prediction in predictions.items():
+        candidates=by_record.get(rid,[]);selected=candidates[-1 if selection=='latest_chronological' else 0][1] if candidates else None
+        if selected is None or prediction.get('attempt_id')!=selected['attempt_id'] or prediction.get('status')!=selected.get('status') or prediction.get('prediction')!=selected.get('prediction'):raise ValueError('SDK prediction violates attempt selection/raw linkage')
+    return list(attempts.values())
+
+
 def usable(row):return row is not None and row.get('status')=='ok' and valid(row.get('prediction'))
 
 def state(row):
@@ -113,13 +221,15 @@ def state(row):
     return 'invalid_schema' if row.get('status')=='ok' else str(row.get('status','unknown_failure'))
 
 def telemetry(rows):
+    def usage(row,key,stat):
+        return row.get('stats',{}).get(stat) if row.get('surface')=='LM Studio JavaScript SDK' else (row.get('usage') or {}).get(key)
     def total(extract):
         values=[extract(r) for r in rows]
         if not values or any(isinstance(x,bool) or not isinstance(x,(int,float)) or not math.isfinite(x) or x<0 for x in values):return None
         return sum(values)
-    return {'attempts':len(rows),'input_tokens':total(lambda r:(r.get('usage') or {}).get('prompt_tokens')),
-        'output_tokens':total(lambda r:(r.get('usage') or {}).get('completion_tokens')),
-        'reasoning_tokens':total(lambda r:((r.get('usage') or {}).get('completion_tokens_details') or {}).get('reasoning_tokens')),
+    return {'attempts':len(rows),'input_tokens':total(lambda r:usage(r,'prompt_tokens','promptTokensCount')),
+        'output_tokens':total(lambda r:usage(r,'completion_tokens','predictedTokensCount')),
+        'reasoning_tokens':total(lambda r:r.get('stats',{}).get('reasoningPredictedTokensCount') if r.get('surface')=='LM Studio JavaScript SDK' else ((r.get('usage') or {}).get('completion_tokens_details') or {}).get('reasoning_tokens')),
         'attempt_seconds':total(lambda r:r.get('elapsed_seconds')),
         'note':'All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.'}
 
@@ -179,6 +289,11 @@ def evaluate(manifest,root=ROOT):
             if manifest['role']!='system':raise ValueError('OpenRouter extractor requires native system role')
             rawrows=rows_from(bound_read(condition['request_evidence'],root));attempts=audit_requests(rawrows,predictions,inputs,composition['instruction'],controls,manifest['attempt_selection'],manifest['retry_authorizations'].get(variant,[]))
             verification='verified_against_hash_bound_raw_requests'
+        elif condition['extractor']=='lmstudio_sdk_v1':
+            if condition.get('request_evidence_phase')!='development' or any('smoke' in part.lower() for part in Path(condition['request_evidence']['file']).parts):raise ValueError('Explicit SDK development evidence required')
+            rawrows=rows_from(bound_read(condition['request_evidence'],root));artifact=json.loads(bound_read(condition['artifact_evidence'],root))
+            attempts=audit_lmstudio(rawrows,predictions,inputs,composition['instruction'],controls,manifest['attempt_selection'],manifest['retry_authorizations'].get(variant,[]),artifact,manifest['role'])
+            verification='verified_against_hash_bound_sdk_requests'
         elif condition['extractor']=='declared_only':
             attempts=[];verification='unavailable';result['controls_verified']=False
         else:raise ValueError('Unsupported request evidence extractor')
