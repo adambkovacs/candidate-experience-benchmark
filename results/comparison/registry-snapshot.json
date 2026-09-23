@@ -93,9 +93,10 @@
     "id": "qwen3.8-27b-sdk-thinking-low",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "low",
-    "status": "development_running",
-    "predictions_file": null,
-    "notes": "Pinned Q4_K_M hash verified. Three low-effort smoke responses inspected; 60-record development run active in results/qwen3.8-27b-2026-09-23. Shared-machine contended timing."
+    "status": "complete",
+    "predictions_file": "results/qwen3.8-27b-2026-09-23/low-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/qwen3.8-27b-2026-09-23/low-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-medium",
@@ -985,14 +986,18 @@
     "id": "codex-gpt-5.6-terra-low",
     "model": "gpt-5.6-terra",
     "effort": "low",
-    "status": "pending_batch10_service_recovery",
+    "status": "development_running",
     "predictions_file": null,
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "notes": "September23 CLI155 batch smoke passed3/3 in91.217s with no observed tools or parsing errors. Development running sequential batches10 with600s cap and stop on first failure; no paid API/credits. Historical individual smoke preserved.",
     "smoke_files": [
-      "results/codex-gpt-5.6-terra-low-2026-09-21/smoke.jsonl"
+      "results/codex-gpt-5.6-terra-low-2026-09-21/smoke.jsonl",
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/smoke-attempts.jsonl"
     ],
     "future_enabled": true,
-    "planned_workflow": "batch10"
+    "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10
   },
   {
     "id": "codex-gpt-5.6-terra-medium",

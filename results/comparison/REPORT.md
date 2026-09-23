@@ -16,7 +16,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3.5-4b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
 | qwen3-8b-sdk-thinking-on | complete | 60 | 51 | 59 | 55 | 55 | 47 |
 | qwen3-8b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
-| qwen3.8-27b-sdk-thinking-low | development_running | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-low | complete | 60 | 59 | 60 | 59 | 59 | 57 |
 | qwen3.8-27b-sdk-thinking-medium | download_verified_smoke_pending | — | — | — | — | — | — |
 | qwen3.8-27b-sdk-thinking-xhigh | download_verified_smoke_pending | — | — | — | — | — | — |
 | gemma4-e2b-sdk-thinking-on | complete | 60 | 50 | 58 | 46 | 52 | 35 |
@@ -102,7 +102,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-sol-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
-| codex-gpt-5.6-terra-low | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-low | development_running | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-high | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
@@ -192,7 +192,9 @@ Evidence: `results/qwen3-8b-2026-09-21/nonthinking-development.jsonl`; SHA-256 `
 
 **qwen3.8-27b-sdk-thinking-low**
 
-Pinned Q4_K_M hash verified. Three low-effort smoke responses inspected; 60-record development run active in results/qwen3.8-27b-2026-09-23. Shared-machine contended timing.
+Exact artifact/runtime/request controls in results/qwen3.8-27b-2026-09-23/low-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/qwen3.8-27b-2026-09-23/low-development.jsonl`; SHA-256 `efcafb03b706b70999c84a367aa7cf2635e3a6b2014ce8085bfd7a0c20cbe056`.
 
 **qwen3.8-27b-sdk-thinking-medium**
 
@@ -590,7 +592,7 @@ September23 user excluded max and ultra from future runs. Historical artifacts p
 
 **codex-gpt-5.6-terra-low**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+September23 CLI155 batch smoke passed3/3 in91.217s with no observed tools or parsing errors. Development running sequential batches10 with600s cap and stop on first failure; no paid API/credits. Historical individual smoke preserved.
 
 **codex-gpt-5.6-terra-medium**
 
