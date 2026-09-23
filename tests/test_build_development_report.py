@@ -4,7 +4,7 @@ import sys
 import tempfile
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from build_development_report import load_timing_attempts, reject_smoke_artifact, validate_development_dataset
+from build_development_report import load_timing_attempts, reject_smoke_artifact, validate_development_dataset, batch_timing
 from development_benchmark import KEYS
 
 
@@ -125,6 +125,37 @@ class ReportDatasetTests(unittest.TestCase):
 
     def test_development_prediction_rows_accepted(self):
         reject_smoke_artifact('development.jsonl', [{'id': 'DEV-001'}])
+
+
+class BatchTimingTests(unittest.TestCase):
+    def test_two_batches_count_time_once_and_failures_stay_in60_denominator(self):
+        from development_benchmark import score
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            attempts=[{'id':'batch-01','phase':'development','record_order':['A','B'],'batch_size':2,'status':'ok','elapsed_seconds':10},
+                      {'id':'batch-02','phase':'development','record_order':['C','D'],'batch_size':2,'status':'service_error','elapsed_seconds':20}]
+            (root/'attempts.jsonl').write_text(''.join(json.dumps(a)+'\n' for a in attempts))
+            labels={k:'insufficient_information' for k in KEYS}
+            rows=[{'id':i,'batch_id':'batch-01' if i in 'AB' else 'batch-02','timing_kind':'amortized_batch_share_not_individual_latency','status':'ok' if i in 'AB' else 'service_error','prediction':labels if i in 'AB' else None,'elapsed_seconds':5 if i in 'AB' else 10} for i in 'ABCD']
+            config={'attempt_phase':'development','predictions_file':'unused','raw_batch_attempt_files':['attempts.jsonl']}
+            timing=batch_timing(config,set('ABCD'),rows,root)
+            self.assertEqual(timing['sum_batch_request_seconds'],30)
+            self.assertEqual(timing['batch_requests'],2)
+            self.assertEqual(timing['batch_median_seconds'],15)
+            self.assertNotIn('median_seconds',timing)
+            self.assertNotIn('p95_nearest_rank_seconds',timing)
+            self.assertAlmostEqual(timing['successful_records_per_request_second'],2/30)
+            refs=[{'id':i,'proposed_labels':labels} for i in list('ABCD')+[str(i) for i in range(56)]]
+            result=score(refs,rows,[])
+            self.assertEqual(result['valid_outputs'],2)
+            self.assertEqual(result['metrics']['sentiment']['denominator'],60)
+            self.assertEqual(len(result['missing_or_failed']),58)
+            retry={**attempts[0],'record_order':['A','C'],'elapsed_seconds':8}
+            (root/'retry.jsonl').write_text(json.dumps(retry)+'\n')
+            with self.assertRaisesRegex(ValueError,'changed record membership'):
+                batch_timing({**config,'raw_batch_attempt_files':['attempts.jsonl','retry.jsonl']},set('ABCD'),rows,root)
+            with self.assertRaisesRegex(ValueError,'Repeated attempt path'):
+                batch_timing({**config,'raw_batch_attempt_files':['attempts.jsonl','./attempts.jsonl']},set('ABCD'),rows,root)
 
 
 if __name__ == '__main__':

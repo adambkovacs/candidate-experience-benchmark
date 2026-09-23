@@ -82,6 +82,40 @@ def load_timing_attempts(config, known_ids, root=ROOT):
     return attempts
 
 
+def batch_timing(config, known_ids, predictions, root=ROOT):
+    paths=config.get('raw_batch_attempt_files')
+    if not isinstance(paths,list) or not paths:raise ValueError('Batch workflow requires raw_batch_attempt_files')
+    batch_ids={r['id'] for path in paths for r in read_rows(root/path)}
+    batch_config={**config,'attempt_files':paths}
+    attempts=load_timing_attempts(batch_config,batch_ids,root)
+    durations=[];attempted=set();successful=set();members={};orders={}
+    for attempt in attempts:
+        ids=attempt.get('record_order')
+        elapsed=attempt.get('elapsed_seconds')
+        if (not isinstance(ids,list) or not ids or len(ids)!=len(set(ids)) or
+                not set(ids)<=known_ids or attempt.get('batch_size')!=len(ids)):
+            raise ValueError('Invalid batch record membership')
+        if elapsed is None:raise ValueError('Batch duration missing')
+        if attempt['id'] in orders and orders[attempt['id']]!=ids:
+            raise ValueError('Batch retry changed record membership or order')
+        orders[attempt['id']]=ids
+        durations.append(elapsed);attempted.update(ids)
+        if attempt.get('status')=='ok':successful.update(ids)
+        members.setdefault(attempt['id'],set()).update(ids)
+    for row in predictions:
+        if row.get('timing_kind')!='amortized_batch_share_not_individual_latency' or row['id'] not in members.get(row.get('batch_id'),set()):
+            raise ValueError('Prediction does not match batch provenance')
+    durations.sort();total=sum(durations)
+    return {'timing_kind':'batch_request_latency','workflow':'batch',
+        'batch_requests':len(attempts),'timed_records':len(attempted),
+        'sum_batch_request_seconds':total,
+        'batch_median_seconds':statistics.median(durations),
+        'batch_p95_nearest_rank_seconds':durations[math.ceil(.95*len(durations))-1],
+        'attempted_records_per_request_second':len(attempted)/total if total else None,
+        'successful_records_per_request_second':len(successful)/total if total else None,
+        'note':'Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed.'}
+
+
 def build(registries, output):
     input_rows = read_rows(ROOT/'data/pilot/inputs.jsonl')
     refs = read_rows(ROOT/'data/pilot/proposed_labels.jsonl')
@@ -119,6 +153,11 @@ def build(registries, output):
                     'median_seconds':statistics.median(totals) if totals else None,
                     'p95_nearest_rank_seconds':totals[math.ceil(.95*len(totals))-1] if totals else None,
                     'note':'Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.'})
+            if config.get('raw_batch_attempt_files'):
+                summary['workflow']='batch'
+                summary['timing']=batch_timing(config,set(inputs),predictions)
+            elif any(r.get('timing_kind')=='amortized_batch_share_not_individual_latency' for r in predictions):
+                raise ValueError('Amortized batch rows require raw batch timing evidence')
             for ref in refs:
                 row = index.get(ref['id'], {})
                 prediction = row.get('prediction')

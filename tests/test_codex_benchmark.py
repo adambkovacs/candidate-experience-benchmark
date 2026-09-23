@@ -10,12 +10,12 @@ import codex_benchmark as c
 
 class CodexTests(unittest.TestCase):
     def test_sol_terra_catalogue_efforts(self):
-        for model in ('gpt-5.6-sol', 'gpt-5.6-terra'):
-            for effort in ('low','medium','high','xhigh','max','ultra'):
+        for model in ('gpt-5.6-sol', 'gpt-5.6-terra', 'gpt-6-sol', 'gpt-6-luna'):
+            for effort in ('low','medium','high','xhigh'):
                 c.validate_model_effort(model, effort)
 
     def test_unknown_model_or_effort_rejected(self):
-        for model, effort in [('unknown','low'),('gpt-5.6-luna','ultra'),('gpt-5.6-sol','minimal')]:
+        for model, effort in [('gpt-6-sol','max'),('gpt-6-sol','ultra'),('unknown','low'),('gpt-5.6-luna','ultra'),('gpt-5.6-sol','minimal')]:
             with self.assertRaises(ValueError): c.validate_model_effort(model, effort)
 
     def test_run_isolates_each_record_and_excludes_labels(self):
@@ -54,6 +54,16 @@ class CodexTests(unittest.TestCase):
             self.assertEqual(row['raw_stdout'], 'partial event')
             self.assertEqual(row['raw_stderr'], 'transport detail')
             self.assertEqual(row['status'], 'service_error')
+
+    def test_completed_metadata_warning_preserved(self):
+        warning={'type':'item.completed','item':{'type':'error','message':'Model metadata for `gpt-6-sol` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.'}}
+        raw=json.dumps({'sentiment':'positive','follow_up_needed':'no','serious_concern_reported':'no','testimonial_potential':'yes'})
+        events=json.dumps(warning)+'\n'+json.dumps({'type':'turn.completed'})
+        result=c.parse_result(0,events,raw)
+        self.assertEqual(result['status'],'ok')
+        self.assertEqual(len(result['runtime_metadata_warnings']),1)
+        self.assertEqual(c.parse_result(1,events,raw)['status'],'service_error')
+        self.assertEqual(c.parse_result(0,json.dumps(warning),raw)['status'],'service_error')
 
     def test_environment_allowlist(self):
         env = c.clean_environment({'HOME':'/home/test', 'PATH':'/bin', 'OPENAI_API_KEY':'secret', 'CODEX_API_KEY':'secret', 'CODEX_THREAD_ID':'other', 'CODEX_HOME':'evil'})

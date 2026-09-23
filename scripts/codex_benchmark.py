@@ -11,18 +11,17 @@ import argparse
 import json
 import os
 import platform
+import re
 import subprocess
 import tempfile
 import time
 from pathlib import Path
 from development_benchmark import ROOT, digest, read_rows, valid
 
-SUPPORTED_EFFORTS = {
-    'gpt-5.6-luna': ('low', 'medium', 'high', 'xhigh', 'max'),
-    'gpt-6-astra': ('low', 'medium', 'high', 'xhigh', 'max', 'ultra'),
-    'gpt-5.6-sol': ('low', 'medium', 'high', 'xhigh', 'max', 'ultra'),
-    'gpt-5.6-terra': ('low', 'medium', 'high', 'xhigh', 'max', 'ultra'),
-}
+SUPPORTED_EFFORTS = {model: ('low', 'medium', 'high', 'xhigh') for model in (
+    'gpt-5.6-luna', 'gpt-6-astra', 'gpt-5.6-sol', 'gpt-5.6-terra',
+    'gpt-6-sol', 'gpt-6-luna',
+)}
 
 
 def validate_model_effort(model, effort):
@@ -74,6 +73,7 @@ def parse_result(returncode, stdout, raw):
     tool_items=[e for e in events if e.get('type','').startswith('item.') and e.get('item',{}).get('type') not in ('agent_message','reasoning','error')]
     completed=[e for e in events if e.get('type')=='turn.completed']
     recovered=[]
+    metadata_warnings=[]
     failed=False
     for event in events:
         item=event.get('item',{})
@@ -82,6 +82,9 @@ def parse_result(returncode, stdout, raw):
         elif event.get('type')=='error' or item.get('type')=='error':
             message=event.get('message',item.get('message',''))
             if message.startswith('Under-development features enabled:'):
+                continue
+            if completed and re.fullmatch(r'Model metadata for `[^`]+` not found\. Defaulting to fallback metadata; this can degrade performance and cause issues\.',message):
+                metadata_warnings.append(event)
                 continue
             if completed and message.startswith(('Reconnecting...', 'Falling back from WebSockets to HTTPS transport.')):
                 recovered.append(event)
@@ -94,7 +97,7 @@ def parse_result(returncode, stdout, raw):
     if tool_items: status='isolation_violation'
     return {'status':status,'prediction':prediction,'raw_response':raw,'raw_events':events,
             'returncode':returncode,'usage':completed[-1].get('usage') if completed else None,
-            'observed_tool_items':tool_items,'recovered_transport_errors':recovered,'event_parse_errors':parse_errors}
+            'runtime_metadata_warnings':metadata_warnings,'observed_tool_items':tool_items,'recovered_transport_errors':recovered,'event_parse_errors':parse_errors}
 
 
 def run(args):
@@ -149,9 +152,9 @@ def run(args):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--codex',default='/opt/homebrew/bin/codex')
+    p.add_argument('--codex',default='/Applications/ChatGPT.app/Contents/Resources/codex')
     p.add_argument('--model',required=True,choices=tuple(SUPPORTED_EFFORTS))
-    p.add_argument('--effort',default='low',choices=('low','medium','high','xhigh','max','ultra'))
+    p.add_argument('--effort',default='low',choices=('low','medium','high','xhigh'))
     p.add_argument('--limit',type=int,choices=range(1,61),default=3)
     p.add_argument('--offset',type=int,choices=range(60),default=0,help='Skip already attempted records; write a new continuation artifact.')
     p.add_argument('--timeout',type=float,default=180)
