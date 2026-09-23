@@ -62,7 +62,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openjev-generated-off | complete | 52 | 50 | 51 | 50 | 51 | 46 |
 | openjev-generated-on | complete | 59 | 56 | 58 | 56 | 57 | 53 |
 | semif-direct | complete | 60 | 50 | 56 | 50 | 54 | 36 |
-| semif-serial | ready_for_local_validation | — | — | — | — | — | — |
+| semif-serial | running | — | — | — | — | — | — |
 | semif-shared | ready_for_local_validation | — | — | — | — | — | — |
 | alex-openjev08 | complete | 60 | 39 | 37 | 20 | 9 | 3 |
 | laya-english | unsupported_length | — | — | — | — | — | — |
@@ -143,7 +143,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-deepseek-v41-flash-off | complete | 60 | 57 | 59 | 59 | 56 | 54 |
 | openrouter-paid-deepseek-v41-flash-low | running_continuation | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-high | running_continuation | — | — | — | — | — | — |
-| openrouter-paid-mistral-small32-24b-venice-not-applicable | running | — | — | — | — | — | — |
+| openrouter-paid-mistral-small32-24b-venice-not-applicable | complete | 60 | 54 | 57 | 55 | 57 | 48 |
 
 Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
 
@@ -160,6 +160,7 @@ Development-attempt costs only. Unknown-cost reservations are bounds, not observ
 | openrouter-paid-gemma4-31b-on | reported | 0.01303944 | 0 | `results/openrouter-parallel-gemma31-on-2026-09-23/development.jsonl` |
 | openrouter-paid-gemma4-31b-off | reported | 0.00555500 | 0 | `results/openrouter-parallel-gemma31-off-2026-09-23/development.jsonl` |
 | openrouter-paid-deepseek-v41-flash-off | reported | 0.00268114 | 0 | `results/openrouter-parallel-deepseek-flash-off-2026-09-23/development.jsonl` |
+| openrouter-paid-mistral-small32-24b-venice-not-applicable | reported | 0.00873028125 | 0 | `results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl` |
 
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
@@ -476,7 +477,7 @@ Evidence: `results/semif-direct-bf16-2026-09-23/development.jsonl`; SHA-256 `bec
 
 **semif-serial**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 smoke3valid, all12 fullpromptinputhashes equal direct mode; finite normalizedscores, MetalGPU BF16+FP32 noquant. Full60active; freshSerialPrefixScorer perfeedback, commonstate cache only within its4questions.
 
 **semif-shared**
 
@@ -880,5 +881,7 @@ Concurrent hosted execution under a reserved child budget. Existing completed re
 
 **openrouter-paid-mistral-small32-24b-venice-not-applicable**
 
-Separate Venice FP8 provider configuration after repeated DeepInfra rate limits. Three smoke responses inspected and valid; full60 running. Earlier DeepInfra attempts remain separate. Same approved model; endpoint pinned without fallback, price ceilings $0.09375/$0.25 per million input/output tokens, $0.35 child within total $5 cap. Runtime and hardware limitations are recorded in smoke-inspection.json.
+All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.
+
+Evidence: `results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl`; SHA-256 `ad8caac9b6db0df5f3e0e5b761f3bdb49e4aa7420eb184097bc29614ad7ab153`.
 

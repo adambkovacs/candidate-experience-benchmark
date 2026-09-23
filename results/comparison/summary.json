@@ -11169,9 +11169,9 @@
     "id": "semif-serial",
     "model": "Qwen3.5-4B",
     "effort": "MLX serial BF16",
-    "status": "ready_for_local_validation",
+    "status": "running",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.",
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 smoke3valid, all12 fullpromptinputhashes equal direct mode; finite normalizedscores, MetalGPU BF16+FP32 noquant. Full60active; freshSerialPrefixScorer perfeedback, commonstate cache only within its4questions.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
@@ -22710,29 +22710,255 @@
     "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "running",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl",
     "provider": "venice/fp8",
     "quantization": "fp8",
     "partition_id": "mistral24-venice-na",
+    "attempt_files": [
+      "results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl"
+    ],
     "smoke_files": [
       "results/openrouter-mistral24-venice-na-2026-09-23/smoke.jsonl"
     ],
-    "notes": "Separate Venice FP8 provider configuration after repeated DeepInfra rate limits. Three smoke responses inspected and valid; full60 running. Earlier DeepInfra attempts remain separate. Same approved model; endpoint pinned without fallback, price ceilings $0.09375/$0.25 per million input/output tokens, $0.35 child within total $5 cap. Runtime and hardware limitations are recorded in smoke-inspection.json.",
+    "notes": "All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.",
+    "attempt_phase": "development",
+    "reconciliation_manifest": "results/openrouter-mistral24-venice-na-2026-09-23/reconciliation.json",
+    "completed_records": 60,
+    "attempted_records": 60,
     "cost": {
       "scope": "declared development attempts only",
-      "availability": "unavailable",
-      "attempt_count": 0,
-      "known_actual_attempts": 0,
+      "availability": "reported",
+      "attempt_count": 60,
+      "known_actual_attempts": 60,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
       "missing_financial_attempts": 0,
-      "known_actual_usd": null,
-      "unknown_reserved_upper_bound_usd": null,
-      "known_plus_unknown_upper_bound_usd": null,
-      "total_actual_usd": null,
-      "source_paths": [],
+      "known_actual_usd": "0.00873028125",
+      "unknown_reserved_upper_bound_usd": "0",
+      "known_plus_unknown_upper_bound_usd": "0.00873028125",
+      "total_actual_usd": "0.00873028125",
+      "source_paths": [
+        "results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 54,
+          "denominator": 60,
+          "accuracy": 0.9,
+          "macro_f1": 0.7080952380952381,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.8461538461538461,
+              "recall": 1.0,
+              "f1": 0.9166666666666666
+            },
+            "negative": {
+              "tp": 29,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.9354838709677419,
+              "f1": 0.9666666666666667
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 4,
+              "fn": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "f1": 0.8
+            },
+            "neutral": {
+              "tp": 6,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.6372549019607843,
+          "per_label": {
+            "yes": {
+              "tp": 33,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.9428571428571428,
+              "f1": 0.9705882352941176
+            },
+            "no": {
+              "tp": 24,
+              "fp": 3,
+              "fn": 0,
+              "precision": 0.8888888888888888,
+              "recall": 1.0,
+              "f1": 0.9411764705882353
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 55,
+          "denominator": 60,
+          "accuracy": 0.9166666666666666,
+          "macro_f1": 0.8414494002729297,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9615384615384616,
+              "recall": 1.0,
+              "f1": 0.9803921568627451
+            },
+            "no": {
+              "tp": 26,
+              "fp": 1,
+              "fn": 3,
+              "precision": 0.9629629629629629,
+              "recall": 0.896551724137931,
+              "f1": 0.9285714285714286
+            },
+            "insufficient_information": {
+              "tp": 4,
+              "fp": 3,
+              "fn": 2,
+              "precision": 0.5714285714285714,
+              "recall": 0.6666666666666666,
+              "f1": 0.6153846153846154
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.6232323232323232,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.8181818181818182,
+              "recall": 1.0,
+              "f1": 0.9
+            },
+            "no": {
+              "tp": 48,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.9795918367346939,
+              "recall": 0.96,
+              "f1": 0.9696969696969697
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "ad8caac9b6db0df5f3e0e5b761f3bdb49e4aa7420eb184097bc29614ad7ab153",
+    "attempt_records": 60,
+    "exact_match": 48,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 152.67095971363597,
+      "median_seconds": 2.4484051044564694,
+      "p95_nearest_rank_seconds": 3.782055458985269,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   }
 ]

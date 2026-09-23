@@ -640,9 +640,9 @@
     "id": "semif-serial",
     "model": "Qwen3.5-4B",
     "effort": "MLX serial BF16",
-    "status": "ready_for_local_validation",
+    "status": "running",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 smoke3valid, all12 fullpromptinputhashes equal direct mode; finite normalizedscores, MetalGPU BF16+FP32 noquant. Full60active; freshSerialPrefixScorer perfeedback, commonstate cache only within its4questions."
   },
   {
     "id": "semif-shared",
@@ -1945,14 +1945,21 @@
     "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "running",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl",
     "provider": "venice/fp8",
     "quantization": "fp8",
     "partition_id": "mistral24-venice-na",
+    "attempt_files": [
+      "results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl"
+    ],
     "smoke_files": [
       "results/openrouter-mistral24-venice-na-2026-09-23/smoke.jsonl"
     ],
-    "notes": "Separate Venice FP8 provider configuration after repeated DeepInfra rate limits. Three smoke responses inspected and valid; full60 running. Earlier DeepInfra attempts remain separate. Same approved model; endpoint pinned without fallback, price ceilings $0.09375/$0.25 per million input/output tokens, $0.35 child within total $5 cap. Runtime and hardware limitations are recorded in smoke-inspection.json."
+    "notes": "All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.",
+    "attempt_phase": "development",
+    "reconciliation_manifest": "results/openrouter-mistral24-venice-na-2026-09-23/reconciliation.json",
+    "completed_records": 60,
+    "attempted_records": 60
   }
 ]

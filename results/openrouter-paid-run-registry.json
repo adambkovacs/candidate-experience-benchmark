@@ -270,15 +270,21 @@
     "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "running",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl",
     "provider": "venice/fp8",
     "quantization": "fp8",
     "partition_id": "mistral24-venice-na",
-    "attempt_files": [],
+    "attempt_files": [
+      "results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl"
+    ],
     "smoke_files": [
       "results/openrouter-mistral24-venice-na-2026-09-23/smoke.jsonl"
     ],
-    "notes": "Separate Venice FP8 provider configuration after repeated DeepInfra rate limits. Three smoke responses inspected and valid; full60 running. Earlier DeepInfra attempts remain separate. Same approved model; endpoint pinned without fallback, price ceilings $0.09375/$0.25 per million input/output tokens, $0.35 child within total $5 cap. Runtime and hardware limitations are recorded in smoke-inspection.json."
+    "notes": "All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.",
+    "attempt_phase": "development",
+    "reconciliation_manifest": "results/openrouter-mistral24-venice-na-2026-09-23/reconciliation.json",
+    "completed_records": 60,
+    "attempted_records": 60
   }
 ]
