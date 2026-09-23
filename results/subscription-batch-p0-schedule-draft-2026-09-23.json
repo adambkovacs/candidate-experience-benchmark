@@ -1,0 +1,1215 @@
+{
+  "kind": "draft_subscription_batch_p0_schedule_v1",
+  "status": "DRAFT_NOT_FROZEN",
+  "inference_performed": false,
+  "reference_labels_read": false,
+  "sources": [
+    {
+      "file": "results/codex-run-registry.json",
+      "sha256": "2aed1046df3684c693979bac4e791006b36f3701ffbd5fc506cba6506b728b0a"
+    },
+    {
+      "file": "results/claude-subscription-2026-09-21/run-registry.json",
+      "sha256": "8c3b5ed70066b85f20f0bb08c169269eb7cc4b60168e4bfe37d96032e0d4e66f"
+    },
+    {
+      "file": "docs/PROMPT_VARIANTS.md",
+      "sha256": "f65ea53e5094ff5b30346d920ce9b845f4202c8b9011af644c31abeaed23ad25"
+    }
+  ],
+  "new_p0_configurations": [
+    "codex-gpt-5.6-luna-low",
+    "codex-gpt-6-astra-low",
+    "sonnet5-low-first-pass",
+    "opus5-low",
+    "haiku45-not_applicable",
+    "sonnet5-medium",
+    "sonnet5-high",
+    "sonnet5-xhigh",
+    "opus5-medium",
+    "opus5-high",
+    "opus5-xhigh",
+    "fable51-low",
+    "fable51-medium",
+    "fable51-high",
+    "fable51-xhigh"
+  ],
+  "reuse_candidates": [
+    "codex-gpt-5.6-luna-medium",
+    "codex-gpt-5.6-luna-high",
+    "codex-gpt-5.6-luna-xhigh",
+    "codex-gpt-6-astra-medium",
+    "codex-gpt-6-astra-high",
+    "codex-gpt-6-astra-xhigh",
+    "codex-gpt-5.6-sol-low",
+    "codex-gpt-5.6-sol-medium",
+    "codex-gpt-5.6-sol-high",
+    "codex-gpt-5.6-sol-xhigh",
+    "codex-gpt-5.6-terra-low",
+    "codex-gpt-5.6-terra-medium",
+    "codex-gpt-5.6-terra-high",
+    "codex-gpt-5.6-terra-xhigh",
+    "codex-gpt-6-sol-medium-batch10",
+    "codex-gpt-6-sol-high-batch10",
+    "codex-gpt-6-sol-xhigh-batch10",
+    "codex-gpt-6-luna-medium-batch10",
+    "codex-gpt-6-luna-high-batch10",
+    "codex-gpt-6-luna-xhigh-batch10",
+    "opus55-low-batch10",
+    "opus55-medium-batch10",
+    "opus55-high-batch10",
+    "opus55-xhigh-batch10"
+  ],
+  "evidence_gap_configurations": [
+    "codex-gpt-6-sol-low-batch10",
+    "codex-gpt-6-luna-low-batch10"
+  ],
+  "counts": {
+    "registry_entries": 52,
+    "new_batch_p0_configurations": 15,
+    "reuse_candidates": 24,
+    "batch_raw_evidence_gaps": 2,
+    "new_p0_development_requests": 90,
+    "new_p0_smoke_requests": 15,
+    "new_p0_total_requests_without_retries": 105
+  },
+  "batch_membership": [
+    [
+      "DEV-001",
+      "DEV-002",
+      "DEV-003",
+      "DEV-004",
+      "DEV-005",
+      "DEV-006",
+      "DEV-007",
+      "DEV-008",
+      "DEV-009",
+      "DEV-010"
+    ],
+    [
+      "DEV-011",
+      "DEV-012",
+      "DEV-013",
+      "DEV-014",
+      "DEV-015",
+      "DEV-016",
+      "DEV-017",
+      "DEV-018",
+      "DEV-019",
+      "DEV-020"
+    ],
+    [
+      "DEV-021",
+      "DEV-022",
+      "DEV-023",
+      "DEV-024",
+      "DEV-025",
+      "DEV-026",
+      "DEV-027",
+      "DEV-028",
+      "DEV-029",
+      "DEV-030"
+    ],
+    [
+      "DEV-031",
+      "DEV-032",
+      "DEV-033",
+      "DEV-034",
+      "DEV-035",
+      "DEV-036",
+      "DEV-037",
+      "DEV-038",
+      "DEV-039",
+      "DEV-040"
+    ],
+    [
+      "DEV-041",
+      "DEV-042",
+      "DEV-043",
+      "DEV-044",
+      "DEV-045",
+      "DEV-046",
+      "DEV-047",
+      "DEV-048",
+      "DEV-049",
+      "DEV-050"
+    ],
+    [
+      "DEV-051",
+      "DEV-052",
+      "DEV-053",
+      "DEV-054",
+      "DEV-055",
+      "DEV-056",
+      "DEV-057",
+      "DEV-058",
+      "DEV-059",
+      "DEV-060"
+    ]
+  ],
+  "gates": "Baseline roster reconciliation, token/context fit, adapter model support, runtime/control evidence and smoke inspection remain required. Existing user authorization applies; no new approval invented. Subscription-only, no overage/credits/API fallback; no new models or max/ultra.",
+  "entries": [
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 0,
+      "id": "codex-gpt-5.6-luna-low",
+      "model": "gpt-5.6-luna",
+      "effort": "low",
+      "baseline_status": "completed_with_initialization_retries",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-luna-low-2026-09-21/development-reconciled.jsonl",
+        "sha256": "18572c21f941687485254449df44f53f9d685cd3450deaede387214676999f6f"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 1,
+      "id": "codex-gpt-5.6-luna-medium",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development.jsonl",
+        "sha256": "3f5bf38701e85c1f097a38feb40230b8065840f1c1cdd38423177dd873f78831"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "1f80db4a7af494236a158b9c975fd51cb287c4f48312d3bf5497c6fb585fe9b3"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 2,
+      "id": "codex-gpt-5.6-luna-high",
+      "model": "gpt-5.6-luna",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development.jsonl",
+        "sha256": "d4ef884d488c2715721795882da9484e14bf469c95aaeb69011424dcb94310fa"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "32880832b5a9968e3fca363e09b83da02d119cd3527c0837ab734cccbb85aecb"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 3,
+      "id": "codex-gpt-5.6-luna-xhigh",
+      "model": "gpt-5.6-luna",
+      "effort": "xhigh",
+      "baseline_status": "completed_after_infrastructure_recovery",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl",
+        "sha256": "2fdad3354a0f63032c0b55ed8c7ff255210d9b4d48293cbc1b435f7945f8c768"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "de5d71fd4ea3c955e59710fffe637a30d6c4b12f425c4a9cc88b57f113cad3f7"
+        },
+        {
+          "file": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development-attempts.jsonl",
+          "sha256": "630b40eeb704b449180553288162e63a4f9a9dc0c23d533bcd49c26eaf2c8c5e"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 7,
+      "full_request_body_count": 7,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 4,
+      "id": "codex-gpt-5.6-luna-max",
+      "model": "gpt-5.6-luna",
+      "effort": "max",
+      "baseline_status": "excluded_by_user",
+      "predictions": null,
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 5,
+      "id": "codex-gpt-6-astra-low",
+      "model": "gpt-6-astra",
+      "effort": "low",
+      "baseline_status": "completed_with_initialization_retries",
+      "predictions": {
+        "file": "results/codex-gpt-6-astra-low-2026-09-21/development-reconciled.jsonl",
+        "sha256": "a1526015cfbcc8badbded93d29a16cec1f4bbfb06217040d224d79bedd63cd14"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 6,
+      "id": "codex-gpt-6-astra-medium",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-6-astra-medium-batch10-2026-09-23/development.jsonl",
+        "sha256": "3931aa5605a8d1a9c490bb91c36e39f0331837776c330ee34362952566e77d14"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-astra-medium-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "1f3e0622f685543789b78faa9a0da50fb36587b6d27e5768fe424a197de77074"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 7,
+      "id": "codex-gpt-6-astra-high",
+      "model": "gpt-6-astra",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-6-astra-high-batch10-2026-09-23/development.jsonl",
+        "sha256": "541a21a2208ca791c083d716666b094379ca9209a11c8761085634d09e7589cd"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-astra-high-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "b5f95674fa63c207e36fe5a444687697f5fb637899742e2668ec6a6a41c97474"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 8,
+      "id": "codex-gpt-6-astra-xhigh",
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development.jsonl",
+        "sha256": "72a6fe6129e3925ec6709a68c116020912cfb547d5e6de95a6f72fcadb423c04"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "57f0fb376446810b5c4b888fcaff313fa5c4e2bc25b29bb9f49b5db5205f95eb"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 9,
+      "id": "codex-gpt-6-astra-max",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "baseline_status": "excluded_by_user",
+      "predictions": null,
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 10,
+      "id": "codex-gpt-6-astra-ultra",
+      "model": "gpt-6-astra",
+      "effort": "ultra",
+      "baseline_status": "excluded_by_user",
+      "predictions": null,
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 11,
+      "id": "codex-gpt-5.6-sol-low",
+      "model": "gpt-5.6-sol",
+      "effort": "low",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development.jsonl",
+        "sha256": "3e9f7c87d7c3c844381002ac474abb829fe98e7cfee3c33b5800b783bb7cebdd"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "dd067d932481406cbd4b7dba23b5cb66e1bb4c7c66efd8d094742b95bba54ecb"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 12,
+      "id": "codex-gpt-5.6-sol-medium",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development.jsonl",
+        "sha256": "b2133c998266c36a8851e8e5563421ca958b4fef47560cf5482dd3c32dbad926"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "9f90e92b34f82dd8987cbede75967496bfe8e65786e778135398daa97b16e4bb"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 13,
+      "id": "codex-gpt-5.6-sol-high",
+      "model": "gpt-5.6-sol",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development.jsonl",
+        "sha256": "3455dcd06de2d502e6ae25c8248445c1cd70a7f58d184336dae00233271fed5b"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "c78da066f53ef37a5da3b780539cda6e72788204add809be67bb1ce5a2e8a393"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 14,
+      "id": "codex-gpt-5.6-sol-xhigh",
+      "model": "gpt-5.6-sol",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-sol-xhigh-batch10-2026-09-23/development.jsonl",
+        "sha256": "bb43657b1103c48c3f6a2ca605f36298f256a43e14bbcf7d6ab3ef1e57388585"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-sol-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "c29b097aa9a82bcac6839fb40bbb949690d7220660a6cfd3dd567c2e66972d9e"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 15,
+      "id": "codex-gpt-5.6-sol-max",
+      "model": "gpt-5.6-sol",
+      "effort": "max",
+      "baseline_status": "excluded_by_user",
+      "predictions": null,
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 16,
+      "id": "codex-gpt-5.6-sol-ultra",
+      "model": "gpt-5.6-sol",
+      "effort": "ultra",
+      "baseline_status": "excluded_by_user",
+      "predictions": null,
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 17,
+      "id": "codex-gpt-5.6-terra-low",
+      "model": "gpt-5.6-terra",
+      "effort": "low",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl",
+        "sha256": "32fd2f4053d75dd538eccfa84696043ee03688fa03542b935537bf8121fc4138"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "8153a1718e5b1763e2c28a64b8586ec6bd748472dd6d662e4c7378acd49ac9d8"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 18,
+      "id": "codex-gpt-5.6-terra-medium",
+      "model": "gpt-5.6-terra",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development.jsonl",
+        "sha256": "ed369f1190da98c7bccef827a0e102b90b4c5c73df4af2be6a5ef09ee745dabb"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "55f73f710d8f73688e5a1bda26b4f9c6cc0eb8753c4c9d3e77951e9ec298ed6a"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 19,
+      "id": "codex-gpt-5.6-terra-high",
+      "model": "gpt-5.6-terra",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-terra-high-batch10-2026-09-23/development.jsonl",
+        "sha256": "4b74bcbe04ff75d3bd59129178b05be0c7e98d4ae1800e3c849bff188949faa9"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-terra-high-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "1d1f42a5b3d0caef2733515ef20f328f8b6c165697d530c3be5f8d269b306675"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 20,
+      "id": "codex-gpt-5.6-terra-xhigh",
+      "model": "gpt-5.6-terra",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-terra-xhigh-batch10-2026-09-23/development.jsonl",
+        "sha256": "19f40816c5ce7d4c1c8cd6253431aa304bb22e94b7579de514f5e951673816b5"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-5.6-terra-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+          "sha256": "9f0e416191b8b1f4f60da2582b8876ed80bc794f77be99e8d421aa1c37d49d01"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 21,
+      "id": "codex-gpt-5.6-terra-max",
+      "model": "gpt-5.6-terra",
+      "effort": "max",
+      "baseline_status": "excluded_by_user",
+      "predictions": null,
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 22,
+      "id": "codex-gpt-5.6-terra-ultra",
+      "model": "gpt-5.6-terra",
+      "effort": "ultra",
+      "baseline_status": "excluded_by_user",
+      "predictions": null,
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 23,
+      "id": "codex-gpt-6-sol-low-batch10",
+      "model": "gpt-6-sol",
+      "effort": "low",
+      "baseline_status": "completed_after_transport_recovery",
+      "predictions": {
+        "file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-completed.jsonl",
+        "sha256": "32fceb0506e4fd35af4791700557d787d235990234654c0eebbba842d1931123"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl",
+          "sha256": "aab18ef0068d4fbdc61d7ecd6f97c2ae5cff5733d6dd553b990790fa11d01fd4"
+        },
+        {
+          "file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+          "sha256": "1190d6ff1c27c7a8b98cb043948bd1cd6f07177c6a050910d27bd2bc2c6f7014"
+        },
+        {
+          "file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2-attempts.jsonl",
+          "sha256": "f020a0108e33ca34ff6021a939b4f36df995e6ba99b761289c1fd5b3104299f4"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 8,
+      "full_request_body_count": 6,
+      "action": "pending_raw_evidence_resolution",
+      "reason": "Context unit already matches. Some original attempts retain hashes only; do not claim strict full-body verification or silently discard failed attempts. No replacement P0 scheduled in this draft."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 24,
+      "id": "codex-gpt-6-sol-medium-batch10",
+      "model": "gpt-6-sol",
+      "effort": "medium",
+      "baseline_status": "complete",
+      "predictions": {
+        "file": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl",
+        "sha256": "e58e3f21125b0b6502a8a6ffdfbdf81db03e4c123a7cde638e96d304dcd68681"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch-attempts.jsonl",
+          "sha256": "19d75d37d4f8056bde4e2b59415e0c5b93be16af21d4eb01f69fda4236e5a37a"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 25,
+      "id": "codex-gpt-6-sol-high-batch10",
+      "model": "gpt-6-sol",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development.jsonl",
+        "sha256": "9ee13c2dacb86e059df7480ed8d8e13e5f48b695b6d170579557fd79669dad03"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development-attempts.jsonl",
+          "sha256": "e6ad791b9f195510b8fa60806dce4bbb1f011cce65a5e9aa5ebe698033fea083"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 26,
+      "id": "codex-gpt-6-sol-xhigh-batch10",
+      "model": "gpt-6-sol",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+        "sha256": "e886d9a7559499ee2b14b50adf1b46139f5c88bead8f9afadd5ee3f1d28d8261"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl",
+          "sha256": "662975a466ecc247ab580f452b6747a887d687466236386f1a3210c049b0ffc5"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 27,
+      "id": "codex-gpt-6-luna-low-batch10",
+      "model": "gpt-6-luna",
+      "effort": "low",
+      "baseline_status": "completed_after_transport_recovery",
+      "predictions": {
+        "file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-completed.jsonl",
+        "sha256": "ba319b4af1a61523ad2528f0dafac66066c13fc79e02820d64be73a751dca52a"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-attempts.jsonl",
+          "sha256": "1e4cfc37e6b1cd73c16191a5dab2f79c6a9849ef1745a73fb4244653fa917916"
+        },
+        {
+          "file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+          "sha256": "d9b0bcb9a374cc9b70dcf312f6f7eb7735e53ddffadf602cc09a0aee69e35d71"
+        },
+        {
+          "file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2-attempts.jsonl",
+          "sha256": "52b8488b359e17cc8a0b44fca45f634e6b0906d0cff37452eacfbc0ad54c5fb9"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 8,
+      "full_request_body_count": 4,
+      "action": "pending_raw_evidence_resolution",
+      "reason": "Context unit already matches. Some original attempts retain hashes only; do not claim strict full-body verification or silently discard failed attempts. No replacement P0 scheduled in this draft."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 28,
+      "id": "codex-gpt-6-luna-medium-batch10",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "baseline_status": "complete",
+      "predictions": {
+        "file": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl",
+        "sha256": "1a129010a05d4fb62542cab917a6ff84e59d8396a14a5b63918d3a8d5c144a2c"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch-attempts.jsonl",
+          "sha256": "2e01746af3812cce8d6465b2f92a97e5eaec68eb2c9821a480cd782c94df4865"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 29,
+      "id": "codex-gpt-6-luna-high-batch10",
+      "model": "gpt-6-luna",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.jsonl",
+        "sha256": "d26489775508b4c7047a7a8921f64f595e5e77edcaea8c7cbe6c7374f0d91541"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development-attempts.jsonl",
+          "sha256": "44c3f345abc894eec7b53105cde32843338e711525293af1b571f64a0a8e4e09"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/codex-run-registry.json",
+      "registry_index": 30,
+      "id": "codex-gpt-6-luna-xhigh-batch10",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+        "sha256": "27f5307c67981e2b4933c6cfdd894093e2030ba27200050e73f1df7e04a8122f"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl",
+          "sha256": "93204873faef758375ff6760a0f31fb790aef2096319af90d00ea265083debfa"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 0,
+      "id": "sonnet5-low-first-pass",
+      "model": "claude-sonnet-5",
+      "effort": "low",
+      "baseline_status": "completed_with_service_failure",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/sonnet5-first-pass.jsonl",
+        "sha256": "1d4af9f59f82edf2f725e6d73884e34fd9f0b584783c28a3e56927a10414f58f"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "sonnet5-low-first-pass-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 1,
+      "id": "sonnet5-low-with-retry",
+      "model": "claude-sonnet-5",
+      "effort": "low",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/sonnet5-with-retry.jsonl",
+        "sha256": "4995f7066fd71dbc54b5099dea368ed72d9ec17107e79369256a3baf78ae5454"
+      },
+      "raw_batch_sources": [],
+      "action": "overlapping_historical_view",
+      "reason": "Same configuration as Sonnet5-low first-pass; preserve retry view without scheduling a second experiment."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 2,
+      "id": "opus5-low",
+      "model": "claude-opus-5",
+      "effort": "low",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/opus5-development.jsonl",
+        "sha256": "2f394a4b2439ffde0f2dcdc7c8d8e25d31154108284fc4593c630cc0dbee1c31"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "opus5-low-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 3,
+      "id": "haiku45-not_applicable",
+      "model": "claude-haiku-4-5-20251001",
+      "effort": "not_applicable",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/haiku45-not_applicable-development-session.jsonl",
+        "sha256": "2793372cf0490069f63805f2102791355ee01c2384896d854fd502d7d4b05e93"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "haiku45-not_applicable-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 4,
+      "id": "sonnet5-medium",
+      "model": "claude-sonnet-5",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/sonnet5-medium-development.jsonl",
+        "sha256": "b16ad84ca3934c85213eb5db614256930fa7ddb767a35dd8703980e76d417ce2"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "sonnet5-medium-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 5,
+      "id": "sonnet5-high",
+      "model": "claude-sonnet-5",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/sonnet5-high-development-session.jsonl",
+        "sha256": "39d1640ef792fad3a4d55fa0fbb8a7cb5810d4ef36761e20ab05c0084d814d17"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "sonnet5-high-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 6,
+      "id": "sonnet5-xhigh",
+      "model": "claude-sonnet-5",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/sonnet5-xhigh-development.jsonl",
+        "sha256": "42d86d86fe625a7779dc31efc1c1e941657f03e84360b8568a11f7f435fe95e3"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "sonnet5-xhigh-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 7,
+      "id": "sonnet5-max",
+      "model": "claude-sonnet-5",
+      "effort": "max",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/sonnet5-max-development.jsonl",
+        "sha256": "63c9c2d131d342ac20aab6a5b17c9d9125a67a48d85c459ab4aceb52f785cb1c"
+      },
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 8,
+      "id": "opus5-medium",
+      "model": "claude-opus-5",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/opus5-medium-development.jsonl",
+        "sha256": "f59ad04f5113cceee3a591b9f95e4127778b4457b2a0ab9fb25fa666b0c11151"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "opus5-medium-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 9,
+      "id": "opus5-high",
+      "model": "claude-opus-5",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/opus5-high-development-session.jsonl",
+        "sha256": "d9d53f0b7fba031fd064c914f52c0d91ab10426f508a1bd7596f05def39f044f"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "opus5-high-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 10,
+      "id": "opus5-xhigh",
+      "model": "claude-opus-5",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/opus5-xhigh-development.jsonl",
+        "sha256": "2f9ce23e27c9f0f891285dd9c0c16cdf170af886bf00ad12188e511f89a6be7f"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "opus5-xhigh-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 11,
+      "id": "opus5-max",
+      "model": "claude-opus-5",
+      "effort": "max",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/opus5-max-development.jsonl",
+        "sha256": "5af375a01f2ecd7bbb0ed4d3be40c9c9c56ba769ae99aa7940cac43f06b8b94d"
+      },
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 12,
+      "id": "fable51-low",
+      "model": "claude-fable-5-1",
+      "effort": "low",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/fable51-low-development-session.jsonl",
+        "sha256": "c4c906701cdb91a1d7630e6412282119f7507e5bbc0cb9a2552d0b7b75a4af89"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "fable51-low-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 13,
+      "id": "fable51-medium",
+      "model": "claude-fable-5-1",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/fable51-medium-development.jsonl",
+        "sha256": "32c1350dd1183b32ff882177323ebf023e46298788db6bf09a4eecc57646c54f"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "fable51-medium-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 14,
+      "id": "fable51-high",
+      "model": "claude-fable-5-1",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/fable51-high-development.jsonl",
+        "sha256": "8b940a5da86ae029733811bbd12e3a704d3d41ca22ad4c8c4b6ed3f824939a49"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "fable51-high-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 15,
+      "id": "fable51-xhigh",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/fable51-xhigh-development.jsonl",
+        "sha256": "17c927214a48fc0007be02549c934e36436a859091d83a493a2d925892823871"
+      },
+      "raw_batch_sources": [],
+      "action": "schedule_new_batch_p0",
+      "context_unit": "single_record",
+      "reason": "Existing P0 has independent record contexts. New batch10 P0 required before batch P1/P2.",
+      "new_baseline_id": "fable51-xhigh-phase2-batch10-p0",
+      "development_requests": 6,
+      "smoke_requests": 1,
+      "smoke_record_count": 3
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 16,
+      "id": "fable51-max",
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-21/fable51-max-development.jsonl",
+        "sha256": "56d558466693ec477db476fd5f1de0471191d18e67636d2cdb4282d8093d5705"
+      },
+      "raw_batch_sources": [],
+      "action": "excluded_future_effort",
+      "reason": "User removed max/ultra from future runs; preserve historical results."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 17,
+      "id": "opus55-low-batch10",
+      "model": "claude-opus-5-5",
+      "effort": "low",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-23/opus55-low-batch10-development.jsonl",
+        "sha256": "9304bc1b5a589e9487679425c21066d825942660a933c44bef30426b7a68cdf8"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/claude-subscription-2026-09-23/opus55-low-batch10-development.jsonl.batches-normalized.jsonl",
+          "sha256": "83823cb3503a9339bda05d46aa762cc2bb5ee6d351f061353dc57ead5b726ee9"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 18,
+      "id": "opus55-medium-batch10",
+      "model": "claude-opus-5-5",
+      "effort": "medium",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl",
+        "sha256": "d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl.batches-normalized.jsonl",
+          "sha256": "91e96ac806cad8ee8d255450a1cfd234221f08fc74ac72d75418a761d46f3288"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 19,
+      "id": "opus55-high-batch10",
+      "model": "claude-opus-5-5",
+      "effort": "high",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl",
+        "sha256": "75139c6df4632614ab216ed405871fd7f2efcf247e9c6e2ca51696c0bc7f40c5"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl.batches-normalized.jsonl",
+          "sha256": "8c6a05bfda590e3aae71c84e9807f5b54a340773e73571f6fe81bdf6939b83b5"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    },
+    {
+      "registry": "results/claude-subscription-2026-09-21/run-registry.json",
+      "registry_index": 20,
+      "id": "opus55-xhigh-batch10",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "baseline_status": "completed",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-23/opus55-xhigh-batch10-development.jsonl",
+        "sha256": "213308fcdfcce4edf847a19b3482548f136dcb2518265bc66435f6912920b704"
+      },
+      "raw_batch_sources": [
+        {
+          "file": "results/claude-subscription-2026-09-23/opus55-xhigh-batch10-development.jsonl.batches-normalized.jsonl",
+          "sha256": "0b742362de97b341ac4144121c8db4ba945683be4427bf56957ee8b47f9ff57a"
+        }
+      ],
+      "context_unit": "batch10",
+      "raw_attempt_count": 6,
+      "full_request_body_count": 6,
+      "action": "reuse_batch_p0_candidate",
+      "reason": "Batch10 and full request bodies exist; reuse only after strict extractor, runtime/control and protocol checks."
+    }
+  ]
+}

@@ -57,6 +57,35 @@ def check_laya_coverage(agent, state, questions):
                 '; head_max_len=' + str(agent.cfg.get('head_max_len', 192)))
     return lengths
 
+def generated_messages(feedback, policy, variant=None, parent_baseline_id=None):
+    payload=make_payload(feedback,policy,'not-sent','generated-off')
+    messages=payload['messages']
+    messages[0]['content']+='\nRequired JSON schema: '+json.dumps(payload['response_format']['json_schema']['schema'])
+    if variant is not None:
+        from frozen_prompt_variants import compose_instruction
+        messages[0]['content']=compose_instruction(messages[0]['content'],variant,role='system',parent_baseline_id=parent_baseline_id,root=ROOT)['instruction']
+    elif parent_baseline_id is not None:raise ValueError('Parent baseline requires explicit variant')
+    return messages
+
+
+def variant_gate_or_preview(args):
+    variant=getattr(args,'prompt_variant',None);parent=getattr(args,'parent_baseline_id',None);destination=getattr(args,'variant_preview_output',None)
+    if variant is None and parent is None and destination is None:return False
+    if (args.kind,args.mode)!=('semif','generated'):raise ValueError('Prompt variants only support SemIf generated control')
+    if variant is None:raise ValueError('Explicit prompt variant required')
+    if not destination:raise ValueError('Phase-two gates pending; all explicit variants are offline preview only')
+    policy=(ROOT/'docs/LABELING_GUIDE.md').read_text().split('## Simulated routing')[0]
+    from frozen_prompt_variants import compose_instruction
+    audit=compose_instruction(generated_messages('',policy)[0]['content'],variant,role='system',parent_baseline_id=parent,root=ROOT)['audit']
+    if not destination:return False
+    rows=read_rows(ROOT/'data/pilot/inputs.jsonl')
+    if len(rows)!=60 or [r['id'] for r in rows]!=[f'DEV-{i:03d}' for i in range(1,61)] or any(set(r)!={'id','feedback'} or not isinstance(r['feedback'],str) for r in rows):raise ValueError('Require exact60 input-only records')
+    if type(args.limit) is not int or not 1<=args.limit<=60 or args.max_tokens<1:raise ValueError('Invalid limits')
+    requests=[{'id':r['id'],'messages':generated_messages(r['feedback'],policy,variant,parent)} for r in rows[:args.limit]]
+    controls={'model_path':args.model_path,'revision':args.revision,'bits':args.bits,'max_input_tokens_guard':args.max_tokens,'max_new_tokens':2048,'temperature':0,'enable_thinking':False,'add_generation_prompt':True,'template_tokenize':False,'guard_tokenization':'tok.encode(prompt) with tokenizer default special-token behavior','generation_tokenization':'mlx_lm.stream_generate(model,tok,prompt,...); runtime tokenizer behavior not resolved offline'}
+    with open(destination,'x') as out:json.dump({'offline_only':True,'model_loaded':False,'inference_performed':False,'reference_labels_read':False,'prompt_variant':audit,'controls':controls,'requests':requests,'historical_parity':'Source reconstruction only. Historical request_sha256 hashes official decision intent, not generated messages.','token_context_preflight':'Not measured; tokenizer/runtime not loaded.','protocol_gates':'Pending; no live P1/P2 approval.'},out,indent=2);out.write('\n')
+    return True
+
 def build_runner(args):
     if args.kind == 'semif':
         from semif_phase1 import mlx_backend as m
@@ -66,9 +95,7 @@ def build_runner(args):
             if args.mode=='generated':
                 from mlx_lm import stream_generate
                 from mlx_lm.sample_utils import make_sampler
-                payload=make_payload(feedback,policy,'not-sent','generated-off')
-                messages=payload['messages']
-                messages[0]['content']+='\nRequired JSON schema: '+json.dumps(payload['response_format']['json_schema']['schema'])
+                messages=generated_messages(feedback,policy,getattr(args,'prompt_variant',None),getattr(args,'parent_baseline_id',None))
                 prompt=tok.apply_chat_template(messages,tokenize=False,add_generation_prompt=True,enable_thinking=False)
                 if len(tok.encode(prompt))>args.max_tokens:raise CoverageError('Generated-label prompt exceeds configured context')
                 pieces=list(stream_generate(model,tok,prompt,max_tokens=2048,sampler=make_sampler(temp=0)))
@@ -133,6 +160,7 @@ def build_runner(args):
     raise ValueError('Unknown specialist')
 
 def run(args):
+    if variant_gate_or_preview(args):return
     if Path(args.output).exists():raise FileExistsError(args.output)
     policy=(ROOT/'docs/LABELING_GUIDE.md').read_text().split('## Simulated routing')[0]
     rows=read_rows(ROOT/'data/pilot/inputs.jsonl')[:args.limit]
@@ -175,6 +203,7 @@ def main():
     p.add_argument('--limit',type=int,default=3,choices=range(1,61))
     p.add_argument('--output',required=True)
     p.add_argument('--config-note',required=True)
+    p.add_argument('--prompt-variant',choices=['P0','P1','P2']);p.add_argument('--parent-baseline-id');p.add_argument('--variant-preview-output')
     args=p.parse_args()
     allowed={'semif':{'direct','serial','shared','generated'},'laya':{'default','expanded'},'alex':{'nli'}}
     if args.mode not in allowed[args.kind]:p.error('Mode does not match specialist')

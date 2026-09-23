@@ -34,9 +34,22 @@ def isolation_ok(record):
  calls=[c.get('name') for e in events if isinstance(e,dict) for c in e.get('message',{}).get('content',[]) if isinstance(c,dict) and c.get('type')=='tool_use']
  return record.get('init_tools') is not None and not (set(record['init_tools'])-{'StructuredOutput'}) and not record.get('init_mcp_servers') and not record.get('init_skills') and record.get('assistant_models')==[record['requested_model']] and record.get('init_model')==record['requested_model'] and not record.get('overage_observed') and all(c=='StructuredOutput' for c in calls)
 
+SUPPORTED_BATCH_EFFORTS = {
+ model: ('low','medium','high','xhigh')
+ for model in ('claude-opus-5-5','claude-sonnet-5','claude-opus-5','claude-fable-5-1')
+}
+SUPPORTED_BATCH_EFFORTS['claude-haiku-4-5-20251001'] = ('not_applicable',)
+
+
+def validate_batch_config(model, effort):
+ if model not in SUPPORTED_BATCH_EFFORTS or effort not in SUPPORTED_BATCH_EFFORTS[model]:
+  raise ValueError('Unsupported Claude batch model/effort; max and ultra are excluded')
+
+
 def run(a):
+ if hasattr(a,'model'):validate_batch_config(a.model,a.effort)
  if variant_gate_or_preview(a,'batch10'):return
- if a.model!='claude-opus-5-5' or a.effort not in ('low','medium','high','xhigh'):raise ValueError('Only verified Opus5.5 approved efforts accepted')
+ validate_batch_config(a.model,a.effort)
  if not a.extra_usage_disabled:raise ValueError('Verify usage credits off first')
  cli=shutil.which('claude');env=clean_environment()
  with tempfile.TemporaryDirectory(dir='/private/tmp') as cwd:
@@ -81,5 +94,5 @@ def run(a):
    if record['status']!='ok':break
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--model',default='claude-opus-5-5');p.add_argument('--effort',choices=['low','medium','high','xhigh'],required=True);p.add_argument('--limit',type=int,choices=[3,60],default=3);p.add_argument('--phase',choices=['smoke','development'],required=True);p.add_argument('--output',required=True);p.add_argument('--timeout',type=int,default=600);p.add_argument('--extra-usage-disabled',action='store_true');add_variant_arguments(p);run(p.parse_args())
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--model',choices=tuple(SUPPORTED_BATCH_EFFORTS),default='claude-opus-5-5');p.add_argument('--effort',choices=['low','medium','high','xhigh','not_applicable'],required=True);p.add_argument('--limit',type=int,choices=[3,60],default=3);p.add_argument('--phase',choices=['smoke','development'],required=True);p.add_argument('--output',required=True);p.add_argument('--timeout',type=int,default=600);p.add_argument('--extra-usage-disabled',action='store_true');add_variant_arguments(p);run(p.parse_args())
 if __name__=='__main__':main()

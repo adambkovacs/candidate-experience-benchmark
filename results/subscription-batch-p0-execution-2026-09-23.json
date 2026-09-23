@@ -1,0 +1,259 @@
+{
+  "contract": "subscription-batch-p0-execution-v1",
+  "created_utc": "2026-09-23T18:24:07.802560+00:00",
+  "scope": "P0 baseline preparation only; no P1/P2 inference",
+  "reason": "User requested remaining subscription runs in batches of ten. Historical single-record P0 cannot serve as the paired baseline for batch variants. Only the fifteen required new context-unit baselines are scheduled; compatible existing batch baselines remain reusable.",
+  "authorization": "Existing user subscription authorization; no API fallback, overage, credit purchase or redemption.",
+  "source_draft": {
+    "file": "results/subscription-batch-p0-schedule-draft-2026-09-23.json",
+    "sha256": "52cf942925a5dc2d1a0d5b36e8526f430c215033d5b55ff96de4a0fba601895a"
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "policy": {
+    "file": "docs/LABELING_GUIDE.md",
+    "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "frozen_prompt_bundle": {
+    "file": "prompts/variants-v1/manifest.json",
+    "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+  },
+  "controller_sources": [
+    {
+      "file": "scripts/claude_batch_benchmark.py",
+      "sha256": "4c73e41405d8940a9fd4e8767e47a41117914586916d63ceaffac2832067162f"
+    },
+    {
+      "file": "scripts/claude_benchmark.py",
+      "sha256": "76f36a25421f6b91395a4e6dac194aa207af774ea44fdd3fc32a1b9137f0341b"
+    },
+    {
+      "file": "scripts/codex_batch_benchmark.py",
+      "sha256": "035658577d633eeeb20c54ef9a411108508096b9c0c23fc6b19c87132c587e1c"
+    },
+    {
+      "file": "scripts/codex_benchmark.py",
+      "sha256": "fbf80230b65fc069b39f82ea42c560ff1c0abd6ca0a49b8e2346131e294f048a"
+    }
+  ],
+  "batch_membership": [
+    [
+      "DEV-001",
+      "DEV-002",
+      "DEV-003",
+      "DEV-004",
+      "DEV-005",
+      "DEV-006",
+      "DEV-007",
+      "DEV-008",
+      "DEV-009",
+      "DEV-010"
+    ],
+    [
+      "DEV-011",
+      "DEV-012",
+      "DEV-013",
+      "DEV-014",
+      "DEV-015",
+      "DEV-016",
+      "DEV-017",
+      "DEV-018",
+      "DEV-019",
+      "DEV-020"
+    ],
+    [
+      "DEV-021",
+      "DEV-022",
+      "DEV-023",
+      "DEV-024",
+      "DEV-025",
+      "DEV-026",
+      "DEV-027",
+      "DEV-028",
+      "DEV-029",
+      "DEV-030"
+    ],
+    [
+      "DEV-031",
+      "DEV-032",
+      "DEV-033",
+      "DEV-034",
+      "DEV-035",
+      "DEV-036",
+      "DEV-037",
+      "DEV-038",
+      "DEV-039",
+      "DEV-040"
+    ],
+    [
+      "DEV-041",
+      "DEV-042",
+      "DEV-043",
+      "DEV-044",
+      "DEV-045",
+      "DEV-046",
+      "DEV-047",
+      "DEV-048",
+      "DEV-049",
+      "DEV-050"
+    ],
+    [
+      "DEV-051",
+      "DEV-052",
+      "DEV-053",
+      "DEV-054",
+      "DEV-055",
+      "DEV-056",
+      "DEV-057",
+      "DEV-058",
+      "DEV-059",
+      "DEV-060"
+    ]
+  ],
+  "smoke_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "development_records": 60,
+  "phase2_prompt_conditions_enabled": false,
+  "controls": {
+    "controller_timeout_seconds": 600,
+    "batch_size": 10,
+    "automatic_controller_retries": 0,
+    "concurrency_limit_per_subscription": 2,
+    "reference_labels_in_inference": false,
+    "context_limit_changes": false,
+    "runtime_identity": "Record and verify installed CLI/auth/model at smoke; opaque server identity remains unknown.",
+    "smoke_gate": "Inspect all three raw responses, isolation/runtime controls and usage before each full60. Preserve every failure; no automatic repairs or retry."
+  },
+  "configurations": [
+    {
+      "id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+      "historical_parent": "codex-gpt-5.6-luna-low",
+      "model": "gpt-5.6-luna",
+      "effort": "low",
+      "surface": "codex",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/codex-gpt-5.6-luna-low-phase2-batch10-p0"
+    },
+    {
+      "id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+      "historical_parent": "codex-gpt-6-astra-low",
+      "model": "gpt-6-astra",
+      "effort": "low",
+      "surface": "codex",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/codex-gpt-6-astra-low-phase2-batch10-p0"
+    },
+    {
+      "id": "sonnet5-low-first-pass-phase2-batch10-p0",
+      "historical_parent": "sonnet5-low-first-pass",
+      "model": "claude-sonnet-5",
+      "effort": "low",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/sonnet5-low-first-pass-phase2-batch10-p0"
+    },
+    {
+      "id": "opus5-low-phase2-batch10-p0",
+      "historical_parent": "opus5-low",
+      "model": "claude-opus-5",
+      "effort": "low",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/opus5-low-phase2-batch10-p0"
+    },
+    {
+      "id": "haiku45-not_applicable-phase2-batch10-p0",
+      "historical_parent": "haiku45-not_applicable",
+      "model": "claude-haiku-4-5-20251001",
+      "effort": "not_applicable",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/haiku45-not_applicable-phase2-batch10-p0"
+    },
+    {
+      "id": "sonnet5-medium-phase2-batch10-p0",
+      "historical_parent": "sonnet5-medium",
+      "model": "claude-sonnet-5",
+      "effort": "medium",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/sonnet5-medium-phase2-batch10-p0"
+    },
+    {
+      "id": "sonnet5-high-phase2-batch10-p0",
+      "historical_parent": "sonnet5-high",
+      "model": "claude-sonnet-5",
+      "effort": "high",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/sonnet5-high-phase2-batch10-p0"
+    },
+    {
+      "id": "sonnet5-xhigh-phase2-batch10-p0",
+      "historical_parent": "sonnet5-xhigh",
+      "model": "claude-sonnet-5",
+      "effort": "xhigh",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/sonnet5-xhigh-phase2-batch10-p0"
+    },
+    {
+      "id": "opus5-medium-phase2-batch10-p0",
+      "historical_parent": "opus5-medium",
+      "model": "claude-opus-5",
+      "effort": "medium",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/opus5-medium-phase2-batch10-p0"
+    },
+    {
+      "id": "opus5-high-phase2-batch10-p0",
+      "historical_parent": "opus5-high",
+      "model": "claude-opus-5",
+      "effort": "high",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/opus5-high-phase2-batch10-p0"
+    },
+    {
+      "id": "opus5-xhigh-phase2-batch10-p0",
+      "historical_parent": "opus5-xhigh",
+      "model": "claude-opus-5",
+      "effort": "xhigh",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/opus5-xhigh-phase2-batch10-p0"
+    },
+    {
+      "id": "fable51-low-phase2-batch10-p0",
+      "historical_parent": "fable51-low",
+      "model": "claude-fable-5-1",
+      "effort": "low",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/fable51-low-phase2-batch10-p0"
+    },
+    {
+      "id": "fable51-medium-phase2-batch10-p0",
+      "historical_parent": "fable51-medium",
+      "model": "claude-fable-5-1",
+      "effort": "medium",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/fable51-medium-phase2-batch10-p0"
+    },
+    {
+      "id": "fable51-high-phase2-batch10-p0",
+      "historical_parent": "fable51-high",
+      "model": "claude-fable-5-1",
+      "effort": "high",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/fable51-high-phase2-batch10-p0"
+    },
+    {
+      "id": "fable51-xhigh-phase2-batch10-p0",
+      "historical_parent": "fable51-xhigh",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "surface": "claude",
+      "output_directory": "results/subscription-batch-p0-2026-09-23/fable51-xhigh-phase2-batch10-p0"
+    }
+  ],
+  "limits": "This schedule prepares batch P0 evidence while independent local baselines continue. It does not freeze or authorize execution of P1/P2 conditions; their protocol gates remain pending."
+}

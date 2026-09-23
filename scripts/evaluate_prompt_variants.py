@@ -6,7 +6,7 @@ pairs, baseline_instruction each {file,sha256}; parent_baseline_id, role; contro
 and controls_sha256; allow_missing_outputs boolean; attempt_selection
 latest_chronological|first_chronological; retry_authorizations mapping condition
 to exact explicitly authorized retry attempt IDs; conditions P0/P1/P2 each
-{predictions:{file,sha256}, extractor:openrouter_paid_v1|lmstudio_sdk_v1|claude_batch_v1|declared_only,
+{predictions:{file,sha256}, extractor:openrouter_paid_v1|lmstudio_sdk_v1|claude_batch_v1|codex_batch_v1|declared_only,
  request_evidence:{file,sha256}}. request_evidence is required for the extractor.
 SDK conditions additionally require artifact_evidence:{file,sha256} containing
 inspect_gguf metadata and request_evidence_phase:development. SDK records without
@@ -262,6 +262,61 @@ def audit_claude_batches(rawrows,predictions,inputs,text,controls,selection,retr
     return list(attempts.values())
 
 
+def extract_codex_controls(row):
+    return {**{k:row[k] for k in ('workflow','requested_model','effort','cli_version','configured_batch_size','controller_timeout_seconds','auth_mode','policy_sha256')},'cli_executable':row['command'][0]}
+
+
+def audit_codex_batches(rawrows,predictions,inputs,text,controls,selection,retry_authorizations):
+    import codex_benchmark as single
+    from codex_batch_benchmark import batch_schema,parse_batch
+    if not rawrows:raise ValueError('No full Codex raw request evidence')
+    groups=[list(inputs)[n:n+10] for n in range(0,len(inputs),10)]
+    attempts={};by_group={};order=[];last=None;retries=[]
+    if not isinstance(retry_authorizations,list) or len(set(retry_authorizations))!=len(retry_authorizations):raise ValueError('Invalid Codex retry authorization')
+    for original in rawrows:
+        row=dict(original);ids=row.get('record_order');aid=row.get('attempt_id') or str(row.get('id'))+'@'+str(row.get('started_utc'))
+        if ids not in groups or len(ids)!=10 or row.get('batch_size')!=10 or row.get('phase')!='development' or aid in attempts:raise ValueError('Invalid Codex batch identity/membership/phase')
+        group=tuple(ids)
+        try:stamp=datetime.fromisoformat(row['started_utc'].replace('Z','+00:00'))
+        except (KeyError,ValueError,AttributeError):raise ValueError('Invalid Codex timestamp') from None
+        if stamp.tzinfo is None or (last is not None and stamp<last):raise ValueError('Codex chronology reversed')
+        last=stamp
+        if group in by_group:
+            if stamp<=by_group[group][-1][0] or aid not in retry_authorizations:raise ValueError('Codex retry lacks authorization/later timestamp')
+            retries.append(aid)
+        else:order.append(ids)
+        batch=[inputs[rid] for rid in ids];prompt=text+'\n'+json.dumps({'records':batch});schema=batch_schema(batch)
+        if row.get('request')!={'prompt':prompt,'output_schema':schema}:raise ValueError('Codex full combined prompt/schema unavailable or mismatched')
+        if row.get('request_sha256')!=digest(prompt) or row.get('schema_sha256')!=canonical_hash(schema) or row.get('reference_labels_read') is not False:raise ValueError('Codex request hash/isolation mismatch')
+        if extract_codex_controls(row)!=controls or controls['configured_batch_size']!=10 or controls['workflow']!='codex-subscription-batch' or controls['auth_mode']!='ChatGPT':raise ValueError('Codex runtime/model/effort controls mismatch')
+        cmd=row.get('command')
+        if not isinstance(cmd,list) or '--cd' not in cmd or '--output-schema' not in cmd:raise ValueError('Missing Codex CLI command controls')
+        cwd=Path(cmd[cmd.index('--cd')+1]);schema_path=Path(cmd[cmd.index('--output-schema')+1])
+        if schema_path!=cwd/'schema.json' or cmd!=single.command(cmd[0],row['requested_model'],row['effort'],cwd,schema_path):raise ValueError('Codex CLI isolation command mismatch')
+        if row.get('error_type')=='TimeoutExpired':
+            if row.get('status')!='service_error' or row.get('usage') is not None or row.get('prediction') is not None or row.get('raw_events'):raise ValueError('Unsupported Codex timeout claim')
+            labels={}
+        else:
+            if not isinstance(row.get('raw_events'),list) or row.get('event_parse_errors'):raise ValueError('Codex complete parseable event evidence required')
+            parsed=single.parse_result(row['returncode'],'\n'.join(json.dumps(e) for e in row['raw_events']),row['raw_response'])
+            labels={};status=parsed['status']
+            if status not in ('service_error','isolation_violation'):
+                try:labels=parse_batch(row['raw_response'],batch);status='ok'
+                except (ValueError,TypeError):status='invalid_output'
+            if row.get('status')!=status:raise ValueError('Codex status differs from raw events/response')
+            for field in ('prediction','usage','observed_tool_items','runtime_metadata_warnings','recovered_transport_errors','event_parse_errors'):
+                if row.get(field)!=parsed.get(field):raise ValueError('Codex mirrored raw evidence mismatch: '+field)
+        row['attempt_id']=aid;row['surface']='Codex CLI ChatGPT subscription batch workflow'
+        row['_audited_labels']=labels;row['ids']=ids
+        attempts[aid]=row;by_group.setdefault(group,[]).append((stamp,row))
+    if order!=groups or set(retries)!=set(retry_authorizations):raise ValueError('Codex batch order/retry authorization mismatch')
+    for rid,pred in predictions.items():
+        group=next(tuple(g) for g in groups if rid in g);chosen=by_group[group][-1 if selection=='latest_chronological' else 0][1]
+        fields={'batch_id':chosen['id'],'started_utc':chosen['started_utc'],'batch_position':list(group).index(rid),'batch_size':10,'configured_batch_size':10,'phase':'development','requested_model':chosen['requested_model'],'reasoning_effort':chosen['effort'],'cli_version':chosen['cli_version'],'request_sha256':chosen['request_sha256'],'input_sha256':digest(inputs[rid]['feedback']),'status':chosen['status'],'prediction':chosen['_audited_labels'].get(rid),'timing_kind':'amortized_batch_share_not_individual_latency'}
+        if any(pred.get(k)!=v for k,v in fields.items()):raise ValueError('Codex exploded prediction selection/linkage mismatch')
+    return [{k:v for k,v in r.items() if k!='_audited_labels'} for r in attempts.values()]
+
+
 def usable(row):return row is not None and row.get('status')=='ok' and valid(row.get('prediction'))
 
 def state(row):
@@ -271,6 +326,7 @@ def state(row):
 
 def telemetry(rows):
     def usage(row,key,stat):
+        if row.get('surface')=='Codex CLI ChatGPT subscription batch workflow':return (row.get('usage') or {}).get('input_tokens' if key=='prompt_tokens' else 'output_tokens')
         if row.get('surface')=='Claude Code CLI subscription batch10':
             u=row.get('usage') or {}
             keys=('input_tokens','cache_creation_input_tokens','cache_read_input_tokens') if key=='prompt_tokens' else ('output_tokens',)
@@ -283,7 +339,7 @@ def telemetry(rows):
         return sum(values)
     return {'attempts':len(rows),'input_tokens':total(lambda r:usage(r,'prompt_tokens','promptTokensCount')),
         'output_tokens':total(lambda r:usage(r,'completion_tokens','predictedTokensCount')),
-        'reasoning_tokens':total(lambda r:((r.get('usage') or {}).get('output_tokens_details') or {}).get('thinking_tokens') if r.get('surface')=='Claude Code CLI subscription batch10' else r.get('stats',{}).get('reasoningPredictedTokensCount') if r.get('surface')=='LM Studio JavaScript SDK' else ((r.get('usage') or {}).get('completion_tokens_details') or {}).get('reasoning_tokens')),
+        'reasoning_tokens':total(lambda r:(r.get('usage') or {}).get('reasoning_output_tokens') if r.get('surface')=='Codex CLI ChatGPT subscription batch workflow' else ((r.get('usage') or {}).get('output_tokens_details') or {}).get('thinking_tokens') if r.get('surface')=='Claude Code CLI subscription batch10' else r.get('stats',{}).get('reasoningPredictedTokensCount') if r.get('surface')=='LM Studio JavaScript SDK' else ((r.get('usage') or {}).get('completion_tokens_details') or {}).get('reasoning_tokens')),
         'attempt_seconds':total(lambda r:r.get('elapsed_seconds')),
         'note':'All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.'}
 
@@ -353,6 +409,11 @@ def evaluate(manifest,root=ROOT):
             rawrows=rows_from(bound_read(condition['request_evidence'],root))
             attempts=audit_claude_batches(rawrows,predictions,inputs,composition['instruction'],controls,manifest['attempt_selection'],manifest['retry_authorizations'].get(variant,[]))
             verification='verified_against_hash_bound_claude_batch_requests'
+        elif condition['extractor']=='codex_batch_v1':
+            if manifest['role']!='cli_combined_prompt' or condition.get('request_evidence_phase')!='development' or any('smoke' in part.lower() for part in Path(condition['request_evidence']['file']).parts):raise ValueError('Explicit Codex development/combined-prompt evidence required')
+            rawrows=rows_from(bound_read(condition['request_evidence'],root))
+            attempts=audit_codex_batches(rawrows,predictions,inputs,composition['instruction'],controls,manifest['attempt_selection'],manifest['retry_authorizations'].get(variant,[]))
+            verification='verified_against_hash_bound_codex_batch_requests'
         elif condition['extractor']=='declared_only':
             attempts=[];verification='unavailable';result['controls_verified']=False
         else:raise ValueError('Unsupported request evidence extractor')

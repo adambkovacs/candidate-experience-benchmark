@@ -194,7 +194,39 @@ class BudgetLedger:
         self.file.close()
 
 
+def generated_variant_payload(feedback,policy,model,mode,variant,parent_baseline_id):
+    if mode not in ('generated-off','generated-on'):raise ValueError('Prompt variants require local generated mode')
+    from frozen_prompt_variants import compose_instruction
+    payload=make_payload(feedback,policy,model,mode)
+    composed=compose_instruction(payload['messages'][0]['content'],variant,role='system',parent_baseline_id=parent_baseline_id,root=ROOT)
+    payload['messages'][0]['content']=composed['instruction']
+    return payload,composed['audit']
+
+
+def variant_gate_or_preview(args):
+    variant=getattr(args,'prompt_variant',None);destination=getattr(args,'variant_preview_output',None);parent=getattr(args,'parent_baseline_id',None)
+    if not any((variant,destination,parent)):return False
+    if args.surface!='openjev' or args.mode not in ('generated-off','generated-on'):raise ValueError('Variant flags are supported only for local OpenJev generated controls')
+    if variant is None or not parent:raise ValueError('Explicit prompt variant and parent baseline ID required')
+    if variant!='P0' and not destination:raise ValueError('Live P1/P2 blocked until phase-two protocol gates are verified')
+    if not destination:return False
+    validate_config(args.surface,args.base_url,args.model,args.mode,False)
+    start=getattr(args,'start',1)
+    if start<1 or args.limit<1 or start+args.limit-1>60:raise ValueError('Invalid preview input slice')
+    rows=read_rows(ROOT/'data/pilot/inputs.jsonl')
+    if len(rows)!=60 or len({r['id'] for r in rows})!=60 or any(set(r)!={'id','feedback'} or not isinstance(r['feedback'],str) for r in rows):raise ValueError('Preview requires exact input-only development records')
+    policy=(ROOT/'docs/LABELING_GUIDE.md').read_text().split('## Simulated routing')[0]
+    requests=[]
+    for row in rows[start-1:start-1+args.limit]:
+        payload,audit=generated_variant_payload(row['feedback'],policy,args.model,args.mode,variant,parent)
+        requests.append({'id':row['id'],'request':payload,'request_sha256':digest(json.dumps(payload,sort_keys=True)),'prompt_provenance':audit})
+    artifact={'kind':'offline_openjev_generated_preview','inference_performed':False,'reference_labels_read':False,'requested_model':args.model,'mode':args.mode,'identity_verification':'configured_only','instruction_role':'system','requests':requests,'rendered_prompt_verified':False,'token_context_fit_verified':False,'limitations':'Client request only. Server schema processing and empty thought scaffolding are not reproduced or verified; enable_thinking alone does not establish the actual rendered prompt.'}
+    with Path(destination).open('x') as out:json.dump(artifact,out,indent=2);out.write('\n')
+    return True
+
+
 def run(args):
+    if variant_gate_or_preview(args):return
     validate_config(args.surface, args.base_url, args.model, args.mode, args.authorize_hosted_inference)
     token = load_key(args.surface, getattr(args, 'env_file', None))
     hosted = args.surface == 'typesafe'
@@ -214,6 +246,9 @@ def run(args):
     with open(args.output, 'x') as out:
         for row in rows:
             payload = make_payload(row['feedback'], policy, args.model, args.mode)
+            variant_audit=None
+            if getattr(args,'prompt_variant',None):
+                payload,variant_audit=generated_variant_payload(row['feedback'],policy,args.model,args.mode,args.prompt_variant,args.parent_baseline_id)
             reserve = reserve_cost(payload) if hosted else Decimal(0)
             attempt_id = ledger.reserve(reserve, row['id']) if ledger else None
             if hosted and attempt_id is None:
@@ -229,6 +264,7 @@ def run(args):
                 'read_count_note': 'Not exposed by the wire API; billed tokens do not count adaptive rereads.',
                 'config_note': args.config_note, 'retry_policy': 'none',
                 'started_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
+            if variant_audit is not None:record['prompt_variant']=variant_audit
             if hosted:
                 record.update(max_usd=str(cap), budget_attempt_id=attempt_id, reserved_cost_usd=str(reserve),
                     price_per_million_input_usd=str(PRICE_PER_MILLION_INPUT),
@@ -289,6 +325,9 @@ def main():
     p.add_argument('--output', required=True)
     p.add_argument('--config-note', required=True)
     p.add_argument('--timeout', type=float, default=120)
+    p.add_argument('--prompt-variant',choices=['P0','P1','P2'])
+    p.add_argument('--parent-baseline-id')
+    p.add_argument('--variant-preview-output')
     run(p.parse_args())
 
 if __name__ == '__main__':
