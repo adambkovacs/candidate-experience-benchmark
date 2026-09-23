@@ -118,16 +118,22 @@
     "configured_batch_size": 10,
     "predictions_file": "results/antigravity-gemini38-flash-low-native129-2026-09-23/development.jsonl",
     "attempt_files": [
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development.jsonl"
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery.jsonl"
     ],
     "raw_batch_attempt_files": [
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl"
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl"
     ],
     "attempt_phase": "development",
     "smoke_files": [
       "results/antigravity-gemini38-flash-low-native129-2026-09-23/smoke.jsonl",
       "results/antigravity-gemini38-flash-low-native129-2026-09-23/smoke-attempts.jsonl"
     ],
-    "notes": "Distinct native Antigravity agent workflow under PLAN.md isolation fallback. CLI and language server 1.2.9. Smoke passed 3 records with no observed tool calls or warnings; 57 advertised tools remain disclosed and effective restrictions unverified. First development batch failed before inference with an eligibility HTTP idle-connection closure after 9.03138 seconds, zero tokens and zero turns. Ten failed records and fifty unattempted records; no completed development predictions. Historical strict rejections remain separate. No credits, API-key billing or relogin."
+    "notes": "Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed with 57 advertised tools, no observed tool calls, restrictions unverified. Initial development batch failed before inference on an idle-connection closure. One authorized recovery of the exact same batch failed on eligibility UNAVAILABLE503. Both report zero tokens; combined request wall time 77.3929815 seconds. Zero valid development records, ten unique failed records and fifty unattempted. All attempts preserved; no further retry, credits, API-key billing or relogin. Smoke excluded from development timing.",
+    "request_journal_files": [
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl.journal.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl.journal.jsonl"
+    ]
   }
 ]
