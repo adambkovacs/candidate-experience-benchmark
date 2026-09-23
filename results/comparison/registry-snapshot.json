@@ -1600,11 +1600,12 @@
     "id": "openrouter-paid-gemma4-26b-a4b-off",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "off",
-    "status": "pending_explicit_destination_approval",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-gemma26-off-2026-09-23/development.jsonl",
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required. After explicit non-GPT/Claude paid approval and $5 total cap amendment, automatic approval review again rejected the exact Gemma26/DeepInfraFP8 smoke before execution for missing exact destination/payload scope. No payload, charge, reservation or output; no retry. All paid dispatch paused pending scoped confirmation; ledger remains $0.1274796 accounted, $4.8725204 remaining."
+    "notes": "60 records finalized. Exact request/provider/billing evidence in results/openrouter-gemma26-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.",
+    "attempt_phase": "development"
   },
   {
     "id": "openrouter-paid-gemma4-31b-on",

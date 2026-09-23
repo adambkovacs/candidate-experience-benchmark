@@ -1,0 +1,106 @@
+{
+  "status": "complete",
+  "records": 60,
+  "valid_outputs": 60,
+  "model": "google/gemma-4-26b-a4b-it",
+  "returned_models": [
+    "google/gemma-4-26b-a4b-it"
+  ],
+  "provider": "DeepInfra",
+  "provider_tag": "deepinfra/fp8",
+  "quantization": "fp8",
+  "hardware": "Remote provider undisclosed",
+  "runtime": "OpenRouter HTTP v1",
+  "request_config": {
+    "model": "google/gemma-4-26b-a4b-it",
+    "temperature": 0,
+    "max_tokens": 4096,
+    "stream": false,
+    "provider": {
+      "only": [
+        "deepinfra/fp8"
+      ],
+      "allow_fallbacks": false,
+      "require_parameters": true,
+      "max_price": {
+        "prompt": 0.07,
+        "completion": 0.34,
+        "request": 0,
+        "image": 0
+      }
+    },
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "judgments",
+        "strict": true,
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "title": "Recruitment feedback judgments",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sentiment",
+            "follow_up_needed",
+            "serious_concern_reported",
+            "testimonial_potential"
+          ],
+          "properties": {
+            "sentiment": {
+              "type": "string",
+              "enum": [
+                "positive",
+                "negative",
+                "mixed",
+                "neutral",
+                "insufficient_information"
+              ]
+            },
+            "follow_up_needed": {
+              "type": "string",
+              "enum": [
+                "yes",
+                "no",
+                "insufficient_information"
+              ]
+            },
+            "serious_concern_reported": {
+              "type": "string",
+              "enum": [
+                "yes",
+                "no",
+                "insufficient_information"
+              ]
+            },
+            "testimonial_potential": {
+              "type": "string",
+              "enum": [
+                "yes",
+                "no",
+                "insufficient_information"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "policy_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+  "schema_sha256": "420f9bcbbd7867f0a3f69f0acdf562648c92ed777cb110d7e7fdcf7f4a80dffe",
+  "prediction_sha256": "3a4e74a1787aa4595c5fade367755edc23869045ffc683beddf1f424a53bb9fb",
+  "development_observed_cost_usd": "0.00687630",
+  "smoke_observed_cost_usd": "0.00034311",
+  "development_request_seconds": 165.7381589221768,
+  "smoke_gate": "Three valid responses, exact model/provider and reported costs inspected before full60.",
+  "reference_labels_read_during_inference": false,
+  "limitations": [
+    "Provisional same-assistant development references, not held-out human ground truth.",
+    "Hosted model ID and provider-reported quantization; exact serving artifact revision and provider hardware are undisclosed.",
+    "Independent-record HTTP workflow; remote service latency includes transport and queuing.",
+    "Different runtime, quantization, sampling and schema enforcement from local GGUF runs; not a pure locality comparison.",
+    "One pass; no repairs or automatic retries."
+  ]
+}

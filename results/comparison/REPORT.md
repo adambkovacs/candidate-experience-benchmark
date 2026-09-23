@@ -133,7 +133,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
 | openrouter-paid-gemma4-26b-a4b-on | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-26b-a4b-off | pending_explicit_destination_approval | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-off | complete | 60 | 57 | 58 | 58 | 56 | 53 |
 | openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-mistral-small32-24b-not-applicable | partial_timeout | — | — | — | — | — | — |
@@ -150,6 +150,7 @@ Development-attempt costs only. Unknown-cost reservations are bounds, not observ
 | typesafe-jev113-v2 | partial | unavailable | 0.002123688 | `results/openjev/typesafe-development-v2.jsonl`; `results/openjev/typesafe-development-v2-continuation.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-on | reported | 0.0636796 | 0 | `results/openrouter-qwen35-on-2026-09-23/development.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-off | reported | 0.0072576 | 0 | `results/openrouter-qwen35-off-2026-09-23/development.jsonl` |
+| openrouter-paid-gemma4-26b-a4b-off | reported | 0.00687630 | 0 | `results/openrouter-gemma26-off-2026-09-23/development.jsonl` |
 
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
@@ -786,7 +787,9 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-gemma4-26b-a4b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required. After explicit non-GPT/Claude paid approval and $5 total cap amendment, automatic approval review again rejected the exact Gemma26/DeepInfraFP8 smoke before execution for missing exact destination/payload scope. No payload, charge, reservation or output; no retry. All paid dispatch paused pending scoped confirmation; ledger remains $0.1274796 accounted, $4.8725204 remaining.
+60 records finalized. Exact request/provider/billing evidence in results/openrouter-gemma26-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
+
+Evidence: `results/openrouter-gemma26-off-2026-09-23/development.jsonl`; SHA-256 `3a4e74a1787aa4595c5fade367755edc23869045ffc683beddf1f424a53bb9fb`.
 
 **openrouter-paid-gemma4-31b-on**
 
