@@ -109,11 +109,11 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-terra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-sol-low-batch10 | partial_repeated_timeout | — | — | — | — | — | — |
-| codex-gpt-6-sol-medium-batch10 | smoke_complete_development_pending | — | — | — | — | — | — |
+| codex-gpt-6-sol-medium-batch10 | running | — | — | — | — | — | — |
 | codex-gpt-6-sol-high-batch10 | smoke_timeout | — | — | — | — | — | — |
 | codex-gpt-6-sol-xhigh-batch10 | pending_after_service_recovery | — | — | — | — | — | — |
 | codex-gpt-6-luna-low-batch10 | partial_repeated_timeout | — | — | — | — | — | — |
-| codex-gpt-6-luna-medium-batch10 | smoke_complete_development_pending | — | — | — | — | — | — |
+| codex-gpt-6-luna-medium-batch10 | running | — | — | — | — | — | — |
 | codex-gpt-6-luna-high-batch10 | smoke_timeout | — | — | — | — | — | — |
 | codex-gpt-6-luna-xhigh-batch10 | pending_after_service_recovery | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
@@ -127,12 +127,13 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.6-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-medium | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-xhigh | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
-| openrouter-paid-gemma4-26b-a4b-on | partial_output_limit | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-on | complete_with_output_failure | 59 | 59 | 59 | 59 | 59 | 59 |
 | openrouter-paid-gemma4-26b-a4b-off | complete | 60 | 57 | 58 | 58 | 56 | 53 |
 | openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
@@ -150,6 +151,7 @@ Development-attempt costs only. Unknown-cost reservations are bounds, not observ
 | typesafe-jev113-v2 | partial | unavailable | 0.002123688 | `results/openjev/typesafe-development-v2.jsonl`; `results/openjev/typesafe-development-v2-continuation.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-on | reported | 0.0636796 | 0 | `results/openrouter-qwen35-on-2026-09-23/development.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-off | reported | 0.0072576 | 0 | `results/openrouter-qwen35-off-2026-09-23/development.jsonl` |
+| openrouter-paid-gemma4-26b-a4b-on | reported | 0.02114858 | 0 | `results/openrouter-gemma26-on-2026-09-23/development.jsonl`; `results/openrouter-gemma26-on-2026-09-23/development-from023.jsonl` |
 | openrouter-paid-gemma4-26b-a4b-off | reported | 0.00687630 | 0 | `results/openrouter-gemma26-off-2026-09-23/development.jsonl` |
 
 
@@ -691,7 +693,7 @@ September23 user excluded max and ultra from future runs. Historical artifacts p
 
 **codex-gpt-6-sol-medium-batch10**
 
-Three valid batchsmoke outputs inspected; no observedtools/parsererrors. Full60 notstarted: laterlow/high requests hit repeated emptytimeoutevents. Holdnewinference pending service recovery. Batch10 workflow, no max/ultra.
+Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout after later Astra and GPT-5.6 Luna subscription runs succeeded. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retry, credits, reference labels or model substitution.
 
 **codex-gpt-6-sol-high-batch10**
 
@@ -707,7 +709,7 @@ Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice
 
 **codex-gpt-6-luna-medium-batch10**
 
-Three valid batchsmoke outputs inspected; no observedtools/parsererrors. Full60 notstarted: laterlow/high requests hit repeated emptytimeoutevents. Holdnewinference pending service recovery. Batch10 workflow, no max/ultra.
+Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout, concurrent with GPT-6 Sol medium after its first successful batch. Live Codex quota reported 7 percent weekly usage before launch. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retries, paid credits or reference labels.
 
 **codex-gpt-6-luna-high-batch10**
 
@@ -761,6 +763,10 @@ The user authorized the existing logged-in native Antigravity CLI. This model an
 
 The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
+**antigravity-gemini-3.8-flash-low-native-observed-batch10**
+
+Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed with 57 advertised tools, no observed tool calls, restrictions unverified. Initial development batch failed before inference on an idle-connection closure. One authorized recovery of the exact same batch failed on eligibility UNAVAILABLE503. Both report zero tokens; combined request wall time 77.3929815 seconds. Zero valid development records, ten unique failed records and fifty unattempted. All attempts preserved; no further retry, credits, API-key billing or relogin. Smoke excluded from development timing.
+
 **openrouter-paid-qwen3.8-27b-medium**
 
 September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
@@ -787,7 +793,9 @@ Evidence: `results/openrouter-qwen35-off-2026-09-23/development.jsonl`; SHA-256 
 
 **openrouter-paid-gemma4-26b-a4b-on**
 
-Smoke3 valid and inspected. Development21valid thenDEV022 length at4096completion tokens with no finalJSON;38unattempted. All22costs known,$0.00887550 development plus$0.00086731 smoke. No retry/repair. Raw provider reasoning counter exceeds completion counter onfailedrecord; preservedwithoutnormalization. Separatehostedconfiguration; incomplete, notscored asfull60.
+All 60 IDs were attempted once: 59 valid outputs; DEV-022 exhausted the output budget and returned no JSON. Only unattempted DEV-023 through DEV-060 were continued, with the same 4096-token budget, provider and controls. No failed output was retried or repaired. Both raw files are retained for timing and cost accounting. Development cost $0.02114858; smoke cost $0.00086731. The provider reasoning-token anomaly is preserved.
+
+Evidence: `results/openrouter-gemma26-on-2026-09-23/development-reconciled.jsonl`; SHA-256 `a7af4591db655915ce23952c1f3bcfbfa4c5b955fcfcd4cf3755fe269b1f5016`.
 
 **openrouter-paid-gemma4-26b-a4b-off**
 

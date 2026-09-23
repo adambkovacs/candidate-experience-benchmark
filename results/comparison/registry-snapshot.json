@@ -1351,10 +1351,10 @@
     "id": "codex-gpt-6-sol-medium-batch10",
     "model": "gpt-6-sol",
     "effort": "medium",
-    "status": "smoke_complete_development_pending",
+    "status": "running",
     "predictions_file": null,
     "future_enabled": true,
-    "notes": "Three valid batchsmoke outputs inspected; no observedtools/parsererrors. Full60 notstarted: laterlow/high requests hit repeated emptytimeoutevents. Holdnewinference pending service recovery. Batch10 workflow, no max/ultra.",
+    "notes": "Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout after later Astra and GPT-5.6 Luna subscription runs succeeded. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retry, credits, reference labels or model substitution.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -1416,10 +1416,10 @@
     "id": "codex-gpt-6-luna-medium-batch10",
     "model": "gpt-6-luna",
     "effort": "medium",
-    "status": "smoke_complete_development_pending",
+    "status": "running",
     "predictions_file": null,
     "future_enabled": true,
-    "notes": "Three valid batchsmoke outputs inspected; no observedtools/parsererrors. Full60 notstarted: laterlow/high requests hit repeated emptytimeoutevents. Holdnewinference pending service recovery. Batch10 workflow, no max/ultra.",
+    "notes": "Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout, concurrent with GPT-6 Sol medium after its first successful batch. Live Codex quota reported 7 percent weekly usage before launch. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retries, paid credits or reference labels.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -1553,6 +1553,30 @@
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
+    "id": "antigravity-gemini-3.8-flash-low-native-observed-batch10",
+    "model": "gemini-3.8-flash-low",
+    "effort": "low",
+    "status": "partial_service_error",
+    "workflow": "native_agent_batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/smoke.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/smoke-attempts.jsonl"
+    ],
+    "notes": "Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed with 57 advertised tools, no observed tool calls, restrictions unverified. Initial development batch failed before inference on an idle-connection closure. One authorized recovery of the exact same batch failed on eligibility UNAVAILABLE503. Both report zero tokens; combined request wall time 77.3929815 seconds. Zero valid development records, ten unique failed records and fifty unattempted. All attempts preserved; no further retry, credits, API-key billing or relogin. Smoke excluded from development timing.",
+    "request_journal_files": [
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl.journal.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl.journal.jsonl"
+    ],
+    "planned_predictions_file": "results/antigravity-gemini38-flash-low-native129-2026-09-23/development.jsonl"
+  },
+  {
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
@@ -1611,17 +1635,22 @@
     "id": "openrouter-paid-gemma4-26b-a4b-on",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "on",
-    "status": "partial_output_limit",
-    "predictions_file": null,
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-gemma26-on-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Smoke3 valid and inspected. Development21valid thenDEV022 length at4096completion tokens with no finalJSON;38unattempted. All22costs known,$0.00887550 development plus$0.00086731 smoke. No retry/repair. Raw provider reasoning counter exceeds completion counter onfailedrecord; preservedwithoutnormalization. Separatehostedconfiguration; incomplete, notscored asfull60.",
-    "completed_records": 21,
-    "attempted_records": 22,
+    "notes": "All 60 IDs were attempted once: 59 valid outputs; DEV-022 exhausted the output budget and returned no JSON. Only unattempted DEV-023 through DEV-060 were continued, with the same 4096-token budget, provider and controls. No failed output was retried or repaired. Both raw files are retained for timing and cost accounting. Development cost $0.02114858; smoke cost $0.00086731. The provider reasoning-token anomaly is preserved.",
+    "completed_records": 59,
+    "attempted_records": 60,
     "attempt_phase": "development",
+    "attempt_files": [
+      "results/openrouter-gemma26-on-2026-09-23/development.jsonl",
+      "results/openrouter-gemma26-on-2026-09-23/development-from023.jsonl"
+    ],
     "smoke_files": [
       "results/openrouter-gemma26-on-2026-09-23/smoke.jsonl"
-    ]
+    ],
+    "reconciliation_manifest": "results/openrouter-gemma26-on-2026-09-23/reconciliation-complete.json"
   },
   {
     "id": "openrouter-paid-gemma4-26b-a4b-off",
