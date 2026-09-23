@@ -16,18 +16,18 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3.5-4b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
 | qwen3-8b-sdk-thinking-on | complete | 60 | 51 | 59 | 55 | 55 | 47 |
 | qwen3-8b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
-| qwen3.8-27b-sdk-thinking-low | model_download_in_progress | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-medium | model_download_in_progress | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-xhigh | model_download_in_progress | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-low | development_running | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-medium | download_verified_smoke_pending | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-xhigh | download_verified_smoke_pending | — | — | — | — | — | — |
 | gemma4-e2b-sdk-thinking-on | complete | 60 | 50 | 58 | 46 | 52 | 35 |
 | gemma4-e2b-sdk-thinking-off | complete | 60 | 50 | 59 | 45 | 50 | 34 |
-| gemma4-e4b-sdk-thinking-on | model_download_in_progress | — | — | — | — | — | — |
-| gemma4-e4b-sdk-thinking-off | model_download_in_progress | — | — | — | — | — | — |
+| gemma4-e4b-sdk-thinking-on | download_verified_smoke_pending | — | — | — | — | — | — |
+| gemma4-e4b-sdk-thinking-off | download_verified_smoke_pending | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-off | pending | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-off | pending | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-off | model_download_in_progress | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-off | download_verified_smoke_pending | — | — | — | — | — | — |
 | qwen36-35b-a3b-on | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
 | qwen36-35b-a3b-off | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
 | deepseek-r1-distill-qwen32b-native-reasoning | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
@@ -51,6 +51,10 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | fable51-high | completed | 60 | 59 | 60 | 59 | 59 | 57 |
 | fable51-xhigh | completed | 60 | 59 | 60 | 59 | 60 | 58 |
 | fable51-max | completed | 60 | 59 | 60 | 59 | 60 | 58 |
+| opus55-low-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
+| opus55-medium-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
+| opus55-high-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
+| opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
 | openjev-fixed | blocked_model_download_network | — | — | — | — | — | — |
 | openjev-adaptive | blocked_model_download_network | — | — | — | — | — | — |
@@ -66,39 +70,52 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | salesrlagent | task_incompatible | — | — | — | — | — | — |
 | openrouter-qwen38-free | blocked_provider_429 | — | — | — | — | — | — |
 | openrouter-deepseek-free | unavailable_no_free_model | — | — | — | — | — | — |
-| laya-english-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
-| laya-typed-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
+| laya-english-expanded-cpu | running | — | — | — | — | — | — |
+| laya-typed-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
 | semif-generated-bf16 | blocked_model_download_network | — | — | — | — | — | — |
-| laya-multilingual | blocked_model_download_network | — | — | — | — | — | — |
-| laya-multilingual-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
-| alex-openjev4b | staged_metadata_required | — | — | — | — | — | — |
+| laya-multilingual | unsupported_length | — | — | — | — | — | — |
+| laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
+| alex-openjev4b | staged_disk_budget | — | — | — | — | — | — |
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-off | pending_provider_recovery | — | — | — | — | — | — |
+| anyjev-qwen06-raw | ready_for_gpu_smoke | — | — | — | — | — | — |
+| anyjev-qwen06-l0 | ready_for_gpu_smoke | — | — | — | — | — | — |
+| anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
+| anyjev-qwen06-l2 | staged_separate_calibration_required | — | — | — | — | — | — |
+| anyjev-qwen06-generated-control | ready_for_gpu_smoke | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
 | codex-gpt-5.6-luna-medium | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-high | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-xhigh | pending_batching_decision | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-max | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
 | codex-gpt-6-astra-medium | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-6-astra-high | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-6-astra-xhigh | pending_batching_decision | — | — | — | — | — | — |
-| codex-gpt-6-astra-max | pending_batching_decision | — | — | — | — | — | — |
-| codex-gpt-6-astra-ultra | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
+| codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-low | smoke_complete_development_held | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-medium | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-high | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-xhigh | pending_batching_decision | — | — | — | — | — | — |
-| codex-gpt-5.6-sol-max | pending_batching_decision | — | — | — | — | — | — |
-| codex-gpt-5.6-sol-ultra | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-low | smoke_complete_development_held | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-medium | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-high | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-xhigh | pending_batching_decision | — | — | — | — | — | — |
-| codex-gpt-5.6-terra-max | pending_batching_decision | — | — | — | — | — | — |
-| codex-gpt-5.6-terra-ultra | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-max | excluded_by_user | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-ultra | excluded_by_user | — | — | — | — | — | — |
+| codex-gpt-6-sol-low-batch10 | partial_timeout | — | — | — | — | — | — |
+| codex-gpt-6-sol-medium-batch10 | smoke_complete_development_pending | — | — | — | — | — | — |
+| codex-gpt-6-sol-high-batch10 | smoke_timeout | — | — | — | — | — | — |
+| codex-gpt-6-sol-xhigh-batch10 | pending_after_service_recovery | — | — | — | — | — | — |
+| codex-gpt-6-luna-low-batch10 | partial_repeated_timeout | — | — | — | — | — | — |
+| codex-gpt-6-luna-medium-batch10 | smoke_complete_development_pending | — | — | — | — | — | — |
+| codex-gpt-6-luna-high-batch10 | smoke_timeout | — | — | — | — | — | — |
+| codex-gpt-6-luna-xhigh-batch10 | pending_after_service_recovery | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
@@ -175,15 +192,15 @@ Evidence: `results/qwen3-8b-2026-09-21/nonthinking-development.jsonl`; SHA-256 `
 
 **qwen3.8-27b-sdk-thinking-low**
 
-Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
+Pinned Q4_K_M hash verified. Three low-effort smoke responses inspected; 60-record development run active in results/qwen3.8-27b-2026-09-23. Shared-machine contended timing.
 
 **qwen3.8-27b-sdk-thinking-medium**
 
-Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
+Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
 
 **qwen3.8-27b-sdk-thinking-xhigh**
 
-Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
+Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
 
 **gemma4-e2b-sdk-thinking-on**
 
@@ -199,11 +216,11 @@ Evidence: `results/gemma4-e2b-2026-09-21/nonthinking-development.jsonl`; SHA-256
 
 **gemma4-e4b-sdk-thinking-on**
 
-Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
+Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
 
 **gemma4-e4b-sdk-thinking-off**
 
-Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
+Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
 
 **gemma4-26b-a4b-sdk-thinking-on**
 
@@ -223,7 +240,7 @@ Authorized existing60 only. Artifact/runtime support and smoke review required b
 
 **qwen3.8-27b-sdk-thinking-off**
 
-Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
+Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
 
 **qwen36-35b-a3b-on**
 
@@ -351,6 +368,30 @@ Smoke3 inspected12/12 judgments correct, exact model identity; parallel hosted e
 
 Evidence: `results/claude-subscription-2026-09-21/fable51-max-development.jsonl`; SHA-256 `56d558466693ec477db476fd5f1de0471191d18e67636d2cdb4282d8093d5705`.
 
+**opus55-low-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-low-batch10-development.jsonl`; SHA-256 `9304bc1b5a589e9487679425c21066d825942660a933c44bef30426b7a68cdf8`.
+
+**opus55-medium-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl`; SHA-256 `d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb`.
+
+**opus55-high-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl`; SHA-256 `75139c6df4632614ab216ed405871fd7f2efcf247e9c6e2ca51696c0bc7f40c5`.
+
+**opus55-xhigh-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-xhigh-batch10-development.jsonl`; SHA-256 `213308fcdfcce4edf847a19b3482548f136dcb2518265bc66435f6912920b704`.
+
 **typesafe-jev113-v2**
 
 60 valid after one explicitly retained transport retry atDEV046; first-pass45valid then RemoteDisconnected. Shared1USD ledger includes unknown-cost reserve. Provisional development references only.
@@ -415,11 +456,11 @@ Livecatalog rechecked2026-09-21; noDeepSeek :free variant. No paidsubstitution a
 
 **laya-english-expanded-cpu**
 
-Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. Sept23 allartifact hashes verified;3smoke inspected,60development runningCPU with concurrentQwen27B GPU contention.
 
 **laya-typed-expanded-cpu**
 
-Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned tokenizers preserve60/60 complete inputs (1614–1662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. Sept23 all15Laya artifact files verified against pinned SHA256; weights complete.
 
 **semif-generated-bf16**
 
@@ -427,15 +468,15 @@ Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision wi
 
 **laya-multilingual**
 
-Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed.
+Pinned multilingual weights fully SHA256verified. Native1024/head256 fails exact fullinput coverage60/60; no inference. Audit results/laya-coverage-audit-2026-09-23/multilingual.json.
 
 **laya-multilingual-expanded-cpu**
 
-Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed.
+Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves60/60 complete inputs; encoder8192 capacity confirmed. Separate expanded variant; awaiting serial CPU smoke then60.
 
 **alex-openjev4b**
 
-Cached model card at revisionf004f37e52695d6ddfb914a64dbf93942839ba1e recommends qwen3.5-4b-nli-v2/ and documents the same OpenJevCrossEncoder class. Exact artifact file list, total bytes and load compatibility still require verification. No additional weights downloaded; staged within disk budget.
+Pinned revisionf004f37e52695d6ddfb914a64dbf93942839ba1e qwen3.5-4b-nli-v2/ verified via metadata:6files9098638502bytes. Config Qwen3_5ForSequenceClassification, labels0contradiction/1entailment/2neutral and same NLI template. Adapter architecture matches0.8B, actual load compatibility untested. No4B weights downloaded; staged within disk budget.
 
 **openrouter-qwen38-free-low**
 
@@ -453,27 +494,47 @@ Public model metadata explicitly lists this supported effort; single zero-priced
 
 Future request uses reasoning.enabled=false; public metadata mandatory=false. No inference at this configuration. Original effort:none429attempts are preserved separately and do not validate reasoning-off behavior.
 
+**anyjev-qwen06-raw**
+
+AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect.
+
+**anyjev-qwen06-l0**
+
+AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect.
+
+**anyjev-qwen06-l1**
+
+Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used.
+
+**anyjev-qwen06-l2**
+
+Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used.
+
+**anyjev-qwen06-generated-control**
+
+Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect.
+
 **codex-gpt-5.6-luna-low**
 
-60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Sol/Terra fullsweeps held for batchingdecision.
+60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Sol/Terra fullsweeps held for batchingdecision. September23: historical5.6 result retained; future successor is gpt-6-luna.
 
 Evidence: `results/codex-gpt-5.6-luna-low-2026-09-21/development-reconciled.jsonl`; SHA-256 `18572c21f941687485254449df44f53f9d685cd3450deaede387214676999f6f`.
 
 **codex-gpt-5.6-luna-medium**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-luna.
 
 **codex-gpt-5.6-luna-high**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-luna.
 
 **codex-gpt-5.6-luna-xhigh**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-luna.
 
 **codex-gpt-5.6-luna-max**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+September23 user excluded max and ultra from future runs. Historical artifacts preserved.
 
 **codex-gpt-6-astra-low**
 
@@ -495,35 +556,35 @@ Installed account catalogue advertises this effort. Additional full sweeps held 
 
 **codex-gpt-6-astra-max**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+September23 user excluded max and ultra from future runs. Historical artifacts preserved.
 
 **codex-gpt-6-astra-ultra**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+September23 user excluded max and ultra from future runs. Historical artifacts preserved.
 
 **codex-gpt-5.6-sol-low**
 
-Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable.
+Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable. September23: historical5.6 result retained; future successor is gpt-6-sol.
 
 **codex-gpt-5.6-sol-medium**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-sol.
 
 **codex-gpt-5.6-sol-high**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-sol.
 
 **codex-gpt-5.6-sol-xhigh**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-sol.
 
 **codex-gpt-5.6-sol-max**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+September23 user excluded max and ultra from future runs. Historical artifacts preserved.
 
 **codex-gpt-5.6-sol-ultra**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+September23 user excluded max and ultra from future runs. Historical artifacts preserved.
 
 **codex-gpt-5.6-terra-low**
 
@@ -543,11 +604,43 @@ Installed account catalogue advertises this effort. Additional full sweeps held 
 
 **codex-gpt-5.6-terra-max**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+September23 user excluded max and ultra from future runs. Historical artifacts preserved.
 
 **codex-gpt-5.6-terra-ultra**
 
-Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
+September23 user excluded max and ultra from future runs. Historical artifacts preserved.
+
+**codex-gpt-6-sol-low-batch10**
+
+Batch10 CLI155 partial run stopped at300s timeout with no captured events/stderr. Luna20valid/Sol10valid before failedbatch. Failure is runtime/transport unknown, not observed model quality. Failedbatch and missing IDs remain in60denominator; rawbatchtime countedonce. Fullcontinuation pending inspection; no max/ultra or paidcredits. Approvedboundedcontinuation uses concurrency1 and600s transporttimeout (initial300s), same inferencepayload/batchmembership. Timing protocol change explicit.
+
+**codex-gpt-6-sol-medium-batch10**
+
+Three valid batchsmoke outputs inspected; no observedtools/parsererrors. Full60 notstarted: laterlow/high requests hit repeated emptytimeoutevents. Holdnewinference pending service recovery. Batch10 workflow, no max/ultra.
+
+**codex-gpt-6-sol-high-batch10**
+
+Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.
+
+**codex-gpt-6-sol-xhigh-batch10**
+
+Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.
+
+**codex-gpt-6-luna-low-batch10**
+
+20valid; batch03 timedout twice at300s then600s, secondwithconcurrency1. Failed30-recordcoverage snapshot plus30unattempted remain60denominator. Bothrawdurations retained; request payload reconstruction verified againstoriginalhash. No furthercalls untilservice recovery, no max/ultra/credits.
+
+**codex-gpt-6-luna-medium-batch10**
+
+Three valid batchsmoke outputs inspected; no observedtools/parsererrors. Full60 notstarted: laterlow/high requests hit repeated emptytimeoutevents. Holdnewinference pending service recovery. Batch10 workflow, no max/ultra.
+
+**codex-gpt-6-luna-high-batch10**
+
+Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.
+
+**codex-gpt-6-luna-xhigh-batch10**
+
+Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.
 
 **antigravity-gemini-3.8-flash-high**
 

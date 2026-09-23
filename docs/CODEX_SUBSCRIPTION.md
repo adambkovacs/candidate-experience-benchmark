@@ -1,5 +1,7 @@
 # Codex subscription configurations
 
+Current September23 state: GPT-6 Luna low has20 valid development records and Sol low has10, in a separate batch10 workflow. Both medium smoke batches passed; high smoke batches timed out, and xhigh was not attempted. Repeated empty timeouts paused Luna and higher-effort requests. One bounded Sol continuation is active after healthy read-only checks and no reported official service incident; its saved development result remains partial. Max and ultra are excluded from future runs. Historical completed results remain intact.
+
 The user explicitly requested Sol and Terra alongside Luna and Astra. The installed account catalogue fetched 2026-09-21 advertises `gpt-5.6-sol` and `gpt-5.6-terra`, each with low, medium, high, xhigh, max and ultra. Sol defaults to low and Terra to medium. Evidence: `results/codex-catalogue-2026-09-21.json`. Catalogue client 0.155.0 differs from the executable runner 0.154.0; live smoke results must establish compatibility.
 
 Each record runs in a fresh ephemeral context outside the repository, with only the policy and synthetic feedback. Reference labels never enter inference. The adapter strips API credentials, requires ChatGPT sign-in and disables user rules, memory, skills, MCP and supported tools. Built-in CLI instructions remain; server model revision is not exposed. Ultra is advertised with automatic task delegation; any tool or delegation event invalidates the primary isolated run.
@@ -9,3 +11,19 @@ Smoke artifacts and development attempts remain separate. Three smoke responses 
 Sources: [Codex authentication](https://learn.chatgpt.com/docs/auth), [noninteractive mode](https://learn.chatgpt.com/docs/non-interactive-mode), [configuration](https://learn.chatgpt.com/docs/config-file/config-reference), and the installed account catalogue above.
 
 Luna low and Astra low each completed 60 unique valid development outputs after approved continuations. Each timing view includes 64 attempts: 60 completed records plus four initialization failures. Original and reclassified copies are not double-counted; smoke artifacts are excluded. No observed tool or delegation events occurred. Records and timing evidence are linked by `results/codex-run-registry.json`.
+
+## September 23 roster update
+
+The fresh installed account catalogue confirms `gpt-6-sol` and `gpt-6-luna`. Future efforts are low, medium, high and xhigh only. The user removed max and ultra from future runs; the adapter rejects both. Historical 5.6 Sol/Luna artifacts remain available. Adding GPT-6 models does not remove earlier requested models: 5.6 Sol, Luna and Terra plus GPT-6 Astra remain in scope. Remaining runs use batch10 after smoke inspection and service recovery.
+
+Authentication remains ChatGPT subscription. The fresh quota check reports1% weekly usage, ordinary use allowed and zero paid-credit balance. No reset was redeemed. Evidence: `results/codex-catalogue-2026-09-23.json`. New low-effort three-record smokes remain separate from development, and full batches are held pending the batching decision.
+
+## Batch workflow
+
+Remaining subscription configurations use batches of 10, as a distinct workflow. Each batch has a fresh context with policy once and ordered fictional feedback records. Exact returned ID coverage and all four judgments are validated. Raw batch attempts retain request timing, usage and tool audits. Exploded prediction rows carry an amortized time share; the report suppresses per-record latency percentiles and derives batch latency/throughput from raw attempts. Smoke batches contain 3 records and never enter development timing.
+
+GPT-6 Sol/Luna were rejected before generation by the older 0.154.0 executable. The installed ChatGPT bundled executable is 0.155.0-alpha.16 and exposes the same isolation flags; separate smoke retries use that runtime, preserving prior failures. Full batches require a successful inspected smoke.
+
+The sequential Luna retry also reached its documented600s timeout, so no further blind retry was launched. Read-only version/help/login checks each completed within1.1s; ChatGPT sign-in remains valid. A fresh quota check shows21% weekly usage and ordinary usage allowed, with zero paid-credit balance and no reset redeemed. The cause of inference-command stalls remains unconfirmed. `results/codex-startup-diagnostics-2026-09-23.json` records these checks.
+
+The new batch runner now writes and fsyncs an exact prompt/schema journal before each request, then durably records completion. Earlier request payloads were reconstructed and their prompt hashes verified in `results/codex-request-reconstruction-2026-09-23.jsonl`; those records explicitly disclose that reconstruction occurred after execution.
