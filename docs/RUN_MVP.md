@@ -17,15 +17,15 @@ Status snapshot: 2026-09-23. Execution is continuing; the linked run registries 
 | Local Qwen 0.6B, 1.7B, 4B and 8B, SDK thinking on/off | All eight 60-record attempts completed; schema validity varies by configuration | [Local registry](../results/local-run-registry.json) |
 | OpenRouter qwen/qwen3.8-27b:free, modelrun/fp4 | Three smoke attempts received HTTP 429; no successful benchmark response | [Attempt artifacts](../results/openrouter/) |
 | Gemini through Antigravity CLI 1.2.7 | Authenticated model inventory verified; credits explicitly off; smoke awaits destination approval and runtime tool-control verification | [Workflow audit](../results/gemini-preflight-2026-09-21/agent-workflow-audit.json) |
-| Local razorback16/OpenJev, DiffusionGemma 26B A4B | Pinned downloads resumed; incomplete weights, no inference | [Specialist registry](../results/specialist-run-registry.json) |
+| Local razorback16/OpenJev, DiffusionGemma 26B A4B | All 13 artifact files hash-verified; local server validation underway | [Specialist registry](../results/specialist-run-registry.json) |
 | Hosted TypeSafe Jev 1.13.0 | 60 development outputs completed under the aggregate $1 authorization | [Specialist registry](../results/specialist-run-registry.json) |
 | Claude Opus 5.5, low/medium/high/xhigh | All four configurations completed with 60 valid outputs each, using batches of ten | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
 | Local Qwen3.8-27B low; Gemma4 E2B/E4B on/off | Each completed on all 60 records | [Local registry](../results/local-run-registry.json) |
 | Hosted Qwen3.6-35B-A3B on/off, AkashML FP8 | Both completed with 60 valid outputs; separate from proposed local artifacts | [Paid registry](../results/openrouter-paid-run-registry.json) |
-| Laya English expanded CPU; AnyJev raw/L0 | Completed 60 records each; native limits and expanded variants remain distinct | [Specialist registry](../results/specialist-run-registry.json) |
+| Laya English/typed expanded CPU; AlexWortega 0.8B NLI; AnyJev raw/L0 | Completed 60 valid records each; native limits and expanded variants remain distinct | [Specialist registry](../results/specialist-run-registry.json) |
 | AnyJev matched generative control | All 60 responses failed strict output validity because of Markdown fences; raw outputs retained without repair | [Format audit](../results/anyjev-qwen06-generated-mps-2026-09-23/format-audit.json) |
 
-Historical max-effort rows remain as recorded evidence. Max and ultra are excluded from new runs. GPT-6 Sol/Luna have partial or smoke-only results after timeouts; do not treat them as completed sweeps. Additional Luna/Astra efforts and local specialists remain in progress. Further paid OpenRouter requests await the explicit destination approval described in the [cost review](OPENROUTER_COST_REVIEW.md).
+Historical max-effort rows remain as recorded evidence. Max and ultra are excluded from new runs. GPT-6 Sol/Luna have partial or smoke-only results after timeouts; do not treat them as completed sweeps. Luna 5.6 medium/high and Astra 6 medium have also completed all 60 records. Luna xhigh stopped on a DNS-related timeout; further Astra efforts and local specialists remain in progress. Further paid OpenRouter requests await the explicit destination approval described in the [cost review](OPENROUTER_COST_REVIEW.md).
 
 ## Common procedure
 

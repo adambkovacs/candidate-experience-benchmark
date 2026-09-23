@@ -2,7 +2,7 @@
 
 A reproducible case study of candidate-experience feedback triage across TypeSafe Jev, Codex, Claude Code, Gemini, hosted DeepSeek/Qwen, and local models.
 
-**Status: development comparison in progress on the existing 60 fictional records only. Completed runs include Claude, Codex, hosted Jev/Qwen, local Qwen/Gemma, Laya English and AnyJev configurations. Other baseline configurations and the prompt experiments remain open. The remaining 340 records are ungenerated.**
+**Status: development comparison in progress on the existing 60 fictional records only. Completed runs include Claude, Codex, hosted Jev/Qwen, local Qwen/Gemma, Laya English/typed, AlexWortega NLI and AnyJev configurations. Other baseline configurations and the prompt experiments remain open. The remaining 340 records are ungenerated.**
 
 See the [current comparison](results/comparison/REPORT.md), [failure explorer](results/comparison/explorer.html), and [MVP run notes](docs/RUN_MVP.md). Labels remain provisional AI references; this is not a held-out ranking.
 

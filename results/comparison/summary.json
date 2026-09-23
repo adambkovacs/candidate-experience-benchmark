@@ -10473,23 +10473,266 @@
     "id": "laya-typed-expanded-cpu",
     "model": "convaiinnovations/laya typed-decisions",
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Awaiting serial CPU smoke and development validation. Smoke3 inspectedCPUFP32,10\u201311.5srecord; fullinputs1614\u20131655tokens with exactcoverage; full60 nowrunning withoutotherbenchmark inference.",
+    "status": "complete",
+    "predictions_file": "results/laya-typed-expanded-cpu-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/laya-typed-expanded-cpu-2026-09-23/development.jsonl"
+    ],
+    "notes": "All pinned files verified; smoke3 inspected then60 unique valid development outputs. CPU FP32 no quantization,4threads, expanded4096/head512 exactfullinput coverage. No other benchmark inference. Native1024 configuration remains unsupported_length. Upstream choice11+ temperature clamp warning does not affect3/5optionquestions; confidence not treated as correctness. Provisional evaluation and reconciliation saved.",
+    "attempt_phase": "development",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 60,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 60,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/laya-typed-expanded-cpu-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared $1 ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 39,
+          "denominator": 60,
+          "accuracy": 0.65,
+          "macro_f1": 0.4253391053391053,
+          "per_label": {
+            "positive": {
+              "tp": 10,
+              "fp": 9,
+              "fn": 1,
+              "precision": 0.5263157894736842,
+              "recall": 0.9090909090909091,
+              "f1": 0.6666666666666666
+            },
+            "negative": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 7,
+              "precision": 1.0,
+              "recall": 0.7741935483870968,
+              "f1": 0.8727272727272727
+            },
+            "mixed": {
+              "tp": 4,
+              "fp": 6,
+              "fn": 4,
+              "precision": 0.4,
+              "recall": 0.5,
+              "f1": 0.4444444444444444
+            },
+            "neutral": {
+              "tp": 1,
+              "fp": 5,
+              "fn": 7,
+              "precision": 0.16666666666666666,
+              "recall": 0.125,
+              "f1": 0.14285714285714285
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 47,
+          "denominator": 60,
+          "accuracy": 0.7833333333333333,
+          "macro_f1": 0.6793819135591287,
+          "per_label": {
+            "yes": {
+              "tp": 33,
+              "fp": 11,
+              "fn": 2,
+              "precision": 0.75,
+              "recall": 0.9428571428571428,
+              "f1": 0.8354430379746836
+            },
+            "no": {
+              "tp": 13,
+              "fp": 0,
+              "fn": 11,
+              "precision": 1.0,
+              "recall": 0.5416666666666666,
+              "f1": 0.7027027027027027
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "f1": 0.5
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 32,
+          "denominator": 60,
+          "accuracy": 0.5333333333333333,
+          "macro_f1": 0.43487592219986587,
+          "per_label": {
+            "yes": {
+              "tp": 24,
+              "fp": 22,
+              "fn": 1,
+              "precision": 0.5217391304347826,
+              "recall": 0.96,
+              "f1": 0.676056338028169
+            },
+            "no": {
+              "tp": 6,
+              "fp": 0,
+              "fn": 23,
+              "precision": 1.0,
+              "recall": 0.20689655172413793,
+              "f1": 0.34285714285714286
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 6,
+              "fn": 4,
+              "precision": 0.25,
+              "recall": 0.3333333333333333,
+              "f1": 0.2857142857142857
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 10,
+          "denominator": 60,
+          "accuracy": 0.16666666666666666,
+          "macro_f1": 0.1642262417456216,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 25,
+              "fn": 0,
+              "precision": 0.2647058823529412,
+              "recall": 1.0,
+              "f1": 0.4186046511627907
+            },
+            "no": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 50,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 25,
+              "fn": 0,
+              "precision": 0.038461538461538464,
+              "recall": 1.0,
+              "f1": 0.07407407407407407
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [
+          "DEV-058"
+        ],
+        "output_failed_or_missing": [],
+        "false_escalations": [
+          "DEV-001",
+          "DEV-003",
+          "DEV-007",
+          "DEV-010",
+          "DEV-014",
+          "DEV-016",
+          "DEV-017",
+          "DEV-019",
+          "DEV-021",
+          "DEV-023",
+          "DEV-024",
+          "DEV-026",
+          "DEV-027",
+          "DEV-033",
+          "DEV-034",
+          "DEV-038",
+          "DEV-040",
+          "DEV-053"
+        ]
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "d0c5f85c1f3f942971d3edf5b99b1431dba6d043815554859bdea9591bcba678",
+    "attempt_records": 60,
+    "exact_match": 0,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 624.095759333577,
+      "median_seconds": 10.232345687341876,
+      "p95_nearest_rank_seconds": 13.196666915901005,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only."
     }
   },
   {
@@ -12956,12 +13199,18 @@
     "id": "codex-gpt-6-astra-high",
     "model": "gpt-6-astra",
     "effort": "high",
-    "status": "pending_batch10_service_recovery",
+    "status": "development_running",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "notes": "High smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.",
     "future_enabled": true,
     "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10,
+    "smoke_files": [
+      "results/codex-gpt-6-astra-high-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-astra-high-batch10-2026-09-23/smoke-attempts.jsonl"
+    ],
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",

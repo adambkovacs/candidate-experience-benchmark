@@ -71,7 +71,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-qwen38-free | blocked_provider_429 | — | — | — | — | — | — |
 | openrouter-deepseek-free | unavailable_no_free_model | — | — | — | — | — | — |
 | laya-english-expanded-cpu | complete | 60 | 41 | 42 | 33 | 13 | 0 |
-| laya-typed-expanded-cpu | running | — | — | — | — | — | — |
+| laya-typed-expanded-cpu | complete | 60 | 39 | 47 | 32 | 10 | 0 |
 | semif-generated-bf16 | ready_for_local_validation | — | — | — | — | — | — |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
@@ -92,7 +92,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-luna-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
 | codex-gpt-6-astra-medium | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| codex-gpt-6-astra-high | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-6-astra-high | development_running | — | — | — | — | — | — |
 | codex-gpt-6-astra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
@@ -494,7 +494,9 @@ Evidence: `results/laya-english-expanded-cpu-2026-09-23/development.jsonl`; SHA-
 
 **laya-typed-expanded-cpu**
 
-All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Awaiting serial CPU smoke and development validation. Smoke3 inspectedCPUFP32,10–11.5srecord; fullinputs1614–1655tokens with exactcoverage; full60 nowrunning withoutotherbenchmark inference.
+All pinned files verified; smoke3 inspected then60 unique valid development outputs. CPU FP32 no quantization,4threads, expanded4096/head512 exactfullinput coverage. No other benchmark inference. Native1024 configuration remains unsupported_length. Upstream choice11+ temperature clamp warning does not affect3/5optionquestions; confidence not treated as correctness. Provisional evaluation and reconciliation saved.
+
+Evidence: `results/laya-typed-expanded-cpu-2026-09-23/development.jsonl`; SHA-256 `d0c5f85c1f3f942971d3edf5b99b1431dba6d043815554859bdea9591bcba678`.
 
 **semif-generated-bf16**
 
@@ -594,7 +596,7 @@ Evidence: `results/codex-gpt-6-astra-medium-batch10-2026-09-23/development.jsonl
 
 **codex-gpt-6-astra-high**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+High smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
 
 **codex-gpt-6-astra-xhigh**
 

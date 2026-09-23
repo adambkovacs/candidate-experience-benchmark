@@ -695,9 +695,13 @@
     "id": "laya-typed-expanded-cpu",
     "model": "convaiinnovations/laya typed-decisions",
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Awaiting serial CPU smoke and development validation. Smoke3 inspectedCPUFP32,10\u201311.5srecord; fullinputs1614\u20131655tokens with exactcoverage; full60 nowrunning withoutotherbenchmark inference."
+    "status": "complete",
+    "predictions_file": "results/laya-typed-expanded-cpu-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/laya-typed-expanded-cpu-2026-09-23/development.jsonl"
+    ],
+    "notes": "All pinned files verified; smoke3 inspected then60 unique valid development outputs. CPU FP32 no quantization,4threads, expanded4096/head512 exactfullinput coverage. No other benchmark inference. Native1024 configuration remains unsupported_length. Upstream choice11+ temperature clamp warning does not affect3/5optionquestions; confidence not treated as correctness. Provisional evaluation and reconciliation saved.",
+    "attempt_phase": "development"
   },
   {
     "id": "semif-generated-bf16",
@@ -974,12 +978,18 @@
     "id": "codex-gpt-6-astra-high",
     "model": "gpt-6-astra",
     "effort": "high",
-    "status": "pending_batch10_service_recovery",
+    "status": "development_running",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "notes": "High smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.",
     "future_enabled": true,
-    "planned_workflow": "batch10"
+    "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10,
+    "smoke_files": [
+      "results/codex-gpt-6-astra-high-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-astra-high-batch10-2026-09-23/smoke-attempts.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-6-astra-xhigh",
