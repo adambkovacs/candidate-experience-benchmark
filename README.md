@@ -1,8 +1,8 @@
 # Recruitment Feedback Comparison
 
-A reproducible case study of candidate-experience feedback triage across TypeSafe Jev, Codex, Claude Code, Gemini, hosted DeepSeek/Qwen, and local models.
+A reproducible case study of candidate-experience feedback triage across TypeSafe Jev, Codex, Claude Code, Gemini, OpenRouter-hosted Qwen/Gemma/DeepSeek/Mistral, and local models.
 
-**Status: development comparison in progress on the existing 60 fictional records only. Completed runs include Claude, Codex, hosted Jev/Qwen, local Qwen/Gemma, Laya English/typed, AlexWortega NLI and AnyJev configurations. Other baseline configurations and the prompt experiments remain open. The remaining 340 records are ungenerated.**
+**Status: development comparison in progress on the existing 60 fictional records only. Completed runs include Claude and Codex effort sweeps, Gemini Pro and some Flash efforts, hosted Jev/Qwen/Gemma/DeepSeek/Mistral24, local Qwen/Gemma, OpenJev, SemIf, Laya English/typed, AlexWortega NLI and AnyJev configurations. Other baseline configurations and the prompt experiments remain open. The remaining 340 records are ungenerated.**
 
 See the [current comparison](results/comparison/REPORT.md), [failure explorer](results/comparison/explorer.html), and [MVP run notes](docs/RUN_MVP.md). Labels remain provisional AI references; this is not a held-out ranking.
 
@@ -37,7 +37,7 @@ Future study: interviewer evidence versus hire/no-hire vote, evaluated separatel
 
 ## Expanded candidate research
 
-[Model research](docs/MODEL_RESEARCH.md) covers Gemma dense versus MoE, smaller Qwen models, SemIf (formerly OpenJev), AlexWortega/OpenJev, and Laya. Run three-record smoke checks, inspect responses, then benchmark the existing 60 development records for supported configurations. The user expanded all listed local sizes and specialist variations into the current scope.
+[Model research](docs/MODEL_RESEARCH.md) covers Gemma dense versus MoE, smaller Qwen models, SemIf (formerly OpenJev), AlexWortega/OpenJev, and Laya. Run three-record smoke checks, inspect responses, then benchmark the existing 60 development records for supported configurations. The user expanded the listed sizes and specialist variations into scope, then prioritized available OpenRouter routes over further local runs. Hosted replacements are separately identified; they do not claim the local quantization or runtime. Local specialist procedures and exact models without a hosted route remain local. See the [route and cost review](docs/OPENROUTER_COST_REVIEW.md).
 
 ## Offline verification
 
@@ -51,4 +51,4 @@ The development set includes reported bias, harassment, retaliation, privacy and
 
 ## Planned follow-up
 
-After the current runs, [compare two prompt variations](docs/PROMPT_VARIANTS.md): classifier framing, and classifier framing plus an SOP and decision tree. The existing rubric-and-schema prompt remains the baseline. This phase is planned and has not run.
+After the current runs, [compare two prompt variations](docs/PROMPT_VARIANTS.md): classifier framing, and classifier framing plus an SOP and decision tree. The existing rubric-and-schema prompt remains the baseline. This phase has not run. The [fifteen necessary batch-context P0 preparations](results/subscription-batch-p0-run-registry.json) are complete and remain separate from historical single-record baselines. [Execution readiness](docs/PROMPT_EXECUTION_READINESS.md) tracks the remaining evidence and scheduling work, including the limits of opaque hosted prompt rendering.

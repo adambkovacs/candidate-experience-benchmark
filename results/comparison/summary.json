@@ -21529,6 +21529,273 @@
     }
   },
   {
+    "id": "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+    "model": "gemini-3.6-flash-medium",
+    "effort": "medium",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+    "partial_predictions_file": null,
+    "attempt_files": [
+      "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development.jsonl",
+      "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-recovery.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-recovery-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/reconciliation.json",
+    "notes": "Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.",
+    "completed_records": 60,
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed",
+    "smoke_files": [
+      "results/antigravity-gemini36-flash-medium-native129-2026-09-23/smoke.jsonl",
+      "results/antigravity-gemini36-flash-medium-native129-2026-09-23/smoke-attempts.jsonl"
+    ],
+    "cost": {
+      "scope": "declared development attempts only",
+      "availability": "unavailable",
+      "attempt_count": 70,
+      "known_actual_attempts": 0,
+      "unknown_cost_attempts": 0,
+      "unknown_bounded_attempts": 0,
+      "missing_financial_attempts": 70,
+      "known_actual_usd": null,
+      "unknown_reserved_upper_bound_usd": null,
+      "known_plus_unknown_upper_bound_usd": null,
+      "total_actual_usd": null,
+      "source_paths": [
+        "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development.jsonl",
+        "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-recovery.jsonl"
+      ],
+      "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.9595583160800552,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9166666666666666,
+              "recall": 1.0,
+              "f1": 0.9565217391304348
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 6,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.8840579710144928,
+          "per_label": {
+            "yes": {
+              "tp": 34,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9714285714285714,
+              "f1": 0.9855072463768116
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9640472521828455,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9666666666666667,
+              "recall": 1.0,
+              "f1": 0.9830508474576272
+            },
+            "insufficient_information": {
+              "tp": 5,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8333333333333334,
+              "f1": 0.9090909090909091
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "2a183225c8653b7779c40246836e82e04d177ab93d341abb35803291d8887aab",
+    "attempt_records": 70,
+    "exact_match": 57,
+    "timing": {
+      "timing_kind": "batch_request_latency",
+      "workflow": "batch",
+      "batch_requests": 7,
+      "timed_records": 60,
+      "sum_batch_request_seconds": 364.2172645009123,
+      "batch_median_seconds": 30.27460050000809,
+      "batch_p95_nearest_rank_seconds": 159.41552429203875,
+      "attempted_records_per_request_second": 0.16473683663024083,
+      "successful_records_per_request_second": 0.16473683663024083,
+      "note": "Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed."
+    }
+  },
+  {
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
