@@ -23,11 +23,21 @@
     "id": "openrouter-paid-qwen3.8-27b-off",
     "model": "qwen/qwen3.8-27b",
     "effort": "off",
-    "status": "pending_smoke",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl",
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "60 valid, known billing; sealed partition.",
+    "partition_id": "qwen27-off",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-off-2026-09-23/smoke.jsonl"
+    ],
+    "completed_records": 60,
+    "attempted_records": 60
   },
   {
     "id": "openrouter-paid-qwen36-35b-a3b-on",
@@ -100,11 +110,26 @@
     "id": "openrouter-paid-gemma4-31b-off",
     "model": "google/gemma-4-31b-it",
     "effort": "off",
-    "status": "pending_smoke",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/turbo",
     "quantization": "fp4",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "Three smoke responses were inspected before all 60 development responses passed validation. Exact DeepInfra turbo FP4 route, reasoning disabled, 4096-token output budget, no provider fallback or retries. All reported charges are known. Other hosted configurations and one local MLX run overlapped. Provider cache usage is retained. The initial smoke command was rejected before execution; evidence-based resubmission of the same command was accepted. The child budget is sealed and reconciled.",
+    "attempt_files": [
+      "results/openrouter-parallel-gemma31-off-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-gemma31-off-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-gemma31-off-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "gemma31-off",
+    "observed_development_cost_usd": "0.00555500",
+    "observed_smoke_cost_usd": "0.00033333"
   },
   {
     "id": "openrouter-paid-mistral-small32-24b-not-applicable",
@@ -132,25 +157,33 @@
     "id": "openrouter-paid-mistral-small4-119b-none",
     "model": "mistralai/mistral-small-2603",
     "effort": "none",
-    "status": "blocked_upstream_rate_limit",
+    "status": "smoke_upstream_rate_limit",
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
-    "notes": "First authorized smoke request received HTTP429 from Mistral upstream shared pool; no prediction or reported cost. No automatic retry. Maximum request reservation $0.04177920 retained against aggregate $1 budget; actual charge unknown.",
-    "attempt_phase": "smoke",
-    "attempt_files": [
-      "results/openrouter-mistral119-none-2026-09-23/smoke.jsonl"
+    "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
+    "attempt_phase": "development",
+    "attempt_files": [],
+    "partition_id": "mistral119-none",
+    "smoke_files": [
+      "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl"
     ]
   },
   {
     "id": "openrouter-paid-mistral-small4-119b-high",
     "model": "mistralai/mistral-small-2603",
     "effort": "high",
-    "status": "pending_smoke",
+    "status": "smoke_upstream_rate_limit",
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
+    "partition_id": "mistral119-high",
+    "attempt_files": [],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-mistral119-high-2026-09-23/smoke.jsonl"
+    ]
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-off",

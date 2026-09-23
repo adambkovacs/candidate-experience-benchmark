@@ -81,3 +81,12 @@ The [paid registry](../results/openrouter-paid-run-registry.json) is the configu
 ## Explicit approval of the destination table
 
 After the exact seven model/provider routes and the 60-record synthetic payload were presented in chat, the user replied: "I already told you I approved, rock and roll moe forward". This confirms the listed destinations and payload under the existing $5 total cap. The benchmark resumes with strict endpoint pricing, no provider fallback, inspected smoke responses and shared-ledger reservations. Earlier review rejections remain preserved above; no further user confirmation is required for these approved routes.
+
+
+## Parallel execution under the same $5 cap
+
+The user requested concurrent OpenRouter runs on September 23. Ten remaining configurations now have independent $0.35 budgets, allocated by [the partition manifest](../results/openrouter-paid-partitions-2026-09-23/manifest.json). The $3.50 allocation reserves capacity; it is not a charge. Before allocation, known charges plus conservatively retained unknown-cost bounds totaled $0.16783330. The master ledger therefore encumbered $3.66783330 and left $1.33216670 unallocated under the existing $5 cap.
+
+The [partition allocator](../scripts/paid_budget_partitions.py) binds each worker to one model, provider and reasoning setting. Each worker holds its own ledger lock and can run concurrently with other configurations. Master-ledger inference is blocked while partitions are active, preventing overlapping use of reserved capacity. Every configuration still requires an inspected three-record smoke before development. A failure stops that configuration without stopping unrelated funded configurations.
+
+Terminal reconciliation locks and seals the child ledger, records known charges and unknown-cost bounds separately, and releases only unused capacity. A child with unresolved billing cannot be reconciled. The original ledger and all earlier unknown bounds remain intact. Partition totals are labeled separately from the aggregate cap; they must not be reported as global spending. No paid GPT/Claude calls, credit purchases or budget increase are authorized by this change.

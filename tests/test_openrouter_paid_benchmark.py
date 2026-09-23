@@ -195,3 +195,15 @@ class CapAmendmentTests(unittest.TestCase):
    a.reserve(Decimal('.1'),'A')
    with self.assertRaises(ValueError):a.amend_cap(Decimal('5'),'pending')
    a.close()
+
+class InvalidContinuationTests(unittest.TestCase):
+ def test_only_known_billing_schema_or_length_may_continue(self):
+  row={'status':'invalid_output','billing_ok':True,'cost_unknown':False,'raw_response':{'choices':[{'finish_reason':'length','message':{'content':None}}]}}
+  self.assertFalse(r.continue_after_record(row));self.assertTrue(r.continue_after_record(row,True))
+  for status in ['service_error','model_mismatch','provider_mismatch']:
+   changed=copy.deepcopy(row);changed['status']=status;self.assertFalse(r.continue_after_record(changed,True))
+  for key,value in [('billing_ok',False),('cost_unknown',True)]:
+   changed=copy.deepcopy(row);changed[key]=value;self.assertFalse(r.continue_after_record(changed,True))
+  for key,value in [('refusal','blocked'),('tool_calls',[{}])]:
+   changed=copy.deepcopy(row);changed['raw_response']['choices'][0]['message'][key]=value;self.assertFalse(r.continue_after_record(changed,True))
+  row['raw_response']['choices'][0]['finish_reason']='content_filter';self.assertFalse(r.continue_after_record(row,True))

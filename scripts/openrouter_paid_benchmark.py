@@ -113,18 +113,20 @@ def durable(file,value):
 
 class BudgetLedger:
     """One process holds a nonblocking lock for its entire run, including HTTP."""
-    def __init__(self,path):
+    def __init__(self,path,cap_limit=None):
+        self.cap_limit=CAP if cap_limit is None else number(cap_limit)
+        if not 0<self.cap_limit<=CAP:raise ValueError('Invalid ledger cap limit')
         self.file=open(path,'a+')
         try:
             fcntl.flock(self.file,fcntl.LOCK_EX|fcntl.LOCK_NB)
             self.file.seek(0);self.events=[json.loads(x) for x in self.file if x.strip()]
-            if self.events and self.events[0] not in ({'event':'budget','cap_usd':'1'},{'event':'budget','cap_usd':str(CAP)}):raise ValueError('Ledger cap mismatch')
-            if not self.events:self.append({'event':'budget','cap_usd':str(CAP)})
+            if self.events and (self.events[0].get('event')!='budget' or number(self.events[0].get('cap_usd')) not in ((Decimal(1),CAP) if cap_limit is None else (self.cap_limit,))):raise ValueError('Ledger cap mismatch')
+            if not self.events:self.append({'event':'budget','cap_usd':str(self.cap_limit)})
             self.state()
         except BaseException:self.file.close();raise
     def append(self,event):durable(self.file,event);self.events.append(event)
     def state(self):
-        amounts={};pending=set();blocked=False;cap=number(self.events[0]['cap_usd'])
+        amounts={};pending=set();blocked=False;cap=number(self.events[0]['cap_usd']);partitions={};closed=False
         for e in self.events:
             if e['event']=='reserve':
                 if e['attempt_id'] in amounts:raise ValueError('Duplicate reservation')
@@ -139,24 +141,34 @@ class BudgetLedger:
                 if not e.get('reason') or not e.get('evidence_path') or not e.get('evidence_sha256'):
                     raise ValueError('Unknown-cost accounting requires audit evidence')
                 pending.remove(attempt)
+            elif e['event']=='budget_partition':
+                pid=e['partition_id'];amount=number(e['allocated_usd'])
+                if pid in partitions or pending or not 0<amount<=cap or sum(amounts.values(),Decimal(0))+amount>cap:raise ValueError('Invalid partition allocation')
+                if not e.get('manifest_sha256') or not e.get('child_ledger'):raise ValueError('Missing partition binding')
+                partitions[pid]=dict(e,active=True);amounts['partition:'+pid]=amount
+            elif e['event']=='partition_reconciled':
+                pid=e['partition_id'];part=partitions.get(pid);known=number(e['known_actual_usd']);bound=number(e['unknown_upper_bound_usd'])
+                if not part or not part['active'] or known+bound>number(part['allocated_usd']) or not e.get('child_sha256'):raise ValueError('Invalid partition reconciliation')
+                part['active']=False;amounts['partition:'+pid]=known+bound
+            elif e['event']=='partition_closed':closed=True
             elif e['event']=='blocked':blocked=True
             elif e['event']=='cap_amendment':
-                if pending or number(e['previous_cap_usd'])!=cap or not cap<number(e['cap_usd'])<=CAP or not e.get('reason'):
+                if closed or pending or number(e['previous_cap_usd'])!=cap or not cap<number(e['cap_usd'])<=self.cap_limit or not e.get('reason'):
                     raise ValueError('Invalid or unsafe cap amendment')
                 cap=number(e['cap_usd'])
             elif e['event']!='budget':raise ValueError('Unknown ledger event')
-        self.cap=cap
+        self.cap=cap;self.partitions=partitions;self.closed=closed
         return amounts,pending,blocked
     def amend_cap(self,new_cap,reason):
         _,pending,blocked=self.state();new_cap=number(new_cap)
-        if pending or blocked or not self.cap<new_cap<=CAP or not isinstance(reason,str) or not reason.strip():
+        if self.closed or pending or blocked or not self.cap<new_cap<=self.cap_limit or not isinstance(reason,str) or not reason.strip():
             raise ValueError('Cap amendment requires idle ledger and explicit increased approved cap')
         self.append({'event':'cap_amendment','previous_cap_usd':str(self.cap),'cap_usd':str(new_cap),'reason':reason})
         self.state()
     def accounted(self):return sum(self.state()[0].values(),Decimal(0))
     def reserve(self,amount,record_id):
         amount=number(amount);amounts,pending,blocked=self.state()
-        if pending or blocked:raise ValueError('Unresolved charge or billing anomaly blocks new calls')
+        if pending or blocked or self.closed or any(p['active'] for p in self.partitions.values()):raise ValueError('Unresolved charge, closed ledger or active partitions block new calls')
         if sum(amounts.values(),Decimal(0))+amount>self.cap:raise ValueError('Aggregate $'+str(self.cap)+' cap reached')
         attempt=str(uuid.uuid4());self.append({'event':'reserve','attempt_id':attempt,'record_id':record_id,'usd':str(amount)})
         return attempt
@@ -188,6 +200,14 @@ class BudgetLedger:
         return event
     def close(self):self.file.close()
 
+def budget_fields(ledger):
+    if hasattr(ledger,'master_cap'):
+        return {'aggregate_cap_usd':str(ledger.master_cap),'aggregate_accounted_usd':None,
+                'partition_cap_usd':str(ledger.cap),'partition_accounted_usd':str(ledger.accounted()),
+                'aggregate_accounting_note':'Master capacity is encumbered by partition allocation; child totals are not global spending.'}
+    return {'aggregate_cap_usd':str(ledger.cap),'aggregate_accounted_usd':str(ledger.accounted())}
+
+
 def validate_rows(rows):
     if len(rows)!=60 or [r.get('id') for r in rows]!=[f'DEV-{i:03}' for i in range(1,61)]:raise ValueError('Require exact ordered60 development IDs')
     if any(set(r)!={'id','feedback'} or not isinstance(r['feedback'],str) for r in rows):raise ValueError('Input must contain only ID and feedback')
@@ -201,6 +221,14 @@ def select_rows(rows,phase,start):
         return rows[:3]
     if phase!='development':raise ValueError('Invalid phase')
     return rows[start-1:]
+
+def continue_after_record(record, explicit_continue_invalid=False):
+    if not record.get('billing_ok') or record.get('cost_unknown'):return False
+    if record['status']=='ok':return True
+    if not explicit_continue_invalid or record['status']!='invalid_output':return False
+    choice=(record.get('raw_response',{}).get('choices') or [{}])[0]
+    message=choice.get('message') or {}
+    return choice.get('finish_reason') in ('stop','length') and not message.get('refusal') and not message.get('tool_calls')
 
 def run(args):
     output=Path(args.output);journal=Path(str(output)+'.attempts.jsonl')
@@ -218,7 +246,13 @@ def run(args):
     model,endpoint=select_endpoint(args.model,args.provider,catalog,endpoints,args.max_input_price,args.max_output_price)
     payloads=[make_payload(args.model,endpoint,r['feedback'],policy,schema,args.reasoning,args.max_tokens,args.max_input_price,args.max_output_price,model) for r in rows]
     reserve=reservation(endpoint,args.max_tokens,args.max_input_price,args.max_output_price)
-    ledger=BudgetLedger(LEDGER_PATH)
+    partition_manifest=getattr(args,'budget_partition_manifest',None);partition_id=getattr(args,'budget_partition_id',None)
+    if bool(partition_manifest)!=bool(partition_id):raise ValueError('Require both partition manifest and ID')
+    if partition_manifest:
+        from paid_budget_partitions import open_partition
+        ledger=open_partition(LEDGER_PATH,partition_manifest,partition_id,args.model,args.provider,args.reasoning)
+    else:ledger=BudgetLedger(LEDGER_PATH)
+    actual_ledger_path=Path(ledger.file.name).resolve()
     try:
         with open(output,'x') as out,open(journal,'x') as audit:
             for row,payload in zip(rows,payloads):
@@ -226,10 +260,10 @@ def run(args):
                 record={'id':row['id'],'phase':args.phase,'range_selection':selection,'request_timeout_seconds':args.timeout,'attempt_id':attempt,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
                     'requested_model':args.model,'provider_endpoint':endpoint,'model_catalog_entry':model,'request':payload,
                     'request_sha256':digest(json.dumps(payload,sort_keys=True)),'policy_sha256':digest(policy),'schema_sha256':digest(json.dumps(schema,sort_keys=True)),
-                    'input_sha256':digest(row['feedback']),'reference_labels_read':False,'surface':'OpenRouter paid HTTP','aggregate_cap_usd':str(ledger.cap),
+                    'input_sha256':digest(row['feedback']),'reference_labels_read':False,'surface':'OpenRouter paid HTTP','aggregate_cap_usd':str(getattr(ledger,'master_cap',ledger.cap)),
                     'hardware':'Remote provider undisclosed','runtime':'OpenRouter HTTP v1','quantization':endpoint.get('quantization'),
-                    'reasoning_effort':args.reasoning,'reserved_cost_usd':str(reserve),'budget_ledger':str(LEDGER_PATH.relative_to(ROOT)) if LEDGER_PATH.is_relative_to(ROOT) else str(LEDGER_PATH),
-                    'retry_policy':'none; exclusive files; every attempt reserves against shared cap'}
+                    'reasoning_effort':args.reasoning,'reserved_cost_usd':str(reserve),'budget_ledger':str(actual_ledger_path.relative_to(ROOT)) if actual_ledger_path.is_relative_to(ROOT) else str(actual_ledger_path),'budget_partition_id':partition_id,
+                    'continue_on_invalid_output':getattr(args,'continue_on_invalid_output',False),'retry_policy':'none; exclusive files; every attempt reserves against shared cap'}
                 durable(audit,dict(record,event='started'))
                 start=time.perf_counter();actual=None
                 try:
@@ -253,10 +287,10 @@ def run(args):
                         try:record['raw_error_response']=json.loads(exc.read(1000000).decode().replace(token,'[REDACTED]'))
                         except (ValueError,UnicodeError):pass
                 billing_ok=ledger.settle(attempt,actual)
-                record.update(elapsed_seconds=time.perf_counter()-start,observed_cost_usd=str(actual) if actual is not None else None,cost_unknown=actual is None,billing_ok=billing_ok,aggregate_accounted_usd=str(ledger.accounted()))
+                record.update(elapsed_seconds=time.perf_counter()-start,observed_cost_usd=str(actual) if actual is not None else None,cost_unknown=actual is None,billing_ok=billing_ok,**budget_fields(ledger))
                 durable(out,record);durable(audit,{'event':'finished','attempt_id':attempt,'id':row['id'],'status':record['status'],'billing_ok':billing_ok})
                 print(row['id'],record['status'],'billing_ok',billing_ok,flush=True)
-                if record['status']!='ok' or not billing_ok:break
+                if not continue_after_record(record,getattr(args,'continue_on_invalid_output',False)):break
     finally:ledger.close()
 
 def main():
@@ -265,7 +299,9 @@ def main():
     p.add_argument('--reasoning',required=True,choices=['na','off','none','on','low','medium','high','xhigh'])
     p.add_argument('--max-input-price',type=number,required=True,help='Approved ceiling USD per million input tokens')
     p.add_argument('--max-output-price',type=number,required=True,help='Approved ceiling USD per million output tokens')
+    p.add_argument('--budget-partition-manifest');p.add_argument('--budget-partition-id')
     p.add_argument('--max-tokens',type=int,default=4096);p.add_argument('--phase',choices=['smoke','development'],required=True)
+    p.add_argument('--continue-on-invalid-output',action='store_true',help='Continue next unattempted record only after known-billing schema/length failures; no repair or retry')
     p.add_argument('--start',type=int,default=1,help='Development only: start at this1-based record through60 in a NEW output; no append or automatic retry')
     p.add_argument('--output',required=True);p.add_argument('--env-file');p.add_argument('--timeout',type=float,default=300)
     run(p.parse_args())

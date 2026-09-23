@@ -153,7 +153,7 @@ def summarize_costs(attempts, source_paths):
         'known_plus_unknown_upper_bound_usd':str(known+bounds) if complete else None,
         'total_actual_usd':str(known) if complete and unknown_count==0 else None,
         'source_paths':list(source_paths),
-        'note':'Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared $1 ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.'}
+        'note':'Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.'}
 
 
 def cost_table(summaries):
