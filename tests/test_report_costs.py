@@ -29,5 +29,5 @@ class CostTests(unittest.TestCase):
  def test_table_cash_unknown_and_ledger_scope(self):
   c=summarize_costs([{'cost_unknown':True,'observed_cost_usd':None,'reserved_cost_usd':'.04'}],['retry.jsonl'])
   text='\n'.join(cost_table([{'id':'paid','cost':c},{'id':'subscription','cost':summarize_costs([{}],['cli'])}]))
-  self.assertIn('Unknown-cost reserved upper bound',text);self.assertIn('retry.jsonl',text);self.assertIn('not the shared $1 ledger balance',text);self.assertNotIn('| subscription |',text);self.assertNotIn('spent',text)
+  self.assertIn('Unknown-cost reserved upper bound',text);self.assertIn('retry.jsonl',text);self.assertIn('not the shared ledger balance',text);self.assertNotIn('| subscription |',text);self.assertNotIn('spent',text)
 if __name__=='__main__':unittest.main()

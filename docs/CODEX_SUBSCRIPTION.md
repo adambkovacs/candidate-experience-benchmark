@@ -55,3 +55,5 @@ GPT-5.6 Luna xhigh passed its three-record smoke, but its first development batc
 gpt-6-astra medium completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-6-astra-medium-batch10-2026-09-23/evaluation.json`.
 
 gpt-6-astra high completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-6-astra-high-batch10-2026-09-23/evaluation.json`.
+
+gpt-6-astra xhigh completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/evaluation.json`.

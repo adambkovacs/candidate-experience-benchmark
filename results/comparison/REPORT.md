@@ -56,8 +56,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | opus55-high-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
 | opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
-| openjev-fixed | running | — | — | — | — | — | — |
-| openjev-adaptive | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-fixed | complete | 60 | 57 | 59 | 56 | 58 | 52 |
+| openjev-adaptive | running | — | — | — | — | — | — |
 | openjev-thinking | ready_for_local_validation | — | — | — | — | — | — |
 | openjev-generated-off | ready_for_local_validation | — | — | — | — | — | — |
 | openjev-generated-on | ready_for_local_validation | — | — | — | — | — | — |
@@ -93,7 +93,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
 | codex-gpt-6-astra-medium | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | codex-gpt-6-astra-high | completed | 60 | 59 | 60 | 59 | 60 | 58 |
-| codex-gpt-6-astra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-6-astra-xhigh | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-low | completed | 60 | 58 | 60 | 60 | 60 | 58 |
@@ -133,7 +133,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
 | openrouter-paid-gemma4-26b-a4b-on | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-26b-a4b-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-off | pending_explicit_destination_approval | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-mistral-small32-24b-not-applicable | partial_timeout | — | — | — | — | — | — |
@@ -143,7 +143,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-deepseek-v41-flash-low | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-high | pending_smoke | — | — | — | — | — | — |
 
-Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared $1 ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
+Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
 
 | Configuration | Billing coverage | Known actual USD | Unknown-cost reserved upper bound USD | Sources |
 | --- | --- | ---: | ---: | --- |
@@ -430,11 +430,13 @@ Evidence: `results/openjev/typesafe-development-v2-reconciled.jsonl`; SHA-256 `5
 
 **openjev-fixed**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. LocalnativeMLX server ready; fixed smoke3 inspected and valid,4.9–7.3srecord; fixed60 development active. Actualreadcountnotexposed; configuredsamples1.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. LocalnativeMLX server ready; fixed smoke3 inspected and valid,4.9–7.3srecord; fixed60 development active. Actualreadcountnotexposed; configuredsamples1. Completed60 valid outputs in original7 plus resumed53. One interruption has unknown in-flight attempt/duration; recorded timings exclude this unknown amount. Server restart resets warmup/cache; native16384-token exact-prompt prefill cache means warm-service timings. Actual API read count unknown; configured samples1. See reconciliation.
+
+Evidence: `results/openjev-local-fixed-2026-09-23/development-reconciled.jsonl`; SHA-256 `60ff59a5933fd9a926f921eafe5209cedfa0f13b05d3422f8a6bfb8a2962b396`.
 
 **openjev-adaptive**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 adaptive smoke3 inspected; full60 running with samples omitted, auto_max4 threshold0.1. Actual rereads not exposed; input token usage excludes adaptive extras. Warm server16384-token exact-prompt cache retained.
 
 **openjev-thinking**
 
@@ -602,7 +604,9 @@ Evidence: `results/codex-gpt-6-astra-high-batch10-2026-09-23/development.jsonl`;
 
 **codex-gpt-6-astra-xhigh**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development.jsonl`; SHA-256 `72a6fe6129e3925ec6709a68c116020912cfb547d5e6de95a6f72fcadb423c04`.
 
 **codex-gpt-6-astra-max**
 
@@ -782,7 +786,7 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-gemma4-26b-a4b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required. After explicit non-GPT/Claude paid approval and $5 total cap amendment, automatic approval review again rejected the exact Gemma26/DeepInfraFP8 smoke before execution for missing exact destination/payload scope. No payload, charge, reservation or output; no retry. All paid dispatch paused pending scoped confirmation; ledger remains $0.1274796 accounted, $4.8725204 remaining.
 
 **openrouter-paid-gemma4-31b-on**
 

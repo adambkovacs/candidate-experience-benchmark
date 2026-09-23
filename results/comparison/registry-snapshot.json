@@ -566,17 +566,23 @@
     "id": "openjev-fixed",
     "model": "openjev-0.1",
     "effort": "samples1 steps1 think0",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. LocalnativeMLX server ready; fixed smoke3 inspected and valid,4.9\u20137.3srecord; fixed60 development active. Actualreadcountnotexposed; configuredsamples1."
+    "status": "complete",
+    "predictions_file": "results/openjev-local-fixed-2026-09-23/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/openjev-local-fixed-2026-09-23/development.jsonl",
+      "results/openjev-local-fixed-2026-09-23/development-continuation.jsonl"
+    ],
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. LocalnativeMLX server ready; fixed smoke3 inspected and valid,4.9\u20137.3srecord; fixed60 development active. Actualreadcountnotexposed; configuredsamples1. Completed60 valid outputs in original7 plus resumed53. One interruption has unknown in-flight attempt/duration; recorded timings exclude this unknown amount. Server restart resets warmup/cache; native16384-token exact-prompt prefill cache means warm-service timings. Actual API read count unknown; configured samples1. See reconciliation.",
+    "attempt_phase": "development",
+    "timing_incomplete_reason": "Original server/client were interrupted after seven recorded successful responses; whether the next request had begun and its duration are unknown. The resumed53 records exclude this possible unrecorded attempt. No missing duration is assumed zero."
   },
   {
     "id": "openjev-adaptive",
     "model": "openjev-0.1",
     "effort": "automatic rereads steps1 think0",
-    "status": "ready_for_local_validation",
+    "status": "running",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 adaptive smoke3 inspected; full60 running with samples omitted, auto_max4 threshold0.1. Actual rereads not exposed; input token usage excludes adaptive extras. Warm server16384-token exact-prompt cache retained."
   },
   {
     "id": "openjev-thinking",
@@ -1005,12 +1011,28 @@
     "id": "codex-gpt-6-astra-xhigh",
     "model": "gpt-6-astra",
     "effort": "xhigh",
-    "status": "pending_batch10_service_recovery",
-    "predictions_file": null,
-    "completed_records": 0,
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development.jsonl"
+    ],
+    "completed_records": 60,
+    "notes": "Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.",
     "future_enabled": true,
-    "planned_workflow": "batch10"
+    "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10,
+    "smoke_files": [
+      "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/smoke-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development-attempts.jsonl"
+    ],
+    "request_journal_files": [
+      "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-6-astra-max",
@@ -1578,11 +1600,11 @@
     "id": "openrouter-paid-gemma4-26b-a4b-off",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "off",
-    "status": "pending_smoke",
+    "status": "pending_explicit_destination_approval",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required."
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required. After explicit non-GPT/Claude paid approval and $5 total cap amendment, automatic approval review again rejected the exact Gemma26/DeepInfraFP8 smoke before execution for missing exact destination/payload scope. No payload, charge, reservation or output; no retry. All paid dispatch paused pending scoped confirmation; ledger remains $0.1274796 accounted, $4.8725204 remaining."
   },
   {
     "id": "openrouter-paid-gemma4-31b-on",

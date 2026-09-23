@@ -160,3 +160,18 @@ class BatchTimingTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class IncompleteTimingTests(unittest.TestCase):
+    def test_unknown_interrupted_attempt_withholds_full_aggregates(self):
+        from build_development_report import mark_incomplete_timing
+        timing={'sum_record_seconds':12,'median_seconds':6,'p95_nearest_rank_seconds':8,'note':'Saved attempts.'}
+        result=mark_incomplete_timing(timing,{'timing_incomplete_reason':'Interrupted attempt duration unknown'},[{'elapsed_seconds':4},{'elapsed_seconds':8}])
+        self.assertFalse(result['all_attempt_timing_complete'])
+        self.assertIsNone(result['sum_record_seconds']);self.assertIsNone(result['median_seconds']);self.assertIsNone(result['p95_nearest_rank_seconds'])
+        self.assertEqual(result['known_recorded_sum_record_seconds'],12)
+    def test_missing_duration_is_not_zero_but_complete_timings_stay_unchanged(self):
+        from build_development_report import mark_incomplete_timing
+        complete=mark_incomplete_timing({'sum_record_seconds':4,'note':''},{},[{'elapsed_seconds':4}])
+        self.assertTrue(complete['all_attempt_timing_complete']);self.assertEqual(complete['sum_record_seconds'],4)
+        missing=mark_incomplete_timing({'sum_record_seconds':4,'note':''},{},[{'elapsed_seconds':4},{'elapsed_seconds':None}])
+        self.assertFalse(missing['all_attempt_timing_complete']);self.assertIsNone(missing['sum_record_seconds']);self.assertEqual(missing['saved_attempts_missing_duration'],1)

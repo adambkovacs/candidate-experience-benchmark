@@ -18,7 +18,11 @@
     "OPENJEV_CANVAS": 64,
     "OPENJEV_AUTO_MAX": 4,
     "OPENJEV_AUTO_THRESHOLD": 0.1,
-    "OPENJEV_MLX_MAX_PROMPT": 32768
+    "OPENJEV_MLX_MAX_PROMPT": 32768,
+    "OPENJEV_BACKEND": "mlx",
+    "OPENJEV_HOST": "127.0.0.1",
+    "OPENJEV_PORT": 8080,
+    "OPENJEV_WARMUP": 1
   },
   "fixed_request": {
     "steps": 1,
@@ -33,7 +37,7 @@
   },
   "read_count_caveat": "Source engine.read_group may perform 4 total reads when any initial entropy exceeds0.1. Adaptive rereads excluded from usage.input_tokens. Actual count not returned by API. samples1 replaces adaptive policy.",
   "identity_caveat": "OpenJev is an independent DiffusionGemma-based server, not official TypeSafe weights. API models description says NVFP4 even on MLX and must not be used as actual artifact provenance.",
-  "setup_status": "Dependencies installed and imports verified; weight download blocked by shared network outage; partials preserved; no local inference completed",
+  "setup_status": "All13 artifact files independently hashverified; native MLX server fixed smoke3 and development60 complete; continuation after interruption documented separately.",
   "sources": [
     "https://github.com/razorback16/openjev/blob/e04794ab36e4f7e6040c2547baecdb2737ce2e79/openjev/engine.py",
     "https://github.com/razorback16/openjev/blob/e04794ab36e4f7e6040c2547baecdb2737ce2e79/pyproject.toml",
@@ -49,5 +53,6 @@
     "transformers": "5.17.0",
     "fastapi": "0.141.1",
     "uvicorn": "0.53.0"
-  }
+  },
+  "cache_policy": "Native exact-prompt prefill LRU uses 16384-token aggregate budget and retains at least one prompt. Smoke can warm development prefix; server restart resets cache. Timings are warm-service timings, not isolated cold calls."
 }

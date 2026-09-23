@@ -16,19 +16,24 @@
     "id": "openjev-fixed",
     "model": "openjev-0.1",
     "effort": "samples1 steps1 think0",
-    "status": "ready_for_local_validation",
-    "predictions_file": null,
-    "attempt_files": [],
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot."
+    "status": "complete",
+    "predictions_file": "results/openjev-local-fixed-2026-09-23/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/openjev-local-fixed-2026-09-23/development.jsonl",
+      "results/openjev-local-fixed-2026-09-23/development-continuation.jsonl"
+    ],
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. LocalnativeMLX server ready; fixed smoke3 inspected and valid,4.9\u20137.3srecord; fixed60 development active. Actualreadcountnotexposed; configuredsamples1. Completed60 valid outputs in original7 plus resumed53. One interruption has unknown in-flight attempt/duration; recorded timings exclude this unknown amount. Server restart resets warmup/cache; native16384-token exact-prompt prefill cache means warm-service timings. Actual API read count unknown; configured samples1. See reconciliation.",
+    "attempt_phase": "development",
+    "timing_incomplete_reason": "Original server/client were interrupted after seven recorded successful responses; whether the next request had begun and its duration are unknown. The resumed53 records exclude this possible unrecorded attempt. No missing duration is assumed zero."
   },
   {
     "id": "openjev-adaptive",
     "model": "openjev-0.1",
     "effort": "automatic rereads steps1 think0",
-    "status": "ready_for_local_validation",
+    "status": "running",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 adaptive smoke3 inspected; full60 running with samples omitted, auto_max4 threshold0.1. Actual rereads not exposed; input token usage excludes adaptive extras. Warm server16384-token exact-prompt cache retained."
   },
   {
     "id": "openjev-thinking",

@@ -77,3 +77,7 @@ All requests go through OpenRouter to only the specified provider route, without
 | `deepseek/deepseek-v4.1-flash` | `open-inference/fp4` | off, low, high | Separate hosted DeepSeek slot; smoke required for each |
 
 The [paid registry](../results/openrouter-paid-run-registry.json) is the configuration source. Live endpoint status, reasoning support and prices must still pass the adapter's strict checks before any request. These rows do not imply that a route is currently healthy or that all runs will fit the remaining cap.
+
+## Explicit approval of the destination table
+
+After the exact seven model/provider routes and the 60-record synthetic payload were presented in chat, the user replied: "I already told you I approved, rock and roll moe forward". This confirms the listed destinations and payload under the existing $5 total cap. The benchmark resumes with strict endpoint pricing, no provider fallback, inspected smoke responses and shared-ledger reservations. Earlier review rejections remain preserved above; no further user confirmation is required for these approved routes.

@@ -159,13 +159,31 @@ def summarize_costs(attempts, source_paths):
 def cost_table(summaries):
     eligible=[item for item in summaries if item.get('cost',{}).get('availability') in ('reported','partial')]
     if not eligible:return []
-    lines=['','Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared $1 ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.','',
+    lines=['','Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.','',
         '| Configuration | Billing coverage | Known actual USD | Unknown-cost reserved upper bound USD | Sources |',
         '| --- | --- | ---: | ---: | --- |']
     for item in eligible:
         c=item['cost'];sources='; '.join('`'+x+'`' for x in c['source_paths'])
         lines.append('| '+' | '.join([item['id'],c['availability'],c['known_actual_usd'] if c['known_actual_usd'] is not None else 'unavailable',c['unknown_reserved_upper_bound_usd'] if c['unknown_reserved_upper_bound_usd'] is not None else 'unavailable',sources])+' |')
     return lines+['']
+
+
+def mark_incomplete_timing(timing, config, attempts):
+    """Retain observed timing while withholding aggregates for missing attempts."""
+    reason=config.get('timing_incomplete_reason')
+    missing=sum(row.get('elapsed_seconds') is None for row in attempts)
+    if reason is not None and (not isinstance(reason,str) or not reason.strip()):
+        raise ValueError('Timing incompleteness requires a nonempty reason')
+    timing['all_attempt_timing_complete']=not (reason or missing)
+    if not reason and not missing:return timing
+    timing['incomplete_reason']=reason or 'One or more saved attempts have no elapsed duration.'
+    timing['saved_attempts_missing_duration']=missing
+    for key in ('sum_record_seconds','median_seconds','p95_nearest_rank_seconds'):
+        if key in timing:
+            timing['known_recorded_'+key]=timing[key]
+            timing[key]=None
+    timing['note']+=' Timing aggregates are unavailable because attempt duration evidence is incomplete; known recorded values exclude the unknown duration.'
+    return timing
 
 
 def build(registries, output):
@@ -212,6 +230,8 @@ def build(registries, output):
                 summary['timing']=batch_timing(config,set(inputs),predictions)
             elif any(r.get('timing_kind')=='amortized_batch_share_not_individual_latency' for r in predictions):
                 raise ValueError('Amortized batch rows require raw batch timing evidence')
+            if not config.get('raw_batch_attempt_files'):
+                summary['timing']=mark_incomplete_timing(summary['timing'],config,attempts)
             for ref in refs:
                 row = index.get(ref['id'], {})
                 prediction = row.get('prediction')
