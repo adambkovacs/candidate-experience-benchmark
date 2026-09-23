@@ -6,7 +6,7 @@ pairs, baseline_instruction each {file,sha256}; parent_baseline_id, role; contro
 and controls_sha256; allow_missing_outputs boolean; attempt_selection
 latest_chronological|first_chronological; retry_authorizations mapping condition
 to exact explicitly authorized retry attempt IDs; conditions P0/P1/P2 each
-{predictions:{file,sha256}, extractor:openrouter_paid_v1|lmstudio_sdk_v1|declared_only,
+{predictions:{file,sha256}, extractor:openrouter_paid_v1|lmstudio_sdk_v1|claude_batch_v1|declared_only,
  request_evidence:{file,sha256}}. request_evidence is required for the extractor.
 SDK conditions additionally require artifact_evidence:{file,sha256} containing
 inspect_gguf metadata and request_evidence_phase:development. SDK records without
@@ -213,6 +213,55 @@ def audit_lmstudio(rawrows,predictions,inputs,text,controls,selection,retry_auth
     return list(attempts.values())
 
 
+def extract_claude_controls(row):
+    """Recorded CLI controls; hidden provider scaffolding is not claimed verified."""
+    return {k:row[k] for k in ('workflow','requested_model','effort','cli_version','auth_method',
+        'extra_usage_disabled_operator_verified','controller_retries','cli_internal_retries')}
+
+
+def audit_claude_batches(rawrows,predictions,inputs,text,controls,selection,retry_authorizations):
+    from claude_batch_benchmark import batch_schema,parse_batch_result,isolation_ok
+    if not rawrows:raise ValueError('No full Claude batch request evidence')
+    if not isinstance(retry_authorizations,list) or len(set(retry_authorizations))!=len(retry_authorizations):raise ValueError('Invalid Claude retry authorization')
+    groups=[list(inputs)[n:n+10] for n in range(0,len(inputs),10)]
+    attempts={};by_group={};order=[];last=None;retries=[]
+    for original in rawrows:
+        row=dict(original);ids=row.get('ids');aid=row.get('attempt_id',row.get('batch_id'))
+        if ids not in groups or len(ids)!=10 or row.get('batch_size')!=10 or row.get('phase')!='development' or not aid or aid in attempts:raise ValueError('Invalid Claude batch identity/membership/phase')
+        group=tuple(ids)
+        try:stamp=datetime.fromisoformat(row['started_utc'].replace('Z','+00:00'))
+        except (KeyError,ValueError,AttributeError):raise ValueError('Invalid Claude timestamp') from None
+        if stamp.tzinfo is None or (last is not None and stamp<last):raise ValueError('Claude chronology reversed')
+        last=stamp
+        if group in by_group:
+            if stamp<=by_group[group][-1][0] or aid not in retry_authorizations:raise ValueError('Claude retry lacks authorization/later timestamp')
+            retries.append(aid)
+        else:order.append(ids)
+        request={'system':text,'input':{'records':[{'id':rid,'feedback':inputs[rid]['feedback']} for rid in ids]},'schema':batch_schema(ids)}
+        if row.get('request')!=request:raise ValueError('Claude system/feedback/schema differs from exact batch request')
+        if row.get('policy_sha256')!=digest(text) or row.get('schema_sha256')!=canonical_hash(request['schema']) or row.get('input_sha256')!=digest(json.dumps(request['input'])):raise ValueError('Claude request hash mismatch')
+        if extract_claude_controls(row)!=controls or controls['workflow']!='batch10' or controls['auth_method']!='claude.ai' or controls['extra_usage_disabled_operator_verified'] is not True:raise ValueError('Claude runtime/model/effort/billing controls mismatch')
+        events=row.get('raw_events')
+        if events:
+            parsed=parse_batch_result(events,row['exit_code'],ids)
+            checked={**parsed,'requested_model':row['requested_model'],'raw_events':events}
+            expected_status=parsed['status'] if isolation_ok(checked) else 'service_error'
+            if row.get('status')!=expected_status:raise ValueError('Claude status not supported by raw events')
+            for field in ('prediction','usage','model_usage','init_model','init_tools','init_mcp_servers','init_skills','init_plugins','assistant_models','overage_observed'):
+                if row.get(field)!=parsed.get(field):raise ValueError('Claude mirrored response mismatch: '+field)
+        elif row.get('status')!='service_error' or row.get('prediction') is not None or not row.get('error_type') or row.get('usage') is not None or row.get('model_usage') is not None:
+            raise ValueError('Claude response evidence missing')
+        row['attempt_id']=aid;row['id']=row['batch_id'];row['surface']='Claude Code CLI subscription batch10'
+        attempts[aid]=row;by_group.setdefault(group,[]).append((stamp,row))
+    if order!=groups or set(retries)!=set(retry_authorizations):raise ValueError('Claude batch order/retry authorization mismatch')
+    for rid,pred in predictions.items():
+        group=next(tuple(g) for g in groups if rid in g);chosen=by_group[group][-1 if selection=='latest_chronological' else 0][1]
+        output=chosen.get('prediction') or {};labels={r['id']:{k:v for k,v in r.items() if k!='id'} for r in output.get('records',[])} if chosen['status']=='ok' else {}
+        if pred.get('requested_model')!=chosen['requested_model'] or pred.get('effort')!=chosen['effort'] or pred.get('workflow')!='batch10' or pred.get('timing_kind')!='amortized_batch_share_not_individual_latency':raise ValueError('Claude exploded controls/timing kind mismatch')
+        if pred.get('batch_id')!=chosen['batch_id'] or pred.get('attempt_id',pred.get('batch_id'))!=chosen['attempt_id'] or pred.get('batch_record_ids')!=list(group) or pred.get('batch_position')!=list(group).index(rid)+1 or pred.get('batch_size')!=10 or pred.get('attempt_phase')!='development' or pred.get('status')!=chosen['status'] or pred.get('prediction')!=labels.get(rid):raise ValueError('Claude prediction violates raw batch linkage/selection')
+    return list(attempts.values())
+
+
 def usable(row):return row is not None and row.get('status')=='ok' and valid(row.get('prediction'))
 
 def state(row):
@@ -222,6 +271,11 @@ def state(row):
 
 def telemetry(rows):
     def usage(row,key,stat):
+        if row.get('surface')=='Claude Code CLI subscription batch10':
+            u=row.get('usage') or {}
+            keys=('input_tokens','cache_creation_input_tokens','cache_read_input_tokens') if key=='prompt_tokens' else ('output_tokens',)
+            values=[u.get(k) for k in keys]
+            return sum(values) if all(type(v) is int and v>=0 for v in values) else None
         return row.get('stats',{}).get(stat) if row.get('surface')=='LM Studio JavaScript SDK' else (row.get('usage') or {}).get(key)
     def total(extract):
         values=[extract(r) for r in rows]
@@ -229,7 +283,7 @@ def telemetry(rows):
         return sum(values)
     return {'attempts':len(rows),'input_tokens':total(lambda r:usage(r,'prompt_tokens','promptTokensCount')),
         'output_tokens':total(lambda r:usage(r,'completion_tokens','predictedTokensCount')),
-        'reasoning_tokens':total(lambda r:r.get('stats',{}).get('reasoningPredictedTokensCount') if r.get('surface')=='LM Studio JavaScript SDK' else ((r.get('usage') or {}).get('completion_tokens_details') or {}).get('reasoning_tokens')),
+        'reasoning_tokens':total(lambda r:((r.get('usage') or {}).get('output_tokens_details') or {}).get('thinking_tokens') if r.get('surface')=='Claude Code CLI subscription batch10' else r.get('stats',{}).get('reasoningPredictedTokensCount') if r.get('surface')=='LM Studio JavaScript SDK' else ((r.get('usage') or {}).get('completion_tokens_details') or {}).get('reasoning_tokens')),
         'attempt_seconds':total(lambda r:r.get('elapsed_seconds')),
         'note':'All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.'}
 
@@ -294,12 +348,17 @@ def evaluate(manifest,root=ROOT):
             rawrows=rows_from(bound_read(condition['request_evidence'],root));artifact=json.loads(bound_read(condition['artifact_evidence'],root))
             attempts=audit_lmstudio(rawrows,predictions,inputs,composition['instruction'],controls,manifest['attempt_selection'],manifest['retry_authorizations'].get(variant,[]),artifact,manifest['role'])
             verification='verified_against_hash_bound_sdk_requests'
+        elif condition['extractor']=='claude_batch_v1':
+            if manifest['role']!='system' or condition.get('request_evidence_phase')!='development' or any('smoke' in part.lower() for part in Path(condition['request_evidence']['file']).parts):raise ValueError('Explicit Claude development/system evidence required')
+            rawrows=rows_from(bound_read(condition['request_evidence'],root))
+            attempts=audit_claude_batches(rawrows,predictions,inputs,composition['instruction'],controls,manifest['attempt_selection'],manifest['retry_authorizations'].get(variant,[]))
+            verification='verified_against_hash_bound_claude_batch_requests'
         elif condition['extractor']=='declared_only':
             attempts=[];verification='unavailable';result['controls_verified']=False
         else:raise ValueError('Unsupported request evidence extractor')
         omitted=[]
         for rid in sorted(expected-set(predictions)):
-            matching=[row for row in attempts if row['id']==rid]
+            matching=[row for row in attempts if row['id']==rid or rid in row.get('ids',[])]
             chosen=matching[-1 if manifest['attempt_selection']=='latest_chronological' else 0] if matching else None
             omitted.append({'id':rid,'selected_audited_attempt_id':chosen.get('attempt_id') if chosen else None,'selected_audited_status':chosen.get('status') if chosen else None,'scored_as':'missing','note':'Explicit missing-output allowance does not excuse omission or establish full paired eligibility.'})
         evaluation=score(list(refs.values()),list(predictions.values()),pairs)
@@ -315,7 +374,8 @@ def evaluate(manifest,root=ROOT):
     result['limitations']=['Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility also requires separate gate evidence and remains incomplete in this bounded evaluator.',
         'Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.',
         'Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.',
-        'Prompt bytes are not token counts; token overhead is unavailable until separately measured.']
+        'Prompt bytes are not token counts; token overhead is unavailable until separately measured.',
+        'Claude batch extraction verifies saved request bodies, recorded runtime controls and raw response guards; historical CLI command/environment and hidden wrapper bytes are not independently captured. Batch timing/usage is counted once, not as individual-record latency.']
     return result
 
 def main():
