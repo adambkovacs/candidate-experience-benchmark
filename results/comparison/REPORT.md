@@ -58,7 +58,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
 | openjev-fixed | complete | 60 | 57 | 59 | 56 | 58 | 52 |
 | openjev-adaptive | complete | 60 | 56 | 59 | 56 | 58 | 51 |
-| openjev-thinking | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-thinking | running | — | — | — | — | — | — |
 | openjev-generated-off | ready_for_local_validation | — | — | — | — | — | — |
 | openjev-generated-on | ready_for_local_validation | — | — | — | — | — | — |
 | semif-direct | ready_for_local_validation | — | — | — | — | — | — |
@@ -88,7 +88,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
 | codex-gpt-5.6-luna-medium | completed | 60 | 58 | 60 | 58 | 58 | 54 |
 | codex-gpt-5.6-luna-high | completed | 60 | 58 | 59 | 59 | 59 | 57 |
-| codex-gpt-5.6-luna-xhigh | partial_timeout | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-xhigh | completed_after_infrastructure_recovery | 60 | 58 | 60 | 58 | 60 | 57 |
 | codex-gpt-5.6-luna-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
 | codex-gpt-6-astra-medium | completed | 60 | 59 | 59 | 59 | 60 | 58 |
@@ -443,7 +443,7 @@ Evidence: `results/openjev-local-adaptive-2026-09-23/development.jsonl`; SHA-256
 
 **openjev-thinking**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 valid and inspected; full60 running. Native think512 budget with samples1/steps1; smoke output-token counts363/512/406. Warm-server cache retained; actual rereads unknown.
 
 **openjev-generated-off**
 
@@ -581,7 +581,9 @@ Evidence: `results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development.jsonl`
 
 **codex-gpt-5.6-luna-xhigh**
 
-Smoke3 passed18.242s; first development batch10 timedout600.02s.0valid/10failed/50unattempted,denominator60. Stopped,no retry. CLI155 ChatGPTsubscription,exactrequest preserved,no paidAPI/credits. Captured stderr shows repeated chatgpt.com DNS lookup failures and model catalogue refresh failure; no response. Subsequent DNScheck resolved in0.007s before distinct Astra smoke.
+Completed60valid via one explicitly authorized recovery after original batch01 DNSfailure600.015s. First recovered request/schema hashes and membership exactly match original. Original10failed rows and rawattempt preserved; finalpredictions use60recovery rows. Timingincludes7requests, with infrastructurefailure duration separated in evaluation. No tools/parser errors/warnings or furtherretries. NativeChatGPTsubscription only,no paidAPI/credits.
+
+Evidence: `results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl`; SHA-256 `2fdad3354a0f63032c0b55ed8c7ff255210d9b4d48293cbc1b435f7945f8c768`.
 
 **codex-gpt-5.6-luna-max**
 

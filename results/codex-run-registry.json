@@ -77,13 +77,14 @@
     "id": "codex-gpt-5.6-luna-xhigh",
     "model": "gpt-5.6-luna",
     "effort": "xhigh",
-    "status": "partial_timeout",
-    "predictions_file": "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development.jsonl",
+    "status": "completed_after_infrastructure_recovery",
+    "predictions_file": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl",
     "attempt_files": [
-      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development.jsonl"
+      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development.jsonl",
+      "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl"
     ],
-    "completed_records": 0,
-    "notes": "Smoke3 passed18.242s; first development batch10 timedout600.02s.0valid/10failed/50unattempted,denominator60. Stopped,no retry. CLI155 ChatGPTsubscription,exactrequest preserved,no paidAPI/credits. Captured stderr shows repeated chatgpt.com DNS lookup failures and model catalogue refresh failure; no response. Subsequent DNScheck resolved in0.007s before distinct Astra smoke.",
+    "completed_records": 60,
+    "notes": "Completed60valid via one explicitly authorized recovery after original batch01 DNSfailure600.015s. First recovered request/schema hashes and membership exactly match original. Original10failed rows and rawattempt preserved; finalpredictions use60recovery rows. Timingincludes7requests, with infrastructurefailure duration separated in evaluation. No tools/parser errors/warnings or furtherretries. NativeChatGPTsubscription only,no paidAPI/credits.",
     "future_enabled": true,
     "planned_workflow": "batch10",
     "workflow": "batch",
@@ -94,11 +95,14 @@
     ],
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
-      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl"
+      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+      "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development-attempts.jsonl"
     ],
     "request_journal_files": [
-      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl"
-    ]
+      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl",
+      "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ],
+    "recovery_provenance_file": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/recovery-provenance.json"
   },
   {
     "id": "codex-gpt-5.6-luna-max",

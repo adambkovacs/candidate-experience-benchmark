@@ -10167,9 +10167,9 @@
     "id": "openjev-thinking",
     "model": "openjev-0.1",
     "effort": "samples1 steps1 think512",
-    "status": "ready_for_local_validation",
+    "status": "running",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.",
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 valid and inspected; full60 running. Native think512 budget with samples1/steps1; smoke output-token counts363/512/406. Warm-server cache retained; actual rereads unknown.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
@@ -13109,9 +13109,14 @@
     "id": "codex-gpt-5.6-luna-xhigh",
     "model": "gpt-5.6-luna",
     "effort": "xhigh",
-    "status": "partial_timeout",
-    "completed_records": 0,
-    "notes": "Smoke3 passed18.242s; first development batch10 timedout600.02s.0valid/10failed/50unattempted,denominator60. Stopped,no retry. CLI155 ChatGPTsubscription,exactrequest preserved,no paidAPI/credits. Captured stderr shows repeated chatgpt.com DNS lookup failures and model catalogue refresh failure; no response. Subsequent DNScheck resolved in0.007s before distinct Astra smoke.",
+    "status": "completed_after_infrastructure_recovery",
+    "predictions_file": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development.jsonl",
+      "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl"
+    ],
+    "completed_records": 60,
+    "notes": "Completed60valid via one explicitly authorized recovery after original batch01 DNSfailure600.015s. First recovered request/schema hashes and membership exactly match original. Original10failed rows and rawattempt preserved; finalpredictions use60recovery rows. Timingincludes7requests, with infrastructurefailure duration separated in evaluation. No tools/parser errors/warnings or furtherretries. NativeChatGPTsubscription only,no paidAPI/credits.",
     "future_enabled": true,
     "planned_workflow": "batch10",
     "workflow": "batch",
@@ -13122,26 +13127,250 @@
     ],
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
-      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl"
+      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+      "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development-attempts.jsonl"
     ],
     "request_journal_files": [
-      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl"
+      "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl",
+      "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development-attempts.jsonl.journal.jsonl"
     ],
-    "planned_predictions_file": "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development.jsonl",
+    "recovery_provenance_file": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/recovery-provenance.json",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 70,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 70,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development.jsonl",
+        "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared $1 ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.9595583160800552,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9166666666666666,
+              "recall": 1.0,
+              "f1": 0.9565217391304348
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 6,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.9222222222222222,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.9354838709677419,
+              "recall": 1.0,
+              "f1": 0.9666666666666667
+            },
+            "insufficient_information": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.6666666666666666,
+              "f1": 0.8
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "2fdad3354a0f63032c0b55ed8c7ff255210d9b4d48293cbc1b435f7945f8c768",
+    "attempt_records": 70,
+    "exact_match": 57,
+    "timing": {
+      "timing_kind": "batch_request_latency",
+      "workflow": "batch",
+      "batch_requests": 7,
+      "timed_records": 60,
+      "sum_batch_request_seconds": 1085.7274774590041,
+      "batch_median_seconds": 70.9302417919971,
+      "batch_p95_nearest_rank_seconds": 600.0154500838835,
+      "attempted_records_per_request_second": 0.05526248643943483,
+      "successful_records_per_request_second": 0.05526248643943483,
+      "note": "Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed."
     }
   },
   {

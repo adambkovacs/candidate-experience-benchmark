@@ -57,3 +57,5 @@ gpt-6-astra medium completed 60 valid outputs in six sequential batches after it
 gpt-6-astra high completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-6-astra-high-batch10-2026-09-23/evaluation.json`.
 
 gpt-6-astra xhigh completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/evaluation.json`.
+
+One explicitly authorized GPT-5.6 Luna xhigh recovery subsequently completed 60 valid outputs in six requests. The first request matched the original prompt/schema hashes and record membership. The original DNS failure remains preserved and its 600.015 seconds remain included in seven-request timing, separately identified from successful recovery time. Final scoring uses only the 60 recovered predictions. Evidence: `results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/evaluation.json`.

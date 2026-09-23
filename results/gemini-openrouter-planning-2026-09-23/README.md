@@ -26,3 +26,7 @@ Sources: [OpenRouter catalog](https://openrouter.ai/api/v1/models), [Flash3.8 en
 OpenRouter's [reasoning documentation](https://openrouter.ai/docs/guides/best-practices/reasoning-tokens) treats reasoning as billed output and says most providers share the top-level output limit between reasoning and visible output. Its Gemini section distinguishes `reasoning.max_tokens`: Gemini 3 maps that value to a thinking level, without precise token control. A Gemini spending guard must not treat a requested reasoning budget as a guaranteed independent bound. Until the selected route's total-output accounting is verified, use the advertised endpoint completion bound conservatively when reserving reasoning cost. This is a planning constraint; no Gemini inference has run.
 
 The official [pricing schema](https://github.com/OpenRouterTeam/terraform-provider-openrouter/blob/main/docs/data-sources/model.md) also lists a separate internal-reasoning rate. The candidate estimates above assume reasoning is already part of the stated output workload; they are not the reservation formula and must not weaken the aggregate cap.
+
+## Subsequent execution instruction
+
+The user subsequently directed Gemini testing through the existing logged-in Antigravity CLI. This hosted-route research is retained as an unexecuted alternative; it does not authorize replacing the native subscription workflow. Continue native CLI isolation checks and smoke validation before development runs. No paid Gemini request has been sent.
