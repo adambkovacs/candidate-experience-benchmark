@@ -31,6 +31,12 @@ The first Mistral119B smoke returned an upstream HTTP429 without reported usage 
 
 The original plan also reserved a hosted DeepSeek slot independent of the local32B distill. The September23 public [DeepSeek V4.1 Flash endpoint metadata](https://openrouter.ai/api/v1/models/deepseek/deepseek-v4.1-flash/endpoints) lists `open-inference/fp4` at flat $0.10/$0.50 per million input/output tokens, with structured output and reasoning support. This is about $0.01925 for the same illustrative60-record token volume. Off/low/high are queued under the existing aggregate cap; max is excluded. It is a separate model comparison, not a renamed or equivalent32B distill.
 
+## Measured cost checkpoint
+
+The Qwen3.6-35B-A3B hosted runs completed all 60 records with thinking off and on. Their development calls cost $0.0072576 and $0.0636796 respectively; the three-record smokes cost $0.0004834 and $0.0025828. These are observed costs from the [saved runs](../results/openrouter-paid-run-registry.json), rather than the common-workload estimates above.
+
+At this checkpoint, the [shared ledger](../results/openrouter-paid-budget.jsonl) records $0.0752812 in known charges and $0.0521984 in conservative upper bounds for two attempts with unknown charges. Total accounted spending is $0.1274796, leaving $0.8725204 of the $1 cap; there are no unresolved reservations. The upper bounds are not measured charges. No additional deposit is needed for this capped work based on the previously checked account balance, although balance and endpoint availability must be rechecked before further authorized calls.
+
 ## Destination approval pending
 
 Automatic approval review rejected two three-record smoke commands on September 23 before either command executed:

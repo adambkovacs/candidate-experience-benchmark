@@ -56,14 +56,14 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | opus55-high-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
 | opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
-| openjev-fixed | downloading | — | — | — | — | — | — |
-| openjev-adaptive | downloading | — | — | — | — | — | — |
-| openjev-thinking | downloading | — | — | — | — | — | — |
-| openjev-generated-off | downloading | — | — | — | — | — | — |
-| openjev-generated-on | downloading | — | — | — | — | — | — |
-| semif-direct | downloading | — | — | — | — | — | — |
-| semif-serial | downloading | — | — | — | — | — | — |
-| semif-shared | downloading | — | — | — | — | — | — |
+| openjev-fixed | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-adaptive | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-thinking | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-generated-off | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-generated-on | ready_for_local_validation | — | — | — | — | — | — |
+| semif-direct | ready_for_local_validation | — | — | — | — | — | — |
+| semif-serial | ready_for_local_validation | — | — | — | — | — | — |
+| semif-shared | ready_for_local_validation | — | — | — | — | — | — |
 | alex-openjev08 | complete | 60 | 39 | 37 | 20 | 9 | 3 |
 | laya-english | unsupported_length | — | — | — | — | — | — |
 | laya-typed | unsupported_length | — | — | — | — | — | — |
@@ -71,11 +71,11 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-qwen38-free | blocked_provider_429 | — | — | — | — | — | — |
 | openrouter-deepseek-free | unavailable_no_free_model | — | — | — | — | — | — |
 | laya-english-expanded-cpu | complete | 60 | 41 | 42 | 33 | 13 | 0 |
-| laya-typed-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
-| semif-generated-bf16 | downloading | — | — | — | — | — | — |
+| laya-typed-expanded-cpu | running | — | — | — | — | — | — |
+| semif-generated-bf16 | ready_for_local_validation | — | — | — | — | — | — |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
-| alex-openjev4b | queued_download | — | — | — | — | — | — |
+| alex-openjev4b | downloading | — | — | — | — | — | — |
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
@@ -88,10 +88,10 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
 | codex-gpt-5.6-luna-medium | completed | 60 | 58 | 60 | 58 | 58 | 54 |
 | codex-gpt-5.6-luna-high | completed | 60 | 58 | 59 | 59 | 59 | 57 |
-| codex-gpt-5.6-luna-xhigh | development_running | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-xhigh | partial_timeout | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
-| codex-gpt-6-astra-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-6-astra-medium | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | codex-gpt-6-astra-high | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-6-astra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
@@ -430,35 +430,35 @@ Evidence: `results/openjev/typesafe-development-v2-reconciled.jsonl`; SHA-256 `5
 
 **openjev-fixed**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
 
 **openjev-adaptive**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
 
 **openjev-thinking**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
 
 **openjev-generated-off**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
 
 **openjev-generated-on**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
 
 **semif-direct**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
 
 **semif-serial**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
 
 **semif-shared**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
 
 **alex-openjev08**
 
@@ -494,11 +494,11 @@ Evidence: `results/laya-english-expanded-cpu-2026-09-23/development.jsonl`; SHA-
 
 **laya-typed-expanded-cpu**
 
-All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Awaiting serial CPU smoke and development validation.
+All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Awaiting serial CPU smoke and development validation. Smoke3 inspectedCPUFP32,10–11.5srecord; fullinputs1614–1655tokens with exactcoverage; full60 nowrunning withoutotherbenchmark inference.
 
 **semif-generated-bf16**
 
-Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
+Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
 
 **laya-multilingual**
 
@@ -510,7 +510,7 @@ Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves
 
 **alex-openjev4b**
 
-Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified.
+Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified. Existing prerequisite downloads complete; queuedAlex4B downloader active session48709, weight5.10/9.08GB at latest snapshot. No inference yet.
 
 **openrouter-qwen38-free-low**
 
@@ -574,7 +574,7 @@ Evidence: `results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development.jsonl`
 
 **codex-gpt-5.6-luna-xhigh**
 
-Xhigh smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
+Smoke3 passed18.242s; first development batch10 timedout600.02s.0valid/10failed/50unattempted,denominator60. Stopped,no retry. CLI155 ChatGPTsubscription,exactrequest preserved,no paidAPI/credits. Captured stderr shows repeated chatgpt.com DNS lookup failures and model catalogue refresh failure; no response. Subsequent DNScheck resolved in0.007s before distinct Astra smoke.
 
 **codex-gpt-5.6-luna-max**
 
@@ -588,7 +588,9 @@ Evidence: `results/codex-gpt-6-astra-low-2026-09-21/development-reconciled.jsonl
 
 **codex-gpt-6-astra-medium**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-6-astra-medium-batch10-2026-09-23/development.jsonl`; SHA-256 `3931aa5605a8d1a9c490bb91c36e39f0331837776c330ee34362952566e77d14`.
 
 **codex-gpt-6-astra-high**
 
