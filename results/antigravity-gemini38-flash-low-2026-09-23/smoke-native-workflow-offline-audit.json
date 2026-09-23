@@ -1,0 +1,427 @@
+{
+  "source": "results/antigravity-gemini38-flash-low-2026-09-23/smoke-controls-fixed-attempts.jsonl",
+  "source_sha256": "c569bc8f2d1397a1e13a6078b1f7ef86023fbec953f13b32fd48038d36566048",
+  "original_status": "isolation_violation",
+  "reclassification_only": true,
+  "new_inference": false,
+  "plan_authority": "docs/PLAN.md:98",
+  "audit": {
+    "raw_events": [
+      {
+        "event": "init",
+        "conversation_id": "0cf6b766-f223-40d4-ad5b-d83472b9bc7b",
+        "init": {
+          "model": "gemini-3.8-flash-low",
+          "cwd": "/private/tmp/agy-benchmark-j5ecpmut",
+          "agent": "recruitment-benchmark",
+          "tools": [
+            "ask_custom_permission",
+            "ask_permission",
+            "ask_question",
+            "browser_click_element",
+            "browser_drag_pixel_to_pixel",
+            "browser_get_dom",
+            "browser_get_network_request",
+            "browser_input",
+            "browser_list_network_requests",
+            "browser_mouse_down",
+            "browser_mouse_up",
+            "browser_move_mouse",
+            "browser_press_key",
+            "browser_refresh_page",
+            "browser_resize_window",
+            "browser_scroll",
+            "browser_scroll_dom",
+            "browser_select_option",
+            "browser_subagent",
+            "call_mcp_tool",
+            "capture_browser_console_logs",
+            "capture_browser_screenshot",
+            "click_browser_pixel",
+            "command_status",
+            "define_subagent",
+            "delete_knowledge",
+            "execute_browser_javascript",
+            "find_by_name",
+            "finish",
+            "generate_image",
+            "grep_search",
+            "invoke_subagent",
+            "list_browser_pages",
+            "list_dir",
+            "list_permissions",
+            "list_resources",
+            "manage_inbox",
+            "manage_subagents",
+            "manage_task",
+            "multi_replace_file_content",
+            "notebook_edit",
+            "notebook_execution",
+            "open_browser_url",
+            "read_browser_page",
+            "read_resource",
+            "read_url_content",
+            "replace_file_content",
+            "run_command",
+            "schedule",
+            "search_web",
+            "sed_file",
+            "send_command_input",
+            "send_message",
+            "view_file",
+            "wait",
+            "wait_5_seconds",
+            "write_to_file"
+          ],
+          "permission_mode": "request-review",
+          "json_schema": {
+            "type": "object",
+            "properties": {
+              "records": {
+                "type": "array",
+                "items": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "title": "Recruitment feedback judgments",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "sentiment",
+                    "follow_up_needed",
+                    "serious_concern_reported",
+                    "testimonial_potential"
+                  ],
+                  "properties": {
+                    "sentiment": {
+                      "type": "string",
+                      "enum": [
+                        "positive",
+                        "negative",
+                        "mixed",
+                        "neutral",
+                        "insufficient_information"
+                      ]
+                    },
+                    "follow_up_needed": {
+                      "type": "string",
+                      "enum": [
+                        "yes",
+                        "no",
+                        "insufficient_information"
+                      ]
+                    },
+                    "serious_concern_reported": {
+                      "type": "string",
+                      "enum": [
+                        "yes",
+                        "no",
+                        "insufficient_information"
+                      ]
+                    },
+                    "testimonial_potential": {
+                      "type": "string",
+                      "enum": [
+                        "yes",
+                        "no",
+                        "insufficient_information"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "enum": [
+                        "DEV-001",
+                        "DEV-002",
+                        "DEV-003"
+                      ]
+                    }
+                  }
+                },
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "records"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      {
+        "event": "step_update",
+        "step_update": {
+          "conversation_id": "0cf6b766-f223-40d4-ad5b-d83472b9bc7b",
+          "step_index": 0,
+          "state": "DONE",
+          "step_type": "user_input"
+        }
+      },
+      {
+        "event": "step_update",
+        "step_update": {
+          "conversation_id": "0cf6b766-f223-40d4-ad5b-d83472b9bc7b",
+          "step_index": 1,
+          "state": "DONE",
+          "step_type": "agent_response",
+          "text_delta": "{\"records\":[{\"follow_up_needed\":\"no\",\"id\":\"DEV-001\",\"sentiment\":\"positive\",\"serious_concern_reported\":\"no\",\"testimonial_potential\":\"yes\"},{\"follow_up_needed\":\"no\",\"id\":\"DEV-002\",\"sentiment\":\"positive\",\"serious_concern_reported\":\"no\",\"testimonial_potential\":\"no\"},{\"follow_up_needed\":\"yes\",\"id\":\"DEV-003\",\"sentiment\":\"negative\",\"serious_concern_reported\":\"no\",\"testimonial_potential\":\"no\"}],\"toolAction\":\"Submitting classification results\",\"toolSummary\":\"Classify candidate feedback\"}\n",
+          "duration_seconds": 3.660098,
+          "usage": {
+            "input_tokens": 12463,
+            "output_tokens": 163,
+            "thinking_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 12626
+          }
+        }
+      },
+      {
+        "event": "step_update",
+        "step_update": {
+          "conversation_id": "0cf6b766-f223-40d4-ad5b-d83472b9bc7b",
+          "step_index": 2,
+          "state": "DONE",
+          "step_type": "finish",
+          "duration_seconds": 0.003883
+        }
+      },
+      {
+        "event": "result",
+        "result": {
+          "conversation_id": "0cf6b766-f223-40d4-ad5b-d83472b9bc7b",
+          "status": "SUCCESS",
+          "response": "{\"records\":[{\"follow_up_needed\":\"no\",\"id\":\"DEV-001\",\"sentiment\":\"positive\",\"serious_concern_reported\":\"no\",\"testimonial_potential\":\"yes\"},{\"follow_up_needed\":\"no\",\"id\":\"DEV-002\",\"sentiment\":\"positive\",\"serious_concern_reported\":\"no\",\"testimonial_potential\":\"no\"},{\"follow_up_needed\":\"yes\",\"id\":\"DEV-003\",\"sentiment\":\"negative\",\"serious_concern_reported\":\"no\",\"testimonial_potential\":\"no\"}],\"toolAction\":\"Submitting classification results\",\"toolSummary\":\"Classify candidate feedback\"}\n",
+          "duration_seconds": 3.711483,
+          "num_turns": 1,
+          "structured_output": {
+            "records": [
+              {
+                "follow_up_needed": "no",
+                "id": "DEV-001",
+                "sentiment": "positive",
+                "serious_concern_reported": "no",
+                "testimonial_potential": "yes"
+              },
+              {
+                "follow_up_needed": "no",
+                "id": "DEV-002",
+                "sentiment": "positive",
+                "serious_concern_reported": "no",
+                "testimonial_potential": "no"
+              },
+              {
+                "follow_up_needed": "yes",
+                "id": "DEV-003",
+                "sentiment": "negative",
+                "serious_concern_reported": "no",
+                "testimonial_potential": "no"
+              }
+            ]
+          },
+          "json_schema": {
+            "type": "object",
+            "properties": {
+              "records": {
+                "type": "array",
+                "items": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "title": "Recruitment feedback judgments",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "sentiment",
+                    "follow_up_needed",
+                    "serious_concern_reported",
+                    "testimonial_potential"
+                  ],
+                  "properties": {
+                    "sentiment": {
+                      "type": "string",
+                      "enum": [
+                        "positive",
+                        "negative",
+                        "mixed",
+                        "neutral",
+                        "insufficient_information"
+                      ]
+                    },
+                    "follow_up_needed": {
+                      "type": "string",
+                      "enum": [
+                        "yes",
+                        "no",
+                        "insufficient_information"
+                      ]
+                    },
+                    "serious_concern_reported": {
+                      "type": "string",
+                      "enum": [
+                        "yes",
+                        "no",
+                        "insufficient_information"
+                      ]
+                    },
+                    "testimonial_potential": {
+                      "type": "string",
+                      "enum": [
+                        "yes",
+                        "no",
+                        "insufficient_information"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "enum": [
+                        "DEV-001",
+                        "DEV-002",
+                        "DEV-003"
+                      ]
+                    }
+                  }
+                },
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "records"
+            ],
+            "additionalProperties": false
+          },
+          "usage": {
+            "input_tokens": 12463,
+            "output_tokens": 163,
+            "thinking_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 12626
+          }
+        }
+      }
+    ],
+    "event_parse_errors": [],
+    "observed_tool_items": [],
+    "reported_model": "gemini-3.8-flash-low",
+    "available_tools": [
+      "ask_custom_permission",
+      "ask_permission",
+      "ask_question",
+      "browser_click_element",
+      "browser_drag_pixel_to_pixel",
+      "browser_get_dom",
+      "browser_get_network_request",
+      "browser_input",
+      "browser_list_network_requests",
+      "browser_mouse_down",
+      "browser_mouse_up",
+      "browser_move_mouse",
+      "browser_press_key",
+      "browser_refresh_page",
+      "browser_resize_window",
+      "browser_scroll",
+      "browser_scroll_dom",
+      "browser_select_option",
+      "browser_subagent",
+      "call_mcp_tool",
+      "capture_browser_console_logs",
+      "capture_browser_screenshot",
+      "click_browser_pixel",
+      "command_status",
+      "define_subagent",
+      "delete_knowledge",
+      "execute_browser_javascript",
+      "find_by_name",
+      "finish",
+      "generate_image",
+      "grep_search",
+      "invoke_subagent",
+      "list_browser_pages",
+      "list_dir",
+      "list_permissions",
+      "list_resources",
+      "manage_inbox",
+      "manage_subagents",
+      "manage_task",
+      "multi_replace_file_content",
+      "notebook_edit",
+      "notebook_execution",
+      "open_browser_url",
+      "read_browser_page",
+      "read_resource",
+      "read_url_content",
+      "replace_file_content",
+      "run_command",
+      "schedule",
+      "search_web",
+      "sed_file",
+      "send_command_input",
+      "send_message",
+      "view_file",
+      "wait",
+      "wait_5_seconds",
+      "write_to_file"
+    ],
+    "status": "ok",
+    "predictions": {
+      "DEV-001": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "yes"
+      },
+      "DEV-002": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      },
+      "DEV-003": {
+        "sentiment": "negative",
+        "follow_up_needed": "yes",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      }
+    },
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "usage": {
+      "input_tokens": 12463,
+      "output_tokens": 163,
+      "thinking_tokens": 0,
+      "cache_read_tokens": 0,
+      "total_tokens": 12626
+    },
+    "cli_duration_seconds": 3.711483,
+    "raw_response": {
+      "records": [
+        {
+          "follow_up_needed": "no",
+          "id": "DEV-001",
+          "sentiment": "positive",
+          "serious_concern_reported": "no",
+          "testimonial_potential": "yes"
+        },
+        {
+          "follow_up_needed": "no",
+          "id": "DEV-002",
+          "sentiment": "positive",
+          "serious_concern_reported": "no",
+          "testimonial_potential": "no"
+        },
+        {
+          "follow_up_needed": "yes",
+          "id": "DEV-003",
+          "sentiment": "negative",
+          "serious_concern_reported": "no",
+          "testimonial_potential": "no"
+        }
+      ]
+    },
+    "runtime_context_controls": {
+      "mcpServers": null,
+      "skills": null,
+      "plugins": null,
+      "memory_enabled": null
+    },
+    "context_control_verification": "Empty custom agent MCP/skills/plugins configuration and audited global context; fields absent from init are not separately runtime-exposed. Builtin/provider context remains unknown.",
+    "native_output_mechanism": "direct structured result"
+  }
+}

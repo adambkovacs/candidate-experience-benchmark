@@ -61,3 +61,16 @@ class FinishOutputTests(NativeGeminiTests):
   self.assertNotEqual(g.inspect_stream('\n'.join(map(json.dumps,events)),0,'gemini-3.8-flash-low',rows)['status'],'ok')
  def test_finish_with_external_tools_rejected(self):
   self.assertEqual(g.inspect_stream(self.stream(tools=['finish','view_file']),0,'gemini-3.8-flash-low',[{'id':'DEV-001'}])['status'],'isolation_violation')
+
+class ObservedWorkflowTests(NativeGeminiTests):
+ def test_inventory_disclosed_only_explicit_mode(self):
+  raw=self.stream(tools=['finish','view_file','run_command'])
+  self.assertEqual(g.inspect_stream(raw,0,'gemini-3.8-flash-low',[{'id':'DEV-001'}])['status'],'isolation_violation')
+  result=g.inspect_stream(raw,0,'gemini-3.8-flash-low',[{'id':'DEV-001'}],'native-agent-observed-no-external-tools')
+  self.assertEqual(result['status'],'ok');self.assertEqual(result['available_tools'],['finish','view_file','run_command'])
+ def test_observed_external_action_still_rejected(self):
+  for update in [{'step_type':'tool','tool_name':'view_file'},{'step_type':'message','subagent_info':{'id':'other'}}]:
+   raw=self.stream(tools=['view_file'])+'\n'+json.dumps({'event':'step_update','step_update':update})
+   self.assertEqual(g.inspect_stream(raw,0,'gemini-3.8-flash-low',[{'id':'DEV-001'}],'native-agent-observed-no-external-tools')['status'],'isolation_violation')
+ def test_unknown_mode_rejected(self):
+  with self.assertRaises(ValueError):g.inspect_stream('',0,'model',[],'relaxed')
