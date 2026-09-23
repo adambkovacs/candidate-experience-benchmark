@@ -99,7 +99,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-sol-low | completed | 60 | 58 | 60 | 60 | 60 | 58 |
 | codex-gpt-5.6-sol-medium | completed | 60 | 58 | 60 | 58 | 60 | 57 |
 | codex-gpt-5.6-sol-high | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| codex-gpt-5.6-sol-xhigh | development_running | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-xhigh | completed | 60 | 58 | 60 | 59 | 60 | 57 |
 | codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
@@ -620,7 +620,9 @@ Evidence: `results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development.jsonl`;
 
 **codex-gpt-5.6-sol-xhigh**
 
-Xhigh smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-sol-xhigh-batch10-2026-09-23/development.jsonl`; SHA-256 `bb43657b1103c48c3f6a2ca605f36298f256a43e14bbcf7d6ab3ef1e57388585`.
 
 **codex-gpt-5.6-sol-max**
 

@@ -43,3 +43,5 @@ GPT-5.6 Sol low completed all 60 records in six sequential batches after its ins
 gpt-5.6-sol medium completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/evaluation.json`.
 
 gpt-5.6-sol high completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-5.6-sol-high-batch10-2026-09-23/evaluation.json`.
+
+gpt-5.6-sol xhigh completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-5.6-sol-xhigh-batch10-2026-09-23/evaluation.json`.
