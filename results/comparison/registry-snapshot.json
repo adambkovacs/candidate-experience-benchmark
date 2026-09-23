@@ -711,7 +711,7 @@
     "effort": "unavailable",
     "status": "unavailable_no_free_model",
     "predictions_file": null,
-    "notes": "Livecatalog rechecked2026-09-21; noDeepSeek :free variant. No paidsubstitution authorized."
+    "notes": "No free DeepSeek route was established at the recorded catalogue check. This free-only configuration remains unavailable. The later explicit $5 paid OpenRouter authorization enabled separately recorded DeepSeek V4.1 Flash configurations in the paid registry; off/low/high have each attempted all60. They do not establish free-route availability or replace the distinct local R1-Distill-Qwen32B configuration."
   },
   {
     "id": "laya-english-expanded-cpu",
@@ -769,9 +769,16 @@
     "id": "alex-openjev4b",
     "model": "AlexWortega/openjev qwen3.5-4b-nli-v2",
     "effort": "NLI entailment option ranking",
-    "status": "ready",
+    "status": "running_development",
     "predictions_file": null,
-    "notes": "Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified. Existing prerequisite downloads complete; queuedAlex4B downloader active session48709, weight5.10/9.08GB at latest snapshot. No inference yet. September23 resumed downloader18444 terminal exit0; independent second verification passed all6 files (LFS SHA256 plus Git blobSHA1 for metadata), total9,098,638,502bytes. Artifact ready; actual4B runtime compatibility remains untested. No inference yet."
+    "notes": "Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e; all six artifact files independently verified. Three-record smoke inspected: valid outputs, finite normalized NLI vectors, argmax reconstruction and full input coverage. Development is active, not complete. Required mps:0 float32 with no CPU fallback, batch size4, maximum input4096, OMP/MKL threads4. Local inference remains serial; concurrent remote subscription clients may affect host timing. Final evaluation and development evidence will be published after termination.",
+    "partial_predictions_file": "results/alex-openjev4b-mps-2026-09-23/development.jsonl",
+    "smoke_files": [
+      "results/alex-openjev4b-mps-2026-09-23/smoke.jsonl"
+    ],
+    "runtime": "PyTorch 2.10.0; Transformers 5.17.0; MPS float32",
+    "hardware": "Apple M4 Max 128 GB; macOS 26.6",
+    "quantization": "none"
   },
   {
     "id": "openrouter-qwen38-free-low",
@@ -1693,6 +1700,68 @@
       "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl.journal.jsonl"
     ],
     "planned_predictions_file": "results/antigravity-gemini38-flash-low-native129-2026-09-23/development.jsonl"
+  },
+  {
+    "id": "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+    "model": "gemini-3.1-pro-low",
+    "effort": "low",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-reconciled.jsonl",
+    "partial_predictions_file": null,
+    "attempt_files": [
+      "results/antigravity-gemini31-pro-low-native129-2026-09-23/development.jsonl",
+      "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-recovery.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-recovery-attempts.jsonl"
+    ],
+    "smoke_files": [
+      "results/antigravity-gemini31-pro-low-native129-2026-09-23/smoke.jsonl",
+      "results/antigravity-gemini31-pro-low-native129-2026-09-23/smoke-attempts.jsonl",
+      "results/antigravity-gemini31-pro-low-native129-2026-09-23/smoke-inspection.json"
+    ],
+    "attempt_phase": "development",
+    "workflow": "antigravity-native-agent-batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed",
+    "notes": "Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.",
+    "reconciliation_manifest": "results/antigravity-gemini31-pro-low-native129-2026-09-23/reconciliation.json",
+    "completed_records": 60
+  },
+  {
+    "id": "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+    "model": "gemini-3.1-pro-high",
+    "effort": "high",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl",
+    "partial_predictions_file": null,
+    "attempt_files": [
+      "results/antigravity-gemini31-pro-high-native129-2026-09-23/development.jsonl",
+      "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-recovery.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-recovery-attempts.jsonl"
+    ],
+    "smoke_files": [
+      "results/antigravity-gemini31-pro-high-native129-2026-09-23/smoke.jsonl",
+      "results/antigravity-gemini31-pro-high-native129-2026-09-23/smoke-attempts.jsonl",
+      "results/antigravity-gemini31-pro-high-native129-2026-09-23/smoke-inspection.json"
+    ],
+    "attempt_phase": "development",
+    "workflow": "antigravity-native-agent-batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed",
+    "notes": "Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.",
+    "reconciliation_manifest": "results/antigravity-gemini31-pro-high-native129-2026-09-23/reconciliation.json",
+    "completed_records": 60
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-medium",

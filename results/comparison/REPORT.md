@@ -75,7 +75,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-generated-bf16 | complete | 52 | 46 | 51 | 47 | 46 | 35 |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
-| alex-openjev4b | ready | — | — | — | — | — | — |
+| alex-openjev4b | running_development | — | — | — | — | — | — |
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
@@ -128,6 +128,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 60 | 58 | 57 | 53 |
+| antigravity-gemini-3.1-pro-high-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 58 | 59 | 57 |
 | openrouter-paid-qwen3.8-27b-medium | complete_with_service_failure | 59 | 58 | 59 | 58 | 58 | 56 |
 | openrouter-paid-qwen3.8-27b-xhigh | complete_with_output_failure | 59 | 59 | 59 | 56 | 59 | 56 |
 | openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
@@ -513,7 +515,7 @@ Three separately logged bounded smoke attempts failed firstrequestHTTP429; noful
 
 **openrouter-deepseek-free**
 
-Livecatalog rechecked2026-09-21; noDeepSeek :free variant. No paidsubstitution authorized.
+No free DeepSeek route was established at the recorded catalogue check. This free-only configuration remains unavailable. The later explicit $5 paid OpenRouter authorization enabled separately recorded DeepSeek V4.1 Flash configurations in the paid registry; off/low/high have each attempted all60. They do not establish free-route availability or replace the distinct local R1-Distill-Qwen32B configuration.
 
 **laya-english-expanded-cpu**
 
@@ -543,7 +545,7 @@ Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves
 
 **alex-openjev4b**
 
-Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified. Existing prerequisite downloads complete; queuedAlex4B downloader active session48709, weight5.10/9.08GB at latest snapshot. No inference yet. September23 resumed downloader18444 terminal exit0; independent second verification passed all6 files (LFS SHA256 plus Git blobSHA1 for metadata), total9,098,638,502bytes. Artifact ready; actual4B runtime compatibility remains untested. No inference yet.
+Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e; all six artifact files independently verified. Three-record smoke inspected: valid outputs, finite normalized NLI vectors, argmax reconstruction and full input coverage. Development is active, not complete. Required mps:0 float32 with no CPU fallback, batch size4, maximum input4096, OMP/MKL threads4. Local inference remains serial; concurrent remote subscription clients may affect host timing. Final evaluation and development evidence will be published after termination.
 
 **openrouter-qwen38-free-low**
 
@@ -806,6 +808,18 @@ The user authorized the existing logged-in native Antigravity CLI. This model an
 **antigravity-gemini-3.8-flash-low-native-observed-batch10**
 
 Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed with 57 advertised tools, no observed tool calls, restrictions unverified. Initial development batch failed before inference on an idle-connection closure. One authorized recovery of the exact same batch failed on eligibility UNAVAILABLE503. Both report zero tokens; combined request wall time 77.3929815 seconds. Zero valid development records, ten unique failed records and fifty unattempted. All attempts preserved; no further retry, credits, API-key billing or relogin. Smoke excluded from development timing.
+
+**antigravity-gemini-3.1-pro-low-native-observed-batch10**
+
+Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.
+
+Evidence: `results/antigravity-gemini31-pro-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `fd77beedfbb35d8139fb3f4a662a5f3bfef62313cecca10f1420bee5ae47152d`.
+
+**antigravity-gemini-3.1-pro-high-native-observed-batch10**
+
+Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.
+
+Evidence: `results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `e1e6f9d08fcf9f5bcc9476d02c79ab1a67ffbafb0ff662fd3694c3890c1a348a`.
 
 **openrouter-paid-qwen3.8-27b-medium**
 
