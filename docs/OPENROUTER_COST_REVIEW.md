@@ -30,3 +30,16 @@ The live endpoint snapshot and model reasoning metadata are saved in `results/op
 The first Mistral119B smoke returned an upstream HTTP429 without reported usage cost. Its full $0.04177920 maximum reservation is permanently counted against the cap, with actual cost still unknown; an explicit ledger event records the evidence hash. This is not a zero-charge assertion or an automatic retry. The separate Mistral24B/DeepInfra FP8 smoke passed all three records and reported $0.00034845 total cost. Hosted development proceeds only after smoke inspection, with no fallback provider.
 
 The original plan also reserved a hosted DeepSeek slot independent of the local32B distill. The September23 public [DeepSeek V4.1 Flash endpoint metadata](https://openrouter.ai/api/v1/models/deepseek/deepseek-v4.1-flash/endpoints) lists `open-inference/fp4` at flat $0.10/$0.50 per million input/output tokens, with structured output and reasoning support. This is about $0.01925 for the same illustrative60-record token volume. Off/low/high are queued under the existing aggregate cap; max is excluded. It is a separate model comparison, not a renamed or equivalent32B distill.
+
+## Destination approval pending
+
+Automatic approval review rejected two three-record smoke commands on September 23 before either command executed:
+
+| Requested model | Provider | Control | Review outcome |
+| --- | --- | --- | --- |
+| `deepseek/deepseek-v4.1-flash` | `open-inference/fp4` | off; $0.10/$0.50 per million input/output tokens | Review could not confirm explicit approval for this payload and destination. |
+| `google/gemma-4-26b-a4b-it` | `deepinfra/fp8` | off; $0.07/$0.34 per million input/output tokens | Review acknowledged the reasonably priced substitution authorization but still required explicit approval of the payload and specific model/provider. |
+
+Both commands specified 4,096 maximum output tokens, a 300-second timeout and the shared $1 cap. Neither command ran: no feedback payload was sent, no inference charge was incurred, and no budget reservation or smoke output was created by these rejected commands. Neither was retried or routed through another execution path.
+
+The earlier authorization to use reasonably priced OpenRouter replacements remains recorded above. The repository describes the feedback as entirely synthetic, with no actual candidate records ([agreed scope](../README.md#agreed-scope), [accepted decisions](PLAN.md#accepted-decisions)). Approval review nevertheless required confirmation scoped to these destinations. Their off configurations are now `pending_explicit_destination_approval` in the [paid registry](../results/openrouter-paid-run-registry.json). Further paid calls are paused pending that explicit approval; existing successful outputs and recorded charges remain unchanged.

@@ -255,10 +255,13 @@
     "id": "anyjev-qwen06-l0",
     "model": "Qwen/Qwen3-0.6B",
     "effort": "AnyJev L0 content-free prior; all cyclic shifts",
-    "status": "running",
-    "predictions_file": null,
-    "attempt_files": [],
-    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8\u201381.7s smoke latency. Full60 running serially; no other benchmark inference."
+    "status": "complete",
+    "predictions_file": "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl"
+    ],
+    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8\u201381.7s smoke latency. Full60 running serially; no other benchmark inference. Three-record smoke inspected, then60 unique valid development outputs; actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference.",
+    "attempt_phase": "development"
   },
   {
     "id": "anyjev-qwen06-l1",

@@ -154,7 +154,7 @@ Search-page access was unreliable and no files were downloaded. No dataset is se
 
 ## Remaining execution inputs
 
-Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Verified runtime and hardware are recorded in result manifests. Remaining execution dependencies include local weight downloads and disk capacity, Gemini isolation, subscription quota, and service availability for the agreed batch10 subscription workflow. Development references have same-assistant AI review; independent human adjudication remains absent. Execution now runs on the user's Mac in the local checkout. Hosted TypeSafe has an approved aggregate $1 cap; other hosted API calls remain free-only unless separately approved.
+Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Verified runtime and hardware are recorded in result manifests. Remaining execution dependencies include local weight downloads and disk capacity, Gemini isolation, subscription quota, and service availability for the agreed batch10 subscription workflow. Development references have same-assistant AI review; independent human adjudication remains absent. Execution now runs on the user's Mac in the local checkout. Hosted TypeSafe has an approved aggregate $1 cap. The September 23 instruction separately authorized reasonably priced OpenRouter substitutions under their own aggregate $1 inference cap; see [cost review and destination approval status](OPENROUTER_COST_REVIEW.md). Other hosted API calls remain free-only unless separately approved, and further paid OpenRouter calls are paused pending the explicit destination approval required by automatic review.
 
 ## Sources checked
 

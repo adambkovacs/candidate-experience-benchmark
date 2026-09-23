@@ -81,7 +81,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-off | blocked_rate_limit | — | — | — | — | — | — |
 | anyjev-qwen06-raw | complete | 60 | 8 | 35 | 25 | 33 | 0 |
-| anyjev-qwen06-l0 | running | — | — | — | — | — | — |
+| anyjev-qwen06-l0 | complete | 60 | 37 | 13 | 34 | 44 | 4 |
 | anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-l2 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-generated-control | ready_for_gpu_smoke | — | — | — | — | — | — |
@@ -97,7 +97,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-low | completed | 60 | 58 | 60 | 60 | 60 | 58 |
-| codex-gpt-5.6-sol-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-medium | smoke_complete_development_pending | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-high | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
@@ -133,13 +133,13 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
 | openrouter-paid-gemma4-26b-a4b-on | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-26b-a4b-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-off | pending_explicit_destination_approval | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-mistral-small32-24b-not-applicable | partial_timeout | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-none | blocked_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-high | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-deepseek-v41-flash-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-off | pending_explicit_destination_approval | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-low | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-high | pending_smoke | — | — | — | — | — | — |
 
@@ -530,7 +530,9 @@ Evidence: `results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl`; SHA-256 
 
 **anyjev-qwen06-l0**
 
-AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8–81.7s smoke latency. Full60 running serially; no other benchmark inference.
+AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8–81.7s smoke latency. Full60 running serially; no other benchmark inference. Three-record smoke inspected, then60 unique valid development outputs; actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference.
+
+Evidence: `results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl`; SHA-256 `fba96b08c10f8d85b2ab7e510902689dee302369f33e4f91baf152102cb524a1`.
 
 **anyjev-qwen06-l1**
 
@@ -600,7 +602,7 @@ Evidence: `results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development.jsonl`; 
 
 **codex-gpt-5.6-sol-medium**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+September23 medium batch smoke3 valid in35.36s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.
 
 **codex-gpt-5.6-sol-high**
 
@@ -756,7 +758,7 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-gemma4-26b-a4b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md.
 
 **openrouter-paid-gemma4-31b-on**
 
@@ -780,7 +782,7 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-deepseek-v41-flash-off**
 
-Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet.
+Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md.
 
 **openrouter-paid-deepseek-v41-flash-low**
 

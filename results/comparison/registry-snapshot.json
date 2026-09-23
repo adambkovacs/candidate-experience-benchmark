@@ -774,9 +774,13 @@
     "id": "anyjev-qwen06-l0",
     "model": "Qwen/Qwen3-0.6B",
     "effort": "AnyJev L0 content-free prior; all cyclic shifts",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8\u201381.7s smoke latency. Full60 running serially; no other benchmark inference."
+    "status": "complete",
+    "predictions_file": "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl"
+    ],
+    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8\u201381.7s smoke latency. Full60 running serially; no other benchmark inference. Three-record smoke inspected, then60 unique valid development outputs; actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference.",
+    "attempt_phase": "development"
   },
   {
     "id": "anyjev-qwen06-l1",
@@ -969,11 +973,17 @@
     "id": "codex-gpt-5.6-sol-medium",
     "model": "gpt-5.6-sol",
     "effort": "medium",
-    "status": "pending_batch10_service_recovery",
+    "status": "smoke_complete_development_pending",
     "predictions_file": null,
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "notes": "September23 medium batch smoke3 valid in35.36s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.",
     "future_enabled": true,
-    "planned_workflow": "batch10"
+    "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10,
+    "smoke_files": [
+      "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/smoke-attempts.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-5.6-sol-high",
@@ -1432,11 +1442,11 @@
     "id": "openrouter-paid-gemma4-26b-a4b-off",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "off",
-    "status": "pending_smoke",
+    "status": "pending_explicit_destination_approval",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md."
   },
   {
     "id": "openrouter-paid-gemma4-31b-on",
@@ -1500,9 +1510,9 @@
     "effort": "off",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "pending_smoke",
+    "status": "pending_explicit_destination_approval",
     "predictions_file": null,
-    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
+    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md."
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-low",

@@ -10263,23 +10263,267 @@
     "id": "anyjev-qwen06-l0",
     "model": "Qwen/Qwen3-0.6B",
     "effort": "AnyJev L0 content-free prior; all cyclic shifts",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8\u201381.7s smoke latency. Full60 running serially; no other benchmark inference.",
+    "status": "complete",
+    "predictions_file": "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl"
+    ],
+    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8\u201381.7s smoke latency. Full60 running serially; no other benchmark inference. Three-record smoke inspected, then60 unique valid development outputs; actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference.",
+    "attempt_phase": "development",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 60,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 60,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared $1 ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 37,
+          "denominator": 60,
+          "accuracy": 0.6166666666666667,
+          "macro_f1": 0.40297165200391005,
+          "per_label": {
+            "positive": {
+              "tp": 10,
+              "fp": 10,
+              "fn": 1,
+              "precision": 0.5,
+              "recall": 0.9090909090909091,
+              "f1": 0.6451612903225806
+            },
+            "negative": {
+              "tp": 23,
+              "fp": 1,
+              "fn": 8,
+              "precision": 0.9583333333333334,
+              "recall": 0.7419354838709677,
+              "f1": 0.8363636363636363
+            },
+            "mixed": {
+              "tp": 2,
+              "fp": 10,
+              "fn": 6,
+              "precision": 0.16666666666666666,
+              "recall": 0.25,
+              "f1": 0.2
+            },
+            "neutral": {
+              "tp": 2,
+              "fp": 2,
+              "fn": 6,
+              "precision": 0.5,
+              "recall": 0.25,
+              "f1": 0.3333333333333333
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 13,
+          "denominator": 60,
+          "accuracy": 0.21666666666666667,
+          "macro_f1": 0.18814814814814815,
+          "per_label": {
+            "yes": {
+              "tp": 11,
+              "fp": 4,
+              "fn": 24,
+              "precision": 0.7333333333333333,
+              "recall": 0.3142857142857143,
+              "f1": 0.44
+            },
+            "no": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 23,
+              "precision": 1.0,
+              "recall": 0.041666666666666664,
+              "f1": 0.08
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 43,
+              "fn": 0,
+              "precision": 0.022727272727272728,
+              "recall": 1.0,
+              "f1": 0.044444444444444446
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 34,
+          "denominator": 60,
+          "accuracy": 0.5666666666666667,
+          "macro_f1": 0.37719298245614036,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 4,
+              "fn": 16,
+              "precision": 0.6923076923076923,
+              "recall": 0.36,
+              "f1": 0.47368421052631576
+            },
+            "no": {
+              "tp": 25,
+              "fp": 22,
+              "fn": 4,
+              "precision": 0.5319148936170213,
+              "recall": 0.8620689655172413,
+              "f1": 0.6578947368421053
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 44,
+          "denominator": 60,
+          "accuracy": 0.7333333333333333,
+          "macro_f1": 0.45098039215686275,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 16,
+              "fn": 0,
+              "precision": 0.36,
+              "recall": 1.0,
+              "f1": 0.5294117647058824
+            },
+            "no": {
+              "tp": 35,
+              "fp": 0,
+              "fn": 15,
+              "precision": 1.0,
+              "recall": 0.7,
+              "f1": 0.8235294117647058
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [
+          "DEV-008",
+          "DEV-011",
+          "DEV-012",
+          "DEV-025",
+          "DEV-036",
+          "DEV-039",
+          "DEV-041",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-049",
+          "DEV-050",
+          "DEV-052",
+          "DEV-054",
+          "DEV-056",
+          "DEV-059"
+        ],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": [
+          "DEV-010",
+          "DEV-014",
+          "DEV-020",
+          "DEV-027"
+        ]
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "fba96b08c10f8d85b2ab7e510902689dee302369f33e4f91baf152102cb524a1",
+    "attempt_records": 60,
+    "exact_match": 4,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 2902.9053170415573,
+      "median_seconds": 46.336102437460795,
+      "p95_nearest_rank_seconds": 56.76787304086611,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only."
     }
   },
   {
@@ -11366,11 +11610,17 @@
     "id": "codex-gpt-5.6-sol-medium",
     "model": "gpt-5.6-sol",
     "effort": "medium",
-    "status": "pending_batch10_service_recovery",
+    "status": "smoke_complete_development_pending",
     "predictions_file": null,
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "notes": "September23 medium batch smoke3 valid in35.36s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.",
     "future_enabled": true,
     "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10,
+    "smoke_files": [
+      "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/smoke-attempts.jsonl"
+    ],
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
@@ -13689,11 +13939,11 @@
     "id": "openrouter-paid-gemma4-26b-a4b-off",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "off",
-    "status": "pending_smoke",
+    "status": "pending_explicit_destination_approval",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.",
+    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
@@ -13847,9 +14097,9 @@
     "effort": "off",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "pending_smoke",
+    "status": "pending_explicit_destination_approval",
     "predictions_file": null,
-    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet.",
+    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
