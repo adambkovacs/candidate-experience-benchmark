@@ -16,18 +16,18 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3.5-4b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
 | qwen3-8b-sdk-thinking-on | complete | 60 | 51 | 59 | 55 | 55 | 47 |
 | qwen3-8b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
-| qwen3.8-27b-sdk-thinking-low | blocked_model_download_network | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-medium | blocked_model_download_network | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-xhigh | blocked_model_download_network | — | — | — | — | — | — |
-| gemma4-e2b-sdk-thinking-on | pending | — | — | — | — | — | — |
-| gemma4-e2b-sdk-thinking-off | pending | — | — | — | — | — | — |
-| gemma4-e4b-sdk-thinking-on | blocked_model_download_network | — | — | — | — | — | — |
-| gemma4-e4b-sdk-thinking-off | blocked_model_download_network | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-low | model_download_in_progress | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-medium | model_download_in_progress | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-xhigh | model_download_in_progress | — | — | — | — | — | — |
+| gemma4-e2b-sdk-thinking-on | complete | 60 | 50 | 58 | 46 | 52 | 35 |
+| gemma4-e2b-sdk-thinking-off | complete | 60 | 50 | 59 | 45 | 50 | 34 |
+| gemma4-e4b-sdk-thinking-on | model_download_in_progress | — | — | — | — | — | — |
+| gemma4-e4b-sdk-thinking-off | model_download_in_progress | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-off | pending | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-on | pending | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-off | pending | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-off | blocked_model_download_network | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-off | model_download_in_progress | — | — | — | — | — | — |
 | qwen36-35b-a3b-on | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
 | qwen36-35b-a3b-off | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
 | deepseek-r1-distill-qwen32b-native-reasoning | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
@@ -71,17 +71,22 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-generated-bf16 | blocked_model_download_network | — | — | — | — | — | — |
 | laya-multilingual | blocked_model_download_network | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | blocked_model_download_network | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-low | continuation_running | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-medium | pending | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-high | pending | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-xhigh | pending | — | — | — | — | — | — |
-| codex-gpt-5.6-luna-max | pending | — | — | — | — | — | — |
-| codex-gpt-6-astra-low | continuation_running | — | — | — | — | — | — |
-| codex-gpt-6-astra-medium | pending | — | — | — | — | — | — |
-| codex-gpt-6-astra-high | pending | — | — | — | — | — | — |
-| codex-gpt-6-astra-xhigh | pending | — | — | — | — | — | — |
-| codex-gpt-6-astra-max | pending | — | — | — | — | — | — |
-| codex-gpt-6-astra-ultra | pending | — | — | — | — | — | — |
+| alex-openjev4b | staged_metadata_required | — | — | — | — | — | — |
+| openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
+| openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
+| openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
+| openrouter-qwen38-free-off | pending_provider_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
+| codex-gpt-5.6-luna-medium | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-high | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-xhigh | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-max | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
+| codex-gpt-6-astra-medium | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-6-astra-high | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-6-astra-xhigh | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-6-astra-max | pending_batching_decision | — | — | — | — | — | — |
+| codex-gpt-6-astra-ultra | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-low | smoke_complete_development_held | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-medium | pending_batching_decision | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-high | pending_batching_decision | — | — | — | — | — | — |
@@ -170,31 +175,35 @@ Evidence: `results/qwen3-8b-2026-09-21/nonthinking-development.jsonl`; SHA-256 `
 
 **qwen3.8-27b-sdk-thinking-low**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
+Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
 
 **qwen3.8-27b-sdk-thinking-medium**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
+Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
 
 **qwen3.8-27b-sdk-thinking-xhigh**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
+Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
 
 **gemma4-e2b-sdk-thinking-on**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Exact artifact/runtime/request controls in results/gemma4-e2b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/gemma4-e2b-2026-09-21/thinking-development.jsonl`; SHA-256 `ed61b4e3822d35a8292745203cebb7cf4cf5d4987f71c0cb216fff5cde956602`.
 
 **gemma4-e2b-sdk-thinking-off**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+Exact artifact/runtime/request controls in results/gemma4-e2b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/gemma4-e2b-2026-09-21/nonthinking-development.jsonl`; SHA-256 `c52798fde9b7962a917c07459d8cd9fa93a2fa47c7efcbfd16e5dabde0dd8dd1`.
 
 **gemma4-e4b-sdk-thinking-on**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
+Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
 
 **gemma4-e4b-sdk-thinking-off**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage.
+Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
 
 **gemma4-26b-a4b-sdk-thinking-on**
 
@@ -214,7 +223,7 @@ Authorized existing60 only. Artifact/runtime support and smoke review required b
 
 **qwen3.8-27b-sdk-thinking-off**
 
-Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage.
+Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference.
 
 **qwen36-35b-a3b-on**
 
@@ -398,7 +407,7 @@ Predicts sales conversion via learned feature/PPO pipeline, not four user-define
 
 **openrouter-qwen38-free**
 
-Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback.
+Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback. Later metadata lists supported_efforts xhigh/medium/low, mandatory=false; original effort:none request is not a validated successful configuration. Future disabled-reasoning config should be explicit and verified separately.
 
 **openrouter-deepseek-free**
 
@@ -424,49 +433,73 @@ Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc1
 
 Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed.
 
+**alex-openjev4b**
+
+Cached model card at revisionf004f37e52695d6ddfb914a64dbf93942839ba1e recommends qwen3.5-4b-nli-v2/ and documents the same OpenJevCrossEncoder class. Exact artifact file list, total bytes and load compatibility still require verification. No additional weights downloaded; staged within disk budget.
+
+**openrouter-qwen38-free-low**
+
+Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json.
+
+**openrouter-qwen38-free-medium**
+
+Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json.
+
+**openrouter-qwen38-free-xhigh**
+
+Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json.
+
+**openrouter-qwen38-free-off**
+
+Future request uses reasoning.enabled=false; public metadata mandatory=false. No inference at this configuration. Original effort:none429attempts are preserved separately and do not validate reasoning-off behavior.
+
 **codex-gpt-5.6-luna-low**
 
-Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision.
+60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Sol/Terra fullsweeps held for batchingdecision.
+
+Evidence: `results/codex-gpt-5.6-luna-low-2026-09-21/development-reconciled.jsonl`; SHA-256 `18572c21f941687485254449df44f53f9d685cd3450deaede387214676999f6f`.
 
 **codex-gpt-5.6-luna-medium**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-luna-high**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-luna-xhigh**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-luna-max**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-6-astra-low**
 
-Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision.
+60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Other fullsweeps held for batchingdecision.
+
+Evidence: `results/codex-gpt-6-astra-low-2026-09-21/development-reconciled.jsonl`; SHA-256 `a1526015cfbcc8badbded93d29a16cec1f4bbfb06217040d224d79bedd63cd14`.
 
 **codex-gpt-6-astra-medium**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-6-astra-high**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-6-astra-xhigh**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-6-astra-max**
 
-Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-6-astra-ultra**
 
-Cached account catalog lists this effort; live configuration not yet tested. Ultra auto-delegation requires live isolation verification; separate agent-workflow result if tool isolation cannot hold. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-sol-low**
 
@@ -474,23 +507,23 @@ Three independent smoke records valid; raw responses inspected, no tools/delegat
 
 **codex-gpt-5.6-sol-medium**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-sol-high**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-sol-xhigh**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-sol-max**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-sol-ultra**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-terra-low**
 
@@ -498,23 +531,23 @@ Three independent smoke records valid; raw responses inspected, no tools/delegat
 
 **codex-gpt-5.6-terra-medium**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-terra-high**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-terra-xhigh**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-terra-max**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **codex-gpt-5.6-terra-ultra**
 
-New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results.
+Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results.
 
 **antigravity-gemini-3.8-flash-high**
 

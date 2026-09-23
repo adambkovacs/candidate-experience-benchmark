@@ -93,57 +93,59 @@
     "id": "qwen3.8-27b-sdk-thinking-low",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "low",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-medium",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "medium",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-xhigh",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "xhigh",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "gemma4-e2b-sdk-thinking-on",
     "model": "Gemma4 E2B Q4_K_M",
     "effort": "on",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/gemma4-e2b-2026-09-21/thinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/gemma4-e2b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "gemma4-e2b-sdk-thinking-off",
     "model": "Gemma4 E2B Q4_K_M",
     "effort": "off",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/gemma4-e2b-2026-09-21/nonthinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/gemma4-e2b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "gemma4-e4b-sdk-thinking-on",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "on",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "gemma4-e4b-sdk-thinking-off",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "off",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "gemma4-26b-a4b-sdk-thinking-on",
@@ -181,9 +183,9 @@
     "id": "qwen3.8-27b-sdk-thinking-off",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "off",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "qwen36-35b-a3b-on",
@@ -556,7 +558,7 @@
     "status": "blocked_provider_429",
     "predictions_file": null,
     "attempt_phase": "smoke",
-    "notes": "Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback."
+    "notes": "Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback. Later metadata lists supported_efforts xhigh/medium/low, mandatory=false; original effort:none request is not a validated successful configuration. Future disabled-reasoning config should be explicit and verified separately."
   },
   {
     "id": "openrouter-deepseek-free",
@@ -607,103 +609,162 @@
     "notes": "Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed."
   },
   {
+    "id": "alex-openjev4b",
+    "model": "AlexWortega/openjev qwen3.5-4b-nli-v2",
+    "effort": "NLI entailment option ranking; staged",
+    "status": "staged_metadata_required",
+    "predictions_file": null,
+    "notes": "Cached model card at revisionf004f37e52695d6ddfb914a64dbf93942839ba1e recommends qwen3.5-4b-nli-v2/ and documents the same OpenJevCrossEncoder class. Exact artifact file list, total bytes and load compatibility still require verification. No additional weights downloaded; staged within disk budget."
+  },
+  {
+    "id": "openrouter-qwen38-free-low",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning low; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-medium",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning medium; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-xhigh",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning xhigh; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-off",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning disabled explicitly; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Future request uses reasoning.enabled=false; public metadata mandatory=false. No inference at this configuration. Original effort:none429attempts are preserved separately and do not validate reasoning-off behavior."
+  },
+  {
     "id": "codex-gpt-5.6-luna-low",
     "model": "gpt-5.6-luna",
     "effort": "low",
-    "status": "continuation_running",
-    "predictions_file": null,
-    "completed_records": 36,
-    "notes": "Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision."
+    "status": "completed_with_initialization_retries",
+    "predictions_file": "results/codex-gpt-5.6-luna-low-2026-09-21/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-reclassified.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part2.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part3.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part4.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part5.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part6.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part7.jsonl"
+    ],
+    "completed_records": 60,
+    "notes": "60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Sol/Terra fullsweeps held for batchingdecision.",
+    "attempt_phase": "development"
   },
   {
     "id": "codex-gpt-5.6-luna-medium",
     "model": "gpt-5.6-luna",
     "effort": "medium",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-luna-high",
     "model": "gpt-5.6-luna",
     "effort": "high",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-luna-xhigh",
     "model": "gpt-5.6-luna",
     "effort": "xhigh",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-luna-max",
     "model": "gpt-5.6-luna",
     "effort": "max",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-low",
     "model": "gpt-6-astra",
     "effort": "low",
-    "status": "continuation_running",
-    "predictions_file": null,
-    "completed_records": 27,
-    "notes": "Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision."
+    "status": "completed_with_initialization_retries",
+    "predictions_file": "results/codex-gpt-6-astra-low-2026-09-21/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-astra-low-2026-09-21/development-reclassified.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part2.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part3.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part4.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part5.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part6.jsonl"
+    ],
+    "completed_records": 60,
+    "notes": "60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Other fullsweeps held for batchingdecision.",
+    "attempt_phase": "development"
   },
   {
     "id": "codex-gpt-6-astra-medium",
     "model": "gpt-6-astra",
     "effort": "medium",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-high",
     "model": "gpt-6-astra",
     "effort": "high",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-xhigh",
     "model": "gpt-6-astra",
     "effort": "xhigh",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-max",
     "model": "gpt-6-astra",
     "effort": "max",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-ultra",
     "model": "gpt-6-astra",
     "effort": "ultra",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Ultra auto-delegation requires live isolation verification; separate agent-workflow result if tool isolation cannot hold. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-low",
@@ -722,7 +783,7 @@
     "effort": "medium",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-high",
@@ -730,7 +791,7 @@
     "effort": "high",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-xhigh",
@@ -738,7 +799,7 @@
     "effort": "xhigh",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-max",
@@ -746,7 +807,7 @@
     "effort": "max",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-ultra",
@@ -754,7 +815,7 @@
     "effort": "ultra",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-low",
@@ -773,7 +834,7 @@
     "effort": "medium",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-high",
@@ -781,7 +842,7 @@
     "effort": "high",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-xhigh",
@@ -789,7 +850,7 @@
     "effort": "xhigh",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-max",
@@ -797,7 +858,7 @@
     "effort": "max",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-ultra",
@@ -805,7 +866,7 @@
     "effort": "ultra",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "antigravity-gemini-3.8-flash-high",

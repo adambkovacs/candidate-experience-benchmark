@@ -211,3 +211,11 @@ After the current model/settings comparison is finished, compare the existing ba
 Include Codex Sol and Terra alongside Luna and Astra at verified supported effort levels. Reconcile the account catalogue and runner version before each smoke. The user also requested larger Qwen, DeepSeek and Mistral candidates. [ROSTER_RECONCILIATION.md](ROSTER_RECONCILIATION.md) pins the practical Qwen3.6-35B-A3B, DeepSeek-R1-Distill-Qwen-32B and Mistral-Small-3.2-24B artifacts, with Mistral-Small-4-119B separately staged pending disk and memory capacity. The DeepSeek distill is a Qwen-based variant; the original hosted DeepSeek slot remains separately recorded. Verify runtime/template support, inspect smoke responses, then run the existing 60. No paid endpoint substitution is authorized.
 
 The user raised the quota cost of 60 individual expensive reasoning calls. A 10-record multi-input configuration has been proposed; its adoption is pending. Keep it distinct from individual-request results. Previously completed Claude runs are retained. Do not launch new expensive full sweeps until this method choice is resolved.
+
+## Resumed scope, 2026-09-23
+
+The user added Nokia Applied Research AnyJev (https://github.com/nokia-applied-research/AnyJev), Claude Opus 5.5, GPT-6 Sol and GPT-6 Luna. Verify exact artifacts, subscription availability and supported controls before inference. Remove max and ultra from future execution; retain already completed results as historical measurements. Low, medium, high and xhigh remain eligible only where supported.
+
+Remaining subscription configurations use ten records per fresh prompt after the three-record smoke gate. Record batch membership and order, shared request timing and workflow class. Do not present shared batch latency as independently measured per-record latency or silently pool these runs with one-record requests. Reference labels remain offline.
+
+Laya uses convaiinnovations/laya, with English, typed-decisions and multilingual checkpoints. Native input-length limits and expanded-context variants are logged separately. AnyJev raw/L0 are label-free; L1 calibration needs a defensible separate calibration/evaluation split and must not fit and evaluate against the same 60 labels. The remaining 340 records remain ungenerated.

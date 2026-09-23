@@ -2458,57 +2458,513 @@
     "id": "qwen3.8-27b-sdk-thinking-low",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "low",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-medium",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "medium",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "qwen3.8-27b-sdk-thinking-xhigh",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "xhigh",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "gemma4-e2b-sdk-thinking-on",
     "model": "Gemma4 E2B Q4_K_M",
     "effort": "on",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/gemma4-e2b-2026-09-21/thinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/gemma4-e2b-2026-09-21/thinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development",
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 50,
+          "denominator": 60,
+          "accuracy": 0.8333333333333334,
+          "macro_f1": 0.6604953560371516,
+          "per_label": {
+            "positive": {
+              "tp": 9,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.8181818181818182,
+              "f1": 0.9
+            },
+            "negative": {
+              "tp": 26,
+              "fp": 0,
+              "fn": 5,
+              "precision": 1.0,
+              "recall": 0.8387096774193549,
+              "f1": 0.9122807017543859
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 8,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 2,
+              "fn": 1,
+              "precision": 0.7777777777777778,
+              "recall": 0.875,
+              "f1": 0.8235294117647058
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.6480829420970267,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9722222222222222,
+              "recall": 1.0,
+              "f1": 0.9859154929577465
+            },
+            "no": {
+              "tp": 23,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.9583333333333334,
+              "recall": 0.9583333333333334,
+              "f1": 0.9583333333333334
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 46,
+          "denominator": 60,
+          "accuracy": 0.7666666666666667,
+          "macro_f1": 0.6132616487455197,
+          "per_label": {
+            "yes": {
+              "tp": 20,
+              "fp": 3,
+              "fn": 5,
+              "precision": 0.8695652173913043,
+              "recall": 0.8,
+              "f1": 0.8333333333333334
+            },
+            "no": {
+              "tp": 25,
+              "fp": 8,
+              "fn": 4,
+              "precision": 0.7575757575757576,
+              "recall": 0.8620689655172413,
+              "f1": 0.8064516129032258
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 3,
+              "fn": 5,
+              "precision": 0.25,
+              "recall": 0.16666666666666666,
+              "f1": 0.2
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 52,
+          "denominator": 60,
+          "accuracy": 0.8666666666666667,
+          "macro_f1": 0.5658341042244835,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 5,
+              "fn": 0,
+              "precision": 0.6428571428571429,
+              "recall": 1.0,
+              "f1": 0.782608695652174
+            },
+            "no": {
+              "tp": 43,
+              "fp": 1,
+              "fn": 7,
+              "precision": 0.9772727272727273,
+              "recall": 0.86,
+              "f1": 0.9148936170212766
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [
+          "DEV-008",
+          "DEV-009",
+          "DEV-058",
+          "DEV-059"
+        ],
+        "predicted_insufficient": [
+          "DEV-054"
+        ],
+        "output_failed_or_missing": [],
+        "false_escalations": [
+          "DEV-014",
+          "DEV-053"
+        ]
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "ed61b4e3822d35a8292745203cebb7cf4cf5d4987f71c0cb216fff5cde956602",
+    "attempt_records": 60,
+    "exact_match": 35,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 498.1843662880001,
+      "median_seconds": 8.150591312999996,
+      "p95_nearest_rank_seconds": 11.856596166999953,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only."
+    }
   },
   {
     "id": "gemma4-e2b-sdk-thinking-off",
     "model": "Gemma4 E2B Q4_K_M",
     "effort": "off",
-    "status": "pending",
-    "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet."
+    "status": "complete",
+    "predictions_file": "results/gemma4-e2b-2026-09-21/nonthinking-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/gemma4-e2b-2026-09-21/nonthinking-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development",
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 50,
+          "denominator": 60,
+          "accuracy": 0.8333333333333334,
+          "macro_f1": 0.649063919353052,
+          "per_label": {
+            "positive": {
+              "tp": 10,
+              "fp": 3,
+              "fn": 1,
+              "precision": 0.7692307692307693,
+              "recall": 0.9090909090909091,
+              "f1": 0.8333333333333334
+            },
+            "negative": {
+              "tp": 27,
+              "fp": 1,
+              "fn": 4,
+              "precision": 0.9642857142857143,
+              "recall": 0.8709677419354839,
+              "f1": 0.9152542372881356
+            },
+            "mixed": {
+              "tp": 5,
+              "fp": 5,
+              "fn": 3,
+              "precision": 0.5,
+              "recall": 0.625,
+              "f1": 0.5555555555555556
+            },
+            "neutral": {
+              "tp": 8,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.8888888888888888,
+              "recall": 1.0,
+              "f1": 0.9411764705882353
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.6598639455782312,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 24,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96,
+              "recall": 1.0,
+              "f1": 0.9795918367346939
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 45,
+          "denominator": 60,
+          "accuracy": 0.75,
+          "macro_f1": 0.6708230886313077,
+          "per_label": {
+            "yes": {
+              "tp": 14,
+              "fp": 0,
+              "fn": 11,
+              "precision": 1.0,
+              "recall": 0.56,
+              "f1": 0.717948717948718
+            },
+            "no": {
+              "tp": 29,
+              "fp": 15,
+              "fn": 0,
+              "precision": 0.6590909090909091,
+              "recall": 1.0,
+              "f1": 0.7945205479452054
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 4,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "f1": 0.5
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 50,
+          "denominator": 60,
+          "accuracy": 0.8333333333333334,
+          "macro_f1": 0.5698287220026351,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 4,
+              "fn": 0,
+              "precision": 0.6923076923076923,
+              "recall": 1.0,
+              "f1": 0.8181818181818182
+            },
+            "no": {
+              "tp": 41,
+              "fp": 1,
+              "fn": 9,
+              "precision": 0.9761904761904762,
+              "recall": 0.82,
+              "f1": 0.8913043478260869
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 5,
+              "fn": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [
+          "DEV-008",
+          "DEV-009",
+          "DEV-031",
+          "DEV-032",
+          "DEV-043",
+          "DEV-044",
+          "DEV-046",
+          "DEV-049",
+          "DEV-050",
+          "DEV-058",
+          "DEV-059"
+        ],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "c52798fde9b7962a917c07459d8cd9fa93a2fa47c7efcbfd16e5dabde0dd8dd1",
+    "attempt_records": 60,
+    "exact_match": 34,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 37.358897126999985,
+      "median_seconds": 0.616237583000002,
+      "p95_nearest_rank_seconds": 0.7258213749999995,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only."
+    }
   },
   {
     "id": "gemma4-e4b-sdk-thinking-on",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "on",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "gemma4-e4b-sdk-thinking-off",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "off",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet. Resumable download stopped during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "gemma4-26b-a4b-sdk-thinking-on",
@@ -2546,9 +3002,9 @@
     "id": "qwen3.8-27b-sdk-thinking-off",
     "model": "Qwen3.8-27B Q4_K_M",
     "effort": "off",
-    "status": "blocked_model_download_network",
+    "status": "model_download_in_progress",
     "predictions_file": null,
-    "notes": "Supported nonthinking mode; checksum-pinned artifact remains incomplete during Hugging Face timeout outage."
+    "notes": "Verified range download is progressing slowly; full artifact checksum and smoke gate still required before inference."
   },
   {
     "id": "qwen36-35b-a3b-on",
@@ -6811,7 +7267,7 @@
     "status": "blocked_provider_429",
     "predictions_file": null,
     "attempt_phase": "smoke",
-    "notes": "Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback."
+    "notes": "Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback. Later metadata lists supported_efforts xhigh/medium/low, mandatory=false; original effort:none request is not a validated successful configuration. Future disabled-reasoning config should be explicit and verified separately."
   },
   {
     "id": "openrouter-deepseek-free",
@@ -6862,103 +7318,594 @@
     "notes": "Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed."
   },
   {
+    "id": "alex-openjev4b",
+    "model": "AlexWortega/openjev qwen3.5-4b-nli-v2",
+    "effort": "NLI entailment option ranking; staged",
+    "status": "staged_metadata_required",
+    "predictions_file": null,
+    "notes": "Cached model card at revisionf004f37e52695d6ddfb914a64dbf93942839ba1e recommends qwen3.5-4b-nli-v2/ and documents the same OpenJevCrossEncoder class. Exact artifact file list, total bytes and load compatibility still require verification. No additional weights downloaded; staged within disk budget."
+  },
+  {
+    "id": "openrouter-qwen38-free-low",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning low; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-medium",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning medium; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-xhigh",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning xhigh; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
+  },
+  {
+    "id": "openrouter-qwen38-free-off",
+    "model": "qwen/qwen3.8-27b:free",
+    "effort": "reasoning disabled explicitly; ModelRun FP4",
+    "status": "pending_provider_recovery",
+    "predictions_file": null,
+    "notes": "Future request uses reasoning.enabled=false; public metadata mandatory=false. No inference at this configuration. Original effort:none429attempts are preserved separately and do not validate reasoning-off behavior."
+  },
+  {
     "id": "codex-gpt-5.6-luna-low",
     "model": "gpt-5.6-luna",
     "effort": "low",
-    "status": "continuation_running",
-    "predictions_file": null,
-    "completed_records": 36,
-    "notes": "Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision."
+    "status": "completed_with_initialization_retries",
+    "predictions_file": "results/codex-gpt-5.6-luna-low-2026-09-21/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-reclassified.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part2.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part3.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part4.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part5.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part6.jsonl",
+      "results/codex-gpt-5.6-luna-low-2026-09-21/development-part7.jsonl"
+    ],
+    "completed_records": 60,
+    "notes": "60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Sol/Terra fullsweeps held for batchingdecision.",
+    "attempt_phase": "development",
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.9448527349228613,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9166666666666666,
+              "recall": 1.0,
+              "f1": 0.9565217391304348
+            },
+            "negative": {
+              "tp": 30,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.967741935483871,
+              "recall": 0.967741935483871,
+              "f1": 0.967741935483871
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 6,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.8571428571428571,
+              "recall": 0.75,
+              "f1": 0.8
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.8724954462659381,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 3,
+              "fn": 0,
+              "precision": 0.90625,
+              "recall": 1.0,
+              "f1": 0.9508196721311475
+            },
+            "insufficient_information": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 3,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "18572c21f941687485254449df44f53f9d685cd3450deaede387214676999f6f",
+    "attempt_records": 64,
+    "exact_match": 56,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 1565.4717993747909,
+      "median_seconds": 22.543077853973955,
+      "p95_nearest_rank_seconds": 47.56428495794535,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only."
+    }
   },
   {
     "id": "codex-gpt-5.6-luna-medium",
     "model": "gpt-5.6-luna",
     "effort": "medium",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-luna-high",
     "model": "gpt-5.6-luna",
     "effort": "high",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-luna-xhigh",
     "model": "gpt-5.6-luna",
     "effort": "xhigh",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-luna-max",
     "model": "gpt-5.6-luna",
     "effort": "max",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-low",
     "model": "gpt-6-astra",
     "effort": "low",
-    "status": "continuation_running",
-    "predictions_file": null,
-    "completed_records": 27,
-    "notes": "Fresh scoped subscription continuation approved after explicit user request. Prior successes reused; tools disabled and fresh perrecord runtime; stop onservice/isolation/quotafailure. No paidcredits. Weekly11%remaining at the latest quota check; newfullsweeps held pending batchingdecision."
+    "status": "completed_with_initialization_retries",
+    "predictions_file": "results/codex-gpt-6-astra-low-2026-09-21/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-astra-low-2026-09-21/development-reclassified.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part2.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part3.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part4.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part5.jsonl",
+      "results/codex-gpt-6-astra-low-2026-09-21/development-part6.jsonl"
+    ],
+    "completed_records": 60,
+    "notes": "60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Other fullsweeps held for batchingdecision.",
+    "attempt_phase": "development",
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.9162813063514326,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9166666666666666,
+              "recall": 1.0,
+              "f1": 0.9565217391304348
+            },
+            "negative": {
+              "tp": 30,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.967741935483871,
+              "recall": 0.967741935483871,
+              "f1": 0.967741935483871
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 6,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571428571428571
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "f1": 0.8
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9640472521828455,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9666666666666667,
+              "recall": 1.0,
+              "f1": 0.9830508474576272
+            },
+            "insufficient_information": {
+              "tp": 5,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8333333333333334,
+              "f1": 0.9090909090909091
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "a1526015cfbcc8badbded93d29a16cec1f4bbfb06217040d224d79bedd63cd14",
+    "attempt_records": 64,
+    "exact_match": 56,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 1611.2625405399594,
+      "median_seconds": 24.90376797900535,
+      "p95_nearest_rank_seconds": 44.65233087493107,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only."
+    }
   },
   {
     "id": "codex-gpt-6-astra-medium",
     "model": "gpt-6-astra",
     "effort": "medium",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-high",
     "model": "gpt-6-astra",
     "effort": "high",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-xhigh",
     "model": "gpt-6-astra",
     "effort": "xhigh",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-max",
     "model": "gpt-6-astra",
     "effort": "max",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-6-astra-ultra",
     "model": "gpt-6-astra",
     "effort": "ultra",
-    "status": "pending",
+    "status": "pending_batching_decision",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Cached account catalog lists this effort; live configuration not yet tested. Ultra auto-delegation requires live isolation verification; separate agent-workflow result if tool isolation cannot hold. Network grant unavailable in resumed agent turn; hosted subscription continuation rejected by automatic approval review despite later user authorization."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-low",
@@ -6977,7 +7924,7 @@
     "effort": "medium",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-high",
@@ -6985,7 +7932,7 @@
     "effort": "high",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-xhigh",
@@ -6993,7 +7940,7 @@
     "effort": "xhigh",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-max",
@@ -7001,7 +7948,7 @@
     "effort": "max",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-sol-ultra",
@@ -7009,7 +7956,7 @@
     "effort": "ultra",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-low",
@@ -7028,7 +7975,7 @@
     "effort": "medium",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-high",
@@ -7036,7 +7983,7 @@
     "effort": "high",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-xhigh",
@@ -7044,7 +7991,7 @@
     "effort": "xhigh",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-max",
@@ -7052,7 +7999,7 @@
     "effort": "max",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "codex-gpt-5.6-terra-ultra",
@@ -7060,7 +8007,7 @@
     "effort": "ultra",
     "status": "pending_batching_decision",
     "predictions_file": null,
-    "notes": "New explicit user request for Sol/Terra. Installed catalogue verified; subscription smoke review pending. Ultra advertises automatic task delegation, so any observed tool/delegation use invalidates primary isolated results."
+    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
   },
   {
     "id": "antigravity-gemini-3.8-flash-high",
