@@ -64,7 +64,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-direct | downloading | — | — | — | — | — | — |
 | semif-serial | downloading | — | — | — | — | — | — |
 | semif-shared | downloading | — | — | — | — | — | — |
-| alex-openjev08 | ready_for_local_validation | — | — | — | — | — | — |
+| alex-openjev08 | running | — | — | — | — | — | — |
 | laya-english | unsupported_length | — | — | — | — | — | — |
 | laya-typed | unsupported_length | — | — | — | — | — | — |
 | salesrlagent | task_incompatible | — | — | — | — | — | — |
@@ -86,7 +86,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | anyjev-qwen06-l2 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-generated-control | complete | 0 | 0 | 0 | 0 | 0 | 0 |
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
-| codex-gpt-5.6-luna-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-luna-medium | completed | 60 | 58 | 60 | 58 | 58 | 54 |
 | codex-gpt-5.6-luna-high | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-max | excluded_by_user | — | — | — | — | — | — |
@@ -462,7 +462,7 @@ Pinned artifact download/runtime preparation in progress; localGPU coordinated w
 
 **alex-openjev08**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 fresh verification: all10/10 pinned artifact files complete and cryptographic hashes valid. Awaiting serialized local smoke and development inference; earlier incomplete-weight load failure retained as historical evidence.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 fresh verification: all10/10 pinned artifact files complete and cryptographic hashes valid. Awaiting serialized local smoke and development inference; earlier incomplete-weight load failure retained as historical evidence. September23 MPS FP32 smoke3 inspected:14 normalized NLI triples perrecord, fullinput1463–1508tokens below4096; allvalid. Native reference PyTorch convolution/gated-delta kernels used because optional optimized kernels unavailable. Full60 running; no other benchmark inference.
 
 **laya-english**
 
@@ -560,7 +560,9 @@ Evidence: `results/codex-gpt-5.6-luna-low-2026-09-21/development-reconciled.json
 
 **codex-gpt-5.6-luna-medium**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development.jsonl`; SHA-256 `3f5bf38701e85c1f097a38feb40230b8065840f1c1cdd38423177dd873f78831`.
 
 **codex-gpt-5.6-luna-high**
 
