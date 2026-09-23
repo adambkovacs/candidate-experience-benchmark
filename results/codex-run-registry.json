@@ -242,10 +242,12 @@
     "id": "codex-gpt-5.6-terra-medium",
     "model": "gpt-5.6-terra",
     "effort": "medium",
-    "status": "smoke_complete_development_pending",
-    "predictions_file": null,
-    "attempt_files": [],
-    "notes": "September23 medium batch smoke3 valid in50.629s using CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.",
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development.jsonl"
+    ],
+    "notes": "Completed60 unique valid records in6 sequential batch10 requests,600s timeout, no retries, tools or parser errors. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.",
     "future_enabled": true,
     "planned_workflow": "batch10",
     "workflow": "batch",
@@ -253,18 +255,32 @@
     "smoke_files": [
       "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/smoke.jsonl",
       "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/smoke-attempts.jsonl"
+    ],
+    "completed_records": 60,
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development-attempts.jsonl"
+    ],
+    "request_journal_files": [
+      "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl"
     ]
   },
   {
     "id": "codex-gpt-5.6-terra-high",
     "model": "gpt-5.6-terra",
     "effort": "high",
-    "status": "pending_batch10_service_recovery",
+    "status": "smoke_complete_development_pending",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "notes": "September23 high batch smoke3 valid in45.80s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.",
     "future_enabled": true,
-    "planned_workflow": "batch10"
+    "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10,
+    "smoke_files": [
+      "results/codex-gpt-5.6-terra-high-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-5.6-terra-high-batch10-2026-09-23/smoke-attempts.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-5.6-terra-xhigh",

@@ -17,23 +17,23 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3-8b-sdk-thinking-on | complete | 60 | 51 | 59 | 55 | 55 | 47 |
 | qwen3-8b-sdk-thinking-off | complete | 60 | 48 | 58 | 51 | 57 | 41 |
 | qwen3.8-27b-sdk-thinking-low | complete | 60 | 59 | 60 | 59 | 59 | 57 |
-| qwen3.8-27b-sdk-thinking-medium | download_verified_smoke_pending | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-xhigh | download_verified_smoke_pending | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-medium | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-xhigh | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | gemma4-e2b-sdk-thinking-on | complete | 60 | 50 | 58 | 46 | 52 | 35 |
 | gemma4-e2b-sdk-thinking-off | complete | 60 | 50 | 59 | 45 | 50 | 34 |
 | gemma4-e4b-sdk-thinking-on | download_verified_smoke_pending | — | — | — | — | — | — |
 | gemma4-e4b-sdk-thinking-off | download_verified_smoke_pending | — | — | — | — | — | — |
-| gemma4-26b-a4b-sdk-thinking-on | pending | — | — | — | — | — | — |
-| gemma4-26b-a4b-sdk-thinking-off | pending | — | — | — | — | — | — |
-| gemma4-31b-sdk-thinking-on | pending | — | — | — | — | — | — |
-| gemma4-31b-sdk-thinking-off | pending | — | — | — | — | — | — |
-| qwen3.8-27b-sdk-thinking-off | download_verified_smoke_pending | — | — | — | — | — | — |
-| qwen36-35b-a3b-on | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
-| qwen36-35b-a3b-off | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| gemma4-26b-a4b-sdk-thinking-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| gemma4-26b-a4b-sdk-thinking-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| gemma4-31b-sdk-thinking-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| gemma4-31b-sdk-thinking-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| qwen3.8-27b-sdk-thinking-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| qwen36-35b-a3b-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| qwen36-35b-a3b-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | deepseek-r1-distill-qwen32b-native-reasoning | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
-| mistral-small32-24b-not-applicable | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
-| mistral-small4-119b-none | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
-| mistral-small4-119b-high | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| mistral-small32-24b-not-applicable | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| mistral-small4-119b-none | replaced_by_hosted_user_request | — | — | — | — | — | — |
+| mistral-small4-119b-high | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | sonnet5-low-first-pass | completed_with_service_failure | 59 | 59 | 58 | 58 | 56 | 54 |
 | sonnet5-low-with-retry | completed | 60 | 59 | 59 | 59 | 57 | 54 |
 | opus5-low | completed | 60 | 59 | 60 | 59 | 57 | 55 |
@@ -75,13 +75,13 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-generated-bf16 | blocked_model_download_network | — | — | — | — | — | — |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
-| alex-openjev4b | staged_disk_budget | — | — | — | — | — | — |
+| alex-openjev4b | queued_download | — | — | — | — | — | — |
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-off | blocked_rate_limit | — | — | — | — | — | — |
 | anyjev-qwen06-raw | complete | 60 | 8 | 35 | 25 | 33 | 0 |
-| anyjev-qwen06-l0 | ready_for_gpu_smoke | — | — | — | — | — | — |
+| anyjev-qwen06-l0 | running | — | — | — | — | — | — |
 | anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-l2 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-generated-control | ready_for_gpu_smoke | — | — | — | — | — | — |
@@ -103,8 +103,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| codex-gpt-5.6-terra-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
-| codex-gpt-5.6-terra-high | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-medium | completed | 60 | 59 | 59 | 58 | 60 | 57 |
+| codex-gpt-5.6-terra-high | smoke_complete_development_pending | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-ultra | excluded_by_user | — | — | — | — | — | — |
@@ -127,6 +127,18 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.6-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-high | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low | pending_approval_and_isolation | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-medium | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-xhigh | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen36-35b-a3b-on | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen36-35b-a3b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-on | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-31b-on | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-31b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-mistral-small32-24b-not-applicable | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-mistral-small4-119b-none | blocked_upstream_rate_limit | — | — | — | — | — | — |
+| openrouter-paid-mistral-small4-119b-high | pending_budget_guard_and_smoke | — | — | — | — | — | — |
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
 
@@ -198,11 +210,11 @@ Evidence: `results/qwen3.8-27b-2026-09-23/low-development.jsonl`; SHA-256 `efcaf
 
 **qwen3.8-27b-sdk-thinking-medium**
 
-Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **qwen3.8-27b-sdk-thinking-xhigh**
 
-Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **gemma4-e2b-sdk-thinking-on**
 
@@ -226,31 +238,31 @@ Pinned model download completed and SHA256 verified. Awaiting serialized GPU slo
 
 **gemma4-26b-a4b-sdk-thinking-on**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **gemma4-26b-a4b-sdk-thinking-off**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **gemma4-31b-sdk-thinking-on**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **gemma4-31b-sdk-thinking-off**
 
-Authorized existing60 only. Artifact/runtime support and smoke review required before full run; no result yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **qwen3.8-27b-sdk-thinking-off**
 
-Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **qwen36-35b-a3b-on**
 
-User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **qwen36-35b-a3b-off**
 
-User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **deepseek-r1-distill-qwen32b-native-reasoning**
 
@@ -258,15 +270,15 @@ User-requested family expansion; exact pinned artifact and sources in docs/ROSTE
 
 **mistral-small32-24b-not-applicable**
 
-User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **mistral-small4-119b-none**
 
-User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **mistral-small4-119b-high**
 
-User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
 
 **sonnet5-low-first-pass**
 
@@ -480,7 +492,7 @@ Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves
 
 **alex-openjev4b**
 
-Pinned revisionf004f37e52695d6ddfb914a64dbf93942839ba1e qwen3.5-4b-nli-v2/ verified via metadata:6files9098638502bytes. Config Qwen3_5ForSequenceClassification, labels0contradiction/1entailment/2neutral and same NLI template. Adapter architecture matches0.8B, actual load compatibility untested. No4B weights downloaded; staged within disk budget.
+Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified.
 
 **openrouter-qwen38-free-low**
 
@@ -506,7 +518,7 @@ Evidence: `results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl`; SHA-256 
 
 **anyjev-qwen06-l0**
 
-AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect.
+AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. September23 MPS BF16 smoke3 inspected;56 full prompt evaluations perrecord,64.8–81.7s smoke latency. Full60 running serially; no other benchmark inference.
 
 **anyjev-qwen06-l1**
 
@@ -600,11 +612,13 @@ Evidence: `results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl`
 
 **codex-gpt-5.6-terra-medium**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout, no retries, tools or parser errors. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development.jsonl`; SHA-256 `ed369f1190da98c7bccef827a0e102b90b4c5c73df4af2be6a5ef09ee745dabb`.
 
 **codex-gpt-5.6-terra-high**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+September23 high batch smoke3 valid in45.80s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.
 
 **codex-gpt-5.6-terra-xhigh**
 
@@ -693,4 +707,52 @@ NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. N
 **antigravity-gemini-3.1-pro-low**
 
 NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+
+**openrouter-paid-qwen3.8-27b-medium**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-qwen3.8-27b-xhigh**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-qwen3.8-27b-off**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-qwen36-35b-a3b-on**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-qwen36-35b-a3b-off**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-gemma4-26b-a4b-on**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-gemma4-26b-a4b-off**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-gemma4-31b-on**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-gemma4-31b-off**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-mistral-small32-24b-not-applicable**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-mistral-small4-119b-none**
+
+First authorized smoke request received HTTP429 from Mistral upstream shared pool; no prediction or reported cost. No automatic retry. Maximum request reservation $0.04177920 retained against aggregate $1 budget; actual charge unknown.
+
+**openrouter-paid-mistral-small4-119b-high**
+
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
 
