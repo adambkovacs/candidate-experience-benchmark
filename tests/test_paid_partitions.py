@@ -65,3 +65,55 @@ class PartitionTests(unittest.TestCase):
    path=Path(d)/'ledger';path.write_text('{"event":"budget","cap_usd":"1"}\n');ledger=BudgetLedger(path);ledger.append({'event':'partition_closed'})
    with self.assertRaises(ValueError):ledger.amend_cap('5','explicit approval does not reopen closed ledger')
    ledger.close()
+
+ def test_allocate_distinct_partitions_while_worker_active(self):
+  from decimal import Decimal
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);master=root/'master';first=root/'first.json';allocate(master,first,self.specs())
+   first_bytes=first.read_bytes();worker=open_partition(master,first,'a','model-a','p','off')
+   try:
+    worker.reserve('.1','in-flight');child_bytes=Path(worker.file.name).read_bytes()
+    before=BudgetLedger(master);bindings={k:dict(v) for k,v in before.partitions.items()};before.close()
+    second=root/'second.json';allocate(master,second,[{'id':'c','model':'model-c','provider':'p','reasoning':'off','cap_usd':'4.30'}])
+    after=BudgetLedger(master)
+    try:
+     self.assertEqual(after.accounted(),Decimal('5.00'))
+     self.assertEqual({k:after.partitions[k] for k in bindings},bindings)
+     self.assertTrue(all(p['active'] for p in after.partitions.values()))
+    finally:after.close()
+    self.assertEqual(first.read_bytes(),first_bytes);self.assertEqual(Path(worker.file.name).read_bytes(),child_bytes)
+    child=open_partition(master,second,'c','model-c','p','off');self.assertEqual(child.cap,Decimal('4.30'));child.close()
+   finally:worker.close()
+ def test_active_excess_or_duplicate_rejection_has_no_partial_mutation(self):
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);master=root/'master';allocate(master,root/'first.json',self.specs());before=master.read_bytes()
+   for specs in [[{'id':'c','model':'m','provider':'p','reasoning':'off','cap_usd':'4.31'}],[{'id':'c','model':'m','provider':'p','reasoning':'off','cap_usd':'.1'},self.specs()[0]]]:
+    destination=root/'new.json'
+    with self.assertRaises(ValueError):allocate(master,destination,specs)
+    self.assertEqual(master.read_bytes(),before);self.assertFalse(destination.exists());self.assertFalse((root/'new-c.jsonl').exists())
+ def test_historical_id_manifest_and_child_paths_cannot_be_reused(self):
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);master=root/'master';manifest=root/'first.json';data=allocate(master,manifest,[self.specs()[0]]);reconcile_partition(master,manifest,'a')
+   child=Path(data['partitions'][0]['child_ledger']);child.unlink();manifest.unlink();before=master.read_bytes()
+   fresh={'id':'c','model':'m','provider':'p','reasoning':'off','cap_usd':'.1'}
+   for path,spec in [(root/'new.json',self.specs()[0]),(manifest,fresh),(root/'first.txt',self.specs()[0])]:
+    with self.assertRaises(ValueError):allocate(master,path,[spec])
+    self.assertFalse(path.exists());self.assertEqual(master.read_bytes(),before)
+ def test_pending_blocked_and_closed_master_still_rejected(self):
+  for state in ['pending','blocked','closed']:
+   with tempfile.TemporaryDirectory() as d:
+    root=Path(d);master=root/'master';ledger=BudgetLedger(master)
+    if state=='pending':ledger.reserve('.1','pending')
+    else:ledger.append({'event':'blocked' if state=='blocked' else 'partition_closed'})
+    ledger.close();before=master.read_bytes();destination=root/'new.json'
+    with self.assertRaises(ValueError):allocate(master,destination,self.specs())
+    self.assertEqual(master.read_bytes(),before);self.assertFalse(destination.exists())
+
+ def test_deleted_historical_child_path_cannot_be_rebound_by_new_id(self):
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);master=root/'master';manifest=root/'first.json';spec={'id':'a-b','model':'m','provider':'p','reasoning':'off','cap_usd':'.1'}
+   data=allocate(master,manifest,[spec]);reconcile_partition(master,manifest,'a-b');child=Path(data['partitions'][0]['child_ledger']);child.unlink();before=master.read_bytes()
+   fresh=dict(spec,id='b')
+   for destination in [root/'first-a.json',child]:
+    with self.assertRaises(ValueError):allocate(master,destination,[fresh])
+    self.assertFalse(destination.exists());self.assertFalse(child.exists());self.assertEqual(master.read_bytes(),before)

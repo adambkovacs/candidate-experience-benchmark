@@ -3,21 +3,21 @@
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
-    "status": "pending_smoke",
+    "status": "running",
     "predictions_file": null,
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-xhigh",
     "model": "qwen/qwen3.8-27b",
     "effort": "xhigh",
-    "status": "pending_smoke",
+    "status": "running_continuation",
     "predictions_file": null,
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-off",
@@ -100,11 +100,26 @@
     "id": "openrouter-paid-gemma4-31b-on",
     "model": "google/gemma-4-31b-it",
     "effort": "on",
-    "status": "pending_smoke",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/turbo",
     "quantization": "fp4",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "All 60 development records returned valid JSON after the inspected smoke. Exact DeepInfra turbo FP4 route with requested thinking enabled. Sixteen development responses report reasoning-token counts greater than completion-token counts; raw values are preserved without correction. All reported costs are known, and the child budget is sealed and reconciled. Other hosted runs and one local MLX benchmark overlapped.",
+    "attempt_files": [
+      "results/openrouter-parallel-gemma31-on-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-gemma31-on-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-gemma31-on-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "gemma31-on",
+    "observed_development_cost_usd": "0.01303944",
+    "observed_smoke_cost_usd": "0.00061533"
   },
   {
     "id": "openrouter-paid-gemma4-31b-off",
@@ -135,11 +150,11 @@
     "id": "openrouter-paid-mistral-small32-24b-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "partial_upstream_rate_limit",
+    "status": "running_continuation",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Original8valid+DEV009timeout retained. Explicit600s continuation producedDEV009\u2013014valid thenDEV015HTTP429 fromDeepInfra sharedpool.14validunique,16totalattempts,2failedattempts,45unattemptedIDs016\u2013060. Bothunknowncharges accountedatfullreservedbounds, notobservedcost. Noautomaticretry/fallback. Partialreconciliation verified15uniqueattempted,14valid,16totalattempts. Exactlegacy surface-label alias andtimeoutchange explicitlyaudited; rawfiles unchanged.",
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
     "smoke_files": [
       "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
     ],
@@ -216,9 +231,9 @@
     "effort": "low",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "pending_smoke",
+    "status": "running_continuation",
     "predictions_file": null,
-    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-high",
@@ -226,8 +241,8 @@
     "effort": "high",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "pending_smoke",
+    "status": "running_continuation",
     "predictions_file": null,
-    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   }
 ]

@@ -13,7 +13,7 @@ def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def allocate(master_path,manifest_path,specs):
     master_path=Path(master_path).resolve();manifest_path=Path(manifest_path).resolve()
-    if manifest_path.exists() or not specs:raise ValueError('Require new manifest and nonempty partition list')
+    if manifest_path==master_path or manifest_path.exists() or not specs:raise ValueError('Require new manifest and nonempty partition list')
     ids=[s['id'] for s in specs]
     if len(set(ids))!=len(ids) or any(not isinstance(i,str) or not i or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for c in i) for i in ids):raise ValueError('Invalid or duplicate partition IDs')
     entries=[]
@@ -25,7 +25,13 @@ def allocate(master_path,manifest_path,specs):
     master=BudgetLedger(master_path)
     try:
         _,pending,blocked=master.state()
-        if pending or blocked or master.closed or any(p['active'] for p in master.partitions.values()):raise ValueError('Master must be idle before allocation')
+        if pending or blocked or master.closed:raise ValueError('Master has unresolved billing, is blocked or is closed')
+        # Existing active allocations remain fully encumbered. Distinct additions
+        # may use only unallocated master capacity while child workers hold locks.
+        used_manifests={p['manifest_path'] for p in master.partitions.values()}
+        used_children={p['child_ledger'] for p in master.partitions.values()}
+        if str(manifest_path) in used_manifests|used_children or manifest_path.exists():raise ValueError('Manifest path cannot be reused')
+        if any(e['child_ledger'] in used_children|used_manifests or Path(e['child_ledger']).exists() for e in entries):raise ValueError('Child path cannot be reused')
         if set(ids)&set(master.partitions):raise ValueError('Partition IDs cannot be reused')
         if master.accounted()+sum(number(e['cap_usd']) for e in entries)>master.cap:raise ValueError('Partitions exceed master remaining capacity')
         manifest={'version':'paid-partitions-v1','master_ledger':str(master_path),'partitions':entries}
