@@ -130,6 +130,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 60 | 58 | 57 | 53 |
 | antigravity-gemini-3.1-pro-high-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 58 | 59 | 57 |
+| antigravity-gemini-3.6-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 59 | 59 | 57 |
 | openrouter-paid-qwen3.8-27b-medium | complete_with_service_failure | 59 | 58 | 59 | 58 | 58 | 56 |
 | openrouter-paid-qwen3.8-27b-xhigh | complete_with_output_failure | 59 | 59 | 59 | 56 | 59 | 56 |
 | openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
@@ -820,6 +821,12 @@ Evidence: `results/antigravity-gemini31-pro-low-native129-2026-09-23/development
 Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.
 
 Evidence: `results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `e1e6f9d08fcf9f5bcc9476d02c79ab1a67ffbafb0ff662fd3694c3890c1a348a`.
+
+**antigravity-gemini-3.6-flash-low-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini36-flash-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `119a16f0e8e7e128b10552b8f3eb33a4041a6f475dc33665e7f4620cbe5644db`.
 
 **openrouter-paid-qwen3.8-27b-medium**
 

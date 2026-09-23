@@ -29,9 +29,12 @@ raw_attempts:{file,sha256},inspector (nonempty string), optional extractor.
 extractor=openrouter_paid_v1 requires controls.adapter_controls using the paired
 evaluator extract_controls contract, native system role, single-record context,
 strict_json parsing, json_schema output and sampling:{temperature}.
+Claude/Codex extractors require raw_predictions:{file,sha256}, controls.adapter_controls
+from the corresponding strict evaluator extractor, runtime equal to saved cli_version,
+and batch10 parent context (the inspected smoke itself contains exactly three records).
 
 All paths are rooted and hash-bound. No references are read. This module verifies
-STRUCTURE plus explicit OpenRouter paid raw smoke verification. Other smoke
+STRUCTURE plus explicit OpenRouter/Claude/Codex raw smoke verification. Other smoke
 surfaces and runtime token measurement remain unimplemented. It ALWAYS returns execution_allowed:false with concrete blockers.
 Hashes bind supplied bytes. Git freeze records and actual chronology are the experimental record; this structural module does not enforce controller launch order.
 Controllers must not treat structural validity as execution permission.
@@ -109,6 +112,43 @@ def verify_openrouter_smoke(smoke,inputs,instruction,schema,controls,role,root):
     return {'extractor':'openrouter_paid_v1','verified':True,'attempts':3,'intrinsic_invalid_outputs':sum(r['status']=='invalid_output' for r in raw),'raw_sha256':smoke['raw_attempts']['sha256']}
 
 
+def verify_subscription_smoke(smoke,inputs,instruction,controls,role,root):
+    """One fresh batch of three; original raw and exploded evidence both bound."""
+    from evaluate_prompt_variants import audit_claude_batches,audit_codex_batches
+    from datetime import timedelta
+    import math
+    raw=[json.loads(x) for x in bound(smoke['raw_attempts'],root).decode().splitlines() if x.strip()]
+    predictions=[json.loads(x) for x in bound(smoke['raw_predictions'],root).decode().splitlines() if x.strip()]
+    ids=[r['id'] for r in inputs[:3]];kind=smoke['extractor']
+    if len(raw)!=1 or [r.get('id') for r in predictions]!=ids:raise ValueError('Subscription smoke requires exactly one retained batch and three ordered outputs')
+    row=raw[0]
+    if row.get('phase')!='smoke' or row.get('status') not in ('ok','invalid_output'):raise ValueError('Subscription smoke transport/isolation failure')
+    if controls.get('model')!=row.get('requested_model') or controls.get('effort')!=row.get('effort') or controls.get('runtime')!=row.get('cli_version'):raise ValueError('Subscription generic model/effort/runtime controls mismatch')
+    if kind=='claude_batch_v1':
+        if role!='system' or row.get('controller_retries')!=0:raise ValueError('Claude smoke role/controller retry mismatch')
+        audit=audit_claude_batches
+        limitation='Historical full CLI command/environment and provider scaffold are not captured. Native internal retry count is not exposed.'
+    elif kind=='codex_batch_v1':
+        if role!='cli_combined_prompt' or row.get('recovered_transport_errors'):raise ValueError('Codex smoke role/recovered retry requires separate audit')
+        audit=audit_codex_batches
+        limitation='Requested model and saved CLI command are verified; returned model revision and hidden scaffold are not exposed.'
+        # Codex exposes no finish reason proving an invalid JSON response was
+        # not truncated. Retain it, but do not upgrade it to intrinsic failure.
+        if row['status']=='invalid_output':raise ValueError('Codex invalid smoke lacks independently exposed non-truncation evidence')
+    else:raise ValueError('Unknown subscription smoke extractor')
+    adapter=controls.get('adapter_controls')
+    if not isinstance(adapter,dict):raise ValueError('Subscription adapter controls required')
+    audited=audit(raw,{r['id']:r for r in predictions},{r['id']:r for r in inputs[:3]},instruction,adapter,'first_chronological',[],evidence_phase='smoke',batch_size=3)
+    for declared,actual in zip(smoke['records'],predictions):
+        if any(declared.get(k)!=actual.get(k) for k in ('id','status','prediction')):raise ValueError('Subscription inspection differs from raw linked output')
+        if actual['status']=='invalid_output' and not (smoke.get('inspection')=='accepted_unchanged' and declared.get('failure_class')=='intrinsic_schema' and declared.get('accepted_unchanged') is True and declared.get('inspection_reason')):raise ValueError('Intrinsic failure acceptance missing')
+    elapsed=row.get('elapsed_seconds')
+    if isinstance(elapsed,bool) or not isinstance(elapsed,(int,float)) or not math.isfinite(elapsed) or elapsed<0:raise ValueError('Invalid subscription smoke elapsed time')
+    started=stamp(row['started_utc'])
+    if started<stamp(smoke['started_utc']) or started+timedelta(seconds=elapsed)>stamp(smoke['finished_utc']):raise ValueError('Subscription raw attempt outside inspection interval')
+    return {'extractor':kind,'verified':True,'attempts':len(audited),'records':3,'raw_sha256':smoke['raw_attempts']['sha256'],'predictions_sha256':smoke['raw_predictions']['sha256'],'limitations':limitation}
+
+
 def validate(manifest,root):
     root=Path(root)
     if manifest.get('contract')!='prompt-execution-gates-v1':raise ValueError('Unknown execution gate contract')
@@ -172,6 +212,11 @@ def validate(manifest,root):
             if smoke.get('extractor')=='openrouter_paid_v1':
                 if parent['context_unit']!='single_record':raise ValueError('OpenRouter paid smoke requires single-record context')
                 smoke_verifications.append({'configuration':c['id'],'condition':variant,**verify_openrouter_smoke(smoke,inputs,instruction,json_bound(manifest['schema'],root),c['controls'],c['role'],root)})
+            elif smoke.get('extractor') in ('claude_batch_v1','codex_batch_v1'):
+                if parent['context_unit']!='batch10':raise ValueError('Subscription smoke must parent a batch10 baseline')
+                canonical_schema=json.loads((Path(__file__).resolve().parents[1]/'schemas/judgments.schema.json').read_text())
+                if json_bound(manifest['schema'],root)!=canonical_schema:raise ValueError('Subscription declared schema differs from strict batch schema source')
+                smoke_verifications.append({'configuration':c['id'],'condition':variant,**verify_subscription_smoke(smoke,inputs,instruction,c['controls'],c['role'],root)})
             elif smoke.get('extractor') in (None,'declared_only'):unsupported_smoke=True
             else:raise ValueError('Unsupported smoke extractor')
             times[variant]=development

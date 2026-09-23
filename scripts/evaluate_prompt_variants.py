@@ -219,15 +219,16 @@ def extract_claude_controls(row):
         'extra_usage_disabled_operator_verified','controller_retries','cli_internal_retries')}
 
 
-def audit_claude_batches(rawrows,predictions,inputs,text,controls,selection,retry_authorizations):
+def audit_claude_batches(rawrows,predictions,inputs,text,controls,selection,retry_authorizations,*,evidence_phase="development",batch_size=10):
     from claude_batch_benchmark import batch_schema,parse_batch_result,isolation_ok
     if not rawrows:raise ValueError('No full Claude batch request evidence')
     if not isinstance(retry_authorizations,list) or len(set(retry_authorizations))!=len(retry_authorizations):raise ValueError('Invalid Claude retry authorization')
-    groups=[list(inputs)[n:n+10] for n in range(0,len(inputs),10)]
+    if (evidence_phase,batch_size) not in (('development',10),('smoke',3)):raise ValueError('Unsupported batch evidence phase/size')
+    groups=[list(inputs)[n:n+batch_size] for n in range(0,len(inputs),batch_size)]
     attempts={};by_group={};order=[];last=None;retries=[]
     for original in rawrows:
         row=dict(original);ids=row.get('ids');aid=row.get('attempt_id',row.get('batch_id'))
-        if ids not in groups or len(ids)!=10 or row.get('batch_size')!=10 or row.get('phase')!='development' or not aid or aid in attempts:raise ValueError('Invalid Claude batch identity/membership/phase')
+        if ids not in groups or len(ids)!=batch_size or row.get('batch_size')!=batch_size or row.get('phase')!=evidence_phase or not aid or aid in attempts:raise ValueError('Invalid Claude batch identity/membership/phase')
         group=tuple(ids)
         try:stamp=datetime.fromisoformat(row['started_utc'].replace('Z','+00:00'))
         except (KeyError,ValueError,AttributeError):raise ValueError('Invalid Claude timestamp') from None
@@ -258,7 +259,7 @@ def audit_claude_batches(rawrows,predictions,inputs,text,controls,selection,retr
         group=next(tuple(g) for g in groups if rid in g);chosen=by_group[group][-1 if selection=='latest_chronological' else 0][1]
         output=chosen.get('prediction') or {};labels={r['id']:{k:v for k,v in r.items() if k!='id'} for r in output.get('records',[])} if chosen['status']=='ok' else {}
         if pred.get('requested_model')!=chosen['requested_model'] or pred.get('effort')!=chosen['effort'] or pred.get('workflow')!='batch10' or pred.get('timing_kind')!='amortized_batch_share_not_individual_latency':raise ValueError('Claude exploded controls/timing kind mismatch')
-        if pred.get('batch_id')!=chosen['batch_id'] or pred.get('attempt_id',pred.get('batch_id'))!=chosen['attempt_id'] or pred.get('batch_record_ids')!=list(group) or pred.get('batch_position')!=list(group).index(rid)+1 or pred.get('batch_size')!=10 or pred.get('attempt_phase')!='development' or pred.get('status')!=chosen['status'] or pred.get('prediction')!=labels.get(rid):raise ValueError('Claude prediction violates raw batch linkage/selection')
+        if pred.get('batch_id')!=chosen['batch_id'] or pred.get('attempt_id',pred.get('batch_id'))!=chosen['attempt_id'] or pred.get('batch_record_ids')!=list(group) or pred.get('batch_position')!=list(group).index(rid)+1 or pred.get('batch_size')!=batch_size or pred.get('attempt_phase')!=evidence_phase or pred.get('status')!=chosen['status'] or pred.get('prediction')!=labels.get(rid):raise ValueError('Claude prediction violates raw batch linkage/selection')
     return list(attempts.values())
 
 
@@ -266,16 +267,17 @@ def extract_codex_controls(row):
     return {**{k:row[k] for k in ('workflow','requested_model','effort','cli_version','configured_batch_size','controller_timeout_seconds','auth_mode','policy_sha256')},'cli_executable':row['command'][0]}
 
 
-def audit_codex_batches(rawrows,predictions,inputs,text,controls,selection,retry_authorizations):
+def audit_codex_batches(rawrows,predictions,inputs,text,controls,selection,retry_authorizations,*,evidence_phase="development",batch_size=10):
     import codex_benchmark as single
     from codex_batch_benchmark import batch_schema,parse_batch
     if not rawrows:raise ValueError('No full Codex raw request evidence')
-    groups=[list(inputs)[n:n+10] for n in range(0,len(inputs),10)]
+    if (evidence_phase,batch_size) not in (('development',10),('smoke',3)):raise ValueError('Unsupported batch evidence phase/size')
+    groups=[list(inputs)[n:n+batch_size] for n in range(0,len(inputs),batch_size)]
     attempts={};by_group={};order=[];last=None;retries=[]
     if not isinstance(retry_authorizations,list) or len(set(retry_authorizations))!=len(retry_authorizations):raise ValueError('Invalid Codex retry authorization')
     for original in rawrows:
         row=dict(original);ids=row.get('record_order');aid=row.get('attempt_id') or str(row.get('id'))+'@'+str(row.get('started_utc'))
-        if ids not in groups or len(ids)!=10 or row.get('batch_size')!=10 or row.get('phase')!='development' or aid in attempts:raise ValueError('Invalid Codex batch identity/membership/phase')
+        if ids not in groups or len(ids)!=batch_size or row.get('batch_size')!=batch_size or row.get('phase')!=evidence_phase or aid in attempts:raise ValueError('Invalid Codex batch identity/membership/phase')
         group=tuple(ids)
         try:stamp=datetime.fromisoformat(row['started_utc'].replace('Z','+00:00'))
         except (KeyError,ValueError,AttributeError):raise ValueError('Invalid Codex timestamp') from None
@@ -312,7 +314,7 @@ def audit_codex_batches(rawrows,predictions,inputs,text,controls,selection,retry
     if order!=groups or set(retries)!=set(retry_authorizations):raise ValueError('Codex batch order/retry authorization mismatch')
     for rid,pred in predictions.items():
         group=next(tuple(g) for g in groups if rid in g);chosen=by_group[group][-1 if selection=='latest_chronological' else 0][1]
-        fields={'batch_id':chosen['id'],'started_utc':chosen['started_utc'],'batch_position':list(group).index(rid),'batch_size':10,'configured_batch_size':10,'phase':'development','requested_model':chosen['requested_model'],'reasoning_effort':chosen['effort'],'cli_version':chosen['cli_version'],'request_sha256':chosen['request_sha256'],'input_sha256':digest(inputs[rid]['feedback']),'status':chosen['status'],'prediction':chosen['_audited_labels'].get(rid),'timing_kind':'amortized_batch_share_not_individual_latency'}
+        fields={'batch_id':chosen['id'],'started_utc':chosen['started_utc'],'batch_position':list(group).index(rid),'batch_size':batch_size,'configured_batch_size':10,'phase':evidence_phase,'requested_model':chosen['requested_model'],'reasoning_effort':chosen['effort'],'cli_version':chosen['cli_version'],'request_sha256':chosen['request_sha256'],'input_sha256':digest(inputs[rid]['feedback']),'status':chosen['status'],'prediction':chosen['_audited_labels'].get(rid),'timing_kind':'amortized_batch_share_not_individual_latency'}
         if any(pred.get(k)!=v for k,v in fields.items()):raise ValueError('Codex exploded prediction selection/linkage mismatch')
     return [{k:v for k,v in r.items() if k!='_audited_labels'} for r in attempts.values()]
 
