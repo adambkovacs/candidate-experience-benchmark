@@ -666,7 +666,7 @@
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
     "status": "running",
     "predictions_file": null,
-    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. Sept23 allartifact hashes verified;3smoke inspected,60development runningCPU with concurrentQwen27B GPU contention."
+    "notes": "All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Three-record CPU smoke inspected;60-record development run active. CPU FP32,4 threads, concurrent Qwen27B GPU inference; timings reflect shared-machine contention."
   },
   {
     "id": "laya-typed-expanded-cpu",
@@ -674,7 +674,7 @@
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
     "status": "ready_for_local_validation",
     "predictions_file": null,
-    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. Sept23 all15Laya artifact files verified against pinned SHA256; weights complete."
+    "notes": "All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Awaiting serial CPU smoke and development validation."
   },
   {
     "id": "semif-generated-bf16",
@@ -796,43 +796,42 @@
       "results/codex-gpt-5.6-luna-low-2026-09-21/development-part7.jsonl"
     ],
     "completed_records": 60,
-    "notes": "60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Sol/Terra fullsweeps held for batchingdecision. September23: historical5.6 result retained; future successor is gpt-6-luna.",
+    "notes": "60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Sol/Terra fullsweeps held for batchingdecision.",
     "attempt_phase": "development",
-    "future_enabled": false,
-    "superseded_by": "gpt-6-luna"
+    "future_enabled": true
   },
   {
     "id": "codex-gpt-5.6-luna-medium",
     "model": "gpt-5.6-luna",
     "effort": "medium",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-luna.",
-    "future_enabled": false,
-    "superseded_by": "gpt-6-luna"
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-luna-high",
     "model": "gpt-5.6-luna",
     "effort": "high",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-luna.",
-    "future_enabled": false,
-    "superseded_by": "gpt-6-luna"
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-luna-xhigh",
     "model": "gpt-5.6-luna",
     "effort": "xhigh",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-luna.",
-    "future_enabled": false,
-    "superseded_by": "gpt-6-luna"
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-luna-max",
@@ -860,34 +859,41 @@
     ],
     "completed_records": 60,
     "notes": "60 unique valid outputs, no observed tools/delegation or eventparseerrors. Four pre-inference initialization failures retained in timing (64 attempts), no smoke included. Reclassified original responses counted once, not repeated. Perrecord ephemeral CLI wrapper; requested model pinned, served revision unavailable. Fresh scoped continuation review approved; no paidcredits/reset. Other fullsweeps held for batchingdecision.",
-    "attempt_phase": "development"
+    "attempt_phase": "development",
+    "future_enabled": true
   },
   {
     "id": "codex-gpt-6-astra-medium",
     "model": "gpt-6-astra",
     "effort": "medium",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-6-astra-high",
     "model": "gpt-6-astra",
     "effort": "high",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-6-astra-xhigh",
     "model": "gpt-6-astra",
     "effort": "xhigh",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
     "completed_records": 0,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-6-astra-max",
@@ -913,44 +919,44 @@
     "id": "codex-gpt-5.6-sol-low",
     "model": "gpt-5.6-sol",
     "effort": "low",
-    "status": "smoke_complete_development_held",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable. September23: historical5.6 result retained; future successor is gpt-6-sol.",
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
     "smoke_files": [
       "results/codex-gpt-5.6-sol-low-2026-09-21/smoke.jsonl"
     ],
-    "future_enabled": false,
-    "superseded_by": "gpt-6-sol"
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-sol-medium",
     "model": "gpt-5.6-sol",
     "effort": "medium",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-sol.",
-    "future_enabled": false,
-    "superseded_by": "gpt-6-sol"
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-sol-high",
     "model": "gpt-5.6-sol",
     "effort": "high",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-sol.",
-    "future_enabled": false,
-    "superseded_by": "gpt-6-sol"
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-sol-xhigh",
     "model": "gpt-5.6-sol",
     "effort": "xhigh",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results. September23: historical5.6 result retained; future successor is gpt-6-sol.",
-    "future_enabled": false,
-    "superseded_by": "gpt-6-sol"
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-sol-max",
@@ -974,36 +980,44 @@
     "id": "codex-gpt-5.6-terra-low",
     "model": "gpt-5.6-terra",
     "effort": "low",
-    "status": "smoke_complete_development_held",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Three independent smoke records valid; raw responses inspected, no tools/delegation or eventparseerrors. No development run; held pending user batchingdecision and weeklyquota11%remaining. Smoke never included in developmenttiming. CLI0.154.0 vs catalogue0.155.0; serverrevision unavailable.",
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
     "smoke_files": [
       "results/codex-gpt-5.6-terra-low-2026-09-21/smoke.jsonl"
-    ]
+    ],
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-terra-medium",
     "model": "gpt-5.6-terra",
     "effort": "medium",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-terra-high",
     "model": "gpt-5.6-terra",
     "effort": "high",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-terra-xhigh",
     "model": "gpt-5.6-terra",
     "effort": "xhigh",
-    "status": "pending_batching_decision",
+    "status": "pending_batch10_service_recovery",
     "predictions_file": null,
-    "notes": "Installed account catalogue advertises this effort. Additional full sweeps held pending user batching decision; no credit redemption or paid API fallback. Ultra advertises automatic delegation; any observed tool use invalidates isolated primary results."
+    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "future_enabled": true,
+    "planned_workflow": "batch10"
   },
   {
     "id": "codex-gpt-5.6-terra-max",
@@ -1027,9 +1041,9 @@
     "id": "codex-gpt-6-sol-low-batch10",
     "model": "gpt-6-sol",
     "effort": "low",
-    "status": "partial_timeout",
+    "status": "partial_repeated_timeout",
     "future_enabled": true,
-    "notes": "Batch10 CLI155 partial run stopped at300s timeout with no captured events/stderr. Luna20valid/Sol10valid before failedbatch. Failure is runtime/transport unknown, not observed model quality. Failedbatch and missing IDs remain in60denominator; rawbatchtime countedonce. Fullcontinuation pending inspection; no max/ultra or paidcredits. Approvedboundedcontinuation uses concurrency1 and600s transporttimeout (initial300s), same inferencepayload/batchmembership. Timing protocol change explicit.",
+    "notes": "10valid; batch02 timedout at300s then600s (boundedretryconcurrency1) with empty captured stdout/stderr/response. Both attempts retained in batch timing;40unattempted plus10failed remain60denominator. ReadonlyCLI/auth healthy and officialstatus noincident, but inference stalled; no furtherretry or modelsubstitution. No max/ultra/paidcredits.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -1042,9 +1056,14 @@
     ],
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl"
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl"
     ],
-    "planned_predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch.jsonl"
+    "request_journal_files": [
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 10,
+    "planned_predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-reconciled.jsonl"
   },
   {
     "id": "codex-gpt-6-sol-medium-batch10",

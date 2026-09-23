@@ -281,13 +281,14 @@
     "id": "codex-gpt-6-sol-low-batch10",
     "model": "gpt-6-sol",
     "effort": "low",
-    "status": "partial_continuation_running",
-    "predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch.jsonl",
+    "status": "partial_repeated_timeout",
+    "predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-reconciled.jsonl",
     "attempt_files": [
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch.jsonl"
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation.jsonl"
     ],
     "future_enabled": true,
-    "notes": "Batch10 CLI155 partial run stopped at300s timeout with no captured events/stderr. Luna20valid/Sol10valid before failedbatch. Failure is runtime/transport unknown, not observed model quality. Failedbatch and missing IDs remain in60denominator; rawbatchtime countedonce. Fullcontinuation pending inspection; no max/ultra or paidcredits. Approvedboundedcontinuation uses concurrency1 and600s transporttimeout (initial300s), same inferencepayload/batchmembership. Timing protocol change explicit. One bounded600s concurrency1 continuation active after healthyCLI/auth/quota and officialstatuscheck. Saved predictions stillpartial; activecontinuation is not yet included/scored.",
+    "notes": "10valid; batch02 timedout at300s then600s (boundedretryconcurrency1) with empty captured stdout/stderr/response. Both attempts retained in batch timing;40unattempted plus10failed remain60denominator. ReadonlyCLI/auth healthy and officialstatus noincident, but inference stalled; no furtherretry or modelsubstitution. No max/ultra/paidcredits.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -300,8 +301,13 @@
     ],
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl"
-    ]
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl"
+    ],
+    "request_journal_files": [
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 10
   },
   {
     "id": "codex-gpt-6-sol-medium-batch10",
