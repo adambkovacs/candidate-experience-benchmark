@@ -4,28 +4,33 @@ Status snapshot: 2026-09-23. Execution is continuing; the linked run registries 
 
 ## Recorded status
 
+This checkpoint includes the completed DeepSeek low and SemIf serial runs. The linked registries retain every configuration, raw attempt and later status change. A completed 60-record attempt does not imply 60 valid or correct outputs.
+
 | Configuration | Development status | Evidence |
 | --- | --- | --- |
 | Fixed keyword rules v1 | 60 records completed; development-informed baseline | [Rules artifacts](../results/rules-v1-2026-09-21/) |
-| Qwen3-0.6B, Q4_K_M, temperature 0 | 60/60 valid outputs; weak semantic results | [Local manifest](../results/qwen3-0.6b-q4_k_m-2026-09-21/manifest.json) |
-| Claude Sonnet 5, all five efforts | 60/60 valid per effort; low required one timeout retry | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
-| Claude Opus 5 and Fable 5.1, all five efforts | 60/60 valid per configuration | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
-| Claude Haiku 4.5, effort not applicable | 60/60 valid | [Haiku evaluation](../results/claude-subscription-2026-09-21/haiku45-not_applicable-evaluation.json) |
-| Codex gpt-5.6-luna, low effort | 60/60 valid after explicit continuation; four initialization failures retained in timing | [Codex registry](../results/codex-run-registry.json) |
-| Codex gpt-6-astra, low effort | 60/60 valid after explicit continuation; four initialization failures retained in timing | [Codex registry](../results/codex-run-registry.json) |
-| Codex GPT-5.6 Sol and Terra, low/medium/high/xhigh | All eight configurations completed with 60 valid outputs each, using batches of ten | [Codex registry](../results/codex-run-registry.json) |
-| Local Qwen 0.6B, 1.7B, 4B and 8B, SDK thinking on/off | All eight 60-record attempts completed; schema validity varies by configuration | [Local registry](../results/local-run-registry.json) |
-| OpenRouter qwen/qwen3.8-27b:free, modelrun/fp4 | Three smoke attempts received HTTP 429; no successful benchmark response | [Attempt artifacts](../results/openrouter/) |
-| Gemini through Antigravity CLI 1.2.7 | Authenticated model inventory verified; credits explicitly off; smoke awaits destination approval and runtime tool-control verification | [Workflow audit](../results/gemini-preflight-2026-09-21/agent-workflow-audit.json) |
-| Local razorback16/OpenJev, DiffusionGemma 26B A4B | All 13 artifact files hash-verified; local server validation underway | [Specialist registry](../results/specialist-run-registry.json) |
-| Hosted TypeSafe Jev 1.13.0 | 60 development outputs completed under the aggregate $1 authorization | [Specialist registry](../results/specialist-run-registry.json) |
-| Claude Opus 5.5, low/medium/high/xhigh | All four configurations completed with 60 valid outputs each, using batches of ten | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
-| Local Qwen3.8-27B low; Gemma4 E2B/E4B on/off | Each completed on all 60 records | [Local registry](../results/local-run-registry.json) |
-| Hosted Qwen3.6-35B-A3B on/off, AkashML FP8 | Both completed with 60 valid outputs; separate from proposed local artifacts | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Local Qwen 0.6B HTTP and 0.6B/1.7B/4B/8B SDK on/off | All configurations attempted 60; output validity varies | [Local registry](../results/local-run-registry.json) |
+| Local Qwen3.8-27B low; Gemma4 E2B/E4B on/off | Each attempted all 60 records | [Local registry](../results/local-run-registry.json) |
+| Claude Sonnet 5, Opus 5, Fable 5.1 and Haiku 4.5 | Supported efforts completed with 60 valid outputs each; historical retries and max runs preserved | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
+| Claude Opus 5.5 low/medium/high/xhigh | All four completed with 60 valid outputs each, in batches of ten | [Claude registry](../results/claude-subscription-2026-09-21/run-registry.json) |
+| Codex GPT-5.6 Luna/Sol/Terra and GPT-6 Astra/Sol/Luna | All 24 low/medium/high/xhigh configurations completed with 60 valid outputs each; original single-record and later batch10 workflows remain distinct | [Codex registry](../results/codex-run-registry.json) |
+| Hosted Qwen3.6-35B-A3B on/off, AkashML FP8 | Both completed with 60 valid outputs | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Hosted Qwen3.8-27B off/medium/xhigh, DeepInfra BF16 | All attempted 60; off has 60 valid, medium and xhigh have 59 valid each with failures retained | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Hosted Gemma4 26B A4B and 31B on/off | All attempted 60; 26B on retains one invalid output | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Hosted DeepSeek V4.1 Flash off/low/high | Off completed with 60 valid; low completed with 57 valid and three retained failures; high remains active | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Hosted Mistral Small 3.2 24B | Venice FP8 completed with 60 valid; earlier DeepInfra FP8 partial run remains separate | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Hosted Mistral Small 4 119B none/high | Smoke requests blocked by provider shared-pool HTTP 429; a bounded cooldown recovery also failed. Await provider recovery | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Free Qwen3.8 route / free DeepSeek slot | Qwen smoke attempts rate-limited; no free DeepSeek route established. Paid configurations are separate, explicitly authorized alternatives | [Specialist registry](../results/specialist-run-registry.json) |
+| Gemini through Antigravity CLI 1.2.9 | Native agent workflow smoke passed; development and one recovery failed eligibility/service checks before predictions. Not an authentication or spending-approval blocker | [Gemini registry](../results/gemini-run-registry.json) |
+| Local OpenJev, DiffusionGemma 26B A4B | All five variants attempted 60; generated off/on retain eight/one invalid outputs. Requested-on uses an empty-thought scaffold, so effective thinking is unverified | [Specialist registry](../results/specialist-run-registry.json) |
+| Hosted TypeSafe Jev 1.13.0 | 60 valid outputs under the separate aggregate $1 authorization; transport retry and unknown-cost reserve retained | [Specialist registry](../results/specialist-run-registry.json) |
+| SemIf direct/serial BF16 | Both completed with 60 valid outputs; identical prompt tokens do not imply identical arithmetic. Shared-prefix and generated controls remain in progress | [Specialist registry](../results/specialist-run-registry.json) |
 | Laya English/typed expanded CPU; AlexWortega 0.8B NLI; AnyJev raw/L0 | Completed 60 valid records each; native limits and expanded variants remain distinct | [Specialist registry](../results/specialist-run-registry.json) |
-| AnyJev matched generative control | All 60 responses failed strict output validity because of Markdown fences; raw outputs retained without repair | [Format audit](../results/anyjev-qwen06-generated-mps-2026-09-23/format-audit.json) |
+| AnyJev matched generated control | All 60 responses failed strict output validity because of Markdown fences; no repair | [Format audit](../results/anyjev-qwen06-generated-mps-2026-09-23/format-audit.json) |
+| Remaining local baselines | Laya multilingual expanded, AlexWortega 4B and SemIf controls use the serial local queue; exact DeepSeek R1-Distill-Qwen-32B artifact download remains in progress | [Local](../results/local-run-registry.json) and [specialist](../results/specialist-run-registry.json) registries |
+| AnyJev L1/L2 | Require separate calibration evidence; no fitting and evaluating on the same 60 labels, and no generation of the remaining 340 | [Specialist registry](../results/specialist-run-registry.json) |
 
-Historical max-effort rows remain as recorded evidence. Max and ultra are excluded from new runs. GPT-6 Sol/Luna have partial or smoke-only results after timeouts; do not treat them as completed sweeps. Luna 5.6 medium/high and Astra 6 medium have also completed all 60 records. Luna xhigh stopped on a DNS-related timeout; further Astra efforts and local specialists remain in progress. Paid non-GPT/Claude OpenRouter requests now have explicit approval under the $5 total cap described in the [cost review](OPENROUTER_COST_REVIEW.md).
+Historical max-effort rows remain evidence; max and ultra are excluded from new runs. Paid non-GPT/Claude OpenRouter requests have explicit approval under the $5 aggregate cap in the [cost review](OPENROUTER_COST_REVIEW.md). Failed or incomplete provider runs remain visible and are not pooled with successful alternate providers. The classifier-framing and SOP experiment has frozen candidate text and offline preview adapters, but no phase-two inference has run; see [execution readiness](PROMPT_EXECUTION_READINESS.md).
 
 ## Common procedure
 
