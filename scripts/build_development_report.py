@@ -2,6 +2,7 @@
 """Offline report only. Reads reference labels; never performs inference or network calls."""
 import argparse
 import csv
+from decimal import Decimal, InvalidOperation
 import hashlib
 import json
 import math
@@ -116,6 +117,57 @@ def batch_timing(config, known_ids, predictions, root=ROOT):
         'note':'Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed.'}
 
 
+def summarize_costs(attempts, source_paths):
+    """Use explicit billing fields only, after the shared attempt validator.
+
+    Subscription API-equivalent usage, model token prices, and absent charges
+    are never converted into cash. No active budget ledger is read here.
+    """
+    known=Decimal(0);bounds=Decimal(0);known_count=unknown_count=bounded_count=missing=0
+    def amount(value):
+        if isinstance(value,bool):raise ValueError('Invalid cost amount')
+        try:result=Decimal(str(value))
+        except (InvalidOperation,ValueError,TypeError):raise ValueError('Invalid cost amount') from None
+        if not result.is_finite() or result<0:raise ValueError('Invalid cost amount')
+        return result
+    for row in attempts:
+        if 'cost_unknown' in row and type(row['cost_unknown']) is not bool:raise ValueError('Invalid cost_unknown flag')
+        observed=row.get('observed_cost_usd')
+        if row.get('cost_unknown') is True:
+            if observed is not None:raise ValueError('Unknown cost cannot also be observed')
+            unknown_count+=1
+            if row.get('reserved_cost_usd') is None:missing+=1
+            else:bounds+=amount(row['reserved_cost_usd']);bounded_count+=1
+        elif observed is not None:
+            # A populated observed_cost_usd is explicit reported cash evidence;
+            # nested usage.cost and subscription API-equivalent fields are ignored.
+            known+=amount(observed);known_count+=1
+        else:missing+=1
+    has_evidence=known_count+bounded_count>0
+    complete=bool(attempts) and missing==0
+    return {'scope':'declared development attempts only','availability':'reported' if complete else 'partial' if has_evidence else 'unavailable',
+        'attempt_count':len(attempts),'known_actual_attempts':known_count,'unknown_cost_attempts':unknown_count,
+        'unknown_bounded_attempts':bounded_count,'missing_financial_attempts':missing,
+        'known_actual_usd':str(known) if known_count else None,
+        'unknown_reserved_upper_bound_usd':str(bounds) if bounded_count or complete else None,
+        'known_plus_unknown_upper_bound_usd':str(known+bounds) if complete else None,
+        'total_actual_usd':str(known) if complete and unknown_count==0 else None,
+        'source_paths':list(source_paths),
+        'note':'Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared $1 ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.'}
+
+
+def cost_table(summaries):
+    eligible=[item for item in summaries if item.get('cost',{}).get('availability') in ('reported','partial')]
+    if not eligible:return []
+    lines=['','Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared $1 ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.','',
+        '| Configuration | Billing coverage | Known actual USD | Unknown-cost reserved upper bound USD | Sources |',
+        '| --- | --- | ---: | ---: | --- |']
+    for item in eligible:
+        c=item['cost'];sources='; '.join('`'+x+'`' for x in c['source_paths'])
+        lines.append('| '+' | '.join([item['id'],c['availability'],c['known_actual_usd'] if c['known_actual_usd'] is not None else 'unavailable',c['unknown_reserved_upper_bound_usd'] if c['unknown_reserved_upper_bound_usd'] is not None else 'unavailable',sources])+' |')
+    return lines+['']
+
+
 def build(registries, output):
     input_rows = read_rows(ROOT/'data/pilot/inputs.jsonl')
     refs = read_rows(ROOT/'data/pilot/proposed_labels.jsonl')
@@ -129,6 +181,7 @@ def build(registries, output):
                 raise ValueError('Duplicate configuration: '+config['id'])
             seen.add(config['id'])
             summary = dict(config)
+            summary['cost'] = summarize_costs([], [])
             path = config.get('predictions_file')
             if not path:
                 summaries.append(summary)
@@ -138,6 +191,7 @@ def build(registries, output):
             evaluation = score(refs, predictions, pairs)
             index = {r['id']: r for r in predictions}
             attempts = load_timing_attempts(config, set(inputs))
+            summary['cost'] = summarize_costs(attempts, config.get('attempt_files', [path]))
             durations = {}
             for attempt in attempts:
                 elapsed = attempt.get('elapsed_seconds')
@@ -181,6 +235,7 @@ def build(registries, output):
         e=item.get('evaluation')
         cells=[str(e['valid_outputs'])]+[str(e['metrics'][k]['correct']) for k in KEYS]+[str(item['exact_match'])] if e else ['—']*6
         lines.append('| '+' | '.join([item['id'],item['status']]+cells)+' |')
+    lines += cost_table(summaries)
     lines += ['', 'Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.', '']
     for item in summaries:
         lines += ['**'+item['id']+'**', '', str(item.get('notes','')), '']

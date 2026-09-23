@@ -30,7 +30,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3.8-27b-sdk-thinking-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | qwen36-35b-a3b-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | qwen36-35b-a3b-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
-| deepseek-r1-distill-qwen32b-native-reasoning | staged_capacity_and_runtime_unverified | — | — | — | — | — | — |
+| deepseek-r1-distill-qwen32b-native-reasoning | downloading_runtime_unverified | — | — | — | — | — | — |
 | mistral-small32-24b-not-applicable | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | mistral-small4-119b-none | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | mistral-small4-119b-high | replaced_by_hosted_user_request | — | — | — | — | — | — |
@@ -56,15 +56,15 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | opus55-high-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
 | opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
-| openjev-fixed | blocked_model_download_network | — | — | — | — | — | — |
-| openjev-adaptive | blocked_model_download_network | — | — | — | — | — | — |
-| openjev-thinking | blocked_model_download_network | — | — | — | — | — | — |
-| openjev-generated-off | blocked_model_download_network | — | — | — | — | — | — |
-| openjev-generated-on | blocked_model_download_network | — | — | — | — | — | — |
-| semif-direct | blocked_model_download_network | — | — | — | — | — | — |
-| semif-serial | blocked_model_download_network | — | — | — | — | — | — |
-| semif-shared | blocked_model_download_network | — | — | — | — | — | — |
-| alex-openjev08 | blocked_model_download_network | — | — | — | — | — | — |
+| openjev-fixed | downloading | — | — | — | — | — | — |
+| openjev-adaptive | downloading | — | — | — | — | — | — |
+| openjev-thinking | downloading | — | — | — | — | — | — |
+| openjev-generated-off | downloading | — | — | — | — | — | — |
+| openjev-generated-on | downloading | — | — | — | — | — | — |
+| semif-direct | downloading | — | — | — | — | — | — |
+| semif-serial | downloading | — | — | — | — | — | — |
+| semif-shared | downloading | — | — | — | — | — | — |
+| alex-openjev08 | ready_for_local_validation | — | — | — | — | — | — |
 | laya-english | unsupported_length | — | — | — | — | — | — |
 | laya-typed | unsupported_length | — | — | — | — | — | — |
 | salesrlagent | task_incompatible | — | — | — | — | — | — |
@@ -72,7 +72,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-deepseek-free | unavailable_no_free_model | — | — | — | — | — | — |
 | laya-english-expanded-cpu | complete | 60 | 41 | 42 | 33 | 13 | 0 |
 | laya-typed-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
-| semif-generated-bf16 | blocked_model_download_network | — | — | — | — | — | — |
+| semif-generated-bf16 | downloading | — | — | — | — | — | — |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
 | alex-openjev4b | queued_download | — | — | — | — | — | — |
@@ -96,7 +96,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-astra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
-| codex-gpt-5.6-sol-low | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-low | completed | 60 | 58 | 60 | 60 | 60 | 58 |
 | codex-gpt-5.6-sol-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-high | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
@@ -105,7 +105,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-terra-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | codex-gpt-5.6-terra-medium | completed | 60 | 59 | 59 | 58 | 60 | 57 |
 | codex-gpt-5.6-terra-high | completed | 60 | 58 | 60 | 58 | 60 | 57 |
-| codex-gpt-5.6-terra-xhigh | smoke_complete_development_pending | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-xhigh | completed | 60 | 59 | 59 | 58 | 60 | 57 |
 | codex-gpt-5.6-terra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-sol-low-batch10 | partial_repeated_timeout | — | — | — | — | — | — |
@@ -130,7 +130,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-qwen3.8-27b-medium | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-xhigh | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-off | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-qwen36-35b-a3b-on | development_running | — | — | — | — | — | — |
+| openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
 | openrouter-paid-gemma4-26b-a4b-on | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-26b-a4b-off | pending_smoke | — | — | — | — | — | — |
@@ -142,6 +142,15 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-deepseek-v41-flash-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-low | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-high | pending_smoke | — | — | — | — | — | — |
+
+Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared $1 ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
+
+| Configuration | Billing coverage | Known actual USD | Unknown-cost reserved upper bound USD | Sources |
+| --- | --- | ---: | ---: | --- |
+| typesafe-jev113-v2 | partial | unavailable | 0.002123688 | `results/openjev/typesafe-development-v2.jsonl`; `results/openjev/typesafe-development-v2-continuation.jsonl` |
+| openrouter-paid-qwen36-35b-a3b-on | reported | 0.0636796 | 0 | `results/openrouter-qwen35-on-2026-09-23/development.jsonl` |
+| openrouter-paid-qwen36-35b-a3b-off | reported | 0.0072576 | 0 | `results/openrouter-qwen35-off-2026-09-23/development.jsonl` |
+
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
 
@@ -269,7 +278,7 @@ September23 user requested reasonably priced OpenRouter routes instead of matchi
 
 **deepseek-r1-distill-qwen32b-native-reasoning**
 
-User-requested family expansion; exact pinned artifact and sources in docs/ROSTER_RECONCILIATION.md. Storage staging choice pending; runtime smoke required. No inference yet.
+September23 DeepSeek-only downloader confirmed active; pinned32B GGUF27/592 chunks at verification. No completeartifact/hash or runtime smoke yet. Separate from hostedDeepSeekV4.1Flash.12GiB reserve; no duplicate downloads.
 
 **mistral-small32-24b-not-applicable**
 
@@ -417,39 +426,39 @@ Evidence: `results/openjev/typesafe-development-v2-reconciled.jsonl`; SHA-256 `5
 
 **openjev-fixed**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **openjev-adaptive**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **openjev-thinking**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **openjev-generated-off**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **openjev-generated-on**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **semif-direct**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **semif-serial**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **semif-shared**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **alex-openjev08**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 fresh verification: all10/10 pinned artifact files complete and cryptographic hashes valid. Awaiting serialized local smoke and development inference; earlier incomplete-weight load failure retained as historical evidence.
 
 **laya-english**
 
@@ -483,7 +492,7 @@ All pinned artifact files verified on September23. Expanded4096/head512 preserve
 
 **semif-generated-bf16**
 
-Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed.
+Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status.
 
 **laya-multilingual**
 
@@ -585,7 +594,9 @@ September23 user excluded max and ultra from future runs. Historical artifacts p
 
 **codex-gpt-5.6-sol-low**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing; historical individual smoke preserved. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development.jsonl`; SHA-256 `3e9f7c87d7c3c844381002ac474abb829fe98e7cfee3c33b5800b783bb7cebdd`.
 
 **codex-gpt-5.6-sol-medium**
 
@@ -627,7 +638,9 @@ Evidence: `results/codex-gpt-5.6-terra-high-batch10-2026-09-23/development.jsonl
 
 **codex-gpt-5.6-terra-xhigh**
 
-September23 xhigh batch smoke3 valid in50.00s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. Initial permissionreview timedout before execution; one allowed approvalretry succeeded, no duplicate inference. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-terra-xhigh-batch10-2026-09-23/development.jsonl`; SHA-256 `19f40816c5ce7d4c1c8cd6253431aa304bb22e94b7579de514f5e951673816b5`.
 
 **codex-gpt-5.6-terra-max**
 
@@ -727,7 +740,9 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-qwen36-35b-a3b-on**
 
-Three inspected smoke responses valid with nonempty reasoning, exactAkashML FP8 route and reportedcosts. Full60 active unchanged, maxoutput4096; aggregateOpenRouter$1 cap.
+60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-on-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
+
+Evidence: `results/openrouter-qwen35-on-2026-09-23/development.jsonl`; SHA-256 `8817b970a43fd788524467f50de5413923ea504e15b67e068d52ec6c0917e321`.
 
 **openrouter-paid-qwen36-35b-a3b-off**
 
