@@ -104,8 +104,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | codex-gpt-5.6-terra-medium | completed | 60 | 59 | 59 | 58 | 60 | 57 |
-| codex-gpt-5.6-terra-high | smoke_complete_development_pending | — | — | — | — | — | — |
-| codex-gpt-5.6-terra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-high | completed | 60 | 58 | 60 | 58 | 60 | 57 |
+| codex-gpt-5.6-terra-xhigh | smoke_complete_development_pending | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-sol-low-batch10 | partial_repeated_timeout | — | — | — | — | — | — |
@@ -127,18 +127,21 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.6-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-high | pending_approval_and_isolation | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low | pending_approval_and_isolation | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-medium | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-xhigh | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-qwen36-35b-a3b-on | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-qwen36-35b-a3b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-26b-a4b-on | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-26b-a4b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-31b-on | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-31b-off | pending_budget_guard_and_smoke | — | — | — | — | — | — |
-| openrouter-paid-mistral-small32-24b-not-applicable | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-medium | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-xhigh | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen36-35b-a3b-on | development_running | — | — | — | — | — | — |
+| openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
+| openrouter-paid-gemma4-26b-a4b-on | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-mistral-small32-24b-not-applicable | partial_timeout | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-none | blocked_upstream_rate_limit | — | — | — | — | — | — |
-| openrouter-paid-mistral-small4-119b-high | pending_budget_guard_and_smoke | — | — | — | — | — | — |
+| openrouter-paid-mistral-small4-119b-high | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-low | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-high | pending_smoke | — | — | — | — | — | — |
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
 
@@ -618,11 +621,13 @@ Evidence: `results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development.jso
 
 **codex-gpt-5.6-terra-high**
 
-September23 high batch smoke3 valid in45.80s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout, no retries, tools, parser errors or metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-terra-high-batch10-2026-09-23/development.jsonl`; SHA-256 `4b74bcbe04ff75d3bd59129178b05be0c7e98d4ae1800e3c849bff188949faa9`.
 
 **codex-gpt-5.6-terra-xhigh**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+September23 xhigh batch smoke3 valid in50.00s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.
 
 **codex-gpt-5.6-terra-max**
 
@@ -722,11 +727,13 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-qwen36-35b-a3b-on**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+Three inspected smoke responses valid with nonempty reasoning, exactAkashML FP8 route and reportedcosts. Full60 active unchanged, maxoutput4096; aggregateOpenRouter$1 cap.
 
 **openrouter-paid-qwen36-35b-a3b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
+
+Evidence: `results/openrouter-qwen35-off-2026-09-23/development.jsonl`; SHA-256 `456c9dca63122c62fce0a9daf9cf7abb2f4b8fa42560fa16fcdc73d446bd876b`.
 
 **openrouter-paid-gemma4-26b-a4b-on**
 
@@ -746,7 +753,7 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-mistral-small32-24b-not-applicable**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+Smoke3 valid, then8 development outputs valid. DEV009 timed out after303.86s, no response/cost returned;51 records unattempted. Full failed-request reservation $0.0104192 retained against sharedcap. No automatic retry; preserve completedIDs for eventual audited continuation.
 
 **openrouter-paid-mistral-small4-119b-none**
 
@@ -755,4 +762,16 @@ First authorized smoke request received HTTP429 from Mistral upstream shared poo
 **openrouter-paid-mistral-small4-119b-high**
 
 September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+
+**openrouter-paid-deepseek-v41-flash-off**
+
+Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet.
+
+**openrouter-paid-deepseek-v41-flash-low**
+
+Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet.
+
+**openrouter-paid-deepseek-v41-flash-high**
+
+Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet.
 

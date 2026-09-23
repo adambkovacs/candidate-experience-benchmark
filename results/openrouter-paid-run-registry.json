@@ -3,7 +3,7 @@
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
@@ -13,7 +13,7 @@
     "id": "openrouter-paid-qwen3.8-27b-xhigh",
     "model": "qwen/qwen3.8-27b",
     "effort": "xhigh",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
@@ -23,7 +23,7 @@
     "id": "openrouter-paid-qwen3.8-27b-off",
     "model": "qwen/qwen3.8-27b",
     "effort": "off",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
@@ -33,27 +33,31 @@
     "id": "openrouter-paid-qwen36-35b-a3b-on",
     "model": "qwen/qwen3.6-35b-a3b",
     "effort": "on",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "development_running",
     "predictions_file": null,
     "provider": "akashml/fp8",
     "quantization": "fp8",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+    "notes": "Three inspected smoke responses valid with nonempty reasoning, exactAkashML FP8 route and reportedcosts. Full60 active unchanged, maxoutput4096; aggregateOpenRouter$1 cap.",
+    "smoke_files": [
+      "results/openrouter-qwen35-on-2026-09-23/smoke.jsonl"
+    ]
   },
   {
     "id": "openrouter-paid-qwen36-35b-a3b-off",
     "model": "qwen/qwen3.6-35b-a3b",
     "effort": "off",
-    "status": "pending_budget_guard_and_smoke",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-qwen35-off-2026-09-23/development.jsonl",
     "provider": "akashml/fp8",
     "quantization": "fp8",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+    "notes": "60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.",
+    "attempt_phase": "development"
   },
   {
     "id": "openrouter-paid-gemma4-26b-a4b-on",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "on",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
@@ -63,7 +67,7 @@
     "id": "openrouter-paid-gemma4-26b-a4b-off",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "off",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
@@ -73,7 +77,7 @@
     "id": "openrouter-paid-gemma4-31b-on",
     "model": "google/gemma-4-31b-it",
     "effort": "on",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "deepinfra/turbo",
     "quantization": "fp4",
@@ -83,7 +87,7 @@
     "id": "openrouter-paid-gemma4-31b-off",
     "model": "google/gemma-4-31b-it",
     "effort": "off",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "deepinfra/turbo",
     "quantization": "fp4",
@@ -93,13 +97,18 @@
     "id": "openrouter-paid-mistral-small32-24b-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "development_running",
-    "predictions_file": null,
+    "status": "partial_timeout",
+    "predictions_file": "results/openrouter-mistral24-na-2026-09-23/development.jsonl",
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Three smoke responses inspected: valid exact model/provider, billed total $0.00034845. Full60 active unchanged; DeepInfra FP8, effort not applicable (no reasoning parameter). Shared aggregate $1 cap includes Mistral119 unknown-cost reservation.",
+    "notes": "Smoke3 valid, then8 development outputs valid. DEV009 timed out after303.86s, no response/cost returned;51 records unattempted. Full failed-request reservation $0.0104192 retained against sharedcap. No automatic retry; preserve completedIDs for eventual audited continuation.",
     "smoke_files": [
       "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 8,
+    "attempt_files": [
+      "results/openrouter-mistral24-na-2026-09-23/development.jsonl"
     ]
   },
   {
@@ -120,10 +129,40 @@
     "id": "openrouter-paid-mistral-small4-119b-high",
     "model": "mistralai/mistral-small-2603",
     "effort": "high",
-    "status": "pending_budget_guard_and_smoke",
+    "status": "pending_smoke",
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
     "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet."
+  },
+  {
+    "id": "openrouter-paid-deepseek-v41-flash-off",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "off",
+    "provider": "open-inference/fp4",
+    "quantization": "fp4",
+    "status": "pending_smoke",
+    "predictions_file": null,
+    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
+  },
+  {
+    "id": "openrouter-paid-deepseek-v41-flash-low",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "low",
+    "provider": "open-inference/fp4",
+    "quantization": "fp4",
+    "status": "pending_smoke",
+    "predictions_file": null,
+    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
+  },
+  {
+    "id": "openrouter-paid-deepseek-v41-flash-high",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "high",
+    "provider": "open-inference/fp4",
+    "quantization": "fp4",
+    "status": "pending_smoke",
+    "predictions_file": null,
+    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
   }
 ]

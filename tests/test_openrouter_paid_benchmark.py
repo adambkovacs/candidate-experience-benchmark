@@ -127,4 +127,49 @@ class UnknownUpperBoundTests(unittest.TestCase):
    with self.assertRaises(ValueError):a.accounted()
    a.close()
 
+class ResumeTests(unittest.TestCase):
+ def test_range_validation_preserves_full_input_check(self):
+  rows=[{'id':f'DEV-{i:03}','feedback':'x'} for i in range(1,61)]
+  self.assertEqual([x['id'] for x in r.select_rows(rows,'development',59)],['DEV-059','DEV-060'])
+  self.assertEqual(len(r.select_rows(rows,'development',1)),60)
+  self.assertEqual([x['id'] for x in r.select_rows(rows,'smoke',1)],['DEV-001','DEV-002','DEV-003'])
+  for start in [0,61,True,1.5,'9']:
+   with self.assertRaises(ValueError):r.select_rows(rows,'development',start)
+  with self.assertRaises(ValueError):r.select_rows(rows,'smoke',2)
+  rows[0]['metadata']='not allowed'
+  with self.assertRaises(ValueError):r.select_rows(rows,'development',59)
+ def test_resumed_request_and_journal_exclude_previous_ids(self):
+  with tempfile.TemporaryDirectory() as d:
+   m,e=fixture();args=SimpleNamespace(output=str(Path(d)/'out'),model=MODEL,provider=e['tag'],max_input_price=Decimal('.1'),max_output_price=Decimal('.7'),reasoning='off',max_tokens=4096,phase='development',start=59,env_file=None,timeout=1)
+   prediction={'sentiment':'neutral','follow_up_needed':'no','serious_concern_reported':'no','testimonial_potential':'no'}
+   body={'model':MODEL,'provider':'Provider','usage':{'cost':.0001},'choices':[{'finish_reason':'stop','message':{'content':json.dumps(prediction)}}]}
+   responses=[{'data':[m]},{'data':{'id':MODEL,'endpoints':[e]}},body,body]
+   with mock.patch.object(r,'fetch',side_effect=responses) as fetch,mock.patch.object(r,'load_key',return_value='SECRET'),mock.patch.object(r,'LEDGER_PATH',Path(d)/'ledger'):
+    r.run(args)
+   rows=[json.loads(x) for x in Path(args.output).read_text().splitlines()]
+   self.assertEqual([x['id'] for x in rows],['DEV-059','DEV-060']);self.assertEqual(sum(c.args[0]=='/chat/completions' for c in fetch.call_args_list),2)
+   for row in rows:self.assertEqual(row['range_selection'],{'start_1based':59,'end_1based':60,'input_total':60,'resume_origin':'explicit_start_in_new_exclusive_output'})
+   journals=[json.loads(x) for x in Path(args.output+'.attempts.jsonl').read_text().splitlines() if json.loads(x)['event']=='started']
+   self.assertEqual([x['id'] for x in journals],['DEV-059','DEV-060']);self.assertEqual(journals[0]['range_selection'],rows[0]['range_selection']);self.assertEqual(journals[0]['request_timeout_seconds'],1);self.assertEqual(rows[0]['request_timeout_seconds'],1)
+   with mock.patch.object(r,'fetch') as fetch:
+    with self.assertRaises(FileExistsError):r.run(args)
+    fetch.assert_not_called()
+
+class DeepSeekSnapshotTests(unittest.TestCase):
+ def test_authorized_flat_provider_and_efforts(self):
+  # Reduced public endpoint snapshot captured2026-09-23, OpenRouter /models and
+  # /models/deepseek/deepseek-v4.1-flash/endpoints. Live guards rerun before HTTP.
+  model='deepseek/deepseek-v4.1-flash'
+  m={'id':model,'reasoning':{'mandatory':False,'supported_efforts':['low','high','max']}}
+  e={'model_id':model,'name':'OpenInference | deepseek/deepseek-v4.1-flash-20260910','tag':'open-inference/fp4','provider_name':'OpenInference','status':0,'quantization':'fp4','context_length':1048576,'max_completion_tokens':943718,'pricing':{'prompt':'0.0000001','completion':'0.0000005','input_cache_read':'0.00000001','discount':0},'supported_parameters':['reasoning','reasoning_effort','temperature','max_tokens','structured_outputs']}
+  got=r.select_endpoint(model,e['tag'],{'data':[m]},{'data':{'id':model,'endpoints':[e]}},Decimal('.10'),Decimal('.50'))
+  self.assertEqual(got,(m,e))
+  for effort in ['off','low','high']:
+   payload=r.make_payload(model,e,'feedback','rubric',{},effort,4096,Decimal('.10'),Decimal('.50'),m)
+   self.assertEqual(payload['provider']['only'],['open-inference/fp4'])
+  for effort in ['medium','xhigh','max','ultra']:
+   with self.assertRaises(ValueError):r.reasoning(m,e,effort)
+  changed=copy.deepcopy(e);changed['pricing']['overrides']=[{'prompt':'1'}]
+  with self.assertRaises(ValueError):r.check_prices(changed,Decimal('.10'),Decimal('.50'))
+
 if __name__=='__main__':unittest.main()

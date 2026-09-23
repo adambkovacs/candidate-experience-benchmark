@@ -154,7 +154,7 @@ Search-page access was unreliable and no files were downloaded. No dataset is se
 
 ## Remaining execution inputs
 
-Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Verified runtime and hardware are recorded in result manifests. Remaining execution dependencies include local weight downloads and disk capacity, Gemini isolation, subscription quota, and the pending choice of individual versus multi-record prompts for new expensive sweeps. Development references have same-assistant AI review; independent human adjudication remains absent. Execution now runs on the user's Mac in the local checkout. Hosted TypeSafe has an approved aggregate $1 cap; other hosted API calls remain free-only unless separately approved.
+Confirmed: ChatGPT Pro, Claude Max, Google AI Pro, and LM Studio. Verified runtime and hardware are recorded in result manifests. Remaining execution dependencies include local weight downloads and disk capacity, Gemini isolation, subscription quota, and service availability for the agreed batch10 subscription workflow. Development references have same-assistant AI review; independent human adjudication remains absent. Execution now runs on the user's Mac in the local checkout. Hosted TypeSafe has an approved aggregate $1 cap; other hosted API calls remain free-only unless separately approved.
 
 ## Sources checked
 
@@ -200,7 +200,7 @@ Run the existing 60 development records only. Do not generate the remaining 340.
 
 The user expanded the MVP to cover supported reasoning-effort levels, Haiku, and verification of Fable 5.1 availability. Include all listed Qwen sizes (0.6B, 1.7B, 4B, 8B, 27B), Gemma candidates, and the previously optional specialist projects and OpenJev variations. A model without a supported task mapping or accessible artifact must receive an explicit documented blocker; do not silently substitute another model or claim a completed run. SalesRLAgent remains incompatible with the four-label task without a separate adaptation experiment.
 
-Downloads and hosted jobs may run in parallel. Serialize local inference and stage large downloads to fit available disk space. Exact effort support is model-specific; unavailable controls are recorded as such rather than sent as ignored parameters. TypeSafe's **$1 total** authorization covers all its configurations and retries together. Other paid API use is not authorized.
+Downloads and hosted jobs may run in parallel. Serialize local inference and stage large downloads to fit available disk space. Exact effort support is model-specific; unavailable controls are recorded as such rather than sent as ignored parameters. TypeSafe's **$1 total** authorization covers all its configurations and retries together. On September23, the user authorized reasonably priced OpenRouter routes instead of matching local downloads. Those runs use a separate aggregate $1 cap; see [the hosted execution decision](OPENROUTER_COST_REVIEW.md).
 
 ## Follow-up prompt experiment (user request, 2026-09-21)
 
@@ -208,7 +208,7 @@ After the current model/settings comparison is finished, compare the existing ba
 
 ## Roster reconciliation (user clarification, 2026-09-21)
 
-Include Codex Sol and Terra alongside Luna and Astra at verified supported effort levels. Reconcile the account catalogue and runner version before each smoke. The user also requested larger Qwen, DeepSeek and Mistral candidates. [ROSTER_RECONCILIATION.md](ROSTER_RECONCILIATION.md) pins the practical Qwen3.6-35B-A3B, DeepSeek-R1-Distill-Qwen-32B and Mistral-Small-3.2-24B artifacts, with Mistral-Small-4-119B separately staged pending disk and memory capacity. The DeepSeek distill is a Qwen-based variant; the original hosted DeepSeek slot remains separately recorded. Verify runtime/template support, inspect smoke responses, then run the existing 60. No paid endpoint substitution is authorized.
+Include Codex Sol and Terra alongside Luna and Astra at verified supported effort levels. Reconcile the account catalogue and runner version before each smoke. The user also requested larger Qwen, DeepSeek and Mistral candidates. [ROSTER_RECONCILIATION.md](ROSTER_RECONCILIATION.md) pins the practical Qwen3.6-35B-A3B, DeepSeek-R1-Distill-Qwen-32B and Mistral-Small-3.2-24B artifacts, with Mistral-Small-4-119B separately staged pending disk and memory capacity. The DeepSeek distill is a Qwen-based variant; the original hosted DeepSeek slot remains separately recorded. Verify runtime/template support, inspect smoke responses, then run the existing 60. The September23 user-directed hosted switch is recorded in [OPENROUTER_COST_REVIEW.md](OPENROUTER_COST_REVIEW.md). Hosted configurations remain distinct from local artifacts, with completed local results preserved.
 
 The user raised the quota cost of 60 individual expensive reasoning calls. A 10-record multi-input configuration has been proposed; its adoption is pending. Keep it distinct from individual-request results. Previously completed Claude runs are retained. Do not launch new expensive full sweeps until this method choice is resolved.
 
@@ -219,3 +219,7 @@ The user added Nokia Applied Research AnyJev (https://github.com/nokia-applied-r
 Remaining subscription configurations use ten records per fresh prompt after the three-record smoke gate. Record batch membership and order, shared request timing and workflow class. Do not present shared batch latency as independently measured per-record latency or silently pool these runs with one-record requests. Reference labels remain offline.
 
 Laya uses convaiinnovations/laya, with English, typed-decisions and multilingual checkpoints. Native input-length limits and expanded-context variants are logged separately. AnyJev raw/L0 are label-free; L1 calibration needs a defensible separate calibration/evaluation split and must not fit and evaluate against the same 60 labels. The remaining 340 records remain ungenerated.
+
+## September23 hosted DeepSeek selection
+
+The original hosted DeepSeek slot is separate from the local R1-Distill-Qwen-32B candidate. Select `deepseek/deepseek-v4.1-flash` through the explicitly pinned OpenRouter `open-inference/fp4` provider, subject to fresh endpoint validation and the same $1 aggregate OpenRouter cap. The saved catalog advertises reasoning off, low and high; max remains excluded. Current flat endpoint prices are $0.10/$0.50 per million input/output tokens. Model and provider identifiers are pinned in requests; exact serving weight revision and hardware remain undisclosed. Inspect smoke3 before each full60 configuration. Source snapshots are in `results/openrouter-paid-planning-2026-09-23/`.

@@ -33,3 +33,5 @@ Final saved September23 batch coverage: Sol low10 valid records,10 failed record
 Terra 5.6 low subsequently completed all 60 development records in six sequential batches of ten through CLI 0.155.0-alpha.16. All outputs were valid, with no observed tools, parsing failures, metadata warnings or retries. The separate three-record smoke passed before development. Exact prompts and schemas were journaled before each request; smoke is excluded from development scoring and timing. See `results/codex-gpt-5.6-terra-low-batch10-2026-09-23/evaluation.json`.
 
 Terra 5.6 medium also completed 60 valid development records in six sequential batches, with no retries, observed tools or parser failures. Its separate smoke was inspected first. Scoring and request timing are saved in `results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/evaluation.json`; smoke is excluded.
+
+Terra 5.6 high completed 60 valid development outputs in six sequential batches after its inspected smoke, without retries, observed tools, parser failures or metadata warnings. See `results/codex-gpt-5.6-terra-high-batch10-2026-09-23/evaluation.json` for provisional scoring and batch request timing.
