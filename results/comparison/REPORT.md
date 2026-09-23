@@ -116,27 +116,27 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-luna-medium-batch10 | smoke_complete_development_pending | — | — | — | — | — | — |
 | codex-gpt-6-luna-high-batch10 | smoke_timeout | — | — | — | — | — | — |
 | codex-gpt-6-luna-xhigh-batch10 | pending_after_service_recovery | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.7-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.7-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.7-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.6-flash-high | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.6-flash-medium | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.6-flash-low | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.1-pro-high | pending_approval_and_isolation | — | — | — | — | — | — |
-| antigravity-gemini-3.1-pro-low | pending_approval_and_isolation | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-low | blocked_unverified_tool_restriction | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-medium | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-xhigh | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
-| openrouter-paid-gemma4-26b-a4b-on | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-on | partial_output_limit | — | — | — | — | — | — |
 | openrouter-paid-gemma4-26b-a4b-off | complete | 60 | 57 | 58 | 58 | 56 | 53 |
 | openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-mistral-small32-24b-not-applicable | partial_timeout | — | — | — | — | — | — |
+| openrouter-paid-mistral-small32-24b-not-applicable | partial_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-none | blocked_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-high | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-off | pending_smoke | — | — | — | — | — | — |
@@ -719,47 +719,47 @@ Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice
 
 **antigravity-gemini-3.8-flash-high**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.8-flash-medium**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.8-flash-low**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The existing native Antigravity login and model catalogue work. Three smoke attempts were preserved: an eligibility HTTP 503 with zero reported tokens; a model response with 57 tools listed and a plan-mode warning; and a corrected configuration that returned three valid classifications without warnings or tool calls but still listed 57 tools. No external tool use was observed. Whether initialization lists static inventory or effective model access remains unverified, so the strict tool-scope gate failed and no development requests were sent. Aggregate reported usage: 26,965 input tokens, 1,314 output tokens, 990 thinking tokens and 28,279 total tokens. The three request durations sum to 113.24463 seconds. The first runtime log was privately quarantined with an explicit source-hash redaction audit. No relogin, hosted Gemini API or paid credits were used.
 
 **antigravity-gemini-3.7-flash-high**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.7-flash-medium**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.7-flash-low**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.6-flash-high**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.6-flash-medium**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.6-flash-low**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.1-pro-high**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **antigravity-gemini-3.1-pro-low**
 
-NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. No inference. Benchmark approval remains pending; tool/memory isolation and zero-credit setting must be verified before smoke. Evidence: results/gemini-preflight-2026-09-21/catalogue-preflight.json.
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
 
 **openrouter-paid-qwen3.8-27b-medium**
 
@@ -787,7 +787,7 @@ Evidence: `results/openrouter-qwen35-off-2026-09-23/development.jsonl`; SHA-256 
 
 **openrouter-paid-gemma4-26b-a4b-on**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
+Smoke3 valid and inspected. Development21valid thenDEV022 length at4096completion tokens with no finalJSON;38unattempted. All22costs known,$0.00887550 development plus$0.00086731 smoke. No retry/repair. Raw provider reasoning counter exceeds completion counter onfailedrecord; preservedwithoutnormalization. Separatehostedconfiguration; incomplete, notscored asfull60.
 
 **openrouter-paid-gemma4-26b-a4b-off**
 
@@ -805,7 +805,7 @@ September23 user requested reasonably priced hosted models instead of matching l
 
 **openrouter-paid-mistral-small32-24b-not-applicable**
 
-Smoke3 valid, then8 development outputs valid. DEV009 timed out after303.86s, no response/cost returned;51 records unattempted. Full failed-request reservation $0.0104192 retained against sharedcap. No automatic retry; preserve completedIDs for eventual audited continuation.
+Original8valid+DEV009timeout retained. Explicit600s continuation producedDEV009–014valid thenDEV015HTTP429 fromDeepInfra sharedpool.14validunique,16totalattempts,2failedattempts,45unattemptedIDs016–060. Bothunknowncharges accountedatfullreservedbounds, notobservedcost. Noautomaticretry/fallback. Partialreconciliation verified15uniqueattempted,14valid,16totalattempts. Exactlegacy surface-label alias andtimeoutchange explicitlyaudited; rawfiles unchanged.
 
 **openrouter-paid-mistral-small4-119b-none**
 
