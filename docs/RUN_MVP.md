@@ -72,6 +72,8 @@ Every result records `artifact_family`, `instruction_role` and the complete requ
 
 ## Expanded effort roster
 
+September 23 update: future Claude efforts exclude max and ultra; completed historical runs remain unchanged. Opus 5.5 is added with low, medium, high and xhigh in a distinct batch-of-10 workflow. See [current Claude procedure](CLAUDE_SUBSCRIPTION.md) and the registry for execution status.
+
 The user expanded the development sweep to every supported effort level. [The live run registry](../results/claude-subscription-2026-09-21/run-registry.json) records all 16 completed configurations in 17 views, keeping Sonnet low first-pass and retry-inclusive results separate. The earlier Sonnet/Opus low runs were reused. Each of the 14 added configurations passed an inspected three-record smoke test and then produced 60 valid development outputs without controller retries.
 
 | Exact Claude model | Supported effort levels |
