@@ -10916,23 +10916,253 @@
     "id": "semif-direct",
     "model": "Qwen3.5-4B",
     "effort": "MLX direct BF16",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 all10 pinnedartifactfiles reverified; smoke3 valid/normalized fullinput1594\u20131658tokens. Actual MLXparameterdtypes BF16+FP32, noquantization, MetalGPU required bynativebackend. Full60 active, hostedHTTP jobs parallel; nootherlocalinference.",
+    "status": "complete",
+    "predictions_file": "results/semif-direct-bf16-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/semif-direct-bf16-2026-09-23/development.jsonl"
+    ],
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 all10 pinnedartifactfiles reverified; smoke3 valid/normalized fullinput1594\u20131658tokens. Actual MLXparameterdtypes BF16+FP32, noquantization, MetalGPU required bynativebackend. Full60 active, hostedHTTP jobs parallel; nootherlocalinference. Completed60records (60 valid) after inspectedsmoke3. NativeMetalGPU, actualBF16+FP32 parameters,noquantization; fullinputhashes/scoremapping checked. HostedHTTPcalls concurrent, no otherlocalinference. See reconciliation.",
+    "attempt_phase": "development",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 60,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 60,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/semif-direct-bf16-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 50,
+          "denominator": 60,
+          "accuracy": 0.8333333333333334,
+          "macro_f1": 0.5944055944055944,
+          "per_label": {
+            "positive": {
+              "tp": 9,
+              "fp": 2,
+              "fn": 2,
+              "precision": 0.8181818181818182,
+              "recall": 0.8181818181818182,
+              "f1": 0.8181818181818182
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 3,
+              "fn": 0,
+              "precision": 0.9117647058823529,
+              "recall": 1.0,
+              "f1": 0.9538461538461539
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 4,
+              "fn": 0,
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "f1": 0.8
+            },
+            "neutral": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 6,
+              "precision": 1.0,
+              "recall": 0.25,
+              "f1": 0.4
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.6239825292833036,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 3,
+              "fn": 0,
+              "precision": 0.9210526315789473,
+              "recall": 1.0,
+              "f1": 0.958904109589041
+            },
+            "no": {
+              "tp": 21,
+              "fp": 1,
+              "fn": 3,
+              "precision": 0.9545454545454546,
+              "recall": 0.875,
+              "f1": 0.9130434782608695
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 50,
+          "denominator": 60,
+          "accuracy": 0.8333333333333334,
+          "macro_f1": 0.7367053620784964,
+          "per_label": {
+            "yes": {
+              "tp": 19,
+              "fp": 1,
+              "fn": 6,
+              "precision": 0.95,
+              "recall": 0.76,
+              "f1": 0.8444444444444444
+            },
+            "no": {
+              "tp": 29,
+              "fp": 9,
+              "fn": 0,
+              "precision": 0.7631578947368421,
+              "recall": 1.0,
+              "f1": 0.8656716417910447
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 4,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "f1": 0.5
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 54,
+          "denominator": 60,
+          "accuracy": 0.9,
+          "macro_f1": 0.5195936139332366,
+          "per_label": {
+            "yes": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 5,
+              "precision": 1.0,
+              "recall": 0.4444444444444444,
+              "f1": 0.6153846153846154
+            },
+            "no": {
+              "tp": 50,
+              "fp": 6,
+              "fn": 0,
+              "precision": 0.8928571428571429,
+              "recall": 1.0,
+              "f1": 0.9433962264150944
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [
+          "DEV-008",
+          "DEV-031",
+          "DEV-032",
+          "DEV-041",
+          "DEV-054",
+          "DEV-058"
+        ],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "beca52b5c0380b32a118cbf8fb1ae65c7e59324d15eb025ded36331d403fbe20",
+    "attempt_records": 60,
+    "exact_match": 36,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 755.1505382505711,
+      "median_seconds": 12.094960562651977,
+      "p95_nearest_rank_seconds": 14.979219208005816,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {

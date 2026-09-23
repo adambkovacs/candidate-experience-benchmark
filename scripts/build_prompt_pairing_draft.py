@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 REGISTRIES=('results/local-run-registry.json','results/codex-run-registry.json','results/claude-subscription-2026-09-21/run-registry.json','results/gemini-run-registry.json','results/openrouter-paid-run-registry.json','results/specialist-run-registry.json')
 GENERATED_SPECIALISTS=frozenset(('openjev-generated-off','openjev-generated-on','semif-generated-bf16','anyjev-qwen06-generated-control'))
 DIRECT_SPECIALISTS=frozenset(('typesafe-jev113-v2','openjev-fixed','openjev-adaptive','openjev-thinking','semif-direct','semif-serial','semif-shared','alex-openjev08','alex-openjev4b','laya-english','laya-typed','laya-multilingual','laya-english-expanded-cpu','laya-typed-expanded-cpu','laya-multilingual-expanded-cpu','anyjev-qwen06-raw','anyjev-qwen06-l0','anyjev-qwen06-l1','anyjev-qwen06-l2','salesrlagent'))
-COMPLETE=frozenset(('complete','completed','complete_with_output_failure','completed_with_service_failure','completed_with_initialization_retries','completed_after_transport_recovery','completed_after_infrastructure_recovery'))
+COMPLETE=frozenset(('complete','completed','complete_with_output_failure','complete_with_service_failure','completed_with_service_failure','completed_with_initialization_retries','completed_after_transport_recovery','completed_after_infrastructure_recovery'))
 EVIDENCE_KEYS=('predictions_file','partial_predictions_file','attempt_files','raw_batch_attempt_files','batch_audit_files','smoke_files','request_journal_files','reconciliation_manifest')
 
 def file_bytes(root,relative):

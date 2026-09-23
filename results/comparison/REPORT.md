@@ -61,7 +61,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openjev-thinking | complete | 60 | 57 | 60 | 60 | 60 | 57 |
 | openjev-generated-off | complete | 52 | 50 | 51 | 50 | 51 | 46 |
 | openjev-generated-on | complete | 59 | 56 | 58 | 56 | 57 | 53 |
-| semif-direct | running | — | — | — | — | — | — |
+| semif-direct | complete | 60 | 50 | 56 | 50 | 54 | 36 |
 | semif-serial | ready_for_local_validation | — | — | — | — | — | — |
 | semif-shared | ready_for_local_validation | — | — | — | — | — | — |
 | alex-openjev08 | complete | 60 | 39 | 37 | 20 | 9 | 3 |
@@ -470,7 +470,9 @@ Evidence: `results/openjev-local-generated-on-2026-09-23/development.jsonl`; SHA
 
 **semif-direct**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 all10 pinnedartifactfiles reverified; smoke3 valid/normalized fullinput1594–1658tokens. Actual MLXparameterdtypes BF16+FP32, noquantization, MetalGPU required bynativebackend. Full60 active, hostedHTTP jobs parallel; nootherlocalinference.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 all10 pinnedartifactfiles reverified; smoke3 valid/normalized fullinput1594–1658tokens. Actual MLXparameterdtypes BF16+FP32, noquantization, MetalGPU required bynativebackend. Full60 active, hostedHTTP jobs parallel; nootherlocalinference. Completed60records (60 valid) after inspectedsmoke3. NativeMetalGPU, actualBF16+FP32 parameters,noquantization; fullinputhashes/scoremapping checked. HostedHTTPcalls concurrent, no otherlocalinference. See reconciliation.
+
+Evidence: `results/semif-direct-bf16-2026-09-23/development.jsonl`; SHA-256 `beca52b5c0380b32a118cbf8fb1ae65c7e59324d15eb025ded36331d403fbe20`.
 
 **semif-serial**
 

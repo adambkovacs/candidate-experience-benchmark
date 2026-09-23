@@ -44,3 +44,9 @@ class DraftTests(unittest.TestCase):
    with self.assertRaises(ValueError):draft.file_bytes(root,'data/pilot/proposed_labels.jsonl')
    self.write(root,0,[{'id':'duplicate'}]);self.write(root,1,[{'id':'duplicate'}])
    with self.assertRaisesRegex(ValueError,'Duplicate'):draft.build(root)
+
+ def test_complete_service_failure_retains_sixty_record_candidate(self):
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);pred=self.fixture(root);rows=[json.loads(x) for x in (root/pred).read_text().splitlines()];rows[0]['status']='service_error';(root/pred).write_text(''.join(json.dumps(x)+'\n' for x in rows))
+   self.write(root,4,[{'id':'retained-service-failure','status':'complete_with_service_failure','predictions_file':pred}]);r=draft.build(root)['configurations'][0]
+   self.assertEqual(r['draft_category'],'eligible_generative_baseline_candidate');self.assertTrue(r['coverage']['exact_60_input_ids']);self.assertEqual(r['coverage']['valid_status_records'],59);self.assertFalse(r['eligible_paired_comparison'])
