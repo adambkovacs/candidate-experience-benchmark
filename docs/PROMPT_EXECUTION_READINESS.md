@@ -115,3 +115,19 @@ The [offline P0 audit](../results/codex-batch-extractor-audit-2026-09-23.json) v
 `specialist_benchmark.py` accepts frozen P0/P1/P2 previews only for `--kind semif --mode generated`. The pure `generated_messages` helper preserves the existing system rubric, embedded JSON schema and feedback-only user envelope. Default and explicit P0 messages match the legacy source construction for all60 development inputs. Preview runs do not import the model runtime, load weights, tokenize or call inference. Native SemIf modes, Laya and Alex reject these flags; all explicit live selectors, including P0, remain blocked before model loading. The unchanged default live path uses no variant flags.
 
 Historical `request_sha256` values hash the official decision-intent payload, **not generated messages**. The parity test is source reconstruction only; it does not prove historical generated-message or rendered-token hash equality. The preview records the unchanged2048 output-token budget, temperature0, disabled thinking and `tok.encode(prompt)` guard with its default special-token behavior. Exact tokenizer rendering, generation tokenization, context fit and all remaining experiment gates still require separate evidence. See [adapter](../scripts/specialist_benchmark.py) and [offline tests](../tests/test_semif_prompt_preview.py).
+
+## Separate paired report renderer
+
+The [offline HTML renderer](../scripts/render_prompt_comparison.py) accepts completed `prompt-pairs-v1` evaluator outputs and keeps them separate from the original model comparison. It displays the evaluator's eligibility and control-verification status without upgrading either, preserves unknown telemetry, keeps all denominators at 60, and provides a filter for changed cases. Full evaluator evidence remains available for concern errors, controlled pairs, costs, failures and limitations. Text from feedback and model identifiers is HTML-escaped.
+
+```bash
+python3 scripts/render_prompt_comparison.py --evaluation PATH_TO_PAIRED_EVALUATION.json --output NEW_PAIRED_REPORT.html
+```
+
+Repeat `--evaluation` for distinct parent baseline configurations. Duplicate parents, inconsistent case counts and unsupported evaluation contracts are rejected; existing reports are never overwritten. The renderer has been tested with synthetic evaluator fixtures, including failed outputs and HTML-injection strings. No real P1/P2 report is claimed before those experiments run. Prompt-token overhead remains unknown unless the evaluator supplies measured evidence; prompt bytes are displayed separately. The exact P1 addition and additional P2 SOP text are displayed only after matching the evaluator provenance to the verified frozen bundle.
+
+## Execution-gate structure
+
+The [standalone gate validator](../scripts/prompt_execution_gates.py) checks hash bindings, complete roster accounting, paired controls, request membership, counterbalanced condition order, token-fit declarations and inspected smoke chronology. Historical P0 evidence can predate the new freeze. Explicitly accepted intrinsic schema failures remain observations; transport, identity and truncation failures block.
+
+This validator is structural only and always returns `execution_allowed: false`. Adapter-specific raw token and smoke evidence verification and actual schedule enforcement still need implementation. Its synthetic tests do not establish live execution eligibility. No active controller was changed by this addition.
