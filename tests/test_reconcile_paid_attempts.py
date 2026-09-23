@@ -64,4 +64,19 @@ class ReconcileTests(unittest.TestCase):
     root,inp,p=self.setup_files(d,[[first],[second]])
     with self.assertRaises(ValueError):r.reconcile(p,inp,root,allow_partial=True)
 
+ def test_exact_surface_alias_audited_without_changing_raw(self):
+  old='OpenRouter paid HTTP, aggregate cap $1';new='OpenRouter paid HTTP'
+  for other,accepted in [(new,True),('OpenRouter paid HTTP, aggregate cap $5',False),('Other HTTP',False)]:
+   with self.subTest(other=other),tempfile.TemporaryDirectory() as d:
+    a=record(1);b=record(2);a['surface']=old;b['surface']=other
+    root,inp,paths=self.setup_files(d,[[a],[b]]);before=[p.read_bytes() for p in paths]
+    if not accepted:
+     with self.assertRaises(ValueError):r.reconcile(paths,inp,root,allow_partial=True)
+     continue
+    rows,audit=r.reconcile(paths,inp,root,allow_partial=True)
+    self.assertEqual([x['surface'] for x in rows],[old,new]);self.assertEqual(before,[p.read_bytes() for p in paths])
+    self.assertEqual(audit['surface_alias_migrations'],[{'source':'attempt0.jsonl','original':old,'canonical':new,'reason':'Legacy cap wording removed; same OpenRouter paid HTTP workflow'}])
+    b['request']['temperature']=1;b['request_sha256']=digest(json.dumps(b['request'],sort_keys=True));paths[1].write_text(json.dumps(b)+'\n')
+    with self.assertRaises(ValueError):r.reconcile(paths,inp,root,allow_partial=True)
+
 if __name__=='__main__':unittest.main()

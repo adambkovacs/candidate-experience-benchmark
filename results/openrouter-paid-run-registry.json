@@ -108,19 +108,23 @@
     "id": "openrouter-paid-mistral-small32-24b-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "partial_timeout",
-    "predictions_file": "results/openrouter-mistral24-na-2026-09-23/development.jsonl",
+    "status": "partial_upstream_rate_limit",
+    "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Smoke3 valid, then8 development outputs valid. DEV009 timed out after303.86s, no response/cost returned;51 records unattempted. Full failed-request reservation $0.0104192 retained against sharedcap. No automatic retry; preserve completedIDs for eventual audited continuation.",
+    "notes": "Original8valid+DEV009timeout retained. Explicit600s continuation producedDEV009\u2013014valid thenDEV015HTTP429 fromDeepInfra sharedpool.14validunique,16totalattempts,2failedattempts,45unattemptedIDs016\u2013060. Bothunknowncharges accountedatfullreservedbounds, notobservedcost. Noautomaticretry/fallback. Partialreconciliation verified15uniqueattempted,14valid,16totalattempts. Exactlegacy surface-label alias andtimeoutchange explicitlyaudited; rawfiles unchanged.",
     "smoke_files": [
       "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
     ],
     "attempt_phase": "development",
-    "completed_records": 8,
+    "completed_records": 14,
     "attempt_files": [
-      "results/openrouter-mistral24-na-2026-09-23/development.jsonl"
-    ]
+      "results/openrouter-mistral24-na-2026-09-23/development.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from009-timeout600.jsonl"
+    ],
+    "attempted_records": 15,
+    "reconciliation_manifest": "results/openrouter-mistral24-na-2026-09-23/reconciliation-partial-after429.json",
+    "partial_predictions_file": "results/openrouter-mistral24-na-2026-09-23/reconciled-partial-after429.jsonl"
   },
   {
     "id": "openrouter-paid-mistral-small4-119b-none",

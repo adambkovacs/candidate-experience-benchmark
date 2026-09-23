@@ -27,6 +27,7 @@ def reconcile(paths,input_path,root=ROOT,allow_partial=False,allow_timeout_chang
     inputs={r['id']:r['feedback'] for r in validate_rows(read_rows(input_path))}
     overrides=legacy_timeouts or {}
     if set(overrides)-set(map(str,paths)):raise ValueError('Timeout override does not name a source')
+    surface_aliases=[]
     sources=[];seen_attempts=set();seen_contents=set();latest={};first=None;timeouts=set();legacy=[]
     cost=Decimal(0);unknown=Decimal(0);unknown_attempts=[];seconds=0;previous_time=None;attempt_count=0
     for path in paths:
@@ -72,10 +73,15 @@ def reconcile(paths,input_path,root=ROOT,allow_partial=False,allow_timeout_chang
             if request['provider']['only']!=[endpoint['tag']] or request['provider'].get('allow_fallbacks') is not False:raise ValueError('Provider control mismatch')
             if row['status']=='ok':
                 if not valid(row.get('prediction')) or row.get('returned_model') not in allowed_returned_models(row['requested_model'],endpoint) or row.get('returned_provider')!=endpoint['provider_name']:raise ValueError('Successful prediction identity/schema invalid')
+            surface=row.get('surface')
+            if surface=='OpenRouter paid HTTP, aggregate cap $1':
+                surface='OpenRouter paid HTTP'
+                migration={'source':name,'original':row['surface'],'canonical':surface,'reason':'Legacy cap wording removed; same OpenRouter paid HTTP workflow'}
+                if migration not in surface_aliases:surface_aliases.append(migration)
             invariant={'model':row['requested_model'],'provider_tag':endpoint['tag'],'provider_name':endpoint['provider_name'],'quantization':row['quantization'],
                 'reasoning_effort':row['reasoning_effort'],'policy_sha256':row['policy_sha256'],'schema_sha256':row['schema_sha256'],
                 'system_message':messages[0],'request_controls':{k:v for k,v in request.items() if k!='messages'},
-                'runtime':row.get('runtime'),'surface':row.get('surface'),'hardware':row.get('hardware')}
+                'runtime':row.get('runtime'),'surface':surface,'hardware':row.get('hardware')}
             if first is None:first=invariant
             elif invariant!=first:raise ValueError('Cross-configuration attempt mix')
             if row.get('cost_unknown') is True:
@@ -98,6 +104,7 @@ def reconcile(paths,input_path,root=ROOT,allow_partial=False,allow_timeout_chang
     audit={'status':'partial' if missing else 'complete_attempt_coverage','selection_rule':'Latest attempt in explicitly ordered chronological sources per ID; never best-result selection',
         'records':len(selected),'total_attempts':attempt_count,'missing_ids':missing,'sources':sources,'configuration':first,
         'input_file':relative(Path(input_path),root),'input_file_sha256':hashlib.sha256(Path(input_path).read_bytes()).hexdigest(),
+        'surface_alias_migrations':surface_aliases,
         'timeout_values_seconds':sorted(timeouts),'timeout_change_explicitly_allowed':allow_timeout_change,'legacy_timeout_overrides':legacy,
         'total_attempt_seconds':seconds,'costs':{'known_actual_usd':str(cost),'unknown_reserved_upper_bound_usd':str(unknown),'known_plus_unknown_upper_bound_usd':str(cost+unknown),
             'unknown_attempts':unknown_attempts,'basis':'All source attempts, including superseded attempts. Unknown bounds come from raw reservations, not observed costs; this helper does not independently audit or change ledger finalization.'},
