@@ -58,20 +58,22 @@
     "id": "openrouter-paid-gemma4-26b-a4b-on",
     "model": "google/gemma-4-26b-a4b-it",
     "effort": "on",
-    "status": "partial_output_limit",
-    "predictions_file": null,
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-gemma26-on-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Smoke3 valid and inspected. Development21valid thenDEV022 length at4096completion tokens with no finalJSON;38unattempted. All22costs known,$0.00887550 development plus$0.00086731 smoke. No retry/repair. Raw provider reasoning counter exceeds completion counter onfailedrecord; preservedwithoutnormalization. Separatehostedconfiguration; incomplete, notscored asfull60.",
-    "completed_records": 21,
-    "attempted_records": 22,
+    "notes": "All 60 IDs were attempted once: 59 valid outputs; DEV-022 exhausted the output budget and returned no JSON. Only unattempted DEV-023 through DEV-060 were continued, with the same 4096-token budget, provider and controls. No failed output was retried or repaired. Both raw files are retained for timing and cost accounting. Development cost $0.02114858; smoke cost $0.00086731. The provider reasoning-token anomaly is preserved.",
+    "completed_records": 59,
+    "attempted_records": 60,
     "attempt_phase": "development",
     "attempt_files": [
-      "results/openrouter-gemma26-on-2026-09-23/development.jsonl"
+      "results/openrouter-gemma26-on-2026-09-23/development.jsonl",
+      "results/openrouter-gemma26-on-2026-09-23/development-from023.jsonl"
     ],
     "smoke_files": [
       "results/openrouter-gemma26-on-2026-09-23/smoke.jsonl"
-    ]
+    ],
+    "reconciliation_manifest": "results/openrouter-gemma26-on-2026-09-23/reconciliation-complete.json"
   },
   {
     "id": "openrouter-paid-gemma4-26b-a4b-off",

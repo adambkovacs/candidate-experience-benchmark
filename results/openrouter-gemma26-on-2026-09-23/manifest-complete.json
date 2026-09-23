@@ -1,0 +1,24 @@
+{
+  "status": "complete_with_output_failure",
+  "attempted_records": 60,
+  "valid_outputs": 59,
+  "failed_ids": [
+    "DEV-022"
+  ],
+  "unattempted_ids": [],
+  "model": "google/gemma-4-26b-a4b-it",
+  "provider": "deepinfra/fp8",
+  "quantization": "fp8",
+  "runtime": "OpenRouter HTTP v1",
+  "hardware": "Remote provider undisclosed",
+  "development_observed_cost_usd": "0.02114858",
+  "smoke_observed_cost_usd": "0.00086731",
+  "development_request_seconds": 1458.8575451660436,
+  "prediction_sha256": "a7af4591db655915ce23952c1f3bcfbfa4c5b955fcfcd4cf3755fe269b1f5016",
+  "failure": "DEV-022 ended with finish_reason=length and null content after exhausting the 4096 completion-token budget. No retry or repair.",
+  "telemetry_note": "The provider reported 4345 reasoning tokens versus 4096 completion tokens on the failed request. Raw counters are retained without interpreting them as consistent subset counts.",
+  "reference_labels_read_during_inference": false,
+  "smoke_gate": "All three raw JSON outputs were inspected before development; exact model, provider and known costs were verified.",
+  "reconciliation_manifest": "results/openrouter-gemma26-on-2026-09-23/reconciliation-complete.json",
+  "continuation_note": "Only unattempted DEV-023 through DEV-060 continued with the unchanged 4096-token budget. DEV-022 was not retried and remains a failure in the 60-record denominator. The original partial manifest and all raw attempts are preserved."
+}
