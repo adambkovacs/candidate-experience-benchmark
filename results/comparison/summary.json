@@ -8790,9 +8790,259 @@
     "id": "anyjev-qwen06-raw",
     "model": "Qwen/Qwen3-0.6B",
     "effort": "AnyJev raw one canonical option order",
-    "status": "ready_for_gpu_smoke",
-    "predictions_file": null,
-    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect."
+    "status": "complete",
+    "predictions_file": "results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl"
+    ],
+    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. Three-record smoke inspected, then60 unique valid development outputs; actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference.",
+    "attempt_phase": "development",
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 8,
+          "denominator": 60,
+          "accuracy": 0.13333333333333333,
+          "macro_f1": 0.047058823529411764,
+          "per_label": {
+            "positive": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 11,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "negative": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 31,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "mixed": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 8,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "neutral": {
+              "tp": 8,
+              "fp": 52,
+              "fn": 0,
+              "precision": 0.13333333333333333,
+              "recall": 1.0,
+              "f1": 0.23529411764705882
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 35,
+          "denominator": 60,
+          "accuracy": 0.5833333333333334,
+          "macro_f1": 0.24561403508771928,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 25,
+              "fn": 0,
+              "precision": 0.5833333333333334,
+              "recall": 1.0,
+              "f1": 0.7368421052631579
+            },
+            "no": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 24,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 25,
+          "denominator": 60,
+          "accuracy": 0.4166666666666667,
+          "macro_f1": 0.19607843137254902,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 35,
+              "fn": 0,
+              "precision": 0.4166666666666667,
+              "recall": 1.0,
+              "f1": 0.5882352941176471
+            },
+            "no": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 29,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 33,
+          "denominator": 60,
+          "accuracy": 0.55,
+          "macro_f1": 0.34954954954954953,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 27,
+              "fn": 0,
+              "precision": 0.25,
+              "recall": 1.0,
+              "f1": 0.4
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 26,
+              "precision": 1.0,
+              "recall": 0.48,
+              "f1": 0.6486486486486487
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": [
+          "DEV-001",
+          "DEV-002",
+          "DEV-003",
+          "DEV-004",
+          "DEV-005",
+          "DEV-007",
+          "DEV-010",
+          "DEV-013",
+          "DEV-014",
+          "DEV-015",
+          "DEV-016",
+          "DEV-017",
+          "DEV-018",
+          "DEV-019",
+          "DEV-020",
+          "DEV-021",
+          "DEV-023",
+          "DEV-024",
+          "DEV-026",
+          "DEV-027",
+          "DEV-028",
+          "DEV-033",
+          "DEV-034",
+          "DEV-038",
+          "DEV-040",
+          "DEV-042",
+          "DEV-053",
+          "DEV-055",
+          "DEV-057"
+        ]
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "b1a1291e315dfd34312363fb5198d64b4f248f13f979a32240ac3ba19327d528",
+    "attempt_records": 60,
+    "exact_match": 0,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 306.05801271414384,
+      "median_seconds": 5.058706374955364,
+      "p95_nearest_rank_seconds": 5.654100375017151,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only."
+    }
   },
   {
     "id": "anyjev-qwen06-l0",
@@ -9458,9 +9708,12 @@
     "id": "codex-gpt-5.6-terra-low",
     "model": "gpt-5.6-terra",
     "effort": "low",
-    "status": "development_running",
-    "predictions_file": null,
-    "notes": "September23 CLI155 batch smoke passed3/3 in91.217s with no observed tools or parsing errors. Development running sequential batches10 with600s cap and stop on first failure; no paid API/credits. Historical individual smoke preserved.",
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl"
+    ],
+    "notes": "Completed60 unique valid records in6 sequential batch10 requests,600s timeout, no retries, tools, parser errors or metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing; historical individual smoke preserved. Request latency varied substantially; no paid API/credits.",
     "smoke_files": [
       "results/codex-gpt-5.6-terra-low-2026-09-21/smoke.jsonl",
       "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/smoke.jsonl",
@@ -9469,7 +9722,234 @@
     "future_enabled": true,
     "planned_workflow": "batch10",
     "workflow": "batch",
-    "configured_batch_size": 10
+    "configured_batch_size": 10,
+    "completed_records": 60,
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development-attempts.jsonl"
+    ],
+    "request_journal_files": [
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ],
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9779710144927536,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9166666666666666,
+              "recall": 1.0,
+              "f1": 0.9565217391304348
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.8840579710144928,
+          "per_label": {
+            "yes": {
+              "tp": 34,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9714285714285714,
+              "f1": 0.9855072463768116
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9640472521828455,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9666666666666667,
+              "recall": 1.0,
+              "f1": 0.9830508474576272
+            },
+            "insufficient_information": {
+              "tp": 5,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8333333333333334,
+              "f1": 0.9090909090909091
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 60,
+          "denominator": 60,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 50,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "32fd2f4053d75dd538eccfa84696043ee03688fa03542b935537bf8121fc4138",
+    "attempt_records": 60,
+    "exact_match": 58,
+    "timing": {
+      "timing_kind": "batch_request_latency",
+      "workflow": "batch",
+      "batch_requests": 6,
+      "timed_records": 60,
+      "sum_batch_request_seconds": 890.377036835067,
+      "batch_median_seconds": 74.52084797946736,
+      "batch_p95_nearest_rank_seconds": 462.5630748339463,
+      "attempted_records_per_request_second": 0.06738718264037437,
+      "successful_records_per_request_second": 0.06738718264037437,
+      "note": "Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed."
+    }
   },
   {
     "id": "codex-gpt-5.6-terra-medium",

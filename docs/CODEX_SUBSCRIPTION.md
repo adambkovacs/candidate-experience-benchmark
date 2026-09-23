@@ -6,7 +6,7 @@ The user explicitly requested Sol and Terra alongside Luna and Astra. The instal
 
 Each record runs in a fresh ephemeral context outside the repository, with only the policy and synthetic feedback. Reference labels never enter inference. The adapter strips API credentials, requires ChatGPT sign-in and disables user rules, memory, skills, MCP and supported tools. Built-in CLI instructions remain; server model revision is not exposed. Ultra is advertised with automatic task delegation; any tool or delegation event invalidates the primary isolated run.
 
-Smoke artifacts and development attempts remain separate. Three smoke responses must be inspected before 60 development records. The new Sol/Terra request received fresh scoped approval: both low-effort smoke tests completed with three valid outputs, no observed tools and no event parsing failures. Their full development runs remain held pending the batching decision, with 5% of weekly quota remaining at the latest check (ordinary subscription use still allowed). Fresh scoped reviews also approved resuming the existing Luna/Astra low-effort runs. No paid API fallback or credit redemption is permitted.
+Smoke artifacts and development attempts remain separate. Three smoke responses must be inspected before 60 development records. The new Sol/Terra request received fresh scoped approval: both low-effort smoke tests completed with three valid outputs, no observed tools and no event parsing failures. At that September 21 checkpoint, full development runs were held pending the batching decision and the quota check showed 5% weekly remaining. Those observations are historical; remaining development runs now use batches of ten after an inspected smoke. Fresh scoped reviews also approved resuming the existing Luna/Astra low-effort runs. No paid API fallback or credit redemption is permitted.
 
 Sources: [Codex authentication](https://learn.chatgpt.com/docs/auth), [noninteractive mode](https://learn.chatgpt.com/docs/non-interactive-mode), [configuration](https://learn.chatgpt.com/docs/config-file/config-reference), and the installed account catalogue above.
 
@@ -16,7 +16,7 @@ Luna low and Astra low each completed 60 unique valid development outputs after 
 
 The fresh installed account catalogue confirms `gpt-6-sol` and `gpt-6-luna`. Future efforts are low, medium, high and xhigh only. The user removed max and ultra from future runs; the adapter rejects both. Historical 5.6 Sol/Luna artifacts remain available. Adding GPT-6 models does not remove earlier requested models: 5.6 Sol, Luna and Terra plus GPT-6 Astra remain in scope. Remaining runs use batch10 after smoke inspection and service recovery.
 
-Authentication remains ChatGPT subscription. The fresh quota check reports1% weekly usage, ordinary use allowed and zero paid-credit balance. No reset was redeemed. Evidence: `results/codex-catalogue-2026-09-23.json`. New low-effort three-record smokes remain separate from development, and full batches are held pending the batching decision.
+Authentication remains ChatGPT subscription. The initial September 23 quota check reported 1% weekly usage, ordinary use allowed and zero paid-credit balance. No reset was redeemed. Evidence: `results/codex-catalogue-2026-09-23.json`. Smoke batches remain separate from development. The batching decision was subsequently resolved in favour of batches of ten; later quota and run states are recorded below.
 
 ## Batch workflow
 
@@ -29,3 +29,5 @@ The sequential Luna retry also reached its documented600s timeout, so no further
 The new batch runner now writes and fsyncs an exact prompt/schema journal before each request, then durably records completion. Earlier request payloads were reconstructed and their prompt hashes verified in `results/codex-request-reconstruction-2026-09-23.jsonl`; those records explicitly disclose that reconstruction occurred after execution.
 
 Final saved September23 batch coverage: Sol low10 valid records,10 failed records and40 unattempted; Luna low20 valid records,10 failed records and30 unattempted. Each failed batch was attempted at300s and then600s with concurrency1 on the retry. No further inference is active. Both attempts contribute to service/runtime timing, which must not be described as model-only speed.
+
+Terra 5.6 low subsequently completed all 60 development records in six sequential batches of ten through CLI 0.155.0-alpha.16. All outputs were valid, with no observed tools, parsing failures, metadata warnings or retries. The separate three-record smoke passed before development. Exact prompts and schemas were journaled before each request; smoke is excluded from development scoring and timing. See `results/codex-gpt-5.6-terra-low-batch10-2026-09-23/evaluation.json`.

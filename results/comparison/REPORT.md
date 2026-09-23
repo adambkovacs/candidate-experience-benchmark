@@ -80,7 +80,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-off | blocked_rate_limit | — | — | — | — | — | — |
-| anyjev-qwen06-raw | ready_for_gpu_smoke | — | — | — | — | — | — |
+| anyjev-qwen06-raw | complete | 60 | 8 | 35 | 25 | 33 | 0 |
 | anyjev-qwen06-l0 | ready_for_gpu_smoke | — | — | — | — | — | — |
 | anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-l2 | staged_separate_calibration_required | — | — | — | — | — | — |
@@ -102,7 +102,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-sol-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
-| codex-gpt-5.6-terra-low | development_running | — | — | — | — | — | — |
+| codex-gpt-5.6-terra-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | codex-gpt-5.6-terra-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-high | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
@@ -500,7 +500,9 @@ September23 live catalog verified Qwen3.8-27B:free ModelRun/fp4 explicit zero pr
 
 **anyjev-qwen06-raw**
 
-AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect.
+AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. Three-record smoke inspected, then60 unique valid development outputs; actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference.
+
+Evidence: `results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl`; SHA-256 `b1a1291e315dfd34312363fb5198d64b4f248f13f979a32240ac3ba19327d528`.
 
 **anyjev-qwen06-l0**
 
@@ -592,7 +594,9 @@ September23 user excluded max and ultra from future runs. Historical artifacts p
 
 **codex-gpt-5.6-terra-low**
 
-September23 CLI155 batch smoke passed3/3 in91.217s with no observed tools or parsing errors. Development running sequential batches10 with600s cap and stop on first failure; no paid API/credits. Historical individual smoke preserved.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout, no retries, tools, parser errors or metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing; historical individual smoke preserved. Request latency varied substantially; no paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl`; SHA-256 `32fd2f4053d75dd538eccfa84696043ee03688fa03542b935537bf8121fc4138`.
 
 **codex-gpt-5.6-terra-medium**
 

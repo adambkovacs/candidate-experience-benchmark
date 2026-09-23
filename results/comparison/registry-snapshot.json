@@ -750,9 +750,13 @@
     "id": "anyjev-qwen06-raw",
     "model": "Qwen/Qwen3-0.6B",
     "effort": "AnyJev raw one canonical option order",
-    "status": "ready_for_gpu_smoke",
-    "predictions_file": null,
-    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect."
+    "status": "complete",
+    "predictions_file": "results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl"
+    ],
+    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. Three-record smoke inspected, then60 unique valid development outputs; actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference.",
+    "attempt_phase": "development"
   },
   {
     "id": "anyjev-qwen06-l0",
@@ -986,9 +990,12 @@
     "id": "codex-gpt-5.6-terra-low",
     "model": "gpt-5.6-terra",
     "effort": "low",
-    "status": "development_running",
-    "predictions_file": null,
-    "notes": "September23 CLI155 batch smoke passed3/3 in91.217s with no observed tools or parsing errors. Development running sequential batches10 with600s cap and stop on first failure; no paid API/credits. Historical individual smoke preserved.",
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl"
+    ],
+    "notes": "Completed60 unique valid records in6 sequential batch10 requests,600s timeout, no retries, tools, parser errors or metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing; historical individual smoke preserved. Request latency varied substantially; no paid API/credits.",
     "smoke_files": [
       "results/codex-gpt-5.6-terra-low-2026-09-21/smoke.jsonl",
       "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/smoke.jsonl",
@@ -997,7 +1004,15 @@
     "future_enabled": true,
     "planned_workflow": "batch10",
     "workflow": "batch",
-    "configured_batch_size": 10
+    "configured_batch_size": 10,
+    "completed_records": 60,
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development-attempts.jsonl"
+    ],
+    "request_journal_files": [
+      "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-5.6-terra-medium",
