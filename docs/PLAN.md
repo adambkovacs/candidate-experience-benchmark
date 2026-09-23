@@ -1,6 +1,6 @@
 # Recruitment Feedback Comparison — project plan
 
-Updated: 2026-09-21. Status: development runs in progress. Claude completed all 16 model/effort configurations; hosted Jev and local Qwen0.6B/1.7B/4B runs completed; see RUN_MVP.md and results/. Labels remain provisional.
+Updated: 2026-09-23. Status: development runs in progress. See [the run guide](RUN_MVP.md), [current comparison](../results/comparison/REPORT.md) and linked registries for completed and pending configurations. Labels remain provisional; baseline and prompt-experiment work is incomplete.
 Repository: https://github.com/adambkovacs/recruitment-feedback-demo (private).
 
 ## Research question
@@ -192,7 +192,7 @@ All 60 are development records, generated and provisionally labeled/reviewed by 
 
 All 60 development records now exist; 340 remain ungenerated. Preserve the 400 ceiling. The 100-record challenge set will include at least 40 bias/concern probes overlapping existing families. Within its existing 20 pairs, allocate at least eight to identity/style invariance and four to meaningful evidence changes. Controlled development pairs never migrate into held-out sets. Report false escalations on benign identity mentions and missed reports separately; synthetic pair consistency cannot establish real-world demographic fairness.
 
-The development smoke runner records transport failures without retries; final evaluation must implement and freeze the planned retry protocol. Jev, subscription and specialist adapters now exist; completed runs include latency summaries and hosted TypeSafe cost capture. Specialist inference is still awaiting verified weights. Calibrated review thresholds and held-out evaluation remain future work. The user-delegated AI review allows development to proceed without falsely claiming human validation.
+The development smoke runner records transport failures without retries; final evaluation must implement and freeze the planned retry protocol. Jev, subscription and specialist adapters now exist; completed runs include latency summaries and hosted TypeSafe cost capture. Some specialist configurations have completed; others await weights or runtime validation. Calibrated review thresholds and held-out evaluation remain future work. The user-delegated AI review allows development to proceed without falsely claiming human validation.
 
 ## Current execution scope (user clarification, 2026-09-21)
 

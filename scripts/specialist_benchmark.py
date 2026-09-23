@@ -114,6 +114,9 @@ def build_runner(args):
         sys.path.insert(0,str(Path(args.model_path).parent))
         from modeling_openjev import OpenJevCrossEncoder
         agent=OpenJevCrossEncoder(args.model_path,device=args.device,dtype=torch.float32,bs=4,max_len=4096)
+        actual_device=str(next(agent.model.parameters()).device)
+        actual_dtype=str(next(agent.model.parameters()).dtype)
+        if not actual_device.startswith(args.device) or actual_dtype!='torch.float32':raise RuntimeError('Unexpected Alex runtime device or dtype')
         def infer(feedback,policy):
             pairs=nli_pairs(feedback,policy)
             lengths=[len(agent.tok(agent.template.format(premise=p,hypothesis=h),truncation=False)['input_ids']) for p,h in pairs]
@@ -125,7 +128,7 @@ def build_runner(args):
                 result[key]=VALUES[key][max(range(len(scores)),key=lambda i:scores[i][1])]
                 offset+=len(scores)
             return result,{'nli_probabilities':probabilities,'hypothesis_order':[(k,v) for k in KEYS for v in VALUES[k]],
-                           'mapping':'Highest entailment probability among semantic label hypotheses; NLI neutral is never mapped to insufficient_information'}, {'device':args.device,'dtype':'float32','max_tokens':4096,'input_tokens':lengths,'batch_size':4}
+                           'mapping':'Highest entailment probability among semantic label hypotheses; NLI neutral is never mapped to insufficient_information'}, {'device':actual_device,'dtype':actual_dtype,'quantization':'none','max_tokens':4096,'input_tokens':lengths,'batch_size':4}
         return infer
     raise ValueError('Unknown specialist')
 
