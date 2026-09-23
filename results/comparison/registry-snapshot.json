@@ -592,25 +592,33 @@
     "id": "openjev-thinking",
     "model": "openjev-0.1",
     "effort": "samples1 steps1 think512",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 valid and inspected; full60 running. Native think512 budget with samples1/steps1; smoke output-token counts363/512/406. Warm-server cache retained; actual rereads unknown."
+    "status": "complete",
+    "predictions_file": "results/openjev-local-thinking-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/openjev-local-thinking-2026-09-23/development.jsonl"
+    ],
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 valid and inspected; full60 running. Native think512 budget with samples1/steps1; smoke output-token counts363/512/406. Warm-server cache retained; actual rereads unknown. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.",
+    "attempt_phase": "development"
   },
   {
     "id": "openjev-generated-off",
     "model": "diffusiongemma-26b",
     "effort": "JSON generation thinkingoff",
-    "status": "ready_for_local_validation",
-    "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot."
+    "status": "complete",
+    "predictions_file": "results/openjev-local-generated-off-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/openjev-local-generated-off-2026-09-23/development.jsonl"
+    ],
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 inspected valid; full60 active. Native generated JSON includes upstream schema-as-instruction/first-object extraction and MLX thought stripping, recorded explicitly. Single local benchmark; hosted HTTP jobs concurrent. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.",
+    "attempt_phase": "development"
   },
   {
     "id": "openjev-generated-on",
     "model": "diffusiongemma-26b",
-    "effort": "JSON generation thinkingon",
-    "status": "ready_for_local_validation",
+    "effort": "generated requested-on; native empty-thought scaffold; effective thinking unverified",
+    "status": "running",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot."
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. Valid3smoke inspected. Pinned MlxGenerator passes enable_thinking true then always appends empty thought scaffold; outputthoughtmarkers skipped. This is native requested-flag behavior, not verified thinking or isolated reasoning contrast. Full60 launched unchanged."
   },
   {
     "id": "semif-direct",
@@ -1323,9 +1331,15 @@
     "id": "codex-gpt-6-sol-low-batch10",
     "model": "gpt-6-sol",
     "effort": "low",
-    "status": "partial_repeated_timeout",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-completed.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "10valid; batch02 timedout at300s then600s (boundedretryconcurrency1) with empty captured stdout/stderr/response. Both attempts retained in batch timing;40unattempted plus10failed remain60denominator. ReadonlyCLI/auth healthy and officialstatus noincident, but inference stalled; no furtherretry or modelsubstitution. No max/ultra/paidcredits.",
+    "notes": "Completed 60 unique valid records after the second authorized transport recovery. Original successful records were reused, never rerun. Both historical development timeouts remain in total attempt timing; smoke is preserved separately and excluded. CLI 0.155.0-alpha.16 ChatGPT subscription, no tools/parser errors/metadata warnings in successful attempts, no paid credits. Served revision not exposed.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -1339,63 +1353,107 @@
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
       "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl",
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl"
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2-attempts.jsonl"
     ],
     "request_journal_files": [
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl.journal.jsonl"
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl.journal.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2-attempts.jsonl.journal.jsonl"
     ],
-    "completed_records": 10,
-    "planned_predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-reconciled.jsonl"
+    "completed_records": 60
   },
   {
     "id": "codex-gpt-6-sol-medium-batch10",
     "model": "gpt-6-sol",
     "effort": "medium",
-    "status": "running",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout after later Astra and GPT-5.6 Luna subscription runs succeeded. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retry, credits, reference labels or model substitution.",
+    "notes": "All 60 records returned valid outputs in six batches of ten. Raw prompts, schemas, order and predictions were checked offline. Exact served revision and quantization are not exposed by the CLI. Full audit and timing are in results/codex-gpt-6-sol-medium-2026-09-23/manifest.json.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-sol-medium-2026-09-23/smoke-batch-attempts.jsonl",
       "results/codex-gpt-6-sol-medium-2026-09-23/smoke-batch.jsonl"
-    ]
+    ],
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-sol-medium-2026-09-23/development-batch-attempts.jsonl"
+    ],
+    "completed_records": 60
   },
   {
     "id": "codex-gpt-6-sol-high-batch10",
     "model": "gpt-6-sol",
     "effort": "high",
-    "status": "smoke_timeout",
-    "predictions_file": null,
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-sol-high-2026-09-23/smoke-batch-attempts.jsonl",
-      "results/codex-gpt-6-sol-high-2026-09-23/smoke-batch.jsonl"
+      "results/codex-gpt-6-sol-high-2026-09-23/smoke-batch.jsonl",
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
     ]
   },
   {
     "id": "codex-gpt-6-sol-xhigh-batch10",
     "model": "gpt-6-sol",
     "effort": "xhigh",
-    "status": "pending_after_service_recovery",
-    "predictions_file": null,
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
-    "smoke_files": []
+    "smoke_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-6-luna-low-batch10",
     "model": "gpt-6-luna",
     "effort": "low",
-    "status": "partial_repeated_timeout",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-completed.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch.jsonl",
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation.jsonl",
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "20valid; batch03 timedout twice at300s then600s, secondwithconcurrency1. Failed30-recordcoverage snapshot plus30unattempted remain60denominator. Bothrawdurations retained; request payload reconstruction verified againstoriginalhash. No furthercalls untilservice recovery, no max/ultra/credits.",
+    "notes": "Completed 60 unique valid records after the second authorized transport recovery. Original successful records were reused, never rerun. Both historical development timeouts remain in total attempt timing; smoke is preserved separately and excluded. CLI 0.155.0-alpha.16 ChatGPT subscription, no tools/parser errors/metadata warnings in successful attempts, no paid credits. Served revision not exposed.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -1407,52 +1465,92 @@
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
       "results/codex-gpt-6-luna-low-2026-09-23/development-batch-attempts.jsonl",
-      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation-attempts.jsonl"
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2-attempts.jsonl"
     ],
-    "completed_records": 20,
-    "planned_predictions_file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-reconciled.jsonl"
+    "completed_records": 60,
+    "request_journal_files": [
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2-attempts.jsonl.journal.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-6-luna-medium-batch10",
     "model": "gpt-6-luna",
     "effort": "medium",
-    "status": "running",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout, concurrent with GPT-6 Sol medium after its first successful batch. Live Codex quota reported 7 percent weekly usage before launch. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retries, paid credits or reference labels.",
+    "notes": "All 60 outputs valid. Six raw batch prompts, schemas, input order and predictions checked offline; no observed tools, parser errors or runtime metadata warnings. Served revision and quantization are not exposed. Audit and timing: results/codex-gpt-6-luna-medium-2026-09-23/manifest.json",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-luna-medium-2026-09-23/smoke-batch-attempts.jsonl",
       "results/codex-gpt-6-luna-medium-2026-09-23/smoke-batch.jsonl"
-    ]
+    ],
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-luna-medium-2026-09-23/development-batch-attempts.jsonl"
+    ],
+    "completed_records": 60
   },
   {
     "id": "codex-gpt-6-luna-high-batch10",
     "model": "gpt-6-luna",
     "effort": "high",
-    "status": "smoke_timeout",
-    "predictions_file": null,
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-luna-high-2026-09-23/smoke-batch-attempts.jsonl",
-      "results/codex-gpt-6-luna-high-2026-09-23/smoke-batch.jsonl"
+      "results/codex-gpt-6-luna-high-2026-09-23/smoke-batch.jsonl",
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
     ]
   },
   {
     "id": "codex-gpt-6-luna-xhigh-batch10",
     "model": "gpt-6-luna",
     "effort": "xhigh",
-    "status": "pending_after_service_recovery",
-    "predictions_file": null,
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
-    "smoke_files": []
+    "smoke_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ]
   },
   {
     "id": "antigravity-gemini-3.8-flash-high",
@@ -1580,31 +1678,41 @@
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
-    "status": "pending_smoke",
+    "status": "running",
     "predictions_file": null,
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-xhigh",
     "model": "qwen/qwen3.8-27b",
     "effort": "xhigh",
-    "status": "pending_smoke",
+    "status": "running_continuation",
     "predictions_file": null,
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   },
   {
     "id": "openrouter-paid-qwen3.8-27b-off",
     "model": "qwen/qwen3.8-27b",
     "effort": "off",
-    "status": "pending_smoke",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl",
     "provider": "deepinfra/bf16",
     "quantization": "bf16",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "60 valid, known billing; sealed partition.",
+    "partition_id": "qwen27-off",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-off-2026-09-23/smoke.jsonl"
+    ],
+    "completed_records": 60,
+    "attempted_records": 60
   },
   {
     "id": "openrouter-paid-qwen36-35b-a3b-on",
@@ -1667,31 +1775,61 @@
     "id": "openrouter-paid-gemma4-31b-on",
     "model": "google/gemma-4-31b-it",
     "effort": "on",
-    "status": "pending_smoke",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/turbo",
     "quantization": "fp4",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "All 60 development records returned valid JSON after the inspected smoke. Exact DeepInfra turbo FP4 route with requested thinking enabled. Sixteen development responses report reasoning-token counts greater than completion-token counts; raw values are preserved without correction. All reported costs are known, and the child budget is sealed and reconciled. Other hosted runs and one local MLX benchmark overlapped.",
+    "attempt_files": [
+      "results/openrouter-parallel-gemma31-on-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-gemma31-on-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-gemma31-on-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "gemma31-on",
+    "observed_development_cost_usd": "0.01303944",
+    "observed_smoke_cost_usd": "0.00061533"
   },
   {
     "id": "openrouter-paid-gemma4-31b-off",
     "model": "google/gemma-4-31b-it",
     "effort": "off",
-    "status": "pending_smoke",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl",
     "provider": "deepinfra/turbo",
     "quantization": "fp4",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "Three smoke responses were inspected before all 60 development responses passed validation. Exact DeepInfra turbo FP4 route, reasoning disabled, 4096-token output budget, no provider fallback or retries. All reported charges are known. Other hosted configurations and one local MLX run overlapped. Provider cache usage is retained. The initial smoke command was rejected before execution; evidence-based resubmission of the same command was accepted. The child budget is sealed and reconciled.",
+    "attempt_files": [
+      "results/openrouter-parallel-gemma31-off-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-gemma31-off-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-gemma31-off-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "gemma31-off",
+    "observed_development_cost_usd": "0.00555500",
+    "observed_smoke_cost_usd": "0.00033333"
   },
   {
     "id": "openrouter-paid-mistral-small32-24b-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "partial_upstream_rate_limit",
+    "status": "running_continuation",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Original8valid+DEV009timeout retained. Explicit600s continuation producedDEV009\u2013014valid thenDEV015HTTP429 fromDeepInfra sharedpool.14validunique,16totalattempts,2failedattempts,45unattemptedIDs016\u2013060. Bothunknowncharges accountedatfullreservedbounds, notobservedcost. Noautomaticretry/fallback. Partialreconciliation verified15uniqueattempted,14valid,16totalattempts. Exactlegacy surface-label alias andtimeoutchange explicitlyaudited; rawfiles unchanged.",
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
     "smoke_files": [
       "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
     ],
@@ -1705,22 +1843,31 @@
     "id": "openrouter-paid-mistral-small4-119b-none",
     "model": "mistralai/mistral-small-2603",
     "effort": "none",
-    "status": "blocked_upstream_rate_limit",
+    "status": "smoke_upstream_rate_limit",
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
-    "notes": "First authorized smoke request received HTTP429 from Mistral upstream shared pool; no prediction or reported cost. No automatic retry. Maximum request reservation $0.04177920 retained against aggregate $1 budget; actual charge unknown.",
-    "attempt_phase": "smoke"
+    "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
+    "attempt_phase": "development",
+    "partition_id": "mistral119-none",
+    "smoke_files": [
+      "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl"
+    ]
   },
   {
     "id": "openrouter-paid-mistral-small4-119b-high",
     "model": "mistralai/mistral-small-2603",
     "effort": "high",
-    "status": "pending_smoke",
+    "status": "smoke_upstream_rate_limit",
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
-    "notes": "September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet."
+    "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
+    "partition_id": "mistral119-high",
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-mistral119-high-2026-09-23/smoke.jsonl"
+    ]
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-off",
@@ -1728,9 +1875,24 @@
     "effort": "off",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "pending_smoke",
-    "predictions_file": null,
-    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required."
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-off-2026-09-23/development-reconciled.jsonl",
+    "notes": "Inspected3smoke then60valid, exact OpenInferenceFP4 route, reasoning disabled,4096tokenbudget, nofallback/retry. Allreportedcostsknown. Parallel hosted configs and single local MLX benchmark; raw providercache usage retained. Child/master reconciliation controller-owned.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-off-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-off-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-off-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-off",
+    "observed_development_cost_usd": "0.00268114",
+    "observed_smoke_cost_usd": "0.00011067"
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-low",
@@ -1738,9 +1900,9 @@
     "effort": "low",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "pending_smoke",
+    "status": "running_continuation",
     "predictions_file": null,
-    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-high",
@@ -1748,8 +1910,8 @@
     "effort": "high",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "pending_smoke",
+    "status": "running_continuation",
     "predictions_file": null,
-    "notes": "Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet."
+    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
   }
 ]

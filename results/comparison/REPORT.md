@@ -58,9 +58,9 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
 | openjev-fixed | complete | 60 | 57 | 59 | 56 | 58 | 52 |
 | openjev-adaptive | complete | 60 | 56 | 59 | 56 | 58 | 51 |
-| openjev-thinking | running | — | — | — | — | — | — |
-| openjev-generated-off | ready_for_local_validation | — | — | — | — | — | — |
-| openjev-generated-on | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-thinking | complete | 60 | 57 | 60 | 60 | 60 | 57 |
+| openjev-generated-off | complete | 52 | 50 | 51 | 50 | 51 | 46 |
+| openjev-generated-on | running | — | — | — | — | — | — |
 | semif-direct | ready_for_local_validation | — | — | — | — | — | — |
 | semif-serial | ready_for_local_validation | — | — | — | — | — | — |
 | semif-shared | ready_for_local_validation | — | — | — | — | — | — |
@@ -108,14 +108,14 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-terra-xhigh | completed | 60 | 59 | 59 | 58 | 60 | 57 |
 | codex-gpt-5.6-terra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-ultra | excluded_by_user | — | — | — | — | — | — |
-| codex-gpt-6-sol-low-batch10 | partial_repeated_timeout | — | — | — | — | — | — |
-| codex-gpt-6-sol-medium-batch10 | running | — | — | — | — | — | — |
-| codex-gpt-6-sol-high-batch10 | smoke_timeout | — | — | — | — | — | — |
-| codex-gpt-6-sol-xhigh-batch10 | pending_after_service_recovery | — | — | — | — | — | — |
-| codex-gpt-6-luna-low-batch10 | partial_repeated_timeout | — | — | — | — | — | — |
-| codex-gpt-6-luna-medium-batch10 | running | — | — | — | — | — | — |
-| codex-gpt-6-luna-high-batch10 | smoke_timeout | — | — | — | — | — | — |
-| codex-gpt-6-luna-xhigh-batch10 | pending_after_service_recovery | — | — | — | — | — | — |
+| codex-gpt-6-sol-low-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 58 | 60 | 58 |
+| codex-gpt-6-sol-medium-batch10 | complete | 60 | 59 | 60 | 59 | 60 | 58 |
+| codex-gpt-6-sol-high-batch10 | completed | 60 | 58 | 60 | 59 | 60 | 57 |
+| codex-gpt-6-sol-xhigh-batch10 | completed | 60 | 58 | 60 | 59 | 60 | 57 |
+| codex-gpt-6-luna-low-batch10 | completed_after_transport_recovery | 60 | 55 | 59 | 58 | 59 | 54 |
+| codex-gpt-6-luna-medium-batch10 | complete | 60 | 55 | 59 | 58 | 57 | 50 |
+| codex-gpt-6-luna-high-batch10 | completed | 60 | 58 | 59 | 58 | 60 | 56 |
+| codex-gpt-6-luna-xhigh-batch10 | completed | 60 | 59 | 60 | 58 | 60 | 57 |
 | antigravity-gemini-3.8-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-low | blocked_unverified_tool_restriction | — | — | — | — | — | — |
@@ -128,31 +128,35 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-medium | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-xhigh | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-off | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-medium | running | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-xhigh | running_continuation | — | — | — | — | — | — |
+| openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
 | openrouter-paid-gemma4-26b-a4b-on | complete_with_output_failure | 59 | 59 | 59 | 59 | 59 | 59 |
 | openrouter-paid-gemma4-26b-a4b-off | complete | 60 | 57 | 58 | 58 | 56 | 53 |
-| openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-mistral-small32-24b-not-applicable | partial_upstream_rate_limit | — | — | — | — | — | — |
-| openrouter-paid-mistral-small4-119b-none | blocked_upstream_rate_limit | — | — | — | — | — | — |
-| openrouter-paid-mistral-small4-119b-high | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-deepseek-v41-flash-off | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-deepseek-v41-flash-low | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-deepseek-v41-flash-high | pending_smoke | — | — | — | — | — | — |
+| openrouter-paid-gemma4-31b-on | complete | 60 | 57 | 60 | 58 | 60 | 56 |
+| openrouter-paid-gemma4-31b-off | complete | 60 | 58 | 60 | 59 | 59 | 56 |
+| openrouter-paid-mistral-small32-24b-not-applicable | running_continuation | — | — | — | — | — | — |
+| openrouter-paid-mistral-small4-119b-none | smoke_upstream_rate_limit | — | — | — | — | — | — |
+| openrouter-paid-mistral-small4-119b-high | smoke_upstream_rate_limit | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-off | complete | 60 | 57 | 59 | 59 | 56 | 54 |
+| openrouter-paid-deepseek-v41-flash-low | running_continuation | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-high | running_continuation | — | — | — | — | — | — |
 
 Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
 
 | Configuration | Billing coverage | Known actual USD | Unknown-cost reserved upper bound USD | Sources |
 | --- | --- | ---: | ---: | --- |
 | typesafe-jev113-v2 | partial | unavailable | 0.002123688 | `results/openjev/typesafe-development-v2.jsonl`; `results/openjev/typesafe-development-v2-continuation.jsonl` |
+| openrouter-paid-qwen3.8-27b-off | reported | 0.013049550 | 0 | `results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-on | reported | 0.0636796 | 0 | `results/openrouter-qwen35-on-2026-09-23/development.jsonl` |
 | openrouter-paid-qwen36-35b-a3b-off | reported | 0.0072576 | 0 | `results/openrouter-qwen35-off-2026-09-23/development.jsonl` |
 | openrouter-paid-gemma4-26b-a4b-on | reported | 0.02114858 | 0 | `results/openrouter-gemma26-on-2026-09-23/development.jsonl`; `results/openrouter-gemma26-on-2026-09-23/development-from023.jsonl` |
 | openrouter-paid-gemma4-26b-a4b-off | reported | 0.00687630 | 0 | `results/openrouter-gemma26-off-2026-09-23/development.jsonl` |
+| openrouter-paid-gemma4-31b-on | reported | 0.01303944 | 0 | `results/openrouter-parallel-gemma31-on-2026-09-23/development.jsonl` |
+| openrouter-paid-gemma4-31b-off | reported | 0.00555500 | 0 | `results/openrouter-parallel-gemma31-off-2026-09-23/development.jsonl` |
+| openrouter-paid-deepseek-v41-flash-off | reported | 0.00268114 | 0 | `results/openrouter-parallel-deepseek-flash-off-2026-09-23/development.jsonl` |
 
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
@@ -445,15 +449,19 @@ Evidence: `results/openjev-local-adaptive-2026-09-23/development.jsonl`; SHA-256
 
 **openjev-thinking**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 valid and inspected; full60 running. Native think512 budget with samples1/steps1; smoke output-token counts363/512/406. Warm-server cache retained; actual rereads unknown.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 valid and inspected; full60 running. Native think512 budget with samples1/steps1; smoke output-token counts363/512/406. Warm-server cache retained; actual rereads unknown. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.
+
+Evidence: `results/openjev-local-thinking-2026-09-23/development.jsonl`; SHA-256 `65b8d36c2931e40098ca63955409b04ca8d7eb323408bc146eb2b7b8210f0e58`.
 
 **openjev-generated-off**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 inspected valid; full60 active. Native generated JSON includes upstream schema-as-instruction/first-object extraction and MLX thought stripping, recorded explicitly. Single local benchmark; hosted HTTP jobs concurrent. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.
+
+Evidence: `results/openjev-local-generated-off-2026-09-23/development.jsonl`; SHA-256 `e29f4f0ef76ec8d62bbd5efe0791b0e536e38b8d50bbfd0623a72fbf7572d46f`.
 
 **openjev-generated-on**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. Valid3smoke inspected. Pinned MlxGenerator passes enable_thinking true then always appends empty thought scaffold; outputthoughtmarkers skipped. This is native requested-flag behavior, not verified thinking or isolated reasoning contrast. Full60 launched unchanged.
 
 **semif-direct**
 
@@ -689,35 +697,51 @@ September23 user excluded max and ultra from future runs. Historical artifacts p
 
 **codex-gpt-6-sol-low-batch10**
 
-10valid; batch02 timedout at300s then600s (boundedretryconcurrency1) with empty captured stdout/stderr/response. Both attempts retained in batch timing;40unattempted plus10failed remain60denominator. ReadonlyCLI/auth healthy and officialstatus noincident, but inference stalled; no furtherretry or modelsubstitution. No max/ultra/paidcredits.
+Completed 60 unique valid records after the second authorized transport recovery. Original successful records were reused, never rerun. Both historical development timeouts remain in total attempt timing; smoke is preserved separately and excluded. CLI 0.155.0-alpha.16 ChatGPT subscription, no tools/parser errors/metadata warnings in successful attempts, no paid credits. Served revision not exposed.
+
+Evidence: `results/codex-gpt-6-sol-low-2026-09-23/development-batch-completed.jsonl`; SHA-256 `32fceb0506e4fd35af4791700557d787d235990234654c0eebbba842d1931123`.
 
 **codex-gpt-6-sol-medium-batch10**
 
-Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout after later Astra and GPT-5.6 Luna subscription runs succeeded. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retry, credits, reference labels or model substitution.
+All 60 records returned valid outputs in six batches of ten. Raw prompts, schemas, order and predictions were checked offline. Exact served revision and quantization are not exposed by the CLI. Full audit and timing are in results/codex-gpt-6-sol-medium-2026-09-23/manifest.json.
+
+Evidence: `results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl`; SHA-256 `e58e3f21125b0b6502a8a6ffdfbdf81db03e4c123a7cde638e96d304dcd68681`.
 
 **codex-gpt-6-sol-high-batch10**
 
-Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.
+Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.
+
+Evidence: `results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development.jsonl`; SHA-256 `9ee13c2dacb86e059df7480ed8d8e13e5f48b695b6d170579557fd79669dad03`.
 
 **codex-gpt-6-sol-xhigh-batch10**
 
-Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.
+Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.
+
+Evidence: `results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development.jsonl`; SHA-256 `e886d9a7559499ee2b14b50adf1b46139f5c88bead8f9afadd5ee3f1d28d8261`.
 
 **codex-gpt-6-luna-low-batch10**
 
-20valid; batch03 timedout twice at300s then600s, secondwithconcurrency1. Failed30-recordcoverage snapshot plus30unattempted remain60denominator. Bothrawdurations retained; request payload reconstruction verified againstoriginalhash. No furthercalls untilservice recovery, no max/ultra/credits.
+Completed 60 unique valid records after the second authorized transport recovery. Original successful records were reused, never rerun. Both historical development timeouts remain in total attempt timing; smoke is preserved separately and excluded. CLI 0.155.0-alpha.16 ChatGPT subscription, no tools/parser errors/metadata warnings in successful attempts, no paid credits. Served revision not exposed.
+
+Evidence: `results/codex-gpt-6-luna-low-2026-09-23/development-batch-completed.jsonl`; SHA-256 `ba319b4af1a61523ad2528f0dafac66066c13fc79e02820d64be73a751dca52a`.
 
 **codex-gpt-6-luna-medium-batch10**
 
-Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout, concurrent with GPT-6 Sol medium after its first successful batch. Live Codex quota reported 7 percent weekly usage before launch. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retries, paid credits or reference labels.
+All 60 outputs valid. Six raw batch prompts, schemas, input order and predictions checked offline; no observed tools, parser errors or runtime metadata warnings. Served revision and quantization are not exposed. Audit and timing: results/codex-gpt-6-luna-medium-2026-09-23/manifest.json
+
+Evidence: `results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl`; SHA-256 `1a129010a05d4fb62542cab917a6ff84e59d8396a14a5b63918d3a8d5c144a2c`.
 
 **codex-gpt-6-luna-high-batch10**
 
-Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.
+Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.
+
+Evidence: `results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.jsonl`; SHA-256 `d26489775508b4c7047a7a8921f64f595e5e77edcaea8c7cbe6c7374f0d91541`.
 
 **codex-gpt-6-luna-xhigh-batch10**
 
-Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.
+Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.
+
+Evidence: `results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl`; SHA-256 `27f5307c67981e2b4933c6cfdd894093e2030ba27200050e73f1df7e04a8122f`.
 
 **antigravity-gemini-3.8-flash-high**
 
@@ -769,15 +793,17 @@ Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed wit
 
 **openrouter-paid-qwen3.8-27b-medium**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
+Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
 
 **openrouter-paid-qwen3.8-27b-xhigh**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
+Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
 
 **openrouter-paid-qwen3.8-27b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
+60 valid, known billing; sealed partition.
+
+Evidence: `results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl`; SHA-256 `b702a3d2129075d31fef2249f105a72f61da2fcf38a05e9fd85be3051bcd6d40`.
 
 **openrouter-paid-qwen36-35b-a3b-on**
 
@@ -805,33 +831,39 @@ Evidence: `results/openrouter-gemma26-off-2026-09-23/development.jsonl`; SHA-256
 
 **openrouter-paid-gemma4-31b-on**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
+All 60 development records returned valid JSON after the inspected smoke. Exact DeepInfra turbo FP4 route with requested thinking enabled. Sixteen development responses report reasoning-token counts greater than completion-token counts; raw values are preserved without correction. All reported costs are known, and the child budget is sealed and reconciled. Other hosted runs and one local MLX benchmark overlapped.
+
+Evidence: `results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl`; SHA-256 `b31b2eb1e6633790daf27018c3621759694e52faef51c12aa91506a494bd0411`.
 
 **openrouter-paid-gemma4-31b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
+Three smoke responses were inspected before all 60 development responses passed validation. Exact DeepInfra turbo FP4 route, reasoning disabled, 4096-token output budget, no provider fallback or retries. All reported charges are known. Other hosted configurations and one local MLX run overlapped. Provider cache usage is retained. The initial smoke command was rejected before execution; evidence-based resubmission of the same command was accepted. The child budget is sealed and reconciled.
+
+Evidence: `results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl`; SHA-256 `886b4fda9b09f8173ef4c73c86e1afb2585bc98d782020b3366c31dfa8fd21e7`.
 
 **openrouter-paid-mistral-small32-24b-not-applicable**
 
-Original8valid+DEV009timeout retained. Explicit600s continuation producedDEV009–014valid thenDEV015HTTP429 fromDeepInfra sharedpool.14validunique,16totalattempts,2failedattempts,45unattemptedIDs016–060. Bothunknowncharges accountedatfullreservedbounds, notobservedcost. Noautomaticretry/fallback. Partialreconciliation verified15uniqueattempted,14valid,16totalattempts. Exactlegacy surface-label alias andtimeoutchange explicitlyaudited; rawfiles unchanged.
+Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
 
 **openrouter-paid-mistral-small4-119b-none**
 
-First authorized smoke request received HTTP429 from Mistral upstream shared pool; no prediction or reported cost. No automatic retry. Maximum request reservation $0.04177920 retained against aggregate $1 budget; actual charge unknown.
+First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.
 
 **openrouter-paid-mistral-small4-119b-high**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
+First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.
 
 **openrouter-paid-deepseek-v41-flash-off**
 
-Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required.
+Inspected3smoke then60valid, exact OpenInferenceFP4 route, reasoning disabled,4096tokenbudget, nofallback/retry. Allreportedcostsknown. Parallel hosted configs and single local MLX benchmark; raw providercache usage retained. Child/master reconciliation controller-owned.
+
+Evidence: `results/openrouter-parallel-deepseek-flash-off-2026-09-23/development-reconciled.jsonl`; SHA-256 `ac3168657f2fecc06adb40b8541de79ed7bcf0e920466bb1ce3342a98607ee63`.
 
 **openrouter-paid-deepseek-v41-flash-low**
 
-Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet.
+Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
 
 **openrouter-paid-deepseek-v41-flash-high**
 
-Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet.
+Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
 
