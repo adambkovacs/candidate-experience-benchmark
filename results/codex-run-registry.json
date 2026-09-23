@@ -499,14 +499,15 @@
     "id": "codex-gpt-6-sol-low-batch10",
     "model": "gpt-6-sol",
     "effort": "low",
-    "status": "partial_repeated_timeout",
-    "predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-reconciled.jsonl",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-completed.jsonl",
     "attempt_files": [
       "results/codex-gpt-6-sol-low-2026-09-23/development-batch.jsonl",
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation.jsonl"
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2.jsonl"
     ],
     "future_enabled": true,
-    "notes": "10valid; batch02 timedout at300s then600s (boundedretryconcurrency1) with empty captured stdout/stderr/response. Both attempts retained in batch timing;40unattempted plus10failed remain60denominator. ReadonlyCLI/auth healthy and officialstatus noincident, but inference stalled; no furtherretry or modelsubstitution. No max/ultra/paidcredits.",
+    "notes": "Completed 60 unique valid records after the second authorized transport recovery. Original successful records were reused, never rerun. Both historical development timeouts remain in total attempt timing; smoke is preserved separately and excluded. CLI 0.155.0-alpha.16 ChatGPT subscription, no tools/parser errors/metadata warnings in successful attempts, no paid credits. Served revision not exposed.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -520,70 +521,107 @@
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
       "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl",
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl"
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2-attempts.jsonl"
     ],
     "request_journal_files": [
-      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl.journal.jsonl"
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl.journal.jsonl",
+      "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2-attempts.jsonl.journal.jsonl"
     ],
-    "completed_records": 10
+    "completed_records": 60
   },
   {
     "id": "codex-gpt-6-sol-medium-batch10",
     "model": "gpt-6-sol",
     "effort": "medium",
-    "status": "running",
-    "predictions_file": null,
-    "attempt_files": [],
+    "status": "complete",
+    "predictions_file": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout after later Astra and GPT-5.6 Luna subscription runs succeeded. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retry, credits, reference labels or model substitution.",
+    "notes": "All 60 records returned valid outputs in six batches of ten. Raw prompts, schemas, order and predictions were checked offline. Exact served revision and quantization are not exposed by the CLI. Full audit and timing are in results/codex-gpt-6-sol-medium-2026-09-23/manifest.json.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-sol-medium-2026-09-23/smoke-batch-attempts.jsonl",
       "results/codex-gpt-6-sol-medium-2026-09-23/smoke-batch.jsonl"
-    ]
+    ],
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-sol-medium-2026-09-23/development-batch-attempts.jsonl"
+    ],
+    "completed_records": 60
   },
   {
     "id": "codex-gpt-6-sol-high-batch10",
     "model": "gpt-6-sol",
     "effort": "high",
-    "status": "smoke_timeout",
-    "predictions_file": null,
-    "attempt_files": [],
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-sol-high-2026-09-23/smoke-batch-attempts.jsonl",
-      "results/codex-gpt-6-sol-high-2026-09-23/smoke-batch.jsonl"
+      "results/codex-gpt-6-sol-high-2026-09-23/smoke-batch.jsonl",
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
     ]
   },
   {
     "id": "codex-gpt-6-sol-xhigh-batch10",
     "model": "gpt-6-sol",
     "effort": "xhigh",
-    "status": "pending_after_service_recovery",
-    "predictions_file": null,
-    "attempt_files": [],
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
-    "smoke_files": []
+    "smoke_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-6-luna-low-batch10",
     "model": "gpt-6-luna",
     "effort": "low",
-    "status": "partial_repeated_timeout",
-    "predictions_file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-reconciled.jsonl",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-completed.jsonl",
     "attempt_files": [
       "results/codex-gpt-6-luna-low-2026-09-23/development-batch.jsonl",
-      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation.jsonl"
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation.jsonl",
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2.jsonl"
     ],
     "future_enabled": true,
-    "notes": "20valid; batch03 timedout twice at300s then600s, secondwithconcurrency1. Failed30-recordcoverage snapshot plus30unattempted remain60denominator. Bothrawdurations retained; request payload reconstruction verified againstoriginalhash. No furthercalls untilservice recovery, no max/ultra/credits.",
+    "notes": "Completed 60 unique valid records after the second authorized transport recovery. Original successful records were reused, never rerun. Both historical development timeouts remain in total attempt timing; smoke is preserved separately and excluded. CLI 0.155.0-alpha.16 ChatGPT subscription, no tools/parser errors/metadata warnings in successful attempts, no paid credits. Served revision not exposed.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
@@ -595,53 +633,91 @@
     "attempt_phase": "development",
     "raw_batch_attempt_files": [
       "results/codex-gpt-6-luna-low-2026-09-23/development-batch-attempts.jsonl",
-      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation-attempts.jsonl"
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2-attempts.jsonl"
     ],
-    "completed_records": 20
+    "completed_records": 60,
+    "request_journal_files": [
+      "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2-attempts.jsonl.journal.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-6-luna-medium-batch10",
     "model": "gpt-6-luna",
     "effort": "medium",
-    "status": "running",
-    "predictions_file": null,
-    "attempt_files": [],
+    "status": "complete",
+    "predictions_file": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three valid smoke outputs inspected. First development run started in batches of 10 with a 600-second controller timeout, concurrent with GPT-6 Sol medium after its first successful batch. Live Codex quota reported 7 percent weekly usage before launch. Same CLI 0.155.0-alpha.16 and model controls. Stop at first failure; no automatic retries, paid credits or reference labels.",
+    "notes": "All 60 outputs valid. Six raw batch prompts, schemas, input order and predictions checked offline; no observed tools, parser errors or runtime metadata warnings. Served revision and quantization are not exposed. Audit and timing: results/codex-gpt-6-luna-medium-2026-09-23/manifest.json",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-luna-medium-2026-09-23/smoke-batch-attempts.jsonl",
       "results/codex-gpt-6-luna-medium-2026-09-23/smoke-batch.jsonl"
-    ]
+    ],
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-luna-medium-2026-09-23/development-batch-attempts.jsonl"
+    ],
+    "completed_records": 60
   },
   {
     "id": "codex-gpt-6-luna-high-batch10",
     "model": "gpt-6-luna",
     "effort": "high",
-    "status": "smoke_timeout",
-    "predictions_file": null,
-    "attempt_files": [],
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Three-record high smoke hit300s TimeoutExpired, no fullrun. Rawfailure retained; xhigh notstarted afterstop.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
     "smoke_files": [
       "results/codex-gpt-6-luna-high-2026-09-23/smoke-batch-attempts.jsonl",
-      "results/codex-gpt-6-luna-high-2026-09-23/smoke-batch.jsonl"
+      "results/codex-gpt-6-luna-high-2026-09-23/smoke-batch.jsonl",
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
     ]
   },
   {
     "id": "codex-gpt-6-luna-xhigh-batch10",
     "model": "gpt-6-luna",
     "effort": "xhigh",
-    "status": "pending_after_service_recovery",
-    "predictions_file": null,
-    "attempt_files": [],
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl"
+    ],
     "future_enabled": true,
-    "notes": "Notattempted; smoke sequence stopped on precedinghigh timeout. Hold untilservice recovery. No max/ultra.",
+    "notes": "Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.",
     "workflow": "batch",
     "configured_batch_size": 10,
-    "smoke_files": []
+    "smoke_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl",
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/smoke-attempts.jsonl.journal.jsonl"
+    ],
+    "completed_records": 60,
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "request_journal_files": [
+      "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl.journal.jsonl"
+    ]
   }
 ]
