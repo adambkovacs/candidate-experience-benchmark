@@ -4,7 +4,7 @@ Status snapshot: 2026-09-23. Execution is continuing; the linked run registries 
 
 ## Recorded status
 
-This checkpoint includes the completed DeepSeek low and SemIf serial runs. The linked registries retain every configuration, raw attempt and later status change. A completed 60-record attempt does not imply 60 valid or correct outputs.
+This checkpoint includes the completed DeepSeek low and three SemIf decision-mode runs. The linked registries retain every configuration, raw attempt and later status change. A completed 60-record attempt does not imply 60 valid or correct outputs.
 
 | Configuration | Development status | Evidence |
 | --- | --- | --- |
@@ -24,7 +24,7 @@ This checkpoint includes the completed DeepSeek low and SemIf serial runs. The l
 | Gemini through Antigravity CLI 1.2.9 | Native agent workflow smoke passed; development and one recovery failed eligibility/service checks before predictions. Not an authentication or spending-approval blocker | [Gemini registry](../results/gemini-run-registry.json) |
 | Local OpenJev, DiffusionGemma 26B A4B | All five variants attempted 60; generated off/on retain eight/one invalid outputs. Requested-on uses an empty-thought scaffold, so effective thinking is unverified | [Specialist registry](../results/specialist-run-registry.json) |
 | Hosted TypeSafe Jev 1.13.0 | 60 valid outputs under the separate aggregate $1 authorization; transport retry and unknown-cost reserve retained | [Specialist registry](../results/specialist-run-registry.json) |
-| SemIf direct/serial BF16 | Both completed with 60 valid outputs; identical prompt tokens do not imply identical arithmetic. Shared-prefix and generated controls remain in progress | [Specialist registry](../results/specialist-run-registry.json) |
+| SemIf direct/serial/shared BF16 | All three completed with 60 valid outputs; identical prompt tokens do not imply identical arithmetic. The generated control remains in progress | [Specialist registry](../results/specialist-run-registry.json) |
 | Laya English/typed expanded CPU; AlexWortega 0.8B NLI; AnyJev raw/L0 | Completed 60 valid records each; native limits and expanded variants remain distinct | [Specialist registry](../results/specialist-run-registry.json) |
 | AnyJev matched generated control | All 60 responses failed strict output validity because of Markdown fences; no repair | [Format audit](../results/anyjev-qwen06-generated-mps-2026-09-23/format-audit.json) |
 | Remaining local baselines | Laya multilingual expanded, AlexWortega 4B and SemIf controls use the serial local queue; exact DeepSeek R1-Distill-Qwen-32B artifact download remains in progress | [Local](../results/local-run-registry.json) and [specialist](../results/specialist-run-registry.json) registries |

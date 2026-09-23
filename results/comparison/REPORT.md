@@ -63,7 +63,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openjev-generated-on | complete | 59 | 56 | 58 | 56 | 57 | 53 |
 | semif-direct | complete | 60 | 50 | 56 | 50 | 54 | 36 |
 | semif-serial | complete | 60 | 50 | 56 | 49 | 54 | 35 |
-| semif-shared | ready_for_local_validation | — | — | — | — | — | — |
+| semif-shared | complete | 60 | 50 | 56 | 49 | 54 | 35 |
 | alex-openjev08 | complete | 60 | 39 | 37 | 20 | 9 | 3 |
 | laya-english | unsupported_length | — | — | — | — | — | — |
 | laya-typed | unsupported_length | — | — | — | — | — | — |
@@ -484,7 +484,9 @@ Evidence: `results/semif-serial-bf16-2026-09-23/development.jsonl`; SHA-256 `e8c
 
 **semif-shared**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
+Completed 60 valid outputs after inspected smoke3. Native MLX Metal GPU, BF16 and FP32 parameters, no quantization. All 240 full-prompt token hashes match direct and serial modes. Predictions match serial mode and differ from direct on DEV-038; no claim of arithmetic identity. Prefix sharing stays within each feedback record. Concurrent hosted requests, no competing local inference. Exact runtime/artifact and timing evidence is in reconciliation.json.
+
+Evidence: `results/semif-shared-bf16-2026-09-23/development.jsonl`; SHA-256 `923b36ba111cba7b5eeaa8243b5ac3d70154955969b9f7b367820155da8f96b1`.
 
 **alex-openjev08**
 
