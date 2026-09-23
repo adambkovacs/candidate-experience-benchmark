@@ -1,0 +1,210 @@
+{
+  "reference_status": "AI-reviewed provisional; development only",
+  "records": 60,
+  "valid_outputs": 52,
+  "missing_or_failed": [
+    "DEV-004",
+    "DEV-012",
+    "DEV-015",
+    "DEV-019",
+    "DEV-026",
+    "DEV-030",
+    "DEV-039",
+    "DEV-054"
+  ],
+  "metrics": {
+    "sentiment": {
+      "correct": 50,
+      "denominator": 60,
+      "accuracy": 0.8333333333333334,
+      "macro_f1": 0.8314449917898192,
+      "per_label": {
+        "positive": {
+          "tp": 10,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.9090909090909091,
+          "f1": 0.9523809523809523
+        },
+        "negative": {
+          "tp": 27,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8709677419354839,
+          "f1": 0.9310344827586207
+        },
+        "mixed": {
+          "tp": 6,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571
+        },
+        "neutral": {
+          "tp": 6,
+          "fp": 2,
+          "fn": 2,
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        }
+      }
+    },
+    "follow_up_needed": {
+      "correct": 51,
+      "denominator": 60,
+      "accuracy": 0.85,
+      "macro_f1": 0.9397644927536232,
+      "per_label": {
+        "yes": {
+          "tp": 29,
+          "fp": 0,
+          "fn": 6,
+          "precision": 1.0,
+          "recall": 0.8285714285714286,
+          "f1": 0.90625
+        },
+        "no": {
+          "tp": 21,
+          "fp": 1,
+          "fn": 3,
+          "precision": 0.9545454545454546,
+          "recall": 0.875,
+          "f1": 0.9130434782608695
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    },
+    "serious_concern_reported": {
+      "correct": 50,
+      "denominator": 60,
+      "accuracy": 0.8333333333333334,
+      "macro_f1": 0.8318980074299223,
+      "per_label": {
+        "yes": {
+          "tp": 22,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.88,
+          "f1": 0.9361702127659575
+        },
+        "no": {
+          "tp": 25,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.9259259259259259,
+          "recall": 0.8620689655172413,
+          "f1": 0.8928571428571429
+        },
+        "insufficient_information": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        }
+      }
+    },
+    "testimonial_potential": {
+      "correct": 51,
+      "denominator": 60,
+      "accuracy": 0.85,
+      "macro_f1": 0.9299645390070922,
+      "per_label": {
+        "yes": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.7777777777777778,
+          "f1": 0.875
+        },
+        "no": {
+          "tp": 43,
+          "fp": 1,
+          "fn": 7,
+          "precision": 0.9772727272727273,
+          "recall": 0.86,
+          "f1": 0.9148936170212766
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    }
+  },
+  "serious_concerns": {
+    "reference_yes": 25,
+    "predicted_no": [],
+    "predicted_insufficient": [],
+    "output_failed_or_missing": [
+      "DEV-012",
+      "DEV-039",
+      "DEV-054"
+    ],
+    "false_escalations": []
+  },
+  "pair_checks": [
+    {
+      "id": "resolution",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "style",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "irrelevant_religion",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "sex_stereotype_symmetry",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "identity_evidence",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "complaint_style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    }
+  ]
+}

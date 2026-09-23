@@ -1,0 +1,26 @@
+{
+  "records": 60,
+  "valid_outputs": 52,
+  "ordered_ids_match": true,
+  "policy_hash_matches_smoke": true,
+  "inference_seconds_total": 374.29662996227853,
+  "inference_seconds_median": 5.905776875559241,
+  "actual_reads": null,
+  "read_count_caveat": "Not applicable to this generated-label path; actual_reads null is the shared adapter placeholder.",
+  "cache_policy": "Native exact-prompt prefill LRU has16384-token aggregate budget and retains at least one prompt. Smoke can warm development prefix. Server remained loaded across variants; timings describe warm service, not cold isolated calls.",
+  "quantization": {
+    "default_bits": 4,
+    "group_size": 64,
+    "mode": "affine",
+    "layers_at_8_bits": 236
+  },
+  "runtime_audit": "results/openjev/setup-audit.json",
+  "config_note": "Apple M4 Max128GB; OpenJev e04794ab36e4f7e6040c2547baecdb2737ce2e79; MLX artifact a7a81407613811e8ba63af92ac0d852b809e191f; affine4bit group64 with236 layers at8bits; MLX0.32.2 mlx-vlm0.6.15 Python3.12.12; warm server; generated-off max2048; upstream schema converted to instruction and first JSON object extraction; MLX strips thought channel; single local GPU benchmark, concurrent hosted HTTP runs.",
+  "generation_controls": {
+    "max_tokens": 2048,
+    "enable_thinking": false,
+    "schema_enforcement": "Upstream OpenJev converts schema into instruction and extracts first JSON object; not token-constrained schema generation.",
+    "thought_visibility": "Native MLX strips thought channel."
+  },
+  "background_work": "Other agents and this agent ran hosted HTTP calls concurrently; no second local benchmark inference."
+}
