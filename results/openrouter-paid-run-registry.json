@@ -197,12 +197,13 @@
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
-    "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
+    "notes": "Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed.",
     "attempt_phase": "development",
     "attempt_files": [],
     "partition_id": "mistral119-none",
     "smoke_files": [
-      "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl"
+      "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl",
+      "results/openrouter-mistral119-none-recovery-2026-09-23/smoke.jsonl"
     ]
   },
   {
@@ -252,9 +253,25 @@
     "effort": "low",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "running_continuation",
-    "predictions_file": null,
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl",
+    "notes": "All 60 records attempted once; 57 valid outputs. DEV-006, DEV-013 and DEV-030 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known and child budget sealed. Concurrent hosted configurations; provider cache usage retained.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl",
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 57,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/reconciliation-complete.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-low",
+    "observed_development_cost_usd": "0.01513539",
+    "observed_smoke_cost_usd": "0.00030306"
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-high",

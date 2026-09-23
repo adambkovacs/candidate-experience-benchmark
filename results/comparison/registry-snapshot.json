@@ -640,9 +640,13 @@
     "id": "semif-serial",
     "model": "Qwen3.5-4B",
     "effort": "MLX serial BF16",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 smoke3valid, all12 fullpromptinputhashes equal direct mode; finite normalizedscores, MetalGPU BF16+FP32 noquant. Full60active; freshSerialPrefixScorer perfeedback, commonstate cache only within its4questions."
+    "status": "complete",
+    "predictions_file": "results/semif-serial-bf16-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/semif-serial-bf16-2026-09-23/development.jsonl"
+    ],
+    "notes": "Completed 60 valid outputs after inspected smoke3. Native MLX Metal GPU, BF16 and FP32 parameters, no quantization. All 240 full-prompt token hashes match direct mode; predictions differ on DEV-038, so arithmetic equivalence is not claimed. A fresh serial-prefix scorer is created per feedback; cache reuse stays within its four questions. Concurrent hosted HTTP requests, no competing local inference. Exact source/artifact/runtime evidence is in reconciliation.json.",
+    "attempt_phase": "development"
   },
   {
     "id": "semif-shared",
@@ -1874,11 +1878,12 @@
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
-    "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
+    "notes": "Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed.",
     "attempt_phase": "development",
     "partition_id": "mistral119-none",
     "smoke_files": [
-      "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl"
+      "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl",
+      "results/openrouter-mistral119-none-recovery-2026-09-23/smoke.jsonl"
     ]
   },
   {
@@ -1927,9 +1932,25 @@
     "effort": "low",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "running_continuation",
-    "predictions_file": null,
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl",
+    "notes": "All 60 records attempted once; 57 valid outputs. DEV-006, DEV-013 and DEV-030 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known and child budget sealed. Concurrent hosted configurations; provider cache usage retained.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl",
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 57,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/reconciliation-complete.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-low",
+    "observed_development_cost_usd": "0.01513539",
+    "observed_smoke_cost_usd": "0.00030306"
   },
   {
     "id": "openrouter-paid-deepseek-v41-flash-high",
