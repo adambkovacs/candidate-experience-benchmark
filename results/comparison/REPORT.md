@@ -60,8 +60,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openjev-adaptive | complete | 60 | 56 | 59 | 56 | 58 | 51 |
 | openjev-thinking | complete | 60 | 57 | 60 | 60 | 60 | 57 |
 | openjev-generated-off | complete | 52 | 50 | 51 | 50 | 51 | 46 |
-| openjev-generated-on | running | — | — | — | — | — | — |
-| semif-direct | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-generated-on | complete | 59 | 56 | 58 | 56 | 57 | 53 |
+| semif-direct | running | — | — | — | — | — | — |
 | semif-serial | ready_for_local_validation | — | — | — | — | — | — |
 | semif-shared | ready_for_local_validation | — | — | — | — | — | — |
 | alex-openjev08 | complete | 60 | 39 | 37 | 20 | 9 | 3 |
@@ -137,7 +137,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-gemma4-26b-a4b-off | complete | 60 | 57 | 58 | 58 | 56 | 53 |
 | openrouter-paid-gemma4-31b-on | complete | 60 | 57 | 60 | 58 | 60 | 56 |
 | openrouter-paid-gemma4-31b-off | complete | 60 | 58 | 60 | 59 | 59 | 56 |
-| openrouter-paid-mistral-small32-24b-not-applicable | running_continuation | — | — | — | — | — | — |
+| openrouter-paid-mistral-small32-24b-not-applicable | partial_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-none | smoke_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-high | smoke_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-off | complete | 60 | 57 | 59 | 59 | 56 | 54 |
@@ -455,17 +455,19 @@ Evidence: `results/openjev-local-thinking-2026-09-23/development.jsonl`; SHA-256
 
 **openjev-generated-off**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 inspected valid; full60 active. Native generated JSON includes upstream schema-as-instruction/first-object extraction and MLX thought stripping, recorded explicitly. Single local benchmark; hosted HTTP jobs concurrent. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 inspected valid; full60 active. Native generated JSON includes upstream schema-as-instruction/first-object extraction and MLX thought stripping, recorded explicitly. Single local benchmark; hosted HTTP jobs concurrent. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Server remained loaded; generated path does not reuse native read-prefill LRU. Reread count not applicable. See reconciliation. All60 attempted once; malformedJSON preserved without repair. See valid-output count in reconciliation.
 
 Evidence: `results/openjev-local-generated-off-2026-09-23/development.jsonl`; SHA-256 `e29f4f0ef76ec8d62bbd5efe0791b0e536e38b8d50bbfd0623a72fbf7572d46f`.
 
 **openjev-generated-on**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. Valid3smoke inspected. Pinned MlxGenerator passes enable_thinking true then always appends empty thought scaffold; outputthoughtmarkers skipped. This is native requested-flag behavior, not verified thinking or isolated reasoning contrast. Full60 launched unchanged.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. Valid3smoke inspected. Pinned MlxGenerator passes enable_thinking true then always appends empty thought scaffold; outputthoughtmarkers skipped. This is native requested-flag behavior, not verified thinking or isolated reasoning contrast. Full60 launched unchanged. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Server remained loaded; generated path does not reuse native read-prefill LRU. Reread count not applicable. See reconciliation. All60 attempted once; malformedJSON preserved without repair. See valid-output count in reconciliation.
+
+Evidence: `results/openjev-local-generated-on-2026-09-23/development.jsonl`; SHA-256 `08ea1e5b3efa7551dcfc588c1524a00c1a20f08e922a04d732c8ebe6f867b05e`.
 
 **semif-direct**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 all10 pinnedartifactfiles reverified; smoke3 valid/normalized fullinput1594–1658tokens. Actual MLXparameterdtypes BF16+FP32, noquantization, MetalGPU required bynativebackend. Full60 active, hostedHTTP jobs parallel; nootherlocalinference.
 
 **semif-serial**
 
@@ -843,7 +845,7 @@ Evidence: `results/openrouter-parallel-gemma31-off-2026-09-23/development-reconc
 
 **openrouter-paid-mistral-small32-24b-not-applicable**
 
-Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
+Paused after repeated upstream HTTP 429 responses. Across four source files: 23 attempts, 21 unique records attempted, 19 valid outputs, 2 retained failures, and 39 unattempted records. All historical attempts and unknown billing bounds are preserved. Recovery child budget sealed; no additional calls scheduled on this route.
 
 **openrouter-paid-mistral-small4-119b-none**
 

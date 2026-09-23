@@ -150,23 +150,26 @@
     "id": "openrouter-paid-mistral-small32-24b-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "running_continuation",
+    "status": "partial_upstream_rate_limit",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
+    "notes": "Paused after repeated upstream HTTP 429 responses. Across four source files: 23 attempts, 21 unique records attempted, 19 valid outputs, 2 retained failures, and 39 unattempted records. All historical attempts and unknown billing bounds are preserved. Recovery child budget sealed; no additional calls scheduled on this route.",
     "smoke_files": [
       "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
     ],
     "attempt_phase": "development",
-    "completed_records": 14,
+    "completed_records": 19,
     "attempt_files": [
       "results/openrouter-mistral24-na-2026-09-23/development.jsonl",
-      "results/openrouter-mistral24-na-2026-09-23/development-from009-timeout600.jsonl"
+      "results/openrouter-mistral24-na-2026-09-23/development-from009-timeout600.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from015-partition-recovery.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from020-partition.jsonl"
     ],
-    "attempted_records": 15,
-    "reconciliation_manifest": "results/openrouter-mistral24-na-2026-09-23/reconciliation-partial-after429.json",
-    "partial_predictions_file": "results/openrouter-mistral24-na-2026-09-23/reconciled-partial-after429.jsonl"
+    "attempted_records": 21,
+    "reconciliation_manifest": "results/openrouter-mistral24-na-2026-09-23/reconciliation-partial-paused.json",
+    "partial_predictions_file": "results/openrouter-mistral24-na-2026-09-23/reconciled-partial-paused.jsonl",
+    "unattempted_records": 39
   },
   {
     "id": "openrouter-paid-mistral-small4-119b-none",

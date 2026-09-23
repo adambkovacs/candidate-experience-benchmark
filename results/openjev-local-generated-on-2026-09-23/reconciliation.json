@@ -1,10 +1,10 @@
 {
   "records": 60,
-  "valid_outputs": 52,
+  "valid_outputs": 59,
   "ordered_ids_match": true,
   "policy_hash_matches_smoke": true,
-  "inference_seconds_total": 374.29662996227853,
-  "inference_seconds_median": 5.905776875559241,
+  "inference_seconds_total": 718.1983123319224,
+  "inference_seconds_median": 11.748974604532123,
   "actual_reads": null,
   "read_count_caveat": "Not applicable to generated-label path; null is shared adapter placeholder.",
   "cache_policy": "Server/model remained loaded and warmed. Native generated path calls stream_diffusion_generate directly and does not use MlxRuntime._prefill exact-prompt LRU; do not infer cross-request generation-cache reuse.",
@@ -15,10 +15,10 @@
     "layers_at_8_bits": 236
   },
   "runtime_audit": "results/openjev/setup-audit.json",
-  "config_note": "Apple M4 Max128GB; OpenJev e04794ab36e4f7e6040c2547baecdb2737ce2e79; MLX artifact a7a81407613811e8ba63af92ac0d852b809e191f; affine4bit group64 with236 layers at8bits; MLX0.32.2 mlx-vlm0.6.15 Python3.12.12; warm server; generated-off max2048; upstream schema converted to instruction and first JSON object extraction; MLX strips thought channel; single local GPU benchmark, concurrent hosted HTTP runs.",
+  "config_note": "Apple M4 Max128GB; OpenJev e04794ab36e4f7e6040c2547baecdb2737ce2e79; MLX artifact a7a81407613811e8ba63af92ac0d852b809e191f; affine4bit group64 with236 layers at8bits; MLX0.32.2 mlx-vlm0.6.15 Python3.12.12; warm server; generated-on max2048 requested enable_thinking true BUT native MlxGenerator always appends empty thought scaffold; effective thinking unverified, not isolated reasoning comparison; upstream schema-as-instruction/first-object extraction and thought-marker stripping; single local GPU benchmark, concurrent hosted HTTP runs.",
   "generation_controls": {
     "max_tokens": 2048,
-    "requested_enable_thinking": false,
+    "requested_enable_thinking": true,
     "temperature": 0.0,
     "sampling": "native greedy",
     "effective_thinking_verified": false,

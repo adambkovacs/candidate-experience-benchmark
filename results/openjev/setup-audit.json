@@ -37,7 +37,7 @@
   },
   "read_count_caveat": "Source engine.read_group may perform 4 total reads when any initial entropy exceeds0.1. Adaptive rereads excluded from usage.input_tokens. Actual count not returned by API. samples1 replaces adaptive policy.",
   "identity_caveat": "OpenJev is an independent DiffusionGemma-based server, not official TypeSafe weights. API models description says NVFP4 even on MLX and must not be used as actual artifact provenance.",
-  "setup_status": "All13 artifact files independently hashverified; native MLX server fixed smoke3 and development60 complete; continuation after interruption documented separately.",
+  "setup_status": "All5 native OpenJev request variants completed smoke3 and development60. Invalidgeneratedoutputs and fixed interruption retained separately.",
   "sources": [
     "https://github.com/razorback16/openjev/blob/e04794ab36e4f7e6040c2547baecdb2737ce2e79/openjev/engine.py",
     "https://github.com/razorback16/openjev/blob/e04794ab36e4f7e6040c2547baecdb2737ce2e79/pyproject.toml",
@@ -54,5 +54,12 @@
     "fastapi": "0.141.1",
     "uvicorn": "0.53.0"
   },
-  "cache_policy": "Native exact-prompt prefill LRU uses 16384-token aggregate budget and retains at least one prompt. Smoke can warm development prefix; server restart resets cache. Timings are warm-service timings, not isolated cold calls."
+  "cache_policy": "Read path exact-prompt prefill LRU aggregate budget16384tokens, retaining at least1prompt. Generated path calls stream_diffusion_generate directly and does not use this LRU. Server remained loaded/warmed between variants, except documented fixed interruption.",
+  "native_generation": {
+    "temperature": 0.0,
+    "sampling": "Greedy native mlx_vlm stream_diffusion_generate; pinned runtime ignores other sampling controls at normalization.",
+    "requested_on_caveat": "MlxGenerator.prompt_ids passes enable_thinking then always appends empty thought scaffold. Effective thinking is unverified; flag-on/off is a native request configuration comparison, not isolated reasoning.",
+    "output_handling": "MLX skips thought-channel marker IDs; JSON mode extracts first object after schema-as-instruction.",
+    "source": "https://github.com/razorback16/openjev/blob/e04794ab36e4f7e6040c2547baecdb2737ce2e79/openjev/chat.py"
+  }
 }

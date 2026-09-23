@@ -10418,7 +10418,7 @@
     "attempt_files": [
       "results/openjev-local-generated-off-2026-09-23/development.jsonl"
     ],
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 inspected valid; full60 active. Native generated JSON includes upstream schema-as-instruction/first-object extraction and MLX thought stripping, recorded explicitly. Single local benchmark; hosted HTTP jobs concurrent. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.",
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 smoke3 inspected valid; full60 active. Native generated JSON includes upstream schema-as-instruction/first-object extraction and MLX thought stripping, recorded explicitly. Single local benchmark; hosted HTTP jobs concurrent. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Server remained loaded; generated path does not reuse native read-prefill LRU. Reread count not applicable. See reconciliation. All60 attempted once; malformedJSON preserved without repair. See valid-output count in reconciliation.",
     "attempt_phase": "development",
     "cost": {
       "scope": "declared development attempts only",
@@ -10666,32 +10666,259 @@
     "id": "openjev-generated-on",
     "model": "diffusiongemma-26b",
     "effort": "generated requested-on; native empty-thought scaffold; effective thinking unverified",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. Valid3smoke inspected. Pinned MlxGenerator passes enable_thinking true then always appends empty thought scaffold; outputthoughtmarkers skipped. This is native requested-flag behavior, not verified thinking or isolated reasoning contrast. Full60 launched unchanged.",
+    "status": "complete",
+    "predictions_file": "results/openjev-local-generated-on-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/openjev-local-generated-on-2026-09-23/development.jsonl"
+    ],
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. Valid3smoke inspected. Pinned MlxGenerator passes enable_thinking true then always appends empty thought scaffold; outputthoughtmarkers skipped. This is native requested-flag behavior, not verified thinking or isolated reasoning contrast. Full60 launched unchanged. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Server remained loaded; generated path does not reuse native read-prefill LRU. Reread count not applicable. See reconciliation. All60 attempted once; malformedJSON preserved without repair. See valid-output count in reconciliation.",
+    "attempt_phase": "development",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 60,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 60,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/openjev-local-generated-on-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 59,
+      "missing_or_failed": [
+        "DEV-052"
+      ],
+      "metrics": {
+        "sentiment": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.7653781512605041,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "negative": {
+              "tp": 30,
+              "fp": 2,
+              "fn": 1,
+              "precision": 0.9375,
+              "recall": 0.967741935483871,
+              "f1": 0.9523809523809523
+            },
+            "mixed": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "neutral": {
+              "tp": 8,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.8888888888888888,
+              "recall": 1.0,
+              "f1": 0.9411764705882353
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.6527777777777778,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 23,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.9583333333333334,
+              "recall": 0.9583333333333334,
+              "f1": 0.9583333333333334
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.8656927251775026,
+          "per_label": {
+            "yes": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.96,
+              "f1": 0.9795918367346939
+            },
+            "no": {
+              "tp": 29,
+              "fp": 3,
+              "fn": 0,
+              "precision": 0.90625,
+              "recall": 1.0,
+              "f1": 0.9508196721311475
+            },
+            "insufficient_information": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 3,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.6390217969165337,
+          "per_label": {
+            "yes": {
+              "tp": 9,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9,
+              "recall": 1.0,
+              "f1": 0.9473684210526315
+            },
+            "no": {
+              "tp": 48,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.9795918367346939,
+              "recall": 0.96,
+              "f1": 0.9696969696969697
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [
+          "DEV-052"
+        ],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "08ea1e5b3efa7551dcfc588c1524a00c1a20f08e922a04d732c8ebe6f867b05e",
+    "attempt_records": 60,
+    "exact_match": 53,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 718.1983123319224,
+      "median_seconds": 11.748974604532123,
+      "p95_nearest_rank_seconds": 19.727057333104312,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {
     "id": "semif-direct",
     "model": "Qwen3.5-4B",
     "effort": "MLX direct BF16",
-    "status": "ready_for_local_validation",
+    "status": "running",
     "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.",
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. September23 all10 pinnedartifactfiles reverified; smoke3 valid/normalized fullinput1594\u20131658tokens. Actual MLXparameterdtypes BF16+FP32, noquantization, MetalGPU required bynativebackend. Full60 active, hostedHTTP jobs parallel; nootherlocalinference.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
@@ -21391,19 +21618,20 @@
     "id": "openrouter-paid-mistral-small32-24b-not-applicable",
     "model": "mistralai/mistral-small-3.2-24b-instruct",
     "effort": "not-applicable",
-    "status": "running_continuation",
+    "status": "partial_upstream_rate_limit",
     "predictions_file": null,
     "provider": "deepinfra/fp8",
     "quantization": "fp8",
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
+    "notes": "Paused after repeated upstream HTTP 429 responses. Across four source files: 23 attempts, 21 unique records attempted, 19 valid outputs, 2 retained failures, and 39 unattempted records. All historical attempts and unknown billing bounds are preserved. Recovery child budget sealed; no additional calls scheduled on this route.",
     "smoke_files": [
       "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
     ],
     "attempt_phase": "development",
-    "completed_records": 14,
-    "attempted_records": 15,
-    "reconciliation_manifest": "results/openrouter-mistral24-na-2026-09-23/reconciliation-partial-after429.json",
-    "partial_predictions_file": "results/openrouter-mistral24-na-2026-09-23/reconciled-partial-after429.jsonl",
+    "completed_records": 19,
+    "attempted_records": 21,
+    "reconciliation_manifest": "results/openrouter-mistral24-na-2026-09-23/reconciliation-partial-paused.json",
+    "partial_predictions_file": "results/openrouter-mistral24-na-2026-09-23/reconciled-partial-paused.jsonl",
+    "unattempted_records": 39,
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
