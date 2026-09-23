@@ -133,7 +133,8 @@ async function main() {
   if(loadedInfo.path!==artifact.model_path) throw Error('Loaded artifact path differs from metadata');
   const artifactFile=path.join(args['models-dir'] || path.join(require('node:os').homedir(),'.lmstudio/models'),artifact.model_path);
   const artifactHash=crypto.createHash('sha256');
-  for await(const chunk of fs.createReadStream(artifactFile)) artifactHash.update(chunk);
+  // Large GGUF files need fewer filesystem round trips; digest remains byte-identical.
+  for await(const chunk of fs.createReadStream(artifactFile,{highWaterMark:8*1024*1024})) artifactHash.update(chunk);
   if(artifactHash.digest('hex')!==artifact.artifact_sha256) throw Error('Loaded artifact SHA256 mismatch');
   const out = fs.openSync(args.output,'wx');
   let journal;
