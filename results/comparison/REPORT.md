@@ -70,7 +70,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | salesrlagent | task_incompatible | — | — | — | — | — | — |
 | openrouter-qwen38-free | blocked_provider_429 | — | — | — | — | — | — |
 | openrouter-deepseek-free | unavailable_no_free_model | — | — | — | — | — | — |
-| laya-english-expanded-cpu | running | — | — | — | — | — | — |
+| laya-english-expanded-cpu | complete | 60 | 41 | 42 | 33 | 13 | 0 |
 | laya-typed-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
 | semif-generated-bf16 | blocked_model_download_network | — | — | — | — | — | — |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
@@ -456,7 +456,9 @@ Livecatalog rechecked2026-09-21; noDeepSeek :free variant. No paidsubstitution a
 
 **laya-english-expanded-cpu**
 
-All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Three-record CPU smoke inspected;60-record development run active. CPU FP32,4 threads, concurrent Qwen27B GPU inference; timings reflect shared-machine contention.
+Pinned artifact verified; expanded4096/head512 preserves full rubric and feedback. Three-record smoke inspected, then60 unique valid development outputs. CPU FP32,4 threads, no quantization; concurrent Qwen27B GPU inference and downloads caused severe variable contention. Native512 variant remains unsupported_length. Evaluation and reconciliation saved alongside predictions; references provisional.
+
+Evidence: `results/laya-english-expanded-cpu-2026-09-23/development.jsonl`; SHA-256 `a5999c03f1537670e2007764fa61fe47c4ccb35149d52b42c5e942e257addc30`.
 
 **laya-typed-expanded-cpu**
 

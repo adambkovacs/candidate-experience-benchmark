@@ -147,10 +147,13 @@
     "id": "laya-english-expanded-cpu",
     "model": "convaiinnovations/laya",
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
-    "status": "running",
-    "predictions_file": null,
-    "attempt_files": [],
-    "notes": "All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Three-record CPU smoke inspected;60-record development run active. CPU FP32,4 threads, concurrent Qwen27B GPU inference; timings reflect shared-machine contention."
+    "status": "complete",
+    "predictions_file": "results/laya-english-expanded-cpu-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/laya-english-expanded-cpu-2026-09-23/development.jsonl"
+    ],
+    "notes": "Pinned artifact verified; expanded4096/head512 preserves full rubric and feedback. Three-record smoke inspected, then60 unique valid development outputs. CPU FP32,4 threads, no quantization; concurrent Qwen27B GPU inference and downloads caused severe variable contention. Native512 variant remains unsupported_length. Evaluation and reconciliation saved alongside predictions; references provisional.",
+    "attempt_phase": "development"
   },
   {
     "id": "laya-typed-expanded-cpu",
