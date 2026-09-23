@@ -57,7 +57,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
 | openjev-fixed | complete | 60 | 57 | 59 | 56 | 58 | 52 |
-| openjev-adaptive | running | — | — | — | — | — | — |
+| openjev-adaptive | complete | 60 | 56 | 59 | 56 | 58 | 51 |
 | openjev-thinking | ready_for_local_validation | — | — | — | — | — | — |
 | openjev-generated-off | ready_for_local_validation | — | — | — | — | — | — |
 | openjev-generated-on | ready_for_local_validation | — | — | — | — | — | — |
@@ -75,7 +75,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-generated-bf16 | ready_for_local_validation | — | — | — | — | — | — |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
-| alex-openjev4b | downloading | — | — | — | — | — | — |
+| alex-openjev4b | ready | — | — | — | — | — | — |
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
@@ -437,7 +437,9 @@ Evidence: `results/openjev-local-fixed-2026-09-23/development-reconciled.jsonl`;
 
 **openjev-adaptive**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 adaptive smoke3 inspected; full60 running with samples omitted, auto_max4 threshold0.1. Actual rereads not exposed; input token usage excludes adaptive extras. Warm server16384-token exact-prompt cache retained.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 adaptive smoke3 inspected; full60 running with samples omitted, auto_max4 threshold0.1. Actual rereads not exposed; input token usage excludes adaptive extras. Warm server16384-token exact-prompt cache retained. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.
+
+Evidence: `results/openjev-local-adaptive-2026-09-23/development.jsonl`; SHA-256 `b0ac1655ca76f617926147487ad67525208848e3590297e274493c2a8cb17bba`.
 
 **openjev-thinking**
 
@@ -515,7 +517,7 @@ Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves
 
 **alex-openjev4b**
 
-Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified. Existing prerequisite downloads complete; queuedAlex4B downloader active session48709, weight5.10/9.08GB at latest snapshot. No inference yet.
+Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified. Existing prerequisite downloads complete; queuedAlex4B downloader active session48709, weight5.10/9.08GB at latest snapshot. No inference yet. September23 resumed downloader18444 terminal exit0; independent second verification passed all6 files (LFS SHA256 plus Git blobSHA1 for metadata), total9,098,638,502bytes. Artifact ready; actual4B runtime compatibility remains untested. No inference yet.
 
 **openrouter-qwen38-free-low**
 

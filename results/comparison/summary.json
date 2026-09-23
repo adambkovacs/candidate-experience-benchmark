@@ -9921,23 +9921,246 @@
     "id": "openjev-adaptive",
     "model": "openjev-0.1",
     "effort": "automatic rereads steps1 think0",
-    "status": "running",
-    "predictions_file": null,
-    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 adaptive smoke3 inspected; full60 running with samples omitted, auto_max4 threshold0.1. Actual rereads not exposed; input token usage excludes adaptive extras. Warm server16384-token exact-prompt cache retained.",
+    "status": "complete",
+    "predictions_file": "results/openjev-local-adaptive-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/openjev-local-adaptive-2026-09-23/development.jsonl"
+    ],
+    "notes": "Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. September23 adaptive smoke3 inspected; full60 running with samples omitted, auto_max4 threshold0.1. Actual rereads not exposed; input token usage excludes adaptive extras. Warm server16384-token exact-prompt cache retained. Completed60 ordered unique development responses after inspected smoke3. Native MLX on Apple M4 Max128GB, default4bit group64 with236 layers at8bits. Warm-service cache retained; actual reread counts unknown. See reconciliation.",
+    "attempt_phase": "development",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 60,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 60,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/openjev-local-adaptive-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared $1 ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.860212206094559,
+          "per_label": {
+            "positive": {
+              "tp": 10,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.9090909090909091,
+              "recall": 0.9090909090909091,
+              "f1": 0.9090909090909091
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.8888888888888888,
+              "recall": 1.0,
+              "f1": 0.9411764705882353
+            },
+            "neutral": {
+              "tp": 6,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.8571428571428571,
+              "recall": 0.75,
+              "f1": 0.8
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9883663610371686,
+          "per_label": {
+            "yes": {
+              "tp": 34,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9714285714285714,
+              "f1": 0.9855072463768116
+            },
+            "no": {
+              "tp": 24,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96,
+              "recall": 1.0,
+              "f1": 0.9795918367346939
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.8444444444444444,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 28,
+              "fp": 3,
+              "fn": 1,
+              "precision": 0.9032258064516129,
+              "recall": 0.9655172413793104,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 3,
+              "fp": 1,
+              "fn": 3,
+              "precision": 0.75,
+              "recall": 0.5,
+              "f1": 0.6
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.9517973856209151,
+          "per_label": {
+            "yes": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.7777777777777778,
+              "f1": 0.875
+            },
+            "no": {
+              "tp": 50,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.9615384615384616,
+              "recall": 1.0,
+              "f1": 0.9803921568627451
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "b0ac1655ca76f617926147487ad67525208848e3590297e274493c2a8cb17bba",
+    "attempt_records": 60,
+    "exact_match": 51,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 465.0046551255509,
+      "median_seconds": 7.411980687058531,
+      "p95_nearest_rank_seconds": 9.682596249971539,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {
@@ -11074,10 +11297,10 @@
   {
     "id": "alex-openjev4b",
     "model": "AlexWortega/openjev qwen3.5-4b-nli-v2",
-    "effort": "NLI entailment option ranking; staged",
-    "status": "downloading",
+    "effort": "NLI entailment option ranking",
+    "status": "ready",
     "predictions_file": null,
-    "notes": "Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified. Existing prerequisite downloads complete; queuedAlex4B downloader active session48709, weight5.10/9.08GB at latest snapshot. No inference yet.",
+    "notes": "Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e, qwen3.5-4b-nli-v2 artifact9,098,638,502bytes. September23 disk space available; queued after existing OpenJev/SemIf downloads with12GiB reserve. Configuration matches sequence-classification architecture and NLI label ordering; actual runtime compatibility and inference remain unverified. Existing prerequisite downloads complete; queuedAlex4B downloader active session48709, weight5.10/9.08GB at latest snapshot. No inference yet. September23 resumed downloader18444 terminal exit0; independent second verification passed all6 files (LFS SHA256 plus Git blobSHA1 for metadata), total9,098,638,502bytes. Artifact ready; actual4B runtime compatibility remains untested. No inference yet.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",

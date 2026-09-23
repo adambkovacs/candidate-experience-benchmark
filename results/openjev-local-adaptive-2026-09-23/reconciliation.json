@@ -1,0 +1,20 @@
+{
+  "records": 60,
+  "valid_outputs": 60,
+  "ordered_ids_match": true,
+  "policy_hash_matches_smoke": true,
+  "inference_seconds_total": 465.0046551255509,
+  "inference_seconds_median": 7.411980687058531,
+  "actual_reads": null,
+  "read_count_caveat": "Actual reread count not exposed; source usage excludes additional adaptive rereads. Configured controls are preserved in every record.",
+  "cache_policy": "Native exact-prompt prefill LRU has16384-token aggregate budget and retains at least one prompt. Smoke can warm development prefix. Server remained loaded across variants; timings describe warm service, not cold isolated calls.",
+  "quantization": {
+    "default_bits": 4,
+    "group_size": 64,
+    "mode": "affine",
+    "layers_at_8_bits": 236
+  },
+  "runtime_audit": "results/openjev/setup-audit.json",
+  "config_note": "Apple M4 Max 128GB; OpenJev e04794ab36e4f7e6040c2547baecdb2737ce2e79; MLX artifact a7a81407613811e8ba63af92ac0d852b809e191f; affine4bit group64 with236 layers at8bits; MLX0.32.2 mlx-vlm0.6.15 Python3.12.12; warmup enabled; adaptive samples omitted auto_max4 threshold0.1; steps1 think0 sequentialfalse; actual reads unknown; usage excludes extra adaptive reads; native exact-prompt LRU16384tokens warm-service cache, smoke may warm prefix; serialized benchmark inference.",
+  "background_work": "No other benchmark inference; final Alex4B download and independent9GB checksum verification overlapped part of this run."
+}
