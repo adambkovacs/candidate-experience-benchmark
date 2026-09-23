@@ -53,3 +53,5 @@ gpt-5.6-luna high completed 60 valid outputs in six sequential batches after its
 GPT-5.6 Luna xhigh passed its three-record smoke, but its first development batch timed out at 600 seconds. Captured stderr records repeated DNS lookup failures for chatgpt.com and a model catalogue refresh connection failure, with no response. This attempt is an infrastructure failure, not evidence of model performance. It stopped without retry: zero valid, ten failed and fifty unattempted records retain the 60-record denominator. Evidence: `results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/`.
 
 gpt-6-astra medium completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-6-astra-medium-batch10-2026-09-23/evaluation.json`.
+
+gpt-6-astra high completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-6-astra-high-batch10-2026-09-23/evaluation.json`.

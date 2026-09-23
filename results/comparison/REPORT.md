@@ -56,7 +56,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | opus55-high-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
 | opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
-| openjev-fixed | ready_for_local_validation | — | — | — | — | — | — |
+| openjev-fixed | running | — | — | — | — | — | — |
 | openjev-adaptive | ready_for_local_validation | — | — | — | — | — | — |
 | openjev-thinking | ready_for_local_validation | — | — | — | — | — | — |
 | openjev-generated-off | ready_for_local_validation | — | — | — | — | — | — |
@@ -92,7 +92,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-5.6-luna-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-low | completed_with_initialization_retries | 60 | 57 | 60 | 59 | 60 | 56 |
 | codex-gpt-6-astra-medium | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| codex-gpt-6-astra-high | development_running | — | — | — | — | — | — |
+| codex-gpt-6-astra-high | completed | 60 | 59 | 60 | 59 | 60 | 58 |
 | codex-gpt-6-astra-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
@@ -133,13 +133,13 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
 | openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
 | openrouter-paid-gemma4-26b-a4b-on | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-gemma4-26b-a4b-off | pending_explicit_destination_approval | — | — | — | — | — | — |
+| openrouter-paid-gemma4-26b-a4b-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-on | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-gemma4-31b-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-mistral-small32-24b-not-applicable | partial_timeout | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-none | blocked_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-mistral-small4-119b-high | pending_smoke | — | — | — | — | — | — |
-| openrouter-paid-deepseek-v41-flash-off | pending_explicit_destination_approval | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-off | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-low | pending_smoke | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-high | pending_smoke | — | — | — | — | — | — |
 
@@ -430,7 +430,7 @@ Evidence: `results/openjev/typesafe-development-v2-reconciled.jsonl`; SHA-256 `5
 
 **openjev-fixed**
 
-Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot.
+Pinned artifact download/runtime preparation in progress; localGPU coordinated with parent. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. September23 all13 artifact files independently hashverified; no local inference yet. Prepared nativeMLX runtime and loopback-only launch commands; waiting serialized model slot. LocalnativeMLX server ready; fixed smoke3 inspected and valid,4.9–7.3srecord; fixed60 development active. Actualreadcountnotexposed; configuredsamples1.
 
 **openjev-adaptive**
 
@@ -596,7 +596,9 @@ Evidence: `results/codex-gpt-6-astra-medium-batch10-2026-09-23/development.jsonl
 
 **codex-gpt-6-astra-high**
 
-High smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-6-astra-high-batch10-2026-09-23/development.jsonl`; SHA-256 `541a21a2208ca791c083d716666b094379ca9209a11c8761085634d09e7589cd`.
 
 **codex-gpt-6-astra-xhigh**
 
@@ -752,15 +754,15 @@ NativeCLI1.2.7 signed-in catalogue verified; exact model/effort ID advertised. N
 
 **openrouter-paid-qwen3.8-27b-medium**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
 
 **openrouter-paid-qwen3.8-27b-xhigh**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
 
 **openrouter-paid-qwen3.8-27b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
 
 **openrouter-paid-qwen36-35b-a3b-on**
 
@@ -776,19 +778,19 @@ Evidence: `results/openrouter-qwen35-off-2026-09-23/development.jsonl`; SHA-256 
 
 **openrouter-paid-gemma4-26b-a4b-on**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
 
 **openrouter-paid-gemma4-26b-a4b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required.
 
 **openrouter-paid-gemma4-31b-on**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
 
 **openrouter-paid-gemma4-31b-off**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
 
 **openrouter-paid-mistral-small32-24b-not-applicable**
 
@@ -800,11 +802,11 @@ First authorized smoke request received HTTP429 from Mistral upstream shared poo
 
 **openrouter-paid-mistral-small4-119b-high**
 
-September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $1; smoke required before60. No paid request yet.
+September23 user requested reasonably priced hosted models instead of matching local downloads. Separate hosted configuration; local quantization/runtime are not equivalent. Aggregate OpenRouter inference cap $5 (total, including earlier spending); smoke required before60. No paid request yet.
 
 **openrouter-paid-deepseek-v41-flash-off**
 
-Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md.
+Fulfills original hosted DeepSeek slot separately from local32B distill. September23 paidreasonable authorization; aggregateOpenRouter$1 cap. Flat providerprices $.10/$.50 perM tokens, freshvalidation required. maxexcluded. No inference yet. Automatic approval review rejected the September23 smoke command before execution; no payload sent, inference charge, ledger reservation or smoke output. Existing paid authorization context retained; explicit model/provider destination approval is pending. See docs/OPENROUTER_COST_REVIEW.md. Subsequent explicit user approval covers paid OpenRouter non-GPT/Claude benchmark destinations; total cap raised to $5. Historical rejection preserved; smoke remains required.
 
 **openrouter-paid-deepseek-v41-flash-low**
 
