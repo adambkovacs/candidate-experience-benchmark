@@ -4,7 +4,7 @@ Status snapshot: 2026-09-23. Execution is continuing; the linked run registries 
 
 ## Recorded status
 
-This checkpoint includes the completed DeepSeek low and three SemIf decision-mode runs. The linked registries retain every configuration, raw attempt and later status change. A completed 60-record attempt does not imply 60 valid or correct outputs.
+This checkpoint includes the completed DeepSeek and all four SemIf runs. The linked registries retain every configuration, raw attempt and later status change. A completed 60-record attempt does not imply 60 valid or correct outputs.
 
 | Configuration | Development status | Evidence |
 | --- | --- | --- |
@@ -17,17 +17,17 @@ This checkpoint includes the completed DeepSeek low and three SemIf decision-mod
 | Hosted Qwen3.6-35B-A3B on/off, AkashML FP8 | Both completed with 60 valid outputs | [Paid registry](../results/openrouter-paid-run-registry.json) |
 | Hosted Qwen3.8-27B off/medium/xhigh, DeepInfra BF16 | All attempted 60; off has 60 valid, medium and xhigh have 59 valid each with failures retained | [Paid registry](../results/openrouter-paid-run-registry.json) |
 | Hosted Gemma4 26B A4B and 31B on/off | All attempted 60; 26B on retains one invalid output | [Paid registry](../results/openrouter-paid-run-registry.json) |
-| Hosted DeepSeek V4.1 Flash off/low/high | Off completed with 60 valid; low completed with 57 valid and three retained failures; high remains active | [Paid registry](../results/openrouter-paid-run-registry.json) |
+| Hosted DeepSeek V4.1 Flash off/low/high | All three attempted 60: off has 60 valid, low 57, high 56; every failure is retained | [Paid registry](../results/openrouter-paid-run-registry.json) |
 | Hosted Mistral Small 3.2 24B | Venice FP8 completed with 60 valid; earlier DeepInfra FP8 partial run remains separate | [Paid registry](../results/openrouter-paid-run-registry.json) |
 | Hosted Mistral Small 4 119B none/high | Smoke requests blocked by provider shared-pool HTTP 429; a bounded cooldown recovery also failed. Await provider recovery | [Paid registry](../results/openrouter-paid-run-registry.json) |
 | Free Qwen3.8 route / free DeepSeek slot | Qwen smoke attempts rate-limited; no free DeepSeek route established. Paid configurations are separate, explicitly authorized alternatives | [Specialist registry](../results/specialist-run-registry.json) |
 | Gemini through Antigravity CLI 1.2.9 | Native agent workflow smoke passed; development and one recovery failed eligibility/service checks before predictions. Not an authentication or spending-approval blocker | [Gemini registry](../results/gemini-run-registry.json) |
 | Local OpenJev, DiffusionGemma 26B A4B | All five variants attempted 60; generated off/on retain eight/one invalid outputs. Requested-on uses an empty-thought scaffold, so effective thinking is unverified | [Specialist registry](../results/specialist-run-registry.json) |
 | Hosted TypeSafe Jev 1.13.0 | 60 valid outputs under the separate aggregate $1 authorization; transport retry and unknown-cost reserve retained | [Specialist registry](../results/specialist-run-registry.json) |
-| SemIf direct/serial/shared BF16 | All three completed with 60 valid outputs; identical prompt tokens do not imply identical arithmetic. The generated control remains in progress | [Specialist registry](../results/specialist-run-registry.json) |
+| SemIf direct/serial/shared and generated BF16 | Three decision modes completed with 60 valid each; generated control has 52 valid of 60. Legacy generated request hashes describe decision intent, not actual generated messages | [Specialist registry](../results/specialist-run-registry.json) |
 | Laya English/typed expanded CPU; AlexWortega 0.8B NLI; AnyJev raw/L0 | Completed 60 valid records each; native limits and expanded variants remain distinct | [Specialist registry](../results/specialist-run-registry.json) |
 | AnyJev matched generated control | All 60 responses failed strict output validity because of Markdown fences; no repair | [Format audit](../results/anyjev-qwen06-generated-mps-2026-09-23/format-audit.json) |
-| Remaining local baselines | Laya multilingual expanded, AlexWortega 4B and SemIf controls use the serial local queue; exact DeepSeek R1-Distill-Qwen-32B artifact download remains in progress | [Local](../results/local-run-registry.json) and [specialist](../results/specialist-run-registry.json) registries |
+| Remaining local baselines | Laya multilingual expanded and AlexWortega 4B use the serial local queue; exact DeepSeek R1-Distill-Qwen-32B artifact download remains in progress | [Local](../results/local-run-registry.json) and [specialist](../results/specialist-run-registry.json) registries |
 | AnyJev L1/L2 | Require separate calibration evidence; no fitting and evaluating on the same 60 labels, and no generation of the remaining 340 | [Specialist registry](../results/specialist-run-registry.json) |
 
 Historical max-effort rows remain evidence; max and ultra are excluded from new runs. Paid non-GPT/Claude OpenRouter requests have explicit approval under the $5 aggregate cap in the [cost review](OPENROUTER_COST_REVIEW.md). Failed or incomplete provider runs remain visible and are not pooled with successful alternate providers. The classifier-framing and SOP experiment has frozen candidate text and offline preview adapters, but no phase-two inference has run; see [execution readiness](PROMPT_EXECUTION_READINESS.md).

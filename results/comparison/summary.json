@@ -12603,23 +12603,251 @@
     "id": "semif-generated-bf16",
     "model": "Qwen3.5-4B",
     "effort": "MLX generated JSON BF16; thinking off",
-    "status": "ready_for_local_validation",
-    "predictions_file": null,
-    "notes": "Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.",
+    "status": "complete",
+    "predictions_file": "results/semif-generated-bf16-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/semif-generated-bf16-2026-09-23/development.jsonl"
+    ],
+    "notes": "Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. Completed60records (52 valid) after inspectedsmoke3. NativeMetalGPU, actualBF16+FP32 parameters,noquantization; fullinputhashes/scoremapping checked. HostedHTTPcalls concurrent, no otherlocalinference. See reconciliation. Saved request_sha256 is an intent-payload hash, not actual generated-message verification; generation composition is source-reconstructible only. Matched weights/precision but different instruction/role workflow.",
+    "attempt_phase": "development",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 60,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 60,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/semif-generated-bf16-2026-09-23/development.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 52,
+      "missing_or_failed": [
+        "DEV-002",
+        "DEV-020",
+        "DEV-029",
+        "DEV-040",
+        "DEV-044",
+        "DEV-051",
+        "DEV-055",
+        "DEV-060"
+      ],
+      "metrics": {
+        "sentiment": {
+          "correct": 46,
+          "denominator": 60,
+          "accuracy": 0.7666666666666667,
+          "macro_f1": 0.6385714285714286,
+          "per_label": {
+            "positive": {
+              "tp": 10,
+              "fp": 3,
+              "fn": 1,
+              "precision": 0.7692307692307693,
+              "recall": 0.9090909090909091,
+              "f1": 0.8333333333333334
+            },
+            "negative": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 6,
+              "precision": 1.0,
+              "recall": 0.8064516129032258,
+              "f1": 0.8928571428571429
+            },
+            "mixed": {
+              "tp": 5,
+              "fp": 2,
+              "fn": 3,
+              "precision": 0.7142857142857143,
+              "recall": 0.625,
+              "f1": 0.6666666666666666
+            },
+            "neutral": {
+              "tp": 6,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.8571428571428571,
+              "recall": 0.75,
+              "f1": 0.8
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 51,
+          "denominator": 60,
+          "accuracy": 0.85,
+          "macro_f1": 0.6082991336069311,
+          "per_label": {
+            "yes": {
+              "tp": 32,
+              "fp": 1,
+              "fn": 3,
+              "precision": 0.9696969696969697,
+              "recall": 0.9142857142857143,
+              "f1": 0.9411764705882353
+            },
+            "no": {
+              "tp": 19,
+              "fp": 0,
+              "fn": 5,
+              "precision": 1.0,
+              "recall": 0.7916666666666666,
+              "f1": 0.8837209302325582
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 47,
+          "denominator": 60,
+          "accuracy": 0.7833333333333333,
+          "macro_f1": 0.6746031746031745,
+          "per_label": {
+            "yes": {
+              "tp": 22,
+              "fp": 1,
+              "fn": 3,
+              "precision": 0.9565217391304348,
+              "recall": 0.88,
+              "f1": 0.9166666666666666
+            },
+            "no": {
+              "tp": 24,
+              "fp": 3,
+              "fn": 5,
+              "precision": 0.8888888888888888,
+              "recall": 0.8275862068965517,
+              "f1": 0.8571428571428571
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 5,
+              "precision": 0.5,
+              "recall": 0.16666666666666666,
+              "f1": 0.25
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 46,
+          "denominator": 60,
+          "accuracy": 0.7666666666666667,
+          "macro_f1": 0.45622895622895626,
+          "per_label": {
+            "yes": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 6,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "f1": 0.5
+            },
+            "no": {
+              "tp": 43,
+              "fp": 6,
+              "fn": 7,
+              "precision": 0.8775510204081632,
+              "recall": 0.86,
+              "f1": 0.8686868686868687
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [
+          "DEV-058"
+        ],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [
+          "DEV-044",
+          "DEV-051"
+        ],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "missing_or_failed"
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "missing_or_failed"
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "complaint_style",
+          "status": "missing_or_failed"
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "b32d4d78c85ccc24af4b136294db2b6679da39e8dbbcce3a744656297d468df9",
+    "attempt_records": 60,
+    "exact_match": 35,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 395.58711886871606,
+      "median_seconds": 5.200182728935033,
+      "p95_nearest_rank_seconds": 17.70905683306046,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {
@@ -23392,23 +23620,264 @@
     "effort": "high",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "running_continuation",
-    "predictions_file": null,
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.",
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl",
+    "notes": "All 60 records attempted once; 56 valid outputs. DEV-006, DEV-022, DEV-053 and DEV-060 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known; child budget sealed. Concurrent hosted configurations; raw cache usage retained.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl",
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 56,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/reconciliation-complete.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-high",
+    "observed_development_cost_usd": "0.01852893",
+    "observed_smoke_cost_usd": "0.00036289",
     "cost": {
       "scope": "declared development attempts only",
-      "availability": "unavailable",
-      "attempt_count": 0,
-      "known_actual_attempts": 0,
+      "availability": "reported",
+      "attempt_count": 60,
+      "known_actual_attempts": 60,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
       "missing_financial_attempts": 0,
-      "known_actual_usd": null,
-      "unknown_reserved_upper_bound_usd": null,
-      "known_plus_unknown_upper_bound_usd": null,
-      "total_actual_usd": null,
-      "source_paths": [],
+      "known_actual_usd": "0.01852893",
+      "unknown_reserved_upper_bound_usd": "0",
+      "known_plus_unknown_upper_bound_usd": "0.01852893",
+      "total_actual_usd": "0.01852893",
+      "source_paths": [
+        "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl",
+        "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 56,
+      "missing_or_failed": [
+        "DEV-006",
+        "DEV-022",
+        "DEV-053",
+        "DEV-060"
+      ],
+      "metrics": {
+        "sentiment": {
+          "correct": 54,
+          "denominator": 60,
+          "accuracy": 0.9,
+          "macro_f1": 0.947416081186573,
+          "per_label": {
+            "positive": {
+              "tp": 10,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9090909090909091,
+              "f1": 0.9523809523809523
+            },
+            "negative": {
+              "tp": 28,
+              "fp": 2,
+              "fn": 3,
+              "precision": 0.9333333333333333,
+              "recall": 0.9032258064516129,
+              "f1": 0.9180327868852459
+            },
+            "mixed": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.9779824282841113,
+          "per_label": {
+            "yes": {
+              "tp": 32,
+              "fp": 0,
+              "fn": 3,
+              "precision": 1.0,
+              "recall": 0.9142857142857143,
+              "f1": 0.9552238805970149
+            },
+            "no": {
+              "tp": 23,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9583333333333334,
+              "f1": 0.9787234042553191
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.8830409356725145,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 28,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9655172413793104,
+              "f1": 0.9824561403508771
+            },
+            "insufficient_information": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 3,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 56,
+          "denominator": 60,
+          "accuracy": 0.9333333333333333,
+          "macro_f1": 0.9700828785122296,
+          "per_label": {
+            "yes": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8888888888888888,
+              "f1": 0.9411764705882353
+            },
+            "no": {
+              "tp": 47,
+              "fp": 0,
+              "fn": 3,
+              "precision": 1.0,
+              "recall": 0.94,
+              "f1": 0.9690721649484536
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "24df93f7669839f580413dbb8a2fb8f68ece8754a2bb6562cb9158571c25f6e9",
+    "attempt_records": 60,
+    "exact_match": 54,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 3264.3685514575336,
+      "median_seconds": 21.635093187331222,
+      "p95_nearest_rank_seconds": 314.5988635828253,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {

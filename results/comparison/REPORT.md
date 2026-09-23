@@ -72,7 +72,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-deepseek-free | unavailable_no_free_model | — | — | — | — | — | — |
 | laya-english-expanded-cpu | complete | 60 | 41 | 42 | 33 | 13 | 0 |
 | laya-typed-expanded-cpu | complete | 60 | 39 | 47 | 32 | 10 | 0 |
-| semif-generated-bf16 | ready_for_local_validation | — | — | — | — | — | — |
+| semif-generated-bf16 | complete | 52 | 46 | 51 | 47 | 46 | 35 |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
 | alex-openjev4b | ready | — | — | — | — | — | — |
@@ -142,7 +142,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-mistral-small4-119b-high | smoke_upstream_rate_limit | — | — | — | — | — | — |
 | openrouter-paid-deepseek-v41-flash-off | complete | 60 | 57 | 59 | 59 | 56 | 54 |
 | openrouter-paid-deepseek-v41-flash-low | complete_with_output_failure | 57 | 57 | 57 | 57 | 57 | 57 |
-| openrouter-paid-deepseek-v41-flash-high | running_continuation | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-high | complete_with_output_failure | 56 | 54 | 56 | 56 | 56 | 54 |
 | openrouter-paid-mistral-small32-24b-venice-not-applicable | complete | 60 | 54 | 57 | 55 | 57 | 48 |
 
 Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
@@ -161,6 +161,7 @@ Development-attempt costs only. Unknown-cost reservations are bounds, not observ
 | openrouter-paid-gemma4-31b-off | reported | 0.00555500 | 0 | `results/openrouter-parallel-gemma31-off-2026-09-23/development.jsonl` |
 | openrouter-paid-deepseek-v41-flash-off | reported | 0.00268114 | 0 | `results/openrouter-parallel-deepseek-flash-off-2026-09-23/development.jsonl` |
 | openrouter-paid-deepseek-v41-flash-low | reported | 0.01513539 | 0 | `results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl`; `results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl` |
+| openrouter-paid-deepseek-v41-flash-high | reported | 0.01852893 | 0 | `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl`; `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl` |
 | openrouter-paid-mistral-small32-24b-venice-not-applicable | reported | 0.00873028125 | 0 | `results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl` |
 
 
@@ -528,7 +529,9 @@ Evidence: `results/laya-typed-expanded-cpu-2026-09-23/development.jsonl`; SHA-25
 
 **semif-generated-bf16**
 
-Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue.
+Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. Completed60records (52 valid) after inspectedsmoke3. NativeMetalGPU, actualBF16+FP32 parameters,noquantization; fullinputhashes/scoremapping checked. HostedHTTPcalls concurrent, no otherlocalinference. See reconciliation. Saved request_sha256 is an intent-payload hash, not actual generated-message verification; generation composition is source-reconstructible only. Matched weights/precision but different instruction/role workflow.
+
+Evidence: `results/semif-generated-bf16-2026-09-23/development.jsonl`; SHA-256 `b32d4d78c85ccc24af4b136294db2b6679da39e8dbbcce3a744656297d468df9`.
 
 **laya-multilingual**
 
@@ -884,7 +887,9 @@ Evidence: `results/openrouter-parallel-deepseek-flash-low-2026-09-23/development
 
 **openrouter-paid-deepseek-v41-flash-high**
 
-Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged.
+All 60 records attempted once; 56 valid outputs. DEV-006, DEV-022, DEV-053 and DEV-060 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known; child budget sealed. Concurrent hosted configurations; raw cache usage retained.
+
+Evidence: `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl`; SHA-256 `24df93f7669839f580413dbb8a2fb8f68ece8754a2bb6562cb9158571c25f6e9`.
 
 **openrouter-paid-mistral-small32-24b-venice-not-applicable**
 

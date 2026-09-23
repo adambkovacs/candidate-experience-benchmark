@@ -741,9 +741,13 @@
     "id": "semif-generated-bf16",
     "model": "Qwen3.5-4B",
     "effort": "MLX generated JSON BF16; thinking off",
-    "status": "ready_for_local_validation",
-    "predictions_file": null,
-    "notes": "Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue."
+    "status": "complete",
+    "predictions_file": "results/semif-generated-bf16-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/semif-generated-bf16-2026-09-23/development.jsonl"
+    ],
+    "notes": "Matched source revision851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a and precision with direct BF16 scoring. Adapter implemented; weights incomplete; no inference completed. September23 current-state reconciliation: downloads resumed, active downloader PID88683 confirmed. OpenJev12/13 files complete (one weight shard partial); SemIf8/10 complete (two weight shards partial). Prior network failure is historical, not current terminal status. Latest pool stopped after5boundedURLError attempts with lastshardpartial; controlled resume session29090 started, partials retained. September23 all10 pinned artifact files independently hashverified; downloader terminalexit0; nativeMLX smoke pending serialized queue. Completed60records (52 valid) after inspectedsmoke3. NativeMetalGPU, actualBF16+FP32 parameters,noquantization; fullinputhashes/scoremapping checked. HostedHTTPcalls concurrent, no otherlocalinference. See reconciliation. Saved request_sha256 is an intent-payload hash, not actual generated-message verification; generation composition is source-reconstructible only. Matched weights/precision but different instruction/role workflow.",
+    "attempt_phase": "development"
   },
   {
     "id": "laya-multilingual",
@@ -1962,9 +1966,25 @@
     "effort": "high",
     "provider": "open-inference/fp4",
     "quantization": "fp4",
-    "status": "running_continuation",
-    "predictions_file": null,
-    "notes": "Concurrent hosted execution under a reserved child budget. Existing completed records and all failures are preserved; only the declared continuation range is sent. Terminal reconciliation is pending. The existing model, provider and generation controls are unchanged."
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl",
+    "notes": "All 60 records attempted once; 56 valid outputs. DEV-006, DEV-022, DEV-053 and DEV-060 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known; child budget sealed. Concurrent hosted configurations; raw cache usage retained.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl",
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 56,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/reconciliation-complete.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-high",
+    "observed_development_cost_usd": "0.01852893",
+    "observed_smoke_cost_usd": "0.00036289"
   },
   {
     "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
