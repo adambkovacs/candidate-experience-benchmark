@@ -79,7 +79,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
-| openrouter-qwen38-free-off | pending_provider_recovery | — | — | — | — | — | — |
+| openrouter-qwen38-free-off | blocked_rate_limit | — | — | — | — | — | — |
 | anyjev-qwen06-raw | ready_for_gpu_smoke | — | — | — | — | — | — |
 | anyjev-qwen06-l0 | ready_for_gpu_smoke | — | — | — | — | — | — |
 | anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
@@ -492,7 +492,7 @@ Public model metadata explicitly lists this supported effort; single zero-priced
 
 **openrouter-qwen38-free-off**
 
-Future request uses reasoning.enabled=false; public metadata mandatory=false. No inference at this configuration. Original effort:none429attempts are preserved separately and do not validate reasoning-off behavior.
+September23 live catalog verified Qwen3.8-27B:free ModelRun/fp4 explicit zero pricing and reasoning disabled. One smoke invocation stopped at DEV-001 HTTP429 after1.005s; no predictions or usage; no retry or development run. Older none attempts do not demonstrate reasoning-off support.
 
 **anyjev-qwen06-raw**
 

@@ -147,19 +147,19 @@
     "id": "laya-english-expanded-cpu",
     "model": "convaiinnovations/laya",
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
-    "status": "blocked_model_download_network",
+    "status": "running",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
+    "notes": "All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Three-record CPU smoke inspected;60-record development run active. CPU FP32,4 threads, concurrent Qwen27B GPU inference; timings reflect shared-machine contention."
   },
   {
     "id": "laya-typed-expanded-cpu",
     "model": "convaiinnovations/laya typed-decisions",
     "effort": "421M CPU FP32; context4096/head512; native options48-token cap",
-    "status": "blocked_model_download_network",
+    "status": "ready_for_local_validation",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Pinned tokenizers preserve60/60 complete inputs (1614\u20131662 tokens perquestion); encoder capacity8192. Separate runtime-expanded variant, weights pending verification. CPU inference planned; shared-machine contention recorded. Download stopped after shared Hugging Face/network timeout outage; resumable partials preserved; no local inference completed."
+    "notes": "All pinned artifact files verified on September23. Expanded4096/head512 preserves full rubric and feedback on all60 records; native encoder capacity8192. Awaiting serial CPU smoke and development validation."
   },
   {
     "id": "semif-generated-bf16",
@@ -174,28 +174,28 @@
     "id": "laya-multilingual",
     "model": "convaiinnovations/laya multilingual",
     "effort": "322M native context1024/head256",
-    "status": "blocked_model_download_network",
+    "status": "unsupported_length",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed."
+    "notes": "Pinned multilingual weights fully SHA256verified. Native1024/head256 fails exact fullinput coverage60/60; no inference. Audit results/laya-coverage-audit-2026-09-23/multilingual.json."
   },
   {
     "id": "laya-multilingual-expanded-cpu",
     "model": "convaiinnovations/laya multilingual",
     "effort": "322M CPU; proposed context4096/head512",
-    "status": "blocked_model_download_network",
+    "status": "ready_for_local_validation",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Pinned public artifact metadata verified: convaiinnovations/laya revision1c5edc17a7acd8701df6fc341c0d179f1c62c982 multilingual/ contains5files totaling678201636bytes, weights643835514bytes. Queued after network/CDN recovery. Tokenizer coverage and actual encoder capacity still require local verification; no inference completed."
+    "notes": "Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves60/60 complete inputs; encoder8192 capacity confirmed. Separate expanded variant; awaiting serial CPU smoke then60."
   },
   {
     "id": "alex-openjev4b",
     "model": "AlexWortega/openjev qwen3.5-4b-nli-v2",
     "effort": "NLI entailment option ranking; staged",
-    "status": "staged_metadata_required",
+    "status": "staged_disk_budget",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Cached model card at revisionf004f37e52695d6ddfb914a64dbf93942839ba1e recommends qwen3.5-4b-nli-v2/ and documents the same OpenJevCrossEncoder class. Exact artifact file list, total bytes and load compatibility still require verification. No additional weights downloaded; staged within disk budget."
+    "notes": "Pinned revisionf004f37e52695d6ddfb914a64dbf93942839ba1e qwen3.5-4b-nli-v2/ verified via metadata:6files9098638502bytes. Config Qwen3_5ForSequenceClassification, labels0contradiction/1entailment/2neutral and same NLI template. Adapter architecture matches0.8B, actual load compatibility untested. No4B weights downloaded; staged within disk budget."
   },
   {
     "id": "openrouter-qwen38-free-low",
@@ -228,9 +228,57 @@
     "id": "openrouter-qwen38-free-off",
     "model": "qwen/qwen3.8-27b:free",
     "effort": "reasoning disabled explicitly; ModelRun FP4",
-    "status": "pending_provider_recovery",
+    "status": "blocked_rate_limit",
+    "predictions_file": null,
+    "attempt_files": [
+      "results/openrouter/qwen38-off-smoke-2026-09-23.jsonl"
+    ],
+    "notes": "September23 live catalog verified Qwen3.8-27B:free ModelRun/fp4 explicit zero pricing and reasoning disabled. One smoke invocation stopped at DEV-001 HTTP429 after1.005s; no predictions or usage; no retry or development run. Older none attempts do not demonstrate reasoning-off support.",
+    "attempt_phase": "smoke"
+  },
+  {
+    "id": "anyjev-qwen06-raw",
+    "model": "Qwen/Qwen3-0.6B",
+    "effort": "AnyJev raw one canonical option order",
+    "status": "ready_for_gpu_smoke",
     "predictions_file": null,
     "attempt_files": [],
-    "notes": "Future request uses reasoning.enabled=false; public metadata mandatory=false. No inference at this configuration. Original effort:none429attempts are preserved separately and do not validate reasoning-off behavior."
+    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect."
+  },
+  {
+    "id": "anyjev-qwen06-l0",
+    "model": "Qwen/Qwen3-0.6B",
+    "effort": "AnyJev L0 content-free prior; all cyclic shifts",
+    "status": "ready_for_gpu_smoke",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "AnyJev source3cd8c6fcd9e90fc04214575ade6779da1e3f3704; official causal artifactc1899de289a04d12100db370d81485cdf75e47ca. Full rubric per question, fourChoice fields, fresh Decider per record. Raw/L0 probabilities uncalibrated; nativeBF16 checkpoint differs from priorGGUF quantization. Offline-tested adapter; no real inference yet. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect."
+  },
+  {
+    "id": "anyjev-qwen06-l1",
+    "model": "Qwen/Qwen3-0.6B",
+    "effort": "AnyJev L1",
+    "status": "staged_separate_calibration_required",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used."
+  },
+  {
+    "id": "anyjev-qwen06-l2",
+    "model": "Qwen/Qwen3-0.6B",
+    "effort": "AnyJev L2",
+    "status": "staged_separate_calibration_required",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used."
+  },
+  {
+    "id": "anyjev-qwen06-generated-control",
+    "model": "Qwen/Qwen3-0.6B",
+    "effort": "Matched native precision generated JSON control; thinking off",
+    "status": "ready_for_gpu_smoke",
+    "predictions_file": null,
+    "attempt_files": [],
+    "notes": "Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect."
   }
 ]
