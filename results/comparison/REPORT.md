@@ -21,7 +21,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3.8-27b-sdk-thinking-xhigh | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | gemma4-e2b-sdk-thinking-on | complete | 60 | 50 | 58 | 46 | 52 | 35 |
 | gemma4-e2b-sdk-thinking-off | complete | 60 | 50 | 59 | 45 | 50 | 34 |
-| gemma4-e4b-sdk-thinking-on | download_verified_smoke_pending | — | — | — | — | — | — |
+| gemma4-e4b-sdk-thinking-on | complete | 60 | 54 | 58 | 53 | 57 | 46 |
 | gemma4-e4b-sdk-thinking-off | complete | 60 | 46 | 58 | 52 | 57 | 37 |
 | gemma4-26b-a4b-sdk-thinking-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
@@ -98,8 +98,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-low | completed | 60 | 58 | 60 | 60 | 60 | 58 |
 | codex-gpt-5.6-sol-medium | completed | 60 | 58 | 60 | 58 | 60 | 57 |
-| codex-gpt-5.6-sol-high | development_running | — | — | — | — | — | — |
-| codex-gpt-5.6-sol-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-high | completed | 60 | 59 | 59 | 59 | 60 | 58 |
+| codex-gpt-5.6-sol-xhigh | development_running | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-terra-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
@@ -242,7 +242,9 @@ Evidence: `results/gemma4-e2b-2026-09-21/nonthinking-development.jsonl`; SHA-256
 
 **gemma4-e4b-sdk-thinking-on**
 
-Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
+Exact artifact/runtime/request controls in results/gemma4-e4b-2026-09-23/on-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/gemma4-e4b-2026-09-23/on-development.jsonl`; SHA-256 `c222b2aad7be007e5b080a23a70cc785429cefd2b0623341dba4abbdd2d8d0e7`.
 
 **gemma4-e4b-sdk-thinking-off**
 
@@ -612,11 +614,13 @@ Evidence: `results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development.jsonl
 
 **codex-gpt-5.6-sol-high**
 
-High smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development.jsonl`; SHA-256 `3455dcd06de2d502e6ae25c8248445c1cd70a7f58d184336dae00233271fed5b`.
 
 **codex-gpt-5.6-sol-xhigh**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+Xhigh smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
 
 **codex-gpt-5.6-sol-max**
 
