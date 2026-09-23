@@ -22,7 +22,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | gemma4-e2b-sdk-thinking-on | complete | 60 | 50 | 58 | 46 | 52 | 35 |
 | gemma4-e2b-sdk-thinking-off | complete | 60 | 50 | 59 | 45 | 50 | 34 |
 | gemma4-e4b-sdk-thinking-on | download_verified_smoke_pending | — | — | — | — | — | — |
-| gemma4-e4b-sdk-thinking-off | download_verified_smoke_pending | — | — | — | — | — | — |
+| gemma4-e4b-sdk-thinking-off | complete | 60 | 46 | 58 | 52 | 57 | 37 |
 | gemma4-26b-a4b-sdk-thinking-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | gemma4-26b-a4b-sdk-thinking-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | gemma4-31b-sdk-thinking-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
@@ -84,7 +84,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | anyjev-qwen06-l0 | complete | 60 | 37 | 13 | 34 | 44 | 4 |
 | anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-l2 | staged_separate_calibration_required | — | — | — | — | — | — |
-| anyjev-qwen06-generated-control | ready_for_gpu_smoke | — | — | — | — | — | — |
+| anyjev-qwen06-generated-control | complete | 0 | 0 | 0 | 0 | 0 | 0 |
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
 | codex-gpt-5.6-luna-medium | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-high | pending_batch10_service_recovery | — | — | — | — | — | — |
@@ -97,8 +97,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-astra-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-6-astra-ultra | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-low | completed | 60 | 58 | 60 | 60 | 60 | 58 |
-| codex-gpt-5.6-sol-medium | smoke_complete_development_pending | — | — | — | — | — | — |
-| codex-gpt-5.6-sol-high | pending_batch10_service_recovery | — | — | — | — | — | — |
+| codex-gpt-5.6-sol-medium | completed | 60 | 58 | 60 | 58 | 60 | 57 |
+| codex-gpt-5.6-sol-high | development_running | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-xhigh | pending_batch10_service_recovery | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-max | excluded_by_user | — | — | — | — | — | — |
 | codex-gpt-5.6-sol-ultra | excluded_by_user | — | — | — | — | — | — |
@@ -246,7 +246,9 @@ Pinned model download completed and SHA256 verified. Awaiting serialized GPU slo
 
 **gemma4-e4b-sdk-thinking-off**
 
-Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration.
+Exact artifact/runtime/request controls in results/gemma4-e4b-2026-09-23/off-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.
+
+Evidence: `results/gemma4-e4b-2026-09-23/off-development.jsonl`; SHA-256 `8aaba576e896639e3ba2a203913d07baf4c258fa89b6bb8e34177a2b168f9bc6`.
 
 **gemma4-26b-a4b-sdk-thinking-on**
 
@@ -544,7 +546,9 @@ Requires per-question labeled calibration data and disjoint evaluation. Cannot f
 
 **anyjev-qwen06-generated-control**
 
-Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect.
+Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. Three-record smoke inspected, then60 unique development outputs (0 strict-valid); actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference. No output repair.
+
+Evidence: `results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl`; SHA-256 `0018a1e2f7db62f2d65af1fdb59ff8194f11d6af57b5d164801dcd425fe18d14`.
 
 **codex-gpt-5.6-luna-low**
 
@@ -602,11 +606,13 @@ Evidence: `results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development.jsonl`; 
 
 **codex-gpt-5.6-sol-medium**
 
-September23 medium batch smoke3 valid in35.36s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.
+Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.
+
+Evidence: `results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development.jsonl`; SHA-256 `b2133c998266c36a8851e8e5563421ca958b4fef47560cf5482dd3c32dbad926`.
 
 **codex-gpt-5.6-sol-high**
 
-Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.
+High smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.
 
 **codex-gpt-5.6-sol-xhigh**
 

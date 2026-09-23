@@ -285,9 +285,12 @@
     "id": "anyjev-qwen06-generated-control",
     "model": "Qwen/Qwen3-0.6B",
     "effort": "Matched native precision generated JSON control; thinking off",
-    "status": "ready_for_gpu_smoke",
-    "predictions_file": null,
-    "attempt_files": [],
-    "notes": "Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect."
+    "status": "complete",
+    "predictions_file": "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl"
+    ],
+    "notes": "Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. Three-record smoke inspected, then60 unique development outputs (0 strict-valid); actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference. No output repair.",
+    "attempt_phase": "development"
   }
 ]

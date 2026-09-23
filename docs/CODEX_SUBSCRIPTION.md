@@ -39,3 +39,5 @@ Terra 5.6 high completed 60 valid development outputs in six sequential batches 
 Terra 5.6 xhigh completed 60 valid outputs in six sequential batches, completing its four requested effort levels. No inference retries, observed tools, parsing failures or metadata warnings occurred. An initial permission-review timeout happened before process creation; its permitted retry launched the sole development run. Evaluation: `results/codex-gpt-5.6-terra-xhigh-batch10-2026-09-23/evaluation.json`.
 
 GPT-5.6 Sol low completed all 60 records in six sequential batches after its inspected batch smoke, without retries, observed tools, parsing failures or metadata warnings. See `results/codex-gpt-5.6-sol-low-batch10-2026-09-23/evaluation.json`. GPT-6 Sol remains a separate, incomplete configuration.
+
+gpt-5.6-sol medium completed 60 valid outputs in six sequential batches after its inspected smoke, without retries, observed tools, parsing failures or metadata warnings. Evaluation: `results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/evaluation.json`.

@@ -146,9 +146,10 @@
     "id": "gemma4-e4b-sdk-thinking-off",
     "model": "Gemma4 E4B Q4_K_M",
     "effort": "off",
-    "status": "download_verified_smoke_pending",
-    "predictions_file": null,
-    "notes": "Pinned model download completed and SHA256 verified. Awaiting serialized GPU slot and three-record response inspection for this configuration."
+    "status": "complete",
+    "predictions_file": "results/gemma4-e4b-2026-09-23/off-development.jsonl",
+    "notes": "Exact artifact/runtime/request controls in results/gemma4-e4b-2026-09-23/off-manifest.json. Strict raw JSON, no repair. Shared-machine warm latency; model loading excluded.",
+    "attempt_phase": "development"
   },
   {
     "id": "gemma4-26b-a4b-sdk-thinking-on",
@@ -802,9 +803,13 @@
     "id": "anyjev-qwen06-generated-control",
     "model": "Qwen/Qwen3-0.6B",
     "effort": "Matched native precision generated JSON control; thinking off",
-    "status": "ready_for_gpu_smoke",
-    "predictions_file": null,
-    "notes": "Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect."
+    "status": "complete",
+    "predictions_file": "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl"
+    ],
+    "notes": "Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. Three-record smoke inspected, then60 unique development outputs (0 strict-valid); actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference. No output repair.",
+    "attempt_phase": "development"
   },
   {
     "id": "codex-gpt-5.6-luna-low",
@@ -973,9 +978,12 @@
     "id": "codex-gpt-5.6-sol-medium",
     "model": "gpt-5.6-sol",
     "effort": "medium",
-    "status": "smoke_complete_development_pending",
-    "predictions_file": null,
-    "notes": "September23 medium batch smoke3 valid in35.36s through CLI0.155.0-alpha.16, ChatGPT subscription, no observed tools/errors/warnings. Development not started; smoke excluded from scoring. No paid API or credits.",
+    "status": "completed",
+    "predictions_file": "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development.jsonl",
+    "attempt_files": [
+      "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development.jsonl"
+    ],
+    "notes": "Completed60 unique valid records in6 sequential batch10 requests,600s timeout,no inference retries/tools/parser errors/metadata warnings. CLI0.155.0-alpha.16 ChatGPT subscription; served revision not exposed. Smoke excluded from development scoring/timing. No paid API/credits.",
     "future_enabled": true,
     "planned_workflow": "batch10",
     "workflow": "batch",
@@ -983,17 +991,31 @@
     "smoke_files": [
       "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/smoke.jsonl",
       "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/smoke-attempts.jsonl"
+    ],
+    "completed_records": 60,
+    "attempt_phase": "development",
+    "raw_batch_attempt_files": [
+      "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development-attempts.jsonl"
+    ],
+    "request_journal_files": [
+      "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development-attempts.jsonl.journal.jsonl"
     ]
   },
   {
     "id": "codex-gpt-5.6-sol-high",
     "model": "gpt-5.6-sol",
     "effort": "high",
-    "status": "pending_batch10_service_recovery",
+    "status": "development_running",
     "predictions_file": null,
-    "notes": "Still in scope alongside new GPT6 models. Remaining development runs will use distinct batch10 workflow after smoke inspection and service recovery. Historical individual smoke/results preserved; no max/ultra future calls, no paidAPI/credits.",
+    "notes": "High smoke3 inspectedvalid,no tools/errors/warnings; sequentialdevelopment underway.",
     "future_enabled": true,
-    "planned_workflow": "batch10"
+    "planned_workflow": "batch10",
+    "workflow": "batch",
+    "configured_batch_size": 10,
+    "smoke_files": [
+      "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/smoke.jsonl",
+      "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/smoke-attempts.jsonl"
+    ]
   },
   {
     "id": "codex-gpt-5.6-sol-xhigh",
