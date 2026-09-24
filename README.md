@@ -1,58 +1,89 @@
-# Recruitment Feedback Comparison
+# Candidate Experience Feedback Benchmark
 
-A reproducible case study of candidate-experience feedback triage across TypeSafe Jev, Codex, Claude Code, Gemini, OpenRouter-hosted Qwen/Gemma/DeepSeek/Mistral, and local models.
+[![Development set: 60 synthetic reviews](https://img.shields.io/badge/development_set-60_synthetic_reviews-235a48)](data/pilot/inputs.jsonl)
+[![Reference labels: provisional](https://img.shields.io/badge/reference_labels-provisional-b97836)](docs/PILOT_AUDIT.md)
+[![Prompt conditions: P0 / P1 / P2](https://img.shields.io/badge/prompt_conditions-P0_%2F_P1_%2F_P2-335d82)](docs/PROMPT_VARIANTS.md)
 
-**Status: development comparison in progress on the existing 60 fictional records only. Completed runs include Claude and Codex effort sweeps, Gemini Pro and some Flash efforts, hosted Jev/Qwen/Gemma/DeepSeek/Mistral24, local Qwen/Gemma, OpenJev, SemIf, Laya English/typed, AlexWortega NLI and AnyJev configurations. Other baseline configurations and the prompt experiments remain open. The remaining 340 records are ungenerated.**
+**How well can TypeSafe Jev and general-purpose language models classify feedback written by candidates about their hiring experience?**
 
-The latest [prompt-comparison report](results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-six-eligible-comparisons.html) covers 36 audited configurations. See [MVP status](docs/MVP_STATUS.md) for remaining work and [harness research](docs/HARNESS_RESEARCH.md) for the proposed larger-run tooling.
+This project compares their responses to the same 60 fictional reviews, complaints and potential testimonials. Each method makes four judgments. Saved results include output validity, agreement with provisional references, prompt variations, request times, token counts and costs where recorded.
 
-The [public results explorer](public-site/index.html) adds metric explanations, interactive comparisons, prompt findings, record inspection and recorded runtime/token/cost details. [Build and publishing notes](docs/PUBLIC_EXPLORER.md).
+[Explore the results](https://adambkovacs.github.io/candidate-experience-benchmark/) · [Read the evidence report](results/comparison/REPORT.md) · [See the method](docs/PLAN.md)
 
-See the [current comparison](results/comparison/REPORT.md), [failure explorer](results/comparison/explorer.html), and [MVP run notes](docs/RUN_MVP.md). Labels remain provisional AI references; this is not a held-out ranking.
+## What the models decide
 
-## Agreed scope
+| Judgment | Question |
+| --- | --- |
+| Sentiment | Is the candidate's experience positive, negative, mixed, neutral, or unclear? |
+| Follow-up needed | Does this feedback call for a response or action? |
+| Serious concern reported | Does the candidate report a concern that warrants escalation? |
+| Testimonial potential | Could this feedback be considered for a testimonial, subject to permission and review? |
 
-- **400 synthetic records:** 60 development (including 30 pilot), 40 validation, 200 ordinary-case test, 100 challenge test.
-- Four judgments: sentiment, follow-up needed, serious concern reported, and testimonial potential.
-- Equivalent tasks with provider-appropriate structured output and isolated contexts.
-- ChatGPT Pro, Claude Max, and Google AI Pro subscription workflows where supported; Jev/DeepSeek/Qwen API runs; LM Studio and specialist local runners on an M4 MacBook Pro with 128 GB unified memory.
-- Separate ordinary-case quality, challenge failures, review workload, execution-surface latency, and actual cost/usage.
-- No real candidate data or consent workflow. Invented testimonials are never presented as real endorsements.
+The task concerns candidates' experience of a process. It does not assess their suitability for a job. All reviews are synthetic; no invented testimonial is a real endorsement.
 
-Read [the full plan](docs/PLAN.md) for the roster, dataset design, evaluation protocol, Kaggle reconnaissance, and milestones.
+## Jev alongside the alternatives
 
-See the [first local results](docs/LOCAL_DEVELOPMENT_RESULTS.md) and [initial preflight](docs/LOCAL_PREFLIGHT.md) for evidence and reproducibility details.
+TypeSafe Jev is the starting point for this comparison. The roster also includes OpenJev, SemIf, AnyJev, Laya and NLI specialists; GPT and Claude subscription configurations; Gemini; and hosted Qwen, Gemma, DeepSeek and Mistral configurations. Exact model, effort, route and controls matter: two rows sharing a model family are not necessarily the same experiment.
 
-## Next milestone
+The saved TypeSafe Jev development result has **60 valid outputs out of 60**, with **all four judgments agreeing on 54 of 60 reviews**. Its recorded development cost estimate is **$0.00589**. That is a token-price estimate, not a provider-confirmed charge. The timing evidence includes 61 requests because one failed request preceded a successful continuation. See the [source report](results/comparison/REPORT.md) and [specialist registry](results/specialist-run-registry.json).
 
-Read [the critical audit](docs/PILOT_AUDIT.md), [v0.2 labeling guide](docs/LABELING_GUIDE.md), and [60 feedback examples](docs/PILOT_REVIEW.md). The [proposed labels](docs/PILOT_PROPOSED_LABELS.md) were reviewed by the same assistant, not a human or independent reviewer. Follow the [local development smoke test](docs/RUN_DEVELOPMENT.md) for each new configuration. Generation of the remaining 340 remains on hold.
+These are development findings, not a held-out leaderboard. The same AI assistant drafted and reviewed the reference labels. There has been no independent human adjudication. A model matching those references does not establish real-world reliability or general model quality.
 
-Machine-readable [inputs](data/pilot/inputs.jsonl), [provisional labels](data/pilot/proposed_labels.jsonl), and [output schema](schemas/judgments.schema.json) are included. Keep the labels and metadata out of model contexts. All examples are fictional and development-only.
+## Does the prompt change the result?
 
-## Deliverables
+| Condition | What changes |
+| --- | --- |
+| P0: baseline | The original task, rubric and output schema. |
+| P1: classifier framing | An explicit classifier role and task instructions. |
+| P2: SOP and decision tree | Classifier framing plus a procedure for making the judgments. |
 
-1. Versioned dataset, reference labels, and rubric.
-2. Reproducible runners and evaluation manifest.
-3. Comparison tables with explicit configuration and execution-surface details.
-4. Failure explorer and concise case study.
-5. Optional cascade experiment after standalone comparisons.
+Prompt comparisons have run. The [38 audited paired comparisons](results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-eight-eligible-comparisons.html) preserve eligibility checks. Other saved outcomes can be descriptive without qualifying as a controlled P0/P1/P2 comparison. Native classification interfaces do not automatically have equivalent generative prompt conditions.
 
-Future study: interviewer evidence versus hire/no-hire vote, evaluated separately.
+Batch-context baselines remain separate from historical single-record runs. Missing results and invalid outputs remain visible; they are not dropped to improve a score. Read the [prompt protocol](docs/PROMPT_VARIANTS.md) for the exact distinctions.
 
-## Expanded candidate research
+## Reading the numbers
 
-[Model research](docs/MODEL_RESEARCH.md) covers Gemma dense versus MoE, smaller Qwen models, SemIf (formerly OpenJev), AlexWortega/OpenJev, and Laya. Run three-record smoke checks, inspect responses, then benchmark the existing 60 development records for supported configurations. The user expanded the listed sizes and specialist variations into scope, then prioritized available OpenRouter routes over further local runs. Hosted replacements are separately identified; they do not claim the local quantization or runtime. Local specialist procedures and exact models without a hosted route remain local. See the [route and cost review](docs/OPENROUTER_COST_REVIEW.md).
+- **Valid / 60** counts responses that meet the output contract. A valid response can still disagree with every reference judgment.
+- **Each judgment / 60** counts agreement for that field. **All four / 60** requires every judgment on a review to agree.
+- **Request time** measures the recorded execution surface. A request may contain one review or a batch of ten. Summed request time is not necessarily elapsed wall time when requests overlap.
+- **Tokens** use the provider's reported fields. Missing usage is unknown, not zero; cache and reasoning counts retain their provider meanings.
+- **Cost** distinguishes observed API charges, estimates and unknown-charge bounds. Subscription fees and local hardware costs are not allocated per run.
 
-## Offline verification
+Local timing depends on the recorded Mac, runtime and quantization. It is diagnostic evidence, not a hosted speed ranking. Hosted replacements have their own identities; a hosted result does not overwrite a local measurement.
 
-`python3 scripts/development_benchmark.py validate`
+## Reproduce the offline checks
 
-`python3 -m unittest discover -s tests -q`
+```sh
+git clone https://github.com/adambkovacs/candidate-experience-benchmark.git
+cd candidate-experience-benchmark
+python3 scripts/development_benchmark.py validate
+python3 -m unittest discover -s tests -q
+node --test tests/*.cjs
+```
 
-`node --test tests/*.cjs`
+These checks do not launch paid inference. Runner-specific dependencies and instructions are in [development setup](docs/RUN_DEVELOPMENT.md) and [MVP run notes](docs/RUN_MVP.md).
 
-The development set includes reported bias, harassment, retaliation, privacy and accommodation concerns, benign counterexamples, and six controlled pairs. This evaluates feedback routing; it does not rank candidates or certify hiring compliance. Results measure agreement with provisional development references, not general model quality.
+To serve the saved public view locally:
 
-## Planned follow-up
+```sh
+python3 -m http.server 8768
+# Open http://localhost:8768/public-site/
+```
 
-After the current runs, [compare two prompt variations](docs/PROMPT_VARIANTS.md): classifier framing, and classifier framing plus an SOP and decision tree. The existing rubric-and-schema prompt remains the baseline. This phase has not run. The [fifteen necessary batch-context P0 preparations](results/subscription-batch-p0-run-registry.json) are complete and remain separate from historical single-record baselines. [Execution readiness](docs/PROMPT_EXECUTION_READINESS.md) tracks the remaining evidence and scheduling work, including the limits of opaque hosted prompt rendering.
+The website is static. Its published bundle contains an allowlisted result export and site assets; it needs no API key or backend. See [publishing notes](docs/PUBLIC_EXPLORER.md).
+
+## Data and evidence
+
+| Start here | Contents |
+| --- | --- |
+| [60 inputs](data/pilot/inputs.jsonl) | Fictional candidate feedback used for this development run |
+| [Labeling guide](docs/LABELING_GUIDE.md) | Judgment definitions and decision rules |
+| [Provisional references](data/pilot/proposed_labels.jsonl) | Offline scoring labels, excluded from inference requests |
+| [Output schema](schemas/judgments.schema.json) | Required fields and allowed values |
+| [Pilot audit](docs/PILOT_AUDIT.md) | Dataset and reference limitations |
+| [MVP status](docs/MVP_STATUS.md) | Operational progress and outstanding work |
+| [Harness research](docs/HARNESS_RESEARCH.md) | Options for reducing manual coordination in later runs |
+
+The broader plan describes 400 records. **Only the 60 development records are in scope for this run; the remaining 340 have not been generated.** Future validation and test sets need separate authorization and independent reference review.
+
+The repository was previously named `recruitment-feedback-demo`. Historical evidence retains original paths and identifiers so its hashes and provenance remain intact.

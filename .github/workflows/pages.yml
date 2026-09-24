@@ -1,0 +1,37 @@
+name: Publish results explorer
+on:
+  push:
+    branches: [main]
+    paths: ['public-site/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check static public bundle
+        run: |
+          test -f public-site/index.html
+          test -f public-site/data.json
+          test -z "$(find public-site -type l -print)"
+          node --check public-site/app.js
+          python3 -m json.tool public-site/data.json > /dev/null
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: public-site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
