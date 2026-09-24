@@ -1,0 +1,229 @@
+{
+  "reference_status": "AI-reviewed provisional; development only",
+  "records": 60,
+  "valid_outputs": 57,
+  "missing_or_failed": [
+    "DEV-029",
+    "DEV-033",
+    "DEV-055"
+  ],
+  "metrics": {
+    "sentiment": {
+      "correct": 50,
+      "denominator": 60,
+      "accuracy": 0.8333333333333334,
+      "macro_f1": 0.657555376199444,
+      "per_label": {
+        "positive": {
+          "tp": 11,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0.6875,
+          "recall": 1.0,
+          "f1": 0.8148148148148148
+        },
+        "negative": {
+          "tp": 28,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.9032258064516129,
+          "f1": 0.9491525423728814
+        },
+        "mixed": {
+          "tp": 5,
+          "fp": 2,
+          "fn": 3,
+          "precision": 0.7142857142857143,
+          "recall": 0.625,
+          "f1": 0.6666666666666666
+        },
+        "neutral": {
+          "tp": 6,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "follow_up_needed": {
+      "correct": 56,
+      "denominator": 60,
+      "accuracy": 0.9333333333333333,
+      "macro_f1": 0.6426501035196687,
+      "per_label": {
+        "yes": {
+          "tp": 34,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.9714285714285714,
+          "recall": 0.9714285714285714,
+          "f1": 0.9714285714285714
+        },
+        "no": {
+          "tp": 22,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.9166666666666666,
+          "f1": 0.9565217391304348
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "serious_concern_reported": {
+      "correct": 52,
+      "denominator": 60,
+      "accuracy": 0.8666666666666667,
+      "macro_f1": 0.7994372294372294,
+      "per_label": {
+        "yes": {
+          "tp": 24,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.96,
+          "recall": 0.96,
+          "f1": 0.96
+        },
+        "no": {
+          "tp": 25,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.9259259259259259,
+          "recall": 0.8620689655172413,
+          "f1": 0.8928571428571429
+        },
+        "insufficient_information": {
+          "tp": 3,
+          "fp": 2,
+          "fn": 3,
+          "precision": 0.6,
+          "recall": 0.5,
+          "f1": 0.5454545454545454
+        }
+      }
+    },
+    "testimonial_potential": {
+      "correct": 52,
+      "denominator": 60,
+      "accuracy": 0.8666666666666667,
+      "macro_f1": 0.5158078167786906,
+      "per_label": {
+        "yes": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 5,
+          "precision": 1.0,
+          "recall": 0.4444444444444444,
+          "f1": 0.6153846153846154
+        },
+        "no": {
+          "tp": 48,
+          "fp": 5,
+          "fn": 2,
+          "precision": 0.9056603773584906,
+          "recall": 0.96,
+          "f1": 0.9320388349514563
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    }
+  },
+  "serious_concerns": {
+    "reference_yes": 25,
+    "predicted_no": [
+      "DEV-058"
+    ],
+    "predicted_insufficient": [],
+    "output_failed_or_missing": [],
+    "false_escalations": []
+  },
+  "pair_checks": [
+    {
+      "id": "resolution",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": false
+    },
+    {
+      "id": "style",
+      "status": "scored",
+      "invariants_preserved": false,
+      "expected_changes_correct": true,
+      "both_fully_correct": false
+    },
+    {
+      "id": "irrelevant_religion",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "sex_stereotype_symmetry",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "identity_evidence",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "complaint_style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    }
+  ],
+  "provenance": {
+    "scope": "SemIf P2 development, original saved 32 plus versioned remaining 27",
+    "original_predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-development.jsonl",
+      "sha256": "f07c756fce6b088fea93a01a9b91c967affe3e3f9431bbb3a5a23084f0b3ea17"
+    },
+    "continuation_predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-continuation-v1/development-DEV034-060.jsonl",
+      "sha256": "be9db222091c9b727cabf74babd691d854f5384f58505fe8b3d4022c8e73421a"
+    },
+    "interruption_audit": {
+      "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-interruption-audit.json",
+      "sha256": "2c76781cdedadbaae0d1cf9ab0a4ac118f7045fd8c42aded5cdde11155608f04"
+    },
+    "continuation_terminal": {
+      "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-continuation-v1/development-DEV034-060.jsonl.terminal.json",
+      "sha256": "789409dc0f5ae9c34bdf5d6bfaccd8bfdfa86b677c1983468572797d1f0526f1"
+    },
+    "missing_record_status": {
+      "DEV-033": "started_without_finish_or_saved_response; outcome_unknown"
+    },
+    "paired_evaluator_limitation": "Offline provisional-label score only; central native raw-evidence paired extractor remains unverified."
+  }
+}
