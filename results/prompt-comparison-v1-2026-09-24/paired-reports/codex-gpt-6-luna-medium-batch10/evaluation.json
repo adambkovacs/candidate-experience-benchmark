@@ -1,0 +1,1552 @@
+{
+  "attempt_selection": "latest_chronological",
+  "comparisons": {
+    "P0_to_P1": {
+      "all_four_correct_to_wrong": [
+        "DEV-019"
+      ],
+      "all_four_wrong_to_correct": [
+        "DEV-005",
+        "DEV-014",
+        "DEV-060"
+      ],
+      "both_failed": [],
+      "both_valid": 60,
+      "cases": [
+        {
+          "feedback": "I got the offer. That's all I have to add.",
+          "from_prediction": {
+            "follow_up_needed": "insufficient_information",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-005",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "The interviewer explained how to report harassment on site. They did not harass me. The safety briefing was reassuring and included exactly who to call.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-014",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "The interview was good. Before the assessment we agreed travel expenses would be covered. My claim is six weeks overdue despite two reminders.",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "mixed",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-019",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "mixed",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket.",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-030",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "neutral",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "mixed",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "I was rejected. I suspect discrimination, but I don't know why they rejected me and nobody said anything about my background. Could someone check how the decision was made?",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-060",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        }
+      ],
+      "changed_record_count": 5,
+      "denominator": 60,
+      "failed_to_valid": [],
+      "failure_transitions": {},
+      "fields": {
+        "follow_up_needed": {
+          "changed_ids": [
+            "DEV-005"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "insufficient_information -> no": 1,
+            "no -> no": 23,
+            "yes -> yes": 35
+          },
+          "wrong_to_correct": [
+            "DEV-005"
+          ]
+        },
+        "sentiment": {
+          "changed_ids": [
+            "DEV-019",
+            "DEV-030",
+            "DEV-060"
+          ],
+          "correct_to_wrong": [
+            "DEV-019"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 2,
+            "insufficient_information -> negative": 1,
+            "mixed -> mixed": 6,
+            "mixed -> negative": 1,
+            "negative -> mixed": 1,
+            "negative -> negative": 31,
+            "neutral -> neutral": 5,
+            "positive -> positive": 13
+          },
+          "wrong_to_correct": [
+            "DEV-060"
+          ]
+        },
+        "serious_concern_reported": {
+          "changed_ids": [
+            "DEV-030"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 6,
+            "no -> insufficient_information": 1,
+            "no -> no": 28,
+            "yes -> yes": 25
+          },
+          "wrong_to_correct": [
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "changed_ids": [
+            "DEV-014"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 52,
+            "no -> yes": 1,
+            "yes -> yes": 6
+          },
+          "wrong_to_correct": [
+            "DEV-014"
+          ]
+        }
+      },
+      "valid_to_failed": []
+    },
+    "P0_to_P2": {
+      "all_four_correct_to_wrong": [
+        "DEV-028",
+        "DEV-038"
+      ],
+      "all_four_wrong_to_correct": [
+        "DEV-005",
+        "DEV-018",
+        "DEV-060"
+      ],
+      "both_failed": [],
+      "both_valid": 60,
+      "cases": [
+        {
+          "feedback": "I got the offer. That's all I have to add.",
+          "from_prediction": {
+            "follow_up_needed": "insufficient_information",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-005",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "It was okay I guess. The last bit felt off, but I can't really put my finger on why. Maybe someone could ask me about it.",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-018",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "The interview itself was efficient and respectful. I was rejected and I'm disappointed about that, but I have no criticism of how the interview was handled.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-028",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "mixed",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "I requested an accessible interview room because I use a wheelchair. They booked a ground-floor room and checked the route with me beforehand. That made the interview much easier.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "from_state": "valid",
+          "id": "DEV-038",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "I was rejected. I suspect discrimination, but I don't know why they rejected me and nobody said anything about my background. Could someone check how the decision was made?",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "insufficient_information",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-060",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        }
+      ],
+      "changed_record_count": 5,
+      "denominator": 60,
+      "failed_to_valid": [],
+      "failure_transitions": {},
+      "fields": {
+        "follow_up_needed": {
+          "changed_ids": [
+            "DEV-005"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "insufficient_information -> no": 1,
+            "no -> no": 23,
+            "yes -> yes": 35
+          },
+          "wrong_to_correct": [
+            "DEV-005"
+          ]
+        },
+        "sentiment": {
+          "changed_ids": [
+            "DEV-028",
+            "DEV-060"
+          ],
+          "correct_to_wrong": [
+            "DEV-028"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 2,
+            "insufficient_information -> negative": 1,
+            "mixed -> mixed": 7,
+            "negative -> negative": 32,
+            "neutral -> neutral": 5,
+            "positive -> mixed": 1,
+            "positive -> positive": 12
+          },
+          "wrong_to_correct": [
+            "DEV-060"
+          ]
+        },
+        "serious_concern_reported": {
+          "changed_ids": [
+            "DEV-018"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 5,
+            "insufficient_information -> no": 1,
+            "no -> no": 29,
+            "yes -> yes": 25
+          },
+          "wrong_to_correct": [
+            "DEV-018"
+          ]
+        },
+        "testimonial_potential": {
+          "changed_ids": [
+            "DEV-038"
+          ],
+          "correct_to_wrong": [
+            "DEV-038"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 53,
+            "yes -> no": 1,
+            "yes -> yes": 5
+          },
+          "wrong_to_correct": []
+        }
+      },
+      "valid_to_failed": []
+    },
+    "P1_to_P2": {
+      "all_four_correct_to_wrong": [
+        "DEV-014",
+        "DEV-028",
+        "DEV-038"
+      ],
+      "all_four_wrong_to_correct": [
+        "DEV-018",
+        "DEV-019"
+      ],
+      "both_failed": [],
+      "both_valid": 60,
+      "cases": [
+        {
+          "feedback": "The interviewer explained how to report harassment on site. They did not harass me. The safety briefing was reassuring and included exactly who to call.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "from_state": "valid",
+          "id": "DEV-014",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "It was okay I guess. The last bit felt off, but I can't really put my finger on why. Maybe someone could ask me about it.",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-018",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "The interview was good. Before the assessment we agreed travel expenses would be covered. My claim is six weeks overdue despite two reminders.",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-019",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "mixed",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "mixed",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "The interview itself was efficient and respectful. I was rejected and I'm disappointed about that, but I have no criticism of how the interview was handled.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-028",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "mixed",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket.",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "mixed",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-030",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "neutral",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "I requested an accessible interview room because I use a wheelchair. They booked a ground-floor room and checked the route with me beforehand. That made the interview much easier.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "from_state": "valid",
+          "id": "DEV-038",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        }
+      ],
+      "changed_record_count": 6,
+      "denominator": 60,
+      "failed_to_valid": [],
+      "failure_transitions": {},
+      "fields": {
+        "follow_up_needed": {
+          "changed_ids": [],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 24,
+            "yes -> yes": 35
+          },
+          "wrong_to_correct": []
+        },
+        "sentiment": {
+          "changed_ids": [
+            "DEV-019",
+            "DEV-028",
+            "DEV-030"
+          ],
+          "correct_to_wrong": [
+            "DEV-028"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 6,
+            "mixed -> negative": 1,
+            "negative -> mixed": 1,
+            "negative -> negative": 32,
+            "neutral -> neutral": 5,
+            "positive -> mixed": 1,
+            "positive -> positive": 12
+          },
+          "wrong_to_correct": [
+            "DEV-019"
+          ]
+        },
+        "serious_concern_reported": {
+          "changed_ids": [
+            "DEV-018",
+            "DEV-030"
+          ],
+          "correct_to_wrong": [
+            "DEV-030"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 5,
+            "insufficient_information -> no": 2,
+            "no -> no": 28,
+            "yes -> yes": 25
+          },
+          "wrong_to_correct": [
+            "DEV-018"
+          ]
+        },
+        "testimonial_potential": {
+          "changed_ids": [
+            "DEV-014",
+            "DEV-038"
+          ],
+          "correct_to_wrong": [
+            "DEV-014",
+            "DEV-038"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 52,
+            "yes -> no": 2,
+            "yes -> yes": 5
+          },
+          "wrong_to_correct": []
+        }
+      },
+      "valid_to_failed": []
+    }
+  },
+  "conditions": {
+    "P0": {
+      "actual_controls_verification": "verified_against_hash_bound_codex_batch_requests",
+      "all_four_correct": 50,
+      "audited_controls": {
+        "auth_mode": "ChatGPT",
+        "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex",
+        "cli_version": "codex-cli 0.155.0-alpha.16",
+        "configured_batch_size": 10,
+        "controller_timeout_seconds": 600.0,
+        "effort": "medium",
+        "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "requested_model": "gpt-6-luna",
+        "workflow": "codex-subscription-batch"
+      },
+      "cost": {
+        "attempt_count": 6,
+        "availability": "unavailable",
+        "known_actual_attempts": 0,
+        "known_actual_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "missing_financial_attempts": 6,
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.",
+        "scope": "declared development attempts only",
+        "source_paths": [
+          "results/codex-gpt-6-luna-medium-2026-09-23/development-batch-attempts.jsonl"
+        ],
+        "total_actual_usd": null,
+        "unknown_bounded_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_reserved_upper_bound_usd": null
+      },
+      "evaluation": {
+        "metrics": {
+          "follow_up_needed": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.8817966903073285,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 0.6666666666666666,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.5,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 0.9787234042553191,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.9583333333333334,
+                "tp": 23
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 35
+              }
+            }
+          },
+          "sentiment": {
+            "accuracy": 0.9166666666666666,
+            "correct": 55,
+            "denominator": 60,
+            "macro_f1": 0.8743223443223442,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 0.8,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.6666666666666666,
+                "recall": 1.0,
+                "tp": 2
+              },
+              "mixed": {
+                "f1": 0.9333333333333333,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.875,
+                "tp": 7
+              },
+              "negative": {
+                "f1": 0.9523809523809523,
+                "fn": 1,
+                "fp": 2,
+                "precision": 0.9375,
+                "recall": 0.967741935483871,
+                "tp": 30
+              },
+              "neutral": {
+                "f1": 0.7692307692307693,
+                "fn": 3,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.625,
+                "tp": 5
+              },
+              "positive": {
+                "f1": 0.9166666666666666,
+                "fn": 0,
+                "fp": 2,
+                "precision": 0.8461538461538461,
+                "recall": 1.0,
+                "tp": 11
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "accuracy": 0.9666666666666667,
+            "correct": 58,
+            "denominator": 60,
+            "macro_f1": 0.9329501915708812,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 0.8333333333333334,
+                "fn": 1,
+                "fp": 1,
+                "precision": 0.8333333333333334,
+                "recall": 0.8333333333333334,
+                "tp": 5
+              },
+              "no": {
+                "f1": 0.9655172413793104,
+                "fn": 1,
+                "fp": 1,
+                "precision": 0.9655172413793104,
+                "recall": 0.9655172413793104,
+                "tp": 28
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 25
+              }
+            }
+          },
+          "testimonial_potential": {
+            "accuracy": 0.95,
+            "correct": 57,
+            "denominator": 60,
+            "macro_f1": 0.9236245954692558,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 0.970873786407767,
+                "fn": 0,
+                "fp": 3,
+                "precision": 0.9433962264150944,
+                "recall": 1.0,
+                "tp": 50
+              },
+              "yes": {
+                "f1": 0.8,
+                "fn": 3,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "tp": 6
+              }
+            }
+          }
+        },
+        "missing_or_failed": [],
+        "pair_checks": [
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "resolution",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "style",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "irrelevant_religion",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "sex_stereotype_symmetry",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "identity_evidence",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "complaint_style",
+            "invariants_preserved": true,
+            "status": "scored"
+          }
+        ],
+        "records": 60,
+        "reference_status": "AI-reviewed provisional; development only",
+        "serious_concerns": {
+          "false_escalations": [],
+          "output_failed_or_missing": [],
+          "predicted_insufficient": [],
+          "predicted_no": [],
+          "reference_yes": 25
+        },
+        "valid_outputs": 60
+      },
+      "evidence": {
+        "extractor": "codex_batch_v1",
+        "predictions": {
+          "file": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl",
+          "sha256": "1a129010a05d4fb62542cab917a6ff84e59d8396a14a5b63918d3a8d5c144a2c"
+        },
+        "request_evidence": {
+          "file": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch-attempts.jsonl",
+          "sha256": "2e01746af3812cce8d6465b2f92a97e5eaec68eb2c9821a480cd782c94df4865"
+        },
+        "request_evidence_phase": "development"
+      },
+      "omitted_predictions": [],
+      "prompt_bytes_added": 0,
+      "prompt_provenance": {
+        "addition_bytes": 0,
+        "addition_path": null,
+        "addition_sha256": null,
+        "baseline_instruction_bytes": 7723,
+        "baseline_instruction_sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1",
+        "bundle_version": "variants-v1",
+        "composed_instruction_bytes": 7723,
+        "composed_instruction_sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1",
+        "composition_separator": "",
+        "inference_performed": false,
+        "instruction_role": "cli_combined_prompt",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "parent_baseline_id": "codex-gpt-6-luna-medium-batch10",
+        "reference_labels_read": false,
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "variant": "P0"
+      },
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempt_seconds": 973.9435735428706,
+        "attempts": 6,
+        "input_tokens": 61445,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.",
+        "output_tokens": 2034,
+        "reasoning_tokens": 0
+      }
+    },
+    "P1": {
+      "actual_controls_verification": "verified_against_hash_bound_codex_batch_requests",
+      "all_four_correct": 52,
+      "audited_controls": {
+        "auth_mode": "ChatGPT",
+        "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex",
+        "cli_version": "codex-cli 0.155.0-alpha.16.3",
+        "configured_batch_size": 10,
+        "controller_timeout_seconds": 600.0,
+        "effort": "medium",
+        "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "requested_model": "gpt-6-luna",
+        "workflow": "codex-subscription-batch"
+      },
+      "cost": {
+        "attempt_count": 6,
+        "availability": "unavailable",
+        "known_actual_attempts": 0,
+        "known_actual_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "missing_financial_attempts": 6,
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.",
+        "scope": "declared development attempts only",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-medium-batch10/P1/development-attempts.jsonl"
+        ],
+        "total_actual_usd": null,
+        "unknown_bounded_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_reserved_upper_bound_usd": null
+      },
+      "evaluation": {
+        "metrics": {
+          "follow_up_needed": {
+            "accuracy": 1.0,
+            "correct": 60,
+            "denominator": 60,
+            "macro_f1": 1.0,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 24
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 35
+              }
+            }
+          },
+          "sentiment": {
+            "accuracy": 0.9166666666666666,
+            "correct": 55,
+            "denominator": 60,
+            "macro_f1": 0.8909294871794872,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 2
+              },
+              "mixed": {
+                "f1": 0.8,
+                "fn": 2,
+                "fp": 1,
+                "precision": 0.8571428571428571,
+                "recall": 0.75,
+                "tp": 6
+              },
+              "negative": {
+                "f1": 0.96875,
+                "fn": 0,
+                "fp": 2,
+                "precision": 0.9393939393939394,
+                "recall": 1.0,
+                "tp": 31
+              },
+              "neutral": {
+                "f1": 0.7692307692307693,
+                "fn": 3,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.625,
+                "tp": 5
+              },
+              "positive": {
+                "f1": 0.9166666666666666,
+                "fn": 0,
+                "fp": 2,
+                "precision": 0.8461538461538461,
+                "recall": 1.0,
+                "tp": 11
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.9685110211426,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 0.9230769230769231,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.8571428571428571,
+                "recall": 1.0,
+                "tp": 6
+              },
+              "no": {
+                "f1": 0.9824561403508771,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.9655172413793104,
+                "tp": 28
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 25
+              }
+            }
+          },
+          "testimonial_potential": {
+            "accuracy": 0.9666666666666667,
+            "correct": 58,
+            "denominator": 60,
+            "macro_f1": 0.9517973856209151,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 0.9803921568627451,
+                "fn": 0,
+                "fp": 2,
+                "precision": 0.9615384615384616,
+                "recall": 1.0,
+                "tp": 50
+              },
+              "yes": {
+                "f1": 0.875,
+                "fn": 2,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.7777777777777778,
+                "tp": 7
+              }
+            }
+          }
+        },
+        "missing_or_failed": [],
+        "pair_checks": [
+          {
+            "both_fully_correct": false,
+            "expected_changes_correct": true,
+            "id": "resolution",
+            "invariants_preserved": false,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "style",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "irrelevant_religion",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "sex_stereotype_symmetry",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "identity_evidence",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "complaint_style",
+            "invariants_preserved": true,
+            "status": "scored"
+          }
+        ],
+        "records": 60,
+        "reference_status": "AI-reviewed provisional; development only",
+        "serious_concerns": {
+          "false_escalations": [],
+          "output_failed_or_missing": [],
+          "predicted_insufficient": [],
+          "predicted_no": [],
+          "reference_yes": 25
+        },
+        "valid_outputs": 60
+      },
+      "evidence": {
+        "extractor": "codex_batch_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-medium-batch10/P1/development.jsonl",
+          "sha256": "fdb13cf31833d68bf2681dfe09d1e9e589f29d862355efb7b48818120fe10ff6"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-medium-batch10/P1/development-attempts.jsonl",
+          "sha256": "7030f20aa6f96b639af70085bbcc220d92d556d556b0bec4c337ba2a6fc2b8f1"
+        },
+        "request_evidence_phase": "development"
+      },
+      "omitted_predictions": [],
+      "prompt_bytes_added": 1022,
+      "prompt_provenance": {
+        "addition_bytes": 1020,
+        "addition_path": "prompts/variants-v1/P1-classifier.txt",
+        "addition_sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7",
+        "baseline_instruction_bytes": 7723,
+        "baseline_instruction_sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1",
+        "bundle_version": "variants-v1",
+        "composed_instruction_bytes": 8745,
+        "composed_instruction_sha256": "b644ee2e24a674331ccc8974600d60a616b13b7d3ff60ffd696288eed3337ae5",
+        "composition_separator": "\n\n",
+        "inference_performed": false,
+        "instruction_role": "cli_combined_prompt",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "parent_baseline_id": "codex-gpt-6-luna-medium-batch10",
+        "reference_labels_read": false,
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "variant": "P1"
+      },
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempt_seconds": 117.23315345799347,
+        "attempts": 6,
+        "input_tokens": 62473,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.",
+        "output_tokens": 2032,
+        "reasoning_tokens": 0
+      }
+    },
+    "P2": {
+      "actual_controls_verification": "verified_against_hash_bound_codex_batch_requests",
+      "all_four_correct": 51,
+      "audited_controls": {
+        "auth_mode": "ChatGPT",
+        "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex",
+        "cli_version": "codex-cli 0.155.0-alpha.16.3",
+        "configured_batch_size": 10,
+        "controller_timeout_seconds": 600.0,
+        "effort": "medium",
+        "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "requested_model": "gpt-6-luna",
+        "workflow": "codex-subscription-batch"
+      },
+      "cost": {
+        "attempt_count": 6,
+        "availability": "unavailable",
+        "known_actual_attempts": 0,
+        "known_actual_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "missing_financial_attempts": 6,
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.",
+        "scope": "declared development attempts only",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-medium-batch10/P2/development-attempts.jsonl"
+        ],
+        "total_actual_usd": null,
+        "unknown_bounded_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_reserved_upper_bound_usd": null
+      },
+      "evaluation": {
+        "metrics": {
+          "follow_up_needed": {
+            "accuracy": 1.0,
+            "correct": 60,
+            "denominator": 60,
+            "macro_f1": 1.0,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 24
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 35
+              }
+            }
+          },
+          "sentiment": {
+            "accuracy": 0.9166666666666666,
+            "correct": 55,
+            "denominator": 60,
+            "macro_f1": 0.8965091973244148,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 2
+              },
+              "mixed": {
+                "f1": 0.875,
+                "fn": 1,
+                "fp": 1,
+                "precision": 0.875,
+                "recall": 0.875,
+                "tp": 7
+              },
+              "negative": {
+                "f1": 0.96875,
+                "fn": 0,
+                "fp": 2,
+                "precision": 0.9393939393939394,
+                "recall": 1.0,
+                "tp": 31
+              },
+              "neutral": {
+                "f1": 0.7692307692307693,
+                "fn": 3,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.625,
+                "tp": 5
+              },
+              "positive": {
+                "f1": 0.8695652173913043,
+                "fn": 1,
+                "fp": 2,
+                "precision": 0.8333333333333334,
+                "recall": 0.9090909090909091,
+                "tp": 10
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 0.9090909090909091,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "tp": 5
+              },
+              "no": {
+                "f1": 0.9830508474576272,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "tp": 29
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 25
+              }
+            }
+          },
+          "testimonial_potential": {
+            "accuracy": 0.9333333333333333,
+            "correct": 56,
+            "denominator": 60,
+            "macro_f1": 0.891941391941392,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 0.9615384615384616,
+                "fn": 0,
+                "fp": 4,
+                "precision": 0.9259259259259259,
+                "recall": 1.0,
+                "tp": 50
+              },
+              "yes": {
+                "f1": 0.7142857142857143,
+                "fn": 4,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.5555555555555556,
+                "tp": 5
+              }
+            }
+          }
+        },
+        "missing_or_failed": [],
+        "pair_checks": [
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "resolution",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "style",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "irrelevant_religion",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "sex_stereotype_symmetry",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "identity_evidence",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "complaint_style",
+            "invariants_preserved": true,
+            "status": "scored"
+          }
+        ],
+        "records": 60,
+        "reference_status": "AI-reviewed provisional; development only",
+        "serious_concerns": {
+          "false_escalations": [],
+          "output_failed_or_missing": [],
+          "predicted_insufficient": [],
+          "predicted_no": [],
+          "reference_yes": 25
+        },
+        "valid_outputs": 60
+      },
+      "evidence": {
+        "extractor": "codex_batch_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-medium-batch10/P2/development.jsonl",
+          "sha256": "b71779410b7f11d50edfb5a8d7c778946f14489388727040fda79cc0b5c026a3"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-medium-batch10/P2/development-attempts.jsonl",
+          "sha256": "8b3865a584e01082d1334be6dc3926b0b73c392c79e153bf6c746442c703e077"
+        },
+        "request_evidence_phase": "development"
+      },
+      "omitted_predictions": [],
+      "prompt_bytes_added": 6474,
+      "prompt_provenance": {
+        "addition_bytes": 6472,
+        "addition_path": "prompts/variants-v1/P2-classifier-sop.txt",
+        "addition_sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9",
+        "baseline_instruction_bytes": 7723,
+        "baseline_instruction_sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1",
+        "bundle_version": "variants-v1",
+        "composed_instruction_bytes": 14197,
+        "composed_instruction_sha256": "a535db209be32c7a6904bade0efd38bfee2dd96de6001710ef508c9649f2fb7a",
+        "composition_separator": "\n\n",
+        "inference_performed": false,
+        "instruction_role": "cli_combined_prompt",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "parent_baseline_id": "codex-gpt-6-luna-medium-batch10",
+        "reference_labels_read": false,
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "variant": "P2"
+      },
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempt_seconds": 146.74800821000827,
+        "attempts": 6,
+        "input_tokens": 67891,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.",
+        "output_tokens": 2028,
+        "reasoning_tokens": 0
+      }
+    }
+  },
+  "contract": "prompt-pairs-v1",
+  "controls_verified": true,
+  "denominator": 60,
+  "eligible_paired_comparison": true,
+  "limitations": [
+    "Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.",
+    "An explicitly accepted Codex CLI patch is retained as a runtime difference, not evidence that runtime changes have no effect.",
+    "Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.",
+    "Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.",
+    "Prompt bytes are not token counts; token overhead is unavailable until separately measured.",
+    "Claude batch extraction verifies saved request bodies, recorded runtime controls and raw response guards; historical CLI command/environment and hidden wrapper bytes are not independently captured. Batch timing/usage is counted once, not as individual-record latency."
+  ],
+  "manifest_file_sha256": "c684bdd0dc7f19d95545de7b0a1d16675665196e13b8f5547cb30849a4562297",
+  "manifest_sha256": "1434e26894fee0298b9430423e47f9debdb06f0b8735b2fdcdee92f17273a2db",
+  "parent_baseline_id": "codex-gpt-6-luna-medium-batch10",
+  "protocol_verification": {
+    "conditions": {
+      "P1": {
+        "development_attempt_id": "6c27431a-dd6d-4b2a-b32e-0c7c6152ff7e",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-luna-medium-batch10/execution-manifest.json",
+          "sha256": "9f9531685ac83e473785c8e934b4bd97e5ecc930b8dcb904f403bad6e771224b"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-luna-medium-batch10/execution-journal-snapshot.jsonl",
+          "sha256": "4a89d761d974d01ddab1693893e6045f5748511601302a6771ec163382884b95"
+        },
+        "observational": true,
+        "verified": true
+      },
+      "P2": {
+        "development_attempt_id": "6e63cc16-e550-43ef-bbec-1e5a58cf6bba",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-luna-medium-batch10/execution-manifest.json",
+          "sha256": "9f9531685ac83e473785c8e934b4bd97e5ecc930b8dcb904f403bad6e771224b"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-luna-medium-batch10/execution-journal-snapshot.jsonl",
+          "sha256": "4a89d761d974d01ddab1693893e6045f5748511601302a6771ec163382884b95"
+        },
+        "observational": true,
+        "verified": true
+      }
+    },
+    "fully_verified_controls": false,
+    "missing_audit_capabilities": [],
+    "note": "Frozen roster, client requests, inspected smoke and completed schedule reproduced from saved evidence. Hidden provider rendering remains unverified; historical baseline reuse does not establish causality.",
+    "status": "verified_observational"
+  },
+  "reference_labels_read_offline": true,
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "runtime_transition": {
+    "authorization": "user_2026-09-24_cli_change_move_forward",
+    "from": "codex-cli 0.155.0-alpha.16",
+    "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change.",
+    "to": "codex-cli 0.155.0-alpha.16.3"
+  }
+}

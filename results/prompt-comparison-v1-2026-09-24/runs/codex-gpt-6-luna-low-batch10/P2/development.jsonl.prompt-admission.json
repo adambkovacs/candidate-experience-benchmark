@@ -1,0 +1,59 @@
+{
+  "stage": "development",
+  "admitted": true,
+  "configuration_id": "codex-gpt-6-luna-low-batch10",
+  "condition": "P2",
+  "observational": true,
+  "fully_verified_controls": false,
+  "prospective_rendered_tokens": null,
+  "output_reserve_tokens": null,
+  "runtime_transition": {
+    "from": "codex-cli 0.155.0-alpha.16",
+    "to": "codex-cli 0.155.0-alpha.16.3",
+    "authorization": "user_2026-09-24_cli_change_move_forward",
+    "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change."
+  },
+  "unknown_reason": "Subscription provider scaffold and exact prospective rendered token count are not exposed; observational comparison only.",
+  "request_bytes": [
+    17309,
+    18765,
+    18903,
+    18851,
+    18895,
+    18768,
+    18934
+  ],
+  "manifest_sha256": "a1460740a45d0cad4bc6f699240c49e669794f27e1cc31a12d5c9d139dbe5afc",
+  "reference_labels_read": false,
+  "limitations": [
+    "Client bytes are not a token bound; hidden provider rendering is unknown.",
+    "Controller must enforce frozen schedule and transmit the bound request bytes."
+  ],
+  "smoke_verification": {
+    "extractor": "codex_batch_v1",
+    "verified": true,
+    "attempts": 1,
+    "records": 3,
+    "raw_sha256": "a6522e8a37fcc9fb505023c38b7fc53c119c37b3a343283bfcf454044f8debdb",
+    "predictions_sha256": "350d4d9a3f834d610d9d3f4a602e864f2a6aac8ed556606ce5e664129366c939",
+    "limitations": "Requested model and saved CLI command are verified; returned model revision and hidden scaffold are not exposed."
+  },
+  "response_diagnostics": [
+    {
+      "passed": true,
+      "blockers": [],
+      "observed_input_tokens": [
+        10992,
+        10992
+      ],
+      "observational": true,
+      "fully_verified_controls": false
+    }
+  ],
+  "live_runtime": "codex-cli 0.155.0-alpha.16.3",
+  "execution_manifest_sha256": "61db9b1423e1238c4cf1fcb2e8f8d8b796ac2f8010ae5590bfb26bbd3fc107e5",
+  "smoke_supplement": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-low-batch10/P2/smoke-supplement.json",
+    "sha256": "f85d37c11d1c133e0da2b848bf64bbc8f88dda7b9b78a5661af8e559be7b53e6"
+  }
+}
