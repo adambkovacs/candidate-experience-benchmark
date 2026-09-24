@@ -1,0 +1,508 @@
+{
+  "contract": "hosted-unattempted-continuation-v2",
+  "status": "FROZEN",
+  "reference_labels_read": false,
+  "inventory": {
+    "file": "results/hosted-never-sent-inventory-2026-09-24.json",
+    "sha256": "2fb316879b5a9df83d0bc2e55dae483a356f86bbc8c39b67e6761b7992af2e31"
+  },
+  "inventory_configuration_id": "openrouter-paid-qwen3.8-27b-xhigh",
+  "configuration_id": "openrouter-paid-qwen3.8-27b-xhigh",
+  "condition": "P2",
+  "controller": {
+    "file": "scripts/openrouter_unattempted_continuation.py",
+    "sha256": "e9176892510d802c0d1a21cf81ab6221845d8aff57d3b3cd23030dd66c41287f"
+  },
+  "dependencies": [
+    {
+      "file": "scripts/openrouter_paid_benchmark.py",
+      "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+    },
+    {
+      "file": "scripts/openrouter_benchmark.py",
+      "sha256": "d754c2b20a1cfd18bcf55c76a357df42d7be0f5506707e996f172a03f3d90d94"
+    },
+    {
+      "file": "scripts/paid_budget_partitions.py",
+      "sha256": "27584d11d58cbb9c4d8f9dfd4c84dcda7f38e2a2139c0a64886a5aee633c9286"
+    },
+    {
+      "file": "scripts/prompt_admission.py",
+      "sha256": "eff67d728724923dc668eb4b0471c2e3b56e8514adcd5abb81bad082992f0e99"
+    },
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "file": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    {
+      "file": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    }
+  ],
+  "original_manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+    "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+  },
+  "controls": {
+    "adapter_controls": {
+      "requested_model": "qwen/qwen3.8-27b",
+      "provider_tag": "deepinfra/bf16",
+      "provider_name": "DeepInfra",
+      "quantization": "bf16",
+      "reasoning_effort": "xhigh",
+      "request_controls": {
+        "model": "qwen/qwen3.8-27b",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "provider": {
+          "only": [
+            "deepinfra/bf16"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.15,
+            "completion": 1.875,
+            "request": 0,
+            "image": 0
+          }
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "judgments",
+            "strict": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "title": "Recruitment feedback judgments",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentiment",
+                "follow_up_needed",
+                "serious_concern_reported",
+                "testimonial_potential"
+              ],
+              "properties": {
+                "sentiment": {
+                  "type": "string",
+                  "enum": [
+                    "positive",
+                    "negative",
+                    "mixed",
+                    "neutral",
+                    "insufficient_information"
+                  ]
+                },
+                "follow_up_needed": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "testimonial_potential": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "reasoning": {
+          "enabled": true,
+          "effort": "xhigh"
+        }
+      },
+      "runtime": "OpenRouter HTTP v1",
+      "hardware": "Remote provider undisclosed",
+      "surface": "OpenRouter paid HTTP",
+      "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+      "workflow": "single_record"
+    },
+    "model": "qwen/qwen3.8-27b",
+    "model_revision": null,
+    "quantization": "bf16",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "effort": "xhigh",
+    "sampling": {
+      "temperature": 0
+    },
+    "output_method": "json_schema",
+    "parsing": "strict_json",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "context_tokens": 262144,
+    "output_reserve_tokens": 4096
+  },
+  "parent_baseline_id": "openrouter-paid-qwen3.8-27b-xhigh",
+  "observational_evidence": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/observational-evidence.json",
+    "sha256": "12671ad80f6a16e0215a0330aaa81043ea5de1dff09c9cb215ad815575530cf8"
+  },
+  "instruction": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/instruction.txt",
+    "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "source_evidence": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/development.jsonl",
+      "sha256": "349578718b42ce79af0cff97d5cf105cd1d24fbbdfdf0ba123f2159346c870c3"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/development.jsonl.attempts.jsonl",
+      "sha256": "4351d18af2570e58814569ea4f9ea46382edf9339a1397e147a42a988c7d9ad2"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/smoke.jsonl",
+      "sha256": "f4eb8586bccbf5f5b15ffc0290788a9282b36d142980341cd3c45ef530dd8de6"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/smoke-supplement.json",
+      "sha256": "049e9b7c77a602dc78804270e592fb9eb77f3c98559334c25b681495def75749"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/development.jsonl.prompt-admission.json",
+      "sha256": "fe5cacc3e7eb7020fc8a4930ffbdc63f04209fd56aedb9520e201ed37fa43bac"
+    }
+  ],
+  "histories": [
+    {
+      "kind": "original",
+      "output": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/development.jsonl",
+        "sha256": "349578718b42ce79af0cff97d5cf105cd1d24fbbdfdf0ba123f2159346c870c3"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/development.jsonl.attempts.jsonl",
+        "sha256": "4351d18af2570e58814569ea4f9ea46382edf9339a1397e147a42a988c7d9ad2"
+      }
+    }
+  ],
+  "historical_ledgers": [
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-xhigh-p2/historical-ledger-0.jsonl",
+      "sha256": "24f0fbf4efc28816ca98dd586c572195f99ae769efb496c047ae4f5a02fb1c4c"
+    }
+  ],
+  "smoke": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/smoke.jsonl",
+    "sha256": "f4eb8586bccbf5f5b15ffc0290788a9282b36d142980341cd3c45ef530dd8de6"
+  },
+  "smoke_supplement": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-xhigh/P2/smoke-supplement.json",
+    "sha256": "049e9b7c77a602dc78804270e592fb9eb77f3c98559334c25b681495def75749"
+  },
+  "endpoint_facts": {
+    "tag": "deepinfra/bf16",
+    "model_id": "qwen/qwen3.8-27b",
+    "provider_name": "DeepInfra",
+    "quantization": "bf16",
+    "context_length": 262144,
+    "max_completion_tokens": 235929,
+    "max_prompt_tokens": null,
+    "pricing": {
+      "prompt": "0.00000015",
+      "completion": "0.000001875",
+      "input_cache_read": "0.0000000375",
+      "discount": 0.25
+    },
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_p"
+    ]
+  },
+  "catalog_facts": {
+    "id": "qwen/qwen3.8-27b",
+    "reasoning": {
+      "mandatory": false,
+      "default_enabled": true,
+      "supported_efforts": [
+        "xhigh",
+        "medium",
+        "low"
+      ],
+      "default_effort": "xhigh"
+    },
+    "context_length": 1000000,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_a",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ]
+  },
+  "remaining_ids": [
+    "DEV-023",
+    "DEV-024",
+    "DEV-025",
+    "DEV-026",
+    "DEV-027",
+    "DEV-028",
+    "DEV-029",
+    "DEV-030",
+    "DEV-031",
+    "DEV-032",
+    "DEV-033",
+    "DEV-034",
+    "DEV-035",
+    "DEV-036",
+    "DEV-037",
+    "DEV-038",
+    "DEV-039",
+    "DEV-040",
+    "DEV-041",
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "request_bindings": [
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-25.json",
+      "sha256": "4bcce72e59d908b5caf65f4501542874405621b0851bde9e448baef66daa44c9"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-26.json",
+      "sha256": "2fb7869f7cf1f62986f90d53fc2013e472ad9e7499dffcaf9a5f889878028dbb"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-27.json",
+      "sha256": "170ae4ae266e2288d5924a38c299b05960936fde4b890cd1c0a6967c50f9fc1e"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-28.json",
+      "sha256": "990cbc549086c36d8947a732a949f8fa6acba644b2a4bcc104db9ae886b5757b"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-29.json",
+      "sha256": "136ea6f63677c218c259925abf366fcc4728ebedf2ac840a0ed12ca7029753e0"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-30.json",
+      "sha256": "4a0498e669d324bffcce549201038f378926d8076d07d03497656b5503fde7d9"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-31.json",
+      "sha256": "4efb2dadcf6160001abf69d90f71f13c54d89de39e18f92cf650f9704d23be1f"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-32.json",
+      "sha256": "93ff828f091680d2af174c7d3338031bd695ee059cf80940f0d82482e43f3b2f"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-33.json",
+      "sha256": "3dde6f0eba4a4cb1bc2037f0a111db3f4573223a3bb4ab1fd3b3d7ee18e92e8c"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-34.json",
+      "sha256": "8db98d1264f12b29f3b64338c12948e036f7ad4537b293d54760756f2c8e6a80"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-35.json",
+      "sha256": "23cb0cd777cbb078e3b39c206fdae4fef8b3442a29bde5d93f7855e9435799c4"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-36.json",
+      "sha256": "5a21897486d05da7f4155aafa532c97106e174657fe4455d35d2369d27b16953"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-37.json",
+      "sha256": "3c46ff5b5c71ac65c37db0c141e97f55204ae29e493eacbb180e96e64f599ff3"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-38.json",
+      "sha256": "aa21fd521361ebb18432c7882e9185307b4360624b3834074d743445414a71a7"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-39.json",
+      "sha256": "8e650966ba3e22135b9c3d04bc0e0b7b55cd5e76fdb1ba05894be54961d5de24"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-40.json",
+      "sha256": "a22ef9c2ba526e01045b026e4875e9aa035f35f9644d348892cbed4599fb499e"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-41.json",
+      "sha256": "114fb2c62fefe0d3cb92f86be4e7c07a506547da528154bbace940a38af331fc"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-42.json",
+      "sha256": "e6a79bc251e102538c43b69188c047dcf0c8989379d7ec8d30343fdb7ac5e25c"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-43.json",
+      "sha256": "da0ea5035eabe75617874311e1641501baa6c06a1278689bc268ea490dd25d16"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-44.json",
+      "sha256": "54503184d4d22ddc1e539095363b8a8fa6d57b2f12ff459cf7debf85283ed2f3"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-45.json",
+      "sha256": "5d93c54c51fa1776e05168df6bef4c275565455352964b911aecccc0426c2b21"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-46.json",
+      "sha256": "6314849fe394b5ef8474ff9ff02c40acd9d464d31d3ac73e39d0514c0f09029b"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-47.json",
+      "sha256": "5ac2f55faae39f2bffa85219a0783772d81e9066913e032330ebdde16e3ecbb2"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-48.json",
+      "sha256": "e8ca6a785fd4d69f5ca598d7db92d3991889403c46a3c4785d201e1ef1b0e263"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-49.json",
+      "sha256": "e2fc562c6811c56eb20e9443ab9cf00c437f7c09d9a50c534b12a17608636564"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-50.json",
+      "sha256": "5dc772914fcbfc3c5a741ebf7e559daa2dacb27a969fc6a5eb99328a6447213b"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-51.json",
+      "sha256": "3ed8e29ac3a7c394012a68934490295e8891a8030cf0f2794a20492ad60ec44a"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-52.json",
+      "sha256": "1b27cc70873d8bac553e9f3069f06b6960b98a6b02cbfe47d705facb729735b1"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-53.json",
+      "sha256": "3c6020ef444449b2750fb3b266e2922b7cfe71616b8f6567dd475e0cc1f4caf8"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-54.json",
+      "sha256": "6f232fe2757af29efcae300c937b2f593479e06064d56f9cb6f816f75d47f729"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-55.json",
+      "sha256": "adf9f67676e06180368870545c80dac614cbb9363ae6daa8f0e1bb0acb352686"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-56.json",
+      "sha256": "61e75d0ad1b33bc60c5af3af28a2e37ad1832fa389550f19e9e776ead1c40bc2"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-57.json",
+      "sha256": "26639cf57d1082682074b85e6fc7d32041d0e2c131b76215b83a697a12b147e2"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-58.json",
+      "sha256": "82c1dc433a303099199136522210f3b692e54b8cab099643e02d4aba0c474b47"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-59.json",
+      "sha256": "258d4a29769747162bfb3ebe2ad45f8c965d9107a040a5bedc3186c87faa79e1"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-60.json",
+      "sha256": "1219539c52e1a6f37878827fbab29f8217459ac430988304744b350a28b6368e"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-61.json",
+      "sha256": "2815d86f24664dc1dad8cf8368e53c953b657d7b5cd8a536fb2695b9410d7150"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-xhigh/P2/request-62.json",
+      "sha256": "f9da72c5c57a9292d648fed4826dc5d82db5b8255c070b073bb757e24b4e2c7a"
+    }
+  ],
+  "output": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-xhigh-p2/development.jsonl",
+  "journal": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-xhigh-p2/attempts.jsonl",
+  "policy": {
+    "retry": false,
+    "failed_records_retained": true,
+    "canonical_denominator": 60,
+    "order_limitation": "Suffix executes later; original counterbalanced timing is not preserved.",
+    "stop_on": [
+      "service_error",
+      "unknown_cost",
+      "identity_or_control_violation",
+      "nonintrinsic_invalid_output"
+    ],
+    "continue_on_intrinsic_invalid_output": false
+  },
+  "frozen_utc": "2026-09-24T18:10:40.957440+00:00"
+}
