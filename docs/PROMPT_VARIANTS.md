@@ -102,3 +102,9 @@ Claude batch, Codex batch and paid OpenRouter controllers now support live P1/P2
 The schedule records smoke, inspected admission and development separately. Duplicate launches and unmatched starts require reconciliation. Exposed context overflow, compaction, truncation and identity or control failures stop execution and remain in the evidence. Codex does not expose its CLI output-token reserve, so that value remains null under the observational protocol; no replacement limit is invented.
 
 The full offline Python suite passed 324 tests at this checkpoint, including successful mocked Claude/Codex smoke-to-development lifecycles using the real admission verifier, paid OpenRouter request guards, payload drift rejection and actual file-lock contention. These tests establish controller behavior, not completed P1/P2 benchmark inference. Real manifests are being prepared after baseline reconciliation.
+
+## Global roster freeze, September24
+
+The [global freeze](../results/prompt-comparison-v1-2026-09-24/roster-freeze.json) binds all163 baseline entries, their dispositions and79 scheduled generative candidates. The [schedule](../results/prompt-comparison-v1-2026-09-24/schedule.json) alternates P1/P2 order across that full roster. Blocked and excluded entries remain visible. Scheduled candidates still need successful execution admission; scheduling does not establish evidence completeness.
+
+Provider-specific execution manifests may contain an explicitly declared, ordered subset of those scheduled IDs. They retain the full roster, baseline inventory and global schedule bindings. Each freezes its own controls before its first inference and uses the shared journal; subsets cannot reorder conditions or create a new counterbalance. This allows independent providers to proceed while another adapter is being verified.

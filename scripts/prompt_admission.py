@@ -11,6 +11,9 @@ codex_catalogue_v1 {catalogue,raw_catalogue}; usage source is
 saved_attempt_usage_v1 {raw_attempts}. Every source is file/hash bound.
 Request files contain exact UTF-8 serialized outbound payloads; they must contain
 complete instruction and feedback values (JSON objects or combined text).
+An optional manifest_scope lists exactly the configuration IDs in this shard,
+in global roster order. Full roster/inventory/schedule bindings remain mandatory;
+shards never invent a subset schedule or omit source dispositions.
 Admission is one input to controller launch; the schedule journal enforces order.
 """
 import json
@@ -114,7 +117,12 @@ def _checked(manifest,root,configuration_id,condition):
         if r['state']=='scheduled' and next(x for x in inventory if x['id']==r['id'])['disposition']!='completed':raise ValueError('Incomplete scheduled parent')
     scheduled=[r for r in roster if r['state']=='scheduled']
     configs=manifest['configurations']
-    if [c['id'] for c in configs]!=[r['id'] for r in scheduled]:raise ValueError('Configuration roster differs')
+    scheduled_ids=[r['id'] for r in scheduled];config_ids=[c['id'] for c in configs]
+    scope=manifest.get('manifest_scope')
+    if scope is None:
+        if config_ids!=scheduled_ids:raise ValueError('Configuration roster differs')
+    elif not isinstance(scope,list) or not scope or len(set(scope))!=len(scope) or scope!=config_ids or scope!=[i for i in scheduled_ids if i in scope]:
+        raise ValueError('Manifest scope must exactly name an ordered subset of the full scheduled roster')
     expected=[{'id':r['id'],'conditions':['P1','P2'] if i%2==0 else ['P2','P1']} for i,r in enumerate(scheduled)]
     if g.json_bound(manifest['schedule'],root)['order']!=expected:raise ValueError('Counterbalance schedule mismatch')
     matches=[c for c in configs if c['id']==configuration_id]

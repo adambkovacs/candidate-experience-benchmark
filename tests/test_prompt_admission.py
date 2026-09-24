@@ -68,4 +68,14 @@ class AdmissionTests(unittest.TestCase):
   self.assertTrue(r['passed'])
   for raw in ({'choices':[{'finish_reason':'length'}]},{'usage':{'prompt_tokens':101}},{'events':[{'type':'context_compacted'}]},{'raw_events':[{'type':'system','subtype':'compact_boundary'}]},{'raw_events':[{'type':'item.completed','item':{'type':'context_compaction'}}]},{'control_violation':True},{'usage':{'input_tokens':50,'cache_read_input_tokens':60,'cache_creation_input_tokens':0}}):
    self.assertFalse(a.audit_response(raw,'codex_batch_v1',100)['passed'])
+ def test_explicit_shard_keeps_global_roster_and_schedule(self):
+  with tempfile.TemporaryDirectory() as d:
+   _,root,m=self.fixture(d);m['manifest_scope']=['config1'];m['configurations']=m['configurations'][1:]
+   self.assertTrue(a.admit_smoke(m,root,'config1','P2')['admitted'])
+   for scope in ([],['config0'],['config1','config1'],['invented']):
+    broken=copy.deepcopy(m);broken['manifest_scope']=scope
+    with self.assertRaises(ValueError):a.admit_smoke(broken,root,'config1','P2')
+   del m['manifest_scope']
+   with self.assertRaises(ValueError):a.admit_smoke(m,root,'config1','P2')
+
 if __name__=='__main__':unittest.main()
