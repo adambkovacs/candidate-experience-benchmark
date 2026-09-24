@@ -1,0 +1,154 @@
+{
+  "configuration_id": "openrouter-qwen27-low-darkbloom-fp4",
+  "created_utc": "2026-09-24T16:15:58.646237+00:00",
+  "model": "qwen/qwen3.8-27b",
+  "provider": "darkbloom/fp4",
+  "reasoning": "low",
+  "max_tokens": 4096,
+  "temperature": 0,
+  "max_input_price_per_million": ".10",
+  "max_output_price_per_million": "1.80",
+  "input_file": "data/pilot/inputs.jsonl",
+  "input_sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+  "reference_labels_in_requests": false,
+  "local_parent": "qwen3.8-27b-sdk-thinking-low",
+  "comparison_note": "Separate hosted configuration; provider fp4 and runtime differ from local Q4_K_M baseline. No substitution or local P0 rerun.",
+  "model_catalog_entry": {
+    "id": "qwen/qwen3.8-27b",
+    "canonical_slug": "qwen/qwen3.8-27b-20260814",
+    "hugging_face_id": "Qwen/Qwen3.8-27B",
+    "name": "Qwen: Qwen3.8 27B",
+    "created": 1786722910,
+    "description": "Qwen3.8 27B is an open-weight dense vision-language model from Qwen. It is suited for coding, professional workflows, research, multimodal interaction, and long-running agent tasks, with flexible thinking that can be...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Qwen",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.00000042",
+      "completion": "0.000003",
+      "input_cache_read": "0.000000085"
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_a",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95,
+      "top_k": 20
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/qwen/qwen3.8-27b-20260814/endpoints"
+    },
+    "benchmarks": {
+      "design_arena": [],
+      "artificial_analysis": {
+        "intelligence_index": 33.7,
+        "coding_index": 68.1,
+        "agentic_index": 45.8
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "default_enabled": true,
+      "supported_efforts": [
+        "xhigh",
+        "medium",
+        "low"
+      ],
+      "default_effort": "xhigh"
+    }
+  },
+  "endpoint": {
+    "name": "Darkbloom | qwen/qwen3.8-27b-20260814",
+    "model_id": "qwen/qwen3.8-27b",
+    "model_name": "Qwen: Qwen3.8 27B",
+    "context_length": 262144,
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000018",
+      "discount": 0
+    },
+    "provider_name": "Darkbloom",
+    "tag": "darkbloom/fp4",
+    "quantization": "fp4",
+    "max_completion_tokens": 32768,
+    "max_prompt_tokens": null,
+    "supported_parameters": [
+      "reasoning",
+      "include_reasoning",
+      "temperature",
+      "top_p",
+      "top_k",
+      "frequency_penalty",
+      "presence_penalty",
+      "repetition_penalty",
+      "stop",
+      "seed",
+      "max_tokens",
+      "response_format",
+      "structured_outputs",
+      "tools",
+      "tool_choice",
+      "logprobs",
+      "top_logprobs",
+      "reasoning_effort"
+    ],
+    "supports_tool_choice": {
+      "none": true,
+      "auto": true,
+      "required": false,
+      "function": false
+    },
+    "status": 0,
+    "uptime_last_30m": 99.49031600407747,
+    "uptime_last_5m": 100,
+    "uptime_last_1d": 99.38810031624624,
+    "supports_implicit_caching": false,
+    "supports_voice_cloning": false,
+    "latency_last_30m": null,
+    "throughput_last_30m": null
+  },
+  "smoke_records": 3,
+  "development_records": 60,
+  "retries": 0
+}

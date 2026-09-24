@@ -154,6 +154,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-deepseek-v41-flash-low | complete_with_output_failure | 57 | 57 | 57 | 57 | 57 | 57 |
 | openrouter-paid-deepseek-v41-flash-high | complete_with_output_failure | 56 | 54 | 56 | 56 | 56 | 54 |
 | openrouter-paid-mistral-small32-24b-venice-not-applicable | complete | 60 | 54 | 57 | 55 | 57 | 48 |
+| openrouter-qwen27-low-darkbloom-fp4 | complete | 60 | 59 | 60 | 60 | 60 | 59 |
 
 Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
 
@@ -173,6 +174,7 @@ Development-attempt costs only. Unknown-cost reservations are bounds, not observ
 | openrouter-paid-deepseek-v41-flash-low | reported | 0.01513539 | 0 | `results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl`; `results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl` |
 | openrouter-paid-deepseek-v41-flash-high | reported | 0.01852893 | 0 | `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl`; `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl` |
 | openrouter-paid-mistral-small32-24b-venice-not-applicable | reported | 0.00873028125 | 0 | `results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl` |
+| openrouter-qwen27-low-darkbloom-fp4 | reported | 0.0492372 | 0 | `results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl` |
 
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
@@ -964,4 +966,10 @@ Evidence: `results/openrouter-parallel-deepseek-flash-high-2026-09-23/developmen
 All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.
 
 Evidence: `results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl`; SHA-256 `ad8caac9b6db0df5f3e0e5b761f3bdb49e4aa7420eb184097bc29614ad7ab153`.
+
+**openrouter-qwen27-low-darkbloom-fp4**
+
+Separate hosted replacement for pending local low-effort prompt work. P0 smoke3 inspected; development60 all valid, no retries or unknown costs. P1/P2 pending. Hosted runtime/quantization differ from saved local Q4_K_M baseline; no local rerun. Hardware undisclosed.
+
+Evidence: `results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl`; SHA-256 `b828726930ca10a9603fd3b3351dce9b6463292cd489e4a0e459754c4f65e512`.
 
