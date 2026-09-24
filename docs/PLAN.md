@@ -223,3 +223,7 @@ Laya uses convaiinnovations/laya, with English, typed-decisions and multilingual
 ## September23 hosted DeepSeek selection
 
 The original hosted DeepSeek slot is separate from the local R1-Distill-Qwen-32B candidate. Select `deepseek/deepseek-v4.1-flash` through the explicitly pinned OpenRouter `open-inference/fp4` provider, subject to fresh endpoint validation and the same $5 aggregate OpenRouter cap. The saved catalog advertises reasoning off, low and high; max remains excluded. Current flat endpoint prices are $0.10/$0.50 per million input/output tokens. Model and provider identifiers are pinned in requests; exact serving weight revision and hardware remain undisclosed. Inspect smoke3 before each full60 configuration. Source snapshots are in `results/openrouter-paid-planning-2026-09-23/`.
+
+## September24 DeepSeek routing correction
+
+The user explicitly stopped the local R1-Distill-Qwen-32B download. Keep this exact checkpoint blocked while no serving OpenRouter endpoint is available; preserve partial artifacts without resuming. The completed hosted V4.1 Flash configurations remain distinct. See [the cancellation evidence](../results/deepseek-r1-download-cancelled-2026-09-24.json) and [local registry](../results/local-run-registry.json).

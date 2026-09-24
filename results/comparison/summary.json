@@ -4098,9 +4098,12 @@
     "id": "deepseek-r1-distill-qwen32b-native-reasoning",
     "model": "DeepSeek-R1-Distill-Qwen-32B Q4_K_M",
     "effort": "native reasoning",
-    "status": "downloading_runtime_unverified",
+    "status": "blocked_no_exact_hosted_endpoint_local_cancelled",
     "predictions_file": null,
-    "notes": "September23 DeepSeek-only downloader confirmed active; pinned32B GGUF27/592 chunks at verification. No completeartifact/hash or runtime smoke yet. Separate from hostedDeepSeekV4.1Flash.12GiB reserve; no duplicate downloads.",
+    "notes": "September24 user explicitly stopped local DeepSeek downloads. Downloader terminated and partial artifacts preserved; no verified full artifact or inference. September23 exact OpenRouter endpoint check found no serving endpoint. Hosted DeepSeek V4.1 Flash results remain separate; they are not this distill checkpoint.",
+    "cancellation_evidence": "results/deepseek-r1-download-cancelled-2026-09-24.json",
+    "availability_evidence": "results/openrouter-r1-distill-qwen32-availability-2026-09-23.json",
+    "next_step": "Use the exact hosted model if an OpenRouter endpoint becomes available. Do not resume local download or substitute another checkpoint.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
@@ -20690,25 +20693,21 @@
     "id": "antigravity-gemini-3.8-flash-low-native-observed-batch10",
     "model": "gemini-3.8-flash-low",
     "effort": "low",
-    "status": "partial_service_error",
+    "status": "partial_isolation_violation",
+    "predictions_file": null,
+    "partial_predictions_file": "results/antigravity-gemini38-flash-low-cooldown-native129-2026-09-24/development-reconciled.jsonl",
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl",
+      "results/antigravity-gemini38-flash-low-cooldown-native129-2026-09-24/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
     "workflow": "native_agent_batch",
     "workflow_mode": "native-agent-observed-no-external-tools",
     "configured_batch_size": 10,
-    "raw_batch_attempt_files": [
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl",
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl"
-    ],
-    "attempt_phase": "development",
-    "smoke_files": [
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/smoke.jsonl",
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/smoke-attempts.jsonl"
-    ],
-    "notes": "Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed with 57 advertised tools, no observed tool calls, restrictions unverified. Initial development batch failed before inference on an idle-connection closure. One authorized recovery of the exact same batch failed on eligibility UNAVAILABLE503. Both report zero tokens; combined request wall time 77.3929815 seconds. Zero valid development records, ten unique failed records and fifty unattempted. All attempts preserved; no further retry, credits, API-key billing or relogin. Smoke excluded from development timing.",
-    "request_journal_files": [
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl.journal.jsonl",
-      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl.journal.jsonl"
-    ],
-    "planned_predictions_file": "results/antigravity-gemini38-flash-low-native129-2026-09-23/development.jsonl",
+    "reconciliation_manifest": "results/antigravity-gemini38-flash-low-cooldown-native129-2026-09-24/reconciliation.json",
+    "notes": "Additional cooldown recovery completed batch01, then batch02 attempted run_command to search local temporary context for DEV-011. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Both earlier batch01 service failures retained. Next step: supported effective tool disablement verified before any new attempt.",
+    "isolation_failure": "Additional cooldown recovery completed batch01, then batch02 attempted run_command to search local temporary context for DEV-011. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Both earlier batch01 service failures retained. Next step: supported effective tool disablement verified before any new attempt.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
@@ -22639,6 +22638,39 @@
     "runtime": "Antigravity CLI 1.2.9",
     "hardware": "Hosted undisclosed",
     "quantization": "Hosted undisclosed",
+    "cost": {
+      "scope": "declared development attempts only",
+      "availability": "unavailable",
+      "attempt_count": 0,
+      "known_actual_attempts": 0,
+      "unknown_cost_attempts": 0,
+      "unknown_bounded_attempts": 0,
+      "missing_financial_attempts": 0,
+      "known_actual_usd": null,
+      "unknown_reserved_upper_bound_usd": null,
+      "known_plus_unknown_upper_bound_usd": null,
+      "total_actual_usd": null,
+      "source_paths": [],
+      "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    }
+  },
+  {
+    "id": "antigravity-gemini-3.8-flash-high-native-observed-batch10",
+    "model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "status": "partial_isolation_violation",
+    "predictions_file": null,
+    "partial_predictions_file": "results/antigravity-gemini38-flash-high-native129-2026-09-24/development-reconciled.jsonl",
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini38-flash-high-native129-2026-09-24/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "native_agent_batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini38-flash-high-native129-2026-09-24/reconciliation.json",
+    "notes": "Batch02 attempted run_command ls -la in local temporary context. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.",
+    "isolation_failure": "Batch02 attempted run_command ls -la in local temporary context. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",

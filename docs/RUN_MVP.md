@@ -1,6 +1,6 @@
 # Reproduce the development MVP
 
-Status snapshot: 2026-09-23. Execution is continuing; the linked run registries are the current source for active and completed configurations. This guide covers the existing 60 synthetic development records; the remaining 340 records have not been generated. References are provisional labels reviewed by the same assistant that authored the examples. These runs do not establish held-out performance.
+Status snapshot: 2026-09-24. Execution is continuing; the linked run registries are the current source for active and completed configurations. This guide covers the existing 60 synthetic development records; the remaining 340 records have not been generated. References are provisional labels reviewed by the same assistant that authored the examples. These runs do not establish held-out performance.
 
 ## Recorded status
 
@@ -27,7 +27,7 @@ This checkpoint includes the completed DeepSeek and all four SemIf runs. The lin
 | SemIf direct/serial/shared and generated BF16 | Three decision modes completed with 60 valid each; generated control has 52 valid of 60. Legacy generated request hashes describe decision intent, not actual generated messages | [Specialist registry](../results/specialist-run-registry.json) |
 | Laya English/typed expanded CPU; AlexWortega 0.8B NLI; AnyJev raw/L0 | Completed 60 valid records each; native limits and expanded variants remain distinct | [Specialist registry](../results/specialist-run-registry.json) |
 | AnyJev matched generated control | All 60 responses failed strict output validity because of Markdown fences; no repair | [Format audit](../results/anyjev-qwen06-generated-mps-2026-09-23/format-audit.json) |
-| Remaining local baselines | Laya multilingual expanded and AlexWortega 4B use the serial local queue; exact DeepSeek R1-Distill-Qwen-32B artifact download remains in progress | [Local](../results/local-run-registry.json) and [specialist](../results/specialist-run-registry.json) registries |
+| Remaining local baselines | Laya multilingual expanded and AlexWortega 4B use the serial local queue; exact DeepSeek R1-Distill-Qwen-32B download is cancelled; its hosted route is unavailable | [Local](../results/local-run-registry.json) and [specialist](../results/specialist-run-registry.json) registries |
 | AnyJev L1/L2 | Require separate calibration evidence; no fitting and evaluating on the same 60 labels, and no generation of the remaining 340 | [Specialist registry](../results/specialist-run-registry.json) |
 
 Historical max-effort rows remain evidence; max and ultra are excluded from new runs. Paid non-GPT/Claude OpenRouter requests have explicit approval under the $5 aggregate cap in the [cost review](OPENROUTER_COST_REVIEW.md). Failed or incomplete provider runs remain visible and are not pooled with successful alternate providers. The classifier-framing and SOP experiment has frozen candidate text and offline preview adapters, but no phase-two inference has run; see [execution readiness](PROMPT_EXECUTION_READINESS.md).
@@ -119,7 +119,7 @@ Verify `codex login status` reports ChatGPT authentication. The controller exclu
 python3 scripts/codex_benchmark.py --model gpt-5.6-luna --effort low --limit 3 --output luna-smoke-new.jsonl
 ```
 
-Use `--model gpt-6-astra` for the other configuration and `--limit 60` after smoke inspection. The recorded CLI version is 0.154.0. Returned model revisions are not exposed. Luna low and Astra low each have 60 valid outputs. Each reconciled timing view retains four initialization failures alongside the 60 completed requests; see the [Codex registry](../results/codex-run-registry.json). Sol and Terra low each passed three-record smoke checks. Their full runs and additional effort sweeps remain held pending the batching decision and available subscription quota. Some valid responses were initially classified as errors because of CLI warnings or recovered transport events; reclassified artifacts use retained responses, not new inference. Keep original attempts and parser provenance.
+Use `--model gpt-6-astra` for the other configuration and `--limit 60` after smoke inspection. The recorded CLI version is 0.154.0. Returned model revisions are not exposed. Luna low and Astra low each have 60 valid outputs. Each reconciled timing view retains four initialization failures alongside the 60 completed requests; see the [Codex registry](../results/codex-run-registry.json). All 24 supported model/effort configurations are now complete with 60 valid outputs each, as reconciled in [the coverage audit](../results/codex-coverage-audit-2026-09-23.json). Earlier single-record runs remain distinct from subsequent batch10 preparations. Some valid responses were initially classified as errors because of CLI warnings or recovered transport events; reclassified artifacts use retained responses, not new inference. Keep original attempts and parser provenance.
 
 Claude and Codex accept `--offset N` for explicit continuation into a new artifact. It skips N input rows, not N successful rows. Reconcile IDs before continuing; the evaluator rejects duplicate IDs. Keep retries separate and resolve them explicitly for any retry-inclusive report.
 
@@ -147,7 +147,7 @@ Hugging Face is used to discover public artifacts, inspect model cards and metad
 
 Subscription usage is not API billing. Claude usage credits were verified off and no overage was observed; exact attributable quota and billed charges were not exposed. Codex likewise does not expose an attributable charge for these records. CLI API-equivalent dollar estimates must not be presented as actual subscription charges. Hosted hardware and quantization are undisclosed unless an endpoint documents them. Local energy was not measured.
 
-All reported accuracies use 60-record denominators, including failures and missing predictions. Serious concerns predicted `no`, predicted `insufficient_information` and missing/failed outputs remain separate. Schema validity does not establish correct judgment. Generating the remaining 340 records, paid fallback, quota bypass and label-informed repair are outside this MVP run.
+All reported accuracies use 60-record denominators, including failures and missing predictions. Serious concerns predicted `no`, predicted `insufficient_information` and missing/failed outputs remain separate. Schema validity does not establish correct judgment. Generating the remaining 340 records, unapproved paid fallback, quota bypass and label-informed repair are outside this MVP run. Paid non-GPT/Claude OpenRouter inference has a separately approved aggregate $5 cap; TypeSafe retains its separate $1 cap.
 
 ## Official references
 
@@ -167,3 +167,9 @@ The user requested a follow-up with classifier framing and a second condition ad
 Alex4B saved DEV-001 through DEV-045 before interruption. No worker remained alive at resumption. The specialist runner now accepts a zero-based `--offset` with bounded, input-only selection, so DEV-046 through DEV-060 can continue into a new exclusive file without replaying saved outputs. The [interruption record](../results/alex-openjev4b-mps-2026-09-23/interruption-2026-09-24.json) preserves the possibility of an unsaved DEV-046 attempt; total attempt timing remains unknown. The absence of a saved row is not proof that no inference occurred.
 
 Gemini3.8 Flash medium stopped after an attempted external command in its second development batch. The runtime denied that command. Its failed batch and raw event are retained as an isolation violation, with no retry or relaxation of permissions. Native-agent results elsewhere remain labeled with their effective-tool-restriction uncertainty.
+
+## Hosted routing correction, September 24
+
+The DeepSeek R1 Distill Qwen32B download was stopped at the user's direction. Its partial artifacts remain on disk, but the final artifact is unverified and no inference ran. The [cancellation record](../results/deepseek-r1-download-cancelled-2026-09-24.json) records the terminated process and 528 of 592 completed chunk receipts. The [exact endpoint check](../results/openrouter-r1-distill-qwen32-availability-2026-09-23.json) found no serving OpenRouter endpoint; this configuration is blocked, not a reason to resume downloading. Completed hosted DeepSeek V4.1 Flash results are a separate checkpoint.
+
+Gemini3.8 Flash low and high also stopped on denied external command attempts in batch02. Each saved ten valid records before the failure; all three3.8 efforts now have explicit isolation blockers. No command was permitted, no failed batch was repaired, and no permission setting was relaxed. The [Gemini registry](../results/gemini-run-registry.json) links each retained raw attempt.

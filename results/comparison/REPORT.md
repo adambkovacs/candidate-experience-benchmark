@@ -30,7 +30,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | qwen3.8-27b-sdk-thinking-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | qwen36-35b-a3b-on | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | qwen36-35b-a3b-off | replaced_by_hosted_user_request | — | — | — | — | — | — |
-| deepseek-r1-distill-qwen32b-native-reasoning | downloading_runtime_unverified | — | — | — | — | — | — |
+| deepseek-r1-distill-qwen32b-native-reasoning | blocked_no_exact_hosted_endpoint_local_cancelled | — | — | — | — | — | — |
 | mistral-small32-24b-not-applicable | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | mistral-small4-119b-none | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | mistral-small4-119b-high | replaced_by_hosted_user_request | — | — | — | — | — | — |
@@ -127,7 +127,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.6-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
 | antigravity-gemini-3.1-pro-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 60 | 58 | 57 | 53 |
 | antigravity-gemini-3.1-pro-high-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 58 | 59 | 57 |
 | antigravity-gemini-3.6-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 59 | 59 | 57 |
@@ -137,6 +137,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.7-flash-medium-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 58 | 59 | 59 | 56 |
 | antigravity-gemini-3.7-flash-high-native-observed-batch10 | complete | 60 | 59 | 59 | 59 | 59 | 57 |
 | antigravity-gemini-3.8-flash-medium-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-high-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
 | openrouter-paid-qwen3.8-27b-medium | complete_with_service_failure | 59 | 58 | 59 | 58 | 58 | 56 |
 | openrouter-paid-qwen3.8-27b-xhigh | complete_with_output_failure | 59 | 59 | 59 | 56 | 59 | 56 |
 | openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
@@ -304,7 +305,7 @@ September23 user requested reasonably priced OpenRouter routes instead of matchi
 
 **deepseek-r1-distill-qwen32b-native-reasoning**
 
-September23 DeepSeek-only downloader confirmed active; pinned32B GGUF27/592 chunks at verification. No completeartifact/hash or runtime smoke yet. Separate from hostedDeepSeekV4.1Flash.12GiB reserve; no duplicate downloads.
+September24 user explicitly stopped local DeepSeek downloads. Downloader terminated and partial artifacts preserved; no verified full artifact or inference. September23 exact OpenRouter endpoint check found no serving endpoint. Hosted DeepSeek V4.1 Flash results remain separate; they are not this distill checkpoint.
 
 **mistral-small32-24b-not-applicable**
 
@@ -814,7 +815,7 @@ The user authorized the existing logged-in native Antigravity CLI. This model an
 
 **antigravity-gemini-3.8-flash-low-native-observed-batch10**
 
-Distinct native agent workflow, CLI and language server 1.2.9; smoke3 passed with 57 advertised tools, no observed tool calls, restrictions unverified. Initial development batch failed before inference on an idle-connection closure. One authorized recovery of the exact same batch failed on eligibility UNAVAILABLE503. Both report zero tokens; combined request wall time 77.3929815 seconds. Zero valid development records, ten unique failed records and fifty unattempted. All attempts preserved; no further retry, credits, API-key billing or relogin. Smoke excluded from development timing.
+Additional cooldown recovery completed batch01, then batch02 attempted run_command to search local temporary context for DEV-011. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Both earlier batch01 service failures retained. Next step: supported effective tool disablement verified before any new attempt.
 
 **antigravity-gemini-3.1-pro-low-native-observed-batch10**
 
@@ -865,6 +866,10 @@ Evidence: `results/antigravity-gemini37-flash-high-native129-2026-09-24/developm
 **antigravity-gemini-3.8-flash-medium-native-observed-batch10**
 
 Batch02 attempted run_command to search local Antigravity context; headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.
+
+**antigravity-gemini-3.8-flash-high-native-observed-batch10**
+
+Batch02 attempted run_command ls -la in local temporary context. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.
 
 **openrouter-paid-qwen3.8-27b-medium**
 

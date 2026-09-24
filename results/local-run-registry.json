@@ -219,9 +219,12 @@
     "id": "deepseek-r1-distill-qwen32b-native-reasoning",
     "model": "DeepSeek-R1-Distill-Qwen-32B Q4_K_M",
     "effort": "native reasoning",
-    "status": "downloading_runtime_unverified",
+    "status": "blocked_no_exact_hosted_endpoint_local_cancelled",
     "predictions_file": null,
-    "notes": "September23 DeepSeek-only downloader confirmed active; pinned32B GGUF27/592 chunks at verification. No completeartifact/hash or runtime smoke yet. Separate from hostedDeepSeekV4.1Flash.12GiB reserve; no duplicate downloads."
+    "notes": "September24 user explicitly stopped local DeepSeek downloads. Downloader terminated and partial artifacts preserved; no verified full artifact or inference. September23 exact OpenRouter endpoint check found no serving endpoint. Hosted DeepSeek V4.1 Flash results remain separate; they are not this distill checkpoint.",
+    "cancellation_evidence": "results/deepseek-r1-download-cancelled-2026-09-24.json",
+    "availability_evidence": "results/openrouter-r1-distill-qwen32-availability-2026-09-23.json",
+    "next_step": "Use the exact hosted model if an OpenRouter endpoint becomes available. Do not resume local download or substitute another checkpoint."
   },
   {
     "id": "mistral-small32-24b-not-applicable",
