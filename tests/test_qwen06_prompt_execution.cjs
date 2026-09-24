@@ -6,7 +6,7 @@ const crypto = require('node:crypto');
 const controller = fs.existsSync(path.join(__dirname,'qwen06_prompt_execution.cjs')) ?
   path.join(__dirname,'qwen06_prompt_execution.cjs') : path.join(__dirname,'../scripts/qwen06_prompt_execution.cjs');
 const {parseResult, sourceCheck, preflight, validateSmokeRows, validatePriorTerminal,
-  validateFeedback,validateComposition} = require(controller);
+  validateFeedback,validateComposition,buildRunInputs} = require(controller);
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 
 const repo = '/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo';
@@ -52,6 +52,16 @@ test('frozen source and zero-route gates reject tampering before SDK import', ()
   const changed = structuredClone(manifest);
   changed.conditions.reverse();
   assert.throws(()=>sourceCheck(changed));
+});
+
+test('run inputs keep compact preflight separate from 360 source rows', () => {
+  const manifest = JSON.parse(fs.readFileSync(path.join(repo,'results/qwen06-prompt-exact-v1/manifest.json')));
+  const {checked,source}=buildRunInputs(manifest);
+  assert.deepEqual(checked,JSON.parse(fs.readFileSync(path.join(repo,'results/qwen06-prompt-exact-v1/preflight.json'))));
+  assert.equal(Object.hasOwn(checked,'render'),false);
+  assert.equal(Object.hasOwn(checked,'counts'),false);
+  assert.equal(source.render.length,360);
+  assert.equal(source.counts.length,360);
 });
 
 test('development gate requires three completed smoke attempts with no control failure', () => {

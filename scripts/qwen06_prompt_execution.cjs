@@ -168,6 +168,9 @@ function preflight(manifest) {
     hosted_route_endpoints_at_prior_check: 0, inference_performed: false,
     limitation: 'Count parity is not token-sequence parity; runtime prompt-template application needs smoke inspection.'};
 }
+function buildRunInputs(manifest) {
+  return {checked:preflight(manifest), source:sourceCheck(manifest)};
+}
 function validateSmokeRows(smokeRows, smokeJournal, condition) {
   assert.deepEqual(smokeRows.map(row=>row.id),['DEV-001','DEV-002','DEV-003']);
   assert(smokeRows.every(row=>row.condition===condition && row.phase==='smoke' &&
@@ -256,10 +259,10 @@ async function hashArtifact(file) {
   for await (const part of fs.createReadStream(file, {highWaterMark:8*1024*1024})) digest.update(part);
   return digest.digest('hex');
 }
-async function run(manifest, validated, opts) {
+async function run(manifest, checked, source, opts) {
   assert(conditions.includes(opts.condition));
   assert(['smoke','development'].includes(opts.phase));
-  checkReview(manifest, validated, opts);
+  checkReview(manifest, checked, opts);
   const conditionDir = path.join(runDir, opts.condition);
   const outputPath = path.join(conditionDir, `${opts.phase}.jsonl`);
   const journalPath = path.join(conditionDir, `${opts.phase}.attempts.jsonl`);
@@ -274,8 +277,8 @@ async function run(manifest, validated, opts) {
   }
   const [setting, variant] = opts.condition.startsWith('thinking-on') ? ['qwen3-0.6b-sdk-thinking-on',opts.condition.slice(-2)] :
     ['qwen3-0.6b-sdk-thinking-off',opts.condition.slice(-2)];
-  const selected = validated.render.filter(record => record.configuration === setting && record.variant === variant);
-  const countMap = new Map(validated.counts.map(c => [`${c.configuration}/${c.variant}/${c.id}`,c.prompt_tokens]));
+  const selected = source.render.filter(record => record.configuration === setting && record.variant === variant);
+  const countMap = new Map(source.counts.map(c => [`${c.configuration}/${c.variant}/${c.id}`,c.prompt_tokens]));
   const records = opts.phase === 'smoke' ? selected.slice(0, 3) : selected;
   assert.equal(records.length, opts.phase === 'smoke' ? 3 : 60);
   fs.mkdirSync(conditionDir, {recursive:true});
@@ -383,10 +386,10 @@ async function main() {
     fs.writeFileSync(preflightPath,JSON.stringify(checked,null,2)+'\n',{flag:'wx'});
     console.log(`preflight ${shaFile(preflightPath)}`);
   } else if (opts.mode === 'run') {
-    const checked = preflight(manifest);
-    await run(manifest,{...checked,...sourceCheck(manifest)},opts);
+    const {checked,source} = buildRunInputs(manifest);
+    await run(manifest,checked,source,opts);
   } else throw Error('Use --mode preflight or --mode run');
 }
 if (require.main === module) main().catch(error => { console.error(error.message); process.exitCode=1; });
 module.exports = {argsFrom,sourceCheck,preflight,checkReview,parseResult,validateSmokeRows,
-  validatePriorTerminal,validateFeedback,validateComposition};
+  validatePriorTerminal,validateFeedback,validateComposition,buildRunInputs};

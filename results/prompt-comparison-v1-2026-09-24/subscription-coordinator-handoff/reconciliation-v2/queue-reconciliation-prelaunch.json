@@ -1,0 +1,1619 @@
+{
+  "schema": "subscription-queue-reconciliation-v2",
+  "captured_utc": "2026-09-24T17:11:38.571080+00:00",
+  "scope": "prelaunch queue snapshot; no inference launched by this snapshot operation",
+  "queue_denominator": 82,
+  "counts": {
+    "completed": 70,
+    "stopped": 7,
+    "unattempted": 5,
+    "active": 0
+  },
+  "binding": {
+    "journal_file": "results/prompt-comparison-v1-2026-09-24/execution-journal.jsonl",
+    "journal_prefix_bytes": 411085,
+    "journal_prefix_lines": 646,
+    "journal_prefix_sha256": "a782cbef8757a4e04863b2c64232c4655d26a7b935c57976ea8619999a8465c0",
+    "journal_last_seq": 645,
+    "journal_last_event": "finished",
+    "journal_last_event_sha256": "33e1bd1283984508348220f0bdf371848f63f9f819d375e8489de4072e2fe307",
+    "journal_last_utc": "2026-09-24T17:01:57.615972+00:00",
+    "queue_file": "results/prompt-comparison-v1-2026-09-24/subscription-coordinator-handoff/queue.json",
+    "queue_sha256": "a685cd687aac09fdcb9468cd123f829ca0b18d8c5ebf80b4f2846a2fb025839c",
+    "schedule_file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+    "schedule_sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4",
+    "frozen_schedule_order": [
+      {
+        "id": "qwen3-0.6b-q4km-nonthinking",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "qwen3-0.6b-sdk-thinking-on",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "qwen3-0.6b-sdk-thinking-off",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "qwen3-1.7b-sdk-thinking-on",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "qwen3-1.7b-sdk-thinking-off",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "qwen3.5-4b-sdk-thinking-on",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "qwen3.5-4b-sdk-thinking-off",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "qwen3-8b-sdk-thinking-on",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "qwen3-8b-sdk-thinking-off",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "qwen3.8-27b-sdk-thinking-low",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "gemma4-e2b-sdk-thinking-on",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "gemma4-e2b-sdk-thinking-off",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "gemma4-e4b-sdk-thinking-on",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "gemma4-e4b-sdk-thinking-off",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-luna-medium",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-luna-high",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-luna-xhigh",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-astra-medium",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-astra-high",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-astra-xhigh",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-sol-low",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-sol-medium",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-sol-high",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-sol-xhigh",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-terra-low",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-terra-medium",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-terra-high",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-terra-xhigh",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-sol-low-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-sol-medium-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-sol-high-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-sol-xhigh-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-luna-low-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-luna-medium-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-luna-high-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-luna-xhigh-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "opus55-low-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "opus55-medium-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "opus55-high-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "opus55-xhigh-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openrouter-paid-qwen3.8-27b-medium",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "openrouter-paid-qwen3.8-27b-xhigh",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openrouter-paid-qwen3.8-27b-off",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "openrouter-paid-qwen36-35b-a3b-on",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openrouter-paid-qwen36-35b-a3b-off",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "openrouter-paid-gemma4-26b-a4b-on",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openrouter-paid-gemma4-26b-a4b-off",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "openrouter-paid-gemma4-31b-on",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openrouter-paid-gemma4-31b-off",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "openrouter-paid-deepseek-v41-flash-off",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openrouter-paid-deepseek-v41-flash-low",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "openrouter-paid-deepseek-v41-flash-high",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "openjev-generated-off",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "openjev-generated-on",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "semif-generated-bf16",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "anyjev-qwen06-generated-control",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "sonnet5-low-first-pass-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "opus5-low-phase2-batch10-p0",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "haiku45-not_applicable-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "sonnet5-medium-phase2-batch10-p0",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "sonnet5-high-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "sonnet5-xhigh-phase2-batch10-p0",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "opus5-medium-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "opus5-high-phase2-batch10-p0",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "opus5-xhigh-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "fable51-low-phase2-batch10-p0",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "fable51-medium-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      },
+      {
+        "id": "fable51-high-phase2-batch10-p0",
+        "conditions": [
+          "P2",
+          "P1"
+        ]
+      },
+      {
+        "id": "fable51-xhigh-phase2-batch10-p0",
+        "conditions": [
+          "P1",
+          "P2"
+        ]
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "configuration_id": "codex-gpt-5.6-luna-medium",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 0
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-medium",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 1
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-high",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 2
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-high",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 3
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-xhigh",
+      "condition": "P1",
+      "status": "stopped",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "stopped"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 4
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-xhigh",
+      "condition": "P2",
+      "status": "stopped",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "stopped"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 5
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-medium",
+      "condition": "P2",
+      "status": "stopped",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "stopped"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 6
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-medium",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 7
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-high",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 8
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-high",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 9
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-xhigh",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 10
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-xhigh",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 11
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-low",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 12
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-low",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 13
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-medium",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 14
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-medium",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 15
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-high",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 16
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-high",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 17
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-xhigh",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 18
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-sol-xhigh",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 19
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-low",
+      "condition": "P1",
+      "status": "stopped",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "stopped"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 20
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-low",
+      "condition": "P2",
+      "status": "stopped",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "stopped"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 21
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-medium",
+      "condition": "P2",
+      "status": "stopped",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "stopped"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 22
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-medium",
+      "condition": "P1",
+      "status": "unattempted",
+      "stage_statuses": {
+        "smoke": "not_started",
+        "inspected_admission": "not_started",
+        "development": "not_started"
+      },
+      "disposition": "unattempted_prelaunch_review_timeout_no_claim; fresh_smoke_authorized_after_snapshot",
+      "frozen_order_index": 23
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-high",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 24
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-high",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 25
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-xhigh",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 26
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-xhigh",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 27
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-low-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 28
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-low-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 29
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-medium-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 30
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-medium-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 31
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-high-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 32
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-high-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 33
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-xhigh-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 34
+    },
+    {
+      "configuration_id": "codex-gpt-6-sol-xhigh-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 35
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-low-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 36
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-low-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 37
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-medium-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 38
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-medium-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 39
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-high-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 40
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-high-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 41
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-xhigh-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 42
+    },
+    {
+      "configuration_id": "codex-gpt-6-luna-xhigh-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 43
+    },
+    {
+      "configuration_id": "opus55-low-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 44
+    },
+    {
+      "configuration_id": "opus55-low-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 45
+    },
+    {
+      "configuration_id": "opus55-medium-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 46
+    },
+    {
+      "configuration_id": "opus55-medium-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 47
+    },
+    {
+      "configuration_id": "opus55-high-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 48
+    },
+    {
+      "configuration_id": "opus55-high-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 49
+    },
+    {
+      "configuration_id": "opus55-xhigh-batch10",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 50
+    },
+    {
+      "configuration_id": "opus55-xhigh-batch10",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "normal_queue_entry",
+      "frozen_order_index": 51
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "unattempted",
+      "stage_statuses": {
+        "smoke": "not_started",
+        "inspected_admission": "not_started",
+        "development": "not_started"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 52
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "unattempted",
+      "stage_statuses": {
+        "smoke": "not_started",
+        "inspected_admission": "not_started",
+        "development": "not_started"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 53
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "unattempted",
+      "stage_statuses": {
+        "smoke": "not_started",
+        "inspected_admission": "not_started",
+        "development": "not_started"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 54
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "unattempted",
+      "stage_statuses": {
+        "smoke": "not_started",
+        "inspected_admission": "not_started",
+        "development": "not_started"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 55
+    },
+    {
+      "configuration_id": "sonnet5-low-first-pass-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 56
+    },
+    {
+      "configuration_id": "sonnet5-low-first-pass-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 57
+    },
+    {
+      "configuration_id": "opus5-low-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 58
+    },
+    {
+      "configuration_id": "opus5-low-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 59
+    },
+    {
+      "configuration_id": "haiku45-not_applicable-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "stopped",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "stopped"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 60
+    },
+    {
+      "configuration_id": "haiku45-not_applicable-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 61
+    },
+    {
+      "configuration_id": "sonnet5-medium-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 62
+    },
+    {
+      "configuration_id": "sonnet5-medium-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 63
+    },
+    {
+      "configuration_id": "sonnet5-high-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 64
+    },
+    {
+      "configuration_id": "sonnet5-high-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 65
+    },
+    {
+      "configuration_id": "sonnet5-xhigh-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 66
+    },
+    {
+      "configuration_id": "sonnet5-xhigh-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 67
+    },
+    {
+      "configuration_id": "opus5-medium-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 68
+    },
+    {
+      "configuration_id": "opus5-medium-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 69
+    },
+    {
+      "configuration_id": "opus5-high-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 70
+    },
+    {
+      "configuration_id": "opus5-high-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 71
+    },
+    {
+      "configuration_id": "opus5-xhigh-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 72
+    },
+    {
+      "configuration_id": "opus5-xhigh-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 73
+    },
+    {
+      "configuration_id": "fable51-low-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 74
+    },
+    {
+      "configuration_id": "fable51-low-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 75
+    },
+    {
+      "configuration_id": "fable51-medium-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 76
+    },
+    {
+      "configuration_id": "fable51-medium-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 77
+    },
+    {
+      "configuration_id": "fable51-high-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 78
+    },
+    {
+      "configuration_id": "fable51-high-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 79
+    },
+    {
+      "configuration_id": "fable51-xhigh-phase2-batch10-p0",
+      "condition": "P1",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 80
+    },
+    {
+      "configuration_id": "fable51-xhigh-phase2-batch10-p0",
+      "condition": "P2",
+      "status": "completed",
+      "stage_statuses": {
+        "smoke": "completed",
+        "inspected_admission": "completed",
+        "development": "completed"
+      },
+      "disposition": "legacy_p0_explicitly_not_rerun",
+      "frozen_order_index": 81
+    }
+  ],
+  "unattempted_classification": {
+    "terra_medium_p1": {
+      "configuration_id": "codex-gpt-5.6-terra-medium",
+      "condition": "P1",
+      "status": "unattempted",
+      "prelaunch_outcome": "automatic permission approval review timed out before process creation; not a content/safety rejection",
+      "old_launch_request": {
+        "command": "python3 results/prompt-comparison-v1-2026-09-24/subscription-coordinator-handoff/recruitment_codex_phase.py --id codex-gpt-5.6-terra-medium --condition P1 --phase smoke",
+        "submitted_with": "codex-gpt-5.6-terra-high P1 smoke in one Promise.all operation",
+        "session_transcript": "/Users/adamkovacs/.codex/sessions/2026/09/24/rollout-2026-09-24T15-12-02-01a0d38b-6229-7020-91e5-ea2b8642e3e9.jsonl",
+        "tool_input_line": 1227,
+        "timeout_output_line": 1241,
+        "timeout_output": "exec_command failed: CreateProcess rejected because the automatic permission approval review did not finish before its deadline; message explicitly said not to infer unsafety from the timeout and allowed one retry or user guidance",
+        "tool_input_line_sha256": "10e36f3f2c3768d95146ce651b7aa59c803e38ab75c73b97d87529093629b3b8",
+        "timeout_output_line_sha256": "4142309498af0ae12fdbb106b1f5d2e1248f59722e3ed8b154b6a59b419fcb3b"
+      },
+      "absence_checks": {
+        "scheduler_claim_or_reservation": false,
+        "run_directory_exists": false,
+        "matching_live_controller_process_found": false,
+        "process_check": "ps -axo pid=,ppid=,command= filtered for exact Terra medium config, P1 run output path, and supplied recruitment_codex_phase helper; non-ancestor matches: none",
+        "interpretation": "The review timed out before CreateProcess. No model request, scheduler claim, run output, or controller lifecycle was created by the old attempt."
+      },
+      "fresh_launch_authorization": "Root authorized one fresh smoke after this snapshot; do not count it in this prelaunch snapshot."
+    },
+    "legacy_p0": [
+      {
+        "configuration_id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+        "condition": "P1",
+        "status": "unattempted",
+        "disposition": "legacy P0; explicitly not rerun"
+      },
+      {
+        "configuration_id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+        "condition": "P2",
+        "status": "unattempted",
+        "disposition": "legacy P0; explicitly not rerun"
+      },
+      {
+        "configuration_id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+        "condition": "P2",
+        "status": "unattempted",
+        "disposition": "legacy P0; explicitly not rerun"
+      },
+      {
+        "configuration_id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+        "condition": "P1",
+        "status": "unattempted",
+        "disposition": "legacy P0; explicitly not rerun"
+      }
+    ]
+  }
+}
