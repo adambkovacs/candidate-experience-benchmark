@@ -1,0 +1,156 @@
+{
+  "contract": "openjev-generated-exact-draft-v1",
+  "status": "offline_preparation_review_required",
+  "inference_authorized_by_this_manifest": false,
+  "source_checkout": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source",
+  "source_commit": "e04794ab36e4f7e6040c2547baecdb2737ce2e79",
+  "model_artifact": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-model",
+  "artifact_revision": "a7a81407613811e8ba63af92ac0d852b809e191f",
+  "artifact_manifest_sha256": "08c2ffced951f29fc5635c4b4ae1b0c57edef57b5d79a2c790a1874a37a27f49",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "schedule": {
+    "file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+    "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+  },
+  "prior_token_preflight": {
+    "file": "results/openjev-generated-phase2-token-preflight-2026-09-23.json",
+    "sha256": "62cf097bcf6a592d68181de2eb5476ad05bfc52c37db8a53649e59a38cd59a13"
+  },
+  "corrected_capacity_audit": {
+    "file": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-capacity-audit-2026-09-24.json",
+    "sha256": "e2a52650f51663cbdf40dfb2df6ed3eb6a15b65892ee94e3c62d3d0ce3e1e18c"
+  },
+  "baselines": {
+    "generated-off": {
+      "file": "results/openjev-local-generated-off-2026-09-23/development.jsonl",
+      "sha256": "e29f4f0ef76ec8d62bbd5efe0791b0e536e38b8d50bbfd0623a72fbf7572d46f"
+    },
+    "generated-on": {
+      "file": "results/openjev-local-generated-on-2026-09-23/development.jsonl",
+      "sha256": "08ea1e5b3efa7551dcfc588c1524a00c1a20f08e922a04d732c8ebe6f867b05e"
+    }
+  },
+  "source_sha256": {
+    "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openjev_prompt_preflight.py": "34016f7a2b31f23c5354406efffbb0d6f93ec6dd67891db99acba128db207ab6",
+    "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/jev_benchmark.py": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22",
+    "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/frozen_prompt_variants.py": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/config.py": "26224de1e3c7659465ef6021cb60fd5989d8ea5561a8c384f83c2f44116c3d54",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/chat.py": "5f0a532e8d7e485c25a09049b70f047403537456156e98795c3b037fef51f384",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/engine.py": "4615880c869dc549fd27f57d1eecc20d2637f538b5337bfc61c620764fb5ed83",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/mlx_backend.py": "8ba4e9617f86d4eb9570121fcbee6fc9a878058fba2f41bb5d61e1c47c114fab",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/api.py": "28c5c29264d830c80f71568208ec584cc640bce6551741b49b4845e92601e35a",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-venv/lib/python3.12/site-packages/mlx_vlm/generate/diffusion.py": "6716ff91dfa302be9b71e5996761d7e7e51b498517abf99c09b2c24235a944bd",
+    "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openjev_prompt_execution.py": "4a711bf37b1eb83784c73960c329ce3166ba197e0441030761666c238b8480ed"
+  },
+  "controls": {
+    "surface": "OpenJev local HTTP",
+    "origin": "http://127.0.0.1:8080",
+    "route": "POST /v1/chat/completions",
+    "requested_model": "diffusiongemma-26b",
+    "returned_model_required": "diffusiongemma-26b",
+    "backend": "mlx",
+    "model_revision": "a7a81407613811e8ba63af92ac0d852b809e191f",
+    "input_guard_tokens": 32768,
+    "requested_max_tokens": 2048,
+    "normalization_ceiling_tokens": 8192,
+    "artifact_context_tokens": 262144,
+    "native_generation_canvas_tokens": 256,
+    "conservative_canvas_overhang_tokens": 255,
+    "readout_canvas_setting": 64,
+    "batch_membership": "single_record",
+    "response_format": "strict JSON schema sent; server converts to instruction and extracts first JSON object",
+    "temperature": "server native; dropped by Generator.normalize",
+    "retry_policy": "none",
+    "output_repair": "none",
+    "rendering": "Generator.normalize then MlxGenerator.prompt_ids, including empty thought scaffold",
+    "requested_on_effective_reasoning": "unverified; report as requested-on only",
+    "baseline_history_limitation": "Historical wire bytes and rendered token IDs were not saved; prior P0 parity is reconstructed from request hashes and observed token counts.",
+    "upstream_model": "diffusiongemma-26b",
+    "emitted_output_token_limit": 2048,
+    "canvas_overhang_explanation": "255 is a conservative denoising/cache canvas capacity reserve; native stream stops emitting by requested max_tokens=2048."
+  },
+  "conditions": [
+    {
+      "configuration_id": "openjev-generated-off",
+      "mode": "generated-off",
+      "parent_baseline_id": "openjev-generated-off",
+      "variant_order": [
+        "P1",
+        "P2"
+      ],
+      "chat_template_enable_thinking": false,
+      "outputs": {
+        "P1": {
+          "smoke": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-smoke.jsonl",
+          "development": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-development.jsonl"
+        },
+        "P2": {
+          "smoke": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-smoke.jsonl",
+          "development": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl"
+        }
+      }
+    },
+    {
+      "configuration_id": "openjev-generated-on",
+      "mode": "generated-on",
+      "parent_baseline_id": "openjev-generated-on",
+      "variant_order": [
+        "P2",
+        "P1"
+      ],
+      "chat_template_enable_thinking": true,
+      "outputs": {
+        "P1": {
+          "smoke": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-smoke.jsonl",
+          "development": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-development.jsonl"
+        },
+        "P2": {
+          "smoke": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-smoke.jsonl",
+          "development": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-development.jsonl"
+        }
+      }
+    }
+  ],
+  "required_before_execution": [
+    "Implement a separate exact OpenJev runner without changing jev_benchmark.py variant gate.",
+    "Bind a reviewed runner source hash and execution receipt to this manifest and offline preflight.",
+    "Start pinned local server only after review; verify app.state.generator settings input32768/generation8192 and loaded runtime model canvas256/context262144.",
+    "For each scheduled condition, save and inspect three-record smoke before development60.",
+    "Keep raw request/response and append-only attempt events; exclusive outputs, no silent retries or repairs."
+  ],
+  "roster_freeze": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster-freeze.json",
+    "sha256": "3920fe3754d604b5360700d846ab2d05921ed6e59861ef3a4031ac7de29c2e77"
+  },
+  "policy_source": {
+    "file": "docs/LABELING_GUIDE.md",
+    "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+  },
+  "native_setup_audit": {
+    "file": "results/openjev/setup-audit.json",
+    "sha256": "c3c747a2cb21b2326a48a4923b0bac67313958b1b66437fb5cf5582883bdd57e"
+  },
+  "runtime_versions": {
+    "python": "3.12.12",
+    "openjev": "0.3.0",
+    "mlx-vlm": "0.6.15",
+    "mlx": "0.32.2",
+    "transformers": "5.17.0",
+    "fastapi": "0.141.1",
+    "uvicorn": "0.53.0"
+  },
+  "hardware": "macOS-26.6-arm64-arm-64bit",
+  "quantization": {
+    "default_bits": 4,
+    "group_size": 64,
+    "mode": "affine",
+    "8bit_layer_overrides": 236
+  }
+}
