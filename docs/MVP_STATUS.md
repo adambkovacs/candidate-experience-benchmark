@@ -1,5 +1,12 @@
 # MVP completion status
 
+## 2026-09-24 Gemma E4B classifier condition completed
+
+Gemma E4B thinking-on P1 completed 60 requests with **60 valid outputs and 44 all-four matches**. Its [verified report](../results/local-prompt-condition-reconciliations-v1/gemma4-e4b-sdk-thinking-on/P1.json) is included in the public export: 254 run views, 15,240 cases and 41 audited comparisons. P2 passed its three-record smoke inspection and is active in root session 13846; both thinking-off conditions remain after it.
+
+The public comparison UI is deployed. Readers can select an audited prompt pair, inspect changed review labels and provisional references, and open the paired evidence report. Desktop and mobile browser checks and three focused UI tests passed. A fresh hosted metadata check found the earlier exact Qwen and Mistral routes still listed but did not prove inference availability; a separately bounded Qwen never-sent continuation is being prepared after more than two hours of cooldown. No new hosted inference or budget allocation occurred during that readiness check.
+
+
 ## 2026-09-24 all Gemma E2B prompt conditions completed
 
 Gemma E2B thinking-off P1 completed with 60 valid outputs and **34/60 all-four matches**, closing all four E2B prompt conditions. Its [report](../results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-off/P1.json) and [audited triple](../results/local-prompt-pairs-v1/gemma4-e2b-sdk-thinking-off.json) are included in the public export: 253 run views, 15,180 cases and 41 audited comparisons. Each triple retains the historical P0 timing caveat.

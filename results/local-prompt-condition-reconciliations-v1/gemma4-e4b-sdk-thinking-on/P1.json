@@ -1,0 +1,383 @@
+{
+  "version": "local-prompt-condition-reconciliation-v1",
+  "configuration": "gemma4-e4b-sdk-thinking-on",
+  "variant": "P1",
+  "phase": "development",
+  "denominator": 60,
+  "terminal_status": "completed",
+  "saved_rows": 60,
+  "claimed_attempts": 60,
+  "finished_attempts": 60,
+  "status_counts": {
+    "ok": 60
+  },
+  "unknown_outcome_ids": [],
+  "never_sent_ids": [],
+  "never_sent_count": 0,
+  "coverage_complete": true,
+  "valid_outputs": 60,
+  "all_four_correct": 44,
+  "evaluation": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 60,
+    "missing_or_failed": [],
+    "metrics": {
+      "sentiment": {
+        "correct": 50,
+        "denominator": 60,
+        "accuracy": 0.8333333333333334,
+        "macro_f1": 0.7843434343434343,
+        "per_label": {
+          "positive": {
+            "tp": 9,
+            "fp": 1,
+            "fn": 2,
+            "precision": 0.9,
+            "recall": 0.8181818181818182,
+            "f1": 0.8571428571428571
+          },
+          "negative": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 6,
+            "precision": 1.0,
+            "recall": 0.8064516129032258,
+            "f1": 0.8928571428571429
+          },
+          "mixed": {
+            "tp": 8,
+            "fp": 6,
+            "fn": 0,
+            "precision": 0.5714285714285714,
+            "recall": 1.0,
+            "f1": 0.7272727272727273
+          },
+          "neutral": {
+            "tp": 7,
+            "fp": 3,
+            "fn": 1,
+            "precision": 0.7,
+            "recall": 0.875,
+            "f1": 0.7777777777777778
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 59,
+        "denominator": 60,
+        "accuracy": 0.9833333333333333,
+        "macro_f1": 0.9882129657376885,
+        "per_label": {
+          "yes": {
+            "tp": 35,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9722222222222222,
+            "recall": 1.0,
+            "f1": 0.9859154929577465
+          },
+          "no": {
+            "tp": 23,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9583333333333334,
+            "f1": 0.9787234042553191
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 55,
+        "denominator": 60,
+        "accuracy": 0.9166666666666666,
+        "macro_f1": 0.798494623655914,
+        "per_label": {
+          "yes": {
+            "tp": 24,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.96,
+            "recall": 0.96,
+            "f1": 0.96
+          },
+          "no": {
+            "tp": 29,
+            "fp": 4,
+            "fn": 0,
+            "precision": 0.8787878787878788,
+            "recall": 1.0,
+            "f1": 0.9354838709677419
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 4,
+            "precision": 1.0,
+            "recall": 0.3333333333333333,
+            "f1": 0.5
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 57,
+        "denominator": 60,
+        "accuracy": 0.95,
+        "macro_f1": 0.9372674109516215,
+        "per_label": {
+          "yes": {
+            "tp": 8,
+            "fp": 2,
+            "fn": 1,
+            "precision": 0.8,
+            "recall": 0.8888888888888888,
+            "f1": 0.8421052631578947
+          },
+          "no": {
+            "tp": 48,
+            "fp": 1,
+            "fn": 2,
+            "precision": 0.9795918367346939,
+            "recall": 0.96,
+            "f1": 0.9696969696969697
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [
+        "DEV-058"
+      ],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "reference_status": "AI-reviewed provisional; development only",
+  "resource": {
+    "surface": "lmstudio_sdk",
+    "cost_usd": null,
+    "cost_note": "Local inference; no provider bill. Electricity and device amortization unmeasured.",
+    "runtime_attestation": {
+      "cli_commit": "efce996",
+      "selected_engine": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+      "lm_studio_version": "0.4.16+2",
+      "loaded_model_line": "benchmark-gemma4-e4b                 gemma-4-e4b-it                       IDLE      5.34 GB      8192       1           Local",
+      "hardware": {
+        "model_identifier": "Mac16,5",
+        "chip": "Apple M4 Max",
+        "architecture": "arm64"
+      },
+      "artifact_sha256": "0ffb122c8b6921f13cbc34186e052524d0b5803b17f4867b7197a561400b3770",
+      "surface": "lmstudio_sdk"
+    },
+    "timeout_ms": 600000,
+    "development": {
+      "request_count": 60,
+      "prompt_tokens_observed_sum": 108688,
+      "completion_tokens_observed_sum": 13173,
+      "usage_missing_ids": [],
+      "elapsed_prediction_seconds_observed_count": 60,
+      "elapsed_prediction_seconds_sum": 345.7291219560002,
+      "elapsed_prediction_seconds_median": 1.0769122915000118,
+      "elapsed_prediction_seconds_p95_nearest_rank": 13.109858749999997,
+      "elapsed_missing_ids": []
+    },
+    "smoke": {
+      "request_count": 3,
+      "prompt_tokens_observed_sum": 5427,
+      "completion_tokens_observed_sum": 440,
+      "usage_missing_ids": [],
+      "elapsed_prediction_seconds_observed_count": 3,
+      "elapsed_prediction_seconds_sum": 14.303871543000001,
+      "elapsed_prediction_seconds_median": 4.452951667000002,
+      "elapsed_prediction_seconds_p95_nearest_rank": 8.865191167,
+      "elapsed_missing_ids": []
+    }
+  },
+  "sources": {
+    "manifest": {
+      "file": "results/local-prompt-tail-v3/manifest.json",
+      "sha256": "fe0a203bbf819b20e2e571307a8911adcfe62b4f0e38cde64329d1890cfe7ffb"
+    },
+    "controller": {
+      "file": "scripts/local_prompt_tail_v3.cjs",
+      "sha256": "74ca757875b69fc8aa9fa867e180274a116e2c7351468e79bdd2bef10893f740"
+    },
+    "parent_manifest": {
+      "file": "results/local-prompt-exact-v1/manifest.json",
+      "sha256": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49"
+    },
+    "parent_controller": {
+      "file": "scripts/local_prompt_execution_v1.cjs",
+      "sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
+    },
+    "execution_review": {
+      "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/execution-review-root.json",
+      "sha256": "c53e47801edf02452637fc3a9d141e5fb68ed118d6e9a781ffc70ceb38472c62"
+    },
+    "smoke_inspection": {
+      "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/smoke-inspection.json",
+      "sha256": "44c44886f0b701ec978e0bf78baac32d595ef13d3bc7b38c7e08c59928747651"
+    },
+    "provisional_references": {
+      "file": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    "pairs": {
+      "file": "data/pilot/pairs.json",
+      "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+    },
+    "evaluator": {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    "reconciler": {
+      "file": "scripts/reconcile_local_prompt_conditions.py",
+      "sha256": "8363a108750e0b71c832d6fb3fded30c3729f1c80bd323388bdc0fa96a7907a2"
+    },
+    "frozen_inputs": {
+      "file": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    "frozen_rendered": {
+      "file": "results/local-prompt-exact-v1/preflight/sdk-rendered.jsonl",
+      "sha256": "6e04311c322e32919a2aafe8ad582a23041883cf3110a6622791b2762e8fcd22"
+    },
+    "frozen_counts": {
+      "file": "results/local-prompt-exact-v1/preflight/counts-gemmae4.jsonl",
+      "sha256": "08f31d8990757aa7dd237e2d21d784e32ba0cc955eb9f715909976e77ba264bc"
+    },
+    "frozen_baseline": {
+      "file": "results/gemma4-e4b-2026-09-23/on-development.jsonl",
+      "sha256": "c222b2aad7be007e5b080a23a70cc785429cefd2b0623341dba4abbdd2d8d0e7"
+    },
+    "frozen_baseline_manifest": {
+      "file": "results/gemma4-e4b-2026-09-23/on-manifest.json",
+      "sha256": "2f9bb16823d7dd51097dd0240cdde9f6c1692ad37b6353958c3bfdd1b688f365"
+    },
+    "prompt_p1": {
+      "file": "prompts/variants-v1/P1-classifier.txt",
+      "sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7"
+    },
+    "prompt_p2": {
+      "file": "prompts/variants-v1/P2-classifier-sop.txt",
+      "sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9"
+    },
+    "prompt_composer": {
+      "file": "scripts/frozen_prompt_variants.cjs",
+      "sha256": "7c751854bf901c8ad9d7466e0056c95f5074d6e24782478efe36833d9f026da6"
+    },
+    "smoke": {
+      "output": {
+        "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/smoke.jsonl",
+        "sha256": "5a9754f9a4ae47975f546b479f8065b8f2ca5bec6169253ede7ce2794fdfe0c0"
+      },
+      "journal": {
+        "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/smoke.attempts.jsonl",
+        "sha256": "39afbc819cd9053acc846acade4de8b2a67b0c985eae79b1977cef6c592b622b"
+      },
+      "terminal": {
+        "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/smoke.terminal.json",
+        "sha256": "f34b5dac5f6cf9f652342986a4ab32a35eac3bbc1014d97859432f311278ffe9"
+      }
+    },
+    "development": {
+      "output": {
+        "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/development.jsonl",
+        "sha256": "04981d8f7e0f76820c3339416dcba116f6b4fc8b0cf9e4d89ab650b750e01718"
+      },
+      "journal": {
+        "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/development.attempts.jsonl",
+        "sha256": "a38b6ee3b701f08d157a4f9f0057fc67f335c5646a391798e75a15a809efd173"
+      },
+      "terminal": {
+        "file": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P1/development.terminal.json",
+        "sha256": "a0a4312dd4858ce6ff88e7d51b15e6db7984c2d3b9e7acf656f7b13da548794b"
+      }
+    },
+    "predecessor": {
+      "terminal": {
+        "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-off/P1/development.terminal.json",
+        "sha256": "0b45571945c1801e4a71ae4e14657abf267ca5e3d24560323c44a37367a233e9"
+      },
+      "output": {
+        "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-off/P1/development.jsonl",
+        "sha256": "a0bcfe7f5272e0db28e0042506aefee7f9690879a4856486397b6147c391c3ec"
+      },
+      "journal": {
+        "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-off/P1/development.attempts.jsonl",
+        "sha256": "90e675ede16625034248a778f598d542f16adb145d3278dd24a46a7300af3668"
+      }
+    }
+  }
+}
