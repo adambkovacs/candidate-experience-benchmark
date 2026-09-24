@@ -10,6 +10,8 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 [Explore the results](https://adambkovacs.github.io/candidate-experience-benchmark/) · [Read the evidence report](results/comparison/REPORT.md) · [See the method](docs/PLAN.md)
 
+[![Public explorer preview](public-site/preview.png)](https://adambkovacs.github.io/candidate-experience-benchmark/)
+
 ## What the models decide
 
 | Judgment | Question |
