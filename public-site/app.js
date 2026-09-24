@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const $ = selector => document.querySelector(selector);
-  const state = {data:null,selectedId:null,experiments:new Map()};
+  const state = {data:null,selectedId:null,experiments:new Map(),pairSelection:new Map()};
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const n = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
   const count = value => n(value) === null ? 'Unavailable' : Math.round(n(value)).toLocaleString();
@@ -68,6 +68,43 @@
     $('#condition-grid').querySelectorAll('[data-condition-run]').forEach(button => button.addEventListener('click',() => selectRun(button.dataset.conditionRun,true)));
     const nonpaired = runs.some(r => r.pairedEligible === false);
     $('#experiment-note').textContent = `${runs.length} saved condition ${runs.length === 1 ? 'view' : 'views'} for this experiment. ${nonpaired ? 'At least one outcome is descriptive and outside the strict paired comparison.' : 'Check each run’s evidence and execution notes before comparing conditions.'}`;
+    renderAuditedComparison(id);
+  }
+  function renderAuditedComparison(id) {
+    let panel = $('#audited-comparison');
+    if (!panel) {
+      panel = document.createElement('section');
+      panel.id = 'audited-comparison';
+      panel.className = 'audited-comparison';
+      panel.setAttribute('aria-label','Audited prompt comparison');
+      $('#experiment-note').after(panel);
+      panel.addEventListener('change',event => {
+        const experiment = $('#experiment-select').value;
+        const selection = state.pairSelection.get(experiment) || {};
+        if (event.target.id === 'pair-select') state.pairSelection.set(experiment,{pair:event.target.value,caseIndex:0});
+        else if (event.target.id === 'pair-case-select') state.pairSelection.set(experiment,{...selection,caseIndex:Number(event.target.value)});
+        else return;
+        renderAuditedComparison(experiment);
+        panel.querySelector(`#${event.target.id}`)?.focus();
+      });
+    }
+    const report = (state.data.promptComparisons || []).find(item => item.id === id && item.eligible === true);
+    if (!report) {panel.hidden = true;panel.innerHTML = '';return;}
+    panel.hidden = false;
+    const names = {P0_to_P1:'P0 → P1',P0_to_P2:'P0 → P2',P1_to_P2:'P1 → P2'};
+    const available = Object.keys(names).filter(key => report.comparisons?.[key]);
+    const selection = state.pairSelection.get(id) || {};
+    const pairKey = available.includes(selection.pair) ? selection.pair : available[0];
+    if (!pairKey) {panel.hidden = true;panel.innerHTML = '';return;}
+    const pair = report.comparisons[pairKey];
+    const cases = Array.isArray(pair.cases) ? pair.cases : [];
+    const caseIndex = Number.isInteger(selection.caseIndex) && selection.caseIndex >= 0 && selection.caseIndex < cases.length ? selection.caseIndex : 0;
+    const item = cases[caseIndex];
+    const [before,after] = pairKey.split('_to_');
+    const evidence = url(report.evidenceUrl);
+    const allFourGain = Array.isArray(pair.allFourWrongToCorrect) ? pair.allFourWrongToCorrect.length : 0;
+    const allFourLoss = Array.isArray(pair.allFourCorrectToWrong) ? pair.allFourCorrectToWrong.length : 0;
+    panel.innerHTML = `<div class="audited-heading"><div><p class="eyebrow">Audited prompt comparison</p><h4>What changed between saved runs</h4></div>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Read the paired evidence ↗</a>` : ''}</div><p class="audited-method">Same 60 development reviews; the counts describe saved outputs. ${esc(report.historicalP0Limitation || '')}</p><label class="audited-pair-control"><span>Compare prompts</span><select id="pair-select">${available.map(key => `<option value="${key}"${key === pairKey ? ' selected' : ''}>${names[key]}</option>`).join('')}</select></label><div class="audited-counts" role="status" aria-live="polite" aria-atomic="true"><div><strong>${esc(count(pair.bothValid))} / 60</strong><span>valid in both runs</span></div><div><strong>${esc(count(pair.changedRecordCount))}</strong><span>reviews with changed outputs</span></div><div><strong>${esc(count(allFourGain))} / ${esc(count(allFourLoss))}</strong><span>gained / lost all-four agreement</span></div></div>${item ? `<div class="audited-record"><label><span>Changed review</span><select id="pair-case-select">${cases.map((entry,index) => `<option value="${index}"${index === caseIndex ? ' selected' : ''}>${esc(entry.id)}</option>`).join('')}</select></label><article class="case-card"><div class="case-head"><span>REVIEW ${esc(item.id)}</span><span>${esc(item.from_state)} → ${esc(item.to_state)}</span></div><blockquote>${esc(item.feedback || 'Feedback unavailable')}</blockquote><div class="audited-predictions"><div><strong>BEFORE · ${before}</strong><span>${esc(caseValue(item.from_prediction))}</span></div><div><strong>AFTER · ${after}</strong><span>${esc(caseValue(item.to_prediction))}</span></div><div><strong>REFERENCE</strong><span>${esc(caseValue(item.reference))}</span></div></div></article></div>` : '<p class="note">No changed review is listed for this pair.</p>'}${report.referenceStatus ? `<p class="note">Reference status: ${esc(report.referenceStatus)}</p>` : ''}`;
   }
   function visibleRuns() {
     const query = $('#search').value.trim().toLowerCase();
