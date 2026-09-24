@@ -1,0 +1,126 @@
+{
+  "model": "qwen/qwen3-8b",
+  "provider": "Alibaba",
+  "status": "blocked_upstream_rate_limit",
+  "full60_started": false,
+  "retry_performed": false,
+  "modes": {
+    "off": {
+      "process_exit_code": 0,
+      "terminal": {
+        "event": "terminal",
+        "attempted_records": 3,
+        "planned_records": 3,
+        "completed": false,
+        "terminal_status": "service_error",
+        "phase": "smoke3",
+        "variant": "P0",
+        "reasoning": "off",
+        "preview_manifest_sha256": "e1b6e7fc64aa8c4d122f372d9286212e113cb0e9bf91e1c5495f79e36a4e6cab"
+      },
+      "records": [
+        {
+          "id": "DEV-001",
+          "status": "ok",
+          "prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-002",
+          "status": "ok",
+          "prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-003",
+          "status": "service_error",
+          "prediction": null
+        }
+      ],
+      "smoke_gate": "not_passed",
+      "budget_reconciliation": {
+        "event": "partition_reconciled",
+        "partition_id": "qwen8-off-hosted-v1",
+        "known_actual_usd": "0.000393978",
+        "unknown_upper_bound_usd": "0.017199104",
+        "unused_allocation_released_usd": "0.382406918",
+        "child_ledger": "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/results/openrouter-qwen3-8b-hosted-plan-2026-09-24/budget-manifest-v1-qwen8-off-hosted-v1.jsonl",
+        "child_sha256": "6398eb84b0952195a9cea0f0c0dacee6645ae7025699cc2ecacecbad94ea6dc8"
+      },
+      "canonical_smoke_unattempted": 0,
+      "development_unattempted": 60
+    },
+    "on": {
+      "process_exit_code": 0,
+      "terminal": {
+        "event": "terminal",
+        "attempted_records": 2,
+        "planned_records": 3,
+        "completed": false,
+        "terminal_status": "service_error",
+        "phase": "smoke3",
+        "variant": "P0",
+        "reasoning": "on",
+        "preview_manifest_sha256": "e1b6e7fc64aa8c4d122f372d9286212e113cb0e9bf91e1c5495f79e36a4e6cab"
+      },
+      "records": [
+        {
+          "id": "DEV-001",
+          "status": "invalid_output",
+          "prediction": "useful feedback"
+        },
+        {
+          "id": "DEV-002",
+          "status": "service_error",
+          "prediction": null
+        }
+      ],
+      "smoke_gate": "not_passed",
+      "budget_reconciliation": {
+        "event": "partition_reconciled",
+        "partition_id": "qwen8-on-hosted-v1",
+        "known_actual_usd": "0.000278122",
+        "unknown_upper_bound_usd": "0.017199104",
+        "unused_allocation_released_usd": "0.382522774",
+        "child_ledger": "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/results/openrouter-qwen3-8b-hosted-plan-2026-09-24/budget-manifest-v1-qwen8-on-hosted-v1.jsonl",
+        "child_sha256": "5f04074efe29154783134809582b70cc893b2d9ec6f072753e8fdf21c505650e"
+      },
+      "canonical_smoke_unattempted": 1,
+      "development_unattempted": 60
+    }
+  },
+  "sources": [
+    {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/off-p0-smoke3-results.jsonl",
+      "sha256": "80e7ace4bd5cdd97a1cef162e8d7749b5c51f32596878d1c6867befa74593793"
+    },
+    {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/off-p0-smoke3-results.jsonl.attempts.jsonl",
+      "sha256": "fff617d9e7e77cc5edd45f64975beb8d6413b2762369f0ef766a2354a613ee80"
+    },
+    {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/budget-manifest-v1-qwen8-off-hosted-v1.jsonl",
+      "sha256": "6398eb84b0952195a9cea0f0c0dacee6645ae7025699cc2ecacecbad94ea6dc8"
+    },
+    {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/on-p0-smoke3-results.jsonl",
+      "sha256": "9a5adeb753f4b32570cadb90eb193db88fccf18bbd59d11b9b648a2517dc1996"
+    },
+    {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/on-p0-smoke3-results.jsonl.attempts.jsonl",
+      "sha256": "c205ee7af1c5251fc77d04a77da17759f4bb3b30a98495eccb69c2d6a2f409a4"
+    },
+    {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/budget-manifest-v1-qwen8-on-hosted-v1.jsonl",
+      "sha256": "5f04074efe29154783134809582b70cc893b2d9ec6f072753e8fdf21c505650e"
+    }
+  ]
+}
