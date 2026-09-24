@@ -1,0 +1,230 @@
+{
+  "reference_status": "AI-reviewed provisional; development only",
+  "records": 60,
+  "valid_outputs": 54,
+  "missing_or_failed": [
+    "DEV-001",
+    "DEV-006",
+    "DEV-013",
+    "DEV-016",
+    "DEV-020",
+    "DEV-054"
+  ],
+  "metrics": {
+    "sentiment": {
+      "correct": 51,
+      "denominator": 60,
+      "accuracy": 0.85,
+      "macro_f1": 0.8417624521072797,
+      "per_label": {
+        "positive": {
+          "tp": 9,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.8181818181818182,
+          "f1": 0.9
+        },
+        "negative": {
+          "tp": 27,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8709677419354839,
+          "f1": 0.9310344827586207
+        },
+        "mixed": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333
+        },
+        "neutral": {
+          "tp": 7,
+          "fp": 3,
+          "fn": 1,
+          "precision": 0.7,
+          "recall": 0.875,
+          "f1": 0.7777777777777778
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        }
+      }
+    },
+    "follow_up_needed": {
+      "correct": 53,
+      "denominator": 60,
+      "accuracy": 0.8833333333333333,
+      "macro_f1": 0.9480375898286346,
+      "per_label": {
+        "yes": {
+          "tp": 32,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.9142857142857143,
+          "f1": 0.9552238805970149
+        },
+        "no": {
+          "tp": 20,
+          "fp": 1,
+          "fn": 4,
+          "precision": 0.9523809523809523,
+          "recall": 0.8333333333333334,
+          "f1": 0.8888888888888888
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    },
+    "serious_concern_reported": {
+      "correct": 53,
+      "denominator": 60,
+      "accuracy": 0.8833333333333333,
+      "macro_f1": 0.8953086419753086,
+      "per_label": {
+        "yes": {
+          "tp": 24,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.96,
+          "recall": 0.96,
+          "f1": 0.96
+        },
+        "no": {
+          "tp": 25,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8620689655172413,
+          "f1": 0.9259259259259259
+        },
+        "insufficient_information": {
+          "tp": 4,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8
+        }
+      }
+    },
+    "testimonial_potential": {
+      "correct": 54,
+      "denominator": 60,
+      "accuracy": 0.9,
+      "macro_f1": 0.9444444444444445,
+      "per_label": {
+        "yes": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.7777777777777778,
+          "f1": 0.875
+        },
+        "no": {
+          "tp": 46,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.92,
+          "f1": 0.9583333333333334
+        },
+        "insufficient_information": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    }
+  },
+  "serious_concerns": {
+    "reference_yes": 25,
+    "predicted_no": [],
+    "predicted_insufficient": [],
+    "output_failed_or_missing": [
+      "DEV-054"
+    ],
+    "false_escalations": []
+  },
+  "pair_checks": [
+    {
+      "id": "resolution",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "irrelevant_religion",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "sex_stereotype_symmetry",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "identity_evidence",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "complaint_style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    }
+  ],
+  "provenance": {
+    "scope": "Exact native OpenJev generated-control development",
+    "mode": "generated-off",
+    "condition": "P1",
+    "development_predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-development.jsonl",
+      "sha256": "8a830d9460f30a1e59715f5847d1b1fb33f8e688f9ae3ece18fbe2dcd0a04243"
+    },
+    "manifest": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/execution-manifest.draft.json",
+      "sha256": "36bbab1c82ba066c3bfaf414452401ff01f027aa29c18bb0021da81fa10200fc"
+    },
+    "server_attestation": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/server-attestation.json",
+      "sha256": "6e9917571e7568ba2d1b4ee6c02ae26487204559060e1d95d413eb60f19dc0e6"
+    },
+    "reference_labels_read_during_inference": false,
+    "requested_on_effective_reasoning": "not applicable",
+    "historical_P0_limitation": "Historical wire bytes and rendered token IDs absent; offline P0 request-hash/token-count parity only.",
+    "paired_evaluator_limitation": "Central native raw-evidence paired extractor has not been verified."
+  }
+}

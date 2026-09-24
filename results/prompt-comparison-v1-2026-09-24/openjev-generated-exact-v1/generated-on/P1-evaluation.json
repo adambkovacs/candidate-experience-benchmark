@@ -1,0 +1,233 @@
+{
+  "reference_status": "AI-reviewed provisional; development only",
+  "records": 60,
+  "valid_outputs": 50,
+  "missing_or_failed": [
+    "DEV-001",
+    "DEV-003",
+    "DEV-005",
+    "DEV-010",
+    "DEV-018",
+    "DEV-024",
+    "DEV-035",
+    "DEV-043",
+    "DEV-049",
+    "DEV-055"
+  ],
+  "metrics": {
+    "sentiment": {
+      "correct": 48,
+      "denominator": 60,
+      "accuracy": 0.8,
+      "macro_f1": 0.718859649122807,
+      "per_label": {
+        "positive": {
+          "tp": 8,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.7272727272727273,
+          "f1": 0.8421052631578947
+        },
+        "negative": {
+          "tp": 25,
+          "fp": 1,
+          "fn": 6,
+          "precision": 0.9615384615384616,
+          "recall": 0.8064516129032258,
+          "f1": 0.8771929824561403
+        },
+        "mixed": {
+          "tp": 8,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "neutral": {
+          "tp": 7,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.875,
+          "recall": 0.875,
+          "f1": 0.875
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "follow_up_needed": {
+      "correct": 49,
+      "denominator": 60,
+      "accuracy": 0.8166666666666667,
+      "macro_f1": 0.5955710955710956,
+      "per_label": {
+        "yes": {
+          "tp": 30,
+          "fp": 0,
+          "fn": 5,
+          "precision": 1.0,
+          "recall": 0.8571428571428571,
+          "f1": 0.9230769230769231
+        },
+        "no": {
+          "tp": 19,
+          "fp": 1,
+          "fn": 5,
+          "precision": 0.95,
+          "recall": 0.7916666666666666,
+          "f1": 0.8636363636363636
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "serious_concern_reported": {
+      "correct": 49,
+      "denominator": 60,
+      "accuracy": 0.8166666666666667,
+      "macro_f1": 0.8971383226702375,
+      "per_label": {
+        "yes": {
+          "tp": 22,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.88,
+          "f1": 0.9361702127659575
+        },
+        "no": {
+          "tp": 22,
+          "fp": 1,
+          "fn": 7,
+          "precision": 0.9565217391304348,
+          "recall": 0.7586206896551724,
+          "f1": 0.8461538461538461
+        },
+        "insufficient_information": {
+          "tp": 5,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091
+        }
+      }
+    },
+    "testimonial_potential": {
+      "correct": 47,
+      "denominator": 60,
+      "accuracy": 0.7833333333333333,
+      "macro_f1": 0.5200945626477541,
+      "per_label": {
+        "yes": {
+          "tp": 5,
+          "fp": 1,
+          "fn": 4,
+          "precision": 0.8333333333333334,
+          "recall": 0.5555555555555556,
+          "f1": 0.6666666666666666
+        },
+        "no": {
+          "tp": 42,
+          "fp": 2,
+          "fn": 8,
+          "precision": 0.9545454545454546,
+          "recall": 0.84,
+          "f1": 0.8936170212765957
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    }
+  },
+  "serious_concerns": {
+    "reference_yes": 25,
+    "predicted_no": [],
+    "predicted_insufficient": [],
+    "output_failed_or_missing": [
+      "DEV-035",
+      "DEV-043",
+      "DEV-049"
+    ],
+    "false_escalations": []
+  },
+  "pair_checks": [
+    {
+      "id": "resolution",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "irrelevant_religion",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "sex_stereotype_symmetry",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "identity_evidence",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "complaint_style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    }
+  ],
+  "provenance": {
+    "scope": "Exact native OpenJev generated-control development",
+    "mode": "generated-on",
+    "condition": "P1",
+    "development_predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-development.jsonl",
+      "sha256": "2ff23eab29cb0a22c198d11e88549bd783f278d722374f04a6db6731ba075426"
+    },
+    "manifest": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/execution-manifest.draft.json",
+      "sha256": "36bbab1c82ba066c3bfaf414452401ff01f027aa29c18bb0021da81fa10200fc"
+    },
+    "server_attestation": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/server-attestation.json",
+      "sha256": "6e9917571e7568ba2d1b4ee6c02ae26487204559060e1d95d413eb60f19dc0e6"
+    },
+    "reference_labels_read_during_inference": false,
+    "requested_on_effective_reasoning": "unverified",
+    "historical_P0_limitation": "Historical wire bytes and rendered token IDs absent; offline P0 request-hash/token-count parity only.",
+    "paired_evaluator_limitation": "Central native raw-evidence paired extractor has not been verified."
+  }
+}

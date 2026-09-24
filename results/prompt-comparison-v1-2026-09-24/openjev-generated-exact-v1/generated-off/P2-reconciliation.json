@@ -1,0 +1,124 @@
+{
+  "contract": "openjev-generated-exact-reconciliation-v1",
+  "configuration_id": "openjev-generated-off",
+  "mode": "generated-off",
+  "condition": "P2",
+  "canonical_denominator": 60,
+  "records_saved": 60,
+  "valid_outputs": 56,
+  "intrinsic_invalid_outputs": 4,
+  "invalid_ids": [
+    "DEV-025",
+    "DEV-037",
+    "DEV-055",
+    "DEV-059"
+  ],
+  "service_or_control_failures": 0,
+  "automatic_retries": 0,
+  "all_finish_reasons": "stop",
+  "request_response_and_events_verified": true,
+  "exact_rendered_token_hashes_and_usage_verified": true,
+  "smoke": {
+    "predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-smoke.jsonl",
+      "sha256": "4f33b695952c7ee7bec30eb365ed6e62208179ae98609a5dbe6233a05a049f5f"
+    },
+    "events": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-smoke.jsonl.events.jsonl",
+      "sha256": "9e379585c7cf50615e45cd6f44286fdb59d5662b5f5c6231c473f8fa39970682"
+    },
+    "terminal": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-smoke.jsonl.terminal.json",
+      "sha256": "4a2fcd3a9bab21577bacffd4fcea7a2601f662d485055df37d54d266600c747a"
+    },
+    "schedule_attempt_id": "ee09750d-6fd8-42b5-9509-3d4dea48a354"
+  },
+  "smoke_inspection": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-smoke-inspection.json",
+    "sha256": "edac0b58e3d984cb6a8d38fac31c2963ae6beb7d0cf8653c1449d085a4e50bcf"
+  },
+  "development": {
+    "predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl",
+      "sha256": "b21b1f4d93f5c881ee669287cfcb28b9688af7d35497a8a78064a78b2ae38a3c"
+    },
+    "events": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl.events.jsonl",
+      "sha256": "b539a960ff147d41a5f31bff3f6c18c7516bb686e9b9d1a8df86133cce8e3b89"
+    },
+    "terminal": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl.terminal.json",
+      "sha256": "f2b38270c63f0e90b67074ab2e1a7d4077288b3f6b1fb5da3871c6503bcda159"
+    },
+    "schedule_attempt_id": "ce7a9717-70ea-4382-a345-b568ee7e7dab"
+  },
+  "manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/execution-manifest.draft.json",
+    "sha256": "36bbab1c82ba066c3bfaf414452401ff01f027aa29c18bb0021da81fa10200fc"
+  },
+  "preflight": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/preflight.json",
+    "sha256": "a543bc550d9b56606ef6fd587888d0f0b3f01cfd3507275565746ce62497981f"
+  },
+  "root_review": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/root-review.json",
+    "sha256": "e68167e9cd0259eeeb3d59a896f32f63419e316ccc980f520cae3286fc6f918b"
+  },
+  "server_attestation": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/server-attestation.json",
+    "sha256": "6e9917571e7568ba2d1b4ee6c02ae26487204559060e1d95d413eb60f19dc0e6"
+  },
+  "native_controls": {
+    "surface": "OpenJev local HTTP",
+    "origin": "http://127.0.0.1:8080",
+    "route": "POST /v1/chat/completions",
+    "requested_model": "diffusiongemma-26b",
+    "returned_model_required": "diffusiongemma-26b",
+    "backend": "mlx",
+    "model_revision": "a7a81407613811e8ba63af92ac0d852b809e191f",
+    "input_guard_tokens": 32768,
+    "requested_max_tokens": 2048,
+    "normalization_ceiling_tokens": 8192,
+    "artifact_context_tokens": 262144,
+    "native_generation_canvas_tokens": 256,
+    "conservative_canvas_overhang_tokens": 255,
+    "readout_canvas_setting": 64,
+    "batch_membership": "single_record",
+    "response_format": "strict JSON schema sent; server converts to instruction and extracts first JSON object",
+    "temperature": "server native; dropped by Generator.normalize",
+    "retry_policy": "none",
+    "output_repair": "none",
+    "rendering": "Generator.normalize then MlxGenerator.prompt_ids, including empty thought scaffold",
+    "requested_on_effective_reasoning": "unverified; report as requested-on only",
+    "baseline_history_limitation": "Historical wire bytes and rendered token IDs were not saved; prior P0 parity is reconstructed from request hashes and observed token counts.",
+    "upstream_model": "diffusiongemma-26b",
+    "emitted_output_token_limit": 2048,
+    "canvas_overhang_explanation": "255 is a conservative denoising/cache canvas capacity reserve; native stream stops emitting by requested max_tokens=2048."
+  },
+  "runtime_identity": {
+    "runtime_versions": {
+      "python": "3.12.12",
+      "openjev": "0.3.0",
+      "mlx-vlm": "0.6.15",
+      "mlx": "0.32.2",
+      "transformers": "5.17.0",
+      "fastapi": "0.141.1",
+      "uvicorn": "0.53.0"
+    },
+    "hardware": "macOS-26.6-arm64-arm-64bit",
+    "artifact_quantization_sha256": "c898445e2488afe99b68bb267169421911435bee04deb187e4171e7a2111f1a0",
+    "quantization": {
+      "default_bits": 4,
+      "group_size": 64,
+      "mode": "affine",
+      "8bit_layer_overrides": 236
+    },
+    "quantization_basis": "Pinned model config and weight hashes; loaded layer structure not separately attested"
+  },
+  "inference_seconds_total": 444.41542321103407,
+  "inference_seconds_median": 6.995504125003208,
+  "billing": "Local pinned weights; no hosted inference charge",
+  "requested_on_effective_reasoning": "not applicable",
+  "historical_P0_limitation": "Historical wire bytes and rendered token IDs absent; offline P0 request-hash/token-count parity only.",
+  "paired_evaluator_limitation": "Central native raw-evidence paired extractor has not been verified."
+}

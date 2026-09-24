@@ -1,0 +1,230 @@
+{
+  "reference_status": "AI-reviewed provisional; development only",
+  "records": 60,
+  "valid_outputs": 53,
+  "missing_or_failed": [
+    "DEV-011",
+    "DEV-015",
+    "DEV-032",
+    "DEV-034",
+    "DEV-043",
+    "DEV-053",
+    "DEV-060"
+  ],
+  "metrics": {
+    "sentiment": {
+      "correct": 50,
+      "denominator": 60,
+      "accuracy": 0.8333333333333334,
+      "macro_f1": 0.7069504772396098,
+      "per_label": {
+        "positive": {
+          "tp": 10,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.9090909090909091,
+          "recall": 0.9090909090909091,
+          "f1": 0.9090909090909091
+        },
+        "negative": {
+          "tp": 27,
+          "fp": 1,
+          "fn": 4,
+          "precision": 0.9642857142857143,
+          "recall": 0.8709677419354839,
+          "f1": 0.9152542372881356
+        },
+        "mixed": {
+          "tp": 5,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.625,
+          "f1": 0.7692307692307693
+        },
+        "neutral": {
+          "tp": 8,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8888888888888888,
+          "recall": 1.0,
+          "f1": 0.9411764705882353
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "follow_up_needed": {
+      "correct": 50,
+      "denominator": 60,
+      "accuracy": 0.8333333333333334,
+      "macro_f1": 0.5956160241874527,
+      "per_label": {
+        "yes": {
+          "tp": 28,
+          "fp": 0,
+          "fn": 7,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8888888888888888
+        },
+        "no": {
+          "tp": 22,
+          "fp": 3,
+          "fn": 2,
+          "precision": 0.88,
+          "recall": 0.9166666666666666,
+          "f1": 0.8979591836734694
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "serious_concern_reported": {
+      "correct": 51,
+      "denominator": 60,
+      "accuracy": 0.85,
+      "macro_f1": 0.8383725270623367,
+      "per_label": {
+        "yes": {
+          "tp": 22,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.88,
+          "f1": 0.9361702127659575
+        },
+        "no": {
+          "tp": 26,
+          "fp": 2,
+          "fn": 3,
+          "precision": 0.9285714285714286,
+          "recall": 0.896551724137931,
+          "f1": 0.9122807017543859
+        },
+        "insufficient_information": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        }
+      }
+    },
+    "testimonial_potential": {
+      "correct": 52,
+      "denominator": 60,
+      "accuracy": 0.8666666666666667,
+      "macro_f1": 0.6224974200206398,
+      "per_label": {
+        "yes": {
+          "tp": 8,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.8888888888888888,
+          "f1": 0.9411764705882353
+        },
+        "no": {
+          "tp": 44,
+          "fp": 1,
+          "fn": 6,
+          "precision": 0.9777777777777777,
+          "recall": 0.88,
+          "f1": 0.9263157894736842
+        },
+        "insufficient_information": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    }
+  },
+  "serious_concerns": {
+    "reference_yes": 25,
+    "predicted_no": [],
+    "predicted_insufficient": [],
+    "output_failed_or_missing": [
+      "DEV-011",
+      "DEV-032",
+      "DEV-043"
+    ],
+    "false_escalations": []
+  },
+  "pair_checks": [
+    {
+      "id": "resolution",
+      "status": "scored",
+      "invariants_preserved": false,
+      "expected_changes_correct": true,
+      "both_fully_correct": false
+    },
+    {
+      "id": "style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "irrelevant_religion",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "sex_stereotype_symmetry",
+      "status": "missing_or_failed"
+    },
+    {
+      "id": "identity_evidence",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    },
+    {
+      "id": "complaint_style",
+      "status": "scored",
+      "invariants_preserved": true,
+      "expected_changes_correct": true,
+      "both_fully_correct": true
+    }
+  ],
+  "provenance": {
+    "scope": "Exact native OpenJev generated-control development",
+    "mode": "generated-on",
+    "condition": "P2",
+    "development_predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-development.jsonl",
+      "sha256": "2f3b3975b57e2ec618878d4fdc3457203bb817fe511fbbd94b9164e721639202"
+    },
+    "manifest": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/execution-manifest.draft.json",
+      "sha256": "36bbab1c82ba066c3bfaf414452401ff01f027aa29c18bb0021da81fa10200fc"
+    },
+    "server_attestation": {
+      "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/server-attestation.json",
+      "sha256": "6e9917571e7568ba2d1b4ee6c02ae26487204559060e1d95d413eb60f19dc0e6"
+    },
+    "reference_labels_read_during_inference": false,
+    "requested_on_effective_reasoning": "unverified",
+    "historical_P0_limitation": "Historical wire bytes and rendered token IDs absent; offline P0 request-hash/token-count parity only.",
+    "paired_evaluator_limitation": "Central native raw-evidence paired extractor has not been verified."
+  }
+}

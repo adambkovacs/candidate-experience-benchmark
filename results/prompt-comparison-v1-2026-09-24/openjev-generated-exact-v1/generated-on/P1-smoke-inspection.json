@@ -1,0 +1,49 @@
+{
+  "contract": "openjev-generated-exact-smoke-inspection-v1",
+  "manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/execution-manifest.draft.json",
+    "sha256": "36bbab1c82ba066c3bfaf414452401ff01f027aa29c18bb0021da81fa10200fc"
+  },
+  "mode": "generated-on",
+  "condition": "P1",
+  "raw_attempts": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-smoke.jsonl",
+    "sha256": "482f00b3d816aad4677a02ab4b1194ac2416478a16ee67c63339be23a1d20613"
+  },
+  "terminal": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-smoke.jsonl.terminal.json",
+    "sha256": "11a2e4187cf39d702cfd0eefc5567df314bad435f7526f166df734d8311ddccd"
+  },
+  "inspector": "Codex assistant technical inspection of saved raw responses",
+  "inspected_utc": "2026-09-24T15:12:53.719114+00:00",
+  "reference_labels_read": false,
+  "response_repair_performed": false,
+  "records": [
+    {
+      "id": "DEV-001",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "yes"
+      }
+    },
+    {
+      "id": "DEV-002",
+      "status": "invalid_output",
+      "prediction": null,
+      "accepted_unchanged": true,
+      "failure_class": "intrinsic_schema",
+      "inspection_reason": "The native JSON object substitutes serious_concern_reported_potential for testimonial_potential; strict four-key schema fails. Preserve unchanged."
+    },
+    {
+      "id": "DEV-003",
+      "status": "invalid_output",
+      "prediction": null,
+      "accepted_unchanged": true,
+      "failure_class": "intrinsic_malformed_json",
+      "inspection_reason": "The native response begins with a malformed quoted key; strict JSON parse fails. Preserve unchanged."
+    }
+  ]
+}
