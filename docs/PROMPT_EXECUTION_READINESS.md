@@ -1,6 +1,6 @@
 # Prompt experiment execution readiness
 
-Current status (24 September): this document retains the chronological preparation record. Statements below that no P1/P2 inference has started describe earlier checkpoints. Live prompt runs have since executed; see [MVP status](MVP_STATUS.md) and the [34 audited complete comparisons](../results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-four-eligible-comparisons.html). Historical preflight-only checks remain preparation evidence, not proof of later execution.
+Current status (24 September): this document retains the chronological preparation record. Statements below that no P1/P2 inference has started describe earlier checkpoints. Live prompt runs have since executed; see [MVP status](MVP_STATUS.md) and the [36 audited complete comparisons](../results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-six-eligible-comparisons.html). Historical preflight-only checks remain preparation evidence, not proof of later execution.
 
 Audited offline on 2026-09-23 against the [frozen protocol](PROMPT_VARIANTS.md), current adapters and run registries. No model requests, reference-label reads or prompt edits were made during this audit. This is a readiness snapshot, not permission to start phase two or a reduced experiment roster.
 
