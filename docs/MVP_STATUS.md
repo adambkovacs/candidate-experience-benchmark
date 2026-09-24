@@ -1,5 +1,9 @@
 # MVP completion status
 
+## 2026-09-24 Gemini quota confirmed
+
+A live, built-in Antigravity `/usage` status check confirms a shared **Gemini Flash + Gemini Pro** weekly pool with **0% remaining**. The backend reports reset at **30 September 2026, 16:30:49 UTC**. The command completed with zero model turns and zero usage tokens; credit fallback was false before and after. The [sanitized quota evidence](../results/gemini-quota-confirmation-2026-09-24.json) confirms that both Pro and Flash benchmark work are blocked by this pool. Recheck quota after the reported reset before resuming; do not enable credits or use another paid surface.
+
 ## 2026-09-24 provider recovery follow-up
 
 A new [Mistral 119B smoke checkpoint](../results/mistral119-recovery-prep-v2/README.md) retried the exact none/high configurations after a long cooldown. Both again stopped on the first request with HTTP 429. Neither full run is admitted. The separate child ledgers are sealed, retaining $0.04177920 per failed request as unknown-charge bounds.

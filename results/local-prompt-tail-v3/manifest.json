@@ -1,0 +1,88 @@
+{
+  "version": "local-prompt-tail-v3",
+  "status": "DRAFT_PENDING_ROOT_REVIEW_NO_INFERENCE",
+  "purpose": "Reusable exact local runner for ten frozen P1/P2 conditions after separately reviewed Qwen3.5-4B thinking-on/P1",
+  "reference_labels_read": false,
+  "inference_performed": false,
+  "controller_sha256": "74ca757875b69fc8aa9fa867e180274a116e2c7351468e79bdd2bef10893f740",
+  "parent": {
+    "manifest_sha256": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49",
+    "controller_sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd",
+    "review": "results/local-prompt-exact-v1/root-review.json",
+    "review_sha256": "95744bf66166d83c17ab683e392643dc3bba9d85075b1dec5ad9e7c4052b2b61"
+  },
+  "predecessor": {
+    "configuration": "qwen3.5-4b-sdk-thinking-on",
+    "variant": "P1",
+    "manifest": "results/local-prompt-remaining-v2/manifest.json",
+    "manifest_sha256": "e3753db033ddf0122c5370d0eade20f2369e1d74421e1ed9a3e05f3682fd257f",
+    "controller_sha256": "af90274bedeb16179e5e75dd6f5b126edaf85c6b656c956ddc9afdc45ddb7098",
+    "output_dir": "results/local-prompt-remaining-v2"
+  },
+  "conditions": [
+    {
+      "configuration": "qwen3.5-4b-sdk-thinking-off",
+      "variant": "P1",
+      "exact_hosted_model": "Qwen3.5-4B"
+    },
+    {
+      "configuration": "qwen3.5-4b-sdk-thinking-off",
+      "variant": "P2",
+      "exact_hosted_model": "Qwen3.5-4B"
+    },
+    {
+      "configuration": "gemma4-e2b-sdk-thinking-on",
+      "variant": "P1",
+      "exact_hosted_model": "Gemma-4-E2B"
+    },
+    {
+      "configuration": "gemma4-e2b-sdk-thinking-on",
+      "variant": "P2",
+      "exact_hosted_model": "Gemma-4-E2B"
+    },
+    {
+      "configuration": "gemma4-e2b-sdk-thinking-off",
+      "variant": "P2",
+      "exact_hosted_model": "Gemma-4-E2B"
+    },
+    {
+      "configuration": "gemma4-e2b-sdk-thinking-off",
+      "variant": "P1",
+      "exact_hosted_model": "Gemma-4-E2B"
+    },
+    {
+      "configuration": "gemma4-e4b-sdk-thinking-on",
+      "variant": "P1",
+      "exact_hosted_model": "Gemma-4-E4B"
+    },
+    {
+      "configuration": "gemma4-e4b-sdk-thinking-on",
+      "variant": "P2",
+      "exact_hosted_model": "Gemma-4-E4B"
+    },
+    {
+      "configuration": "gemma4-e4b-sdk-thinking-off",
+      "variant": "P2",
+      "exact_hosted_model": "Gemma-4-E4B"
+    },
+    {
+      "configuration": "gemma4-e4b-sdk-thinking-off",
+      "variant": "P1",
+      "exact_hosted_model": "Gemma-4-E4B"
+    }
+  ],
+  "policy": {
+    "order": "Frozen parent schedule tail; previous condition must have hash-linked 60-row completed development terminal before next smoke",
+    "smoke_ids": [
+      "DEV-001",
+      "DEV-002",
+      "DEV-003"
+    ],
+    "development_records": 60,
+    "retries": 0,
+    "invalid_output": "preserve and continue",
+    "control_service_timeout": "save and stop; ambiguous timeout retains GPU lock",
+    "route": "Root receipt binds a per-configuration exact hosted availability check no older than 24 hours, with zero exact routes",
+    "reference_labels": "Never read by this controller"
+  }
+}
