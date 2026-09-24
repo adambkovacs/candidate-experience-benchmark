@@ -1,0 +1,635 @@
+{
+  "contract": "openrouter-prompt-remaining-records-v1",
+  "status": "DRAFT",
+  "configuration_id": "openrouter-paid-deepseek-v41-flash-high",
+  "condition": "P1",
+  "policy": {
+    "continue_output_length": true,
+    "retry_failed_records": false,
+    "output_tokens": 4096,
+    "denominator": 60,
+    "order_limitation": "Remaining records execute after both original conditions; original counterbalanced timing is not preserved.",
+    "stop_on": [
+      "provider_error",
+      "unknown_billing",
+      "input_context_overflow",
+      "identity_violation",
+      "tool_call",
+      "refusal",
+      "other_invalid_output"
+    ]
+  },
+  "controller": {
+    "file": "scripts/openrouter_prompt_continuation.py",
+    "sha256": "3e7277eb9041c13515449eede0a63ada8396e05d93ddd14feaa65f64926b54dd"
+  },
+  "dependencies": [
+    {
+      "file": "scripts/openrouter_paid_benchmark.py",
+      "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+    },
+    {
+      "file": "scripts/prompt_controller.py",
+      "sha256": "b6dc5c8bac40e94d0b9c805674a0c825a9b14e4c16161c92a406c430b5dff041"
+    },
+    {
+      "file": "scripts/prompt_admission.py",
+      "sha256": "eff67d728724923dc668eb4b0471c2e3b56e8514adcd5abb81bad082992f0e99"
+    },
+    {
+      "file": "scripts/prompt_execution_gates.py",
+      "sha256": "bd1edbabae63afe1e2c2695cda13aef17d41f540e8b7b606d800b34ad24b25fe"
+    },
+    {
+      "file": "scripts/prompt_schedule.py",
+      "sha256": "ec1c6b7373ea0640abd19ced6e72d5ad64f3b72229df6ba88d01993728184710"
+    },
+    {
+      "file": "scripts/paid_budget_partitions.py",
+      "sha256": "27584d11d58cbb9c4d8f9dfd4c84dcda7f38e2a2139c0a64886a5aee633c9286"
+    },
+    {
+      "file": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    }
+  ],
+  "original_manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+    "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+  },
+  "original_smoke_supplement": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/smoke-supplement.json",
+    "sha256": "76defc603dc8142273ab7b30c0aaf9065761a3ec5e18c5ebc9de90aec939ac24"
+  },
+  "original_attempts": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/development.jsonl",
+    "sha256": "e7107c7f15c6bb7c013a22819c173d247dbca0088be8be0b4fee445ab427c5fd"
+  },
+  "original_journal_snapshot": {
+    "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/original-journal-snapshot.jsonl",
+    "sha256": "24a353a593a337a81cdc344478b7dd864aa6bb9d27592355da094eaad3eab462"
+  },
+  "terminal_original_conditions": {
+    "P1": {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/development.jsonl",
+      "sha256": "e7107c7f15c6bb7c013a22819c173d247dbca0088be8be0b4fee445ab427c5fd"
+    },
+    "P2": {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P2/development.jsonl",
+      "sha256": "fa6325a66cc4c23dce43e6dca23412a1d2e6e80c49da3cb3b236f768a4ac5405"
+    }
+  },
+  "budget_partition_manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/budget-partitions.json",
+    "sha256": "5874bccb51753ad47008aeeb0c394024fa30bfd4ac7c7f5ea55e32b5b97eb0a6"
+  },
+  "budget_partition_id": "prompt-continue-high-p1",
+  "output": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/development.jsonl",
+  "journal": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/amendment-journal.jsonl",
+  "remaining_requests": [
+    {
+      "record_ids": [
+        "DEV-007"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-09.json",
+        "sha256": "c29c1952f40f27e4e9b1ffe0edebc1148a3ad1aca511b355434e1eb78e2e3fec"
+      },
+      "request_bytes": 13658
+    },
+    {
+      "record_ids": [
+        "DEV-008"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-10.json",
+        "sha256": "5de7e994d6f7302ba0ae933cfb993d74e102772bb51201e233c06448985c1753"
+      },
+      "request_bytes": 13678
+    },
+    {
+      "record_ids": [
+        "DEV-009"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-11.json",
+        "sha256": "f0dc1432d787f5c9c32f788a623edf613ad7fda1e3416bfedefb2e147c080032"
+      },
+      "request_bytes": 13672
+    },
+    {
+      "record_ids": [
+        "DEV-010"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-12.json",
+        "sha256": "5661577bcf7657a31deab97a9afa790e63890f218818dfd621b1b93db2d08a60"
+      },
+      "request_bytes": 13608
+    },
+    {
+      "record_ids": [
+        "DEV-011"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-13.json",
+        "sha256": "5d775f52de94a2a435c9781f4892ed867cbc80cd50c4765b8cf565c636ca88c9"
+      },
+      "request_bytes": 13635
+    },
+    {
+      "record_ids": [
+        "DEV-012"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-14.json",
+        "sha256": "f985da5e1aa8f2cc179d82d8e9821787a070b71f41d7d3dbba63882610ffd1e3"
+      },
+      "request_bytes": 13621
+    },
+    {
+      "record_ids": [
+        "DEV-013"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-15.json",
+        "sha256": "71f7cea50d25df97a842da2691d6267635fc8c87d1a76f523305caa2b2659688"
+      },
+      "request_bytes": 13611
+    },
+    {
+      "record_ids": [
+        "DEV-014"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-16.json",
+        "sha256": "090c2b432b54fa9811b68bf32e6746cbcc621866b28920fd7d861a3d7849aa23"
+      },
+      "request_bytes": 13624
+    },
+    {
+      "record_ids": [
+        "DEV-015"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-17.json",
+        "sha256": "6c7702ff5bb5b8ff49b9c0c1ecd666ee7b354395ba508132b9376c76401626d0"
+      },
+      "request_bytes": 13654
+    },
+    {
+      "record_ids": [
+        "DEV-016"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-18.json",
+        "sha256": "766a9df9d680072a9612b4fad9f03f4378be4b688c2d755a1fa9dfaa4c677bed"
+      },
+      "request_bytes": 13648
+    },
+    {
+      "record_ids": [
+        "DEV-017"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-19.json",
+        "sha256": "9b7882fb9534d5569864429414af077f0ae9415a3e0c4bad0bc2c58facb516fd"
+      },
+      "request_bytes": 13582
+    },
+    {
+      "record_ids": [
+        "DEV-018"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-20.json",
+        "sha256": "d9c11ba0900d4066954958bb2ade033e954546b97caa15b931334c3522ec5461"
+      },
+      "request_bytes": 13593
+    },
+    {
+      "record_ids": [
+        "DEV-019"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-21.json",
+        "sha256": "b24dd83abd49ad6de2bc6255a22f67b5537967a07239a755e0764c27177ed9c9"
+      },
+      "request_bytes": 13614
+    },
+    {
+      "record_ids": [
+        "DEV-020"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-22.json",
+        "sha256": "453ed71f4bb36820f484334510e5e5604366febdeaa999e2760227e3a873a0a0"
+      },
+      "request_bytes": 13648
+    },
+    {
+      "record_ids": [
+        "DEV-021"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-23.json",
+        "sha256": "45f19a3c55764110a70e9e6aef893dde5b4a2f318889f529fa924031d80e2c26"
+      },
+      "request_bytes": 13641
+    },
+    {
+      "record_ids": [
+        "DEV-022"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-24.json",
+        "sha256": "08da0d0725ac0a484af6daf5c12a7386570a7da2bdce5a6cfb8fbf9e84b5514f"
+      },
+      "request_bytes": 13622
+    },
+    {
+      "record_ids": [
+        "DEV-023"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-25.json",
+        "sha256": "4f1dcac3e327840510f4aae666daa0000d39e44fbb1ecd061b757d926793359f"
+      },
+      "request_bytes": 13567
+    },
+    {
+      "record_ids": [
+        "DEV-024"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-26.json",
+        "sha256": "8ca998ec9e833ba5bd3f749017bad8080cfeb864fada13a56b03eaf519081355"
+      },
+      "request_bytes": 13648
+    },
+    {
+      "record_ids": [
+        "DEV-025"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-27.json",
+        "sha256": "e3aaf065573fccb61ab9a066ec3464b99d47f1f110ebf5b885b891dc78c872e4"
+      },
+      "request_bytes": 13625
+    },
+    {
+      "record_ids": [
+        "DEV-026"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-28.json",
+        "sha256": "0b96acfe19488dfb034e0b36da2ac12c688e2c55e91dec2cc2686aafe198a844"
+      },
+      "request_bytes": 13637
+    },
+    {
+      "record_ids": [
+        "DEV-027"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-29.json",
+        "sha256": "2facc3b019e091dfae3f37390aa863c8e3b3e2da85eead32ffafefe8b9846f9b"
+      },
+      "request_bytes": 13613
+    },
+    {
+      "record_ids": [
+        "DEV-028"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-30.json",
+        "sha256": "f24155e5b193da9c2f39f0be389423638cc59e1d6631980ac91fd967d6b8348a"
+      },
+      "request_bytes": 13628
+    },
+    {
+      "record_ids": [
+        "DEV-029"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-31.json",
+        "sha256": "da901bf0ea9ad6468cfe398dabd51e85533c299ec9afdadd8218ddae3e64f872"
+      },
+      "request_bytes": 13524
+    },
+    {
+      "record_ids": [
+        "DEV-030"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-32.json",
+        "sha256": "405e4ebc3617d6a29cce67dec8b2f2eea3ea2a742eb075fca3650e454345d81f"
+      },
+      "request_bytes": 13673
+    },
+    {
+      "record_ids": [
+        "DEV-031"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-33.json",
+        "sha256": "96cdd6cc4acc3088dfda25409b4206c9d942c9aca0adbcc16ca23a300c0ccf9f"
+      },
+      "request_bytes": 13625
+    },
+    {
+      "record_ids": [
+        "DEV-032"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-34.json",
+        "sha256": "8ccb7e785f5888e2a6d6321c2d3fb8efabdd52f163fb2f73e526c4f7da929a91"
+      },
+      "request_bytes": 13615
+    },
+    {
+      "record_ids": [
+        "DEV-033"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-35.json",
+        "sha256": "200ecd6d460b8ff13de98e82714453f06053a2176401b0d5f515b4442784f786"
+      },
+      "request_bytes": 13585
+    },
+    {
+      "record_ids": [
+        "DEV-034"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-36.json",
+        "sha256": "d061cc4f85fcd868d65d6ede06836e09e258359ec831c935fafa98ccc5c0ad9d"
+      },
+      "request_bytes": 13588
+    },
+    {
+      "record_ids": [
+        "DEV-035"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-37.json",
+        "sha256": "ad8eca2d09bc7ae5c8e384761e7de7249eb88937f0cde992bb5f93eda54f53c9"
+      },
+      "request_bytes": 13620
+    },
+    {
+      "record_ids": [
+        "DEV-036"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-38.json",
+        "sha256": "7eab47fa3b02899a388bb87342ccf5f338c997975116dc510374619771cf5f8e"
+      },
+      "request_bytes": 13653
+    },
+    {
+      "record_ids": [
+        "DEV-037"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-39.json",
+        "sha256": "b7d322e8d3e32527b827f1dfe620b864488dae0842cdca2a7c92a54085a17a3e"
+      },
+      "request_bytes": 13642
+    },
+    {
+      "record_ids": [
+        "DEV-038"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-40.json",
+        "sha256": "8cf2b7e3b7a6ddafe92df34193381923150b99adad176ca8277fe990e41912d7"
+      },
+      "request_bytes": 13651
+    },
+    {
+      "record_ids": [
+        "DEV-039"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-41.json",
+        "sha256": "56046b25a0b4de41d95ed50e96089b01ac59135dc9189b32e755372726dc5f23"
+      },
+      "request_bytes": 13653
+    },
+    {
+      "record_ids": [
+        "DEV-040"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-42.json",
+        "sha256": "1ac351587782e10655344f3a5c314b5c6ca0c6bc897935af0ff57b26321d9c6e"
+      },
+      "request_bytes": 13590
+    },
+    {
+      "record_ids": [
+        "DEV-041"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-43.json",
+        "sha256": "6db202ef58bb138e71c2823b4e98d6c1926752cd9436b343e3edc237247c079d"
+      },
+      "request_bytes": 13581
+    },
+    {
+      "record_ids": [
+        "DEV-042"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-44.json",
+        "sha256": "97fd754db5e3bdd30e981f3797b17f7e76dfcc849c5da2d6b5512cbfe1dc8477"
+      },
+      "request_bytes": 13623
+    },
+    {
+      "record_ids": [
+        "DEV-043"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-45.json",
+        "sha256": "4d9800db645352fa4afb33131149e0364387d014ce21dc593776b00b53aa56a6"
+      },
+      "request_bytes": 13611
+    },
+    {
+      "record_ids": [
+        "DEV-044"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-46.json",
+        "sha256": "a2b893429ea36132359ea5d99df478fe070838783cc45f28c50e59227fa918d3"
+      },
+      "request_bytes": 13609
+    },
+    {
+      "record_ids": [
+        "DEV-045"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-47.json",
+        "sha256": "24dfe721298947e22ce5320ca04e5e90ad73d0fe10f814bdcf7ae73228408eeb"
+      },
+      "request_bytes": 13629
+    },
+    {
+      "record_ids": [
+        "DEV-046"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-48.json",
+        "sha256": "268e8bf5a53a91237345860de08e5648034e40f178f3e3fc877cb86fc718f599"
+      },
+      "request_bytes": 13620
+    },
+    {
+      "record_ids": [
+        "DEV-047"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-49.json",
+        "sha256": "05f0d93f13485f6d38f81c420900cf924bff816bcc5f133d7817fe3e68a9ea70"
+      },
+      "request_bytes": 13612
+    },
+    {
+      "record_ids": [
+        "DEV-048"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-50.json",
+        "sha256": "4b07d5a45cfd765d1cf1cdcc65bc2c26503d7a9e062f1df347f819ee3ede2b5b"
+      },
+      "request_bytes": 13580
+    },
+    {
+      "record_ids": [
+        "DEV-049"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-51.json",
+        "sha256": "e939145af7e2c992f0ee9faea7d3c108c6de2d42ea015f9b2a1dd1f34a9bdfa6"
+      },
+      "request_bytes": 13626
+    },
+    {
+      "record_ids": [
+        "DEV-050"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-52.json",
+        "sha256": "cc14466a8e8573b60777c5aa6d8be976ebee900a829242ea669eb7943f8236c4"
+      },
+      "request_bytes": 13604
+    },
+    {
+      "record_ids": [
+        "DEV-051"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-53.json",
+        "sha256": "7d34f62072adb4913eda78ac4d7e73f51bb7452424111f7f79e1ebaff34cd78e"
+      },
+      "request_bytes": 13624
+    },
+    {
+      "record_ids": [
+        "DEV-052"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-54.json",
+        "sha256": "5cb81b1aa6e40ec683b414b536302cd811a5f5d3adb71278460c8698310ecd8b"
+      },
+      "request_bytes": 13630
+    },
+    {
+      "record_ids": [
+        "DEV-053"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-55.json",
+        "sha256": "b4c1ef96ba860d4ccc248dff4de0f90995e80006248612bad5b39798462331a1"
+      },
+      "request_bytes": 13607
+    },
+    {
+      "record_ids": [
+        "DEV-054"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-56.json",
+        "sha256": "91aed5b39ce0238bd072d513024a3a022031f395a7af32b1bb3edbea0271dcc6"
+      },
+      "request_bytes": 13584
+    },
+    {
+      "record_ids": [
+        "DEV-055"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-57.json",
+        "sha256": "d68cb8b502674cc72569d9ac8827526cacda0b41cf5cc43a9a129d2fbc56e16f"
+      },
+      "request_bytes": 13630
+    },
+    {
+      "record_ids": [
+        "DEV-056"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-58.json",
+        "sha256": "ad0028935c5f009cdab0bad48611d6bc6d974831be3b034383d0327ea3ca5bdc"
+      },
+      "request_bytes": 13643
+    },
+    {
+      "record_ids": [
+        "DEV-057"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-59.json",
+        "sha256": "4f467e037b60b466f4263183e289440e485d989b1e370c7d31917a8dc0fba49e"
+      },
+      "request_bytes": 13644
+    },
+    {
+      "record_ids": [
+        "DEV-058"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-60.json",
+        "sha256": "e2da85e2762a3f03fdc0af60e99cbc84d336cf21ffc575b1836d93ba08d55dd1"
+      },
+      "request_bytes": 13639
+    },
+    {
+      "record_ids": [
+        "DEV-059"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-61.json",
+        "sha256": "e8637ea1b719b6ea230afd274b28c4ae0cfcb9f3b86e3591ae2bfa015443d094"
+      },
+      "request_bytes": 13616
+    },
+    {
+      "record_ids": [
+        "DEV-060"
+      ],
+      "client_request": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/request-62.json",
+        "sha256": "99807a73f0fc568a07514388e0ccaa59c6858fb85b533fe500a9a57d30a541b8"
+      },
+      "request_bytes": 13644
+    }
+  ]
+}

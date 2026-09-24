@@ -1,0 +1,1869 @@
+{
+  "verified_utc": "2026-09-24T13:20:05.353963+00:00",
+  "scope": "14 scheduled local generic P1/P2 configurations grouped into seven base-model/artifact families.",
+  "sources": {
+    "public_catalog": "https://openrouter.ai/api/v1/models",
+    "endpoint_api_docs": "https://openrouter.ai/docs/api/api-reference/endpoints/list-endpoints",
+    "google_models": "https://openrouter.ai/google/",
+    "model_pages": [
+      "https://openrouter.ai/qwen/qwen3-0.6b-04-28/",
+      "https://openrouter.ai/qwen/qwen3-1.7b/",
+      "https://openrouter.ai/api/v1/models",
+      "https://openrouter.ai/qwen/qwen3-8b-04-28",
+      "https://openrouter.ai/qwen/qwen3.8-27b",
+      "https://openrouter.ai/google/",
+      "https://openrouter.ai/google/"
+    ],
+    "mistral_small_2603_endpoint": "https://openrouter.ai/api/v1/models/mistralai/mistral-small-2603/endpoints",
+    "deepseek_r1_distill_qwen_32b_endpoint": "https://openrouter.ai/api/v1/models/deepseek/deepseek-r1-distill-qwen-32b/endpoints",
+    "mistral_small_2603_page": "https://openrouter.ai/mistralai/mistral-small-2603",
+    "deepseek_r1_distill_qwen_32b_page": "https://openrouter.ai/deepseek/deepseek-r1-distill-qwen-32b"
+  },
+  "endpoint_evidence": {
+    "endpoint_url_template": "https://openrouter.ai/api/v1/models/{author}/{slug}/endpoints",
+    "documented_auth": "Authorization Bearer API key required",
+    "api_key_used": false,
+    "attempted_via_available_web_tool": true,
+    "outcome": "Endpoint URLs were not accessible through the web tool; no provider endpoint payload, HTTP status, active-provider tag, or endpoint rate was obtained. Endpoint status therefore remains unknown.",
+    "no_inference_or_download": true,
+    "retrieval_result": "Public unauthenticated API returned endpoint payloads for reachable slugs. Per-model HTTP status and provider endpoint data are in endpoint_checks; no endpoint absence is inferred from web-tool errors.",
+    "authentication": "none",
+    "direct_gets_succeeded": true,
+    "note": "The earlier web-tool-only limitation is superseded by the direct public API refresh below. No credentials or inference were used."
+  },
+  "catalog_subset": [
+    {
+      "model_id": "qwen/qwen3-0.6b-04-28",
+      "evidence": "OpenRouter model page, 0.6B, 32K context, thinking/non-thinking; :free variant also surfaced in catalog search."
+    },
+    {
+      "model_id": "qwen/qwen3-1.7b",
+      "evidence": "OpenRouter model page, 1.7B, 32K context, thinking/non-thinking; pricing varies by provider."
+    },
+    {
+      "model_id": "qwen/qwen3-8b",
+      "canonical_slug": "qwen/qwen3-8b-04-28",
+      "catalog_price_per_million_usd": {
+        "input": 0.117,
+        "output": 0.455
+      },
+      "supported_parameters_seen": [
+        "response_format"
+      ],
+      "reasoning": "default enabled in public model-list entry."
+    },
+    {
+      "model_id": "qwen/qwen3.8-27b",
+      "canonical_slug": "qwen/qwen3.8-27b-20260814",
+      "hugging_face_id": "Qwen/Qwen3.8-27B",
+      "catalog_price_per_million_usd": {
+        "input": 0.42,
+        "output": 3.0
+      },
+      "supported_parameters_seen": [
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "structured_outputs"
+      ],
+      "supported_efforts": [
+        "xhigh",
+        "medium",
+        "low"
+      ]
+    },
+    {
+      "model_id": "qwen/qwen3-4b",
+      "status": "similarly sized substitute for Qwen3.5 4B; different checkpoint/family."
+    },
+    {
+      "model_id": "Gemma 3n E2B / E4B",
+      "status": "similarly named substitutes; OpenRouter Google catalog describes Gemma 3n 2B and 4B, not Gemma 4 E2B/E4B."
+    },
+    {
+      "model_id": "google/gemma-4-26b-a4b-it and google/gemma-4-31b-it",
+      "status": "Gemma 4 entries shown in Google catalog; neither matches E2B/E4B."
+    }
+  ],
+  "model_groups": [
+    {
+      "local_family": "Qwen3 0.6B",
+      "local_config_ids": [
+        "qwen3-0.6b-q4km-nonthinking",
+        "qwen3-0.6b-sdk-thinking-on",
+        "qwen3-0.6b-sdk-thinking-off"
+      ],
+      "openrouter_model_id": "qwen/qwen3-0.6b-04-28",
+      "catalog_url": "https://openrouter.ai/qwen/qwen3-0.6b-04-28/",
+      "match_assessment": "Public model page persists, but exact ID absent from current 458-row catalog snapshot and current endpoint API returns zero serving endpoints.",
+      "catalog_pricing_or_endpoint_cost": "input/output rate unknown at endpoint",
+      "reasoning_support": "dual thinking/non-thinking described at model page; endpoint controls unknown",
+      "schema_support": "schema support unknown",
+      "provider_tags": [],
+      "active_serving_endpoint": "catalog ID absent; endpoint GET 200 returns exact model object with zero endpoints",
+      "artifacts": [
+        {
+          "local_config_id": "qwen3-0.6b-q4km-nonthinking",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3-0.6B",
+          "local_effort": "off",
+          "manifest_path": "results/qwen3-0.6b-q4_k_m-2026-09-21/manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3-0.6B-GGUF",
+            "revision": "3334d820ab76652cf6e242d7c6302b10f0951f23",
+            "file": "Qwen3-0.6B-Q4_K_M.gguf",
+            "bytes": 484219808,
+            "sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3-0.6B-GGUF/blob/3334d820ab76652cf6e242d7c6302b10f0951f23/Qwen3-0.6B-Q4_K_M.gguf"
+          },
+          "artifact_model": "Qwen3 0.6B"
+        },
+        {
+          "local_config_id": "qwen3-0.6b-sdk-thinking-on",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3-0.6B Q4_K_M",
+          "local_effort": "on",
+          "manifest_path": "results/qwen3-0.6b-sdk-thinking-2026-09-21/manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3-0.6B-GGUF",
+            "revision": "3334d820ab76652cf6e242d7c6302b10f0951f23",
+            "file": "Qwen3-0.6B-Q4_K_M.gguf",
+            "bytes": 484219808,
+            "sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3-0.6B-GGUF/blob/3334d820ab76652cf6e242d7c6302b10f0951f23/Qwen3-0.6B-Q4_K_M.gguf"
+          },
+          "artifact_model": null
+        },
+        {
+          "local_config_id": "qwen3-0.6b-sdk-thinking-off",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3-0.6B Q4_K_M",
+          "local_effort": "off",
+          "manifest_path": "results/qwen3-0.6b-sdk-nonthinking-2026-09-21/manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3-0.6B-GGUF",
+            "revision": "3334d820ab76652cf6e242d7c6302b10f0951f23",
+            "file": "Qwen3-0.6B-Q4_K_M.gguf",
+            "bytes": 484219808,
+            "sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3-0.6B-GGUF/blob/3334d820ab76652cf6e242d7c6302b10f0951f23/Qwen3-0.6B-Q4_K_M.gguf"
+          },
+          "artifact_model": null
+        }
+      ],
+      "endpoint_evidence_status": "catalog ID absent; endpoint GET 200 returns exact model object with zero endpoints",
+      "endpoint_pricing_and_parameters": "captured in endpoint_checks",
+      "provider_status": "catalog ID absent; endpoint GET 200 returns exact model object with zero endpoints"
+    },
+    {
+      "local_family": "Qwen3 1.7B",
+      "local_config_ids": [
+        "qwen3-1.7b-sdk-thinking-on",
+        "qwen3-1.7b-sdk-thinking-off"
+      ],
+      "openrouter_model_id": "qwen/qwen3-1.7b",
+      "catalog_url": "https://openrouter.ai/qwen/qwen3-1.7b/",
+      "match_assessment": "Public model page persists, but exact ID absent from current 458-row catalog snapshot and current endpoint API returns zero serving endpoints.",
+      "catalog_pricing_or_endpoint_cost": "provider-variable catalog page; endpoint price unknown",
+      "reasoning_support": "dual thinking/non-thinking described at model page; endpoint controls unknown",
+      "schema_support": "schema support unknown",
+      "provider_tags": [],
+      "active_serving_endpoint": "catalog ID absent; endpoint GET 200 returns exact model object with zero endpoints",
+      "artifacts": [
+        {
+          "local_config_id": "qwen3-1.7b-sdk-thinking-on",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3-1.7B Q4_K_M",
+          "local_effort": "on",
+          "manifest_path": "results/qwen3-1.7b-2026-09-21/thinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3-1.7B-GGUF",
+            "revision": "e5e31bf4d96de5da2ce124fa86673f0be7c82346",
+            "file": "Qwen3-1.7B-Q4_K_M.gguf",
+            "bytes": 1282439328,
+            "sha256": "e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3-1.7B-GGUF/tree/e5e31bf4d96de5da2ce124fa86673f0be7c82346"
+          },
+          "artifact_model": null
+        },
+        {
+          "local_config_id": "qwen3-1.7b-sdk-thinking-off",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3-1.7B Q4_K_M",
+          "local_effort": "off",
+          "manifest_path": "results/qwen3-1.7b-2026-09-21/nonthinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3-1.7B-GGUF",
+            "revision": "e5e31bf4d96de5da2ce124fa86673f0be7c82346",
+            "file": "Qwen3-1.7B-Q4_K_M.gguf",
+            "bytes": 1282439328,
+            "sha256": "e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3-1.7B-GGUF/tree/e5e31bf4d96de5da2ce124fa86673f0be7c82346"
+          },
+          "artifact_model": null
+        }
+      ],
+      "endpoint_evidence_status": "catalog ID absent; endpoint GET 200 returns exact model object with zero endpoints",
+      "endpoint_pricing_and_parameters": "captured in endpoint_checks",
+      "provider_status": "catalog ID absent; endpoint GET 200 returns exact model object with zero endpoints"
+    },
+    {
+      "local_family": "Qwen3.5 4B",
+      "local_config_ids": [
+        "qwen3.5-4b-sdk-thinking-on",
+        "qwen3.5-4b-sdk-thinking-off"
+      ],
+      "openrouter_model_id": null,
+      "catalog_url": "https://openrouter.ai/api/v1/models",
+      "match_assessment": "Exact Qwen3.5 4B ID absent from current catalog; endpoint API returns HTTP 404. Qwen3 4B remains a different checkpoint.",
+      "catalog_pricing_or_endpoint_cost": "unknown",
+      "reasoning_support": "unknown",
+      "schema_support": "unknown",
+      "provider_tags": [],
+      "active_serving_endpoint": "catalog ID absent; endpoint GET 404",
+      "artifacts": [
+        {
+          "local_config_id": "qwen3.5-4b-sdk-thinking-on",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3.5-4B Q4_K_M",
+          "local_effort": "on",
+          "manifest_path": "results/qwen3.5-4b-2026-09-21/thinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3.5-4B-GGUF",
+            "revision": "f9f88ac3e234be915e23811a6d28ea287bdb927e",
+            "file": "Qwen3.5-4B-Q4_K_M.gguf",
+            "bytes": 2707513696,
+            "sha256": "25082a7dd3776cc3c741c6347d3bd04523f05796607b3fbc32fa3a25dfa1418c",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3.5-4B-GGUF/blob/f9f88ac3e234be915e23811a6d28ea287bdb927e/Qwen3.5-4B-Q4_K_M.gguf"
+          },
+          "artifact_model": "Qwen3.5-4B Q4_K_M"
+        },
+        {
+          "local_config_id": "qwen3.5-4b-sdk-thinking-off",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3.5-4B Q4_K_M",
+          "local_effort": "off",
+          "manifest_path": "results/qwen3.5-4b-2026-09-21/nonthinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3.5-4B-GGUF",
+            "revision": "f9f88ac3e234be915e23811a6d28ea287bdb927e",
+            "file": "Qwen3.5-4B-Q4_K_M.gguf",
+            "bytes": 2707513696,
+            "sha256": "25082a7dd3776cc3c741c6347d3bd04523f05796607b3fbc32fa3a25dfa1418c",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3.5-4B-GGUF/blob/f9f88ac3e234be915e23811a6d28ea287bdb927e/Qwen3.5-4B-Q4_K_M.gguf"
+          },
+          "artifact_model": "Qwen3.5-4B Q4_K_M"
+        }
+      ],
+      "endpoint_evidence_status": "catalog ID absent; endpoint GET 404",
+      "endpoint_pricing_and_parameters": "not available for exact slug",
+      "provider_status": "catalog ID absent; endpoint GET 404"
+    },
+    {
+      "local_family": "Qwen3 8B",
+      "local_config_ids": [
+        "qwen3-8b-sdk-thinking-on",
+        "qwen3-8b-sdk-thinking-off"
+      ],
+      "openrouter_model_id": "qwen/qwen3-8b",
+      "catalog_url": "https://openrouter.ai/qwen/qwen3-8b-04-28",
+      "match_assessment": "Exact Qwen3 8B base ID is in catalog; Alibaba serving endpoint returned with current provider price and controls.",
+      "catalog_pricing_or_endpoint_cost": "catalog model-level $0.117/M input, $0.455/M output; provider endpoint rate unknown",
+      "reasoning_support": "catalog: reasoning enabled by default; endpoint controls unknown",
+      "schema_support": "catalog lists response_format, not structured_outputs; JSON Schema behavior unknown",
+      "provider_tags": "Alibaba/alibaba",
+      "active_serving_endpoint": "Alibaba/alibaba",
+      "artifacts": [
+        {
+          "local_config_id": "qwen3-8b-sdk-thinking-on",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3-8B Q4_K_M",
+          "local_effort": "on",
+          "manifest_path": "results/qwen3-8b-2026-09-21/thinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3-8B-GGUF",
+            "revision": "07ebe812301319d9947477e3a94ab8aa587bb3af",
+            "file": "Qwen3-8B-Q4_K_M.gguf",
+            "bytes": 5027783968,
+            "sha256": "a7676d257b10f3ce23aedba45e64ba61a5aa295f0009d87c5627f6c026a8f35f",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3-8B-GGUF/blob/07ebe812301319d9947477e3a94ab8aa587bb3af/Qwen3-8B-Q4_K_M.gguf"
+          },
+          "artifact_model": "Qwen3-8B Q4_K_M"
+        },
+        {
+          "local_config_id": "qwen3-8b-sdk-thinking-off",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3-8B Q4_K_M",
+          "local_effort": "off",
+          "manifest_path": "results/qwen3-8b-2026-09-21/nonthinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/Qwen3-8B-GGUF",
+            "revision": "07ebe812301319d9947477e3a94ab8aa587bb3af",
+            "file": "Qwen3-8B-Q4_K_M.gguf",
+            "bytes": 5027783968,
+            "sha256": "a7676d257b10f3ce23aedba45e64ba61a5aa295f0009d87c5627f6c026a8f35f",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/Qwen3-8B-GGUF/blob/07ebe812301319d9947477e3a94ab8aa587bb3af/Qwen3-8B-Q4_K_M.gguf"
+          },
+          "artifact_model": "Qwen3-8B Q4_K_M"
+        }
+      ],
+      "endpoint_evidence_status": "catalog ID present; endpoint GET 200 returns one Alibaba endpoint",
+      "endpoint_pricing_and_parameters": "captured in endpoint_checks",
+      "provider_status": "catalog ID present; endpoint GET 200 returns one Alibaba endpoint"
+    },
+    {
+      "local_family": "Qwen3.8 27B",
+      "local_config_ids": [
+        "qwen3.8-27b-sdk-thinking-low"
+      ],
+      "openrouter_model_id": "qwen/qwen3.8-27b",
+      "catalog_url": "https://openrouter.ai/qwen/qwen3.8-27b",
+      "match_assessment": "Exact Qwen3.8 27B base ID is in catalog; 16 provider endpoint records returned with prices, quantization, controls and uptime.",
+      "catalog_pricing_or_endpoint_cost": "catalog model-level $0.42/M input, $3.00/M output; provider endpoint rate unknown",
+      "reasoning_support": "catalog lists low reasoning effort; endpoint controls unknown",
+      "schema_support": "catalog lists structured_outputs; endpoint schema behavior unknown",
+      "provider_tags": "16 provider tags captured",
+      "active_serving_endpoint": "16 provider tags captured",
+      "artifacts": [
+        {
+          "local_config_id": "qwen3.8-27b-sdk-thinking-low",
+          "local_registry_status": "complete",
+          "local_model_label": "Qwen3.8-27B Q4_K_M",
+          "local_effort": "low",
+          "manifest_path": "results/qwen3.8-27b-2026-09-23/low-manifest.json",
+          "artifact": {
+            "repo": "ggml-org/Qwen3.8-27B-GGUF",
+            "revision": "efbb3b1f70a21d97fd4495240648405f7228554f",
+            "file": "Qwen3.8-27B-Q4_K_M.gguf",
+            "bytes": 18973870528,
+            "sha256": "c600de0300ae8a0eb3a6c0b8b5561b8b96f16bd2c863c2a66c42de29d391a747",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/ggml-org/Qwen3.8-27B-GGUF/blob/efbb3b1f70a21d97fd4495240648405f7228554f/Qwen3.8-27B-Q4_K_M.gguf"
+          },
+          "artifact_model": "Qwen3.8-27B Q4_K_M"
+        }
+      ],
+      "endpoint_evidence_status": "catalog ID present; endpoint GET 200 returns 16 endpoint records",
+      "endpoint_pricing_and_parameters": "captured in endpoint_checks",
+      "provider_status": "catalog ID present; endpoint GET 200 returns 16 endpoint records"
+    },
+    {
+      "local_family": "Gemma 4 E2B",
+      "local_config_ids": [
+        "gemma4-e2b-sdk-thinking-on",
+        "gemma4-e2b-sdk-thinking-off"
+      ],
+      "openrouter_model_id": null,
+      "catalog_url": "https://openrouter.ai/google/",
+      "match_assessment": "Exact Gemma 4 size-specific ID absent from current catalog; endpoint API returns HTTP 404. Gemma 3n is a different family.",
+      "catalog_pricing_or_endpoint_cost": "unknown",
+      "reasoning_support": "unknown",
+      "schema_support": "unknown",
+      "provider_tags": [],
+      "active_serving_endpoint": "catalog ID absent; endpoint GET 404",
+      "artifacts": [
+        {
+          "local_config_id": "gemma4-e2b-sdk-thinking-on",
+          "local_registry_status": "complete",
+          "local_model_label": "Gemma4 E2B Q4_K_M",
+          "local_effort": "on",
+          "manifest_path": "results/gemma4-e2b-2026-09-21/thinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/gemma-4-E2B-it-GGUF",
+            "revision": "eed445ccfb8aef2e279df1a97e133baf06e443b4",
+            "file": "gemma-4-E2B-it-Q4_K_M.gguf",
+            "bytes": 3427880384,
+            "sha256": "71e6e8cb64a76da1a734fb8f6ba389d2784950d9902f5e87244fca0a15190c94",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/gemma-4-E2B-it-GGUF/blob/eed445ccfb8aef2e279df1a97e133baf06e443b4/gemma-4-E2B-it-Q4_K_M.gguf"
+          },
+          "artifact_model": "Gemma4 E2B Q4_K_M"
+        },
+        {
+          "local_config_id": "gemma4-e2b-sdk-thinking-off",
+          "local_registry_status": "complete",
+          "local_model_label": "Gemma4 E2B Q4_K_M",
+          "local_effort": "off",
+          "manifest_path": "results/gemma4-e2b-2026-09-21/nonthinking-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/gemma-4-E2B-it-GGUF",
+            "revision": "eed445ccfb8aef2e279df1a97e133baf06e443b4",
+            "file": "gemma-4-E2B-it-Q4_K_M.gguf",
+            "bytes": 3427880384,
+            "sha256": "71e6e8cb64a76da1a734fb8f6ba389d2784950d9902f5e87244fca0a15190c94",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/gemma-4-E2B-it-GGUF/blob/eed445ccfb8aef2e279df1a97e133baf06e443b4/gemma-4-E2B-it-Q4_K_M.gguf"
+          },
+          "artifact_model": "Gemma4 E2B Q4_K_M"
+        }
+      ],
+      "endpoint_evidence_status": "catalog ID absent; endpoint GET 404",
+      "endpoint_pricing_and_parameters": "not available for exact slug",
+      "provider_status": "catalog ID absent; endpoint GET 404"
+    },
+    {
+      "local_family": "Gemma 4 E4B",
+      "local_config_ids": [
+        "gemma4-e4b-sdk-thinking-on",
+        "gemma4-e4b-sdk-thinking-off"
+      ],
+      "openrouter_model_id": null,
+      "catalog_url": "https://openrouter.ai/google/",
+      "match_assessment": "Exact Gemma 4 size-specific ID absent from current catalog; endpoint API returns HTTP 404. Gemma 3n is a different family.",
+      "catalog_pricing_or_endpoint_cost": "unknown",
+      "reasoning_support": "unknown",
+      "schema_support": "unknown",
+      "provider_tags": [],
+      "active_serving_endpoint": "catalog ID absent; endpoint GET 404",
+      "artifacts": [
+        {
+          "local_config_id": "gemma4-e4b-sdk-thinking-on",
+          "local_registry_status": "complete",
+          "local_model_label": "Gemma4 E4B Q4_K_M",
+          "local_effort": "on",
+          "manifest_path": "results/gemma4-e4b-2026-09-23/on-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/gemma-4-E4B-it-GGUF",
+            "revision": "99210a71094c6aa8559f764e0cadedd7d89de94d",
+            "file": "gemma-4-E4B-it-Q4_K_M.gguf",
+            "bytes": 5335291936,
+            "sha256": "0ffb122c8b6921f13cbc34186e052524d0b5803b17f4867b7197a561400b3770",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/gemma-4-E4B-it-GGUF/blob/99210a71094c6aa8559f764e0cadedd7d89de94d/gemma-4-E4B-it-Q4_K_M.gguf"
+          },
+          "artifact_model": "google/gemma-4-E4B-it"
+        },
+        {
+          "local_config_id": "gemma4-e4b-sdk-thinking-off",
+          "local_registry_status": "complete",
+          "local_model_label": "Gemma4 E4B Q4_K_M",
+          "local_effort": "off",
+          "manifest_path": "results/gemma4-e4b-2026-09-23/off-manifest.json",
+          "artifact": {
+            "repo": "lmstudio-community/gemma-4-E4B-it-GGUF",
+            "revision": "99210a71094c6aa8559f764e0cadedd7d89de94d",
+            "file": "gemma-4-E4B-it-Q4_K_M.gguf",
+            "bytes": 5335291936,
+            "sha256": "0ffb122c8b6921f13cbc34186e052524d0b5803b17f4867b7197a561400b3770",
+            "quantization": "Q4_K_M",
+            "source": "https://huggingface.co/lmstudio-community/gemma-4-E4B-it-GGUF/blob/99210a71094c6aa8559f764e0cadedd7d89de94d/gemma-4-E4B-it-Q4_K_M.gguf"
+          },
+          "artifact_model": "google/gemma-4-E4B-it"
+        }
+      ],
+      "endpoint_evidence_status": "catalog ID absent; endpoint GET 404",
+      "endpoint_pricing_and_parameters": "not available for exact slug",
+      "provider_status": "catalog ID absent; endpoint GET 404"
+    }
+  ],
+  "routing_recommendation": "Current endpoint payloads verify a hosted route for Qwen3 8B (Alibaba) and 16 routes for Qwen3.8 27B. Use separate hosted configurations for these two groups, with provider/parameter choices reviewed against the cost cap and local controls; serving quantization differs or is unknown from local Q4_K_M. Qwen3 0.6B, Qwen3 1.7B and DeepSeek R1 Distill Qwen 32B resolve as model objects but return zero endpoint records. Qwen3.5 4B and Gemma 4 E2B/E4B return 404. Do not silently replace them with Qwen3 4B or Gemma 3n. Preserve completed P0; do not rerun.",
+  "additional_endpoint_checks": [
+    {
+      "model_id": "mistralai/mistral-small-2603",
+      "model_name_from_endpoint_payload": "Mistral: Mistral Small 4",
+      "source_url": "https://openrouter.ai/api/v1/models/mistralai/mistral-small-2603/endpoints",
+      "model_page": "https://openrouter.ai/mistralai/mistral-small-2603",
+      "retrieval": "Public endpoint payload returned by web tool on 2026-09-24; no key or inference used.",
+      "endpoints": [
+        {
+          "name": "Mistral | mistralai/mistral-small-2603",
+          "model_id": "mistralai/mistral-small-2603",
+          "model_name": "Mistral: Mistral Small 4",
+          "provider_name": "Mistral",
+          "tag": "mistral/zdr",
+          "pricing": {
+            "prompt": "0.00000015",
+            "completion": "0.0000006",
+            "input_cache_read": "0.000000015",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.94273443092341,
+          "max_completion_tokens": 209715,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Mistral | mistralai/mistral-small-2603",
+          "model_id": "mistralai/mistral-small-2603",
+          "model_name": "Mistral: Mistral Small 4",
+          "provider_name": "Mistral",
+          "tag": "mistral",
+          "pricing": {
+            "prompt": "0.00000015",
+            "completion": "0.0000006",
+            "input_cache_read": "0.000000015",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.9829505737132,
+          "max_completion_tokens": 209715,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Mistral | mistralai/mistral-small-2603",
+          "model_id": "mistralai/mistral-small-2603",
+          "model_name": "Mistral: Mistral Small 4",
+          "provider_name": "Mistral",
+          "tag": "mistral/eu",
+          "pricing": {
+            "prompt": "0.000000165",
+            "completion": "0.00000066",
+            "input_cache_read": "0.0000000165",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.98969992446611,
+          "max_completion_tokens": 209715,
+          "max_prompt_tokens": null
+        }
+      ],
+      "interpretation": "Exact provider endpoint records returned from current public API; no inference was performed.",
+      "http_status": 200,
+      "endpoint_count": 3
+    },
+    {
+      "model_id": "deepseek/deepseek-r1-distill-qwen-32b",
+      "model_name_from_model_page": "DeepSeek: R1 Distill Qwen 32B",
+      "source_url": "https://openrouter.ai/api/v1/models/deepseek/deepseek-r1-distill-qwen-32b/endpoints",
+      "model_page": "https://openrouter.ai/deepseek/deepseek-r1-distill-qwen-32b",
+      "retrieval": "Endpoint URL was inaccessible via the available web tool; no endpoint payload or HTTP status returned. Public model page exists and describes the exact model, but is not serving-endpoint proof.",
+      "endpoints": [],
+      "payload_obtained": true,
+      "interpretation": "Endpoint API returned HTTP 200 and an empty endpoints array; current snapshot has no serving provider record.",
+      "http_status": 200,
+      "endpoint_count": 0
+    }
+  ],
+  "public_api_refresh": {
+    "authentication": "none",
+    "catalog_url": "https://openrouter.ai/api/v1/models",
+    "catalog_http_status": 200,
+    "catalog_model_count": 458,
+    "catalog_subset": [
+      {
+        "id": "qwen/qwen3.8-27b",
+        "canonical_slug": "qwen/qwen3.8-27b-20260814",
+        "hugging_face_id": "Qwen/Qwen3.8-27B",
+        "name": "Qwen: Qwen3.8 27B",
+        "pricing": {
+          "prompt": "0.00000042",
+          "completion": "0.000003",
+          "input_cache_read": "0.000000085"
+        },
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "logit_bias",
+          "logprobs",
+          "max_tokens",
+          "min_p",
+          "presence_penalty",
+          "reasoning",
+          "reasoning_effort",
+          "repetition_penalty",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_a",
+          "top_k",
+          "top_logprobs",
+          "top_p"
+        ],
+        "reasoning": {
+          "mandatory": false,
+          "default_enabled": true,
+          "supported_efforts": [
+            "xhigh",
+            "medium",
+            "low"
+          ],
+          "default_effort": "xhigh"
+        },
+        "links": {
+          "details": "/api/v1/models/qwen/qwen3.8-27b-20260814/endpoints"
+        },
+        "top_provider": {
+          "context_length": 1000000,
+          "max_completion_tokens": 131072,
+          "is_moderated": false
+        },
+        "context_length": 1000000
+      },
+      {
+        "id": "qwen/qwen3.8-27b:free",
+        "canonical_slug": "qwen/qwen3.8-27b-20260814",
+        "hugging_face_id": "Qwen/Qwen3.8-27B",
+        "name": "Qwen: Qwen3.8 27B (free)",
+        "pricing": {
+          "prompt": "0",
+          "completion": "0"
+        },
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "reasoning_effort",
+          "repetition_penalty",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_p"
+        ],
+        "reasoning": {
+          "mandatory": false,
+          "default_enabled": true,
+          "supported_efforts": [
+            "xhigh",
+            "medium",
+            "low"
+          ],
+          "default_effort": "xhigh"
+        },
+        "links": {
+          "details": "/api/v1/models/qwen/qwen3.8-27b-20260814/endpoints"
+        },
+        "top_provider": {
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "is_moderated": false
+        },
+        "context_length": 262144
+      },
+      {
+        "id": "mistralai/mistral-small-2603",
+        "canonical_slug": "mistralai/mistral-small-2603",
+        "hugging_face_id": "mistralai/Mistral-Small-4-119B-2603",
+        "name": "Mistral: Mistral Small 4",
+        "pricing": {
+          "prompt": "0.00000015",
+          "completion": "0.0000006",
+          "input_cache_read": "0.000000015"
+        },
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_p"
+        ],
+        "reasoning": {
+          "mandatory": false,
+          "default_enabled": false,
+          "supported_efforts": [
+            "high",
+            "none"
+          ],
+          "default_effort": "high"
+        },
+        "links": {
+          "details": "/api/v1/models/mistralai/mistral-small-2603/endpoints"
+        },
+        "top_provider": {
+          "context_length": 262144,
+          "max_completion_tokens": 209715,
+          "is_moderated": false
+        },
+        "context_length": 262144
+      },
+      {
+        "id": "mistralai/mistral-small-2603:batch",
+        "canonical_slug": "mistralai/mistral-small-2603",
+        "hugging_face_id": "mistralai/Mistral-Small-4-119B-2603",
+        "name": "Mistral: Mistral Small 4 (batch)",
+        "pricing": {
+          "prompt": "0.000000075",
+          "completion": "0.0000003",
+          "input_cache_read": "0.0000000075"
+        },
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "reasoning_effort",
+          "response_format",
+          "seed",
+          "stop",
+          "structured_outputs",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_p"
+        ],
+        "reasoning": {
+          "mandatory": false,
+          "default_enabled": false,
+          "supported_efforts": [
+            "high",
+            "none"
+          ],
+          "default_effort": "high"
+        },
+        "links": {
+          "details": "/api/v1/models/mistralai/mistral-small-2603/endpoints"
+        },
+        "top_provider": {
+          "context_length": 262144,
+          "max_completion_tokens": 209715,
+          "is_moderated": false
+        },
+        "context_length": 262144
+      },
+      {
+        "id": "qwen/qwen3-8b",
+        "canonical_slug": "qwen/qwen3-8b-04-28",
+        "hugging_face_id": "Qwen/Qwen3-8B",
+        "name": "Qwen: Qwen3 8B",
+        "pricing": {
+          "prompt": "0.000000117",
+          "completion": "0.000000455"
+        },
+        "supported_parameters": [
+          "frequency_penalty",
+          "include_reasoning",
+          "max_tokens",
+          "presence_penalty",
+          "reasoning",
+          "response_format",
+          "seed",
+          "stop",
+          "temperature",
+          "tool_choice",
+          "tools",
+          "top_k",
+          "top_p"
+        ],
+        "reasoning": {
+          "mandatory": false,
+          "default_enabled": true
+        },
+        "links": {
+          "details": "/api/v1/models/qwen/qwen3-8b-04-28/endpoints"
+        },
+        "top_provider": {
+          "context_length": 131072,
+          "max_completion_tokens": 8192,
+          "is_moderated": false
+        },
+        "context_length": 131072
+      }
+    ],
+    "catalog_match_patterns": [
+      "qwen/qwen3-0.6b",
+      "qwen/qwen3-1.7b",
+      "qwen/qwen3.5-4b",
+      "qwen/qwen3-4b",
+      "qwen/qwen3-8b",
+      "qwen/qwen3.8-27b",
+      "google/gemma-4-e2b",
+      "google/gemma-4-e4b",
+      "google/gemma-3n",
+      "mistralai/mistral-small-2603",
+      "deepseek/deepseek-r1-distill-qwen-32b"
+    ],
+    "endpoint_api_documentation": "https://openrouter.ai/docs/api/api-reference/endpoints/list-endpoints",
+    "note": "Direct public GET /models snapshot (458 records), unauthenticated. False means exact ID/prefix did not occur in this response; endpoint API is independently checked below.",
+    "catalog_id_presence": {
+      "qwen/qwen3-0.6b-04-28": false,
+      "qwen/qwen3-1.7b": false,
+      "qwen/qwen3.5-4b": false,
+      "qwen/qwen3-4b": false,
+      "qwen/qwen3-8b": true,
+      "qwen/qwen3.8-27b": true,
+      "google/gemma-4-e2b-it": false,
+      "google/gemma-4-e4b-it": false,
+      "google/gemma-3n-e2b-it": false,
+      "google/gemma-3n-e4b-it": false,
+      "mistralai/mistral-small-2603": true,
+      "deepseek/deepseek-r1-distill-qwen-32b": false
+    }
+  },
+  "endpoint_checks": [
+    {
+      "model_id": "qwen/qwen3-0.6b-04-28",
+      "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3-0.6b-04-28/endpoints",
+      "http_status": 200,
+      "returned_model_id": "qwen/qwen3-0.6b-04-28",
+      "model_name": "Qwen: Qwen3 0.6B",
+      "endpoint_count": 0,
+      "endpoints": []
+    },
+    {
+      "model_id": "qwen/qwen3-1.7b",
+      "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3-1.7b/endpoints",
+      "http_status": 200,
+      "returned_model_id": "qwen/qwen3-1.7b",
+      "model_name": "Qwen: Qwen3 1.7B",
+      "endpoint_count": 0,
+      "endpoints": []
+    },
+    {
+      "model_id": "qwen/qwen3.5-4b",
+      "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.5-4b/endpoints",
+      "http_status": 404,
+      "error": {
+        "error": {
+          "message": "Not Found",
+          "code": 404
+        }
+      }
+    },
+    {
+      "model_id": "qwen/qwen3-8b",
+      "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3-8b/endpoints",
+      "http_status": 200,
+      "returned_model_id": "qwen/qwen3-8b",
+      "model_name": "Qwen: Qwen3 8B",
+      "endpoint_count": 1,
+      "endpoints": [
+        {
+          "name": "Alibaba | qwen/qwen3-8b-04-28",
+          "model_id": "qwen/qwen3-8b",
+          "model_name": "Qwen: Qwen3 8B",
+          "provider_name": "Alibaba",
+          "tag": "alibaba",
+          "pricing": {
+            "prompt": "0.000000117",
+            "completion": "0.000000455",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "seed",
+            "presence_penalty",
+            "response_format",
+            "tools",
+            "tool_choice",
+            "top_k",
+            "frequency_penalty",
+            "stop"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": false,
+            "function": false
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.8032351797195,
+          "max_completion_tokens": 8192,
+          "max_prompt_tokens": 98304
+        }
+      ]
+    },
+    {
+      "model_id": "qwen/qwen3.8-27b",
+      "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.8-27b/endpoints",
+      "http_status": 200,
+      "returned_model_id": "qwen/qwen3.8-27b",
+      "model_name": "Qwen: Qwen3.8 27B",
+      "endpoint_count": 16,
+      "endpoints": [
+        {
+          "name": "Reka | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Reka",
+          "tag": "reka/fp8",
+          "pricing": {
+            "prompt": "0.000000094",
+            "completion": "0.0000044",
+            "input_cache_read": "0.000000085",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "top_k",
+            "max_tokens",
+            "stop",
+            "seed",
+            "frequency_penalty",
+            "presence_penalty",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.96135280343734,
+          "max_completion_tokens": 131072,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Wafer | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Wafer",
+          "tag": "wafer",
+          "pricing": {
+            "prompt": "0.000000095",
+            "completion": "0.0000044",
+            "input_cache_read": "0.000000085",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "top_k",
+            "min_p",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "stop",
+            "seed",
+            "max_tokens",
+            "logit_bias",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.87661549574773,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "DekaLLM | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "DekaLLM",
+          "tag": "dekallm",
+          "pricing": {
+            "prompt": "0.000000096",
+            "completion": "0.0000044",
+            "input_cache_read": "0.000000087",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "frequency_penalty",
+            "logit_bias",
+            "max_tokens",
+            "presence_penalty",
+            "seed",
+            "stop",
+            "temperature",
+            "top_p",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 99.93002099370189,
+          "uptime_last_5m": 99.9541914796152,
+          "uptime_last_1d": 99.65720678066803,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Darkbloom | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Darkbloom",
+          "tag": "darkbloom/fp4",
+          "pricing": {
+            "prompt": "0.0000001",
+            "completion": "0.0000018",
+            "discount": 0
+          },
+          "quantization": "fp4",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "top_k",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "stop",
+            "seed",
+            "max_tokens",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": false,
+            "function": false
+          },
+          "status": 0,
+          "uptime_last_30m": 99.82425307557118,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.06146708311854,
+          "max_completion_tokens": 32768,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "DeepInfra | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "DeepInfra",
+          "tag": "deepinfra/bf16",
+          "pricing": {
+            "prompt": "0.00000015",
+            "completion": "0.000001875",
+            "input_cache_read": "0.0000000375",
+            "discount": 0.25
+          },
+          "quantization": "bf16",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "top_k",
+            "seed",
+            "min_p",
+            "logit_bias",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 99.64654943889724,
+          "uptime_last_5m": 99.7539975399754,
+          "uptime_last_1d": 97.45841851543373,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Phala | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Phala",
+          "tag": "phala",
+          "pricing": {
+            "prompt": "0.0000001992",
+            "completion": "0.000002075",
+            "input_cache_read": "0.0000000415",
+            "discount": 0.17
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "top_k",
+            "min_p",
+            "repetition_penalty",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 98.53747714808044,
+          "uptime_last_5m": 99.57761351636748,
+          "uptime_last_1d": 98.838267928608,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Mancer 2 | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Mancer 2",
+          "tag": "mancer/fp8",
+          "pricing": {
+            "prompt": "0.0000002",
+            "completion": "0.0000025",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "logit_bias",
+            "top_k",
+            "min_p",
+            "seed",
+            "top_a",
+            "response_format",
+            "logprobs",
+            "top_logprobs",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": false,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 99.74293059125964,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.21315704611415,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Parasail | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Parasail",
+          "tag": "parasail/fp8",
+          "pricing": {
+            "prompt": "0.00000024",
+            "completion": "0.0000022",
+            "input_cache_read": "0.00000005",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "seed",
+            "stop",
+            "top_k",
+            "logit_bias",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": false,
+            "auto": true,
+            "required": false,
+            "function": false
+          },
+          "status": 0,
+          "uptime_last_30m": 99.98625996152789,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.99058286366555,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Chutes | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Chutes",
+          "tag": "chutes/fp8",
+          "pricing": {
+            "prompt": "0.00000024",
+            "completion": "0.0000022",
+            "input_cache_read": "0.000000024",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "top_k",
+            "repetition_penalty",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 99.37791601866252,
+          "uptime_last_5m": 99.55156950672645,
+          "uptime_last_1d": 99.38481093104544,
+          "max_completion_tokens": 65536,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "AkashML | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "AkashML",
+          "tag": "akashml/fp8",
+          "pricing": {
+            "prompt": "0.00000025",
+            "completion": "0.0000022",
+            "input_cache_read": "0.00000005",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "top_k",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "seed",
+            "max_tokens",
+            "response_format",
+            "structured_outputs",
+            "logprobs",
+            "top_logprobs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 99.84840828701364,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.8416527625748,
+          "max_completion_tokens": 131072,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Ionstream | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Ionstream",
+          "tag": "ionstream/fp8",
+          "pricing": {
+            "prompt": "0.00000028",
+            "completion": "0.00000255",
+            "input_cache_read": "0.0000001",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "frequency_penalty",
+            "presence_penalty",
+            "stop",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": false,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 99.1358024691358,
+          "uptime_last_5m": 99.43502824858757,
+          "uptime_last_1d": 98.12344072025165,
+          "max_completion_tokens": 65536,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "CoreWeave | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "CoreWeave",
+          "tag": "coreweave/fp8",
+          "pricing": {
+            "prompt": "0.0000004",
+            "completion": "0.000003",
+            "input_cache_read": "0.00000015",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "top_k",
+            "repetition_penalty",
+            "frequency_penalty",
+            "presence_penalty",
+            "stop",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "logprobs",
+            "top_logprobs",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.82704070871125,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Novita | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Novita",
+          "tag": "novita",
+          "pricing": {
+            "prompt": "0.00000042",
+            "completion": "0.000003",
+            "input_cache_read": "0.000000085",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "top_k",
+            "repetition_penalty",
+            "response_format",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": false,
+            "function": false
+          },
+          "status": 0,
+          "uptime_last_30m": 99.99139414802065,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.83876521023505,
+          "max_completion_tokens": 131072,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Alibaba | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Alibaba",
+          "tag": "alibaba",
+          "pricing": {
+            "prompt": "0.000000425",
+            "completion": "0.00000255",
+            "input_cache_read": "0.000000085",
+            "input_cache_write": "0.00000053125",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "seed",
+            "presence_penalty",
+            "response_format",
+            "top_k",
+            "frequency_penalty",
+            "stop",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": false,
+            "function": false
+          },
+          "status": 0,
+          "uptime_last_30m": 99.96923076923076,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.80323202951006,
+          "max_completion_tokens": 131072,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Cloudflare | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Cloudflare",
+          "tag": "cloudflare",
+          "pricing": {
+            "prompt": "0.00000045",
+            "completion": "0.0000032",
+            "input_cache_read": "0.00000005",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "top_k",
+            "seed",
+            "repetition_penalty",
+            "frequency_penalty",
+            "presence_penalty",
+            "min_p",
+            "stop",
+            "logit_bias",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": false,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": -2,
+          "uptime_last_30m": 92.66666666666666,
+          "uptime_last_5m": null,
+          "uptime_last_1d": 91.33765468473777,
+          "max_completion_tokens": 235929,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Venice | qwen/qwen3.8-27b-20260814",
+          "model_id": "qwen/qwen3.8-27b",
+          "model_name": "Qwen: Qwen3.8 27B",
+          "provider_name": "Venice",
+          "tag": "venice/fp8",
+          "pricing": {
+            "prompt": "0.00000045",
+            "completion": "0.0000032",
+            "discount": 0
+          },
+          "quantization": "fp8",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "top_k",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 99.64664310954063,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 98.84680490901397,
+          "max_completion_tokens": 65536,
+          "max_prompt_tokens": null
+        }
+      ]
+    },
+    {
+      "model_id": "google/gemma-4-e2b-it",
+      "source_url": "https://openrouter.ai/api/v1/models/google/gemma-4-e2b-it/endpoints",
+      "http_status": 404,
+      "error": {
+        "error": {
+          "message": "Not Found",
+          "code": 404
+        }
+      }
+    },
+    {
+      "model_id": "google/gemma-4-e4b-it",
+      "source_url": "https://openrouter.ai/api/v1/models/google/gemma-4-e4b-it/endpoints",
+      "http_status": 404,
+      "error": {
+        "error": {
+          "message": "Not Found",
+          "code": 404
+        }
+      }
+    },
+    {
+      "model_id": "mistralai/mistral-small-2603",
+      "source_url": "https://openrouter.ai/api/v1/models/mistralai/mistral-small-2603/endpoints",
+      "http_status": 200,
+      "returned_model_id": "mistralai/mistral-small-2603",
+      "model_name": "Mistral: Mistral Small 4",
+      "endpoint_count": 3,
+      "endpoints": [
+        {
+          "name": "Mistral | mistralai/mistral-small-2603",
+          "model_id": "mistralai/mistral-small-2603",
+          "model_name": "Mistral: Mistral Small 4",
+          "provider_name": "Mistral",
+          "tag": "mistral/zdr",
+          "pricing": {
+            "prompt": "0.00000015",
+            "completion": "0.0000006",
+            "input_cache_read": "0.000000015",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.94273443092341,
+          "max_completion_tokens": 209715,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Mistral | mistralai/mistral-small-2603",
+          "model_id": "mistralai/mistral-small-2603",
+          "model_name": "Mistral: Mistral Small 4",
+          "provider_name": "Mistral",
+          "tag": "mistral",
+          "pricing": {
+            "prompt": "0.00000015",
+            "completion": "0.0000006",
+            "input_cache_read": "0.000000015",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.9829505737132,
+          "max_completion_tokens": 209715,
+          "max_prompt_tokens": null
+        },
+        {
+          "name": "Mistral | mistralai/mistral-small-2603",
+          "model_id": "mistralai/mistral-small-2603",
+          "model_name": "Mistral: Mistral Small 4",
+          "provider_name": "Mistral",
+          "tag": "mistral/eu",
+          "pricing": {
+            "prompt": "0.000000165",
+            "completion": "0.00000066",
+            "input_cache_read": "0.0000000165",
+            "discount": 0
+          },
+          "quantization": "unknown",
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
+            "frequency_penalty",
+            "presence_penalty",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "supports_tool_choice": {
+            "none": true,
+            "auto": true,
+            "required": true,
+            "function": true
+          },
+          "status": 0,
+          "uptime_last_30m": 100,
+          "uptime_last_5m": 100,
+          "uptime_last_1d": 99.98969992446611,
+          "max_completion_tokens": 209715,
+          "max_prompt_tokens": null
+        }
+      ]
+    },
+    {
+      "model_id": "deepseek/deepseek-r1-distill-qwen-32b",
+      "source_url": "https://openrouter.ai/api/v1/models/deepseek/deepseek-r1-distill-qwen-32b/endpoints",
+      "http_status": 200,
+      "returned_model_id": "deepseek/deepseek-r1-distill-qwen-32b",
+      "model_name": "DeepSeek: R1 Distill Qwen 32B",
+      "endpoint_count": 0,
+      "endpoints": []
+    }
+  ]
+}

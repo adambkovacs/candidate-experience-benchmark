@@ -1,0 +1,59 @@
+{
+  "stage": "development",
+  "admitted": true,
+  "configuration_id": "codex-gpt-6-astra-high",
+  "condition": "P2",
+  "observational": true,
+  "fully_verified_controls": false,
+  "prospective_rendered_tokens": null,
+  "output_reserve_tokens": null,
+  "runtime_transition": {
+    "from": "codex-cli 0.155.0-alpha.16",
+    "to": "codex-cli 0.155.0-alpha.16.3",
+    "authorization": "user_2026-09-24_cli_change_move_forward",
+    "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change."
+  },
+  "unknown_reason": "Subscription provider scaffold and exact prospective rendered token count are not exposed; observational comparison only.",
+  "request_bytes": [
+    17311,
+    18767,
+    18905,
+    18853,
+    18897,
+    18770,
+    18936
+  ],
+  "manifest_sha256": "5384052a5f6e5770f86ffb7742f9c5faaa906a700842162a16bef37668ea247b",
+  "reference_labels_read": false,
+  "limitations": [
+    "Client bytes are not a token bound; hidden provider rendering is unknown.",
+    "Controller must enforce frozen schedule and transmit the bound request bytes."
+  ],
+  "smoke_verification": {
+    "extractor": "codex_batch_v1",
+    "verified": true,
+    "attempts": 1,
+    "records": 3,
+    "raw_sha256": "bd39b993b6631fd4315ab7040aba094e0e8f1bb944efcd205fb98a6e7edff591",
+    "predictions_sha256": "13626499a2bfa9f65a5fc58594076e9003c175856f1d921a2ea5403d1da4770e",
+    "limitations": "Requested model and saved CLI command are verified; returned model revision and hidden scaffold are not exposed."
+  },
+  "response_diagnostics": [
+    {
+      "passed": true,
+      "blockers": [],
+      "observed_input_tokens": [
+        11620,
+        11620
+      ],
+      "observational": true,
+      "fully_verified_controls": false
+    }
+  ],
+  "live_runtime": "codex-cli 0.155.0-alpha.16.3",
+  "execution_manifest_sha256": "9877594a0d56ff2bb31b7e4cc513e5f1842993339856811c8e9068d16d40ce47",
+  "smoke_supplement": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/smoke-supplement.json",
+    "sha256": "3cbd387d6eb2ded1168c80982899350b4a31795ce996b1206ed6c20a44b6f314"
+  }
+}
