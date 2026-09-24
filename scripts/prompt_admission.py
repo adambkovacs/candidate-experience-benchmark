@@ -17,6 +17,7 @@ shards never invent a subset schedule or omit source dispositions.
 Admission is one input to controller launch; the schedule journal enforces order.
 """
 import json
+import copy
 from pathlib import Path
 import prompt_execution_gates as g
 from frozen_prompt_variants import compose_instruction
@@ -24,6 +25,24 @@ from frozen_prompt_variants import compose_instruction
 ADAPTERS=frozenset(('openrouter_paid_v1','claude_batch_v1','codex_batch_v1'))
 REQUIRED={'model','model_revision','quantization','runtime','hardware','effort',
           'sampling','output_method','parsing','retry_policy','context_tokens','output_reserve_tokens'}
+
+
+CODEX_RUNTIME_TRANSITION=('codex-cli 0.155.0-alpha.16','codex-cli 0.155.0-alpha.16.3')
+RUNTIME_AUTHORIZATION='user_2026-09-24_cli_change_move_forward'
+
+
+def historical_controls(configuration):
+    current=configuration['controls'];transition=configuration.get('runtime_transition')
+    if transition is None:
+        if 'historical_controls' in configuration or 'historical_controls_sha256' in configuration:raise ValueError('Historical controls need an explicit runtime transition')
+        return current
+    if not isinstance(transition,dict) or set(transition)!={'from','to','authorization','interpretation'} or (transition['from'],transition['to'])!=CODEX_RUNTIME_TRANSITION or transition['authorization']!=RUNTIME_AUTHORIZATION or not transition['interpretation']:raise ValueError('Unsupported or unacknowledged runtime transition')
+    historical=configuration['historical_controls']
+    if g.canonical(historical)!=configuration['historical_controls_sha256']:raise ValueError('Historical controls hash mismatch')
+    if historical.get('runtime')!=transition['from'] or historical.get('adapter_controls',{}).get('cli_version')!=transition['from'] or historical.get('adapter_controls',{}).get('workflow')!='codex-subscription-batch':raise ValueError('Runtime exception is only for the recorded Codex batch parent')
+    allowed=copy.deepcopy(historical);allowed['runtime']=transition['to'];allowed['adapter_controls']['cli_version']=transition['to']
+    if current!=allowed:raise ValueError('Runtime transition cannot change any other paired control')
+    return historical
 
 
 def _attempts(spec,root,adapter,controls):
@@ -128,10 +147,10 @@ def _checked(manifest,root,configuration_id,condition):
     matches=[c for c in configs if c['id']==configuration_id]
     if len(matches)!=1:raise ValueError('Configuration not scheduled')
     c=matches[0];r=next(x for x in scheduled if x['id']==configuration_id)
-    controls=c['controls'];parent=g.json_bound(c['parent_baseline'],root)
+    controls=c['controls'];past_controls=historical_controls(c);parent=g.json_bound(c['parent_baseline'],root)
     baseline=g.bound(c['baseline_instruction'],root).decode()
     if not REQUIRED.issubset(controls) or controls.get('effort') in ('max','ultra'):raise ValueError('Missing or prohibited controls')
-    if g.canonical(controls)!=c['controls_sha256'] or parent['controls_sha256']!=c['controls_sha256']:raise ValueError('Paired controls mismatch')
+    if g.canonical(controls)!=c['controls_sha256'] or parent['controls_sha256']!=g.canonical(past_controls):raise ValueError('Paired controls mismatch')
     if parent['id']!=c['parent_baseline_id'] or parent['id']!=r['parent_baseline_id'] or parent['baseline_instruction_sha256']!=g.sha(baseline.encode()):raise ValueError('Parent binding mismatch')
     size={'single_record':1,'batch10':10}.get(parent['context_unit'])
     if size is None:raise ValueError('Unsupported context unit')
@@ -157,13 +176,13 @@ def _checked(manifest,root,configuration_id,condition):
     advertised=g.json_bound(evidence['advertised_context'],root)
     history_spec=g.json_bound(evidence['historical_usage'],root)
     if history_spec.get('kind')!='saved_attempt_usage_v1':raise ValueError('Unsupported historical usage source contract')
-    history={'requests':[_usage(r,adapter) for r in _attempts(history_spec['raw_attempts'],root,adapter,controls)]}
+    history={'requests':[_usage(r,adapter) for r in _attempts(history_spec['raw_attempts'],root,adapter,past_controls)]}
     limit=controls['context_tokens'];reserve=controls['output_reserve_tokens']
     if reserve is None:
         if adapter!='codex_batch_v1' or controls.get('output_reserve_source')!='unexposed_cli_default_unchanged':raise ValueError('Unknown output reserve unsupported without unchanged opaque CLI evidence')
     elif not g.nonnegative(reserve) or reserve<1:raise ValueError('Invalid output reserve')
     if limit is not None and (not g.nonnegative(limit) or limit<=(reserve or 0)):raise ValueError('Invalid context limit')
-    if _context(advertised,root,adapter,controls)!=limit:raise ValueError('Underlying context differs from frozen limit')
+    if _context(advertised,root,adapter,past_controls)!=limit:raise ValueError('Underlying context differs from frozen limit')
     for row in history['requests']:
         for key in ('input_tokens','output_tokens'):
             if key not in row or (row[key] is not None and not g.nonnegative(row[key])):raise ValueError('Invalid historical usage')
@@ -183,7 +202,7 @@ def _checked(manifest,root,configuration_id,condition):
 def admit_smoke(manifest,root,configuration_id,condition):
     c,cond,evidence,*_= _checked(manifest,root,configuration_id,condition)
     return {'stage':'smoke','admitted':True,'configuration_id':configuration_id,'condition':condition,
-            'observational':True,'fully_verified_controls':False,'prospective_rendered_tokens':None,'output_reserve_tokens':c['controls']['output_reserve_tokens'],
+            'observational':True,'fully_verified_controls':False,'prospective_rendered_tokens':None,'output_reserve_tokens':c['controls']['output_reserve_tokens'],'runtime_transition':c.get('runtime_transition'),
             'unknown_reason':evidence['unknown_reason'],'request_bytes':[r['request_bytes'] for r in evidence['requests']],
             'manifest_sha256':g.canonical(manifest),'reference_labels_read':False,
             'limitations':['Client bytes are not a token bound; hidden provider rendering is unknown.',

@@ -1,0 +1,233 @@
+{
+  "contract": "prompt-execution-gates-v1",
+  "frozen_utc": "2026-09-24T11:20:07.916382+00:00",
+  "global_roster_freeze": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster-freeze.json",
+    "sha256": "3920fe3754d604b5360700d846ab2d05921ed6e59861ef3a4031ac7de29c2e77"
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "prompt_bundle": {
+    "file": "prompts/variants-v1/manifest.json",
+    "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+  },
+  "roster": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster.json",
+    "sha256": "df348da8bcc6586a47db2404ca7e21ca839b31cf9f742c1f1722e380aa95d759"
+  },
+  "source_inventory": {
+    "file": "results/prompt-comparison-v1-2026-09-24/baseline-inventory.json",
+    "sha256": "5932767a3578af3666e7681ebd05280ebddca057d13d86408b8cdf13b2bf703c"
+  },
+  "schedule": {
+    "file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+    "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+  },
+  "execution_journal": "results/prompt-comparison-v1-2026-09-24/execution-journal.jsonl",
+  "manifest_scope": [
+    "codex-gpt-6-astra-low-phase2-batch10-p0"
+  ],
+  "configurations": [
+    {
+      "id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+      "parent_baseline_id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+      "role": "cli_combined_prompt",
+      "baseline_instruction": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-low-phase2-batch10-p0/P0-instruction.txt",
+        "sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1"
+      },
+      "parent_baseline": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-low-phase2-batch10-p0/parent.json",
+        "sha256": "41d92bbf45029af10878dad4293059c31ff01d35f98624f05ebdecbbb3785391"
+      },
+      "controls": {
+        "model": "gpt-6-astra",
+        "model_revision": null,
+        "quantization": null,
+        "runtime": "codex-cli 0.155.0-alpha.16.3",
+        "hardware": {
+          "provider": null,
+          "client": null,
+          "limitation": "Historical subscription batch controller did not record hardware"
+        },
+        "effort": "low",
+        "sampling": {
+          "temperature": null,
+          "seed": null,
+          "source": "unchanged subscription defaults; values not exposed"
+        },
+        "output_method": "CLI structured batch schema",
+        "parsing": "strict JSON batch; no repair",
+        "retry_policy": "Stop on first non-ok batch; no automatic controller retries. Preserve historical explicit retries.",
+        "context_tokens": 258400,
+        "output_reserve_tokens": null,
+        "adapter_controls": {
+          "workflow": "codex-subscription-batch",
+          "requested_model": "gpt-6-astra",
+          "effort": "low",
+          "cli_version": "codex-cli 0.155.0-alpha.16.3",
+          "configured_batch_size": 10,
+          "controller_timeout_seconds": 600.0,
+          "auth_mode": "ChatGPT",
+          "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+          "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+        },
+        "output_reserve_source": "unexposed_cli_default_unchanged"
+      },
+      "controls_sha256": "96970f34e0a4b34b0c4b0c191ab709ab7d546875acc74779f65fad4d9410e24c",
+      "controller": {
+        "file": "scripts/codex_batch_benchmark.py",
+        "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+      },
+      "controller_timeout_seconds": 600.0,
+      "baseline_evidence_complete": true,
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-low-phase2-batch10-p0/parent-evidence-audit.json",
+        "sha256": "5f1190e663ddb5156577bd06e999ddeae4d7e1932415c4f09f1e4501768da11b"
+      },
+      "batch_membership": [
+        [
+          "DEV-001",
+          "DEV-002",
+          "DEV-003",
+          "DEV-004",
+          "DEV-005",
+          "DEV-006",
+          "DEV-007",
+          "DEV-008",
+          "DEV-009",
+          "DEV-010"
+        ],
+        [
+          "DEV-011",
+          "DEV-012",
+          "DEV-013",
+          "DEV-014",
+          "DEV-015",
+          "DEV-016",
+          "DEV-017",
+          "DEV-018",
+          "DEV-019",
+          "DEV-020"
+        ],
+        [
+          "DEV-021",
+          "DEV-022",
+          "DEV-023",
+          "DEV-024",
+          "DEV-025",
+          "DEV-026",
+          "DEV-027",
+          "DEV-028",
+          "DEV-029",
+          "DEV-030"
+        ],
+        [
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040"
+        ],
+        [
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050"
+        ],
+        [
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ]
+      ],
+      "conditions": {
+        "P1": {
+          "instruction": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-low-phase2-batch10-p0/P1-instruction.txt",
+            "sha256": "b644ee2e24a674331ccc8974600d60a616b13b7d3ff60ffd696288eed3337ae5"
+          },
+          "observational_evidence": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-low-phase2-batch10-p0/P1-observational-evidence.json",
+            "sha256": "bdad77125d613d64ef42d1b28d1492480447c41836b272023a2e149c3e62031b"
+          }
+        },
+        "P2": {
+          "instruction": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-low-phase2-batch10-p0/P2-instruction.txt",
+            "sha256": "a535db209be32c7a6904bade0efd38bfee2dd96de6001710ef508c9649f2fb7a"
+          },
+          "observational_evidence": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-low-phase2-batch10-p0/P2-observational-evidence.json",
+            "sha256": "3bf4418f5a5d0b5ae0208df81c968d748fb75c99d1ecbab4d93d8c8067745271"
+          }
+        }
+      },
+      "historical_controls": {
+        "model": "gpt-6-astra",
+        "model_revision": null,
+        "quantization": null,
+        "runtime": "codex-cli 0.155.0-alpha.16",
+        "hardware": {
+          "provider": null,
+          "client": null,
+          "limitation": "Historical subscription batch controller did not record hardware"
+        },
+        "effort": "low",
+        "sampling": {
+          "temperature": null,
+          "seed": null,
+          "source": "unchanged subscription defaults; values not exposed"
+        },
+        "output_method": "CLI structured batch schema",
+        "parsing": "strict JSON batch; no repair",
+        "retry_policy": "Stop on first non-ok batch; no automatic controller retries. Preserve historical explicit retries.",
+        "context_tokens": 258400,
+        "output_reserve_tokens": null,
+        "adapter_controls": {
+          "workflow": "codex-subscription-batch",
+          "requested_model": "gpt-6-astra",
+          "effort": "low",
+          "cli_version": "codex-cli 0.155.0-alpha.16",
+          "configured_batch_size": 10,
+          "controller_timeout_seconds": 600.0,
+          "auth_mode": "ChatGPT",
+          "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+          "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+        },
+        "output_reserve_source": "unexposed_cli_default_unchanged"
+      },
+      "historical_controls_sha256": "34ef220b030bb65d07459a04a3400fbabd8605ed0eab1796abdff886ea8fc404",
+      "runtime_transition": {
+        "from": "codex-cli 0.155.0-alpha.16",
+        "to": "codex-cli 0.155.0-alpha.16.3",
+        "authorization": "user_2026-09-24_cli_change_move_forward",
+        "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change."
+      }
+    }
+  ]
+}
