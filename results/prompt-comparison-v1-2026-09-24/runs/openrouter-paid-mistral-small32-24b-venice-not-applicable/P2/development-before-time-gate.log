@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openrouter_paid_benchmark.py", line 416, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openrouter_paid_benchmark.py", line 415, in main
+    run(p.parse_args())
+    ~~~^^^^^^^^^^^^^^^^
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openrouter_paid_benchmark.py", line 311, in run
+    guard=prepare(args,'openrouter_paid_v1',__file__,ROOT)
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/prompt_controller.py", line 27, in prepare
+    return Guard(args,adapter,Path(controller_path),Path(root))
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/prompt_controller.py", line 71, in __init__
+    if self.phase=='development' and datetime.now(timezone.utc)<gates.stamp(self.condition['development_not_before']):raise ValueError('Development cannot precede frozen not-before time')
+                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Development cannot precede frozen not-before time

@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openrouter_paid_benchmark.py", line 416, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openrouter_paid_benchmark.py", line 415, in main
+    run(p.parse_args())
+    ~~~^^^^^^^^^^^^^^^^
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/openrouter_paid_benchmark.py", line 337, in run
+    if guard:guard.begin('OpenRouter HTTP v1')
+             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/prompt_controller.py", line 90, in begin
+    self.claimed=schedule.claim(self.manifest['schedule'],self.journal,self.cid,self.variant,self.phase,self.root)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/prompt_schedule.py", line 105, in claim
+    with _locked(journal) as (handle,events):
+         ~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/scripts/prompt_schedule.py", line 94, in _locked
+    except BlockingIOError:raise RuntimeError('Schedule journal is locked by another operation') from None
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Schedule journal is locked by another operation

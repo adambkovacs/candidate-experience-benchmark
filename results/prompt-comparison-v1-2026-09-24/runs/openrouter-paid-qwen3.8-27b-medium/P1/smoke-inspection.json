@@ -1,0 +1,90 @@
+{
+  "condition": "P1",
+  "parent_baseline_id": "openrouter-paid-qwen3.8-27b-medium",
+  "controls_sha256": "5982921cf2d6c5956e8b3ff651750a25c1fe8ed5d3a2808428c1e902347cd397",
+  "instruction_sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1",
+  "inputs_sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+  "schema_sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067",
+  "extractor": "openrouter_paid_v1",
+  "started_utc": "2026-09-24T11:41:19Z",
+  "finished_utc": "2026-09-24T11:42:03.109218+00:00",
+  "inspected_utc": "2026-09-24T11:43:26.200783+00:00",
+  "inspection": "passed",
+  "inspector": "Codex gemini_resume agent: raw response inspection and independent strict smoke verifier",
+  "raw_attempts": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/smoke.jsonl",
+    "sha256": "c1521615e9687d8f7532d484396fba7cababd1251ea70175bb3f2a5687f49a0c"
+  },
+  "records": [
+    {
+      "id": "DEV-001",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "yes"
+      }
+    },
+    {
+      "id": "DEV-002",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      }
+    },
+    {
+      "id": "DEV-003",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "negative",
+        "follow_up_needed": "yes",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      }
+    }
+  ],
+  "reference_labels_read": false,
+  "verification": {
+    "extractor": "openrouter_paid_v1",
+    "verified": true,
+    "attempts": 3,
+    "intrinsic_invalid_outputs": 0,
+    "raw_sha256": "c1521615e9687d8f7532d484396fba7cababd1251ea70175bb3f2a5687f49a0c"
+  },
+  "response_diagnostics": [
+    {
+      "passed": true,
+      "blockers": [],
+      "observed_input_tokens": [
+        1615,
+        1615
+      ],
+      "observational": true,
+      "fully_verified_controls": false
+    },
+    {
+      "passed": true,
+      "blockers": [],
+      "observed_input_tokens": [
+        1589,
+        1589
+      ],
+      "observational": true,
+      "fully_verified_controls": false
+    },
+    {
+      "passed": true,
+      "blockers": [],
+      "observed_input_tokens": [
+        1612,
+        1612
+      ],
+      "observational": true,
+      "fully_verified_controls": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-off",
+  "recorded_utc": "2026-09-24T11:10:38.131975+00:00",
+  "conditions": {
+    "P2": "blocked_same_provider_pool_before_inference",
+    "P1": "blocked_same_provider_pool_before_inference"
+  },
+  "evidence": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen36-35b-a3b-on/P1/smoke.jsonl",
+    "sha256": "3d70b1a6f5035e5d9a87da8565f595fcedde052b788817f49bf989cd1bb9f317"
+  },
+  "reason": "Exact same AkashML Qwen3.6 model/provider shared pool just returned HTTP429; no repeated provider probes or output retries. Conditions remain uncompleted.",
+  "next_step": "Provider shared-pool recovery; any new request requires separately documented recovery authorization.",
+  "unknown_reserved_upper_bound_usd": "0",
+  "actual_unknown_cost_usd": "0"
+}
