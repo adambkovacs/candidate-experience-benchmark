@@ -1,0 +1,86 @@
+{
+  "contract": "hosted-unattempted-continuation-reconciliation-v1",
+  "configuration_id": "openrouter-paid-gemma4-26b-a4b-on",
+  "condition": "P2",
+  "status": "partial_stopped",
+  "terminal_status": "stopped",
+  "canonical_denominator": 60,
+  "historical_count": 40,
+  "new_attempted_count": 4,
+  "combined_attempted_count": 44,
+  "combined_valid_count": 42,
+  "historical_non_ok": [
+    {
+      "id": "DEV-040",
+      "status": "service_error"
+    }
+  ],
+  "new_non_ok": [
+    {
+      "id": "DEV-044",
+      "status": "service_error",
+      "error_type": "HTTPError",
+      "http_status": 429,
+      "cost_unknown": true
+    }
+  ],
+  "remaining_never_sent_ids": [
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "manifest": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-gemma4-26b-a4b-on-p2/frozen-manifest.json",
+    "sha256": "6cf176b84ca72924d1c6cce01144ea67400dc1acf6083dd0e61614fa9195f2c8"
+  },
+  "review": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-gemma4-26b-a4b-on-p2/root-review.json",
+    "sha256": "51bb97a84b79b7f23123b8680445fd503324d73a32d0dd05ba64427dbe7f5b07"
+  },
+  "historical_outputs": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-26b-a4b-on/P2/development.jsonl",
+      "sha256": "6476564c7f6c2db27cc0dbbfba44386a4cd14cf0fd225dd73f4159638339d58b"
+    }
+  ],
+  "new_output": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-gemma4-26b-a4b-on-p2/development.jsonl",
+    "sha256": "d9f4a06f88961858dea2225d06dd6bd8cd2fa54db3e21720b68828bacb0bbeda"
+  },
+  "new_journal": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-gemma4-26b-a4b-on-p2/attempts.jsonl",
+    "sha256": "555e2f0c771106aaa293721418c09ed0d71133ba94e86eaf974a2fa75d9aff20"
+  },
+  "partition_id": "hosted-suffix-v2-06",
+  "partition_child_ledger": {
+    "file": "results/hosted-unattempted-budget-v2/manifest-hosted-suffix-v2-06.jsonl",
+    "sha256": "1243495fa2958efe783dd5a8bb6f0f14f05e41cc02db75055426a3e799959137"
+  },
+  "partition_reconciled_event": {
+    "event": "partition_reconciled",
+    "partition_id": "hosted-suffix-v2-06",
+    "known_actual_usd": "0.00105547",
+    "unknown_upper_bound_usd": "0.01974272",
+    "unused_allocation_released_usd": "0.47920181",
+    "child_ledger": "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/results/hosted-unattempted-budget-v2/manifest-hosted-suffix-v2-06.jsonl",
+    "child_sha256": "1243495fa2958efe783dd5a8bb6f0f14f05e41cc02db75055426a3e799959137"
+  },
+  "new_known_actual_usd": "0.00105547",
+  "new_unknown_full_reserved_upper_bound_usd": "0.01974272",
+  "reference_labels_read": false,
+  "retry_policy": "none; no prior attempted ID replayed",
+  "timing_limitation": "Later suffix loses original counterbalanced execution timing."
+}

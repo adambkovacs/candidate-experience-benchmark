@@ -1,0 +1,88 @@
+{
+  "contract": "hosted-unattempted-continuation-reconciliation-v1",
+  "configuration_id": "qwen27-low-hosted-addendum-v1",
+  "condition": "P2",
+  "status": "partial_stopped",
+  "terminal_status": "stopped",
+  "canonical_denominator": 60,
+  "historical_count": 33,
+  "new_attempted_count": 9,
+  "combined_attempted_count": 42,
+  "combined_valid_count": 40,
+  "historical_non_ok": [
+    {
+      "id": "DEV-033",
+      "status": "service_error"
+    }
+  ],
+  "new_non_ok": [
+    {
+      "id": "DEV-042",
+      "status": "service_error",
+      "error_type": "HTTPError",
+      "http_status": 429,
+      "cost_unknown": true
+    }
+  ],
+  "remaining_never_sent_ids": [
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "manifest": {
+    "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p2/frozen-manifest.json",
+    "sha256": "916de5d2542519ac9500dec3ca2bfbe0116df7dbf761f75565b2769278371eb7"
+  },
+  "review": {
+    "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p2/root-review.json",
+    "sha256": "2d87e9e113df8a6f4698eea57f1070bd7efd4398ed43048f7c0472f81bcfaeaa"
+  },
+  "historical_outputs": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P2-development.jsonl",
+      "sha256": "3e2bae718e61e6763ed98f5ad532f2c5fe87b16e5212c5bd67f9f3476b372c17"
+    }
+  ],
+  "new_output": {
+    "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p2/development.jsonl",
+    "sha256": "baee6573b99d7b0da48c32348ca7b997b73f294ea173c84509ea3f4c030378a0"
+  },
+  "new_journal": {
+    "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p2/attempts.jsonl",
+    "sha256": "eb49232761a9b7cdc0a8be35de86110ff8576d26680ac46021c249fa80467764"
+  },
+  "partition_id": "hosted-suffix-v2-10",
+  "partition_child_ledger": {
+    "file": "results/hosted-unattempted-budget-v2/manifest-hosted-suffix-v2-10.jsonl",
+    "sha256": "0ecf28cdc387bc47266dc1df3c3262073fe9d7ae935035e248d3c5152a64e3d3"
+  },
+  "partition_reconciled_event": {
+    "event": "partition_reconciled",
+    "partition_id": "hosted-suffix-v2-10",
+    "known_actual_usd": "0.0065357",
+    "unknown_upper_bound_usd": "0.0335872",
+    "unused_allocation_released_usd": "0.4598771",
+    "child_ledger": "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/results/hosted-unattempted-budget-v2/manifest-hosted-suffix-v2-10.jsonl",
+    "child_sha256": "0ecf28cdc387bc47266dc1df3c3262073fe9d7ae935035e248d3c5152a64e3d3"
+  },
+  "new_known_actual_usd": "0.0065357",
+  "new_unknown_full_reserved_upper_bound_usd": "0.0335872",
+  "reference_labels_read": false,
+  "retry_policy": "none; no prior attempted ID replayed",
+  "timing_limitation": "Later suffix loses original counterbalanced execution timing."
+}

@@ -1,0 +1,69 @@
+{
+  "contract": "hosted-unattempted-continuation-reconciliation-v1",
+  "configuration_id": "openrouter-paid-deepseek-v41-flash-low",
+  "condition": "P1",
+  "status": "full_suffix_attempted",
+  "terminal_status": "completed_remaining_attempts",
+  "canonical_denominator": 60,
+  "historical_count": 6,
+  "new_attempted_count": 54,
+  "combined_attempted_count": 60,
+  "combined_valid_count": 58,
+  "historical_non_ok": [
+    {
+      "id": "DEV-006",
+      "status": "prompt_admission_failure"
+    }
+  ],
+  "new_non_ok": [
+    {
+      "id": "DEV-060",
+      "status": "invalid_output",
+      "error_type": null,
+      "http_status": null,
+      "cost_unknown": false
+    }
+  ],
+  "remaining_never_sent_ids": [],
+  "manifest": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p1/frozen-manifest.json",
+    "sha256": "d91dd99472770d4e0513db1963c49f77389a5082842b6feb9527ef83c0eb3c6b"
+  },
+  "review": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p1/root-review.json",
+    "sha256": "1dbd58b75491a3c6c0868c8bda47a414f5e68570ec88a276fc9dd32b6936b036"
+  },
+  "historical_outputs": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P1/development.jsonl",
+      "sha256": "86c9f8a4787101920aa8fdc4b36a16d462ede1562e95e63de1b2491097c0cd7d"
+    }
+  ],
+  "new_output": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p1/development.jsonl",
+    "sha256": "89427cde5304acfdfa17ce1187170631d35fb65b8e188167f049cbec5a7db429"
+  },
+  "new_journal": {
+    "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p1/attempts.jsonl",
+    "sha256": "8c861466f46fe7d532899214ae072a5a29b78673ad6a5c57eded98378ce7c765"
+  },
+  "partition_id": "hosted-suffix-v2-03",
+  "partition_child_ledger": {
+    "file": "results/hosted-unattempted-budget-v2/manifest-hosted-suffix-v2-03.jsonl",
+    "sha256": "633342e0be0b1eb91511af96789ecd26d81672acf04d10b715467ee7ff140a70"
+  },
+  "partition_reconciled_event": {
+    "event": "partition_reconciled",
+    "partition_id": "hosted-suffix-v2-03",
+    "known_actual_usd": "0.00924236",
+    "unknown_upper_bound_usd": "0",
+    "unused_allocation_released_usd": "0.49075764",
+    "child_ledger": "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/results/hosted-unattempted-budget-v2/manifest-hosted-suffix-v2-03.jsonl",
+    "child_sha256": "633342e0be0b1eb91511af96789ecd26d81672acf04d10b715467ee7ff140a70"
+  },
+  "new_known_actual_usd": "0.00924236",
+  "new_unknown_full_reserved_upper_bound_usd": "0",
+  "reference_labels_read": false,
+  "retry_policy": "none; no prior attempted ID replayed",
+  "timing_limitation": "Later suffix loses original counterbalanced execution timing."
+}
