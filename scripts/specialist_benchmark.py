@@ -159,11 +159,20 @@ def build_runner(args):
         return infer
     raise ValueError('Unknown specialist')
 
+def select_input_rows(rows, offset, limit):
+    if type(offset) is not int or type(limit) is not int or offset < 0 or limit < 1 or offset + limit > len(rows):
+        raise ValueError("Offset and limit must select existing input rows")
+    if len(rows) != 60 or [r.get("id") for r in rows] != [f"DEV-{i:03d}" for i in range(1,61)] or any(set(r) != {"id", "feedback"} or not isinstance(r["feedback"], str) for r in rows):
+        raise ValueError("Require exact 60 input-only records")
+    return rows[offset:offset+limit]
+
 def run(args):
+    if getattr(args,'offset',0) and any(getattr(args,k,None) is not None for k in ('prompt_variant','parent_baseline_id','variant_preview_output')):
+        raise ValueError('Offset is supported for baseline inference only')
     if variant_gate_or_preview(args):return
     if Path(args.output).exists():raise FileExistsError(args.output)
     policy=(ROOT/'docs/LABELING_GUIDE.md').read_text().split('## Simulated routing')[0]
-    rows=read_rows(ROOT/'data/pilot/inputs.jsonl')[:args.limit]
+    rows=select_input_rows(read_rows(ROOT/'data/pilot/inputs.jsonl'),getattr(args,'offset',0),args.limit)
     load_start=time.perf_counter()
     infer=build_runner(args)
     load_seconds=time.perf_counter()-load_start
@@ -201,6 +210,7 @@ def main():
     p.add_argument('--device',default='mps',choices=['mps','cpu'])
     p.add_argument('--max-tokens',type=int,default=4096)
     p.add_argument('--limit',type=int,default=3,choices=range(1,61))
+    p.add_argument('--offset',type=int,default=0,help='Skip this many input records; continue into a new exclusive output file')
     p.add_argument('--output',required=True)
     p.add_argument('--config-note',required=True)
     p.add_argument('--prompt-variant',choices=['P0','P1','P2']);p.add_argument('--parent-baseline-id');p.add_argument('--variant-preview-output')

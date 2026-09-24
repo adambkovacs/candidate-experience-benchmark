@@ -336,5 +336,52 @@
     "runtime": "Antigravity CLI 1.2.9",
     "hardware": "Hosted undisclosed",
     "quantization": "Hosted undisclosed"
+  },
+  {
+    "id": "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+    "model": "gemini-3.7-flash-high",
+    "effort": "high",
+    "status": "complete",
+    "predictions_file": "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-reconciled.jsonl",
+    "partial_predictions_file": null,
+    "attempt_files": [
+      "results/antigravity-gemini37-flash-high-native129-2026-09-24/development.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "native_agent_batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini37-flash-high-native129-2026-09-24/reconciliation.json",
+    "notes": "Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.",
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed"
+  },
+  {
+    "id": "antigravity-gemini-3.8-flash-medium-native-observed-batch10",
+    "model": "gemini-3.8-flash-medium",
+    "effort": "medium",
+    "status": "partial_isolation_violation",
+    "predictions_file": null,
+    "partial_predictions_file": "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "native_agent_batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini38-flash-medium-native129-2026-09-24/reconciliation.json",
+    "notes": "Batch02 attempted run_command to search local Antigravity context; headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.",
+    "isolation_failure": "Batch02 attempted run_command to search local Antigravity context; headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.",
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed"
   }
 ]

@@ -161,3 +161,9 @@ All reported accuracies use 60-record denominators, including failures and missi
 ## Later prompt comparison
 
 The user requested a follow-up with classifier framing and a second condition adding an SOP and decision tree. Follow [PROMPT_VARIANTS.md](PROMPT_VARIANTS.md) after the current comparison is finished. Keep these future conditions separate from active baseline runs; no prompt changes are applied retroactively.
+
+## Interrupted local continuation, September 24
+
+Alex4B saved DEV-001 through DEV-045 before interruption. No worker remained alive at resumption. The specialist runner now accepts a zero-based `--offset` with bounded, input-only selection, so DEV-046 through DEV-060 can continue into a new exclusive file without replaying saved outputs. The [interruption record](../results/alex-openjev4b-mps-2026-09-23/interruption-2026-09-24.json) preserves the possibility of an unsaved DEV-046 attempt; total attempt timing remains unknown. The absence of a saved row is not proof that no inference occurred.
+
+Gemini3.8 Flash medium stopped after an attempted external command in its second development batch. The runtime denied that command. Its failed batch and raw event are retained as an isolation violation, with no retry or relaxation of permissions. Native-agent results elsewhere remain labeled with their effective-tool-restriction uncertainty.

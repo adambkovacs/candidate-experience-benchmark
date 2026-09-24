@@ -6,6 +6,14 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import specialist_benchmark as s
 
 class SpecialistTests(unittest.TestCase):
+    def test_continuation_selects_only_unfinished_inputs(self):
+        rows=[{'id':f'DEV-{i:03d}','feedback':str(i)} for i in range(1,61)]
+        self.assertEqual([r['id'] for r in s.select_input_rows(rows,45,15)], [f'DEV-{i:03d}' for i in range(46,61)])
+        self.assertEqual(s.select_input_rows(rows,0,3),rows[:3])
+        for offset,limit in [(-1,3),(45,16),(60,1),(0,0),(True,1)]:
+            with self.subTest(offset=offset,limit=limit),self.assertRaises(ValueError):s.select_input_rows(rows,offset,limit)
+        rows[0]['reference']='forbidden'
+        with self.assertRaises(ValueError):s.select_input_rows(rows,45,15)
     def test_equivalent_option_sets_and_no_metadata(self):
         rows=s.decision_rows('a feedback','the rubric')
         self.assertEqual([r['id'] for r in rows],list(s.KEYS))

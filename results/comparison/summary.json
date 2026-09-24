@@ -22361,6 +22361,301 @@
     }
   },
   {
+    "id": "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+    "model": "gemini-3.7-flash-high",
+    "effort": "high",
+    "status": "complete",
+    "predictions_file": "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-reconciled.jsonl",
+    "partial_predictions_file": null,
+    "attempt_files": [
+      "results/antigravity-gemini37-flash-high-native129-2026-09-24/development.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini37-flash-high-native129-2026-09-24/reconciliation.json",
+    "notes": "Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.",
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed",
+    "cost": {
+      "scope": "declared development attempts only",
+      "availability": "unavailable",
+      "attempt_count": 60,
+      "known_actual_attempts": 0,
+      "unknown_cost_attempts": 0,
+      "unknown_bounded_attempts": 0,
+      "missing_financial_attempts": 60,
+      "known_actual_usd": null,
+      "unknown_reserved_upper_bound_usd": null,
+      "known_plus_unknown_upper_bound_usd": null,
+      "total_actual_usd": null,
+      "source_paths": [
+        "results/antigravity-gemini37-flash-high-native129-2026-09-24/development.jsonl"
+      ],
+      "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9834920634920635,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.8840579710144928,
+          "per_label": {
+            "yes": {
+              "tp": 34,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.9714285714285714,
+              "f1": 0.9855072463768116
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9640472521828455,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9666666666666667,
+              "recall": 1.0,
+              "f1": 0.9830508474576272
+            },
+            "insufficient_information": {
+              "tp": 5,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8333333333333334,
+              "f1": 0.9090909090909091
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9770918268297418,
+          "per_label": {
+            "yes": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8888888888888888,
+              "f1": 0.9411764705882353
+            },
+            "no": {
+              "tp": 50,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9803921568627451,
+              "recall": 1.0,
+              "f1": 0.9900990099009901
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "faa3c08c0f0f041d18c9d717a63f7c105655f65836185fe8a1f86fdc994757b3",
+    "attempt_records": 60,
+    "exact_match": 57,
+    "timing": {
+      "timing_kind": "batch_request_latency",
+      "workflow": "batch",
+      "batch_requests": 6,
+      "timed_records": 60,
+      "sum_batch_request_seconds": 179.31463699899905,
+      "batch_median_seconds": 28.782487124999534,
+      "batch_p95_nearest_rank_seconds": 43.13540650000141,
+      "attempted_records_per_request_second": 0.3346073750819066,
+      "successful_records_per_request_second": 0.3346073750819066,
+      "note": "Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed."
+    }
+  },
+  {
+    "id": "antigravity-gemini-3.8-flash-medium-native-observed-batch10",
+    "model": "gemini-3.8-flash-medium",
+    "effort": "medium",
+    "status": "partial_isolation_violation",
+    "predictions_file": null,
+    "partial_predictions_file": "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development-reconciled.jsonl",
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "native_agent_batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini38-flash-medium-native129-2026-09-24/reconciliation.json",
+    "notes": "Batch02 attempted run_command to search local Antigravity context; headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.",
+    "isolation_failure": "Batch02 attempted run_command to search local Antigravity context; headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.",
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed",
+    "cost": {
+      "scope": "declared development attempts only",
+      "availability": "unavailable",
+      "attempt_count": 0,
+      "known_actual_attempts": 0,
+      "unknown_cost_attempts": 0,
+      "unknown_bounded_attempts": 0,
+      "missing_financial_attempts": 0,
+      "known_actual_usd": null,
+      "unknown_reserved_upper_bound_usd": null,
+      "known_plus_unknown_upper_bound_usd": null,
+      "total_actual_usd": null,
+      "source_paths": [],
+      "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    }
+  },
+  {
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",
