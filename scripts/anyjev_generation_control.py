@@ -57,6 +57,11 @@ def parse_generated(text,ended):
 
 
 def run(args):
+    if getattr(args,'prompt_variant',None) in ('P1','P2') and not getattr(args,'variant_preview_output',None):
+        from anyjev_prompt_execution import execute
+        return execute(args,ROOT)
+    if any(getattr(args,k,None) for k in ('execution_manifest','execution_manifest_sha256','execution_configuration','execution_stage','execution_journal','smoke_inspection','smoke_inspection_sha256')):
+        raise ValueError('Execution gates apply only to live P1/P2 generated conditions')
     if variant_gate_or_preview(args):return
     if Path(args.output).exists():raise FileExistsError(args.output)
     manifest=verify_artifact(args.model_path,args.revision)
@@ -119,6 +124,9 @@ def main():
     p.add_argument('--limit',type=int,choices=range(1,61),default=3)
     p.add_argument('--output',required=True);p.add_argument('--config-note',required=True)
     p.add_argument('--prompt-variant',choices=('P0','P1','P2'));p.add_argument('--parent-baseline-id');p.add_argument('--variant-preview-output',help='Exclusive offline preview; no model/tokenizer load')
+    p.add_argument('--execution-manifest');p.add_argument('--execution-manifest-sha256');p.add_argument('--execution-configuration')
+    p.add_argument('--execution-stage',choices=('smoke','development'));p.add_argument('--execution-journal')
+    p.add_argument('--smoke-inspection');p.add_argument('--smoke-inspection-sha256')
     a=p.parse_args()
     if a.max_input_tokens<1 or a.max_new_tokens<1:p.error('Positive token limits required')
     run(a)
