@@ -1,0 +1,69 @@
+{
+  "contract": "openrouter-prompt-remaining-reconciliation-v1",
+  "status": "partial_stopped",
+  "verified_utc": "2026-09-24T13:40:25.718430+00:00",
+  "configuration_id": "openrouter-paid-deepseek-v41-flash-low",
+  "condition": "P2",
+  "protocol_amendment": "openrouter-prompt-remaining-records-v1",
+  "amendment_manifest_sha256": "476c3db1e68d4fbeb47501c9fd882b9b62ec8dc4cca787eb64b50e5779eaeb6b",
+  "original_attempts_sha256": "da61be15f5d9f2cec9f4c9603bda625c5a49ab5e0802c231538120b22e56e5fd",
+  "continuation_attempts_sha256": "16c9fa4691f924526546a4032c996a5bdcdf7d9f0587f02c4388a7610c1ffc6c",
+  "amendment_journal_sha256": "9738467465a0728eea289ba35cb4237d1b01d14a89bbdda5c9ad5f87eab2964c",
+  "denominator": 60,
+  "original_attempt_count": 13,
+  "amendment_attempt_count": 32,
+  "combined_attempt_count": 45,
+  "valid_output_count": 43,
+  "original_failed_records": [
+    {
+      "id": "DEV-013",
+      "status": "prompt_admission_failure"
+    }
+  ],
+  "amendment_failed_records": [
+    {
+      "id": "DEV-045",
+      "status": "service_error",
+      "error_type": "ConnectionResetError",
+      "http_status": null
+    }
+  ],
+  "unattempted_records": [
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "known_actual_usd": "0.00983145",
+  "unknown_reserved_upper_bound_usd": "0.1069056",
+  "total_attempt_seconds": "974.159415372989318",
+  "terminal_event": {
+    "event": "finished",
+    "status": "stopped",
+    "attempted_records": 32,
+    "canonical_denominator": 60,
+    "original_failed_records_retained": true,
+    "output": {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/development.jsonl",
+      "sha256": "16c9fa4691f924526546a4032c996a5bdcdf7d9f0587f02c4388a7610c1ffc6c"
+    }
+  },
+  "retry_policy": "none; no failed record was retried",
+  "order_limitation": "Remaining records execute after both original conditions; original counterbalanced timing is not preserved.",
+  "comparison_limitation": "Remaining records executed after both original conditions; the original counterbalanced timing is not preserved. This amendment is descriptive and does not make the original paired protocol complete.",
+  "observational": true,
+  "fully_verified_controls": false,
+  "failure_cause": "unknown",
+  "failure_error_type": "ConnectionResetError"
+}

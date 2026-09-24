@@ -1,0 +1,486 @@
+{
+  "contract": "gemini-p1-p2-readiness-inventory-v1",
+  "verified_utc": "2026-09-24T13:50:12.217568+00:00",
+  "phasebase": "results/prompt-comparison-v1-2026-09-24",
+  "read_only_inventory": true,
+  "inference_performed_by_this_review": false,
+  "registries_modified": false,
+  "summary": {
+    "scheduled_configurations": 7,
+    "scheduled_condition_pairs": 14,
+    "complete_60_row_baselines": 7,
+    "p1_p2_condition_claims_observed": 0,
+    "readiness": "blocked_before_condition_smokes"
+  },
+  "frozen_scope_sources": [
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+      "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/roster.json",
+      "sha256": "df348da8bcc6586a47db2404ca7e21ca839b31cf9f742c1f1722e380aa95d759"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/roster-freeze.json",
+      "sha256": "3920fe3754d604b5360700d846ab2d05921ed6e59861ef3a4031ac7de29c2e77"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/baseline-inventory.json",
+      "sha256": "5932767a3578af3666e7681ebd05280ebddca057d13d86408b8cdf13b2bf703c"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/execution-journal.jsonl",
+      "sha256": "2d7400b5f803383cea7a3ca451aa06d4f7352efdc06ff1e3d1a83a247fa7b4e8"
+    },
+    {
+      "path": "results/gemini-run-registry.json",
+      "sha256": "a26fd1626e4b2d20213c507833c7b1371fc1e8f46281ce21cc056327d22942ca"
+    }
+  ],
+  "configurations": [
+    {
+      "configuration_id": "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+      "model": "gemini-3.1-pro-low",
+      "effort": "low",
+      "parent_baseline_id": "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+      "scheduled_condition_order": [
+        "P1",
+        "P2"
+      ],
+      "roster_state": "scheduled",
+      "baseline_inventory_status": "completed_after_transport_recovery",
+      "registry_status": "completed_after_transport_recovery",
+      "baseline_workflow": "antigravity-native-agent-batch",
+      "baseline_workflow_mode": "native-agent-observed-no-external-tools",
+      "baseline_runtime": "Antigravity CLI 1.2.9",
+      "baseline_output": {
+        "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "fd77beedfbb35d8139fb3f4a662a5f3bfef62313cecca10f1420bee5ae47152d",
+        "rows": 60,
+        "status_counts": {
+          "ok": 60
+        }
+      },
+      "baseline_smoke_evidence": [
+        {
+          "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/smoke.jsonl",
+          "exists": true,
+          "sha256": "c563194873ed38b65da50316365ae2febd4ec811337515dff46103ae121332d0"
+        },
+        {
+          "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/smoke-attempts.jsonl",
+          "exists": true,
+          "sha256": "08c9d13ee30e66f4380937a04003d6c79fbf18cab3b104281bbc89c2a4107b35"
+        },
+        {
+          "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/smoke-inspection.json",
+          "exists": true,
+          "sha256": "bbd13bff467d8edcc25592cc1808fe6ea5295cae84d467255b785921605b70e2"
+        }
+      ],
+      "existing_p1_p2_journal_event_count": 0,
+      "conditions": [
+        {
+          "condition": "P1",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        },
+        {
+          "condition": "P2",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        }
+      ]
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+      "model": "gemini-3.1-pro-high",
+      "effort": "high",
+      "parent_baseline_id": "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+      "scheduled_condition_order": [
+        "P2",
+        "P1"
+      ],
+      "roster_state": "scheduled",
+      "baseline_inventory_status": "completed_after_transport_recovery",
+      "registry_status": "completed_after_transport_recovery",
+      "baseline_workflow": "antigravity-native-agent-batch",
+      "baseline_workflow_mode": "native-agent-observed-no-external-tools",
+      "baseline_runtime": "Antigravity CLI 1.2.9",
+      "baseline_output": {
+        "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "e1e6f9d08fcf9f5bcc9476d02c79ab1a67ffbafb0ff662fd3694c3890c1a348a",
+        "rows": 60,
+        "status_counts": {
+          "ok": 60
+        }
+      },
+      "baseline_smoke_evidence": [
+        {
+          "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/smoke.jsonl",
+          "exists": true,
+          "sha256": "7b033358be89629dec80448fdcdec62054c605166dfd939272579350bf90aaa1"
+        },
+        {
+          "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/smoke-attempts.jsonl",
+          "exists": true,
+          "sha256": "5e7737fd18b1013350ea73cb7587ee382f477211b08196a2aa0b057842a6ab98"
+        },
+        {
+          "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/smoke-inspection.json",
+          "exists": true,
+          "sha256": "61ef3f45870e8e5000c48f8b83098b90cf4ac6f34f50351737348bd105fc5b45"
+        }
+      ],
+      "existing_p1_p2_journal_event_count": 0,
+      "conditions": [
+        {
+          "condition": "P2",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        },
+        {
+          "condition": "P1",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        }
+      ]
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+      "model": "gemini-3.6-flash-low",
+      "effort": "low",
+      "parent_baseline_id": "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+      "scheduled_condition_order": [
+        "P1",
+        "P2"
+      ],
+      "roster_state": "scheduled",
+      "baseline_inventory_status": "completed_after_transport_recovery",
+      "registry_status": "completed_after_transport_recovery",
+      "baseline_workflow": "native_agent_batch",
+      "baseline_workflow_mode": "native-agent-observed-no-external-tools",
+      "baseline_runtime": "Antigravity CLI 1.2.9",
+      "baseline_output": {
+        "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "119a16f0e8e7e128b10552b8f3eb33a4041a6f475dc33665e7f4620cbe5644db",
+        "rows": 60,
+        "status_counts": {
+          "ok": 60
+        }
+      },
+      "baseline_smoke_evidence": [
+        {
+          "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/smoke.jsonl",
+          "exists": true,
+          "sha256": "19255ec1750cd7169f0f9983007e2330f46073be3c12cd92df1d0c5d77558548"
+        },
+        {
+          "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/smoke-attempts.jsonl",
+          "exists": true,
+          "sha256": "d3bac072d0713fa63ec323e07bd9233503a587f718a86415cf6eec3fe85e30b4"
+        }
+      ],
+      "existing_p1_p2_journal_event_count": 0,
+      "conditions": [
+        {
+          "condition": "P1",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        },
+        {
+          "condition": "P2",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        }
+      ]
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+      "model": "gemini-3.6-flash-medium",
+      "effort": "medium",
+      "parent_baseline_id": "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+      "scheduled_condition_order": [
+        "P2",
+        "P1"
+      ],
+      "roster_state": "scheduled",
+      "baseline_inventory_status": "completed_after_transport_recovery",
+      "registry_status": "completed_after_transport_recovery",
+      "baseline_workflow": "native_agent_batch",
+      "baseline_workflow_mode": "native-agent-observed-no-external-tools",
+      "baseline_runtime": "Antigravity CLI 1.2.9",
+      "baseline_output": {
+        "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "2a183225c8653b7779c40246836e82e04d177ab93d341abb35803291d8887aab",
+        "rows": 60,
+        "status_counts": {
+          "ok": 60
+        }
+      },
+      "baseline_smoke_evidence": [
+        {
+          "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/smoke.jsonl",
+          "exists": true,
+          "sha256": "72169eaf1237b395865e47025d678ed0cc5ca08e9cc9fb2b773cb1dbe9d774d8"
+        },
+        {
+          "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/smoke-attempts.jsonl",
+          "exists": true,
+          "sha256": "91956f50714efca0da488696d65f1f75ab28f08eb0b9a6a3274d99046ea391db"
+        }
+      ],
+      "existing_p1_p2_journal_event_count": 0,
+      "conditions": [
+        {
+          "condition": "P2",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        },
+        {
+          "condition": "P1",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        }
+      ]
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+      "model": "gemini-3.7-flash-low",
+      "effort": "low",
+      "parent_baseline_id": "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+      "scheduled_condition_order": [
+        "P1",
+        "P2"
+      ],
+      "roster_state": "scheduled",
+      "baseline_inventory_status": "completed_after_transport_recovery",
+      "registry_status": "completed_after_transport_recovery",
+      "baseline_workflow": "native_agent_batch",
+      "baseline_workflow_mode": "native-agent-observed-no-external-tools",
+      "baseline_runtime": "Antigravity CLI 1.2.9",
+      "baseline_output": {
+        "path": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "2c9a826b467f529d293a931b1b5416f016fd8493c3367b28bde86c91d3d322be",
+        "rows": 60,
+        "status_counts": {
+          "ok": 60
+        }
+      },
+      "baseline_smoke_evidence": [],
+      "existing_p1_p2_journal_event_count": 0,
+      "conditions": [
+        {
+          "condition": "P1",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        },
+        {
+          "condition": "P2",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        }
+      ]
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+      "model": "gemini-3.7-flash-medium",
+      "effort": "medium",
+      "parent_baseline_id": "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+      "scheduled_condition_order": [
+        "P2",
+        "P1"
+      ],
+      "roster_state": "scheduled",
+      "baseline_inventory_status": "completed_after_transport_recovery",
+      "registry_status": "completed_after_transport_recovery",
+      "baseline_workflow": "native_agent_batch",
+      "baseline_workflow_mode": "native-agent-observed-no-external-tools",
+      "baseline_runtime": "Antigravity CLI 1.2.9",
+      "baseline_output": {
+        "path": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "ee050b6ce4331181a2bee8e136983fd427b3ac8d33a51aec14893550723e34d6",
+        "rows": 60,
+        "status_counts": {
+          "ok": 60
+        }
+      },
+      "baseline_smoke_evidence": [],
+      "existing_p1_p2_journal_event_count": 0,
+      "conditions": [
+        {
+          "condition": "P2",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        },
+        {
+          "condition": "P1",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        }
+      ]
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+      "model": "gemini-3.7-flash-high",
+      "effort": "high",
+      "parent_baseline_id": "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+      "scheduled_condition_order": [
+        "P1",
+        "P2"
+      ],
+      "roster_state": "scheduled",
+      "baseline_inventory_status": "complete",
+      "registry_status": "complete",
+      "baseline_workflow": "native_agent_batch",
+      "baseline_workflow_mode": "native-agent-observed-no-external-tools",
+      "baseline_runtime": "Antigravity CLI 1.2.9",
+      "baseline_output": {
+        "path": "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-reconciled.jsonl",
+        "sha256": "faa3c08c0f0f041d18c9d717a63f7c105655f65836185fe8a1f86fdc994757b3",
+        "rows": 60,
+        "status_counts": {
+          "ok": 60
+        }
+      },
+      "baseline_smoke_evidence": [],
+      "existing_p1_p2_journal_event_count": 0,
+      "conditions": [
+        {
+          "condition": "P1",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        },
+        {
+          "condition": "P2",
+          "status": "scheduled_no_execution_claim_observed",
+          "condition_specific_smoke_inspection": "missing",
+          "condition_specific_admission": "missing",
+          "condition_specific_development": "missing"
+        }
+      ]
+    }
+  ],
+  "adapter_findings": [
+    {
+      "finding": "Offline P1/P2 composition exists; the preview branch writes output and returns without inference, while live P1/P2 without preview are rejected.",
+      "evidence": "scripts/gemini_batch_benchmark.py:94-127"
+    },
+    {
+      "finding": "No condition-specific frozen prompt execution manifest, schedule journal claim, inspection or admission integration is exposed by the current runner CLI.",
+      "evidence": "scripts/gemini_batch_benchmark.py:126-173"
+    },
+    {
+      "finding": "The seven scheduled P0 baselines exist as 60-row valid outputs, but none has P1/P2 execution-journal events; baseline smoke evidence is not condition-specific.",
+      "evidence": "Frozen schedule, baseline-inventory.json, gemini-run-registry.json, execution-journal.jsonl"
+    },
+    {
+      "finding": "Baseline workflow is native-agent-observed-no-external-tools, not bare-model or effective tool-disabled execution. Strict mode rejects available tool inventory beyond []/[finish]; observed mode allows the inventory but rejects observed non-finish tool/delegation events.",
+      "evidence": "scripts/gemini_batch_benchmark.py:47-81; results/gemini-run-registry.json"
+    },
+    {
+      "finding": "Runner performs runtime checks for ambient context and explicit credits-off settings, which still need condition-specific smoke evidence.",
+      "evidence": "scripts/gemini_batch_benchmark.py:28-45,86-92"
+    }
+  ],
+  "exact_missing_support": [
+    "A live P1/P2 route that executes only a hash-bound frozen preview after condition-specific smoke inspection and admission.",
+    "Manifest binding for configuration, condition, parent baseline, schedule order, prompt/schema hashes, batch membership, CLI model/effort and exclusive output/attempt/journal paths.",
+    "Condition-specific smoke, inspection and admission for all 14 scheduled config-condition pairs.",
+    "Explicit preservation of the inherited native-agent-observed-no-external-tools caveat and stop-on-any observed tool/delegation event."
+  ],
+  "smallest_next_step": {
+    "action": "Use the existing credential-free offline preview composer to create and validate previews for the 14 scheduled P1/P2 pairs, binding the exact roster ID, condition order, parent baseline, six ten-record batches, and prompt/schema hashes. Then add a hash-bound live execution path gated on each pair\u2019s frozen manifest plus inspected smoke/admission evidence, retaining the inherited native-agent workflow and caveat.",
+    "why_first": "Offline previews need no credentials or model call. The current runner cannot run live P1/P2 conditions."
+  },
+  "limitations": [
+    "P0 baseline availability does not establish P1/P2 smoke validity.",
+    "Historical records support no claim of effective tool disablement or bare-model isolation.",
+    "This inventory performed no inference, installation, registry edit or completion marking."
+  ],
+  "code_evidence": [
+    {
+      "path": "scripts/gemini_batch_benchmark.py",
+      "line_start": 9,
+      "line_end": 25,
+      "sha256": "3adb699fd98ebe747f26f9ba1a0e2ffea10a99168406bdad3c6e1c51ca87a9a3",
+      "relevance": "Native agent config disables custom/default components, custom MCP/skills/plugins, and command execution."
+    },
+    {
+      "path": "scripts/gemini_batch_benchmark.py",
+      "line_start": 47,
+      "line_end": 81,
+      "sha256": "3adb699fd98ebe747f26f9ba1a0e2ffea10a99168406bdad3c6e1c51ca87a9a3",
+      "relevance": "Strict/observed stream checks: strict requires tools=[] or [finish]; observed mode still rejects actual non-finish tool/delegation events."
+    },
+    {
+      "path": "scripts/gemini_batch_benchmark.py",
+      "line_start": 94,
+      "line_end": 127,
+      "sha256": "3adb699fd98ebe747f26f9ba1a0e2ffea10a99168406bdad3c6e1c51ca87a9a3",
+      "relevance": "P1/P2 prompt preview is offline-only; live P1/P2 without preview raises, and preview path returns before inference."
+    },
+    {
+      "path": "scripts/gemini_batch_benchmark.py",
+      "line_start": 126,
+      "line_end": 170,
+      "sha256": "3adb699fd98ebe747f26f9ba1a0e2ffea10a99168406bdad3c6e1c51ca87a9a3",
+      "relevance": "Live batch loop checks context, credits, advertised model, exclusive outputs, records attempt/journal evidence, then stops on non-ok."
+    },
+    {
+      "path": "scripts/gemini_batch_benchmark.py",
+      "line_start": 172,
+      "line_end": 173,
+      "sha256": "3adb699fd98ebe747f26f9ba1a0e2ffea10a99168406bdad3c6e1c51ca87a9a3",
+      "relevance": "Current CLI arguments have variant preview support but no frozen phase-manifest or schedule-journal integration."
+    },
+    {
+      "path": "scripts/gemini_benchmark.py",
+      "line_start": 51,
+      "line_end": 72,
+      "sha256": "650b79e98255712da5db52ed7580d87da8668356c556fd50d2a529ce4c56ec28",
+      "relevance": "Legacy preflight explicitly remains blocked; it is not the completed native-agent baseline path."
+    },
+    {
+      "path": "tests/test_gemini_prompt_preview.py",
+      "line_start": 1,
+      "line_end": 45,
+      "sha256": "e27e267552ef2ec11f1e76b9fccc23e32a759b08e80139d443f4c98b12aa3d05",
+      "relevance": "Offline tests verify P1/P2 preview behavior and live-run rejection before authentication."
+    },
+    {
+      "path": "tests/test_gemini_batch_benchmark.py",
+      "line_start": 1,
+      "line_end": 200,
+      "sha256": "d58676db63582aad5d4c6bf3de07b499f334104d94c05781ca72fa25a07efcfe",
+      "relevance": "Offline tests exercise tool checks, context checks, credit checks, and observed-mode behavior."
+    }
+  ]
+}

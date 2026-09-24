@@ -1,0 +1,331 @@
+{
+  "contract": "openrouter-prompt-remaining-evaluation-v1",
+  "status": "partial descriptive evaluation",
+  "verified_utc": "2026-09-24T13:51:31.109834+00:00",
+  "configuration_id": "openrouter-paid-deepseek-v41-flash-high",
+  "condition": "P1",
+  "protocol_amendment": "openrouter-prompt-remaining-records-v1",
+  "amendment_manifest_sha256": "cad246e3fd6b6a0dcde0a386315f0e42def27884eebee611673b32ede74fdce7",
+  "original_attempts_sha256": "e7107c7f15c6bb7c013a22819c173d247dbca0088be8be0b4fee445ab427c5fd",
+  "continuation_attempts_sha256": "87607c83eac4d5a8f80a1e0373fa3d3148b2c95f0ed52fe91f834b8f3a0d8cc0",
+  "amendment_journal_sha256": "96c4cd6c55da24405d441297939ad916871e2f14a479b1ef664cb62ea5e8b7a5",
+  "denominator": 60,
+  "original_attempt_count": 6,
+  "amendment_attempt_count": 32,
+  "combined_attempt_count": 38,
+  "valid_output_count": 34,
+  "original_failed_records": [
+    {
+      "id": "DEV-006",
+      "status": "prompt_admission_failure"
+    }
+  ],
+  "amendment_failed_records": [
+    {
+      "id": "DEV-013",
+      "status": "invalid_output",
+      "error_type": null,
+      "http_status": null
+    },
+    {
+      "id": "DEV-030",
+      "status": "invalid_output",
+      "error_type": null,
+      "http_status": null
+    },
+    {
+      "id": "DEV-038",
+      "status": "service_error",
+      "error_type": "TimeoutError",
+      "http_status": null
+    }
+  ],
+  "unattempted_records": [
+    "DEV-039",
+    "DEV-040",
+    "DEV-041",
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "known_actual_usd": "0.01112483",
+  "unknown_reserved_upper_bound_usd": "0.1069056",
+  "total_attempt_seconds": "1445.692813125009675",
+  "terminal_event": {
+    "event": "finished",
+    "status": "stopped",
+    "attempted_records": 32,
+    "canonical_denominator": 60,
+    "original_failed_records_retained": true,
+    "output": {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/development.jsonl",
+      "sha256": "87607c83eac4d5a8f80a1e0373fa3d3148b2c95f0ed52fe91f834b8f3a0d8cc0"
+    }
+  },
+  "retry_policy": "none; no failed record was retried",
+  "order_limitation": "Remaining records execute after both original conditions; original counterbalanced timing is not preserved.",
+  "comparison_limitation": "Remaining records executed after both original conditions; original counterbalanced timing is not preserved. This amendment is descriptive and does not complete the normal original paired protocol.",
+  "observational": true,
+  "fully_verified_controls": false,
+  "reference_status": "AI-reviewed provisional; development only",
+  "offline_score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 34,
+    "missing_or_failed": [
+      "DEV-006",
+      "DEV-013",
+      "DEV-030",
+      "DEV-038",
+      "DEV-039",
+      "DEV-040",
+      "DEV-041",
+      "DEV-042",
+      "DEV-043",
+      "DEV-044",
+      "DEV-045",
+      "DEV-046",
+      "DEV-047",
+      "DEV-048",
+      "DEV-049",
+      "DEV-050",
+      "DEV-051",
+      "DEV-052",
+      "DEV-053",
+      "DEV-054",
+      "DEV-055",
+      "DEV-056",
+      "DEV-057",
+      "DEV-058",
+      "DEV-059",
+      "DEV-060"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 34,
+        "denominator": 60,
+        "accuracy": 0.5666666666666667,
+        "macro_f1": 0.7618633540372671,
+        "per_label": {
+          "positive": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.8181818181818182,
+            "f1": 0.9
+          },
+          "negative": {
+            "tp": 15,
+            "fp": 0,
+            "fn": 16,
+            "precision": 1.0,
+            "recall": 0.4838709677419355,
+            "f1": 0.6521739130434783
+          },
+          "mixed": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571
+          },
+          "neutral": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 6,
+            "precision": 1.0,
+            "recall": 0.25,
+            "f1": 0.4
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 34,
+        "denominator": 60,
+        "accuracy": 0.5666666666666667,
+        "macro_f1": 0.8161586840832123,
+        "per_label": {
+          "yes": {
+            "tp": 18,
+            "fp": 0,
+            "fn": 17,
+            "precision": 1.0,
+            "recall": 0.5142857142857142,
+            "f1": 0.6792452830188679
+          },
+          "no": {
+            "tp": 15,
+            "fp": 0,
+            "fn": 9,
+            "precision": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 34,
+        "denominator": 60,
+        "accuracy": 0.5666666666666667,
+        "macro_f1": 0.6447245564892624,
+        "per_label": {
+          "yes": {
+            "tp": 10,
+            "fp": 0,
+            "fn": 15,
+            "precision": 1.0,
+            "recall": 0.4,
+            "f1": 0.5714285714285714
+          },
+          "no": {
+            "tp": 22,
+            "fp": 0,
+            "fn": 7,
+            "precision": 1.0,
+            "recall": 0.7586206896551724,
+            "f1": 0.8627450980392157
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 4,
+            "precision": 1.0,
+            "recall": 0.3333333333333333,
+            "f1": 0.5
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 34,
+        "denominator": 60,
+        "accuracy": 0.5666666666666667,
+        "macro_f1": 0.8530701754385964,
+        "per_label": {
+          "yes": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.7777777777777778,
+            "f1": 0.875
+          },
+          "no": {
+            "tp": 26,
+            "fp": 0,
+            "fn": 24,
+            "precision": 1.0,
+            "recall": 0.52,
+            "f1": 0.6842105263157895
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [
+        "DEV-039",
+        "DEV-041",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "identity_evidence",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "complaint_style",
+        "status": "missing_or_failed"
+      }
+    ]
+  },
+  "limitations": [
+    "All 60 development records remain the denominator; invalid, failed and unattempted records score as missing.",
+    "The original DEV-006 prompt-admission failure and amendment DEV-013/030 invalid outputs plus DEV-038 service error are retained; no failed record is retried.",
+    "Amendment execution order follows both original conditions, so counterbalanced timing is not preserved.",
+    "Reference labels are provisional AI-reviewed development references, not held-out human truth.",
+    "This report does not claim completion of the normal original paired protocol."
+  ]
+}
