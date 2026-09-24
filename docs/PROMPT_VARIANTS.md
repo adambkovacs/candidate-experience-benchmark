@@ -94,3 +94,11 @@ After inspecting the three-record condition smoke, verify the saved request and 
 Continue these checks for every development request and preserve every failure and retry. Usage and time are counted once per actual request. Missing runtime telemetry stays unknown; no observed truncation is not proof that hidden rendering was unchanged. Report these results as observational prompt sensitivity with `fully_verified_controls: false`, even when visible request controls are verified. Do not describe a successful response or a byte-size comparison as exact prospective token-fit proof.
 
 This clarification preserves the user's existing experiment authorization, baseline-first order, frozen roster, counterbalanced condition schedule, smoke inspection, subscription restrictions and aggregate spending caps. It introduces no new data, model, paid fallback or prompt revision. Implementation of admission and schedule enforcement must be completed before P1/P2 inference.
+
+## Execution support, September24
+
+Claude batch, Codex batch and paid OpenRouter controllers now support live P1/P2 admission. Default P0 requests are unchanged. New conditions require a hash-bound execution manifest, configuration ID and append-only schedule journal. Each actual request is checked against its recorded client payload and controls before inference. Development additionally requires a separate hash-bound smoke supplement with the inspection evidence; the original frozen manifest remains unchanged.
+
+The schedule records smoke, inspected admission and development separately. Duplicate launches and unmatched starts require reconciliation. Exposed context overflow, compaction, truncation and identity or control failures stop execution and remain in the evidence. Codex does not expose its CLI output-token reserve, so that value remains null under the observational protocol; no replacement limit is invented.
+
+The full offline Python suite passed 324 tests at this checkpoint, including successful mocked Claude/Codex smoke-to-development lifecycles using the real admission verifier, paid OpenRouter request guards, payload drift rejection and actual file-lock contention. These tests establish controller behavior, not completed P1/P2 benchmark inference. Real manifests are being prepared after baseline reconciliation.

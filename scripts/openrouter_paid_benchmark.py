@@ -249,7 +249,7 @@ def variant_gate_or_preview(args):
     destination=getattr(args,'variant_preview_output',None);source=getattr(args,'variant_baseline_attempts',None)
     if not destination:
         if source:raise ValueError('Baseline snapshot is for offline preview only')
-        if variant in ('P1','P2'):raise ValueError('Phase-two protocol gates are pending; use offline preview')
+        if variant in ('P1','P2') and not getattr(args,'prompt_execution_manifest',None):raise ValueError('Phase-two protocol gates require a frozen execution manifest; offline preview remains available')
         if variant is not None or parent is not None:variant_instruction(baseline_instruction(),variant,parent)
         return False
     if variant is None or not source:raise ValueError('Preview requires explicit variant and saved baseline attempts')
@@ -271,15 +271,44 @@ def variant_gate_or_preview(args):
     return True
 
 
+def paid_adapter_controls(args,endpoint,payload):
+    """The actual HTTP controls, using the paired evaluator's unchanged contract."""
+    from evaluate_prompt_variants import extract_controls
+    return extract_controls({'requested_model':args.model,'provider_endpoint':endpoint,
+        'request':payload,'quantization':endpoint.get('quantization'),
+        'reasoning_effort':args.reasoning,'runtime':'OpenRouter HTTP v1',
+        'hardware':'Remote provider undisclosed','surface':'OpenRouter paid HTTP',
+        'retry_policy':'none; exclusive files; every attempt reserves against shared cap'})
+
+
+def check_paid_phase_two(args,controls,endpoint):
+    """Compare live endpoint facts to the admitted declaration before reserving money."""
+    if getattr(args,'start',1)!=1:raise ValueError('Prompt comparisons require the complete unchanged record order')
+    if not getattr(args,'budget_partition_manifest',None) or not getattr(args,'budget_partition_id',None):
+        raise ValueError('Prompt comparisons require an existing pinned budget partition')
+    actual={'model':args.model,'effort':args.reasoning,'quantization':endpoint.get('quantization'),
+        'runtime':'OpenRouter HTTP v1','hardware':'Remote provider undisclosed',
+        'sampling':{'temperature':0},'output_method':'json_schema','parsing':'strict_json',
+        'retry_policy':'none; exclusive files; every attempt reserves against shared cap',
+        'context_tokens':endpoint['context_length'],'output_reserve_tokens':args.max_tokens}
+    if any(controls.get(key)!=value for key,value in actual.items()):
+        raise ValueError('Actual OpenRouter endpoint/runtime controls differ from frozen condition')
+
+
 def add_variant_arguments(parser):
     parser.add_argument('--prompt-variant',choices=('P0','P1','P2'),help='Default retains legacy P0 bytes without frozen bundle dependency.')
     parser.add_argument('--parent-baseline-id')
     parser.add_argument('--variant-preview-output',help='Exclusive offline request preview; no key, billing or network access.')
     parser.add_argument('--variant-baseline-attempts',help='Saved attempt JSONL providing exact baseline controls and endpoint snapshot for offline preview.')
+    from prompt_controller import add_arguments
+    add_arguments(parser)
 
 
 def run(args):
+    from prompt_controller import prepare
+    if getattr(args,'variant_preview_output',None):prepare(args,'openrouter_paid_v1',__file__,ROOT)
     if variant_gate_or_preview(args):return
+    guard=prepare(args,'openrouter_paid_v1',__file__,ROOT)
     output=Path(args.output);journal=Path(str(output)+'.attempts.jsonl')
     if output.exists() or journal.exists():raise FileExistsError('Never overwrite an attempt')
     start_record=getattr(args,'start',1)
@@ -296,14 +325,24 @@ def run(args):
     reserve=reservation(endpoint,args.max_tokens,args.max_input_price,args.max_output_price)
     partition_manifest=getattr(args,'budget_partition_manifest',None);partition_id=getattr(args,'budget_partition_id',None)
     if bool(partition_manifest)!=bool(partition_id):raise ValueError('Require both partition manifest and ID')
-    if partition_manifest:
-        from paid_budget_partitions import open_partition
-        ledger=open_partition(LEDGER_PATH,partition_manifest,partition_id,args.model,args.provider,args.reasoning)
-    else:ledger=BudgetLedger(LEDGER_PATH)
-    actual_ledger_path=Path(ledger.file.name).resolve()
+    if guard:
+        check_paid_phase_two(args,guard.controls,endpoint)
+        continued=getattr(args,'continue_on_invalid_output',False)
+        if type(guard.config.get('continue_on_invalid_output')) is not bool or guard.config['continue_on_invalid_output']!=continued:
+            raise ValueError('Invalid-output continuation differs from frozen configuration')
+        if paid_adapter_controls(args,endpoint,payloads[0])!=guard.controls['adapter_controls']:
+            raise ValueError('Actual OpenRouter request controls differ from frozen condition')
+    ledger=None;completed=False
     try:
+        if guard:guard.begin('OpenRouter HTTP v1')
+        if partition_manifest:
+            from paid_budget_partitions import open_partition
+            ledger=open_partition(LEDGER_PATH,partition_manifest,partition_id,args.model,args.provider,args.reasoning)
+        else:ledger=BudgetLedger(LEDGER_PATH)
+        actual_ledger_path=Path(ledger.file.name).resolve()
         with open(output,'x') as out,open(journal,'x') as audit:
             for row,payload in zip(rows,payloads):
+                if guard:guard.check_request(payload,[row['id']],paid_adapter_controls(args,endpoint,payload))
                 attempt=ledger.reserve(reserve,row['id'])
                 record={'id':row['id'],'phase':args.phase,'range_selection':selection,'request_timeout_seconds':args.timeout,'attempt_id':attempt,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
                     'requested_model':args.model,'provider_endpoint':endpoint,'model_catalog_entry':model,'request':payload,
@@ -313,6 +352,7 @@ def run(args):
                     'reasoning_effort':args.reasoning,'reserved_cost_usd':str(reserve),'budget_ledger':str(actual_ledger_path.relative_to(ROOT)) if actual_ledger_path.is_relative_to(ROOT) else str(actual_ledger_path),'budget_partition_id':partition_id,
                     'continue_on_invalid_output':getattr(args,'continue_on_invalid_output',False),'retry_policy':'none; exclusive files; every attempt reserves against shared cap'}
                 if variant_audit is not None:record['prompt_variant']=variant_audit
+                if guard:record['prompt_execution']={'manifest_sha256':args.prompt_execution_manifest_sha256,'configuration_id':args.prompt_configuration_id,'schedule_attempt_id':guard.claimed['attempt_id'],'observational':True,'fully_verified_controls':False}
                 durable(audit,dict(record,event='started'))
                 start=time.perf_counter();actual=None
                 try:
@@ -337,10 +377,28 @@ def run(args):
                         except (ValueError,UnicodeError):pass
                 billing_ok=ledger.settle(attempt,actual)
                 record.update(elapsed_seconds=time.perf_counter()-start,observed_cost_usd=str(actual) if actual is not None else None,cost_unknown=actual is None,billing_ok=billing_ok,**budget_fields(ledger))
+                if guard:
+                    if record['status'] in ('model_mismatch','provider_mismatch'):record['identity_violation']=True
+                    response=record.get('raw_response')
+                    if isinstance(response,dict):
+                        choices=response.get('choices')
+                        if not isinstance(choices,list) or len(choices)!=1 or any(c.get('error') or (c.get('message') or {}).get('tool_calls') or (c.get('message') or {}).get('function_call') for c in choices):record['control_violation']=True
+                    diagnostics=guard.check_response(record);record['prompt_response_diagnostics']=diagnostics
+                    if not diagnostics['passed'] and record['status'] in ('ok','invalid_output'):record['status']='prompt_admission_failure'
                 durable(out,record);durable(audit,{'event':'finished','attempt_id':attempt,'id':row['id'],'status':record['status'],'billing_ok':billing_ok})
                 print(row['id'],record['status'],'billing_ok',billing_ok,flush=True)
                 if not continue_after_record(record,getattr(args,'continue_on_invalid_output',False)):break
-    finally:ledger.close()
+            else:completed=True
+    finally:
+        import sys
+        original_error=sys.exc_info()[1]
+        if ledger is not None:ledger.close()
+        if guard:
+            try:guard.finish([output,journal],completed)
+            except Exception as finish_error:
+                if original_error is None:raise
+                original_error.add_note('Prompt schedule finalization also failed: '+type(finish_error).__name__)
+
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)

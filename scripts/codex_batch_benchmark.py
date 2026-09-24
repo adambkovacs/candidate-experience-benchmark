@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Codex subscription batch workflow; only policy and fictional inputs enter requests."""
+import prompt_controller
 import argparse
 import json
 import os
@@ -52,8 +53,8 @@ def durable_write(file, value):
     file.write(json.dumps(value)+'\n');file.flush();os.fsync(file.fileno())
 
 
-def run(args):
-    if single.variant_gate_or_preview(args,'batch10'):return
+def _run(args,guard=None):
+    if guard is None and single.variant_gate_or_preview(args,'batch10'):return
     single.validate_model_effort(args.model,args.effort)
     env=single.clean_environment()
     auth=subprocess.run([args.codex,'login','status'],env=env,capture_output=True,text=True)
@@ -67,6 +68,7 @@ def run(args):
     policy=(ROOT/'docs/LABELING_GUIDE.md').read_text().split('## Simulated routing')[0]
     output=Path(args.output);attempt_path=Path(args.attempts);journal_path=Path(str(attempt_path)+'.journal.jsonl')
     if any(p.exists() for p in (output,attempt_path,journal_path)):raise FileExistsError('Output, attempts and journal must all be new')
+    if guard is not None:guard.begin(version)
     with output.open('x') as out, attempt_path.open('x') as attempts, journal_path.open('x') as journal:
         for offset in range(0,len(rows),args.batch_size):
             batch=rows[offset:offset+args.batch_size]
@@ -87,6 +89,9 @@ def run(args):
                 cwd=Path(temp);schema_path=cwd/'schema.json';schema_path.write_text(json.dumps(schema))
                 cmd=single.command(args.codex,args.model,args.effort,cwd,schema_path)
                 attempt['command']=cmd
+                if guard is not None:
+                    from evaluate_prompt_variants import extract_codex_controls
+                    guard.check_request(attempt['request'],[r['id'] for r in batch],extract_codex_controls(attempt))
                 durable_write(journal,{'event':'request_started',**attempt})
                 try:
                     process=subprocess.run(cmd,input=prompt,env=env,cwd=cwd,text=True,capture_output=True,timeout=args.timeout)
@@ -104,6 +109,10 @@ def run(args):
                     if attempt.get('status') not in ('service_error','isolation_violation'):attempt['status']='invalid_output'
                     attempt['error']=str(exc)
             elapsed=time.perf_counter()-start;attempt['elapsed_seconds']=elapsed
+            if guard is not None:
+                attempt['prompt_response_admission']=guard.check_response(attempt)
+                if not attempt['prompt_response_admission']['passed']:
+                    attempt.update(status='service_error',error_type='PromptContextDiagnostic');predictions={}
             durable_write(attempts,attempt)
             durable_write(journal,{'event':'request_completed','id':batch_id,'status':attempt['status'],'elapsed_seconds':elapsed})
             for position,row in enumerate(batch):
@@ -120,6 +129,19 @@ def run(args):
             if attempt['status']!='ok':raise RuntimeError('Stopped after failed batch; inspect saved attempt')
 
 
+def run(args):
+    guard=prompt_controller.prepare(args,'codex_batch_v1',Path(__file__),ROOT)
+    error=None
+    try:return _run(args,guard)
+    except BaseException as exc:
+        error=exc;raise
+    finally:
+        if guard is not None:
+            try:guard.finish([args.output,args.attempts,str(args.attempts)+'.journal.jsonl'],completed=error is None)
+            except Exception as closing:
+                if error is None:raise
+                error.add_note('Prompt journal finish also failed: '+str(closing))
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--codex',default='/Applications/ChatGPT.app/Contents/Resources/codex')
@@ -132,6 +154,7 @@ def main():
     p.add_argument('--phase',choices=('smoke','development'),required=True)
     p.add_argument('--output',required=True);p.add_argument('--attempts',required=True)
     single.add_variant_arguments(p)
+    prompt_controller.add_arguments(p)
     run(p.parse_args())
 
 if __name__=='__main__':main()

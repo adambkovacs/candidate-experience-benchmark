@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Claude Max batch workflow; one independent context per ordered batch."""
+import prompt_controller
 import argparse,json,os,shutil,subprocess,tempfile,time
 from pathlib import Path
 from claude_benchmark import clean_environment,command,parse_result,require_subscription,safe_diagnostic,variant_gate_or_preview,variant_instruction,baseline_instruction,add_variant_arguments
@@ -46,9 +47,9 @@ def validate_batch_config(model, effort):
   raise ValueError('Unsupported Claude batch model/effort; max and ultra are excluded')
 
 
-def run(a):
+def _run(a,guard=None):
  if hasattr(a,'model'):validate_batch_config(a.model,a.effort)
- if variant_gate_or_preview(a,'batch10'):return
+ if guard is None and variant_gate_or_preview(a,'batch10'):return
  validate_batch_config(a.model,a.effort)
  if not a.extra_usage_disabled:raise ValueError('Verify usage credits off first')
  cli=shutil.which('claude');env=clean_environment()
@@ -61,6 +62,7 @@ def run(a):
  policy,variant_audit=variant_instruction(baseline_instruction('batch10'),getattr(a,'prompt_variant',None),getattr(a,'parent_baseline_id',None))
  outpath=Path(a.output);attemptpath=Path(str(outpath)+'.batches.jsonl');journalpath=Path(str(outpath)+'.attempts.jsonl')
  if any(p.exists() for p in [outpath,attemptpath,journalpath]):raise FileExistsError('Use exclusive new output paths')
+ if guard is not None:guard.begin(version)
  with outpath.open('x') as out,attemptpath.open('x') as attempts,journalpath.open('x') as journal:
   for n in range(0,len(rows),10):
    batch=rows[n:n+10];ids=[r['id'] for r in batch];bid=f'batch-{n//10+1:03d}';schema=batch_schema(ids)
@@ -72,6 +74,9 @@ def run(a):
    journal.write(json.dumps({'event':'started','batch_id':bid,'ids':ids,'started_utc':started})+'\n');journal.flush();os.fsync(journal.fileno())
    record={'batch_id':bid,'ids':ids,'batch_size':len(batch),'workflow':'batch10','requested_model':a.model,'effort':a.effort,'phase':a.phase,'cli_version':version,'policy_sha256':digest(policy),'schema_sha256':digest(json.dumps(schema,sort_keys=True)),'input_sha256':digest(payload),'request':{'system':policy,'input':json.loads(payload),'schema':schema},'started_utc':started,'auth_method':'claude.ai','extra_usage_disabled_operator_verified':True,'controller_retries':0,'cli_internal_retries':'not exposed'}
    if variant_audit is not None:record['prompt_variant']=variant_audit
+   if guard is not None:
+    from evaluate_prompt_variants import extract_claude_controls
+    guard.check_request(record['request'],ids,extract_claude_controls(record))
    try:
     with tempfile.TemporaryDirectory(prefix='recruitment-claude-batch-',dir='/private/tmp') as cwd:
      result=subprocess.run(cmd,input=payload,cwd=cwd,env=env,text=True,capture_output=True,timeout=a.timeout)
@@ -85,6 +90,9 @@ def run(a):
     record.update(status='service_error',error_type=type(exc).__name__)
     if isinstance(exc,subprocess.TimeoutExpired):record['partial_stdout']=safe_diagnostic((exc.stdout or b'').decode(errors='replace') if isinstance(exc.stdout,bytes) else exc.stdout)
    record['elapsed_seconds']=time.perf_counter()-start
+   if guard is not None:
+    record['prompt_response_admission']=guard.check_response(record)
+    if not record['prompt_response_admission']['passed']:record.update(status='service_error',error_type='PromptContextDiagnostic')
    attempts.write(json.dumps(record)+'\n');attempts.flush();os.fsync(attempts.fileno())
    predictions={r['id']:{k:v for k,v in r.items() if k!='id'} for r in record.get('prediction',{}).get('records',[])} if record['status']=='ok' else {}
    for pos,row in enumerate(batch):
@@ -93,6 +101,19 @@ def run(a):
    print(bid,record['status'],flush=True)
    if record['status']!='ok':break
 
+def run(a):
+ guard=prompt_controller.prepare(a,'claude_batch_v1',Path(__file__),ROOT)
+ error=None
+ try:return _run(a,guard)
+ except BaseException as exc:
+  error=exc;raise
+ finally:
+  if guard is not None:
+   try:guard.finish([a.output,str(a.output)+'.batches.jsonl',str(a.output)+'.attempts.jsonl'],completed=error is None)
+   except Exception as closing:
+    if error is None:raise
+    error.add_note('Prompt journal finish also failed: '+str(closing))
+
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--model',choices=tuple(SUPPORTED_BATCH_EFFORTS),default='claude-opus-5-5');p.add_argument('--effort',choices=['low','medium','high','xhigh','not_applicable'],required=True);p.add_argument('--limit',type=int,choices=[3,60],default=3);p.add_argument('--phase',choices=['smoke','development'],required=True);p.add_argument('--output',required=True);p.add_argument('--timeout',type=int,default=600);p.add_argument('--extra-usage-disabled',action='store_true');add_variant_arguments(p);run(p.parse_args())
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--model',choices=tuple(SUPPORTED_BATCH_EFFORTS),default='claude-opus-5-5');p.add_argument('--effort',choices=['low','medium','high','xhigh','not_applicable'],required=True);p.add_argument('--limit',type=int,choices=[3,60],default=3);p.add_argument('--phase',choices=['smoke','development'],required=True);p.add_argument('--output',required=True);p.add_argument('--timeout',type=int,default=600);p.add_argument('--extra-usage-disabled',action='store_true');add_variant_arguments(p);prompt_controller.add_arguments(p);run(p.parse_args())
 if __name__=='__main__':main()
