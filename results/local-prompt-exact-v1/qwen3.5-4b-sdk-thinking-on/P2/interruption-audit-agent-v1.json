@@ -1,0 +1,45 @@
+{
+  "version": "local-prompt-qwen35-on-p2-interruption-audit-v1",
+  "observed_utc": "2026-09-24T20:36:37.229324+00:00",
+  "process": {
+    "pid": 63711,
+    "session_id": 2365,
+    "pid_present": false,
+    "session_accessible": false,
+    "matching_controller_process_present": false,
+    "termination_cause": "unknown"
+  },
+  "evidence": {
+    "development_output_sha256": "97e01a84e0ba5e48873be2fd4bd4206bdd69492b9552537777e4433bde1da217",
+    "development_journal_sha256": "717ae0d61f9684750d2eecbab280f4b555e13c3dfba886d7c12f75ccdbcc5b2e",
+    "development_terminal_exists": false,
+    "gpu_lock_sha256": "3b52dbc12f308eff77f5b4b31573d39c7eb92d0273370006d51b7f47d12c2ff5",
+    "manifest_sha256": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49",
+    "preflight_sha256": "69d70e44fa78422e852e49c1922406efb2460040b52d2cb3e31e218f263dec8c",
+    "controller_sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
+  },
+  "saved": {
+    "ids": "DEV-001..DEV-018",
+    "count": 18,
+    "status_counts": {
+      "ok": 14,
+      "invalid_output": 4
+    },
+    "all_finished_events_match_saved_row_hashes": true
+  },
+  "unfinished": {
+    "id": "DEV-019",
+    "attempt_id": "6c4c49f8-46f2-4b89-8d1b-d5ed402384aa",
+    "request_sha256": "3458045d79b6f6882e988cfcfcdab3e5653bd093b914df358246113218b4f9a5",
+    "started_utc": "2026-09-24T20:20:33.143Z",
+    "outcome": "ambiguous; no finished event or saved row; request may have reached model",
+    "retry_authorized": false
+  },
+  "untouched": {
+    "ids": "DEV-020..DEV-060",
+    "count": 41,
+    "basis": "No started events; frozen serial controller fsyncs each claim before issuing a model request."
+  },
+  "continuation": "Original frozen phase cannot be restarted because output/journal exist. Any future DEV-020..060-only continuation needs a separately versioned manifest/controller/review and separate output, retaining DEV-019 ambiguous in canonical 60.",
+  "lock_policy": "Preserve lock until independent process/terminal reconciliation and explicit release evidence."
+}
