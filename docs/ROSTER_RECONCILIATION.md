@@ -1,5 +1,7 @@
 # Larger-model roster reconciliation
 
+Current routing (24 September): the local queue below is a historical proposal, superseded by the user's hosted-first instruction. Use the [paid OpenRouter registry](../results/openrouter-paid-run-registry.json) and [routing review](LOCAL_HOSTED_ROUTING_REVIEW.md) for current execution. Do not resume the cancelled DeepSeek R1 Distill download or download larger Qwen/Mistral models based on this proposal. Existing local evidence is retained; changed hosted runtimes and quantizations are separate configurations.
+
 Checked 2026-09-21 against README.md, PLAN.md, MODEL_RESEARCH.md and their available Git history through `1e8c66f`. This is a proposed execution roster, not completed inference. No weights were downloaded and no inference or paid API calls were made during this review. Keep the existing 60-record scope and three-record smoke gate.
 
 ## What was actually planned

@@ -1,5 +1,7 @@
 # Prompt experiment execution readiness
 
+Current status (24 September): this document retains the chronological preparation record. Statements below that no P1/P2 inference has started describe earlier checkpoints. Live prompt runs have since executed; see [MVP status](MVP_STATUS.md) and the [34 audited complete comparisons](../results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-four-eligible-comparisons.html). Historical preflight-only checks remain preparation evidence, not proof of later execution.
+
 Audited offline on 2026-09-23 against the [frozen protocol](PROMPT_VARIANTS.md), current adapters and run registries. No model requests, reference-label reads or prompt edits were made during this audit. This is a readiness snapshot, not permission to start phase two or a reduced experiment roster.
 
 Phase two is not ready to execute. Baseline work remains pending, and the Claude, Codex, OpenRouter paid, local HTTP, AnyJev generated-control and LM Studio SDK adapters expose frozen P0/P1/P2 selectors, with P1/P2 restricted to offline previews. The [protocol](PROMPT_VARIANTS.md#controls-and-execution) requires baseline completion or explicit scope resolution first. Blocked configurations remain open; newer hosted replacements are separate configurations, not substitutes for an existing local P0 in a prompt comparison. Paid non-GPT/Claude OpenRouter calls now have [explicit approval and a $5 total cap](OPENROUTER_COST_REVIEW.md); this does not remove the prompt experiment gates.
