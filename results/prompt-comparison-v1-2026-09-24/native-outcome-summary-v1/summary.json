@@ -1,0 +1,239 @@
+{
+  "contract": "native-outcome-coverage-v1",
+  "reference_labels_used_for_offline_scoring_only": true,
+  "inference_performed": false,
+  "strict_paired_comparison_eligible": false,
+  "limitations": [
+    "Descriptive saved-outcome coverage, not central paired protocol validation. Native extractor/audit integration remains pending.",
+    "References are provisional, authored and self-reviewed by the same assistant; these are not held-out performance estimates.",
+    "OpenJev requested-on does not establish effective reasoning.",
+    "SemIf P0 request hash records intent, not actual messages; P2 has one ambiguous unfinished record.",
+    "AnyJev generated control is generative HF output, not native AnyJev L0/L1/L2 readout."
+  ],
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "rows": [
+    {
+      "configuration_id": "anyjev-qwen06-generated-control",
+      "variant": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "invalid_output": 60
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 0,
+      "sources": [
+        {
+          "file": "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl",
+          "sha256": "0018a1e2f7db62f2d65af1fdb59ff8194f11d6af57b5d164801dcd425fe18d14"
+        }
+      ]
+    },
+    {
+      "configuration_id": "anyjev-qwen06-generated-control",
+      "variant": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "invalid_output": 60
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 0,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P1-development.jsonl",
+          "sha256": "1909242d779350d36ffec32da66459363d03e6f5ee5602e5c22123fe6545236d"
+        }
+      ]
+    },
+    {
+      "configuration_id": "anyjev-qwen06-generated-control",
+      "variant": "P2",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "invalid_output": 30,
+        "ok": 30
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 1,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl",
+          "sha256": "1b432869380647970046e3cd33c34bdc3bfb68ddaef021c52f02b53f194339c9"
+        }
+      ]
+    },
+    {
+      "configuration_id": "semif-generated-bf16",
+      "variant": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "ok": 52,
+        "invalid_output": 8
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 35,
+      "sources": [
+        {
+          "file": "results/semif-generated-bf16-2026-09-23/development.jsonl",
+          "sha256": "b32d4d78c85ccc24af4b136294db2b6679da39e8dbbcce3a744656297d468df9"
+        }
+      ]
+    },
+    {
+      "configuration_id": "semif-generated-bf16",
+      "variant": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "ok": 38,
+        "invalid_output": 22
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 26,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P1-development.jsonl",
+          "sha256": "197decf85c8e30f075cd7402c632bf136347b212941cc0808ba35fe2ace281df"
+        }
+      ]
+    },
+    {
+      "configuration_id": "semif-generated-bf16",
+      "variant": "P2",
+      "denominator": 60,
+      "saved": 59,
+      "statuses": {
+        "ok": 57,
+        "invalid_output": 2
+      },
+      "missing_ids": [
+        "DEV-033"
+      ],
+      "all_four_reference_agreement": 42,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-development.jsonl",
+          "sha256": "f07c756fce6b088fea93a01a9b91c967affe3e3f9431bbb3a5a23084f0b3ea17"
+        },
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-continuation-v1/development-DEV034-060.jsonl",
+          "sha256": "be9db222091c9b727cabf74babd691d854f5384f58505fe8b3d4022c8e73421a"
+        }
+      ]
+    },
+    {
+      "configuration_id": "openjev-generated-off",
+      "variant": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "ok": 52,
+        "invalid_output": 8
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 46,
+      "sources": [
+        {
+          "file": "results/openjev-local-generated-off-2026-09-23/development.jsonl",
+          "sha256": "e29f4f0ef76ec8d62bbd5efe0791b0e536e38b8d50bbfd0623a72fbf7572d46f"
+        }
+      ]
+    },
+    {
+      "configuration_id": "openjev-generated-off",
+      "variant": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "invalid_output": 6,
+        "ok": 54
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 49,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-development.jsonl",
+          "sha256": "8a830d9460f30a1e59715f5847d1b1fb33f8e688f9ae3ece18fbe2dcd0a04243"
+        }
+      ]
+    },
+    {
+      "configuration_id": "openjev-generated-off",
+      "variant": "P2",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "ok": 56,
+        "invalid_output": 4
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 51,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl",
+          "sha256": "b21b1f4d93f5c881ee669287cfcb28b9688af7d35497a8a78064a78b2ae38a3c"
+        }
+      ]
+    },
+    {
+      "configuration_id": "openjev-generated-on",
+      "variant": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "ok": 59,
+        "invalid_output": 1
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 53,
+      "sources": [
+        {
+          "file": "results/openjev-local-generated-on-2026-09-23/development.jsonl",
+          "sha256": "08ea1e5b3efa7551dcfc588c1524a00c1a20f08e922a04d732c8ebe6f867b05e"
+        }
+      ]
+    },
+    {
+      "configuration_id": "openjev-generated-on",
+      "variant": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "invalid_output": 10,
+        "ok": 50
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 46,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-development.jsonl",
+          "sha256": "2ff23eab29cb0a22c198d11e88549bd783f278d722374f04a6db6731ba075426"
+        }
+      ]
+    },
+    {
+      "configuration_id": "openjev-generated-on",
+      "variant": "P2",
+      "denominator": 60,
+      "saved": 60,
+      "statuses": {
+        "ok": 53,
+        "invalid_output": 7
+      },
+      "missing_ids": [],
+      "all_four_reference_agreement": 47,
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-development.jsonl",
+          "sha256": "2f3b3975b57e2ec618878d4fdc3457203bb817fe511fbbd94b9164e721639202"
+        }
+      ]
+    }
+  ]
+}
