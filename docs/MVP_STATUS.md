@@ -1,5 +1,16 @@
 # MVP completion status
 
+## 2026-09-24 public presentation and worker audit
+
+The repository is now `adambkovacs/candidate-experience-benchmark`, visibly **Candidate Experience Feedback Benchmark**. The local checkout directory remains unchanged so saved evidence and process paths stay valid. The README now explains the task, provisional references, P0/P1/P2, and measurement limits. The public exporter includes closed hosted and subscription continuations instead of showing only their earlier partial results.
+
+TypeSafe Jev has 60 valid final outcomes and 54 all-four matches. Recorded development input/output usage is 140,260 / 11,176 tokens over 60 of 61 attempts. Its development token-price estimate is $0.005890920, separate from the $0.000294294 smoke estimate; actual provider charges are unavailable. The development request sum is 131.8829 seconds, including a 30.7416-second failed attempt. Median request duration across 61 attempts is 1.3160 seconds; the median across 60 reconciled records is 1.4339 seconds. These bases are explicitly distinguished in the public export.
+
+The worker handoff audit found both previously live workers absent. The cause is unconfirmed. Qwen3.5 4B thinking-on P2 has 18 finished records (14 valid, four invalid), an ambiguous claim for DEV-019, and untouched DEV-020–060. Qwen3 8B hosted thinking-on P2 has 26 finished records, an ambiguous claim for DEV-027, and untouched DEV-028–060. Original evidence remains unchanged. Never-sent suffixes require separately bound continuation plans; ambiguous records are not silently replayed.
+
+The interrupted hosted child is sealed: $0.034612370 known observed charges plus a $0.017199104 unknown-charge bound. The shared OpenRouter ledger accounts for $2.36554370550 after reconciliation, including earlier unknown-charge bounds; this is not an assertion of actual spending. The authorized cap remains $10. The local GPU lock remains pending explicit recovery review. Neither interrupted worker should be described as running.
+
+
 Status snapshot: 24 September 2026. This separates the original 60-record development benchmark from the later prompt-sensitivity experiment. No remaining 340 records have been generated.
 
 ## Original benchmark
