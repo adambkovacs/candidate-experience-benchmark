@@ -14,7 +14,7 @@ Outstanding configurations and decisions:
 | --- | --- |
 | Gemini Flash 3.6 high | Partial service-error run. Any continuation must preserve the existing attempts and explicitly identify its recovery policy. |
 | Gemini Flash 3.8 low, medium, high | Partial native CLI runs attempted external tools; headless permission denied those calls. Verify effective tool disablement before treating a future run as an isolated classification comparison. |
-| Mistral Small 4 119B none/high | Smoke requests met upstream rate limits. A serving endpoint must recover before new inference can complete these rows. |
+| Mistral Small 4 119B none/high | Smoke requests met upstream rate limits. The [fresh metadata audit](../results/mistral119-recovery-audit-2026-09-24.json) confirms the exact Mistral endpoint is still listed. A separate bounded smoke recovery is being prepared; metadata availability alone does not prove successful inference. |
 | DeepSeek R1 Distill Qwen 32B | Exact hosted checkpoint had no available endpoint. Local download was stopped at the user's direction. Other DeepSeek checkpoints are separate configurations, not replacements. |
 
 Original malformed JSON, copied schemas and other intrinsic model failures are benchmark outcomes. They do not require repeated attempts until valid. Legacy strict-length Laya rows, replaced hosted endpoints, free-provider failures and tool-restricted Gemini rows must retain their individual history without being counted as additional fresh work after an explicitly separate successful configuration.
@@ -40,7 +40,7 @@ The [ten hosted continuations](../results/hosted-unattempted-continuation-v2/REA
 
 The [Qwen 0.6B prompt comparison](../results/qwen06-prompt-exact-v1/COMPARISON_SUMMARY.md) completed all four SDK conditions. Thinking-on P1/P2 returned 50/58 valid outputs; thinking-off P1/P2 returned 4/2. Fenced JSON remains invalid under the frozen protocol. Nine exact local-only configurations still need their 18 prompt conditions; the [inventory](../results/qwen06-prompt-exact-v1/REMAINING_LOCAL_INVENTORY.md) identifies each.
 
-After sealing the ten hosted continuations, known OpenRouter charges total $0.89999268750, with $0.950427648 retained as conservative unknown-charge bounds. The accounted total is $1.85042033550, leaving $8.14957966450 under the approved $10 cap before allocating the next three bounded continuations. Unknown bounds are not asserted actual spending. After the next three continuations were sealed, known charges reached $0.95065010750 and unknown-charge bounds $0.984014848, leaving $8.06533504450 under the cap. The [master ledger](../results/openrouter-paid-budget.jsonl) remains authoritative; TypeSafe's separate $1 approval is excluded.
+After the final five-record continuation was sealed, known OpenRouter charges total $0.95620250750, with $0.984014848 retained as conservative unknown-charge bounds. The accounted total is $1.94021735550, leaving $8.05978264450 under the approved $10 cap. No partitions or request reservations remain active at this checkpoint. Unknown bounds are not actual spending. The [master ledger](../results/openrouter-paid-budget.jsonl) remains authoritative; TypeSafe's separate $1 approval is excluded.
 
 The separate [public explorer](../public-site/index.html) presents saved findings, metric explanations and observed runtime/token/cost information without operational queue or budget details. [Publishing notes](PUBLIC_EXPLORER.md) describe its isolated static export.
 
