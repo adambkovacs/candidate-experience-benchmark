@@ -4,7 +4,7 @@ A reproducible case study of candidate-experience feedback triage across TypeSaf
 
 **Status: development comparison in progress on the existing 60 fictional records only. Completed runs include Claude and Codex effort sweeps, Gemini Pro and some Flash efforts, hosted Jev/Qwen/Gemma/DeepSeek/Mistral24, local Qwen/Gemma, OpenJev, SemIf, Laya English/typed, AlexWortega NLI and AnyJev configurations. Other baseline configurations and the prompt experiments remain open. The remaining 340 records are ungenerated.**
 
-The latest [prompt-comparison report](results/prompt-comparison-v1-2026-09-24/paired-reports/twenty-seven-comparisons.html) covers 27 audited configurations. See [MVP status](docs/MVP_STATUS.md) for remaining work and [harness research](docs/HARNESS_RESEARCH.md) for the proposed larger-run tooling.
+The latest [prompt-comparison report](results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-one-eligible-comparisons.html) covers 27 audited configurations. See [MVP status](docs/MVP_STATUS.md) for remaining work and [harness research](docs/HARNESS_RESEARCH.md) for the proposed larger-run tooling.
 
 See the [current comparison](results/comparison/REPORT.md), [failure explorer](results/comparison/explorer.html), and [MVP run notes](docs/RUN_MVP.md). Labels remain provisional AI references; this is not a held-out ranking.
 

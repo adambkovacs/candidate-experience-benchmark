@@ -1,0 +1,59 @@
+{
+  "stage": "development",
+  "admitted": true,
+  "configuration_id": "codex-gpt-5.6-terra-high",
+  "condition": "P1",
+  "observational": true,
+  "fully_verified_controls": false,
+  "prospective_rendered_tokens": null,
+  "output_reserve_tokens": null,
+  "runtime_transition": {
+    "from": "codex-cli 0.155.0-alpha.16",
+    "to": "codex-cli 0.155.0-alpha.16.3",
+    "authorization": "user_2026-09-24_cli_change_move_forward",
+    "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change."
+  },
+  "unknown_reason": "Subscription provider scaffold and exact prospective rendered token count are not exposed; observational comparison only.",
+  "request_bytes": [
+    11836,
+    13292,
+    13430,
+    13378,
+    13422,
+    13295,
+    13461
+  ],
+  "manifest_sha256": "254fe94afb4ba0501328410b16f9c30da8aef67bebade348c73759b5f9f6b140",
+  "reference_labels_read": false,
+  "limitations": [
+    "Client bytes are not a token bound; hidden provider rendering is unknown.",
+    "Controller must enforce frozen schedule and transmit the bound request bytes."
+  ],
+  "smoke_verification": {
+    "extractor": "codex_batch_v1",
+    "verified": true,
+    "attempts": 1,
+    "records": 3,
+    "raw_sha256": "91981da446319433e98e4ca3ef710baf76f6bfb5a85bae3f0a5138455d0c9e66",
+    "predictions_sha256": "77c67dd5fd469b0dad9d27db099f1c10e01657fc26d424268c10c09754a7f6af",
+    "limitations": "Requested model and saved CLI command are verified; returned model revision and hidden scaffold are not exposed."
+  },
+  "response_diagnostics": [
+    {
+      "passed": true,
+      "blockers": [],
+      "observed_input_tokens": [
+        9593,
+        9593
+      ],
+      "observational": true,
+      "fully_verified_controls": false
+    }
+  ],
+  "live_runtime": "codex-cli 0.155.0-alpha.16.3",
+  "execution_manifest_sha256": "eb9a31e68820c399cc6cbf93e9e1a304e91970848a477106a4904916f8c5d8b3",
+  "smoke_supplement": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-high/P1/smoke-supplement.json",
+    "sha256": "9d1b6624310d0a1f3c2324ba6fa7974e621dfeb0e46dff1da025907781ca6cc4"
+  }
+}
