@@ -18,13 +18,17 @@ class Qwen36RecoveryTest(unittest.TestCase):
                 for mode, variant in recovery.ORDER]
 
     def test_four_input_only_plans_match_frozen_smoke(self):
-        for path in self.plans():
-            with self.subTest(path=path.name):
+        for original in self.plans():
+            with self.subTest(path=original.name), tempfile.TemporaryDirectory(dir=recovery.RESULT) as directory:
+                folder = Path(directory)
+                plan = json.loads(original.read_text())
+                plan['new_output'] = str((folder / 'fresh-smoke.jsonl').relative_to(ROOT))
+                path = folder / 'plan.json'
+                path.write_text(json.dumps(plan))
                 result = recovery.verify(path, recovery.sha(path))
                 self.assertEqual(result['requests'], 3)
                 self.assertEqual(result['three_call_bound_usd'], '0.0897024')
                 self.assertEqual(result['proposed_partition_cap_usd'], '0.09')
-                plan = json.loads(path.read_text())
                 self.assertTrue(plan['offline_only'])
                 self.assertFalse(plan['reference_labels_read'])
                 self.assertFalse(plan['inference_performed'])
@@ -69,10 +73,13 @@ class Qwen36RecoveryTest(unittest.TestCase):
                 recovery.verify(path, recovery.sha(path))
 
     def test_exact_review_and_partition_are_required_before_key_access(self):
-        plan_path = self.plans()[0]
-        plan_sha = recovery.sha(plan_path)
         with tempfile.TemporaryDirectory(dir=recovery.RESULT) as directory:
             folder = Path(directory)
+            plan = json.loads(self.plans()[0].read_text())
+            plan['new_output'] = str((folder / 'fresh-smoke.jsonl').relative_to(ROOT))
+            plan_path = folder / 'plan.json'
+            plan_path.write_text(json.dumps(plan))
+            plan_sha = recovery.sha(plan_path)
             budget = folder / 'budget.json'
             review = folder / 'review.json'
             entry = {'id': 'qwen36-on-p1-recovery', 'model': recovery.MODEL,
