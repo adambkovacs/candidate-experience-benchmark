@@ -1,0 +1,55 @@
+{
+  "contract": "qwen36-prompt-recovery-smoke-v1",
+  "offline_only": true,
+  "inference_performed": false,
+  "reference_labels_read": false,
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-on",
+  "reasoning": "on",
+  "condition": "P2",
+  "phase": "smoke3",
+  "record_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "recovery_order": [
+    "on/P1",
+    "on/P2",
+    "off/P2",
+    "off/P1"
+  ],
+  "original_timing_preserved": false,
+  "timing_note": "New sequential recovery occurs after the original stopped schedule; original counterbalanced timing is not recovered.",
+  "sources": {
+    "frozen_execution": {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+      "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+    },
+    "route_audit": {
+      "file": "results/hosted-qwen-recovery-route-audit-2026-09-24.json",
+      "sha256": "eac54a65bd3215faae9523ba4ab0a85dadabd7cfdc1848e6ee55e7f7e13f750c"
+    },
+    "provider_block": {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen36-35b-a3b-on/provider-block.json",
+      "sha256": "710f4b313801712b677d655b78ac01a5d587750b9702a15805d4368dd55bb2ba"
+    }
+  },
+  "requests": [
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-00.json",
+      "sha256": "f2476c76e9291555b373dd08d0ec2869aa51816e8624feaaf323bbde7841f3c8"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-01.json",
+      "sha256": "e6773a9ae3337448163cfb7a810d423fd2395048dc5996661b33c0898bc743e0"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-02.json",
+      "sha256": "de6ccfd5cf07deb58996af2c468d8fd3fefa961f7f42ba1cb41385efd9c4d81c"
+    }
+  ],
+  "per_call_reserve_usd": "0.0299008",
+  "three_call_bound_usd": "0.0897024",
+  "proposed_partition_cap_usd": "0.09",
+  "new_output": "results/qwen36-prompt-recovery-v1/on-p2-smoke.jsonl"
+}

@@ -1,0 +1,59 @@
+{
+  "contract": "qwen36-prompt-recovery-smoke-v1",
+  "offline_only": true,
+  "inference_performed": false,
+  "reference_labels_read": false,
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-off",
+  "reasoning": "off",
+  "condition": "P2",
+  "phase": "smoke3",
+  "record_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "recovery_order": [
+    "on/P1",
+    "on/P2",
+    "off/P2",
+    "off/P1"
+  ],
+  "original_timing_preserved": false,
+  "timing_note": "New sequential recovery occurs after the original stopped schedule; original counterbalanced timing is not recovered.",
+  "sources": {
+    "frozen_execution": {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+      "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+    },
+    "route_audit": {
+      "file": "results/hosted-qwen-recovery-route-audit-2026-09-24.json",
+      "sha256": "eac54a65bd3215faae9523ba4ab0a85dadabd7cfdc1848e6ee55e7f7e13f750c"
+    },
+    "provider_block": {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen36-35b-a3b-off/provider-block.json",
+      "sha256": "9a1bccb8c8d847e545e083a460dd4bf9ef44ceb9cfef27b7ac08ef53b13612ec"
+    },
+    "historical_log": {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen36-35b-a3b-off/P2/pre-inference-controller.log",
+      "sha256": "06c2fd7c0e1851fce18d96acfe1e9fe698b7fefd438e5c7aa1c7834616d2e33c"
+    }
+  },
+  "requests": [
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-off/P2/request-00.json",
+      "sha256": "e43fb3f7a033c350742f811c1f4bbba452567e952df9b591143b011338724c01"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-off/P2/request-01.json",
+      "sha256": "5384c43f290c2abc904733c9ac060150cc3cd10d98152c64b715f0472f1ed005"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-off/P2/request-02.json",
+      "sha256": "9faa5551285716dcd2f1f0159337086b97c6681d818b2d101d28143c0ba54d28"
+    }
+  ],
+  "per_call_reserve_usd": "0.0299008",
+  "three_call_bound_usd": "0.0897024",
+  "proposed_partition_cap_usd": "0.09",
+  "new_output": "results/qwen36-prompt-recovery-v1/off-p2-smoke.jsonl"
+}

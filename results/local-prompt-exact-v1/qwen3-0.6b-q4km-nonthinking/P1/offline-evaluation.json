@@ -1,0 +1,282 @@
+{
+  "version": "local-prompt-offline-evaluation-v1",
+  "configuration": "qwen3-0.6b-q4km-nonthinking",
+  "variant": "P1",
+  "phase": "development",
+  "reference_status": "AI-reviewed provisional; development only",
+  "source_sha256": {
+    "development_output": "31c1c2efe71f32b6093d673d670ac39e3fb9887ad06f46e0208f6b765caba5a7",
+    "development_journal": "1863917d544fc31049604df19b3a6e3a0bbad948c74d7376121ebf6bbdad2062",
+    "development_terminal": "3c273434fed0ed174de32a6cbab05ce03cf530a88d103247faf77621fa152624",
+    "smoke_output": "c751c075bb055701acfffb40c5582e87b67cabe14ace05b2fbbf8dbf6070f31e",
+    "smoke_terminal": "4327b28361b62c3772783e2c2d8fbc834af8ce68576fe7e456056a539618c502",
+    "smoke_inspection": "e91eec8f099d799ce2c918952defc87b0a6b7b9c3baa3d0a09ce6e6ea4b65e4a",
+    "manifest": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49",
+    "preflight": "69d70e44fa78422e852e49c1922406efb2460040b52d2cb3e31e218f263dec8c",
+    "controller": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd",
+    "provisional_references": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "pairs": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da",
+    "scorer": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d",
+    "conversion_helper": "2ddf907c37ccdc67e80de134d2fb28cad81456a111fa78a82959ea4398542866"
+  },
+  "coverage": {
+    "denominator": 60,
+    "saved_rows": 60,
+    "valid_outputs": 60,
+    "invalid_outputs": 0,
+    "all_four_correct": 0
+  },
+  "resource": {
+    "surface": "local_http",
+    "cost_usd": null,
+    "cost_note": "Local execution; API billing not applicable. Device electricity and amortization unmeasured.",
+    "elapsed_prediction_seconds_sum": 20.264577126999995,
+    "elapsed_prediction_seconds_median": 0.31442581299999983,
+    "elapsed_prediction_seconds_p95_nearest_rank": 0.47817616700000054,
+    "elapsed_prediction_seconds_max": 0.5588969999999972,
+    "prompt_tokens_observed_sum": 93630,
+    "completion_tokens_observed_sum": 2532,
+    "usage_missing_record_ids": [],
+    "cache_tokens_observed": null,
+    "cache_note": "Native local responses did not provide a comparable cache-token count.",
+    "runtime_attestation": {
+      "cli_commit": "efce996",
+      "selected_engine": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+      "lm_studio_version": "0.4.16+2",
+      "loaded_model_line": "recruitment-qwen3-0.6b-q4km          qwen3-0.6b                           IDLE      484.22 MB    8192       1           Local",
+      "hardware": {
+        "model_identifier": "Mac16,5",
+        "chip": "Apple M4 Max",
+        "architecture": "arm64"
+      },
+      "artifact_sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+      "surface": "local_http"
+    },
+    "timeout_ms": 120000
+  },
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 60,
+    "missing_or_failed": [],
+    "metrics": {
+      "sentiment": {
+        "correct": 43,
+        "denominator": 60,
+        "accuracy": 0.7166666666666667,
+        "macro_f1": 0.43925925925925924,
+        "per_label": {
+          "positive": {
+            "tp": 10,
+            "fp": 6,
+            "fn": 1,
+            "precision": 0.625,
+            "recall": 0.9090909090909091,
+            "f1": 0.7407407407407407
+          },
+          "negative": {
+            "tp": 30,
+            "fp": 11,
+            "fn": 1,
+            "precision": 0.7317073170731707,
+            "recall": 0.967741935483871,
+            "f1": 0.8333333333333334
+          },
+          "mixed": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 6,
+            "precision": 1.0,
+            "recall": 0.25,
+            "f1": 0.4
+          },
+          "neutral": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 7,
+            "precision": 1.0,
+            "recall": 0.125,
+            "f1": 0.2222222222222222
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 43,
+        "denominator": 60,
+        "accuracy": 0.7166666666666667,
+        "macro_f1": 0.6986373165618449,
+        "per_label": {
+          "yes": {
+            "tp": 18,
+            "fp": 0,
+            "fn": 17,
+            "precision": 1.0,
+            "recall": 0.5142857142857142,
+            "f1": 0.6792452830188679
+          },
+          "no": {
+            "tp": 24,
+            "fp": 16,
+            "fn": 0,
+            "precision": 0.6,
+            "recall": 1.0,
+            "f1": 0.75
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 11,
+        "denominator": 60,
+        "accuracy": 0.18333333333333332,
+        "macro_f1": 0.19814814814814816,
+        "per_label": {
+          "yes": {
+            "tp": 8,
+            "fp": 3,
+            "fn": 17,
+            "precision": 0.7272727272727273,
+            "recall": 0.32,
+            "f1": 0.4444444444444444
+          },
+          "no": {
+            "tp": 0,
+            "fp": 15,
+            "fn": 29,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "insufficient_information": {
+            "tp": 3,
+            "fp": 31,
+            "fn": 3,
+            "precision": 0.08823529411764706,
+            "recall": 0.5,
+            "f1": 0.15
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 11,
+        "denominator": 60,
+        "accuracy": 0.18333333333333332,
+        "macro_f1": 0.11519326444699579,
+        "per_label": {
+          "yes": {
+            "tp": 9,
+            "fp": 49,
+            "fn": 0,
+            "precision": 0.15517241379310345,
+            "recall": 1.0,
+            "f1": 0.26865671641791045
+          },
+          "no": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 48,
+            "precision": 1.0,
+            "recall": 0.04,
+            "f1": 0.07692307692307693
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [
+        "DEV-009",
+        "DEV-025",
+        "DEV-031",
+        "DEV-032",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-050",
+        "DEV-051",
+        "DEV-056"
+      ],
+      "predicted_insufficient": [
+        "DEV-011",
+        "DEV-047",
+        "DEV-054"
+      ],
+      "output_failed_or_missing": [],
+      "false_escalations": [
+        "DEV-055"
+      ]
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": false,
+        "both_fully_correct": false
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": false,
+        "both_fully_correct": false
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      }
+    ]
+  },
+  "computed_utc": "2026-09-24T19:52:27.088059+00:00"
+}

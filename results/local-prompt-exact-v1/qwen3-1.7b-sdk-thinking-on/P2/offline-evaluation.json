@@ -1,0 +1,273 @@
+{
+  "version": "local-prompt-offline-evaluation-v1",
+  "configuration": "qwen3-1.7b-sdk-thinking-on",
+  "variant": "P2",
+  "phase": "development",
+  "reference_status": "AI-reviewed provisional; development only",
+  "source_sha256": {
+    "development_output": "4822151d84f2259cccfcd00f56fd72f8f4c01b55363f02b49886669eed01c1e7",
+    "development_journal": "6be89d18a2ca7b565d33cfebac11859602aac29c042f3a587dc633009409c3d9",
+    "development_terminal": "d304925a63ddfc2ac239b1dfc3195ad766c71d48c59aadbd0f18e6fb979f10f4",
+    "smoke_output": "12dcb9d3dbcab856957019dcbba7a1cbcc13806860820ab82923a0bf9fadd3f9",
+    "smoke_terminal": "f5d0e091e92e4c73996d1d91ee1a9316e731b099724d00c3086b1acfc22433d6",
+    "smoke_inspection": "b4757c156d51165d42335a35eafcaea1309b5762aae6aeecf798e3a8e675574f",
+    "manifest": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49",
+    "preflight": "69d70e44fa78422e852e49c1922406efb2460040b52d2cb3e31e218f263dec8c",
+    "controller": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd",
+    "provisional_references": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "pairs": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da",
+    "scorer": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d",
+    "conversion_helper": "2ddf907c37ccdc67e80de134d2fb28cad81456a111fa78a82959ea4398542866"
+  },
+  "coverage": {
+    "denominator": 60,
+    "saved_rows": 60,
+    "valid_outputs": 59,
+    "invalid_outputs": 1,
+    "all_four_correct": 8
+  },
+  "resource": {
+    "surface": "lmstudio_sdk",
+    "cost_usd": null,
+    "cost_note": "Local execution; API billing not applicable. Device electricity and amortization unmeasured.",
+    "elapsed_prediction_seconds_sum": 314.5754208719999,
+    "elapsed_prediction_seconds_median": 4.9238327499999865,
+    "elapsed_prediction_seconds_p95_nearest_rank": 8.587297958000002,
+    "elapsed_prediction_seconds_max": 14.139600665999984,
+    "prompt_tokens_observed_sum": 157770,
+    "completion_tokens_observed_sum": 21930,
+    "usage_missing_record_ids": [],
+    "cache_tokens_observed": null,
+    "cache_note": "Native local responses did not provide a comparable cache-token count.",
+    "runtime_attestation": {
+      "cli_commit": "efce996",
+      "selected_engine": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+      "lm_studio_version": "0.4.16+2",
+      "loaded_model_line": "recruitment-qwen3-1.7b-q4km          qwen3-1.7b                           IDLE      1.28 GB      8192       1           Local",
+      "hardware": {
+        "model_identifier": "Mac16,5",
+        "chip": "Apple M4 Max",
+        "architecture": "arm64"
+      },
+      "artifact_sha256": "e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e",
+      "surface": "lmstudio_sdk"
+    },
+    "timeout_ms": 600000
+  },
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 59,
+    "missing_or_failed": [
+      "DEV-003"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 41,
+        "denominator": 60,
+        "accuracy": 0.6833333333333333,
+        "macro_f1": 0.5502064703403717,
+        "per_label": {
+          "positive": {
+            "tp": 7,
+            "fp": 2,
+            "fn": 4,
+            "precision": 0.7777777777777778,
+            "recall": 0.6363636363636364,
+            "f1": 0.7
+          },
+          "negative": {
+            "tp": 22,
+            "fp": 0,
+            "fn": 9,
+            "precision": 1.0,
+            "recall": 0.7096774193548387,
+            "f1": 0.8301886792452831
+          },
+          "mixed": {
+            "tp": 7,
+            "fp": 16,
+            "fn": 1,
+            "precision": 0.30434782608695654,
+            "recall": 0.875,
+            "f1": 0.45161290322580644
+          },
+          "neutral": {
+            "tp": 5,
+            "fp": 0,
+            "fn": 3,
+            "precision": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 52,
+        "denominator": 60,
+        "accuracy": 0.8666666666666667,
+        "macro_f1": 0.5879365079365079,
+        "per_label": {
+          "yes": {
+            "tp": 34,
+            "fp": 6,
+            "fn": 1,
+            "precision": 0.85,
+            "recall": 0.9714285714285714,
+            "f1": 0.9066666666666666
+          },
+          "no": {
+            "tp": 18,
+            "fp": 0,
+            "fn": 6,
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 40,
+        "denominator": 60,
+        "accuracy": 0.6666666666666666,
+        "macro_f1": 0.548446455505279,
+        "per_label": {
+          "yes": {
+            "tp": 21,
+            "fp": 6,
+            "fn": 4,
+            "precision": 0.7777777777777778,
+            "recall": 0.84,
+            "f1": 0.8076923076923077
+          },
+          "no": {
+            "tp": 18,
+            "fp": 3,
+            "fn": 11,
+            "precision": 0.8571428571428571,
+            "recall": 0.6206896551724138,
+            "f1": 0.72
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 10,
+            "fn": 5,
+            "precision": 0.09090909090909091,
+            "recall": 0.16666666666666666,
+            "f1": 0.11764705882352941
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 14,
+        "denominator": 60,
+        "accuracy": 0.23333333333333334,
+        "macro_f1": 0.15896671634376552,
+        "per_label": {
+          "yes": {
+            "tp": 9,
+            "fp": 43,
+            "fn": 0,
+            "precision": 0.17307692307692307,
+            "recall": 1.0,
+            "f1": 0.29508196721311475
+          },
+          "no": {
+            "tp": 5,
+            "fp": 0,
+            "fn": 45,
+            "precision": 1.0,
+            "recall": 0.1,
+            "f1": 0.18181818181818182
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [
+        "DEV-008"
+      ],
+      "predicted_insufficient": [
+        "DEV-054",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "output_failed_or_missing": [],
+      "false_escalations": [
+        "DEV-013",
+        "DEV-015",
+        "DEV-033"
+      ]
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": false,
+        "both_fully_correct": false
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      }
+    ]
+  },
+  "computed_utc": "2026-09-24T19:52:27.113316+00:00"
+}
