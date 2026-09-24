@@ -1,0 +1,5619 @@
+{
+  "configuration": "anyjev-qwen06-cached-score-l1-cv5",
+  "score_file_sha256": "fba96b08c10f8d85b2ab7e510902689dee302369f33e4f91baf152102cb524a1",
+  "input_file_sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+  "reference_file_sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+  "source_revision": "3cd8c6fcd9e90fc04214575ade6779da1e3f3704",
+  "upstream_posthoc_sha256": "c9db419a4273c91c4bb8259a0de5b10475d34e98dba2614b2ddc27242f8df267",
+  "runner_sha256": "fa72e69a4c31110970ab9a88604439ca1da2636e63b05fde218668617d011278",
+  "runtime": {
+    "python": "3.14.6",
+    "numpy": "2.4.2",
+    "scipy": "1.17.1"
+  },
+  "fold_count": 5,
+  "held_out_per_fold": 12,
+  "training_per_fold": 48,
+  "missing_class_policy": "Keep all five frozen folds and all fixed option indices; fit the pinned TemperatureScaler on the 48 training labels even if a class has zero training support. Report support; do not alter folds, drop classes, relabel, or add pseudocounts.",
+  "reference_status": "AI-reviewed provisional; development only",
+  "limitation": "Exploratory cross-validation; 48 labels per fit below upstream recommended 100-500; not a deployable calibration artifact",
+  "temperatures": [
+    {
+      "fold": 1,
+      "question": "sentiment",
+      "temperature": 0.44763105686678684,
+      "n_calib": 48,
+      "train_class_support": {
+        "positive": 8,
+        "negative": 24,
+        "mixed": 8,
+        "neutral": 6,
+        "insufficient_information": 2
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-020",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-028",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-002",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-026",
+        "DEV-027",
+        "DEV-030",
+        "DEV-048",
+        "DEV-049",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056"
+      ]
+    },
+    {
+      "fold": 1,
+      "question": "follow_up_needed",
+      "temperature": 20.085536923170256,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 27,
+        "no": 20,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-020",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-028",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-002",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-026",
+        "DEV-027",
+        "DEV-030",
+        "DEV-048",
+        "DEV-049",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056"
+      ]
+    },
+    {
+      "fold": 1,
+      "question": "serious_concern_reported",
+      "temperature": 0.2519016788572526,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 22,
+        "no": 23,
+        "insufficient_information": 3
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-020",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-028",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-002",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-026",
+        "DEV-027",
+        "DEV-030",
+        "DEV-048",
+        "DEV-049",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056"
+      ]
+    },
+    {
+      "fold": 1,
+      "question": "testimonial_potential",
+      "temperature": 0.28812346043570775,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 7,
+        "no": 40,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-020",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-028",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-002",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-026",
+        "DEV-027",
+        "DEV-030",
+        "DEV-048",
+        "DEV-049",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056"
+      ]
+    },
+    {
+      "fold": 2,
+      "question": "sentiment",
+      "temperature": 0.5458018308070621,
+      "n_calib": 48,
+      "train_class_support": {
+        "positive": 8,
+        "negative": 24,
+        "mixed": 8,
+        "neutral": 6,
+        "insufficient_information": 2
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-038",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-046",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "test_ids": [
+        "DEV-006",
+        "DEV-012",
+        "DEV-024",
+        "DEV-028",
+        "DEV-037",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-047",
+        "DEV-053",
+        "DEV-060"
+      ]
+    },
+    {
+      "fold": 2,
+      "question": "follow_up_needed",
+      "temperature": 20.085536923170256,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 28,
+        "no": 19,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-038",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-046",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "test_ids": [
+        "DEV-006",
+        "DEV-012",
+        "DEV-024",
+        "DEV-028",
+        "DEV-037",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-047",
+        "DEV-053",
+        "DEV-060"
+      ]
+    },
+    {
+      "fold": 2,
+      "question": "serious_concern_reported",
+      "temperature": 0.40548905745372393,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 20,
+        "no": 24,
+        "insufficient_information": 4
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-038",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-046",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "test_ids": [
+        "DEV-006",
+        "DEV-012",
+        "DEV-024",
+        "DEV-028",
+        "DEV-037",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-047",
+        "DEV-053",
+        "DEV-060"
+      ]
+    },
+    {
+      "fold": 2,
+      "question": "testimonial_potential",
+      "temperature": 0.21141063721172498,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 7,
+        "no": 40,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-038",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-046",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "test_ids": [
+        "DEV-006",
+        "DEV-012",
+        "DEV-024",
+        "DEV-028",
+        "DEV-037",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-047",
+        "DEV-053",
+        "DEV-060"
+      ]
+    },
+    {
+      "fold": 3,
+      "question": "sentiment",
+      "temperature": 0.4278664046050091,
+      "n_calib": 48,
+      "train_class_support": {
+        "positive": 10,
+        "negative": 26,
+        "mixed": 3,
+        "neutral": 8,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-005",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-015",
+        "DEV-019",
+        "DEV-020",
+        "DEV-031",
+        "DEV-032",
+        "DEV-036",
+        "DEV-046",
+        "DEV-059"
+      ]
+    },
+    {
+      "fold": 3,
+      "question": "follow_up_needed",
+      "temperature": 20.085536923170256,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 27,
+        "no": 20,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-005",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-015",
+        "DEV-019",
+        "DEV-020",
+        "DEV-031",
+        "DEV-032",
+        "DEV-036",
+        "DEV-046",
+        "DEV-059"
+      ]
+    },
+    {
+      "fold": 3,
+      "question": "serious_concern_reported",
+      "temperature": 0.35468044650965314,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 18,
+        "no": 24,
+        "insufficient_information": 6
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-005",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-015",
+        "DEV-019",
+        "DEV-020",
+        "DEV-031",
+        "DEV-032",
+        "DEV-036",
+        "DEV-046",
+        "DEV-059"
+      ]
+    },
+    {
+      "fold": 3,
+      "question": "testimonial_potential",
+      "temperature": 0.27603717541576905,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 8,
+        "no": 39,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-005",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-015",
+        "DEV-019",
+        "DEV-020",
+        "DEV-031",
+        "DEV-032",
+        "DEV-036",
+        "DEV-046",
+        "DEV-059"
+      ]
+    },
+    {
+      "fold": 4,
+      "question": "sentiment",
+      "temperature": 0.43763722002161276,
+      "n_calib": 48,
+      "train_class_support": {
+        "positive": 9,
+        "negative": 25,
+        "mixed": 7,
+        "neutral": 6,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-005",
+        "DEV-006",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-016",
+        "DEV-017",
+        "DEV-025",
+        "DEV-029",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-052",
+        "DEV-057"
+      ]
+    },
+    {
+      "fold": 4,
+      "question": "follow_up_needed",
+      "temperature": 20.085536923170256,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 29,
+        "no": 19,
+        "insufficient_information": 0
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-005",
+        "DEV-006",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-016",
+        "DEV-017",
+        "DEV-025",
+        "DEV-029",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-052",
+        "DEV-057"
+      ]
+    },
+    {
+      "fold": 4,
+      "question": "serious_concern_reported",
+      "temperature": 0.42168861163824944,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 23,
+        "no": 20,
+        "insufficient_information": 5
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-005",
+        "DEV-006",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-016",
+        "DEV-017",
+        "DEV-025",
+        "DEV-029",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-052",
+        "DEV-057"
+      ]
+    },
+    {
+      "fold": 4,
+      "question": "testimonial_potential",
+      "temperature": 0.2336467795150097,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 7,
+        "no": 41,
+        "insufficient_information": 0
+      },
+      "train_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-005",
+        "DEV-006",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-016",
+        "DEV-017",
+        "DEV-025",
+        "DEV-029",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-052",
+        "DEV-057"
+      ]
+    },
+    {
+      "fold": 5,
+      "question": "sentiment",
+      "temperature": 0.48428472331081424,
+      "n_calib": 48,
+      "train_class_support": {
+        "positive": 9,
+        "negative": 25,
+        "mixed": 6,
+        "neutral": 6,
+        "insufficient_information": 2
+      },
+      "train_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-001",
+        "DEV-008",
+        "DEV-013",
+        "DEV-014",
+        "DEV-023",
+        "DEV-035",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-050",
+        "DEV-051",
+        "DEV-058"
+      ]
+    },
+    {
+      "fold": 5,
+      "question": "follow_up_needed",
+      "temperature": 20.085536923170256,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 29,
+        "no": 18,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-001",
+        "DEV-008",
+        "DEV-013",
+        "DEV-014",
+        "DEV-023",
+        "DEV-035",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-050",
+        "DEV-051",
+        "DEV-058"
+      ]
+    },
+    {
+      "fold": 5,
+      "question": "serious_concern_reported",
+      "temperature": 0.37020837090063047,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 17,
+        "no": 25,
+        "insufficient_information": 6
+      },
+      "train_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-001",
+        "DEV-008",
+        "DEV-013",
+        "DEV-014",
+        "DEV-023",
+        "DEV-035",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-050",
+        "DEV-051",
+        "DEV-058"
+      ]
+    },
+    {
+      "fold": 5,
+      "question": "testimonial_potential",
+      "temperature": 0.25046469884202177,
+      "n_calib": 48,
+      "train_class_support": {
+        "yes": 7,
+        "no": 40,
+        "insufficient_information": 1
+      },
+      "train_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "test_ids": [
+        "DEV-001",
+        "DEV-008",
+        "DEV-013",
+        "DEV-014",
+        "DEV-023",
+        "DEV-035",
+        "DEV-039",
+        "DEV-041",
+        "DEV-045",
+        "DEV-050",
+        "DEV-051",
+        "DEV-058"
+      ]
+    }
+  ],
+  "metrics": {
+    "sentiment": {
+      "class_support": {
+        "positive": 11,
+        "negative": 31,
+        "mixed": 8,
+        "neutral": 8,
+        "insufficient_information": 2
+      },
+      "l0": {
+        "nll": 1.2076942458449607,
+        "brier": 0.6222947030776612,
+        "ece": 0.26172273524768647,
+        "accuracy": 0.6166666666666667,
+        "correct": 37,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 10,
+            "mean_confidence": 0.27699260600319614,
+            "accuracy": 0.3
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 30,
+            "mean_confidence": 0.33518760557173877,
+            "accuracy": 0.6333333333333333
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 12,
+            "mean_confidence": 0.4369690203407201,
+            "accuracy": 0.8333333333333334
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 5,
+            "mean_confidence": 0.562607032119802,
+            "accuracy": 0.4
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 2,
+            "mean_confidence": 0.6537945650619775,
+            "accuracy": 1.0
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 1,
+            "mean_confidence": 0.7328994443411003,
+            "accuracy": 1.0
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          }
+        ]
+      },
+      "l1": {
+        "nll": 1.1220791551535005,
+        "brier": 0.5685862002429951,
+        "ece": 0.15912880796559514,
+        "accuracy": 0.6166666666666667,
+        "correct": 37,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 1,
+            "mean_confidence": 0.27083673130100017,
+            "accuracy": 0.0
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 11,
+            "mean_confidence": 0.35799231536703413,
+            "accuracy": 0.5454545454545454
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 17,
+            "mean_confidence": 0.4352179056942541,
+            "accuracy": 0.47058823529411764
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 11,
+            "mean_confidence": 0.5452592911445883,
+            "accuracy": 0.8181818181818182
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 8,
+            "mean_confidence": 0.6585526570344286,
+            "accuracy": 0.625
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 4,
+            "mean_confidence": 0.7646782011080064,
+            "accuracy": 1.0
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 5,
+            "mean_confidence": 0.8489709378714625,
+            "accuracy": 0.4
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 3,
+            "mean_confidence": 0.9477331087119466,
+            "accuracy": 1.0
+          }
+        ]
+      }
+    },
+    "follow_up_needed": {
+      "class_support": {
+        "yes": 35,
+        "no": 24,
+        "insufficient_information": 1
+      },
+      "l0": {
+        "nll": 1.1961020379273677,
+        "brier": 0.733399585765135,
+        "ece": 0.2140274216712375,
+        "accuracy": 0.21666666666666667,
+        "correct": 13,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 16,
+            "mean_confidence": 0.3835931350700586,
+            "accuracy": 0.1875
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 38,
+            "mean_confidence": 0.436740558783029,
+            "accuracy": 0.23684210526315788
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 6,
+            "mean_confidence": 0.5180023175663685,
+            "accuracy": 0.16666666666666666
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          }
+        ]
+      },
+      "l1": {
+        "nll": 1.1020025215244909,
+        "brier": 0.6689332141980725,
+        "ece": 0.12136537045840778,
+        "accuracy": 0.21666666666666667,
+        "correct": 13,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 60,
+            "mean_confidence": 0.33803203712507446,
+            "accuracy": 0.21666666666666667
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          }
+        ]
+      }
+    },
+    "serious_concern_reported": {
+      "class_support": {
+        "yes": 25,
+        "no": 29,
+        "insufficient_information": 6
+      },
+      "l0": {
+        "nll": 1.0117525138270635,
+        "brier": 0.6093490176624923,
+        "ece": 0.17416927494834603,
+        "accuracy": 0.5666666666666667,
+        "correct": 34,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 23,
+            "mean_confidence": 0.37519408427490414,
+            "accuracy": 0.5217391304347826
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 36,
+            "mean_confidence": 0.4292863732916927,
+            "accuracy": 0.6111111111111112
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 1,
+            "mean_confidence": 0.5339298737244942,
+            "accuracy": 0.0
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          }
+        ]
+      },
+      "l1": {
+        "nll": 0.995656384563516,
+        "brier": 0.5872443849105073,
+        "ece": 0.08969169923929707,
+        "accuracy": 0.5666666666666667,
+        "correct": 34,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 4,
+            "mean_confidence": 0.3858633583622103,
+            "accuracy": 0.75
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 17,
+            "mean_confidence": 0.44603350060734964,
+            "accuracy": 0.5294117647058824
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 20,
+            "mean_confidence": 0.544684306918912,
+            "accuracy": 0.55
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 15,
+            "mean_confidence": 0.6480834820919054,
+            "accuracy": 0.6666666666666666
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 2,
+            "mean_confidence": 0.7349764111231168,
+            "accuracy": 0.5
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 2,
+            "mean_confidence": 0.8262552228210978,
+            "accuracy": 0.0
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          }
+        ]
+      }
+    },
+    "testimonial_potential": {
+      "class_support": {
+        "yes": 9,
+        "no": 50,
+        "insufficient_information": 1
+      },
+      "l0": {
+        "nll": 0.8126436834088971,
+        "brier": 0.4884726477631081,
+        "ece": 0.25642175797024236,
+        "accuracy": 0.7333333333333333,
+        "correct": 44,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 1,
+            "mean_confidence": 0.3948558588032784,
+            "accuracy": 1.0
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 41,
+            "mean_confidence": 0.45399565909947903,
+            "accuracy": 0.7073170731707317
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 18,
+            "mean_confidence": 0.5336675911057522,
+            "accuracy": 0.7777777777777778
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          }
+        ]
+      },
+      "l1": {
+        "nll": 0.6280022305563939,
+        "brier": 0.3714070568472479,
+        "ece": 0.12463092208119755,
+        "accuracy": 0.7333333333333333,
+        "correct": 44,
+        "bins": [
+          {
+            "lo": 0.0,
+            "hi": 0.1,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.1,
+            "hi": 0.2,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.2,
+            "hi": 0.3,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.3,
+            "hi": 0.4,
+            "count": 0,
+            "mean_confidence": null,
+            "accuracy": null
+          },
+          {
+            "lo": 0.4,
+            "hi": 0.5,
+            "count": 2,
+            "mean_confidence": 0.49730604237039916,
+            "accuracy": 0.0
+          },
+          {
+            "lo": 0.5,
+            "hi": 0.6,
+            "count": 12,
+            "mean_confidence": 0.5658007144534792,
+            "accuracy": 0.5
+          },
+          {
+            "lo": 0.6,
+            "hi": 0.7,
+            "count": 11,
+            "mean_confidence": 0.6609200861226556,
+            "accuracy": 0.8181818181818182
+          },
+          {
+            "lo": 0.7,
+            "hi": 0.8,
+            "count": 15,
+            "mean_confidence": 0.7491090553931842,
+            "accuracy": 0.8666666666666667
+          },
+          {
+            "lo": 0.8,
+            "hi": 0.9,
+            "count": 16,
+            "mean_confidence": 0.8427879940254528,
+            "accuracy": 0.875
+          },
+          {
+            "lo": 0.9,
+            "hi": 1.0,
+            "count": 4,
+            "mean_confidence": 0.9212498373358805,
+            "accuracy": 0.5
+          }
+        ]
+      }
+    }
+  },
+  "out_of_fold_predictions": [
+    {
+      "id": "DEV-001",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.30722218980548477,
+            0.19078740612480707,
+            0.22930927815383154,
+            0.21274189635243052,
+            0.05993922956344616
+          ],
+          "l1": [
+            0.4127140205496843,
+            0.1543175321889103,
+            0.22560196760076115,
+            0.19323773877304648,
+            0.014128740887597725
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.22033980079743742,
+            0.24114386757423323,
+            0.5385163316283292
+          ],
+          "l1": [
+            0.327868991246076,
+            0.32934506831945853,
+            0.34278594043446536
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.27014172967085537,
+            0.37858727230783973,
+            0.35127099802130485
+          ],
+          "l1": [
+            0.18112292128517074,
+            0.4507100998101578,
+            0.3681669789046714
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5354165754720313,
+            0.33749347509963185,
+            0.1270899494283368
+          ],
+          "l1": [
+            0.8608680100945837,
+            0.1363698262694186,
+            0.0027621636359975677
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-002",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.6833557883773244,
+            0.09468960134711352,
+            0.1655902124063396,
+            0.04083436742727781,
+            0.015530030441944743
+          ],
+          "l1": [
+            0.9467051972812305,
+            0.011446899479963382,
+            0.03989769221682242,
+            0.0017485039435477605,
+            0.00020170707843597709
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.37657271278423426,
+            0.23976686710555176,
+            0.3836604201102139
+          ],
+          "l1": [
+            0.335716537808996,
+            0.3282551126449188,
+            0.33602834954608524
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3123564726264337,
+            0.4198839165286884,
+            0.26775961084487804
+          ],
+          "l1": [
+            0.2092620379491112,
+            0.6772136083011838,
+            0.113524353749705
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.488923266385767,
+            0.3795703286881218,
+            0.13150640492611135
+          ],
+          "l1": [
+            0.701349877806962,
+            0.29129488927972025,
+            0.007355232913317704
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-003",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.1540689072961476,
+            0.3339490540529497,
+            0.1673187113318081,
+            0.231576055887695,
+            0.11308727143139952
+          ],
+          "l1": [
+            0.09012852750927858,
+            0.527888241202988,
+            0.10882598761716833,
+            0.22869573658804032,
+            0.044461507082524755
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.41441880347075516,
+            0.24276643251463392,
+            0.342814764014611
+          ],
+          "l1": [
+            0.33734471830030194,
+            0.3284814337806259,
+            0.3341738479190723
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3216217517709901,
+            0.3659668705118127,
+            0.3124113777171972
+          ],
+          "l1": [
+            0.30378344614489045,
+            0.4126596687141382,
+            0.2835568851409714
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.30540407128089153,
+            0.4618022739664556,
+            0.23279365475265293
+          ],
+          "l1": [
+            0.13922955441991883,
+            0.8172084453136422,
+            0.04356200026643894
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-004",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.23604143056917518,
+            0.2080120242271732,
+            0.23781851653156397,
+            0.2206363330853991,
+            0.09749169558668858
+          ],
+          "l1": [
+            0.2662345101129907,
+            0.19944283679024905,
+            0.27083673130100017,
+            0.22818564059578633,
+            0.035300281199973756
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3705449964289871,
+            0.267342559992761,
+            0.36211244357825195
+          ],
+          "l1": [
+            0.33526297031146085,
+            0.32985808532920374,
+            0.33487894435933535
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3045709620884985,
+            0.4449983906343625,
+            0.250430647277139
+          ],
+          "l1": [
+            0.2447249448279394,
+            0.6014222974386121,
+            0.15385275773344856
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.36050254923428365,
+            0.4426001393460111,
+            0.19689731141970518
+          ],
+          "l1": [
+            0.2872346237275979,
+            0.6911867091963526,
+            0.02157866707604945
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-005",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.38787091950986735,
+            0.21794899143495983,
+            0.20917537928150143,
+            0.11479879720207106,
+            0.07020591257160051
+          ],
+          "l1": [
+            0.6358656688355497,
+            0.16530807615817392,
+            0.15017193180032443,
+            0.036947301231331255,
+            0.011707021974620644
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2929453014239711,
+            0.30752054371490695,
+            0.39953415486112187
+          ],
+          "l1": [
+            0.3313463664170837,
+            0.33214835207562,
+            0.3365052815072963
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.271095486841159,
+            0.4305102282451421,
+            0.29839428491369907
+          ],
+          "l1": [
+            0.16681676348501107,
+            0.6145477312906387,
+            0.21863550522435024
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4965968673137664,
+            0.38552768085223665,
+            0.117875451833997
+          ],
+          "l1": [
+            0.7116824936554513,
+            0.2844304767888351,
+            0.003887029555713647
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-006",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.06494170076522923,
+            0.3826338352488714,
+            0.17785888385515847,
+            0.16093465318418462,
+            0.2136309269465563
+          ],
+          "l1": [
+            0.02116571133393318,
+            0.5456035034583638,
+            0.13406053437902363,
+            0.11161878247214894,
+            0.18755146835653058
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.4938858262664905,
+            0.22532119190147723,
+            0.28079298183203233
+          ],
+          "l1": [
+            0.34083637858194815,
+            0.3277761036853224,
+            0.33138751773272956
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3338782162624383,
+            0.37991320766963305,
+            0.2862085760679286
+          ],
+          "l1": [
+            0.32690013891406905,
+            0.4495287275828532,
+            0.22357113350307767
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.17447999785679072,
+            0.4929024070018999,
+            0.33261759514130945
+          ],
+          "l1": [
+            0.006325196855269983,
+            0.8598752335526855,
+            0.1337995695920446
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-007",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.41960959493673794,
+            0.15805028648793396,
+            0.2262917627063015,
+            0.1338651775765898,
+            0.06218317829243702
+          ],
+          "l1": [
+            0.6956281931861783,
+            0.07471772834437554,
+            0.16966573305632038,
+            0.05112250294348932,
+            0.008865842469636342
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2580322547643548,
+            0.27087042835439284,
+            0.47109731688125234
+          ],
+          "l1": [
+            0.3297234273202016,
+            0.33052148484186267,
+            0.33975508783793573
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.330529290297186,
+            0.40878735415155526,
+            0.2606833555512588
+          ],
+          "l1": [
+            0.31010306692609313,
+            0.5132846906498197,
+            0.17661224242408718
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3495638984149113,
+            0.3948558588032784,
+            0.2555802427818103
+          ],
+          "l1": [
+            0.33941588416245744,
+            0.5717335987385926,
+            0.0888505170989498
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-008",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.30872439525370565,
+            0.25240564560035816,
+            0.21919227560710608,
+            0.16238294000056613,
+            0.057294743538264054
+          ],
+          "l1": [
+            0.4083314770281383,
+            0.2693965816498452,
+            0.20131109511594222,
+            0.1083533658682329,
+            0.012607480337841636
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2806732339917625,
+            0.320243141331961,
+            0.39908362467627645
+          ],
+          "l1": [
+            0.33065869197623937,
+            0.33283706897137233,
+            0.3365042390523882
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2978906003817315,
+            0.40043824257538535,
+            0.3016711570428833
+          ],
+          "l1": [
+            0.2348415990198742,
+            0.5221790482253067,
+            0.24297935275481908
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4242861618257096,
+            0.4229451655825898,
+            0.15276867259170063
+          ],
+          "l1": [
+            0.4989083939961968,
+            0.4926424200009646,
+            0.008449186002838553
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-009",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.1799667200490769,
+            0.2681001126111328,
+            0.15221170777174678,
+            0.2915700784816159,
+            0.10815138108642759
+          ],
+          "l1": [
+            0.131452847374511,
+            0.33369272385893417,
+            0.0888697540715717,
+            0.40600130651490207,
+            0.03998336818008109
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2698604606743052,
+            0.29534011571024665,
+            0.43479942361544804
+          ],
+          "l1": [
+            0.33019279640536814,
+            0.3316793320457478,
+            0.3381278715488841
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.37417435094919843,
+            0.30507422127478473,
+            0.3207514277760169
+          ],
+          "l1": [
+            0.4524819729608507,
+            0.25445197020840665,
+            0.2930660568307427
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.40405130105870035,
+            0.45640303304647406,
+            0.1395456658948255
+          ],
+          "l1": [
+            0.3881861564932025,
+            0.6035655098240983,
+            0.008248333682699319
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-010",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.7328994443411003,
+            0.06979742086064457,
+            0.13489665079855215,
+            0.053491188504604534,
+            0.008915295495098317
+          ],
+          "l1": [
+            0.975145855816615,
+            0.004002501971356066,
+            0.018669927635752207,
+            0.0021490868374933886,
+            3.262773878351684e-05
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.27126520079641625,
+            0.30950874982830473,
+            0.4192260493752791
+          ],
+          "l1": [
+            0.33019673589281917,
+            0.332372069853498,
+            0.33743119425368284
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.38997793472798026,
+            0.3602951105469487,
+            0.24972695472507095
+          ],
+          "l1": [
+            0.4797208082637407,
+            0.383752779468725,
+            0.13652641226753434
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5616609236322528,
+            0.3540362792644315,
+            0.08430279710331579
+          ],
+          "l1": [
+            0.8410902947427664,
+            0.1580365935993814,
+            0.0008731116578520826
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-011",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.2580209446332521,
+            0.22738152694716013,
+            0.35979744453319,
+            0.10053935568721224,
+            0.054260728199185496
+          ],
+          "l1": [
+            0.24654705127314333,
+            0.18348021595877326,
+            0.5362849513695308,
+            0.027242610473728203,
+            0.00644517092482441
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.24170879519321534,
+            0.21478187882824018,
+            0.5435093259785445
+          ],
+          "l1": [
+            0.3294562018547948,
+            0.32752455768574285,
+            0.34301924045946225
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.34853641062841173,
+            0.36488274293322787,
+            0.2865808464383604
+          ],
+          "l1": [
+            0.3684812303485434,
+            0.41931151479507767,
+            0.21220725485637898
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3077756920833998,
+            0.4851892707955012,
+            0.207035037121099
+          ],
+          "l1": [
+            0.15529776935744205,
+            0.8077729599026396,
+            0.03692927073991827
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-012",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.11812718234772776,
+            0.4117228399819219,
+            0.22235212137011137,
+            0.17316940361485814,
+            0.07462845268538074
+          ],
+          "l1": [
+            0.06066396433450104,
+            0.5976303056287644,
+            0.19329085769136786,
+            0.12226235306889836,
+            0.026152519276468122
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.29665013360572356,
+            0.26360263610334617,
+            0.43974723029093016
+          ],
+          "l1": [
+            0.3317928526263136,
+            0.3298475090252173,
+            0.338359638348469
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3221511351474766,
+            0.3516093063212541,
+            0.32623955853126935
+          ],
+          "l1": [
+            0.3055833521324461,
+            0.3791799821408546,
+            0.3152366657266994
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.37940110899780033,
+            0.4658024954427093,
+            0.15479639555949032
+          ],
+          "l1": [
+            0.2737037074814268,
+            0.722354787120076,
+            0.003941505398497114
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-013",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.350640169976364,
+            0.21775034065781146,
+            0.2252612909110656,
+            0.1668790043942922,
+            0.03946919406046672
+          ],
+          "l1": [
+            0.4995540003008078,
+            0.18678783772586743,
+            0.20033641115654843,
+            0.1078287415692413,
+            0.005493009247534881
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.315515531667057,
+            0.3047313785060143,
+            0.3797530898269286
+          ],
+          "l1": [
+            0.3324977727553422,
+            0.33192256521572616,
+            0.33557966202893175
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.31339735345918257,
+            0.4773763400490561,
+            0.2092263064917613
+          ],
+          "l1": [
+            0.22460045799813172,
+            0.6999928459653304,
+            0.07540669603653798
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4362018798558967,
+            0.40005668549867396,
+            0.16374143464542934
+          ],
+          "l1": [
+            0.578713597246312,
+            0.40971180426762804,
+            0.011574598486059831
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-014",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.2538698391471025,
+            0.20755787891567457,
+            0.2898379867063562,
+            0.1992041417783709,
+            0.04953015345249576
+          ],
+          "l1": [
+            0.2766430758402931,
+            0.18251519454459833,
+            0.3636996409694182,
+            0.16767156438469177,
+            0.009470524260998623
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3121233407547699,
+            0.22519228964192345,
+            0.4626843696033067
+          ],
+          "l1": [
+            0.33292599731305467,
+            0.3275587919799188,
+            0.33951521070702667
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.38169432295338973,
+            0.35264195648810126,
+            0.26566372055850895
+          ],
+          "l1": [
+            0.4580418053143255,
+            0.3698570118911466,
+            0.17210118279452793
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.42298324891523714,
+            0.4044387553653316,
+            0.1725779957194312
+          ],
+          "l1": [
+            0.5364793205262144,
+            0.44855517294221986,
+            0.014965506531565793
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-015",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.36492162175907067,
+            0.19023709967938424,
+            0.27927110943842476,
+            0.122387359039498,
+            0.04318281008362249
+          ],
+          "l1": [
+            0.544078397444036,
+            0.11870350831275052,
+            0.29116764860472066,
+            0.042340585809856605,
+            0.003709859828636511
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.4079131256361504,
+            0.2943031358672592,
+            0.2977837384965904
+          ],
+          "l1": [
+            0.33688937563466204,
+            0.3314582731305742,
+            0.33165235123476366
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.34341628857860335,
+            0.40739231011853383,
+            0.24919140130286285
+          ],
+          "l1": [
+            0.33073241647921425,
+            0.5353729547483288,
+            0.13389462877245706
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.31728959320890393,
+            0.4601945618494858,
+            0.22251584494161028
+          ],
+          "l1": [
+            0.19521395122070756,
+            0.7508012809242686,
+            0.053984767855023694
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-016",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.5495559554679816,
+            0.10539331614055304,
+            0.24264782703314475,
+            0.08281581413546878,
+            0.019587087222851816
+          ],
+          "l1": [
+            0.8395316718218887,
+            0.019285878736369458,
+            0.12965276692524577,
+            0.011117333995309304,
+            0.0004123485211868974
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.36790609466497143,
+            0.22468899178944474,
+            0.40740491354558384
+          ],
+          "l1": [
+            0.3354760667032346,
+            0.3273402302438351,
+            0.33718370305293033
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.31235645685935837,
+            0.4198839245320647,
+            0.267759618608577
+          ],
+          "l1": [
+            0.26948128018296164,
+            0.5435073939085433,
+            0.18701132590849492
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5611890791116456,
+            0.33930259971555377,
+            0.09950832117280056
+          ],
+          "l1": [
+            0.8955095496787736,
+            0.10394500974155718,
+            0.0005454405796692625
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-017",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.24857244271927348,
+            0.20322685491522777,
+            0.2983402710741288,
+            0.16787887877806162,
+            0.08198155251330828
+          ],
+          "l1": [
+            0.275049290946407,
+            0.17359510876424197,
+            0.41736586449323876,
+            0.11218037185658725,
+            0.021809363939524838
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.35532570504232547,
+            0.2170058576170234,
+            0.4276684373406511
+          ],
+          "l1": [
+            0.33500643488853554,
+            0.32688198840585536,
+            0.33811157670560915
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.29581818749722627,
+            0.4505992041643711,
+            0.2535826083384027
+          ],
+          "l1": [
+            0.22692505558946313,
+            0.6155962672318034,
+            0.15747867717873343
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4202628378515673,
+            0.3854383999085133,
+            0.19429876223991935
+          ],
+          "l1": [
+            0.5789047106727213,
+            0.3997844389859179,
+            0.02131085034136073
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-018",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.1168328922875293,
+            0.2662227027107251,
+            0.336381195707085,
+            0.19898970355620693,
+            0.08157350573845357
+          ],
+          "l1": [
+            0.04619662709631183,
+            0.29084465115756775,
+            0.49046026521965547,
+            0.1517935519241527,
+            0.020704904602312394
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.24280229809841078,
+            0.2548827182532253,
+            0.5023149836483639
+          ],
+          "l1": [
+            0.3290255590825562,
+            0.32982192749464834,
+            0.3411525134227955
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.27594363762775503,
+            0.42032573921079774,
+            0.30373062316144717
+          ],
+          "l1": [
+            0.12855016013871842,
+            0.6833072382131964,
+            0.18814260164808505
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.26279009388576063,
+            0.5102275298951093,
+            0.2269823762191301
+          ],
+          "l1": [
+            0.08617742379386437,
+            0.861990773700759,
+            0.051831802505376605
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-019",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.35052960213178064,
+            0.24666562925343055,
+            0.21420760298721742,
+            0.12671666443541935,
+            0.061880501192151965
+          ],
+          "l1": [
+            0.5358330970134855,
+            0.23568862107086297,
+            0.16948486862103984,
+            0.04968801346053305,
+            0.009305399834078722
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.44504096332210363,
+            0.2300712865378899,
+            0.3248877501400065
+          ],
+          "l1": [
+            0.33873731693220055,
+            0.3277911152374313,
+            0.3334715678303682
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3538049770000896,
+            0.35528218117399174,
+            0.29091284182591864
+          ],
+          "l1": [
+            0.386441569667336,
+            0.3910079437813167,
+            0.2225504865513472
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4215461815370754,
+            0.4202138515205401,
+            0.15823996694238443
+          ],
+          "l1": [
+            0.4957036907446015,
+            0.49005145079756396,
+            0.014244858457834481
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-020",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.5395446080816081,
+            0.14683564704259797,
+            0.1902284774173585,
+            0.09930876958685919,
+            0.024082497871576288
+          ],
+          "l1": [
+            0.8657504847757642,
+            0.0413456053895738,
+            0.07572357048116896,
+            0.016575777466518046,
+            0.0006045618869749972
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.43320862538937127,
+            0.27582742891676004,
+            0.29096394569386874
+          ],
+          "l1": [
+            0.3380487265148986,
+            0.330535468895534,
+            0.3314158045895676
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.5339298737244942,
+            0.2752732944123457,
+            0.19079683186316002
+          ],
+          "l1": [
+            0.8268566926198316,
+            0.12770878324333157,
+            0.04543452413683694
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.47452126791691907,
+            0.41744000556641947,
+            0.10803872651666144
+          ],
+          "l1": [
+            0.612269402641801,
+            0.3848550594091767,
+            0.0028755379490222814
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-021",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.5954364253376488,
+            0.17035477048114867,
+            0.1676360304685996,
+            0.03932274353079471,
+            0.02725003018180831
+          ],
+          "l1": [
+            0.890215512511764,
+            0.054371063738705594,
+            0.052451649054307596,
+            0.002055737533276534,
+            0.0009060371619463215
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.32962331832990344,
+            0.30536460533194903,
+            0.3650120763381475
+          ],
+          "l1": [
+            0.33318989515590375,
+            0.3319242093883716,
+            0.33488589545572467
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.34756885877378646,
+            0.4298613412325763,
+            0.22256979999363719
+          ],
+          "l1": [
+            0.2861139449843982,
+            0.6651235576405063,
+            0.0487624973750954
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3498570175524287,
+            0.46685819364939746,
+            0.18328478879817384
+          ],
+          "l1": [
+            0.26123958506312045,
+            0.7110539485178535,
+            0.027706466419025993
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-022",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.09829132599081246,
+            0.6242333417466307,
+            0.18044683725965233,
+            0.054349978596978044,
+            0.04267851640592656
+          ],
+          "l1": [
+            0.01482216394120186,
+            0.9213482730379945,
+            0.0575853966050748,
+            0.003945232037891791,
+            0.002298934377837037
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.27233828073639293,
+            0.3239538279455462,
+            0.4037078913180608
+          ],
+          "l1": [
+            0.33019972609561077,
+            0.33306529363260834,
+            0.3367349802717808
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3212963512288787,
+            0.48940831322619904,
+            0.18929533554492237
+          ],
+          "l1": [
+            0.15532979377790032,
+            0.8256537530223638,
+            0.01901645319973593
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.296326983806103,
+            0.487016442707668,
+            0.21665657348622902
+          ],
+          "l1": [
+            0.14396118791082108,
+            0.8074844927307054,
+            0.04855431935847351
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-023",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.20703727910635591,
+            0.161013363654656,
+            0.21929092096033467,
+            0.3271462541704883,
+            0.08551218210816505
+          ],
+          "l1": [
+            0.18334342619016175,
+            0.10909523096786748,
+            0.2064573062463183,
+            0.4715714893978979,
+            0.02953254719775458
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.34262970206232796,
+            0.22743695761308963,
+            0.42993334032458236
+          ],
+          "l1": [
+            0.33431735667740103,
+            0.32756585102355373,
+            0.3381167922990452
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.24836287088287085,
+            0.42868568618653197,
+            0.3229514429305972
+          ],
+          "l1": [
+            0.1351154227011444,
+            0.5902367417932995,
+            0.274647835505556
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3735373832374075,
+            0.4047161197289895,
+            0.22174649703360289
+          ],
+          "l1": [
+            0.39969535418462593,
+            0.5504735245577085,
+            0.049831121257665714
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-024",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.45962182421254894,
+            0.12199652225910487,
+            0.3104132538727681,
+            0.08893559515441672,
+            0.019032804501161425
+          ],
+          "l1": [
+            0.6144587358939567,
+            0.05408379821225871,
+            0.2993511021694739,
+            0.03030834931090196,
+            0.0017980144134087247
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.47815035054620725,
+            0.20070064001924565,
+            0.321149009434547
+          ],
+          "l1": [
+            0.34035846670871617,
+            0.3259613073937064,
+            0.3336802258975776
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3683910383899581,
+            0.3856684938234131,
+            0.24594046778662867
+          ],
+          "l1": [
+            0.4017919908568604,
+            0.4498734932741979,
+            0.14833451586894172
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5305500136040938,
+            0.34865466522167265,
+            0.12079532117423347
+          ],
+          "l1": [
+            0.8785999676863283,
+            0.12059863383795028,
+            0.0008013984757214221
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-025",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.0696678769771846,
+            0.4424502052668421,
+            0.25755668413406024,
+            0.1247420288119771,
+            0.10558320480993587
+          ],
+          "l1": [
+            0.010469344813584974,
+            0.7151354401695577,
+            0.2076983819018145,
+            0.03962586143575264,
+            0.027070971679290318
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.5067776121924044,
+            0.1800608996030288,
+            0.3131614882045668
+          ],
+          "l1": [
+            0.34175114534796475,
+            0.32459047356267523,
+            0.33365838108936013
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3000155948810537,
+            0.42045365159810477,
+            0.27953075352084156
+          ],
+          "l1": [
+            0.2455841224530165,
+            0.546750549057283,
+            0.2076653284897005
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.355060277791672,
+            0.4738016048761633,
+            0.17113811733216455
+          ],
+          "l1": [
+            0.22313446905981174,
+            0.7670478489362242,
+            0.009817682003964032
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-026",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.31023245278478145,
+            0.17432309685052172,
+            0.2973239818835736,
+            0.1849028041122793,
+            0.033217664368843956
+          ],
+          "l1": [
+            0.39890701309064086,
+            0.11006105674329819,
+            0.3627758892192771,
+            0.12554461450253657,
+            0.002711426444247318
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3020712196977257,
+            0.2684197902469906,
+            0.4295089900552836
+          ],
+          "l1": [
+            0.33202566538669165,
+            0.3300789561218211,
+            0.3378953784914874
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.313467436150971,
+            0.4393056345355428,
+            0.24722692931348628
+          ],
+          "l1": [
+            0.19201202883794927,
+            0.7331615395961523,
+            0.07482643156589834
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5286575800228254,
+            0.3776024878739817,
+            0.09373993210319291
+          ],
+          "l1": [
+            0.761330828325632,
+            0.23678905497887748,
+            0.0018801166954903374
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-027",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.5506343661140356,
+            0.09555094059913803,
+            0.29695227962931836,
+            0.04553947148778881,
+            0.0113229421697191
+          ],
+          "l1": [
+            0.7838929386624435,
+            0.015668457652241067,
+            0.19731258173088478,
+            0.0029924416324020086,
+            0.0001335803220288121
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.26309037440988037,
+            0.2761802323547072,
+            0.46072939323541257
+          ],
+          "l1": [
+            0.32995574241824965,
+            0.33075436354051024,
+            0.33928989404124
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.38726767966615405,
+            0.34318947285262785,
+            0.26954284748121815
+          ],
+          "l1": [
+            0.5387248232810069,
+            0.3334590200121457,
+            0.12781615670684732
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5078550436725195,
+            0.39426784402157655,
+            0.09787711230590386
+          ],
+          "l1": [
+            0.7049041817183298,
+            0.29277120056787936,
+            0.0023246177137908933
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-028",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.4416092432248894,
+            0.18848417542119886,
+            0.28370239936008756,
+            0.0633030739425102,
+            0.02290110805131387
+          ],
+          "l1": [
+            0.5925678071469578,
+            0.12452887903887763,
+            0.26341538019778227,
+            0.016869323320329213,
+            0.0026186102960530496
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.24788382024819194,
+            0.26021708786069164,
+            0.4918990918911164
+          ],
+          "l1": [
+            0.3292583344361359,
+            0.33005526756005693,
+            0.34068639800380723
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2947429246732171,
+            0.4306389671068454,
+            0.27461810821993743
+          ],
+          "l1": [
+            0.22792648014371658,
+            0.580626470731603,
+            0.19144704912468025
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5538509081443406,
+            0.3348658261220259,
+            0.11128326573363352
+          ],
+          "l1": [
+            0.914869615554096,
+            0.08466839410762737,
+            0.00046199033827655744
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-029",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.3081589506842247,
+            0.23965594088193726,
+            0.3263975978715641,
+            0.07656378429678805,
+            0.04922372626548584
+          ],
+          "l1": [
+            0.36231249455812203,
+            0.20398217607394536,
+            0.41318510163794064,
+            0.015039306840385779,
+            0.005480920889606107
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3143458502972733,
+            0.2912114864934742,
+            0.3944426632092524
+          ],
+          "l1": [
+            0.3324947738251134,
+            0.3312317286093743,
+            0.3362734975655125
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2794070118840818,
+            0.4256012223620709,
+            0.2949917657538474
+          ],
+          "l1": [
+            0.20617960197322424,
+            0.559318604041164,
+            0.23450179398561175
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4331840204885613,
+            0.3972889082219956,
+            0.1695270712894431
+          ],
+          "l1": [
+            0.5852655017510731,
+            0.4041772086201473,
+            0.010557289628779661
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-030",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.18277868280467735,
+            0.26556628908905205,
+            0.2548758170075783,
+            0.2193754002925957,
+            0.07740381080609661
+          ],
+          "l1": [
+            0.141728470986938,
+            0.3265239014324856,
+            0.29788668370125176,
+            0.2130727385171019,
+            0.02078820536222263
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.4043488922139293,
+            0.2005040177829175,
+            0.39514709000315323
+          ],
+          "l1": [
+            0.3373210880528597,
+            0.32574420597797193,
+            0.33693470596916825
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3469445973996808,
+            0.41157789334379913,
+            0.24147750925652012
+          ],
+          "l1": [
+            0.3117660130898289,
+            0.6142653634814844,
+            0.0739686234286867
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.322547081566744,
+            0.508475391167939,
+            0.16897752726531698
+          ],
+          "l1": [
+            0.16778865410467045,
+            0.8144160691599092,
+            0.01779527673542038
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-031",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.16874100544490556,
+            0.3227744204099635,
+            0.22382523434491727,
+            0.1832540732325614,
+            0.10140526656765209
+          ],
+          "l1": [
+            0.11104321991857544,
+            0.5056206719006398,
+            0.2149001539916905,
+            0.13466048045851084,
+            0.033775473730583476
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.34189077476889856,
+            0.2795126134097542,
+            0.37859661182134724
+          ],
+          "l1": [
+            0.33387744003545966,
+            0.330545618566523,
+            0.33557694139801725
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.373850492393789,
+            0.3312993761196628,
+            0.29485013148654815
+          ],
+          "l1": [
+            0.4497717977052719,
+            0.3199156949034767,
+            0.23031250739125136
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.32580828641331594,
+            0.4725499949073359,
+            0.201641718679348
+          ],
+          "l1": [
+            0.19912886773611366,
+            0.7658581085444548,
+            0.03501302371943167
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-032",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.14302594058781665,
+            0.3023588222093494,
+            0.2692193142504376,
+            0.19944419166809962,
+            0.08595173128429676
+          ],
+          "l1": [
+            0.07343796232801603,
+            0.42243075685349457,
+            0.3220500353765304,
+            0.15974398667038603,
+            0.022337258771573065
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.339345954035009,
+            0.23484117636541446,
+            0.42581286959957654
+          ],
+          "l1": [
+            0.3340901001239582,
+            0.3280229471802464,
+            0.33788695269579533
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.39720001836004754,
+            0.3376263977943441,
+            0.26517358384560846
+          ],
+          "l1": [
+            0.5121589424826081,
+            0.3239133515673947,
+            0.16392770594999728
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.36904066893908277,
+            0.4530826914703289,
+            0.1778766395905884
+          ],
+          "l1": [
+            0.3150732091716145,
+            0.6625304368732698,
+            0.02239635395511565
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-033",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.11837956218617947,
+            0.4675398562259819,
+            0.17353799786796986,
+            0.14208202780290058,
+            0.09846055591696819
+          ],
+          "l1": [
+            0.03491257824954296,
+            0.8055245057941562,
+            0.08366827572001247,
+            0.052978097208883,
+            0.022916543027405232
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.4245649758051736,
+            0.2385600652777171,
+            0.3368749589171093
+          ],
+          "l1": [
+            0.33780860513499233,
+            0.3282514808641492,
+            0.33393991400085843
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3316737007569441,
+            0.42765561653634676,
+            0.24067068270670913
+          ],
+          "l1": [
+            0.30353516262049074,
+            0.5545919884076133,
+            0.1418728489718961
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.41328438227089154,
+            0.3790382222142473,
+            0.20767739551486122
+          ],
+          "l1": [
+            0.5736654469890188,
+            0.396166352453945,
+            0.03016820055703625
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-034",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.12872301765819288,
+            0.4486537919835291,
+            0.1750660687531976,
+            0.15068197791584573,
+            0.09687514368923472
+          ],
+          "l1": [
+            0.044813541054639874,
+            0.7770714207951523,
+            0.09048175592653089,
+            0.06422657331237551,
+            0.02340670891130142
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.41441879852810865,
+            0.24276640067922087,
+            0.3428148007926705
+          ],
+          "l1": [
+            0.3373447182889048,
+            0.3284814318199642,
+            0.33417384989113114
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3375651831885191,
+            0.41748912312301406,
+            0.24494569368846686
+          ],
+          "l1": [
+            0.32024506436087313,
+            0.5300718432471705,
+            0.14968309239195646
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.32638321321251834,
+            0.4540648414107447,
+            0.21955194537673703
+          ],
+          "l1": [
+            0.1889664649678138,
+            0.7764064964578514,
+            0.03462703857433487
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-035",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.22548006131815654,
+            0.28197552576265317,
+            0.3066576933965824,
+            0.11859806827069733,
+            0.0672886512519107
+          ],
+          "l1": [
+            0.20740931118997954,
+            0.3291068247103538,
+            0.39136946471587386,
+            0.05503739074415519,
+            0.017077008639637525
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.22277914571702517,
+            0.27627689784231074,
+            0.5009439564406641
+          ],
+          "l1": [
+            0.3276603437893737,
+            0.33119020326119325,
+            0.3411494529494332
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.35018829317554445,
+            0.3235339965138222,
+            0.32627771031063346
+          ],
+          "l1": [
+            0.37971132778194877,
+            0.30660719287910837,
+            0.31368147933894264
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3864299061227495,
+            0.4744319650700928,
+            0.13913812880715767
+          ],
+          "l1": [
+            0.3043674729899949,
+            0.6904779591184729,
+            0.005154567891532096
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-036",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.11599973653917682,
+            0.4250371120868996,
+            0.3021997929268972,
+            0.08877422938896554,
+            0.06798912905806093
+          ],
+          "l1": [
+            0.03125304867482963,
+            0.6501152918045848,
+            0.2929394757542863,
+            0.016725618684278153,
+            0.00896656508202103
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.36492265989974065,
+            0.2632861718382551,
+            0.37179116826200426
+          ],
+          "l1": [
+            0.33502998297409087,
+            0.32962885666608466,
+            0.3353411603598245
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.420747311494871,
+            0.42250402125048,
+            0.15674866725464898
+          ],
+          "l1": [
+            0.4822496862794273,
+            0.48794820118971427,
+            0.029802112530858318
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.33171817130399056,
+            0.5015918492719958,
+            0.16668997942401353
+          ],
+          "l1": [
+            0.18000646310246965,
+            0.8051133400467119,
+            0.014880196850818529
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-037",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.2420002786954321,
+            0.28076766632189193,
+            0.2762867761216388,
+            0.13050967619431483,
+            0.0704356026667224
+          ],
+          "l1": [
+            0.24909844146620747,
+            0.32704158663794686,
+            0.3175423420671136,
+            0.08035872877632348,
+            0.02595890105240852
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.406338927265982,
+            0.22831898169547282,
+            0.36534209103854526
+          ],
+          "l1": [
+            0.33710583618187007,
+            0.32756859464809995,
+            0.33532556917003
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3840900768403212,
+            0.36995335676552304,
+            0.2459565663941558
+          ],
+          "l1": [
+            0.44547464221238325,
+            0.4061241903938936,
+            0.1484011673937233
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.36050256068535236,
+            0.4426001314206557,
+            0.19689730789399199
+          ],
+          "l1": [
+            0.27053321598775154,
+            0.7139870378909761,
+            0.015479746121272285
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-038",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.42212172554106453,
+            0.16302152019789137,
+            0.26448753055222696,
+            0.12493606897579285,
+            0.025433154733024484
+          ],
+          "l1": [
+            0.6575114803040977,
+            0.07477541961166716,
+            0.22593034045663693,
+            0.040710942632435736,
+            0.0010718169951625287
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.33934591770490885,
+            0.234841165221134,
+            0.4258129170739571
+          ],
+          "l1": [
+            0.3340900985704516,
+            0.32802294662837317,
+            0.3378869548011753
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3633578495615781,
+            0.41345750535118003,
+            0.22318464508724195
+          ],
+          "l1": [
+            0.3740827388540722,
+            0.5081542105948607,
+            0.11776305055106719
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5326498019685773,
+            0.38045400649760175,
+            0.08689619153382115
+          ],
+          "l1": [
+            0.8082075483507246,
+            0.19144786139008288,
+            0.0003445902591923903
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-039",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.12622815508311053,
+            0.37867548262390527,
+            0.20968187822497691,
+            0.19945715688715202,
+            0.08595732718085534
+          ],
+          "l1": [
+            0.06045658713889672,
+            0.5842927551401093,
+            0.17240800741826878,
+            0.155498355965884,
+            0.027344294336841202
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.27598702325813235,
+            0.31489625867793014,
+            0.40911671806393757
+          ],
+          "l1": [
+            0.3304277918313526,
+            0.3326046476580543,
+            0.33696756051059323
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.34097366544070584,
+            0.4217046639819175,
+            0.2373216705773767
+          ],
+          "l1": [
+            0.31735064989876993,
+            0.5634103974430859,
+            0.11923895265814426
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.48049829643108627,
+            0.4054475128857217,
+            0.11405419068319202
+          ],
+          "l1": [
+            0.6618987973028166,
+            0.33597744764160936,
+            0.0021237550555740707
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-040",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.2364184594168328,
+            0.20320024307539858,
+            0.2699141109535465,
+            0.23820028582071004,
+            0.05226690073351212
+          ],
+          "l1": [
+            0.2433489117428663,
+            0.1843959263728425,
+            0.3102130004538161,
+            0.24671974784268608,
+            0.015322413587789057
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3909635154016443,
+            0.2107143878694309,
+            0.3983220967289247
+          ],
+          "l1": [
+            0.33662965844032366,
+            0.32642802261407783,
+            0.3369423189455984
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2613187609250698,
+            0.4510481948600522,
+            0.2876330442148779
+          ],
+          "l1": [
+            0.1636820576969462,
+            0.628940553665079,
+            0.207377388637975
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5611890832222288,
+            0.33930259883020014,
+            0.09950831794757112
+          ],
+          "l1": [
+            0.9150583067004154,
+            0.08468587082577972,
+            0.00025582247380485153
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-041",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.12526265083959673,
+            0.30006564983810635,
+            0.2605808517141025,
+            0.19304459893987677,
+            0.12104624866831763
+          ],
+          "l1": [
+            0.06672995366954816,
+            0.40525956924992745,
+            0.3028370339734583,
+            0.1629985278437244,
+            0.06217491526334161
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3150537080203759,
+            0.23697765616308472,
+            0.4479686358165394
+          ],
+          "l1": [
+            0.3329337776628768,
+            0.32824667349190106,
+            0.3388195488452222
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2894397037098546,
+            0.44088330925249125,
+            0.2696769870376541
+          ],
+          "l1": [
+            0.20231781331184745,
+            0.6305464013351159,
+            0.16713578535303666
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3512928471098595,
+            0.4312931136652785,
+            0.21741403922486197
+          ],
+          "l1": [
+            0.29275677311564163,
+            0.6641383366321326,
+            0.043104890252225726
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-042",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.21307632541121,
+            0.2236850430389348,
+            0.17576553253414973,
+            0.28263571875339794,
+            0.10483738026230752
+          ],
+          "l1": [
+            0.21067791772103106,
+            0.2302931061713473,
+            0.14806320719949023,
+            0.3535175250147798,
+            0.05744824389335164
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.32723270274894545,
+            0.27891142550171305,
+            0.39385587174934145
+          ],
+          "l1": [
+            0.3331838868858457,
+            0.3305439754342746,
+            0.33627213767987973
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.35805590294834655,
+            0.3595508984216444,
+            0.28239319863000906
+          ],
+          "l1": [
+            0.38953090259711615,
+            0.3935541797447211,
+            0.21691491765816262
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4331840191548114,
+            0.39728890502540953,
+            0.16952707581977897
+          ],
+          "l1": [
+            0.5966450071112509,
+            0.39629989762604206,
+            0.0070550952627071095
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-043",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.1430582311671553,
+            0.3342336509912401,
+            0.3372256284352702,
+            0.11509526778911898,
+            0.07038722161721549
+          ],
+          "l1": [
+            0.08703361754158957,
+            0.4120110705558414,
+            0.4187936647820977,
+            0.05842907580998974,
+            0.023732571310481402
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3963282784326498,
+            0.23216900281149128,
+            0.371502718755859
+          ],
+          "l1": [
+            0.33664242200417227,
+            0.32779758906286016,
+            0.3355599889329673
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.45371070796529567,
+            0.30035337019630753,
+            0.24593592183839666
+          ],
+          "l1": [
+            0.6319400054459497,
+            0.22849266526040332,
+            0.1395673292936469
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3671339889138078,
+            0.43234676424551394,
+            0.20051924684067834
+          ],
+          "l1": [
+            0.3101447023123413,
+            0.6721089972318216,
+            0.01774630045583717
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-044",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.1853793836249529,
+            0.3289786752672716,
+            0.2929215520252324,
+            0.11615353218444731,
+            0.07656685689809589
+          ],
+          "l1": [
+            0.14716675932933035,
+            0.42093403940513935,
+            0.34028495952747134,
+            0.062492328599685766,
+            0.02912191313837328
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.40633890108973475,
+            0.2283189805960952,
+            0.3653421183141701
+          ],
+          "l1": [
+            0.33710583507145864,
+            0.3275685945411768,
+            0.33532557038736455
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.42747873725640584,
+            0.32066737295939607,
+            0.2518538897841981
+          ],
+          "l1": [
+            0.5670958078745048,
+            0.2790825008177699,
+            0.15382169130772524
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.38979272153261263,
+            0.4223282241999573,
+            0.18787905426743015
+          ],
+          "l1": [
+            0.40115554284656607,
+            0.5861365967208487,
+            0.012707860432585311
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-045",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.10594835773528616,
+            0.36015710967017384,
+            0.25607036059514154,
+            0.18970309764790053,
+            0.08812107435149788
+          ],
+          "l1": [
+            0.04217674765666421,
+            0.5276632515645789,
+            0.26090207585380787,
+            0.14042749097167015,
+            0.028830433953278743
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3802939110336747,
+            0.23225449322267788,
+            0.38745159574364746
+          ],
+          "l1": [
+            0.3359450637786293,
+            0.32779785111289617,
+            0.3362570851084746
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.38560366267413354,
+            0.3872136171213213,
+            0.22718272020454508
+          ],
+          "l1": [
+            0.444276925484176,
+            0.44930522406636975,
+            0.10641785044945423
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.359382231848767,
+            0.4999731058752563,
+            0.14064466227597675
+          ],
+          "l1": [
+            0.21006693055799727,
+            0.7849711692697153,
+            0.004961900172287475
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-046",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.2533764070751685,
+            0.33310730595700627,
+            0.2197249592464567,
+            0.12364130465761652,
+            0.0701500230637519
+          ],
+          "l1": [
+            0.2598218052411717,
+            0.4924638885580918,
+            0.18622379192988683,
+            0.048574107487384284,
+            0.012916406783465364
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.43897304596630005,
+            0.22693437179452253,
+            0.3340925822391775
+          ],
+          "l1": [
+            0.3385029062031612,
+            0.32756427910154584,
+            0.3339328146952928
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3492224332168871,
+            0.397373102644515,
+            0.25340446413859796
+          ],
+          "l1": [
+            0.35159616122527104,
+            0.5060627056079925,
+            0.14234113316673652
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3139930287347477,
+            0.47478966312282445,
+            0.21121730814242792
+          ],
+          "l1": [
+            0.17511634299475065,
+            0.7832416102049111,
+            0.041642046800338145
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-047",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.25190701802836285,
+            0.2333754744762892,
+            0.32589017963009376,
+            0.13585233229241087,
+            0.05297499557284345
+          ],
+          "l1": [
+            0.25958777619318285,
+            0.22567512164139497,
+            0.41608043705140235,
+            0.08374256508811512,
+            0.014914100025904539
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.342629711351909,
+            0.22743693666689901,
+            0.4299333519811919
+          ],
+          "l1": [
+            0.33431735732735735,
+            0.3275658497162544,
+            0.33811679295638813
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3485364312001613,
+            0.3648827282219469,
+            0.28658084057789174
+          ],
+          "l1": [
+            0.36539102695679315,
+            0.40911656176446815,
+            0.2254924112787388
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5435334086269674,
+            0.3426098295182488,
+            0.11385676185478379
+          ],
+          "l1": [
+            0.8982115143333873,
+            0.10123609435363491,
+            0.0005523913129777801
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-048",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.12977035950860064,
+            0.46375435411186783,
+            0.1950521508754321,
+            0.0921368457182334,
+            0.11928628978586622
+          ],
+          "l1": [
+            0.04548868339562546,
+            0.7826130048048721,
+            0.11304802196248966,
+            0.02116488680819487,
+            0.03768540302881805
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2537589004080713,
+            0.30185315326752654,
+            0.4443879463244021
+          ],
+          "l1": [
+            0.32927584364933576,
+            0.3321333937991185,
+            0.3385907625515457
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2676968978642423,
+            0.42511308122324154,
+            0.3071900209125161
+          ],
+          "l1": [
+            0.1111303279785512,
+            0.696966143542758,
+            0.19190352847869094
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.24403162920533547,
+            0.47380643466956485,
+            0.28216193612509965
+          ],
+          "l1": [
+            0.07900354785941367,
+            0.7902335936757507,
+            0.1307628584648356
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-049",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.12393047626131812,
+            0.43194973586485147,
+            0.26433602878984774,
+            0.12178157937177478,
+            0.05800217971220794
+          ],
+          "l1": [
+            0.04193443176280079,
+            0.6822746208744904,
+            0.22777310262137168,
+            0.040327404961602004,
+            0.0076904397797352515
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.26986044985388025,
+            0.29534009213241896,
+            0.4347994580137008
+          ],
+          "l1": [
+            0.3301927959593982,
+            0.33167933094158886,
+            0.338127873099013
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.27443750555312935,
+            0.43581742396243456,
+            0.2897450704844361
+          ],
+          "l1": [
+            0.11748039826653145,
+            0.7367912826500814,
+            0.14572831908338715
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3089137334893807,
+            0.5077029304486731,
+            0.1833833360619461
+          ],
+          "l1": [
+            0.1476513853772867,
+            0.8281831688658523,
+            0.02416544575686099
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-050",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.17731547637378156,
+            0.3226341576347288,
+            0.22939169543495586,
+            0.17424091409302755,
+            0.09641775646350628
+          ],
+          "l1": [
+            0.13527231494753053,
+            0.46559491071999076,
+            0.23021253290702345,
+            0.1304736755776995,
+            0.03844656584775583
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2490500357243577,
+            0.2962518475795989,
+            0.4546981166960434
+          ],
+          "l1": [
+            0.3290444853153366,
+            0.3319000286561107,
+            0.3390554860285527
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3622304858241684,
+            0.3637428934203934,
+            0.27402662075543827
+          ],
+          "l1": [
+            0.40291665162645873,
+            0.4074769574800105,
+            0.18960639089353065
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.37173922787039526,
+            0.45639577568367545,
+            0.17186499644592917
+          ],
+          "l1": [
+            0.30170310407054807,
+            0.684433727980719,
+            0.013863167948732949
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-051",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.17269654519314792,
+            0.2843268692007249,
+            0.20215534267751484,
+            0.24691508558120792,
+            0.09390615734740439
+          ],
+          "l1": [
+            0.13226587771274995,
+            0.3703135558828922,
+            0.18310082265569172,
+            0.27672764827620877,
+            0.03759209547245728
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3086963513434372,
+            0.25237452592297793,
+            0.4389291227335848
+          ],
+          "l1": [
+            0.3324800438124314,
+            0.32916216687962535,
+            0.3383577893079433
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.37191045144095236,
+            0.3582220470961381,
+            0.2698675014629096
+          ],
+          "l1": [
+            0.43026306814817333,
+            0.3888144835779563,
+            0.18092244827387036
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.40136936443547466,
+            0.4348711634010607,
+            0.1637594721634646
+          ],
+          "l1": [
+            0.4157782910224225,
+            0.5726232558332306,
+            0.011598453144346878
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-052",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.13675609601896,
+            0.3806146669676834,
+            0.13438374005435216,
+            0.21609268440620447,
+            0.13215281255280018
+          ],
+          "l1": [
+            0.062112214991033934,
+            0.6440909077270831,
+            0.059677566063772565,
+            0.176681424390298,
+            0.05743788682781251
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2111072686239568,
+            0.27294103586613794,
+            0.5159516955099053
+          ],
+          "l1": [
+            0.32697170893027483,
+            0.33118045901884635,
+            0.341847832050879
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3134674245199911,
+            0.43930563569186576,
+            0.24722693978814306
+          ],
+          "l1": [
+            0.2634452360061899,
+            0.5865154208658216,
+            0.1500393431279885
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.2848198939714508,
+            0.5530000720789663,
+            0.16218003394958277
+          ],
+          "l1": [
+            0.054940606240157286,
+            0.9401261804703736,
+            0.0049332132894692755
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-053",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.37848896509312263,
+            0.2235813528927971,
+            0.26208981949306737,
+            0.10655863018545747,
+            0.02928123233555536
+          ],
+          "l1": [
+            0.5003892207210163,
+            0.19074022422294834,
+            0.2552045993758013,
+            0.0490642299745925,
+            0.004601725705641469
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3582708584893904,
+            0.2281139840446918,
+            0.41361515746591776
+          ],
+          "l1": [
+            0.33501376001663624,
+            0.3275679582391828,
+            0.3374182817441811
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.30371653238511537,
+            0.37562624583374055,
+            0.3206572217811441
+          ],
+          "l1": [
+            0.26095368554348386,
+            0.44071614957390925,
+            0.29833016488260705
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5563777261653715,
+            0.3363935581116623,
+            0.10722871572296615
+          ],
+          "l1": [
+            0.9149452466186371,
+            0.08467537363777895,
+            0.00037937974358383426
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-054",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.088461729435049,
+            0.19174350485005248,
+            0.17948120862781397,
+            0.4095579606515061,
+            0.13075559643557838
+          ],
+          "l1": [
+            0.022440869518689864,
+            0.126351434682926,
+            0.10900869288473494,
+            0.6884763576494879,
+            0.05372264526416122
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.34970622070774215,
+            0.26304267589445757,
+            0.3872511033978002
+          ],
+          "l1": [
+            0.3343349999274431,
+            0.3296281710429667,
+            0.33603682902959003
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2562224022685773,
+            0.4242031073496234,
+            0.31957449038179925
+          ],
+          "l1": [
+            0.09256130503144355,
+            0.6849274694089325,
+            0.22251122555962397
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.2953234416034317,
+            0.5060179641504096,
+            0.19865859424615873
+          ],
+          "l1": [
+            0.1292935713589563,
+            0.838051463463975,
+            0.03265496517706864
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-055",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.20804680851179938,
+            0.2474854061949715,
+            0.2691485529196831,
+            0.18498440919198333,
+            0.09033482318156263
+          ],
+          "l1": [
+            0.19321616107211986,
+            0.28474763711155976,
+            0.3434566577555672,
+            0.1486114959321697,
+            0.029968048128583485
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2943097763840005,
+            0.25085008942303544,
+            0.45484013419296404
+          ],
+          "l1": [
+            0.33178651819878635,
+            0.32915767719752975,
+            0.3390558046036839
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3248787672824437,
+            0.41889433719192104,
+            0.2562268955256352
+          ],
+          "l1": [
+            0.24198252264439465,
+            0.663717677905479,
+            0.09429979945012641
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.39662877112710365,
+            0.4121971998041454,
+            0.19117402906875094
+          ],
+          "l1": [
+            0.4499666303036964,
+            0.5142968235117588,
+            0.035736546184544825
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-056",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.11832267228201543,
+            0.3132507596460838,
+            0.26531447914856127,
+            0.228360134597674,
+            0.0747519543256656
+          ],
+          "l1": [
+            0.04859487007721093,
+            0.42773250620984393,
+            0.2951429755229837,
+            0.21111026277991524,
+            0.017419385410046354
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3143458490078143,
+            0.29121147372720885,
+            0.3944426772649768
+          ],
+          "l1": [
+            0.3324947738217969,
+            0.3312317279507746,
+            0.3362734982274284
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3416976014795689,
+            0.3888107574106846,
+            0.2694916411097466
+          ],
+          "l1": [
+            0.32684007360597256,
+            0.5457914363286298,
+            0.1273684900653976
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.371739233769375,
+            0.4563957670574395,
+            0.17186499917318543
+          ],
+          "l1": [
+            0.3218581528400168,
+            0.6560215156445937,
+            0.02212033151538961
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-057",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.3074660087484364,
+            0.2778143896208543,
+            0.19264807534097406,
+            0.17872942331207725,
+            0.04334210297765791
+          ],
+          "l1": [
+            0.410231098830067,
+            0.3253807545783246,
+            0.1409613176670335,
+            0.11876288281139552,
+            0.004663946113179566
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2537588948699992,
+            0.3018532126499607,
+            0.4443878924800401
+          ],
+          "l1": [
+            0.32927584301077073,
+            0.3321333967689493,
+            0.3385907602202799
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.2828117287559992,
+            0.43078736453652744,
+            0.28640090670747337
+          ],
+          "l1": [
+            0.2108311807829864,
+            0.5719372039104511,
+            0.2172316153065625
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.4344947035835145,
+            0.4154455169614311,
+            0.1500597794550545
+          ],
+          "l1": [
+            0.544671189783022,
+            0.4495745664314326,
+            0.00575424378554546
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-058",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.5778638055977362,
+            0.1495942839199425,
+            0.20373878766635617,
+            0.05151364334160817,
+            0.017289479474357064
+          ],
+          "l1": [
+            0.8438325144537395,
+            0.051801722462238464,
+            0.09803218213181572,
+            0.005732051102377434,
+            0.0006015298498290797
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.3351031354416681,
+            0.33741973226931815,
+            0.32747713228901376
+          ],
+          "l1": [
+            0.3334225117474731,
+            0.33353689463893843,
+            0.3330405936135884
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.40957493338117845,
+            0.3945002399408086,
+            0.19592482667801298
+          ],
+          "l1": [
+            0.4901688174693014,
+            0.442949253734243,
+            0.06688192879645556
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.5460707592475922,
+            0.3442092166405126,
+            0.10972002411189517
+          ],
+          "l1": [
+            0.8620250727837997,
+            0.13655312161618366,
+            0.001421805600016617
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-059",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.29800774964966686,
+            0.26926822449108495,
+            0.3078522170295361,
+            0.08390019697183025,
+            0.040971611857881944
+          ],
+          "l1": [
+            0.3413813603993358,
+            0.2693424157992202,
+            0.36832265896501704,
+            0.01764842838879803,
+            0.0033051364476289584
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.2690311390438142,
+            0.259835782226574,
+            0.4711330787296118
+          ],
+          "l1": [
+            0.3304082128993501,
+            0.32983661923396757,
+            0.3397551678666822
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3225032670481914,
+            0.4335236863894788,
+            0.24397304656232982
+          ],
+          "l1": [
+            0.2660981721179969,
+            0.6127450705125109,
+            0.12115675736949204
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.3841557392744764,
+            0.47163991170347286,
+            0.14420434902205073
+          ],
+          "l1": [
+            0.3193338622297202,
+            0.671489554903134,
+            0.009176582867145771
+          ]
+        }
+      }
+    },
+    {
+      "id": "DEV-060",
+      "questions": {
+        "sentiment": {
+          "l0": [
+            0.1506697623685094,
+            0.30298369178964607,
+            0.2631149167011477,
+            0.1949218926819935,
+            0.08830973645870317
+          ],
+          "l1": [
+            0.10692677788717249,
+            0.38455046411893745,
+            0.2969542520884346,
+            0.17139019360571484,
+            0.04017831229974079
+          ]
+        },
+        "follow_up_needed": {
+          "l0": [
+            0.24905002515660432,
+            0.2962518232369762,
+            0.4546981516064195
+          ],
+          "l1": [
+            0.32904448486924964,
+            0.3319000275495346,
+            0.3390554875812156
+          ]
+        },
+        "serious_concern_reported": {
+          "l0": [
+            0.3016037622571803,
+            0.40542962939585725,
+            0.29296660834696253
+          ],
+          "l1": [
+            0.2496852099876551,
+            0.5178949051791475,
+            0.2324198848331976
+          ]
+        },
+        "testimonial_potential": {
+          "l0": [
+            0.35506028605541745,
+            0.4738015994297323,
+            0.17113811451485023
+          ],
+          "l1": [
+            0.20218266169867855,
+            0.791412567849305,
+            0.006404770452016441
+          ]
+        }
+      }
+    }
+  ],
+  "fold_map_sha256": "7be25f9bcd9dfbde383bccefe4ad9e4c5a8d6a664b4964789c532dac299dff0c"
+}
