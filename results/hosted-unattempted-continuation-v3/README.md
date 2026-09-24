@@ -1,0 +1,7 @@
+# Hosted continuation v3: terminal audit
+
+The [summary](summary.json) binds three [reconciliation reports](.) to the [frozen inventory](inventory.json). All three processes and budget partitions are terminal and reconciled. The continuation submitted 69 previously never-sent records: 68 valid outputs and one Qwen27 low P2 timeout at DEV-055. That attempt has unknown cost, accounted at its full $0.0335872 reserved bound, and was not retried. DEV-056–060 in that condition remain never sent.
+
+Across these three conditions, the saved original, v2, and v3 evidence covers 175 of 180 canonical record positions, with 168 valid outputs. Gemma4 26B on P2 and Qwen27 low P1 each completed their v3 suffixes; Qwen27 low P2 stopped at the recorded timeout. None has 60 valid outputs, so none qualifies for a strict complete paired report. Later suffixes also lose the original counterbalanced timing. Historical failures stay in their 60-record denominators.
+
+The [thin v3 extension](../../scripts/openrouter_unattempted_continuation_v3.py) reuses the [reviewed v2 controller](../../scripts/openrouter_unattempted_continuation.py), binding original and v2 attempts, sealed child ledgers, inspected smoke evidence, and exact requests. Each run required a separate root review receipt and partition. Live endpoint identity, capabilities, context, quantization, and prices were checked before requests. [Focused tests](../../tests/test_openrouter_unattempted_continuation_v3.py) passed four cases. Reference labels were neither read nor transmitted.

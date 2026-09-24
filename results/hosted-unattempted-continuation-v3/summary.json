@@ -1,0 +1,94 @@
+{
+  "contract": "hosted-unattempted-continuation-v3-summary-v1",
+  "status": "ALL_THREE_TERMINAL_RECONCILED",
+  "reference_labels_read": false,
+  "freeze_index": {
+    "file": "results/hosted-unattempted-continuation-v3/freeze-index.json",
+    "sha256": "a34f448c47dfb161f1ed2e4aac753ed515a3ad66acdba4e232ac65cacb32c2d8"
+  },
+  "inventory": {
+    "file": "results/hosted-unattempted-continuation-v3/inventory.json",
+    "sha256": "42ae4af12ccc40b161a9ba4ae9a5b3a8c51366e4d3ce0bfe607808237b2514da"
+  },
+  "extension_controller_sha256": "1350aefaecc45f062b54b5c1ec31e25a4f9f3ecc6ba4ef5744d71bc573781aa9",
+  "base_controller_sha256": "e9176892510d802c0d1a21cf81ab6221845d8aff57d3b3cd23030dd66c41287f",
+  "totals": {
+    "historical_attempts": 106,
+    "new_attempts": 69,
+    "combined_attempts": 175,
+    "combined_valid": 168,
+    "new_valid": 68,
+    "new_service_error": 1,
+    "never_sent": 5
+  },
+  "new_known_actual_usd": "0.05065742",
+  "new_unknown_full_reserved_upper_bound_usd": "0.0335872",
+  "lanes": [
+    {
+      "configuration_id": "openrouter-paid-gemma4-26b-a4b-on",
+      "condition": "P2",
+      "status": "full_suffix_attempted",
+      "historical_attempts": 44,
+      "new_attempts": 16,
+      "combined_attempts": 60,
+      "combined_valid": 58,
+      "new_status_counts": {
+        "ok": 16
+      },
+      "never_sent_ids": [],
+      "reconciliation": {
+        "file": "results/hosted-unattempted-continuation-v3/openrouter-paid-gemma4-26b-a4b-on-p2/reconciliation-v1.json",
+        "sha256": "d21c2adb431fe1251b4c1151985069dbdba66152497a5b0849ce58bdeab3ba45"
+      },
+      "paired_report_eligible": false
+    },
+    {
+      "configuration_id": "qwen27-low-hosted-addendum-v1",
+      "condition": "P1",
+      "status": "full_suffix_attempted",
+      "historical_attempts": 20,
+      "new_attempts": 40,
+      "combined_attempts": 60,
+      "combined_valid": 58,
+      "new_status_counts": {
+        "ok": 40
+      },
+      "never_sent_ids": [],
+      "reconciliation": {
+        "file": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p1/reconciliation-v1.json",
+        "sha256": "97dc589140225d70dcc5e34d86b8c4dd95eb641ba8b181c4e6d78ad5ea30cd09"
+      },
+      "paired_report_eligible": false
+    },
+    {
+      "configuration_id": "qwen27-low-hosted-addendum-v1",
+      "condition": "P2",
+      "status": "partial_stopped",
+      "historical_attempts": 42,
+      "new_attempts": 13,
+      "combined_attempts": 55,
+      "combined_valid": 52,
+      "new_status_counts": {
+        "ok": 12,
+        "service_error": 1
+      },
+      "never_sent_ids": [
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "reconciliation": {
+        "file": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/reconciliation-v1.json",
+        "sha256": "33873204bb6cb503026d35ce566ea7975ef4d00eaf8bb5edfddd0d7d69bf6881"
+      },
+      "paired_report_eligible": false
+    }
+  ],
+  "limitations": [
+    "Later suffixes do not restore original counterbalanced execution timing.",
+    "Historical failed attempts remain in canonical denominators; no attempted ID was retried.",
+    "No lane has all 60 valid outputs, so none qualifies for a strict complete paired report."
+  ]
+}
