@@ -1,0 +1,121 @@
+{
+  "contract": "anyjev-l2-outer-cv5-protocol-v3",
+  "status": "compatibility_adapter_draft_no_successful_l2_inference",
+  "configuration_id": "anyjev-qwen06-native-l2-outer-cv5-hf517-adapter-v1",
+  "inference_performed": false,
+  "reference_labels_read_during_protocol_preparation": false,
+  "source_revision": "3cd8c6fcd9e90fc04214575ade6779da1e3f3704",
+  "source_bindings": [
+    {
+      "file": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/anyjev-source/anyjev/decider.py",
+      "sha256": "dac3a43ae7ed884072f3d4b6c1117627e13596f02c6db019a83f7332073381f9"
+    },
+    {
+      "file": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/anyjev-source/anyjev/heads.py",
+      "sha256": "f7613b503b8fd9f49f567f71a9303ebbe69f414774c7772ab754928cdf13673d"
+    },
+    {
+      "file": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/anyjev-source/anyjev/backends/hf.py",
+      "sha256": "9b115e63eb66c0d0dd24812158e5dd927d7a76ed32c4adf4601c1553891f50c4"
+    }
+  ],
+  "model": "Qwen/Qwen3-0.6B",
+  "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "quantization": "none",
+  "dtype": "bfloat16",
+  "device": "mps",
+  "backend": "Pinned AnyJev hidden-state backend with local Transformers 5.17.0 Qwen3 no-cache block-loop compatibility adapter",
+  "outer_folds": {
+    "file": "/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/results/anyjev-cached-l1-cv5-2026-09-24/folds-v1.json",
+    "sha256": "7be25f9bcd9dfbde383bccefe4ad9e4c5a8d6a664b4964789c532dac299dff0c"
+  },
+  "outer_design": "Reuse exact label-blind five folds, each 48 train and12 held out, contrast pairs kept together. No new records.",
+  "fit_api": "Decider.fit_head",
+  "fit_controls": {
+    "layers": null,
+    "kinds": [
+      "lda",
+      "ridge"
+    ],
+    "n_folds": 5,
+    "seed": 0,
+    "listing": "auto"
+  },
+  "inner_cv_note": "Pinned native inner CV shuffles the48 outer-training rows without grouping. All model/head/layer/temperature selection stays inside outer training. Report inner NLL only as a tuning criterion, never unbiased generalization.",
+  "prompt_inputs": "Same fixed policy/question_specs as original AnyJev L0; feedback only, no per-record labels or generation metadata. Verify source/policy/options/artifact hashes before execution.",
+  "label_boundary": "A fresh decider per outer fold. Each question fit receives only48 corresponding training labels. Held-out labels inaccessible to fit or model request construction. Labels are numerical supervised head targets and are never interpolated into model prompts. Score only saved held-out outputs offline.",
+  "held_out_prediction": "Use public decide at level L2 with fitted fold artifacts. Every DEV id has exactly one held-out prediction per question; preserve probabilities, selected layer/head, class support and raw diagnostics.",
+  "smoke_gate": "Before full60 held-out prediction collection, inspect DEV001-003 out-of-fold native results and prompt/label isolation evidence. Fit only the outer-training sets necessary for those smoke predictions. Preserve head artifacts for subsequent full run; never automatically rerun ambiguous work.",
+  "failure_policy": "Keep canonical60 denominator. Stop on source/artifact drift, leakage, context overflow, runtime failure or invalid probability dimensions. Preserve intrinsic failures and all partial work without repairs.",
+  "sample_size_limitation": "48 training labels per outer fold exceeds native minimum max(8,2K) but is below documented100-300 recommended examples. Exploratory CV only; no deployed head claimed. Missing classes remain explicit without changing folds/options or adding labels.",
+  "verification_required": [
+    "Spy on all fit calls:20 fits total, each only its48 outer-train IDs/labels, no held-out IDs",
+    "Capture actual model prompts to prove no reference-label interpolation",
+    "Canonical60 OOF coverage and pair-group integrity",
+    "Artifact import and hashes, runtime device/dtype, context no truncation",
+    "Meaningful offline test rejects deliberate train-test leakage",
+    "Root inspection of smoke before full60",
+    "One local GPU lane; no concurrent LM Studio prediction run"
+  ],
+  "supersedes": {
+    "file": "results/anyjev-l2-protocol-2026-09-24/protocol-v2.json",
+    "sha256": "cccb98feca141d6ade7428351e68c37e1a1a1ba2f7f5f1a5d664926ea376ebae",
+    "reason": "First v2 smoke stopped at first fit_head due native Transformers 5.17.0 causal-mask API mismatch; zero fits and zero predictions completed."
+  },
+  "baseline_precision_evidence": {
+    "file": "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl",
+    "sha256": "fba96b08c10f8d85b2ab7e510902689dee302369f33e4f91baf152102cb524a1",
+    "rows_verified": 60,
+    "runtime_versions": {
+      "torch": "2.10.0",
+      "transformers": "5.17.0",
+      "numpy": "2.2.6"
+    }
+  },
+  "compatibility": {
+    "transformers_version": "5.17.0",
+    "masking_utils_sha256": "50a737f63d8c778a5597fa34ac139049af921f44958205e3e1c29fe2bae77254",
+    "modeling_qwen3_sha256": "b60d9ecbbaeadb084134dda4a9b92419d35d22af6bc882e062fd530f4e47a4e1",
+    "causal_mask_parameters": [
+      "config",
+      "inputs_embeds",
+      "attention_mask",
+      "past_key_values",
+      "position_ids",
+      "or_mask_function",
+      "and_mask_function",
+      "block_sequence_ids",
+      "layer_idx",
+      "allow_is_causal_skip"
+    ],
+    "decoder_layer_parameters": [
+      "self",
+      "hidden_states",
+      "attention_mask",
+      "position_ids",
+      "past_key_values",
+      "use_cache",
+      "position_embeddings",
+      "kwargs"
+    ],
+    "model_forward_parameters": [
+      "self",
+      "input_ids",
+      "attention_mask",
+      "position_ids",
+      "past_key_values",
+      "inputs_embeds",
+      "use_cache",
+      "kwargs"
+    ]
+  },
+  "compatibility_note": "The adapter changes only the pinned AnyJev block-loop calls to match installed Qwen3Model.forward: inputs_embeds mask argument, no obsolete cache_position mask argument, no-cache prefill, and decoder past_key_values/use_cache arguments. Benchmark controls, folds, prompts, labels and output schema remain the v2 design. Results must identify this configuration separately.",
+  "failed_v2_smoke": {
+    "output_dir": "results/anyjev-l2-cv5-2026-09-24",
+    "operations_sha256": "b7097673f94d4e906e849a3cb4157e080a77bb17c2022ce16c95a25ceb946c97",
+    "attempts_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "completed_fit_calls": 0,
+    "completed_prediction_records": 0,
+    "disposition": "terminal stopped; original evidence preserved; no automatic retry"
+  }
+}

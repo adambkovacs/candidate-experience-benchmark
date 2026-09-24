@@ -18,8 +18,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = Path('/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/anyjev-source')
-PROTOCOL_PATH = ROOT / 'results/anyjev-l2-protocol-2026-09-24/protocol-v2.json'
-PROTOCOL_SHA = 'cccb98feca141d6ade7428351e68c37e1a1a1ba2f7f5f1a5d664926ea376ebae'
+PROTOCOL_PATH = ROOT / 'results/anyjev-l2-protocol-2026-09-24/protocol-v3.json'
+PROTOCOL_SHA = 'fc0e4092d3ad99fe6bc70dd800c516ee7a141c2cf055b16511b4834a6dc7c92d'
 FOLD_SHA = '7be25f9bcd9dfbde383bccefe4ad9e4c5a8d6a664b4964789c532dac299dff0c'
 INPUTS = ROOT / 'data/pilot/inputs.jsonl'
 LABELS = ROOT / 'data/pilot/proposed_labels.jsonl'
@@ -27,7 +27,7 @@ SMOKE_IDS = ('DEV-001', 'DEV-002', 'DEV-003')
 QUESTIONS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
 FIT_KWARGS = {'layers': None, 'kinds': ('lda', 'ridge'), 'n_folds': 5, 'seed': 0, 'listing': 'auto'}
 GPU_LOCK = ROOT / 'results/prompt-comparison-v1-2026-09-24/local-gpu.lock'
-HELPERS = ('anyjev_cached_l1.py', 'anyjev_benchmark.py', 'development_benchmark.py', 'specialist_benchmark.py')
+HELPERS = ('anyjev_cached_l1.py', 'anyjev_benchmark.py', 'development_benchmark.py', 'specialist_benchmark.py', 'anyjev_hf_517_adapter.py')
 FIXED_BATCH = 4
 FIXED_CONTEXT = 4096
 
@@ -105,12 +105,15 @@ def run_journaled(attempts_path, journal_path, lock_path, identity, callback):
 
 def verify_run_manifest(path, args):
     manifest = json.loads(Path(path).read_text())
+    from anyjev_hf_517_adapter import compatibility_evidence
     expected = {'protocol_sha256': PROTOCOL_SHA, 'fold_sha256': FOLD_SHA,
                 'runner_sha256': sha(__file__), 'batch_size': FIXED_BATCH,
                 'max_context': FIXED_CONTEXT, 'device': 'mps', 'dtype': 'bfloat16',
                 'quantization': 'none', 'model_revision': args.model_revision,
                 'model_path': str(args.model_path.resolve()),
-                'gpu_lock': str(GPU_LOCK)}
+                'gpu_lock': str(GPU_LOCK),
+                'output_dir': str(args.output_dir.resolve()),
+                'compatibility': compatibility_evidence()}
     for key, value in expected.items():
         if manifest.get(key) != value:
             raise ValueError(f'Frozen run manifest {key} changed')
@@ -151,7 +154,7 @@ def verify_protocol():
     if sha(PROTOCOL_PATH) != PROTOCOL_SHA:
         raise ValueError('Frozen L2 protocol hash changed')
     protocol = json.loads(PROTOCOL_PATH.read_text())
-    if protocol.get('contract') != 'anyjev-l2-outer-cv5-protocol-v2' or protocol.get('source_revision') != SOURCE_REVISION:
+    if protocol.get('contract') != 'anyjev-l2-outer-cv5-protocol-v3' or protocol.get('source_revision') != SOURCE_REVISION:
         raise ValueError('Wrong frozen L2 protocol')
     if protocol.get('model_revision') != MODEL_REVISION or protocol.get('model') != 'Qwen/Qwen3-0.6B':
         raise ValueError('Model identity changed')
@@ -159,6 +162,9 @@ def verify_protocol():
         raise ValueError('Native fit controls changed')
     if protocol.get('device') != 'mps' or protocol.get('dtype') != 'bfloat16' or protocol.get('quantization') != 'none':
         raise ValueError('Runtime controls changed')
+    from anyjev_hf_517_adapter import compatibility_evidence
+    if protocol.get('compatibility') != compatibility_evidence():
+        raise ValueError('Installed Transformers/Qwen3 compatibility binding changed')
     baseline_spec = protocol['baseline_precision_evidence']
     baseline_path = ROOT / baseline_spec['file']
     if sha(baseline_path) != baseline_spec['sha256']:
@@ -352,6 +358,7 @@ def predict_one(decider, questions, record_id, feedback, journal=None, fold_numb
 def run(args):
     from anyjev_cached_l1 import load_labels
     from anyjev_benchmark import verify_artifact, make_questions
+    from anyjev_hf_517_adapter import make_517_backend
     protocol, fold_map, feedback, policy = verify_protocol()
     if args.model_revision != protocol['model_revision'] or args.device != 'mps' or args.dtype != 'bfloat16':
         raise ValueError('Runtime differs from frozen protocol')
@@ -413,7 +420,7 @@ def run(args):
         observed_versions = {name: importlib.metadata.version(name) for name in ('torch', 'transformers', 'numpy')}
         if observed_versions != protocol['baseline_precision_evidence']['runtime_versions']:
             raise ValueError('Native runtime package versions differ from frozen baseline')
-        backend = guarded_backend(HFBackend)(str(args.model_path), device=args.device,
+        backend = guarded_backend(make_517_backend(HFBackend))(str(args.model_path), device=args.device,
                                              dtype=args.dtype, batch_size=args.batch_size)
         backend.context_limit = min(args.max_context, backend.model.config.max_position_embeddings)
         runtime = {'python': platform.python_version(), 'platform': platform.platform(),
@@ -426,6 +433,7 @@ def run(args):
                    'effective_context_limit': backend.context_limit, 'quantization': 'none',
                    'runner_sha256': sha(__file__), 'helper_sha256': run_manifest['helper_sha256'],
                    'run_manifest_sha256': run_manifest_sha}
+        state['runtime'] = runtime
         backend.prompt_audit = []
         if str(next(backend.model.parameters()).device).split(':')[0] != 'mps' or next(backend.model.parameters()).dtype != torch.bfloat16:
             raise ValueError('Native model device/dtype mismatch')
