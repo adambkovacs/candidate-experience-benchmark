@@ -1,0 +1,115 @@
+{
+  "allow_missing_outputs": false,
+  "attempt_selection": "latest_chronological",
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-low-phase2-batch10-p0/P0-instruction.txt",
+    "sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34"
+  },
+  "conditions": {
+    "P0": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/subscription-batch-p0-2026-09-23/fable51-low-phase2-batch10-p0/development.jsonl",
+        "sha256": "c60a2d09e412e0b3836b7e8c3ce179c4108d76289e35c7c66dabe2102cb2547c"
+      },
+      "request_evidence": {
+        "file": "results/subscription-batch-p0-2026-09-23/fable51-low-phase2-batch10-p0/development.batches.normalized.jsonl",
+        "sha256": "c25902bbd5154c8147257f6bf8122c326fb87a7418bc634f512017e045447fd3"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/development.jsonl",
+        "sha256": "424ec665043b06414ae946edecbb658163d3e2f2714dd7c397ca1e848431619a"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+        "sha256": "9f040a944ef087b3950af924f22493557c69c45c2018ef88b37543dc49a09906"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/development.jsonl",
+        "sha256": "52589b8060dd52927f15ded2b41d442de3d64a754897d8ba0cbe8a51f846e86d"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+        "sha256": "7a89611a66db63a9a839caab4696f13d2c930c013a7b1d558d0c1d31f54ac0e0"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "contract": "prompt-pairs-v1",
+  "controls": {
+    "auth_method": "claude.ai",
+    "cli_internal_retries": "not exposed",
+    "cli_version": "2.1.280 (Claude Code)",
+    "controller_retries": 0,
+    "effort": "low",
+    "extra_usage_disabled_operator_verified": true,
+    "requested_model": "claude-fable-5-1",
+    "workflow": "batch10"
+  },
+  "controls_sha256": "fdecb65e29b7d368c85b2bd466eca385162e9574218e2461464abc3085d323e6",
+  "execution_evidence": {
+    "P1": {
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+        "sha256": "760363378d6d9e9e95f1ae0e37b5d07947ffe6f884a5bc938a13e057686d216b"
+      },
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/fable51-low-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "c2ad76c616b91565c7d51e81393f3ae369d5b37c80ae2e0f3ee314a87d74a0f3"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/smoke-supplement.json",
+        "sha256": "4eefd4eb242122530040d254fc4486aad9b75b0723b232f55fcaedf1160777c8"
+      }
+    },
+    "P2": {
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+        "sha256": "b8cd74e95a7d03c9fffc69407b28a8a918ed1b43f0a3f91c8fa95773b74cc5c3"
+      },
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/fable51-low-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "c2ad76c616b91565c7d51e81393f3ae369d5b37c80ae2e0f3ee314a87d74a0f3"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/smoke-supplement.json",
+        "sha256": "cc4894cafa3d03b5a81cd4c882c2c524e818d605a0167f8009c5f96d1d704143"
+      }
+    }
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "parent_baseline_id": "fable51-low-phase2-batch10-p0",
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "retry_authorizations": {
+    "P0": [],
+    "P1": [],
+    "P2": []
+  },
+  "role": "system"
+}

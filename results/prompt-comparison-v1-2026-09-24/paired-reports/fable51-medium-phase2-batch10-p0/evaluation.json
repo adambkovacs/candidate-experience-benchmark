@@ -1,0 +1,1248 @@
+{
+  "attempt_selection": "latest_chronological",
+  "comparisons": {
+    "P0_to_P1": {
+      "all_four_correct_to_wrong": [],
+      "all_four_wrong_to_correct": [
+        "DEV-006",
+        "DEV-010"
+      ],
+      "both_failed": [],
+      "both_valid": 60,
+      "cases": [
+        {
+          "feedback": "Same as last time. That thing happened again and it still isn't sorted.",
+          "from_prediction": {
+            "follow_up_needed": "insufficient_information",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-006",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "There was no harassment or pressure. They explained the hours and pay clearly, and answered everything I asked. It was a good interview.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-010",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_state": "valid"
+        }
+      ],
+      "changed_record_count": 2,
+      "denominator": 60,
+      "failed_to_valid": [],
+      "failure_transitions": {},
+      "fields": {
+        "follow_up_needed": {
+          "changed_ids": [
+            "DEV-006"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "insufficient_information -> yes": 1,
+            "no -> no": 24,
+            "yes -> yes": 34
+          },
+          "wrong_to_correct": [
+            "DEV-006"
+          ]
+        },
+        "sentiment": {
+          "changed_ids": [],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8,
+            "negative -> negative": 32,
+            "neutral -> neutral": 7,
+            "positive -> positive": 11
+          },
+          "wrong_to_correct": []
+        },
+        "serious_concern_reported": {
+          "changed_ids": [],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 6,
+            "no -> no": 29,
+            "yes -> yes": 25
+          },
+          "wrong_to_correct": []
+        },
+        "testimonial_potential": {
+          "changed_ids": [
+            "DEV-010"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 51,
+            "no -> yes": 1,
+            "yes -> yes": 7
+          },
+          "wrong_to_correct": [
+            "DEV-010"
+          ]
+        }
+      },
+      "valid_to_failed": []
+    },
+    "P0_to_P2": {
+      "all_four_correct_to_wrong": [
+        "DEV-013"
+      ],
+      "all_four_wrong_to_correct": [
+        "DEV-010"
+      ],
+      "both_failed": [],
+      "both_valid": 60,
+      "cases": [
+        {
+          "feedback": "There was no harassment or pressure. They explained the hours and pay clearly, and answered everything I asked. It was a good interview.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-010",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "neutral",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-013",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "neutral",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        }
+      ],
+      "changed_record_count": 2,
+      "denominator": 60,
+      "failed_to_valid": [],
+      "failure_transitions": {},
+      "fields": {
+        "follow_up_needed": {
+          "changed_ids": [],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 2,
+            "no -> no": 24,
+            "yes -> yes": 34
+          },
+          "wrong_to_correct": []
+        },
+        "sentiment": {
+          "changed_ids": [
+            "DEV-013"
+          ],
+          "correct_to_wrong": [
+            "DEV-013"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8,
+            "negative -> negative": 32,
+            "neutral -> neutral": 6,
+            "neutral -> positive": 1,
+            "positive -> positive": 11
+          },
+          "wrong_to_correct": []
+        },
+        "serious_concern_reported": {
+          "changed_ids": [],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 6,
+            "no -> no": 29,
+            "yes -> yes": 25
+          },
+          "wrong_to_correct": []
+        },
+        "testimonial_potential": {
+          "changed_ids": [
+            "DEV-010"
+          ],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 51,
+            "no -> yes": 1,
+            "yes -> yes": 7
+          },
+          "wrong_to_correct": [
+            "DEV-010"
+          ]
+        }
+      },
+      "valid_to_failed": []
+    },
+    "P1_to_P2": {
+      "all_four_correct_to_wrong": [
+        "DEV-006",
+        "DEV-013"
+      ],
+      "all_four_wrong_to_correct": [],
+      "both_failed": [],
+      "both_valid": 60,
+      "cases": [
+        {
+          "feedback": "Same as last time. That thing happened again and it still isn't sorted.",
+          "from_prediction": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-006",
+          "reference": {
+            "follow_up_needed": "yes",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "insufficient_information",
+            "sentiment": "negative",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        },
+        {
+          "feedback": "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it.",
+          "from_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "neutral",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "from_state": "valid",
+          "id": "DEV-013",
+          "reference": {
+            "follow_up_needed": "no",
+            "sentiment": "neutral",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "follow_up_needed": "no",
+            "sentiment": "positive",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_state": "valid"
+        }
+      ],
+      "changed_record_count": 2,
+      "denominator": 60,
+      "failed_to_valid": [],
+      "failure_transitions": {},
+      "fields": {
+        "follow_up_needed": {
+          "changed_ids": [
+            "DEV-006"
+          ],
+          "correct_to_wrong": [
+            "DEV-006"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 24,
+            "yes -> insufficient_information": 1,
+            "yes -> yes": 34
+          },
+          "wrong_to_correct": []
+        },
+        "sentiment": {
+          "changed_ids": [
+            "DEV-013"
+          ],
+          "correct_to_wrong": [
+            "DEV-013"
+          ],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8,
+            "negative -> negative": 32,
+            "neutral -> neutral": 6,
+            "neutral -> positive": 1,
+            "positive -> positive": 11
+          },
+          "wrong_to_correct": []
+        },
+        "serious_concern_reported": {
+          "changed_ids": [],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 6,
+            "no -> no": 29,
+            "yes -> yes": 25
+          },
+          "wrong_to_correct": []
+        },
+        "testimonial_potential": {
+          "changed_ids": [],
+          "correct_to_wrong": [],
+          "valid_label_transitions": {
+            "insufficient_information -> insufficient_information": 1,
+            "no -> no": 51,
+            "yes -> yes": 8
+          },
+          "wrong_to_correct": []
+        }
+      },
+      "valid_to_failed": []
+    }
+  },
+  "conditions": {
+    "P0": {
+      "actual_controls_verification": "verified_against_hash_bound_claude_batch_requests",
+      "all_four_correct": 56,
+      "audited_controls": {
+        "auth_method": "claude.ai",
+        "cli_internal_retries": "not exposed",
+        "cli_version": "2.1.280 (Claude Code)",
+        "controller_retries": 0,
+        "effort": "medium",
+        "extra_usage_disabled_operator_verified": true,
+        "requested_model": "claude-fable-5-1",
+        "workflow": "batch10"
+      },
+      "cost": {
+        "attempt_count": 6,
+        "availability": "unavailable",
+        "known_actual_attempts": 0,
+        "known_actual_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "missing_financial_attempts": 6,
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.",
+        "scope": "declared development attempts only",
+        "source_paths": [
+          "results/subscription-batch-p0-2026-09-23/fable51-medium-phase2-batch10-p0/development.batches.normalized.jsonl"
+        ],
+        "total_actual_usd": null,
+        "unknown_bounded_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_reserved_upper_bound_usd": null
+      },
+      "evaluation": {
+        "metrics": {
+          "follow_up_needed": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.8840579710144928,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 0.6666666666666666,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.5,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 24
+              },
+              "yes": {
+                "f1": 0.9855072463768116,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.9714285714285714,
+                "tp": 34
+              }
+            }
+          },
+          "sentiment": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.9834920634920635,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 2
+              },
+              "mixed": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 8
+              },
+              "negative": {
+                "f1": 0.9841269841269841,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "tp": 31
+              },
+              "neutral": {
+                "f1": 0.9333333333333333,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.875,
+                "tp": 7
+              },
+              "positive": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 11
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "accuracy": 1.0,
+            "correct": 60,
+            "denominator": 60,
+            "macro_f1": 1.0,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 6
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 29
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 25
+              }
+            }
+          },
+          "testimonial_potential": {
+            "accuracy": 0.9666666666666667,
+            "correct": 58,
+            "denominator": 60,
+            "macro_f1": 0.9517973856209151,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 0.9803921568627451,
+                "fn": 0,
+                "fp": 2,
+                "precision": 0.9615384615384616,
+                "recall": 1.0,
+                "tp": 50
+              },
+              "yes": {
+                "f1": 0.875,
+                "fn": 2,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.7777777777777778,
+                "tp": 7
+              }
+            }
+          }
+        },
+        "missing_or_failed": [],
+        "pair_checks": [
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "resolution",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "style",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "irrelevant_religion",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "sex_stereotype_symmetry",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "identity_evidence",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "complaint_style",
+            "invariants_preserved": true,
+            "status": "scored"
+          }
+        ],
+        "records": 60,
+        "reference_status": "AI-reviewed provisional; development only",
+        "serious_concerns": {
+          "false_escalations": [],
+          "output_failed_or_missing": [],
+          "predicted_insufficient": [],
+          "predicted_no": [],
+          "reference_yes": 25
+        },
+        "valid_outputs": 60
+      },
+      "evidence": {
+        "extractor": "claude_batch_v1",
+        "predictions": {
+          "file": "results/subscription-batch-p0-2026-09-23/fable51-medium-phase2-batch10-p0/development.jsonl",
+          "sha256": "5b59abfa128362f43784c7df8c4265e0b58154c18adb91a890fec79a54448a9d"
+        },
+        "request_evidence": {
+          "file": "results/subscription-batch-p0-2026-09-23/fable51-medium-phase2-batch10-p0/development.batches.normalized.jsonl",
+          "sha256": "75dee70962d92f183129dd070bfbe5849d1ef118f5138d393c27a9d7df31787e"
+        },
+        "request_evidence_phase": "development"
+      },
+      "omitted_predictions": [],
+      "prompt_bytes_added": 0,
+      "prompt_provenance": {
+        "addition_bytes": 0,
+        "addition_path": null,
+        "addition_sha256": null,
+        "baseline_instruction_bytes": 7752,
+        "baseline_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "bundle_version": "variants-v1",
+        "composed_instruction_bytes": 7752,
+        "composed_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "composition_separator": "",
+        "inference_performed": false,
+        "instruction_role": "system",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "parent_baseline_id": "fable51-medium-phase2-batch10-p0",
+        "reference_labels_read": false,
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "variant": "P0"
+      },
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempt_seconds": 103.02037203963846,
+        "attempts": 6,
+        "input_tokens": 26145,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.",
+        "output_tokens": 8037,
+        "reasoning_tokens": 4285
+      }
+    },
+    "P1": {
+      "actual_controls_verification": "verified_against_hash_bound_claude_batch_requests",
+      "all_four_correct": 58,
+      "audited_controls": {
+        "auth_method": "claude.ai",
+        "cli_internal_retries": "not exposed",
+        "cli_version": "2.1.280 (Claude Code)",
+        "controller_retries": 0,
+        "effort": "medium",
+        "extra_usage_disabled_operator_verified": true,
+        "requested_model": "claude-fable-5-1",
+        "workflow": "batch10"
+      },
+      "cost": {
+        "attempt_count": 6,
+        "availability": "unavailable",
+        "known_actual_attempts": 0,
+        "known_actual_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "missing_financial_attempts": 6,
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.",
+        "scope": "declared development attempts only",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/development.jsonl.batches.jsonl"
+        ],
+        "total_actual_usd": null,
+        "unknown_bounded_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_reserved_upper_bound_usd": null
+      },
+      "evaluation": {
+        "metrics": {
+          "follow_up_needed": {
+            "accuracy": 1.0,
+            "correct": 60,
+            "denominator": 60,
+            "macro_f1": 1.0,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 24
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 35
+              }
+            }
+          },
+          "sentiment": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.9834920634920635,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 2
+              },
+              "mixed": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 8
+              },
+              "negative": {
+                "f1": 0.9841269841269841,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "tp": 31
+              },
+              "neutral": {
+                "f1": 0.9333333333333333,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.875,
+                "tp": 7
+              },
+              "positive": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 11
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "accuracy": 1.0,
+            "correct": 60,
+            "denominator": 60,
+            "macro_f1": 1.0,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 6
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 29
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 25
+              }
+            }
+          },
+          "testimonial_potential": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.9770918268297418,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 0.9900990099009901,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.9803921568627451,
+                "recall": 1.0,
+                "tp": 50
+              },
+              "yes": {
+                "f1": 0.9411764705882353,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.8888888888888888,
+                "tp": 8
+              }
+            }
+          }
+        },
+        "missing_or_failed": [],
+        "pair_checks": [
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "resolution",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "style",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "irrelevant_religion",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "sex_stereotype_symmetry",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "identity_evidence",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "complaint_style",
+            "invariants_preserved": true,
+            "status": "scored"
+          }
+        ],
+        "records": 60,
+        "reference_status": "AI-reviewed provisional; development only",
+        "serious_concerns": {
+          "false_escalations": [],
+          "output_failed_or_missing": [],
+          "predicted_insufficient": [],
+          "predicted_no": [],
+          "reference_yes": 25
+        },
+        "valid_outputs": 60
+      },
+      "evidence": {
+        "extractor": "claude_batch_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/development.jsonl",
+          "sha256": "4fbb5f11d5890a3c789529c3fc1207e41baece783962ff31595424b38c685b76"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+          "sha256": "0eb6fcede8343dca0e144b3a91c9ccf49535870bbad379dbdca84fec687190a9"
+        },
+        "request_evidence_phase": "development"
+      },
+      "omitted_predictions": [],
+      "prompt_bytes_added": 1022,
+      "prompt_provenance": {
+        "addition_bytes": 1020,
+        "addition_path": "prompts/variants-v1/P1-classifier.txt",
+        "addition_sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7",
+        "baseline_instruction_bytes": 7752,
+        "baseline_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "bundle_version": "variants-v1",
+        "composed_instruction_bytes": 8774,
+        "composed_instruction_sha256": "e8293f1470d3527ced013c5dc6a8b4ccdd57c44741d96ec7aa79bee5d5279a2c",
+        "composition_separator": "\n\n",
+        "inference_performed": false,
+        "instruction_role": "system",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "parent_baseline_id": "fable51-medium-phase2-batch10-p0",
+        "reference_labels_read": false,
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "variant": "P1"
+      },
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempt_seconds": 138.23260200000004,
+        "attempts": 6,
+        "input_tokens": 27947,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.",
+        "output_tokens": 8067,
+        "reasoning_tokens": 4318
+      }
+    },
+    "P2": {
+      "actual_controls_verification": "verified_against_hash_bound_claude_batch_requests",
+      "all_four_correct": 56,
+      "audited_controls": {
+        "auth_method": "claude.ai",
+        "cli_internal_retries": "not exposed",
+        "cli_version": "2.1.280 (Claude Code)",
+        "controller_retries": 0,
+        "effort": "medium",
+        "extra_usage_disabled_operator_verified": true,
+        "requested_model": "claude-fable-5-1",
+        "workflow": "batch10"
+      },
+      "cost": {
+        "attempt_count": 6,
+        "availability": "unavailable",
+        "known_actual_attempts": 0,
+        "known_actual_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "missing_financial_attempts": 6,
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read.",
+        "scope": "declared development attempts only",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/development.jsonl.batches.jsonl"
+        ],
+        "total_actual_usd": null,
+        "unknown_bounded_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_reserved_upper_bound_usd": null
+      },
+      "evaluation": {
+        "metrics": {
+          "follow_up_needed": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.8840579710144928,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 0.6666666666666666,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.5,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 24
+              },
+              "yes": {
+                "f1": 0.9855072463768116,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.9714285714285714,
+                "tp": 34
+              }
+            }
+          },
+          "sentiment": {
+            "accuracy": 0.9666666666666667,
+            "correct": 58,
+            "denominator": 60,
+            "macro_f1": 0.9595583160800552,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 2
+              },
+              "mixed": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 8
+              },
+              "negative": {
+                "f1": 0.9841269841269841,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "tp": 31
+              },
+              "neutral": {
+                "f1": 0.8571428571428571,
+                "fn": 2,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.75,
+                "tp": 6
+              },
+              "positive": {
+                "f1": 0.9565217391304348,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "tp": 11
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "accuracy": 1.0,
+            "correct": 60,
+            "denominator": 60,
+            "macro_f1": 1.0,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 6
+              },
+              "no": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 29
+              },
+              "yes": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 25
+              }
+            }
+          },
+          "testimonial_potential": {
+            "accuracy": 0.9833333333333333,
+            "correct": 59,
+            "denominator": 60,
+            "macro_f1": 0.9770918268297418,
+            "per_label": {
+              "insufficient_information": {
+                "f1": 1.0,
+                "fn": 0,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "tp": 1
+              },
+              "no": {
+                "f1": 0.9900990099009901,
+                "fn": 0,
+                "fp": 1,
+                "precision": 0.9803921568627451,
+                "recall": 1.0,
+                "tp": 50
+              },
+              "yes": {
+                "f1": 0.9411764705882353,
+                "fn": 1,
+                "fp": 0,
+                "precision": 1.0,
+                "recall": 0.8888888888888888,
+                "tp": 8
+              }
+            }
+          }
+        },
+        "missing_or_failed": [],
+        "pair_checks": [
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "resolution",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "style",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "irrelevant_religion",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "sex_stereotype_symmetry",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "identity_evidence",
+            "invariants_preserved": true,
+            "status": "scored"
+          },
+          {
+            "both_fully_correct": true,
+            "expected_changes_correct": true,
+            "id": "complaint_style",
+            "invariants_preserved": true,
+            "status": "scored"
+          }
+        ],
+        "records": 60,
+        "reference_status": "AI-reviewed provisional; development only",
+        "serious_concerns": {
+          "false_escalations": [],
+          "output_failed_or_missing": [],
+          "predicted_insufficient": [],
+          "predicted_no": [],
+          "reference_yes": 25
+        },
+        "valid_outputs": 60
+      },
+      "evidence": {
+        "extractor": "claude_batch_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/development.jsonl",
+          "sha256": "1d1d4ab609717876596bbf8083214680ee9ce58297d6120f8bbab11a48c53267"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+          "sha256": "d082b990529227630ff580735289ef81bf778586f10ca8c2c445995b07b79adf"
+        },
+        "request_evidence_phase": "development"
+      },
+      "omitted_predictions": [],
+      "prompt_bytes_added": 6474,
+      "prompt_provenance": {
+        "addition_bytes": 6472,
+        "addition_path": "prompts/variants-v1/P2-classifier-sop.txt",
+        "addition_sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9",
+        "baseline_instruction_bytes": 7752,
+        "baseline_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "bundle_version": "variants-v1",
+        "composed_instruction_bytes": 14226,
+        "composed_instruction_sha256": "2ad4fc937aa254e29aa781f832f67e79a2ddec236c478af67b3359a717b44dde",
+        "composition_separator": "\n\n",
+        "inference_performed": false,
+        "instruction_role": "system",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "parent_baseline_id": "fable51-medium-phase2-batch10-p0",
+        "reference_labels_read": false,
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "variant": "P2"
+      },
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempt_seconds": 150.09717191700474,
+        "attempts": 6,
+        "input_tokens": 38156,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution.",
+        "output_tokens": 8384,
+        "reasoning_tokens": 4632
+      }
+    }
+  },
+  "contract": "prompt-pairs-v1",
+  "controls_verified": true,
+  "denominator": 60,
+  "eligible_paired_comparison": true,
+  "limitations": [
+    "Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.",
+    "An explicitly accepted Codex CLI patch is retained as a runtime difference, not evidence that runtime changes have no effect.",
+    "Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.",
+    "Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.",
+    "Prompt bytes are not token counts; token overhead is unavailable until separately measured.",
+    "Claude batch extraction verifies saved request bodies, recorded runtime controls and raw response guards; historical CLI command/environment and hidden wrapper bytes are not independently captured. Batch timing/usage is counted once, not as individual-record latency."
+  ],
+  "manifest_file_sha256": "e0efa15770255f2be4f7c60d5c2b486d0a290e5f709b80041db2b0e4a6eb81ac",
+  "manifest_sha256": "b8555dc691415aedfdb05d247ee29d54bfaf131ebee37542f9d5095a822c0df2",
+  "parent_baseline_id": "fable51-medium-phase2-batch10-p0",
+  "protocol_verification": {
+    "conditions": {
+      "P1": {
+        "development_attempt_id": "839d9955-b326-4a9c-b703-d7d0923b8188",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/fable51-medium-phase2-batch10-p0/execution-manifest.json",
+          "sha256": "59153e465235b0f8709011655e356307e9c1bf7311e94fbf21bb6784128d206c"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+          "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+        },
+        "observational": true,
+        "verified": true
+      },
+      "P2": {
+        "development_attempt_id": "68fb3173-ffb2-4eb7-a540-256c9473b389",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/fable51-medium-phase2-batch10-p0/execution-manifest.json",
+          "sha256": "59153e465235b0f8709011655e356307e9c1bf7311e94fbf21bb6784128d206c"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+          "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+        },
+        "observational": true,
+        "verified": true
+      }
+    },
+    "fully_verified_controls": false,
+    "missing_audit_capabilities": [],
+    "note": "Frozen roster, client requests, inspected smoke and completed schedule reproduced from saved evidence. Hidden provider rendering remains unverified; historical baseline reuse does not establish causality.",
+    "status": "verified_observational"
+  },
+  "reference_labels_read_offline": true,
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "runtime_transition": null
+}

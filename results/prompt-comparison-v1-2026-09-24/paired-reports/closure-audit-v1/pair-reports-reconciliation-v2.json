@@ -1,0 +1,3525 @@
+{
+  "actions": {
+    "evaluator_code_modified": false,
+    "existing_published_reports_overwritten": false,
+    "failed_generated_manifests_rebuilt": true,
+    "global_journal_modified": false,
+    "inference_performed": false,
+    "registries_modified": false
+  },
+  "construction_correction": "Initial generated manifests used compact JSON hashing and failed existing controls-hash checks. Exact errors are preserved in pair-reports-reconciliation-v1.json and per-report strict-audit-error.json; corrected manifest hashes use scripts/evaluate_prompt_variants.py::canonical_hash, with the auditor/evaluator unchanged. The first generated manifests are retained as paired-manifest-hash-error-v1.json.",
+  "contract": "new-paired-report-reconciliation-v2",
+  "expanded_html": {
+    "bytes": 2067439,
+    "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/twenty-seven-comparisons.html",
+    "renderer_stdout": "{\"output\": \"/Users/adamkovacs/Documents/codebuild/recruitment-feedback-demo/results/prompt-comparison-v1-2026-09-24/paired-reports/twenty-seven-comparisons.html\", \"evaluations\": 27}",
+    "sha256": "271dff8598a85565632f7de96730859225cce4402ccc64b9280287bfd2582161",
+    "source_evaluation_count": 27
+  },
+  "expected_new_candidate_count": 10,
+  "failed_count": 0,
+  "passed_count": 10,
+  "reports": [
+    {
+      "adapter": "codex_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-low/parent-evidence-audit.json",
+        "sha256": "a7915c314e5b27c0fdc77060d2b8035abcac9c4e0f70025ddec77d4cd6a15074"
+      },
+      "configuration_id": "codex-gpt-5.6-sol-low",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-low/evaluation.json",
+        "sha256": "781c611fc00d0e287cf4359342770cdc3e4c1600020e018a99114581c49c63c4"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-low/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-low/execution-manifest.json",
+        "sha256": "7da120381e34bc6b601eddb337271b98c6787b37a2b0d8a34722b675233143dd"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-low/paired-manifest.json",
+        "sha256": "3d3a1ff98a59c4ece7237c0a3e10bf6bc8146dd12e56af94e7289b33197e61f1"
+      },
+      "runtime_transition": {
+        "authorization": "user_2026-09-24_cli_change_move_forward",
+        "from": "codex-cli 0.155.0-alpha.16",
+        "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change.",
+        "to": "codex-cli 0.155.0-alpha.16.3"
+      },
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "codex_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-medium/parent-evidence-audit.json",
+        "sha256": "bd971617601d2eaed61c2c62f0a3c7af0daaffebf95f299c62ce972c19b5708e"
+      },
+      "configuration_id": "codex-gpt-5.6-sol-medium",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-medium/evaluation.json",
+        "sha256": "90c0aeef72839036afbefe406eeb455e884b0e8bc14da45ab8a3e836e5e2e7a3"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-medium/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-medium/execution-manifest.json",
+        "sha256": "43a7d111cbade3935f54170462fc5d5d93c6eb737d3fb2f646f318c56393c143"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-medium/paired-manifest.json",
+        "sha256": "d8a027f1d2016e9c74a45fd0670be7ef2367ff0310c26e01e3000c1423c9a677"
+      },
+      "runtime_transition": {
+        "authorization": "user_2026-09-24_cli_change_move_forward",
+        "from": "codex-cli 0.155.0-alpha.16",
+        "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change.",
+        "to": "codex-cli 0.155.0-alpha.16.3"
+      },
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "codex_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-high/parent-evidence-audit.json",
+        "sha256": "0c082cd66c527739aaaae3f021a9c700ec4ab6a42858d664e77dccd012298b6d"
+      },
+      "configuration_id": "codex-gpt-5.6-sol-high",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-high/evaluation.json",
+        "sha256": "6387453ddcdaf8766373e47f7d49acfdc52999ac405945964edb39a9c74d1fa2"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-high/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-high/execution-manifest.json",
+        "sha256": "956c81fb3b87e6f3359cf5e917150de8e00db5b7c445a8dc24f64f5896d620de"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-high/paired-manifest.json",
+        "sha256": "e300df88d2e2d017021ff220517010da91ea1aaccf3ff2b299a53784fd58934e"
+      },
+      "runtime_transition": {
+        "authorization": "user_2026-09-24_cli_change_move_forward",
+        "from": "codex-cli 0.155.0-alpha.16",
+        "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change.",
+        "to": "codex-cli 0.155.0-alpha.16.3"
+      },
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "codex_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-high/parent-evidence-audit.json",
+        "sha256": "795c6b7fab2e978d8e898f4a232aa4e06e9793c2ca825e8db2a04bebf6e5e069"
+      },
+      "configuration_id": "codex-gpt-6-astra-high",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-high/evaluation.json",
+        "sha256": "b8cef3f7a0d5b8e0bf8e610d7dc0bdcf613db2fe20d12a37914d852de699451c"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-high/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-high/execution-manifest.json",
+        "sha256": "9877594a0d56ff2bb31b7e4cc513e5f1842993339856811c8e9068d16d40ce47"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-high/paired-manifest.json",
+        "sha256": "9ab52bae6767b256fdd12ed7c1d05f3e722d8f095f89783cb337fcd3c04a6d00"
+      },
+      "runtime_transition": {
+        "authorization": "user_2026-09-24_cli_change_move_forward",
+        "from": "codex-cli 0.155.0-alpha.16",
+        "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change.",
+        "to": "codex-cli 0.155.0-alpha.16.3"
+      },
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "codex_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-xhigh/parent-evidence-audit.json",
+        "sha256": "eb5b2790687de658a5d338ed443c9ce70521825889a71b068043056ae5ee1a33"
+      },
+      "configuration_id": "codex-gpt-6-astra-xhigh",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-xhigh/evaluation.json",
+        "sha256": "2305a64221bf62ae032a21e629caf70b54a4bc347c2180587e67797a6a649829"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-xhigh/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-xhigh/execution-manifest.json",
+        "sha256": "6174d5b2a3f330d140fe70d9d1108e0706b644f76454f516a7468fd2b8768135"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-xhigh/paired-manifest.json",
+        "sha256": "9125f6d2545afe571fc2087453a46a82bb86a179d1f1b157fba17e13008dfab1"
+      },
+      "runtime_transition": {
+        "authorization": "user_2026-09-24_cli_change_move_forward",
+        "from": "codex-cli 0.155.0-alpha.16",
+        "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change.",
+        "to": "codex-cli 0.155.0-alpha.16.3"
+      },
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "claude_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-low-phase2-batch10-p0/parent-evidence-audit.json",
+        "sha256": "8bdfa7ddcfcf58eab385726c0aab9ab0153e1091b4e933ce9363feb579706861"
+      },
+      "configuration_id": "fable51-low-phase2-batch10-p0",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/evaluation.json",
+        "sha256": "acf66abf3cf40703909267317909143384160ec463bedbe4ac7ea4e2e1d9002b"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-low-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "cf6368bdc8fba20e5f0a93f8ace50d5c820a231fbd6e6b652d4aa9e6ee31fb78"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/paired-manifest.json",
+        "sha256": "34e8e372b3693e999ab860e75d13fd7707cafd54719c25993d583b0a23655fad"
+      },
+      "runtime_transition": null,
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "claude_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-medium-phase2-batch10-p0/parent-evidence-audit.json",
+        "sha256": "98c8d090e2bb9a488f027b1ee644d31f0a0b435a3e552f71859d88d3c6c89b40"
+      },
+      "configuration_id": "fable51-medium-phase2-batch10-p0",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/evaluation.json",
+        "sha256": "e4938f6533cc22db326b2e143495be7c063ddfc793b31fe3d34727fe81466ad8"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-medium-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "7df1af8afe9d46e26a178a08acc09395287221a9a5f6bec6fdb7f54bc891dc2f"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/paired-manifest.json",
+        "sha256": "e0efa15770255f2be4f7c60d5c2b486d0a290e5f709b80041db2b0e4a6eb81ac"
+      },
+      "runtime_transition": null,
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "claude_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-high-phase2-batch10-p0/parent-evidence-audit.json",
+        "sha256": "7c9fe3ef2d2855ffe1da58f76e464e617027f7e91929ae5ba83b0f3e40187020"
+      },
+      "configuration_id": "fable51-high-phase2-batch10-p0",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-high-phase2-batch10-p0/evaluation.json",
+        "sha256": "2870db16ba40fc57c7466e17c602f725663b0b461cb4397d08cc31e425a092fd"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-high-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "3b90075d009a0ad71ac7ffb4009de24ea797635cd31e07daea4cd43f137453ea"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-high-phase2-batch10-p0/paired-manifest.json",
+        "sha256": "48f7718946fef17a4eac800cd1f0e3bd9be1c595952fc3d78d97c1ae5af6e0a4"
+      },
+      "runtime_transition": null,
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "claude_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-high-phase2-batch10-p0/parent-evidence-audit.json",
+        "sha256": "7c1e542473c19a6fea75ef86293dfa1a548987082510fcde9a01c924c9f7ac38"
+      },
+      "configuration_id": "opus5-high-phase2-batch10-p0",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-high-phase2-batch10-p0/evaluation.json",
+        "sha256": "37f70c9161434c4a6d6a1b43cd43dc2adabcdac54194c2d18a8431099d6336c7"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-high-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "5ab1d2894e2e1fb947a20ca83aa46b878c88d57da8d793ca8bbc19b635ea38bc"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-high-phase2-batch10-p0/paired-manifest.json",
+        "sha256": "1b4e08ff979c1954d6c172085f3bd91b84c8cfd46edb4929694f297d6b9c2c95"
+      },
+      "runtime_transition": null,
+      "strict_audit_status": "verified_observational"
+    },
+    {
+      "adapter": "claude_batch_v1",
+      "baseline_evidence_audit": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-xhigh-phase2-batch10-p0/parent-evidence-audit.json",
+        "sha256": "cdd92284fb44f6e59aad5e9e522044b7917d368a09d22cbfbad4258b8c25f3d3"
+      },
+      "configuration_id": "opus5-xhigh-phase2-batch10-p0",
+      "eligible_paired_comparison": true,
+      "evaluation": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-xhigh-phase2-batch10-p0/evaluation.json",
+        "sha256": "0905f3159ec4b2155f5c9e4b0a11f4e3545a7a7c17ba877264592c59ff08b70d"
+      },
+      "journal_snapshot_copy": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-xhigh-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+      },
+      "manifest_source_execution": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-xhigh-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "b3eed63a06137bc6fa0985e6a644b75161b2ab8ba1142b2d99732eac64a4c212"
+      },
+      "paired_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-xhigh-phase2-batch10-p0/paired-manifest.json",
+        "sha256": "ca832444272bb10a79e25358ec77f7ba15ca3add67ea1619ef2f76eb0b663231"
+      },
+      "runtime_transition": null,
+      "strict_audit_status": "verified_observational"
+    }
+  ],
+  "source_snapshot": {
+    "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/closure-audit-v1/execution-journal-snapshot-v2.jsonl",
+    "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+  },
+  "staging_dependencies": [
+    {
+      "configuration_ids": [],
+      "file": "data/pilot/inputs.jsonl",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "configuration_ids": [],
+      "file": "data/pilot/pairs.json",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+    },
+    {
+      "configuration_ids": [],
+      "file": "data/pilot/proposed_labels.jsonl",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "configuration_ids": [],
+      "file": "prompts/variants-v1/P1-classifier.txt",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7"
+    },
+    {
+      "configuration_ids": [],
+      "file": "prompts/variants-v1/P2-classifier-sop.txt",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9"
+    },
+    {
+      "configuration_ids": [],
+      "file": "prompts/variants-v1/manifest.json",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development-attempts.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "c78da066f53ef37a5da3b780539cda6e72788204add809be67bb1ce5a2e8a393"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "3455dcd06de2d502e6ae25c8248445c1cd70a7f58d184336dae00233271fed5b"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development-attempts.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "dd067d932481406cbd4b7dba23b5cb66e1bb4c7c66efd8d094742b95bba54ecb"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "3e9f7c87d7c3c844381002ac474abb829fe98e7cfee3c33b5800b783bb7cebdd"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development-attempts.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "9f90e92b34f82dd8987cbede75967496bfe8e65786e778135398daa97b16e4bb"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "b2133c998266c36a8851e8e5563421ca958b4fef47560cf5482dd3c32dbad926"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/codex-gpt-6-astra-high-batch10-2026-09-23/development-attempts.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "b5f95674fa63c207e36fe5a444687697f5fb637899742e2668ec6a6a41c97474"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/codex-gpt-6-astra-high-batch10-2026-09-23/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "541a21a2208ca791c083d716666b094379ca9209a11c8761085634d09e7589cd"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "57f0fb376446810b5c4b888fcaff313fa5c4e2bc25b29bb9f49b5db5205f95eb"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "72a6fe6129e3925ec6709a68c116020912cfb547d5e6de95a6f72fcadb423c04"
+    },
+    {
+      "configuration_ids": [],
+      "file": "results/prompt-comparison-v1-2026-09-24/baseline-inventory.json",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "5932767a3578af3666e7681ebd05280ebddca057d13d86408b8cdf13b2bf703c"
+    },
+    {
+      "configuration_ids": [],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/closure-audit-v1/execution-journal-snapshot-v2.jsonl",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/closure-audit-v1/snapshot-manifest-v2.json",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "b57e18f4f48fcc51b3bf5307e89ae07e91400c56d9060531607ad3812a29c247"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-high/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "6387453ddcdaf8766373e47f7d49acfdc52999ac405945964edb39a9c74d1fa2"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-high/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-high/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "e300df88d2e2d017021ff220517010da91ea1aaccf3ff2b299a53784fd58934e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-low/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "781c611fc00d0e287cf4359342770cdc3e4c1600020e018a99114581c49c63c4"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-low/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-low/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "3d3a1ff98a59c4ece7237c0a3e10bf6bc8146dd12e56af94e7289b33197e61f1"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-medium/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "90c0aeef72839036afbefe406eeb455e884b0e8bc14da45ab8a3e836e5e2e7a3"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-medium/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-sol-medium/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "d8a027f1d2016e9c74a45fd0670be7ef2367ff0310c26e01e3000c1423c9a677"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-high/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "b8cef3f7a0d5b8e0bf8e610d7dc0bdcf613db2fe20d12a37914d852de699451c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-high/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-high/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "9ab52bae6767b256fdd12ed7c1d05f3e722d8f095f89783cb337fcd3c04a6d00"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-xhigh/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "2305a64221bf62ae032a21e629caf70b54a4bc347c2180587e67797a6a649829"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-xhigh/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-astra-xhigh/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "9125f6d2545afe571fc2087453a46a82bb86a179d1f1b157fba17e13008dfab1"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-high-phase2-batch10-p0/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "2870db16ba40fc57c7466e17c602f725663b0b461cb4397d08cc31e425a092fd"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-high-phase2-batch10-p0/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "48f7718946fef17a4eac800cd1f0e3bd9be1c595952fc3d78d97c1ae5af6e0a4"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "acf66abf3cf40703909267317909143384160ec463bedbe4ac7ea4e2e1d9002b"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-low-phase2-batch10-p0/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "34e8e372b3693e999ab860e75d13fd7707cafd54719c25993d583b0a23655fad"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "e4938f6533cc22db326b2e143495be7c063ddfc793b31fe3d34727fe81466ad8"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/fable51-medium-phase2-batch10-p0/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "e0efa15770255f2be4f7c60d5c2b486d0a290e5f709b80041db2b0e4a6eb81ac"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-high-phase2-batch10-p0/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "37f70c9161434c4a6d6a1b43cd43dc2adabcdac54194c2d18a8431099d6336c7"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-high-phase2-batch10-p0/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "1b4e08ff979c1954d6c172085f3bd91b84c8cfd46edb4929694f297d6b9c2c95"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-xhigh-phase2-batch10-p0/evaluation.json",
+      "roles": [
+        "offline evaluation"
+      ],
+      "sha256": "0905f3159ec4b2155f5c9e4b0a11f4e3545a7a7c17ba877264592c59ff08b70d"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-xhigh-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+      "roles": [
+        "immutable journal snapshot copy"
+      ],
+      "sha256": "cec056eb81b1de3a7a17040041465477cac438fa5ef130c02bb423ab497f5add"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus5-xhigh-phase2-batch10-p0/paired-manifest.json",
+      "roles": [
+        "paired manifest"
+      ],
+      "sha256": "ca832444272bb10a79e25358ec77f7ba15ca3add67ea1619ef2f76eb0b663231"
+    },
+    {
+      "configuration_ids": [],
+      "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/twenty-seven-comparisons.html",
+      "roles": [
+        "expanded HTML report"
+      ],
+      "sha256": "271dff8598a85565632f7de96730859225cce4402ccc64b9280287bfd2582161"
+    },
+    {
+      "configuration_ids": [],
+      "file": "results/prompt-comparison-v1-2026-09-24/roster.json",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "df348da8bcc6586a47db2404ca7e21ca839b31cf9f742c1f1722e380aa95d759"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "8122bc9d0789bb1bf05abbcfab0adb715952d8ff48988039cad5b9545d2ec29a"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "11c3613e971f8ac2aa87afee10c585fc633130b50134cc835d3398b13bed980b"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "254d5e8bcef40e1716e71c13e35651639fbd86fe5b9b9f230003db8a9278e817"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "6a49ff27c5f769386018d64fdc3fe8d1c3def74ed1da3882c6191fbb584bfa3a"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "250897fe08f094d26c10ca3be1f84886d74f0770285b1c4b8b3fda87498a191d"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "8e5a76d8ca2fa0281be4c4f27d8147d056baefbb667b4c62583beaf7596c598c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "ad31772bbf2e82980008fc437bd3ed22823496b29dcc4546cf2636e8df0374ae"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "05f1af490f6c5b960ab6e1308c563a1f5494a6b2bc00797f8a768b6dd8b579ad"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "ea17b39af6878954fd3ae3aa2113b1ca868c172f273127019fb7e89340a8a9a6"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "c51c0657b26f0f4545d8581f165ecc8390d2c651d851382e7502e8f27558cb28"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "d3aecace1971058e458a5d3f3ee93087f9ef75364344e2cf44238be06e9070ef"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "959e822ebe7ee061593ed578b222aa4585ba9882704324ed0b54a74263a1b8ec"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "5037accef52c1b99a58902e330d31b81740d91e1acbbc489838035f94cf669c7"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "8c06d0a4e710e65ddda5bdef0588f9ba1efdb7dc837932c733b7d5e03458124c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "415004edae3233bc21ccc361da60ef35c02b530ead1ac14380676130b84095a4"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "cba1fe16c0e6116962378b6c276fbc444f14a1c0ecbeddb89e2923ccb32d97df"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "e5bf694bd5adbfd9947e8d72cd362ed02a46ad66a0ed8cbd240b992db7c2b0d5"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "6fd280d2137422af5a98b93ae212fce0288e9b751839aa342cff0b4e222ba7e2"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "bd90cb5ed98076be4ff7ac32acdb889ebb6de0de17e3c2521eb62dfd5e4da33c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "7f992455c7de5a1c13253fcf26b096da1dfe86908aaab4a3843a200893179c43"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "bb0352daa6070c534d05016e66a36e64256fc9adbccc299892bedf188fbc3661"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-high/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "89ba50fc2f3e15ffd8020e6a464f74af28ea2917e73d6c345082f1e03e1f8662"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "c7f232af48c8059440a6d2d847ee37f3e1f5ab0bc2f80ccfeef8d0de048dc772"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "12052fdc4b606a15da4f4b8d8bfe310c2561d5ca2ad551935b11e36c17c1026d"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "5e088dc122237c6d884c82f3362c6694eef6d92c4fae4180da2c8be58dcfa79c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "439261f615562029d134a8c155e22af814a985b7348ec6e4020117efae196ca2"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "604b6e14aaee37d5a8d2f4e173a06ab208ef4aad98c1aed832daee87a69670c1"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "9d5ab3105f0c40d83d12d43aabdafbde3c9e273b095b19fe70ee3b76057e4745"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "451a5753fc96db35b85d62a4ae050568059190bc15931b433c015f975e9ddc89"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "54efbfcd8ba15664452e2bf418cb5a38b02ef248e8c9213dab16f49aa740f2ee"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "143ece5f06ac158088036f8d3235ae39f16699096f20788021d0b846d9e8fc96"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "92e22dcd01f5e29d0c9fe3e9ab9299ce1568590b93f585538b28fb9641a53ff7"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "072b0865164342f7803182dfe49dc3fee8787a1f8da9090dd8071665ecb99c3e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "aaa1c8b934fb35085c48d08e1a516d50ae8ba8e2b7e7cbfba871938684a9c330"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "d6c7ee7ee701ea3f950ac15e8b5a1b2677def54b709db547b8da886770bfae4a"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "733909cabba8c92b056411ed3b26d9400c12eb0225525e092950972deeeba7b8"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "19aef4f2a472d69e2c156651757b7042520ebe300a3a3c7a850e529116ba6055"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "b60f4c7733f29f81ff49a55bee14e8e76e0da68989898fc3bd443bba8460e784"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "ed764a01d8c33623890af6752f6d012012717043290c1b9478818bf8d65f0858"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "405f55ae816af6a909072ff94579b73fcfa919cf43100756e887ed5130228d36"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "32d5feaf3fe0e82b354c532e62fdbe9c9f846d679488a5eaf2e0e19ad324ae79"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "fe09f8e89066dba5bba60e8c026a05395d0793186e31474433e74b5865635c45"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "33da9963ca7e48ce8af8e3e96b62121cad4f2fd1e24092ab85d32913c2b2a7d0"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-low/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "fd20fc7af2411d124213679aab790ef7e183c4cca59aca3940a43f9a9689db7d"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "08f65436b0623b267fa06408ef65928be93899cf7261f0c209acc1d0cda4f689"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "1c39d44ac709492f342870b8f3b254e780f8ed7a0e7d4128c353bc003f4db89a"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "52573dc2b6ac24518269c51ad8b8f18332258d8884fd6fa7857ec26cf623f012"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "ad06a4c1925c73e99c0073149494718abdbac17b4cf97afc83b38247a17181eb"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "eace24c458ab94cfa7ce30063f86abe87a4d055e7d4bd39fd0a6e811c7331215"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "1721517e634a82d6acb881b4f89b163fc971c587235b42a04efe198495f9513c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "d487c8b6c92ea609507916069e69075558ae7bfa9b9e2ee395233fd51693419a"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "a7e0b6600908fb74fdd3c3d0902b30ed6c6f1f10ef7b22b8e73bade2e771838d"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "c5d7e483c73294f271551bbe5c7590323eef8926f086d40771646be1c8a0566f"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "dc00719ba9b44849851891efd40b913f0c0d26390afc136f987895ab4d62cca6"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "581725c3123082c1a3ff1df6776ef41381cb4ceabdcee81302a013f5239fd6a5"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "6fe36f3e400305294101ad499b52bbe446835b462f7739056b002feb1aa2d733"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "e88790743e9211bab6b4dbb39f5dea74db8bba9fb68d0b7157aba8d7f956ae2f"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "88b9d2edcd8bccf8cb34a8539db53a52a353a2c98600bac1ec8b7488bf261989"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "23d70c48b1109bb0d756bc90afb9efbffb763a65305bd828108506a2f4b1cefb"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "874c939ed7751c9431c7251f0a4a0206f09f5e837d793930987a985a8a6dc60e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "2843f89c565105a3b99ff7feb18b6defe1f1badb0848891ea31a1add530ef3eb"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "f88559d018f249bf4daf06bf4ed84ffcdab2541be786fdb2c1285a5e1336b1c1"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "014b5d01164f9e64d4832efaef05e0c27c11e7a84a3846b497c90593af0d4f14"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "b246cc12673c66b506f181c526c6e626143c52f2e009e42097d46d5de2968be8"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "8b16f20ed1406ca1e8f5825f3551ce377879f3777deb0a212775bbb283c90d34"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-sol-medium/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "8573e0841ee3fe35434935bd8b774b38f6d8bcabe6386e72af491ba45b2b6422"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "7461a52a449401c60fa9dbd9c922e17b05378e423c78cd5573ffc9a0d6866cbb"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "2adae66cdb3f49371c40edad582261c4db9dccef6beeca164b2fc892da0bd72c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "baa1827155a9a1d0f1087067de660d748234ab00adae453164616cdc787647e9"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "fa6f0e8c5f80ad158fc39200405b2c6ed279737e57c6d0fc5fb1482fe377ea32"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "2612abbc2326764ef67e3cf6b8f9dc6c8bbe0801d7926a9fcaa45efa3c1489b0"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "b8f191d1cdc027f2f0203edb492ac3255d42e6775ec68c9c366e643aba9fc420"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "1437ff15b09760017a20a88589df6483ac0c35fdbbb83c273a23dcc4a9ee0333"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "27c29e347d062cdf22cf7716f640f60ee580ddb9b42381e8ee1393d1297ddb46"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "272379ab928618042aa553d9e98de3d64ad83c3b6704d83e6a415336611151d0"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "8175baa0c20e41a5e015e93caccbf70db008cc6e60cf8716e83c21e83a6574aa"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "574214989d6038358585c0a5a49bf803d7924827f0e7bc24b5ad7a0678a76850"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "e58c186dc2a7485eeb5c3b19a924621f79c9decbfeecdff4bc7b55db1e30b399"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "da36ef24e42d77d103df92c914f29ce498727cbdf64f427a75629f40363d115c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "dba0b8f22d5188f3b13b7c119a7079413ed0a0ebd7bc0245ecb36d23abc2ddfa"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "ff7f98fdea9ce9d1454f4dcaf6bb5674dde73dbcb723aab45c006af844f700ce"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "7c07aba83476280d8375375a4ed18084ed5b7e0bfe216ff8da60917fd01c2494"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "bd39b993b6631fd4315ab7040aba094e0e8f1bb944efcd205fb98a6e7edff591"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "e2d81068d96689aa5184af52baa00a929a4322d3cfd72a28208b4af5423f7e30"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "4d54e532db977b7ad75fb4a100d90f17a9fea374c38db17de4240bc6b8eef9a1"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "3cbd387d6eb2ded1168c80982899350b4a31795ce996b1206ed6c20a44b6f314"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "13626499a2bfa9f65a5fc58594076e9003c175856f1d921a2ea5403d1da4770e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-high/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "860cd784fb804fad413037e84ea0215a607893355165a66ff9ac8e6c5af70e37"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "d1e139daa09964ba69c99b15b02c1a0ac34fd1e3386fd0f98b9b9e874f45990b"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "bbff4a6fe3a303c7642f53e5a640802d5ad03126f8841062c36ef1353ff41d2e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "bf17d134389fe856fad95dd1d24492c05c02e4a893b9aede96f45c8b83484d6e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "71b7a755da647ddf452fe9f41167403876e60076b9454b965673623f600bb59d"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "7703540cfd8e9cf9b157145344c6c24e286735f13110d42fb374b02358d63cc5"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "98c4b56d1d85451e863a1841d07e327c9762782a73f67bede38532063d1f396c"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "5b13d1e4edf46f0d96a6dc19c21d89f07d899f056fed549d8262a667e0461a77"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "b4c134efb9fcc14c706f186006048607108438c6f1ea1f12058edfa8d51749ac"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "1d945e196d057f31f007d6b67bdfbfcbba8507d3c3df489dfb7bff34dfc3d337"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "2e003a26068f90ff3cb9152f907744a2a9b1ff5a1c81b5de65532bbf33c97645"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "a87a5171d8185cd9b5c0387a5c95f9c93f8a27eff72390c497d53bc06cfcdd93"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "c63d1d48ce0665a4acf16f4eeba66bafbd6ac786bef8b863829a4edb21b0b2aa"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/development-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "5443d0f450216c59d8e1233afcb490f67e572ac2c216acc5204f3316b06e1e89"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/development-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "6d856a5bc4a3ac67e87a03158c996c38207f21f8b3b8e780cb936482a781a7d3"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "e35a6cafe66c102e50063d943adf6bedeac259b7387c98e04a70a881ecb5ecf1"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "f9854ca9d6fd1927bceef8e06fd50368f998273a7c2530237583ff399444cc2a"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/smoke-attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "9ae06905b12e0d796ed475c3805226e2fc6282e73c1947220d9ba2745017f3c9"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/smoke-attempts.jsonl.journal.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "05cc262405c506e4bdac10804318287bc87ea54dee74d1f0158031312633db9e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "e3f6f7119678c927c71c710b755ae2d29980a8c9219d74268ceb6b5c1c257028"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "29740cd591fef254f2cc2521192ee33898593d8da04632d5340fb5dea1c76b44"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "6ab224f6251c8a4e8b7ff8369247f14008962f2411ed3dc1632adea7a50bb721"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-xhigh/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "4e0369407fdf8ef12dd4307fceddfc20d358cb2625a73b0a316ccae40b20b6ae"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "ca186bab56f5444ba4dbe3aa2f42bd7bcd3f984529adb56ee9f9ef55a19710d5"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "4e84ef7f8339424741b777d2fc52f2cd3b4f8a80b101ac7fe86fd6935ba39cef"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "fc8608c80cc4b4b26492748b38f4eda54e9aca500ae705bca0f6651b7e82de54"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "942ee12788e84e1f552da42ca5ba2541e9c16da3aa05d97a9080950161856ba7"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "0dd556446c5cf276fe3f9d43e0d373f8dc4f45e489ec5384f494115256520078"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "7225fcbdff1d7397658a71b42252621e7641cf4d7434a5b92ee6738034739757"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "627209336f096a70bd1560b41896bd2a6911dc2f0328f771013d36911d4d6c4c"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "cae928a53c5069f2411b2d16a4dfe428758151c122961d7232110af5a25c7cb8"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "15d658295d855df5a6422562e6fc124f801fcd04216fd84de82d75b27a749073"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "7ee42767491fb615c4b77a1ffcac28247c2fe81374b6c5669afbaed76aaf65a1"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "16a3fc1e242ff98f42d15c7ffd19bd4eaa42a31924da9575a624239c967bfb81"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "98c66cde51d49b0b1052eb3c535aa4b703750dfb172cbaaadb9d4a1a1029da8e"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "f11cde621bd67e14a9ebe22d58f4fefc1f8ddf8ac228ffb67fbc5e938bd93591"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "1a80e03107bb614b0e4f2bc9e70c237ed0d1bd486d64de644bdd5c988dcc0b59"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "5b386c3cc4388214220f9e1b7b2f7a4b6ddc58438ac55d35624a5fee5531bb5c"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "e79ed810e47b20bec35d322c5aa9adbeed1b93f4ed133539dcbe388b3add493f"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "75ca661093014eaa50ac1496ea01a0cee374549d0b9650af84e2a50b07df6a22"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "b2546a43c4bcd1a134d890ed17cee2f7a992806af81f771ac12b37915cfed93a"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "de5ecc85c3f1fb796619f66894b10b9454e000c8742e5e08aea4808650260334"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "e6bbf6890473d1cc43b1d2cf3cf675dcb3c0acf89202be36d18b0d046c0a4e3b"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "beef2b4d56450cea82088972eb2f1b9086ae174f065dbab1184885118c6fff07"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-high-phase2-batch10-p0/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "ac71270147e06e718436f55f1d1df004d831fce592245c2a982244de59fb5f3f"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "6f3e5e22e9f63d1cc209c6a79dfc002e1d9c797c6f9df910b3c7f2da5724aa3c"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "424ec665043b06414ae946edecbb658163d3e2f2714dd7c397ca1e848431619a"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "587aa8c0c81d8d65d09899b801296dc1f12a105922eb798626e843944dd748fc"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "9f040a944ef087b3950af924f22493557c69c45c2018ef88b37543dc49a09906"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "760363378d6d9e9e95f1ae0e37b5d07947ffe6f884a5bc938a13e057686d216b"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "31a5751f2a5dc026a9d6c492b166132ac8d8b23a38a053f7d0e3de526a364a4f"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "4eefd4eb242122530040d254fc4486aad9b75b0723b232f55fcaedf1160777c8"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "a5535977be76cc3237c2e1e840da897213876d3c43dfe34bae15d956d088b49d"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "40e8665b391ae99070c158002f39af2f559ae180ed275ec5beb87222915cef94"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "d14a1e25b208fe04a17512f0995537afba803e4a719174c071b1b7d204e4befa"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "7c9b90c3084426030a03d6e5dd0fae4f8a318b4d03233f17dd1a79045b3da52f"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "4bf703cfdaff16be96d36a4bc793c507897293ce9db0c8e8d5041bd56b3ace04"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "52589b8060dd52927f15ded2b41d442de3d64a754897d8ba0cbe8a51f846e86d"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "fd4e0b8c2b0f877dfb96618504270ff723c415a91f00fc099082c6015e08733f"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "7a89611a66db63a9a839caab4696f13d2c930c013a7b1d558d0c1d31f54ac0e0"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "b8cd74e95a7d03c9fffc69407b28a8a918ed1b43f0a3f91c8fa95773b74cc5c3"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "30e9d18770fdde1651fe23aa6d6d8516ecc0a7e6aa9c5a3d7ae111da39d68168"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "cc4894cafa3d03b5a81cd4c882c2c524e818d605a0167f8009c5f96d1d704143"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "a145eb6c5ece55f4745e02cedf9df41d22ca7099f13ac906d821c4ff27f23614"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "a5667e0f57b102afd507c8f5bd8f270d1bccbe8e3bcb8eeb2d42c6e431b66614"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "cad05d5e190424d9f8b5d0383286f1e8cd9d1b45f0d1b57cb055583631df8e88"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-low-phase2-batch10-p0/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "727eb2d42b24e9be9bb05f183e20cf029af5233a05d7580b0cf66a96a740bbbb"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "a4f45761016d8359ea8d648e27887c32058c787eb4d130cba951eecbdac15bae"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "4fbb5f11d5890a3c789529c3fc1207e41baece783962ff31595424b38c685b76"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "da984c860b4f1ca8be19c8e66d8ce730d5bf12ce8d6293f2cfced344e1cca235"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "0eb6fcede8343dca0e144b3a91c9ccf49535870bbad379dbdca84fec687190a9"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "d9333ea01bec14c1c8e01020e7cc5b076e4c559ade41c95e4b1aa0fb517f7bd4"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "768917bcd112fa2a51d30cf68b713f03896334e34d11ebe7d300a7965566954e"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "baf48ed2de4a9024b2bbcb7b1f12da56741262dd2e9bec21cc738e1402d286c0"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "aeebe9189f3ebbea4dca7e45de3f1ead99673057452007bd80d1adb8d54465cf"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "36fee39dc7f5dc8d6cfebaad17e53193288350b34e0985e07be6958461aaf65e"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "3e8dd233cc261aad75a3069b6b1be73960764ca0fe3488a067ba17bd1d9a32e1"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "a8f3c4de7629ab21a18418b2e991cae37f875eac90929e81a16b6b542ff86f91"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "ade08909550d10371c560a323c1ee01ab3f067a252a67716614514f45199d6c9"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "1d1d4ab609717876596bbf8083214680ee9ce58297d6120f8bbab11a48c53267"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "8874168611284daae4e9215357974ebd6c8bef4b3854f07fcea728420044ea79"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "d082b990529227630ff580735289ef81bf778586f10ca8c2c445995b07b79adf"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "76f0a3b0db4177e388f31d635d4b7f36c13e8271bad39e38f2d0abdbd578f529"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "9b237a2e2e430a4a1129498d9382f65e684abaeea7ed6b29a3d1471b453e7d90"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "16bbf7ad97d1c96e75d75fd6f1d9b6c7fc395b410badbc9fdffae1aff89098dc"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "2563123bf961a6c8f35fc919f03d7b334b0df719f99486479eb5988e6f55a60c"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "87ea2e8c111f1ccf0df89350ae3a7840b8e7fe49f5df7b729d34e1ec5f6c02c3"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "d5c1dd56aa7090c4df0bfcef52e74de5e34ee57db8e87017b2c18a0441317aea"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/fable51-medium-phase2-batch10-p0/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "8ea4b9fbe42665b60afbc7dbfd439a8e6b83750283efd7d4506238315b675523"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "b64256c9442dcf7d9c8f52431167ab4d9ebaf03d0cd13fe476a061fe8cd09495"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "c71ff77cce33bdc20607970298bcbc146d736d9440e77e3f5dff3ce0098d626e"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "92159803d88c0f35969fa57265a74aba2d3973ec8208d3f584cb72de443a3a7f"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "e9674f5638662dd70112b8c435d066d9fadb2c33e15eb2a63ad4d55785aec5bd"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "f9ebb61b5ea2638a971be1ca2260c1562a0257e7e0e9f09f226054211dd49b56"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "ad2182626d8c958212f00ff93fc099fc6e57a3df3a28ba5933fbe0a976885f95"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "1339ac6253ce5ea515b331311f8850c83b3846a30660d5b7b054401428268ecd"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "660b1e8e1b6681b6b2eb51899521b4d10319d1f442cd3ca915ede1351559d0fc"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "5b12eddce5d557fb9182998a1bbea654fa2780d518410a90ba08bc536558356f"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "6230985676a7a8c785c6eb756f99f7c5048a9b4c220fa2abed5cd3fa815a5d5c"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "59d09da04fe17f1f5087443e02743deee90915c0c1cf07e4a4b3db2ad2912a78"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "a53e6eccdba1ed5ec0a007c15d6a27abfc128cda27267dd06b5fd4e044f548f0"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "212db47f373631b20efba77f801781a2d4c6aa43383989ba8c5f62bfab06fdc9"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "3fcaf8e6dc8cf6883f84371981daa598a7c9ac9d4f3eeb491aa6ffce788275c2"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "e70e14ec840cd049891168f4bf6acc64cfec4ba49b7ecb5f2922c01ef7bc930d"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "9ac91d35c413c5275f62e5217e4fcc0a1b3346c3c81d55ca089a9ff5ee581e55"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "fbd791a5935b7c7d08a1c18260127765f5bf00578a3dd74e6ee7d39b0480448e"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "52f4df1b40b66b418c882f51e3e71b1065ccfe05edc5eaa7bb292745b9f1d66c"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "19793f876428e016439a55a35540820d578db5031c00c8a2dcf7d1b55212d485"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "af6258ecaed36074b6c6f66f624564b4815b3d342495533dff8a0f6f5f9e0aa9"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "70e8690baac153f6cbcc96b11527dedee5b0c6f0957655e96a0db735a7023eec"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-high-phase2-batch10-p0/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "d6853ed9e4a48a8ffd97c491cca091dc0984d21486b0bb2dfdaf9a3eb4cf6ee5"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "bc7fbb3eb7a1b55a39629865c57e960107f877f38c18f38dd5000f174375155a"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 predictions"
+      ],
+      "sha256": "3488e95474f671eca940e34f052dc53f58032e67cf46122fd2adfd4c46b2d23a"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "c6989792ebbc0b1f83bb237fb0704a2bbe06e790773b965cba8cd3311e9afe10"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P1 raw_attempts",
+        "P1 request_evidence"
+      ],
+      "sha256": "c3f084b541429a31b948a3e0c2b08977cfbe4589e038d5ded9989df23001af1e"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "d697afb04708e7bd311308abb53a985b69a9fcc9cc927da4fd9190a4ae2b9c75"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "b619ba666d79b28daf5df7f8ad9ef206367128a790e72cd1917cf0498bcc5030"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "8a65ca71784d40c37162dbc51fef4458f3639d141887544e76947aced326a486"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "c92e54e7f7c4e246b127986f242a85562e542d353fc6227f20400595823def5f"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "b1edfce3449e20c5f884c382b6756567501df7ec88f56b9079fc6da33d005ea7"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "0814563a821b6da63c4a3ee2fce26b3515c2b1c028de01dc01ff7da691166559"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P1/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "502bff12fdfabc6610477523d2a58899c045f90e02bbee5779ec43496f913402"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/completion-sidecar.json",
+      "roles": [
+        "condition completion sidecar"
+      ],
+      "sha256": "3a265a646a8a88ad2d1f3b38c4b5c5a72b44bd88d3d54c253c0389a583d4d60d"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/development.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 predictions"
+      ],
+      "sha256": "757bf2c20154bee6b819903e131d33234e7a91308dabde671f6081e571567b3d"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/development.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "3f9bf0d0d572746df11ec39b125c0c2f5b6942da0dffe2217b87040870e1d03c"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "P2 raw_attempts",
+        "P2 request_evidence"
+      ],
+      "sha256": "fee6b9322fd4fe8fd6126d66dc742d27fc0023c06277412866810077965741d0"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence",
+        "development admission"
+      ],
+      "sha256": "f7fdef2998eac4933ace5b58c6d44166ba8a5ef9e7fc13c85ad7159f75227ae2"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/smoke-inspection.json",
+      "roles": [
+        "reviewed smoke inspection"
+      ],
+      "sha256": "bdf4afb1779013c43000645f608f94a0cbd12a88936b5d57550564d463fa58cb"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/smoke-supplement.json",
+      "roles": [
+        "smoke admission supplement"
+      ],
+      "sha256": "45d6a48117c17163f1a7521ab052db8cc17295f1eb80cb5e18d53e30465805b3"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/smoke.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "117807b6d49ebb3d76d1a39ffa5d7e2a1797d746cfc02165b5d73647a47f0e1d"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/smoke.jsonl.attempts.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "4f29472d2428d764509610f7a578a0488906a4caa2890883f4c3af9f211f729c"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/smoke.jsonl.batches.jsonl",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "a554caaf694d5e38c5687a896a3483c155e205145f80669ccc7d646606411ae7"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/opus5-xhigh-phase2-batch10-p0/P2/smoke.jsonl.prompt-admission.json",
+      "roles": [
+        "global snapshot finished-event evidence"
+      ],
+      "sha256": "3197a44f539dbcadbc07b75af0042588d77d1bdb9d9959c4dea82b5bc25d67ac"
+    },
+    {
+      "configuration_ids": [],
+      "file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-high/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest",
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "956c81fb3b87e6f3359cf5e917150de8e00db5b7c445a8dc24f64f5896d620de"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-high/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "0c082cd66c527739aaaae3f021a9c700ec4ab6a42858d664e77dccd012298b6d"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-low/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest",
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "7da120381e34bc6b601eddb337271b98c6787b37a2b0d8a34722b675233143dd"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-low"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-low/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "a7915c314e5b27c0fdc77060d2b8035abcac9c4e0f70025ddec77d4cd6a15074"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-medium/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest",
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "43a7d111cbade3935f54170462fc5d5d93c6eb737d3fb2f646f318c56393c143"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-5.6-sol-medium"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-sol-medium/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "bd971617601d2eaed61c2c62f0a3c7af0daaffebf95f299c62ce972c19b5708e"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-high/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest",
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "9877594a0d56ff2bb31b7e4cc513e5f1842993339856811c8e9068d16d40ce47"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-high"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-high/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "795c6b7fab2e978d8e898f4a232aa4e06e9793c2ca825e8db2a04bebf6e5e069"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-xhigh/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest",
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "6174d5b2a3f330d140fe70d9d1108e0706b644f76454f516a7468fd2b8768135"
+    },
+    {
+      "configuration_ids": [
+        "codex-gpt-6-astra-xhigh"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-xhigh/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "eb5b2790687de658a5d338ed443c9ce70521825889a71b068043056ae5ee1a33"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/fable51-high-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "e452dc9cdad8443584d68c51051039b6045ca33687a243f512c51f096c6231c4"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/fable51-low-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "c2ad76c616b91565c7d51e81393f3ae369d5b37c80ae2e0f3ee314a87d74a0f3"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/fable51-medium-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "59153e465235b0f8709011655e356307e9c1bf7311e94fbf21bb6784128d206c"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus5-high-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "af3a4119019454c0a060739d00be41adc050db61688faba7bf02c2f9f4d74b38"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus5-xhigh-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1 execution_manifest",
+        "P2 execution_manifest"
+      ],
+      "sha256": "fd3e98201d3cba6925d0600b92c417e8973c44563988863cde076bd14c8dabc4"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-high-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest"
+      ],
+      "sha256": "3b90075d009a0ad71ac7ffb4009de24ea797635cd31e07daea4cd43f137453ea"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-high-phase2-batch10-p0/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "7c9fe3ef2d2855ffe1da58f76e464e617027f7e91929ae5ba83b0f3e40187020"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-low-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest"
+      ],
+      "sha256": "cf6368bdc8fba20e5f0a93f8ace50d5c820a231fbd6e6b652d4aa9e6ee31fb78"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-low-phase2-batch10-p0/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "8bdfa7ddcfcf58eab385726c0aab9ab0153e1091b4e933ce9363feb579706861"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-medium-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest"
+      ],
+      "sha256": "7df1af8afe9d46e26a178a08acc09395287221a9a5f6bec6fdb7f54bc891dc2f"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/fable51-medium-phase2-batch10-p0/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "98c8d090e2bb9a488f027b1ee644d31f0a0b435a3e552f71859d88d3c6c89b40"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-high-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest"
+      ],
+      "sha256": "5ab1d2894e2e1fb947a20ca83aa46b878c88d57da8d793ca8bbc19b635ea38bc"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-high-phase2-batch10-p0/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "7c1e542473c19a6fea75ef86293dfa1a548987082510fcde9a01c924c9f7ac38"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-xhigh-phase2-batch10-p0/execution-manifest.json",
+      "roles": [
+        "P1/P2 execution manifest"
+      ],
+      "sha256": "b3eed63a06137bc6fa0985e6a644b75161b2ab8ba1142b2d99732eac64a4c212"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus5-xhigh-phase2-batch10-p0/parent-evidence-audit.json",
+      "roles": [
+        "P0 audit/source selection"
+      ],
+      "sha256": "cdd92284fb44f6e59aad5e9e522044b7917d368a09d22cbfbad4258b8c25f3d3"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/fable51-high-phase2-batch10-p0/development.batches.normalized.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "6a8dd0423f62825b32eda5dbc1c8f43434a9a3871611e0b027bab47a9dac04d1"
+    },
+    {
+      "configuration_ids": [
+        "fable51-high-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/fable51-high-phase2-batch10-p0/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "131fc6df68f6293c2ef73f32f2e5a4604931ce699c6739405213d7e197c7c528"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/fable51-low-phase2-batch10-p0/development.batches.normalized.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "c25902bbd5154c8147257f6bf8122c326fb87a7418bc634f512017e045447fd3"
+    },
+    {
+      "configuration_ids": [
+        "fable51-low-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/fable51-low-phase2-batch10-p0/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "c60a2d09e412e0b3836b7e8c3ce179c4108d76289e35c7c66dabe2102cb2547c"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/fable51-medium-phase2-batch10-p0/development.batches.normalized.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "75dee70962d92f183129dd070bfbe5849d1ef118f5138d393c27a9d7df31787e"
+    },
+    {
+      "configuration_ids": [
+        "fable51-medium-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/fable51-medium-phase2-batch10-p0/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "5b59abfa128362f43784c7df8c4265e0b58154c18adb91a890fec79a54448a9d"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/opus5-high-phase2-batch10-p0/development.batches.normalized.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "8bb2c0d8e0686a98075b76d462a5c10003f5cd84df9baa023138838ce5cd573b"
+    },
+    {
+      "configuration_ids": [
+        "opus5-high-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/opus5-high-phase2-batch10-p0/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "7ae566ad669c2405315b3426df6dd1115e61ef8ee82549174f5c7d8a2b0bf045"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/opus5-xhigh-phase2-batch10-p0/development.batches.normalized.jsonl",
+      "roles": [
+        "P0 request_evidence"
+      ],
+      "sha256": "530292c6a222ba114e4ab498210c2a367f4dbd2bb0d0fcaa8a12ecff547ceae6"
+    },
+    {
+      "configuration_ids": [
+        "opus5-xhigh-phase2-batch10-p0"
+      ],
+      "file": "results/subscription-batch-p0-2026-09-23/opus5-xhigh-phase2-batch10-p0/development.jsonl",
+      "roles": [
+        "P0 predictions"
+      ],
+      "sha256": "5e102e7b2b4cb04390cc61e3104f9abb828fda35ac6818c6925d801e3ffc1a2b"
+    },
+    {
+      "configuration_ids": [],
+      "file": "schemas/judgments.schema.json",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+    },
+    {
+      "configuration_ids": [],
+      "file": "scripts/audit_prompt_protocol.py",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "704eaffc083ed6cb845815fa80563c110bfc183f5300a3566f99b127d62c4675"
+    },
+    {
+      "configuration_ids": [],
+      "file": "scripts/evaluate_prompt_variants.py",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "configuration_ids": [],
+      "file": "scripts/prompt_admission.py",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "eff67d728724923dc668eb4b0471c2e3b56e8514adcd5abb81bad082992f0e99"
+    },
+    {
+      "configuration_ids": [],
+      "file": "scripts/prompt_execution_gates.py",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "bd1edbabae63afe1e2c2695cda13aef17d41f540e8b7b606d800b34ad24b25fe"
+    },
+    {
+      "configuration_ids": [],
+      "file": "scripts/prompt_schedule.py",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "ec1c6b7373ea0640abd19ced6e72d5ad64f3b72229df6ba88d01993728184710"
+    },
+    {
+      "configuration_ids": [],
+      "file": "scripts/render_prompt_comparison.py",
+      "roles": [
+        "shared frozen evaluation or audit input"
+      ],
+      "sha256": "5ada742ef1dfa222e1667e5f641a661efdf8957dcfa870c37f9fba5387b3bc39"
+    }
+  ],
+  "staging_dependency_count": 314,
+  "status": "complete",
+  "strict_audit_failures": []
+}
