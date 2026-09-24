@@ -1,0 +1,329 @@
+{
+  "id": "openrouter-paid-deepseek-v41-flash-off",
+  "parent_baseline_id": "openrouter-paid-deepseek-v41-flash-off",
+  "role": "system",
+  "controller": {
+    "file": "scripts/openrouter_paid_benchmark.py",
+    "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+  },
+  "controller_timeout_seconds": 300.0,
+  "continue_on_invalid_output": false,
+  "controls": {
+    "adapter_controls": {
+      "requested_model": "deepseek/deepseek-v4.1-flash",
+      "provider_tag": "open-inference/fp4",
+      "provider_name": "OpenInference",
+      "quantization": "fp4",
+      "reasoning_effort": "off",
+      "request_controls": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "provider": {
+          "only": [
+            "open-inference/fp4"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.1,
+            "completion": 0.5,
+            "request": 0,
+            "image": 0
+          }
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "judgments",
+            "strict": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "title": "Recruitment feedback judgments",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentiment",
+                "follow_up_needed",
+                "serious_concern_reported",
+                "testimonial_potential"
+              ],
+              "properties": {
+                "sentiment": {
+                  "type": "string",
+                  "enum": [
+                    "positive",
+                    "negative",
+                    "mixed",
+                    "neutral",
+                    "insufficient_information"
+                  ]
+                },
+                "follow_up_needed": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "testimonial_potential": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "runtime": "OpenRouter HTTP v1",
+      "hardware": "Remote provider undisclosed",
+      "surface": "OpenRouter paid HTTP",
+      "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+      "workflow": "single_record"
+    },
+    "model": "deepseek/deepseek-v4.1-flash",
+    "model_revision": null,
+    "quantization": "fp4",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "effort": "off",
+    "sampling": {
+      "temperature": 0
+    },
+    "output_method": "json_schema",
+    "parsing": "strict_json",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "context_tokens": 1048576,
+    "output_reserve_tokens": 4096
+  },
+  "controls_sha256": "d921c13f3ea900460477c791dbb02c00b51ed14fa2d6ce0b81b81d6ed0147da2",
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-deepseek-v41-flash-off/baseline.txt",
+    "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+  },
+  "parent_baseline": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-deepseek-v41-flash-off/parent.json",
+    "sha256": "e834da879faa337206e5fe0117ffe6195a27500fb14fa80f167e3711e480a175"
+  },
+  "batch_membership": [
+    [
+      "DEV-001"
+    ],
+    [
+      "DEV-002"
+    ],
+    [
+      "DEV-003"
+    ],
+    [
+      "DEV-004"
+    ],
+    [
+      "DEV-005"
+    ],
+    [
+      "DEV-006"
+    ],
+    [
+      "DEV-007"
+    ],
+    [
+      "DEV-008"
+    ],
+    [
+      "DEV-009"
+    ],
+    [
+      "DEV-010"
+    ],
+    [
+      "DEV-011"
+    ],
+    [
+      "DEV-012"
+    ],
+    [
+      "DEV-013"
+    ],
+    [
+      "DEV-014"
+    ],
+    [
+      "DEV-015"
+    ],
+    [
+      "DEV-016"
+    ],
+    [
+      "DEV-017"
+    ],
+    [
+      "DEV-018"
+    ],
+    [
+      "DEV-019"
+    ],
+    [
+      "DEV-020"
+    ],
+    [
+      "DEV-021"
+    ],
+    [
+      "DEV-022"
+    ],
+    [
+      "DEV-023"
+    ],
+    [
+      "DEV-024"
+    ],
+    [
+      "DEV-025"
+    ],
+    [
+      "DEV-026"
+    ],
+    [
+      "DEV-027"
+    ],
+    [
+      "DEV-028"
+    ],
+    [
+      "DEV-029"
+    ],
+    [
+      "DEV-030"
+    ],
+    [
+      "DEV-031"
+    ],
+    [
+      "DEV-032"
+    ],
+    [
+      "DEV-033"
+    ],
+    [
+      "DEV-034"
+    ],
+    [
+      "DEV-035"
+    ],
+    [
+      "DEV-036"
+    ],
+    [
+      "DEV-037"
+    ],
+    [
+      "DEV-038"
+    ],
+    [
+      "DEV-039"
+    ],
+    [
+      "DEV-040"
+    ],
+    [
+      "DEV-041"
+    ],
+    [
+      "DEV-042"
+    ],
+    [
+      "DEV-043"
+    ],
+    [
+      "DEV-044"
+    ],
+    [
+      "DEV-045"
+    ],
+    [
+      "DEV-046"
+    ],
+    [
+      "DEV-047"
+    ],
+    [
+      "DEV-048"
+    ],
+    [
+      "DEV-049"
+    ],
+    [
+      "DEV-050"
+    ],
+    [
+      "DEV-051"
+    ],
+    [
+      "DEV-052"
+    ],
+    [
+      "DEV-053"
+    ],
+    [
+      "DEV-054"
+    ],
+    [
+      "DEV-055"
+    ],
+    [
+      "DEV-056"
+    ],
+    [
+      "DEV-057"
+    ],
+    [
+      "DEV-058"
+    ],
+    [
+      "DEV-059"
+    ],
+    [
+      "DEV-060"
+    ]
+  ],
+  "conditions": {
+    "P1": {
+      "instruction": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-deepseek-v41-flash-off/P1/instruction.txt",
+        "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+      },
+      "observational_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-deepseek-v41-flash-off/P1/observational-evidence.json",
+        "sha256": "7f97cf29807a759bbbae6aafc5be2c4fa1e9637cce4e3a4ade2ff67239911c25"
+      }
+    },
+    "P2": {
+      "instruction": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-deepseek-v41-flash-off/P2/instruction.txt",
+        "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+      },
+      "observational_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-deepseek-v41-flash-off/P2/observational-evidence.json",
+        "sha256": "f7e3f1bb94ca0f1b9f50e57677909fa4518795cb4c4a0cb9bf9e610827d92301"
+      }
+    }
+  }
+}

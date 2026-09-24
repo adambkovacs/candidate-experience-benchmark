@@ -1,0 +1,66 @@
+{
+  "observed_utc": "2026-09-24T17:22:30.159270+00:00",
+  "condition": "thinking-on-P2",
+  "phase": "smoke",
+  "status": "observed_complete_root_review_pending",
+  "source_sha256": {
+    "smoke.jsonl": "26cdebd5dda8fa8e95a74020d8afeb4d182a8abad1ff48bd06cbb1d09ad0b7e3",
+    "smoke.attempts.jsonl": "24c5d73c4cb3b6aaaff27df2b9e885ad4ae3634b57671bf81051b60909518886",
+    "smoke.terminal.json": "3067f2b14b1d79e296956b841495de26f4fe74fb64771b8835fe79c86dba4974"
+  },
+  "checks": [
+    "Three raw non-reasoning strings parse as exact four-field JSON and match recorded predictions.",
+    "Attempt IDs, request hashes, and output hashes link all three start/finish journal pairs to raw rows.",
+    "Saved prompt-token counts equal offline SDK counts; model path, quantization, returned load and prediction controls matched inherited P0 config.",
+    "Terminal records three claims, three finishes, three saved ok rows, and no ambiguous timeout."
+  ],
+  "runtime_attestation": {
+    "cli_commit": "efce996",
+    "selected_engine": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+    "lm_studio_version": "0.4.16+2",
+    "loaded_model_line": "recruitment-qwen3-0.6b-q4km          qwen3-0.6b                           IDLE      484.22 MB    8192       1           Local",
+    "hardware": {
+      "model_identifier": "Mac16,5",
+      "chip": "Apple M4 Max",
+      "architecture": "arm64"
+    }
+  },
+  "rows": [
+    {
+      "id": "DEV-001",
+      "status": "ok",
+      "prompt_tokens": 2637,
+      "predicted_tokens": 228,
+      "stop_reason": "eosFound",
+      "elapsed_seconds": 3.8953163749999997,
+      "raw_non_reasoning": "\n\n{\n  \"sentiment\": \"positive\",\n  \"follow_up_needed\": \"no\",\n  \"serious_concern_reported\": \"insufficient_information\",\n  \"testimonial_potential\": \"yes\"\n}",
+      "raw_response_sha256": "4d759512beb030ea71d08c331b475cbd52291bcce84493b8ee8a2df4d3a5a545",
+      "reasoning_content_sha256": "ebc7c819917ebf0a5f63c4363c22abe1c3d6e69f3745aaf4c9aeea514f871ad5"
+    },
+    {
+      "id": "DEV-002",
+      "status": "ok",
+      "prompt_tokens": 2611,
+      "predicted_tokens": 273,
+      "stop_reason": "eosFound",
+      "elapsed_seconds": 3.3096846670000004,
+      "raw_non_reasoning": "\n\n{\"sentiment\": \"positive\", \"follow_up_needed\": \"no\", \"serious_concern_reported\": \"insufficient_information\", \"testimonial_potential\": \"yes\"}",
+      "raw_response_sha256": "f7002cab6a60f743ea670ba995d91d1a641a1f385cba98900a3c449eca7e9c0d",
+      "reasoning_content_sha256": "dfc3adebf06c186c072c3f23915f5b41abc9dba843c05c3294b8cbdfd1b3c091"
+    },
+    {
+      "id": "DEV-003",
+      "status": "ok",
+      "prompt_tokens": 2634,
+      "predicted_tokens": 389,
+      "stop_reason": "eosFound",
+      "elapsed_seconds": 4.8013333330000005,
+      "raw_non_reasoning": "\n\n{\"sentiment\": \"negative\", \"follow_up_needed\": \"yes\", \"serious_concern_reported\": \"insufficient_information\", \"testimonial_potential\": \"yes\"}",
+      "raw_response_sha256": "7a36cbf6424c8fad975d22e7d6fa9448d9093e0039c4772c22994020fb2659c4",
+      "reasoning_content_sha256": "b429575a481a1cdacdac5fb41a62a19381e73caa5ecc254d76cbcc895e412115"
+    }
+  ],
+  "inference_requests": 3,
+  "development_authorized": false,
+  "reference_labels_read": false
+}

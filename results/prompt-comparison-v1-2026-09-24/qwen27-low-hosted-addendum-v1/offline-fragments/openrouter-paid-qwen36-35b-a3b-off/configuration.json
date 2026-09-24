@@ -1,0 +1,329 @@
+{
+  "id": "openrouter-paid-qwen36-35b-a3b-off",
+  "parent_baseline_id": "openrouter-paid-qwen36-35b-a3b-off",
+  "role": "system",
+  "controller": {
+    "file": "scripts/openrouter_paid_benchmark.py",
+    "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+  },
+  "controller_timeout_seconds": 300,
+  "continue_on_invalid_output": false,
+  "controls": {
+    "adapter_controls": {
+      "requested_model": "qwen/qwen3.6-35b-a3b",
+      "provider_tag": "akashml/fp8",
+      "provider_name": "AkashML",
+      "quantization": "fp8",
+      "reasoning_effort": "off",
+      "request_controls": {
+        "model": "qwen/qwen3.6-35b-a3b",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "provider": {
+          "only": [
+            "akashml/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.1,
+            "completion": 0.9,
+            "request": 0,
+            "image": 0
+          }
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "judgments",
+            "strict": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "title": "Recruitment feedback judgments",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentiment",
+                "follow_up_needed",
+                "serious_concern_reported",
+                "testimonial_potential"
+              ],
+              "properties": {
+                "sentiment": {
+                  "type": "string",
+                  "enum": [
+                    "positive",
+                    "negative",
+                    "mixed",
+                    "neutral",
+                    "insufficient_information"
+                  ]
+                },
+                "follow_up_needed": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "testimonial_potential": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "runtime": "OpenRouter HTTP v1",
+      "hardware": "Remote provider undisclosed",
+      "surface": "OpenRouter paid HTTP",
+      "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+      "workflow": "single_record"
+    },
+    "model": "qwen/qwen3.6-35b-a3b",
+    "model_revision": null,
+    "quantization": "fp8",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "effort": "off",
+    "sampling": {
+      "temperature": 0
+    },
+    "output_method": "json_schema",
+    "parsing": "strict_json",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "context_tokens": 262144,
+    "output_reserve_tokens": 4096
+  },
+  "controls_sha256": "27d3a6abe6d19e97d4af7d5fb343d60355a6aa5efc562938acbb29666660c2a9",
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-qwen36-35b-a3b-off/baseline.txt",
+    "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+  },
+  "parent_baseline": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-qwen36-35b-a3b-off/parent.json",
+    "sha256": "f2771af057f38a90ba0a95bfeb6ee29e3a6d65674f9deae084475f5759e6fdc6"
+  },
+  "batch_membership": [
+    [
+      "DEV-001"
+    ],
+    [
+      "DEV-002"
+    ],
+    [
+      "DEV-003"
+    ],
+    [
+      "DEV-004"
+    ],
+    [
+      "DEV-005"
+    ],
+    [
+      "DEV-006"
+    ],
+    [
+      "DEV-007"
+    ],
+    [
+      "DEV-008"
+    ],
+    [
+      "DEV-009"
+    ],
+    [
+      "DEV-010"
+    ],
+    [
+      "DEV-011"
+    ],
+    [
+      "DEV-012"
+    ],
+    [
+      "DEV-013"
+    ],
+    [
+      "DEV-014"
+    ],
+    [
+      "DEV-015"
+    ],
+    [
+      "DEV-016"
+    ],
+    [
+      "DEV-017"
+    ],
+    [
+      "DEV-018"
+    ],
+    [
+      "DEV-019"
+    ],
+    [
+      "DEV-020"
+    ],
+    [
+      "DEV-021"
+    ],
+    [
+      "DEV-022"
+    ],
+    [
+      "DEV-023"
+    ],
+    [
+      "DEV-024"
+    ],
+    [
+      "DEV-025"
+    ],
+    [
+      "DEV-026"
+    ],
+    [
+      "DEV-027"
+    ],
+    [
+      "DEV-028"
+    ],
+    [
+      "DEV-029"
+    ],
+    [
+      "DEV-030"
+    ],
+    [
+      "DEV-031"
+    ],
+    [
+      "DEV-032"
+    ],
+    [
+      "DEV-033"
+    ],
+    [
+      "DEV-034"
+    ],
+    [
+      "DEV-035"
+    ],
+    [
+      "DEV-036"
+    ],
+    [
+      "DEV-037"
+    ],
+    [
+      "DEV-038"
+    ],
+    [
+      "DEV-039"
+    ],
+    [
+      "DEV-040"
+    ],
+    [
+      "DEV-041"
+    ],
+    [
+      "DEV-042"
+    ],
+    [
+      "DEV-043"
+    ],
+    [
+      "DEV-044"
+    ],
+    [
+      "DEV-045"
+    ],
+    [
+      "DEV-046"
+    ],
+    [
+      "DEV-047"
+    ],
+    [
+      "DEV-048"
+    ],
+    [
+      "DEV-049"
+    ],
+    [
+      "DEV-050"
+    ],
+    [
+      "DEV-051"
+    ],
+    [
+      "DEV-052"
+    ],
+    [
+      "DEV-053"
+    ],
+    [
+      "DEV-054"
+    ],
+    [
+      "DEV-055"
+    ],
+    [
+      "DEV-056"
+    ],
+    [
+      "DEV-057"
+    ],
+    [
+      "DEV-058"
+    ],
+    [
+      "DEV-059"
+    ],
+    [
+      "DEV-060"
+    ]
+  ],
+  "conditions": {
+    "P1": {
+      "instruction": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-qwen36-35b-a3b-off/P1/instruction.txt",
+        "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+      },
+      "observational_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-qwen36-35b-a3b-off/P1/observational-evidence.json",
+        "sha256": "a724d6a8d8b26cce3bf0808f31be7d273159a869d3c3d626d4360931a401e708"
+      }
+    },
+    "P2": {
+      "instruction": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-qwen36-35b-a3b-off/P2/instruction.txt",
+        "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+      },
+      "observational_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-paid-qwen36-35b-a3b-off/P2/observational-evidence.json",
+        "sha256": "c000a4b8388f933ee264debd6b3f8906896076256d8a5b7b9bd8677e160d5dee"
+      }
+    }
+  }
+}

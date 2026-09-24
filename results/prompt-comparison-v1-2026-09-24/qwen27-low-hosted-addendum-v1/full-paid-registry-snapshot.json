@@ -1,0 +1,344 @@
+[
+  {
+    "id": "openrouter-paid-qwen3.8-27b-medium",
+    "model": "qwen/qwen3.8-27b",
+    "effort": "medium",
+    "status": "complete_with_service_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl",
+    "provider": "deepinfra/bf16",
+    "quantization": "bf16",
+    "notes": "All 60 records attempted once; 59 valid outputs. DEV-048 transport failure retained with full $0.047001600 unknown charge bound; continuation covered only DEV-049\u2013060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.",
+    "partition_id": "qwen27-medium",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-medium-2026-09-23/development-from049.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-medium-2026-09-23/smoke.jsonl"
+    ]
+  },
+  {
+    "id": "openrouter-paid-qwen3.8-27b-xhigh",
+    "model": "qwen/qwen3.8-27b",
+    "effort": "xhigh",
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl",
+    "provider": "deepinfra/bf16",
+    "quantization": "bf16",
+    "notes": "All 60 records attempted once; 59 valid outputs. DEV-013 length/content-null failure retained at the unchanged 4096-token limit; continuation covered only DEV-014\u2013060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.",
+    "partition_id": "qwen27-xhigh",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development.jsonl",
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-from014.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-xhigh-2026-09-23/smoke.jsonl"
+    ]
+  },
+  {
+    "id": "openrouter-paid-qwen3.8-27b-off",
+    "model": "qwen/qwen3.8-27b",
+    "effort": "off",
+    "status": "complete",
+    "predictions_file": "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl",
+    "provider": "deepinfra/bf16",
+    "quantization": "bf16",
+    "notes": "60 valid, known billing; sealed partition.",
+    "partition_id": "qwen27-off",
+    "attempt_files": [
+      "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-qwen27-off-2026-09-23/smoke.jsonl"
+    ],
+    "completed_records": 60,
+    "attempted_records": 60
+  },
+  {
+    "id": "openrouter-paid-qwen36-35b-a3b-on",
+    "model": "qwen/qwen3.6-35b-a3b",
+    "effort": "on",
+    "status": "complete",
+    "predictions_file": "results/openrouter-qwen35-on-2026-09-23/development.jsonl",
+    "provider": "akashml/fp8",
+    "quantization": "fp8",
+    "notes": "60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-on-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.",
+    "smoke_files": [
+      "results/openrouter-qwen35-on-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development"
+  },
+  {
+    "id": "openrouter-paid-qwen36-35b-a3b-off",
+    "model": "qwen/qwen3.6-35b-a3b",
+    "effort": "off",
+    "status": "complete",
+    "predictions_file": "results/openrouter-qwen35-off-2026-09-23/development.jsonl",
+    "provider": "akashml/fp8",
+    "quantization": "fp8",
+    "notes": "60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.",
+    "attempt_phase": "development"
+  },
+  {
+    "id": "openrouter-paid-gemma4-26b-a4b-on",
+    "model": "google/gemma-4-26b-a4b-it",
+    "effort": "on",
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-gemma26-on-2026-09-23/development-reconciled.jsonl",
+    "provider": "deepinfra/fp8",
+    "quantization": "fp8",
+    "notes": "All 60 IDs were attempted once: 59 valid outputs; DEV-022 exhausted the output budget and returned no JSON. Only unattempted DEV-023 through DEV-060 were continued, with the same 4096-token budget, provider and controls. No failed output was retried or repaired. Both raw files are retained for timing and cost accounting. Development cost $0.02114858; smoke cost $0.00086731. The provider reasoning-token anomaly is preserved.",
+    "completed_records": 59,
+    "attempted_records": 60,
+    "attempt_phase": "development",
+    "attempt_files": [
+      "results/openrouter-gemma26-on-2026-09-23/development.jsonl",
+      "results/openrouter-gemma26-on-2026-09-23/development-from023.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-gemma26-on-2026-09-23/smoke.jsonl"
+    ],
+    "reconciliation_manifest": "results/openrouter-gemma26-on-2026-09-23/reconciliation-complete.json"
+  },
+  {
+    "id": "openrouter-paid-gemma4-26b-a4b-off",
+    "model": "google/gemma-4-26b-a4b-it",
+    "effort": "off",
+    "status": "complete",
+    "predictions_file": "results/openrouter-gemma26-off-2026-09-23/development.jsonl",
+    "provider": "deepinfra/fp8",
+    "quantization": "fp8",
+    "notes": "60 records finalized. Exact request/provider/billing evidence in results/openrouter-gemma26-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.",
+    "attempt_phase": "development"
+  },
+  {
+    "id": "openrouter-paid-gemma4-31b-on",
+    "model": "google/gemma-4-31b-it",
+    "effort": "on",
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl",
+    "provider": "deepinfra/turbo",
+    "quantization": "fp4",
+    "notes": "All 60 development records returned valid JSON after the inspected smoke. Exact DeepInfra turbo FP4 route with requested thinking enabled. Sixteen development responses report reasoning-token counts greater than completion-token counts; raw values are preserved without correction. All reported costs are known, and the child budget is sealed and reconciled. Other hosted runs and one local MLX benchmark overlapped.",
+    "attempt_files": [
+      "results/openrouter-parallel-gemma31-on-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-gemma31-on-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-gemma31-on-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "gemma31-on",
+    "observed_development_cost_usd": "0.01303944",
+    "observed_smoke_cost_usd": "0.00061533"
+  },
+  {
+    "id": "openrouter-paid-gemma4-31b-off",
+    "model": "google/gemma-4-31b-it",
+    "effort": "off",
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl",
+    "provider": "deepinfra/turbo",
+    "quantization": "fp4",
+    "notes": "Three smoke responses were inspected before all 60 development responses passed validation. Exact DeepInfra turbo FP4 route, reasoning disabled, 4096-token output budget, no provider fallback or retries. All reported charges are known. Other hosted configurations and one local MLX run overlapped. Provider cache usage is retained. The initial smoke command was rejected before execution; evidence-based resubmission of the same command was accepted. The child budget is sealed and reconciled.",
+    "attempt_files": [
+      "results/openrouter-parallel-gemma31-off-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-gemma31-off-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-gemma31-off-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "gemma31-off",
+    "observed_development_cost_usd": "0.00555500",
+    "observed_smoke_cost_usd": "0.00033333"
+  },
+  {
+    "id": "openrouter-paid-mistral-small32-24b-not-applicable",
+    "model": "mistralai/mistral-small-3.2-24b-instruct",
+    "effort": "not-applicable",
+    "status": "partial_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "deepinfra/fp8",
+    "quantization": "fp8",
+    "notes": "Paused after repeated upstream HTTP 429 responses. Across four source files: 23 attempts, 21 unique records attempted, 19 valid outputs, 2 retained failures, and 39 unattempted records. All historical attempts and unknown billing bounds are preserved. Recovery child budget sealed; no additional calls scheduled on this route.",
+    "smoke_files": [
+      "results/openrouter-mistral24-na-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 19,
+    "attempt_files": [
+      "results/openrouter-mistral24-na-2026-09-23/development.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from009-timeout600.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from015-partition-recovery.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from020-partition.jsonl"
+    ],
+    "attempted_records": 21,
+    "reconciliation_manifest": "results/openrouter-mistral24-na-2026-09-23/reconciliation-partial-paused.json",
+    "partial_predictions_file": "results/openrouter-mistral24-na-2026-09-23/reconciled-partial-paused.jsonl",
+    "unattempted_records": 39
+  },
+  {
+    "id": "openrouter-paid-mistral-small4-119b-none",
+    "model": "mistralai/mistral-small-2603",
+    "effort": "none",
+    "status": "smoke_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "mistral/zdr",
+    "quantization": "unknown",
+    "notes": "Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed. September24 separate overnight cooldown smoke also returned HTTP429 on DEV-001 in 0.760093 seconds despite public endpoint status0. No development, no further retry; full $0.04177920 reservation retained as unknown cost bound.",
+    "attempt_phase": "development",
+    "attempt_files": [],
+    "partition_id": "mistral119-none",
+    "smoke_files": [
+      "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl",
+      "results/openrouter-mistral119-none-recovery-2026-09-23/smoke.jsonl",
+      "results/openrouter-mistral119-none-cooldown-2026-09-24/smoke.jsonl",
+      "results/openrouter-mistral119-none-cooldown-2026-09-24/smoke.jsonl.attempts.jsonl"
+    ],
+    "latest_recovery_manifest": "results/openrouter-mistral119-none-cooldown-2026-09-24/reconciliation.json"
+  },
+  {
+    "id": "openrouter-paid-mistral-small4-119b-high",
+    "model": "mistralai/mistral-small-2603",
+    "effort": "high",
+    "status": "smoke_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "mistral/zdr",
+    "quantization": "unknown",
+    "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
+    "partition_id": "mistral119-high",
+    "attempt_files": [],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-partition-mistral119-high-2026-09-23/smoke.jsonl"
+    ]
+  },
+  {
+    "id": "openrouter-paid-deepseek-v41-flash-off",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "off",
+    "provider": "open-inference/fp4",
+    "quantization": "fp4",
+    "status": "complete",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-off-2026-09-23/development-reconciled.jsonl",
+    "notes": "Inspected3smoke then60valid, exact OpenInferenceFP4 route, reasoning disabled,4096tokenbudget, nofallback/retry. Allreportedcostsknown. Parallel hosted configs and single local MLX benchmark; raw providercache usage retained. Child/master reconciliation controller-owned.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-off-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-off-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 60,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-off-2026-09-23/reconciliation.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-off",
+    "observed_development_cost_usd": "0.00268114",
+    "observed_smoke_cost_usd": "0.00011067"
+  },
+  {
+    "id": "openrouter-paid-deepseek-v41-flash-low",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "low",
+    "provider": "open-inference/fp4",
+    "quantization": "fp4",
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl",
+    "notes": "All 60 records attempted once; 57 valid outputs. DEV-006, DEV-013 and DEV-030 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known and child budget sealed. Concurrent hosted configurations; provider cache usage retained.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl",
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-low-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 57,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/reconciliation-complete.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-low",
+    "observed_development_cost_usd": "0.01513539",
+    "observed_smoke_cost_usd": "0.00030306"
+  },
+  {
+    "id": "openrouter-paid-deepseek-v41-flash-high",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "high",
+    "provider": "open-inference/fp4",
+    "quantization": "fp4",
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl",
+    "notes": "All 60 records attempted once; 56 valid outputs. DEV-006, DEV-022, DEV-053 and DEV-060 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known; child budget sealed. Concurrent hosted configurations; raw cache usage retained.",
+    "attempt_files": [
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl",
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-parallel-deepseek-flash-high-2026-09-23/smoke.jsonl"
+    ],
+    "attempt_phase": "development",
+    "completed_records": 56,
+    "attempted_records": 60,
+    "reconciliation_manifest": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/reconciliation-complete.json",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "partition_id": "deepseek-flash-high",
+    "observed_development_cost_usd": "0.01852893",
+    "observed_smoke_cost_usd": "0.00036289"
+  },
+  {
+    "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+    "model": "mistralai/mistral-small-3.2-24b-instruct",
+    "effort": "not-applicable",
+    "status": "complete",
+    "predictions_file": "results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl",
+    "provider": "venice/fp8",
+    "quantization": "fp8",
+    "partition_id": "mistral24-venice-na",
+    "attempt_files": [
+      "results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl"
+    ],
+    "smoke_files": [
+      "results/openrouter-mistral24-venice-na-2026-09-23/smoke.jsonl"
+    ],
+    "notes": "All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.",
+    "attempt_phase": "development",
+    "reconciliation_manifest": "results/openrouter-mistral24-venice-na-2026-09-23/reconciliation.json",
+    "completed_records": 60,
+    "attempted_records": 60
+  },
+  {
+    "id": "openrouter-qwen27-low-darkbloom-fp4",
+    "model": "qwen/qwen3.8-27b",
+    "effort": "low",
+    "status": "complete",
+    "predictions_file": "results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl",
+    "provider": "darkbloom/fp4",
+    "quantization": "fp4",
+    "notes": "Separate hosted replacement for pending local low-effort prompt work. P0 smoke3 inspected; development60 all valid, no retries or unknown costs. P1/P2 pending. Hosted runtime/quantization differ from saved local Q4_K_M baseline; no local rerun. Hardware undisclosed.",
+    "partition_id": "qwen27-low-hosted-v1",
+    "attempt_files": [
+      "results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl"
+    ],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-qwen27-low-hosted-2026-09-24/smoke.jsonl"
+    ]
+  }
+]

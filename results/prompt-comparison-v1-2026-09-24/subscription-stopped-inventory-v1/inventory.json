@@ -1,0 +1,1607 @@
+{
+  "schema": "subscription-stopped-inventory-v1",
+  "captured_utc": "2026-09-24T17:28:00Z",
+  "source_journal": {
+    "path": "results/prompt-comparison-v1-2026-09-24/execution-journal.jsonl",
+    "sha256": "bcf0f5d48f61ae313bc8a1445fa28f4e40487ac945cf7e76502d76bdcfcbd81b",
+    "line_count": 652
+  },
+  "source_input": {
+    "path": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+    "ordered_ids": [
+      "DEV-001",
+      "DEV-002",
+      "DEV-003",
+      "DEV-004",
+      "DEV-005",
+      "DEV-006",
+      "DEV-007",
+      "DEV-008",
+      "DEV-009",
+      "DEV-010",
+      "DEV-011",
+      "DEV-012",
+      "DEV-013",
+      "DEV-014",
+      "DEV-015",
+      "DEV-016",
+      "DEV-017",
+      "DEV-018",
+      "DEV-019",
+      "DEV-020",
+      "DEV-021",
+      "DEV-022",
+      "DEV-023",
+      "DEV-024",
+      "DEV-025",
+      "DEV-026",
+      "DEV-027",
+      "DEV-028",
+      "DEV-029",
+      "DEV-030",
+      "DEV-031",
+      "DEV-032",
+      "DEV-033",
+      "DEV-034",
+      "DEV-035",
+      "DEV-036",
+      "DEV-037",
+      "DEV-038",
+      "DEV-039",
+      "DEV-040",
+      "DEV-041",
+      "DEV-042",
+      "DEV-043",
+      "DEV-044",
+      "DEV-045",
+      "DEV-046",
+      "DEV-047",
+      "DEV-048",
+      "DEV-049",
+      "DEV-050",
+      "DEV-051",
+      "DEV-052",
+      "DEV-053",
+      "DEV-054",
+      "DEV-055",
+      "DEV-056",
+      "DEV-057",
+      "DEV-058",
+      "DEV-059",
+      "DEV-060"
+    ]
+  },
+  "scope_note": "Seven previously stopped subscription development conditions only. This frozen evidence inventory does not alter attempts, outputs, manifests, schedule or shared journal. Failed attempted batches remain ambiguous and are excluded from continuation candidates. No model invalidity is inferred from transport/tool/identity guard failures.",
+  "summary": {
+    "stopped_conditions": 7,
+    "valid_output_count": 160,
+    "ambiguous_attempted_count": 70,
+    "never_sent_count": 190
+  },
+  "continuation_controller_evidence": {
+    "scripts/codex_batch_benchmark.py": {
+      "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941",
+      "observation": "Codex raw supports --offset and --limit, but normal Guard requires offset 0 and full 60-record development phase"
+    },
+    "scripts/claude_batch_benchmark.py": {
+      "sha256": "95be0e340a460f7c0d4d0a3fbf3f6b3fc150046056678ee71add9733a97187ea",
+      "observation": "Claude batch controller begins at row zero and has no offset argument"
+    },
+    "scripts/prompt_controller.py": {
+      "sha256": "b6dc5c8bac40e94d0b9c805674a0c825a9b14e4c16161c92a406c430b5dff041",
+      "observation": "Shared Guard rejects nonzero offsets and requires limit 60 for development"
+    }
+  },
+  "conditions": [
+    {
+      "configuration_id": "codex-gpt-5.6-luna-xhigh",
+      "condition": "P1",
+      "adapter": "codex",
+      "classification": "provider_or_tool_runtime_failure; attempted failed batch is ambiguous, not retried or model-invalid",
+      "failure_summary": "TimeoutExpired",
+      "valid_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020"
+      ],
+      "valid_count": 20,
+      "ambiguous_attempted_ids": [
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030"
+      ],
+      "ambiguous_attempted_count": 10,
+      "never_sent_ids": [
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "never_sent_count": 30,
+      "attempted_batch_order": [
+        {
+          "batch_id": "batch-01",
+          "status": "ok",
+          "record_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010"
+          ],
+          "elapsed_seconds": 85.3259247499991,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-02",
+          "status": "ok",
+          "record_ids": [
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020"
+          ],
+          "elapsed_seconds": 95.34672708400103,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-03",
+          "status": "service_error",
+          "record_ids": [
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030"
+          ],
+          "elapsed_seconds": 600.0192453330019,
+          "error_type": "TimeoutExpired",
+          "error": null,
+          "returncode": null
+        }
+      ],
+      "failure_evidence": {
+        "error_type": "TimeoutExpired",
+        "raw_stderr": "2026-09-24T11:44:29.142806Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T11:44:39.741345Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:44:40.288536Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:44:40.792054Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:44:42.669112Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:44:44.740302Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:44:48.901452Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:49:02.091603Z ERROR codex_models_manager::manager: failed to refresh available models: Connection failed: error sending request\n",
+        "raw_stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a0d33b-268e-7cc1-9911-31e572ed1366\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"error\",\"message\":\"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/adamkovacs/.codex/config.toml.\"}}\n{\"type\":\"turn.started\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 2/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 3/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 4/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 5/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_1\",\"type\":\"error\",\"message\":\"Falling back from WebSockets to HTTPS transport. stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known\"}}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n",
+        "elapsed_seconds": 600.0192453330019
+      },
+      "evidence_files": [
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P1/development-attempts.jsonl",
+          "sha256": "4af43faff56ab00a32d9aa22d51961ca1f023b671fa6a25956682ffae30caae8"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P1/development.jsonl",
+          "sha256": "f2d46ce1ef5541888e9eabe204e03bb0d728b33941a57912cba08762348af77b"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P1/development-attempts.jsonl.journal.jsonl",
+          "sha256": "1f3c66a8e8eb68a061b0e47763b6a152eb569b14547cfc6ff5c13274d371ba97"
+        }
+      ],
+      "manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/execution-manifest.json",
+        "sha256": "f300835e34fb56bd547dae0c55900d3a15a7e46e4fb0850057f6177ef2158fff",
+        "observed_sha256": "f300835e34fb56bd547dae0c55900d3a15a7e46e4fb0850057f6177ef2158fff"
+      },
+      "continuation_candidate": {
+        "offset": 30,
+        "limit": 30,
+        "batch_size": 10,
+        "record_ids": [
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040",
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050",
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "tooling_assessment": "Codex raw controller accepts aligned offset/limit, but frozen Guard rejects nonzero offset and requires limit 60; Claude controller has no offset support",
+        "status": "requires separately reviewed continuation-aware manifest, schedule binding, guard/controller and output paths; do not use frozen phase helper as-is"
+      }
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-xhigh",
+      "condition": "P2",
+      "adapter": "codex",
+      "classification": "provider_or_tool_runtime_failure; attempted failed batch is ambiguous, not retried or model-invalid",
+      "failure_summary": "TimeoutExpired",
+      "valid_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030"
+      ],
+      "valid_count": 30,
+      "ambiguous_attempted_ids": [
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040"
+      ],
+      "ambiguous_attempted_count": 10,
+      "never_sent_ids": [
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "never_sent_count": 20,
+      "attempted_batch_order": [
+        {
+          "batch_id": "batch-01",
+          "status": "ok",
+          "record_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010"
+          ],
+          "elapsed_seconds": 228.73358091599948,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-02",
+          "status": "ok",
+          "record_ids": [
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020"
+          ],
+          "elapsed_seconds": 176.64780816599887,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-03",
+          "status": "ok",
+          "record_ids": [
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030"
+          ],
+          "elapsed_seconds": 230.34700729200267,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-04",
+          "status": "service_error",
+          "record_ids": [
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040"
+          ],
+          "elapsed_seconds": 600.3943084160019,
+          "error_type": "TimeoutExpired",
+          "error": null,
+          "returncode": null
+        }
+      ],
+      "failure_evidence": {
+        "error_type": "TimeoutExpired",
+        "raw_stderr": "",
+        "raw_stdout": "",
+        "elapsed_seconds": 600.3943084160019
+      },
+      "evidence_files": [
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P2/development-attempts.jsonl",
+          "sha256": "71b0547d42c2dd57b54edf540443249de593ae1fd148311610e7748f2bf5de43"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P2/development.jsonl",
+          "sha256": "3a053b860fa46dab9fa4e5b1eddf4345e462325298510678a25920fd2f74f503"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P2/development-attempts.jsonl.journal.jsonl",
+          "sha256": "e179df4a5e3d093b5237ee6d2b7149c46ab869fb28c6a1f620fc63c27cab3adc"
+        }
+      ],
+      "manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/execution-manifest.json",
+        "sha256": "f300835e34fb56bd547dae0c55900d3a15a7e46e4fb0850057f6177ef2158fff",
+        "observed_sha256": "f300835e34fb56bd547dae0c55900d3a15a7e46e4fb0850057f6177ef2158fff"
+      },
+      "continuation_candidate": {
+        "offset": 40,
+        "limit": 20,
+        "batch_size": 10,
+        "record_ids": [
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050",
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "tooling_assessment": "Codex raw controller accepts aligned offset/limit, but frozen Guard rejects nonzero offset and requires limit 60; Claude controller has no offset support",
+        "status": "requires separately reviewed continuation-aware manifest, schedule binding, guard/controller and output paths; do not use frozen phase helper as-is"
+      }
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-medium",
+      "condition": "P2",
+      "adapter": "codex",
+      "classification": "provider_or_tool_runtime_failure; attempted failed batch is ambiguous, not retried or model-invalid",
+      "failure_summary": "TimeoutExpired",
+      "valid_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020"
+      ],
+      "valid_count": 20,
+      "ambiguous_attempted_ids": [
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030"
+      ],
+      "ambiguous_attempted_count": 10,
+      "never_sent_ids": [
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "never_sent_count": 30,
+      "attempted_batch_order": [
+        {
+          "batch_id": "batch-01",
+          "status": "ok",
+          "record_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010"
+          ],
+          "elapsed_seconds": 80.46571087499979,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-02",
+          "status": "ok",
+          "record_ids": [
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020"
+          ],
+          "elapsed_seconds": 92.52773345799869,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-03",
+          "status": "service_error",
+          "record_ids": [
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030"
+          ],
+          "elapsed_seconds": 600.0211046669974,
+          "error_type": "TimeoutExpired",
+          "error": null,
+          "returncode": null
+        }
+      ],
+      "failure_evidence": {
+        "error_type": "TimeoutExpired",
+        "raw_stderr": "2026-09-24T11:48:39.182704Z ERROR codex_models_manager::manager: failed to refresh available models: Connection failed: error sending request\n2026-09-24T11:49:10.636439Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:49:11.184248Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:49:12.117405Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:49:13.742885Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:49:17.025603Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T11:53:12.286975Z ERROR codex_models_manager::manager: failed to refresh available models: Connection failed: error sending request\n",
+        "raw_stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a0d33a-d99e-7983-a420-c848ee96a843\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"error\",\"message\":\"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/adamkovacs/.codex/config.toml.\"}}\n{\"type\":\"turn.started\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 2/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 3/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 4/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 5/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_1\",\"type\":\"error\",\"message\":\"Falling back from WebSockets to HTTPS transport. stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known\"}}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n",
+        "elapsed_seconds": 600.0211046669974
+      },
+      "evidence_files": [
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-medium/P2/development-attempts.jsonl",
+          "sha256": "b4bc36abaf84fd34e300358e7d211c36c241edc04cb5544ff270d68cb57d0f94"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-medium/P2/development.jsonl",
+          "sha256": "fa16750ac4d4e11022014da5f27f4db46ad2aa6ca35e6dd3f94ebd2d62f9f7d6"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-medium/P2/development-attempts.jsonl.journal.jsonl",
+          "sha256": "81fc77fa4132e82b5c9865a0499093e0a087ca8e4dcae649d3a49c5b08061c27"
+        }
+      ],
+      "manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-medium/execution-manifest.json",
+        "sha256": "e860729a4f8f831713995afc3823c9d09a53441930e4bcaa6e1f7989fc9c7477",
+        "observed_sha256": "e860729a4f8f831713995afc3823c9d09a53441930e4bcaa6e1f7989fc9c7477"
+      },
+      "continuation_candidate": {
+        "offset": 30,
+        "limit": 30,
+        "batch_size": 10,
+        "record_ids": [
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040",
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050",
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "tooling_assessment": "Codex raw controller accepts aligned offset/limit, but frozen Guard rejects nonzero offset and requires limit 60; Claude controller has no offset support",
+        "status": "requires separately reviewed continuation-aware manifest, schedule binding, guard/controller and output paths; do not use frozen phase helper as-is"
+      }
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-low",
+      "condition": "P1",
+      "adapter": "codex",
+      "classification": "provider_or_tool_runtime_failure; attempted failed batch is ambiguous, not retried or model-invalid",
+      "failure_summary": "Batch transport or isolation failure",
+      "valid_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020"
+      ],
+      "valid_count": 20,
+      "ambiguous_attempted_ids": [
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030"
+      ],
+      "ambiguous_attempted_count": 10,
+      "never_sent_ids": [
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "never_sent_count": 30,
+      "attempted_batch_order": [
+        {
+          "batch_id": "batch-01",
+          "status": "ok",
+          "record_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010"
+          ],
+          "elapsed_seconds": 32.50347637499726,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-02",
+          "status": "ok",
+          "record_ids": [
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020"
+          ],
+          "elapsed_seconds": 70.0476739170008,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-03",
+          "status": "service_error",
+          "record_ids": [
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030"
+          ],
+          "elapsed_seconds": 47.827153000002,
+          "error_type": null,
+          "error": "Batch transport or isolation failure",
+          "returncode": 1
+        }
+      ],
+      "failure_evidence": {
+        "error": "Batch transport or isolation failure",
+        "raw_stderr": "2026-09-24T14:00:04.154948Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T14:00:04.154950Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T14:00:10.126718Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: Connection reset by peer (os error 54), url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:00:29.706254Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+        "returncode": 1,
+        "elapsed_seconds": 47.827153000002
+      },
+      "evidence_files": [
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P1/development-attempts.jsonl",
+          "sha256": "8e732587e8bb383b18e408b520cfdb519915d3cda47846bfc30cd84309cd09be"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P1/development.jsonl",
+          "sha256": "bf796ef4d6fd65ebb9a944763a9d0226558e58d131410979988664bc39c8f76f"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P1/development-attempts.jsonl.journal.jsonl",
+          "sha256": "120629c36f07eb124e25ebf88ba75d98d6f5db81ffc052eda59ee4b6496e13f6"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P1/terminal-journal-recovery.json",
+          "sha256": "dc5ad656f1fea83e4d990e0b9cb2621e7a546dfda8ca9eaf62afb4b82f53d4cb"
+        }
+      ],
+      "manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-low/execution-manifest.json",
+        "sha256": "c720f611e6b09d65f772e2dbba89702d20594f47c50d22a564a9e19618d89e23",
+        "observed_sha256": "c720f611e6b09d65f772e2dbba89702d20594f47c50d22a564a9e19618d89e23"
+      },
+      "continuation_candidate": {
+        "offset": 30,
+        "limit": 30,
+        "batch_size": 10,
+        "record_ids": [
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040",
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050",
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "tooling_assessment": "Codex raw controller accepts aligned offset/limit, but frozen Guard rejects nonzero offset and requires limit 60; Claude controller has no offset support",
+        "status": "requires separately reviewed continuation-aware manifest, schedule binding, guard/controller and output paths; do not use frozen phase helper as-is"
+      }
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-low",
+      "condition": "P2",
+      "adapter": "codex",
+      "classification": "provider_or_tool_runtime_failure; attempted failed batch is ambiguous, not retried or model-invalid",
+      "failure_summary": "TimeoutExpired",
+      "valid_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050"
+      ],
+      "valid_count": 50,
+      "ambiguous_attempted_ids": [
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "ambiguous_attempted_count": 10,
+      "never_sent_ids": [],
+      "never_sent_count": 0,
+      "attempted_batch_order": [
+        {
+          "batch_id": "batch-01",
+          "status": "ok",
+          "record_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010"
+          ],
+          "elapsed_seconds": 48.804075542000646,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-02",
+          "status": "ok",
+          "record_ids": [
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020"
+          ],
+          "elapsed_seconds": 62.98725433299842,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-03",
+          "status": "ok",
+          "record_ids": [
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030"
+          ],
+          "elapsed_seconds": 34.655201582998416,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-04",
+          "status": "ok",
+          "record_ids": [
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040"
+          ],
+          "elapsed_seconds": 45.64466299999913,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-05",
+          "status": "ok",
+          "record_ids": [
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "elapsed_seconds": 53.45199579199834,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-06",
+          "status": "service_error",
+          "record_ids": [
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "elapsed_seconds": 600.028338666998,
+          "error_type": "TimeoutExpired",
+          "error": null,
+          "returncode": null
+        }
+      ],
+      "failure_evidence": {
+        "error_type": "TimeoutExpired",
+        "raw_stderr": "2026-09-24T14:15:56.384763Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T14:15:56.384764Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T14:15:56.675467Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:15:56.819730Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:15:57.140698Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:15:57.699471Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:15:58.910260Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:16:00.813304Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:16:04.409308Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:20:29.465421Z ERROR codex_models_manager::manager: failed to refresh available models: Connection failed: error sending request\n2026-09-24T14:25:02.310353Z ERROR codex_models_manager::manager: failed to refresh available models: Connection failed: error sending request\n",
+        "raw_stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a0d3c5-e2e1-7be1-a659-b6e26c8b0a10\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"error\",\"message\":\"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/adamkovacs/.codex/config.toml.\"}}\n{\"type\":\"turn.started\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 2/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 3/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 4/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 5/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_1\",\"type\":\"error\",\"message\":\"Falling back from WebSockets to HTTPS transport. stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known\"}}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n",
+        "elapsed_seconds": 600.028338666998
+      },
+      "evidence_files": [
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P2/development-attempts.jsonl",
+          "sha256": "45f925c65d505be60b39b5e2c4e6576d14eb255f7df4bf324068ea5a150f563b"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P2/development.jsonl",
+          "sha256": "08d6db392fe6c39feac500c6eb9aff692391524facc8febc38d0cc987da43260"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P2/development-attempts.jsonl.journal.jsonl",
+          "sha256": "baa5d458aa5d8f4b536e227f6089734e209bbdb9cc001018eb10835a50589379"
+        }
+      ],
+      "manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-low/execution-manifest.json",
+        "sha256": "c720f611e6b09d65f772e2dbba89702d20594f47c50d22a564a9e19618d89e23",
+        "observed_sha256": "c720f611e6b09d65f772e2dbba89702d20594f47c50d22a564a9e19618d89e23"
+      },
+      "continuation_candidate": null
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-medium",
+      "condition": "P2",
+      "adapter": "codex",
+      "classification": "provider_or_tool_runtime_failure; attempted failed batch is ambiguous, not retried or model-invalid",
+      "failure_summary": "TimeoutExpired",
+      "valid_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010"
+      ],
+      "valid_count": 10,
+      "ambiguous_attempted_ids": [
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020"
+      ],
+      "ambiguous_attempted_count": 10,
+      "never_sent_ids": [
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "never_sent_count": 40,
+      "attempted_batch_order": [
+        {
+          "batch_id": "batch-01",
+          "status": "ok",
+          "record_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010"
+          ],
+          "elapsed_seconds": 63.81515670800218,
+          "error_type": null,
+          "error": null,
+          "returncode": 0
+        },
+        {
+          "batch_id": "batch-02",
+          "status": "service_error",
+          "record_ids": [
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020"
+          ],
+          "elapsed_seconds": 600.0278786669987,
+          "error_type": "TimeoutExpired",
+          "error": null,
+          "returncode": null
+        }
+      ],
+      "failure_evidence": {
+        "error_type": "TimeoutExpired",
+        "raw_stderr": "2026-09-24T14:15:35.822909Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T14:15:35.824578Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T14:15:51.143820Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-09-24T14:20:08.756641Z ERROR codex_models_manager::manager: failed to refresh available models: Connection failed: error sending request\n2026-09-24T14:20:46.682905Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:20:47.169165Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:20:48.067042Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:20:49.718958Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:20:53.141153Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: failed to lookup address information: nodename nor servname provided, or not known, url: wss://chatgpt.com/backend-api/codex/responses\n2026-09-24T14:24:41.797151Z ERROR codex_models_manager::manager: failed to refresh available models: Connection failed: error sending request\n",
+        "raw_stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a0d3c5-928f-78a1-b22e-59371d4a2e2d\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"error\",\"message\":\"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/adamkovacs/.codex/config.toml.\"}}\n{\"type\":\"turn.started\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 2/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 3/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 4/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 5/5 (stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known)\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_1\",\"type\":\"error\",\"message\":\"Falling back from WebSockets to HTTPS transport. stream disconnected before completion: failed to lookup address information: nodename nor servname provided, or not known\"}}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... waiting for network (Connection failed: error sending request)\"}\n",
+        "elapsed_seconds": 600.0278786669987
+      },
+      "evidence_files": [
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-medium/P2/development-attempts.jsonl",
+          "sha256": "8558f85fc177e3cddd67f3796bc5eb7f32f4394feb41bfce55fbebd943927243"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-medium/P2/development.jsonl",
+          "sha256": "8757dd3f25bb9012a72e9d4627d7b81221af7d7ab9ebc2cfc2d2b45f805239e5"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-medium/P2/development-attempts.jsonl.journal.jsonl",
+          "sha256": "276189b506fb439824c27aafc954827bd29dc7ea1d63b95da92bd8867fdf760a"
+        }
+      ],
+      "manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-medium/execution-manifest.json",
+        "sha256": "361e5327111317a9f0d79d9c86fa5b76eecc156930191fb2f67208d12de54eb4",
+        "observed_sha256": "361e5327111317a9f0d79d9c86fa5b76eecc156930191fb2f67208d12de54eb4"
+      },
+      "continuation_candidate": {
+        "offset": 20,
+        "limit": 40,
+        "batch_size": 10,
+        "record_ids": [
+          "DEV-021",
+          "DEV-022",
+          "DEV-023",
+          "DEV-024",
+          "DEV-025",
+          "DEV-026",
+          "DEV-027",
+          "DEV-028",
+          "DEV-029",
+          "DEV-030",
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040",
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050",
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "tooling_assessment": "Codex raw controller accepts aligned offset/limit, but frozen Guard rejects nonzero offset and requires limit 60; Claude controller has no offset support",
+        "status": "requires separately reviewed continuation-aware manifest, schedule binding, guard/controller and output paths; do not use frozen phase helper as-is"
+      }
+    },
+    {
+      "configuration_id": "haiku45-not_applicable-phase2-batch10-p0",
+      "condition": "P1",
+      "adapter": "claude",
+      "classification": "provider_or_tool_runtime_failure; attempted failed batch is ambiguous, not retried or model-invalid",
+      "failure_summary": "IsolationIdentityOrBillingGuard",
+      "valid_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010"
+      ],
+      "valid_count": 10,
+      "ambiguous_attempted_ids": [
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020"
+      ],
+      "ambiguous_attempted_count": 10,
+      "never_sent_ids": [
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "never_sent_count": 40,
+      "attempted_batch_order": [
+        {
+          "batch_id": "batch-001",
+          "status": "ok",
+          "record_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010"
+          ],
+          "elapsed_seconds": 35.1737029169999,
+          "error_type": null,
+          "error": null,
+          "exit_code": 0,
+          "usage": {
+            "input_tokens": 3518,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 3063,
+            "output_tokens_details": {
+              "thinking_tokens": 2368
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 3518,
+                "output_tokens": 3063,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          }
+        },
+        {
+          "batch_id": "batch-002",
+          "status": "service_error",
+          "record_ids": [
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020"
+          ],
+          "elapsed_seconds": 270.37014316600107,
+          "error_type": "IsolationIdentityOrBillingGuard",
+          "error": null,
+          "exit_code": 1,
+          "usage": {
+            "input_tokens": 3555,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 4,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [],
+            "speed": "standard"
+          }
+        }
+      ],
+      "failure_evidence": {
+        "error_type": "IsolationIdentityOrBillingGuard",
+        "stderr": "",
+        "exit_code": 1,
+        "elapsed_seconds": 270.37014316600107,
+        "usage": {
+          "input_tokens": 3555,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "assistant_models": [
+          "<synthetic>"
+        ],
+        "init_model": "claude-haiku-4-5-20251001",
+        "requested_model": "claude-haiku-4-5-20251001"
+      },
+      "evidence_files": [
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/haiku45-not_applicable-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+          "sha256": "e31916474b1d24c3c7c8873b3a2a7aa966e93e35bd55c4c416178f7b0dbea051"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/haiku45-not_applicable-phase2-batch10-p0/P1/development.jsonl",
+          "sha256": "edc321dfb2fd05713f445731d1da02eef09e7b9a23f60c2a47c628a0a1f2fd2a"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/haiku45-not_applicable-phase2-batch10-p0/P1/development.jsonl.attempts.jsonl",
+          "sha256": "a9ba050ad4be43e40dae814be897d5fde248c6d183257006630119ce69aa35d7"
+        }
+      ],
+      "manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/haiku45-not_applicable-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "b65b0d357e185dc87d27be008d7f47da7f4983d0fb567d4b0a7d00bb824f2a69",
+        "observed_sha256": "b65b0d357e185dc87d27be008d7f47da7f4983d0fb567d4b0a7d00bb824f2a69"
+      },
+      "continuation_candidate": {
+        "offset": 20,
+        "limit": 40,
+        "batch_size": 10,
+        "record_ids": [
+          "DEV-021",
+          "DEV-022",
+          "DEV-023",
+          "DEV-024",
+          "DEV-025",
+          "DEV-026",
+          "DEV-027",
+          "DEV-028",
+          "DEV-029",
+          "DEV-030",
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040",
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050",
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "tooling_assessment": "Codex raw controller accepts aligned offset/limit, but frozen Guard rejects nonzero offset and requires limit 60; Claude controller has no offset support",
+        "status": "requires separately reviewed continuation-aware manifest, schedule binding, guard/controller and output paths; do not use frozen phase helper as-is"
+      }
+    }
+  ]
+}
