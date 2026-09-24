@@ -82,6 +82,10 @@ def test_root_receipt_requires_billing_verification_before_claude_adapter(tmp_pa
         haiku.execute(MANIFEST, manifest_sha, review, KEY)
     review.write_text(json.dumps({**base, 'claude_extra_usage_disabled_operator_verified': True}))
     observed = {}
+    contexts = copy.deepcopy(haiku.validate(frozen()))
+    for name in ('output', 'attempts', 'journal', 'admission'):
+        contexts[KEY]['entry'][name] = str(tmp_path / name)
+    monkeypatch.setattr(haiku, 'validate', lambda manifest: contexts)
     monkeypatch.setattr(haiku, 'run_claude_suffix',
                         lambda args, guard: observed.update(limit=args.limit,
                                                             ids=guard.entry['record_ids'],

@@ -114,6 +114,10 @@ def test_approved_receipt_selects_only_frozen_codex_suffix_without_cli(tmp_path,
                                   'decision': 'approved', 'manifest_sha256': manifest_sha,
                                   'approved_conditions': ['/'.join(key)]}))
     observed = {}
+    contexts = copy.deepcopy(suffix.validate(frozen()))
+    for name in ('output', 'attempts', 'journal', 'admission'):
+        contexts[key]['entry'][name] = str(tmp_path / name)
+    monkeypatch.setattr(suffix, 'validate', lambda manifest: contexts)
 
     def fake_run(args, guard):
         observed['offset_limit'] = (args.offset, args.limit, args.batch_size)
