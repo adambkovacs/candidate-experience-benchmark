@@ -1,5 +1,12 @@
 # MVP completion status
 
+## 2026-09-24 all Gemma E2B prompt conditions completed
+
+Gemma E2B thinking-off P1 completed with 60 valid outputs and **34/60 all-four matches**, closing all four E2B prompt conditions. Its [report](../results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-off/P1.json) and [audited triple](../results/local-prompt-pairs-v1/gemma4-e2b-sdk-thinking-off.json) are included in the public export: 253 run views, 15,180 cases and 41 audited comparisons. Each triple retains the historical P0 timing caveat.
+
+Gemma E4B thinking-on P1 is in its three-response smoke, root session 80879. The CLI loaded the existing Q4_K_M model with context 8192, one parallel session and full GPU offload. An initial load used a different identifier; it was unloaded and reloaded as the frozen `benchmark-gemma4-e4b` identifier before any inference. Four E4B conditions remain in the local sequence. Hosted provider and Gemini quota blocks remain as documented below.
+
+
 ## 2026-09-24 Gemma E2B SOP results and audited local comparisons
 
 Gemma E2B thinking-on P2 completed with 60 valid outputs and **36/60 all-four matches**; thinking-off P2 completed with 60 valid outputs and **30/60 all-four matches**. Both [terminal-bound reports](../results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-on/P2.json) preserve exact controls and usage. Thinking-off P1 passed its own three-response smoke and is active in root session 42375.
