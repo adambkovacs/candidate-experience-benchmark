@@ -1,0 +1,51 @@
+{
+  "contract": "openjev-generated-exact-smoke-inspection-v1",
+  "manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/execution-manifest.draft.json",
+    "sha256": "36bbab1c82ba066c3bfaf414452401ff01f027aa29c18bb0021da81fa10200fc"
+  },
+  "mode": "generated-off",
+  "condition": "P1",
+  "raw_attempts": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-smoke.jsonl",
+    "sha256": "753f32ae8632208e759d960a91971e1622d87d50956886854385f8cf19de1212"
+  },
+  "terminal": {
+    "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-smoke.jsonl.terminal.json",
+    "sha256": "0c95924ea9bb918cb1ab5b430d8c5268123336919e5a225a1c734e9bf946db6a"
+  },
+  "inspector": "Codex assistant technical inspection of saved raw responses",
+  "inspected_utc": "2026-09-24T14:14:36.822027+00:00",
+  "reference_labels_read": false,
+  "response_repair_performed": false,
+  "records": [
+    {
+      "id": "DEV-001",
+      "status": "invalid_output",
+      "prediction": null,
+      "accepted_unchanged": true,
+      "failure_class": "intrinsic_malformed_json",
+      "inspection_reason": "DEV-001 response begins with a malformed quoted key; native stop and usage are valid. Preserve raw output unchanged."
+    },
+    {
+      "id": "DEV-002",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      }
+    },
+    {
+      "id": "DEV-003",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "negative",
+        "follow_up_needed": "yes",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      }
+    }
+  ]
+}
