@@ -1,0 +1,278 @@
+{
+  "contract": "hosted-final-suffix-reconciliation-v1",
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-off",
+  "condition": "P2",
+  "denominator": 60,
+  "status_counts": {
+    "ok": 59,
+    "service_error": 1
+  },
+  "attempted": 60,
+  "never_sent_ids": [],
+  "never_sent_count": 0,
+  "coverage_complete": true,
+  "valid_outputs": 59,
+  "all_four_correct": 52,
+  "eligible_paired_comparison": false,
+  "original_timing_preserved": false,
+  "timing": {
+    "attempts": 60,
+    "elapsed_available": 60,
+    "sum_reported_attempt_seconds": 74.24365487301111,
+    "complete": true,
+    "note": "Per-request elapsed values only; unknown interruption time is not zero and original counterbalanced timing is not reconstructed."
+  },
+  "cost": {
+    "known_observed_usd": "0.0110312",
+    "unknown_reserved_upper_bound_usd": "0.0299008",
+    "actual_total_usd": null,
+    "note": "Development attempts only, including retained failed or interrupted claim; smoke excluded. Unknown reserve is not observed spend."
+  },
+  "evaluation": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 59,
+    "missing_or_failed": [
+      "DEV-053"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 56,
+        "denominator": 60,
+        "accuracy": 0.9333333333333333,
+        "macro_f1": 0.9288336783988959,
+        "per_label": {
+          "positive": {
+            "tp": 10,
+            "fp": 2,
+            "fn": 1,
+            "precision": 0.8333333333333334,
+            "recall": 0.9090909090909091,
+            "f1": 0.8695652173913043
+          },
+          "negative": {
+            "tp": 31,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.96875,
+            "recall": 1.0,
+            "f1": 0.9841269841269841
+          },
+          "mixed": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333
+          },
+          "neutral": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 59,
+        "denominator": 60,
+        "accuracy": 0.9833333333333333,
+        "macro_f1": 0.9929078014184397,
+        "per_label": {
+          "yes": {
+            "tp": 35,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 23,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9583333333333334,
+            "f1": 0.9787234042553191
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 56,
+        "denominator": 60,
+        "accuracy": 0.9333333333333333,
+        "macro_f1": 0.8850111017293679,
+        "per_label": {
+          "yes": {
+            "tp": 25,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9615384615384616,
+            "recall": 1.0,
+            "f1": 0.9803921568627451
+          },
+          "no": {
+            "tp": 27,
+            "fp": 1,
+            "fn": 2,
+            "precision": 0.9642857142857143,
+            "recall": 0.9310344827586207,
+            "f1": 0.9473684210526315
+          },
+          "insufficient_information": {
+            "tp": 4,
+            "fp": 1,
+            "fn": 2,
+            "precision": 0.8,
+            "recall": 0.6666666666666666,
+            "f1": 0.7272727272727273
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.95503300330033,
+        "per_label": {
+          "yes": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.7777777777777778,
+            "f1": 0.875
+          },
+          "no": {
+            "tp": 50,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9803921568627451,
+            "recall": 1.0,
+            "f1": 0.9900990099009901
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "sources": {
+    "plan": {
+      "file": "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix-plan.json",
+      "sha256": "398c8e36035b90dc0fe2146196dccb6723793857d9d082f9519a810d51ddac52"
+    },
+    "original": {
+      "file": "results/qwen36-prompt-recovery-v1/off-p2-development.jsonl",
+      "sha256": "301bcdfe3c65952c3996d39eafd02b14a8971790fc4455976f1c710276fd452e"
+    },
+    "original_journal": {
+      "file": "results/qwen36-prompt-recovery-v1/off-p2-development.jsonl.attempts.jsonl",
+      "sha256": "dc2060c667a9184431db12354009d8c98071777f3254ab44be4c294b89c32674"
+    },
+    "interruption": null,
+    "suffix": {
+      "file": "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix.jsonl",
+      "sha256": "2fe207ec7edb5d1c7804218cb536303543f90fba51b825d973e91e6f7b099362"
+    },
+    "suffix_journal": {
+      "file": "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix.jsonl.attempts.jsonl",
+      "sha256": "28e22f5c0ad12c18cd14a5d7a5460e7cfde396aad0b5526c7c808d306abc7099"
+    },
+    "budget": {
+      "manifest": {
+        "file": "results/hosted-final-suffix-budget-v1/manifest.json",
+        "sha256": "0419c505a143489dc54e1bba25c1a9bf71f108f7fb2ead1d40fb0d40dcacc721"
+      },
+      "child": {
+        "file": "results/hosted-final-suffix-budget-v1/manifest-qwen36-off-p2-suffix-v1.jsonl",
+        "sha256": "007c0fc9f757c50fe98ce10ff57f3300e9e32d479716cb44cd4878cbca53db2f"
+      },
+      "partition_id": "qwen36-off-p2-suffix-v1",
+      "known_actual_usd": "0.0016950",
+      "unknown_upper_bound_usd": "0"
+    }
+  },
+  "terminal": {
+    "attempted_records": 7,
+    "planned_records": 7,
+    "completed": true,
+    "terminal_status": "ok"
+  }
+}

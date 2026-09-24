@@ -588,6 +588,55 @@ def export(root=ROOT):
     replace_with_reconciliation(terra_run, terra_predictions, [original_path.relative_to(root)])
     terra_run['resultStatus'] = 'complete original attempted coverage; ten ambiguous'
 
+    # Only frozen offline suffix reports enter the public snapshot. Their
+    # source bindings retain failed and interrupted attempts without retry.
+    suffix_reports = root / 'results/hosted-final-suffix-reconciled-v1'
+    for report_path in sorted(suffix_reports.glob('*.json')) if suffix_reports.is_dir() else []:
+        report = json.loads(report_path.read_text())
+        if report.get('contract') != 'hosted-final-suffix-reconciliation-v1' or report.get('eligible_paired_comparison') is not False:
+            raise ValueError('Unsupported hosted suffix report: ' + str(report_path))
+        sources = report['sources']
+        bindings = [sources[key] for key in ('original', 'original_journal', 'suffix', 'suffix_journal', 'plan')]
+        if sources.get('interruption'):
+            bindings.append(sources['interruption'])
+        bindings.extend([sources['budget']['manifest'], sources['budget']['child']])
+        for binding in bindings:
+            source_path = root / binding['file']
+            if hashlib.sha256(source_path.read_bytes()).hexdigest() != binding['sha256']:
+                raise ValueError('Hosted suffix source hash mismatch: ' + binding['file'])
+        original = rows(root / sources['original']['file'])
+        suffix = rows(root / sources['suffix']['file'])
+        interruption = rows(root / sources['interruption']['file']) if sources.get('interruption') else []
+        predictions = original + interruption + suffix
+        evaluation, all_four = score_saved(predictions, root)
+        if (len(predictions) != report['attempted'] or evaluation['valid_outputs'] != report['valid_outputs'] or
+                all_four != report['all_four_correct'] or report['never_sent_count'] != 60 - len(predictions) or
+                [row['id'] for row in predictions] != [f'DEV-{i:03}' for i in range(1, len(predictions)+1)]):
+            raise ValueError('Hosted suffix score or coverage mismatch: ' + str(report_path))
+        parent = report['configuration_id']
+        run = phase_run(parent, 'P2', evaluation, all_four, report_path.relative_to(root), root,
+                        baseline, predictions=predictions, experiment='hosted-final-suffix-v1')
+        run['tokens'] = tokens({'attempt_files': [sources['original']['file'], sources['suffix']['file']]}, root)
+        reported = [number(row.get('elapsed_seconds')) for row in predictions]
+        elapsed = [value for value in reported if value is not None]
+        run['timing'].update({'totalSeconds': report['timing']['sum_reported_attempt_seconds'],
+                              'medianSeconds': statistics.median(elapsed) if len(elapsed) == len(predictions) else None,
+                              'p95Seconds': sorted(elapsed)[math.ceil(.95*len(elapsed))-1] if len(elapsed) == len(predictions) else None,
+                              'kind': 'record', 'requests': len(predictions),
+                              'complete': len(elapsed) == len(predictions), 'comparableHosted': True,
+                              'note': 'Per-request development elapsed only; missing interruption time is unknown, and original counterbalanced schedule was not preserved.'})
+        cost = report['cost']
+        run['cost'].update({'actualUsd': float(cost['actual_total_usd']) if cost['actual_total_usd'] is not None else None,
+                            'knownUsd': float(cost['known_observed_usd']),
+                            'unknownUpperBoundUsd': cost['unknown_reserved_upper_bound_usd'],
+                            'availability': 'complete' if cost['actual_total_usd'] is not None else 'partial',
+                            'note': cost['note']})
+        run['neverSent'] = report['never_sent_count']
+        run['statusCounts'] = report['status_counts']
+        replace_with_reconciliation(run, predictions,
+                                    [Path(sources['original']['file']), Path(sources['suffix']['file'])] +
+                                    ([Path(sources['interruption']['file'])] if sources.get('interruption') else []))
+
     roster = []
     for entry in json.loads((phase_dir / 'roster.json').read_text())['entries']:
         raw_reason = entry['reason'].lower()

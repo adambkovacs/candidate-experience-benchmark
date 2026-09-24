@@ -47,7 +47,7 @@ class PublicExportTests(unittest.TestCase):
   self.assertEqual(r['tokens']['reportedRequests'],60)
   self.assertEqual(r['tokens']['totalRequests'],61)
  def test_closed_hosted_recovery_only_and_no_fabricated_pairing(self):
-  x=export();q36=[r for r in x['runs'] if r['protocolId']=='qwen36-recovery-v1']
+  x=export();q36=[r for r in x['runs'] if r['protocolId'] in ('qwen36-recovery-v1','hosted-final-suffix-v1')]
   q8=[r for r in x['runs'] if r['protocolId']=='qwen8-hosted-recovery-v1']
   self.assertEqual(len(q36),4)
   self.assertEqual(len(q8),3)
@@ -85,6 +85,41 @@ class PublicExportTests(unittest.TestCase):
    self.assertEqual(runs[ident]['sourceConfigurationId'],'qwen27-low-hosted-addendum-v1')
    self.assertNotIn('qwen27-low-hosted-addendum-v1--'+condition,runs)
   self.assertEqual(runs['openrouter-qwen27-low-darkbloom-fp4']['condition'],'P0')
+ def test_sealed_qwen36_suffix_reports_preserve_failures_and_never_sent(self):
+  x=export();runs={r['id']:r for r in x['runs']}
+  off=runs['openrouter-paid-qwen36-35b-a3b-off--p2']
+  on=runs['openrouter-paid-qwen36-35b-a3b-on--p2']
+  self.assertEqual((off['records'],off['valid'],off['neverSent']),(60,59,0))
+  self.assertEqual((on['records'],on['valid'],on['neverSent']),(39,37,21))
+  self.assertEqual(on['statusCounts']['service_error'],2)
+  self.assertFalse(on['complete'])
+  self.assertTrue(off['complete'])
+  self.assertFalse(on['pairedEligible'])
+  self.assertAlmostEqual(on['cost']['knownUsd'],0.0417374)
+  self.assertEqual(on['cost']['unknownUpperBoundUsd'],'0.0598016')
+  self.assertTrue(all(r['sourceViews'] for r in (off,on)))
+ def test_qwen8_on_p2_requires_sealed_reconciliation_and_keeps_dev027_ambiguous(self):
+  x=export();runs={r['id']:r for r in x['runs']}
+  ident='openrouter-qwen3-8b-on-json-object-p0--p2'
+  report_path=Path(__file__).resolve().parents[1]/'results/hosted-final-suffix-reconciled-v1/qwen8-on-p2.json'
+  if not report_path.is_file():
+   self.assertNotIn(ident,runs)
+   return
+  report=json.loads(report_path.read_text())
+  run=runs[ident]
+  self.assertEqual(run['protocolId'],'hosted-final-suffix-v1')
+  self.assertEqual((run['records'],run['valid'],run['neverSent']),
+                   (report['attempted'],report['valid_outputs'],report['never_sent_count']))
+  self.assertEqual(run['statusCounts'],report['status_counts'])
+  self.assertEqual(run['statusCounts']['interrupted_no_provider_result'],1)
+  self.assertEqual(run['complete'],report['coverage_complete'])
+  self.assertFalse(run['pairedEligible'])
+  self.assertEqual(run['cost']['knownUsd'],float(report['cost']['known_observed_usd']))
+  self.assertEqual(run['cost']['unknownUpperBoundUsd'],report['cost']['unknown_reserved_upper_bound_usd'])
+  self.assertIsNone(run['cost']['actualUsd'])
+  dev027=next(c for c in x['cases'] if c['configuration']==ident and c['id']=='DEV-027')
+  self.assertEqual(dev027['status'],'interrupted_no_provider_result')
+  self.assertIsNone(dev027['prediction'])
  def test_local_timing_is_diagnostic_and_batch_is_explicit(self):
   x=export()
   self.assertTrue(all(not r['timing']['comparableHosted'] for r in x['runs'] if r['surface']=='Local / specialist'))
