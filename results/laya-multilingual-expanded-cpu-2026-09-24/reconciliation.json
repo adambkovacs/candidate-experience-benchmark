@@ -1,0 +1,109 @@
+{
+  "records": 60,
+  "valid_outputs": 60,
+  "input_hashes_verified": true,
+  "policy_matches_smoke": true,
+  "input_token_range": [
+    1567,
+    1617
+  ],
+  "probability_checks": "All four returned rounded distributions finite and normalized within0.001; choice and argmax mapping verified. Distributions are not truth or externally calibrated confidence.",
+  "runtime": {
+    "torch": "2.10.0",
+    "transformers": "5.17.0",
+    "mlx": "0.32.2",
+    "mlx-lm": "0.32.0",
+    "laya": "0.3.4",
+    "semif-phase1": "0.1.0"
+  },
+  "metadata": {
+    "original_config": {
+      "encoder": "jhu-clsp/mmBERT-base",
+      "head_layers": 2,
+      "max_len": 1024,
+      "head_max_len": 256,
+      "max_prefixes": 6,
+      "act_costs": {
+        "escalate": 0.5
+      },
+      "cost_wrong_act": 3.0,
+      "amp_dtype": "bf16",
+      "model_name": "rl-agent",
+      "temperature": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "temperature_by_options": {},
+      "training": {
+        "updates": 15987,
+        "epochs_completed": 4,
+        "hours": 4.97,
+        "world_size": 1,
+        "fine_tuned_from_checkpoint": false
+      }
+    },
+    "effective_config": {
+      "encoder": "jhu-clsp/mmBERT-base",
+      "head_layers": 2,
+      "max_len": 4096,
+      "head_max_len": 512,
+      "max_prefixes": 6,
+      "act_costs": {
+        "escalate": 0.5
+      },
+      "cost_wrong_act": 3.0,
+      "amp_dtype": "bf16",
+      "model_name": "rl-agent",
+      "temperature": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "temperature_by_options": {},
+      "training": {
+        "updates": 15987,
+        "epochs_completed": 4,
+        "hours": 4.97,
+        "world_size": 1,
+        "fine_tuned_from_checkpoint": false
+      }
+    },
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "untruncated_tokens": {
+      "sentiment": 1610,
+      "follow_up_needed": 1597,
+      "serious_concern_reported": 1597,
+      "testimonial_potential": 1595
+    },
+    "tokenizer_config_sha256_before_load": "6c6b2d8e3c84ce0e671c129cd6b374b235d6f9863042a5836358d00a89bbb5a1",
+    "tokenizer_config_sha256_after_load": "6c6b2d8e3c84ce0e671c129cd6b374b235d6f9863042a5836358d00a89bbb5a1",
+    "quantization": "none",
+    "parameter_dtype": "torch.float32",
+    "coverage_check": "Exact native sequence and option markers equal full untruncated tokens"
+  },
+  "hardware": "Apple M4 Max128GB",
+  "model_revision": "1c5edc17a7acd8701df6fc341c0d179f1c62c982",
+  "quantization": "none",
+  "dtype": "float32",
+  "device": "CPU",
+  "cpu_threads_environment": 4,
+  "model_load_seconds": 10.392472916999395,
+  "inference_seconds_total": 180.022799081009,
+  "inference_seconds_median": 2.9850940624983195,
+  "request_hash_limitation": "Saved request_sha256 is the common intent-payload hash; actual native sequence equality/full token lengths are checked at inference.",
+  "context_limitation": "Expanded4096/head512 is a separate experimental configuration. Native1024/head256 cannot preserve full rubric on any of the60 inputs and remains unsupported_length; no silent truncation.",
+  "parallelism": "Single local benchmark inference; remote subscription preparation/client work concurrent. Not an otherwise idle-host timing measurement.",
+  "source_files": [
+    {
+      "path": "results/laya-multilingual-expanded-cpu-2026-09-24/smoke.jsonl",
+      "sha256": "b98a76635f0bdc309f0dfe7c6d98a4f9cd2d8abc064d46741eb5b83e932b7d72"
+    },
+    {
+      "path": "results/laya-multilingual-expanded-cpu-2026-09-24/development.jsonl",
+      "sha256": "6b3cbb3f1333a8d3ddc9635353d26b6eb02c94afd739656b8e9f6e73a1ce454f"
+    }
+  ],
+  "smoke_inspection": "results/laya-multilingual-expanded-cpu-2026-09-24/smoke-inspection.json"
+}

@@ -74,7 +74,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | laya-typed-expanded-cpu | complete | 60 | 39 | 47 | 32 | 10 | 0 |
 | semif-generated-bf16 | complete | 52 | 46 | 51 | 47 | 46 | 35 |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
-| laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
+| laya-multilingual-expanded-cpu | complete | 60 | 33 | 37 | 24 | 10 | 0 |
 | alex-openjev4b | complete | 60 | 49 | 57 | 47 | 57 | 39 |
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
@@ -549,7 +549,9 @@ Pinned multilingual weights fully SHA256verified. Native1024/head256 fails exact
 
 **laya-multilingual-expanded-cpu**
 
-Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves60/60 complete inputs; encoder8192 capacity confirmed. Separate expanded variant; awaiting serial CPU smoke then60.
+Completed60 valid records after inspected smoke3; exact native sequence coverage verified, CPU float32 noquantization,4096/head512. Native configuration remains unsupported_length. See reconciliation for provenance/timing limitations.
+
+Evidence: `results/laya-multilingual-expanded-cpu-2026-09-24/development.jsonl`; SHA-256 `6b3cbb3f1333a8d3ddc9635353d26b6eb02c94afd739656b8e9f6e73a1ce454f`.
 
 **alex-openjev4b**
 
