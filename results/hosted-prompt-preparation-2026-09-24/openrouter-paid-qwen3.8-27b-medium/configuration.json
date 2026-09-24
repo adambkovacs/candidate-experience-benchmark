@@ -1,0 +1,330 @@
+{
+  "id": "openrouter-paid-qwen3.8-27b-medium",
+  "parent_baseline_id": "openrouter-paid-qwen3.8-27b-medium",
+  "role": "system",
+  "controller": {
+    "file": "scripts/openrouter_paid_benchmark.py",
+    "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+  },
+  "controller_timeout_seconds": 300.0,
+  "continue_on_invalid_output": true,
+  "controls": {
+    "adapter_controls": {
+      "requested_model": "qwen/qwen3.8-27b",
+      "provider_tag": "deepinfra/bf16",
+      "provider_name": "DeepInfra",
+      "quantization": "bf16",
+      "reasoning_effort": "medium",
+      "request_controls": {
+        "model": "qwen/qwen3.8-27b",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "provider": {
+          "only": [
+            "deepinfra/bf16"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.15,
+            "completion": 1.875,
+            "request": 0,
+            "image": 0
+          }
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "judgments",
+            "strict": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "title": "Recruitment feedback judgments",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentiment",
+                "follow_up_needed",
+                "serious_concern_reported",
+                "testimonial_potential"
+              ],
+              "properties": {
+                "sentiment": {
+                  "type": "string",
+                  "enum": [
+                    "positive",
+                    "negative",
+                    "mixed",
+                    "neutral",
+                    "insufficient_information"
+                  ]
+                },
+                "follow_up_needed": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "testimonial_potential": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "reasoning": {
+          "enabled": true,
+          "effort": "medium"
+        }
+      },
+      "runtime": "OpenRouter HTTP v1",
+      "hardware": "Remote provider undisclosed",
+      "surface": "OpenRouter paid HTTP",
+      "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+      "workflow": "single_record"
+    },
+    "model": "qwen/qwen3.8-27b",
+    "model_revision": null,
+    "quantization": "bf16",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "effort": "medium",
+    "sampling": {
+      "temperature": 0
+    },
+    "output_method": "json_schema",
+    "parsing": "strict_json",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "context_tokens": 262144,
+    "output_reserve_tokens": 4096
+  },
+  "controls_sha256": "5982921cf2d6c5956e8b3ff651750a25c1fe8ed5d3a2808428c1e902347cd397",
+  "baseline_instruction": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/baseline.txt",
+    "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+  },
+  "parent_baseline": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/parent.json",
+    "sha256": "3cfe390b1fb71192fdddf9464e08532380c3390d16ae309cf8035caa1b061d73"
+  },
+  "batch_membership": [
+    [
+      "DEV-001"
+    ],
+    [
+      "DEV-002"
+    ],
+    [
+      "DEV-003"
+    ],
+    [
+      "DEV-004"
+    ],
+    [
+      "DEV-005"
+    ],
+    [
+      "DEV-006"
+    ],
+    [
+      "DEV-007"
+    ],
+    [
+      "DEV-008"
+    ],
+    [
+      "DEV-009"
+    ],
+    [
+      "DEV-010"
+    ],
+    [
+      "DEV-011"
+    ],
+    [
+      "DEV-012"
+    ],
+    [
+      "DEV-013"
+    ],
+    [
+      "DEV-014"
+    ],
+    [
+      "DEV-015"
+    ],
+    [
+      "DEV-016"
+    ],
+    [
+      "DEV-017"
+    ],
+    [
+      "DEV-018"
+    ],
+    [
+      "DEV-019"
+    ],
+    [
+      "DEV-020"
+    ],
+    [
+      "DEV-021"
+    ],
+    [
+      "DEV-022"
+    ],
+    [
+      "DEV-023"
+    ],
+    [
+      "DEV-024"
+    ],
+    [
+      "DEV-025"
+    ],
+    [
+      "DEV-026"
+    ],
+    [
+      "DEV-027"
+    ],
+    [
+      "DEV-028"
+    ],
+    [
+      "DEV-029"
+    ],
+    [
+      "DEV-030"
+    ],
+    [
+      "DEV-031"
+    ],
+    [
+      "DEV-032"
+    ],
+    [
+      "DEV-033"
+    ],
+    [
+      "DEV-034"
+    ],
+    [
+      "DEV-035"
+    ],
+    [
+      "DEV-036"
+    ],
+    [
+      "DEV-037"
+    ],
+    [
+      "DEV-038"
+    ],
+    [
+      "DEV-039"
+    ],
+    [
+      "DEV-040"
+    ],
+    [
+      "DEV-041"
+    ],
+    [
+      "DEV-042"
+    ],
+    [
+      "DEV-043"
+    ],
+    [
+      "DEV-044"
+    ],
+    [
+      "DEV-045"
+    ],
+    [
+      "DEV-046"
+    ],
+    [
+      "DEV-047"
+    ],
+    [
+      "DEV-048"
+    ],
+    [
+      "DEV-049"
+    ],
+    [
+      "DEV-050"
+    ],
+    [
+      "DEV-051"
+    ],
+    [
+      "DEV-052"
+    ],
+    [
+      "DEV-053"
+    ],
+    [
+      "DEV-054"
+    ],
+    [
+      "DEV-055"
+    ],
+    [
+      "DEV-056"
+    ],
+    [
+      "DEV-057"
+    ],
+    [
+      "DEV-058"
+    ],
+    [
+      "DEV-059"
+    ],
+    [
+      "DEV-060"
+    ]
+  ],
+  "conditions": {
+    "P1": {
+      "instruction": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/instruction.txt",
+        "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+      },
+      "observational_evidence": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/observational-evidence.json",
+        "sha256": "d5a99f318c58bf5722583d7e515b87725406539ea5e13e64ba5fa898c2a75896"
+      }
+    },
+    "P2": {
+      "instruction": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P2/instruction.txt",
+        "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+      },
+      "observational_evidence": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P2/observational-evidence.json",
+        "sha256": "9e593f21ae0fc9aea119fab4c85a7815812150ea4de705db5455d3fc02379829"
+      }
+    }
+  }
+}

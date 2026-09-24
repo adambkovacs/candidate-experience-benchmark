@@ -53,7 +53,8 @@ def extract_controls(row):
     return {'requested_model':row['requested_model'],'provider_tag':endpoint['tag'],'provider_name':endpoint['provider_name'],
         'quantization':row['quantization'],'reasoning_effort':row['reasoning_effort'],
         'request_controls':{k:v for k,v in request.items() if k!='messages'},
-        'runtime':row.get('runtime'),'hardware':row.get('hardware'),'surface':row.get('surface'),
+        'runtime':row.get('runtime'),'hardware':row.get('hardware'),
+        'surface':'OpenRouter paid HTTP' if row.get('surface')=='OpenRouter paid HTTP, aggregate cap $1' else row.get('surface'),
         'retry_policy':row['retry_policy'],'workflow':'single_record'}
 
 def audit_requests(rawrows,predictions,inputs,text,controls,selection,retry_authorizations):
