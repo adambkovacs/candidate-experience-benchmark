@@ -464,7 +464,7 @@ def export(root=ROOT):
     def replace_with_reconciliation(run, predictions, evidence_sources):
         previous = next((old for old in runs if old['id'] == run['id']), None)
         if previous:
-            run['sourceViews'] = [{'status': 'original saved view', 'records': previous['records'],
+            run['sourceViews'] = previous.get('sourceViews', []) + [{'status': 'prior saved view', 'records': previous['records'],
                                    'valid': previous['valid'], 'evidenceUrl': previous['evidenceUrl']}]
             runs.remove(previous)
             cases[:] = [case for case in cases if case['configuration'] != run['id']]
@@ -636,6 +636,51 @@ def export(root=ROOT):
         replace_with_reconciliation(run, predictions,
                                     [Path(sources['original']['file']), Path(sources['suffix']['file'])] +
                                     ([Path(sources['interruption']['file'])] if sources.get('interruption') else []))
+
+    # A second, separately sealed suffix supersedes the v1 stopped-on view.
+    v2_report_path = root / 'results/hosted-final-suffix-reconciled-v2/qwen36-on-p2.json'
+    if v2_report_path.is_file():
+        report = json.loads(v2_report_path.read_text())
+        if report.get('contract') != 'qwen36-on-p2-final21-reconciliation-v2' or report.get('eligible_paired_comparison') is not False:
+            raise ValueError('Unsupported Qwen36 final21 report')
+        sources = report['sources']
+        bindings = [sources[key] for key in ('plan', 'original', 'original_journal', 'suffix_v1',
+                                             'suffix_v1_journal', 'prior_report', 'suffix_v2', 'suffix_v2_journal')]
+        bindings.extend((sources['budget']['manifest'], sources['budget']['child']))
+        for binding in bindings:
+            path = root / binding['file']
+            if hashlib.sha256(path.read_bytes()).hexdigest() != binding['sha256']:
+                raise ValueError('Qwen36 final21 source hash mismatch: ' + binding['file'])
+        prior = json.loads((root / sources['prior_report']['file']).read_text())
+        if prior.get('attempted') != 39 or prior.get('valid_outputs') != 37:
+            raise ValueError('Qwen36 final21 prior report differs')
+        predictions = rows(root / sources['original']['file']) + rows(root / sources['suffix_v1']['file']) + rows(root / sources['suffix_v2']['file'])
+        evaluation, all_four = score_saved(predictions, root)
+        if (len(predictions) != report['attempted'] or evaluation['valid_outputs'] != report['valid_outputs'] or
+                all_four != report['all_four_correct'] or report['never_sent_count'] != 60 - len(predictions) or
+                [row['id'] for row in predictions] != [f'DEV-{i:03}' for i in range(1, len(predictions)+1)]):
+            raise ValueError('Qwen36 final21 score or coverage mismatch')
+        run = phase_run(report['configuration_id'], 'P2', evaluation, all_four, v2_report_path.relative_to(root),
+                        root, baseline, predictions=predictions, experiment='hosted-final-suffix-v2')
+        source_paths = [Path(sources[key]['file']) for key in ('original', 'suffix_v1', 'suffix_v2')]
+        run['tokens'] = tokens({'attempt_files': [str(path) for path in source_paths]}, root)
+        elapsed = [number(row.get('elapsed_seconds')) for row in predictions]
+        known_elapsed = [value for value in elapsed if value is not None]
+        run['timing'].update({'totalSeconds': report['timing']['sum_reported_attempt_seconds'],
+                              'medianSeconds': statistics.median(known_elapsed) if len(known_elapsed) == len(predictions) else None,
+                              'p95Seconds': sorted(known_elapsed)[math.ceil(.95*len(known_elapsed))-1] if len(known_elapsed) == len(predictions) else None,
+                              'kind': 'record', 'requests': len(predictions),
+                              'complete': len(known_elapsed) == len(predictions), 'comparableHosted': True,
+                              'note': 'Per-request development elapsed only; original counterbalanced schedule was not preserved.'})
+        cost = report['cost']
+        run['cost'].update({'actualUsd': float(cost['actual_total_usd']) if cost['actual_total_usd'] is not None else None,
+                            'knownUsd': float(cost['known_observed_usd']),
+                            'unknownUpperBoundUsd': cost['unknown_reserved_upper_bound_usd'],
+                            'availability': 'complete' if cost['actual_total_usd'] is not None else 'partial',
+                            'note': cost['note']})
+        run['neverSent'] = report['never_sent_count']
+        run['statusCounts'] = report['status_counts']
+        replace_with_reconciliation(run, predictions, source_paths + [Path(sources['prior_report']['file'])])
 
     roster = []
     for entry in json.loads((phase_dir / 'roster.json').read_text())['entries']:

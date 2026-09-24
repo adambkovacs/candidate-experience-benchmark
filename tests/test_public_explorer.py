@@ -90,13 +90,20 @@ class PublicExportTests(unittest.TestCase):
   off=runs['openrouter-paid-qwen36-35b-a3b-off--p2']
   on=runs['openrouter-paid-qwen36-35b-a3b-on--p2']
   self.assertEqual((off['records'],off['valid'],off['neverSent']),(60,59,0))
-  self.assertEqual((on['records'],on['valid'],on['neverSent']),(39,37,21))
-  self.assertEqual(on['statusCounts']['service_error'],2)
+  v2=Path(__file__).resolve().parents[1]/'results/hosted-final-suffix-reconciled-v2/qwen36-on-p2.json'
+  expected=(40,37,20,3) if v2.is_file() else (39,37,21,2)
+  self.assertEqual((on['records'],on['valid'],on['neverSent'],on['statusCounts']['service_error']),expected)
   self.assertFalse(on['complete'])
   self.assertTrue(off['complete'])
   self.assertFalse(on['pairedEligible'])
   self.assertAlmostEqual(on['cost']['knownUsd'],0.0417374)
-  self.assertEqual(on['cost']['unknownUpperBoundUsd'],'0.0598016')
+  self.assertEqual(on['cost']['unknownUpperBoundUsd'],'0.0897024' if v2.is_file() else '0.0598016')
+  if v2.is_file():
+   self.assertEqual(on['protocolId'],'hosted-final-suffix-v2')
+   self.assertEqual(len(on['sourceViews']),2)
+   dev040=next(c for c in x['cases'] if c['configuration']==on['id'] and c['id']=='DEV-040')
+   self.assertEqual(dev040['status'],'service_error')
+   self.assertEqual(next(c for c in x['cases'] if c['configuration']==on['id'] and c['id']=='DEV-041')['status'],'missing')
   self.assertTrue(all(r['sourceViews'] for r in (off,on)))
  def test_qwen8_on_p2_requires_sealed_reconciliation_and_keeps_dev027_ambiguous(self):
   x=export();runs={r['id']:r for r in x['runs']}

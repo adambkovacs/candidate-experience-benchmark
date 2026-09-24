@@ -1,5 +1,13 @@
 # MVP completion status
 
+## 2026-09-24 provider recovery follow-up
+
+A new [Mistral 119B smoke checkpoint](../results/mistral119-recovery-prep-v2/README.md) retried the exact none/high configurations after a long cooldown. Both again stopped on the first request with HTTP 429. Neither full run is admitted. The separate child ledgers are sealed, retaining $0.04177920 per failed request as unknown-charge bounds.
+
+The next Qwen 3.6 thinking-on P2 continuation attempted only the next never-sent review, DEV-040, then stopped on another HTTP 429. DEV-033, DEV-039, and DEV-040 remain failed; DEV-041–060 remain never sent. This repeated provider block prevents completion of that condition. No immediate retry loop is scheduled. All hosted partitions are closed; the master ledger accounts for $2.55751564650 of the $10 cap, including unknown-charge bounds.
+
+Local inference remains separate: the existing Qwen 3.5 4B suffix continues as the only GPU worker. Its next P1 condition is prepared, and a reusable admission path for the following ten local conditions is being prepared without inference. Gemini still requires subscription quota recovery. The failed hosted calls do not block unrelated local work.
+
 ## 2026-09-24 hosted continuation closure
 
 The Qwen 3 8B thinking-on P2 suffix completed all 33 never-sent requests. The [combined report](../results/hosted-final-suffix-reconciled-v1/qwen8-on-p2.json) accounts for all 60 positions: 16 valid outputs, 43 intrinsic invalid outputs, and the preserved unknown DEV-027. Fourteen reviews match all four provisional reference labels. Known development charges total $0.076293711; the interrupted original request retains a $0.017199104 unknown-charge bound. No reviews remain never sent in this condition.
