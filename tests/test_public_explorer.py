@@ -1,8 +1,50 @@
 import json,sys,tempfile,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from build_public_explorer import tokens,export,surface
+from build_public_explorer import tokens,export,surface,local_suffix_run
 class PublicExportTests(unittest.TestCase):
+ def test_local_suffix_view_is_terminal_gated_and_preserves_unknown_claim(self):
+  from tests.test_local_prompt_suffix_reconciliation import LocalSuffixReconciliationTests
+  import reconcile_local_prompt_suffix_v1 as reconciliation
+  fixture=LocalSuffixReconciliationTests()
+  fixture.setUp()
+  self.addCleanup(fixture.doCleanups)
+  root=fixture.root
+  baseline={reconciliation.CONFIGURATION:{'model':'Qwen3.5 4B','surface':'Local / specialist'}}
+  references={rid:{'feedback':'synthetic feedback','reference':fixture.truth} for rid in reconciliation.IDS}
+  self.assertIsNone(local_suffix_run(root,baseline,references))
+  report=reconciliation.reconcile(root)
+  path=root/'results/local-prompt-suffix-v1/reconciliation.json'
+  path.write_text(json.dumps(report)+'\n')
+  run,cases=local_suffix_run(root,baseline,references)
+  self.assertEqual(run['id'],'qwen3.5-4b-sdk-thinking-on--p2')
+  self.assertEqual(run['experimentId'],reconciliation.CONFIGURATION)
+  self.assertEqual((run['records'],run['attemptedRecords'],run['valid'],run['neverSent']),(59,60,55,0))
+  self.assertEqual(run['ambiguousOutcomeIds'],['DEV-019'])
+  self.assertEqual(run['sourceViews'][0]['records'],18)
+  self.assertEqual(run['sourceViews'][0]['attemptedRecords'],19)
+  self.assertFalse(run['complete'])
+  self.assertFalse(run['pairedEligible'])
+  self.assertFalse(run['timing']['comparableHosted'])
+  self.assertIsNone(run['cost']['actualUsd'])
+  self.assertEqual(next(case for case in cases if case['id']=='DEV-019')['status'],
+                   'ambiguous_no_saved_output')
+  self.assertEqual(len(cases),60)
+  report['valid_outputs']+=1
+  path.write_text(json.dumps(report)+'\n')
+  with self.assertRaises(ValueError):local_suffix_run(root,baseline,references)
+ def test_local_suffix_partial_fixture_has_exact_never_sent_ids(self):
+  from tests.test_local_prompt_suffix_reconciliation import LocalSuffixReconciliationTests
+  import reconcile_local_prompt_suffix_v1 as reconciliation
+  fixture=LocalSuffixReconciliationTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+  fixture.make_suffix(4,'service_failure')
+  report=reconciliation.reconcile(fixture.root)
+  (fixture.root/'results/local-prompt-suffix-v1/reconciliation.json').write_text(json.dumps(report)+'\n')
+  references={rid:{'feedback':'synthetic feedback','reference':fixture.truth} for rid in reconciliation.IDS}
+  run,cases=local_suffix_run(fixture.root,{},references)
+  self.assertEqual((run['records'],run['attemptedRecords'],run['neverSent']),(22,23,37))
+  self.assertEqual(run['neverSentIds'],reconciliation.IDS[23:])
+  self.assertEqual(next(case for case in cases if case['id']=='DEV-024')['status'],'missing')
  def test_batch_usage_is_counted_once_not_per_member_or_nested_iteration(self):
   with tempfile.TemporaryDirectory() as d:
    p=Path(d)/'batch.jsonl';p.write_text(json.dumps({'batch_size':10,'usage':{'input_tokens':2,'output_tokens':100,'cache_read_input_tokens':80,'iterations':[{'input_tokens':999,'output_tokens':999}]}})+'\n')

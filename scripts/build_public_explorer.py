@@ -166,6 +166,68 @@ def closed_journal(path):
     return bool(lines and lines[-1].get('event') == 'terminal')
 
 
+def local_suffix_run(root, baseline, reference_cases):
+    """Return a verified public view only after the offline suffix report exists."""
+    report_path = root / 'results/local-prompt-suffix-v1/reconciliation.json'
+    if not report_path.is_file():
+        return None
+    from reconcile_local_prompt_suffix_v1 import reconcile
+    report = json.loads(report_path.read_text())
+    if report != reconcile(root):
+        raise ValueError('Local suffix report differs from terminal-bound offline reconciliation')
+    if (report['configuration'] != 'qwen3.5-4b-sdk-thinking-on' or report['variant'] != 'P2' or
+        report['denominator'] != 60 or report['ambiguous_outcome_ids'] != ['DEV-019'] or
+        report['coverage_complete'] is not False):
+        raise ValueError('Local suffix public coverage differs')
+    sources = report['sources']
+    saved = rows(root / sources['original_output']['file']) + rows(root / sources['suffix_output']['file'])
+    normalized = [{'id': row['id'], 'status': row['decision']['status'],
+                   'prediction': row['decision'].get('prediction')} for row in saved]
+    if (len(normalized) != report['saved_rows'] or
+        [row['id'] for row in normalized[:18]] != [f'DEV-{i:03}' for i in range(1, 19)] or
+        [row['id'] for row in normalized[18:]] != [f'DEV-{i:03}' for i in range(20, 20 + len(normalized) - 18)] or
+        report['claimed_attempts'] != len(normalized) + 1 or
+        report['never_sent_ids'] != [f'DEV-{i:03}' for i in range(20 + len(normalized) - 18, 61)]):
+        raise ValueError('Local suffix saved rows or never-sent coverage differs')
+    public_predictions = normalized[:18] + [{'id': 'DEV-019', 'status': 'ambiguous_no_saved_output',
+                                             'prediction': None}] + normalized[18:]
+    evaluation, all_four = score_saved(public_predictions, root)
+    if (evaluation != report['evaluation'] or evaluation['valid_outputs'] != report['valid_outputs'] or
+        all_four != report['all_four_correct'] or
+        any(evaluation['metrics'][field]['accuracy'] != report['field_accuracy'][field] for field in FIELDS)):
+        raise ValueError('Local suffix public score differs')
+    run = phase_run(report['configuration'], 'P2', evaluation, all_four, report_path.relative_to(root),
+                    root, baseline, predictions=public_predictions,
+                    experiment='local-prompt-suffix-v1')
+    resource = report['resource']
+    if resource['surface'] != 'lmstudio_sdk' or resource['cost_usd'] is not None:
+        raise ValueError('Local suffix resource classification differs')
+    run.update({'complete': False, 'pairedEligible': False,
+                'resultStatus': 'original DEV-019 outcome unknown; suffix ' + report['terminal']['status'],
+                'records': report['saved_rows'], 'attemptedRecords': report['claimed_attempts'],
+                'neverSent': report['never_sent_count'],
+                'neverSentIds': report['never_sent_ids'],
+                'ambiguousOutcomeIds': report['ambiguous_outcome_ids'],
+                'statusCounts': {**report['status_counts'], 'ambiguous_no_saved_output': 1},
+                'sourceViews': [{'status': 'original saved prefix and unresolved claim', 'records': 18, 'attemptedRecords': 19,
+                                 'evidenceUrl': GITHUB + sources['original_output']['file']},
+                                {'status': 'terminal suffix', 'records': len(saved) - 18,
+                                 'evidenceUrl': GITHUB + sources['suffix_output']['file']}]})
+    run['timing'].update({'totalSeconds': resource['elapsed_prediction_seconds_sum'],
+                          'medianSeconds': resource['elapsed_prediction_seconds_median'],
+                          'p95Seconds': None, 'kind': 'record',
+                          'requests': report['saved_rows'], 'complete': False,
+                          'comparableHosted': False, 'note': resource['timing_scope']})
+    run['tokens'].update({'input': resource['prompt_tokens_observed_sum'],
+                          'output': resource['completion_tokens_observed_sum'],
+                          'reportedRequests': report['saved_rows'] - len(resource['usage_missing_record_ids']),
+                          'totalRequests': report['claimed_attempts'], 'complete': False,
+                          'note': 'Saved local SDK usage only; DEV-019 usage is unknown.'})
+    run['cost'] = cost_fields({})
+    run['cost']['note'] = resource['cost_note']
+    return run, cases_for(run['id'], public_predictions, reference_cases)
+
+
 def export(root=ROOT):
     root = Path(root)
     summary = json.loads((root / 'results/comparison/summary.json').read_text())
@@ -381,6 +443,14 @@ def export(root=ROOT):
         run['cost']['note'] = 'Local execution; API charge not applicable. Device costs unmeasured.'
         runs.append(run)
         cases.extend(cases_for(run['id'], normalized_predictions, reference_cases))
+
+    local_suffix = local_suffix_run(root, baseline, reference_cases)
+    if local_suffix is not None:
+        run, local_cases = local_suffix
+        if run['id'] in {item['id'] for item in runs}:
+            raise ValueError('Local suffix duplicates an existing public run')
+        runs.append(run)
+        cases.extend(local_cases)
 
     # Original Qwen3.6 P0 baselines were completed before the bounded prompt
     # recovery and are separate evidence from its P1/P2 runs.
