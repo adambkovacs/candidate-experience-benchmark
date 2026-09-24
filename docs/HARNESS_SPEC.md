@@ -2,7 +2,7 @@
 
 Status: design proposal, 2026-09-24. This document authorizes no inference, downloads, dataset generation or spending. It applies to repeatable tasks with fixed inputs and measurable outputs, including the current recruitment-feedback comparison.
 
-Build a small durable coordinator around an existing evaluation framework. Reuse this repository's request builders, strict parsers, scorers and evidence checks. Select the framework through a bounded adapter test before replacing live runners. The next benchmark should require one experiment file and one execution command, with an explicit queue and automatic progress reporting.
+Consolidate the existing benchmark components around this project's requirements. Preserve the adapters, request builders, strict parsers, scorers and immutable evidence. Finish the current benchmark on its existing protocol before changing orchestration. External framework adoption is conditional on a bounded offline comparison; it is not a prerequisite or a reason for a full rewrite. The next experiment should run from one configuration and one command, recover predictably, and explain every result without an expensive LLM supervising routine work.
 
 The current scope remains 60 development records. The additional 340 records require separate authorization and the review and split-freeze steps in [PLAN.md](PLAN.md). A better runner does not turn provisional development references into held-out evidence.
 
@@ -23,11 +23,15 @@ The system must:
 7. Produce quality, reliability, latency, cost and prompt-comparison reports offline from immutable evidence.
 8. Preserve current results and allow gradual migration without changing a running experiment's protocol.
 
-Relevant existing implementations are [admission](../scripts/prompt_admission.py), [controller guards](../scripts/prompt_controller.py), [schedule journal](../scripts/prompt_schedule.py), [paid runner](../scripts/openrouter_paid_benchmark.py), [budget partitions](../scripts/paid_budget_partitions.py), [offline protocol audit](../scripts/audit_prompt_protocol.py) and [paired evaluation](../scripts/evaluate_prompt_variants.py). These are migration inputs, not evidence that the proposed system already exists. The separate remaining-record amendment is still a draft and is not an adopted execution path.
+Relevant existing implementations are [admission](../scripts/prompt_admission.py), [controller guards](../scripts/prompt_controller.py), [schedule journal](../scripts/prompt_schedule.py), [paid runner](../scripts/openrouter_paid_benchmark.py), [budget partitions](../scripts/paid_budget_partitions.py), [offline protocol audit](../scripts/audit_prompt_protocol.py) and [paired evaluation](../scripts/evaluate_prompt_variants.py). These are migration inputs, not evidence that the proposed system already exists. The separately versioned remaining-record continuations preserve their own policies and evidence; they do not authorize changing the current experiment during a framework migration.
 
-## Adaptation decision
+## Architecture decision
 
-Evaluate Inspect AI and promptfoo first. Inspect's Python model extension is a plausible home for our adapters; promptfoo is a useful challenger for declarative prompt/configuration matrices and review. The companion [framework research](HARNESS_RESEARCH.md) owns the broader candidate and license review. Its recommendations must be checked against pinned versions during the implementation spike.
+Accepted project direction, 2026-09-24: finish the current benchmark without migrating frameworks mid-run. Preserve current adapters and evidence, then consolidate one adapter interface, durable queue, budget ledger, status command, and common recovery and reporting. Keep the benchmark scope and completion requirements unchanged.
+
+Compare the consolidated project approach, Inspect AI and promptfoo with the same bounded offline fixtures. Use saved responses and simulated failures, with no model calls or repeated benchmark runs. Adoption must reduce maintenance and operator effort while passing the protocol gates below; keeping the project coordinator is an acceptable outcome. Avoid rebuilding components already available in suitable libraries.
+
+Evaluate Inspect AI and promptfoo first among external candidates. Inspect's Python model extension is a plausible home for our adapters; promptfoo is a useful challenger for declarative prompt/configuration matrices and review. The companion [framework research](HARNESS_RESEARCH.md) owns the broader candidate and license review. Its recommendations must be checked against pinned versions during the implementation spike.
 
 Framework defaults must not become experimental policy. Inspect documents indefinite recoverable API retries and separate eval-set retry and cleanup behavior. Promptfoo documents enabled caching and exposes test context to custom scripts. Disable or replace these behaviors where they conflict with a frozen run; prove the effective settings through integration tests. [Inspect concurrency](https://inspect.aisi.org.uk/models-concurrency.html), [Inspect eval sets](https://inspect.aisi.org.uk/eval-sets.html), [Inspect model extensions](https://inspect.aisi.org.uk/extensions-model-api.html), [promptfoo configuration](https://www.promptfoo.dev/docs/configuration/reference/), [promptfoo script providers](https://www.promptfoo.dev/docs/providers/custom-script/).
 
@@ -43,9 +47,10 @@ Use the following selection gates, with passing evidence in a short architecture
 | Scheduling | We can own admission, request claims, resource limits and retry decisions without patching many framework internals. |
 | Accounting | Every billable attempt requires our reservation before dispatch; usage settles once at the request unit. |
 | Portability | A clean checkout can reproduce parsing and scoring offline. No hosted dashboard subscription is required. |
-| Maintenance | Pinned permissive license and dependency review pass; adapter changes are small enough to test after upgrades. |
+| Maintenance | Pinned permissive license and dependency review pass; record custom code, workarounds, dependency burden and upgrade-test effort against the project approach. |
+| Operator effort | Record manual launches, monitoring interventions, recovery steps and commands for the same fixtures. Adoption must show a practical reduction without weakening protocol controls. |
 
-Reject a candidate that cannot meet a hard gate. Prefer a thin integration over a fork. If neither fits execution safely, use their report or evaluation layer while keeping the existing runners behind the coordinator. Do not build a new agent framework, model server, authentication service or distributed cluster scheduler for this project.
+Reject a candidate that cannot meet a hard gate. Prefer a thin integration over a fork. Adopt only components that demonstrate a benefit. If neither execution integration pays for its complexity, retain the project coordinator; a report or evaluation layer may be adopted separately if it passes the same relevant gates. Do not build a new agent framework, model server, authentication service or distributed cluster scheduler for this project.
 
 ## Architecture and ownership
 
@@ -53,7 +58,7 @@ Use one coordinator process on the Mac initially. It owns a SQLite database on l
 
 The database holds mutable scheduling projections and append-only event and money records. Artifacts hold immutable request and response bytes. Each committed terminal event refers to artifact hashes; durable writes and atomic rename happen before the event is committed. A crash may leave an unreferenced artifact, which recovery can inspect. It must never create a terminal record pointing to bytes that were not durably saved.
 
-A framework adapter consumes the compiled execution plan and returns events to this coordinator. It does not independently decide retries, spending or sample selection. If the selected framework already meets a component's requirements, use that implementation and its tests instead of duplicating it.
+An optional framework adapter consumes the compiled execution plan and returns events to this coordinator. It does not independently decide retries, spending or sample selection. If the selected framework already meets a component's requirements, use that implementation and its tests instead of duplicating it.
 
 Logical boundaries:
 
@@ -259,8 +264,8 @@ Use synthetic transport fixtures for stress tests. They do not enlarge the resea
 
 ## Delivery and migration
 
-1. Inventory and choose: produce the read-only legacy importer and a framework decision record. Run the two-candidate adapter spike with mocked transport, crash injection and exported evidence. Select one execution integration or document why a report-only integration fits better. Exit gate: hard selection gates pass.
-2. Durable core: implement contracts, local coordinator, budget transactions, lease/recovery logic and artifact writer. Keep current runners callable as legacy adapters. Exit gate: accounting, crash and concurrency tests pass without inference.
+1. Finish and compare: complete the current benchmark with its existing protocol. Inventory reusable components and produce a read-only legacy importer. Compare the project approach with Inspect and promptfoo using the five offline fixtures in [the research note](HARNESS_RESEARCH.md), saved responses, mocked transport and crash injection. Record maintenance and operator effort, and select only beneficial components; no external adoption is a valid decision. Exit gate: the decision record demonstrates protocol fidelity and a justified reduction in ongoing work for each adopted component.
+2. Durable core: consolidate existing contracts, coordination, budget transactions, recovery and artifact writing; implement only missing capabilities and reuse suitable libraries. Keep current runners callable as legacy adapters. Exit gate: accounting, crash and concurrency tests pass without inference.
 3. Adapter parity: add OpenRouter and one subscription adapter first, then remaining subscription, LM Studio and native specialist adapters. Compare prepared requests and parsed historical outputs against frozen fixtures. Exit gate: request fidelity and offline metric parity for each adapter.
 4. Operational pilot: after explicit authorization, run a bounded live smoke in coexistence with the old system. Exercise stop/resume and a deliberately simulated transport failure without retrying completed requests. Exit gate: evidence and billing reconcile, with no protocol drift.
 5. Reporting and cutover: publish a stable status view and export, import current immutable evidence, and declare the new coordinator authoritative only for new experiment IDs. Exit gate: clean-checkout reproduction and the fake scale rehearsal pass.

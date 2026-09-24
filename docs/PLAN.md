@@ -227,3 +227,7 @@ The original hosted DeepSeek slot is separate from the local R1-Distill-Qwen-32B
 ## September24 DeepSeek routing correction
 
 The user explicitly stopped the local R1-Distill-Qwen-32B download. Keep this exact checkpoint blocked while no serving OpenRouter endpoint is available; preserve partial artifacts without resuming. The completed hosted V4.1 Flash configurations remain distinct. See [the cancellation evidence](../results/deepseek-r1-download-cancelled-2026-09-24.json) and [local registry](../results/local-run-registry.json).
+
+## Harness architecture direction (24 September 2026)
+
+Finish the current benchmark on its existing protocol. Future orchestration work follows the [harness architecture decision](HARNESS_SPEC.md#architecture-decision): preserve adapters and evidence, consolidate coordination, and adopt external components only when a bounded offline comparison proves lower maintenance and operator effort without weakening the protocol. This changes implementation direction only; the benchmark scope and completion requirements remain unchanged.
