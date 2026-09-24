@@ -91,7 +91,40 @@ def establish_credits_off(home):
         settings['useG1Credits']=False;p.write_text(json.dumps(settings,indent=2)+'\n')
     return require_credits_off(home)
 
+def variant_gate_or_preview(a):
+    """Compose client prompts offline; no environment, credentials, CLI or inference."""
+    variant=getattr(a,'prompt_variant',None);parent=getattr(a,'parent_baseline_id',None)
+    destination=getattr(a,'variant_preview_output',None)
+    if variant is None and parent is None and destination is None:return False
+    if not destination and variant in ('P1','P2'):
+        raise ValueError('Phase-two protocol gates pending; use offline preview')
+    if destination and variant is None:raise ValueError('Preview requires explicit prompt variant')
+    from codex_benchmark import variant_instruction
+    policy=(ROOT/'docs/LABELING_GUIDE.md').read_text().split('## Simulated routing')[0]
+    _,audit=variant_instruction(policy,'batch10',variant,parent)
+    if not destination:return False
+    if a.offset%10:raise ValueError('Offset must preserve batch10 membership')
+    rows=select_inputs(read_rows(ROOT/'data/pilot/inputs.jsonl'),a.offset,a.limit)
+    if any(set(r)!={'id','feedback'} for r in rows):raise ValueError('Unexpected preview input metadata')
+    requests=[]
+    for offset in range(0,len(rows),10):
+        group=rows[offset:offset+10];prompt=batch_prompt(policy,group,variant,parent);schema=batch_schema(group)
+        requests.append({'record_ids':[r['id'] for r in group],
+            'request':{'prompt':prompt,'output_schema':schema},'request_sha256':digest(prompt),
+            'schema_sha256':digest(json.dumps(schema,sort_keys=True)),'prompt_variant':audit})
+    preview={'offline_only':True,'inference_performed':False,'reference_labels_read':False,
+        'workflow':'antigravity-native-agent-batch','instruction_role':'cli_combined_prompt',
+        'requested_model':a.model,'requested_effort':a.effort,
+        'workflow_mode':getattr(a,'workflow_mode','strict'),'configured_batch_size':10,
+        'controller_timeout_seconds':a.timeout,'agent_definition':AGENT,
+        'runtime_identity_status':'Configured only; no model inventory, authentication or runtime verification.',
+        'context_status':'Token counts and hidden native-agent scaffold unverified; no token-fit or bare-model claim.',
+        'protocol_gates':'Pending; preview is not execution approval.','requests':requests}
+    with open(destination,'x') as out:json.dump(preview,out,indent=2);out.write('\n')
+    return True
+
 def run(a):
+    if variant_gate_or_preview(a):return
     if a.timeout<=0:raise ValueError('Positive timeout required')
     if not a.model.endswith('-'+a.effort):raise ValueError('Model ID and effort must agree')
     workflow_mode=getattr(a,'workflow_mode','strict')
@@ -109,8 +142,11 @@ def run(a):
     with paths[0].open('x') as out,paths[1].open('x') as attempts,paths[2].open('x') as journal:
         for offset in range(0,len(rows),10):
             audit=context_audit(home);credits=establish_credits_off(home)
-            group=rows[offset:offset+10];prompt=batch_prompt(policy,group);schema=batch_schema(group);bid='batch-'+str((a.offset+offset)//10+1).zfill(2)
+            group=rows[offset:offset+10];prompt=batch_prompt(policy,group,getattr(a,'prompt_variant',None),getattr(a,'parent_baseline_id',None));schema=batch_schema(group);bid='batch-'+str((a.offset+offset)//10+1).zfill(2)
             record={'id':bid,'phase':a.phase,'workflow':'antigravity-native-agent-batch','workflow_mode':workflow_mode,'requested_model':a.model,'returned_model':None,'effort':a.effort,'cli_version':version,'cli_binary_sha256':hashlib.sha256(Path(a.agy).read_bytes()).hexdigest(),'model_catalogue_stdout':inventory.stdout,'batch_size':len(group),'configured_batch_size':10,'record_order':[r['id'] for r in group],'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'request':{'prompt':prompt,'output_schema':schema},'request_sha256':digest(prompt),'schema_sha256':digest(json.dumps(schema,sort_keys=True)),'reference_labels_read':False,'context_audit':audit,'billing_audit':credits,'agent_definition':AGENT,'isolation_note':'Native agent workflow; builtin scaffold persists. Empty custom tool/MCP/skill/plugin lists configured; global context paths audited. Runtime init confirms requested agent/model and records advertised tools. Effective tool restriction remains unverified in observed-no-external-tools mode; every observed external tool/delegation event is rejected. No claim of bare-model isolation.','controller_timeout_seconds':a.timeout,'retry_note':'Native CLI supports internal transient retries (documented since1.2.1). Request time includes any internal retries; individual retry count unknown unless emitted in stream.'}
+            if getattr(a,'prompt_variant',None) is not None:
+                from codex_benchmark import variant_instruction
+                _,record['prompt_variant']=variant_instruction(policy,'batch10',a.prompt_variant,getattr(a,'parent_baseline_id',None))
             start=time.perf_counter()
             with tempfile.TemporaryDirectory(prefix='agy-benchmark-',dir='/private/tmp') as t:
                 cwd=Path(t);agent=cwd/'.agents/agents/recruitment-benchmark.md';agent.parent.mkdir(parents=True);agent.write_text(AGENT);sp=cwd/'schema.json';sp.write_text(json.dumps(schema))
@@ -134,4 +170,4 @@ def run(a):
             if record['status']!='ok':raise RuntimeError('Stopped: inspect native stream before any further request')
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workflow-mode',choices=WORKFLOW_MODES,default='strict');p.add_argument('--agy',required=True);p.add_argument('--model',default='gemini-3.8-flash-low');p.add_argument('--effort',choices=['low','medium','high'],default='low');p.add_argument('--limit',type=int,choices=range(1,61),default=3);p.add_argument('--offset',type=int,default=0);p.add_argument('--timeout',type=int,default=600);p.add_argument('--phase',choices=['smoke','development'],required=True);p.add_argument('--output',required=True);p.add_argument('--attempts',required=True);run(p.parse_args())
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workflow-mode',choices=WORKFLOW_MODES,default='strict');p.add_argument('--agy',required=True);p.add_argument('--model',default='gemini-3.8-flash-low');p.add_argument('--effort',choices=['low','medium','high'],default='low');p.add_argument('--limit',type=int,choices=range(1,61),default=3);p.add_argument('--offset',type=int,default=0);p.add_argument('--timeout',type=int,default=600);p.add_argument('--phase',choices=['smoke','development'],required=True);p.add_argument('--output',required=True);p.add_argument('--attempts',required=True);p.add_argument('--prompt-variant',choices=['P0','P1','P2']);p.add_argument('--parent-baseline-id');p.add_argument('--variant-preview-output',help='Exclusive offline preview; no credentials or inference.');run(p.parse_args())

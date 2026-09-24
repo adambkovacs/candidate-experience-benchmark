@@ -21835,6 +21835,532 @@
     }
   },
   {
+    "id": "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+    "model": "gemini-3.7-flash-low",
+    "effort": "low",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-reconciled.jsonl",
+    "partial_predictions_file": null,
+    "attempt_files": [
+      "results/antigravity-gemini37-flash-low-native129-2026-09-23/development.jsonl",
+      "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-recovery.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini37-flash-low-native129-2026-09-23/reconciliation.json",
+    "notes": "Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.",
+    "completed_records": 60,
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed",
+    "cost": {
+      "scope": "declared development attempts only",
+      "availability": "unavailable",
+      "attempt_count": 70,
+      "known_actual_attempts": 0,
+      "unknown_cost_attempts": 0,
+      "unknown_bounded_attempts": 0,
+      "missing_financial_attempts": 70,
+      "known_actual_usd": null,
+      "unknown_reserved_upper_bound_usd": null,
+      "known_plus_unknown_upper_bound_usd": null,
+      "total_actual_usd": null,
+      "source_paths": [
+        "results/antigravity-gemini37-flash-low-native129-2026-09-23/development.jsonl",
+        "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-recovery.jsonl"
+      ],
+      "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9834920634920635,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.823529411764706,
+          "per_label": {
+            "yes": {
+              "tp": 33,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.9428571428571428,
+              "f1": 0.9705882352941176
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "f1": 0.5
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.9222222222222222,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.9354838709677419,
+              "recall": 1.0,
+              "f1": 0.9666666666666667
+            },
+            "insufficient_information": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.6666666666666666,
+              "f1": 0.8
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9770918268297418,
+          "per_label": {
+            "yes": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8888888888888888,
+              "f1": 0.9411764705882353
+            },
+            "no": {
+              "tp": 50,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9803921568627451,
+              "recall": 1.0,
+              "f1": 0.9900990099009901
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "2c9a826b467f529d293a931b1b5416f016fd8493c3367b28bde86c91d3d322be",
+    "attempt_records": 70,
+    "exact_match": 56,
+    "timing": {
+      "timing_kind": "batch_request_latency",
+      "workflow": "batch",
+      "batch_requests": 7,
+      "timed_records": 60,
+      "sum_batch_request_seconds": 527.6377550012112,
+      "batch_median_seconds": 28.61023158399985,
+      "batch_p95_nearest_rank_seconds": 330.1476467081811,
+      "attempted_records_per_request_second": 0.11371437966917715,
+      "successful_records_per_request_second": 0.11371437966917715,
+      "note": "Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed."
+    }
+  },
+  {
+    "id": "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+    "model": "gemini-3.7-flash-medium",
+    "effort": "medium",
+    "status": "completed_after_transport_recovery",
+    "predictions_file": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+    "partial_predictions_file": null,
+    "attempt_files": [
+      "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development.jsonl",
+      "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-recovery.jsonl"
+    ],
+    "raw_batch_attempt_files": [
+      "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-attempts.jsonl",
+      "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-recovery-attempts.jsonl"
+    ],
+    "attempt_phase": "development",
+    "workflow": "batch",
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "reconciliation_manifest": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/reconciliation.json",
+    "notes": "Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.",
+    "completed_records": 60,
+    "runtime": "Antigravity CLI 1.2.9",
+    "hardware": "Hosted undisclosed",
+    "quantization": "Hosted undisclosed",
+    "cost": {
+      "scope": "declared development attempts only",
+      "availability": "unavailable",
+      "attempt_count": 70,
+      "known_actual_attempts": 0,
+      "unknown_cost_attempts": 0,
+      "unknown_bounded_attempts": 0,
+      "missing_financial_attempts": 70,
+      "known_actual_usd": null,
+      "unknown_reserved_upper_bound_usd": null,
+      "known_plus_unknown_upper_bound_usd": null,
+      "total_actual_usd": null,
+      "source_paths": [
+        "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development.jsonl",
+        "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-recovery.jsonl"
+      ],
+      "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9834920634920635,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "negative": {
+              "tp": 31,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.96875,
+              "recall": 1.0,
+              "f1": 0.9841269841269841
+            },
+            "mixed": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "neutral": {
+              "tp": 7,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 58,
+          "denominator": 60,
+          "accuracy": 0.9666666666666667,
+          "macro_f1": 0.823529411764706,
+          "per_label": {
+            "yes": {
+              "tp": 33,
+              "fp": 0,
+              "fn": 2,
+              "precision": 1.0,
+              "recall": 0.9428571428571428,
+              "f1": 0.9705882352941176
+            },
+            "no": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "f1": 0.5
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9640472521828455,
+          "per_label": {
+            "yes": {
+              "tp": 25,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "no": {
+              "tp": 29,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9666666666666667,
+              "recall": 1.0,
+              "f1": 0.9830508474576272
+            },
+            "insufficient_information": {
+              "tp": 5,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8333333333333334,
+              "f1": 0.9090909090909091
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 59,
+          "denominator": 60,
+          "accuracy": 0.9833333333333333,
+          "macro_f1": 0.9770918268297418,
+          "per_label": {
+            "yes": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.8888888888888888,
+              "f1": 0.9411764705882353
+            },
+            "no": {
+              "tp": 50,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9803921568627451,
+              "recall": 1.0,
+              "f1": 0.9900990099009901
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": []
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "ee050b6ce4331181a2bee8e136983fd427b3ac8d33a51aec14893550723e34d6",
+    "attempt_records": 70,
+    "exact_match": 56,
+    "timing": {
+      "timing_kind": "batch_request_latency",
+      "workflow": "batch",
+      "batch_requests": 7,
+      "timed_records": 60,
+      "sum_batch_request_seconds": 318.99150791686407,
+      "batch_median_seconds": 16.49292612499994,
+      "batch_p95_nearest_rank_seconds": 217.60003924998455,
+      "attempted_records_per_request_second": 0.1880927815032533,
+      "successful_records_per_request_second": 0.1880927815032533,
+      "note": "Raw batch request durations counted once. Throughput uses unique records and summed request time, not concurrent wall time. Per-record shares are amortized accounting, not individual latency; per-record median/p95 suppressed."
+    }
+  },
+  {
     "id": "openrouter-paid-qwen3.8-27b-medium",
     "model": "qwen/qwen3.8-27b",
     "effort": "medium",

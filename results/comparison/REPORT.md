@@ -133,6 +133,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | antigravity-gemini-3.6-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 59 | 59 | 57 |
 | antigravity-gemini-3.6-flash-medium-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 59 | 59 | 60 | 57 |
 | antigravity-gemini-3.6-flash-high-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 58 | 58 | 59 | 56 |
+| antigravity-gemini-3.7-flash-medium-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 58 | 59 | 59 | 56 |
 | openrouter-paid-qwen3.8-27b-medium | complete_with_service_failure | 59 | 58 | 59 | 58 | 58 | 56 |
 | openrouter-paid-qwen3.8-27b-xhigh | complete_with_output_failure | 59 | 59 | 59 | 56 | 59 | 56 |
 | openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
@@ -839,6 +841,18 @@ Evidence: `results/antigravity-gemini36-flash-medium-native129-2026-09-23/develo
 **antigravity-gemini-3.6-flash-high-native-observed-batch10**
 
 Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation. Initial agy models startup timeout already consumed the single bounded recovery; later development batch03 service error therefore stopped configuration without another recovery. See startup-failure.json.
+
+**antigravity-gemini-3.7-flash-low-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini37-flash-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `2c9a826b467f529d293a931b1b5416f016fd8493c3367b28bde86c91d3d322be`.
+
+**antigravity-gemini-3.7-flash-medium-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `ee050b6ce4331181a2bee8e136983fd427b3ac8d33a51aec14893550723e34d6`.
 
 **openrouter-paid-qwen3.8-27b-medium**
 
