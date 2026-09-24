@@ -1,0 +1,53 @@
+{
+  "version": "local-prompt-remaining-v2",
+  "status": "DRAFT_PENDING_ROOT_REVIEW_NO_INFERENCE",
+  "purpose": "Scoped Qwen3.5-4B thinking-on P1 continuation after a reviewed P2 suffix with unresolved DEV-019.",
+  "configuration": "qwen3.5-4b-sdk-thinking-on",
+  "variant": "P1",
+  "phases": [
+    "smoke",
+    "development"
+  ],
+  "reference_labels_read": false,
+  "inference_performed": false,
+  "controller_sha256": "af90274bedeb16179e5e75dd6f5b126edaf85c6b656c956ddc9afdc45ddb7098",
+  "parent": {
+    "manifest_sha256": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49",
+    "controller_sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd",
+    "review": "results/local-prompt-exact-v1/root-review.json",
+    "review_sha256": "95744bf66166d83c17ab683e392643dc3bba9d85075b1dec5ad9e7c4052b2b61",
+    "interruption_audit": "results/local-prompt-exact-v1/qwen3.5-4b-sdk-thinking-on/P2/interruption-audit-agent-v1.json",
+    "interruption_audit_sha256": "67044cd7738e4faa7caee5c4aab3cfc058c8b0be2cfcd85a7975ea8d6eb981c3",
+    "original_output": "results/local-prompt-exact-v1/qwen3.5-4b-sdk-thinking-on/P2/development.jsonl",
+    "original_output_sha256": "97e01a84e0ba5e48873be2fd4bd4206bdd69492b9552537777e4433bde1da217",
+    "original_journal": "results/local-prompt-exact-v1/qwen3.5-4b-sdk-thinking-on/P2/development.attempts.jsonl",
+    "original_journal_sha256": "717ae0d61f9684750d2eecbab280f4b555e13c3dfba886d7c12f75ccdbcc5b2e",
+    "original_terminal": "results/local-prompt-exact-v1/qwen3.5-4b-sdk-thinking-on/P2/development.terminal.json",
+    "ambiguous_attempt_id": "6c4c49f8-46f2-4b89-8d1b-d5ed402384aa"
+  },
+  "suffix": {
+    "terminal": "results/local-prompt-suffix-v1/development-suffix.terminal.json",
+    "output": "results/local-prompt-suffix-v1/development-suffix.jsonl",
+    "journal": "results/local-prompt-suffix-v1/development-suffix.attempts.jsonl",
+    "manifest": "results/local-prompt-suffix-v1/manifest.json",
+    "manifest_sha256": "ead32e6ebbe64feacf96612d769909ba5a07218ac098b368326dca4317fe8834",
+    "controller_sha256": "7be2abba1683af3e58ce4aef53615d9b004b67c68a5296e2958686ab2ce0d60f"
+  },
+  "hosted_availability": "results/local-prompt-suffix-v1/hosted-availability-check.json",
+  "hosted_availability_sha256": "3fed6cb0d26225bbe290f0b31f85286ff9e8806f446502fef16a55410e3b349f",
+  "policy": {
+    "prior_condition": "P2 parent DEV-001..018 finished, DEV-019 ambiguous and excluded, suffix DEV-020..060 completed; never record parent as completed",
+    "request_source": "Frozen parent P1 input and saved P0 per-record LM Studio SDK config",
+    "smoke_ids": [
+      "DEV-001",
+      "DEV-002",
+      "DEV-003"
+    ],
+    "development_count": 60,
+    "retries": 0,
+    "invalid_output": "preserve and continue",
+    "control_service_timeout": "save and stop; ambiguous timeout retains GPU lock",
+    "smoke_gate": "Root-reviewed three-record raw smoke inspection bound before development",
+    "route": "Refresh exact hosted availability before launch; newer exact hosted route changes admission decision"
+  }
+}

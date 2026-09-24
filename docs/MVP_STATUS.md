@@ -1,5 +1,13 @@
 # MVP completion status
 
+## 2026-09-24 hosted continuation closure
+
+The Qwen 3 8B thinking-on P2 suffix completed all 33 never-sent requests. The [combined report](../results/hosted-final-suffix-reconciled-v1/qwen8-on-p2.json) accounts for all 60 positions: 16 valid outputs, 43 intrinsic invalid outputs, and the preserved unknown DEV-027. Fourteen reviews match all four provisional reference labels. Known development charges total $0.076293711; the interrupted original request retains a $0.017199104 unknown-charge bound. No reviews remain never sent in this condition.
+
+After sealing this last hosted partition, the OpenRouter ledger accounts for $2.44405644650 under the $10 cap, including retained unknown-charge bounds. No hosted partitions remain active at this checkpoint. The public explorer now contains 245 saved configuration/condition views. Qwen 3.6 thinking-on P2 still has 21 never-sent reviews after its latest rate-limit failure; Gemini remains subject to its documented subscription quota block.
+
+The local Qwen 3.5 4B P2 suffix is still running in root session 73105. Its next P1 controller is prepared and independently reviewed, but cannot start until the suffix is terminal and the shared GPU lock is free. P1 then requires its own three-response smoke inspection. Ten later local prompt conditions still need admission. The MVP remains unfinished.
+
 ## 2026-09-24 continuation checkpoint (21:10 UTC)
 
 The Qwen 3.6 thinking-off P2 continuation is finished: 59 valid outputs across all 60 attempted reviews, with the original DEV-053 provider error retained. Thinking-on P2 stopped on another HTTP 429: 37 valid outputs across 39 attempted reviews, with DEV-033 and DEV-039 retained as provider failures and DEV-040–060 still unsent. The [sealed reconciliation reports](../results/hosted-final-suffix-reconciled-v1/) distinguish observed charges from unknown-charge bounds. These continuations do not restore the original counterbalanced execution order, so their results remain descriptive rather than eligible strict paired comparisons.

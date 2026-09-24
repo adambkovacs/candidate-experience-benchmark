@@ -47,7 +47,7 @@ class PublicExportTests(unittest.TestCase):
   self.assertEqual(r['tokens']['reportedRequests'],60)
   self.assertEqual(r['tokens']['totalRequests'],61)
  def test_closed_hosted_recovery_only_and_no_fabricated_pairing(self):
-  x=export();q36=[r for r in x['runs'] if r['protocolId'] in ('qwen36-recovery-v1','hosted-final-suffix-v1')]
+  x=export();q36=[r for r in x['runs'] if r['id'].startswith('openrouter-paid-qwen36-35b-a3b-') and r['condition'] in ('P1','P2')]
   q8=[r for r in x['runs'] if r['protocolId']=='qwen8-hosted-recovery-v1']
   self.assertEqual(len(q36),4)
   self.assertEqual(len(q8),3)
