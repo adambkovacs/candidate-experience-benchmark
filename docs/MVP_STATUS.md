@@ -1,5 +1,16 @@
 # MVP completion status
 
+## 2026-09-24 local P1 completed and next condition started
+
+Qwen 3.5 4B thinking-on P1 completed all 60 requests: **55 valid outputs, five invalid outputs, and 52 all-four matches** against the provisional references. Its [terminal-bound report](../results/local-prompt-condition-reconciliations-v1/qwen3.5-4b-sdk-thinking-on/P1.json) has no unknown or never-sent outcomes. Saved development usage is 106,290 input tokens and 124,037 output tokens; local prediction time sums to 3,256.21 seconds with a 43.58-second median. These are device diagnostics, not hosted latency or billed cost.
+
+The public export now contains 247 run views and 14,820 cases. The prior 246 views are unchanged. Offline reconciliation and publication support passed independent review, six scorer tests and 16 exporter tests; a clean checkout reproduced the prior public dataset and all eleven frozen local request sets.
+
+Qwen 3.5 4B thinking-off P1 passed its separate three-response smoke and root inspection. Its development run is active in root session 79312. The first launch failed before inference because the prepared route evidence used `exact_hosted_model` where the controller requires `exact_model`. The rejected receipt is preserved, corrected route files are under `local-prompt-tail-v3/routes-v2`, and the unchanged controller accepted the corrected receipt. No request was sent by the failed preflight.
+
+The [repeatability study](REPEATABILITY_PLAN.md) is a proposed follow-up; no second or third passes have started. Provider and Gemini blocks below remain unresolved. The MVP is not complete.
+
+
 ## 2026-09-24 local P2 continuation reconciled
 
 The Qwen 3.5 4B thinking-on P2 suffix finished all 41 never-sent reviews. Together with the original 18 saved responses, the [reconciliation](../results/local-prompt-suffix-v1/reconciliation.json) has **59 saved responses, 51 valid, eight invalid, and DEV-019 still unknown**. All 60 review positions were attempted; none remains never sent. Forty-eight reviews match all four provisional reference labels. The combined condition remains incomplete for observed outcomes and outside the strict paired comparison.
