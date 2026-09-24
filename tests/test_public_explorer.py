@@ -1,8 +1,72 @@
 import json,sys,tempfile,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from build_public_explorer import tokens,export,surface,local_suffix_run
+from build_public_explorer import tokens,export,surface,local_suffix_run,local_condition_runs
 class PublicExportTests(unittest.TestCase):
+ def test_local_condition_reports_are_absent_until_sealed(self):
+  with tempfile.TemporaryDirectory() as d:
+   self.assertEqual(local_condition_runs(Path(d),{},{}),[])
+ def test_local_condition_export_recomputes_saved_and_unknown_coverage(self):
+  from tests.test_local_prompt_conditions_reconciliation import LocalPromptReconciliationTests
+  import reconcile_local_prompt_conditions as reconciliation
+  from unittest.mock import patch
+  fixture=LocalPromptReconciliationTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+  fixture.smoke();fixture.phase('development',5,status='stopped',pending=True,failure=True)
+  refs_path=fixture.root/'data/pilot/proposed_labels.jsonl'
+  refs_path.write_text(''.join(json.dumps(row)+'\n' for row in fixture.refs))
+  (fixture.root/'data/pilot/pairs.json').write_text('[]\n')
+  report=reconciliation.reconcile_saved_condition(fixture.root,fixture.condition,
+                                                    fixture.frozen,fixture.refs,[])
+  report_path=(fixture.root/'results/local-prompt-condition-reconciliations-v1'/
+               fixture.config/'P1.json')
+  report_path.parent.mkdir(parents=True,exist_ok=True)
+  report_path.write_text(json.dumps(report)+'\n')
+  references={rid:{'feedback':'synthetic feedback','reference':fixture.prediction}
+              for rid in reconciliation.IDS}
+  with patch.object(reconciliation,'load_condition',return_value=fixture.condition),\
+       patch.object(reconciliation,'frozen_requests',return_value=fixture.frozen):
+   views=local_condition_runs(fixture.root,{},references)
+  self.assertEqual(len(views),1)
+  run,cases=views[0]
+  self.assertEqual(run['id'],fixture.config+'--p1')
+  self.assertEqual((run['records'],run['attemptedRecords'],run['valid'],run['neverSent']),
+                   (5,6,4,54))
+  self.assertEqual(run['ambiguousOutcomeIds'],['DEV-006'])
+  self.assertEqual(run['neverSentIds'][0],'DEV-007')
+  self.assertFalse(run['complete'])
+  self.assertFalse(run['pairedEligible'])
+  self.assertFalse(run['timing']['comparableHosted'])
+  self.assertIsNone(run['cost']['actualUsd'])
+  self.assertEqual(next(case for case in cases if case['id']=='DEV-006')['status'],
+                   'ambiguous_no_saved_output')
+  report['valid_outputs']+=1
+  report_path.write_text(json.dumps(report)+'\n')
+  with patch.object(reconciliation,'load_condition',return_value=fixture.condition),\
+       patch.object(reconciliation,'frozen_requests',return_value=fixture.frozen):
+   with self.assertRaises(ValueError):local_condition_runs(fixture.root,{},references)
+ def test_local_condition_zero_saved_claim_has_no_measured_latency(self):
+  from tests.test_local_prompt_conditions_reconciliation import LocalPromptReconciliationTests
+  import reconcile_local_prompt_conditions as reconciliation
+  from unittest.mock import patch
+  fixture=LocalPromptReconciliationTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+  fixture.smoke();fixture.phase('development',0,status='stopped',pending=True)
+  refs_path=fixture.root/'data/pilot/proposed_labels.jsonl'
+  refs_path.write_text(''.join(json.dumps(row)+'\n' for row in fixture.refs))
+  (fixture.root/'data/pilot/pairs.json').write_text('[]\n')
+  report=reconciliation.reconcile_saved_condition(fixture.root,fixture.condition,
+                                                    fixture.frozen,fixture.refs,[])
+  path=fixture.root/'results/local-prompt-condition-reconciliations-v1'/fixture.config/'P1.json'
+  path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(report)+'\n')
+  references={rid:{'feedback':'synthetic feedback','reference':fixture.prediction}
+              for rid in reconciliation.IDS}
+  with patch.object(reconciliation,'load_condition',return_value=fixture.condition),\
+       patch.object(reconciliation,'frozen_requests',return_value=fixture.frozen):
+   run,cases=local_condition_runs(fixture.root,{},references)[0]
+  self.assertEqual((run['records'],run['attemptedRecords'],run['neverSent']),(0,1,59))
+  self.assertEqual(run['timing']['kind'],'unavailable')
+  self.assertIsNone(run['timing']['totalSeconds'])
+  self.assertEqual(next(case for case in cases if case['id']=='DEV-001')['status'],
+                   'ambiguous_no_saved_output')
  def test_local_suffix_view_is_terminal_gated_and_preserves_unknown_claim(self):
   from tests.test_local_prompt_suffix_reconciliation import LocalSuffixReconciliationTests
   import reconcile_local_prompt_suffix_v1 as reconciliation

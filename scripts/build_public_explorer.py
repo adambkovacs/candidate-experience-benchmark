@@ -228,6 +228,84 @@ def local_suffix_run(root, baseline, reference_cases):
     return run, cases_for(run['id'], public_predictions, reference_cases)
 
 
+def local_condition_runs(root, baseline, reference_cases):
+    """Export only sealed v2/v3 local conditions with reproducible offline reports."""
+    reports_dir = root / 'results/local-prompt-condition-reconciliations-v1'
+    if not reports_dir.is_dir():
+        return []
+    from reconcile_local_prompt_conditions import (load_condition, frozen_requests,
+                                                    reconcile_saved_condition)
+    from development_benchmark import read_rows
+    result = []
+    for report_path in sorted(reports_dir.glob('*/P*.json')):
+        report = json.loads(report_path.read_text())
+        config, variant = report_path.parent.name, report_path.stem
+        if (report.get('version') != 'local-prompt-condition-reconciliation-v1' or
+            report.get('configuration') != config or report.get('variant') != variant or
+            report.get('phase') != 'development' or report.get('denominator') != 60):
+            raise ValueError('Unsupported local condition report: ' + str(report_path))
+        condition = load_condition(root, config, variant)
+        frozen = frozen_requests(root, condition)
+        refs = read_rows(root / 'data/pilot/proposed_labels.jsonl')
+        pairs = json.loads((root / 'data/pilot/pairs.json').read_text())
+        if report != reconcile_saved_condition(root, condition, frozen, refs, pairs):
+            raise ValueError('Local condition report differs from terminal-bound offline reconciliation')
+        source = report['sources']['development']['output']
+        saved = rows(root / source['file'])
+        if (len(saved) != report['saved_rows'] or
+            report['claimed_attempts'] != len(saved) + len([
+                ident for ident in report['unknown_outcome_ids'] if ident not in {row['id'] for row in saved}])):
+            raise ValueError('Local condition saved/claimed coverage differs')
+        normalized = [{'id': row['id'], 'status': row['decision']['status'],
+                       'prediction': row['decision'].get('prediction')} for row in saved]
+        saved_ids = {row['id'] for row in normalized}
+        public_predictions = normalized + [
+            {'id': ident, 'status': 'ambiguous_no_saved_output', 'prediction': None}
+            for ident in report['unknown_outcome_ids'] if ident not in saved_ids]
+        public_predictions.sort(key=lambda row: row['id'])
+        evaluation, all_four = score_saved(public_predictions, root)
+        if (evaluation != report['evaluation'] or evaluation['valid_outputs'] != report['valid_outputs'] or
+            all_four != report['all_four_correct'] or
+            report['never_sent_ids'] != [f'DEV-{i:03}' for i in range(report['claimed_attempts'] + 1, 61)] or
+            report['never_sent_count'] != len(report['never_sent_ids'])):
+            raise ValueError('Local condition public score or coverage differs')
+        run = phase_run(config, variant, evaluation, all_four, report_path.relative_to(root),
+                        root, baseline, predictions=public_predictions,
+                        experiment='local-prompt-conditions-v1')
+        resource = report['resource']
+        development = resource['development']
+        if resource['surface'] != 'lmstudio_sdk' or resource['cost_usd'] is not None:
+            raise ValueError('Local condition resource classification differs')
+        run.update({'complete': report['coverage_complete'], 'pairedEligible': False,
+                    'resultStatus': 'terminal ' + report['terminal_status'] +
+                                    ('; unresolved outcomes' if report['unknown_outcome_ids'] else ''),
+                    'records': report['saved_rows'], 'attemptedRecords': report['claimed_attempts'],
+                    'neverSent': report['never_sent_count'], 'neverSentIds': report['never_sent_ids'],
+                    'ambiguousOutcomeIds': report['unknown_outcome_ids'],
+                    'statusCounts': {**report['status_counts'],
+                                     **({'ambiguous_no_saved_output': len(public_predictions) - len(saved)}
+                                        if len(public_predictions) > len(saved) else {})},
+                    'sourceViews': [{'status': 'terminal development evidence', 'records': len(saved),
+                                     'evidenceUrl': GITHUB + source['file']}]})
+        run['timing'].update({'totalSeconds': development['elapsed_prediction_seconds_sum'] if saved else None,
+                              'medianSeconds': development['elapsed_prediction_seconds_median'],
+                              'p95Seconds': development['elapsed_prediction_seconds_p95_nearest_rank'],
+                              'kind': 'record' if saved else 'unavailable', 'requests': len(saved),
+                              'complete': report['coverage_complete'] and not development['elapsed_missing_ids'],
+                              'comparableHosted': False,
+                              'note': 'Local device prediction time for saved development rows only; diagnostic, not hosted-comparable.'})
+        run['tokens'].update({'input': development['prompt_tokens_observed_sum'],
+                              'output': development['completion_tokens_observed_sum'],
+                              'reportedRequests': len(saved) - len(development['usage_missing_ids']),
+                              'totalRequests': report['claimed_attempts'],
+                              'complete': report['coverage_complete'] and not development['usage_missing_ids'],
+                              'note': 'Saved local SDK development usage only; smoke and unresolved claims excluded.'})
+        run['cost'] = cost_fields({})
+        run['cost']['note'] = resource['cost_note']
+        result.append((run, cases_for(run['id'], public_predictions, reference_cases)))
+    return result
+
+
 def export(root=ROOT):
     root = Path(root)
     summary = json.loads((root / 'results/comparison/summary.json').read_text())
@@ -449,6 +527,12 @@ def export(root=ROOT):
         run, local_cases = local_suffix
         if run['id'] in {item['id'] for item in runs}:
             raise ValueError('Local suffix duplicates an existing public run')
+        runs.append(run)
+        cases.extend(local_cases)
+
+    for run, local_cases in local_condition_runs(root, baseline, reference_cases):
+        if run['id'] in {item['id'] for item in runs}:
+            raise ValueError('Local condition duplicates an existing public run')
         runs.append(run)
         cases.extend(local_cases)
 
