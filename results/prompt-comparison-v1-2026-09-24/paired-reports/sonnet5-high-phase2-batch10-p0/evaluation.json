@@ -1,0 +1,1183 @@
+{
+  "contract": "prompt-pairs-v1",
+  "manifest_sha256": "98832cde860a1d10da1f8ef35c78090c518cb8b3c1bde1b92a92ff1dfb6654c9",
+  "parent_baseline_id": "sonnet5-high-phase2-batch10-p0",
+  "denominator": 60,
+  "conditions": {
+    "P0": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9834920634920635,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.8840579710144928,
+            "per_label": {
+              "yes": {
+                "tp": 34,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.9714285714285714,
+                "f1": 0.9855072463768116
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6666666666666666
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 50,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 58,
+      "actual_controls_verification": "verified_against_hash_bound_claude_batch_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P0",
+        "parent_baseline_id": "sonnet5-high-phase2-batch10-p0",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "baseline_instruction_bytes": 7752,
+        "addition_path": null,
+        "addition_sha256": null,
+        "addition_bytes": 0,
+        "composition_separator": "",
+        "composed_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "composed_instruction_bytes": 7752,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 0,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 6,
+        "input_tokens": 25973,
+        "output_tokens": 5456,
+        "reasoning_tokens": 1710,
+        "attempt_seconds": 60.72442100150511,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "unavailable",
+        "attempt_count": 6,
+        "known_actual_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 6,
+        "known_actual_usd": null,
+        "unknown_reserved_upper_bound_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "total_actual_usd": null,
+        "source_paths": [
+          "results/subscription-batch-p0-2026-09-23/sonnet5-high-phase2-batch10-p0/development.batches.normalized.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "claude_batch_v1",
+        "predictions": {
+          "file": "results/subscription-batch-p0-2026-09-23/sonnet5-high-phase2-batch10-p0/development.jsonl",
+          "sha256": "83f5263399f055225a6056f7db96f89abcfdcc40862e0acc6de9e3579951438d"
+        },
+        "request_evidence": {
+          "file": "results/subscription-batch-p0-2026-09-23/sonnet5-high-phase2-batch10-p0/development.batches.normalized.jsonl",
+          "sha256": "f7a2792c520b3cece53b5109251638c8559a3af38fbdf72e2faadcb2efa2a5ad"
+        },
+        "request_evidence_phase": "development"
+      },
+      "audited_controls": {
+        "workflow": "batch10",
+        "requested_model": "claude-sonnet-5",
+        "effort": "high",
+        "cli_version": "2.1.280 (Claude Code)",
+        "auth_method": "claude.ai",
+        "extra_usage_disabled_operator_verified": true,
+        "controller_retries": 0,
+        "cli_internal_retries": "not exposed"
+      }
+    },
+    "P1": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9595583160800552,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.75,
+                "f1": 0.8571428571428571
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.8840579710144928,
+            "per_label": {
+              "yes": {
+                "tp": 34,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.9714285714285714,
+                "f1": 0.9855072463768116
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6666666666666666
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 50,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 57,
+      "actual_controls_verification": "verified_against_hash_bound_claude_batch_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P1",
+        "parent_baseline_id": "sonnet5-high-phase2-batch10-p0",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "baseline_instruction_bytes": 7752,
+        "addition_path": "prompts/variants-v1/P1-classifier.txt",
+        "addition_sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7",
+        "addition_bytes": 1020,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "e8293f1470d3527ced013c5dc6a8b4ccdd57c44741d96ec7aa79bee5d5279a2c",
+        "composed_instruction_bytes": 8774,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 1022,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 6,
+        "input_tokens": 27769,
+        "output_tokens": 4379,
+        "reasoning_tokens": 625,
+        "attempt_seconds": 177.21338904000004,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "unavailable",
+        "attempt_count": 6,
+        "known_actual_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 6,
+        "known_actual_usd": null,
+        "unknown_reserved_upper_bound_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "total_actual_usd": null,
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P1/development.jsonl.batches.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "claude_batch_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P1/development.jsonl",
+          "sha256": "751bef4385f2a0f289011b54b88a86c68d4597691a749c788d0f46c17d00ec80"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+          "sha256": "494db24619a070b1aefe45e9432d75b77fbe76a62e6a3a58344caeb93ff3d259"
+        },
+        "request_evidence_phase": "development"
+      },
+      "audited_controls": {
+        "workflow": "batch10",
+        "requested_model": "claude-sonnet-5",
+        "effort": "high",
+        "cli_version": "2.1.280 (Claude Code)",
+        "auth_method": "claude.ai",
+        "extra_usage_disabled_operator_verified": true,
+        "controller_retries": 0,
+        "cli_internal_retries": "not exposed"
+      }
+    },
+    "P2": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9595583160800552,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.75,
+                "f1": 0.8571428571428571
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.8840579710144928,
+            "per_label": {
+              "yes": {
+                "tp": 34,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.9714285714285714,
+                "f1": 0.9855072463768116
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6666666666666666
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9222222222222222,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.9354838709677419,
+                "recall": 1.0,
+                "f1": 0.9666666666666667
+              },
+              "insufficient_information": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 50,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 57,
+      "actual_controls_verification": "verified_against_hash_bound_claude_batch_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P2",
+        "parent_baseline_id": "sonnet5-high-phase2-batch10-p0",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34",
+        "baseline_instruction_bytes": 7752,
+        "addition_path": "prompts/variants-v1/P2-classifier-sop.txt",
+        "addition_sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9",
+        "addition_bytes": 6472,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "2ad4fc937aa254e29aa781f832f67e79a2ddec236c478af67b3359a717b44dde",
+        "composed_instruction_bytes": 14226,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 6474,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 6,
+        "input_tokens": 37984,
+        "output_tokens": 5052,
+        "reasoning_tokens": 1313,
+        "attempt_seconds": 80.69237491600143,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "unavailable",
+        "attempt_count": 6,
+        "known_actual_attempts": 0,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 6,
+        "known_actual_usd": null,
+        "unknown_reserved_upper_bound_usd": null,
+        "known_plus_unknown_upper_bound_usd": null,
+        "total_actual_usd": null,
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P2/development.jsonl.batches.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "claude_batch_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P2/development.jsonl",
+          "sha256": "2cc794a94d1f0a2d73aa2494151fdc0803ee5bfb54dc2255bc3fdd346f4db5f3"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+          "sha256": "c85fdf94c153ef9b8267115a0bab55c12a01f174696867bae2245cca98fe6415"
+        },
+        "request_evidence_phase": "development"
+      },
+      "audited_controls": {
+        "workflow": "batch10",
+        "requested_model": "claude-sonnet-5",
+        "effort": "high",
+        "cli_version": "2.1.280 (Claude Code)",
+        "auth_method": "claude.ai",
+        "extra_usage_disabled_operator_verified": true,
+        "controller_retries": 0,
+        "cli_internal_retries": "not exposed"
+      }
+    }
+  },
+  "comparisons": {
+    "P0_to_P1": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 11,
+            "negative -> negative": 32,
+            "neutral -> neutral": 6,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8,
+            "neutral -> positive": 1
+          },
+          "changed_ids": [
+            "DEV-013"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-013"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 34,
+            "insufficient_information -> insufficient_information": 2
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 5
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 50,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [],
+      "all_four_correct_to_wrong": [
+        "DEV-013"
+      ],
+      "cases": [
+        {
+          "id": "DEV-013",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it."
+        }
+      ],
+      "changed_record_count": 1
+    },
+    "P0_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 11,
+            "negative -> negative": 32,
+            "neutral -> neutral": 6,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8,
+            "neutral -> positive": 1
+          },
+          "changed_ids": [
+            "DEV-013"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-013"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 34,
+            "insufficient_information -> insufficient_information": 2
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 4,
+            "insufficient_information -> no": 1
+          },
+          "changed_ids": [
+            "DEV-030"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 50,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [],
+      "all_four_correct_to_wrong": [
+        "DEV-013"
+      ],
+      "cases": [
+        {
+          "id": "DEV-013",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it."
+        },
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket."
+        }
+      ],
+      "changed_record_count": 2
+    },
+    "P1_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 32,
+            "neutral -> neutral": 6,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 34,
+            "insufficient_information -> insufficient_information": 2
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 4,
+            "insufficient_information -> no": 1
+          },
+          "changed_ids": [
+            "DEV-030"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 50,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [],
+      "all_four_correct_to_wrong": [],
+      "cases": [
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket."
+        }
+      ],
+      "changed_record_count": 1
+    }
+  },
+  "controls_verified": true,
+  "eligible_paired_comparison": true,
+  "attempt_selection": "latest_chronological",
+  "runtime_transition": null,
+  "protocol_verification": {
+    "status": "verified_observational",
+    "conditions": {
+      "P1": {
+        "verified": true,
+        "development_attempt_id": "9e27fb01-7d85-4219-996b-a9c2346c03c1",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/sonnet5-high-phase2-batch10-p0/execution-manifest.json",
+          "sha256": "66f3af705ba089d62d8fd8a07a63f894d40f69a76b7d8c947980d65f63212159"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/sonnet5-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+          "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+        },
+        "observational": true
+      },
+      "P2": {
+        "verified": true,
+        "development_attempt_id": "e095d5e0-b199-4b4e-89be-476b6357f970",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/sonnet5-high-phase2-batch10-p0/execution-manifest.json",
+          "sha256": "66f3af705ba089d62d8fd8a07a63f894d40f69a76b7d8c947980d65f63212159"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/sonnet5-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+          "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+        },
+        "observational": true
+      }
+    },
+    "fully_verified_controls": false,
+    "missing_audit_capabilities": [],
+    "note": "Frozen roster, client requests, inspected smoke and completed schedule reproduced from saved evidence. Hidden provider rendering remains unverified; historical baseline reuse does not establish causality."
+  },
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "reference_labels_read_offline": true,
+  "limitations": [
+    "Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.",
+    "An explicitly accepted Codex CLI patch is retained as a runtime difference, not evidence that runtime changes have no effect.",
+    "Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.",
+    "Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.",
+    "Prompt bytes are not token counts; token overhead is unavailable until separately measured.",
+    "Claude batch extraction verifies saved request bodies, recorded runtime controls and raw response guards; historical CLI command/environment and hidden wrapper bytes are not independently captured. Batch timing/usage is counted once, not as individual-record latency."
+  ]
+}

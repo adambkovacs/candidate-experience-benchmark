@@ -1,0 +1,1360 @@
+{
+  "contract": "prompt-pairs-v1",
+  "manifest_sha256": "090a54b68d1fa8f3905344ce4fcff933fcc6a203beca4c4ab9feb0b9e83b0a67",
+  "parent_baseline_id": "openrouter-paid-qwen3.8-27b-off",
+  "denominator": 60,
+  "conditions": {
+    "P0": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9614630779848172,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.9236245954692558,
+            "per_label": {
+              "yes": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 3,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              },
+              "no": {
+                "tp": 50,
+                "fp": 3,
+                "fn": 0,
+                "precision": 0.9433962264150944,
+                "recall": 1.0,
+                "f1": 0.970873786407767
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 54,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P0",
+        "parent_baseline_id": "openrouter-paid-qwen3.8-27b-off",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": null,
+        "addition_sha256": null,
+        "addition_bytes": 0,
+        "composition_separator": "",
+        "composed_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "composed_instruction_bytes": 7654,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 0,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 85950,
+        "output_tokens": 2718,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 166.37090116553009,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.013049550",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.013049550",
+        "total_actual_usd": "0.013049550",
+        "source_paths": [
+          "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-off/historical-attempts.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl",
+          "sha256": "b702a3d2129075d31fef2249f105a72f61da2fcf38a05e9fd85be3051bcd6d40"
+        },
+        "request_evidence": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-off/historical-attempts.jsonl",
+          "sha256": "b702a3d2129075d31fef2249f105a72f61da2fcf38a05e9fd85be3051bcd6d40"
+        }
+      },
+      "audited_controls": {
+        "requested_model": "qwen/qwen3.8-27b",
+        "provider_tag": "deepinfra/bf16",
+        "provider_name": "DeepInfra",
+        "quantization": "bf16",
+        "reasoning_effort": "off",
+        "request_controls": {
+          "model": "qwen/qwen3.8-27b",
+          "temperature": 0,
+          "max_tokens": 4096,
+          "stream": false,
+          "provider": {
+            "only": [
+              "deepinfra/bf16"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.15,
+              "completion": 1.875,
+              "request": 0,
+              "image": 0
+            }
+          },
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "judgments",
+              "strict": true,
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "title": "Recruitment feedback judgments",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sentiment",
+                  "follow_up_needed",
+                  "serious_concern_reported",
+                  "testimonial_potential"
+                ],
+                "properties": {
+                  "sentiment": {
+                    "type": "string",
+                    "enum": [
+                      "positive",
+                      "negative",
+                      "mixed",
+                      "neutral",
+                      "insufficient_information"
+                    ]
+                  },
+                  "follow_up_needed": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "serious_concern_reported": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "testimonial_potential": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "reasoning": {
+            "enabled": false
+          }
+        },
+        "runtime": "OpenRouter HTTP v1",
+        "hardware": "Remote provider undisclosed",
+        "surface": "OpenRouter paid HTTP",
+        "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+        "workflow": "single_record"
+      }
+    },
+    "P1": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9614630779848172,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.9236245954692558,
+            "per_label": {
+              "yes": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 3,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              },
+              "no": {
+                "tp": 50,
+                "fp": 3,
+                "fn": 0,
+                "precision": 0.9433962264150944,
+                "recall": 1.0,
+                "f1": 0.970873786407767
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 55,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P1",
+        "parent_baseline_id": "openrouter-paid-qwen3.8-27b-off",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": "prompts/variants-v1/P1-classifier.txt",
+        "addition_sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7",
+        "addition_bytes": 1020,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1",
+        "composed_instruction_bytes": 8676,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 1022,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 96570,
+        "output_tokens": 2712,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 250.6503973760009,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.010485900",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.010485900",
+        "total_actual_usd": "0.010485900",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P1/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P1/development.jsonl",
+          "sha256": "464e971d6d75a533392f5f31c65c03a7619338cad82bb2c768c63f193e5595d6"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P1/development.jsonl",
+          "sha256": "464e971d6d75a533392f5f31c65c03a7619338cad82bb2c768c63f193e5595d6"
+        },
+        "request_evidence_phase": "development"
+      },
+      "audited_controls": {
+        "requested_model": "qwen/qwen3.8-27b",
+        "provider_tag": "deepinfra/bf16",
+        "provider_name": "DeepInfra",
+        "quantization": "bf16",
+        "reasoning_effort": "off",
+        "request_controls": {
+          "model": "qwen/qwen3.8-27b",
+          "temperature": 0,
+          "max_tokens": 4096,
+          "stream": false,
+          "provider": {
+            "only": [
+              "deepinfra/bf16"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.15,
+              "completion": 1.875,
+              "request": 0,
+              "image": 0
+            }
+          },
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "judgments",
+              "strict": true,
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "title": "Recruitment feedback judgments",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sentiment",
+                  "follow_up_needed",
+                  "serious_concern_reported",
+                  "testimonial_potential"
+                ],
+                "properties": {
+                  "sentiment": {
+                    "type": "string",
+                    "enum": [
+                      "positive",
+                      "negative",
+                      "mixed",
+                      "neutral",
+                      "insufficient_information"
+                    ]
+                  },
+                  "follow_up_needed": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "serious_concern_reported": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "testimonial_potential": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "reasoning": {
+            "enabled": false
+          }
+        },
+        "runtime": "OpenRouter HTTP v1",
+        "hardware": "Remote provider undisclosed",
+        "surface": "OpenRouter paid HTTP",
+        "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+        "workflow": "single_record"
+      }
+    },
+    "P2": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9614630779848172,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.9236245954692558,
+            "per_label": {
+              "yes": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 3,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              },
+              "no": {
+                "tp": 50,
+                "fp": 3,
+                "fn": 0,
+                "precision": 0.9433962264150944,
+                "recall": 1.0,
+                "f1": 0.970873786407767
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 54,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P2",
+        "parent_baseline_id": "openrouter-paid-qwen3.8-27b-off",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": "prompts/variants-v1/P2-classifier-sop.txt",
+        "addition_sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9",
+        "addition_bytes": 6472,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184",
+        "composed_instruction_bytes": 14128,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 6474,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 151950,
+        "output_tokens": 2718,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 441.03732221401515,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.015717150",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.015717150",
+        "total_actual_usd": "0.015717150",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P2/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P2/development.jsonl",
+          "sha256": "fc26778e36393a99db9565c7c0808702c54987c09f52e6e7ab067632c0f9a45e"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P2/development.jsonl",
+          "sha256": "fc26778e36393a99db9565c7c0808702c54987c09f52e6e7ab067632c0f9a45e"
+        },
+        "request_evidence_phase": "development"
+      },
+      "audited_controls": {
+        "requested_model": "qwen/qwen3.8-27b",
+        "provider_tag": "deepinfra/bf16",
+        "provider_name": "DeepInfra",
+        "quantization": "bf16",
+        "reasoning_effort": "off",
+        "request_controls": {
+          "model": "qwen/qwen3.8-27b",
+          "temperature": 0,
+          "max_tokens": 4096,
+          "stream": false,
+          "provider": {
+            "only": [
+              "deepinfra/bf16"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.15,
+              "completion": 1.875,
+              "request": 0,
+              "image": 0
+            }
+          },
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "judgments",
+              "strict": true,
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "title": "Recruitment feedback judgments",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sentiment",
+                  "follow_up_needed",
+                  "serious_concern_reported",
+                  "testimonial_potential"
+                ],
+                "properties": {
+                  "sentiment": {
+                    "type": "string",
+                    "enum": [
+                      "positive",
+                      "negative",
+                      "mixed",
+                      "neutral",
+                      "insufficient_information"
+                    ]
+                  },
+                  "follow_up_needed": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "serious_concern_reported": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "testimonial_potential": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "reasoning": {
+            "enabled": false
+          }
+        },
+        "runtime": "OpenRouter HTTP v1",
+        "hardware": "Remote provider undisclosed",
+        "surface": "OpenRouter paid HTTP",
+        "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+        "workflow": "single_record"
+      }
+    }
+  },
+  "comparisons": {
+    "P0_to_P1": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 32,
+            "neutral -> neutral": 7,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 7
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 29,
+            "insufficient_information -> insufficient_information": 5,
+            "yes -> yes": 25,
+            "no -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-030"
+          ],
+          "wrong_to_correct": [
+            "DEV-030"
+          ],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 6,
+            "no -> no": 53,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-030"
+      ],
+      "all_four_correct_to_wrong": [],
+      "cases": [
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket."
+        }
+      ],
+      "changed_record_count": 1
+    },
+    "P0_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 32,
+            "neutral -> neutral": 7,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 7
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "insufficient_information -> insufficient_information": 5,
+            "yes -> yes": 25
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 6,
+            "no -> no": 53,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [],
+      "all_four_correct_to_wrong": [],
+      "cases": [],
+      "changed_record_count": 0
+    },
+    "P1_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 32,
+            "neutral -> neutral": 7,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 7
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 29,
+            "insufficient_information -> insufficient_information": 5,
+            "yes -> yes": 25,
+            "insufficient_information -> no": 1
+          },
+          "changed_ids": [
+            "DEV-030"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 6,
+            "no -> no": 53,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [],
+      "all_four_correct_to_wrong": [
+        "DEV-030"
+      ],
+      "cases": [
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket."
+        }
+      ],
+      "changed_record_count": 1
+    }
+  },
+  "controls_verified": true,
+  "eligible_paired_comparison": true,
+  "attempt_selection": "latest_chronological",
+  "runtime_transition": null,
+  "protocol_verification": {
+    "status": "verified_observational",
+    "conditions": {
+      "P1": {
+        "verified": true,
+        "development_attempt_id": "2843063d-27b0-47fa-a7f8-e15a7432e8fd",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+          "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-qwen3.8-27b-off/execution-journal-snapshot.jsonl",
+          "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+        },
+        "observational": true
+      },
+      "P2": {
+        "verified": true,
+        "development_attempt_id": "4f5bb360-b97f-4949-bf86-fe7102eadd57",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+          "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-qwen3.8-27b-off/execution-journal-snapshot.jsonl",
+          "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+        },
+        "observational": true
+      }
+    },
+    "fully_verified_controls": false,
+    "missing_audit_capabilities": [],
+    "note": "Frozen roster, client requests, inspected smoke and completed schedule reproduced from saved evidence. Hidden provider rendering remains unverified; historical baseline reuse does not establish causality."
+  },
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "reference_labels_read_offline": true,
+  "limitations": [
+    "Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.",
+    "An explicitly accepted Codex CLI patch is retained as a runtime difference, not evidence that runtime changes have no effect.",
+    "Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.",
+    "Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.",
+    "Prompt bytes are not token counts; token overhead is unavailable until separately measured.",
+    "Claude batch extraction verifies saved request bodies, recorded runtime controls and raw response guards; historical CLI command/environment and hidden wrapper bytes are not independently captured. Batch timing/usage is counted once, not as individual-record latency."
+  ]
+}

@@ -1,0 +1,1474 @@
+{
+  "contract": "prompt-pairs-v1",
+  "manifest_sha256": "bdc96df0408b86d552290f58d2026e3ad13f3e4f54b212586acfdbee8d7e1a63",
+  "parent_baseline_id": "openrouter-paid-gemma4-31b-on",
+  "denominator": 60,
+  "conditions": {
+    "P0": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.9397185103549617,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.8461538461538461,
+                "recall": 1.0,
+                "f1": 0.9166666666666666
+              },
+              "negative": {
+                "tp": 30,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.967741935483871,
+                "f1": 0.9836065573770492
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.8888888888888888,
+                "recall": 1.0,
+                "f1": 0.9411764705882353
+              },
+              "neutral": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.75,
+                "f1": 0.8571428571428571
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9329501915708812,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 28,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.9655172413793104,
+                "recall": 0.9655172413793104,
+                "f1": 0.9655172413793104
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.8333333333333334,
+                "recall": 0.8333333333333334,
+                "f1": 0.8333333333333334
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 50,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 56,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P0",
+        "parent_baseline_id": "openrouter-paid-gemma4-31b-on",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": null,
+        "addition_sha256": null,
+        "addition_bytes": 0,
+        "composition_separator": "",
+        "composed_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "composed_instruction_bytes": 7654,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 0,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 87568,
+        "output_tokens": 24316,
+        "reasoning_tokens": 23810,
+        "attempt_seconds": 806.9203319607768,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.01303944",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.01303944",
+        "total_actual_usd": "0.01303944",
+        "source_paths": [
+          "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-on/historical-attempts.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl",
+          "sha256": "b31b2eb1e6633790daf27018c3621759694e52faef51c12aa91506a494bd0411"
+        },
+        "request_evidence": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-on/historical-attempts.jsonl",
+          "sha256": "bcad694c1d0bf28427d6b79ead9b3ff4e0f72be1077dfff971d5184462fd5590"
+        }
+      },
+      "audited_controls": {
+        "requested_model": "google/gemma-4-31b-it",
+        "provider_tag": "deepinfra/turbo",
+        "provider_name": "DeepInfra",
+        "quantization": "fp4",
+        "reasoning_effort": "on",
+        "request_controls": {
+          "model": "google/gemma-4-31b-it",
+          "temperature": 0,
+          "max_tokens": 4096,
+          "stream": false,
+          "provider": {
+            "only": [
+              "deepinfra/turbo"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.09,
+              "completion": 0.34,
+              "request": 0,
+              "image": 0
+            }
+          },
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "judgments",
+              "strict": true,
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "title": "Recruitment feedback judgments",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sentiment",
+                  "follow_up_needed",
+                  "serious_concern_reported",
+                  "testimonial_potential"
+                ],
+                "properties": {
+                  "sentiment": {
+                    "type": "string",
+                    "enum": [
+                      "positive",
+                      "negative",
+                      "mixed",
+                      "neutral",
+                      "insufficient_information"
+                    ]
+                  },
+                  "follow_up_needed": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "serious_concern_reported": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "testimonial_potential": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "reasoning": {
+            "enabled": true
+          }
+        },
+        "runtime": "OpenRouter HTTP v1",
+        "hardware": "Remote provider undisclosed",
+        "surface": "OpenRouter paid HTTP",
+        "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+        "workflow": "single_record"
+      }
+    },
+    "P1": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9779710144927536,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 50,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 58,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P1",
+        "parent_baseline_id": "openrouter-paid-gemma4-31b-on",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": "prompts/variants-v1/P1-classifier.txt",
+        "addition_sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7",
+        "addition_bytes": 1020,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1",
+        "composed_instruction_bytes": 8676,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 1022,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 98368,
+        "output_tokens": 24721,
+        "reasoning_tokens": 24038,
+        "attempt_seconds": 731.2206305460095,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.01354882",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.01354882",
+        "total_actual_usd": "0.01354882",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P1/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P1/development.jsonl",
+          "sha256": "4d79439f966cec048ddbd36d915bf7da33c99174f8906910e511a29f9917f8f2"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P1/development.jsonl",
+          "sha256": "4d79439f966cec048ddbd36d915bf7da33c99174f8906910e511a29f9917f8f2"
+        },
+        "request_evidence_phase": "development"
+      },
+      "audited_controls": {
+        "requested_model": "google/gemma-4-31b-it",
+        "provider_tag": "deepinfra/turbo",
+        "provider_name": "DeepInfra",
+        "quantization": "fp4",
+        "reasoning_effort": "on",
+        "request_controls": {
+          "model": "google/gemma-4-31b-it",
+          "temperature": 0,
+          "max_tokens": 4096,
+          "stream": false,
+          "provider": {
+            "only": [
+              "deepinfra/turbo"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.09,
+              "completion": 0.34,
+              "request": 0,
+              "image": 0
+            }
+          },
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "judgments",
+              "strict": true,
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "title": "Recruitment feedback judgments",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sentiment",
+                  "follow_up_needed",
+                  "serious_concern_reported",
+                  "testimonial_potential"
+                ],
+                "properties": {
+                  "sentiment": {
+                    "type": "string",
+                    "enum": [
+                      "positive",
+                      "negative",
+                      "mixed",
+                      "neutral",
+                      "insufficient_information"
+                    ]
+                  },
+                  "follow_up_needed": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "serious_concern_reported": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "testimonial_potential": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "reasoning": {
+            "enabled": true
+          }
+        },
+        "runtime": "OpenRouter HTTP v1",
+        "hardware": "Remote provider undisclosed",
+        "surface": "OpenRouter paid HTTP",
+        "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+        "workflow": "single_record"
+      }
+    },
+    "P2": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9779710144927536,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 50,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 58,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P2",
+        "parent_baseline_id": "openrouter-paid-gemma4-31b-on",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": "prompts/variants-v1/P2-classifier-sop.txt",
+        "addition_sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9",
+        "addition_bytes": 6472,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184",
+        "composed_instruction_bytes": 14128,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 6474,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 154228,
+        "output_tokens": 26799,
+        "reasoning_tokens": 25788,
+        "attempt_seconds": 671.6858822899994,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.01693138",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.01693138",
+        "total_actual_usd": "0.01693138",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P2/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P2/development.jsonl",
+          "sha256": "f415c27d8850932b05ed3ea0d03d7b7137b77614e6e52aa9a000122213f48b2f"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P2/development.jsonl",
+          "sha256": "f415c27d8850932b05ed3ea0d03d7b7137b77614e6e52aa9a000122213f48b2f"
+        },
+        "request_evidence_phase": "development"
+      },
+      "audited_controls": {
+        "requested_model": "google/gemma-4-31b-it",
+        "provider_tag": "deepinfra/turbo",
+        "provider_name": "DeepInfra",
+        "quantization": "fp4",
+        "reasoning_effort": "on",
+        "request_controls": {
+          "model": "google/gemma-4-31b-it",
+          "temperature": 0,
+          "max_tokens": 4096,
+          "stream": false,
+          "provider": {
+            "only": [
+              "deepinfra/turbo"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.09,
+              "completion": 0.34,
+              "request": 0,
+              "image": 0
+            }
+          },
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "judgments",
+              "strict": true,
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "title": "Recruitment feedback judgments",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sentiment",
+                  "follow_up_needed",
+                  "serious_concern_reported",
+                  "testimonial_potential"
+                ],
+                "properties": {
+                  "sentiment": {
+                    "type": "string",
+                    "enum": [
+                      "positive",
+                      "negative",
+                      "mixed",
+                      "neutral",
+                      "insufficient_information"
+                    ]
+                  },
+                  "follow_up_needed": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "serious_concern_reported": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  },
+                  "testimonial_potential": {
+                    "type": "string",
+                    "enum": [
+                      "yes",
+                      "no",
+                      "insufficient_information"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "reasoning": {
+            "enabled": true
+          }
+        },
+        "runtime": "OpenRouter HTTP v1",
+        "hardware": "Remote provider undisclosed",
+        "surface": "OpenRouter paid HTTP",
+        "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+        "workflow": "single_record"
+      }
+    }
+  },
+  "comparisons": {
+    "P0_to_P1": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 30,
+            "neutral -> neutral": 6,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8,
+            "mixed -> negative": 1,
+            "positive -> neutral": 1
+          },
+          "changed_ids": [
+            "DEV-018",
+            "DEV-057"
+          ],
+          "wrong_to_correct": [
+            "DEV-018",
+            "DEV-057"
+          ],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 29,
+            "yes -> yes": 25,
+            "insufficient_information -> no": 1,
+            "insufficient_information -> insufficient_information": 5
+          },
+          "changed_ids": [
+            "DEV-013"
+          ],
+          "wrong_to_correct": [
+            "DEV-013"
+          ],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 50,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-018",
+        "DEV-057"
+      ],
+      "all_four_correct_to_wrong": [],
+      "cases": [
+        {
+          "id": "DEV-013",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it."
+        },
+        {
+          "id": "DEV-018",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "It was okay I guess. The last bit felt off, but I can't really put my finger on why. Maybe someone could ask me about it."
+        },
+        {
+          "id": "DEV-057",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "They rejected me after I said I couldn't work the advertised night shift. They didn't mention my age, background or health. I understand the decision and have no complaint."
+        }
+      ],
+      "changed_record_count": 3
+    },
+    "P0_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 30,
+            "neutral -> neutral": 6,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8,
+            "mixed -> negative": 1,
+            "positive -> neutral": 1
+          },
+          "changed_ids": [
+            "DEV-018",
+            "DEV-057"
+          ],
+          "wrong_to_correct": [
+            "DEV-018",
+            "DEV-057"
+          ],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 29,
+            "yes -> yes": 25,
+            "insufficient_information -> no": 1,
+            "insufficient_information -> insufficient_information": 5
+          },
+          "changed_ids": [
+            "DEV-013"
+          ],
+          "wrong_to_correct": [
+            "DEV-013"
+          ],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 50,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-018",
+        "DEV-057"
+      ],
+      "all_four_correct_to_wrong": [],
+      "cases": [
+        {
+          "id": "DEV-013",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it."
+        },
+        {
+          "id": "DEV-018",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "It was okay I guess. The last bit felt off, but I can't really put my finger on why. Maybe someone could ask me about it."
+        },
+        {
+          "id": "DEV-057",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "They rejected me after I said I couldn't work the advertised night shift. They didn't mention my age, background or health. I understand the decision and have no complaint."
+        }
+      ],
+      "changed_record_count": 3
+    },
+    "P1_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 31,
+            "neutral -> neutral": 7,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 5
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 50,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [],
+      "all_four_correct_to_wrong": [],
+      "cases": [],
+      "changed_record_count": 0
+    }
+  },
+  "controls_verified": true,
+  "eligible_paired_comparison": true,
+  "attempt_selection": "latest_chronological",
+  "runtime_transition": null,
+  "protocol_verification": {
+    "status": "verified_observational",
+    "conditions": {
+      "P1": {
+        "verified": true,
+        "development_attempt_id": "7ddee626-3b4b-42be-8f1a-b58b2f1cadd3",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+          "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-on/execution-journal-snapshot.jsonl",
+          "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+        },
+        "observational": true
+      },
+      "P2": {
+        "verified": true,
+        "development_attempt_id": "0a1c9b2c-c27f-40cc-a730-8e5ab431ebb3",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+          "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-on/execution-journal-snapshot.jsonl",
+          "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+        },
+        "observational": true
+      }
+    },
+    "fully_verified_controls": false,
+    "missing_audit_capabilities": [],
+    "note": "Frozen roster, client requests, inspected smoke and completed schedule reproduced from saved evidence. Hidden provider rendering remains unverified; historical baseline reuse does not establish causality."
+  },
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "reference_labels_read_offline": true,
+  "limitations": [
+    "Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.",
+    "An explicitly accepted Codex CLI patch is retained as a runtime difference, not evidence that runtime changes have no effect.",
+    "Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.",
+    "Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.",
+    "Prompt bytes are not token counts; token overhead is unavailable until separately measured.",
+    "Claude batch extraction verifies saved request bodies, recorded runtime controls and raw response guards; historical CLI command/environment and hidden wrapper bytes are not independently captured. Batch timing/usage is counted once, not as individual-record latency."
+  ]
+}
