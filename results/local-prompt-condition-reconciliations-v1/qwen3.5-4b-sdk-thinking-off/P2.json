@@ -1,0 +1,389 @@
+{
+  "version": "local-prompt-condition-reconciliation-v1",
+  "configuration": "qwen3.5-4b-sdk-thinking-off",
+  "variant": "P2",
+  "phase": "development",
+  "denominator": 60,
+  "terminal_status": "completed",
+  "saved_rows": 60,
+  "claimed_attempts": 60,
+  "finished_attempts": 60,
+  "status_counts": {
+    "ok": 60
+  },
+  "unknown_outcome_ids": [],
+  "never_sent_ids": [],
+  "never_sent_count": 0,
+  "coverage_complete": true,
+  "valid_outputs": 60,
+  "all_four_correct": 41,
+  "evaluation": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 60,
+    "missing_or_failed": [],
+    "metrics": {
+      "sentiment": {
+        "correct": 52,
+        "denominator": 60,
+        "accuracy": 0.8666666666666667,
+        "macro_f1": 0.7813675213675213,
+        "per_label": {
+          "positive": {
+            "tp": 10,
+            "fp": 5,
+            "fn": 1,
+            "precision": 0.6666666666666666,
+            "recall": 0.9090909090909091,
+            "f1": 0.7692307692307693
+          },
+          "negative": {
+            "tp": 29,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.9354838709677419,
+            "f1": 0.9666666666666667
+          },
+          "mixed": {
+            "tp": 4,
+            "fp": 1,
+            "fn": 4,
+            "precision": 0.8,
+            "recall": 0.5,
+            "f1": 0.6153846153846154
+          },
+          "neutral": {
+            "tp": 8,
+            "fp": 2,
+            "fn": 0,
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 59,
+        "denominator": 60,
+        "accuracy": 0.9833333333333333,
+        "macro_f1": 0.9882129657376885,
+        "per_label": {
+          "yes": {
+            "tp": 35,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9722222222222222,
+            "recall": 1.0,
+            "f1": 0.9859154929577465
+          },
+          "no": {
+            "tp": 23,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9583333333333334,
+            "f1": 0.9787234042553191
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 51,
+        "denominator": 60,
+        "accuracy": 0.85,
+        "macro_f1": 0.7962121212121213,
+        "per_label": {
+          "yes": {
+            "tp": 19,
+            "fp": 0,
+            "fn": 6,
+            "precision": 1.0,
+            "recall": 0.76,
+            "f1": 0.8636363636363636
+          },
+          "no": {
+            "tp": 27,
+            "fp": 4,
+            "fn": 2,
+            "precision": 0.8709677419354839,
+            "recall": 0.9310344827586207,
+            "f1": 0.9
+          },
+          "insufficient_information": {
+            "tp": 5,
+            "fp": 5,
+            "fn": 1,
+            "precision": 0.5,
+            "recall": 0.8333333333333334,
+            "f1": 0.625
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.9598639455782313,
+        "per_label": {
+          "yes": {
+            "tp": 9,
+            "fp": 2,
+            "fn": 0,
+            "precision": 0.8181818181818182,
+            "recall": 1.0,
+            "f1": 0.9
+          },
+          "no": {
+            "tp": 48,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.96,
+            "f1": 0.9795918367346939
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [
+        "DEV-009",
+        "DEV-032",
+        "DEV-059"
+      ],
+      "predicted_insufficient": [
+        "DEV-008",
+        "DEV-039",
+        "DEV-049"
+      ],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": false,
+        "both_fully_correct": false
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "reference_status": "AI-reviewed provisional; development only",
+  "resource": {
+    "surface": "lmstudio_sdk",
+    "cost_usd": null,
+    "cost_note": "Local inference; no provider bill. Electricity and device amortization unmeasured.",
+    "runtime_attestation": {
+      "cli_commit": "efce996",
+      "selected_engine": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+      "lm_studio_version": "0.4.16+2",
+      "loaded_model_line": "recruitment-qwen3.5-4b-q4km          qwen3.5-4b                           IDLE      2.71 GB      8192       1           Local",
+      "hardware": {
+        "model_identifier": "Mac16,5",
+        "chip": "Apple M4 Max",
+        "architecture": "arm64"
+      },
+      "artifact_sha256": "25082a7dd3776cc3c741c6347d3bd04523f05796607b3fbc32fa3a25dfa1418c",
+      "surface": "lmstudio_sdk"
+    },
+    "timeout_ms": 600000,
+    "development": {
+      "request_count": 60,
+      "prompt_tokens_observed_sum": 161790,
+      "completion_tokens_observed_sum": 2661,
+      "usage_missing_ids": [],
+      "elapsed_prediction_seconds_observed_count": 60,
+      "elapsed_prediction_seconds_sum": 113.5950014629999,
+      "elapsed_prediction_seconds_median": 1.8901287289999964,
+      "elapsed_prediction_seconds_p95_nearest_rank": 2.112679500000006,
+      "elapsed_missing_ids": []
+    },
+    "smoke": {
+      "request_count": 3,
+      "prompt_tokens_observed_sum": 8083,
+      "completion_tokens_observed_sum": 135,
+      "usage_missing_ids": [],
+      "elapsed_prediction_seconds_observed_count": 3,
+      "elapsed_prediction_seconds_sum": 6.921501916,
+      "elapsed_prediction_seconds_median": 1.8653795000000009,
+      "elapsed_prediction_seconds_p95_nearest_rank": 3.222243958,
+      "elapsed_missing_ids": []
+    }
+  },
+  "sources": {
+    "manifest": {
+      "file": "results/local-prompt-tail-v3/manifest.json",
+      "sha256": "fe0a203bbf819b20e2e571307a8911adcfe62b4f0e38cde64329d1890cfe7ffb"
+    },
+    "controller": {
+      "file": "scripts/local_prompt_tail_v3.cjs",
+      "sha256": "74ca757875b69fc8aa9fa867e180274a116e2c7351468e79bdd2bef10893f740"
+    },
+    "parent_manifest": {
+      "file": "results/local-prompt-exact-v1/manifest.json",
+      "sha256": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49"
+    },
+    "parent_controller": {
+      "file": "scripts/local_prompt_execution_v1.cjs",
+      "sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
+    },
+    "execution_review": {
+      "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/execution-review-root.json",
+      "sha256": "f74a9f6a49ad7a343bd8ebaa289fdf94cafc47affb228049bfa2320b61448306"
+    },
+    "smoke_inspection": {
+      "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/smoke-inspection.json",
+      "sha256": "38cf1df783265ef5afc770a5b3409954bb291618f05a8eac10983f7dde7fd1b8"
+    },
+    "provisional_references": {
+      "file": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    "pairs": {
+      "file": "data/pilot/pairs.json",
+      "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+    },
+    "evaluator": {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    "reconciler": {
+      "file": "scripts/reconcile_local_prompt_conditions.py",
+      "sha256": "8363a108750e0b71c832d6fb3fded30c3729f1c80bd323388bdc0fa96a7907a2"
+    },
+    "frozen_inputs": {
+      "file": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    "frozen_rendered": {
+      "file": "results/local-prompt-exact-v1/preflight/sdk-rendered.jsonl",
+      "sha256": "6e04311c322e32919a2aafe8ad582a23041883cf3110a6622791b2762e8fcd22"
+    },
+    "frozen_counts": {
+      "file": "results/local-prompt-exact-v1/preflight/counts-qwen35.jsonl",
+      "sha256": "163a9011d7c49f6bd6f9678188c43d22f197572f57d6a932bed62c7865233fe8"
+    },
+    "frozen_baseline": {
+      "file": "results/qwen3.5-4b-2026-09-21/nonthinking-development.jsonl",
+      "sha256": "3704162ff632311c4595497595f3463debb0be2df7e9b7270d3be41b381efae4"
+    },
+    "frozen_baseline_manifest": {
+      "file": "results/qwen3.5-4b-2026-09-21/nonthinking-manifest.json",
+      "sha256": "ad0fd396de029c5371696ecd22dbd1293ad69af4d58474a2ba74899471353181"
+    },
+    "prompt_p1": {
+      "file": "prompts/variants-v1/P1-classifier.txt",
+      "sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7"
+    },
+    "prompt_p2": {
+      "file": "prompts/variants-v1/P2-classifier-sop.txt",
+      "sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9"
+    },
+    "prompt_composer": {
+      "file": "scripts/frozen_prompt_variants.cjs",
+      "sha256": "7c751854bf901c8ad9d7466e0056c95f5074d6e24782478efe36833d9f026da6"
+    },
+    "smoke": {
+      "output": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/smoke.jsonl",
+        "sha256": "026edbaceaee3147c4ee9b491b7a0652288710d222eca5ba9c041d9d8e0bf0c7"
+      },
+      "journal": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/smoke.attempts.jsonl",
+        "sha256": "cb841dfde4218ed500fbffaad4e3f8eb92e31228710aa4aaf54983903a516ac7"
+      },
+      "terminal": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/smoke.terminal.json",
+        "sha256": "e5bd79a136353030d2d32c8c798c884f262d493e819155f3773e0a05971a7344"
+      }
+    },
+    "development": {
+      "output": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/development.jsonl",
+        "sha256": "22a0ba0d8a272ae6a675ade025b4a6f11b237dae7f4d55f974d67e214081333b"
+      },
+      "journal": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/development.attempts.jsonl",
+        "sha256": "2a5c2bde5f7c2db6c543bb94b110ed4e83e7a5d11e98f2d578ee4a4984945d83"
+      },
+      "terminal": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P2/development.terminal.json",
+        "sha256": "5556bd12029faae09fb21207a37ef243702eb830badae0e6e7955ce7ec364e30"
+      }
+    },
+    "predecessor": {
+      "terminal": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P1/development.terminal.json",
+        "sha256": "8fbf9258b33861b9cc052bdfd6d5cf82c4fa82b1e021770a2197656cec61bdfb"
+      },
+      "output": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P1/development.jsonl",
+        "sha256": "5eb896d0f817dcef0ac72767c3d642e2f7d2fb2dbe3a253abfce252a2aa31011"
+      },
+      "journal": {
+        "file": "results/local-prompt-tail-v3/qwen3.5-4b-sdk-thinking-off/P1/development.attempts.jsonl",
+        "sha256": "60a998e04bcbf17d5d717c9d923a4343cd472a26cde6cd0b7836ef7548d81b08"
+      }
+    }
+  }
+}
