@@ -1,0 +1,63 @@
+{
+  "schema": "mistral119-smoke-recovery-v1",
+  "phase": "smoke",
+  "record_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "model": "mistralai/mistral-small-2603",
+  "provider": "mistral/zdr",
+  "reasoning": "none",
+  "max_tokens": 4096,
+  "timeout_seconds": 300,
+  "max_input_price": "0.15",
+  "max_output_price": "0.6",
+  "reference_labels_read": false,
+  "retry_policy": "new smoke after preserved HTTP429; no automatic retry",
+  "prior_attempt_classification": "preserved service_error HTTP429; no successful smoke",
+  "output": "results/mistral119-recovery-prep-v1/none-smoke.jsonl",
+  "env_file": "/Users/adamkovacs/Documents/codebuild/.env",
+  "per_request_reserve_usd": "0.04177920",
+  "three_request_bound_usd": "0.12533760",
+  "proposed_partition_cap_usd": "0.15",
+  "request_sha256": [
+    "9e76f7a19a586bf38dfb0494baeebfbf5c7fb5be4722ec9d86056bc3586b91dd",
+    "6fadc04ba2b82e8c28c935c53a3748689438ea45563898a1f5188be1baae7a3d",
+    "ae5382387db7fe2f4c799d5227df7f231d1714813be7852fb0d39a44a79cc5f8"
+  ],
+  "sources": {
+    "openrouter_paid_benchmark": {
+      "file": "scripts/openrouter_paid_benchmark.py",
+      "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+    },
+    "openrouter_budget_v2": {
+      "file": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    },
+    "paid_budget_partitions_v2": {
+      "file": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    "inputs": {
+      "file": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    "policy": {
+      "file": "docs/LABELING_GUIDE.md",
+      "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+    },
+    "schema": {
+      "file": "schemas/judgments.schema.json",
+      "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+    },
+    "endpoint_audit": {
+      "file": "results/mistral119-recovery-audit-2026-09-24.json",
+      "sha256": "4491ee49a8a6cb047a7ddb3d432b7893b7615163a95a49fbb2bff47dcb088252"
+    },
+    "historical_attempt": {
+      "file": "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl",
+      "sha256": "8d6a31bb87294aeff157731e712a92dbca2f4f71939154c45fdfcc2de6c4aaab"
+    }
+  }
+}
