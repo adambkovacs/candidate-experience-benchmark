@@ -340,5 +340,37 @@
     "smoke_files": [
       "results/openrouter-qwen27-low-hosted-2026-09-24/smoke.jsonl"
     ]
+  },
+  {
+    "id": "openrouter-qwen3-8b-off-json-object-p0",
+    "model": "qwen/qwen3-8b",
+    "effort": "off",
+    "status": "smoke_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "alibaba",
+    "quantization": "unknown",
+    "attempt_files": [],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/off-p0-smoke3-results.jsonl"
+    ],
+    "reconciliation_manifest": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/root-smoke-inspection-and-closure.json",
+    "notes": "Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route."
+  },
+  {
+    "id": "openrouter-qwen3-8b-on-json-object-p0",
+    "model": "qwen/qwen3-8b",
+    "effort": "on",
+    "status": "smoke_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "alibaba",
+    "quantization": "unknown",
+    "attempt_files": [],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/on-p0-smoke3-results.jsonl"
+    ],
+    "reconciliation_manifest": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/root-smoke-inspection-and-closure.json",
+    "notes": "Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route."
   }
 ]
