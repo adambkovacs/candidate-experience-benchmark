@@ -8,7 +8,7 @@
   const safeUrl = value => { try { const url = new URL(value); return ['https:', 'http:'].includes(url.protocol) ? url.href : null; } catch { return null; } };
   const formatSeconds = value => { const n = num(value); if (n === null) return 'Unavailable'; return n >= 60 ? `${(n / 60).toLocaleString(undefined, {maximumFractionDigits: 1})} min` : `${n.toLocaleString(undefined, {maximumFractionDigits: 1})} sec`; };
   const formatCount = value => { const n = num(value); return n === null ? 'Unavailable' : Math.round(n).toLocaleString(); };
-  const formatMoney = value => { const n = num(value); return n === null ? null : `$${n.toLocaleString(undefined, {minimumFractionDigits: n < 0.01 ? 4 : 2, maximumFractionDigits: 4})}`; };
+  const formatMoney = value => { const n = num(value); return n === null ? null : `$${n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 9})}`; };
   const hasCount = value => Number.isInteger(Number(value)) && value !== null && value !== '';
   const metricHtml = (value, coral = false) => `<div class="mini-metric"><strong>${hasCount(value) ? esc(value) : '—'}</strong><span class="mini-track"><span class="mini-fill${coral ? ' coral' : ''}" style="width:${hasCount(value) ? Math.max(0,Math.min(100,Number(value)/60*100)) : 0}%"></span></span></div>`;
   const displayName = run => [run.model, run.effort && run.effort !== 'n/a' ? run.effort : null].filter(Boolean).join(' · ');
@@ -40,7 +40,7 @@
     const runs = filteredRuns();
     $('#result-count').textContent = `${runs.length} saved ${runs.length === 1 ? 'view' : 'views'}`;
     $('#score-heading').textContent = metricLabels[$('#metric').value];
-    $('#comparison-list').innerHTML = runs.length ? runs.map(run => `<button type="button" class="comparison-row${run.id === state.selectedId ? ' selected' : ''}" data-run="${esc(run.id)}" aria-label="Inspect ${esc(displayName(run))}"><span class="run-name">${esc(run.model)}<span class="run-meta">${esc([run.effort, run.surface, isComplete(run) ? null : `${formatCount(run.records)} / 60 records`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(run.id)}</span></span>${metricHtml(run.valid)}${metricHtml(scoreFor(run),true)}<span class="run-runtime">${esc(formatSeconds(run.timing?.totalSeconds))}</span><span class="row-arrow" aria-hidden="true">↗</span></button>`).join('') : '<p class="empty-state">No saved views match these filters. Try another model or include partial runs.</p>';
+    $('#comparison-list').innerHTML = runs.length ? runs.map(run => `<button type="button" class="comparison-row${run.id === state.selectedId ? ' selected' : ''}" data-run="${esc(run.id)}" aria-label="Inspect ${esc(displayName(run))}"><span class="run-name">${esc(run.model)}<span class="run-meta">${esc([run.effort, run.surface, isComplete(run) ? null : `${formatCount(run.records)} / 60 records`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(run.id)}</span></span>${metricHtml(run.valid)}${metricHtml(scoreFor(run),true)}<span class="run-runtime" title="Summed request time; not elapsed wall time">${esc(formatSeconds(run.timing?.totalSeconds))}</span><span class="row-arrow" aria-hidden="true">↗</span></button>`).join('') : '<p class="empty-state">No saved views match these filters. Try another model or include partial runs.</p>';
     $('#comparison-list').querySelectorAll('[data-run]').forEach(button => button.addEventListener('click', () => selectRun(button.dataset.run, true)));
   }
 
@@ -52,6 +52,14 @@
   }
 
   function dataRow(name, value) { return `<div><dt>${esc(name)}</dt><dd>${esc(label(value))}</dd></div>`; }
+  const tokenRow = (name, value, partial) => dataRow(`${partial ? 'Known ' + name.toLowerCase() : name}`, value == null ? null : formatCount(value));
+  const timingBasis = timing => timing.kind === 'batch' ? 'Summed batch request durations' : timing.kind === 'record' ? 'Summed per-record attempt durations' : 'Timing basis unavailable';
+  const usageCoverage = tokens => {
+    const reported = num(tokens.reportedRequests);
+    const total = num(tokens.totalRequests);
+    if (reported !== null && total !== null) return `${formatCount(reported)} of ${formatCount(total)} requests have token usage${tokens.complete === false ? '; totals exclude missing usage' : ''}.`;
+    return tokens.complete === false ? 'Token usage is incomplete; shown totals cover only reported requests.' : '';
+  };
   function stringifyValue(value) {
     if (value === null || value === undefined || value === '') return 'Unavailable';
     if (typeof value === 'object') return Object.entries(value).map(([key, v]) => `${key}: ${typeof v === 'object' ? JSON.stringify(v) : v}`).join(' · ');
@@ -82,12 +90,13 @@
     $('#case-select').addEventListener('change', () => { const query = $('#case-search').value.trim().toLowerCase(); const disagreements = $('#case-disagreements').checked; const matches = all.filter(item => (!disagreements || (Array.isArray(item.different_fields) && item.different_fields.length > 0)) && (!query || `${item.id} ${item.feedback}`.toLowerCase().includes(query))); $('#case-current').innerHTML = matches[Number($('#case-select').value)] ? caseCard(matches[Number($('#case-select').value)]) : ''; });
     update(false);
   }
-  function renderCost(cost) {
-    if (!cost) return 'Unavailable';
+  function costRows(cost) {
     const actual = formatMoney(cost.actualUsd);
-    if (actual !== null) return actual;
     const known = formatMoney(cost.knownUsd);
-    return known !== null ? `${known} known` : 'Unavailable';
+    const unknown = formatMoney(cost.unknownUpperBoundUsd);
+    const costLabel = actual !== null ? 'Observed API cost (USD)' : known !== null ? 'Known API charges (USD)' : 'Observed API cost (USD)';
+    const costValue = actual ?? known ?? 'Unavailable';
+    return dataRow(costLabel, costValue) + (num(cost.unknownUpperBoundUsd) > 0 ? dataRow('Additional unknown-charge ceiling (USD)', unknown) : '');
   }
   function selectRun(id, scroll) {
     const run = state.data.runs.find(item => item.id === id);
@@ -98,7 +107,7 @@
     const cost = run.cost || {};
     const evidence = safeUrl(run.evidenceUrl);
     const metric = run.metrics || {};
-    $('#run-detail').innerHTML = `<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([run.effort,run.surface,run.condition].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${isComplete(run) ? '' : ' partial'}">${isComplete(run) ? 'COMPLETE · 60 / 60' : `PARTIAL · ${esc(formatCount(run.records))} / 60`}</span></div><div class="detail-stats"><div class="detail-stat"><span>VALID / 60</span><strong>${hasCount(run.valid) ? esc(run.valid) : '—'}</strong><small>Scorable responses</small></div><div class="detail-stat"><span>CORRECT SENTIMENT / 60</span><strong>${hasCount(metric.sentiment) ? esc(metric.sentiment) : '—'}</strong><small>Matches the reference label</small></div><div class="detail-stat"><span>ALL FOUR / 60</span><strong>${hasCount(metric.all_four) ? esc(metric.all_four) : '—'}</strong><small>All four scored fields match</small></div><div class="detail-stat"><span>TOTAL RUNTIME</span><strong>${esc(formatSeconds(timing.totalSeconds))}</strong><small>${esc(timing.kind ?? 'Timing basis unavailable')}</small></div></div><div class="detail-lower"><div><h4>Recorded measures</h4><dl class="data-list">${dataRow('Follow-up needed / 60',metric.follow_up_needed)}${dataRow('Serious concern / 60',metric.serious_concern_reported)}${dataRow('Testimonial potential / 60',metric.testimonial_potential)}${dataRow('Median time',formatSeconds(timing.medianSeconds))}${dataRow('95th percentile time',formatSeconds(timing.p95Seconds))}${dataRow('Timed requests',timing.requests)}${dataRow('Input tokens',tokens.input === null ? null : formatCount(tokens.input))}${dataRow('Output tokens',tokens.output === null ? null : formatCount(tokens.output))}${dataRow('Cached input tokens',tokens.cachedInput == null ? null : formatCount(tokens.cachedInput))}${dataRow('Cache-write tokens',tokens.cacheWrite == null ? null : formatCount(tokens.cacheWrite))}${dataRow('Reasoning tokens',tokens.reasoning === null ? null : formatCount(tokens.reasoning))}${dataRow('Reported token requests',tokens.reportedRequests)}${dataRow('Recorded cost (USD)',renderCost(cost))}</dl>${timing.note ? `<p class="note">Timing: ${esc(timing.note)}</p>` : ''}${tokens.note ? `<p class="note">Tokens: ${esc(tokens.note)}</p>` : ''}${cost.note ? `<p class="note">Cost: ${esc(cost.note)}</p>` : ''}${cost.availability ? `<p class="note">Cost availability: ${esc(cost.availability)}</p>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Open source evidence ↗</a>` : ''}</div><div><h4>Records</h4><div id="case-panel"></div></div></div>`;
+    $('#run-detail').innerHTML = `<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([run.effort,run.surface,run.condition].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${isComplete(run) ? '' : ' partial'}">${isComplete(run) ? 'COMPLETE · 60 / 60' : `PARTIAL · ${esc(formatCount(run.records))} / 60`}</span></div><div class="detail-stats"><div class="detail-stat"><span>VALID / 60</span><strong>${hasCount(run.valid) ? esc(run.valid) : '—'}</strong><small>Scorable responses</small></div><div class="detail-stat"><span>CORRECT SENTIMENT / 60</span><strong>${hasCount(metric.sentiment) ? esc(metric.sentiment) : '—'}</strong><small>Matches the reference label</small></div><div class="detail-stat"><span>ALL FOUR / 60</span><strong>${hasCount(metric.all_four) ? esc(metric.all_four) : '—'}</strong><small>All four scored fields match</small></div><div class="detail-stat"><span>SUMMED REQUEST TIME</span><strong>${esc(formatSeconds(timing.totalSeconds))}</strong><small>${esc(timingBasis(timing))}${timing.complete === false ? ' · incomplete evidence' : ''}</small></div></div><div class="detail-lower"><div><h4>Recorded measures</h4><dl class="data-list">${dataRow('Follow-up needed / 60',metric.follow_up_needed)}${dataRow('Serious concern / 60',metric.serious_concern_reported)}${dataRow('Testimonial potential / 60',metric.testimonial_potential)}${dataRow('Median request time',formatSeconds(timing.medianSeconds))}${dataRow('95th percentile request time',formatSeconds(timing.p95Seconds))}${dataRow('Timed requests',timing.requests)}${tokenRow('Input tokens',tokens.input,tokens.complete === false)}${tokenRow('Output tokens',tokens.output,tokens.complete === false)}${tokenRow('Cached input tokens',tokens.cachedInput,tokens.complete === false)}${tokenRow('Cache-write tokens',tokens.cacheWrite,tokens.complete === false)}${tokenRow('Reasoning tokens',tokens.reasoning,tokens.complete === false)}${dataRow('Requests with token usage',tokens.reportedRequests == null ? null : `${formatCount(tokens.reportedRequests)} / ${tokens.totalRequests == null ? 'unknown' : formatCount(tokens.totalRequests)}`)}${costRows(cost)}</dl>${timing.note ? `<p class="note">Timing: ${esc(timing.note)}</p>` : ''}${usageCoverage(tokens) ? `<p class="note">${esc(usageCoverage(tokens))}</p>` : ''}${tokens.note ? `<p class="note">Tokens: ${esc(tokens.note)}</p>` : ''}${cost.note ? `<p class="note">Cost: ${esc(cost.note)}</p>` : ''}${cost.availability ? `<p class="note">Cost availability: ${esc(cost.availability)}</p>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Open source evidence ↗</a>` : ''}</div><div><h4>Records</h4><div id="case-panel"></div></div></div>`;
     renderCasePanel(run);
     renderCompare();
     if (scroll) $('#inspect').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
