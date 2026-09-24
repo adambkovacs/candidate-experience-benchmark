@@ -1,8 +1,71 @@
 import json,sys,tempfile,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from build_public_explorer import tokens,export,surface,local_suffix_run,local_condition_runs
+from build_public_explorer import tokens,export,surface,local_suffix_run,local_condition_runs,local_pair_reports,score_saved,metric
 class PublicExportTests(unittest.TestCase):
+ def test_local_pair_report_requires_exact_offline_audit_and_matching_runs(self):
+  import copy,hashlib
+  import evaluate_local_prompt_pairs_v1 as audit
+  from evaluate_prompt_variants import compare
+  from unittest.mock import patch
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);config='synthetic-sdk'
+   truth={'sentiment':'positive','follow_up_needed':'no',
+          'serious_concern_reported':'no','testimonial_potential':'no'}
+   refs=[{'id':f'DEV-{i:03}','proposed_labels':truth} for i in range(1,61)]
+   inputs=[{'id':r['id'],'feedback':'Synthetic feedback '+r['id']} for r in refs]
+   (root/'data/pilot').mkdir(parents=True)
+   (root/'data/pilot/proposed_labels.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in refs))
+   (root/'data/pilot/pairs.json').write_text('[]\n')
+   reference_cases={r['id']:{'feedback':inp['feedback'],'reference':truth}
+                    for r,inp in zip(refs,inputs)}
+   self.assertEqual(local_pair_reports(root,[],reference_cases),[])
+   conditions={};public_runs=[];indexes={}
+   for variant in ('P0','P1','P2'):
+    rows=[];predictions=[]
+    for item in refs:
+     prediction=dict(truth)
+     if variant=='P2' and item['id']=='DEV-001':prediction['sentiment']='negative'
+     predictions.append({'id':item['id'],'status':'ok','prediction':prediction})
+     rows.append(predictions[-1] if variant=='P0' else
+                 {'id':item['id'],'decision':{'status':'ok','prediction':prediction}})
+    source=root/'results'/f'{variant}.jsonl';source.parent.mkdir(parents=True,exist_ok=True)
+    source.write_text(''.join(json.dumps(row)+'\n' for row in rows))
+    binding={'file':str(source.relative_to(root)),
+             'sha256':hashlib.sha256(source.read_bytes()).hexdigest()}
+    evaluation,all_four=score_saved(predictions,root)
+    conditions[variant]={'evaluation':evaluation,'sources':
+       {'output':binding} if variant=='P0' else {'development':{'output':binding}}}
+    public_runs.append({'id':config if variant=='P0' else config+'--'+variant.lower(),
+                        'condition':variant,'complete':True,'valid':evaluation['valid_outputs'],
+                        'metrics':metric(evaluation,all_four),'model':'Synthetic SDK',
+                        'pairedEligible':False})
+    indexes[variant]={row['id']:row for row in predictions}
+   references={row['id']:row for row in refs}
+   comparisons={a+'_to_'+b:compare(indexes[a],indexes[b],references)
+                for a,b in (('P0','P1'),('P0','P2'),('P1','P2'))}
+   report={'version':'local-prompt-pairs-v1','configuration':config,
+           'eligible_paired_comparison':True,'controls_verified':True,
+           'denominator':60,'conditions':conditions,'comparisons':comparisons,
+           'protocol':'observational local single-record development comparison',
+           'historical_p0_limitation':'P0 ran earlier; time and cache differ.',
+           'reference_status':'provisional development labels'}
+   report_path=root/'results/local-prompt-pairs-v1'/f'{config}.json'
+   report_path.parent.mkdir(parents=True);report_path.write_text(json.dumps(report)+'\n')
+   with patch.object(audit,'evaluate',return_value=copy.deepcopy(report)):
+    pairs=local_pair_reports(root,public_runs,reference_cases)
+   self.assertEqual(len(pairs),1)
+   self.assertEqual(pairs[0]['id'],config)
+   self.assertEqual(pairs[0]['conditions']['P2']['all_four'],59)
+   self.assertEqual(pairs[0]['comparisons']['P0_to_P2']['cases'][0]['feedback'],
+                    'Synthetic feedback DEV-001')
+   self.assertTrue(all(run['pairedEligible'] for run in public_runs))
+   self.assertTrue(all('P0 ran earlier' in run['resultStatus'] for run in public_runs))
+   self.assertEqual(pairs[0]['historicalP0Limitation'],report['historical_p0_limitation'])
+   report['eligible_paired_comparison']=False
+   report_path.write_text(json.dumps(report)+'\n')
+   with patch.object(audit,'evaluate',return_value=copy.deepcopy(report)):
+    with self.assertRaises(ValueError):local_pair_reports(root,public_runs,reference_cases)
  def test_local_condition_reports_are_absent_until_sealed(self):
   with tempfile.TemporaryDirectory() as d:
    self.assertEqual(local_condition_runs(Path(d),{},{}),[])

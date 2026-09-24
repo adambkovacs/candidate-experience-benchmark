@@ -306,6 +306,82 @@ def local_condition_runs(root, baseline, reference_cases):
     return result
 
 
+def local_pair_reports(root, runs, reference_cases):
+    """Admit audited local prompt comparisons without inferring eligibility from coverage."""
+    directory = root / 'results/local-prompt-pairs-v1'
+    if not directory.is_dir():
+        return []
+    from evaluate_local_prompt_pairs_v1 import evaluate
+    by_run = {run['id']: run for run in runs}
+    result = []
+    for report_path in sorted(directory.glob('*.json')):
+        report = json.loads(report_path.read_text())
+        config = report_path.stem
+        if (report.get('version') != 'local-prompt-pairs-v1' or
+            report.get('configuration') != config or
+            report.get('eligible_paired_comparison') is not True or
+            report.get('controls_verified') is not True or
+            report.get('denominator') != 60 or
+            set(report.get('conditions', {})) != {'P0', 'P1', 'P2'} or
+            set(report.get('comparisons', {})) != {'P0_to_P1', 'P0_to_P2', 'P1_to_P2'} or
+            not report.get('historical_p0_limitation')):
+            raise ValueError('Unsupported local prompt pair report: ' + str(report_path))
+        if report != evaluate(root, config):
+            raise ValueError('Local prompt pair report differs from offline evidence audit')
+        conditions = {}
+        matching = {}
+        for condition in ('P0', 'P1', 'P2'):
+            run_id = config if condition == 'P0' else config + '--' + condition.lower()
+            run = by_run.get(run_id)
+            if run is None or run['condition'] != condition or not run['complete']:
+                raise ValueError('Audited local pair has no matching complete public run')
+            value = report['conditions'][condition]
+            binding = (value['sources']['output'] if condition == 'P0' else
+                       value['sources']['development']['output'])
+            source_file = root / binding['file']
+            if hashlib.sha256(source_file.read_bytes()).hexdigest() != binding['sha256']:
+                raise ValueError('Local pair source hash mismatch')
+            saved = rows(source_file)
+            predictions = saved if condition == 'P0' else [
+                {'id': row['id'], 'status': row['decision']['status'],
+                 'prediction': row['decision'].get('prediction')} for row in saved]
+            evaluation, all_four = score_saved(predictions, root)
+            if (evaluation != value['evaluation'] or run['valid'] != evaluation['valid_outputs'] or
+                any(run['metrics'][field] != evaluation['metrics'][field]['correct'] for field in FIELDS) or
+                run['metrics']['all_four'] != all_four):
+                raise ValueError('Audited local pair differs from public condition score')
+            conditions[condition] = {'valid': evaluation['valid_outputs'], **metric(evaluation, all_four)}
+            matching[condition] = run
+        comparisons = {}
+        for name, comparison in report['comparisons'].items():
+            cases = []
+            for case in comparison['cases']:
+                reference = reference_cases.get(case['id'])
+                if reference is None or reference['reference'] != case['reference']:
+                    raise ValueError('Local pair changed case differs from public reference')
+                cases.append({**{key: case[key] for key in
+                                  ('id', 'from_state', 'to_state', 'from_prediction',
+                                   'to_prediction', 'reference')},
+                              'feedback': reference['feedback']})
+            comparisons[name] = {'bothValid': comparison['both_valid'],
+                                 'changedRecordCount': comparison['changed_record_count'],
+                                 'allFourWrongToCorrect': comparison['all_four_wrong_to_correct'],
+                                 'allFourCorrectToWrong': comparison['all_four_correct_to_wrong'],
+                                 'cases': cases}
+        for run in matching.values():
+            run['pairedEligible'] = True
+            run['comparisonLimitation'] = report['historical_p0_limitation']
+            run['resultStatus'] = (run.get('resultStatus') or 'complete') + '; ' + report['historical_p0_limitation']
+        result.append({'id': config, 'model': matching['P0']['model'], 'eligible': True,
+                       'conditions': conditions, 'comparisons': comparisons,
+                       'sourceStatus': 'hash-verified saved report',
+                       'protocol': report['protocol'],
+                       'historicalP0Limitation': report['historical_p0_limitation'],
+                       'referenceStatus': report['reference_status'],
+                       'evidenceUrl': GITHUB + str(report_path.relative_to(root))})
+    return result
+
+
 def export(root=ROOT):
     root = Path(root)
     summary = json.loads((root / 'results/comparison/summary.json').read_text())
@@ -851,6 +927,8 @@ def export(root=ROOT):
             reason = 'Outside the paired prompt comparison scope.'
         roster.append({'id': entry['id'], 'parentBaselineId': entry['parent_baseline_id'],
                        'disposition': entry['state'], 'reason': reason})
+
+    pairs.extend(local_pair_reports(root, runs, reference_cases))
 
     ids = [run['id'] for run in runs]
     if len(ids) != len(set(ids)):
