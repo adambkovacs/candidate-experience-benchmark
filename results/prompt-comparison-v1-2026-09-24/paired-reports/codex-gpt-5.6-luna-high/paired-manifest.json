@@ -1,0 +1,132 @@
+{
+  "contract": "prompt-pairs-v1",
+  "parent_baseline_id": "codex-gpt-5.6-luna-high",
+  "role": "cli_combined_prompt",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-high/P0-instruction.txt",
+    "sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1"
+  },
+  "controls": {
+    "workflow": "codex-subscription-batch",
+    "requested_model": "gpt-5.6-luna",
+    "effort": "high",
+    "cli_version": "codex-cli 0.155.0-alpha.16.3",
+    "configured_batch_size": 10,
+    "controller_timeout_seconds": 600.0,
+    "auth_mode": "ChatGPT",
+    "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+    "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+  },
+  "historical_controls": {
+    "workflow": "codex-subscription-batch",
+    "requested_model": "gpt-5.6-luna",
+    "effort": "high",
+    "cli_version": "codex-cli 0.155.0-alpha.16",
+    "configured_batch_size": 10,
+    "controller_timeout_seconds": 600.0,
+    "auth_mode": "ChatGPT",
+    "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+    "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+  },
+  "runtime_transition": {
+    "from": "codex-cli 0.155.0-alpha.16",
+    "to": "codex-cli 0.155.0-alpha.16.3",
+    "authorization": "user_2026-09-24_cli_change_move_forward",
+    "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change."
+  },
+  "attempt_selection": "latest_chronological",
+  "retry_authorizations": {
+    "P0": []
+  },
+  "allow_missing_outputs": false,
+  "conditions": {
+    "P0": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development.jsonl",
+        "sha256": "d4ef884d488c2715721795882da9484e14bf469c95aaeb69011424dcb94310fa"
+      },
+      "request_evidence": {
+        "file": "results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development-attempts.jsonl",
+        "sha256": "32880832b5a9968e3fca363e09b83da02d119cd3527c0837ab734cccbb85aecb"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P1/development.jsonl",
+        "sha256": "bba1e645bb0e10f3ccadd0b78abf69d0445373a2c0913e5f8f54c2e7a8cec895"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P1/development-attempts.jsonl",
+        "sha256": "eaed4ec677bda1950217651d8035f84a1da5786b2f11f0a9cc9246cce496295a"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P2/development.jsonl",
+        "sha256": "30cfa84ba2ce89d324ce486b99b3b1c957092fab672c56684babd34afd7062d0"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P2/development-attempts.jsonl",
+        "sha256": "ddea3302083833bdfbb55f1fe94124a69f5000023dc0c28254d5a2326c79b2b6"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-high/execution-manifest.json",
+        "sha256": "4111af62a2e73169140f206c7f7dba31e7a4ed8c5d300eaef8f826eb3936600d"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P1/smoke-supplement.json",
+        "sha256": "9468a1adf5d8a4b59492ec22d6c79fcc5c7927e6341e06eaf04b39e121857c0a"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P1/development.jsonl.prompt-admission.json",
+        "sha256": "4bfa3b2d28128454b67694a1b81a242ff6d10a6b7edea794313d3ec4d26da4ce"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-luna-high/execution-journal-snapshot.jsonl",
+        "sha256": "74cc461fb1d0c4798f0beea7dcad8051be51d019d540d7c19a67818e4fb340d3"
+      }
+    },
+    "P2": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-high/execution-manifest.json",
+        "sha256": "4111af62a2e73169140f206c7f7dba31e7a4ed8c5d300eaef8f826eb3936600d"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P2/smoke-supplement.json",
+        "sha256": "afc433f0fbad3ba73ee2a6ebc12506138d230e3aac7aa775e23503f5bc504a37"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-high/P2/development.jsonl.prompt-admission.json",
+        "sha256": "92da8919fb6c3493c5d01b465d8e600bf616f3ad44ca2057752f9e92e5b2c9fe"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-luna-high/execution-journal-snapshot.jsonl",
+        "sha256": "74cc461fb1d0c4798f0beea7dcad8051be51d019d540d7c19a67818e4fb340d3"
+      }
+    }
+  },
+  "controls_sha256": "beea4f25bbd00ff7ff87728e71d56aaa8ca8b1029d180819a7b80b9d34319bef",
+  "historical_controls_sha256": "91823ee881d6637f54f82c054e75171e06d5dd0e0a54a3f9bfb326f2c75acb56"
+}

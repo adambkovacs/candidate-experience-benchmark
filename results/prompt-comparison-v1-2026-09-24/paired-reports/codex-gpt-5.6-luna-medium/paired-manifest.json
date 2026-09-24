@@ -1,0 +1,132 @@
+{
+  "contract": "prompt-pairs-v1",
+  "parent_baseline_id": "codex-gpt-5.6-luna-medium",
+  "role": "cli_combined_prompt",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-medium/P0-instruction.txt",
+    "sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1"
+  },
+  "controls": {
+    "workflow": "codex-subscription-batch",
+    "requested_model": "gpt-5.6-luna",
+    "effort": "medium",
+    "cli_version": "codex-cli 0.155.0-alpha.16.3",
+    "configured_batch_size": 10,
+    "controller_timeout_seconds": 600.0,
+    "auth_mode": "ChatGPT",
+    "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+    "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+  },
+  "historical_controls": {
+    "workflow": "codex-subscription-batch",
+    "requested_model": "gpt-5.6-luna",
+    "effort": "medium",
+    "cli_version": "codex-cli 0.155.0-alpha.16",
+    "configured_batch_size": 10,
+    "controller_timeout_seconds": 600.0,
+    "auth_mode": "ChatGPT",
+    "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+    "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+  },
+  "runtime_transition": {
+    "from": "codex-cli 0.155.0-alpha.16",
+    "to": "codex-cli 0.155.0-alpha.16.3",
+    "authorization": "user_2026-09-24_cli_change_move_forward",
+    "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change."
+  },
+  "attempt_selection": "latest_chronological",
+  "retry_authorizations": {
+    "P0": []
+  },
+  "allow_missing_outputs": false,
+  "conditions": {
+    "P0": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development.jsonl",
+        "sha256": "3f5bf38701e85c1f097a38feb40230b8065840f1c1cdd38423177dd873f78831"
+      },
+      "request_evidence": {
+        "file": "results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development-attempts.jsonl",
+        "sha256": "1f80db4a7af494236a158b9c975fd51cb287c4f48312d3bf5497c6fb585fe9b3"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P1/development.jsonl",
+        "sha256": "e684e33c04b3c9d215a573b2947866902d0006f2b4abb662ccb083f2fe620d8d"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P1/development-attempts.jsonl",
+        "sha256": "8fdab950ba2584d69221de27b56ba7bdd09ff22571dceca3535f4d04ee76a7fb"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P2/development.jsonl",
+        "sha256": "abee9ee4c4641a7abecf748de583f378a5f8a1d643172ca9fb8137f51fabf218"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P2/development-attempts.jsonl",
+        "sha256": "c058cfd703443175e72287aaa05aaafdcf0b682c6c556c0a96d437ca40bdb38d"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-medium/execution-manifest.json",
+        "sha256": "fbebba751a0084cdc80633375fa6a07eb0bb168773547aec0a079cc459b8adbd"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P1/smoke-supplement.json",
+        "sha256": "81779359f8dfb771ed891e7b5afba6c924f1b3fa5e691d9b7a5284fa590305cd"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P1/development.jsonl.prompt-admission.json",
+        "sha256": "15d8d7513ae82091e86479734a7aeb85a0cab80b5dff40dcd7618b40d8556ac9"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-luna-medium/execution-journal-snapshot.jsonl",
+        "sha256": "74cc461fb1d0c4798f0beea7dcad8051be51d019d540d7c19a67818e4fb340d3"
+      }
+    },
+    "P2": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-medium/execution-manifest.json",
+        "sha256": "fbebba751a0084cdc80633375fa6a07eb0bb168773547aec0a079cc459b8adbd"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P2/smoke-supplement.json",
+        "sha256": "be3afb4c3dcf5a0b859a2df105302de549cff0e4ff26297afae8593041c21312"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-medium/P2/development.jsonl.prompt-admission.json",
+        "sha256": "cc87e3d20a8ebe8a85c82b87c07507216e2ff7ecb20db428b46a8e0c0109b5d2"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-luna-medium/execution-journal-snapshot.jsonl",
+        "sha256": "74cc461fb1d0c4798f0beea7dcad8051be51d019d540d7c19a67818e4fb340d3"
+      }
+    }
+  },
+  "controls_sha256": "e52f1cff02e22cef6f7e56c0a14f9460c5a012b03c24e1e6ebbad214d065b63c",
+  "historical_controls_sha256": "6f2f190446f57c7b13e837948c16f03d85ab9ba17cb2be52876ed03eca395c78"
+}

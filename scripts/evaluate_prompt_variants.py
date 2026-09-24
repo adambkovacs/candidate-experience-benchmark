@@ -265,6 +265,25 @@ def audit_claude_batches(rawrows,predictions,inputs,text,controls,selection,retr
     return list(attempts.values())
 
 
+def paired_condition_controls(manifest, variant):
+    """Only the explicitly accepted Codex patch may differ across conditions."""
+    current=manifest['controls']
+    transition=manifest.get('runtime_transition')
+    if transition is None:
+        if 'historical_controls' in manifest or 'historical_controls_sha256' in manifest:
+            raise ValueError('Historical pair controls require runtime transition')
+        return current
+    from prompt_admission import CODEX_RUNTIME_TRANSITION, RUNTIME_AUTHORIZATION
+    historical=manifest.get('historical_controls',{})
+    if not isinstance(transition,dict) or set(transition)!={'from','to','authorization','interpretation'} or (transition['from'],transition['to'])!=CODEX_RUNTIME_TRANSITION or transition['authorization']!=RUNTIME_AUTHORIZATION or not transition['interpretation']:
+        raise ValueError('Unsupported paired runtime transition')
+    if canonical_hash(historical)!=manifest.get('historical_controls_sha256'):
+        raise ValueError('Historical pair controls hash mismatch')
+    if any(c.get('extractor')!='codex_batch_v1' for c in manifest['conditions'].values()) or historical.get('workflow')!='codex-subscription-batch' or historical.get('cli_version')!=transition['from'] or current!={**historical,'cli_version':transition['to']}:
+        raise ValueError('Paired runtime transition cannot change any other control')
+    return historical if variant=='P0' else current
+
+
 def extract_codex_controls(row):
     return {**{k:row[k] for k in ('workflow','requested_model','effort','cli_version','configured_batch_size','controller_timeout_seconds','auth_mode','policy_sha256')},'cli_executable':row['command'][0]}
 
@@ -392,11 +411,12 @@ def evaluate(manifest,root=ROOT):
     if controls.get('reasoning_effort') in ('max','ultra') or controls.get('request_controls',{}).get('reasoning',{}).get('effort') in ('max','ultra'):raise ValueError('Max/ultra excluded from new comparisons')
     result={'contract':'prompt-pairs-v1','manifest_sha256':canonical_hash(manifest),'parent_baseline_id':manifest['parent_baseline_id'],
         'denominator':60,'conditions':{},'comparisons':{},'controls_verified':True,'eligible_paired_comparison':False,
-        'attempt_selection':manifest['attempt_selection'],
+        'attempt_selection':manifest['attempt_selection'],'runtime_transition':manifest.get('runtime_transition'),
         'protocol_verification':{'status':'incomplete','missing_audit_capabilities':['token/context preflight','smoke inspection gates','pre-inference frozen roster','counterbalanced execution schedule'],'note':'Controls verification alone does not establish full protocol eligibility. These gate extractors are not implemented.'},
         'reference_status':'Provisional AI-reviewed development references; not held-out human truth','reference_labels_read_offline':True}
     indexes={}
     for variant,condition in manifest['conditions'].items():
+        controls=paired_condition_controls(manifest,variant)
         composition=compose_instruction(base,variant,role=manifest['role'],parent_baseline_id=manifest['parent_baseline_id'],root=root)
         predictions=indexed(rows_from(bound_read(condition['predictions'],root)),expected,not manifest['allow_missing_outputs']);indexes[variant]=predictions
         if condition['extractor']=='openrouter_paid_v1':
@@ -431,7 +451,7 @@ def evaluate(manifest,root=ROOT):
         result['conditions'][variant]={'evaluation':evaluation,'all_four_correct':all_four,'actual_controls_verification':verification,
             'omitted_predictions':omitted,'prompt_provenance':composition['audit'],'prompt_bytes_added':composition['audit']['composed_instruction_bytes']-len(base.encode()),
             'prompt_token_overhead':None,'telemetry':telemetry(attempts),'cost':summarize_costs(attempts,[condition['request_evidence']['file']] if attempts else []),
-            'evidence':condition}
+            'evidence':condition,'audited_controls':controls}
     for a,b in [('P0','P1'),('P0','P2'),('P1','P2')]:
         comparison=compare(indexes[a],indexes[b],refs)
         for case in comparison['cases']:case['feedback']=inputs[case['id']]['feedback']
@@ -441,6 +461,7 @@ def evaluate(manifest,root=ROOT):
         result['protocol_verification']=audit(manifest,root)
         result['eligible_paired_comparison']=result['controls_verified'] and all(not c['omitted_predictions'] for c in result['conditions'].values())
     result['limitations']=['Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.',
+        'An explicitly accepted Codex CLI patch is retained as a runtime difference, not evidence that runtime changes have no effect.',
         'Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.',
         'Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.',
         'Prompt bytes are not token counts; token overhead is unavailable until separately measured.',

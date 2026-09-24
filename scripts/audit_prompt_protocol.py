@@ -18,6 +18,10 @@ def audit(manifest,root):
         configs=[c for c in runtime_manifest['configurations'] if c['id']==cid]
         if len(configs)!=1:raise ValueError('Missing execution configuration')
         config=configs[0]
+        from evaluate_prompt_variants import paired_condition_controls
+        paired_condition_controls(manifest,variant)
+        if config.get('runtime_transition')!=manifest.get('runtime_transition'):raise ValueError('Paired runtime transition differs from execution')
+        if config.get('runtime_transition') is not None and admission.historical_controls(config)['adapter_controls']!=paired_condition_controls(manifest,'P0'):raise ValueError('Paired historical controls differ from execution')
         if config['parent_baseline_id']!=cid or config['role']!=manifest['role'] or config['controls']['adapter_controls']!=manifest['controls']:raise ValueError('Paired controls differ from executed controls')
         if g.bound(config['baseline_instruction'],root)!=g.bound(manifest['baseline_instruction'],root) or g.bound(original['inputs'],root)!=g.bound(manifest['inputs'],root):raise ValueError('Paired inputs or baseline instruction differ')
         config['conditions'][variant].update(smoke_evidence=supplemental['smoke_evidence'],development_not_before=supplemental['development_not_before'])
