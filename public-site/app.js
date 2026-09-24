@@ -98,7 +98,7 @@
     const cost = run.cost || {};
     const evidence = safeUrl(run.evidenceUrl);
     const metric = run.metrics || {};
-    $('#run-detail').innerHTML = `<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([run.effort,run.surface,run.condition].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${isComplete(run) ? '' : ' partial'}">${isComplete(run) ? 'COMPLETE · 60 / 60' : `PARTIAL · ${esc(formatCount(run.records))} / 60`}</span></div><div class="detail-stats"><div class="detail-stat"><span>VALID / 60</span><strong>${hasCount(run.valid) ? esc(run.valid) : '—'}</strong><small>Scorable responses</small></div><div class="detail-stat"><span>CORRECT SENTIMENT / 60</span><strong>${hasCount(metric.sentiment) ? esc(metric.sentiment) : '—'}</strong><small>Matches the reference label</small></div><div class="detail-stat"><span>ALL FOUR / 60</span><strong>${hasCount(metric.all_four) ? esc(metric.all_four) : '—'}</strong><small>All four scored fields match</small></div><div class="detail-stat"><span>SUMMED REQUEST TIME</span><strong>${esc(formatSeconds(timing.totalSeconds))}</strong><small>${esc(timing.kind ?? 'Timing basis unavailable')}</small></div></div><div class="detail-lower"><div><h4>Recorded measures</h4><dl class="data-list">${dataRow('Follow-up needed / 60',metric.follow_up_needed)}${dataRow('Serious concern / 60',metric.serious_concern_reported)}${dataRow('Testimonial potential / 60',metric.testimonial_potential)}${dataRow('Median time',formatSeconds(timing.medianSeconds))}${dataRow('95th percentile time',formatSeconds(timing.p95Seconds))}${dataRow('Timed requests',timing.requests)}${dataRow(tokens.complete ? 'Input tokens' : 'Known input tokens (partial)',tokens.input === null ? null : formatCount(tokens.input))}${dataRow(tokens.complete ? 'Output tokens' : 'Known output tokens (partial)',tokens.output === null ? null : formatCount(tokens.output))}${dataRow('Cached input tokens',tokens.cachedInput == null ? null : formatCount(tokens.cachedInput))}${dataRow('Cache-write tokens',tokens.cacheWrite == null ? null : formatCount(tokens.cacheWrite))}${dataRow('Reasoning tokens',tokens.reasoning === null ? null : formatCount(tokens.reasoning))}${dataRow('Requests with token usage',`${formatCount(tokens.reportedRequests)} / ${formatCount(tokens.totalRequests)}`)}${dataRow('Recorded cost (USD)',renderCost(cost))}</dl>${timing.note ? `<p class="note">Timing: ${esc(timing.note)}</p>` : ''}${tokens.note ? `<p class="note">Tokens: ${esc(tokens.note)}</p>` : ''}${cost.note ? `<p class="note">Cost: ${esc(cost.note)}</p>` : ''}${cost.availability ? `<p class="note">Cost availability: ${esc(cost.availability)}</p>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Open source evidence ↗</a>` : ''}</div><div><h4>Records</h4><div id="case-panel"></div></div></div>`;
+    $('#run-detail').innerHTML = `<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([run.effort,run.surface,run.condition].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${isComplete(run) ? '' : ' partial'}">${isComplete(run) ? 'COMPLETE · 60 / 60' : `PARTIAL · ${esc(formatCount(run.records))} / 60`}</span></div><div class="detail-stats"><div class="detail-stat"><span>VALID / 60</span><strong>${hasCount(run.valid) ? esc(run.valid) : '—'}</strong><small>Scorable responses</small></div><div class="detail-stat"><span>CORRECT SENTIMENT / 60</span><strong>${hasCount(metric.sentiment) ? esc(metric.sentiment) : '—'}</strong><small>Matches the reference label</small></div><div class="detail-stat"><span>ALL FOUR / 60</span><strong>${hasCount(metric.all_four) ? esc(metric.all_four) : '—'}</strong><small>All four scored fields match</small></div><div class="detail-stat"><span>TOTAL RUNTIME</span><strong>${esc(formatSeconds(timing.totalSeconds))}</strong><small>${esc(timing.kind ?? 'Timing basis unavailable')}</small></div></div><div class="detail-lower"><div><h4>Recorded measures</h4><dl class="data-list">${dataRow('Follow-up needed / 60',metric.follow_up_needed)}${dataRow('Serious concern / 60',metric.serious_concern_reported)}${dataRow('Testimonial potential / 60',metric.testimonial_potential)}${dataRow('Median time',formatSeconds(timing.medianSeconds))}${dataRow('95th percentile time',formatSeconds(timing.p95Seconds))}${dataRow('Timed requests',timing.requests)}${dataRow('Input tokens',tokens.input === null ? null : formatCount(tokens.input))}${dataRow('Output tokens',tokens.output === null ? null : formatCount(tokens.output))}${dataRow('Cached input tokens',tokens.cachedInput == null ? null : formatCount(tokens.cachedInput))}${dataRow('Cache-write tokens',tokens.cacheWrite == null ? null : formatCount(tokens.cacheWrite))}${dataRow('Reasoning tokens',tokens.reasoning === null ? null : formatCount(tokens.reasoning))}${dataRow('Reported token requests',tokens.reportedRequests)}${dataRow('Recorded cost (USD)',renderCost(cost))}</dl>${timing.note ? `<p class="note">Timing: ${esc(timing.note)}</p>` : ''}${tokens.note ? `<p class="note">Tokens: ${esc(tokens.note)}</p>` : ''}${cost.note ? `<p class="note">Cost: ${esc(cost.note)}</p>` : ''}${cost.availability ? `<p class="note">Cost availability: ${esc(cost.availability)}</p>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Open source evidence ↗</a>` : ''}</div><div><h4>Records</h4><div id="case-panel"></div></div></div>`;
     renderCasePanel(run);
     renderCompare();
     if (scroll) $('#inspect').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
@@ -126,6 +126,39 @@
     select.addEventListener('change', update);
     update();
   }
+  function renderNative() {
+    const native = state.data.nativeComparisons;
+    const conditions = Array.isArray(native) ? native : native && Array.isArray(native.conditions) ? native.conditions : [];
+    const section = $('.native-section');
+    if (!conditions.length) { section.hidden = true; return; }
+    const grouped = new Map();
+    conditions.forEach(item => { if (item?.id && ['P0','P1','P2'].includes(item.condition)) { if (!grouped.has(item.id)) grouped.set(item.id, {}); grouped.get(item.id)[item.condition] = item; } });
+    if (!grouped.size) { section.hidden = true; return; }
+    const names = { 'anyjev-qwen06-generated-control':'AnyJev generated control', 'semif-generated-bf16':'SemIf generated BF16', 'openjev-generated-off':'OpenJev generated off', 'openjev-generated-on':'OpenJev generated on' };
+    const select = $('#native-model');
+    select.innerHTML = [...grouped.keys()].map(id => `<option value="${esc(id)}">${esc(names[id] || id)}</option>`).join('');
+    const sourcePrefix = state.data.runs.map(run => safeUrl(run.evidenceUrl)).find(url => url && url.includes('/blob/main/'))?.split('/blob/main/')[0] + '/blob/main/';
+    const sourceUrl = path => typeof path === 'string' && /^results\/[A-Za-z0-9_./-]+$/.test(path) && !path.includes('..') && sourcePrefix.startsWith('https://') ? sourcePrefix + path.split('/').map(encodeURIComponent).join('/') : null;
+    const update = () => {
+      const id = select.value;
+      const group = grouped.get(id) || {};
+      $('#native-chart').innerHTML = ['P0','P1','P2'].map(condition => {
+        const item = group[condition];
+        if (!item) return `<div class="native-row"><strong>${condition}</strong><span class="native-missing">No saved outcome</span></div>`;
+        const score = item.correct?.all_four;
+        const source = safeUrl(item.evidenceUrl) || sourceUrl(item.sourceBindings?.[0]?.file);
+        const missing = Array.isArray(item.missingIds) ? item.missingIds : [];
+        return `<div class="native-row"><div><strong>${condition}</strong><small>${esc(item.saved ?? '—')} / 60 saved · ${esc(item.valid ?? '—')} valid${missing.length ? ` · Missing ${esc(missing.join(', '))}` : ''}</small></div><span class="prompt-track"><span class="prompt-fill" style="width:${hasCount(score) ? Math.max(0,Math.min(100,Number(score)/60*100)) : 0}%"></span></span><div class="native-score"><span>${hasCount(score) ? esc(score) : '—'} / 60</span>${source ? `<a href="${esc(source)}" target="_blank" rel="noopener noreferrer">Evidence ↗</a>` : ''}</div></div>`;
+      }).join('');
+      const allLimitations = Array.isArray(native?.limitations) ? native.limitations : [];
+      const key = id.startsWith('anyjev') ? /AnyJev/i : id.startsWith('semif') ? /SemIf/i : /OpenJev/i;
+      const relevant = allLimitations.filter(value => key.test(value) || /synthetic references/i.test(value));
+      const note = typeof native?.referenceNote === 'string' ? native.referenceNote : 'These outcomes are descriptive and have not passed the central paired-protocol audit.';
+      $('#native-limitations').innerHTML = `<p class="native-caution">${esc(note)}</p>${relevant.length ? `<ul>${relevant.map(value => `<li>${esc(value)}</li>`).join('')}</ul>` : ''}`;
+    };
+    select.addEventListener('change', update);
+    update();
+  }
   function renderSources() {
     const urls = [...new Set([...state.data.runs.map(run => safeUrl(run.evidenceUrl)),...state.data.promptComparisons.map(item => safeUrl(item.evidenceUrl))].filter(Boolean))].slice(0,3);
     $('#source-links').innerHTML = urls.map((url,index) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Source evidence ${index+1} ↗</a>`).join('');
@@ -138,13 +171,13 @@
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       if (!Array.isArray(data.runs) || Number(data.denominator) !== 60) throw new Error('Invalid public data shape');
-      state.data = { ...data, runs:data.runs.filter(run => run && run.id), cases:Array.isArray(data.cases) ? data.cases : [], promptComparisons:Array.isArray(data.promptComparisons) ? data.promptComparisons : [] };
+      state.data = { ...data, runs:data.runs.filter(run => run && run.id), cases:Array.isArray(data.cases) ? data.cases : [], promptComparisons:Array.isArray(data.promptComparisons) ? data.promptComparisons : [], nativeComparisons:data.nativeComparisons ?? null };
       fillFilter('#model-filter',state.data.runs.map(run => run.model),'All models');
       fillFilter('#effort-filter',state.data.runs.map(run => run.effort),'All efforts');
       fillFilter('#surface-filter',state.data.runs.map(run => run.surface),'All surfaces');
       ['#search','#model-filter','#effort-filter','#surface-filter','#metric','#sort','#include-incomplete'].forEach(selector => $(selector).addEventListener(selector === '#search' ? 'input' : 'change',renderCompare));
       if (!state.data.runs.some(run => !isComplete(run))) $('#include-incomplete').closest('.toggle-row').hidden = true;
-      renderStory();renderCompare();renderPrompts();renderSources();
+      renderStory();renderCompare();renderPrompts();renderNative();renderSources();
       const initial = state.data.runs.find(isComplete) || state.data.runs[0];
       if (initial) selectRun(initial.id,false);
     } catch(error) {
@@ -153,6 +186,7 @@
       $('#comparison-list').innerHTML = `<p class="empty-state">${message}</p>`;
       $('#run-detail').innerHTML = `<p class="empty-state">${message}</p>`;
       $('.prompt-section').hidden = true;
+      $('.native-section').hidden = true;
       console.error('Public benchmark data error:', error);
     }
   }

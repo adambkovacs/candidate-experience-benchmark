@@ -1,0 +1,280 @@
+{
+  "contract": "native-public-descriptive-v1",
+  "denominator": 60,
+  "strictPairedComparisonEligible": false,
+  "referenceNote": "Descriptive agreement with 60 provisional AI-reviewed development references. These saved outcomes have not passed the central paired-protocol audit; differences across P0, P1 and P2 do not establish a causal prompt effect.",
+  "limitations": [
+    "AnyJev generated output is a separate HF generation control, not its native L0/L1/L2 decision readout.",
+    "OpenJev requested-on does not verify effective reasoning.",
+    "SemIf P0 request hashes record decision intent rather than actual generated messages; P2 DEV-033 remains unresolved.",
+    "The 60 synthetic references were authored and reviewed by the same assistant; no independent human adjudication was performed."
+  ],
+  "sourceSummary": {
+    "file": "results/prompt-comparison-v1-2026-09-24/native-outcome-summary-v1/summary.json",
+    "sha256": "75c7db9e67245a80944acc1de3456145b5ebf043dd324aadefd3d73fa0534c82"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "conditions": [
+    {
+      "id": "anyjev-qwen06-generated-control",
+      "condition": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 0,
+      "correct": {
+        "sentiment": 0,
+        "follow_up_needed": 0,
+        "serious_concern_reported": 0,
+        "testimonial_potential": 0,
+        "all_four": 0
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl",
+          "sha256": "0018a1e2f7db62f2d65af1fdb59ff8194f11d6af57b5d164801dcd425fe18d14"
+        }
+      ]
+    },
+    {
+      "id": "anyjev-qwen06-generated-control",
+      "condition": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 0,
+      "correct": {
+        "sentiment": 0,
+        "follow_up_needed": 0,
+        "serious_concern_reported": 0,
+        "testimonial_potential": 0,
+        "all_four": 0
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P1-development.jsonl",
+          "sha256": "1909242d779350d36ffec32da66459363d03e6f5ee5602e5c22123fe6545236d"
+        }
+      ]
+    },
+    {
+      "id": "anyjev-qwen06-generated-control",
+      "condition": "P2",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 30,
+      "correct": {
+        "sentiment": 23,
+        "follow_up_needed": 20,
+        "serious_concern_reported": 15,
+        "testimonial_potential": 8,
+        "all_four": 1
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl",
+          "sha256": "1b432869380647970046e3cd33c34bdc3bfb68ddaef021c52f02b53f194339c9"
+        }
+      ]
+    },
+    {
+      "id": "semif-generated-bf16",
+      "condition": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 52,
+      "correct": {
+        "sentiment": 46,
+        "follow_up_needed": 51,
+        "serious_concern_reported": 47,
+        "testimonial_potential": 46,
+        "all_four": 35
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/semif-generated-bf16-2026-09-23/development.jsonl",
+          "sha256": "b32d4d78c85ccc24af4b136294db2b6679da39e8dbbcce3a744656297d468df9"
+        }
+      ]
+    },
+    {
+      "id": "semif-generated-bf16",
+      "condition": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 38,
+      "correct": {
+        "sentiment": 33,
+        "follow_up_needed": 38,
+        "serious_concern_reported": 36,
+        "testimonial_potential": 32,
+        "all_four": 26
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P1-development.jsonl",
+          "sha256": "197decf85c8e30f075cd7402c632bf136347b212941cc0808ba35fe2ace281df"
+        }
+      ]
+    },
+    {
+      "id": "semif-generated-bf16",
+      "condition": "P2",
+      "denominator": 60,
+      "saved": 59,
+      "valid": 57,
+      "correct": {
+        "sentiment": 50,
+        "follow_up_needed": 56,
+        "serious_concern_reported": 52,
+        "testimonial_potential": 52,
+        "all_four": 42
+      },
+      "missingIds": [
+        "DEV-033"
+      ],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-development.jsonl",
+          "sha256": "f07c756fce6b088fea93a01a9b91c967affe3e3f9431bbb3a5a23084f0b3ea17"
+        },
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-continuation-v1/development-DEV034-060.jsonl",
+          "sha256": "be9db222091c9b727cabf74babd691d854f5384f58505fe8b3d4022c8e73421a"
+        }
+      ]
+    },
+    {
+      "id": "openjev-generated-off",
+      "condition": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 52,
+      "correct": {
+        "sentiment": 50,
+        "follow_up_needed": 51,
+        "serious_concern_reported": 50,
+        "testimonial_potential": 51,
+        "all_four": 46
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/openjev-local-generated-off-2026-09-23/development.jsonl",
+          "sha256": "e29f4f0ef76ec8d62bbd5efe0791b0e536e38b8d50bbfd0623a72fbf7572d46f"
+        }
+      ]
+    },
+    {
+      "id": "openjev-generated-off",
+      "condition": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 54,
+      "correct": {
+        "sentiment": 51,
+        "follow_up_needed": 53,
+        "serious_concern_reported": 53,
+        "testimonial_potential": 54,
+        "all_four": 49
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-development.jsonl",
+          "sha256": "8a830d9460f30a1e59715f5847d1b1fb33f8e688f9ae3ece18fbe2dcd0a04243"
+        }
+      ]
+    },
+    {
+      "id": "openjev-generated-off",
+      "condition": "P2",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 56,
+      "correct": {
+        "sentiment": 54,
+        "follow_up_needed": 56,
+        "serious_concern_reported": 55,
+        "testimonial_potential": 54,
+        "all_four": 51
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl",
+          "sha256": "b21b1f4d93f5c881ee669287cfcb28b9688af7d35497a8a78064a78b2ae38a3c"
+        }
+      ]
+    },
+    {
+      "id": "openjev-generated-on",
+      "condition": "P0",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 59,
+      "correct": {
+        "sentiment": 56,
+        "follow_up_needed": 58,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 57,
+        "all_four": 53
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/openjev-local-generated-on-2026-09-23/development.jsonl",
+          "sha256": "08ea1e5b3efa7551dcfc588c1524a00c1a20f08e922a04d732c8ebe6f867b05e"
+        }
+      ]
+    },
+    {
+      "id": "openjev-generated-on",
+      "condition": "P1",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 50,
+      "correct": {
+        "sentiment": 48,
+        "follow_up_needed": 49,
+        "serious_concern_reported": 49,
+        "testimonial_potential": 47,
+        "all_four": 46
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-development.jsonl",
+          "sha256": "2ff23eab29cb0a22c198d11e88549bd783f278d722374f04a6db6731ba075426"
+        }
+      ]
+    },
+    {
+      "id": "openjev-generated-on",
+      "condition": "P2",
+      "denominator": 60,
+      "saved": 60,
+      "valid": 53,
+      "correct": {
+        "sentiment": 50,
+        "follow_up_needed": 50,
+        "serious_concern_reported": 51,
+        "testimonial_potential": 52,
+        "all_four": 47
+      },
+      "missingIds": [],
+      "sourceBindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-development.jsonl",
+          "sha256": "2f3b3975b57e2ec618878d4fdc3457203bb817fe511fbbd94b9164e721639202"
+        }
+      ]
+    }
+  ]
+}

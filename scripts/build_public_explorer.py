@@ -56,7 +56,10 @@ def export(root=ROOT):
         x=json.loads(p.read_text())
         if x.get('eligible_paired_comparison') is not True:continue
         cid=x['parent_baseline_id'];pairs.append({'id':cid,'model':cid,'conditions':{k:{'valid':v['evaluation']['valid_outputs'],**metric(v['evaluation'],v['all_four_correct'])} for k,v in x['conditions'].items()},'evidenceUrl':GITHUB+str(p.relative_to(root))})
-    return {'generatedAt':datetime.now(timezone.utc).isoformat(),'denominator':60,'referenceNote':'60 synthetic development records. References drafted and reviewed by the same AI assistant; no independent human adjudication. Agreement is descriptive, not real-world hiring accuracy.','runs':runs,'cases':cases,'promptComparisons':pairs}
+    from build_native_prompt_summary import export as native_export
+    native=native_export(root)
+    native={k:native[k] for k in ('denominator','strictPairedComparisonEligible','referenceNote','limitations','conditions')}
+    return {'nativeComparisons':native,'generatedAt':datetime.now(timezone.utc).isoformat(),'denominator':60,'referenceNote':'60 synthetic development records. References drafted and reviewed by the same AI assistant; no independent human adjudication. Agreement is descriptive, not real-world hiring accuracy.','runs':runs,'cases':cases,'promptComparisons':pairs}
 def main():
     value=export();dest=ROOT/'public-site/data.json';dest.parent.mkdir(exist_ok=True);dest.write_text(json.dumps(value,ensure_ascii=False,separators=(',',':'))+'\n');print(json.dumps({'runs':len(value['runs']),'cases':len(value['cases']),'promptComparisons':len(value['promptComparisons']),'output':str(dest)}))
 if __name__=='__main__':main()
