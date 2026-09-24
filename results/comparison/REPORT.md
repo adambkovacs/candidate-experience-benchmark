@@ -931,7 +931,7 @@ Paused after repeated upstream HTTP 429 responses. Across four source files: 23 
 
 **openrouter-paid-mistral-small4-119b-none**
 
-Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed.
+Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed. September24 separate overnight cooldown smoke also returned HTTP429 on DEV-001 in 0.760093 seconds despite public endpoint status0. No development, no further retry; full $0.04177920 reservation retained as unknown cost bound.
 
 **openrouter-paid-mistral-small4-119b-high**
 

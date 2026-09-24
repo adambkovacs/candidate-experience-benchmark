@@ -223,7 +223,7 @@
     "predictions_file": null,
     "notes": "September24 user explicitly stopped local DeepSeek downloads. Downloader terminated and partial artifacts preserved; no verified full artifact or inference. September23 exact OpenRouter endpoint check found no serving endpoint. Hosted DeepSeek V4.1 Flash results remain separate; they are not this distill checkpoint.",
     "cancellation_evidence": "results/deepseek-r1-download-cancelled-2026-09-24.json",
-    "availability_evidence": "results/openrouter-r1-distill-qwen32-availability-2026-09-23.json",
+    "availability_evidence": "results/openrouter-remaining-availability-2026-09-24.json",
     "next_step": "Use the exact hosted model if an OpenRouter endpoint becomes available. Do not resume local download or substitute another checkpoint."
   },
   {
@@ -2152,13 +2152,16 @@
     "predictions_file": null,
     "provider": "mistral/zdr",
     "quantization": "unknown",
-    "notes": "Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed.",
+    "notes": "Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed. September24 separate overnight cooldown smoke also returned HTTP429 on DEV-001 in 0.760093 seconds despite public endpoint status0. No development, no further retry; full $0.04177920 reservation retained as unknown cost bound.",
     "attempt_phase": "development",
     "partition_id": "mistral119-none",
     "smoke_files": [
       "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl",
-      "results/openrouter-mistral119-none-recovery-2026-09-23/smoke.jsonl"
-    ]
+      "results/openrouter-mistral119-none-recovery-2026-09-23/smoke.jsonl",
+      "results/openrouter-mistral119-none-cooldown-2026-09-24/smoke.jsonl",
+      "results/openrouter-mistral119-none-cooldown-2026-09-24/smoke.jsonl.attempts.jsonl"
+    ],
+    "latest_recovery_manifest": "results/openrouter-mistral119-none-cooldown-2026-09-24/reconciliation.json"
   },
   {
     "id": "openrouter-paid-mistral-small4-119b-high",
