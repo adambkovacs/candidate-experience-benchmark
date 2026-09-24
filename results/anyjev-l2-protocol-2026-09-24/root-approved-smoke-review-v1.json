@@ -1,0 +1,27 @@
+{
+  "contract": "anyjev-l2-smoke-review-v1",
+  "decision": "approved",
+  "scope": "smoke_only",
+  "reviewer": "root assistant technical review under user authorization",
+  "runner_sha256": "884b81a69d0308503279eb012276750d525885281462f2a094b5bba24b048a39",
+  "run_manifest_sha256": "e9c706bf5fbe52814e84742563c80fc1a167fa6d952f29e220952882b96698fc",
+  "protocol_sha256": "cccb98feca141d6ade7428351e68c37e1a1a1ba2f7f5f1a5d664926ea376ebae",
+  "tests_sha256": "19408223866627d7f49350be1f157feea55c6893b56a44c5f6dc8a8d4030a2b7",
+  "verification": {
+    "focused_tests": "7 passed",
+    "native_preflight": "passed without inference",
+    "gpu_lock_absent_before_launch": true
+  },
+  "findings": [
+    {
+      "severity": "RESIDUAL",
+      "reason": "Terminal journal runtime is null because perform does not assign state[\"runtime\"]; each saved record and fold artifact contains runtime."
+    },
+    {
+      "severity": "RESIDUAL",
+      "reason": "Inner cross-validation is ungrouped within outer training, as protocol-v2 discloses; outer evaluation groups remain intact."
+    }
+  ],
+  "blocking_findings": [],
+  "limits": "Approval covers only the three-record smoke. Full collection requires a separate reviewed smoke receipt."
+}
