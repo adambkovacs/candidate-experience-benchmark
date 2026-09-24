@@ -1,0 +1,78 @@
+{
+  "schema": "hosted-never-sent-inventory-v3",
+  "status": "FROZEN_OFFLINE_CANDIDATE",
+  "reference_labels_read": false,
+  "source_bindings": [
+    {
+      "path": "results/hosted-unattempted-continuation-v3/summary.json",
+      "sha256": "b6db1c9873d20233e04be0c7ddf0f0d6696abffa051579f1444949a709be7263"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v3/freeze-index.json",
+      "sha256": "a34f448c47dfb161f1ed2e4aac753ed515a3ad66acdba4e232ac65cacb32c2d8"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v3/inventory.json",
+      "sha256": "42ae4af12ccc40b161a9ba4ae9a5b3a8c51366e4d3ce0bfe607808237b2514da"
+    },
+    {
+      "path": "scripts/openrouter_unattempted_continuation.py",
+      "sha256": "e9176892510d802c0d1a21cf81ab6221845d8aff57d3b3cd23030dd66c41287f"
+    },
+    {
+      "path": "scripts/openrouter_unattempted_continuation_v3.py",
+      "sha256": "1350aefaecc45f062b54b5c1ec31e25a4f9f3ecc6ba4ef5744d71bc573781aa9"
+    }
+  ],
+  "candidate_conditions": [
+    {
+      "configuration_id": "qwen27-low-hosted-addendum-v1",
+      "condition": "P2",
+      "candidate_never_sent_ids": [
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "candidate_count": 5,
+      "prior_terminal_status": "stopped",
+      "prior_reconciliation": {
+        "path": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/reconciliation-v1.json",
+        "sha256": "33873204bb6cb503026d35ce566ea7975ef4d00eaf8bb5edfddd0d7d69bf6881"
+      },
+      "evidence": [
+        {
+          "path": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/development.jsonl",
+          "sha256": "088f1996c1cff31c391804aad93a5db7a1cf94a41bfa3b15aa8c8b4d294f9c35"
+        },
+        {
+          "path": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/attempts.jsonl",
+          "sha256": "7214a0f6c573bab49078b46b672134d7032434348ce9f3914bfcab7d25bfce84"
+        },
+        {
+          "path": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/reconciliation-v1.json",
+          "sha256": "33873204bb6cb503026d35ce566ea7975ef4d00eaf8bb5edfddd0d7d69bf6881"
+        },
+        {
+          "path": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/frozen-manifest.json",
+          "sha256": "273658a39f6ea1555dea15e66461935b542aaad037c6bab099c48fd73f733c6f"
+        },
+        {
+          "path": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/root-review.json",
+          "sha256": "b1ee8a0432f5b1b3c1c3a04419221c72b7db74926155115a46dcb9982eb1bb1b"
+        },
+        {
+          "path": "results/hosted-unattempted-budget-v3/manifest-hosted-suffix-v3-03.jsonl",
+          "sha256": "c36b8656b2a29d1508f3ab0404dd2082a1268ace7127e6b7fc82dffd6f5dac2e"
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "no_failed_record_retries": true,
+    "exact_never_sent_only": true,
+    "unchanged_model_provider_prompt_schema_reasoning_timeout": true,
+    "no_inference_or_budget_mutation_in_preparation": true
+  }
+}

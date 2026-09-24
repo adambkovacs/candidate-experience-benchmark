@@ -1,0 +1,252 @@
+{
+  "contract": "hosted-final-ten-offline-score-v1",
+  "configuration_id": "openrouter-paid-qwen3.8-27b-medium",
+  "condition": "P1",
+  "reference_status": "AI-reviewed provisional; development only",
+  "reference_labels_read_offline": true,
+  "reference_labels_in_model_requests": false,
+  "denominator": 60,
+  "valid_outputs": 59,
+  "all_four_correct": 56,
+  "field_correct_out_of_60": {
+    "sentiment": 57,
+    "follow_up_needed": 59,
+    "serious_concern_reported": 58,
+    "testimonial_potential": 59
+  },
+  "status_counts": {
+    "ok": 59,
+    "service_error": 1
+  },
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 59,
+    "missing_or_failed": [
+      "DEV-004"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 57,
+        "denominator": 60,
+        "accuracy": 0.95,
+        "macro_f1": 0.9462249827467218,
+        "per_label": {
+          "positive": {
+            "tp": 11,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9166666666666666,
+            "recall": 1.0,
+            "f1": 0.9565217391304348
+          },
+          "negative": {
+            "tp": 31,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.96875,
+            "recall": 1.0,
+            "f1": 0.9841269841269841
+          },
+          "mixed": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333
+          },
+          "neutral": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 59,
+        "denominator": 60,
+        "accuracy": 0.9833333333333333,
+        "macro_f1": 0.9929078014184397,
+        "per_label": {
+          "yes": {
+            "tp": 35,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 23,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9583333333333334,
+            "f1": 0.9787234042553191
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.9582027168234065,
+        "per_label": {
+          "yes": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 28,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.9655172413793104,
+            "recall": 0.9655172413793104,
+            "f1": 0.9655172413793104
+          },
+          "insufficient_information": {
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 59,
+        "denominator": 60,
+        "accuracy": 0.9833333333333333,
+        "macro_f1": 0.9966329966329966,
+        "per_label": {
+          "yes": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 49,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.98,
+            "f1": 0.98989898989899
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "source_files": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/development.jsonl",
+      "sha256": "2077ef425815654a617ed1c159c1b5fb872b4c9060ae8cb3cd5fbe79e1be9845"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/development.jsonl",
+      "sha256": "90f919ec2ea9a82ac39e362ce6a93efcdd1633bf85239cc4cf7fd7f49732c647"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/reconciliation-v1.json",
+      "sha256": "e4e05d1eb32e2989da2cfc614b31eafc6c93e13e9ecfa2750d36fcde4bdd3347"
+    }
+  ],
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "scorer": {
+    "file": "scripts/development_benchmark.py",
+    "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+  }
+}

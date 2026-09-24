@@ -1,0 +1,260 @@
+{
+  "contract": "hosted-final-ten-offline-score-v1",
+  "configuration_id": "openrouter-paid-gemma4-26b-a4b-on",
+  "condition": "P2",
+  "reference_status": "AI-reviewed provisional; development only",
+  "reference_labels_read_offline": true,
+  "reference_labels_in_model_requests": false,
+  "denominator": 60,
+  "valid_outputs": 58,
+  "all_four_correct": 55,
+  "field_correct_out_of_60": {
+    "sentiment": 56,
+    "follow_up_needed": 57,
+    "serious_concern_reported": 58,
+    "testimonial_potential": 58
+  },
+  "status_counts": {
+    "ok": 58,
+    "service_error": 2
+  },
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 58,
+    "missing_or_failed": [
+      "DEV-040",
+      "DEV-044"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 56,
+        "denominator": 60,
+        "accuracy": 0.9333333333333333,
+        "macro_f1": 0.8813589926348302,
+        "per_label": {
+          "positive": {
+            "tp": 11,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9166666666666666,
+            "recall": 1.0,
+            "f1": 0.9565217391304348
+          },
+          "negative": {
+            "tp": 30,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.967741935483871,
+            "f1": 0.9836065573770492
+          },
+          "mixed": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "neutral": {
+            "tp": 6,
+            "fp": 1,
+            "fn": 2,
+            "precision": 0.8571428571428571,
+            "recall": 0.75,
+            "f1": 0.8
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 57,
+        "denominator": 60,
+        "accuracy": 0.95,
+        "macro_f1": 0.9763071895424836,
+        "per_label": {
+          "yes": {
+            "tp": 33,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.9428571428571428,
+            "f1": 0.9705882352941176
+          },
+          "no": {
+            "tp": 23,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.9583333333333334,
+            "recall": 0.9583333333333334,
+            "f1": 0.9583333333333334
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.9873493256951903,
+        "per_label": {
+          "yes": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.96,
+            "f1": 0.9795918367346939
+          },
+          "no": {
+            "tp": 28,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9655172413793104,
+            "f1": 0.9824561403508771
+          },
+          "insufficient_information": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.9931972789115647,
+        "per_label": {
+          "yes": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 48,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.96,
+            "f1": 0.9795918367346939
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [
+        "DEV-044"
+      ],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "source_files": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-26b-a4b-on/P2/development.jsonl",
+      "sha256": "6476564c7f6c2db27cc0dbbfba44386a4cd14cf0fd225dd73f4159638339d58b"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-gemma4-26b-a4b-on-p2/development.jsonl",
+      "sha256": "d9f4a06f88961858dea2225d06dd6bd8cd2fa54db3e21720b68828bacb0bbeda"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-gemma4-26b-a4b-on-p2/reconciliation-v1.json",
+      "sha256": "b841e7464a5b6ca8b25cc01cdeaab3425ad4226698864859bde6cc850c8370cd"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v3/openrouter-paid-gemma4-26b-a4b-on-p2/development.jsonl",
+      "sha256": "0ea9ff834269a039186e61432c4127c72c388fc28220d00f3d242e34517b8530"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v3/openrouter-paid-gemma4-26b-a4b-on-p2/reconciliation-v1.json",
+      "sha256": "d21c2adb431fe1251b4c1151985069dbdba66152497a5b0849ce58bdeab3ba45"
+    }
+  ],
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "scorer": {
+    "file": "scripts/development_benchmark.py",
+    "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+  }
+}

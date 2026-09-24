@@ -1,0 +1,7 @@
+# Ten hosted conditions: closed development audit
+
+The [aggregate](summary.json) binds ten source-audited, offline [scores](.) to the same 60 provisional development records per condition. Every canonical ID now has exactly one saved attempt across the original and continuation stages: 600 attempts, 580 valid outputs, four length-limited invalid outputs, four prompt-admission failures, eleven transport or HTTP provider failures, and one historical response-processing KeyError. Twelve unknown charges were accounted at their full reserved upper bounds; they are not observed spending. No attempted record was retried.
+
+The offline scorer compares valid predictions with [AI-reviewed provisional labels](../../../data/pilot/proposed_labels.jsonl). Across conditions, all-four correctness ranges from 53 to 57 out of 60. Each score records four field-correct counts out of 60, failure IDs, source hashes, and controlled-pair checks. These are development results, not held-out human-ground-truth estimates. None of the conditions has 60 valid outputs, so none is a strict complete paired report. Later suffixes also do not restore the original counterbalanced execution timing.
+
+The source chain is the [v2](../../hosted-unattempted-continuation-v2/summary.json), [v3](../../hosted-unattempted-continuation-v3/summary.json), and [v4](../summary.json) terminal summaries. The existing [development scorer](../../../scripts/development_benchmark.py) was used only after all provider requests ended; reference labels were never included in model requests.

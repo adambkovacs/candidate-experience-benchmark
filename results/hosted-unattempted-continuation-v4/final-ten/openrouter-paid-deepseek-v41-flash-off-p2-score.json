@@ -1,0 +1,252 @@
+{
+  "contract": "hosted-final-ten-offline-score-v1",
+  "configuration_id": "openrouter-paid-deepseek-v41-flash-off",
+  "condition": "P2",
+  "reference_status": "AI-reviewed provisional; development only",
+  "reference_labels_read_offline": true,
+  "reference_labels_in_model_requests": false,
+  "denominator": 60,
+  "valid_outputs": 59,
+  "all_four_correct": 53,
+  "field_correct_out_of_60": {
+    "sentiment": 55,
+    "follow_up_needed": 58,
+    "serious_concern_reported": 58,
+    "testimonial_potential": 56
+  },
+  "status_counts": {
+    "prompt_admission_failure": 1,
+    "ok": 59
+  },
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 59,
+    "missing_or_failed": [
+      "DEV-001"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 55,
+        "denominator": 60,
+        "accuracy": 0.9166666666666666,
+        "macro_f1": 0.8625460560944432,
+        "per_label": {
+          "positive": {
+            "tp": 10,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.9090909090909091,
+            "recall": 0.9090909090909091,
+            "f1": 0.9090909090909091
+          },
+          "negative": {
+            "tp": 30,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.967741935483871,
+            "recall": 0.967741935483871,
+            "f1": 0.967741935483871
+          },
+          "mixed": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "neutral": {
+            "tp": 5,
+            "fp": 0,
+            "fn": 3,
+            "precision": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 2,
+            "fn": 0,
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.8769657724329325,
+        "per_label": {
+          "yes": {
+            "tp": 34,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9714285714285714,
+            "f1": 0.9855072463768116
+          },
+          "no": {
+            "tp": 23,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9583333333333334,
+            "f1": 0.9787234042553191
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.9624542124542125,
+        "per_label": {
+          "yes": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 27,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.9310344827586207,
+            "f1": 0.9642857142857143
+          },
+          "insufficient_information": {
+            "tp": 6,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.8571428571428571,
+            "recall": 1.0,
+            "f1": 0.9230769230769231
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 56,
+        "denominator": 60,
+        "accuracy": 0.9333333333333333,
+        "macro_f1": 0.8123212321232124,
+        "per_label": {
+          "yes": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 3,
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8
+          },
+          "no": {
+            "tp": 49,
+            "fp": 2,
+            "fn": 1,
+            "precision": 0.9607843137254902,
+            "recall": 0.98,
+            "f1": 0.9702970297029703
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "source_files": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-off/P2/development.jsonl",
+      "sha256": "a91dcc71e5be619fd735162495393fbfea44c5d4a9e2ec6d9920807ae3ba1f40"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-off-p2/development.jsonl",
+      "sha256": "faf4c03d1b970fd4fc7897c17d5a0f423768f611950b707c84f25cb2a1c1c41f"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-off-p2/reconciliation-v1.json",
+      "sha256": "804df69e3d9e56d4467a660f4141aa1d23cfdeef2f4b868c504ec86e7cca22c7"
+    }
+  ],
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "scorer": {
+    "file": "scripts/development_benchmark.py",
+    "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+  }
+}

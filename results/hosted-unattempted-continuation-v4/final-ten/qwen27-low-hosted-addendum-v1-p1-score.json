@@ -1,0 +1,258 @@
+{
+  "contract": "hosted-final-ten-offline-score-v1",
+  "configuration_id": "qwen27-low-hosted-addendum-v1",
+  "condition": "P1",
+  "reference_status": "AI-reviewed provisional; development only",
+  "reference_labels_read_offline": true,
+  "reference_labels_in_model_requests": false,
+  "denominator": 60,
+  "valid_outputs": 58,
+  "all_four_correct": 56,
+  "field_correct_out_of_60": {
+    "sentiment": 57,
+    "follow_up_needed": 58,
+    "serious_concern_reported": 57,
+    "testimonial_potential": 58
+  },
+  "status_counts": {
+    "ok": 58,
+    "service_error": 2
+  },
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 58,
+    "missing_or_failed": [
+      "DEV-010",
+      "DEV-020"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 57,
+        "denominator": 60,
+        "accuracy": 0.95,
+        "macro_f1": 0.9606349206349206,
+        "per_label": {
+          "positive": {
+            "tp": 10,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9090909090909091,
+            "f1": 0.9523809523809523
+          },
+          "negative": {
+            "tp": 31,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.96875,
+            "recall": 1.0,
+            "f1": 0.9841269841269841
+          },
+          "mixed": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333
+          },
+          "neutral": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.9855072463768115,
+        "per_label": {
+          "yes": {
+            "tp": 35,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 22,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.9166666666666666,
+            "f1": 0.9565217391304348
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 57,
+        "denominator": 60,
+        "accuracy": 0.95,
+        "macro_f1": 0.9521531100478469,
+        "per_label": {
+          "yes": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 27,
+            "fp": 1,
+            "fn": 2,
+            "precision": 0.9642857142857143,
+            "recall": 0.9310344827586207,
+            "f1": 0.9473684210526315
+          },
+          "insufficient_information": {
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.9770251534957417,
+        "per_label": {
+          "yes": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.8888888888888888,
+            "f1": 0.9411764705882353
+          },
+          "no": {
+            "tp": 49,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.98,
+            "f1": 0.98989898989899
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "source_files": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-development.jsonl",
+      "sha256": "2537fcb1b22b378b494252b92ea30498a004aaa616e74d344ad58d7243ccc2c8"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p1/development.jsonl",
+      "sha256": "d2790f8a47c18712562461d5e24cb980c5dd0a2517a78754cfa67a376a3ef84b"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p1/reconciliation-v1.json",
+      "sha256": "2fbf1d4ad714b71cf85137ad62da51533c3e25b96d850b28b00bd1a774e26f14"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p1/development.jsonl",
+      "sha256": "8f91f3cdae16974b9b7f535d30e4b36658e880143865715c2a128313ad51142d"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p1/reconciliation-v1.json",
+      "sha256": "97dc589140225d70dcc5e34d86b8c4dd95eb641ba8b181c4e6d78ad5ea30cd09"
+    }
+  ],
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "scorer": {
+    "file": "scripts/development_benchmark.py",
+    "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+  }
+}

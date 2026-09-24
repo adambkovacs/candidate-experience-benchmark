@@ -1,0 +1,267 @@
+{
+  "contract": "hosted-final-ten-offline-score-v1",
+  "configuration_id": "qwen27-low-hosted-addendum-v1",
+  "condition": "P2",
+  "reference_status": "AI-reviewed provisional; development only",
+  "reference_labels_read_offline": true,
+  "reference_labels_in_model_requests": false,
+  "denominator": 60,
+  "valid_outputs": 57,
+  "all_four_correct": 53,
+  "field_correct_out_of_60": {
+    "sentiment": 55,
+    "follow_up_needed": 57,
+    "serious_concern_reported": 55,
+    "testimonial_potential": 57
+  },
+  "status_counts": {
+    "ok": 57,
+    "service_error": 3
+  },
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 57,
+    "missing_or_failed": [
+      "DEV-033",
+      "DEV-042",
+      "DEV-055"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 55,
+        "denominator": 60,
+        "accuracy": 0.9166666666666666,
+        "macro_f1": 0.9181860682561945,
+        "per_label": {
+          "positive": {
+            "tp": 11,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9166666666666666,
+            "recall": 1.0,
+            "f1": 0.9565217391304348
+          },
+          "negative": {
+            "tp": 30,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.967741935483871,
+            "recall": 0.967741935483871,
+            "f1": 0.967741935483871
+          },
+          "mixed": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "neutral": {
+            "tp": 4,
+            "fp": 0,
+            "fn": 4,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 57,
+        "denominator": 60,
+        "accuracy": 0.95,
+        "macro_f1": 0.9806763285024155,
+        "per_label": {
+          "yes": {
+            "tp": 34,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9714285714285714,
+            "f1": 0.9855072463768116
+          },
+          "no": {
+            "tp": 22,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.9166666666666666,
+            "f1": 0.9565217391304348
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 55,
+        "denominator": 60,
+        "accuracy": 0.9166666666666666,
+        "macro_f1": 0.904093567251462,
+        "per_label": {
+          "yes": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 26,
+            "fp": 2,
+            "fn": 3,
+            "precision": 0.9285714285714286,
+            "recall": 0.896551724137931,
+            "f1": 0.9122807017543859
+          },
+          "insufficient_information": {
+            "tp": 4,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 57,
+        "denominator": 60,
+        "accuracy": 0.95,
+        "macro_f1": 0.9896907216494846,
+        "per_label": {
+          "yes": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 47,
+            "fp": 0,
+            "fn": 3,
+            "precision": 1.0,
+            "recall": 0.94,
+            "f1": 0.9690721649484536
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "source_files": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P2-development.jsonl",
+      "sha256": "3e2bae718e61e6763ed98f5ad532f2c5fe87b16e5212c5bd67f9f3476b372c17"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p2/development.jsonl",
+      "sha256": "baee6573b99d7b0da48c32348ca7b997b73f294ea173c84509ea3f4c030378a0"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p2/reconciliation-v1.json",
+      "sha256": "3ad2c16210309670efab1530db8f0f603d1899d67026bb4a78150df3035bdc60"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/development.jsonl",
+      "sha256": "088f1996c1cff31c391804aad93a5db7a1cf94a41bfa3b15aa8c8b4d294f9c35"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v3/qwen27-low-hosted-addendum-v1-p2/reconciliation-v1.json",
+      "sha256": "33873204bb6cb503026d35ce566ea7975ef4d00eaf8bb5edfddd0d7d69bf6881"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v4/qwen27-low-hosted-addendum-v1-p2/development.jsonl",
+      "sha256": "dd7c7ed83ed03513fcc62b399acaf241c011a9596a813d8a50946f7ace95d12f"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v4/qwen27-low-hosted-addendum-v1-p2/reconciliation-v1.json",
+      "sha256": "b29c1ec32d88ddd8bb2def2692c9881e3c84cf6199b2e624c9254ec2d769c440"
+    }
+  ],
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "scorer": {
+    "file": "scripts/development_benchmark.py",
+    "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+  }
+}
