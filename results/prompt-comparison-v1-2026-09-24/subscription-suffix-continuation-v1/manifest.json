@@ -1,0 +1,828 @@
+{
+  "contract": "subscription-suffix-continuation-v1",
+  "status": "FROZEN_ROOT_REVIEW_REQUIRED",
+  "controller": {
+    "file": "scripts/subscription_suffix_continuation.py",
+    "sha256": "b266dd9801e36254b96f2b0b200cbd3b05ca15d8a2d287ed976229eae96cdb69"
+  },
+  "dependencies": [
+    {
+      "file": "scripts/codex_batch_benchmark.py",
+      "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+    },
+    {
+      "file": "scripts/claude_batch_benchmark.py",
+      "sha256": "95be0e340a460f7c0d4d0a3fbf3f6b3fc150046056678ee71add9733a97187ea"
+    },
+    {
+      "file": "scripts/codex_benchmark.py",
+      "sha256": "fbf80230b65fc069b39f82ea42c560ff1c0abd6ca0a49b8e2346131e294f048a"
+    },
+    {
+      "file": "scripts/claude_benchmark.py",
+      "sha256": "76f36a25421f6b91395a4e6dac194aa207af774ea44fdd3fc32a1b9137f0341b"
+    },
+    {
+      "file": "scripts/prompt_controller.py",
+      "sha256": "b6dc5c8bac40e94d0b9c805674a0c825a9b14e4c16161c92a406c430b5dff041"
+    },
+    {
+      "file": "scripts/prompt_admission.py",
+      "sha256": "eff67d728724923dc668eb4b0471c2e3b56e8514adcd5abb81bad082992f0e99"
+    },
+    {
+      "file": "scripts/prompt_execution_gates.py",
+      "sha256": "bd1edbabae63afe1e2c2695cda13aef17d41f540e8b7b606d800b34ad24b25fe"
+    },
+    {
+      "file": "scripts/prompt_schedule.py",
+      "sha256": "ec1c6b7373ea0640abd19ced6e72d5ad64f3b72229df6ba88d01993728184710"
+    },
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    }
+  ],
+  "inventory": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-stopped-inventory-v1/inventory.json",
+    "sha256": "549ec967fda1c74f2dfa4bf19f47288079076159984c7fa5c512484c531bcc0f"
+  },
+  "original_journal_snapshot": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/original-journal-snapshot.jsonl",
+    "sha256": "bcf0f5d48f61ae313bc8a1445fa28f4e40487ac945cf7e76502d76bdcfcbd81b"
+  },
+  "conditions": [
+    {
+      "configuration_id": "codex-gpt-5.6-luna-xhigh",
+      "condition": "P1",
+      "adapter": "codex",
+      "offset": 30,
+      "limit": 30,
+      "batch_size": 10,
+      "record_ids": [
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "parent_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/execution-manifest.json",
+        "sha256": "f300835e34fb56bd547dae0c55900d3a15a7e46e4fb0850057f6177ef2158fff"
+      },
+      "original_controller": {
+        "file": "scripts/codex_batch_benchmark.py",
+        "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P1/smoke-supplement.json",
+        "sha256": "f694c9c7001989a67db5cd7e83b92a93d383b4822e20356e4976a9fc87026545"
+      },
+      "original_attempts": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P1/development-attempts.jsonl",
+        "sha256": "4af43faff56ab00a32d9aa22d51961ca1f023b671fa6a25956682ffae30caae8"
+      },
+      "original_claim_sha256": "17ddc1e972628e6176c6b165b63344970111e114cdfd0fd9fe3b7921f4cb5f90",
+      "original_terminal_sha256": "61f7419e8209da236f6c210d924805685e7beb05289d2697517e4d23e94138e9",
+      "request_bindings": [
+        {
+          "record_ids": [
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/P1-request-04.json",
+            "sha256": "b33a4bfda018be779e9d922a6f86320a624dfe644cbef8868d96fc27e9e23fc4"
+          },
+          "request_bytes": 13422
+        },
+        {
+          "record_ids": [
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/P1-request-05.json",
+            "sha256": "ad8b4d8be31f4ed14f5fa84c5ac84bec449341cd9b2cce9aed4bac4389f04f90"
+          },
+          "request_bytes": 13295
+        },
+        {
+          "record_ids": [
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/P1-request-06.json",
+            "sha256": "69e108e97696995fb729841e9dd9ace83be0527c3d7bc2ec1b6bc85685fc38d6"
+          },
+          "request_bytes": 13461
+        }
+      ],
+      "output": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P1/development-suffix.jsonl",
+      "attempts": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P1/development-suffix-attempts.jsonl",
+      "journal": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P1/continuation-journal.jsonl",
+      "admission": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P1/development-suffix-admission.json"
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-luna-xhigh",
+      "condition": "P2",
+      "adapter": "codex",
+      "offset": 40,
+      "limit": 20,
+      "batch_size": 10,
+      "record_ids": [
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "parent_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/execution-manifest.json",
+        "sha256": "f300835e34fb56bd547dae0c55900d3a15a7e46e4fb0850057f6177ef2158fff"
+      },
+      "original_controller": {
+        "file": "scripts/codex_batch_benchmark.py",
+        "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P2/smoke-supplement.json",
+        "sha256": "62667055bf9a8d6eec7f31df675c4fb5bf6696aa9df4d93d994094b200d83fe4"
+      },
+      "original_attempts": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-xhigh/P2/development-attempts.jsonl",
+        "sha256": "71b0547d42c2dd57b54edf540443249de593ae1fd148311610e7748f2bf5de43"
+      },
+      "original_claim_sha256": "9884d8003a80a349f9232d9e2245edcae7719e5c6eda2df02af03a76b8b60891",
+      "original_terminal_sha256": "451164b9d62daa6d01e08b88246f3fc3b6b54a2c626fa7f6212561c61acb5a51",
+      "request_bindings": [
+        {
+          "record_ids": [
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/P2-request-05.json",
+            "sha256": "6b1d725d1396abbbb12146fcfd57d85db54d680b6079f25e163529cac9f8f793"
+          },
+          "request_bytes": 18772
+        },
+        {
+          "record_ids": [
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-xhigh/P2-request-06.json",
+            "sha256": "6d5ab24f651158f6fb791f23946cef25f7a4edd7aca9d0583b91924c8afecf5c"
+          },
+          "request_bytes": 18938
+        }
+      ],
+      "output": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P2/development-suffix.jsonl",
+      "attempts": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P2/development-suffix-attempts.jsonl",
+      "journal": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P2/continuation-journal.jsonl",
+      "admission": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-luna-xhigh/P2/development-suffix-admission.json"
+    },
+    {
+      "configuration_id": "codex-gpt-6-astra-medium",
+      "condition": "P2",
+      "adapter": "codex",
+      "offset": 30,
+      "limit": 30,
+      "batch_size": 10,
+      "record_ids": [
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "parent_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-medium/execution-manifest.json",
+        "sha256": "e860729a4f8f831713995afc3823c9d09a53441930e4bcaa6e1f7989fc9c7477"
+      },
+      "original_controller": {
+        "file": "scripts/codex_batch_benchmark.py",
+        "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-medium/P2/smoke-supplement.json",
+        "sha256": "561e65d924957c5662f7599230192537e7e698bb18aaffdbf11d1a10cb81a5dd"
+      },
+      "original_attempts": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-astra-medium/P2/development-attempts.jsonl",
+        "sha256": "b4bc36abaf84fd34e300358e7d211c36c241edc04cb5544ff270d68cb57d0f94"
+      },
+      "original_claim_sha256": "d0ca64aa049bf7a578d23b657d29bea816d8d641b21abda25cb7b852d064934a",
+      "original_terminal_sha256": "d549a35cf84fff16195911815a981ea86179ef349b1b459cdc3702b7820f5ee8",
+      "request_bindings": [
+        {
+          "record_ids": [
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-medium/P2-request-04.json",
+            "sha256": "fc937b7e2cc7399c6701c0b42f29894473a3f72832f3f3636966a9ca3ab9b689"
+          },
+          "request_bytes": 18899
+        },
+        {
+          "record_ids": [
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-medium/P2-request-05.json",
+            "sha256": "8b59a7e955c5c8d2b528c8b8ab0ee702d349e5f44dba4f0d6ed5895d33bdbf8c"
+          },
+          "request_bytes": 18772
+        },
+        {
+          "record_ids": [
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-6-astra-medium/P2-request-06.json",
+            "sha256": "8336a1f4dc337d76b4038fc6e88647a0658c326f609005b550757ee5597ea50e"
+          },
+          "request_bytes": 18938
+        }
+      ],
+      "output": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-6-astra-medium/P2/development-suffix.jsonl",
+      "attempts": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-6-astra-medium/P2/development-suffix-attempts.jsonl",
+      "journal": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-6-astra-medium/P2/continuation-journal.jsonl",
+      "admission": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-6-astra-medium/P2/development-suffix-admission.json"
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-low",
+      "condition": "P1",
+      "adapter": "codex",
+      "offset": 30,
+      "limit": 30,
+      "batch_size": 10,
+      "record_ids": [
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "parent_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-low/execution-manifest.json",
+        "sha256": "c720f611e6b09d65f772e2dbba89702d20594f47c50d22a564a9e19618d89e23"
+      },
+      "original_controller": {
+        "file": "scripts/codex_batch_benchmark.py",
+        "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P1/smoke-supplement.json",
+        "sha256": "798c814fad25cd9a1463b5950430adf725e4f386433f900e6c277905f76b3c03"
+      },
+      "original_attempts": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-low/P1/development-attempts.jsonl",
+        "sha256": "8e732587e8bb383b18e408b520cfdb519915d3cda47846bfc30cd84309cd09be"
+      },
+      "original_claim_sha256": "ffb7ab2d6c1a41db5615aa0c1817445f54588628de4372fc4426b50bacc7a7db",
+      "original_terminal_sha256": "acd21d76d1bc9dcd5f4da340b1306457194d805196941f14d9cd55209e764997",
+      "request_bindings": [
+        {
+          "record_ids": [
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-low/P1-request-04.json",
+            "sha256": "1fb56473f5d073a7f8edf7471321049a4a484fe51cf446f0b6aa4f27dd7a27c6"
+          },
+          "request_bytes": 13421
+        },
+        {
+          "record_ids": [
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-low/P1-request-05.json",
+            "sha256": "f6f319d6b2ab0bf49899e2b9cbdd8f794debb6517158cd894ee30a9142d922fe"
+          },
+          "request_bytes": 13294
+        },
+        {
+          "record_ids": [
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-low/P1-request-06.json",
+            "sha256": "5bdddd8dd3b0bded58a54cdea40ad75bca0f18465b3905012fd4da609e30ba7d"
+          },
+          "request_bytes": 13460
+        }
+      ],
+      "output": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-low/P1/development-suffix.jsonl",
+      "attempts": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-low/P1/development-suffix-attempts.jsonl",
+      "journal": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-low/P1/continuation-journal.jsonl",
+      "admission": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-low/P1/development-suffix-admission.json"
+    },
+    {
+      "configuration_id": "codex-gpt-5.6-terra-medium",
+      "condition": "P2",
+      "adapter": "codex",
+      "offset": 20,
+      "limit": 40,
+      "batch_size": 10,
+      "record_ids": [
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "parent_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-medium/execution-manifest.json",
+        "sha256": "361e5327111317a9f0d79d9c86fa5b76eecc156930191fb2f67208d12de54eb4"
+      },
+      "original_controller": {
+        "file": "scripts/codex_batch_benchmark.py",
+        "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-medium/P2/smoke-supplement.json",
+        "sha256": "2f72766414c8430383791c4ced5ccfeeefbc5fcc0d34d5dd08af8687e20117d0"
+      },
+      "original_attempts": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-terra-medium/P2/development-attempts.jsonl",
+        "sha256": "8558f85fc177e3cddd67f3796bc5eb7f32f4394feb41bfce55fbebd943927243"
+      },
+      "original_claim_sha256": "df0ab4f4095d7488e902e1ed5901857084373e098d8704a537e6c309d228d938",
+      "original_terminal_sha256": "d3c3b74b46d195a028ab204c58ad5c6eeae554c4cf60687cd232c02cd3167f5e",
+      "request_bindings": [
+        {
+          "record_ids": [
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-medium/P2-request-03.json",
+            "sha256": "1bb37acb987db40bc31891abc6f8b430d8c232f844eeba6390b3b56d7e6ed9dd"
+          },
+          "request_bytes": 18857
+        },
+        {
+          "record_ids": [
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-medium/P2-request-04.json",
+            "sha256": "512b13eeff9501d6229a7f12dd867f29f15771d14a3ab9e5def15233174ec362"
+          },
+          "request_bytes": 18901
+        },
+        {
+          "record_ids": [
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-medium/P2-request-05.json",
+            "sha256": "eec0881a7cacd5444788e81bc02d8e1aeddd4b4475965cacaba4c0e4289dc0ad"
+          },
+          "request_bytes": 18774
+        },
+        {
+          "record_ids": [
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-terra-medium/P2-request-06.json",
+            "sha256": "5edcccea744fc9cf9c254a61d48819c29241722b51b241690df2bf4d548f114a"
+          },
+          "request_bytes": 18940
+        }
+      ],
+      "output": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-medium/P2/development-suffix.jsonl",
+      "attempts": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-medium/P2/development-suffix-attempts.jsonl",
+      "journal": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-medium/P2/continuation-journal.jsonl",
+      "admission": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/codex-gpt-5.6-terra-medium/P2/development-suffix-admission.json"
+    },
+    {
+      "configuration_id": "haiku45-not_applicable-phase2-batch10-p0",
+      "condition": "P1",
+      "adapter": "claude",
+      "offset": 20,
+      "limit": 40,
+      "batch_size": 10,
+      "record_ids": [
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "parent_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/haiku45-not_applicable-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "b65b0d357e185dc87d27be008d7f47da7f4983d0fb567d4b0a7d00bb824f2a69"
+      },
+      "original_controller": {
+        "file": "scripts/claude_batch_benchmark.py",
+        "sha256": "95be0e340a460f7c0d4d0a3fbf3f6b3fc150046056678ee71add9733a97187ea"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/haiku45-not_applicable-phase2-batch10-p0/P1/smoke-supplement.json",
+        "sha256": "edd5f6452cc6848ede8e965a4f1b40d0e5cbb3c79c056557893a719ca5114225"
+      },
+      "original_attempts": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/haiku45-not_applicable-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+        "sha256": "e31916474b1d24c3c7c8873b3a2a7aa966e93e35bd55c4c416178f7b0dbea051"
+      },
+      "original_claim_sha256": "8d0dcbb7b7376ed571695f321f6e4061d4908ab8e569fa6d224c98114cf0a330",
+      "original_terminal_sha256": "3aabdf05ebd5dfcbdebd0b15c36d4d8f74296f33a00442c8ee555bec6f045fc9",
+      "request_bindings": [
+        {
+          "record_ids": [
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/haiku45-not_applicable-phase2-batch10-p0/P1-request-03.json",
+            "sha256": "5f14b1a685c7456fd4a12fb20275f64476abbd5fca1e342436c7ae326dec5969"
+          },
+          "request_bytes": 13541
+        },
+        {
+          "record_ids": [
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/haiku45-not_applicable-phase2-batch10-p0/P1-request-04.json",
+            "sha256": "07d08b1d31ab4a2c6eb8dd9047ebd383cb2a7899c455b9bacc8715dd31e984f7"
+          },
+          "request_bytes": 13585
+        },
+        {
+          "record_ids": [
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/haiku45-not_applicable-phase2-batch10-p0/P1-request-05.json",
+            "sha256": "b4ac7fdbbad1d34542a374859f42eba695eb453ac6e9d316c99010ac60bd7a12"
+          },
+          "request_bytes": 13458
+        },
+        {
+          "record_ids": [
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "client_request": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/haiku45-not_applicable-phase2-batch10-p0/P1-request-06.json",
+            "sha256": "2ad917048a87b044dd7bdb667d2458995ed7bb2e6865f88fa6287e1a3f85c563"
+          },
+          "request_bytes": 13624
+        }
+      ],
+      "output": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/haiku45-not_applicable-phase2-batch10-p0/P1/development-suffix.jsonl",
+      "attempts": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/haiku45-not_applicable-phase2-batch10-p0/P1/development-suffix.jsonl.batches.jsonl",
+      "journal": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/haiku45-not_applicable-phase2-batch10-p0/P1/continuation-journal.jsonl",
+      "admission": "results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/runs/haiku45-not_applicable-phase2-batch10-p0/P1/development-suffix-admission.json"
+    }
+  ],
+  "inference_performed": false,
+  "reference_labels_in_requests": false,
+  "scope_and_limitations": [
+    "Only never-sent suffix batches are eligible; each failed original batch remains ambiguous and is never retried.",
+    "These continuations do not restore a complete sixty-record condition or eligible paired report.",
+    "Continuation timing follows the original stopped conditions, so original alternation is not preserved.",
+    "Any live CLI runtime/control drift or new non-ok batch stops without substitution or repair."
+  ],
+  "root_review_receipt_required": true
+}

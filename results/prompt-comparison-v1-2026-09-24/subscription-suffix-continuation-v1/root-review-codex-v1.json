@@ -1,0 +1,20 @@
+{
+  "contract": "subscription-suffix-root-review-v1",
+  "decision": "approved",
+  "manifest_sha256": "cd253ad7d1b98f290f59a68a77f793f1ea619683266336e7ec5078c56dfbffe2",
+  "approved_conditions": [
+    "codex-gpt-5.6-luna-xhigh/P1",
+    "codex-gpt-5.6-luna-xhigh/P2",
+    "codex-gpt-6-astra-medium/P2",
+    "codex-gpt-5.6-terra-low/P1",
+    "codex-gpt-5.6-terra-medium/P2"
+  ],
+  "scope": "Only 150 never-sent records across five Codex conditions; batches of ten; no replay of attempted IDs.",
+  "verification": "Seven focused tests passed; request envelope and suffix boundaries reviewed.",
+  "blocking_findings": [],
+  "residuals": [
+    "Changed execution timing/order versus original interrupted conditions.",
+    "Original failed attempted batches remain ambiguous and excluded from suffix."
+  ],
+  "maximum_concurrent_conditions": 2
+}
