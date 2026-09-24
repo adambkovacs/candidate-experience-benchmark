@@ -1,5 +1,12 @@
 # MVP completion status
 
+## 2026-09-24 Gemma E2B classifier condition completed
+
+Gemma 4 E2B thinking-on P1 completed 60 requests with **60 valid outputs and 35 all-four matches**. Its [offline report](../results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-on/P1.json) binds the exact artifact, runtime, prompts, terminal, attempt journal and predecessor chain. The public export contains 250 run views and 15,000 cases. Gemma E2B thinking-on P2 passed its three-record smoke inspection and is active in development, root session 52166.
+
+All completed local results remain descriptive until a dedicated local paired-protocol audit verifies their P0/P1/P2 evidence. That offline integration is being implemented without additional inference. The run scope remains the same 60 development records.
+
+
 ## 2026-09-24 local P1 completed and next condition started
 
 Qwen 3.5 4B thinking-on P1 completed all 60 requests: **55 valid outputs, five invalid outputs, and 52 all-four matches** against the provisional references. Its [terminal-bound report](../results/local-prompt-condition-reconciliations-v1/qwen3.5-4b-sdk-thinking-on/P1.json) has no unknown or never-sent outcomes. Saved development usage is 106,290 input tokens and 124,037 output tokens; local prediction time sums to 3,256.21 seconds with a 43.58-second median. These are device diagnostics, not hosted latency or billed cost.
