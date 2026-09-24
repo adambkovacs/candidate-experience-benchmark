@@ -41,7 +41,7 @@ def _attempts(spec,root,adapter,controls):
 
 def _usage(row,adapter):
     if adapter=='openrouter_paid_v1':
-        usage=row['raw_response'].get('usage',{})
+        usage=(row.get('raw_response') or {}).get('usage') or {}
         return {'input_tokens':usage.get('prompt_tokens'),'output_tokens':usage.get('completion_tokens')}
     kind='result' if adapter=='claude_batch_v1' else 'turn.completed'
     events=[e for e in row['raw_events'] if e.get('type')==kind]

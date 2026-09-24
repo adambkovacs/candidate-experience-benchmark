@@ -1,4 +1,4 @@
-import fcntl,json,sys,tempfile,unittest
+import fcntl,json,sys,tempfile,unittest,threading
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import prompt_schedule as s
@@ -39,6 +39,17 @@ class ScheduleTests(unittest.TestCase):
     with self.assertRaises(RuntimeError):s.claim(spec,journal,'a','P1','smoke',root)
     self.assertEqual(journal.read_bytes(),b'')
    self.assertEqual(s.claim(spec,journal,'a','P1','smoke',root)['stage'],'smoke')
+ def test_transient_lock_release_allows_one_claim(self):
+  with tempfile.TemporaryDirectory() as d:
+   root,spec,journal,_=self.fixture(d)
+   with journal.open('a+b') as lock:
+    fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    release=threading.Timer(.1,lambda:fcntl.flock(lock,fcntl.LOCK_UN));release.start()
+    try:claim=s.claim(spec,journal,'a','P1','smoke',root)
+    finally:release.join()
+   self.assertEqual(claim['stage'],'smoke')
+   events=[json.loads(x) for x in journal.read_text().splitlines()]
+   self.assertEqual(sum(x['event']=='claimed' for x in events),1)
  def test_hash_and_forged_order_tampering(self):
   for mutation in ('hash','rehashed_order','source','evidence','tail'):
    with self.subTest(mutation=mutation),tempfile.TemporaryDirectory() as d:

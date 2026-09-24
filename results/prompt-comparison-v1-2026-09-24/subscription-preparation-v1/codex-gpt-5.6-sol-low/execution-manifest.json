@@ -1,0 +1,187 @@
+{
+  "contract": "prompt-execution-gates-v1",
+  "frozen_utc": "2026-09-24T11:03:44.277176+00:00",
+  "global_roster_freeze": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster-freeze.json",
+    "sha256": "3920fe3754d604b5360700d846ab2d05921ed6e59861ef3a4031ac7de29c2e77"
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "prompt_bundle": {
+    "file": "prompts/variants-v1/manifest.json",
+    "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+  },
+  "roster": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster.json",
+    "sha256": "df348da8bcc6586a47db2404ca7e21ca839b31cf9f742c1f1722e380aa95d759"
+  },
+  "source_inventory": {
+    "file": "results/prompt-comparison-v1-2026-09-24/baseline-inventory.json",
+    "sha256": "5932767a3578af3666e7681ebd05280ebddca057d13d86408b8cdf13b2bf703c"
+  },
+  "schedule": {
+    "file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+    "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+  },
+  "execution_journal": "results/prompt-comparison-v1-2026-09-24/execution-journal.jsonl",
+  "manifest_scope": [
+    "codex-gpt-5.6-sol-low"
+  ],
+  "configurations": [
+    {
+      "id": "codex-gpt-5.6-sol-low",
+      "parent_baseline_id": "codex-gpt-5.6-sol-low",
+      "role": "cli_combined_prompt",
+      "baseline_instruction": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/codex-gpt-5.6-sol-low/P0-instruction.txt",
+        "sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1"
+      },
+      "parent_baseline": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/codex-gpt-5.6-sol-low/parent.json",
+        "sha256": "82a01bdd1bb880cc061c3f1ef66fcc565e8854f670d6ec24ce4fc4e5b2d7113f"
+      },
+      "controls": {
+        "model": "gpt-5.6-sol",
+        "model_revision": null,
+        "quantization": null,
+        "runtime": "codex-cli 0.155.0-alpha.16",
+        "hardware": {
+          "provider": null,
+          "client": null,
+          "limitation": "Historical subscription batch controller did not record hardware"
+        },
+        "effort": "low",
+        "sampling": {
+          "temperature": null,
+          "seed": null,
+          "source": "unchanged subscription defaults; values not exposed"
+        },
+        "output_method": "CLI structured batch schema",
+        "parsing": "strict JSON batch; no repair",
+        "retry_policy": "Stop on first non-ok batch; no automatic controller retries. Preserve historical explicit retries.",
+        "context_tokens": 258400,
+        "output_reserve_tokens": null,
+        "adapter_controls": {
+          "workflow": "codex-subscription-batch",
+          "requested_model": "gpt-5.6-sol",
+          "effort": "low",
+          "cli_version": "codex-cli 0.155.0-alpha.16",
+          "configured_batch_size": 10,
+          "controller_timeout_seconds": 600.0,
+          "auth_mode": "ChatGPT",
+          "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+          "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+        },
+        "output_reserve_source": "unexposed_cli_default_unchanged"
+      },
+      "controls_sha256": "76affd5e86fe4ac6f405af2cf5dbab930760d30b19a85f269035e234b7dcf5fe",
+      "controller": {
+        "file": "scripts/codex_batch_benchmark.py",
+        "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+      },
+      "controller_timeout_seconds": 600.0,
+      "batch_membership": [
+        [
+          "DEV-001",
+          "DEV-002",
+          "DEV-003",
+          "DEV-004",
+          "DEV-005",
+          "DEV-006",
+          "DEV-007",
+          "DEV-008",
+          "DEV-009",
+          "DEV-010"
+        ],
+        [
+          "DEV-011",
+          "DEV-012",
+          "DEV-013",
+          "DEV-014",
+          "DEV-015",
+          "DEV-016",
+          "DEV-017",
+          "DEV-018",
+          "DEV-019",
+          "DEV-020"
+        ],
+        [
+          "DEV-021",
+          "DEV-022",
+          "DEV-023",
+          "DEV-024",
+          "DEV-025",
+          "DEV-026",
+          "DEV-027",
+          "DEV-028",
+          "DEV-029",
+          "DEV-030"
+        ],
+        [
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040"
+        ],
+        [
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050"
+        ],
+        [
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ]
+      ],
+      "conditions": {
+        "P1": {
+          "instruction": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/codex-gpt-5.6-sol-low/P1-instruction.txt",
+            "sha256": "b644ee2e24a674331ccc8974600d60a616b13b7d3ff60ffd696288eed3337ae5"
+          },
+          "observational_evidence": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/codex-gpt-5.6-sol-low/P1-observational-evidence.json",
+            "sha256": "a4ec79646707ba2932aaf717648121b460740fe46d0c720f2637a09d3181e58a"
+          }
+        },
+        "P2": {
+          "instruction": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/codex-gpt-5.6-sol-low/P2-instruction.txt",
+            "sha256": "a535db209be32c7a6904bade0efd38bfee2dd96de6001710ef508c9649f2fb7a"
+          },
+          "observational_evidence": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/codex-gpt-5.6-sol-low/P2-observational-evidence.json",
+            "sha256": "ebb2dc87565a97a8638eaf2b92b02c6440dc48dac6467eb64d377942ae62c790"
+          }
+        }
+      }
+    }
+  ]
+}

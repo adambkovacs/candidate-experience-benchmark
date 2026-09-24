@@ -12,6 +12,7 @@ an entire journal: this is an execution record, not a signed trust boundary.
 import fcntl
 import json
 import os
+import time
 import uuid
 from contextlib import contextmanager
 from datetime import datetime,timezone
@@ -90,8 +91,15 @@ def _append(handle,events,event):
 def _locked(journal):
     path=Path(journal);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('a+b') as handle:
-        try:fcntl.flock(handle.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
-        except BlockingIOError:raise RuntimeError('Schedule journal is locked by another operation') from None
+        deadline=time.monotonic()+2.0
+        while True:
+            try:
+                fcntl.flock(handle.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
+                break
+            except BlockingIOError:
+                if time.monotonic()>=deadline:
+                    raise RuntimeError('Schedule journal is locked by another operation') from None
+                time.sleep(.025)
         try:
             handle.seek(0);raw=handle.read()
             if raw and not raw.endswith(b'\n'):raise ValueError('Incomplete journal tail; manual reconciliation required')

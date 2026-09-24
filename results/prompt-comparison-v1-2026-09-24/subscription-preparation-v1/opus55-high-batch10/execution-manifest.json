@@ -1,0 +1,186 @@
+{
+  "contract": "prompt-execution-gates-v1",
+  "frozen_utc": "2026-09-24T11:03:44.613936+00:00",
+  "global_roster_freeze": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster-freeze.json",
+    "sha256": "3920fe3754d604b5360700d846ab2d05921ed6e59861ef3a4031ac7de29c2e77"
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "prompt_bundle": {
+    "file": "prompts/variants-v1/manifest.json",
+    "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+  },
+  "roster": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster.json",
+    "sha256": "df348da8bcc6586a47db2404ca7e21ca839b31cf9f742c1f1722e380aa95d759"
+  },
+  "source_inventory": {
+    "file": "results/prompt-comparison-v1-2026-09-24/baseline-inventory.json",
+    "sha256": "5932767a3578af3666e7681ebd05280ebddca057d13d86408b8cdf13b2bf703c"
+  },
+  "schedule": {
+    "file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+    "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+  },
+  "execution_journal": "results/prompt-comparison-v1-2026-09-24/execution-journal.jsonl",
+  "manifest_scope": [
+    "opus55-high-batch10"
+  ],
+  "configurations": [
+    {
+      "id": "opus55-high-batch10",
+      "parent_baseline_id": "opus55-high-batch10",
+      "role": "system",
+      "baseline_instruction": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/P0-instruction.txt",
+        "sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34"
+      },
+      "parent_baseline": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/parent.json",
+        "sha256": "9cfc588439ec5786a79aefb511f10813cc7bc35774eaff3b22febdc193dd203a"
+      },
+      "controls": {
+        "model": "claude-opus-5-5",
+        "model_revision": null,
+        "quantization": null,
+        "runtime": "2.1.280 (Claude Code)",
+        "hardware": {
+          "provider": null,
+          "client": null,
+          "limitation": "Historical subscription batch controller did not record hardware"
+        },
+        "effort": "high",
+        "sampling": {
+          "temperature": null,
+          "seed": null,
+          "source": "unchanged subscription defaults; values not exposed"
+        },
+        "output_method": "CLI structured batch schema",
+        "parsing": "strict JSON batch; no repair",
+        "retry_policy": "Stop on first non-ok batch; no automatic controller retries. Preserve historical explicit retries.",
+        "context_tokens": 200000,
+        "output_reserve_tokens": 128000,
+        "adapter_controls": {
+          "workflow": "batch10",
+          "requested_model": "claude-opus-5-5",
+          "effort": "high",
+          "cli_version": "2.1.280 (Claude Code)",
+          "auth_method": "claude.ai",
+          "extra_usage_disabled_operator_verified": true,
+          "controller_retries": 0,
+          "cli_internal_retries": "not exposed"
+        },
+        "output_reserve_source": "saved native modelUsage.maxOutputTokens; unchanged CLI default ceiling"
+      },
+      "controls_sha256": "24324ad1f2f30a87dee6bdd19a30e75efceb7f02aa4e6c5eee1c263fb2bf7e91",
+      "controller": {
+        "file": "scripts/claude_batch_benchmark.py",
+        "sha256": "95be0e340a460f7c0d4d0a3fbf3f6b3fc150046056678ee71add9733a97187ea"
+      },
+      "controller_timeout_seconds": 600,
+      "batch_membership": [
+        [
+          "DEV-001",
+          "DEV-002",
+          "DEV-003",
+          "DEV-004",
+          "DEV-005",
+          "DEV-006",
+          "DEV-007",
+          "DEV-008",
+          "DEV-009",
+          "DEV-010"
+        ],
+        [
+          "DEV-011",
+          "DEV-012",
+          "DEV-013",
+          "DEV-014",
+          "DEV-015",
+          "DEV-016",
+          "DEV-017",
+          "DEV-018",
+          "DEV-019",
+          "DEV-020"
+        ],
+        [
+          "DEV-021",
+          "DEV-022",
+          "DEV-023",
+          "DEV-024",
+          "DEV-025",
+          "DEV-026",
+          "DEV-027",
+          "DEV-028",
+          "DEV-029",
+          "DEV-030"
+        ],
+        [
+          "DEV-031",
+          "DEV-032",
+          "DEV-033",
+          "DEV-034",
+          "DEV-035",
+          "DEV-036",
+          "DEV-037",
+          "DEV-038",
+          "DEV-039",
+          "DEV-040"
+        ],
+        [
+          "DEV-041",
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050"
+        ],
+        [
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ]
+      ],
+      "conditions": {
+        "P1": {
+          "instruction": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/P1-instruction.txt",
+            "sha256": "e8293f1470d3527ced013c5dc6a8b4ccdd57c44741d96ec7aa79bee5d5279a2c"
+          },
+          "observational_evidence": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/P1-observational-evidence.json",
+            "sha256": "676f16c84174001d8d41271eb57abe08a1f60a37cd5c2c745e8b9893a85b359f"
+          }
+        },
+        "P2": {
+          "instruction": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/P2-instruction.txt",
+            "sha256": "2ad4fc937aa254e29aa781f832f67e79a2ddec236c478af67b3359a717b44dde"
+          },
+          "observational_evidence": {
+            "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/P2-observational-evidence.json",
+            "sha256": "5e2abf5c097e428ef0d1e850072a3f439f2153337bfb439af0fcf1b3cd412096"
+          }
+        }
+      }
+    }
+  ]
+}

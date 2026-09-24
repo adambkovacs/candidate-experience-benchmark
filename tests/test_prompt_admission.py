@@ -78,4 +78,8 @@ class AdmissionTests(unittest.TestCase):
    del m['manifest_scope']
    with self.assertRaises(ValueError):a.admit_smoke(m,root,'config1','P2')
 
+ def test_historical_openrouter_transport_usage_remains_unknown(self):
+  for row in ({'status':'service_error'},{'status':'service_error','raw_response':None},{'status':'service_error','raw_response':{'error':{'code':429}}}):
+   self.assertEqual(a._usage(row,'openrouter_paid_v1'),{'input_tokens':None,'output_tokens':None})
+
 if __name__=='__main__':unittest.main()
