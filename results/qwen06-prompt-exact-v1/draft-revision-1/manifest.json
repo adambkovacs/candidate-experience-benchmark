@@ -1,0 +1,358 @@
+{
+  "version": "qwen06-prompt-exact-v1",
+  "status": "draft_for_root_review",
+  "created_utc": "2026-09-24T17:02:15.223855+00:00",
+  "purpose": "Separate four-condition P1/P2 continuation on the exact saved Qwen3-0.6B Q4_K_M local artifact; P0 remains untouched.",
+  "conditions": [
+    "thinking-on-P1",
+    "thinking-on-P2",
+    "thinking-off-P1",
+    "thinking-off-P2"
+  ],
+  "record_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003",
+    "DEV-004",
+    "DEV-005",
+    "DEV-006",
+    "DEV-007",
+    "DEV-008",
+    "DEV-009",
+    "DEV-010",
+    "DEV-011",
+    "DEV-012",
+    "DEV-013",
+    "DEV-014",
+    "DEV-015",
+    "DEV-016",
+    "DEV-017",
+    "DEV-018",
+    "DEV-019",
+    "DEV-020",
+    "DEV-021",
+    "DEV-022",
+    "DEV-023",
+    "DEV-024",
+    "DEV-025",
+    "DEV-026",
+    "DEV-027",
+    "DEV-028",
+    "DEV-029",
+    "DEV-030",
+    "DEV-031",
+    "DEV-032",
+    "DEV-033",
+    "DEV-034",
+    "DEV-035",
+    "DEV-036",
+    "DEV-037",
+    "DEV-038",
+    "DEV-039",
+    "DEV-040",
+    "DEV-041",
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "smoke_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "request_batch_size": 1,
+  "retries": 0,
+  "invalid_output_policy": "preserve and continue",
+  "control_or_service_failure_policy": "stop",
+  "model": {
+    "identifier": "recruitment-qwen3-0.6b-q4km",
+    "path": "lmstudio-community/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_K_M.gguf",
+    "artifact_sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+    "artifact_revision": "3334d820ab76652cf6e242d7c6302b10f0951f23",
+    "quantization": "Q4_K_M",
+    "context": 8192,
+    "output_reserve": 4096,
+    "parallel": 1
+  },
+  "runtime": {
+    "sdk_path": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/lmstudio-sdk/node_modules/@lmstudio/sdk/dist/index.cjs",
+    "sdk_sha256": "9657d3c5f4e1e17316b810b8d0a99c93bf1bef75706390552d167db06913957c",
+    "sdk_version": "1.5.0",
+    "cli_commit": "efce996",
+    "cli_sha256": "8c5e3c497cf0705c7229d4b43c275a6622ea0d492156c7e499d9ffdd09399291",
+    "app_info_plist": "/Applications/LM Studio.app/Contents/Info.plist",
+    "app_info_plist_sha256": "9eb7fb32dfdabc59e1bc39ab9dc7ecfafe62a35651ea8c7de60fd0714d2ae6bd",
+    "lm_studio_version": "0.4.16+2",
+    "selected_engine": "llama.cpp-mac-arm64-apple-metal-advsimd@2.22.0",
+    "models_dir": "/Users/adamkovacs/.lmstudio/models"
+  },
+  "render_file": "results/qwen06-sdk-token-preflight-2026-09-24/rendered-prompts.json",
+  "counts_file": "results/qwen06-sdk-token-preflight-2026-09-24/counts.json",
+  "count_evidence": "results/qwen06-sdk-token-preflight-2026-09-24/evidence.json",
+  "hosted_route_evidence": "results/qwen06-hosted-route-check-2026-09-24/evidence.json",
+  "baseline_files": {
+    "qwen3-0.6b-sdk-thinking-on": "results/qwen3-0.6b-sdk-thinking-2026-09-21/development.jsonl",
+    "qwen3-0.6b-sdk-thinking-off": "results/qwen3-0.6b-sdk-nonthinking-2026-09-21/development.jsonl"
+  },
+  "prediction_configs": {
+    "qwen3-0.6b-sdk-thinking-on": {
+      "temperature": 0.6,
+      "maxTokens": 4096,
+      "contextOverflowPolicy": "stopAtLimit",
+      "promptTemplate": {
+        "type": "jinja",
+        "jinjaPromptTemplate": {
+          "template": "{%- set enable_thinking = true %}\n{# LM Studio chat template override #}\n{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = '' %}\n    {%- endif %}\n    \n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    \n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        \n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        \n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    \n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}"
+        },
+        "stopStrings": []
+      },
+      "reasoningParsing": {
+        "enabled": true,
+        "startString": "<think>",
+        "endString": "</think>"
+      },
+      "topKSampling": 20,
+      "topPSampling": 0.95,
+      "minPSampling": false
+    },
+    "qwen3-0.6b-sdk-thinking-off": {
+      "temperature": 0.6,
+      "maxTokens": 4096,
+      "contextOverflowPolicy": "stopAtLimit",
+      "promptTemplate": {
+        "type": "jinja",
+        "jinjaPromptTemplate": {
+          "template": "{%- set enable_thinking = false %}\n{# LM Studio chat template override #}\n{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = '' %}\n    {%- endif %}\n    \n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    \n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        \n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        \n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    \n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}"
+        },
+        "stopStrings": []
+      },
+      "reasoningParsing": {
+        "enabled": true,
+        "startString": "<think>",
+        "endString": "</think>"
+      },
+      "topKSampling": 20,
+      "topPSampling": 0.95,
+      "minPSampling": false
+    }
+  },
+  "observed_prediction_configs": {
+    "qwen3-0.6b-sdk-thinking-on": {
+      "fields": [
+        {
+          "key": "llm.prediction.promptTemplate",
+          "value": {
+            "type": "jinja",
+            "jinjaPromptTemplate": {
+              "template": "{%- set enable_thinking = true %}\n{# LM Studio chat template override #}\n{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = '' %}\n    {%- endif %}\n    \n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    \n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        \n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        \n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    \n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}"
+            },
+            "stopStrings": []
+          }
+        },
+        {
+          "key": "llm.prediction.llama.cpuThreads",
+          "value": 12
+        },
+        {
+          "key": "llm.prediction.temperature",
+          "value": 0.6
+        },
+        {
+          "key": "llm.prediction.contextOverflowPolicy",
+          "value": "stopAtLimit"
+        },
+        {
+          "key": "llm.prediction.maxPredictedTokens",
+          "value": {
+            "checked": true,
+            "value": 4096
+          }
+        },
+        {
+          "key": "llm.prediction.topKSampling",
+          "value": 20
+        },
+        {
+          "key": "llm.prediction.minPSampling",
+          "value": {
+            "checked": false,
+            "value": 0.05
+          }
+        },
+        {
+          "key": "llm.prediction.topPSampling",
+          "value": {
+            "checked": true,
+            "value": 0.95
+          }
+        },
+        {
+          "key": "llm.prediction.reasoning.parsing",
+          "value": {
+            "enabled": true,
+            "startString": "<think>",
+            "endString": "</think>"
+          }
+        },
+        {
+          "key": "llm.prediction.tools",
+          "value": {
+            "type": "none"
+          }
+        }
+      ]
+    },
+    "qwen3-0.6b-sdk-thinking-off": {
+      "fields": [
+        {
+          "key": "llm.prediction.promptTemplate",
+          "value": {
+            "type": "jinja",
+            "jinjaPromptTemplate": {
+              "template": "{%- set enable_thinking = false %}\n{# LM Studio chat template override #}\n{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = '' %}\n    {%- endif %}\n    \n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    \n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        \n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        \n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    \n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}"
+            },
+            "stopStrings": []
+          }
+        },
+        {
+          "key": "llm.prediction.llama.cpuThreads",
+          "value": 12
+        },
+        {
+          "key": "llm.prediction.temperature",
+          "value": 0.6
+        },
+        {
+          "key": "llm.prediction.contextOverflowPolicy",
+          "value": "stopAtLimit"
+        },
+        {
+          "key": "llm.prediction.maxPredictedTokens",
+          "value": {
+            "checked": true,
+            "value": 4096
+          }
+        },
+        {
+          "key": "llm.prediction.topKSampling",
+          "value": 20
+        },
+        {
+          "key": "llm.prediction.minPSampling",
+          "value": {
+            "checked": false,
+            "value": 0.05
+          }
+        },
+        {
+          "key": "llm.prediction.topPSampling",
+          "value": {
+            "checked": true,
+            "value": 0.95
+          }
+        },
+        {
+          "key": "llm.prediction.reasoning.parsing",
+          "value": {
+            "enabled": true,
+            "startString": "<think>",
+            "endString": "</think>"
+          }
+        },
+        {
+          "key": "llm.prediction.tools",
+          "value": {
+            "type": "none"
+          }
+        }
+      ]
+    }
+  },
+  "observed_load_config": {
+    "fields": [
+      {
+        "key": "llm.load.llama.cpuThreadPoolSize",
+        "value": 12
+      },
+      {
+        "key": "llm.load.contextLength",
+        "value": 8192
+      },
+      {
+        "key": "llm.load.llama.flashAttention",
+        "value": true
+      },
+      {
+        "key": "llm.load.llama.tryDirectIO",
+        "value": false
+      },
+      {
+        "key": "llm.load.llama.acceleration.offloadRatio",
+        "value": 1
+      },
+      {
+        "key": "load.gpuSplitConfig",
+        "value": {
+          "strategy": "evenly",
+          "disabledGpus": [],
+          "priority": [],
+          "customRatio": []
+        }
+      },
+      {
+        "key": "llm.load.numParallelSessions",
+        "value": 1
+      }
+    ]
+  },
+  "source_sha256": {
+    "results/qwen06-sdk-token-preflight-2026-09-24/rendered-prompts.json": "03cdc14acc0947691649f48db8ec655961707c601e4632767e4721ec02741da5",
+    "results/qwen06-sdk-token-preflight-2026-09-24/counts.json": "c36419ec05b9db3ff1aecedd7237bae94d9596b6ebf0db92c7714578a49308f0",
+    "results/qwen06-sdk-token-preflight-2026-09-24/evidence.json": "4b6190d9f34c8f7f17dc6248bd0429077387a57061d8010b1841746e971afe4b",
+    "results/qwen06-sdk-token-preflight-2026-09-24/baseline-stats-audit.json": "9a1f6ad31af7ecd289607a2b0cb00e21920d2c80ab14cda758341b88a5b79966",
+    "results/qwen06-sdk-token-preflight-2026-09-24/copy-map.json": "2f5ebea3a1e1169f0d915b9c7e57ac858712379a91af2a68006aa7a92fbcc1bc",
+    "results/qwen06-hosted-route-check-2026-09-24/evidence.json": "752cf895c539be2f4919874feae6ee11bd25e07a84254c78911b381f9237f70c",
+    "results/qwen06-hosted-route-check-2026-09-24/endpoint-response.json": "126bff2b05da8699dd23a7e74ac618d080ac3560e2fa31cdc185474085d4d74f",
+    "results/qwen3-0.6b-sdk-thinking-2026-09-21/development.jsonl": "bddb791db2755571c6bf8a9993afc41121f1ba3237d3ff8e29d7d9d13235ac0e",
+    "results/qwen3-0.6b-sdk-nonthinking-2026-09-21/development.jsonl": "09c1aeb4b42eab4f2e4ead55067dd17eae8136010a4cb977630564dfe422dd9b",
+    "results/qwen3-0.6b-sdk-thinking-2026-09-21/manifest.json": "8c6e9e88c4da4f156f130fe41ee313e80072897e0743be927cb4ad3525195201",
+    "results/qwen3-0.6b-sdk-nonthinking-2026-09-21/manifest.json": "735182e30a3ac37b7ebd11e6a267c0d4372132e6570f9ab8f978e346881a8985",
+    "results/qwen3-0.6b-q4_k_m-2026-09-21/manifest.json": "cf984b4aadacfece336d20deae828134b90db8eb64c84956c4746aa169df2969",
+    "results/qwen3-0.6b-q4_k_m-2026-09-21/gguf-metadata.json": "4fcc420e529d94ff54daea6fc186a772b20353d49fa493f36a1fa880b326018a",
+    "prompts/variants-v1/manifest.json": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+    "prompts/variants-v1/P1-classifier.txt": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7",
+    "prompts/variants-v1/P2-classifier-sop.txt": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9",
+    "docs/LABELING_GUIDE.md": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925",
+    "schemas/judgments.schema.json": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067",
+    "data/pilot/inputs.jsonl": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+    "scripts/frozen_prompt_variants.cjs": "7c751854bf901c8ad9d7466e0056c95f5074d6e24782478efe36833d9f026da6",
+    "scripts/lmstudio_reasoning_benchmark.cjs": "aca306ec8866f07f90835d6ab39cf88d1d217d2858bc756925ea69466dd403d7",
+    "tests/test_qwen06_prompt_execution.cjs": "eacc4e61c1a523442264dde97d88a6256f4d8395b7ced6d7061c30cc751fc623"
+  },
+  "controller_sha256": "06ad2b0de330f13597455df19ac3384e70306dcc5ab1694617c7821bf5007344",
+  "reference_labels_read": false,
+  "inference_performed": false,
+  "limitations": [
+    "Offline render and public tokenizer verify counts, not token sequence; actual runtime use of prediction template is checked by returned config and prompt count in smoke.",
+    "Fresh local run retains its own timing and possible LM Studio runtime/cache differences from P0.",
+    "OpenRouter catalog page exists but its endpoint GET returned zero providers at the bound check time."
+  ],
+  "draft_revision": 1,
+  "draft_revision_note": "Pre-review smoke journal acceptance gate and regression test added; draft 0 archived unchanged."
+}
