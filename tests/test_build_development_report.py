@@ -4,7 +4,7 @@ import sys
 import tempfile
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from build_development_report import load_timing_attempts, reject_smoke_artifact, validate_development_dataset, batch_timing
+from build_development_report import load_timing_attempts, reject_smoke_artifact, validate_development_dataset, validate_full60_predictions, batch_timing
 from development_benchmark import KEYS
 
 
@@ -50,6 +50,20 @@ class TimingProvenanceTests(unittest.TestCase):
     def test_smoke_filename_rejected(self):
         with self.assertRaisesRegex(ValueError, 'Smoke'):
             self.load([self.write('smoke-verified.jsonl')])
+
+    def test_full60_attempt_alias_accepted_only_when_declared(self):
+        name = self.write('full60.jsonl', {**self.row, 'phase': 'full60'})
+        rows = load_timing_attempts({'predictions_file': name, 'attempt_files': [name],
+            'attempt_phase': 'full60'}, {'DEV-001'}, self.root)
+        self.assertEqual(len(rows), 1)
+        with self.assertRaisesRegex(ValueError, 'phase'):
+            self.load([name])
+
+    def test_smoke3_attempt_rejected_under_full60_alias(self):
+        name = self.write('attempt.jsonl', {**self.row, 'phase': 'smoke3'})
+        with self.assertRaisesRegex(ValueError, 'phase'):
+            load_timing_attempts({'predictions_file': name, 'attempt_files': [name],
+                'attempt_phase': 'full60'}, {'DEV-001'}, self.root)
 
     def test_smoke_row_rejected(self):
         with self.assertRaisesRegex(ValueError, 'phase'):
@@ -122,6 +136,20 @@ class ReportDatasetTests(unittest.TestCase):
     def test_smoke_prediction_row_rejected(self):
         with self.assertRaisesRegex(ValueError, 'phase'):
             reject_smoke_artifact('development.jsonl', [{'id': 'DEV-001', 'phase': 'smoke'}])
+
+    def test_full60_predictions_need_canonical_order(self):
+        rows = [{'id': f'DEV-{i:03}', 'phase': 'full60'} for i in range(1, 61)]
+        ids = [r['id'] for r in rows]
+        reject_smoke_artifact('results/full60.jsonl', rows)
+        validate_full60_predictions({'attempt_phase': 'full60'}, rows, ids)
+        with self.assertRaisesRegex(ValueError, 'exact ordered 60 IDs'):
+            validate_full60_predictions({'attempt_phase': 'full60'}, list(reversed(rows)), ids)
+        with self.assertRaisesRegex(ValueError, 'exact ordered 60 IDs'):
+            validate_full60_predictions({'attempt_phase': 'full60'}, rows[:59], ids)
+
+    def test_smoke3_prediction_row_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'phase'):
+            reject_smoke_artifact('development.jsonl', [{'id': 'DEV-001', 'phase': 'smoke3'}])
 
     def test_development_prediction_rows_accepted(self):
         reject_smoke_artifact('development.jsonl', [{'id': 'DEV-001'}])

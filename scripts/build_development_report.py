@@ -10,6 +10,8 @@ import statistics
 from pathlib import Path
 from development_benchmark import ROOT, KEYS, read_rows, score, valid
 
+DEVELOPMENT_PHASES = frozenset(('development', 'full60'))
+
 
 
 def validate_development_dataset(inputs, refs):
@@ -26,8 +28,13 @@ def validate_development_dataset(inputs, refs):
 def reject_smoke_artifact(name, rows):
     if any('smoke' in part.lower() for part in Path(name).parts):
         raise ValueError('Smoke artifact cannot supply development predictions or timing: ' + str(name))
-    if any(row.get('phase', 'development') != 'development' for row in rows):
-        raise ValueError('Artifact row phase must be development: ' + str(name))
+    if any(row.get('phase', 'development') not in DEVELOPMENT_PHASES for row in rows):
+        raise ValueError('Artifact row phase must be development or full60: ' + str(name))
+
+
+def validate_full60_predictions(config, predictions, canonical_ids):
+    if config.get('attempt_phase') == 'full60' and [row.get('id') for row in predictions] != canonical_ids:
+        raise ValueError('full60 development source requires exact ordered 60 IDs')
 
 
 def load_timing_attempts(config, known_ids, root=ROOT):
@@ -37,8 +44,9 @@ def load_timing_attempts(config, known_ids, root=ROOT):
     must retain its own start timestamp (or provider request/attempt identifier).
     Timestamp-free deterministic baselines remain valid.
     """
-    if config.get('attempt_phase') != 'development':
-        raise ValueError('Registry attempt_phase must explicitly equal development')
+    phase = config.get('attempt_phase')
+    if phase not in DEVELOPMENT_PHASES:
+        raise ValueError('Registry attempt_phase must explicitly equal development or full60')
     paths = config.get('attempt_files', [config['predictions_file']])
     if not isinstance(paths, list) or not paths:
         raise ValueError('attempt_files must be a nonempty list')
@@ -59,8 +67,8 @@ def load_timing_attempts(config, known_ids, root=ROOT):
             record_id = row.get('id')
             if record_id not in known_ids:
                 raise ValueError('Unknown development record ID: ' + str(record_id))
-            if row.get('phase', 'development') != 'development':
-                raise ValueError('Attempt row phase must be development: ' + str(name))
+            if row.get('phase', 'development') != phase:
+                raise ValueError('Attempt row phase differs from declared development phase: ' + str(name))
             elapsed = row.get('elapsed_seconds')
             if elapsed is not None and (isinstance(elapsed, bool) or
                     not isinstance(elapsed, (int, float)) or not math.isfinite(elapsed) or elapsed < 0):
@@ -206,6 +214,7 @@ def build(registries, output):
                 continue
             predictions = read_rows(ROOT/path)
             reject_smoke_artifact(path, predictions)
+            validate_full60_predictions(config, predictions, [row['id'] for row in input_rows])
             evaluation = score(refs, predictions, pairs)
             index = {r['id']: r for r in predictions}
             attempts = load_timing_attempts(config, set(inputs))
@@ -221,7 +230,7 @@ def build(registries, output):
                 attempt_records=len(attempts),
                 exact_match=sum(r.get('status')=='ok' and r.get('prediction')==ref['proposed_labels']
                     for ref in refs for r in [index.get(ref['id'], {})]),
-                timing={'attempt_phase':'development', 'provenance_note':'Unique development attempts only; smoke and duplicate evidence rejected.', 'timed_records':len(totals), 'sum_record_seconds':sum(totals),
+                timing={'attempt_phase':config.get('attempt_phase'), 'provenance_note':'Unique development attempts only; smoke and duplicate evidence rejected.', 'timed_records':len(totals), 'sum_record_seconds':sum(totals),
                     'median_seconds':statistics.median(totals) if totals else None,
                     'p95_nearest_rank_seconds':totals[math.ceil(.95*len(totals))-1] if totals else None,
                     'note':'Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.'})

@@ -36,27 +36,6 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | mistral-small32-24b-not-applicable | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | mistral-small4-119b-none | replaced_by_hosted_user_request | — | — | — | — | — | — |
 | mistral-small4-119b-high | replaced_by_hosted_user_request | — | — | — | — | — | — |
-| sonnet5-low-first-pass | completed_with_service_failure | 59 | 59 | 58 | 58 | 56 | 54 |
-| sonnet5-low-with-retry | completed | 60 | 59 | 59 | 59 | 57 | 54 |
-| opus5-low | completed | 60 | 59 | 60 | 59 | 57 | 55 |
-| haiku45-not_applicable | completed | 60 | 56 | 60 | 58 | 59 | 53 |
-| sonnet5-medium | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| sonnet5-high | completed | 60 | 59 | 60 | 58 | 60 | 57 |
-| sonnet5-xhigh | completed | 60 | 58 | 60 | 59 | 60 | 57 |
-| sonnet5-max | completed | 60 | 59 | 60 | 60 | 60 | 59 |
-| opus5-medium | completed | 60 | 58 | 60 | 59 | 60 | 57 |
-| opus5-high | completed | 60 | 59 | 60 | 59 | 60 | 58 |
-| opus5-xhigh | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| opus5-max | completed | 60 | 59 | 60 | 60 | 59 | 58 |
-| fable51-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| fable51-medium | completed | 60 | 59 | 59 | 59 | 59 | 57 |
-| fable51-high | completed | 60 | 59 | 60 | 59 | 59 | 57 |
-| fable51-xhigh | completed | 60 | 59 | 60 | 59 | 60 | 58 |
-| fable51-max | completed | 60 | 59 | 60 | 59 | 60 | 58 |
-| opus55-low-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
-| opus55-medium-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
-| opus55-high-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
-| opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
 | typesafe-jev113-v2 | complete | 60 | 56 | 58 | 57 | 58 | 54 |
 | openjev-fixed | complete | 60 | 57 | 59 | 56 | 58 | 52 |
 | openjev-adaptive | complete | 60 | 56 | 59 | 56 | 58 | 51 |
@@ -87,6 +66,68 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
 | anyjev-qwen06-l2 | complete | 60 | 33 | 43 | 36 | 47 | 13 |
 | anyjev-qwen06-generated-control | complete | 0 | 0 | 0 | 0 | 0 | 0 |
+| sonnet5-low-first-pass | completed_with_service_failure | 59 | 59 | 58 | 58 | 56 | 54 |
+| sonnet5-low-with-retry | completed | 60 | 59 | 59 | 59 | 57 | 54 |
+| opus5-low | completed | 60 | 59 | 60 | 59 | 57 | 55 |
+| haiku45-not_applicable | completed | 60 | 56 | 60 | 58 | 59 | 53 |
+| sonnet5-medium | completed | 60 | 59 | 59 | 59 | 60 | 58 |
+| sonnet5-high | completed | 60 | 59 | 60 | 58 | 60 | 57 |
+| sonnet5-xhigh | completed | 60 | 58 | 60 | 59 | 60 | 57 |
+| sonnet5-max | completed | 60 | 59 | 60 | 60 | 60 | 59 |
+| opus5-medium | completed | 60 | 58 | 60 | 59 | 60 | 57 |
+| opus5-high | completed | 60 | 59 | 60 | 59 | 60 | 58 |
+| opus5-xhigh | completed | 60 | 59 | 59 | 59 | 60 | 58 |
+| opus5-max | completed | 60 | 59 | 60 | 60 | 59 | 58 |
+| fable51-low | completed | 60 | 59 | 59 | 59 | 60 | 58 |
+| fable51-medium | completed | 60 | 59 | 59 | 59 | 59 | 57 |
+| fable51-high | completed | 60 | 59 | 60 | 59 | 59 | 57 |
+| fable51-xhigh | completed | 60 | 59 | 60 | 59 | 60 | 58 |
+| fable51-max | completed | 60 | 59 | 60 | 59 | 60 | 58 |
+| opus55-low-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
+| opus55-medium-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
+| opus55-high-batch10 | completed | 60 | 60 | 59 | 59 | 60 | 59 |
+| opus55-xhigh-batch10 | completed | 60 | 59 | 59 | 59 | 60 | 58 |
+| openrouter-paid-qwen3.8-27b-medium | complete_with_service_failure | 59 | 58 | 59 | 58 | 58 | 56 |
+| openrouter-paid-qwen3.8-27b-xhigh | complete_with_output_failure | 59 | 59 | 59 | 56 | 59 | 56 |
+| openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
+| openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
+| openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
+| openrouter-paid-gemma4-26b-a4b-on | complete_with_output_failure | 59 | 59 | 59 | 59 | 59 | 59 |
+| openrouter-paid-gemma4-26b-a4b-off | complete | 60 | 57 | 58 | 58 | 56 | 53 |
+| openrouter-paid-gemma4-31b-on | complete | 60 | 57 | 60 | 58 | 60 | 56 |
+| openrouter-paid-gemma4-31b-off | complete | 60 | 58 | 60 | 59 | 59 | 56 |
+| openrouter-paid-mistral-small32-24b-not-applicable | partial_upstream_rate_limit | — | — | — | — | — | — |
+| openrouter-paid-mistral-small4-119b-none | smoke_upstream_rate_limit | — | — | — | — | — | — |
+| openrouter-paid-mistral-small4-119b-high | smoke_upstream_rate_limit | — | — | — | — | — | — |
+| openrouter-paid-deepseek-v41-flash-off | complete | 60 | 57 | 59 | 59 | 56 | 54 |
+| openrouter-paid-deepseek-v41-flash-low | complete_with_output_failure | 57 | 57 | 57 | 57 | 57 | 57 |
+| openrouter-paid-deepseek-v41-flash-high | complete_with_output_failure | 56 | 54 | 56 | 56 | 56 | 54 |
+| openrouter-paid-mistral-small32-24b-venice-not-applicable | complete | 60 | 54 | 57 | 55 | 57 | 48 |
+| openrouter-qwen27-low-darkbloom-fp4 | complete | 60 | 59 | 60 | 60 | 60 | 59 |
+| openrouter-qwen3-8b-off-json-object-p0 | complete | 60 | 48 | 57 | 50 | 57 | 39 |
+| openrouter-qwen3-8b-on-json-object-p0 | complete_with_output_failure | 14 | 11 | 13 | 13 | 13 | 11 |
+| antigravity-gemini-3.8-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-low | blocked_unverified_tool_restriction | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.6-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
+| antigravity-gemini-3.1-pro-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 60 | 58 | 57 | 53 |
+| antigravity-gemini-3.1-pro-high-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 58 | 59 | 57 |
+| antigravity-gemini-3.6-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 59 | 59 | 57 |
+| antigravity-gemini-3.6-flash-medium-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 59 | 59 | 60 | 57 |
+| antigravity-gemini-3.6-flash-high-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
+| antigravity-gemini-3.7-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 58 | 58 | 59 | 56 |
+| antigravity-gemini-3.7-flash-medium-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 58 | 59 | 59 | 56 |
+| antigravity-gemini-3.7-flash-high-native-observed-batch10 | complete | 60 | 59 | 59 | 59 | 59 | 57 |
+| antigravity-gemini-3.8-flash-medium-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
+| antigravity-gemini-3.8-flash-high-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
 | codex-gpt-5.6-luna-medium | completed | 60 | 58 | 60 | 58 | 58 | 54 |
 | codex-gpt-5.6-luna-high | completed | 60 | 58 | 59 | 59 | 59 | 57 |
@@ -118,47 +159,6 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | codex-gpt-6-luna-medium-batch10 | complete | 60 | 55 | 59 | 58 | 57 | 50 |
 | codex-gpt-6-luna-high-batch10 | completed | 60 | 58 | 59 | 58 | 60 | 56 |
 | codex-gpt-6-luna-xhigh-batch10 | completed | 60 | 59 | 60 | 58 | 60 | 57 |
-| antigravity-gemini-3.8-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-low | blocked_unverified_tool_restriction | — | — | — | — | — | — |
-| antigravity-gemini-3.7-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.7-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.7-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.6-flash-high | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.6-flash-medium | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.6-flash-low | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.1-pro-high | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.1-pro-low | pending_shared_runtime_verification | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-low-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
-| antigravity-gemini-3.1-pro-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 60 | 58 | 57 | 53 |
-| antigravity-gemini-3.1-pro-high-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 58 | 59 | 57 |
-| antigravity-gemini-3.6-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 60 | 59 | 59 | 57 |
-| antigravity-gemini-3.6-flash-medium-native-observed-batch10 | completed_after_transport_recovery | 60 | 58 | 59 | 59 | 60 | 57 |
-| antigravity-gemini-3.6-flash-high-native-observed-batch10 | partial_service_error | — | — | — | — | — | — |
-| antigravity-gemini-3.7-flash-low-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 58 | 58 | 59 | 56 |
-| antigravity-gemini-3.7-flash-medium-native-observed-batch10 | completed_after_transport_recovery | 60 | 59 | 58 | 59 | 59 | 56 |
-| antigravity-gemini-3.7-flash-high-native-observed-batch10 | complete | 60 | 59 | 59 | 59 | 59 | 57 |
-| antigravity-gemini-3.8-flash-medium-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
-| antigravity-gemini-3.8-flash-high-native-observed-batch10 | partial_isolation_violation | — | — | — | — | — | — |
-| openrouter-paid-qwen3.8-27b-medium | complete_with_service_failure | 59 | 58 | 59 | 58 | 58 | 56 |
-| openrouter-paid-qwen3.8-27b-xhigh | complete_with_output_failure | 59 | 59 | 59 | 56 | 59 | 56 |
-| openrouter-paid-qwen3.8-27b-off | complete | 60 | 58 | 60 | 59 | 57 | 54 |
-| openrouter-paid-qwen36-35b-a3b-on | complete | 60 | 58 | 60 | 58 | 58 | 54 |
-| openrouter-paid-qwen36-35b-a3b-off | complete | 60 | 56 | 59 | 57 | 56 | 51 |
-| openrouter-paid-gemma4-26b-a4b-on | complete_with_output_failure | 59 | 59 | 59 | 59 | 59 | 59 |
-| openrouter-paid-gemma4-26b-a4b-off | complete | 60 | 57 | 58 | 58 | 56 | 53 |
-| openrouter-paid-gemma4-31b-on | complete | 60 | 57 | 60 | 58 | 60 | 56 |
-| openrouter-paid-gemma4-31b-off | complete | 60 | 58 | 60 | 59 | 59 | 56 |
-| openrouter-paid-mistral-small32-24b-not-applicable | partial_upstream_rate_limit | — | — | — | — | — | — |
-| openrouter-paid-mistral-small4-119b-none | smoke_upstream_rate_limit | — | — | — | — | — | — |
-| openrouter-paid-mistral-small4-119b-high | smoke_upstream_rate_limit | — | — | — | — | — | — |
-| openrouter-paid-deepseek-v41-flash-off | complete | 60 | 57 | 59 | 59 | 56 | 54 |
-| openrouter-paid-deepseek-v41-flash-low | complete_with_output_failure | 57 | 57 | 57 | 57 | 57 | 57 |
-| openrouter-paid-deepseek-v41-flash-high | complete_with_output_failure | 56 | 54 | 56 | 56 | 56 | 54 |
-| openrouter-paid-mistral-small32-24b-venice-not-applicable | complete | 60 | 54 | 57 | 55 | 57 | 48 |
-| openrouter-qwen27-low-darkbloom-fp4 | complete | 60 | 59 | 60 | 60 | 60 | 59 |
-| openrouter-qwen3-8b-off-json-object-p0 | smoke_upstream_rate_limit | — | — | — | — | — | — |
-| openrouter-qwen3-8b-on-json-object-p0 | smoke_upstream_rate_limit | — | — | — | — | — | — |
 
 Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
 
@@ -179,6 +179,8 @@ Development-attempt costs only. Unknown-cost reservations are bounds, not observ
 | openrouter-paid-deepseek-v41-flash-high | reported | 0.01852893 | 0 | `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl`; `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl` |
 | openrouter-paid-mistral-small32-24b-venice-not-applicable | reported | 0.00873028125 | 0 | `results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl` |
 | openrouter-qwen27-low-darkbloom-fp4 | reported | 0.0492372 | 0 | `results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl` |
+| openrouter-qwen3-8b-off-json-object-p0 | reported | 0.011857950 | 0 | `results/qwen8-hosted-full60-prep-v1/off-p0-full60-results.jsonl` |
+| openrouter-qwen3-8b-on-json-object-p0 | reported | 0.021098675 | 0 | `results/qwen8-hosted-full60-prep-v1/on-p0-full60-results.jsonl` |
 
 
 Timing includes process/runtime and transport overhead as applicable. Cached prompts, local power mode, and CLI wrappers differ. Do not interpret a cross-surface latency ranking as model-only speed.
@@ -324,132 +326,6 @@ September23 user requested reasonably priced OpenRouter routes instead of matchi
 **mistral-small4-119b-high**
 
 September23 user requested reasonably priced OpenRouter routes instead of matching local downloads. Hosted variants are separate in openrouter-paid-run-registry.json; no claim of equivalent local quantization/runtime. Existing local results and partial downloads preserved.
-
-**sonnet5-low-first-pass**
-
-59/60 valid; DEV030 timeout180s.
-
-Evidence: `results/claude-subscription-2026-09-21/sonnet5-first-pass.jsonl`; SHA-256 `1d4af9f59f82edf2f725e6d73884e34fd9f0b584783c28a3e56927a10414f58f`.
-
-**sonnet5-low-with-retry**
-
-60/60 valid; timing must include failed DEV030 attempt.
-
-Evidence: `results/claude-subscription-2026-09-21/sonnet5-with-retry.jsonl`; SHA-256 `4995f7066fd71dbc54b5099dea368ed72d9ec17107e79369256a3baf78ae5454`.
-
-**opus5-low**
-
-60/60 valid first pass.
-
-Evidence: `results/claude-subscription-2026-09-21/opus5-development.jsonl`; SHA-256 `2f394a4b2439ffde0f2dcdc7c8d8e25d31154108284fc4593c630cc0dbee1c31`.
-
-**haiku45-not_applicable**
-
-Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
-
-Evidence: `results/claude-subscription-2026-09-21/haiku45-not_applicable-development-session.jsonl`; SHA-256 `2793372cf0490069f63805f2102791355ee01c2384896d854fd502d7d4b05e93`.
-
-**sonnet5-medium**
-
-Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
-
-Evidence: `results/claude-subscription-2026-09-21/sonnet5-medium-development.jsonl`; SHA-256 `b16ad84ca3934c85213eb5db614256930fa7ddb767a35dd8703980e76d417ce2`.
-
-**sonnet5-high**
-
-Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
-
-Evidence: `results/claude-subscription-2026-09-21/sonnet5-high-development-session.jsonl`; SHA-256 `39d1640ef792fad3a4d55fa0fbb8a7cb5810d4ef36761e20ab05c0084d814d17`.
-
-**sonnet5-xhigh**
-
-Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
-
-Evidence: `results/claude-subscription-2026-09-21/sonnet5-xhigh-development.jsonl`; SHA-256 `42d86d86fe625a7779dc31efc1c1e941657f03e84360b8568a11f7f435fe95e3`.
-
-**sonnet5-max**
-
-Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
-
-Evidence: `results/claude-subscription-2026-09-21/sonnet5-max-development.jsonl`; SHA-256 `63c9c2d131d342ac20aab6a5b17c9d9125a67a48d85c459ab4aceb52f785cb1c`.
-
-**opus5-medium**
-
-Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
-
-Evidence: `results/claude-subscription-2026-09-21/opus5-medium-development.jsonl`; SHA-256 `f59ad04f5113cceee3a591b9f95e4127778b4457b2a0ab9fb25fa666b0c11151`.
-
-**opus5-high**
-
-Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
-
-Evidence: `results/claude-subscription-2026-09-21/opus5-high-development-session.jsonl`; SHA-256 `d9d53f0b7fba031fd064c914f52c0d91ab10426f508a1bd7596f05def39f044f`.
-
-**opus5-xhigh**
-
-Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
-
-Evidence: `results/claude-subscription-2026-09-21/opus5-xhigh-development.jsonl`; SHA-256 `2f9ce23e27c9f0f891285dd9c0c16cdf170af886bf00ad12188e511f89a6be7f`.
-
-**opus5-max**
-
-Smoke3 inspected12/12 judgments correct, exact model identity; parallel hosted execution.
-
-Evidence: `results/claude-subscription-2026-09-21/opus5-max-development.jsonl`; SHA-256 `5af375a01f2ecd7bbb0ed4d3be40c9c9c56ba769ae99aa7940cac43f06b8b94d`.
-
-**fable51-low**
-
-Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
-
-Evidence: `results/claude-subscription-2026-09-21/fable51-low-development-session.jsonl`; SHA-256 `c4c906701cdb91a1d7630e6412282119f7507e5bbc0cb9a2552d0b7b75a4af89`.
-
-**fable51-medium**
-
-Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
-
-Evidence: `results/claude-subscription-2026-09-21/fable51-medium-development.jsonl`; SHA-256 `32c1350dd1183b32ff882177323ebf023e46298788db6bf09a4eecc57646c54f`.
-
-**fable51-high**
-
-Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
-
-Evidence: `results/claude-subscription-2026-09-21/fable51-high-development.jsonl`; SHA-256 `8b940a5da86ae029733811bbd12e3a704d3d41ca22ad4c8c4b6ed3f824939a49`.
-
-**fable51-xhigh**
-
-Smoke3 inspected12/12 judgments correct, exact model identity; parallel hosted execution.
-
-Evidence: `results/claude-subscription-2026-09-21/fable51-xhigh-development.jsonl`; SHA-256 `17c927214a48fc0007be02549c934e36436a859091d83a493a2d925892823871`.
-
-**fable51-max**
-
-Smoke3 inspected12/12 judgments correct, exact model identity; parallel hosted execution.
-
-Evidence: `results/claude-subscription-2026-09-21/fable51-max-development.jsonl`; SHA-256 `56d558466693ec477db476fd5f1de0471191d18e67636d2cdb4282d8093d5705`.
-
-**opus55-low-batch10**
-
-60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
-
-Evidence: `results/claude-subscription-2026-09-23/opus55-low-batch10-development.jsonl`; SHA-256 `9304bc1b5a589e9487679425c21066d825942660a933c44bef30426b7a68cdf8`.
-
-**opus55-medium-batch10**
-
-60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
-
-Evidence: `results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl`; SHA-256 `d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb`.
-
-**opus55-high-batch10**
-
-60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
-
-Evidence: `results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl`; SHA-256 `75139c6df4632614ab216ed405871fd7f2efcf247e9c6e2ca51696c0bc7f40c5`.
-
-**opus55-xhigh-batch10**
-
-60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
-
-Evidence: `results/claude-subscription-2026-09-23/opus55-xhigh-batch10-development.jsonl`; SHA-256 `213308fcdfcce4edf847a19b3482548f136dcb2518265bc66435f6912920b704`.
 
 **typesafe-jev113-v2**
 
@@ -608,6 +484,342 @@ Evidence: `results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.jsonl`; SHA-256 `42c5e
 Use same pinned causal artifact/device/precision as AnyJev raw/L0. Separate generative control, never mislabeled as AnyJev decision mode. No real inference yet; primary raw/L0 and Laya execution prioritized. Weights downloaded and SHA256verified; adapters offline-tested and reviewed. Waiting for serializedGPU slot. Raw/L0 scores uncalibrated; generation prompt placement differs, so comparison is workflows rather than isolated decoding effect. Three-record smoke inspected, then60 unique development outputs (0 strict-valid); actual MPS BF16 no quantization, no other benchmark inference. Full input and policy hashes verified; evaluation uses provisional references only after inference. No output repair.
 
 Evidence: `results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl`; SHA-256 `0018a1e2f7db62f2d65af1fdb59ff8194f11d6af57b5d164801dcd425fe18d14`.
+
+**sonnet5-low-first-pass**
+
+59/60 valid; DEV030 timeout180s.
+
+Evidence: `results/claude-subscription-2026-09-21/sonnet5-first-pass.jsonl`; SHA-256 `1d4af9f59f82edf2f725e6d73884e34fd9f0b584783c28a3e56927a10414f58f`.
+
+**sonnet5-low-with-retry**
+
+60/60 valid; timing must include failed DEV030 attempt.
+
+Evidence: `results/claude-subscription-2026-09-21/sonnet5-with-retry.jsonl`; SHA-256 `4995f7066fd71dbc54b5099dea368ed72d9ec17107e79369256a3baf78ae5454`.
+
+**opus5-low**
+
+60/60 valid first pass.
+
+Evidence: `results/claude-subscription-2026-09-21/opus5-development.jsonl`; SHA-256 `2f394a4b2439ffde0f2dcdc7c8d8e25d31154108284fc4593c630cc0dbee1c31`.
+
+**haiku45-not_applicable**
+
+Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
+
+Evidence: `results/claude-subscription-2026-09-21/haiku45-not_applicable-development-session.jsonl`; SHA-256 `2793372cf0490069f63805f2102791355ee01c2384896d854fd502d7d4b05e93`.
+
+**sonnet5-medium**
+
+Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
+
+Evidence: `results/claude-subscription-2026-09-21/sonnet5-medium-development.jsonl`; SHA-256 `b16ad84ca3934c85213eb5db614256930fa7ddb767a35dd8703980e76d417ce2`.
+
+**sonnet5-high**
+
+Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
+
+Evidence: `results/claude-subscription-2026-09-21/sonnet5-high-development-session.jsonl`; SHA-256 `39d1640ef792fad3a4d55fa0fbb8a7cb5810d4ef36761e20ab05c0084d814d17`.
+
+**sonnet5-xhigh**
+
+Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
+
+Evidence: `results/claude-subscription-2026-09-21/sonnet5-xhigh-development.jsonl`; SHA-256 `42d86d86fe625a7779dc31efc1c1e941657f03e84360b8568a11f7f435fe95e3`.
+
+**sonnet5-max**
+
+Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
+
+Evidence: `results/claude-subscription-2026-09-21/sonnet5-max-development.jsonl`; SHA-256 `63c9c2d131d342ac20aab6a5b17c9d9125a67a48d85c459ab4aceb52f785cb1c`.
+
+**opus5-medium**
+
+Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
+
+Evidence: `results/claude-subscription-2026-09-21/opus5-medium-development.jsonl`; SHA-256 `f59ad04f5113cceee3a591b9f95e4127778b4457b2a0ab9fb25fa666b0c11151`.
+
+**opus5-high**
+
+Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
+
+Evidence: `results/claude-subscription-2026-09-21/opus5-high-development-session.jsonl`; SHA-256 `d9d53f0b7fba031fd064c914f52c0d91ab10426f508a1bd7596f05def39f044f`.
+
+**opus5-xhigh**
+
+Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
+
+Evidence: `results/claude-subscription-2026-09-21/opus5-xhigh-development.jsonl`; SHA-256 `2f9ce23e27c9f0f891285dd9c0c16cdf170af886bf00ad12188e511f89a6be7f`.
+
+**opus5-max**
+
+Smoke3 inspected12/12 judgments correct, exact model identity; parallel hosted execution.
+
+Evidence: `results/claude-subscription-2026-09-21/opus5-max-development.jsonl`; SHA-256 `5af375a01f2ecd7bbb0ed4d3be40c9c9c56ba769ae99aa7940cac43f06b8b94d`.
+
+**fable51-low**
+
+Smoke3 inspected; primary model exact, no overage. Initial detached controllers left empty logs and no prediction file; no inference completion evidenced. Full run uses managed exec session. Parallel hosted execution.
+
+Evidence: `results/claude-subscription-2026-09-21/fable51-low-development-session.jsonl`; SHA-256 `c4c906701cdb91a1d7630e6412282119f7507e5bbc0cb9a2552d0b7b75a4af89`.
+
+**fable51-medium**
+
+Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
+
+Evidence: `results/claude-subscription-2026-09-21/fable51-medium-development.jsonl`; SHA-256 `32c1350dd1183b32ff882177323ebf023e46298788db6bf09a4eecc57646c54f`.
+
+**fable51-high**
+
+Smoke3 manually inspected,12/12 judgments aligned. Queued to4-worker hosted batch; verify file progress for running state.
+
+Evidence: `results/claude-subscription-2026-09-21/fable51-high-development.jsonl`; SHA-256 `8b940a5da86ae029733811bbd12e3a704d3d41ca22ad4c8c4b6ed3f824939a49`.
+
+**fable51-xhigh**
+
+Smoke3 inspected12/12 judgments correct, exact model identity; parallel hosted execution.
+
+Evidence: `results/claude-subscription-2026-09-21/fable51-xhigh-development.jsonl`; SHA-256 `17c927214a48fc0007be02549c934e36436a859091d83a493a2d925892823871`.
+
+**fable51-max**
+
+Smoke3 inspected12/12 judgments correct, exact model identity; parallel hosted execution.
+
+Evidence: `results/claude-subscription-2026-09-21/fable51-max-development.jsonl`; SHA-256 `56d558466693ec477db476fd5f1de0471191d18e67636d2cdb4282d8093d5705`.
+
+**opus55-low-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-low-batch10-development.jsonl`; SHA-256 `9304bc1b5a589e9487679425c21066d825942660a933c44bef30426b7a68cdf8`.
+
+**opus55-medium-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl`; SHA-256 `d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb`.
+
+**opus55-high-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl`; SHA-256 `75139c6df4632614ab216ed405871fd7f2efcf247e9c6e2ca51696c0bc7f40c5`.
+
+**opus55-xhigh-batch10**
+
+60/60 valid, six ordered batches of ten after inspected batch smoke of three. No controller retries. CLI 2.1.280 Claude Max; usage credits off, no overage. Batch timing amortized per row; usage once in batch audit. Historical single-record runs unchanged; future max/ultra excluded.
+
+Evidence: `results/claude-subscription-2026-09-23/opus55-xhigh-batch10-development.jsonl`; SHA-256 `213308fcdfcce4edf847a19b3482548f136dcb2518265bc66435f6912920b704`.
+
+**openrouter-paid-qwen3.8-27b-medium**
+
+All 60 records attempted once; 59 valid outputs. DEV-048 transport failure retained with full $0.047001600 unknown charge bound; continuation covered only DEV-049–060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.
+
+Evidence: `results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl`; SHA-256 `5704234c79b3952e5545cb27fd08426da390068c01e645e99392bf918a3a9a14`.
+
+**openrouter-paid-qwen3.8-27b-xhigh**
+
+All 60 records attempted once; 59 valid outputs. DEV-013 length/content-null failure retained at the unchanged 4096-token limit; continuation covered only DEV-014–060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.
+
+Evidence: `results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl`; SHA-256 `dc129d32aed007ddcaf7041ff179ee6458f924c5569bd77948e8ac784f353d8d`.
+
+**openrouter-paid-qwen3.8-27b-off**
+
+60 valid, known billing; sealed partition.
+
+Evidence: `results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl`; SHA-256 `b702a3d2129075d31fef2249f105a72f61da2fcf38a05e9fd85be3051bcd6d40`.
+
+**openrouter-paid-qwen36-35b-a3b-on**
+
+60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-on-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
+
+Evidence: `results/openrouter-qwen35-on-2026-09-23/development.jsonl`; SHA-256 `8817b970a43fd788524467f50de5413923ea504e15b67e068d52ec6c0917e321`.
+
+**openrouter-paid-qwen36-35b-a3b-off**
+
+60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
+
+Evidence: `results/openrouter-qwen35-off-2026-09-23/development.jsonl`; SHA-256 `456c9dca63122c62fce0a9daf9cf7abb2f4b8fa42560fa16fcdc73d446bd876b`.
+
+**openrouter-paid-gemma4-26b-a4b-on**
+
+All 60 IDs were attempted once: 59 valid outputs; DEV-022 exhausted the output budget and returned no JSON. Only unattempted DEV-023 through DEV-060 were continued, with the same 4096-token budget, provider and controls. No failed output was retried or repaired. Both raw files are retained for timing and cost accounting. Development cost $0.02114858; smoke cost $0.00086731. The provider reasoning-token anomaly is preserved.
+
+Evidence: `results/openrouter-gemma26-on-2026-09-23/development-reconciled.jsonl`; SHA-256 `a7af4591db655915ce23952c1f3bcfbfa4c5b955fcfcd4cf3755fe269b1f5016`.
+
+**openrouter-paid-gemma4-26b-a4b-off**
+
+60 records finalized. Exact request/provider/billing evidence in results/openrouter-gemma26-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
+
+Evidence: `results/openrouter-gemma26-off-2026-09-23/development.jsonl`; SHA-256 `3a4e74a1787aa4595c5fade367755edc23869045ffc683beddf1f424a53bb9fb`.
+
+**openrouter-paid-gemma4-31b-on**
+
+All 60 development records returned valid JSON after the inspected smoke. Exact DeepInfra turbo FP4 route with requested thinking enabled. Sixteen development responses report reasoning-token counts greater than completion-token counts; raw values are preserved without correction. All reported costs are known, and the child budget is sealed and reconciled. Other hosted runs and one local MLX benchmark overlapped.
+
+Evidence: `results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl`; SHA-256 `b31b2eb1e6633790daf27018c3621759694e52faef51c12aa91506a494bd0411`.
+
+**openrouter-paid-gemma4-31b-off**
+
+Three smoke responses were inspected before all 60 development responses passed validation. Exact DeepInfra turbo FP4 route, reasoning disabled, 4096-token output budget, no provider fallback or retries. All reported charges are known. Other hosted configurations and one local MLX run overlapped. Provider cache usage is retained. The initial smoke command was rejected before execution; evidence-based resubmission of the same command was accepted. The child budget is sealed and reconciled.
+
+Evidence: `results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl`; SHA-256 `886b4fda9b09f8173ef4c73c86e1afb2585bc98d782020b3366c31dfa8fd21e7`.
+
+**openrouter-paid-mistral-small32-24b-not-applicable**
+
+Paused after repeated upstream HTTP 429 responses. Across four source files: 23 attempts, 21 unique records attempted, 19 valid outputs, 2 retained failures, and 39 unattempted records. All historical attempts and unknown billing bounds are preserved. Recovery child budget sealed; no additional calls scheduled on this route.
+
+**openrouter-paid-mistral-small4-119b-none**
+
+Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed. September24 separate overnight cooldown smoke also returned HTTP429 on DEV-001 in 0.760093 seconds despite public endpoint status0. No development, no further retry; full $0.04177920 reservation retained as unknown cost bound.
+
+**openrouter-paid-mistral-small4-119b-high**
+
+First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.
+
+**openrouter-paid-deepseek-v41-flash-off**
+
+Inspected3smoke then60valid, exact OpenInferenceFP4 route, reasoning disabled,4096tokenbudget, nofallback/retry. Allreportedcostsknown. Parallel hosted configs and single local MLX benchmark; raw providercache usage retained. Child/master reconciliation controller-owned.
+
+Evidence: `results/openrouter-parallel-deepseek-flash-off-2026-09-23/development-reconciled.jsonl`; SHA-256 `ac3168657f2fecc06adb40b8541de79ed7bcf0e920466bb1ce3342a98607ee63`.
+
+**openrouter-paid-deepseek-v41-flash-low**
+
+All 60 records attempted once; 57 valid outputs. DEV-006, DEV-013 and DEV-030 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known and child budget sealed. Concurrent hosted configurations; provider cache usage retained.
+
+Evidence: `results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl`; SHA-256 `aee3f15a4ed678d1b9b2d8a8afe5684eba0ec009d1d8481b4abd00345a4f41db`.
+
+**openrouter-paid-deepseek-v41-flash-high**
+
+All 60 records attempted once; 56 valid outputs. DEV-006, DEV-022, DEV-053 and DEV-060 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known; child budget sealed. Concurrent hosted configurations; raw cache usage retained.
+
+Evidence: `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl`; SHA-256 `24df93f7669839f580413dbb8a2fb8f68ece8754a2bb6562cb9158571c25f6e9`.
+
+**openrouter-paid-mistral-small32-24b-venice-not-applicable**
+
+All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.
+
+Evidence: `results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl`; SHA-256 `ad8caac9b6db0df5f3e0e5b761f3bdb49e4aa7420eb184097bc29614ad7ab153`.
+
+**openrouter-qwen27-low-darkbloom-fp4**
+
+Separate hosted replacement for pending local low-effort prompt work. P0 smoke3 inspected; development60 all valid, no retries or unknown costs. P1/P2 pending. Hosted runtime/quantization differ from saved local Q4_K_M baseline; no local rerun. Hardware undisclosed.
+
+Evidence: `results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl`; SHA-256 `b828726930ca10a9603fd3b3351dce9b6463292cd489e4a0e459754c4f65e512`.
+
+**openrouter-qwen3-8b-off-json-object-p0**
+
+Historical first smoke hit Alibaba shared-pool HTTP429: off saved two valid then one service error; on saved one invalid JSON scalar then one service error, leaving DEV-003 unsent. Those attempts and their full unknown-cost bounds remain preserved in the original smoke files and closure. Separate recovery smoke completed DEV-001–003 with known billing: off 3 valid. The new, separately reviewed full60 P0 run attempted canonical DEV-001–060 with known billing: 60 valid. This hosted JSON-object condition is not equivalent to historical local Q4_K_M results. No output repair, retry or model substitution occurred; P1/P2 are separate pending conditions.
+
+Evidence: `results/qwen8-hosted-full60-prep-v1/off-p0-full60-results.jsonl`; SHA-256 `85660bcf682c13e0f2a762bf3b9e8a1b651505f9d012e7ec89c26249ec5f5563`.
+
+**openrouter-qwen3-8b-on-json-object-p0**
+
+Historical first smoke hit Alibaba shared-pool HTTP429: off saved two valid then one service error; on saved one invalid JSON scalar then one service error, leaving DEV-003 unsent. Those attempts and their full unknown-cost bounds remain preserved in the original smoke files and closure. Separate recovery smoke completed DEV-001–003 with known billing: on 3 intrinsic invalid JSON strings. The new, separately reviewed full60 P0 run attempted canonical DEV-001–060 with known billing: 14 valid and 46 intrinsic invalid outputs. This hosted JSON-object condition is not equivalent to historical local Q4_K_M results. No output repair, retry or model substitution occurred; P1/P2 are separate pending conditions.
+
+Evidence: `results/qwen8-hosted-full60-prep-v1/on-p0-full60-results.jsonl`; SHA-256 `73fd904697b8e8f36ab266b0269289c4a1e26f20b9d4d72727e02e9f1bc970ed`.
+
+**antigravity-gemini-3.8-flash-high**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.8-flash-medium**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.8-flash-low**
+
+The existing native Antigravity login and model catalogue work. Three smoke attempts were preserved: an eligibility HTTP 503 with zero reported tokens; a model response with 57 tools listed and a plan-mode warning; and a corrected configuration that returned three valid classifications without warnings or tool calls but still listed 57 tools. No external tool use was observed. Whether initialization lists static inventory or effective model access remains unverified, so the strict tool-scope gate failed and no development requests were sent. Aggregate reported usage: 26,965 input tokens, 1,314 output tokens, 990 thinking tokens and 28,279 total tokens. The three request durations sum to 113.24463 seconds. The first runtime log was privately quarantined with an explicit source-hash redaction audit. No relogin, hosted Gemini API or paid credits were used.
+
+**antigravity-gemini-3.7-flash-high**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.7-flash-medium**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.7-flash-low**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.6-flash-high**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.6-flash-medium**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.6-flash-low**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.1-pro-high**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.1-pro-low**
+
+The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
+
+**antigravity-gemini-3.8-flash-low-native-observed-batch10**
+
+Additional cooldown recovery completed batch01, then batch02 attempted run_command to search local temporary context for DEV-011. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Both earlier batch01 service failures retained. Next step: supported effective tool disablement verified before any new attempt.
+
+**antigravity-gemini-3.1-pro-low-native-observed-batch10**
+
+Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.
+
+Evidence: `results/antigravity-gemini31-pro-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `fd77beedfbb35d8139fb3f4a662a5f3bfef62313cecca10f1420bee5ae47152d`.
+
+**antigravity-gemini-3.1-pro-high-native-observed-batch10**
+
+Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.
+
+Evidence: `results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `e1e6f9d08fcf9f5bcc9476d02c79ab1a67ffbafb0ff662fd3694c3890c1a348a`.
+
+**antigravity-gemini-3.6-flash-low-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini36-flash-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `119a16f0e8e7e128b10552b8f3eb33a4041a6f475dc33665e7f4620cbe5644db`.
+
+**antigravity-gemini-3.6-flash-medium-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `2a183225c8653b7779c40246836e82e04d177ab93d341abb35803291d8887aab`.
+
+**antigravity-gemini-3.6-flash-high-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation. Initial agy models startup timeout already consumed the single bounded recovery; later development batch03 service error therefore stopped configuration without another recovery. See startup-failure.json.
+
+**antigravity-gemini-3.7-flash-low-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini37-flash-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `2c9a826b467f529d293a931b1b5416f016fd8493c3367b28bde86c91d3d322be`.
+
+**antigravity-gemini-3.7-flash-medium-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `ee050b6ce4331181a2bee8e136983fd427b3ac8d33a51aec14893550723e34d6`.
+
+**antigravity-gemini-3.7-flash-high-native-observed-batch10**
+
+Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
+
+Evidence: `results/antigravity-gemini37-flash-high-native129-2026-09-24/development-reconciled.jsonl`; SHA-256 `faa3c08c0f0f041d18c9d717a63f7c105655f65836185fe8a1f86fdc994757b3`.
+
+**antigravity-gemini-3.8-flash-medium-native-observed-batch10**
+
+Batch02 attempted run_command to search local Antigravity context; headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.
+
+**antigravity-gemini-3.8-flash-high-native-observed-batch10**
+
+Batch02 attempted run_command ls -la in local temporary context. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.
 
 **codex-gpt-5.6-luna-low**
 
@@ -780,210 +992,4 @@ Evidence: `results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.
 Completed 60 unique valid records in six batch10 requests after the inspected successful smoke. Historical failed smoke attempts remain preserved separately and are excluded from development timing. CLI 0.155.0-alpha.16 ChatGPT subscription; no observed tools, parser errors or runtime metadata warnings. Served model revision not exposed. No paid API or credits.
 
 Evidence: `results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl`; SHA-256 `27f5307c67981e2b4933c6cfdd894093e2030ba27200050e73f1df7e04a8122f`.
-
-**antigravity-gemini-3.8-flash-high**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.8-flash-medium**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.8-flash-low**
-
-The existing native Antigravity login and model catalogue work. Three smoke attempts were preserved: an eligibility HTTP 503 with zero reported tokens; a model response with 57 tools listed and a plan-mode warning; and a corrected configuration that returned three valid classifications without warnings or tool calls but still listed 57 tools. No external tool use was observed. Whether initialization lists static inventory or effective model access remains unverified, so the strict tool-scope gate failed and no development requests were sent. Aggregate reported usage: 26,965 input tokens, 1,314 output tokens, 990 thinking tokens and 28,279 total tokens. The three request durations sum to 113.24463 seconds. The first runtime log was privately quarantined with an explicit source-hash redaction audit. No relogin, hosted Gemini API or paid credits were used.
-
-**antigravity-gemini-3.7-flash-high**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.7-flash-medium**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.7-flash-low**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.6-flash-high**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.6-flash-medium**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.6-flash-low**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.1-pro-high**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.1-pro-low**
-
-The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval.
-
-**antigravity-gemini-3.8-flash-low-native-observed-batch10**
-
-Additional cooldown recovery completed batch01, then batch02 attempted run_command to search local temporary context for DEV-011. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Both earlier batch01 service failures retained. Next step: supported effective tool disablement verified before any new attempt.
-
-**antigravity-gemini-3.1-pro-low-native-observed-batch10**
-
-Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.
-
-Evidence: `results/antigravity-gemini31-pro-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `fd77beedfbb35d8139fb3f4a662a5f3bfef62313cecca10f1420bee5ae47152d`.
-
-**antigravity-gemini-3.1-pro-high-native-observed-batch10**
-
-Completed60valid in six unique batch10 contexts. Batch05 eligibility HTTP503 preserved, followed by one explicit bounded recovery; seven total development batch attempts, no valid reruns. Smoke excluded; references read only offline. CLI1.2.9 nativeagent workflow advertises57tools, no observed external calls; effective restriction unverified. Credits off throughout; no API fallback. Hosted quantization/hardware/revision undisclosed.
-
-Evidence: `results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `e1e6f9d08fcf9f5bcc9476d02c79ab1a67ffbafb0ff662fd3694c3890c1a348a`.
-
-**antigravity-gemini-3.6-flash-low-native-observed-batch10**
-
-Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
-
-Evidence: `results/antigravity-gemini36-flash-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `119a16f0e8e7e128b10552b8f3eb33a4041a6f475dc33665e7f4620cbe5644db`.
-
-**antigravity-gemini-3.6-flash-medium-native-observed-batch10**
-
-Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
-
-Evidence: `results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `2a183225c8653b7779c40246836e82e04d177ab93d341abb35803291d8887aab`.
-
-**antigravity-gemini-3.6-flash-high-native-observed-batch10**
-
-Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation. Initial agy models startup timeout already consumed the single bounded recovery; later development batch03 service error therefore stopped configuration without another recovery. See startup-failure.json.
-
-**antigravity-gemini-3.7-flash-low-native-observed-batch10**
-
-Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
-
-Evidence: `results/antigravity-gemini37-flash-low-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `2c9a826b467f529d293a931b1b5416f016fd8493c3367b28bde86c91d3d322be`.
-
-**antigravity-gemini-3.7-flash-medium-native-observed-batch10**
-
-Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
-
-Evidence: `results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-reconciled.jsonl`; SHA-256 `ee050b6ce4331181a2bee8e136983fd427b3ac8d33a51aec14893550723e34d6`.
-
-**antigravity-gemini-3.7-flash-high-native-observed-batch10**
-
-Separate native workflow. All attempts preserved; at most one explicit recovery. Credits disabled; no API fallback. No claim of effective tool restriction or bare-model isolation.
-
-Evidence: `results/antigravity-gemini37-flash-high-native129-2026-09-24/development-reconciled.jsonl`; SHA-256 `faa3c08c0f0f041d18c9d717a63f7c105655f65836185fe8a1f86fdc994757b3`.
-
-**antigravity-gemini-3.8-flash-medium-native-observed-batch10**
-
-Batch02 attempted run_command to search local Antigravity context; headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.
-
-**antigravity-gemini-3.8-flash-high-native-observed-batch10**
-
-Batch02 attempted run_command ls -la in local temporary context. Headless permission auto-denied. No external command executed per native error event; invalid batch retained and excluded. No retry or permission changes. Next step: supported effective tool disablement verified before any new attempt.
-
-**openrouter-paid-qwen3.8-27b-medium**
-
-All 60 records attempted once; 59 valid outputs. DEV-048 transport failure retained with full $0.047001600 unknown charge bound; continuation covered only DEV-049–060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.
-
-Evidence: `results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl`; SHA-256 `5704234c79b3952e5545cb27fd08426da390068c01e645e99392bf918a3a9a14`.
-
-**openrouter-paid-qwen3.8-27b-xhigh**
-
-All 60 records attempted once; 59 valid outputs. DEV-013 length/content-null failure retained at the unchanged 4096-token limit; continuation covered only DEV-014–060. No output repair, retry or tuning. All development attempts remain included in timing and cost; child budget sealed.
-
-Evidence: `results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl`; SHA-256 `dc129d32aed007ddcaf7041ff179ee6458f924c5569bd77948e8ac784f353d8d`.
-
-**openrouter-paid-qwen3.8-27b-off**
-
-60 valid, known billing; sealed partition.
-
-Evidence: `results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl`; SHA-256 `b702a3d2129075d31fef2249f105a72f61da2fcf38a05e9fd85be3051bcd6d40`.
-
-**openrouter-paid-qwen36-35b-a3b-on**
-
-60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-on-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
-
-Evidence: `results/openrouter-qwen35-on-2026-09-23/development.jsonl`; SHA-256 `8817b970a43fd788524467f50de5413923ea504e15b67e068d52ec6c0917e321`.
-
-**openrouter-paid-qwen36-35b-a3b-off**
-
-60 records finalized. Exact request/provider/billing evidence in results/openrouter-qwen35-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
-
-Evidence: `results/openrouter-qwen35-off-2026-09-23/development.jsonl`; SHA-256 `456c9dca63122c62fce0a9daf9cf7abb2f4b8fa42560fa16fcdc73d446bd876b`.
-
-**openrouter-paid-gemma4-26b-a4b-on**
-
-All 60 IDs were attempted once: 59 valid outputs; DEV-022 exhausted the output budget and returned no JSON. Only unattempted DEV-023 through DEV-060 were continued, with the same 4096-token budget, provider and controls. No failed output was retried or repaired. Both raw files are retained for timing and cost accounting. Development cost $0.02114858; smoke cost $0.00086731. The provider reasoning-token anomaly is preserved.
-
-Evidence: `results/openrouter-gemma26-on-2026-09-23/development-reconciled.jsonl`; SHA-256 `a7af4591db655915ce23952c1f3bcfbfa4c5b955fcfcd4cf3755fe269b1f5016`.
-
-**openrouter-paid-gemma4-26b-a4b-off**
-
-60 records finalized. Exact request/provider/billing evidence in results/openrouter-gemma26-off-2026-09-23/manifest.json. Separate hosted configuration, no local equivalence claim.
-
-Evidence: `results/openrouter-gemma26-off-2026-09-23/development.jsonl`; SHA-256 `3a4e74a1787aa4595c5fade367755edc23869045ffc683beddf1f424a53bb9fb`.
-
-**openrouter-paid-gemma4-31b-on**
-
-All 60 development records returned valid JSON after the inspected smoke. Exact DeepInfra turbo FP4 route with requested thinking enabled. Sixteen development responses report reasoning-token counts greater than completion-token counts; raw values are preserved without correction. All reported costs are known, and the child budget is sealed and reconciled. Other hosted runs and one local MLX benchmark overlapped.
-
-Evidence: `results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl`; SHA-256 `b31b2eb1e6633790daf27018c3621759694e52faef51c12aa91506a494bd0411`.
-
-**openrouter-paid-gemma4-31b-off**
-
-Three smoke responses were inspected before all 60 development responses passed validation. Exact DeepInfra turbo FP4 route, reasoning disabled, 4096-token output budget, no provider fallback or retries. All reported charges are known. Other hosted configurations and one local MLX run overlapped. Provider cache usage is retained. The initial smoke command was rejected before execution; evidence-based resubmission of the same command was accepted. The child budget is sealed and reconciled.
-
-Evidence: `results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl`; SHA-256 `886b4fda9b09f8173ef4c73c86e1afb2585bc98d782020b3366c31dfa8fd21e7`.
-
-**openrouter-paid-mistral-small32-24b-not-applicable**
-
-Paused after repeated upstream HTTP 429 responses. Across four source files: 23 attempts, 21 unique records attempted, 19 valid outputs, 2 retained failures, and 39 unattempted records. All historical attempts and unknown billing bounds are preserved. Recovery child budget sealed; no additional calls scheduled on this route.
-
-**openrouter-paid-mistral-small4-119b-none**
-
-Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed. September24 separate overnight cooldown smoke also returned HTTP429 on DEV-001 in 0.760093 seconds despite public endpoint status0. No development, no further retry; full $0.04177920 reservation retained as unknown cost bound.
-
-**openrouter-paid-mistral-small4-119b-high**
-
-First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.
-
-**openrouter-paid-deepseek-v41-flash-off**
-
-Inspected3smoke then60valid, exact OpenInferenceFP4 route, reasoning disabled,4096tokenbudget, nofallback/retry. Allreportedcostsknown. Parallel hosted configs and single local MLX benchmark; raw providercache usage retained. Child/master reconciliation controller-owned.
-
-Evidence: `results/openrouter-parallel-deepseek-flash-off-2026-09-23/development-reconciled.jsonl`; SHA-256 `ac3168657f2fecc06adb40b8541de79ed7bcf0e920466bb1ce3342a98607ee63`.
-
-**openrouter-paid-deepseek-v41-flash-low**
-
-All 60 records attempted once; 57 valid outputs. DEV-006, DEV-013 and DEV-030 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known and child budget sealed. Concurrent hosted configurations; provider cache usage retained.
-
-Evidence: `results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl`; SHA-256 `aee3f15a4ed678d1b9b2d8a8afe5684eba0ec009d1d8481b4abd00345a4f41db`.
-
-**openrouter-paid-deepseek-v41-flash-high**
-
-All 60 records attempted once; 56 valid outputs. DEV-006, DEV-022, DEV-053 and DEV-060 output failures retained without repair or retry. Continuation sent only previously unattempted records with unchanged model, provider, prompt and 4096-token limit. All costs known; child budget sealed. Concurrent hosted configurations; raw cache usage retained.
-
-Evidence: `results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl`; SHA-256 `24df93f7669839f580413dbb8a2fb8f68ece8754a2bb6562cb9158571c25f6e9`.
-
-**openrouter-paid-mistral-small32-24b-venice-not-applicable**
-
-All 60 records valid after inspected smoke3. Venice FP8 is a separate provider configuration for the same approved Mistral model; no pooling with partial DeepInfra results. Temperature0, max_tokens4096, timeout600, no retries or repairs. Costs known; exact serving weights and hardware undisclosed. Concurrent hosted runs and one independent local GPU benchmark.
-
-Evidence: `results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl`; SHA-256 `ad8caac9b6db0df5f3e0e5b761f3bdb49e4aa7420eb184097bc29614ad7ab153`.
-
-**openrouter-qwen27-low-darkbloom-fp4**
-
-Separate hosted replacement for pending local low-effort prompt work. P0 smoke3 inspected; development60 all valid, no retries or unknown costs. P1/P2 pending. Hosted runtime/quantization differ from saved local Q4_K_M baseline; no local rerun. Hardware undisclosed.
-
-Evidence: `results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl`; SHA-256 `b828726930ca10a9603fd3b3351dce9b6463292cd489e4a0e459754c4f65e512`.
-
-**openrouter-qwen3-8b-off-json-object-p0**
-
-Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route.
-
-**openrouter-qwen3-8b-on-json-object-p0**
-
-Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route.
 

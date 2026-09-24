@@ -1,0 +1,44 @@
+{
+  "schema": "qwen8-hosted-prompt-smoke-v1",
+  "model": "qwen/qwen3-8b",
+  "provider": "alibaba",
+  "reasoning": "off",
+  "variant": "P1",
+  "phase": "smoke3",
+  "response_format": "json_object",
+  "record_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "reference_labels_read": false,
+  "continue_on_invalid_output": true,
+  "automatic_retries": false,
+  "per_call_reserve_usd": "0.017199104",
+  "three_call_bound_usd": "0.051597312",
+  "proposed_partition_cap_usd": "0.06",
+  "output": "results/qwen8-hosted-prompt-smoke-prep-v1/off-p1-smoke3-results.jsonl",
+  "env_file": "/Users/adamkovacs/Documents/codebuild/.env",
+  "sources": {
+    "adapter": {
+      "file": "scripts/qwen8_hosted_adapter.py",
+      "sha256": "d10fd4e451e27dfbe54444e30237ccc4067aa3cda91b7616cab44cfbe07dd8e9"
+    },
+    "partition_v2": {
+      "file": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    "budget_v2": {
+      "file": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    },
+    "preview": {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/preview-v1/off-p1-smoke3.jsonl",
+      "sha256": "a3cb8839366e7f1881a6d5d4c5b2f3f4699094402930d3c836289b38ab9c501d"
+    },
+    "preview_manifest": {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/preview-v1/preview-manifest.json",
+      "sha256": "e1b6e7fc64aa8c4d122f372d9286212e113cb0e9bf91e1c5495f79e36a4e6cab"
+    }
+  }
+}

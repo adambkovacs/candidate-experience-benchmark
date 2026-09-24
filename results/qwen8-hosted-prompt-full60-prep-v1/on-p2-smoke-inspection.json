@@ -1,0 +1,51 @@
+{
+  "schema": "qwen8-prompt-smoke-inspection-v1",
+  "reasoning": "on",
+  "variant": "P2",
+  "phase": "smoke3",
+  "smoke_sha256": "8c21d3512bedef5ecac439ff5ae42dc3bac0136d6e254dcad5387d2decffd607",
+  "journal_sha256": "74cfde3bcc592404a7dee6dee4934125647c7466854a2653a911abe77fa6b250",
+  "statuses": [
+    "invalid_output",
+    "invalid_output",
+    "invalid_output"
+  ],
+  "control_and_billing_passed": true,
+  "invalid_outputs_preserved": 3,
+  "record_evidence": [
+    {
+      "id": "DEV-001",
+      "status": "invalid_output",
+      "request_sha256": "d5b2aaa0e41e89762be04c251794afa871d86df5e1619129e2b2e31dbee027a0",
+      "returned_model": "qwen/qwen3-8b",
+      "returned_provider": "Alibaba",
+      "finish_reason": "length",
+      "billing_ok": true,
+      "cost_unknown": false,
+      "observed_cost_usd": "0.0024596"
+    },
+    {
+      "id": "DEV-002",
+      "status": "invalid_output",
+      "request_sha256": "9d1cc155c48a80615d8dd4a3114633259a9562c05a8a4d255c542cdffed7d470",
+      "returned_model": "qwen/qwen3-8b",
+      "returned_provider": "Alibaba",
+      "finish_reason": "stop",
+      "billing_ok": true,
+      "cost_unknown": false,
+      "observed_cost_usd": "0.000512343"
+    },
+    {
+      "id": "DEV-003",
+      "status": "invalid_output",
+      "request_sha256": "48114c8919ebdf97d7f9e869890746d08c380eabae64a4532cd89ca12425bba1",
+      "returned_model": "qwen/qwen3-8b",
+      "returned_provider": "Alibaba",
+      "finish_reason": "length",
+      "billing_ok": true,
+      "cost_unknown": false,
+      "observed_cost_usd": "0.002313194"
+    }
+  ],
+  "review_status": "proposed_for_root_review; not execution approval"
+}

@@ -1,0 +1,122 @@
+{
+  "schema": "qwen8-hosted-prompt-full60-v1",
+  "model": "qwen/qwen3-8b",
+  "provider": "alibaba",
+  "reasoning": "off",
+  "phase": "full60",
+  "variant": "P2",
+  "response_format": "json_object",
+  "record_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003",
+    "DEV-004",
+    "DEV-005",
+    "DEV-006",
+    "DEV-007",
+    "DEV-008",
+    "DEV-009",
+    "DEV-010",
+    "DEV-011",
+    "DEV-012",
+    "DEV-013",
+    "DEV-014",
+    "DEV-015",
+    "DEV-016",
+    "DEV-017",
+    "DEV-018",
+    "DEV-019",
+    "DEV-020",
+    "DEV-021",
+    "DEV-022",
+    "DEV-023",
+    "DEV-024",
+    "DEV-025",
+    "DEV-026",
+    "DEV-027",
+    "DEV-028",
+    "DEV-029",
+    "DEV-030",
+    "DEV-031",
+    "DEV-032",
+    "DEV-033",
+    "DEV-034",
+    "DEV-035",
+    "DEV-036",
+    "DEV-037",
+    "DEV-038",
+    "DEV-039",
+    "DEV-040",
+    "DEV-041",
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "smoke_statuses": [
+    "ok",
+    "ok",
+    "ok"
+  ],
+  "reference_labels_read": false,
+  "continue_on_invalid_output": true,
+  "automatic_retries": false,
+  "per_call_reserve_usd": "0.017199104",
+  "full60_bound_usd": "1.031946240",
+  "proposed_partition_cap_usd": "1.05",
+  "output": "results/qwen8-hosted-prompt-full60-prep-v1/off-p2-full60-results.jsonl",
+  "env_file": "/Users/adamkovacs/Documents/codebuild/.env",
+  "sources": {
+    "adapter": {
+      "file": "scripts/qwen8_hosted_adapter.py",
+      "sha256": "d10fd4e451e27dfbe54444e30237ccc4067aa3cda91b7616cab44cfbe07dd8e9"
+    },
+    "partition_v2": {
+      "file": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    "budget_v2": {
+      "file": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    },
+    "preview": {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/preview-v1/off-p2-full60.jsonl",
+      "sha256": "0a10ed6196e09ae2402bbd5618e2c4bd8ba0501205a76ed5d28f7da1efba1fd0"
+    },
+    "preview_manifest": {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/preview-v1/preview-manifest.json",
+      "sha256": "e1b6e7fc64aa8c4d122f372d9286212e113cb0e9bf91e1c5495f79e36a4e6cab"
+    },
+    "smoke": {
+      "file": "results/qwen8-hosted-prompt-smoke-prep-v1/off-p2-smoke3-results.jsonl",
+      "sha256": "fc231a000254e67c11d500aca7a1c7ebd401be33442c77c436661c139f96bd24"
+    },
+    "smoke_journal": {
+      "file": "results/qwen8-hosted-prompt-smoke-prep-v1/off-p2-smoke3-results.jsonl.attempts.jsonl",
+      "sha256": "5474bc4dcfa57d18cc2fb86fe0c675ea22ac46b7a6a13e0ccdd0d1200b7a9bfb"
+    },
+    "smoke_preview": {
+      "file": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/preview-v1/off-p2-smoke3.jsonl",
+      "sha256": "c347ba2995f9d6bfa00d32695dd833305ad651976e5127841e2294d3ed9b6ec6"
+    },
+    "inspection": {
+      "file": "results/qwen8-hosted-prompt-full60-prep-v1/off-p2-smoke-inspection.json",
+      "sha256": "cabead49457079973b189430d8fc5271cc0eced05ec347256bc3633a3d3b5b09"
+    }
+  }
+}

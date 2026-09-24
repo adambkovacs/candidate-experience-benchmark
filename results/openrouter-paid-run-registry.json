@@ -345,32 +345,38 @@
     "id": "openrouter-qwen3-8b-off-json-object-p0",
     "model": "qwen/qwen3-8b",
     "effort": "off",
-    "status": "smoke_upstream_rate_limit",
-    "predictions_file": null,
+    "status": "complete",
+    "predictions_file": "results/qwen8-hosted-full60-prep-v1/off-p0-full60-results.jsonl",
     "provider": "alibaba",
     "quantization": "unknown",
-    "attempt_files": [],
-    "attempt_phase": "development",
-    "smoke_files": [
-      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/off-p0-smoke3-results.jsonl"
+    "attempt_files": [
+      "results/qwen8-hosted-full60-prep-v1/off-p0-full60-results.jsonl"
     ],
-    "reconciliation_manifest": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/root-smoke-inspection-and-closure.json",
-    "notes": "Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route."
+    "attempt_phase": "full60",
+    "smoke_files": [
+      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/off-p0-smoke3-results.jsonl",
+      "results/qwen8-hosted-recovery-prep-v1/off-p0-smoke3-results.jsonl"
+    ],
+    "reconciliation_manifest": "results/qwen8-hosted-full60-budget-v1/off-reconciliation.json",
+    "notes": "Historical first smoke hit Alibaba shared-pool HTTP429: off saved two valid then one service error; on saved one invalid JSON scalar then one service error, leaving DEV-003 unsent. Those attempts and their full unknown-cost bounds remain preserved in the original smoke files and closure. Separate recovery smoke completed DEV-001\u2013003 with known billing: off 3 valid. The new, separately reviewed full60 P0 run attempted canonical DEV-001\u2013060 with known billing: 60 valid. This hosted JSON-object condition is not equivalent to historical local Q4_K_M results. No output repair, retry or model substitution occurred; P1/P2 are separate pending conditions."
   },
   {
     "id": "openrouter-qwen3-8b-on-json-object-p0",
     "model": "qwen/qwen3-8b",
     "effort": "on",
-    "status": "smoke_upstream_rate_limit",
-    "predictions_file": null,
+    "status": "complete_with_output_failure",
+    "predictions_file": "results/qwen8-hosted-full60-prep-v1/on-p0-full60-results.jsonl",
     "provider": "alibaba",
     "quantization": "unknown",
-    "attempt_files": [],
-    "attempt_phase": "development",
-    "smoke_files": [
-      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/on-p0-smoke3-results.jsonl"
+    "attempt_files": [
+      "results/qwen8-hosted-full60-prep-v1/on-p0-full60-results.jsonl"
     ],
-    "reconciliation_manifest": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/root-smoke-inspection-and-closure.json",
-    "notes": "Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route."
+    "attempt_phase": "full60",
+    "smoke_files": [
+      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/on-p0-smoke3-results.jsonl",
+      "results/qwen8-hosted-recovery-prep-v1/on-p0-smoke3-results.jsonl"
+    ],
+    "reconciliation_manifest": "results/qwen8-hosted-full60-budget-v1/on-reconciliation.json",
+    "notes": "Historical first smoke hit Alibaba shared-pool HTTP429: off saved two valid then one service error; on saved one invalid JSON scalar then one service error, leaving DEV-003 unsent. Those attempts and their full unknown-cost bounds remain preserved in the original smoke files and closure. Separate recovery smoke completed DEV-001\u2013003 with known billing: on 3 intrinsic invalid JSON strings. The new, separately reviewed full60 P0 run attempted canonical DEV-001\u2013060 with known billing: 14 valid and 46 intrinsic invalid outputs. This hosted JSON-object condition is not equivalent to historical local Q4_K_M results. No output repair, retry or model substitution occurred; P1/P2 are separate pending conditions."
   }
 ]
