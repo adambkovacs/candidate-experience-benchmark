@@ -28,7 +28,7 @@ At this snapshot:
 
 - Subscription variants are still running. Three conditions stopped during a DNS outage; their partial predictions and failures remain saved.
 - All 13 original hosted lanes are terminal: five full P1/P2 pairs, six partial pairs, and two provider-blocked pairs. A remaining-record continuation is only a draft, not an executed recovery.
-- AnyJev generated P1/P2 are finished. SemIf P1 is finished and P2 is running.
+- AnyJev generated P1/P2 are finished. SemIf P1 is finished; P2 was interrupted after 32 saved responses, with DEV-033 started but unfinished. Its cause is unknown; see the [interruption audit](../results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P2-interruption-audit.json).
 - OpenJev generated variants and seven successful-baseline Gemini configurations still need their prompt comparisons. The 14 inherited local generic configurations need hosted-route reconciliation first; they are not automatically authorized for local reruns.
 - Nine complete pairs have an [audited comparison report](../results/prompt-comparison-v1-2026-09-24/paired-reports/nine-comparisons.html). Further partial and native reports still require reconciliation.
 

@@ -1,0 +1,120 @@
+{
+  "configuration_id": "semif-generated-bf16",
+  "condition": "P1",
+  "records": 60,
+  "valid_outputs": 38,
+  "intrinsic_invalid_outputs": 22,
+  "invalid_ids": [
+    "DEV-003",
+    "DEV-004",
+    "DEV-005",
+    "DEV-006",
+    "DEV-009",
+    "DEV-016",
+    "DEV-017",
+    "DEV-020",
+    "DEV-026",
+    "DEV-029",
+    "DEV-030",
+    "DEV-031",
+    "DEV-036",
+    "DEV-040",
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-050",
+    "DEV-051",
+    "DEV-053",
+    "DEV-055",
+    "DEV-060"
+  ],
+  "all_finish_reasons": "stop",
+  "exact_inputs_messages_rendered_counts_and_native_controls_verified": true,
+  "smoke_inspection": {
+    "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P1-smoke-inspection.json",
+    "sha256": "b7bf96ace98a4fe4d7805caa89ea9ddc4b1de2387bcc3475ddb5770e06f9ae61"
+  },
+  "manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/execution-manifest.json",
+    "sha256": "8d142d97ebe7e7422a231bae14e324adca909baad3c3917311478e5078bfba85"
+  },
+  "predictions": {
+    "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P1-development.jsonl",
+    "sha256": "197decf85c8e30f075cd7402c632bf136347b212941cc0808ba35fe2ace281df"
+  },
+  "raw_attempt_files": [
+    "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P1-development.jsonl"
+  ],
+  "model": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-model",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "native_controls": {
+    "model": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-model",
+    "model_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "quantization": null,
+    "runtime": {
+      "torch": "2.10.0",
+      "transformers": "5.17.0",
+      "mlx": "0.32.2",
+      "mlx-lm": "0.32.0",
+      "laya": "0.3.4",
+      "semif-phase1": "0.1.0"
+    },
+    "hardware": "macOS-26.6-arm64-arm-64bit",
+    "effort": "not_applicable",
+    "sampling": {
+      "temperature": 0,
+      "enable_thinking": false
+    },
+    "output_method": "prompted_json",
+    "parsing": "strict_json",
+    "retry_policy": "none",
+    "context_tokens": 262144,
+    "output_reserve_tokens": 2048,
+    "adapter_controls": {
+      "backend": "mlx",
+      "device": "gpu",
+      "dtype": [
+        "mlx.core.bfloat16",
+        "mlx.core.float32"
+      ],
+      "max_input_tokens": 4096,
+      "allocator_cache_limit_bytes": 268435456,
+      "mlx_lm_source": {
+        "url": "https://github.com/ml-explore/mlx-lm.git",
+        "vcs_info": {
+          "vcs": "git",
+          "commit_id": "a63e24c389382619eb6d9af656e3b46024be217a",
+          "requested_revision": "a63e24c389382619eb6d9af656e3b46024be217a"
+        }
+      },
+      "source_artifact_sha256": {
+        "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "config.json": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670",
+        "download-manifest.json": "2cb66eaad3beb97ac567ec5d4b5d852865932a2acc9ce4246800a5189c4ab7e9",
+        "model.safetensors-00001-of-00002.safetensors": "26a93f066e1916adb13453dae5a0c707c0fbc71299ed98779571a907b8e74c61",
+        "model.safetensors-00002-of-00002.safetensors": "cb544bd9bfae93dc59b0f22b292f5933573854a7f9b97835c67060d7d910e188",
+        "model.safetensors.index.json": "cf3f798ee02ba45f9622aa8892a47369ab667d0afbf154ee7c2212de42e6302d",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+        "tokenizer_config.json": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8",
+        "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "add_generation_prompt": true,
+      "generation_tokenization": "stream_generate native BOS-aware special-token rule"
+    },
+    "historical_prompt_evidence": "source_reconstructed; saved P0 hash is decision intent, not generated messages"
+  },
+  "hardware_description": "Apple M4 Max128GB; shared host with concurrent remote client work; local inference serial",
+  "inference_seconds_total": 734.214397417003,
+  "inference_seconds_median": 7.16008037499887,
+  "input_token_range": [
+    1774,
+    1806
+  ],
+  "output_tokens_total": 8070,
+  "failure_handling": "Strict raw JSON parse; native EOS required. No fence stripping, output repair, prompt tuning, or retries.",
+  "billing": "Local weights; no hosted inference charge",
+  "historical_P0_limitation": "Generated messages/token counts absent in historical P0; source reconstruction only. Legacy request hash binds decision intent; generated_request_sha256 binds actual new requests.",
+  "paired_evaluator_limitation": "Native exact execution evidence is complete; central paired evaluator still needs its native raw-evidence extractor. Do not represent declared-only central evaluation as verified paired eligibility."
+}
