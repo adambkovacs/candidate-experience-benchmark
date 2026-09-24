@@ -1,0 +1,422 @@
+{
+  "contract": "hosted-unattempted-continuation-v2",
+  "status": "DRAFT",
+  "reference_labels_read": false,
+  "inventory": {
+    "file": "results/hosted-never-sent-inventory-2026-09-24.json",
+    "sha256": "2fb316879b5a9df83d0bc2e55dae483a356f86bbc8c39b67e6761b7992af2e31"
+  },
+  "inventory_configuration_id": "openrouter-paid-deepseek-v41-flash-low",
+  "configuration_id": "openrouter-paid-deepseek-v41-flash-low",
+  "condition": "P2",
+  "controller": {
+    "file": "scripts/openrouter_unattempted_continuation.py",
+    "sha256": "e9176892510d802c0d1a21cf81ab6221845d8aff57d3b3cd23030dd66c41287f"
+  },
+  "dependencies": [
+    {
+      "file": "scripts/openrouter_paid_benchmark.py",
+      "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+    },
+    {
+      "file": "scripts/openrouter_benchmark.py",
+      "sha256": "d754c2b20a1cfd18bcf55c76a357df42d7be0f5506707e996f172a03f3d90d94"
+    },
+    {
+      "file": "scripts/paid_budget_partitions.py",
+      "sha256": "27584d11d58cbb9c4d8f9dfd4c84dcda7f38e2a2139c0a64886a5aee633c9286"
+    },
+    {
+      "file": "scripts/prompt_admission.py",
+      "sha256": "eff67d728724923dc668eb4b0471c2e3b56e8514adcd5abb81bad082992f0e99"
+    },
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "file": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    {
+      "file": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    }
+  ],
+  "original_manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+    "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+  },
+  "controls": {
+    "adapter_controls": {
+      "requested_model": "deepseek/deepseek-v4.1-flash",
+      "provider_tag": "open-inference/fp4",
+      "provider_name": "OpenInference",
+      "quantization": "fp4",
+      "reasoning_effort": "low",
+      "request_controls": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "provider": {
+          "only": [
+            "open-inference/fp4"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.1,
+            "completion": 0.5,
+            "request": 0,
+            "image": 0
+          }
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "judgments",
+            "strict": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "title": "Recruitment feedback judgments",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentiment",
+                "follow_up_needed",
+                "serious_concern_reported",
+                "testimonial_potential"
+              ],
+              "properties": {
+                "sentiment": {
+                  "type": "string",
+                  "enum": [
+                    "positive",
+                    "negative",
+                    "mixed",
+                    "neutral",
+                    "insufficient_information"
+                  ]
+                },
+                "follow_up_needed": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "testimonial_potential": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "reasoning": {
+          "enabled": true,
+          "effort": "low"
+        }
+      },
+      "runtime": "OpenRouter HTTP v1",
+      "hardware": "Remote provider undisclosed",
+      "surface": "OpenRouter paid HTTP",
+      "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+      "workflow": "single_record"
+    },
+    "model": "deepseek/deepseek-v4.1-flash",
+    "model_revision": null,
+    "quantization": "fp4",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "effort": "low",
+    "sampling": {
+      "temperature": 0
+    },
+    "output_method": "json_schema",
+    "parsing": "strict_json",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "context_tokens": 1048576,
+    "output_reserve_tokens": 4096
+  },
+  "parent_baseline_id": "openrouter-paid-deepseek-v41-flash-low",
+  "observational_evidence": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/observational-evidence.json",
+    "sha256": "845295fad974f3887e2ec8d49e72faa8cdb45d9645cb006d9d7138bbcafd8735"
+  },
+  "instruction": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/instruction.txt",
+    "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "source_evidence": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/development.jsonl",
+      "sha256": "da61be15f5d9f2cec9f4c9603bda625c5a49ab5e0802c231538120b22e56e5fd"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/development.jsonl.attempts.jsonl",
+      "sha256": "a79fb95a91d61a87a4e6341c3749492ae02507d1884fb299b1100c8ce4fe96ae"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/smoke.jsonl",
+      "sha256": "6b35a54dec935b778a7a3bec2f9f87f7a548d42c92b111d9485bd550bf27bc1d"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/smoke-supplement.json",
+      "sha256": "cfe8bc991d971b520f6d695d064a3edfc530db45697e33d274e4006db27f32cd"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/development.jsonl.prompt-admission.json",
+      "sha256": "114be2fc23bc6dc9645fdaaf948d6ec966cb4c2d891f6ff090cfb6c3137ac4de"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/development.jsonl",
+      "sha256": "16c9fa4691f924526546a4032c996a5bdcdf7d9f0587f02c4388a7610c1ffc6c"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/reconciliation-v1.json",
+      "sha256": "fea0540daac5b3d78c6fbaabd3ae745a9556f1d9358b0f0c96023443f9eba9b0"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/execution-manifest.json",
+      "sha256": "476c3db1e68d4fbeb47501c9fd882b9b62ec8dc4cca787eb64b50e5779eaeb6b"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/budget-reconciliation.json",
+      "sha256": "f034735eb94476b6694811014f69b41991393fcbf1a0836af3716dfee0105118"
+    }
+  ],
+  "histories": [
+    {
+      "kind": "original",
+      "output": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/development.jsonl",
+        "sha256": "da61be15f5d9f2cec9f4c9603bda625c5a49ab5e0802c231538120b22e56e5fd"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/development.jsonl.attempts.jsonl",
+        "sha256": "a79fb95a91d61a87a4e6341c3749492ae02507d1884fb299b1100c8ce4fe96ae"
+      }
+    },
+    {
+      "kind": "continuation",
+      "output": {
+        "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/development.jsonl",
+        "sha256": "16c9fa4691f924526546a4032c996a5bdcdf7d9f0587f02c4388a7610c1ffc6c"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/amendment-journal.jsonl",
+        "sha256": "9738467465a0728eea289ba35cb4237d1b01d14a89bbdda5c9ad5f87eab2964c"
+      }
+    }
+  ],
+  "historical_ledgers": [
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p2/historical-ledger-0.jsonl",
+      "sha256": "7a2a53321c3a63f50cd012044fe745f26058e5de17c61864fa09ecc38bab1f3f"
+    },
+    {
+      "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p2/historical-ledger-1.jsonl",
+      "sha256": "6274f11b085fb29d8891f2377407a24e9d76fe135de7827726ed2ed01ea88fe1"
+    }
+  ],
+  "smoke": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/smoke.jsonl",
+    "sha256": "6b35a54dec935b778a7a3bec2f9f87f7a548d42c92b111d9485bd550bf27bc1d"
+  },
+  "smoke_supplement": {
+    "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/smoke-supplement.json",
+    "sha256": "cfe8bc991d971b520f6d695d064a3edfc530db45697e33d274e4006db27f32cd"
+  },
+  "endpoint_facts": {
+    "tag": "open-inference/fp4",
+    "model_id": "deepseek/deepseek-v4.1-flash",
+    "provider_name": "OpenInference",
+    "quantization": "fp4",
+    "context_length": 1048576,
+    "max_completion_tokens": 943718,
+    "max_prompt_tokens": null,
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "input_cache_read": "0.00000001",
+      "discount": 0
+    },
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_p"
+    ]
+  },
+  "catalog_facts": {
+    "id": "deepseek/deepseek-v4.1-flash",
+    "reasoning": {
+      "mandatory": false,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "high"
+    },
+    "context_length": 1048576,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ]
+  },
+  "remaining_ids": [
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "request_bindings": [
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-48.json",
+      "sha256": "c162ea6ea0cf16c346a92e08fbde3128cb6dca18b43128d37a3c6ed3842083b6"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-49.json",
+      "sha256": "b881a4cb65d3ba8bf10723e25dc0456d693512b84caefb55aa4b6a8104f15f85"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-50.json",
+      "sha256": "695f038d7a6187673fc39bea386b79dfc0e163869154fa3c205100e7bf8d99ea"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-51.json",
+      "sha256": "a1ebf715ad0b87950e361a889eaa4486bcd56e991d49e29958ee0dd4c8e4a103"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-52.json",
+      "sha256": "f9cca5fc6603cdf0d8c5e74022d38be03b810f74167b844c62f552f9c7af45bb"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-53.json",
+      "sha256": "04d807d90cf1d33318121e41003e2eeec1e1ed5599d5277409b457955713886f"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-54.json",
+      "sha256": "ca962a6d29324b53140f4459eb974791aaaba369c4c71832972e9aaefb8fe2fe"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-55.json",
+      "sha256": "24a5d3f65422f39d8cb1a343e727f45458ab2a08c49f8cee90a7accd078898a6"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-56.json",
+      "sha256": "af8c35f3e4aa29f5427587dd6cf94ee99d4c81dd06458903109c082bc8646901"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-57.json",
+      "sha256": "bd768b29b4daea6151017f2ca73144009728dc5b18f3ced8d20d6167951fb817"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-58.json",
+      "sha256": "862e7025f77bcf8766099420766f00eedd811e1a2e9963646bbc9380816adc1b"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-59.json",
+      "sha256": "42824fcc425757d745b69cccffa2417d200b05de0b9f5d1a7eeacb6f724f77d6"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-60.json",
+      "sha256": "984be19e7a044afc449a48c25b98647b15d9630e184bcffa84e1c56596652537"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-61.json",
+      "sha256": "b5055f8f4bfb9cc062354be04c941766bccd71cc381d5c72db7621874aa4e121"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/request-62.json",
+      "sha256": "cb2577e96c1d28fa15fa28fcf7c55fe3b797d8bd1a66d7d0ff8c37fcaa4fa698"
+    }
+  ],
+  "output": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p2/development.jsonl",
+  "journal": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p2/attempts.jsonl",
+  "policy": {
+    "retry": false,
+    "failed_records_retained": true,
+    "canonical_denominator": 60,
+    "order_limitation": "Suffix executes later; original counterbalanced timing is not preserved.",
+    "stop_on": [
+      "service_error",
+      "unknown_cost",
+      "identity_or_control_violation",
+      "nonintrinsic_invalid_output"
+    ],
+    "continue_on_intrinsic_invalid_output": true
+  }
+}

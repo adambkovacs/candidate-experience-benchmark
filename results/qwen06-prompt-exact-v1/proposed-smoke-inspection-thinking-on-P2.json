@@ -1,0 +1,22 @@
+{
+  "version": "qwen06-thinking-on-P2-smoke-inspection-v1",
+  "prepared_utc": "2026-09-24T18:32:16.293660+00:00",
+  "condition": "thinking-on-P2",
+  "accepted_for_development": true,
+  "smoke_ids_inspected": 3,
+  "smoke_output_sha256": "26cdebd5dda8fa8e95a74020d8afeb4d182a8abad1ff48bd06cbb1d09ad0b7e3",
+  "smoke_journal_sha256": "24c5d73c4cb3b6aaaff27df2b9e885ad4ae3634b57671bf81051b60909518886",
+  "smoke_terminal_sha256": "3067f2b14b1d79e296956b841495de26f4fe74fb64771b8835fe79c86dba4974",
+  "smoke_observation_sha256": "07370c9954ca9af477f87696e1d2a4a80bd6caf2793e9ff11a20a5060c82c972",
+  "manifest_sha256": "b2c45a560434f7339ac7c5b6944ee3cb806d86038421e9935db1f5ef56404352",
+  "preflight_sha256": "01cdcaa3114dda5dbdda9cdf54667ee0d6dc1642f5c3c35fcca9e1d1ba0b7be9",
+  "controller_sha256": "918d1fe2fc41c56d123cd7e5fea830f1d53dd7c8ac48ee377e708bcfe3f17274",
+  "route_recheck_sha256": "f8c552c30b9f33c78eb03823da3a6f9e2ba67669034b12c5aff0730168a00cf0",
+  "checks": [
+    "DEV-001 through DEV-003 each have a started and finished event, unique matching attempt ID, matching request and output hashes.",
+    "Three raw non-reasoning outputs independently parse as exact four-field JSON and match saved decisions.",
+    "Terminal is completed with three saved and finished attempts, zero invalid outputs, and no ambiguous timeout.",
+    "Observed prompt-token counts and returned model/runtime controls match frozen count and P0 bindings."
+  ],
+  "scope": "Technical inspection of three saved smoke rows only; no development inference performed by creating this file."
+}

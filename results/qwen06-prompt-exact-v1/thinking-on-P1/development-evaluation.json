@@ -1,0 +1,272 @@
+{
+  "version": "qwen06-prompt-development-evaluation-v1",
+  "evaluated_utc": "2026-09-24T18:43:44.861382+00:00",
+  "condition": "thinking-on-P1",
+  "reference_status": "AI-reviewed provisional; development only",
+  "reference_labels_read_offline_after_inference": true,
+  "reference_labels_sent_to_model": false,
+  "evaluation_method": "Existing scripts/development_benchmark.py score; saved decision.status and decision.prediction only, no repair or retry.",
+  "source_sha256": {
+    "development.jsonl": "4efacdf7be6f9ff974b1d46aa2b2a5846c1d1299e0c621375f0cf1e58cb7961b",
+    "development.attempts.jsonl": "dfaa7b31b863f16973fb9890fd02a6f44c94014ac943d00a509b7f41fbad46f5",
+    "development.terminal.json": "1917152a888a8894c73181cf9fb6fc2b9e9811a4054aa2bf9af27a204680f89a",
+    "data/pilot/proposed_labels.jsonl": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "data/pilot/pairs.json": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da",
+    "scripts/development_benchmark.py": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+  },
+  "terminal_status": "completed",
+  "records": 60,
+  "valid_outputs": 50,
+  "invalid_output_ids": [
+    "DEV-011",
+    "DEV-012",
+    "DEV-018",
+    "DEV-034",
+    "DEV-039",
+    "DEV-040",
+    "DEV-041",
+    "DEV-054",
+    "DEV-055",
+    "DEV-057"
+  ],
+  "all_four_correct": 1,
+  "per_field_correct": {
+    "sentiment": 30,
+    "follow_up_needed": 41,
+    "serious_concern_reported": 24,
+    "testimonial_potential": 9
+  },
+  "total_prompt_tokens": 103470,
+  "total_predicted_tokens": 16818,
+  "sum_record_elapsed_seconds": 136.487014833,
+  "score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 50,
+    "missing_or_failed": [
+      "DEV-011",
+      "DEV-012",
+      "DEV-018",
+      "DEV-034",
+      "DEV-039",
+      "DEV-040",
+      "DEV-041",
+      "DEV-054",
+      "DEV-055",
+      "DEV-057"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 30,
+        "denominator": 60,
+        "accuracy": 0.5,
+        "macro_f1": 0.3753065774804905,
+        "per_label": {
+          "positive": {
+            "tp": 11,
+            "fp": 11,
+            "fn": 0,
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666
+          },
+          "negative": {
+            "tp": 15,
+            "fp": 0,
+            "fn": 16,
+            "precision": 1.0,
+            "recall": 0.4838709677419355,
+            "f1": 0.6521739130434783
+          },
+          "mixed": {
+            "tp": 2,
+            "fp": 3,
+            "fn": 6,
+            "precision": 0.4,
+            "recall": 0.25,
+            "f1": 0.3076923076923077
+          },
+          "neutral": {
+            "tp": 2,
+            "fp": 6,
+            "fn": 6,
+            "precision": 0.25,
+            "recall": 0.25,
+            "f1": 0.25
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 41,
+        "denominator": 60,
+        "accuracy": 0.6833333333333333,
+        "macro_f1": 0.6352758352758353,
+        "per_label": {
+          "yes": {
+            "tp": 26,
+            "fp": 5,
+            "fn": 9,
+            "precision": 0.8387096774193549,
+            "recall": 0.7428571428571429,
+            "f1": 0.7878787878787878
+          },
+          "no": {
+            "tp": 14,
+            "fp": 1,
+            "fn": 10,
+            "precision": 0.9333333333333333,
+            "recall": 0.5833333333333334,
+            "f1": 0.717948717948718
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 3,
+            "fn": 0,
+            "precision": 0.25,
+            "recall": 1.0,
+            "f1": 0.4
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 24,
+        "denominator": 60,
+        "accuracy": 0.4,
+        "macro_f1": 0.3896135265700483,
+        "per_label": {
+          "yes": {
+            "tp": 15,
+            "fp": 6,
+            "fn": 10,
+            "precision": 0.7142857142857143,
+            "recall": 0.6,
+            "f1": 0.6521739130434783
+          },
+          "no": {
+            "tp": 7,
+            "fp": 4,
+            "fn": 22,
+            "precision": 0.6363636363636364,
+            "recall": 0.2413793103448276,
+            "f1": 0.35
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 16,
+            "fn": 4,
+            "precision": 0.1111111111111111,
+            "recall": 0.3333333333333333,
+            "f1": 0.16666666666666666
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 9,
+        "denominator": 60,
+        "accuracy": 0.15,
+        "macro_f1": 0.10344827586206896,
+        "per_label": {
+          "yes": {
+            "tp": 9,
+            "fp": 40,
+            "fn": 0,
+            "precision": 0.1836734693877551,
+            "recall": 1.0,
+            "f1": 0.3103448275862069
+          },
+          "no": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 50,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [
+        "DEV-008",
+        "DEV-031"
+      ],
+      "predicted_insufficient": [
+        "DEV-046",
+        "DEV-047",
+        "DEV-058"
+      ],
+      "output_failed_or_missing": [
+        "DEV-011",
+        "DEV-012",
+        "DEV-039",
+        "DEV-041",
+        "DEV-054"
+      ],
+      "false_escalations": [
+        "DEV-003",
+        "DEV-010",
+        "DEV-021",
+        "DEV-033"
+      ]
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": false,
+        "both_fully_correct": false
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      }
+    ]
+  },
+  "limitation": "These are provisional development references, not held-out human truth. Invalid outputs remain wrong in the 60-record denominator."
+}

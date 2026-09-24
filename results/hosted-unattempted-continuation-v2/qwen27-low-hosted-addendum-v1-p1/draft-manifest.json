@@ -1,0 +1,574 @@
+{
+  "contract": "hosted-unattempted-continuation-v2",
+  "status": "DRAFT",
+  "reference_labels_read": false,
+  "inventory": {
+    "file": "results/hosted-never-sent-inventory-2026-09-24.json",
+    "sha256": "2fb316879b5a9df83d0bc2e55dae483a356f86bbc8c39b67e6761b7992af2e31"
+  },
+  "inventory_configuration_id": "qwen27-low-hosted-addendum-v1",
+  "configuration_id": "openrouter-qwen27-low-darkbloom-fp4",
+  "condition": "P1",
+  "controller": {
+    "file": "scripts/openrouter_unattempted_continuation.py",
+    "sha256": "e9176892510d802c0d1a21cf81ab6221845d8aff57d3b3cd23030dd66c41287f"
+  },
+  "dependencies": [
+    {
+      "file": "scripts/openrouter_paid_benchmark.py",
+      "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+    },
+    {
+      "file": "scripts/openrouter_benchmark.py",
+      "sha256": "d754c2b20a1cfd18bcf55c76a357df42d7be0f5506707e996f172a03f3d90d94"
+    },
+    {
+      "file": "scripts/paid_budget_partitions.py",
+      "sha256": "27584d11d58cbb9c4d8f9dfd4c84dcda7f38e2a2139c0a64886a5aee633c9286"
+    },
+    {
+      "file": "scripts/prompt_admission.py",
+      "sha256": "eff67d728724923dc668eb4b0471c2e3b56e8514adcd5abb81bad082992f0e99"
+    },
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "file": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    {
+      "file": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    }
+  ],
+  "original_manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/execution-manifest.json",
+    "sha256": "a7e8a9a8c088b74f0668c60bc32dd19703bc8c8fce4f2acbc020bfbdc26b1859"
+  },
+  "controls": {
+    "adapter_controls": {
+      "requested_model": "qwen/qwen3.8-27b",
+      "provider_tag": "darkbloom/fp4",
+      "provider_name": "Darkbloom",
+      "quantization": "fp4",
+      "reasoning_effort": "low",
+      "request_controls": {
+        "model": "qwen/qwen3.8-27b",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "provider": {
+          "only": [
+            "darkbloom/fp4"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.1,
+            "completion": 1.8,
+            "request": 0,
+            "image": 0
+          }
+        },
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "judgments",
+            "strict": true,
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "title": "Recruitment feedback judgments",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentiment",
+                "follow_up_needed",
+                "serious_concern_reported",
+                "testimonial_potential"
+              ],
+              "properties": {
+                "sentiment": {
+                  "type": "string",
+                  "enum": [
+                    "positive",
+                    "negative",
+                    "mixed",
+                    "neutral",
+                    "insufficient_information"
+                  ]
+                },
+                "follow_up_needed": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                },
+                "testimonial_potential": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "insufficient_information"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "reasoning": {
+          "enabled": true,
+          "effort": "low"
+        }
+      },
+      "runtime": "OpenRouter HTTP v1",
+      "hardware": "Remote provider undisclosed",
+      "surface": "OpenRouter paid HTTP",
+      "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+      "workflow": "single_record"
+    },
+    "model": "qwen/qwen3.8-27b",
+    "model_revision": null,
+    "quantization": "fp4",
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "effort": "low",
+    "sampling": {
+      "temperature": 0
+    },
+    "output_method": "json_schema",
+    "parsing": "strict_json",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "context_tokens": 262144,
+    "output_reserve_tokens": 4096
+  },
+  "parent_baseline_id": "openrouter-qwen27-low-darkbloom-fp4",
+  "observational_evidence": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/observational-evidence.json",
+    "sha256": "207b069c9786b02e6c52a03aa63ee4a2738ffda0142018b5ceba21ade1f0e134"
+  },
+  "instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/instruction.txt",
+    "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+  },
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "source_evidence": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-development.jsonl",
+      "sha256": "2537fcb1b22b378b494252b92ea30498a004aaa616e74d344ad58d7243ccc2c8"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-development.jsonl.attempts.jsonl",
+      "sha256": "31f268b74b50e5926d1213a6223e3134df2d3b9ff0adcc22fe79051e399f8a91"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-smoke.jsonl",
+      "sha256": "d08e76d6ed0811987bc60ec4fbed0a58a25e53954578c913057fc94d209b4396"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-smoke-supplement.json",
+      "sha256": "c41ef7b1e2fbcdc1b7934c52c87257046c64de3c34b2b136222445b09f42fa3b"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/terminal-coverage-v1.json",
+      "sha256": "80fb7e8ca78ea0fee180c6130ce181ec7ad6bf6022f8a36b3d09d0874cc472ae"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/budget-manifest-v1-qwen27-low-prompts-v1.jsonl",
+      "sha256": "440ed56a408b38ef47a98383cf7cc3d45392e09d4a331183ce14ded00fb57348"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/budget-terminal-reconciliation.json",
+      "sha256": "3215cd5e8ffba9b4271395bcb30c518155412da878094bbcfe8ce2d1907bf986"
+    }
+  ],
+  "histories": [
+    {
+      "kind": "original",
+      "output": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-development.jsonl",
+        "sha256": "2537fcb1b22b378b494252b92ea30498a004aaa616e74d344ad58d7243ccc2c8"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-development.jsonl.attempts.jsonl",
+        "sha256": "31f268b74b50e5926d1213a6223e3134df2d3b9ff0adcc22fe79051e399f8a91"
+      }
+    }
+  ],
+  "historical_ledgers": [
+    {
+      "file": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p1/historical-ledger-0.jsonl",
+      "sha256": "440ed56a408b38ef47a98383cf7cc3d45392e09d4a331183ce14ded00fb57348"
+    }
+  ],
+  "smoke": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-smoke.jsonl",
+    "sha256": "d08e76d6ed0811987bc60ec4fbed0a58a25e53954578c913057fc94d209b4396"
+  },
+  "smoke_supplement": {
+    "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/P1-smoke-supplement.json",
+    "sha256": "c41ef7b1e2fbcdc1b7934c52c87257046c64de3c34b2b136222445b09f42fa3b"
+  },
+  "endpoint_facts": {
+    "tag": "darkbloom/fp4",
+    "model_id": "qwen/qwen3.8-27b",
+    "provider_name": "Darkbloom",
+    "quantization": "fp4",
+    "context_length": 262144,
+    "max_completion_tokens": 32768,
+    "max_prompt_tokens": null,
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000018",
+      "discount": 0
+    },
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logprobs",
+      "max_tokens",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ]
+  },
+  "catalog_facts": {
+    "id": "qwen/qwen3.8-27b",
+    "reasoning": {
+      "mandatory": false,
+      "default_enabled": true,
+      "supported_efforts": [
+        "xhigh",
+        "medium",
+        "low"
+      ],
+      "default_effort": "xhigh"
+    },
+    "context_length": 1000000,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_a",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ]
+  },
+  "remaining_ids": [
+    "DEV-011",
+    "DEV-012",
+    "DEV-013",
+    "DEV-014",
+    "DEV-015",
+    "DEV-016",
+    "DEV-017",
+    "DEV-018",
+    "DEV-019",
+    "DEV-020",
+    "DEV-021",
+    "DEV-022",
+    "DEV-023",
+    "DEV-024",
+    "DEV-025",
+    "DEV-026",
+    "DEV-027",
+    "DEV-028",
+    "DEV-029",
+    "DEV-030",
+    "DEV-031",
+    "DEV-032",
+    "DEV-033",
+    "DEV-034",
+    "DEV-035",
+    "DEV-036",
+    "DEV-037",
+    "DEV-038",
+    "DEV-039",
+    "DEV-040",
+    "DEV-041",
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "request_bindings": [
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-13.json",
+      "sha256": "8b5b92b605b92b9d62034cb6c1df9769c2f7872538a1d08c9a7a1d04fa1f5dd6"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-14.json",
+      "sha256": "6f043e3ed2fa94fcf6bd2cf5a066e554c0469706b5fcbf858aa04bb6600498d3"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-15.json",
+      "sha256": "7f13c85815e6809a9ce52018908ff5a4dafbfaeaf7cb4de66a47bcce3ee39320"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-16.json",
+      "sha256": "e8e8a7a8dae09b258905373f7cd3a753647cf227f749ce85adb774bf48eb462e"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-17.json",
+      "sha256": "e151f1c77ea9d2bc8a3f44608c9da103baa7fa4505cf56ca9de1f7e81506d127"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-18.json",
+      "sha256": "4a90df421675387b6bbd1405b36eda248246d0f4a9246fc0bba1542e347acd36"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-19.json",
+      "sha256": "a672d6941548391d4f716460966568e06420621ce42e28d7b5005ec49196623d"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-20.json",
+      "sha256": "dc810946fb450a1025115b23998c9bef04dffebb7763815e86ae216eb115be75"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-21.json",
+      "sha256": "767bbd3e284a330ee8e55d67ec419629eb47c481fd2c36e8c5bb99c80fc4d19c"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-22.json",
+      "sha256": "f95344db13bbe39affc8eb3ed3823d206729935d3d6a3689bb95909cf779d0b8"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-23.json",
+      "sha256": "66d40025dfad8eff0ac003f9258548662b29e3f1527c40b19f056292400013b8"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-24.json",
+      "sha256": "62b032b66323f199472ff0487682e4f596ad0e5e71ca28c2a29bc59dea1e9ff5"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-25.json",
+      "sha256": "272d49c7cb8b2b9233b55b20a2d046520daa14f412f26c45ca06184a211cec68"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-26.json",
+      "sha256": "f920b309d39a3126283a12378f452030c20c0f6c84a0686272ffe50230b88b12"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-27.json",
+      "sha256": "b41143e2aaf9d737ece96b9db1f79a363e912f5d120d7262f74071821f286586"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-28.json",
+      "sha256": "0adda4463571d0d84f1937dd1a7a578e8207e1cdf949fb863459ba4a2191e37e"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-29.json",
+      "sha256": "ffbdb0ac2c88b7ecc102de179633e4f9bd2c1424394d7d9c90c68dc9889d3a66"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-30.json",
+      "sha256": "7ddccf8cf69707e5bcaa80416323d9c8537d047112d8c461239020b9e54bcb15"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-31.json",
+      "sha256": "99ca4ad8dda36798e2f399521bd38080e90aeebfeaf024846b869f37d39aaabb"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-32.json",
+      "sha256": "96442a043ddb3366e9a80f96bd9e0c42a866925446efb539c182983beee4783b"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-33.json",
+      "sha256": "913cf94e1ef45e7ed30713ded631a00d481ae17c2fb2a01182d4d282617a5c60"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-34.json",
+      "sha256": "52c8172ad72f42930b213312b5a6c141255d7730396206d01eae07aaf45f026d"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-35.json",
+      "sha256": "6623453f93b8a06956dabaf39e84149328f01377630dee51ab62c1351ce9ca17"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-36.json",
+      "sha256": "06ef03087c9fb72fc65c53f70c65ca55122dacd68b08d9add039fd771b9fa124"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-37.json",
+      "sha256": "7b7b5da9fe98a84d90b9149386e84b2700eacbc8298c7a8e7302484ec77718e2"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-38.json",
+      "sha256": "396e8c727d199d4450eecb983d575548af0d50813c22d69b57e50dc96a6e0b91"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-39.json",
+      "sha256": "b9a6181524013d9c4ad4702ccfae6ffc4b07d989aff2387c525f6a360f6590c5"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-40.json",
+      "sha256": "51d138b5a38278d1946418699d177a1d2e5ed0e1f5d5e2a13525ea8e6416fa67"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-41.json",
+      "sha256": "fd9ec8ba94610ccfdc9470aebf3534d80ae71bee7d83119cfd7627c13ee5b9c3"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-42.json",
+      "sha256": "41033899217f5e9fdb67335cfb683ed01e80d266e7c8f98dedf1cbaa6cf5d072"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-43.json",
+      "sha256": "4e7c7cf50b287e5d88f3bba6bdfb3f9d7da889a597930fee723a61a23516377b"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-44.json",
+      "sha256": "ffeacdddc677eed879c9853a241913cb37fc3e0fd62796a0a1b6d69d6f44994f"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-45.json",
+      "sha256": "c828606599f6c515a433064a07b5897683c9d6e41adbbe878e01158cc607bdbf"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-46.json",
+      "sha256": "655b78c02e1af193ebff6ba66deec4bb381ed727f1b187d2bfe5e9c15b5890ec"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-47.json",
+      "sha256": "081750e66a911a167ea06d1f74c7abf17a95cfbe8ade6e1b9cb89d86a180dcaa"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-48.json",
+      "sha256": "33add179fcd039044d20272a8cc4589fb9e2eca1ef824549cb8aa7d6175572a6"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-49.json",
+      "sha256": "bb10c8bf9a506f4f75e8ae760e98c5df088093ea1eef56ed65b52c44d91d1c83"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-50.json",
+      "sha256": "edd7e686369b8192214c6dc7df2cdeaf11d569a65757ebd00d27703b26fab4c2"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-51.json",
+      "sha256": "01fa7c5d57d090e7e82542697101422c92376a48da8e52c5c576a280a859216f"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-52.json",
+      "sha256": "29a420ca94923f2a9855d6b248fe034d4e4cefc300c9fc9dd79ddd7418fd9988"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-53.json",
+      "sha256": "50093c2d455f2d3dc1bdfc3614ad2e7e62667de4086b6054397410950b61c634"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-54.json",
+      "sha256": "c7394cd4ade5d70efda6721c645e50d2f2c3ddf8867593394c41c04f9b051ea2"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-55.json",
+      "sha256": "3e8aeca4314a6bc8d3e2d1056534f32ed0de63bb911639aab7079b5c7b6d06f5"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-56.json",
+      "sha256": "98de6220edaf440b826556fa00dec325a0e5be8aa1a029f491e9c0d06afca1ff"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-57.json",
+      "sha256": "8fd083734dee8b641977da3f6ee7618afed32af45a749b40c33dbd29188e695d"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-58.json",
+      "sha256": "e69674107c1e841103777dbd36df937c06004bd740f7cb1320a9dd294889ba11"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-59.json",
+      "sha256": "a480ed3d8ec56a188feb9bdaf5d8b1f3efc1fc644e561dffad977340221a6bb6"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-60.json",
+      "sha256": "011946dd344b979246e182f018347e4c7c7620b60101669acb5bde06a1d8f0b3"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-61.json",
+      "sha256": "3f2acce13fdb3a6d964f92a2614206c6a1bffed32a957f27e256710cba02d34f"
+    },
+    {
+      "file": "results/prompt-comparison-v1-2026-09-24/qwen27-low-hosted-addendum-v1/offline-fragments/openrouter-qwen27-low-darkbloom-fp4/P1/request-62.json",
+      "sha256": "a282d45daff5d84e3ad6c8d14146f4d8c00c267435c7f06535380394d817dec3"
+    }
+  ],
+  "output": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p1/development.jsonl",
+  "journal": "results/hosted-unattempted-continuation-v2/qwen27-low-hosted-addendum-v1-p1/attempts.jsonl",
+  "policy": {
+    "retry": false,
+    "failed_records_retained": true,
+    "canonical_denominator": 60,
+    "order_limitation": "Suffix executes later; original counterbalanced timing is not preserved.",
+    "stop_on": [
+      "service_error",
+      "unknown_cost",
+      "identity_or_control_violation",
+      "nonintrinsic_invalid_output"
+    ],
+    "continue_on_intrinsic_invalid_output": true
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "allow_missing_outputs": false,
+  "attempt_selection": "latest_chronological",
+  "contract": "prompt-pairs-v1",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "retry_authorizations": {
+    "P0": [],
+    "P1": [],
+    "P2": []
+  },
+  "parent_baseline_id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+  "role": "cli_combined_prompt",
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-low-phase2-batch10-p0/P0-instruction.txt",
+    "sha256": "e096a70e8fe9e4e617c5e252ecb56226bfddd5e1c24dbcb62b23904f9c97f3f1"
+  },
+  "controls": {
+    "workflow": "codex-subscription-batch",
+    "requested_model": "gpt-5.6-luna",
+    "effort": "low",
+    "cli_version": "codex-cli 0.155.0-alpha.16.3",
+    "configured_batch_size": 10,
+    "controller_timeout_seconds": 600.0,
+    "auth_mode": "ChatGPT",
+    "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+    "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+  },
+  "controls_sha256": "c9b4b30e9e0969bb5d5e29667308b288fa325953d865bee0e86fc39ecc8f3572",
+  "historical_controls": {
+    "workflow": "codex-subscription-batch",
+    "requested_model": "gpt-5.6-luna",
+    "effort": "low",
+    "cli_version": "codex-cli 0.155.0-alpha.16",
+    "configured_batch_size": 10,
+    "controller_timeout_seconds": 600.0,
+    "auth_mode": "ChatGPT",
+    "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+    "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+  },
+  "historical_controls_sha256": "208a914a6a9bba1ae62f2038b751b2dbe1858d53c5bc9746989d2592478ca2f6",
+  "runtime_transition": {
+    "from": "codex-cli 0.155.0-alpha.16",
+    "to": "codex-cli 0.155.0-alpha.16.3",
+    "authorization": "user_2026-09-24_cli_change_move_forward",
+    "interpretation": "User accepted operational continuation on the CLI patch. Runtime differs; no claim that prompt effects are independent of this change."
+  },
+  "conditions": {
+    "P0": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/subscription-batch-p0-2026-09-23/codex-gpt-5.6-luna-low-phase2-batch10-p0/development.jsonl",
+        "sha256": "605198bf3f55eec6559c75e624ccb761d6813efb137fe8759e83116f91df7051"
+      },
+      "request_evidence": {
+        "file": "results/subscription-batch-p0-2026-09-23/codex-gpt-5.6-luna-low-phase2-batch10-p0/development-attempts.jsonl",
+        "sha256": "db56fe9ad8df50a4eff6b57d0f88040b1870eeafcdd8e5de82136a7ff45f4ae4"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P1/development.jsonl",
+        "sha256": "6a13643df852094b2e9cd837e2f805c1258f421d855d978f0c6d0a2171372367"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P1/development-attempts.jsonl",
+        "sha256": "6edb84e09fab21b737ec62db4391dad40cd34364719a1322f0c17f05eb67c804"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "codex_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P2/development.jsonl",
+        "sha256": "5e2bb9a5fb93f2472b97a586ee0cd98bbaa332ffbe7c6158d6ce4f1bc135b832"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P2/development-attempts.jsonl",
+        "sha256": "163b18077c633d993948d9f23fd244c69ac4e4681c9090c7b294a76f95ec4f7a"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+        "sha256": "623f0e449dfcc977aff46388e8bcc813411d52a8cf4eaba7def77fe62cd7d949"
+      },
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-low-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "9aa082f4e517827664d5f0622d1d813aea6b61b923642cb78ef5a42680abd0bc"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-luna-low-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "1d64354891dd2b269838194cdd511691a1fddc9c462ec5f54cf5946b358d81d0"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P1/smoke-supplement.json",
+        "sha256": "b43f6816c339986b154a979494d2e90edf2b177d6ba49d8f0bb049f2f2fba021"
+      }
+    },
+    "P2": {
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+        "sha256": "6e0432dcb3d7c2daed539b8fe3470435bc5af95d3f4c7b7b7bc4b8921bc335c1"
+      },
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-codex-runtime163-v1/codex-gpt-5.6-luna-low-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "9aa082f4e517827664d5f0622d1d813aea6b61b923642cb78ef5a42680abd0bc"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-luna-low-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "1d64354891dd2b269838194cdd511691a1fddc9c462ec5f54cf5946b358d81d0"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-5.6-luna-low-phase2-batch10-p0/P2/smoke-supplement.json",
+        "sha256": "a754ca6a70f6abf8289a46510199222890be3745e61940e37074e1ce0b3bab75"
+      }
+    }
+  }
+}
