@@ -1,0 +1,2388 @@
+{
+  "version": "local-prompt-pairs-v1",
+  "configuration": "gemma4-e2b-sdk-thinking-on",
+  "eligible_paired_comparison": true,
+  "controls_verified": true,
+  "protocol": "observational local single-record development comparison",
+  "denominator": 60,
+  "condition_order": [
+    "P1",
+    "P2"
+  ],
+  "historical_p0_limitation": "P0 ran earlier than P1/P2. Time, cache and stochastic sampling are not controlled.",
+  "reference_status": "AI-reviewed provisional development labels; not held-out human truth",
+  "conditions": {
+    "P0": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 50,
+            "denominator": 60,
+            "accuracy": 0.8333333333333334,
+            "macro_f1": 0.6604953560371516,
+            "per_label": {
+              "positive": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.8181818181818182,
+                "f1": 0.9
+              },
+              "negative": {
+                "tp": 26,
+                "fp": 0,
+                "fn": 5,
+                "precision": 1.0,
+                "recall": 0.8387096774193549,
+                "f1": 0.9122807017543859
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 8,
+                "fn": 0,
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6666666666666666
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 2,
+                "fn": 1,
+                "precision": 0.7777777777777778,
+                "recall": 0.875,
+                "f1": 0.8235294117647058
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.6480829420970267,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9722222222222222,
+                "recall": 1.0,
+                "f1": 0.9859154929577465
+              },
+              "no": {
+                "tp": 23,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.9583333333333334,
+                "recall": 0.9583333333333334,
+                "f1": 0.9583333333333334
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 46,
+            "denominator": 60,
+            "accuracy": 0.7666666666666667,
+            "macro_f1": 0.6132616487455197,
+            "per_label": {
+              "yes": {
+                "tp": 20,
+                "fp": 3,
+                "fn": 5,
+                "precision": 0.8695652173913043,
+                "recall": 0.8,
+                "f1": 0.8333333333333334
+              },
+              "no": {
+                "tp": 25,
+                "fp": 8,
+                "fn": 4,
+                "precision": 0.7575757575757576,
+                "recall": 0.8620689655172413,
+                "f1": 0.8064516129032258
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 3,
+                "fn": 5,
+                "precision": 0.25,
+                "recall": 0.16666666666666666,
+                "f1": 0.2
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 52,
+            "denominator": 60,
+            "accuracy": 0.8666666666666667,
+            "macro_f1": 0.5658341042244835,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 5,
+                "fn": 0,
+                "precision": 0.6428571428571429,
+                "recall": 1.0,
+                "f1": 0.782608695652174
+              },
+              "no": {
+                "tp": 43,
+                "fp": 1,
+                "fn": 7,
+                "precision": 0.9772727272727273,
+                "recall": 0.86,
+                "f1": 0.9148936170212766
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 2,
+                "fn": 1,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [
+            "DEV-008",
+            "DEV-009",
+            "DEV-058",
+            "DEV-059"
+          ],
+          "predicted_insufficient": [
+            "DEV-054"
+          ],
+          "output_failed_or_missing": [],
+          "false_escalations": [
+            "DEV-014",
+            "DEV-053"
+          ]
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": false,
+            "both_fully_correct": false
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          }
+        ]
+      },
+      "sources": {
+        "output": {
+          "file": "results/gemma4-e2b-2026-09-21/thinking-development.jsonl",
+          "sha256": "ed61b4e3822d35a8292745203cebb7cf4cf5d4987f71c0cb216fff5cde956602"
+        },
+        "journal": {
+          "file": "results/gemma4-e2b-2026-09-21/thinking-development.jsonl.attempts.jsonl",
+          "sha256": "f16cd9c0f071272a42c00819395bcded6a9d9b7a4f566169e4c5bde995dbf82c"
+        },
+        "manifest": {
+          "file": "results/gemma4-e2b-2026-09-21/thinking-manifest.json",
+          "sha256": "50ae48d6c63fbd6ea55d5611c07e3c72363679be4fdb5673a58af3ceb20d091b"
+        }
+      }
+    },
+    "P1": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 48,
+            "denominator": 60,
+            "accuracy": 0.8,
+            "macro_f1": 0.6091989295272079,
+            "per_label": {
+              "positive": {
+                "tp": 7,
+                "fp": 1,
+                "fn": 4,
+                "precision": 0.875,
+                "recall": 0.6363636363636364,
+                "f1": 0.7368421052631579
+              },
+              "negative": {
+                "tp": 28,
+                "fp": 0,
+                "fn": 3,
+                "precision": 1.0,
+                "recall": 0.9032258064516129,
+                "f1": 0.9491525423728814
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 10,
+                "fn": 1,
+                "precision": 0.4117647058823529,
+                "recall": 0.875,
+                "f1": 0.56
+              },
+              "neutral": {
+                "tp": 6,
+                "fp": 1,
+                "fn": 2,
+                "precision": 0.8571428571428571,
+                "recall": 0.75,
+                "f1": 0.8
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.6361308116627266,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.9459459459459459,
+                "recall": 1.0,
+                "f1": 0.9722222222222222
+              },
+              "no": {
+                "tp": 22,
+                "fp": 1,
+                "fn": 2,
+                "precision": 0.9565217391304348,
+                "recall": 0.9166666666666666,
+                "f1": 0.9361702127659575
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 45,
+            "denominator": 60,
+            "accuracy": 0.75,
+            "macro_f1": 0.5366165653981452,
+            "per_label": {
+              "yes": {
+                "tp": 22,
+                "fp": 6,
+                "fn": 3,
+                "precision": 0.7857142857142857,
+                "recall": 0.88,
+                "f1": 0.8301886792452831
+              },
+              "no": {
+                "tp": 23,
+                "fp": 7,
+                "fn": 6,
+                "precision": 0.7666666666666667,
+                "recall": 0.7931034482758621,
+                "f1": 0.7796610169491526
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 2,
+                "fn": 6,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 54,
+            "denominator": 60,
+            "accuracy": 0.9,
+            "macro_f1": 0.5668934240362812,
+            "per_label": {
+              "yes": {
+                "tp": 8,
+                "fp": 4,
+                "fn": 1,
+                "precision": 0.6666666666666666,
+                "recall": 0.8888888888888888,
+                "f1": 0.7619047619047619
+              },
+              "no": {
+                "tp": 46,
+                "fp": 2,
+                "fn": 4,
+                "precision": 0.9583333333333334,
+                "recall": 0.92,
+                "f1": 0.9387755102040817
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [
+            "DEV-008",
+            "DEV-009",
+            "DEV-058"
+          ],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": [
+            "DEV-014",
+            "DEV-033",
+            "DEV-053",
+            "DEV-055"
+          ]
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": false,
+            "both_fully_correct": false
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          }
+        ]
+      },
+      "sources": {
+        "scorer_report": {
+          "file": "results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-on/P1.json",
+          "sha256": "a91561cec0bf24783c6c2dbc9ff41b46cb7c333f8523ba57dfc3c80cbcf5f273"
+        },
+        "development": {
+          "output": {
+            "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-on/P1/development.jsonl",
+            "sha256": "8db3bd22f92a13314b1425cc83d75d80ab14121456dc24f3ed7d40e9090c3f40"
+          },
+          "journal": {
+            "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-on/P1/development.attempts.jsonl",
+            "sha256": "09337e6009f4cd5a3c87949481917b062104754ae29054b274b8194100961edf"
+          },
+          "terminal": {
+            "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-on/P1/development.terminal.json",
+            "sha256": "a5e551c244bd93be46d0956797e1bf8ff9f78d6a547cce4411aa0ac91ac2fad1"
+          }
+        }
+      }
+    },
+    "P2": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 49,
+            "denominator": 60,
+            "accuracy": 0.8166666666666667,
+            "macro_f1": 0.6455513784461153,
+            "per_label": {
+              "positive": {
+                "tp": 9,
+                "fp": 1,
+                "fn": 2,
+                "precision": 0.9,
+                "recall": 0.8181818181818182,
+                "f1": 0.8571428571428571
+              },
+              "negative": {
+                "tp": 26,
+                "fp": 0,
+                "fn": 5,
+                "precision": 1.0,
+                "recall": 0.8387096774193549,
+                "f1": 0.9122807017543859
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 9,
+                "fn": 1,
+                "precision": 0.4375,
+                "recall": 0.875,
+                "f1": 0.5833333333333334
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.875,
+                "recall": 0.875,
+                "f1": 0.875
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.6361308116627266,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.9459459459459459,
+                "recall": 1.0,
+                "f1": 0.9722222222222222
+              },
+              "no": {
+                "tp": 22,
+                "fp": 1,
+                "fn": 2,
+                "precision": 0.9565217391304348,
+                "recall": 0.9166666666666666,
+                "f1": 0.9361702127659575
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 48,
+            "denominator": 60,
+            "accuracy": 0.8,
+            "macro_f1": 0.6438279501119284,
+            "per_label": {
+              "yes": {
+                "tp": 23,
+                "fp": 5,
+                "fn": 2,
+                "precision": 0.8214285714285714,
+                "recall": 0.92,
+                "f1": 0.8679245283018868
+              },
+              "no": {
+                "tp": 24,
+                "fp": 6,
+                "fn": 5,
+                "precision": 0.8,
+                "recall": 0.8275862068965517,
+                "f1": 0.8135593220338984
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 1,
+                "fn": 5,
+                "precision": 0.5,
+                "recall": 0.16666666666666666,
+                "f1": 0.25
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 53,
+            "denominator": 60,
+            "accuracy": 0.8833333333333333,
+            "macro_f1": 0.5430976430976431,
+            "per_label": {
+              "yes": {
+                "tp": 7,
+                "fp": 4,
+                "fn": 2,
+                "precision": 0.6363636363636364,
+                "recall": 0.7777777777777778,
+                "f1": 0.7
+              },
+              "no": {
+                "tp": 46,
+                "fp": 3,
+                "fn": 4,
+                "precision": 0.9387755102040817,
+                "recall": 0.92,
+                "f1": 0.9292929292929293
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [
+            "DEV-008",
+            "DEV-009"
+          ],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": [
+            "DEV-014",
+            "DEV-053",
+            "DEV-055",
+            "DEV-057"
+          ]
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": false,
+            "both_fully_correct": false
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": false,
+            "expected_changes_correct": true,
+            "both_fully_correct": false
+          }
+        ]
+      },
+      "sources": {
+        "scorer_report": {
+          "file": "results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-on/P2.json",
+          "sha256": "4a6d7d55209f7538fcf1e8267afc8ec12a6e8c033d24f4b21b4c11a83659ef4f"
+        },
+        "development": {
+          "output": {
+            "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-on/P2/development.jsonl",
+            "sha256": "b5f04adaaabb1548e538d756eafafbd23188153282098b188657ab4ec3274aa3"
+          },
+          "journal": {
+            "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-on/P2/development.attempts.jsonl",
+            "sha256": "5dd0ed1934de54bd7a387925dbc782485ae984818550393ed640b0dd6d8885cb"
+          },
+          "terminal": {
+            "file": "results/local-prompt-tail-v3/gemma4-e2b-sdk-thinking-on/P2/development.terminal.json",
+            "sha256": "ddb4f498b23147810ca06f6f526e6d1583e88aa9a93a0d0eb70ab01a68d10fac"
+          }
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "P0_to_P1": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> mixed": 3,
+            "neutral -> positive": 1,
+            "negative -> negative": 24,
+            "neutral -> neutral": 7,
+            "mixed -> mixed": 11,
+            "mixed -> negative": 4,
+            "positive -> positive": 6,
+            "negative -> mixed": 2,
+            "mixed -> positive": 1,
+            "neutral -> mixed": 1
+          },
+          "changed_ids": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-009",
+            "DEV-014",
+            "DEV-017",
+            "DEV-020",
+            "DEV-022",
+            "DEV-031",
+            "DEV-050",
+            "DEV-053",
+            "DEV-054",
+            "DEV-057"
+          ],
+          "wrong_to_correct": [
+            "DEV-002",
+            "DEV-009",
+            "DEV-022",
+            "DEV-031",
+            "DEV-054"
+          ],
+          "correct_to_wrong": [
+            "DEV-001",
+            "DEV-014",
+            "DEV-017",
+            "DEV-020",
+            "DEV-050",
+            "DEV-053",
+            "DEV-057"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 23,
+            "yes -> yes": 36,
+            "no -> yes": 1
+          },
+          "changed_ids": [
+            "DEV-052"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-052"
+          ]
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 23,
+            "insufficient_information -> insufficient_information": 2,
+            "insufficient_information -> yes": 2,
+            "no -> yes": 3
+          },
+          "changed_ids": [
+            "DEV-022",
+            "DEV-033",
+            "DEV-054",
+            "DEV-055",
+            "DEV-059"
+          ],
+          "wrong_to_correct": [
+            "DEV-054",
+            "DEV-059"
+          ],
+          "correct_to_wrong": [
+            "DEV-022",
+            "DEV-033",
+            "DEV-055"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 10,
+            "insufficient_information -> no": 2,
+            "no -> no": 42,
+            "no -> yes": 2,
+            "yes -> no": 4
+          },
+          "changed_ids": [
+            "DEV-002",
+            "DEV-005",
+            "DEV-008",
+            "DEV-014",
+            "DEV-037",
+            "DEV-044",
+            "DEV-046",
+            "DEV-050"
+          ],
+          "wrong_to_correct": [
+            "DEV-002",
+            "DEV-005",
+            "DEV-037",
+            "DEV-046",
+            "DEV-050"
+          ],
+          "correct_to_wrong": [
+            "DEV-008",
+            "DEV-014",
+            "DEV-044"
+          ]
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-002",
+        "DEV-031",
+        "DEV-037",
+        "DEV-046",
+        "DEV-054",
+        "DEV-059"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-001",
+        "DEV-017",
+        "DEV-033",
+        "DEV-044",
+        "DEV-052",
+        "DEV-055"
+      ],
+      "cases": [
+        {
+          "id": "DEV-001",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-002",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "insufficient_information"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-005",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "insufficient_information"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-008",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-009",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-014",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-017",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-020",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-022",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-031",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-033",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-037",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-044",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-046",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-050",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-052",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-053",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-054",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-055",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-057",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 21
+    },
+    "P0_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 7,
+            "neutral -> positive": 1,
+            "negative -> negative": 23,
+            "neutral -> neutral": 8,
+            "mixed -> mixed": 11,
+            "mixed -> negative": 3,
+            "positive -> mixed": 2,
+            "negative -> mixed": 3,
+            "mixed -> positive": 2
+          },
+          "changed_ids": [
+            "DEV-002",
+            "DEV-009",
+            "DEV-014",
+            "DEV-017",
+            "DEV-020",
+            "DEV-022",
+            "DEV-028",
+            "DEV-031",
+            "DEV-043",
+            "DEV-050",
+            "DEV-053"
+          ],
+          "wrong_to_correct": [
+            "DEV-002",
+            "DEV-009",
+            "DEV-022",
+            "DEV-028",
+            "DEV-031"
+          ],
+          "correct_to_wrong": [
+            "DEV-014",
+            "DEV-017",
+            "DEV-020",
+            "DEV-043",
+            "DEV-050",
+            "DEV-053"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 23,
+            "yes -> yes": 36,
+            "no -> yes": 1
+          },
+          "changed_ids": [
+            "DEV-052"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-052"
+          ]
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 22,
+            "insufficient_information -> insufficient_information": 1,
+            "insufficient_information -> yes": 3,
+            "no -> yes": 3,
+            "yes -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-022",
+            "DEV-054",
+            "DEV-055",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "wrong_to_correct": [
+            "DEV-054",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "correct_to_wrong": [
+            "DEV-022",
+            "DEV-055"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "insufficient_information -> no": 2,
+            "no -> no": 42,
+            "yes -> no": 5,
+            "no -> yes": 2
+          },
+          "changed_ids": [
+            "DEV-002",
+            "DEV-005",
+            "DEV-014",
+            "DEV-015",
+            "DEV-028",
+            "DEV-037",
+            "DEV-046",
+            "DEV-050",
+            "DEV-053"
+          ],
+          "wrong_to_correct": [
+            "DEV-002",
+            "DEV-005",
+            "DEV-037",
+            "DEV-046",
+            "DEV-050"
+          ],
+          "correct_to_wrong": [
+            "DEV-014",
+            "DEV-015",
+            "DEV-028",
+            "DEV-053"
+          ]
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-002",
+        "DEV-031",
+        "DEV-037",
+        "DEV-046",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-015",
+        "DEV-017",
+        "DEV-043",
+        "DEV-052",
+        "DEV-055"
+      ],
+      "cases": [
+        {
+          "id": "DEV-002",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "insufficient_information"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-005",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "insufficient_information"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-009",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-014",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-015",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-017",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-020",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-022",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-028",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-031",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-037",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-043",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-046",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-050",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-052",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-053",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-054",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-055",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-057",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-058",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-060",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 22
+    },
+    "P1_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "mixed -> positive": 2,
+            "positive -> positive": 8,
+            "negative -> negative": 26,
+            "neutral -> neutral": 7,
+            "mixed -> mixed": 14,
+            "negative -> mixed": 2,
+            "mixed -> neutral": 1
+          },
+          "changed_ids": [
+            "DEV-001",
+            "DEV-028",
+            "DEV-043",
+            "DEV-054",
+            "DEV-057"
+          ],
+          "wrong_to_correct": [
+            "DEV-001",
+            "DEV-028",
+            "DEV-057"
+          ],
+          "correct_to_wrong": [
+            "DEV-043",
+            "DEV-054"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 23,
+            "yes -> yes": 37
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 29,
+            "yes -> yes": 26,
+            "insufficient_information -> insufficient_information": 1,
+            "yes -> no": 1,
+            "insufficient_information -> yes": 1,
+            "no -> yes": 1,
+            "yes -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-033",
+            "DEV-057",
+            "DEV-058",
+            "DEV-060"
+          ],
+          "wrong_to_correct": [
+            "DEV-033",
+            "DEV-058",
+            "DEV-060"
+          ],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 46,
+            "yes -> no": 3,
+            "no -> yes": 2
+          },
+          "changed_ids": [
+            "DEV-008",
+            "DEV-015",
+            "DEV-028",
+            "DEV-044",
+            "DEV-053"
+          ],
+          "wrong_to_correct": [
+            "DEV-008",
+            "DEV-044"
+          ],
+          "correct_to_wrong": [
+            "DEV-015",
+            "DEV-028",
+            "DEV-053"
+          ]
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-001",
+        "DEV-033",
+        "DEV-044",
+        "DEV-060"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-015",
+        "DEV-043",
+        "DEV-054"
+      ],
+      "cases": [
+        {
+          "id": "DEV-001",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-008",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-015",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-028",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-033",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-043",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-044",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-053",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-054",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-057",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-058",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-060",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 12
+    }
+  },
+  "sources": {
+    "parent_manifest": {
+      "file": "results/local-prompt-exact-v1/manifest.json",
+      "sha256": "c77405d391334c40310ddaf7a866158b7ac136a8b2a77fa4d9671344fe988a49"
+    },
+    "tail_manifest": {
+      "file": "results/local-prompt-tail-v3/manifest.json",
+      "sha256": "fe0a203bbf819b20e2e571307a8911adcfe62b4f0e38cde64329d1890cfe7ffb"
+    },
+    "schedule": {
+      "file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+      "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+    }
+  }
+}

@@ -1,5 +1,14 @@
 # MVP completion status
 
+## 2026-09-24 Gemma E2B SOP results and audited local comparisons
+
+Gemma E2B thinking-on P2 completed with 60 valid outputs and **36/60 all-four matches**; thinking-off P2 completed with 60 valid outputs and **30/60 all-four matches**. Both [terminal-bound reports](../results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-on/P2.json) preserve exact controls and usage. Thinking-off P1 passed its own three-response smoke and is active in root session 42375.
+
+The reviewed offline local pairing auditor now verifies the completed Qwen 4B thinking-off and Gemma E2B thinking-on triples, including original baseline journals, frozen requests and controls, runtime identity, condition order and both completed prompt reports. The [Qwen comparison](../results/local-prompt-pairs-v1/qwen3.5-4b-sdk-thinking-off.json) has all-four scores P0/P1/P2 of 41/36/41; the [Gemma comparison](../results/local-prompt-pairs-v1/gemma4-e2b-sdk-thinking-on.json) has 35/35/36. Historical P0 ran earlier, so time, cache and stochastic effects remain uncontrolled. These are observational comparisons on provisional development references.
+
+The public export contains 252 run views, 15,120 cases and 40 audited prompt comparisons. Seven pairing-auditor tests and 17 public-export tests passed, with independent reviews. Per-review comparison navigation is being added to the website; report links and changed-case data already exist in the export. The MVP remains unfinished.
+
+
 ## 2026-09-24 Gemma E2B classifier condition completed
 
 Gemma 4 E2B thinking-on P1 completed 60 requests with **60 valid outputs and 35 all-four matches**. Its [offline report](../results/local-prompt-condition-reconciliations-v1/gemma4-e2b-sdk-thinking-on/P1.json) binds the exact artifact, runtime, prompts, terminal, attempt journal and predecessor chain. The public export contains 250 run views and 15,000 cases. Gemma E2B thinking-on P2 passed its three-record smoke inspection and is active in development, root session 52166.
