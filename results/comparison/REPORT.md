@@ -1,6 +1,6 @@
 # Development benchmark: observed configurations
 
-[Audited prompt comparisons](../prompt-comparison-v1-2026-09-24/paired-reports/thirty-six-eligible-comparisons.html) · [Current run status and outstanding work](../../docs/MVP_STATUS.md) · [AnyJev calibration findings](../anyjev-l2-cv5-hf517-v1-2026-09-24/README.md)
+[Audited prompt comparisons](../prompt-comparison-v1-2026-09-24/paired-reports/thirty-eight-eligible-comparisons.html) · [Current run status and outstanding work](../../docs/MVP_STATUS.md) · [AnyJev calibration findings](../anyjev-l2-cv5-hf517-v1-2026-09-24/README.md)
 
 All judgments are compared against provisional, same-assistant AI-reviewed labels on the same 60 synthetic development records. These are not human ground truth or held-out results. The remaining 340 records are ungenerated.
 

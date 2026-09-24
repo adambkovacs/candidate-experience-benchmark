@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f0e6">
+  <meta name="description" content="Explore a 60-record recruitment feedback benchmark by model, effort, and execution surface. Inspect outcomes, methods, and evidence.">
+  <title>Recruitment feedback | Field notes</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Recruitment feedback benchmark, top of page"><span class="wordmark-mark" aria-hidden="true">RF<span>.</span></span><span class="wordmark-label">FIELD NOTES <small>01 / BENCHMARK</small></span></a>
+      <nav aria-label="Main navigation" class="main-nav">
+        <a href="#story">Story</a><a href="#compare">Compare</a><a href="#inspect">Inspect</a><a href="#method">Method</a>
+      </nav>
+      <span class="header-edition">Development set / 60 records</span>
+    </header>
+
+    <main id="main">
+      <section class="hero section-grid" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> AN OPEN READING OF A SMALL TEST SET</p>
+          <h1 id="hero-title">Can a model read <em>between the lines</em>?</h1>
+          <p class="hero-deck">Sixty feedback records. Four decisions per record: sentiment, follow-up need, serious concern, and testimonial potential. Explore how different configurations handled them.</p>
+          <div class="hero-actions"><a class="button button-dark" href="#story">Explore the results <span aria-hidden="true">↘</span></a><a class="text-link" href="#method">Read the method <span aria-hidden="true">↗</span></a></div>
+          <p class="hero-caveat">Synthetic development records with references reviewed by the same AI assistant. No independent human adjudication. Multiple saved views can share a model and setting.</p>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+          <div class="hero-disc"><span class="disc-top">THE TEST SET</span><strong>60</strong><span class="disc-bottom">FEEDBACK RECORDS</span></div>
+          <span class="visual-label visual-label-a">01 / INPUT</span><span class="visual-label visual-label-b">02 / RESPONSE</span><span class="visual-label visual-label-c">03 / CHECK</span>
+        </div>
+        <div class="hero-scroll"><span>SCROLL TO READ</span><span class="scroll-rule"></span><span>↓</span></div>
+      </section>
+
+      <div class="chapter-nav" aria-label="Story chapters"><span class="chapter-nav-label">THE READING</span><a href="#story">01 <span>Story</span></a><a href="#compare">02 <span>Compare</span></a><a href="#inspect">03 <span>Inspect</span></a><a href="#method">04 <span>Method</span></a></div>
+
+      <section class="section story-section" id="story" aria-labelledby="story-title">
+        <div class="section-heading"><p class="eyebrow">01 / THE STORY</p><h2 id="story-title">A valid answer is only the start.</h2><p>The benchmark scores four decisions on each record. A response can be valid, correct on one field, or correct on all four. Every count below uses 60 as its denominator.</p></div>
+        <div class="metric-explainer">
+          <article class="metric-card metric-card-valid"><div class="metric-icon">◇</div><p class="metric-kicker">MEASURE 01</p><h3>Valid / 60</h3><p>The number of records with a scorable response under the benchmark rules. A completed run can still contain invalid responses.</p><span class="metric-formula">SCORABLE RESPONSES ÷ 60</span></article>
+          <div class="metric-connector" aria-hidden="true"><span>≠</span></div>
+          <article class="metric-card metric-card-correct"><div class="metric-icon">◉</div><p class="metric-kicker">MEASURE 02</p><h3>All four / 60</h3><p>The number of records where sentiment, follow-up need, serious concern, and testimonial potential all match the reference.</p><span class="metric-formula">FOUR MATCHING FIELDS ÷ 60</span></article>
+        </div>
+        <div class="decision-strip"><article><span>01</span><h3>Sentiment</h3><p>The overall emotional tone of the feedback.</p></article><article><span>02</span><h3>Follow-up needed</h3><p>Whether an unresolved issue calls for action.</p></article><article><span>03</span><h3>Serious concern</h3><p>Whether the account reports a serious allegation or risk.</p></article><article><span>04</span><h3>Testimonial potential</h3><p>Whether the feedback could support a positive testimonial.</p></article></div>
+        <div class="story-chart-wrap"><div class="chart-heading"><div><p class="eyebrow">A FIRST LOOK</p><h3>Completed runs, side by side.</h3></div><p>Each bar shows all-four-field matches out of 60. The thin marker shows valid responses. Select a row to inspect that saved view.</p></div><div id="story-chart" class="story-chart" aria-live="polite"><p class="loading">Loading public results…</p></div><p class="chart-footnote" id="story-chart-note"></p></div>
+      </section>
+
+      <section class="section compare-section" id="compare" aria-labelledby="compare-title">
+        <div class="section-heading compare-heading"><p class="eyebrow">02 / COMPARE</p><h2 id="compare-title">Change the lens.</h2><p>Filter by model, reasoning effort, or execution surface. The comparison keeps the same 60-record denominator throughout.</p></div>
+        <div class="filter-panel"><div class="filter-panel-heading"><strong>SHOW SAVED VIEWS</strong><span id="result-count" aria-live="polite"></span></div><div class="filter-grid"><label class="filter-field"><span>Search</span><input type="search" id="search" placeholder="Model or configuration" autocomplete="off"></label><label class="filter-field"><span>Model</span><select id="model-filter"><option value="">All models</option></select></label><label class="filter-field"><span>Effort</span><select id="effort-filter"><option value="">All efforts</option></select></label><label class="filter-field"><span>Surface</span><select id="surface-filter"><option value="">All surfaces</option></select></label><label class="filter-field"><span>Measure</span><select id="metric"><option value="all_four">All four correct / 60</option><option value="sentiment">Sentiment correct / 60</option><option value="follow_up_needed">Follow-up correct / 60</option><option value="serious_concern_reported">Concern correct / 60</option><option value="testimonial_potential">Testimonial correct / 60</option><option value="valid">Valid / 60</option></select></label><label class="filter-field"><span>Sort</span><select id="sort"><option value="score-desc">Selected measure, high to low</option><option value="model-asc">Model, A to Z</option><option value="runtime-asc">Runtime, short to long</option></select></label></div><label class="toggle-row"><input type="checkbox" id="include-incomplete"><span class="toggle-track" aria-hidden="true"></span><span>Include partial and incomplete runs</span></label></div>
+        <div class="comparison-head"><span>CONFIGURATION</span><span>VALID / 60</span><span id="score-heading">ALL FOUR / 60</span><span>RUNTIME</span><span></span></div><div id="comparison-list" class="comparison-list" aria-live="polite"></div><p class="table-note">These are saved benchmark views, including alternate and retry views. A row is a configuration, not a distinct model. Prompt, effort, and execution surface can affect the outcome.</p>
+      </section>
+
+      <section class="section prompt-section" id="prompts" aria-labelledby="prompts-title"><div class="section-heading"><p class="eyebrow">A CLOSER QUESTION</p><h2 id="prompts-title">The prompt changes, too.</h2><p>Where paired P0, P1, and P2 measurements are available, compare the same model across prompt conditions. The chart shows all-four-field matches out of 60; it does not isolate a causal effect.</p></div><div class="prompt-controls"><label class="filter-field"><span>Paired configuration</span><select id="prompt-model"></select></label><p id="prompt-context"></p></div><div id="prompt-chart" class="prompt-chart"></div></section>
+
+      <section class="section inspect-section" id="inspect" aria-labelledby="inspect-title"><div class="section-heading"><p class="eyebrow">03 / INSPECT</p><h2 id="inspect-title">Read the run behind the bar.</h2><p>Select any configuration above. Available timing, token, price, and example details appear here with their source notes.</p></div><div id="run-detail" class="run-detail"><p class="empty-state">Choose a run in Compare to inspect its evidence.</p></div></section>
+
+      <section class="section method-section" id="method" aria-labelledby="method-title"><div class="method-intro"><p class="eyebrow">04 / METHOD</p><h2 id="method-title">What these numbers can say.</h2><p>This is a 60-record synthetic development set for recruitment feedback. Read the reference note below before interpreting agreement as accuracy.</p><div id="source-links" class="source-links"></div></div><div class="method-body"><div class="method-steps"><div><span>01</span><h3>The same denominator</h3><p>Valid and correct sentiment are counted against all 60 development records. A partial run stays marked partial; missing records are never treated as correct.</p></div><div><span>02</span><h3>Configuration matters</h3><p>Read a result together with its model, reasoning effort, prompt, and execution surface. Differences in these controls limit direct comparisons.</p></div><div><span>03</span><h3>Costs need context</h3><p>Runtime, token counts, and API prices appear only when recorded. A subscription run has no equivalent per-run API price unless measured separately.</p></div></div><div class="faq"><p class="eyebrow">QUESTIONS READERS ASK</p><details><summary>Does "valid / 60" mean the model was right?</summary><p>No. Valid means the response could be scored under the benchmark rules. Correct sentiment measures agreement with the reference label.</p></details><details><summary>Why do some runs have no price?</summary><p>Some surfaces expose token usage or billed API prices; others do not. Missing cost data is shown as unavailable, never as zero.</p></details><details><summary>Can I use this to pick the best model overall?</summary><p>No. The set is small and drawn from one task. The page is meant to help you inspect measured runs, including their setup and limits.</p></details><details><summary>Why include partial results?</summary><p>They show what happened during an incomplete run. They are hidden from the default comparison so a short run is not mistaken for a full 60-record outcome.</p></details></div></div></section>
+    </main><footer class="site-footer"><span class="wordmark-mark" aria-hidden="true">RF<span>.</span></span><p>Recruitment feedback benchmark<br><small>Public reading of a development set</small></p><a href="#top">BACK TO TOP ↑</a></footer>
+  </div>
+</body>
+</html>

@@ -6,6 +6,8 @@ A reproducible case study of candidate-experience feedback triage across TypeSaf
 
 The latest [prompt-comparison report](results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-six-eligible-comparisons.html) covers 36 audited configurations. See [MVP status](docs/MVP_STATUS.md) for remaining work and [harness research](docs/HARNESS_RESEARCH.md) for the proposed larger-run tooling.
 
+The [public results explorer](public-site/index.html) adds metric explanations, interactive comparisons, prompt findings, record inspection and recorded runtime/token/cost details. [Build and publishing notes](docs/PUBLIC_EXPLORER.md).
+
 See the [current comparison](results/comparison/REPORT.md), [failure explorer](results/comparison/explorer.html), and [MVP run notes](docs/RUN_MVP.md). Labels remain provisional AI references; this is not a held-out ranking.
 
 ## Agreed scope
