@@ -155,6 +155,8 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | openrouter-paid-deepseek-v41-flash-high | complete_with_output_failure | 56 | 54 | 56 | 56 | 56 | 54 |
 | openrouter-paid-mistral-small32-24b-venice-not-applicable | complete | 60 | 54 | 57 | 55 | 57 | 48 |
 | openrouter-qwen27-low-darkbloom-fp4 | complete | 60 | 59 | 60 | 60 | 60 | 59 |
+| openrouter-qwen3-8b-off-json-object-p0 | smoke_upstream_rate_limit | — | — | — | — | — | — |
+| openrouter-qwen3-8b-on-json-object-p0 | smoke_upstream_rate_limit | — | — | — | — | — | — |
 
 Development-attempt costs only. Unknown-cost reservations are bounds, not observed charges; total cash remains unknown where charges are missing. This is not the shared ledger balance: that ledger also covers smoke and failed/incomplete configurations. Runs without explicit billing evidence are unavailable and omitted here. Overlapping first-pass/retry views must not be summed across rows.
 
@@ -972,4 +974,12 @@ Evidence: `results/openrouter-mistral24-venice-na-2026-09-23/development-reconci
 Separate hosted replacement for pending local low-effort prompt work. P0 smoke3 inspected; development60 all valid, no retries or unknown costs. P1/P2 pending. Hosted runtime/quantization differ from saved local Q4_K_M baseline; no local rerun. Hardware undisclosed.
 
 Evidence: `results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl`; SHA-256 `b828726930ca10a9603fd3b3351dce9b6463292cd489e4a0e459754c4f65e512`.
+
+**openrouter-qwen3-8b-off-json-object-p0**
+
+Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route.
+
+**openrouter-qwen3-8b-on-json-object-p0**
+
+Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route.
 

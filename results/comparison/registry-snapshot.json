@@ -681,6 +681,7 @@
     "effort": "421M English",
     "status": "unsupported_length",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Native512-token context truncates60/60 full rubric+feedback inputs; no inference performed. Exact native sequence audit: results/laya-coverage-audit-2026-09-21/coverage.json. Never shorten policy or feedback to fit."
   },
   {
@@ -689,6 +690,7 @@
     "effort": "421M typed",
     "status": "unsupported_length",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Native1024-token context truncates60/60 full rubric+feedback inputs; no inference performed. Exact native sequence audit: results/laya-coverage-audit-2026-09-21/coverage.json. Never shorten policy or feedback to fit."
   },
   {
@@ -697,6 +699,7 @@
     "effort": "PPO sales conversion",
     "status": "task_incompatible",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Predicts sales conversion via learned feature/PPO pipeline, not four user-defined recruitment judgments. No valid zero-shot categorical mapping; adapting or retraining changes task."
   },
   {
@@ -706,6 +709,11 @@
     "status": "blocked_provider_429",
     "predictions_file": null,
     "attempt_phase": "smoke",
+    "attempt_files": [
+      "results/openrouter/qwen38-smoke.jsonl",
+      "results/openrouter/qwen38-smoke-attempt2.jsonl",
+      "results/openrouter/qwen38-smoke-attempt3.jsonl"
+    ],
     "notes": "Three separately logged bounded smoke attempts failed firstrequestHTTP429; nofull60. Zero-price model/provider verified eachrun. No paidfallback. Later metadata lists supported_efforts xhigh/medium/low, mandatory=false; original effort:none request is not a validated successful configuration. Future disabled-reasoning config should be explicit and verified separately."
   },
   {
@@ -714,6 +722,7 @@
     "effort": "unavailable",
     "status": "unavailable_no_free_model",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "No free DeepSeek route was established at the recorded catalogue check. This free-only configuration remains unavailable. The later explicit $5 paid OpenRouter authorization enabled separately recorded DeepSeek V4.1 Flash configurations in the paid registry; off/low/high have each attempted all60. They do not establish free-route availability or replace the distinct local R1-Distill-Qwen32B configuration."
   },
   {
@@ -758,6 +767,7 @@
     "effort": "322M native context1024/head256",
     "status": "unsupported_length",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Pinned multilingual weights fully SHA256verified. Native1024/head256 fails exact fullinput coverage60/60; no inference. Audit results/laya-coverage-audit-2026-09-23/multilingual.json."
   },
   {
@@ -805,6 +815,7 @@
     "effort": "reasoning low; ModelRun FP4",
     "status": "pending_provider_recovery",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
   },
   {
@@ -813,6 +824,7 @@
     "effort": "reasoning medium; ModelRun FP4",
     "status": "pending_provider_recovery",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
   },
   {
@@ -821,6 +833,7 @@
     "effort": "reasoning xhigh; ModelRun FP4",
     "status": "pending_provider_recovery",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Public model metadata explicitly lists this supported effort; single zero-priced ModelRun endpoint lists reasoning and reasoning_effort. No inference attempt at this effort. Existing baseline requests failed429; offline-tested adapter controls implemented; smoke required before development. See results/openrouter/reasoning-options-audit.json."
   },
   {
@@ -829,6 +842,9 @@
     "effort": "reasoning disabled explicitly; ModelRun FP4",
     "status": "blocked_rate_limit",
     "predictions_file": null,
+    "attempt_files": [
+      "results/openrouter/qwen38-off-smoke-2026-09-23.jsonl"
+    ],
     "notes": "September23 live catalog verified Qwen3.8-27B:free ModelRun/fp4 explicit zero pricing and reasoning disabled. One smoke invocation stopped at DEV-001 HTTP429 after1.005s; no predictions or usage; no retry or development run. Older none attempts do not demonstrate reasoning-off support.",
     "attempt_phase": "smoke"
   },
@@ -862,6 +878,7 @@
     "effort": "AnyJev L1",
     "status": "staged_separate_calibration_required",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used."
   },
   {
@@ -870,6 +887,7 @@
     "effort": "AnyJev L2",
     "status": "staged_separate_calibration_required",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used."
   },
   {
@@ -995,6 +1013,7 @@
     "effort": "max",
     "status": "excluded_by_user",
     "predictions_file": null,
+    "attempt_files": [],
     "completed_records": 0,
     "notes": "September23 user excluded max and ultra from future runs. Historical artifacts preserved.",
     "future_enabled": false
@@ -1105,6 +1124,7 @@
     "effort": "max",
     "status": "excluded_by_user",
     "predictions_file": null,
+    "attempt_files": [],
     "completed_records": 0,
     "notes": "September23 user excluded max and ultra from future runs. Historical artifacts preserved.",
     "future_enabled": false
@@ -1115,6 +1135,7 @@
     "effort": "ultra",
     "status": "excluded_by_user",
     "predictions_file": null,
+    "attempt_files": [],
     "completed_records": 0,
     "notes": "September23 user excluded max and ultra from future runs. Historical artifacts preserved.",
     "future_enabled": false
@@ -1234,6 +1255,7 @@
     "effort": "max",
     "status": "excluded_by_user",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "September23 user excluded max and ultra from future runs. Historical artifacts preserved.",
     "future_enabled": false
   },
@@ -1243,6 +1265,7 @@
     "effort": "ultra",
     "status": "excluded_by_user",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "September23 user excluded max and ultra from future runs. Historical artifacts preserved.",
     "future_enabled": false
   },
@@ -1361,6 +1384,7 @@
     "effort": "max",
     "status": "excluded_by_user",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "September23 user excluded max and ultra from future runs. Historical artifacts preserved.",
     "future_enabled": false
   },
@@ -1370,6 +1394,7 @@
     "effort": "ultra",
     "status": "excluded_by_user",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "September23 user excluded max and ultra from future runs. Historical artifacts preserved.",
     "future_enabled": false
   },
@@ -1604,6 +1629,7 @@
     "effort": "high",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1612,6 +1638,7 @@
     "effort": "medium",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1620,6 +1647,7 @@
     "effort": "low",
     "status": "blocked_unverified_tool_restriction",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The existing native Antigravity login and model catalogue work. Three smoke attempts were preserved: an eligibility HTTP 503 with zero reported tokens; a model response with 57 tools listed and a plan-mode warning; and a corrected configuration that returned three valid classifications without warnings or tool calls but still listed 57 tools. No external tool use was observed. Whether initialization lists static inventory or effective model access remains unverified, so the strict tool-scope gate failed and no development requests were sent. Aggregate reported usage: 26,965 input tokens, 1,314 output tokens, 990 thinking tokens and 28,279 total tokens. The three request durations sum to 113.24463 seconds. The first runtime log was privately quarantined with an explicit source-hash redaction audit. No relogin, hosted Gemini API or paid credits were used.",
     "workflow": "native_agent_batch",
     "configured_batch_size": 10,
@@ -1638,6 +1666,7 @@
     "effort": "high",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1646,6 +1675,7 @@
     "effort": "medium",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1654,6 +1684,7 @@
     "effort": "low",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1662,6 +1693,7 @@
     "effort": "high",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1670,6 +1702,7 @@
     "effort": "medium",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1678,6 +1711,7 @@
     "effort": "low",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1686,6 +1720,7 @@
     "effort": "high",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1694,6 +1729,7 @@
     "effort": "low",
     "status": "pending_shared_runtime_verification",
     "predictions_file": null,
+    "attempt_files": [],
     "notes": "The user authorized the existing logged-in native Antigravity CLI. This model and effort remain in the requested catalogue. Further smoke requests are pending verification of the shared runtime tool restrictions: Flash 3.8 low returned valid classifications but initialization still listed 57 tools after documented controls were applied. No external tool use was observed. See results/antigravity-gemini38-flash-low-2026-09-23/README.md. This row has no benchmark inference and does not require renewed user approval."
   },
   {
@@ -1703,6 +1739,11 @@
     "status": "partial_isolation_violation",
     "predictions_file": null,
     "partial_predictions_file": "results/antigravity-gemini38-flash-low-cooldown-native129-2026-09-24/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development.jsonl",
+      "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery.jsonl",
+      "results/antigravity-gemini38-flash-low-cooldown-native129-2026-09-24/development.jsonl"
+    ],
     "raw_batch_attempt_files": [
       "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-attempts.jsonl",
       "results/antigravity-gemini38-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl",
@@ -1845,6 +1886,9 @@
     "status": "partial_service_error",
     "predictions_file": null,
     "partial_predictions_file": "results/antigravity-gemini36-flash-high-native129-2026-09-23/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/antigravity-gemini36-flash-high-native129-2026-09-23/development.jsonl"
+    ],
     "raw_batch_attempt_files": [
       "results/antigravity-gemini36-flash-high-native129-2026-09-23/development-attempts.jsonl"
     ],
@@ -1944,6 +1988,9 @@
     "status": "partial_isolation_violation",
     "predictions_file": null,
     "partial_predictions_file": "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development.jsonl"
+    ],
     "raw_batch_attempt_files": [
       "results/antigravity-gemini38-flash-medium-native129-2026-09-24/development-attempts.jsonl"
     ],
@@ -1965,6 +2012,9 @@
     "status": "partial_isolation_violation",
     "predictions_file": null,
     "partial_predictions_file": "results/antigravity-gemini38-flash-high-native129-2026-09-24/development-reconciled.jsonl",
+    "attempt_files": [
+      "results/antigravity-gemini38-flash-high-native129-2026-09-24/development.jsonl"
+    ],
     "raw_batch_attempt_files": [
       "results/antigravity-gemini38-flash-high-native129-2026-09-24/development-attempts.jsonl"
     ],
@@ -2155,6 +2205,12 @@
     ],
     "attempt_phase": "development",
     "completed_records": 19,
+    "attempt_files": [
+      "results/openrouter-mistral24-na-2026-09-23/development.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from009-timeout600.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from015-partition-recovery.jsonl",
+      "results/openrouter-mistral24-na-2026-09-23/development-from020-partition.jsonl"
+    ],
     "attempted_records": 21,
     "reconciliation_manifest": "results/openrouter-mistral24-na-2026-09-23/reconciliation-partial-paused.json",
     "partial_predictions_file": "results/openrouter-mistral24-na-2026-09-23/reconciled-partial-paused.jsonl",
@@ -2170,6 +2226,7 @@
     "quantization": "unknown",
     "notes": "Original and bounded cooldown recovery smoke attempts both failed at the first request with HTTP 429 from the upstream provider shared pool. Each attempt retains its full reserved unknown-cost bound; no development requests. Next step: provider shared-pool recovery or a separately verified equivalent provider. No credit purchase or provider-key setup performed. September24 separate overnight cooldown smoke also returned HTTP429 on DEV-001 in 0.760093 seconds despite public endpoint status0. No development, no further retry; full $0.04177920 reservation retained as unknown cost bound.",
     "attempt_phase": "development",
+    "attempt_files": [],
     "partition_id": "mistral119-none",
     "smoke_files": [
       "results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl",
@@ -2189,6 +2246,7 @@
     "quantization": "unknown",
     "notes": "First smoke HTTP429, no retry; full reserved $0.04177920 retained as unknown bound, not observed cost; partition sealed.",
     "partition_id": "mistral119-high",
+    "attempt_files": [],
     "attempt_phase": "development",
     "smoke_files": [
       "results/openrouter-partition-mistral119-high-2026-09-23/smoke.jsonl"
@@ -2309,5 +2367,37 @@
     "smoke_files": [
       "results/openrouter-qwen27-low-hosted-2026-09-24/smoke.jsonl"
     ]
+  },
+  {
+    "id": "openrouter-qwen3-8b-off-json-object-p0",
+    "model": "qwen/qwen3-8b",
+    "effort": "off",
+    "status": "smoke_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "alibaba",
+    "quantization": "unknown",
+    "attempt_files": [],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/off-p0-smoke3-results.jsonl"
+    ],
+    "reconciliation_manifest": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/root-smoke-inspection-and-closure.json",
+    "notes": "Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route."
+  },
+  {
+    "id": "openrouter-qwen3-8b-on-json-object-p0",
+    "model": "qwen/qwen3-8b",
+    "effort": "on",
+    "status": "smoke_upstream_rate_limit",
+    "predictions_file": null,
+    "provider": "alibaba",
+    "quantization": "unknown",
+    "attempt_files": [],
+    "attempt_phase": "development",
+    "smoke_files": [
+      "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/on-p0-smoke3-results.jsonl"
+    ],
+    "reconciliation_manifest": "results/openrouter-qwen3-8b-hosted-plan-2026-09-24/root-smoke-inspection-and-closure.json",
+    "notes": "Separate hosted JSON-object condition; not equivalent to historical local Q4_K_M results. Both smoke modes hit Alibaba shared-pool HTTP429. Reasoning off: two valid, one service error. Reasoning on: one invalid JSON scalar, one service error, final smoke ID unattempted. No full60/P1/P2, no retries. Unknown charges retained at full reserved bounds; partitions sealed. Next step: verify recovered upstream capacity or separately review another hosted route."
   }
 ]

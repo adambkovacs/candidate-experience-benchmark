@@ -1,0 +1,1621 @@
+{
+  "receipt": "comparison-refresh-v1",
+  "captured_utc": "2026-09-24T17:40:27Z",
+  "pre_refresh_receipt": {
+    "path": "results/comparison-refresh-2026-09-24/pre-refresh.json",
+    "sha256": "f339f06e0fa0f676375cfd4b61f6b5b3ed0b9c1acf7a2618336e50a1b33b55db"
+  },
+  "refresh_command": "python3 scripts/build_development_report.py --registry results/local-run-registry.json --registry results/claude-subscription-2026-09-21/run-registry.json --registry results/specialist-run-registry.json --registry results/codex-run-registry.json --registry results/gemini-run-registry.json --registry results/openrouter-paid-run-registry.json --output results/comparison",
+  "snapshot_command": "python3 -c 'import json,pathlib; paths=[\"results/local-run-registry.json\",\"results/claude-subscription-2026-09-21/run-registry.json\",\"results/specialist-run-registry.json\",\"results/codex-run-registry.json\",\"results/gemini-run-registry.json\",\"results/openrouter-paid-run-registry.json\"]; rows=[x for n in paths for x in json.loads(pathlib.Path(n).read_text())]; assert len(rows)==151 and len({x[\"id\"] for x in rows})==151; pathlib.Path(\"results/comparison/registry-snapshot.json\").write_text(json.dumps(rows,indent=2)+chr(10))'",
+  "input_hashes": [
+    {
+      "path": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+      "bytes": 10618
+    },
+    {
+      "path": "data/pilot/pairs.json",
+      "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da",
+      "bytes": 1600
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+      "bytes": 47615
+    },
+    {
+      "path": "results/alex-openjev08-mps-2026-09-23/development.jsonl",
+      "sha256": "8a85a1070e073dbea00c165ca7995de93949bcd01d2e8f2da4cb615d0302d14a",
+      "bytes": 196695
+    },
+    {
+      "path": "results/alex-openjev4b-mps-2026-09-23/development-complete.jsonl",
+      "sha256": "1fb4ef119e0e5d8ac19c0aaa77aec6b1f5e3e472ae2a9288aadc6a709d13dc82",
+      "bytes": 199010
+    },
+    {
+      "path": "results/alex-openjev4b-mps-2026-09-23/development-resume-2026-09-24.jsonl",
+      "sha256": "4c0088d27ac651351b4e86906b85a90ad397d63a57bf66e82ca0c39656484d90",
+      "bytes": 47194
+    },
+    {
+      "path": "results/alex-openjev4b-mps-2026-09-23/development.jsonl",
+      "sha256": "4150c1b8985fd1d06fb251d7473fb682e366d3622257b0429adf8563926ea373",
+      "bytes": 151816
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-attempts.jsonl",
+      "sha256": "b175feb183648da6aed4a96eb7deeab61a8c1eb4f45d424bbbef62bf88507395",
+      "bytes": 232274
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl",
+      "sha256": "e1e6f9d08fcf9f5bcc9476d02c79ab1a67ffbafb0ff662fd3694c3890c1a348a",
+      "bytes": 52351
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-recovery-attempts.jsonl",
+      "sha256": "5bc19c6ebfc897de0e72e57efceec46978f4deb3574b546cf2a00535a82dff21",
+      "bytes": 96642
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-recovery.jsonl",
+      "sha256": "7417d0fbc835269897c3c69d8189afc10a046649aef021b3e2855a5a79908916",
+      "bytes": 17454
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development.jsonl",
+      "sha256": "9c7b03cc90297764e75adbc87bb026e3e6894e780af73b18bb0e1d5c50ca6a5d",
+      "bytes": 42567
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-attempts.jsonl",
+      "sha256": "fba203377cb435b6cc7ae89886a51225b3f1d7ab7a50e96fbba78e1c99183324",
+      "bytes": 228690
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-reconciled.jsonl",
+      "sha256": "fd77beedfbb35d8139fb3f4a662a5f3bfef62313cecca10f1420bee5ae47152d",
+      "bytes": 52170
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-recovery-attempts.jsonl",
+      "sha256": "d4d7fa4ba43fd2c374f9ce5ee69c4d6fe7faf565105da18805769b4e356d4f90",
+      "bytes": 96858
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-recovery.jsonl",
+      "sha256": "1383a54b5c54be50d9fe34d2dcb54fb2408c41c140c691eff6ba9de1ba8d10b4",
+      "bytes": 17363
+    },
+    {
+      "path": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development.jsonl",
+      "sha256": "f832fd45fed1bab91f6abb434fff0e7a7b18558a00e4d9ea140a9d74ace83cff",
+      "bytes": 42307
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/development-attempts.jsonl",
+      "sha256": "4263750f760c3182c0adc355173a78b4a002c84f268265abd8c684ad4b281295",
+      "bytes": 122262
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/development-reconciled.jsonl",
+      "sha256": "119a16f0e8e7e128b10552b8f3eb33a4041a6f475dc33665e7f4620cbe5644db",
+      "bytes": 52485
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl",
+      "sha256": "c8924a500b68e1183170450b6f24fd0b80a7baaad51a702b343c2ce30e6e5126",
+      "bytes": 199465
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/development-recovery.jsonl",
+      "sha256": "3e8eb13e56f8dbd5aca04dc864c374448ff15b311b381e51198d2e06422250e0",
+      "bytes": 35052
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-low-native129-2026-09-23/development.jsonl",
+      "sha256": "2480a40e7d2d5ea0ab21ff14bab2c8b98378d36eecc27307149c4d28f8b866ef",
+      "bytes": 24933
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-attempts.jsonl",
+      "sha256": "126f63a0f2df35fe7a0e301701c9a662530ec60591e3092c6ec748125821bd8a",
+      "bytes": 33978
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+      "sha256": "2a183225c8653b7779c40246836e82e04d177ab93d341abb35803291d8887aab",
+      "bytes": 52986
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-recovery-attempts.jsonl",
+      "sha256": "13a01174704012487f7c87ef99037bb163fb45df718a817892db2beb60908d21",
+      "bytes": 291241
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-recovery.jsonl",
+      "sha256": "2a183225c8653b7779c40246836e82e04d177ab93d341abb35803291d8887aab",
+      "bytes": 52986
+    },
+    {
+      "path": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development.jsonl",
+      "sha256": "b780bc95d30cfddddf78f8ebdd342d0d6dfbb68f76b9ca7446363698857ebf35",
+      "bytes": 7770
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-attempts.jsonl",
+      "sha256": "51b93f64fec65093e8b00077788e10ca646e16dd3b4eb39a44764021c50fbf1d",
+      "bytes": 291087
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-reconciled.jsonl",
+      "sha256": "faa3c08c0f0f041d18c9d717a63f7c105655f65836185fe8a1f86fdc994757b3",
+      "bytes": 52664
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-high-native129-2026-09-24/development.jsonl",
+      "sha256": "faa3c08c0f0f041d18c9d717a63f7c105655f65836185fe8a1f86fdc994757b3",
+      "bytes": 52664
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-attempts.jsonl",
+      "sha256": "4f96227afad33d5e44ebefe23214856deef844cd84673d120987f9e30f62e853",
+      "bytes": 229096
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-reconciled.jsonl",
+      "sha256": "2c9a826b467f529d293a931b1b5416f016fd8493c3367b28bde86c91d3d322be",
+      "bytes": 52443
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-recovery-attempts.jsonl",
+      "sha256": "e7a2b3c4d4eca9793e61c9f95ed7c467953b47668554f6cf1fa2613f81bc3606",
+      "bytes": 96778
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-recovery.jsonl",
+      "sha256": "e11e431c3e57c18a9e0eeb92d10db07c291054d51fc0685a99d728f293d6dcdf",
+      "bytes": 17464
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development.jsonl",
+      "sha256": "6132e2662d0e26244226781452c1dc7f527391477a9264afdb2d8c3f142a23cf",
+      "bytes": 42659
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-attempts.jsonl",
+      "sha256": "38042d2dd65247771dbc724e0ba3bf0525a2ad2c1b151af9c59116d185867025",
+      "bytes": 83845
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+      "sha256": "ee050b6ce4331181a2bee8e136983fd427b3ac8d33a51aec14893550723e34d6",
+      "bytes": 53025
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-recovery-attempts.jsonl",
+      "sha256": "71c35d760a7669a78aa147f882220aa87fabade1fea4d6bf3e863a0efa53813b",
+      "bytes": 247889
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-recovery.jsonl",
+      "sha256": "40005ca9c8d352aefa00f67a2c125069b97f72baa294645d2553db40ab1a39cb",
+      "bytes": 44208
+    },
+    {
+      "path": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development.jsonl",
+      "sha256": "5a1fc674990c439142bc259a70521c16a4a917df287ca8206ad8e6763d3c108f",
+      "bytes": 16607
+    },
+    {
+      "path": "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl",
+      "sha256": "0018a1e2f7db62f2d65af1fdb59ff8194f11d6af57b5d164801dcd425fe18d14",
+      "bytes": 91789
+    },
+    {
+      "path": "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl",
+      "sha256": "fba96b08c10f8d85b2ab7e510902689dee302369f33e4f91baf152102cb524a1",
+      "bytes": 635951
+    },
+    {
+      "path": "results/anyjev-qwen06-raw-mps-2026-09-23/development.jsonl",
+      "sha256": "b1a1291e315dfd34312363fb5198d64b4f248f13f979a32240ac3ba19327d528",
+      "bytes": 368322
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/fable51-high-development.jsonl",
+      "sha256": "8b940a5da86ae029733811bbd12e3a704d3d41ca22ad4c8c4b6ed3f824939a49",
+      "bytes": 269266
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/fable51-low-development-session.jsonl",
+      "sha256": "c4c906701cdb91a1d7630e6412282119f7507e5bbc0cb9a2552d0b7b75a4af89",
+      "bytes": 265960
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/fable51-max-development.jsonl",
+      "sha256": "56d558466693ec477db476fd5f1de0471191d18e67636d2cdb4282d8093d5705",
+      "bytes": 268534
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/fable51-medium-development.jsonl",
+      "sha256": "32c1350dd1183b32ff882177323ebf023e46298788db6bf09a4eecc57646c54f",
+      "bytes": 268547
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/fable51-xhigh-development.jsonl",
+      "sha256": "17c927214a48fc0007be02549c934e36436a859091d83a493a2d925892823871",
+      "bytes": 268112
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/haiku45-not_applicable-development-session.jsonl",
+      "sha256": "2793372cf0490069f63805f2102791355ee01c2384896d854fd502d7d4b05e93",
+      "bytes": 228514
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/opus5-development.jsonl",
+      "sha256": "2f394a4b2439ffde0f2dcdc7c8d8e25d31154108284fc4593c630cc0dbee1c31",
+      "bytes": 229744
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/opus5-high-development-session.jsonl",
+      "sha256": "d9d53f0b7fba031fd064c914f52c0d91ab10426f508a1bd7596f05def39f044f",
+      "bytes": 246245
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/opus5-max-development.jsonl",
+      "sha256": "5af375a01f2ecd7bbb0ed4d3be40c9c9c56ba769ae99aa7940cac43f06b8b94d",
+      "bytes": 246370
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/opus5-medium-development.jsonl",
+      "sha256": "f59ad04f5113cceee3a591b9f95e4127778b4457b2a0ab9fb25fa666b0c11151",
+      "bytes": 246594
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/opus5-xhigh-development.jsonl",
+      "sha256": "2f9ce23e27c9f0f891285dd9c0c16cdf170af886bf00ad12188e511f89a6be7f",
+      "bytes": 246923
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/run-registry.json",
+      "sha256": "8c3b5ed70066b85f20f0bb08c169269eb7cc4b60168e4bfe37d96032e0d4e66f",
+      "bytes": 13691
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-dev030-retry1.jsonl",
+      "sha256": "cf3077705d6aa13a7e921f4c49916eb0314ead112494ef4fa112f97d949a1f79",
+      "bytes": 3900
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-development-part2.jsonl",
+      "sha256": "d1483a1a1ae4fd3d8cb90c4e7ee97f7c14bbafff33229477fcb06d829a452465",
+      "bytes": 115162
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-development.jsonl",
+      "sha256": "37ed6d15cde6141f5fa1b738f3931883e9f53162c3206c409fa2f113d19c1713",
+      "bytes": 104514
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-first-pass.jsonl",
+      "sha256": "1d4af9f59f82edf2f725e6d73884e34fd9f0b584783c28a3e56927a10414f58f",
+      "bytes": 219676
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-high-development-session.jsonl",
+      "sha256": "39d1640ef792fad3a4d55fa0fbb8a7cb5810d4ef36761e20ab05c0084d814d17",
+      "bytes": 246057
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-max-development.jsonl",
+      "sha256": "63c9c2d131d342ac20aab6a5b17c9d9125a67a48d85c459ab4aceb52f785cb1c",
+      "bytes": 248186
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-medium-development.jsonl",
+      "sha256": "b16ad84ca3934c85213eb5db614256930fa7ddb767a35dd8703980e76d417ce2",
+      "bytes": 246922
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-with-retry.jsonl",
+      "sha256": "4995f7066fd71dbc54b5099dea368ed72d9ec17107e79369256a3baf78ae5454",
+      "bytes": 222346
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/sonnet5-xhigh-development.jsonl",
+      "sha256": "42d86d86fe625a7779dc31efc1c1e941657f03e84360b8568a11f7f435fe95e3",
+      "bytes": 247398
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl",
+      "sha256": "75139c6df4632614ab216ed405871fd7f2efcf247e9c6e2ca51696c0bc7f40c5",
+      "bytes": 45830
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl.batches-normalized.jsonl",
+      "sha256": "8c6a05bfda590e3aae71c84e9807f5b54a340773e73571f6fe81bdf6939b83b5",
+      "bytes": 204757
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-low-batch10-development.jsonl",
+      "sha256": "9304bc1b5a589e9487679425c21066d825942660a933c44bef30426b7a68cdf8",
+      "bytes": 45770
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-low-batch10-development.jsonl.batches-normalized.jsonl",
+      "sha256": "83823cb3503a9339bda05d46aa762cc2bb5ee6d351f061353dc57ead5b726ee9",
+      "bytes": 194183
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl",
+      "sha256": "d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb",
+      "bytes": 45951
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl.batches-normalized.jsonl",
+      "sha256": "91e96ac806cad8ee8d255450a1cfd234221f08fc74ac72d75418a761d46f3288",
+      "bytes": 205399
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-xhigh-batch10-development.jsonl",
+      "sha256": "213308fcdfcce4edf847a19b3482548f136dcb2518265bc66435f6912920b704",
+      "bytes": 45901
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-xhigh-batch10-development.jsonl.batches-normalized.jsonl",
+      "sha256": "0b742362de97b341ac4144121c8db4ba945683be4427bf56957ee8b47f9ff57a",
+      "bytes": 211873
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "32880832b5a9968e3fca363e09b83da02d119cd3527c0837ab734cccbb85aecb",
+      "bytes": 116152
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-high-batch10-2026-09-23/development.jsonl",
+      "sha256": "d4ef884d488c2715721795882da9484e14bf469c95aaeb69011424dcb94310fa",
+      "bytes": 61326
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-part2.jsonl",
+      "sha256": "e05b7c93b0cd517730c18463f114e630ba6859b53c53412410bebf75f2a20ff1",
+      "bytes": 3181
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-part3.jsonl",
+      "sha256": "d411fd27ba58ecbc69236ecfc478bd2c12ebc71f723e9c7fed99ce9e946f033f",
+      "bytes": 3077
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-part4.jsonl",
+      "sha256": "289194cebd86d5485fdf618be03ca15de083dd2e54dad21422e53f342aae018f",
+      "bytes": 3076
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-part5.jsonl",
+      "sha256": "6b501653fda643676c42199b47fb65538784435c705131700d2b7f9cb2ff54e7",
+      "bytes": 3076
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-part6.jsonl",
+      "sha256": "e52a47502d80523792c9fb8a3e61f8bc9ecb1e1554a6e14151b5de880f4fca0b",
+      "bytes": 17983
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-part7.jsonl",
+      "sha256": "5ca8c5831832e38104ac148302d8ba95da6ad4c57bab313ac41a4d91e79a9ebf",
+      "bytes": 178039
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-reclassified.jsonl",
+      "sha256": "f51d9190be85a2895813d1adb3600bf4400e93a65c6746c3b63f0d95e9c4bb00",
+      "bytes": 74935
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-low-2026-09-21/development-reconciled.jsonl",
+      "sha256": "18572c21f941687485254449df44f53f9d685cd3450deaede387214676999f6f",
+      "bytes": 270957
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "1f80db4a7af494236a158b9c975fd51cb287c4f48312d3bf5497c6fb585fe9b3",
+      "bytes": 117085
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-medium-batch10-2026-09-23/development.jsonl",
+      "sha256": "3f5bf38701e85c1f097a38feb40230b8065840f1c1cdd38423177dd873f78831",
+      "bytes": 61428
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "de5d71fd4ea3c955e59710fffe637a30d6c4b12f425c4a9cc88b57f113cad3f7",
+      "bytes": 17670
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-xhigh-batch10-2026-09-23/development.jsonl",
+      "sha256": "806bfa0d192fd4f14192183a0d357235c0fc9ac8698c4681e451275fe6f8e021",
+      "bytes": 9170
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development-attempts.jsonl",
+      "sha256": "630b40eeb704b449180553288162e63a4f9a9dc0c23d533bcd49c26eaf2c8c5e",
+      "bytes": 114989
+    },
+    {
+      "path": "results/codex-gpt-5.6-luna-xhigh-recovery-2026-09-23/development.jsonl",
+      "sha256": "2fdad3354a0f63032c0b55ed8c7ff255210d9b4d48293cbc1b435f7945f8c768",
+      "bytes": 61353
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "c78da066f53ef37a5da3b780539cda6e72788204add809be67bb1ce5a2e8a393",
+      "bytes": 115804
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-high-batch10-2026-09-23/development.jsonl",
+      "sha256": "3455dcd06de2d502e6ae25c8248445c1cd70a7f58d184336dae00233271fed5b",
+      "bytes": 61125
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "dd067d932481406cbd4b7dba23b5cb66e1bb4c7c66efd8d094742b95bba54ecb",
+      "bytes": 115552
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-low-batch10-2026-09-23/development.jsonl",
+      "sha256": "3e9f7c87d7c3c844381002ac474abb829fe98e7cfee3c33b5800b783bb7cebdd",
+      "bytes": 60977
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "9f90e92b34f82dd8987cbede75967496bfe8e65786e778135398daa97b16e4bb",
+      "bytes": 115580
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-medium-batch10-2026-09-23/development.jsonl",
+      "sha256": "b2133c998266c36a8851e8e5563421ca958b4fef47560cf5482dd3c32dbad926",
+      "bytes": 61343
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "c29b097aa9a82bcac6839fb40bbb949690d7220660a6cfd3dd567c2e66972d9e",
+      "bytes": 115962
+    },
+    {
+      "path": "results/codex-gpt-5.6-sol-xhigh-batch10-2026-09-23/development.jsonl",
+      "sha256": "bb43657b1103c48c3f6a2ca605f36298f256a43e14bbcf7d6ab3ef1e57388585",
+      "bytes": 61155
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-high-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "1d1f42a5b3d0caef2733515ef20f328f8b6c165697d530c3be5f8d269b306675",
+      "bytes": 115624
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-high-batch10-2026-09-23/development.jsonl",
+      "sha256": "4b74bcbe04ff75d3bd59129178b05be0c7e98d4ae1800e3c849bff188949faa9",
+      "bytes": 61318
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "8153a1718e5b1763e2c28a64b8586ec6bd748472dd6d662e4c7378acd49ac9d8",
+      "bytes": 115215
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-low-batch10-2026-09-23/development.jsonl",
+      "sha256": "32fd2f4053d75dd538eccfa84696043ee03688fa03542b935537bf8121fc4138",
+      "bytes": 61245
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "55f73f710d8f73688e5a1bda26b4f9c6cc0eb8753c4c9d3e77951e9ec298ed6a",
+      "bytes": 115184
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-medium-batch10-2026-09-23/development.jsonl",
+      "sha256": "ed369f1190da98c7bccef827a0e102b90b4c5c73df4af2be6a5ef09ee745dabb",
+      "bytes": 61563
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "9f0e416191b8b1f4f60da2582b8876ed80bc794f77be99e8d421aa1c37d49d01",
+      "bytes": 115531
+    },
+    {
+      "path": "results/codex-gpt-5.6-terra-xhigh-batch10-2026-09-23/development.jsonl",
+      "sha256": "19f40816c5ce7d4c1c8cd6253431aa304bb22e94b7579de514f5e951673816b5",
+      "bytes": 61423
+    },
+    {
+      "path": "results/codex-gpt-6-astra-high-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "b5f95674fa63c207e36fe5a444687697f5fb637899742e2668ec6a6a41c97474",
+      "bytes": 115143
+    },
+    {
+      "path": "results/codex-gpt-6-astra-high-batch10-2026-09-23/development.jsonl",
+      "sha256": "541a21a2208ca791c083d716666b094379ca9209a11c8761085634d09e7589cd",
+      "bytes": 61084
+    },
+    {
+      "path": "results/codex-gpt-6-astra-low-2026-09-21/development-part2.jsonl",
+      "sha256": "bfa290f652a4f2b1ad7dd5f8eb1db2735a6c3463f95c7f69ef84a2a541a94a88",
+      "bytes": 3179
+    },
+    {
+      "path": "results/codex-gpt-6-astra-low-2026-09-21/development-part3.jsonl",
+      "sha256": "3d6fb33b5e796fbabdb7ca50a9ac00eb6e085865b325cb1e9a3008783637c12b",
+      "bytes": 3074
+    },
+    {
+      "path": "results/codex-gpt-6-astra-low-2026-09-21/development-part4.jsonl",
+      "sha256": "4d3174cd41f50e880149b9d8f00c8220e18ade87f5ec130cbe18ec97ed6fc2b6",
+      "bytes": 3074
+    },
+    {
+      "path": "results/codex-gpt-6-astra-low-2026-09-21/development-part5.jsonl",
+      "sha256": "ad23572faeb2fc4ec86d547ea401e27398d1ff61e87fef6cffcaaaa71bf68a75",
+      "bytes": 3074
+    },
+    {
+      "path": "results/codex-gpt-6-astra-low-2026-09-21/development-part6.jsonl",
+      "sha256": "ff2ed9639a106fa0052f0e4a25279905c4c661e75d783f48bc85da9059d2d4d5",
+      "bytes": 224307
+    },
+    {
+      "path": "results/codex-gpt-6-astra-low-2026-09-21/development-reclassified.jsonl",
+      "sha256": "a6e4b90f6e332357bb6875fdd3ea56851a53f4daf6114eb0a4bb90119649761f",
+      "bytes": 50523
+    },
+    {
+      "path": "results/codex-gpt-6-astra-low-2026-09-21/development-reconciled.jsonl",
+      "sha256": "a1526015cfbcc8badbded93d29a16cec1f4bbfb06217040d224d79bedd63cd14",
+      "bytes": 274830
+    },
+    {
+      "path": "results/codex-gpt-6-astra-medium-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "1f3e0622f685543789b78faa9a0da50fb36587b6d27e5768fe424a197de77074",
+      "bytes": 115105
+    },
+    {
+      "path": "results/codex-gpt-6-astra-medium-batch10-2026-09-23/development.jsonl",
+      "sha256": "3931aa5605a8d1a9c490bb91c36e39f0331837776c330ee34362952566e77d14",
+      "bytes": 61365
+    },
+    {
+      "path": "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development-attempts.jsonl",
+      "sha256": "57f0fb376446810b5c4b888fcaff313fa5c4e2bc25b29bb9f49b5db5205f95eb",
+      "bytes": 115107
+    },
+    {
+      "path": "results/codex-gpt-6-astra-xhigh-batch10-2026-09-23/development.jsonl",
+      "sha256": "72a6fe6129e3925ec6709a68c116020912cfb547d5e6de95a6f72fcadb423c04",
+      "bytes": 61235
+    },
+    {
+      "path": "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development-attempts.jsonl",
+      "sha256": "44c3f345abc894eec7b53105cde32843338e711525293af1b571f64a0a8e4e09",
+      "bytes": 115144
+    },
+    {
+      "path": "results/codex-gpt-6-luna-high-batch10-resumed-2026-09-23/development.jsonl",
+      "sha256": "d26489775508b4c7047a7a8921f64f595e5e77edcaea8c7cbe6c7374f0d91541",
+      "bytes": 61446
+    },
+    {
+      "path": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-attempts.jsonl",
+      "sha256": "1e4cfc37e6b1cd73c16191a5dab2f79c6a9849ef1745a73fb4244653fa917916",
+      "bytes": 19415
+    },
+    {
+      "path": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-completed.jsonl",
+      "sha256": "ba319b4af1a61523ad2528f0dafac66066c13fc79e02820d64be73a751dca52a",
+      "bytes": 61065
+    },
+    {
+      "path": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+      "sha256": "d9b0bcb9a374cc9b70dcf312f6f7eb7735e53ddffadf602cc09a0aee69e35d71",
+      "bytes": 2906
+    },
+    {
+      "path": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-continuation.jsonl",
+      "sha256": "df28e992e5d7c9d3884ef6311216815373e1a9c0d59e00af6f4dbfcf3d30925e",
+      "bytes": 9200
+    },
+    {
+      "path": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2-attempts.jsonl",
+      "sha256": "52b8488b359e17cc8a0b44fca45f634e6b0906d0cff37452eacfbc0ad54c5fb9",
+      "bytes": 76754
+    },
+    {
+      "path": "results/codex-gpt-6-luna-low-2026-09-23/development-batch-recovery2.jsonl",
+      "sha256": "168a110f4d33f225a6e531b21a650a722e334ffc125eed54f1680180961ac999",
+      "bytes": 40850
+    },
+    {
+      "path": "results/codex-gpt-6-luna-low-2026-09-23/development-batch.jsonl",
+      "sha256": "a5c6ca415ba80e3294a6acc0e49a0f27b448749677f3b9b90fa0785215a440c6",
+      "bytes": 29305
+    },
+    {
+      "path": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch-attempts.jsonl",
+      "sha256": "2e01746af3812cce8d6465b2f92a97e5eaec68eb2c9821a480cd782c94df4865",
+      "bytes": 115212
+    },
+    {
+      "path": "results/codex-gpt-6-luna-medium-2026-09-23/development-batch.jsonl",
+      "sha256": "1a129010a05d4fb62542cab917a6ff84e59d8396a14a5b63918d3a8d5c144a2c",
+      "bytes": 61166
+    },
+    {
+      "path": "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl",
+      "sha256": "93204873faef758375ff6760a0f31fb790aef2096319af90d00ea265083debfa",
+      "bytes": 115090
+    },
+    {
+      "path": "results/codex-gpt-6-luna-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+      "sha256": "27f5307c67981e2b4933c6cfdd894093e2030ba27200050e73f1df7e04a8122f",
+      "bytes": 61552
+    },
+    {
+      "path": "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development-attempts.jsonl",
+      "sha256": "e6ad791b9f195510b8fa60806dce4bbb1f011cce65a5e9aa5ebe698033fea083",
+      "bytes": 115131
+    },
+    {
+      "path": "results/codex-gpt-6-sol-high-batch10-resumed-2026-09-23/development.jsonl",
+      "sha256": "9ee13c2dacb86e059df7480ed8d8e13e5f48b695b6d170579557fd79669dad03",
+      "bytes": 61345
+    },
+    {
+      "path": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-attempts.jsonl",
+      "sha256": "aab18ef0068d4fbdc61d7ecd6f97c2ae5cff5733d6dd553b990790fa11d01fd4",
+      "bytes": 11251
+    },
+    {
+      "path": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-completed.jsonl",
+      "sha256": "32fceb0506e4fd35af4791700557d787d235990234654c0eebbba842d1931123",
+      "bytes": 61142
+    },
+    {
+      "path": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation-attempts.jsonl",
+      "sha256": "1190d6ff1c27c7a8b98cb043948bd1cd6f07177c6a050910d27bd2bc2c6f7014",
+      "bytes": 13852
+    },
+    {
+      "path": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-continuation.jsonl",
+      "sha256": "df8a63194a7f2d2aa44909d5e745d05b83305d9b78b39f18127b780d2d97dcad",
+      "bytes": 9190
+    },
+    {
+      "path": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2-attempts.jsonl",
+      "sha256": "f020a0108e33ca34ff6021a939b4f36df995e6ba99b761289c1fd5b3104299f4",
+      "bytes": 96028
+    },
+    {
+      "path": "results/codex-gpt-6-sol-low-2026-09-23/development-batch-recovery2.jsonl",
+      "sha256": "518b58846ba55bb57e6ae80a9228e894cf323494b3a701bdf3a44b7ab1a5f861",
+      "bytes": 51045
+    },
+    {
+      "path": "results/codex-gpt-6-sol-low-2026-09-23/development-batch.jsonl",
+      "sha256": "167df1bc4e5fc7f8a54a004cb3e810227f87b370853fc76d258e36001db3970d",
+      "bytes": 19167
+    },
+    {
+      "path": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch-attempts.jsonl",
+      "sha256": "19d75d37d4f8056bde4e2b59415e0c5b93be16af21d4eb01f69fda4236e5a37a",
+      "bytes": 115155
+    },
+    {
+      "path": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl",
+      "sha256": "e58e3f21125b0b6502a8a6ffdfbdf81db03e4c123a7cde638e96d304dcd68681",
+      "bytes": 61044
+    },
+    {
+      "path": "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development-attempts.jsonl",
+      "sha256": "662975a466ecc247ab580f452b6747a887d687466236386f1a3210c049b0ffc5",
+      "bytes": 115262
+    },
+    {
+      "path": "results/codex-gpt-6-sol-xhigh-batch10-resumed-2026-09-23/development.jsonl",
+      "sha256": "e886d9a7559499ee2b14b50adf1b46139f5c88bead8f9afadd5ee3f1d28d8261",
+      "bytes": 61455
+    },
+    {
+      "path": "results/codex-run-registry.json",
+      "sha256": "2aed1046df3684c693979bac4e791006b36f3701ffbd5fc506cba6506b728b0a",
+      "bytes": 35617
+    },
+    {
+      "path": "results/gemini-run-registry.json",
+      "sha256": "a26fd1626e4b2d20213c507833c7b1371fc1e8f46281ce21cc056327d22942ca",
+      "bytes": 27489
+    },
+    {
+      "path": "results/gemma4-e2b-2026-09-21/nonthinking-development.jsonl",
+      "sha256": "c52798fde9b7962a917c07459d8cd9fa93a2fa47c7efcbfd16e5dabde0dd8dd1",
+      "bytes": 3025046
+    },
+    {
+      "path": "results/gemma4-e2b-2026-09-21/thinking-development.jsonl",
+      "sha256": "ed61b4e3822d35a8292745203cebb7cf4cf5d4987f71c0cb216fff5cde956602",
+      "bytes": 3303434
+    },
+    {
+      "path": "results/gemma4-e4b-2026-09-23/off-development.jsonl",
+      "sha256": "8aaba576e896639e3ba2a203913d07baf4c258fa89b6bb8e34177a2b168f9bc6",
+      "bytes": 3023711
+    },
+    {
+      "path": "results/gemma4-e4b-2026-09-23/on-development.jsonl",
+      "sha256": "c222b2aad7be007e5b080a23a70cc785429cefd2b0623341dba4abbdd2d8d0e7",
+      "bytes": 3159723
+    },
+    {
+      "path": "results/laya-english-expanded-cpu-2026-09-23/development.jsonl",
+      "sha256": "a5999c03f1537670e2007764fa61fe47c4ccb35149d52b42c5e942e257addc30",
+      "bytes": 244040
+    },
+    {
+      "path": "results/laya-multilingual-expanded-cpu-2026-09-24/development.jsonl",
+      "sha256": "6b3cbb3f1333a8d3ddc9635353d26b6eb02c94afd739656b8e9f6e73a1ce454f",
+      "bytes": 225610
+    },
+    {
+      "path": "results/laya-typed-expanded-cpu-2026-09-23/development.jsonl",
+      "sha256": "d0c5f85c1f3f942971d3edf5b99b1431dba6d043815554859bdea9591bcba678",
+      "bytes": 264005
+    },
+    {
+      "path": "results/local-run-registry.json",
+      "sha256": "535beb17a945431ff51a2a2c6f104ed48c6f1f9e9d96bfcb1c9392409fe11852",
+      "bytes": 14122
+    },
+    {
+      "path": "results/openjev-local-adaptive-2026-09-23/development.jsonl",
+      "sha256": "b0ac1655ca76f617926147487ad67525208848e3590297e274493c2a8cb17bba",
+      "bytes": 160072
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/development-continuation.jsonl",
+      "sha256": "4559c239433394999e915c7b4574618f0de106e836ee7851d429346a8317623d",
+      "bytes": 140539
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/development-reconciled.jsonl",
+      "sha256": "60ff59a5933fd9a926f921eafe5209cedfa0f13b05d3422f8a6bfb8a2962b396",
+      "bytes": 158140
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/development.jsonl",
+      "sha256": "c6a2fbe1952afb6cdd2af0ca1cf17206ea1c1e1ecd63803d5772920a03b8170f",
+      "bytes": 17601
+    },
+    {
+      "path": "results/openjev-local-generated-off-2026-09-23/development.jsonl",
+      "sha256": "e29f4f0ef76ec8d62bbd5efe0791b0e536e38b8d50bbfd0623a72fbf7572d46f",
+      "bytes": 134095
+    },
+    {
+      "path": "results/openjev-local-generated-on-2026-09-23/development.jsonl",
+      "sha256": "08ea1e5b3efa7551dcfc588c1524a00c1a20f08e922a04d732c8ebe6f867b05e",
+      "bytes": 144792
+    },
+    {
+      "path": "results/openjev-local-thinking-2026-09-23/development.jsonl",
+      "sha256": "65b8d36c2931e40098ca63955409b04ca8d7eb323408bc146eb2b7b8210f0e58",
+      "bytes": 159108
+    },
+    {
+      "path": "results/openjev/typesafe-development-v2-continuation.jsonl",
+      "sha256": "a30454fa1ba104f85c216b68f43355c8895fca517a17dc2689d2371f5cb16e99",
+      "bytes": 35804
+    },
+    {
+      "path": "results/openjev/typesafe-development-v2-reconciled.jsonl",
+      "sha256": "5bb3186a23e884fddeeccd9051ec77cc2e3079b6698148b9cdb44c40b602bab4",
+      "bytes": 143259
+    },
+    {
+      "path": "results/openjev/typesafe-development-v2.jsonl",
+      "sha256": "c6228e8f7ebcfc769d1a66121fe9c84c4550526cdb1e15617b220767d2bcfd69",
+      "bytes": 108532
+    },
+    {
+      "path": "results/openrouter-gemma26-off-2026-09-23/development.jsonl",
+      "sha256": "3a4e74a1787aa4595c5fade367755edc23869045ffc683beddf1f424a53bb9fb",
+      "bytes": 887324
+    },
+    {
+      "path": "results/openrouter-gemma26-on-2026-09-23/development-from023.jsonl",
+      "sha256": "9a881c4836bfd82eb89690b487b5e8230618c72ecd74ef04a183e12654b59731",
+      "bytes": 769016
+    },
+    {
+      "path": "results/openrouter-gemma26-on-2026-09-23/development-reconciled.jsonl",
+      "sha256": "a7af4591db655915ce23952c1f3bcfbfa4c5b955fcfcd4cf3755fe269b1f5016",
+      "bytes": 1272359
+    },
+    {
+      "path": "results/openrouter-gemma26-on-2026-09-23/development.jsonl",
+      "sha256": "b2cda5450ec9f54a993641c573830827fece42d46dc7276646a2d626a4b12b0e",
+      "bytes": 489299
+    },
+    {
+      "path": "results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl",
+      "sha256": "ad8caac9b6db0df5f3e0e5b761f3bdb49e4aa7420eb184097bc29614ad7ab153",
+      "bytes": 939329
+    },
+    {
+      "path": "results/openrouter-mistral24-venice-na-2026-09-23/development.jsonl",
+      "sha256": "30e3ceae6dc228ff71a572bf1f0e4072ce7df1eb3316bceb1b1261977334effe",
+      "bytes": 925049
+    },
+    {
+      "path": "results/openrouter-paid-run-registry.json",
+      "sha256": "7c339156485e7d92f8233358eb59cb46c7c6a33a3d25c4538380391518e40bf9",
+      "bytes": 20106
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl",
+      "sha256": "24df93f7669839f580413dbb8a2fb8f68ece8754a2bb6562cb9158571c25f6e9",
+      "bytes": 1261177
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-from007.jsonl",
+      "sha256": "5022fce0553fd534e258cfba837a14bd02fd17c86f500e50705bf19c6dcd396f",
+      "bytes": 1106845
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development.jsonl",
+      "sha256": "a74653e21e4dae33df7971ed6ed3f9cd2336747d69d570d9ad706ddd37c9c1dd",
+      "bytes": 139080
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl",
+      "sha256": "aee3f15a4ed678d1b9b2d8a8afe5684eba0ec009d1d8481b4abd00345a4f41db",
+      "bytes": 1193093
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl",
+      "sha256": "011ad9843d174bcefab8f35fa4c3322d3c38e0012c13ca0d58959e9807725d84",
+      "bytes": 1039200
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl",
+      "sha256": "785f98cce757512a8d675f46f22df4ea83c26d70fe771002ce472451c348a812",
+      "bytes": 138701
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-off-2026-09-23/development-reconciled.jsonl",
+      "sha256": "ac3168657f2fecc06adb40b8541de79ed7bcf0e920466bb1ce3342a98607ee63",
+      "bytes": 928314
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-off-2026-09-23/development.jsonl",
+      "sha256": "bdb288a68aeedc208b85caac25e714d8b945f5197b4e75efcd2c81f8cf152522",
+      "bytes": 913554
+    },
+    {
+      "path": "results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl",
+      "sha256": "886b4fda9b09f8173ef4c73c86e1afb2585bc98d782020b3366c31dfa8fd21e7",
+      "bytes": 920314
+    },
+    {
+      "path": "results/openrouter-parallel-gemma31-off-2026-09-23/development.jsonl",
+      "sha256": "886bf4605cfa528cc4f41960d7c763dfafecc249fa7e2269d8334054a2b406d5",
+      "bytes": 905974
+    },
+    {
+      "path": "results/openrouter-parallel-gemma31-on-2026-09-23/development-reconciled.jsonl",
+      "sha256": "b31b2eb1e6633790daf27018c3621759694e52faef51c12aa91506a494bd0411",
+      "bytes": 1117970
+    },
+    {
+      "path": "results/openrouter-parallel-gemma31-on-2026-09-23/development.jsonl",
+      "sha256": "bcad694c1d0bf28427d6b79ead9b3ff4e0f72be1077dfff971d5184462fd5590",
+      "bytes": 1103690
+    },
+    {
+      "path": "results/openrouter-partition-qwen27-medium-2026-09-23/development-from049.jsonl",
+      "sha256": "ae41de79500fa47d260c33af832767b22a1c0966a88bd33d5532ceecde8abcd1",
+      "bytes": 246105
+    },
+    {
+      "path": "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl",
+      "sha256": "5704234c79b3952e5545cb27fd08426da390068c01e645e99392bf918a3a9a14",
+      "bytes": 1203209
+    },
+    {
+      "path": "results/openrouter-partition-qwen27-medium-2026-09-23/development.jsonl",
+      "sha256": "fe0e4f2b28d25faf197ef94ae0f5517c873658638278b1d781099959c368ee28",
+      "bytes": 942488
+    },
+    {
+      "path": "results/openrouter-partition-qwen27-off-2026-09-23/development.jsonl",
+      "sha256": "b702a3d2129075d31fef2249f105a72f61da2fcf38a05e9fd85be3051bcd6d40",
+      "bytes": 907761
+    },
+    {
+      "path": "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-from014.jsonl",
+      "sha256": "c25e7c74d32485b5c2f9876b31ff07d19ee79cd861f4e31a8312594c040cc303",
+      "bytes": 876386
+    },
+    {
+      "path": "results/openrouter-partition-qwen27-xhigh-2026-09-23/development-reconciled.jsonl",
+      "sha256": "dc129d32aed007ddcaf7041ff179ee6458f924c5569bd77948e8ac784f353d8d",
+      "bytes": 1174664
+    },
+    {
+      "path": "results/openrouter-partition-qwen27-xhigh-2026-09-23/development.jsonl",
+      "sha256": "d93ba27e3e37a2d8f3c5ddc4977a7c270f442ae9c9ddb1f2c3e9b00ca9ac1545",
+      "bytes": 283442
+    },
+    {
+      "path": "results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl",
+      "sha256": "b828726930ca10a9603fd3b3351dce9b6463292cd489e4a0e459754c4f65e512",
+      "bytes": 1113410
+    },
+    {
+      "path": "results/openrouter-qwen35-off-2026-09-23/development.jsonl",
+      "sha256": "456c9dca63122c62fce0a9daf9cf7abb2f4b8fa42560fa16fcdc73d446bd876b",
+      "bytes": 883985
+    },
+    {
+      "path": "results/openrouter-qwen35-on-2026-09-23/development.jsonl",
+      "sha256": "8817b970a43fd788524467f50de5413923ea504e15b67e068d52ec6c0917e321",
+      "bytes": 1451002
+    },
+    {
+      "path": "results/qwen3-0.6b-q4_k_m-2026-09-21/development.jsonl",
+      "sha256": "557e5f3759f5fede68e16a6c22c3df230a2283d05d2844c560cf1efa3824c7e9",
+      "bytes": 86949
+    },
+    {
+      "path": "results/qwen3-0.6b-sdk-nonthinking-2026-09-21/development.jsonl",
+      "sha256": "09c1aeb4b42eab4f2e4ead55067dd17eae8136010a4cb977630564dfe422dd9b",
+      "bytes": 1254579
+    },
+    {
+      "path": "results/qwen3-0.6b-sdk-thinking-2026-09-21/development.jsonl",
+      "sha256": "bddb791db2755571c6bf8a9993afc41121f1ba3237d3ff8e29d7d9d13235ac0e",
+      "bytes": 1390634
+    },
+    {
+      "path": "results/qwen3-1.7b-2026-09-21/nonthinking-development.jsonl",
+      "sha256": "a445f4dd46e8d472bc43c92e958200238487a97eb1b37574c3c3f195273d80d1",
+      "bytes": 1311570
+    },
+    {
+      "path": "results/qwen3-1.7b-2026-09-21/thinking-development.jsonl",
+      "sha256": "a0925265784b70045c47e8d71c7f3bb01fb6f1682b164a8dafbff54387ee5b42",
+      "bytes": 1349091
+    },
+    {
+      "path": "results/qwen3-8b-2026-09-21/nonthinking-development.jsonl",
+      "sha256": "adb637d71341d3c4013d0b4dc37b0eb90f3998c70f59ea797c53bffdb7524bf2",
+      "bytes": 1318624
+    },
+    {
+      "path": "results/qwen3-8b-2026-09-21/thinking-development.jsonl",
+      "sha256": "a3420a642d88b0154d203f2fdc3b1a06b1e67f606a43ab3d6ab1f349216c60dc",
+      "bytes": 1508026
+    },
+    {
+      "path": "results/qwen3.5-4b-2026-09-21/nonthinking-development.jsonl",
+      "sha256": "3704162ff632311c4595497595f3463debb0be2df7e9b7270d3be41b381efae4",
+      "bytes": 1700401
+    },
+    {
+      "path": "results/qwen3.5-4b-2026-09-21/thinking-development.jsonl",
+      "sha256": "4c588165b2980c8cb089e4c1574b65ccec8916135206e457a235863990f955e9",
+      "bytes": 2888725
+    },
+    {
+      "path": "results/qwen3.8-27b-2026-09-23/low-development.jsonl",
+      "sha256": "efcafb03b706b70999c84a367aa7cf2635e3a6b2014ce8085bfd7a0c20cbe056",
+      "bytes": 2030430
+    },
+    {
+      "path": "results/rules-v1-2026-09-21/development.jsonl",
+      "sha256": "76e4d032ae199f79352663715d4707923d7f37c961caf429002bdf46c84bb50b",
+      "bytes": 33604
+    },
+    {
+      "path": "results/semif-direct-bf16-2026-09-23/development.jsonl",
+      "sha256": "beca52b5c0380b32a118cbf8fb1ae65c7e59324d15eb025ded36331d403fbe20",
+      "bytes": 791977
+    },
+    {
+      "path": "results/semif-generated-bf16-2026-09-23/development.jsonl",
+      "sha256": "b32d4d78c85ccc24af4b136294db2b6679da39e8dbbcce3a744656297d468df9",
+      "bytes": 223614
+    },
+    {
+      "path": "results/semif-serial-bf16-2026-09-23/development.jsonl",
+      "sha256": "e8c6d4d3486de2083d3168a2b1001c9876996b5e8a3450252ea01493d02f1e51",
+      "bytes": 833800
+    },
+    {
+      "path": "results/semif-shared-bf16-2026-09-23/development.jsonl",
+      "sha256": "923b36ba111cba7b5eeaa8243b5ac3d70154955969b9f7b367820155da8f96b1",
+      "bytes": 777653
+    },
+    {
+      "path": "results/specialist-run-registry.json",
+      "sha256": "84dc146ce56db3269d45b02dc25786dc96f49e71a7f2fea4fc21b7a16168992a",
+      "bytes": 28780
+    },
+    {
+      "path": "scripts/build_development_report.py",
+      "sha256": "a824e71d07cc595dde7d54a7798ea5076d66f947605e86cbc76c424262312c58",
+      "bytes": 18180
+    },
+    {
+      "path": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d",
+      "bytes": 13090
+    },
+    {
+      "path": "scripts/report_template.html",
+      "sha256": "103dbe8ff43f8892d75b722b394308a157633f3969f34a36a0a6c791fcf39323",
+      "bytes": 5806
+    }
+  ],
+  "registry_inputs": [
+    {
+      "path": "results/local-run-registry.json",
+      "sha256": "535beb17a945431ff51a2a2c6f104ed48c6f1f9e9d96bfcb1c9392409fe11852",
+      "entries": 28,
+      "ids": [
+        "qwen3-0.6b-q4km-nonthinking",
+        "rules-v1",
+        "qwen3-0.6b-sdk-thinking-on",
+        "qwen3-0.6b-sdk-thinking-off",
+        "qwen3-1.7b-sdk-thinking-on",
+        "qwen3-1.7b-sdk-thinking-off",
+        "qwen3.5-4b-sdk-thinking-on",
+        "qwen3.5-4b-sdk-thinking-off",
+        "qwen3-8b-sdk-thinking-on",
+        "qwen3-8b-sdk-thinking-off",
+        "qwen3.8-27b-sdk-thinking-low",
+        "qwen3.8-27b-sdk-thinking-medium",
+        "qwen3.8-27b-sdk-thinking-xhigh",
+        "gemma4-e2b-sdk-thinking-on",
+        "gemma4-e2b-sdk-thinking-off",
+        "gemma4-e4b-sdk-thinking-on",
+        "gemma4-e4b-sdk-thinking-off",
+        "gemma4-26b-a4b-sdk-thinking-on",
+        "gemma4-26b-a4b-sdk-thinking-off",
+        "gemma4-31b-sdk-thinking-on",
+        "gemma4-31b-sdk-thinking-off",
+        "qwen3.8-27b-sdk-thinking-off",
+        "qwen36-35b-a3b-on",
+        "qwen36-35b-a3b-off",
+        "deepseek-r1-distill-qwen32b-native-reasoning",
+        "mistral-small32-24b-not-applicable",
+        "mistral-small4-119b-none",
+        "mistral-small4-119b-high"
+      ]
+    },
+    {
+      "path": "results/claude-subscription-2026-09-21/run-registry.json",
+      "sha256": "8c3b5ed70066b85f20f0bb08c169269eb7cc4b60168e4bfe37d96032e0d4e66f",
+      "entries": 21,
+      "ids": [
+        "sonnet5-low-first-pass",
+        "sonnet5-low-with-retry",
+        "opus5-low",
+        "haiku45-not_applicable",
+        "sonnet5-medium",
+        "sonnet5-high",
+        "sonnet5-xhigh",
+        "sonnet5-max",
+        "opus5-medium",
+        "opus5-high",
+        "opus5-xhigh",
+        "opus5-max",
+        "fable51-low",
+        "fable51-medium",
+        "fable51-high",
+        "fable51-xhigh",
+        "fable51-max",
+        "opus55-low-batch10",
+        "opus55-medium-batch10",
+        "opus55-high-batch10",
+        "opus55-xhigh-batch10"
+      ]
+    },
+    {
+      "path": "results/specialist-run-registry.json",
+      "sha256": "84dc146ce56db3269d45b02dc25786dc96f49e71a7f2fea4fc21b7a16168992a",
+      "entries": 30,
+      "ids": [
+        "typesafe-jev113-v2",
+        "openjev-fixed",
+        "openjev-adaptive",
+        "openjev-thinking",
+        "openjev-generated-off",
+        "openjev-generated-on",
+        "semif-direct",
+        "semif-serial",
+        "semif-shared",
+        "alex-openjev08",
+        "laya-english",
+        "laya-typed",
+        "salesrlagent",
+        "openrouter-qwen38-free",
+        "openrouter-deepseek-free",
+        "laya-english-expanded-cpu",
+        "laya-typed-expanded-cpu",
+        "semif-generated-bf16",
+        "laya-multilingual",
+        "laya-multilingual-expanded-cpu",
+        "alex-openjev4b",
+        "openrouter-qwen38-free-low",
+        "openrouter-qwen38-free-medium",
+        "openrouter-qwen38-free-xhigh",
+        "openrouter-qwen38-free-off",
+        "anyjev-qwen06-raw",
+        "anyjev-qwen06-l0",
+        "anyjev-qwen06-l1",
+        "anyjev-qwen06-l2",
+        "anyjev-qwen06-generated-control"
+      ]
+    },
+    {
+      "path": "results/codex-run-registry.json",
+      "sha256": "2aed1046df3684c693979bac4e791006b36f3701ffbd5fc506cba6506b728b0a",
+      "entries": 31,
+      "ids": [
+        "codex-gpt-5.6-luna-low",
+        "codex-gpt-5.6-luna-medium",
+        "codex-gpt-5.6-luna-high",
+        "codex-gpt-5.6-luna-xhigh",
+        "codex-gpt-5.6-luna-max",
+        "codex-gpt-6-astra-low",
+        "codex-gpt-6-astra-medium",
+        "codex-gpt-6-astra-high",
+        "codex-gpt-6-astra-xhigh",
+        "codex-gpt-6-astra-max",
+        "codex-gpt-6-astra-ultra",
+        "codex-gpt-5.6-sol-low",
+        "codex-gpt-5.6-sol-medium",
+        "codex-gpt-5.6-sol-high",
+        "codex-gpt-5.6-sol-xhigh",
+        "codex-gpt-5.6-sol-max",
+        "codex-gpt-5.6-sol-ultra",
+        "codex-gpt-5.6-terra-low",
+        "codex-gpt-5.6-terra-medium",
+        "codex-gpt-5.6-terra-high",
+        "codex-gpt-5.6-terra-xhigh",
+        "codex-gpt-5.6-terra-max",
+        "codex-gpt-5.6-terra-ultra",
+        "codex-gpt-6-sol-low-batch10",
+        "codex-gpt-6-sol-medium-batch10",
+        "codex-gpt-6-sol-high-batch10",
+        "codex-gpt-6-sol-xhigh-batch10",
+        "codex-gpt-6-luna-low-batch10",
+        "codex-gpt-6-luna-medium-batch10",
+        "codex-gpt-6-luna-high-batch10",
+        "codex-gpt-6-luna-xhigh-batch10"
+      ]
+    },
+    {
+      "path": "results/gemini-run-registry.json",
+      "sha256": "a26fd1626e4b2d20213c507833c7b1371fc1e8f46281ce21cc056327d22942ca",
+      "entries": 22,
+      "ids": [
+        "antigravity-gemini-3.8-flash-high",
+        "antigravity-gemini-3.8-flash-medium",
+        "antigravity-gemini-3.8-flash-low",
+        "antigravity-gemini-3.7-flash-high",
+        "antigravity-gemini-3.7-flash-medium",
+        "antigravity-gemini-3.7-flash-low",
+        "antigravity-gemini-3.6-flash-high",
+        "antigravity-gemini-3.6-flash-medium",
+        "antigravity-gemini-3.6-flash-low",
+        "antigravity-gemini-3.1-pro-high",
+        "antigravity-gemini-3.1-pro-low",
+        "antigravity-gemini-3.8-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+        "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-high-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+        "antigravity-gemini-3.8-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.8-flash-high-native-observed-batch10"
+      ]
+    },
+    {
+      "path": "results/openrouter-paid-run-registry.json",
+      "sha256": "7c339156485e7d92f8233358eb59cb46c7c6a33a3d25c4538380391518e40bf9",
+      "entries": 19,
+      "ids": [
+        "openrouter-paid-qwen3.8-27b-medium",
+        "openrouter-paid-qwen3.8-27b-xhigh",
+        "openrouter-paid-qwen3.8-27b-off",
+        "openrouter-paid-qwen36-35b-a3b-on",
+        "openrouter-paid-qwen36-35b-a3b-off",
+        "openrouter-paid-gemma4-26b-a4b-on",
+        "openrouter-paid-gemma4-26b-a4b-off",
+        "openrouter-paid-gemma4-31b-on",
+        "openrouter-paid-gemma4-31b-off",
+        "openrouter-paid-mistral-small32-24b-not-applicable",
+        "openrouter-paid-mistral-small4-119b-none",
+        "openrouter-paid-mistral-small4-119b-high",
+        "openrouter-paid-deepseek-v41-flash-off",
+        "openrouter-paid-deepseek-v41-flash-low",
+        "openrouter-paid-deepseek-v41-flash-high",
+        "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+        "openrouter-qwen27-low-darkbloom-fp4",
+        "openrouter-qwen3-8b-off-json-object-p0",
+        "openrouter-qwen3-8b-on-json-object-p0"
+      ]
+    }
+  ],
+  "counts_and_reconciliation": {
+    "before_configurations": 149,
+    "after_configurations": 151,
+    "old_summary_ids_retained_in_original_order": 149,
+    "new_ids": [
+      "openrouter-qwen3-8b-off-json-object-p0",
+      "openrouter-qwen3-8b-on-json-object-p0"
+    ],
+    "case_rows_before": 5940,
+    "case_rows_after": 5940,
+    "case_output_hash_unchanged": true,
+    "registry_snapshot_matches_summary_id_order": true,
+    "previous_summary_fields_changed_before_refresh": [],
+    "note": "Staging output was compared to the prior saved summary before overwrite: all 149 prior rows had identical status, prediction count/hash, attempt count, score, timing, and cost; only two rows were added. Both new rows have no development prediction file, so case rows are unchanged."
+  },
+  "outputs": [
+    {
+      "path": "results/comparison/REPORT.md",
+      "sha256": "b0d9493499a0c7abe925ae051df9fe12f1414d7a06d35983edcabe458cda8faf",
+      "bytes": 88543,
+      "line_count": 985
+    },
+    {
+      "path": "results/comparison/explorer.html",
+      "sha256": "abda2242fb684e5c47514af14b281e85e259d857b62a4470185ef6e9ee46b445",
+      "bytes": 4076163
+    },
+    {
+      "path": "results/comparison/summary.json",
+      "sha256": "25e56d94d14e2303ffda6a1b69ca802f14fcd030fbb4f16f3af58234f7faeebb",
+      "bytes": 904810,
+      "configurations": 151,
+      "ordered_ids": [
+        "qwen3-0.6b-q4km-nonthinking",
+        "rules-v1",
+        "qwen3-0.6b-sdk-thinking-on",
+        "qwen3-0.6b-sdk-thinking-off",
+        "qwen3-1.7b-sdk-thinking-on",
+        "qwen3-1.7b-sdk-thinking-off",
+        "qwen3.5-4b-sdk-thinking-on",
+        "qwen3.5-4b-sdk-thinking-off",
+        "qwen3-8b-sdk-thinking-on",
+        "qwen3-8b-sdk-thinking-off",
+        "qwen3.8-27b-sdk-thinking-low",
+        "qwen3.8-27b-sdk-thinking-medium",
+        "qwen3.8-27b-sdk-thinking-xhigh",
+        "gemma4-e2b-sdk-thinking-on",
+        "gemma4-e2b-sdk-thinking-off",
+        "gemma4-e4b-sdk-thinking-on",
+        "gemma4-e4b-sdk-thinking-off",
+        "gemma4-26b-a4b-sdk-thinking-on",
+        "gemma4-26b-a4b-sdk-thinking-off",
+        "gemma4-31b-sdk-thinking-on",
+        "gemma4-31b-sdk-thinking-off",
+        "qwen3.8-27b-sdk-thinking-off",
+        "qwen36-35b-a3b-on",
+        "qwen36-35b-a3b-off",
+        "deepseek-r1-distill-qwen32b-native-reasoning",
+        "mistral-small32-24b-not-applicable",
+        "mistral-small4-119b-none",
+        "mistral-small4-119b-high",
+        "sonnet5-low-first-pass",
+        "sonnet5-low-with-retry",
+        "opus5-low",
+        "haiku45-not_applicable",
+        "sonnet5-medium",
+        "sonnet5-high",
+        "sonnet5-xhigh",
+        "sonnet5-max",
+        "opus5-medium",
+        "opus5-high",
+        "opus5-xhigh",
+        "opus5-max",
+        "fable51-low",
+        "fable51-medium",
+        "fable51-high",
+        "fable51-xhigh",
+        "fable51-max",
+        "opus55-low-batch10",
+        "opus55-medium-batch10",
+        "opus55-high-batch10",
+        "opus55-xhigh-batch10",
+        "typesafe-jev113-v2",
+        "openjev-fixed",
+        "openjev-adaptive",
+        "openjev-thinking",
+        "openjev-generated-off",
+        "openjev-generated-on",
+        "semif-direct",
+        "semif-serial",
+        "semif-shared",
+        "alex-openjev08",
+        "laya-english",
+        "laya-typed",
+        "salesrlagent",
+        "openrouter-qwen38-free",
+        "openrouter-deepseek-free",
+        "laya-english-expanded-cpu",
+        "laya-typed-expanded-cpu",
+        "semif-generated-bf16",
+        "laya-multilingual",
+        "laya-multilingual-expanded-cpu",
+        "alex-openjev4b",
+        "openrouter-qwen38-free-low",
+        "openrouter-qwen38-free-medium",
+        "openrouter-qwen38-free-xhigh",
+        "openrouter-qwen38-free-off",
+        "anyjev-qwen06-raw",
+        "anyjev-qwen06-l0",
+        "anyjev-qwen06-l1",
+        "anyjev-qwen06-l2",
+        "anyjev-qwen06-generated-control",
+        "codex-gpt-5.6-luna-low",
+        "codex-gpt-5.6-luna-medium",
+        "codex-gpt-5.6-luna-high",
+        "codex-gpt-5.6-luna-xhigh",
+        "codex-gpt-5.6-luna-max",
+        "codex-gpt-6-astra-low",
+        "codex-gpt-6-astra-medium",
+        "codex-gpt-6-astra-high",
+        "codex-gpt-6-astra-xhigh",
+        "codex-gpt-6-astra-max",
+        "codex-gpt-6-astra-ultra",
+        "codex-gpt-5.6-sol-low",
+        "codex-gpt-5.6-sol-medium",
+        "codex-gpt-5.6-sol-high",
+        "codex-gpt-5.6-sol-xhigh",
+        "codex-gpt-5.6-sol-max",
+        "codex-gpt-5.6-sol-ultra",
+        "codex-gpt-5.6-terra-low",
+        "codex-gpt-5.6-terra-medium",
+        "codex-gpt-5.6-terra-high",
+        "codex-gpt-5.6-terra-xhigh",
+        "codex-gpt-5.6-terra-max",
+        "codex-gpt-5.6-terra-ultra",
+        "codex-gpt-6-sol-low-batch10",
+        "codex-gpt-6-sol-medium-batch10",
+        "codex-gpt-6-sol-high-batch10",
+        "codex-gpt-6-sol-xhigh-batch10",
+        "codex-gpt-6-luna-low-batch10",
+        "codex-gpt-6-luna-medium-batch10",
+        "codex-gpt-6-luna-high-batch10",
+        "codex-gpt-6-luna-xhigh-batch10",
+        "antigravity-gemini-3.8-flash-high",
+        "antigravity-gemini-3.8-flash-medium",
+        "antigravity-gemini-3.8-flash-low",
+        "antigravity-gemini-3.7-flash-high",
+        "antigravity-gemini-3.7-flash-medium",
+        "antigravity-gemini-3.7-flash-low",
+        "antigravity-gemini-3.6-flash-high",
+        "antigravity-gemini-3.6-flash-medium",
+        "antigravity-gemini-3.6-flash-low",
+        "antigravity-gemini-3.1-pro-high",
+        "antigravity-gemini-3.1-pro-low",
+        "antigravity-gemini-3.8-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+        "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-high-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+        "antigravity-gemini-3.8-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.8-flash-high-native-observed-batch10",
+        "openrouter-paid-qwen3.8-27b-medium",
+        "openrouter-paid-qwen3.8-27b-xhigh",
+        "openrouter-paid-qwen3.8-27b-off",
+        "openrouter-paid-qwen36-35b-a3b-on",
+        "openrouter-paid-qwen36-35b-a3b-off",
+        "openrouter-paid-gemma4-26b-a4b-on",
+        "openrouter-paid-gemma4-26b-a4b-off",
+        "openrouter-paid-gemma4-31b-on",
+        "openrouter-paid-gemma4-31b-off",
+        "openrouter-paid-mistral-small32-24b-not-applicable",
+        "openrouter-paid-mistral-small4-119b-none",
+        "openrouter-paid-mistral-small4-119b-high",
+        "openrouter-paid-deepseek-v41-flash-off",
+        "openrouter-paid-deepseek-v41-flash-low",
+        "openrouter-paid-deepseek-v41-flash-high",
+        "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+        "openrouter-qwen27-low-darkbloom-fp4",
+        "openrouter-qwen3-8b-off-json-object-p0",
+        "openrouter-qwen3-8b-on-json-object-p0"
+      ]
+    },
+    {
+      "path": "results/comparison/cases.json",
+      "sha256": "0b665ebdce9aa4548ec1b456dc13d9fd43217726a27c3573f9ba15934584e44e",
+      "bytes": 4042831,
+      "case_rows": 5940
+    },
+    {
+      "path": "results/comparison/judgment-counts.csv",
+      "sha256": "3a55c7be81809e519a9f268aa1f6d2aa854128c49d0cbd722a1f7804d99c3f06",
+      "bytes": 6138,
+      "data_rows": 99
+    },
+    {
+      "path": "results/comparison/registry-snapshot.json",
+      "sha256": "0b84749f1d7c76c265a9bd1bdaade28b7bf49b835a14bb1644e430d44ba3e34a",
+      "bytes": 139790,
+      "configurations": 151,
+      "ordered_ids": [
+        "qwen3-0.6b-q4km-nonthinking",
+        "rules-v1",
+        "qwen3-0.6b-sdk-thinking-on",
+        "qwen3-0.6b-sdk-thinking-off",
+        "qwen3-1.7b-sdk-thinking-on",
+        "qwen3-1.7b-sdk-thinking-off",
+        "qwen3.5-4b-sdk-thinking-on",
+        "qwen3.5-4b-sdk-thinking-off",
+        "qwen3-8b-sdk-thinking-on",
+        "qwen3-8b-sdk-thinking-off",
+        "qwen3.8-27b-sdk-thinking-low",
+        "qwen3.8-27b-sdk-thinking-medium",
+        "qwen3.8-27b-sdk-thinking-xhigh",
+        "gemma4-e2b-sdk-thinking-on",
+        "gemma4-e2b-sdk-thinking-off",
+        "gemma4-e4b-sdk-thinking-on",
+        "gemma4-e4b-sdk-thinking-off",
+        "gemma4-26b-a4b-sdk-thinking-on",
+        "gemma4-26b-a4b-sdk-thinking-off",
+        "gemma4-31b-sdk-thinking-on",
+        "gemma4-31b-sdk-thinking-off",
+        "qwen3.8-27b-sdk-thinking-off",
+        "qwen36-35b-a3b-on",
+        "qwen36-35b-a3b-off",
+        "deepseek-r1-distill-qwen32b-native-reasoning",
+        "mistral-small32-24b-not-applicable",
+        "mistral-small4-119b-none",
+        "mistral-small4-119b-high",
+        "sonnet5-low-first-pass",
+        "sonnet5-low-with-retry",
+        "opus5-low",
+        "haiku45-not_applicable",
+        "sonnet5-medium",
+        "sonnet5-high",
+        "sonnet5-xhigh",
+        "sonnet5-max",
+        "opus5-medium",
+        "opus5-high",
+        "opus5-xhigh",
+        "opus5-max",
+        "fable51-low",
+        "fable51-medium",
+        "fable51-high",
+        "fable51-xhigh",
+        "fable51-max",
+        "opus55-low-batch10",
+        "opus55-medium-batch10",
+        "opus55-high-batch10",
+        "opus55-xhigh-batch10",
+        "typesafe-jev113-v2",
+        "openjev-fixed",
+        "openjev-adaptive",
+        "openjev-thinking",
+        "openjev-generated-off",
+        "openjev-generated-on",
+        "semif-direct",
+        "semif-serial",
+        "semif-shared",
+        "alex-openjev08",
+        "laya-english",
+        "laya-typed",
+        "salesrlagent",
+        "openrouter-qwen38-free",
+        "openrouter-deepseek-free",
+        "laya-english-expanded-cpu",
+        "laya-typed-expanded-cpu",
+        "semif-generated-bf16",
+        "laya-multilingual",
+        "laya-multilingual-expanded-cpu",
+        "alex-openjev4b",
+        "openrouter-qwen38-free-low",
+        "openrouter-qwen38-free-medium",
+        "openrouter-qwen38-free-xhigh",
+        "openrouter-qwen38-free-off",
+        "anyjev-qwen06-raw",
+        "anyjev-qwen06-l0",
+        "anyjev-qwen06-l1",
+        "anyjev-qwen06-l2",
+        "anyjev-qwen06-generated-control",
+        "codex-gpt-5.6-luna-low",
+        "codex-gpt-5.6-luna-medium",
+        "codex-gpt-5.6-luna-high",
+        "codex-gpt-5.6-luna-xhigh",
+        "codex-gpt-5.6-luna-max",
+        "codex-gpt-6-astra-low",
+        "codex-gpt-6-astra-medium",
+        "codex-gpt-6-astra-high",
+        "codex-gpt-6-astra-xhigh",
+        "codex-gpt-6-astra-max",
+        "codex-gpt-6-astra-ultra",
+        "codex-gpt-5.6-sol-low",
+        "codex-gpt-5.6-sol-medium",
+        "codex-gpt-5.6-sol-high",
+        "codex-gpt-5.6-sol-xhigh",
+        "codex-gpt-5.6-sol-max",
+        "codex-gpt-5.6-sol-ultra",
+        "codex-gpt-5.6-terra-low",
+        "codex-gpt-5.6-terra-medium",
+        "codex-gpt-5.6-terra-high",
+        "codex-gpt-5.6-terra-xhigh",
+        "codex-gpt-5.6-terra-max",
+        "codex-gpt-5.6-terra-ultra",
+        "codex-gpt-6-sol-low-batch10",
+        "codex-gpt-6-sol-medium-batch10",
+        "codex-gpt-6-sol-high-batch10",
+        "codex-gpt-6-sol-xhigh-batch10",
+        "codex-gpt-6-luna-low-batch10",
+        "codex-gpt-6-luna-medium-batch10",
+        "codex-gpt-6-luna-high-batch10",
+        "codex-gpt-6-luna-xhigh-batch10",
+        "antigravity-gemini-3.8-flash-high",
+        "antigravity-gemini-3.8-flash-medium",
+        "antigravity-gemini-3.8-flash-low",
+        "antigravity-gemini-3.7-flash-high",
+        "antigravity-gemini-3.7-flash-medium",
+        "antigravity-gemini-3.7-flash-low",
+        "antigravity-gemini-3.6-flash-high",
+        "antigravity-gemini-3.6-flash-medium",
+        "antigravity-gemini-3.6-flash-low",
+        "antigravity-gemini-3.1-pro-high",
+        "antigravity-gemini-3.1-pro-low",
+        "antigravity-gemini-3.8-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+        "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.6-flash-high-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+        "antigravity-gemini-3.8-flash-medium-native-observed-batch10",
+        "antigravity-gemini-3.8-flash-high-native-observed-batch10",
+        "openrouter-paid-qwen3.8-27b-medium",
+        "openrouter-paid-qwen3.8-27b-xhigh",
+        "openrouter-paid-qwen3.8-27b-off",
+        "openrouter-paid-qwen36-35b-a3b-on",
+        "openrouter-paid-qwen36-35b-a3b-off",
+        "openrouter-paid-gemma4-26b-a4b-on",
+        "openrouter-paid-gemma4-26b-a4b-off",
+        "openrouter-paid-gemma4-31b-on",
+        "openrouter-paid-gemma4-31b-off",
+        "openrouter-paid-mistral-small32-24b-not-applicable",
+        "openrouter-paid-mistral-small4-119b-none",
+        "openrouter-paid-mistral-small4-119b-high",
+        "openrouter-paid-deepseek-v41-flash-off",
+        "openrouter-paid-deepseek-v41-flash-low",
+        "openrouter-paid-deepseek-v41-flash-high",
+        "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+        "openrouter-qwen27-low-darkbloom-fp4",
+        "openrouter-qwen3-8b-off-json-object-p0",
+        "openrouter-qwen3-8b-on-json-object-p0"
+      ]
+    }
+  ],
+  "registry_snapshot_validation_note": "An intermediate inline serialization was caught by JSON parse validation due to a literal backslash-n suffix; the generated snapshot was corrected and then regenerated by the recorded canonical snapshot command. Final snapshot parses as 151 unique registry rows."
+}
