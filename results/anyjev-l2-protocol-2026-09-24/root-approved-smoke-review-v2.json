@@ -1,0 +1,29 @@
+{
+  "contract": "anyjev-l2-smoke-review-v2",
+  "decision": "approved",
+  "scope": "v3_smoke_only",
+  "reviewer": "root assistant technical review under user authorization",
+  "runner_sha256": "9728eee04146f4a9ad3cdd073e02dcf83e77accb9710f584870b5bf49d1d8622",
+  "adapter_sha256": "fd35201afe5d3155941403a04a6ea6058f0097b44335acfe3c3d88f66fa356e8",
+  "tests_sha256": "d65230cef8a7dd3907d5dd5be9faafceba67913b017eb5ad7f234c65da63190e",
+  "protocol_sha256": "fc0e4092d3ad99fe6bc70dd800c516ee7a141c2cf055b16511b4834a6dc7c92d",
+  "run_manifest_sha256": "0005a1e14e8dcabae9f10dd96a826de219f00d44322f8d526f7fa17251de17ad",
+  "output_dir": "results/anyjev-l2-cv5-hf517-v1-2026-09-24",
+  "verification": {
+    "focused_offline_tests": "12 passed under pinned Python 3.12 runtime",
+    "native_preflight": "passed without inference",
+    "exclusive_gpu_lane": "lock absent and no competing benchmark process immediately before launch"
+  },
+  "findings": [
+    {
+      "severity": "RESIDUAL",
+      "reason": "Native inner CV is ungrouped within each outer-training fold; protocol-v3 discloses this tuning limitation."
+    },
+    {
+      "severity": "RESIDUAL",
+      "reason": "Only 48 training labels per outer fold make the fitted head exploratory; protocol-v3 discloses the sample-size limitation."
+    }
+  ],
+  "blocking_findings": [],
+  "limits": "This technical review authorizes only DEV-001..003 out-of-fold smoke. Full collection requires a separate reviewed smoke receipt."
+}
