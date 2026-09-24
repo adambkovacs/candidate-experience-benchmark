@@ -1,0 +1,79 @@
+{
+  "configuration": "anyjev-qwen06-native-l2-outer-cv5-hf517-adapter-v1",
+  "protocol_sha256": "fc0e4092d3ad99fe6bc70dd800c516ee7a141c2cf055b16511b4834a6dc7c92d",
+  "fold_map_sha256": "7be25f9bcd9dfbde383bccefe4ad9e4c5a8d6a664b4964789c532dac299dff0c",
+  "output_sha256": "42c5ec0fb172bb33e4cff3b49bd44406332fc1e594cca3bfdc5e6c82dc1ee17e",
+  "rows": 60,
+  "held_out_once_per_id": true,
+  "fit_count": 20,
+  "composition": {
+    "reviewed_smoke_ids": [
+      "DEV-001",
+      "DEV-002",
+      "DEV-003"
+    ],
+    "reviewed_smoke_rows": 3,
+    "new_held_out_rows": 57,
+    "execution_order": "outer_fold_order",
+    "canonical_output_order": "DEV-001..DEV-060",
+    "fresh_canonical_60_inference_run": false
+  },
+  "run_manifest_sha256": "0005a1e14e8dcabae9f10dd96a826de219f00d44322f8d526f7fa17251de17ad",
+  "runtime": {
+    "batch_size": 4,
+    "effective_context_limit": 4096,
+    "helper_sha256": {
+      "anyjev_benchmark.py": "77504663c860d43c0348fcfbe92edb46642837ef2d076a134bba4c22ba73a395",
+      "anyjev_cached_l1.py": "fa72e69a4c31110970ab9a88604439ca1da2636e63b05fde218668617d011278",
+      "anyjev_hf_517_adapter.py": "fd35201afe5d3155941403a04a6ea6058f0097b44335acfe3c3d88f66fa356e8",
+      "development_benchmark.py": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d",
+      "specialist_benchmark.py": "ec35418937cef5eb2e3b317737abd4354fa869c00c1605efb5c01eb9eb668c1b"
+    },
+    "machine": "arm64",
+    "max_context": 4096,
+    "model_parameter_device": "mps:0",
+    "model_parameter_dtype": "torch.bfloat16",
+    "package_versions": {
+      "numpy": "2.2.6",
+      "torch": "2.10.0",
+      "transformers": "5.17.0"
+    },
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "processor": "arm",
+    "python": "3.12.12",
+    "quantization": "none",
+    "run_manifest_sha256": "0005a1e14e8dcabae9f10dd96a826de219f00d44322f8d526f7fa17251de17ad",
+    "runner_sha256": "9728eee04146f4a9ad3cdd073e02dcf83e77accb9710f584870b5bf49d1d8622",
+    "torch_mps_available": true,
+    "torch_mps_built": true
+  },
+  "fold_artifacts": [
+    {
+      "fold": 1,
+      "file": "fold-1-artifacts.json",
+      "sha256": "cdcfcbf32457f7c32f08aca5b975c5ab2ee2705434dc8a2565fd13970100b862"
+    },
+    {
+      "fold": 2,
+      "file": "fold-2-artifacts.json",
+      "sha256": "994d5e5fc7d1d5caf4c363428181d71e382bdcd734367ca856359a0ac9d42ce0"
+    },
+    {
+      "fold": 3,
+      "file": "fold-3-artifacts.json",
+      "sha256": "d15630a1e0d25533802ead2f78ac2d3595117c92e40c8aca4b750215a0a18add"
+    },
+    {
+      "fold": 4,
+      "file": "fold-4-artifacts.json",
+      "sha256": "4a888c76208b16144eec4391c86a9d6968855afdb7f0aa32c964eabf39c42113"
+    },
+    {
+      "fold": 5,
+      "file": "fold-5-artifacts.json",
+      "sha256": "f8e38e6a6018e902b084359193b2ee3675c7fe35a0ce955271f32ff9164cc0bd"
+    }
+  ],
+  "reference_labels_in_model_prompts": false,
+  "limitation": "48 training labels per outer fold exceeds native minimum max(8,2K) but is below documented100-300 recommended examples. Exploratory CV only; no deployed head claimed. Missing classes remain explicit without changing folds/options or adding labels."
+}

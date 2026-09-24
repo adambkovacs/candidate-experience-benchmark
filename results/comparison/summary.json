@@ -14107,25 +14107,270 @@
   {
     "id": "anyjev-qwen06-l2",
     "model": "Qwen/Qwen3-0.6B",
-    "effort": "AnyJev L2",
-    "status": "staged_separate_calibration_required",
-    "predictions_file": null,
-    "attempt_files": [],
-    "notes": "Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used.",
+    "effort": "AnyJev native L2 heads; five grouped outer folds; Transformers 5.17 adapter",
+    "status": "complete",
+    "predictions_file": "results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.jsonl",
+    "attempt_files": [
+      "results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.attempts.jsonl"
+    ],
+    "notes": "60/60 valid out-of-fold development records: three reviewed smoke rows plus 57 new, five held-out folds of 12, 20 native fit_head calls using only the other 48 labels per fold. Six contrast pairs retained. MPS BF16, no quantization, pinned Qwen3-0.6B and Transformers 5.17 compatibility adapter. Provisional AI-reviewed references only; exploratory small-sample result, ungrouped inner CV. Candidate head computations warned, but saved artifacts and output probabilities are finite. Evaluation and full evidence: results/anyjev-l2-cv5-hf517-v1-2026-09-24/README.md. The initial unadapted v2 smoke stopped before fitting or predicting and remains separate.",
+    "attempt_phase": "development",
+    "timing_incomplete_reason": "Scoring combines 3 reviewed smoke predictions with 57 full-stage predictions. Central development timing includes only the 57 new prediction durations and excludes classifier fitting; complete separate-stage wall times are in the native evaluation.",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 57,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 57,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.attempts.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 33,
+          "denominator": 60,
+          "accuracy": 0.55,
+          "macro_f1": 0.40829900839054156,
+          "per_label": {
+            "positive": {
+              "tp": 6,
+              "fp": 6,
+              "fn": 5,
+              "precision": 0.5,
+              "recall": 0.5454545454545454,
+              "f1": 0.5217391304347826
+            },
+            "negative": {
+              "tp": 22,
+              "fp": 4,
+              "fn": 9,
+              "precision": 0.8461538461538461,
+              "recall": 0.7096774193548387,
+              "f1": 0.7719298245614035
+            },
+            "mixed": {
+              "tp": 0,
+              "fp": 4,
+              "fn": 8,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "neutral": {
+              "tp": 4,
+              "fp": 11,
+              "fn": 4,
+              "precision": 0.26666666666666666,
+              "recall": 0.5,
+              "f1": 0.34782608695652173
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 2,
+              "fn": 1,
+              "precision": 0.3333333333333333,
+              "recall": 0.5,
+              "f1": 0.4
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 43,
+          "denominator": 60,
+          "accuracy": 0.7166666666666667,
+          "macro_f1": 0.47338247338247336,
+          "per_label": {
+            "yes": {
+              "tp": 29,
+              "fp": 10,
+              "fn": 6,
+              "precision": 0.7435897435897436,
+              "recall": 0.8285714285714286,
+              "f1": 0.7837837837837838
+            },
+            "no": {
+              "tp": 14,
+              "fp": 6,
+              "fn": 10,
+              "precision": 0.7,
+              "recall": 0.5833333333333334,
+              "f1": 0.6363636363636364
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 36,
+          "denominator": 60,
+          "accuracy": 0.6,
+          "macro_f1": 0.4883219954648526,
+          "per_label": {
+            "yes": {
+              "tp": 19,
+              "fp": 12,
+              "fn": 6,
+              "precision": 0.6129032258064516,
+              "recall": 0.76,
+              "f1": 0.6785714285714286
+            },
+            "no": {
+              "tp": 16,
+              "fp": 4,
+              "fn": 13,
+              "precision": 0.8,
+              "recall": 0.5517241379310345,
+              "f1": 0.6530612244897959
+            },
+            "insufficient_information": {
+              "tp": 1,
+              "fp": 8,
+              "fn": 5,
+              "precision": 0.1111111111111111,
+              "recall": 0.16666666666666666,
+              "f1": 0.13333333333333333
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 47,
+          "denominator": 60,
+          "accuracy": 0.7833333333333333,
+          "macro_f1": 0.4377104377104377,
+          "per_label": {
+            "yes": {
+              "tp": 4,
+              "fp": 5,
+              "fn": 5,
+              "precision": 0.4444444444444444,
+              "recall": 0.4444444444444444,
+              "f1": 0.4444444444444444
+            },
+            "no": {
+              "tp": 43,
+              "fp": 6,
+              "fn": 7,
+              "precision": 0.8775510204081632,
+              "recall": 0.86,
+              "f1": 0.8686868686868687
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 2,
+              "fn": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [
+          "DEV-046",
+          "DEV-047",
+          "DEV-058"
+        ],
+        "predicted_insufficient": [
+          "DEV-043",
+          "DEV-044",
+          "DEV-054"
+        ],
+        "output_failed_or_missing": [],
+        "false_escalations": [
+          "DEV-018",
+          "DEV-021",
+          "DEV-024",
+          "DEV-027",
+          "DEV-028",
+          "DEV-038",
+          "DEV-055",
+          "DEV-057"
+        ]
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "42c5ec0fb172bb33e4cff3b49bd44406332fc1e594cca3bfdc5e6c82dc1ee17e",
+    "attempt_records": 57,
+    "exact_match": 13,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 57,
+      "sum_record_seconds": null,
+      "median_seconds": null,
+      "p95_nearest_rank_seconds": null,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only. Timing aggregates are unavailable because attempt duration evidence is incomplete; known recorded values exclude the unknown duration.",
+      "all_attempt_timing_complete": false,
+      "incomplete_reason": "Scoring combines 3 reviewed smoke predictions with 57 full-stage predictions. Central development timing includes only the 57 new prediction durations and excludes classifier fitting; complete separate-stage wall times are in the native evaluation.",
+      "saved_attempts_missing_duration": 0,
+      "known_recorded_sum_record_seconds": 182.00999971099372,
+      "known_recorded_median_seconds": 2.994285166998452,
+      "known_recorded_p95_nearest_rank_seconds": 5.3409075000017765
     }
   },
   {

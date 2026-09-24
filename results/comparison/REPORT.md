@@ -83,7 +83,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | anyjev-qwen06-raw | complete | 60 | 8 | 35 | 25 | 33 | 0 |
 | anyjev-qwen06-l0 | complete | 60 | 37 | 13 | 34 | 44 | 4 |
 | anyjev-qwen06-l1 | staged_separate_calibration_required | — | — | — | — | — | — |
-| anyjev-qwen06-l2 | staged_separate_calibration_required | — | — | — | — | — | — |
+| anyjev-qwen06-l2 | complete | 60 | 33 | 43 | 36 | 47 | 13 |
 | anyjev-qwen06-generated-control | complete | 0 | 0 | 0 | 0 | 0 | 0 |
 | codex-gpt-5.6-luna-low | completed_with_initialization_retries | 60 | 57 | 60 | 57 | 60 | 56 |
 | codex-gpt-5.6-luna-medium | completed | 60 | 58 | 60 | 58 | 58 | 54 |
@@ -597,7 +597,9 @@ Requires per-question labeled calibration data and disjoint evaluation. Cannot f
 
 **anyjev-qwen06-l2**
 
-Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used.
+60/60 valid out-of-fold development records: three reviewed smoke rows plus 57 new, five held-out folds of 12, 20 native fit_head calls using only the other 48 labels per fold. Six contrast pairs retained. MPS BF16, no quantization, pinned Qwen3-0.6B and Transformers 5.17 compatibility adapter. Provisional AI-reviewed references only; exploratory small-sample result, ungrouped inner CV. Candidate head computations warned, but saved artifacts and output probabilities are finite. Evaluation and full evidence: results/anyjev-l2-cv5-hf517-v1-2026-09-24/README.md. The initial unadapted v2 smoke stopped before fitting or predicting and remains separate.
+
+Evidence: `results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.jsonl`; SHA-256 `42c5ec0fb172bb33e4cff3b49bd44406332fc1e594cca3bfdc5e6c82dc1ee17e`.
 
 **anyjev-qwen06-generated-control**
 

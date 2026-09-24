@@ -6,6 +6,8 @@ Status snapshot: 24 September 2026. This separates the original 60-record develo
 
 Claude and Codex baseline configurations are complete. Completed local, hosted and specialist results are retained in the [comparison report](../results/comparison/REPORT.md). Historical partial runs, superseded surfaces and unavailable configurations remain visible in the [baseline inventory](../results/prompt-comparison-v1-2026-09-24/baseline-inventory.json); its row count is not a count of distinct models or successful 60-record runs.
 
+AnyJev L2 completed all 60 held-out predictions across five grouped folds, using 48 training labels per fold. Its [evaluation and runtime evidence](../results/anyjev-l2-cv5-hf517-v1-2026-09-24/README.md) records 13/60 all-four agreement, the explicit Transformers compatibility adapter, numerical warnings during candidate head fitting, and the exploratory sample-size limitation.
+
 Outstanding configurations and decisions:
 
 | Configuration | Evidence and next step |
@@ -14,7 +16,6 @@ Outstanding configurations and decisions:
 | Gemini Flash 3.8 low, medium, high | Partial native CLI runs attempted external tools; headless permission denied those calls. Verify effective tool disablement before treating a future run as an isolated classification comparison. |
 | Mistral Small 4 119B none/high | Smoke requests met upstream rate limits. A serving endpoint must recover before new inference can complete these rows. |
 | DeepSeek R1 Distill Qwen 32B | Exact hosted checkpoint had no available endpoint. Local download was stopped at the user's direction. Other DeepSeek checkpoints are separate configurations, not replacements. |
-| AnyJev L2 | Cached-score L1 grouped cross-validation is complete (linked below). The L2 protocol and controller passed review and seven CPU tests. Its [first native smoke](../results/anyjev-l2-cv5-2026-09-24/smoke.operations.jsonl) stopped before completing a fit or prediction because the pinned AnyJev backend is incompatible with Transformers 5.17.0 mask arguments. A separately recorded [compatibility adapter](../scripts/anyjev_hf_517_adapter.py) passed 12 offline tests, including exact forward parity; its versioned smoke has started. Full evaluation remains pending. Do not fit and score on the same labels or generate the withheld 340 records. |
 
 Original malformed JSON, copied schemas and other intrinsic model failures are benchmark outcomes. They do not require repeated attempts until valid. Legacy strict-length Laya rows, replaced hosted endpoints, free-provider failures and tool-restricted Gemini rows must retain their individual history without being counted as additional fresh work after an explicitly separate successful configuration.
 

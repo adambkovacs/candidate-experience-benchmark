@@ -884,11 +884,15 @@
   {
     "id": "anyjev-qwen06-l2",
     "model": "Qwen/Qwen3-0.6B",
-    "effort": "AnyJev L2",
-    "status": "staged_separate_calibration_required",
-    "predictions_file": null,
-    "attempt_files": [],
-    "notes": "Requires per-question labeled calibration data and disjoint evaluation. Cannot fit and score on the same60 development records. No fitting, shipped unrelated heads, or extra340 records used."
+    "effort": "AnyJev native L2 heads; five grouped outer folds; Transformers 5.17 adapter",
+    "status": "complete",
+    "predictions_file": "results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.jsonl",
+    "attempt_files": [
+      "results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.attempts.jsonl"
+    ],
+    "notes": "60/60 valid out-of-fold development records: three reviewed smoke rows plus 57 new, five held-out folds of 12, 20 native fit_head calls using only the other 48 labels per fold. Six contrast pairs retained. MPS BF16, no quantization, pinned Qwen3-0.6B and Transformers 5.17 compatibility adapter. Provisional AI-reviewed references only; exploratory small-sample result, ungrouped inner CV. Candidate head computations warned, but saved artifacts and output probabilities are finite. Evaluation and full evidence: results/anyjev-l2-cv5-hf517-v1-2026-09-24/README.md. The initial unadapted v2 smoke stopped before fitting or predicting and remains separate.",
+    "attempt_phase": "development",
+    "timing_incomplete_reason": "Scoring combines 3 reviewed smoke predictions with 57 full-stage predictions. Central development timing includes only the 57 new prediction durations and excludes classifier fitting; complete separate-stage wall times are in the native evaluation."
   },
   {
     "id": "anyjev-qwen06-generated-control",
