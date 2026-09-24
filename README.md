@@ -1,8 +1,9 @@
 # Candidate Experience Feedback Benchmark
 
-[![Development set: 60 synthetic reviews](https://img.shields.io/badge/development_set-60_synthetic_reviews-235a48)](data/pilot/inputs.jsonl)
-[![Reference labels: provisional](https://img.shields.io/badge/reference_labels-provisional-b97836)](docs/PILOT_AUDIT.md)
-[![Prompt conditions: P0 / P1 / P2](https://img.shields.io/badge/prompt_conditions-P0_%2F_P1_%2F_P2-335d82)](docs/PROMPT_VARIANTS.md)
+[![Compare: Jev vs AI models](https://img.shields.io/badge/compare-Jev_vs_AI_models-235a48)](results/comparison/REPORT.md)
+[![Task: Feedback classification](https://img.shields.io/badge/task-feedback_classification-335d82)](#what-the-models-decide)
+[![Results: Interactive explorer](https://img.shields.io/badge/results-interactive_explorer-235a48)](https://adambkovacs.github.io/candidate-experience-benchmark/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 **How well can TypeSafe Jev and general-purpose language models classify feedback written by candidates about their hiring experience?**
 
@@ -89,3 +90,7 @@ The website is static. Its published bundle contains an allowlisted result expor
 The broader plan describes 400 records. **Only the 60 development records are in scope for this run; the remaining 340 have not been generated.** Future validation and test sets need separate authorization and independent reference review.
 
 The repository was previously named `recruitment-feedback-demo`. Historical evidence retains original paths and identifiers so its hashes and provenance remain intact.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Third-party dependencies and model weights retain their respective licenses.
