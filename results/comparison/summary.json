@@ -12903,30 +12903,266 @@
     "id": "alex-openjev4b",
     "model": "AlexWortega/openjev qwen3.5-4b-nli-v2",
     "effort": "NLI entailment option ranking",
-    "status": "running_development",
-    "predictions_file": null,
-    "notes": "Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e; all six artifact files independently verified. Three-record smoke inspected: valid outputs, finite normalized NLI vectors, argmax reconstruction and full input coverage. Development is active, not complete. Required mps:0 float32 with no CPU fallback, batch size4, maximum input4096, OMP/MKL threads4. Local inference remains serial; concurrent remote subscription clients may affect host timing. Final evaluation and development evidence will be published after termination.",
-    "partial_predictions_file": "results/alex-openjev4b-mps-2026-09-23/development.jsonl",
+    "status": "complete",
+    "predictions_file": "results/alex-openjev4b-mps-2026-09-23/development-complete.jsonl",
+    "attempt_files": [
+      "results/alex-openjev4b-mps-2026-09-23/development.jsonl",
+      "results/alex-openjev4b-mps-2026-09-23/development-resume-2026-09-24.jsonl"
+    ],
+    "notes": "Completed60 valid outputs from original DEV001\u2013045 and explicit remaining DEV046\u2013060 continuation; original files preserved. Possible lost in-flight DEV046 attempt has unknown outcome and duration, so total attempt timing remains unknown. All6 pinned artifact files, full input hashes, NLI probability normalization and semantic argmax mapping verified. MPS float32, no quantization or CPU fallback, batch4, max4096, OMP/MKL4. Local inference serial; concurrent remote clients may affect host timing. See reconciliation and interruption sidecar.",
     "smoke_files": [
       "results/alex-openjev4b-mps-2026-09-23/smoke.jsonl"
     ],
     "runtime": "PyTorch 2.10.0; Transformers 5.17.0; MPS float32",
     "hardware": "Apple M4 Max 128 GB; macOS 26.6",
     "quantization": "none",
+    "attempt_phase": "development",
+    "reconciliation_manifest": "results/alex-openjev4b-mps-2026-09-23/reconciliation.json",
     "cost": {
       "scope": "declared development attempts only",
       "availability": "unavailable",
-      "attempt_count": 0,
+      "attempt_count": 60,
       "known_actual_attempts": 0,
       "unknown_cost_attempts": 0,
       "unknown_bounded_attempts": 0,
-      "missing_financial_attempts": 0,
+      "missing_financial_attempts": 60,
       "known_actual_usd": null,
       "unknown_reserved_upper_bound_usd": null,
       "known_plus_unknown_upper_bound_usd": null,
       "total_actual_usd": null,
-      "source_paths": [],
+      "source_paths": [
+        "results/alex-openjev4b-mps-2026-09-23/development.jsonl",
+        "results/alex-openjev4b-mps-2026-09-23/development-resume-2026-09-24.jsonl"
+      ],
       "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+    },
+    "evaluation": {
+      "reference_status": "AI-reviewed provisional; development only",
+      "records": 60,
+      "valid_outputs": 60,
+      "missing_or_failed": [],
+      "metrics": {
+        "sentiment": {
+          "correct": 49,
+          "denominator": 60,
+          "accuracy": 0.8166666666666667,
+          "macro_f1": 0.638167487684729,
+          "per_label": {
+            "positive": {
+              "tp": 11,
+              "fp": 3,
+              "fn": 0,
+              "precision": 0.7857142857142857,
+              "recall": 1.0,
+              "f1": 0.88
+            },
+            "negative": {
+              "tp": 26,
+              "fp": 1,
+              "fn": 5,
+              "precision": 0.9629629629629629,
+              "recall": 0.8387096774193549,
+              "f1": 0.896551724137931
+            },
+            "mixed": {
+              "tp": 7,
+              "fp": 5,
+              "fn": 1,
+              "precision": 0.5833333333333334,
+              "recall": 0.875,
+              "f1": 0.7
+            },
+            "neutral": {
+              "tp": 5,
+              "fp": 1,
+              "fn": 3,
+              "precision": 0.8333333333333334,
+              "recall": 0.625,
+              "f1": 0.7142857142857143
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "follow_up_needed": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.6361308116627266,
+          "per_label": {
+            "yes": {
+              "tp": 35,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.9459459459459459,
+              "recall": 1.0,
+              "f1": 0.9722222222222222
+            },
+            "no": {
+              "tp": 22,
+              "fp": 1,
+              "fn": 2,
+              "precision": 0.9565217391304348,
+              "recall": 0.9166666666666666,
+              "f1": 0.9361702127659575
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "serious_concern_reported": {
+          "correct": 47,
+          "denominator": 60,
+          "accuracy": 0.7833333333333333,
+          "macro_f1": 0.6987522281639929,
+          "per_label": {
+            "yes": {
+              "tp": 17,
+              "fp": 2,
+              "fn": 8,
+              "precision": 0.8947368421052632,
+              "recall": 0.68,
+              "f1": 0.7727272727272727
+            },
+            "no": {
+              "tp": 28,
+              "fp": 11,
+              "fn": 1,
+              "precision": 0.717948717948718,
+              "recall": 0.9655172413793104,
+              "f1": 0.8235294117647058
+            },
+            "insufficient_information": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 4,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "f1": 0.5
+            }
+          }
+        },
+        "testimonial_potential": {
+          "correct": 57,
+          "denominator": 60,
+          "accuracy": 0.95,
+          "macro_f1": 0.6073684210526316,
+          "per_label": {
+            "yes": {
+              "tp": 8,
+              "fp": 2,
+              "fn": 1,
+              "precision": 0.8,
+              "recall": 0.8888888888888888,
+              "f1": 0.8421052631578947
+            },
+            "no": {
+              "tp": 49,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.98,
+              "recall": 0.98,
+              "f1": 0.98
+            },
+            "insufficient_information": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "serious_concerns": {
+        "reference_yes": 25,
+        "predicted_no": [
+          "DEV-008",
+          "DEV-009",
+          "DEV-031",
+          "DEV-032",
+          "DEV-041",
+          "DEV-050",
+          "DEV-054",
+          "DEV-058"
+        ],
+        "predicted_insufficient": [],
+        "output_failed_or_missing": [],
+        "false_escalations": [
+          "DEV-053"
+        ]
+      },
+      "pair_checks": [
+        {
+          "id": "resolution",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": false,
+          "both_fully_correct": false
+        },
+        {
+          "id": "style",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "irrelevant_religion",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "sex_stereotype_symmetry",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "identity_evidence",
+          "status": "scored",
+          "invariants_preserved": true,
+          "expected_changes_correct": true,
+          "both_fully_correct": true
+        },
+        {
+          "id": "complaint_style",
+          "status": "scored",
+          "invariants_preserved": false,
+          "expected_changes_correct": true,
+          "both_fully_correct": false
+        }
+      ]
+    },
+    "prediction_records": 60,
+    "prediction_sha256": "1fb4ef119e0e5d8ac19c0aaa77aec6b1f5e3e472ae2a9288aadc6a709d13dc82",
+    "attempt_records": 60,
+    "exact_match": 39,
+    "timing": {
+      "attempt_phase": "development",
+      "provenance_note": "Unique development attempts only; smoke and duplicate evidence rejected.",
+      "timed_records": 60,
+      "sum_record_seconds": 4926.229833669564,
+      "median_seconds": 78.07433160406072,
+      "p95_nearest_rank_seconds": 102.71077125007287,
+      "note": "Per-record end-to-end time, summing listed attempts. Not wall-clock batch time. Separately recorded model_load_seconds is excluded; these are not cold-start timings. Compare within execution surface only.",
+      "all_attempt_timing_complete": true
     }
   },
   {

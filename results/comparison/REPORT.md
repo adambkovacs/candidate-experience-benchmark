@@ -75,7 +75,7 @@ Each cell below is a count out of 60. Missing or failed outputs count as incorre
 | semif-generated-bf16 | complete | 52 | 46 | 51 | 47 | 46 | 35 |
 | laya-multilingual | unsupported_length | — | — | — | — | — | — |
 | laya-multilingual-expanded-cpu | ready_for_local_validation | — | — | — | — | — | — |
-| alex-openjev4b | running_development | — | — | — | — | — | — |
+| alex-openjev4b | complete | 60 | 49 | 57 | 47 | 57 | 39 |
 | openrouter-qwen38-free-low | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-medium | pending_provider_recovery | — | — | — | — | — | — |
 | openrouter-qwen38-free-xhigh | pending_provider_recovery | — | — | — | — | — | — |
@@ -553,7 +553,9 @@ Pinned multilingual weights fully SHA256verified. Expanded4096/head512 preserves
 
 **alex-openjev4b**
 
-Pinned AlexWortega/openjev revision f004f37e52695d6ddfb914a64dbf93942839ba1e; all six artifact files independently verified. Three-record smoke inspected: valid outputs, finite normalized NLI vectors, argmax reconstruction and full input coverage. Development is active, not complete. Required mps:0 float32 with no CPU fallback, batch size4, maximum input4096, OMP/MKL threads4. Local inference remains serial; concurrent remote subscription clients may affect host timing. Final evaluation and development evidence will be published after termination.
+Completed60 valid outputs from original DEV001–045 and explicit remaining DEV046–060 continuation; original files preserved. Possible lost in-flight DEV046 attempt has unknown outcome and duration, so total attempt timing remains unknown. All6 pinned artifact files, full input hashes, NLI probability normalization and semantic argmax mapping verified. MPS float32, no quantization or CPU fallback, batch4, max4096, OMP/MKL4. Local inference serial; concurrent remote clients may affect host timing. See reconciliation and interruption sidecar.
+
+Evidence: `results/alex-openjev4b-mps-2026-09-23/development-complete.jsonl`; SHA-256 `1fb4ef119e0e5d8ac19c0aaa77aec6b1f5e3e472ae2a9288aadc6a709d13dc82`.
 
 **openrouter-qwen38-free-low**
 
