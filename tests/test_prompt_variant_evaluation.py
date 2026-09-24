@@ -39,6 +39,17 @@ class PairedTests(unittest.TestCase):
    self.mutate(root,m,'P1',lambda rr:rr[1].update(status='service_error',prediction=None))
    result=e.evaluate(m,root);p=result['comparisons']['P0_to_P1']
    self.assertTrue(result['controls_verified']);self.assertFalse(result['eligible_paired_comparison']);self.assertEqual(p['fields']['sentiment']['wrong_to_correct'],['DEV-001']);self.assertEqual(p['fields']['sentiment']['correct_to_wrong'],[]);self.assertEqual(p['valid_to_failed'],['DEV-002']);self.assertEqual(result['conditions']['P1']['evaluation']['metrics']['sentiment']['denominator'],60);self.assertIsNone(result['conditions']['P1']['telemetry']['input_tokens'])
+ def test_missing_error_usage_stays_unknown_not_zero(self):
+  for usage in ({},{'prompt_tokens':0}):
+   with self.subTest(usage=usage),tempfile.TemporaryDirectory() as d:
+    root,m=self.fixture(d)
+    self.mutate(root,m,'P1',lambda rows:rows[0].update(status='service_error',prediction=None,raw_response={'error':{'code':504}},usage=usage,cost_unknown=True))
+    if usage:
+     with self.assertRaisesRegex(ValueError,'Mirrored usage'):e.evaluate(m,root)
+    else:
+     result=e.evaluate(m,root)
+     self.assertIsNone(result['conditions']['P1']['telemetry']['input_tokens'])
+     self.assertEqual(result['conditions']['P1']['evaluation']['valid_outputs'],59)
  def test_missing_output_requires_flag_and_stays_denominator(self):
   with tempfile.TemporaryDirectory() as d:
    root,m=self.fixture(d);self.mutate(root,m,'P2',lambda rr:rr.pop(),both=False)

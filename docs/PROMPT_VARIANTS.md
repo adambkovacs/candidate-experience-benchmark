@@ -1,6 +1,6 @@
 # Follow-up experiment: classifier framing and decision procedure
 
-Status: frozen candidate prompts prepared offline on 2026-09-23; no phase-two inference. Requested by the user on 2026-09-21. Run after the current model/settings comparison is finished. This document does not change any active prompt or authorize additional paid API use.
+Status: phase-two inference started on 2026-09-24 using the frozen September23 prompts. Requested by the user on 2026-09-21. Run after the current model/settings comparison is finished. This document does not change any active prompt or authorize additional paid API use.
 
 ## Question
 
@@ -108,3 +108,9 @@ The full offline Python suite passed 324 tests at this checkpoint, including suc
 The [global freeze](../results/prompt-comparison-v1-2026-09-24/roster-freeze.json) binds all163 baseline entries, their dispositions and79 scheduled generative candidates. The [schedule](../results/prompt-comparison-v1-2026-09-24/schedule.json) alternates P1/P2 order across that full roster. Blocked and excluded entries remain visible. Scheduled candidates still need successful execution admission; scheduling does not establish evidence completeness.
 
 Provider-specific execution manifests may contain an explicitly declared, ordered subset of those scheduled IDs. They retain the full roster, baseline inventory and global schedule bindings. Each freezes its own controls before its first inference and uses the shared journal; subsets cannot reorder conditions or create a new counterbalance. This allows independent providers to proceed while another adapter is being verified.
+
+## First completed paired result, September24
+
+Gemma4 31B, thinking off, has60 valid outputs in each condition. Against the provisional development references, all-four agreement is56/60 forP0,56/60 forP1 and55/60 forP2. P1 changes two records fromP0;P2 changes five. This is one observational development pass, not evidence of general improvement from longer instructions. The [paired report](../results/prompt-comparison-v1-2026-09-24/paired-reports/first-comparison.html) includes the changed cases and full metrics. Its offline audit reproduces the frozen inputs, inspected smokes, client controls and completed journal stages; hidden provider rendering remains unknown.
+
+The user accepted the Codex CLI patch update from0.155.0-alpha.16 to0.155.0-alpha.16.3 and requested continuation without baseline reruns. The execution artifacts retain historical and current runtime controls separately. Only that exact CLI-version transition is allowed; model, effort, prompt, schema and other controls remain fixed. No claim of independently demonstrated runtime equivalence is made.

@@ -86,7 +86,8 @@ def audit_requests(rawrows,predictions,inputs,text,controls,selection,retry_auth
         if extract_controls(row)!=controls:raise ValueError('Actual controls differ from paired manifest')
         body=row.get('raw_response') or {}
         raw_usage=body.get('usage')
-        if 'usage' in row and row['usage']!=raw_usage:raise ValueError('Mirrored usage differs from raw response')
+        absent_error_usage=(row.get('status')!='ok' and row.get('cost_unknown') is True and 'usage' not in body and row.get('usage')=={} and (not body or body.get('error')))
+        if 'usage' in row and row['usage']!=raw_usage and not absent_error_usage:raise ValueError('Mirrored usage differs from raw response')
         raw_cost=raw_usage.get('cost') if isinstance(raw_usage,dict) else None
         observed=row.get('observed_cost_usd')
         if row.get('cost_unknown') is False and observed is None:raise ValueError('Known cost claim requires observed raw cost')
@@ -435,7 +436,11 @@ def evaluate(manifest,root=ROOT):
         comparison=compare(indexes[a],indexes[b],refs)
         for case in comparison['cases']:case['feedback']=inputs[case['id']]['feedback']
         result['comparisons'][a+'_to_'+b]=comparison
-    result['limitations']=['Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility also requires separate gate evidence and remains incomplete in this bounded evaluator.',
+    if manifest.get('execution_evidence') is not None:
+        from audit_prompt_protocol import audit
+        result['protocol_verification']=audit(manifest,root)
+        result['eligible_paired_comparison']=result['controls_verified'] and all(not c['omitted_predictions'] for c in result['conditions'].values())
+    result['limitations']=['Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.',
         'Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.',
         'Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.',
         'Prompt bytes are not token counts; token overhead is unavailable until separately measured.',

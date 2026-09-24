@@ -1,0 +1,97 @@
+{
+  "configuration_id": "anyjev-qwen06-generated-control",
+  "condition": "P2",
+  "records": 60,
+  "valid_outputs": 30,
+  "intrinsic_invalid_outputs": 30,
+  "invalid_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003",
+    "DEV-005",
+    "DEV-006",
+    "DEV-007",
+    "DEV-008",
+    "DEV-009",
+    "DEV-010",
+    "DEV-012",
+    "DEV-013",
+    "DEV-014",
+    "DEV-015",
+    "DEV-016",
+    "DEV-017",
+    "DEV-019",
+    "DEV-020",
+    "DEV-023",
+    "DEV-027",
+    "DEV-033",
+    "DEV-040",
+    "DEV-042",
+    "DEV-045",
+    "DEV-047",
+    "DEV-048",
+    "DEV-050",
+    "DEV-052",
+    "DEV-054",
+    "DEV-057",
+    "DEV-060"
+  ],
+  "all_finish_reasons": "stop",
+  "exact_inputs_messages_rendered_counts_and_native_controls_verified": true,
+  "smoke_inspection": {
+    "file": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-smoke-inspection.json",
+    "sha256": "1816bd4090c5655d5e5464c3453b59b7e59555606cc568fb8aeccf4a27833f89"
+  },
+  "manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/execution-manifest.json",
+    "sha256": "d05e1aae78553ad885aa35b9b91f4849a9b59fae3ffc94b4abec9bc3f3c5870f"
+  },
+  "predictions": {
+    "file": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl",
+    "sha256": "1b432869380647970046e3cd33c34bdc3bfb68ddaef021c52f02b53f194339c9"
+  },
+  "raw_attempt_files": [
+    "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl"
+  ],
+  "model": "Qwen/Qwen3-0.6B",
+  "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "native_controls": {
+    "model": "Qwen/Qwen3-0.6B",
+    "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "quantization": "none",
+    "runtime": {
+      "torch": "2.10.0",
+      "transformers": "5.17.0",
+      "numpy": "2.2.6"
+    },
+    "hardware": "macOS-26.6-arm64-arm-64bit",
+    "effort": "not_applicable",
+    "sampling": {
+      "do_sample": false,
+      "enable_thinking": false
+    },
+    "output_method": "prompted_json",
+    "parsing": "strict_json",
+    "retry_policy": "none",
+    "context_tokens": 40960,
+    "output_reserve_tokens": 4096,
+    "adapter_controls": {
+      "device": "mps:0",
+      "dtype": "torch.bfloat16",
+      "max_input_tokens": 4096,
+      "add_generation_prompt": true,
+      "add_special_tokens": false
+    }
+  },
+  "hardware_description": "Apple M4 Max128GB; shared host with concurrent remote client work; local inference serial",
+  "inference_seconds_total": 317.94196033198386,
+  "inference_seconds_median": 5.354330291500446,
+  "input_token_range": [
+    2634,
+    2666
+  ],
+  "output_tokens_total": 2664,
+  "failure_handling": "Strict raw JSON parse; native EOS required. No fence stripping, output repair, prompt tuning, or retries.",
+  "billing": "Local weights; no hosted inference charge",
+  "paired_evaluator_limitation": "Native exact execution evidence is complete; central paired evaluator still needs its native raw-evidence extractor. Do not represent declared-only central evaluation as verified paired eligibility."
+}

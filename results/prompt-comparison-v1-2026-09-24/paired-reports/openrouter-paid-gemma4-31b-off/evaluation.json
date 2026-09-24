@@ -1,0 +1,1389 @@
+{
+  "contract": "prompt-pairs-v1",
+  "manifest_sha256": "86d649888f59af3757ef17597798a02e70d175fb1fe9ec5a1c87786fcf1018de",
+  "parent_baseline_id": "openrouter-paid-gemma4-31b-off",
+  "denominator": 60,
+  "conditions": {
+    "P0": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.8996376811594203,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.875,
+                "recall": 0.875,
+                "f1": 0.875
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6666666666666666
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9770918268297418,
+            "per_label": {
+              "yes": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8888888888888888,
+                "f1": 0.9411764705882353
+              },
+              "no": {
+                "tp": 50,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9803921568627451,
+                "recall": 1.0,
+                "f1": 0.9900990099009901
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 56,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P0",
+        "parent_baseline_id": "openrouter-paid-gemma4-31b-off",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": null,
+        "addition_sha256": null,
+        "addition_bytes": 0,
+        "composition_separator": "",
+        "composed_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "composed_instruction_bytes": 7654,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 0,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 87688,
+        "output_tokens": 2674,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 188.92122283647768,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.00555500",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.00555500",
+        "total_actual_usd": "0.00555500",
+        "source_paths": [
+          "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-off/historical-attempts.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl",
+          "sha256": "886b4fda9b09f8173ef4c73c86e1afb2585bc98d782020b3366c31dfa8fd21e7"
+        },
+        "request_evidence": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-off/historical-attempts.jsonl",
+          "sha256": "886bf4605cfa528cc4f41960d7c763dfafecc249fa7e2269d8334054a2b406d5"
+        }
+      }
+    },
+    "P1": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9779710144927536,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9640472521828455,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9517973856209151,
+            "per_label": {
+              "yes": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.7777777777777778,
+                "f1": 0.875
+              },
+              "no": {
+                "tp": 50,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.9615384615384616,
+                "recall": 1.0,
+                "f1": 0.9803921568627451
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 56,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P1",
+        "parent_baseline_id": "openrouter-paid-gemma4-31b-off",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": "prompts/variants-v1/P1-classifier.txt",
+        "addition_sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7",
+        "addition_bytes": 1020,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1",
+        "composed_instruction_bytes": 8676,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 1022,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 98488,
+        "output_tokens": 2435,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 129.49167820599905,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.00585054",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.00585054",
+        "total_actual_usd": "0.00585054",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/development.jsonl",
+          "sha256": "9f8aafd438333a64b83b27b39d0ddce5ef76c55332f5c9d41317766cd7bdf96c"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/development.jsonl",
+          "sha256": "9f8aafd438333a64b83b27b39d0ddce5ef76c55332f5c9d41317766cd7bdf96c"
+        }
+      }
+    },
+    "P2": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9779710144927536,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9883663610371686,
+            "per_label": {
+              "yes": {
+                "tp": 34,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.9714285714285714,
+                "f1": 0.9855072463768116
+              },
+              "no": {
+                "tp": 24,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96,
+                "recall": 1.0,
+                "f1": 0.9795918367346939
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9222222222222222,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.9354838709677419,
+                "recall": 1.0,
+                "f1": 0.9666666666666667
+              },
+              "insufficient_information": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9770918268297418,
+            "per_label": {
+              "yes": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8888888888888888,
+                "f1": 0.9411764705882353
+              },
+              "no": {
+                "tp": 50,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9803921568627451,
+                "recall": 1.0,
+                "f1": 0.9900990099009901
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "all_four_correct": 55,
+      "actual_controls_verification": "verified_against_hash_bound_raw_requests",
+      "omitted_predictions": [],
+      "prompt_provenance": {
+        "variant": "P2",
+        "parent_baseline_id": "openrouter-paid-gemma4-31b-off",
+        "instruction_role": "system",
+        "bundle_version": "variants-v1",
+        "manifest_path": "prompts/variants-v1/manifest.json",
+        "manifest_sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264",
+        "source_policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "baseline_instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+        "baseline_instruction_bytes": 7654,
+        "addition_path": "prompts/variants-v1/P2-classifier-sop.txt",
+        "addition_sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9",
+        "addition_bytes": 6472,
+        "composition_separator": "\n\n",
+        "composed_instruction_sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184",
+        "composed_instruction_bytes": 14128,
+        "token_length": null,
+        "token_length_status": "not_measured; adapter preflight required",
+        "reference_labels_read": false,
+        "inference_performed": false
+      },
+      "prompt_bytes_added": 6474,
+      "prompt_token_overhead": null,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 154348,
+        "output_tokens": 2564,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 112.85429008200299,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.00889812",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.00889812",
+        "total_actual_usd": "0.00889812",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "evidence": {
+        "extractor": "openrouter_paid_v1",
+        "predictions": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/development.jsonl",
+          "sha256": "3816e0539ddfde94c3cba632feb496067c805ff9cf0e63fd7487f154b7c43e80"
+        },
+        "request_evidence": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/development.jsonl",
+          "sha256": "3816e0539ddfde94c3cba632feb496067c805ff9cf0e63fd7487f154b7c43e80"
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "P0_to_P1": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 31,
+            "neutral -> neutral": 7,
+            "neutral -> insufficient_information": 1,
+            "mixed -> mixed": 8,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-005"
+          ],
+          "wrong_to_correct": [
+            "DEV-005"
+          ],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 5
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 7,
+            "no -> no": 51,
+            "insufficient_information -> insufficient_information": 1,
+            "yes -> no": 1
+          },
+          "changed_ids": [
+            "DEV-053"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-053"
+          ]
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-005"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-053"
+      ],
+      "cases": [
+        {
+          "id": "DEV-005",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "I got the offer. That's all I have to add."
+        },
+        {
+          "id": "DEV-053",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "feedback": "The interviewer explained that ethnic slurs are not tolerated and showed me the reporting process. That clear explanation reassured me."
+        }
+      ],
+      "changed_record_count": 2
+    },
+    "P0_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 31,
+            "neutral -> neutral": 7,
+            "neutral -> insufficient_information": 1,
+            "mixed -> mixed": 8,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-005"
+          ],
+          "wrong_to_correct": [
+            "DEV-005"
+          ],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 34,
+            "insufficient_information -> insufficient_information": 1,
+            "yes -> no": 1
+          },
+          "changed_ids": [
+            "DEV-059"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-059"
+          ]
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 4,
+            "insufficient_information -> no": 1
+          },
+          "changed_ids": [
+            "DEV-030"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 7,
+            "no -> no": 50,
+            "yes -> no": 1,
+            "no -> yes": 1,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-010",
+            "DEV-014"
+          ],
+          "wrong_to_correct": [
+            "DEV-014"
+          ],
+          "correct_to_wrong": [
+            "DEV-010"
+          ]
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-005",
+        "DEV-014"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-010",
+        "DEV-030",
+        "DEV-059"
+      ],
+      "cases": [
+        {
+          "id": "DEV-005",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "feedback": "I got the offer. That's all I have to add."
+        },
+        {
+          "id": "DEV-010",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "feedback": "There was no harassment or pressure. They explained the hours and pay clearly, and answered everything I asked. It was a good interview."
+        },
+        {
+          "id": "DEV-014",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "feedback": "The interviewer explained how to report harassment on site. They did not harass me. The safety briefing was reassuring and included exactly who to call."
+        },
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket."
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "feedback": "Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me."
+        }
+      ],
+      "changed_record_count": 5
+    },
+    "P1_to_P2": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 31,
+            "neutral -> neutral": 7,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 8
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 34,
+            "insufficient_information -> insufficient_information": 1,
+            "yes -> no": 1
+          },
+          "changed_ids": [
+            "DEV-059"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-059"
+          ]
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 4,
+            "insufficient_information -> no": 1
+          },
+          "changed_ids": [
+            "DEV-030"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 6,
+            "no -> no": 50,
+            "yes -> no": 1,
+            "no -> yes": 2,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-010",
+            "DEV-014",
+            "DEV-053"
+          ],
+          "wrong_to_correct": [
+            "DEV-014",
+            "DEV-053"
+          ],
+          "correct_to_wrong": [
+            "DEV-010"
+          ]
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-014",
+        "DEV-053"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-010",
+        "DEV-030",
+        "DEV-059"
+      ],
+      "cases": [
+        {
+          "id": "DEV-010",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "feedback": "There was no harassment or pressure. They explained the hours and pay clearly, and answered everything I asked. It was a good interview."
+        },
+        {
+          "id": "DEV-014",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "feedback": "The interviewer explained how to report harassment on site. They did not harass me. The safety briefing was reassuring and included exactly who to call."
+        },
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "feedback": "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket."
+        },
+        {
+          "id": "DEV-053",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "feedback": "The interviewer explained that ethnic slurs are not tolerated and showed me the reporting process. That clear explanation reassured me."
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "feedback": "Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me."
+        }
+      ],
+      "changed_record_count": 5
+    }
+  },
+  "controls_verified": true,
+  "eligible_paired_comparison": true,
+  "attempt_selection": "first_chronological",
+  "protocol_verification": {
+    "status": "verified_observational",
+    "conditions": {
+      "P1": {
+        "verified": true,
+        "development_attempt_id": "b278ec58-71e6-4b11-ba05-de5a62e1601a",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+          "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-off/execution-journal-snapshot.jsonl",
+          "sha256": "369f61afefdf534654356dabdc8c24d6b40152264017e8847dd0c97d3b4700b0"
+        },
+        "observational": true
+      },
+      "P2": {
+        "verified": true,
+        "development_attempt_id": "5c32dd5c-4a69-4d95-b97c-b8c669065f0a",
+        "execution_manifest": {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+          "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+        },
+        "journal_snapshot": {
+          "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-off/execution-journal-snapshot.jsonl",
+          "sha256": "369f61afefdf534654356dabdc8c24d6b40152264017e8847dd0c97d3b4700b0"
+        },
+        "observational": true
+      }
+    },
+    "fully_verified_controls": false,
+    "missing_audit_capabilities": [],
+    "note": "Frozen roster, client requests, inspected smoke and completed schedule reproduced from saved evidence. Hidden provider rendering remains unverified; historical baseline reuse does not establish causality."
+  },
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "reference_labels_read_offline": true,
+  "limitations": [
+    "Manifest assertions alone do not verify actual controls. Any unavailable extractor makes controls verification unavailable. Full protocol eligibility requires separately verified execution evidence; see protocol_verification for its result.",
+    "Failed or missing outputs stay in denominator60; valid-label transitions exclude failures and report them separately.",
+    "Unknown hardware/provider revision remains unknown even when declared identically. Historical baseline reuse and single stochastic passes do not establish causal improvement.",
+    "Prompt bytes are not token counts; token overhead is unavailable until separately measured.",
+    "Claude batch extraction verifies saved request bodies, recorded runtime controls and raw response guards; historical CLI command/environment and hidden wrapper bytes are not independently captured. Batch timing/usage is counted once, not as individual-record latency."
+  ]
+}

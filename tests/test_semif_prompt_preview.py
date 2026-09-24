@@ -31,7 +31,7 @@ class SemifPreviewTests(unittest.TestCase):
      with self.assertRaises(ValueError):s.run(self.args(Path(d),kind=kind,mode=mode))
    for variant in ['P0','P1','P2']:
     with mock.patch.object(s,'build_runner',side_effect=AssertionError('runtime forbidden')):
-     with self.assertRaisesRegex(ValueError,'gates pending'):s.run(self.args(Path(d),prompt_variant=variant,variant_preview_output=None))
+     with self.assertRaisesRegex(ValueError,'gates'):s.run(self.args(Path(d),prompt_variant=variant,variant_preview_output=None))
     self.assertFalse((Path(d)/'inference.jsonl').exists())
     self.assertFalse((Path(d)/'preview.json').exists())
  def test_default_does_not_require_variant_bundle(self):

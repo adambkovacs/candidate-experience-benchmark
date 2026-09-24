@@ -1,0 +1,187 @@
+{
+  "contract": "prompt-pairs-v1",
+  "parent_baseline_id": "openrouter-paid-gemma4-31b-off",
+  "role": "system",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "baseline_instruction": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-off/baseline.txt",
+    "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+  },
+  "controls": {
+    "requested_model": "google/gemma-4-31b-it",
+    "provider_tag": "deepinfra/turbo",
+    "provider_name": "DeepInfra",
+    "quantization": "fp4",
+    "reasoning_effort": "off",
+    "request_controls": {
+      "model": "google/gemma-4-31b-it",
+      "temperature": 0,
+      "max_tokens": 4096,
+      "stream": false,
+      "provider": {
+        "only": [
+          "deepinfra/turbo"
+        ],
+        "allow_fallbacks": false,
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0.09,
+          "completion": 0.34,
+          "request": 0,
+          "image": 0
+        }
+      },
+      "response_format": {
+        "type": "json_schema",
+        "json_schema": {
+          "name": "judgments",
+          "strict": true,
+          "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "title": "Recruitment feedback judgments",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sentiment",
+              "follow_up_needed",
+              "serious_concern_reported",
+              "testimonial_potential"
+            ],
+            "properties": {
+              "sentiment": {
+                "type": "string",
+                "enum": [
+                  "positive",
+                  "negative",
+                  "mixed",
+                  "neutral",
+                  "insufficient_information"
+                ]
+              },
+              "follow_up_needed": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "insufficient_information"
+                ]
+              },
+              "serious_concern_reported": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "insufficient_information"
+                ]
+              },
+              "testimonial_potential": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "insufficient_information"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "reasoning": {
+        "enabled": false
+      }
+    },
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "surface": "OpenRouter paid HTTP",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "workflow": "single_record"
+  },
+  "controls_sha256": "fc9239f1a52bbbda2295f9c3d457da8bee64f8b2b8e5c2358d352a64a46632ef",
+  "attempt_selection": "first_chronological",
+  "retry_authorizations": {},
+  "allow_missing_outputs": false,
+  "conditions": {
+    "P0": {
+      "extractor": "openrouter_paid_v1",
+      "predictions": {
+        "file": "results/openrouter-parallel-gemma31-off-2026-09-23/development-reconciled.jsonl",
+        "sha256": "886b4fda9b09f8173ef4c73c86e1afb2585bc98d782020b3366c31dfa8fd21e7"
+      },
+      "request_evidence": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-off/historical-attempts.jsonl",
+        "sha256": "886bf4605cfa528cc4f41960d7c763dfafecc249fa7e2269d8334054a2b406d5"
+      }
+    },
+    "P1": {
+      "extractor": "openrouter_paid_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/development.jsonl",
+        "sha256": "9f8aafd438333a64b83b27b39d0ddce5ef76c55332f5c9d41317766cd7bdf96c"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/development.jsonl",
+        "sha256": "9f8aafd438333a64b83b27b39d0ddce5ef76c55332f5c9d41317766cd7bdf96c"
+      }
+    },
+    "P2": {
+      "extractor": "openrouter_paid_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/development.jsonl",
+        "sha256": "3816e0539ddfde94c3cba632feb496067c805ff9cf0e63fd7487f154b7c43e80"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/development.jsonl",
+        "sha256": "3816e0539ddfde94c3cba632feb496067c805ff9cf0e63fd7487f154b7c43e80"
+      }
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+        "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/smoke-supplement.json",
+        "sha256": "8071d46554aa606a4391dcdc1f107a0473242ed7a0d7489ae4ed5e62aa366131"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/development.jsonl.prompt-admission.json",
+        "sha256": "ee3b6e74a87ae10e91288be0dffd0dfa68c1bb231dde9240244db9edac2ca8ef"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-off/execution-journal-snapshot.jsonl",
+        "sha256": "369f61afefdf534654356dabdc8c24d6b40152264017e8847dd0c97d3b4700b0"
+      }
+    },
+    "P2": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+        "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/smoke-supplement.json",
+        "sha256": "e83a969a9f220560e565a0f14a8ff0277894441d1f5d39b032f15fa0cb5655c5"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/development.jsonl.prompt-admission.json",
+        "sha256": "efe012e8c6cf085f71294c1b71587a92ff30b7ee23706762010eab3e2978a29a"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-off/execution-journal-snapshot.jsonl",
+        "sha256": "369f61afefdf534654356dabdc8c24d6b40152264017e8847dd0c97d3b4700b0"
+      }
+    }
+  }
+}

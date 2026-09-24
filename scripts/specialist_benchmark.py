@@ -167,6 +167,12 @@ def select_input_rows(rows, offset, limit):
     return rows[offset:offset+limit]
 
 def run(args):
+    if getattr(args,'prompt_variant',None) in ('P1','P2') and not getattr(args,'variant_preview_output',None):
+        if args.kind!='semif' or args.mode!='generated':raise ValueError('Prompt variants only support SemIf generated control')
+        from semif_prompt_execution import execute
+        return execute(args,ROOT)
+    if any(getattr(args,k,None) for k in ('execution_manifest','execution_manifest_sha256','execution_configuration','execution_stage','execution_journal','smoke_inspection','smoke_inspection_sha256')):
+        raise ValueError('Execution gates apply only to live SemIf generated P1/P2')
     if getattr(args,'offset',0) and any(getattr(args,k,None) is not None for k in ('prompt_variant','parent_baseline_id','variant_preview_output')):
         raise ValueError('Offset is supported for baseline inference only')
     if variant_gate_or_preview(args):return
@@ -214,6 +220,9 @@ def main():
     p.add_argument('--output',required=True)
     p.add_argument('--config-note',required=True)
     p.add_argument('--prompt-variant',choices=['P0','P1','P2']);p.add_argument('--parent-baseline-id');p.add_argument('--variant-preview-output')
+    p.add_argument('--execution-manifest');p.add_argument('--execution-manifest-sha256');p.add_argument('--execution-configuration')
+    p.add_argument('--execution-stage',choices=('smoke','development'));p.add_argument('--execution-journal')
+    p.add_argument('--smoke-inspection');p.add_argument('--smoke-inspection-sha256')
     args=p.parse_args()
     allowed={'semif':{'direct','serial','shared','generated'},'laya':{'default','expanded'},'alex':{'nli'}}
     if args.mode not in allowed[args.kind]:p.error('Mode does not match specialist')
