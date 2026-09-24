@@ -1,0 +1,113 @@
+{
+  "contract": "prompt-pairs-v1",
+  "parent_baseline_id": "opus55-medium-batch10",
+  "role": "system",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-medium-batch10/P0-instruction.txt",
+    "sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34"
+  },
+  "controls": {
+    "workflow": "batch10",
+    "requested_model": "claude-opus-5-5",
+    "effort": "medium",
+    "cli_version": "2.1.280 (Claude Code)",
+    "auth_method": "claude.ai",
+    "extra_usage_disabled_operator_verified": true,
+    "controller_retries": 0,
+    "cli_internal_retries": "not exposed"
+  },
+  "controls_sha256": "ac7a154c9208107b4a20fd79191c9ed6ce6246ad98c40e6471bf11c2358c0b9c",
+  "attempt_selection": "latest_chronological",
+  "retry_authorizations": {
+    "P0": []
+  },
+  "allow_missing_outputs": false,
+  "conditions": {
+    "P0": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl",
+        "sha256": "d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb"
+      },
+      "request_evidence": {
+        "file": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl.batches-normalized.jsonl",
+        "sha256": "91e96ac806cad8ee8d255450a1cfd234221f08fc74ac72d75418a761d46f3288"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/development.jsonl",
+        "sha256": "61a3548f4c0d73b4c5746c9095277352f7c7296c09dd06ada1826eb6368f5394"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/development.jsonl.batches.jsonl",
+        "sha256": "b35ab9ef4b8078a8ebd5f3f16911a1f79fe1b31bd6a6b24b20779d65b17325fd"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/development.jsonl",
+        "sha256": "cae20fd5a6128d068b7e5aa431d76f71910de9149be32da1cd0aab64ff593063"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/development.jsonl.batches.jsonl",
+        "sha256": "b4449fee88074c653ad59b80f4a35d413be4c7fff9ab70224b453ee0144f6d39"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-medium-batch10/execution-manifest.json",
+        "sha256": "57603192c4df8cef83edb4c3dc916eb6fd542893483fbfe887e6a481d60fbba1"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/smoke-supplement.json",
+        "sha256": "a026b22c85dec30083f73baef74447f20be62798e93e628b213544d7c80383f1"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/development.jsonl.prompt-admission.json",
+        "sha256": "869009d54f849199c8f6c828945c7b86c58d0c75f20ff6690b329f9657613b42"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus55-medium-batch10/execution-journal-snapshot.jsonl",
+        "sha256": "9dd389c6561c941ff81b1d2b47847a715774ab5450d567cddb138fb1a62334f9"
+      }
+    },
+    "P2": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-medium-batch10/execution-manifest.json",
+        "sha256": "57603192c4df8cef83edb4c3dc916eb6fd542893483fbfe887e6a481d60fbba1"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/smoke-supplement.json",
+        "sha256": "a4d41f4a467e918f1581e10bf4e8084d4183a01c81d255106c6757c3d297f291"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/development.jsonl.prompt-admission.json",
+        "sha256": "9df72614ee7c89fe0a487c389c1afae2b49c77e0d2041dc4a8fdd8d333903b3a"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus55-medium-batch10/execution-journal-snapshot.jsonl",
+        "sha256": "9dd389c6561c941ff81b1d2b47847a715774ab5450d567cddb138fb1a62334f9"
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "manifest": {
+    "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/execution-manifest.json",
+    "sha256": "8d142d97ebe7e7422a231bae14e324adca909baad3c3917311478e5078bfba85"
+  },
+  "condition": "P1",
+  "inspector": "Codex local_resume; actual raw JSON and native stream/EOS inspected",
+  "inspected_utc": "2026-09-24T11:36:04.872465+00:00",
+  "raw_attempts": {
+    "file": "results/prompt-comparison-v1-2026-09-24/semif-generated-exact/P1-smoke.jsonl",
+    "sha256": "8225e45dac8b480a6c437c1374e1919a3addb8290c83575479450966a57c96cc"
+  },
+  "records": [
+    {
+      "id": "DEV-001",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      }
+    },
+    {
+      "id": "DEV-002",
+      "status": "ok",
+      "prediction": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      }
+    },
+    {
+      "id": "DEV-003",
+      "status": "invalid_output",
+      "prediction": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Recruitment feedback judgments",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sentiment",
+          "follow_up_needed",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ],
+        "properties": {
+          "sentiment": {
+            "type": "string",
+            "enum": [
+              "positive",
+              "negative",
+              "mixed",
+              "neutral",
+              "insufficient_information"
+            ]
+          },
+          "follow_up_needed": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no",
+              "insufficient_information"
+            ]
+          },
+          "serious_concern_reported": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no",
+              "insufficient_information"
+            ]
+          },
+          "testimonial_potential": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no",
+              "insufficient_information"
+            ]
+          }
+        }
+      },
+      "failure_class": "intrinsic_schema",
+      "accepted_unchanged": true,
+      "inspection_reason": "DEV003 copied the required JSON schema rather than filling judgments; native EOS at292tokens, full token/runtime checks passed. Preserve parsed schema object and invalid status; no repair or prompt tuning."
+    }
+  ],
+  "inspection": "accepted_unchanged",
+  "reference_labels_read": false
+}

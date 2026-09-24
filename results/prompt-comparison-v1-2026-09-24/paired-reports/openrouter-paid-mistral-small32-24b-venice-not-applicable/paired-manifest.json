@@ -1,0 +1,189 @@
+{
+  "contract": "prompt-pairs-v1",
+  "parent_baseline_id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+  "role": "system",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "baseline_instruction": {
+    "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-mistral-small32-24b-venice-not-applicable/baseline.txt",
+    "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+  },
+  "controls": {
+    "requested_model": "mistralai/mistral-small-3.2-24b-instruct",
+    "provider_tag": "venice/fp8",
+    "provider_name": "Venice",
+    "quantization": "fp8",
+    "reasoning_effort": "na",
+    "request_controls": {
+      "model": "mistralai/mistral-small-3.2-24b-instruct",
+      "temperature": 0,
+      "max_tokens": 4096,
+      "stream": false,
+      "provider": {
+        "only": [
+          "venice/fp8"
+        ],
+        "allow_fallbacks": false,
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0.09375,
+          "completion": 0.25,
+          "request": 0,
+          "image": 0
+        }
+      },
+      "response_format": {
+        "type": "json_schema",
+        "json_schema": {
+          "name": "judgments",
+          "strict": true,
+          "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "title": "Recruitment feedback judgments",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sentiment",
+              "follow_up_needed",
+              "serious_concern_reported",
+              "testimonial_potential"
+            ],
+            "properties": {
+              "sentiment": {
+                "type": "string",
+                "enum": [
+                  "positive",
+                  "negative",
+                  "mixed",
+                  "neutral",
+                  "insufficient_information"
+                ]
+              },
+              "follow_up_needed": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "insufficient_information"
+                ]
+              },
+              "serious_concern_reported": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "insufficient_information"
+                ]
+              },
+              "testimonial_potential": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "insufficient_information"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "runtime": "OpenRouter HTTP v1",
+    "hardware": "Remote provider undisclosed",
+    "surface": "OpenRouter paid HTTP",
+    "retry_policy": "none; exclusive files; every attempt reserves against shared cap",
+    "workflow": "single_record"
+  },
+  "controls_sha256": "b35c4d9c1d2148ceb26c6b1da7db4703e3a57c1dc0e60d2c1dbbffa1dc9ee5cb",
+  "attempt_selection": "latest_chronological",
+  "retry_authorizations": {
+    "P0": []
+  },
+  "allow_missing_outputs": false,
+  "conditions": {
+    "P0": {
+      "extractor": "openrouter_paid_v1",
+      "predictions": {
+        "file": "results/openrouter-mistral24-venice-na-2026-09-23/development-reconciled.jsonl",
+        "sha256": "ad8caac9b6db0df5f3e0e5b761f3bdb49e4aa7420eb184097bc29614ad7ab153"
+      },
+      "request_evidence": {
+        "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-mistral-small32-24b-venice-not-applicable/historical-attempts.jsonl",
+        "sha256": "30e3ceae6dc228ff71a572bf1f0e4072ce7df1eb3316bceb1b1261977334effe"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "openrouter_paid_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P1/development.jsonl",
+        "sha256": "6bc4aa9fc4a351f4e9a12b377eb5cfdbbaad5b062209a2fa6733467116ed5178"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P1/development.jsonl",
+        "sha256": "6bc4aa9fc4a351f4e9a12b377eb5cfdbbaad5b062209a2fa6733467116ed5178"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "openrouter_paid_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P2/development.jsonl",
+        "sha256": "f4c674a04c5af1a76f049b4d6f29ff94543b7e9b00dfbc7cc06378f452dcb8d9"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P2/development.jsonl",
+        "sha256": "f4c674a04c5af1a76f049b4d6f29ff94543b7e9b00dfbc7cc06378f452dcb8d9"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+        "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P1/smoke-supplement.json",
+        "sha256": "5deca2dbff4ef15384c26509a8d5aeba3e82da2bdacbf3cce0e343b22713d0bf"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P1/development.jsonl.prompt-admission.json",
+        "sha256": "e967507ea28e42af27d16d76e8d1bb6029513d1848576a00d0db19ef6b410797"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-mistral-small32-24b-venice-not-applicable/execution-journal-snapshot.jsonl",
+        "sha256": "9dd389c6561c941ff81b1d2b47847a715774ab5450d567cddb138fb1a62334f9"
+      }
+    },
+    "P2": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+        "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P2/smoke-supplement.json",
+        "sha256": "e6e58405c0dc5df3abf54222e7b4de7a5ed1c293ec50d9d23ec989b1b639b618"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P2/development.jsonl.prompt-admission.json",
+        "sha256": "9207f7a5c71e6f7242cdd06be284ce12b02126cc21fd739650dc9dc54066e821"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-mistral-small32-24b-venice-not-applicable/execution-journal-snapshot.jsonl",
+        "sha256": "9dd389c6561c941ff81b1d2b47847a715774ab5450d567cddb138fb1a62334f9"
+      }
+    }
+  }
+}
