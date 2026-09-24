@@ -1,0 +1,431 @@
+{
+  "contract": "gemini-billing-default-continuation-draft-v1",
+  "status": "offline_preparation_review_required",
+  "inference_authorized_by_this_manifest": false,
+  "scope": "Seven Gemini native subscription batch10 baselines; separate CLI 1.2.10 P1/P2 execution after 1.2.9 P0 baselines",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "policy_source": {
+    "file": "docs/LABELING_GUIDE.md",
+    "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+  },
+  "schema": {
+    "file": "schemas/judgments.schema.json",
+    "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+  },
+  "schedule": {
+    "file": "results/prompt-comparison-v1-2026-09-24/schedule.json",
+    "sha256": "af0da3fa30ec11562d2cff3f6e782900e1d7ab33bc0a0e502a3ea6e06f6618f4"
+  },
+  "roster_freeze": {
+    "file": "results/prompt-comparison-v1-2026-09-24/roster-freeze.json",
+    "sha256": "3920fe3754d604b5360700d846ab2d05921ed6e59861ef3a4031ac7de29c2e77"
+  },
+  "readiness": {
+    "file": "results/prompt-comparison-v1-2026-09-24/gemini-preparation-readiness.json",
+    "sha256": "c7f1b0b1921264a83390177e05a6cc33ce46370beccd2f3ea08b7d56c7fde945"
+  },
+  "source_files": {
+    "scripts/gemini_batch_benchmark.py": {
+      "file": "scripts/gemini_batch_benchmark.py",
+      "sha256": "3adb699fd98ebe747f26f9ba1a0e2ffea10a99168406bdad3c6e1c51ca87a9a3"
+    },
+    "scripts/gemini_benchmark.py": {
+      "file": "scripts/gemini_benchmark.py",
+      "sha256": "650b79e98255712da5db52ed7580d87da8668356c556fd50d2a529ce4c56ec28"
+    },
+    "scripts/codex_batch_benchmark.py": {
+      "file": "scripts/codex_batch_benchmark.py",
+      "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+    },
+    "scripts/codex_benchmark.py": {
+      "file": "scripts/codex_benchmark.py",
+      "sha256": "fbf80230b65fc069b39f82ea42c560ff1c0abd6ca0a49b8e2346131e294f048a"
+    },
+    "scripts/prompt_schedule.py": {
+      "file": "scripts/prompt_schedule.py",
+      "sha256": "ec1c6b7373ea0640abd19ced6e72d5ad64f3b72229df6ba88d01993728184710"
+    },
+    "scripts/prompt_execution_gates.py": {
+      "file": "scripts/prompt_execution_gates.py",
+      "sha256": "bd1edbabae63afe1e2c2695cda13aef17d41f540e8b7b606d800b34ad24b25fe"
+    },
+    "scripts/development_benchmark.py": {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    "scripts/frozen_prompt_variants.py": {
+      "file": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    "scripts/gemini_prompt_execution_v2.py": {
+      "file": "scripts/gemini_prompt_execution_v2.py",
+      "sha256": "78b8367e2e33b87678bed00d8644081c050893e13fa198f02b4a0afb2ba9a654"
+    },
+    "tests/test_gemini_prompt_execution_v2.py": {
+      "file": "tests/test_gemini_prompt_execution_v2.py",
+      "sha256": "8ec607f405c63be5c98c4f9901947a275b6f0489137e3bf577e3e624a9a236d2"
+    },
+    "scripts/gemini_billing_continuation.py": {
+      "file": "scripts/gemini_billing_continuation.py",
+      "sha256": "45a7f7464a0aabb861d18a329cfd7866c563c3add28e4950fd7438350a3e140e"
+    },
+    "tests/test_gemini_billing_continuation.py": {
+      "file": "tests/test_gemini_billing_continuation.py",
+      "sha256": "1cdf69efeb9fa46b9829fdfa0d62b6527992ebd14b3897a9efc94c646da6b93f"
+    },
+    "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/billing-default-continuation-v1/README.md": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/billing-default-continuation-v1/README.md",
+      "sha256": "6c34fea6923b57160a3e5a20935a74c8e6b1efea45e3412e52d6dabe4c038539"
+    }
+  },
+  "cli": {
+    "path": "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/antigravity-cli/agy",
+    "sha256": "1e43262d55f69e20bf4ba4f087252d65dd4ed37c0a980fae50a6bd5bc3637650",
+    "version": "1.2.10"
+  },
+  "policy": {
+    "workflow_mode": "native-agent-observed-no-external-tools",
+    "configured_batch_size": 10,
+    "smoke_size": 3,
+    "development_size": 60,
+    "controller_retries": 0,
+    "intrinsic_invalid_output": "retain_unchanged_continue",
+    "control_or_service_failure": "stop",
+    "subscription_credits": "explicit_off"
+  },
+  "limitations": [
+    "Native agent builtin scaffold persists; effective tool restriction beyond observed stream is unverified.",
+    "Native CLI internal transient retries and exact provider model revision are not exposed.",
+    "Offline preview does not establish runtime token fit or authentication."
+  ],
+  "configurations": [
+    {
+      "configuration_id": "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+      "model": "gemini-3.1-pro-low",
+      "effort": "low",
+      "parent_baseline_id": "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+      "condition_order": [
+        "P1",
+        "P2"
+      ],
+      "parent_baseline": {
+        "file": "results/antigravity-gemini31-pro-low-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "fd77beedfbb35d8139fb3f4a662a5f3bfef62313cecca10f1420bee5ae47152d"
+      },
+      "conditions": {
+        "P1": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/smoke-preview.json",
+            "sha256": "1e9034e913c3d136e31e122f06bb9266784b4e78e7c6eec761b2eb2a687652f3"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/development-preview.json",
+            "sha256": "31265136c0edcfa966c65a526741bf39f08fad3911359e8c564f8558039982cd"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/billing-default-continuation-v1/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/billing-default-continuation-v1/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/development.jsonl"
+        },
+        "P2": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P2/smoke-preview.json",
+            "sha256": "644b0d0a691104f2c77f7d6bb41f273ce70dec01ca930da60ef11356b7ed5514"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P2/development-preview.json",
+            "sha256": "915704a091217d17b53258269a58948b21c2223473ed2589f6e90a8c248bb3bc"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P2/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P2/development.jsonl"
+        }
+      }
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+      "model": "gemini-3.1-pro-high",
+      "effort": "high",
+      "parent_baseline_id": "antigravity-gemini-3.1-pro-high-native-observed-batch10",
+      "condition_order": [
+        "P2",
+        "P1"
+      ],
+      "parent_baseline": {
+        "file": "results/antigravity-gemini31-pro-high-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "e1e6f9d08fcf9f5bcc9476d02c79ab1a67ffbafb0ff662fd3694c3890c1a348a"
+      },
+      "conditions": {
+        "P1": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P1/smoke-preview.json",
+            "sha256": "766df0d09ca47af6aeccca312a2f9a45c71395628ce36c0039e80e0bfd217aba"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P1/development-preview.json",
+            "sha256": "14290d9b4d95b434614e1c471d8f6c75fa3cc8c396d1fe9bc966f49e44623a1d"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P1/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P1/development.jsonl"
+        },
+        "P2": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P2/smoke-preview.json",
+            "sha256": "96af6defb3e8400413fec723fc403524a37433ca5cb79e655902b55795c8e6fe"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P2/development-preview.json",
+            "sha256": "cbd28f27c2bd5e3b1e068533ab80a19307e16296db72e414a854e75418effc38"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P2/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-high-native-observed-batch10/P2/development.jsonl"
+        }
+      }
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+      "model": "gemini-3.6-flash-low",
+      "effort": "low",
+      "parent_baseline_id": "antigravity-gemini-3.6-flash-low-native-observed-batch10",
+      "condition_order": [
+        "P1",
+        "P2"
+      ],
+      "parent_baseline": {
+        "file": "results/antigravity-gemini36-flash-low-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "119a16f0e8e7e128b10552b8f3eb33a4041a6f475dc33665e7f4620cbe5644db"
+      },
+      "conditions": {
+        "P1": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P1/smoke-preview.json",
+            "sha256": "1dc8e4528a62ddd0825e90f2bf70760c064f3ac472c3f945679f0f308e10cc5f"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P1/development-preview.json",
+            "sha256": "4bd9cddcc25e64f45bf80944e96a0d64d953f7ae7c1b11fac97bbd1926a443b3"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P1/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P1/development.jsonl"
+        },
+        "P2": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P2/smoke-preview.json",
+            "sha256": "3b9f8ee1fc986f181a9927fd0088a818c1ce3a2bb6bcdbafaa05657aca2f1189"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P2/development-preview.json",
+            "sha256": "9f1e24e73479413d9eb686f0b0ec936623059d50c4d8b4333dc64cc48c47d8d6"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P2/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-low-native-observed-batch10/P2/development.jsonl"
+        }
+      }
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+      "model": "gemini-3.6-flash-medium",
+      "effort": "medium",
+      "parent_baseline_id": "antigravity-gemini-3.6-flash-medium-native-observed-batch10",
+      "condition_order": [
+        "P2",
+        "P1"
+      ],
+      "parent_baseline": {
+        "file": "results/antigravity-gemini36-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "2a183225c8653b7779c40246836e82e04d177ab93d341abb35803291d8887aab"
+      },
+      "conditions": {
+        "P1": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P1/smoke-preview.json",
+            "sha256": "9935d2b412492694977390864025895d1be79039567783ee6b01dc8b081667c4"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P1/development-preview.json",
+            "sha256": "8d714634a595f371ba453621f9c8da73bddc35fef33cb13d82b9c8b83d089641"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P1/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P1/development.jsonl"
+        },
+        "P2": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P2/smoke-preview.json",
+            "sha256": "8ae17d2e9069a6a34826ec06da1b05472278b613b06d27c7d1de88c57e0a654b"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P2/development-preview.json",
+            "sha256": "d1ff0dc588eae0443ad663c28c1d05651d573df9e259cf0f7cdc7c9c484a88b5"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P2/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.6-flash-medium-native-observed-batch10/P2/development.jsonl"
+        }
+      }
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+      "model": "gemini-3.7-flash-low",
+      "effort": "low",
+      "parent_baseline_id": "antigravity-gemini-3.7-flash-low-native-observed-batch10",
+      "condition_order": [
+        "P1",
+        "P2"
+      ],
+      "parent_baseline": {
+        "file": "results/antigravity-gemini37-flash-low-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "2c9a826b467f529d293a931b1b5416f016fd8493c3367b28bde86c91d3d322be"
+      },
+      "conditions": {
+        "P1": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P1/smoke-preview.json",
+            "sha256": "1db648d2e29ceff81f487a01b7c1b1b53225b7a97e52b765dd3930bce8aa23de"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P1/development-preview.json",
+            "sha256": "e1050bfa62671efba574914e438d0164b2b93fe579598d73ab81d25a697a8712"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P1/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P1/development.jsonl"
+        },
+        "P2": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P2/smoke-preview.json",
+            "sha256": "14bf7df9cbd78d040fb0ed893ad6def337bd6b7582a8d10d08680b1d29ce2ce6"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P2/development-preview.json",
+            "sha256": "4fec13b0a591b3f19436d0d0ae5a69740bcb191ae9a077a7ec00a057de01f1c3"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P2/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-low-native-observed-batch10/P2/development.jsonl"
+        }
+      }
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+      "model": "gemini-3.7-flash-medium",
+      "effort": "medium",
+      "parent_baseline_id": "antigravity-gemini-3.7-flash-medium-native-observed-batch10",
+      "condition_order": [
+        "P2",
+        "P1"
+      ],
+      "parent_baseline": {
+        "file": "results/antigravity-gemini37-flash-medium-native129-2026-09-23/development-reconciled.jsonl",
+        "sha256": "ee050b6ce4331181a2bee8e136983fd427b3ac8d33a51aec14893550723e34d6"
+      },
+      "conditions": {
+        "P1": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P1/smoke-preview.json",
+            "sha256": "81dbff6f385c04243c6c68ab8c828da08fba54defa99dcb12cdf5a6cfdb29b98"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P1/development-preview.json",
+            "sha256": "4019edf105cb00ce5007521bf1ef491e4bfd507a52f4227a1202f4beada25a6c"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P1/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P1/development.jsonl"
+        },
+        "P2": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P2/smoke-preview.json",
+            "sha256": "7e6ac316dd050aa0344ec66ad2869f83fdec88b97eebb8736f122241013f78fb"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P2/development-preview.json",
+            "sha256": "0fab66bb40d8f00e04c06acbedfa36d993985bf0c712392dd356cef4a945b8c0"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P2/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-medium-native-observed-batch10/P2/development.jsonl"
+        }
+      }
+    },
+    {
+      "configuration_id": "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+      "model": "gemini-3.7-flash-high",
+      "effort": "high",
+      "parent_baseline_id": "antigravity-gemini-3.7-flash-high-native-observed-batch10",
+      "condition_order": [
+        "P1",
+        "P2"
+      ],
+      "parent_baseline": {
+        "file": "results/antigravity-gemini37-flash-high-native129-2026-09-24/development-reconciled.jsonl",
+        "sha256": "faa3c08c0f0f041d18c9d717a63f7c105655f65836185fe8a1f86fdc994757b3"
+      },
+      "conditions": {
+        "P1": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P1/smoke-preview.json",
+            "sha256": "ec9cd8f4f8a05ffced3cca0ae8f90a182c77bb606d021602b1e684d4383baf0d"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P1/development-preview.json",
+            "sha256": "2816860bac0c53003ba775c1a4d7c0f3dce4f5deb0d77ff3a0c4acb65a12a9a2"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P1/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P1/development.jsonl"
+        },
+        "P2": {
+          "smoke_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P2/smoke-preview.json",
+            "sha256": "905f2247942053b31b03dd907c55494b69dbb2f8fd6a2c6568687530e0af4991"
+          },
+          "development_preview": {
+            "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P2/development-preview.json",
+            "sha256": "09a94ff3abf180c1b7a6835968090880283d80cfed13fe0d0dadafd5aa86427d"
+          },
+          "smoke_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P2/smoke.jsonl",
+          "development_output": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.7-flash-high-native-observed-batch10/P2/development.jsonl"
+        }
+      }
+    }
+  ],
+  "transition": {
+    "parent_manifest": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v1/execution-manifest.draft.json",
+      "sha256": "809105ff029c07622206a9d4d37bef28d25dba6192a3576cf84f440ab1f8563e"
+    },
+    "reason": "Native CLI changed from 1.2.9 parent baselines to 1.2.10 before P1/P2 execution; P0 baselines remain unchanged.",
+    "comparison_caveat": "P1/P2 and P0 differ in native CLI version; report separately, do not attribute all differences to prompts."
+  },
+  "cli_interface_attestation": {
+    "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/cli-interface-attestation.json",
+    "sha256": "23b9e9c20f186401dc367a7782b4a0fbe6a9e83ed663888f79e0fdb09cbea153"
+  },
+  "continuation": {
+    "parent_manifest": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/execution-manifest.draft.json",
+      "sha256": "11c198ae9d9ccc7a68c041743da086a662d6aec19c6771b152e40fbadb484022"
+    },
+    "parent_preflight": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/preflight.json",
+      "sha256": "99047597e3ba960216f69b451f1b2ac3ea418c36023b79075f5728c5f5f23b46"
+    },
+    "original_attempt_id": "aa69d942-9527-490f-b98d-8c5ef10b7b4d",
+    "stopped_terminal": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/smoke.terminal.json",
+      "sha256": "36a265441893d9239614a248290b87f8e856d01543d81758fcf228723723ecca"
+    },
+    "empty_predictions": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/smoke.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "empty_attempts": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/smoke-attempts.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "empty_events": {
+      "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/antigravity-gemini-3.1-pro-low-native-observed-batch10/P1/smoke-attempts.events.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "special_journal": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/billing-default-continuation-v1/execution-journal.jsonl",
+    "other_conditions_journal": "results/prompt-comparison-v1-2026-09-24/execution-journal.jsonl"
+  },
+  "billing_amendment": {
+    "file": "results/prompt-comparison-v1-2026-09-24/gemini-exact-v2/billing-default-continuation-v1/billing-policy.json",
+    "sha256": "6d2eb5e3d13497294f7b1737587c667a96f872e63755d03380865a3460dbea21"
+  }
+}
