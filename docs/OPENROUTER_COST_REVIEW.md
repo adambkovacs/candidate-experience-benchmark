@@ -1,6 +1,6 @@
 # OpenRouter cost review — 2026-09-23
 
-The user requested a low-effort agent to assess whether hosted models could reduce download and local execution time. This was a read-only review. The subsequent user instruction authorized reasonably priced hosted matches instead of downloading them. The latest user instruction explicitly approves paid OpenRouter for non-GPT/Claude models, prioritizes hosted execution over LM Studio where equivalent routes exist, and sets a $5 total OpenRouter inference cap. Earlier spending counts toward $5; the existing TypeSafe $1 cap is separate.
+The user requested a low-effort agent to assess whether hosted models could reduce download and local execution time. This was a read-only review. The subsequent user instruction authorized reasonably priced hosted matches instead of downloading them. The latest user instruction explicitly approves paid OpenRouter for non-GPT/Claude models, prioritizes hosted execution over LM Studio where equivalent routes exist, and sets a $10 total OpenRouter inference cap (raised from $5 on September 24). Earlier spending counts toward $10; the existing TypeSafe $1 cap is separate.
 
 The [official model catalog](https://openrouter.ai/api/v1/models) advertised the following routes and prices at review time. A listing is not proof of successful inference or a latency guarantee.
 
@@ -103,3 +103,9 @@ Preview mode reads no API key or budget ledger and makes no network request. Its
 The DeepInfra FP8 configuration paused after repeated HTTP 429 responses, retaining 19 valid outputs across 21 unique attempted records and 39 unattempted records. Its raw attempts and unknown-charge bounds remain preserved. A September 23 public [endpoint check](https://openrouter.ai/api/v1/models/mistralai/mistral-small-3.2-24b-instruct/endpoints) also listed Venice FP8 with structured outputs at $0.09375/$0.25 per million input/output tokens.
 
 Venice is a separately identified provider configuration for the same Mistral model, with no automatic fallback and no pooling with DeepInfra results. Its three inspected smoke responses were valid; full development execution then started under a separately reserved $0.35 child budget within the existing $5 aggregate cap. [Smoke inspection](../results/openrouter-mistral24-venice-na-2026-09-23/smoke-inspection.json) records the controls and runtime limitations. Exact serving weights and hardware are undisclosed. The two Mistral 119B effort configurations remain blocked by their provider rate limits.
+
+## September 24 cap increase and parallel continuations
+
+The user explicitly raised the total OpenRouter inference approval to $10 and requested aggressive parallel execution. The [master ledger](../results/openrouter-paid-budget.jsonl) preserves the previous $5 approval and all earlier charges, then appends the $10 amendment. At amendment, known charges plus unknown-charge bounds totaled $1.62462814050, leaving $8.37537185950 before new allocations. Historical $5 snapshots above remain unchanged. TypeSafe retains its separate $1 cap, and no subscription overage or credit purchase is authorized.
+
+Versioned budget helpers preserve the source hashes used by historical runs. Concurrent conditions receive separate child allocations; their sum remains bounded by the shared master. Provider failures stop the affected condition without automatic retry.
