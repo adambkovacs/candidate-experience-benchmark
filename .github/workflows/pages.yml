@@ -32,6 +32,8 @@ jobs:
           python3 scripts/build_repeat_findings.py --check
           python3 scripts/build_hosted_wave_findings.py --output public-site/hosted-repeats.json --check
           python3 -m unittest tests.test_hosted_repeat_findings tests.test_hosted_wave_findings -q
+          python3 scripts/build_claude_repeat_findings.py --output public-site/claude-repeats.json --check
+          python3 -m unittest tests.test_build_claude_repeat_findings -q
           python3 -m unittest discover -s tests -p test_repeat_findings.py -q
           python3 scripts/build_findings.py --check
           python3 -m unittest discover -s tests -p test_findings.py -q

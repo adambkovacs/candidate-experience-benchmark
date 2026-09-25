@@ -1,0 +1,1202 @@
+{
+  "schema": "claude-repeat-findings-v1",
+  "configuration": "opus55-medium-batch10",
+  "displayName": "Claude Opus 5.5 · medium effort · batch 10",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "provider": "Claude subscription",
+  "referenceVersion": "0.2",
+  "referenceStatus": "AI reviewed provisional, not independent adjudication",
+  "referenceClassCounts": {
+    "sentiment": {
+      "insufficient_information": 2,
+      "mixed": 8,
+      "negative": 31,
+      "neutral": 8,
+      "positive": 11
+    },
+    "follow_up_needed": {
+      "insufficient_information": 1,
+      "no": 24,
+      "yes": 35
+    },
+    "serious_concern_reported": {
+      "insufficient_information": 6,
+      "no": 29,
+      "yes": 25
+    },
+    "testimonial_potential": {
+      "insufficient_information": 1,
+      "no": 50,
+      "yes": 9
+    }
+  },
+  "denominator": 60,
+  "completedConditions": 6,
+  "plannedConditions": 9,
+  "missingPasses": [
+    {
+      "pass": "repeat3",
+      "condition": "P0",
+      "status": "smoke_open_or_incomplete"
+    },
+    {
+      "pass": "repeat3",
+      "condition": "P1",
+      "status": "smoke_open_or_incomplete"
+    },
+    {
+      "pass": "repeat3",
+      "condition": "P2",
+      "status": "smoke_open_or_incomplete"
+    }
+  ],
+  "partialPasses": [],
+  "passes": {
+    "original": {
+      "P0": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            18.943998457863927,
+            19.1772122499533,
+            20.271926167188212,
+            12.121108249993995,
+            18.581677542068064,
+            15.484793124953285
+          ],
+          "requestSecondsTotal": 104.58071579202078,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 6455,
+            "cache_read_input_tokens": 19680,
+            "output_tokens": 8385,
+            "thinking_tokens": 2757
+          },
+          "cliListPriceEstimateUsd": "0.223323999999999996",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "records": {
+            "path": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl",
+            "sha256": "d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb"
+          },
+          "attempts": {
+            "path": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl.batches-normalized.jsonl",
+            "sha256": "91e96ac806cad8ee8d255450a1cfd234221f08fc74ac72d75418a761d46f3288"
+          }
+        }
+      },
+      "P1": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 60,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            12.50466866699935,
+            11.059341832999053,
+            10.946696167000482,
+            8.053374332997919,
+            11.18815912500213,
+            11.174352124999132
+          ],
+          "requestSecondsTotal": 64.92659224999807,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 6453,
+            "cache_read_input_tokens": 21486,
+            "output_tokens": 6440,
+            "thinking_tokens": 2349
+          },
+          "cliListPriceEstimateUsd": "0.184769200000000003",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "records": {
+            "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/development.jsonl",
+            "sha256": "61a3548f4c0d73b4c5746c9095277352f7c7296c09dd06ada1826eb6368f5394"
+          },
+          "attempts": {
+            "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/development.jsonl.batches.jsonl",
+            "sha256": "b35ab9ef4b8078a8ebd5f3f16911a1f79fe1b31bd6a6b24b20779d65b17325fd"
+          }
+        }
+      },
+      "P2": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 56,
+          "fields": {
+            "sentiment": 58,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 59
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            18.603895584001293,
+            11.504035250000015,
+            17.35156733400072,
+            9.550276209000003,
+            10.28736916699927,
+            12.27269995900133
+          ],
+          "requestSecondsTotal": 79.56984350300263,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 33262,
+            "cache_read_input_tokens": 4884,
+            "output_tokens": 7084,
+            "thinking_tokens": 2611
+          },
+          "cliListPriceEstimateUsd": "0.408800800000000009",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "records": {
+            "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/development.jsonl",
+            "sha256": "cae20fd5a6128d068b7e5aa431d76f71910de9149be32da1cd0aab64ff593063"
+          },
+          "attempts": {
+            "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/development.jsonl.batches.jsonl",
+            "sha256": "b4449fee88074c653ad59b80f4a35d413be4c7fff9ab70224b453ee0144f6d39"
+          }
+        }
+      }
+    },
+    "repeat2": {
+      "P0": {
+        "completionStatus": "complete",
+        "terminalEvent": "phase_completed",
+        "finishedRequests": 6,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            15.099146291002398,
+            10.734542417005287,
+            12.343334459001198,
+            8.074269250006182,
+            8.621114042005502,
+            10.981096791991149
+          ],
+          "requestSecondsTotal": 65.85350325101172,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 21203,
+            "cache_read_input_tokens": 4884,
+            "output_tokens": 6500,
+            "thinking_tokens": 2461
+          },
+          "cliListPriceEstimateUsd": "0.300648800000000032",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "claim": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.claim.json",
+            "sha256": "9d1f3b8a6c5dc9f8bf45e474a17da0154f41738a1be48dc7ed2a229383c0ecfe"
+          },
+          "journal": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.journal.jsonl",
+            "sha256": "a382f525bd54d7671cc58af0733fc64ee152fb4f0a587ba91026f9ae87e86723"
+          },
+          "attempts": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.attempts.jsonl",
+            "sha256": "9280757bf41d0b6ae85c6eecaeb339aff106c2cb0a3905f58abaed848c974b25"
+          },
+          "records": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.records.jsonl",
+            "sha256": "77e1f8a6fac2f94ac05ee7930233aef2f989dcab5dc5f43a3307f91c120ab81d"
+          },
+          "rawCaptures": [
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-001.raw.jsonl",
+              "sha256": "dce6d9d99919fdb789ac710d1ced183ae4b2541aa79ca3a3c22752dd8331bab5"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-002.raw.jsonl",
+              "sha256": "37e82736ebc773e22028c3f654371dc885e7c2df47a4bcaafdfb59b936a187ba"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-003.raw.jsonl",
+              "sha256": "ea7dbff5f71dc2fc1991aa8143ae5cd4d477d6ca955a17465e1225741aa4ed69"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-004.raw.jsonl",
+              "sha256": "f797b25643571777665c4b29f06531b2def6760cb63d5e8f1d32525edb45a620"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-005.raw.jsonl",
+              "sha256": "c6dab25d131a0faa93ef97e7c31cf028bd053b56df91f870cfbb0f7b069375be"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-006.raw.jsonl",
+              "sha256": "ff527de0898cc3f761a39d416a155c132c7925af2d90afb02a4341b29fb095c7"
+            }
+          ]
+        }
+      },
+      "P1": {
+        "completionStatus": "complete",
+        "terminalEvent": "phase_completed",
+        "finishedRequests": 6,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            11.513970458006952,
+            11.433273250004277,
+            13.379327791000833,
+            8.703510541992728,
+            8.609704167000018,
+            11.341963083003066
+          ],
+          "requestSecondsTotal": 64.98174929100787,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 23002,
+            "cache_read_input_tokens": 4884,
+            "output_tokens": 6423,
+            "thinking_tokens": 2345
+          },
+          "cliListPriceEstimateUsd": "0.313500800000000010",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "claim": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.claim.json",
+            "sha256": "4e44888b34423c2e17c751b98e232aa5db7fe319e1374a0f3e311412ee0d5577"
+          },
+          "journal": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.journal.jsonl",
+            "sha256": "25abd723c1294660dee4306faf4dd9c7c8e6fb0934fc42797d000a3480bbb3ac"
+          },
+          "attempts": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.attempts.jsonl",
+            "sha256": "02707123d301637a9544920f17e0a2d810c49fd613d7c74177f265c693faef8d"
+          },
+          "records": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.records.jsonl",
+            "sha256": "b4e5b123f476280f297654aa47e39d2408a1fd6749dee8f1476c3d0e1961f2ed"
+          },
+          "rawCaptures": [
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-001.raw.jsonl",
+              "sha256": "a06d2202f4fc2c728d73a0426640e2c7b6696eb3181d70b9decaa76f48206ef4"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-002.raw.jsonl",
+              "sha256": "82fdc244ef2fff03bb8cc6e83618fdfe42a76c2164d906dac33ff1464a7cbcaf"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-003.raw.jsonl",
+              "sha256": "d86d566fc4d9ad67a299dd3b23d8a28ff3eabfce01ae2b5f8258e9ef2d94c718"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-004.raw.jsonl",
+              "sha256": "3fc9431327a3ee4aec7acc36c93e4b78f028a93d627e28306b9c245a577f599f"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-005.raw.jsonl",
+              "sha256": "3e5912f28a7ffcd9765428eb953cbf2e658f25c3b4599344dbd4fb059ba5ac96"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-006.raw.jsonl",
+              "sha256": "973237d9d9481095cda1893e0e8dfaeabe715685e02ef2aefeea35c0b334b7d5"
+            }
+          ]
+        }
+      },
+      "P2": {
+        "completionStatus": "complete",
+        "terminalEvent": "phase_completed",
+        "finishedRequests": 6,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 60,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 59
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            11.873096750001423,
+            11.738889500004007,
+            16.830117749996134,
+            8.143219458012027,
+            9.129104542007553,
+            11.68982854198839
+          ],
+          "requestSecondsTotal": 69.40425654200953,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 38099,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 6880,
+            "thinking_tokens": 2798
+          },
+          "cliListPriceEstimateUsd": "0.442440",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "claim": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.claim.json",
+            "sha256": "1c80bb848470229e5be2df413a718734aa87a421320e6d9e9655cf65ecc2b851"
+          },
+          "journal": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.journal.jsonl",
+            "sha256": "f83050d8f12c1bdb4b67727e7559d91e2caf473201db121745cacec36c7e517c"
+          },
+          "attempts": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.attempts.jsonl",
+            "sha256": "19ca19e54d0506098c2f3b02e746bf7d7d423a71f1df1c57d5e05483aa49550d"
+          },
+          "records": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.records.jsonl",
+            "sha256": "3e0fff489632ef1fd43ab60a78cafb9cd443f52a7b0bc7787ee6812fae6ae25c"
+          },
+          "rawCaptures": [
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-001.raw.jsonl",
+              "sha256": "4d3509e4d178213eca09ed070ba0020f2601e9d2bb5d026a235ed900e98b4a55"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-002.raw.jsonl",
+              "sha256": "8d6c512aa7209e7802bc7e49c6b5b4ca3dfb8ede569f67fb3840f2becad225b4"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-003.raw.jsonl",
+              "sha256": "96e59c5e68197bb909b6fa2361fbb2a025476b26a5ec5d23b95e4c89705f71a9"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-004.raw.jsonl",
+              "sha256": "77ec3bdb0a37b156c6c5a90e299d25b3975a4dacd65f1b4153bdbd43b2c2f5f2"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-005.raw.jsonl",
+              "sha256": "08a9513232ace619f186dcb95b4a764def240e8b892fb1be2f7a2e7b5c9b0055"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-006.raw.jsonl",
+              "sha256": "b60367a65c5b0967db16cbafe36f758c173ad9e50c4d24857b37e00623cc0467"
+            }
+          ]
+        }
+      }
+    },
+    "repeat3": {}
+  },
+  "threePassSummary": {
+    "P0": {
+      "allFour": {
+        "completedPasses": 2,
+        "values": [
+          58,
+          58
+        ],
+        "mean": null,
+        "range": null
+      },
+      "fields": {
+        "sentiment": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "follow_up_needed": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "serious_concern_reported": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "testimonial_potential": {
+          "completedPasses": 2,
+          "values": [
+            60,
+            60
+          ],
+          "mean": null,
+          "range": null
+        }
+      }
+    },
+    "P1": {
+      "allFour": {
+        "completedPasses": 2,
+        "values": [
+          58,
+          58
+        ],
+        "mean": null,
+        "range": null
+      },
+      "fields": {
+        "sentiment": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "follow_up_needed": {
+          "completedPasses": 2,
+          "values": [
+            60,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "serious_concern_reported": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "testimonial_potential": {
+          "completedPasses": 2,
+          "values": [
+            60,
+            60
+          ],
+          "mean": null,
+          "range": null
+        }
+      }
+    },
+    "P2": {
+      "allFour": {
+        "completedPasses": 2,
+        "values": [
+          56,
+          58
+        ],
+        "mean": null,
+        "range": null
+      },
+      "fields": {
+        "sentiment": {
+          "completedPasses": 2,
+          "values": [
+            58,
+            60
+          ],
+          "mean": null,
+          "range": null
+        },
+        "follow_up_needed": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "serious_concern_reported": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        },
+        "testimonial_potential": {
+          "completedPasses": 2,
+          "values": [
+            59,
+            59
+          ],
+          "mean": null,
+          "range": null
+        }
+      }
+    }
+  },
+  "pairwiseFlips": [
+    {
+      "condition": "P0",
+      "from": "original",
+      "to": "repeat2",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      }
+    },
+    {
+      "condition": "P1",
+      "from": "original",
+      "to": "repeat2",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-006"
+        ]
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-006"
+        ]
+      }
+    },
+    {
+      "condition": "P2",
+      "from": "original",
+      "to": "repeat2",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 2,
+        "rate": 0.03333333333333333,
+        "caseIds": [
+          "DEV-013",
+          "DEV-030"
+        ]
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 2,
+        "rate": 0.03333333333333333,
+        "caseIds": [
+          "DEV-013",
+          "DEV-030"
+        ]
+      }
+    }
+  ],
+  "changesAcrossThreePasses": {},
+  "withinPassPromptDeltas": [
+    {
+      "pass": "original",
+      "from": "P0",
+      "to": "P1",
+      "denominator": 60,
+      "allFour": 0,
+      "fields": {
+        "sentiment": 0,
+        "follow_up_needed": 1,
+        "serious_concern_reported": 0,
+        "testimonial_potential": 0
+      }
+    },
+    {
+      "pass": "original",
+      "from": "P0",
+      "to": "P2",
+      "denominator": 60,
+      "allFour": -2,
+      "fields": {
+        "sentiment": -1,
+        "follow_up_needed": 0,
+        "serious_concern_reported": 0,
+        "testimonial_potential": -1
+      }
+    },
+    {
+      "pass": "repeat2",
+      "from": "P0",
+      "to": "P1",
+      "denominator": 60,
+      "allFour": 0,
+      "fields": {
+        "sentiment": 0,
+        "follow_up_needed": 0,
+        "serious_concern_reported": 0,
+        "testimonial_potential": 0
+      }
+    },
+    {
+      "pass": "repeat2",
+      "from": "P0",
+      "to": "P2",
+      "denominator": 60,
+      "allFour": 0,
+      "fields": {
+        "sentiment": 1,
+        "follow_up_needed": 0,
+        "serious_concern_reported": 0,
+        "testimonial_potential": -1
+      }
+    }
+  ],
+  "pairedDeltaSpread": {
+    "P1": {
+      "completedPairs": 2,
+      "allFourValues": [
+        0,
+        0
+      ],
+      "allFourRange": null,
+      "fieldRanges": {
+        "sentiment": null,
+        "follow_up_needed": null,
+        "serious_concern_reported": null,
+        "testimonial_potential": null
+      }
+    },
+    "P2": {
+      "completedPairs": 2,
+      "allFourValues": [
+        -2,
+        0
+      ],
+      "allFourRange": null,
+      "fieldRanges": {
+        "sentiment": null,
+        "follow_up_needed": null,
+        "serious_concern_reported": null,
+        "testimonial_potential": null
+      }
+    }
+  },
+  "sourceBindings": [
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/repeatability-v1/coverage.json",
+      "sha256": "e63b0615785ad9fe047a1348e61a7f4c815743fb806167ab5304d90d7a8577c9"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus55-medium-batch10/paired-manifest.json",
+      "sha256": "bb4ecb745bb556c7814d05a440f09356b22c73c4e01463c62614d7a354dd9d31"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/manifest.json",
+      "sha256": "c74a9ae33bb733f4d857e7977a26022c233f07fecc68d8bc30751d2499cc141b"
+    },
+    {
+      "path": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "path": "schemas/judgments.schema.json",
+      "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+    },
+    {
+      "path": "scripts/claude_batch_benchmark.py",
+      "sha256": "95be0e340a460f7c0d4d0a3fbf3f6b3fc150046056678ee71add9733a97187ea"
+    },
+    {
+      "path": "scripts/claude_benchmark.py",
+      "sha256": "76f36a25421f6b91395a4e6dac194aa207af774ea44fdd3fc32a1b9137f0341b"
+    },
+    {
+      "path": "scripts/claude_repeat_study.py",
+      "sha256": "7ef992b3312dbaa83f3e94827a7bd95025130f316a0949b6d9230648bb1783c0"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/execution-manifest.json",
+      "sha256": "bedcccdeab03955840d491878c6a32c18af35120da7a5a0d9c81237a5d26906e"
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl.batches-normalized.jsonl",
+      "sha256": "91e96ac806cad8ee8d255450a1cfd234221f08fc74ac72d75418a761d46f3288"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P0-instruction.txt",
+      "sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/development.jsonl.batches.jsonl",
+      "sha256": "b35ab9ef4b8078a8ebd5f3f16911a1f79fe1b31bd6a6b24b20779d65b17325fd"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P1-instruction.txt",
+      "sha256": "e8293f1470d3527ced013c5dc6a8b4ccdd57c44741d96ec7aa79bee5d5279a2c"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P1-request-01.json",
+      "sha256": "323dccc9c661826f654e471a13b49aad6c11589ecffd2e57892acece602c339e"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P1-request-02.json",
+      "sha256": "a00485c5205ccfb4474c3b94db899ce072f4e2605f8196a7fd792aaeecd4026f"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P1-request-03.json",
+      "sha256": "dfcc30e8af681faefa2ece7850d815cfce365ba1a0c35b8534aed459e53e5933"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P1-request-04.json",
+      "sha256": "b577f29be369034a110871b3761a1da4779a272cb647f9f87be77015037b2b6a"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P1-request-05.json",
+      "sha256": "7aec7ee548f554d799d989631ff7c5f90acb921417f9c41ece77ab8c5a02a488"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P1-request-06.json",
+      "sha256": "679bdb2039d9ebb8d7c1bd48aaa394987d455b9433914d381df949813ae601a3"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/development.jsonl.batches.jsonl",
+      "sha256": "b4449fee88074c653ad59b80f4a35d413be4c7fff9ab70224b453ee0144f6d39"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P2-instruction.txt",
+      "sha256": "2ad4fc937aa254e29aa781f832f67e79a2ddec236c478af67b3359a717b44dde"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P2-request-01.json",
+      "sha256": "b349269a645724cfe8408829cd4d4502fc069496ea65f0c6aafe2b2acd5925ff"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P2-request-02.json",
+      "sha256": "95c8096b35569768c7b4c2d60ade7c3251227f480086fe7e3a35786929c4d7f7"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P2-request-03.json",
+      "sha256": "98b1e73ac4a040cb4403116078e6d18703f55cd5e0b9e1a92443da253b6638fc"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P2-request-04.json",
+      "sha256": "c78234dd7fbf42e77397e277fe40ce9270fb5b4c10ce3fa2a482874443603783"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P2-request-05.json",
+      "sha256": "596c4097a8b24baa0f20a954c7513a56da21e02111f55020fc9225af56e2506b"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v2/opus55-medium-batch10/P2-request-06.json",
+      "sha256": "885b2c102a51eb888c6b2cf38bb492af6b598ff4e6bd404129b65206165158ae"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/manifest.json",
+      "sha256": "3d6cee4432c66e0563be5ed838aeba35af5074a8079d9872ba53a59085a06d9c"
+    },
+    {
+      "path": "results/claude-subscription-2026-09-23/opus55-medium-batch10-development.jsonl",
+      "sha256": "d33a9fe8fee6126d5c369226a26eab4f879619ff26e314343516fa818b2c7bbb"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P1/development.jsonl",
+      "sha256": "61a3548f4c0d73b4c5746c9095277352f7c7296c09dd06ada1826eb6368f5394"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/opus55-medium-batch10/P2/development.jsonl",
+      "sha256": "cae20fd5a6128d068b7e5aa431d76f71910de9149be32da1cd0aab64ff593063"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/smoke.claim.json",
+      "sha256": "392797d591fb7b743a6de61f20a37d66b1025be9a5f3f300cb330f852ce088bd"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/smoke.journal.jsonl",
+      "sha256": "ab59b482b1dd3acedd8120f0e05f6f5759bb8aabd2ca4d1a1b56a5a366ba2675"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/smoke.attempts.jsonl",
+      "sha256": "60d2d598f96bd3452af4b17ce87a381d6686fb32244a507d7d95da77ca9e6d8f"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/smoke.records.jsonl",
+      "sha256": "023f22cd290a34f45924703d0e946dc455d3df044774097e273548b4e2614797"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/smoke.batch-000.raw.jsonl",
+      "sha256": "4548d104936d77115b3574d3ea9f6d566cccd2bb6d4fa3460bfaf8c2c27eaaac"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/smoke-inspection.json",
+      "sha256": "50f7fd425c78067c64f36648eaefa9ec459472249734494c9c07e65819aa9137"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.claim.json",
+      "sha256": "9d1f3b8a6c5dc9f8bf45e474a17da0154f41738a1be48dc7ed2a229383c0ecfe"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.journal.jsonl",
+      "sha256": "a382f525bd54d7671cc58af0733fc64ee152fb4f0a587ba91026f9ae87e86723"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.attempts.jsonl",
+      "sha256": "9280757bf41d0b6ae85c6eecaeb339aff106c2cb0a3905f58abaed848c974b25"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.records.jsonl",
+      "sha256": "77e1f8a6fac2f94ac05ee7930233aef2f989dcab5dc5f43a3307f91c120ab81d"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-001.raw.jsonl",
+      "sha256": "dce6d9d99919fdb789ac710d1ced183ae4b2541aa79ca3a3c22752dd8331bab5"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-002.raw.jsonl",
+      "sha256": "37e82736ebc773e22028c3f654371dc885e7c2df47a4bcaafdfb59b936a187ba"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-003.raw.jsonl",
+      "sha256": "ea7dbff5f71dc2fc1991aa8143ae5cd4d477d6ca955a17465e1225741aa4ed69"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-004.raw.jsonl",
+      "sha256": "f797b25643571777665c4b29f06531b2def6760cb63d5e8f1d32525edb45a620"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-005.raw.jsonl",
+      "sha256": "c6dab25d131a0faa93ef97e7c31cf028bd053b56df91f870cfbb0f7b069375be"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P0/development.batch-006.raw.jsonl",
+      "sha256": "ff527de0898cc3f761a39d416a155c132c7925af2d90afb02a4341b29fb095c7"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/smoke.claim.json",
+      "sha256": "310be20b2cd657a45170a9c25bce5120ff8f53ca9ff20b839d0aac052283b71f"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/smoke.journal.jsonl",
+      "sha256": "d5c0e8d9fb3bbed6882ffc7954056460d1c7d0680a557bc6faa0ff29bf7d15bd"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/smoke.attempts.jsonl",
+      "sha256": "28f691ea97750be9de9ef4fd0d3aec6b0ea3b145547f950105622968d5b2699a"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/smoke.records.jsonl",
+      "sha256": "03f8fd8ff20bccbb85db7e7b1cf1608a4cfb6a0121e8ddeca5936a33f883a151"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/smoke.batch-000.raw.jsonl",
+      "sha256": "910d6497fcd7ae4d66141fe1da261681a7da1081ffa004ffc2c1819860062283"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/smoke-inspection.json",
+      "sha256": "701856ff67404283fa80d1b7f2c28e89bd33104622cc89e1724c7928c9e477cd"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.claim.json",
+      "sha256": "4e44888b34423c2e17c751b98e232aa5db7fe319e1374a0f3e311412ee0d5577"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.journal.jsonl",
+      "sha256": "25abd723c1294660dee4306faf4dd9c7c8e6fb0934fc42797d000a3480bbb3ac"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.attempts.jsonl",
+      "sha256": "02707123d301637a9544920f17e0a2d810c49fd613d7c74177f265c693faef8d"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.records.jsonl",
+      "sha256": "b4e5b123f476280f297654aa47e39d2408a1fd6749dee8f1476c3d0e1961f2ed"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-001.raw.jsonl",
+      "sha256": "a06d2202f4fc2c728d73a0426640e2c7b6696eb3181d70b9decaa76f48206ef4"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-002.raw.jsonl",
+      "sha256": "82fdc244ef2fff03bb8cc6e83618fdfe42a76c2164d906dac33ff1464a7cbcaf"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-003.raw.jsonl",
+      "sha256": "d86d566fc4d9ad67a299dd3b23d8a28ff3eabfce01ae2b5f8258e9ef2d94c718"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-004.raw.jsonl",
+      "sha256": "3fc9431327a3ee4aec7acc36c93e4b78f028a93d627e28306b9c245a577f599f"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-005.raw.jsonl",
+      "sha256": "3e5912f28a7ffcd9765428eb953cbf2e658f25c3b4599344dbd4fb059ba5ac96"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P1/development.batch-006.raw.jsonl",
+      "sha256": "973237d9d9481095cda1893e0e8dfaeabe715685e02ef2aefeea35c0b334b7d5"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/smoke.claim.json",
+      "sha256": "c3581177dc62989ed870d8b4a69eac4bf1fecd8916e3a3a42927fde62f235258"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/smoke.journal.jsonl",
+      "sha256": "7a454885f83fcaa2f39213b4578170a308ff1683b445c7fec4e136d5134c269e"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/smoke.attempts.jsonl",
+      "sha256": "da455ee088eddfe84868d6f7924226ef2ae1e3965670f8d1af4c55d7aa81176b"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/smoke.records.jsonl",
+      "sha256": "af66d7a6ed74b11674441bc2329adfd530b97400d9267161924c6c6cad2f9dab"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/smoke.batch-000.raw.jsonl",
+      "sha256": "7516869942ba3ed8e1786913cf61679d140d787d90181cba083f1283cb2627e2"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/smoke-inspection.json",
+      "sha256": "825a219a2522539843f7c610ebd80e1c030c56e7fd357255cbe0c66ad200077c"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.claim.json",
+      "sha256": "1c80bb848470229e5be2df413a718734aa87a421320e6d9e9655cf65ecc2b851"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.journal.jsonl",
+      "sha256": "f83050d8f12c1bdb4b67727e7559d91e2caf473201db121745cacec36c7e517c"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.attempts.jsonl",
+      "sha256": "19ca19e54d0506098c2f3b02e746bf7d7d423a71f1df1c57d5e05483aa49550d"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.records.jsonl",
+      "sha256": "3e0fff489632ef1fd43ab60a78cafb9cd443f52a7b0bc7787ee6812fae6ae25c"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-001.raw.jsonl",
+      "sha256": "4d3509e4d178213eca09ed070ba0020f2601e9d2bb5d026a235ed900e98b4a55"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-002.raw.jsonl",
+      "sha256": "8d6c512aa7209e7802bc7e49c6b5b4ca3dfb8ede569f67fb3840f2becad225b4"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-003.raw.jsonl",
+      "sha256": "96e59c5e68197bb909b6fa2361fbb2a025476b26a5ec5d23b95e4c89705f71a9"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-004.raw.jsonl",
+      "sha256": "77ec3bdb0a37b156c6c5a90e299d25b3975a4dacd65f1b4153bdbd43b2c2f5f2"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-005.raw.jsonl",
+      "sha256": "08a9513232ace619f186dcb95b4a764def240e8b892fb1be2f7a2e7b5c9b0055"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-006.raw.jsonl",
+      "sha256": "b60367a65c5b0967db16cbafe36f758c173ad9e50c4d24857b37e00623cc0467"
+    }
+  ],
+  "limitations": [
+    "This report covers one Claude configuration, not the full Claude roster.",
+    "The same 60 synthetic development records appear in every pass.",
+    "Partial terminal phases retain missing outcomes in the 60-record denominator; open phases are excluded.",
+    "Historical and repeat CLI patch versions differ. Serving revision and effective seed are unavailable.",
+    "Request duration is client wall-clock time, not model-only inference time.",
+    "CLI list-price estimates are not subscription charges. Actual billed cost and quota consumed are unknown."
+  ]
+}

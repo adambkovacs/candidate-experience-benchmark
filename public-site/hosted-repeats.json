@@ -4635,7 +4635,7 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 6,
+      "completedConditions": 7,
       "plannedConditions": 9,
       "missingPasses": [
         {
@@ -4646,11 +4646,6 @@
         {
           "pass": "repeat3",
           "condition": "P1",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
           "status": "not_started"
         }
       ],
@@ -5422,7 +5417,152 @@
             }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P2": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                8.832680874998914,
+                8.340777207995416,
+                9.88019495899789,
+                11.608690833003493,
+                17.749602500000037,
+                16.495114207995357,
+                13.392181540999445,
+                22.302203416998964,
+                12.965175541990902,
+                9.931354375003139,
+                10.117963625001721,
+                10.268227791995741,
+                25.709340542001883,
+                11.536802333008382,
+                9.443053166003665,
+                7.053661165991798,
+                13.427462208012003,
+                17.278712792001897,
+                7.555110041008447,
+                7.8087013339973055,
+                9.0456165420037,
+                27.453968166999402,
+                14.090885917001287,
+                13.090414416001295,
+                11.096708500001114,
+                8.087274874997092,
+                8.517071750000468,
+                11.160088417003863,
+                7.420739791996311,
+                27.48793241700332,
+                9.768064125004457,
+                10.93899241600593,
+                22.09152325001196,
+                13.785379167005885,
+                18.639529583990225,
+                7.416870959001244,
+                14.618140499995206,
+                11.357911582992529,
+                10.027643124994938,
+                12.48646854099934,
+                7.967190750001464,
+                11.85518037500151,
+                9.899833666000632,
+                5.252880832995288,
+                14.692729875008808,
+                9.269928749999963,
+                7.49660466700152,
+                8.922110750005231,
+                14.045466124996892,
+                8.608025540990639,
+                17.363158749998547,
+                11.08186720800586,
+                15.206638042000122,
+                15.063077459009946,
+                12.298483000005945,
+                11.111596125003416,
+                9.96050254200236,
+                15.377103292004904,
+                7.185049334002542,
+                10.176714041997911
+              ],
+              "requestSecondsTotal": 743.1123756260495,
+              "tokens": {
+                "input_tokens": 154228,
+                "output_tokens": 25187,
+                "cached_input_tokens": 138368,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 24071
+              },
+              "knownCostUsd": "0.01690938",
+              "actualCostUsd": "0.01690938",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.claim.json",
+                "sha256": "b5adf77fe8712dfe6d3cfa50e3b9303408e20872567fca812918e05490f3065f"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.journal.jsonl",
+                "sha256": "cf119010346d525c658e863145a1ec442f7e84f538f0eb292e40704b33affe1d"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.attempts.jsonl",
+                "sha256": "959926b89f7ff6c6449e25c802c1bb5948dbeb1441b2f6e1a972e38c06e8e9d4"
+              },
+              "inspection": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke-inspection.json",
+                "sha256": "bdf27c5faf3190cd52d543d65972fc1889891cc661475cfecc672ba14d64c90d"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.journal.jsonl",
+                "sha256": "2c27d1beae447bd0d9a81ffb03566a4836805d2f7d0ebc2e12a4f238c063ed4c"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.attempts.jsonl",
+                "sha256": "c4357ad602d731df540fdcc8e8d418ebba50d8a27fc857d23bd50923df7b3c2d"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.responses.jsonl",
+                "sha256": "799838da80aa567410bcaaa0f9922f101241869aa7cdf9746c963df6d29688c8"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.claim.json",
+                "sha256": "1d1a02865af4acd4fd3d04688106af97af9bb8a7de9b102c18e202bb8fe5e4ce"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.responses.jsonl",
+                "sha256": "4159528d1563109ba635d45080b61f4de6581e3e232dc5fba558d0598108be7f"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
@@ -5525,50 +5665,70 @@
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              58,
               58,
               58
             ],
-            "mean": null,
-            "range": null
+            "mean": 58.0,
+            "range": [
+              58,
+              58
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                59,
                 59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                59,
                 59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         }
@@ -5687,9 +5847,85 @@
             "rate": 0.0,
             "caseIds": []
           }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -5962,6 +6198,42 @@
         {
           "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat2/P2/development.attempts.jsonl",
           "sha256": "5157fb79d7bc29d6154bbff2a7788332c3a307cc6dcc8e3ad40ad63bec80bce8"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke-inspection.json",
+          "sha256": "bdf27c5faf3190cd52d543d65972fc1889891cc661475cfecc672ba14d64c90d"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "2c27d1beae447bd0d9a81ffb03566a4836805d2f7d0ebc2e12a4f238c063ed4c"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "c4357ad602d731df540fdcc8e8d418ebba50d8a27fc857d23bd50923df7b3c2d"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.responses.jsonl",
+          "sha256": "799838da80aa567410bcaaa0f9922f101241869aa7cdf9746c963df6d29688c8"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/smoke.claim.json",
+          "sha256": "1d1a02865af4acd4fd3d04688106af97af9bb8a7de9b102c18e202bb8fe5e4ce"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.responses.jsonl",
+          "sha256": "4159528d1563109ba635d45080b61f4de6581e3e232dc5fba558d0598108be7f"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.claim.json",
+          "sha256": "b5adf77fe8712dfe6d3cfa50e3b9303408e20872567fca812918e05490f3065f"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.journal.jsonl",
+          "sha256": "cf119010346d525c658e863145a1ec442f7e84f538f0eb292e40704b33affe1d"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-gemma4-31b-on/repeat3/P2/development.attempts.jsonl",
+          "sha256": "959926b89f7ff6c6449e25c802c1bb5948dbeb1441b2f6e1a972e38c06e8e9d4"
         }
       ],
       "limitations": [
@@ -7091,17 +7363,12 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 4,
+      "completedConditions": 5,
       "plannedConditions": 9,
       "missingPasses": [
         {
           "pass": "repeat2",
           "condition": "P0",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat2",
-          "condition": "P1",
           "status": "not_started"
         },
         {
@@ -7455,6 +7722,150 @@
           }
         },
         "repeat2": {
+          "P1": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 55,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 60,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                3.375910415998078,
+                31.4794643750065,
+                3.836794250004459,
+                2.3307492500025546,
+                70.62839674999123,
+                2.964211124999565,
+                1.5715926660050172,
+                2.5461697919963626,
+                2.525972457995522,
+                3.917855583000346,
+                3.334571750005125,
+                8.57711399999971,
+                2.9692377089959336,
+                2.7494590840069577,
+                4.946809209010098,
+                2.371072499998263,
+                4.358928583009401,
+                5.82543454199913,
+                2.4776464589958778,
+                2.904697584002861,
+                5.058165541006019,
+                2.2410340000060387,
+                3.2719468330033123,
+                1.9866929589916253,
+                2.4666095419961493,
+                18.012220000004163,
+                2.574103415987338,
+                3.1947242499882123,
+                1.859746707996237,
+                1.555326999994577,
+                3.0324479169939877,
+                5.7209328750032,
+                9.059280540997861,
+                3.4347353750054026,
+                2.25951558300585,
+                2.3300680829997873,
+                2.9756644160079304,
+                2.2354483749950305,
+                2.2043311250017723,
+                2.35256041699904,
+                2.58684895800252,
+                5.856750416991417,
+                2.314077125003678,
+                2.335650875000283,
+                2.288901541993255,
+                2.353183125000214,
+                8.964905999993789,
+                2.565518167000846,
+                3.0086846250051167,
+                2.0103780000063125,
+                2.2416622919990914,
+                2.247415332996752,
+                2.5039524589956272,
+                2.774173415993573,
+                1.8127247499942314,
+                2.4740689169993857,
+                2.336122291992069,
+                2.4816701249947073,
+                3.051399541000137,
+                1.9184186670026975
+              ],
+              "requestSecondsTotal": 301.6441496669722,
+              "tokens": {
+                "input_tokens": 96570,
+                "output_tokens": 2716,
+                "cached_input_tokens": 73696,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.011287200",
+              "actualCostUsd": "0.011287200",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.claim.json",
+                "sha256": "0fbc36438be79e6538df260f8d173c0ca0e92365fed8636c3527a967f6ff9e13"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.journal.jsonl",
+                "sha256": "9b0c14e06539a29f88c66d7cf5d2b5ce06c4ee91faa9b8191d5e80e18dfdfa1e"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.attempts.jsonl",
+                "sha256": "2e83671389da6a097657bb1b4dd384f0184f362b027a23cc11dc69e078ca3978"
+              },
+              "inspection": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke-inspection.json",
+                "sha256": "984b472e0d9a2dc53791cd9d8dcf176c1daa475f77dbda32cd2cc5be4bd092f2"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.journal.jsonl",
+                "sha256": "bd204d711bde913b0dc9dbd27c3e0d96ec554ba4428adf5606c4e1f144654ed5"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.attempts.jsonl",
+                "sha256": "fcf6f65fce3fb08578be602329b116a5aa0495c1dd2a3ebfcbbab1f0b4b6a39b"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.responses.jsonl",
+                "sha256": "c812560fc90c7eb5e1b95871c0d92d3b8cc3f76925c6cf50f6aee500d9a4ccd0"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.claim.json",
+                "sha256": "f4487d6ef1ff2d69106dcde0a872154c44f6089e9aa4f0d9b039f505f0c29022"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.responses.jsonl",
+                "sha256": "7d9cb5a26f06a3376539b2948d04d8c8db24990fb74711e14ea60fbbb719c084"
+              }
+            }
+          },
           "P2": {
             "completionStatus": "complete",
             "terminalEvent": "phase_completed",
@@ -7649,8 +8060,9 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
+              55,
               55
             ],
             "mean": null,
@@ -7658,32 +8070,36 @@
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                58,
                 58
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                57,
                 57
               ],
               "mean": null,
@@ -7742,6 +8158,38 @@
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
         {
           "condition": "P2",
           "from": "original",
@@ -7924,6 +8372,42 @@
         {
           "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/manifest.json",
           "sha256": "715f52f5c359d39f991e4e4182734184b0c1d3d28ec7d4e2e417a8fb41438541"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke-inspection.json",
+          "sha256": "984b472e0d9a2dc53791cd9d8dcf176c1daa475f77dbda32cd2cc5be4bd092f2"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.journal.jsonl",
+          "sha256": "bd204d711bde913b0dc9dbd27c3e0d96ec554ba4428adf5606c4e1f144654ed5"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.attempts.jsonl",
+          "sha256": "fcf6f65fce3fb08578be602329b116a5aa0495c1dd2a3ebfcbbab1f0b4b6a39b"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.responses.jsonl",
+          "sha256": "c812560fc90c7eb5e1b95871c0d92d3b8cc3f76925c6cf50f6aee500d9a4ccd0"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke.claim.json",
+          "sha256": "f4487d6ef1ff2d69106dcde0a872154c44f6089e9aa4f0d9b039f505f0c29022"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.responses.jsonl",
+          "sha256": "7d9cb5a26f06a3376539b2948d04d8c8db24990fb74711e14ea60fbbb719c084"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.claim.json",
+          "sha256": "0fbc36438be79e6538df260f8d173c0ca0e92365fed8636c3527a967f6ff9e13"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.journal.jsonl",
+          "sha256": "9b0c14e06539a29f88c66d7cf5d2b5ce06c4ee91faa9b8191d5e80e18dfdfa1e"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/development.attempts.jsonl",
+          "sha256": "2e83671389da6a097657bb1b4dd384f0184f362b027a23cc11dc69e078ca3978"
         },
         {
           "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P2/smoke-inspection.json",
