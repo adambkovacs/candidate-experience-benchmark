@@ -33,9 +33,11 @@ def sealed_budget(root, manifest_path, partition_id):
     manifest = json.loads(manifest_path.read_text())
     if manifest.get('version') != 'paid-partitions-v1':
         raise ValueError('Unsupported partition manifest')
-    master = Path(manifest['master_ledger']).resolve()
-    if master != root / 'results/openrouter-paid-budget.jsonl':
+    recorded_master = Path(manifest['master_ledger'])
+    if not recorded_master.is_absolute() or recorded_master.parts[-2:] != ('results', 'openrouter-paid-budget.jsonl'):
         raise ValueError('Wrong master ledger')
+    recorded_root = recorded_master.parent.parent
+    master = root / 'results/openrouter-paid-budget.jsonl'
     entries = [item for item in manifest['partitions'] if item.get('id') == partition_id]
     if len(entries) != 1:
         raise ValueError('Missing unique final20 partition')
@@ -44,14 +46,34 @@ def sealed_budget(root, manifest_path, partition_id):
         'qwen/qwen3.6-35b-a3b', 'akashml/fp8', 'on'
     ) or not RESERVE * 20 <= Decimal(str(entry.get('cap_usd'))) <= CAP:
         raise ValueError('Final20 budget route or cap differs')
-    child = Path(entry['child_ledger']).resolve()
+    recorded_child = Path(entry['child_ledger'])
+    try:
+        child_relative = recorded_child.relative_to(recorded_root)
+    except ValueError as exc:
+        raise ValueError('Final20 child ledger escapes recorded checkout') from exc
+    if not child_relative.parts or child_relative.parts[0] != 'results':
+        raise ValueError('Final20 child ledger is outside results')
+    child = root / child_relative
     relative(root, child)
     events = lines(child)
     if not events or events[-1].get('event') != 'partition_closed':
         raise ValueError('Final20 partition is not sealed')
     child_sha = digest(child)
-    matches = [event for event in lines(master) if event.get('event') == 'partition_reconciled'
-               and event.get('partition_id') == partition_id and event.get('child_sha256') == child_sha]
+    master_events = lines(master)
+    allocations = [event for event in master_events if event.get('event') == 'budget_partition'
+                   and event.get('partition_id') == partition_id]
+    if (len(allocations) != 1 or
+        allocations[0].get('manifest_path') != str(recorded_root / relative(root, manifest_path)) or
+        allocations[0].get('manifest_sha256') != digest(manifest_path) or
+        allocations[0].get('child_ledger') != str(recorded_child) or
+        allocations[0].get('model') != entry['model'] or
+        allocations[0].get('provider') != entry['provider'] or
+        allocations[0].get('reasoning') != entry['reasoning'] or
+        Decimal(str(allocations[0].get('allocated_usd'))) != Decimal(str(entry['cap_usd']))):
+        raise ValueError('Master allocation differs from frozen final20 manifest')
+    matches = [event for event in master_events if event.get('event') == 'partition_reconciled'
+               and event.get('partition_id') == partition_id and event.get('child_ledger') == str(recorded_child)
+               and event.get('child_sha256') == child_sha]
     if len(matches) != 1:
         raise ValueError('Master has no matching final20 reconciliation')
     event = matches[0]

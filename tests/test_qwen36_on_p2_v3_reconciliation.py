@@ -1,5 +1,6 @@
 import hashlib
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -78,12 +79,8 @@ class Final20ReconciliationTests(unittest.TestCase):
                 'proposed_partition_cap_usd': str(module.CAP),
                 'sources': sources, 'requests': self.requests}
         write(self.root, 'plan.json', plan)
-        child = self.root / 'child.jsonl'
-        write(self.root, 'child.jsonl', [{'event': 'partition_closed'}], True)
-        write(self.root, 'results/openrouter-paid-budget.jsonl',
-              [{'event': 'partition_reconciled', 'partition_id': 'test-final20',
-                'child_sha256': module.digest(child),
-                'known_actual_usd': '0.20', 'unknown_upper_bound_usd': '0'}], True)
+        child = self.root / 'results/child.jsonl'
+        write(self.root, 'results/child.jsonl', [{'event': 'partition_closed'}], True)
         self.manifest = self.root / 'manifest.json'
         write(self.root, 'manifest.json',
               {'version': 'paid-partitions-v1',
@@ -91,6 +88,14 @@ class Final20ReconciliationTests(unittest.TestCase):
                'partitions': [{'id': 'test-final20', 'model': 'qwen/qwen3.6-35b-a3b',
                                'provider': 'akashml/fp8', 'reasoning': 'on', 'cap_usd': '0.64',
                                'child_ledger': str(child)}]})
+        write(self.root, 'results/openrouter-paid-budget.jsonl',
+              [{'event': 'budget_partition', 'partition_id': 'test-final20',
+                'manifest_path': str(self.manifest), 'manifest_sha256': module.digest(self.manifest),
+                'child_ledger': str(child), 'model': 'qwen/qwen3.6-35b-a3b',
+                'provider': 'akashml/fp8', 'reasoning': 'on', 'allocated_usd': '0.64'},
+               {'event': 'partition_reconciled', 'partition_id': 'test-final20',
+                'child_ledger': str(child), 'child_sha256': module.digest(child),
+                'known_actual_usd': '0.20', 'unknown_upper_bound_usd': '0'}], True)
         self.review = self.root / 'review.json'
         write(self.root, 'review.json',
               {'approved': True, 'suffix_plan_sha256': module.digest(self.root / 'plan.json'),
@@ -114,8 +119,8 @@ class Final20ReconciliationTests(unittest.TestCase):
     def save_suffix(self, count, fail_last=False):
         master = self.root / 'results/openrouter-paid-budget.jsonl'
         master_events = module.lines(master)
-        master_events[0]['known_actual_usd'] = str(module.Decimal('0.01') * (count - int(fail_last)))
-        master_events[0]['unknown_upper_bound_usd'] = str(module.RESERVE if fail_last else module.Decimal(0))
+        master_events[1]['known_actual_usd'] = str(module.Decimal('0.01') * (count - int(fail_last)))
+        master_events[1]['unknown_upper_bound_usd'] = str(module.RESERVE if fail_last else module.Decimal(0))
         write(self.root, 'results/openrouter-paid-budget.jsonl', master_events, True)
         rows, events = [], []
         for offset in range(count):
@@ -167,6 +172,22 @@ class Final20ReconciliationTests(unittest.TestCase):
         self.assertEqual((report['attempted'], report['never_sent_count']), (42, 18))
         self.assertEqual(report['status_counts']['service_error'], 4)
         self.assertEqual(report['never_sent_ids'][0], 'DEV-043')
+
+    def test_relocation_preserves_sealed_report_and_rejects_ledger_substitution(self):
+        self.save_suffix(2, fail_last=True)
+        expected = self.reconcile()
+        with tempfile.TemporaryDirectory() as destination:
+            relocated = Path(destination) / 'moved-checkout'
+            shutil.copytree(self.root, relocated)
+            self.assertEqual(module.reconcile(relocated, relocated / 'manifest.json',
+                                              'test-final20', relocated / 'review.json'), expected)
+            master = relocated / 'results/openrouter-paid-budget.jsonl'
+            events = module.lines(master)
+            events[1]['child_ledger'] = str(relocated / 'results/child.jsonl')
+            write(relocated, 'results/openrouter-paid-budget.jsonl', events, True)
+            with self.assertRaisesRegex(ValueError, 'matching final20 reconciliation'):
+                module.reconcile(relocated, relocated / 'manifest.json',
+                                 'test-final20', relocated / 'review.json')
 
     def test_rejects_missing_terminal_and_request_or_predecessor_drift(self):
         self.save_suffix(2)
