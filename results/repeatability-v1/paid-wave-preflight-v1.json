@@ -1,0 +1,401 @@
+{
+  "schema": "paid-wave-preflight-v1",
+  "as_of_utc_date": "2026-09-25",
+  "scope": "Offline historical analysis and public metadata GET only; no credentials, inference or budget reservation",
+  "aggregate_approved_cap_usd": "10",
+  "accounted_usage_usd": "6.04068449650",
+  "remaining_usd": "3.95931550350",
+  "proposed_wave_cap_usd": "1.00",
+  "max_concurrent_requests_across_wave": 4,
+  "wave_status": "proposal_not_admitted",
+  "full_paid_repeat_forecast_usd": "4.65535931750",
+  "full_paid_repeat_fits_current_headroom": false,
+  "five_configuration_scope_retained": true,
+  "forecast_method": "Two copies of each saved P0/P1/P2 development charge; six three-call smokes per configuration estimated at historical mean charge per condition and excluded from original development export. No retries or failures included.",
+  "reservation_method": "Existing paid runner convention: full exact endpoint context times maximum of input rate and request price ceiling, plus 4096 output tokens times maximum of completion rate and request price ceiling. No cache discounts. Reserve before each call and debit actual or unknown upper bound.",
+  "source_hashes": {
+    "results/repeatability-v1/coverage.json": "e63b0615785ad9fe047a1348e61a7f4c815743fb806167ab5304d90d7a8577c9",
+    "public-site/data.json": "b3f8a43b1a7a0ae710668c882146cb1a246f6089c0bb49e26587c9e8cf19db4d",
+    "docs/CURRENT_GOALS.md": "4ece0ff37c96cb9b6cfae21299db131ee299c6894227929c07e839f465234b5a",
+    "results/qwen36-on-p2-final19-v4/SUMMARY.md": "231f73dbc3ab71d152bcd5f9801612a09577329999601e0ef39a37079783a17f"
+  },
+  "configurations": [
+    {
+      "id": "openrouter-paid-gemma4-26b-a4b-off",
+      "model": "google/gemma-4-26b-a4b-it",
+      "historical_order": [
+        "P0",
+        "P2",
+        "P1"
+      ],
+      "eligibility": "eligible_first_pass",
+      "paired_manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-26b-a4b-off/paired-manifest.json",
+        "sha256": "4a0b0568c3c77ff2ecbe6fd363e220a823d407a599faedc099ad1a0472e195a5"
+      },
+      "historical_request_evidence": {
+        "P0": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-26b-a4b-off/historical-attempts.jsonl",
+          "sha256": "3a4e74a1787aa4595c5fade367755edc23869045ffc683beddf1f424a53bb9fb"
+        },
+        "P1": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-26b-a4b-off/P1/development.jsonl",
+          "sha256": "044e091d91bcc4d82344c6019d000328916978101b1344829a43aa799a8bd165"
+        },
+        "P2": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-26b-a4b-off/P2/development.jsonl",
+          "sha256": "37669abe930b67e12f1fb7fdf3ac0bf73bd3bcc4586d8f74b8dd9f23a947f999"
+        }
+      },
+      "controls": {
+        "provider_tag": "deepinfra/fp8",
+        "quantization": "fp8",
+        "reasoning_effort": "off",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "response_format": "strict_json_schema",
+        "fallbacks": false,
+        "require_parameters": true,
+        "price_ceiling_usd_per_million": {
+          "prompt": "0.07",
+          "completion": "0.34"
+        }
+      },
+      "historical_development_charges_usd": {
+        "P0": "0.00687630",
+        "P1": "0.00761802",
+        "P2": "0.01154522"
+      },
+      "historical_three_condition_total_usd": "0.02603954",
+      "two_extra_development_passes_estimate_usd": "0.05207908",
+      "six_smokes_18_calls_estimate_usd": "0.002603954",
+      "two_passes_plus_smokes_estimate_usd": "0.054683034",
+      "planned_calls": {
+        "development": 360,
+        "smoke": 18,
+        "total": 378
+      },
+      "public_route": {
+        "status": "verified_public_endpoint",
+        "url": "https://openrouter.ai/api/v1/models/google/gemma-4-26b-a4b-it/endpoints",
+        "context_tokens_for_reservation": 262144,
+        "pricing_usd_per_million": {
+          "prompt": "0.07",
+          "completion": "0.34"
+        },
+        "price_and_tag_match_historical_controls": true,
+        "observation": "Exact route metadata observed on 2026-09-25"
+      },
+      "per_call_reserve_usd": "0.01974272",
+      "proposed_partition_cap_usd": "0.20",
+      "max_concurrent_requests": 1,
+      "partition_status": "conditional_pending_live_ledger_and_endpoint_check",
+      "concurrent_with_other_configurations": true
+    },
+    {
+      "id": "openrouter-paid-gemma4-31b-off",
+      "model": "google/gemma-4-31b-it",
+      "historical_order": [
+        "P0",
+        "P2",
+        "P1"
+      ],
+      "eligibility": "eligible_first_pass",
+      "paired_manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-off/paired-manifest.json",
+        "sha256": "a613289e1cba89d37d986b0ef4b08e4cf4339e7306fe004540e7c694e77bede7"
+      },
+      "historical_request_evidence": {
+        "P0": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-off/historical-attempts.jsonl",
+          "sha256": "886bf4605cfa528cc4f41960d7c763dfafecc249fa7e2269d8334054a2b406d5"
+        },
+        "P1": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P1/development.jsonl",
+          "sha256": "9f8aafd438333a64b83b27b39d0ddce5ef76c55332f5c9d41317766cd7bdf96c"
+        },
+        "P2": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-off/P2/development.jsonl",
+          "sha256": "3816e0539ddfde94c3cba632feb496067c805ff9cf0e63fd7487f154b7c43e80"
+        }
+      },
+      "controls": {
+        "provider_tag": "deepinfra/turbo",
+        "quantization": "fp4",
+        "reasoning_effort": "off",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "response_format": "strict_json_schema",
+        "fallbacks": false,
+        "require_parameters": true,
+        "price_ceiling_usd_per_million": {
+          "prompt": "0.09",
+          "completion": "0.34"
+        }
+      },
+      "historical_development_charges_usd": {
+        "P0": "0.00555500",
+        "P1": "0.00585054",
+        "P2": "0.00889812"
+      },
+      "historical_three_condition_total_usd": "0.02030366",
+      "two_extra_development_passes_estimate_usd": "0.04060732",
+      "six_smokes_18_calls_estimate_usd": "0.002030366",
+      "two_passes_plus_smokes_estimate_usd": "0.042637686",
+      "planned_calls": {
+        "development": 360,
+        "smoke": 18,
+        "total": 378
+      },
+      "public_route": {
+        "status": "verified_public_endpoint",
+        "url": "https://openrouter.ai/api/v1/models/google/gemma-4-31b-it/endpoints",
+        "context_tokens_for_reservation": 262144,
+        "pricing_usd_per_million": {
+          "prompt": "0.09",
+          "completion": "0.34"
+        },
+        "price_and_tag_match_historical_controls": true,
+        "observation": "Exact route metadata observed on 2026-09-25"
+      },
+      "per_call_reserve_usd": "0.02498560",
+      "proposed_partition_cap_usd": "0.15",
+      "max_concurrent_requests": 1,
+      "partition_status": "conditional_pending_live_ledger_and_endpoint_check",
+      "concurrent_with_other_configurations": true
+    },
+    {
+      "id": "openrouter-paid-gemma4-31b-on",
+      "model": "google/gemma-4-31b-it",
+      "historical_order": [
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "eligibility": "eligible_first_pass",
+      "paired_manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-gemma4-31b-on/paired-manifest.json",
+        "sha256": "eddc18f5872fc66e6a7c52e2593c0775899ce699abbe03c6878158d4ab96f1a3"
+      },
+      "historical_request_evidence": {
+        "P0": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-gemma4-31b-on/historical-attempts.jsonl",
+          "sha256": "bcad694c1d0bf28427d6b79ead9b3ff4e0f72be1077dfff971d5184462fd5590"
+        },
+        "P1": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P1/development.jsonl",
+          "sha256": "4d79439f966cec048ddbd36d915bf7da33c99174f8906910e511a29f9917f8f2"
+        },
+        "P2": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-gemma4-31b-on/P2/development.jsonl",
+          "sha256": "f415c27d8850932b05ed3ea0d03d7b7137b77614e6e52aa9a000122213f48b2f"
+        }
+      },
+      "controls": {
+        "provider_tag": "deepinfra/turbo",
+        "quantization": "fp4",
+        "reasoning_effort": "on",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "response_format": "strict_json_schema",
+        "fallbacks": false,
+        "require_parameters": true,
+        "price_ceiling_usd_per_million": {
+          "prompt": "0.09",
+          "completion": "0.34"
+        }
+      },
+      "historical_development_charges_usd": {
+        "P0": "0.01303944",
+        "P1": "0.01354882",
+        "P2": "0.01693138"
+      },
+      "historical_three_condition_total_usd": "0.04351964",
+      "two_extra_development_passes_estimate_usd": "0.08703928",
+      "six_smokes_18_calls_estimate_usd": "0.004351964",
+      "two_passes_plus_smokes_estimate_usd": "0.091391244",
+      "planned_calls": {
+        "development": 360,
+        "smoke": 18,
+        "total": 378
+      },
+      "public_route": {
+        "status": "verified_public_endpoint",
+        "url": "https://openrouter.ai/api/v1/models/google/gemma-4-31b-it/endpoints",
+        "context_tokens_for_reservation": 262144,
+        "pricing_usd_per_million": {
+          "prompt": "0.09",
+          "completion": "0.34"
+        },
+        "price_and_tag_match_historical_controls": true,
+        "observation": "Exact route metadata observed on 2026-09-25"
+      },
+      "per_call_reserve_usd": "0.02498560",
+      "proposed_partition_cap_usd": "0.30",
+      "max_concurrent_requests": 1,
+      "partition_status": "conditional_pending_live_ledger_and_endpoint_check",
+      "concurrent_with_other_configurations": true
+    },
+    {
+      "id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+      "model": "mistralai/mistral-small-3.2-24b-instruct",
+      "historical_order": [
+        "P0",
+        "P2",
+        "P1"
+      ],
+      "eligibility": "eligible_first_pass",
+      "paired_manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-mistral-small32-24b-venice-not-applicable/paired-manifest.json",
+        "sha256": "629bfa38658ac19285996499818a7d3f6946ffc16bb5b6985744f8fa61d13838"
+      },
+      "historical_request_evidence": {
+        "P0": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-mistral-small32-24b-venice-not-applicable/historical-attempts.jsonl",
+          "sha256": "30e3ceae6dc228ff71a572bf1f0e4072ce7df1eb3316bceb1b1261977334effe"
+        },
+        "P1": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P1/development.jsonl",
+          "sha256": "6bc4aa9fc4a351f4e9a12b377eb5cfdbbaad5b062209a2fa6733467116ed5178"
+        },
+        "P2": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-mistral-small32-24b-venice-not-applicable/P2/development.jsonl",
+          "sha256": "f4c674a04c5af1a76f049b4d6f29ff94543b7e9b00dfbc7cc06378f452dcb8d9"
+        }
+      },
+      "controls": {
+        "provider_tag": "venice/fp8",
+        "quantization": "fp8",
+        "reasoning_effort": "na",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "response_format": "strict_json_schema",
+        "fallbacks": false,
+        "require_parameters": true,
+        "price_ceiling_usd_per_million": {
+          "prompt": "0.09375",
+          "completion": "0.25"
+        }
+      },
+      "historical_development_charges_usd": {
+        "P0": "0.00873028125",
+        "P1": "0.00972965625",
+        "P2": "0.01497503125"
+      },
+      "historical_three_condition_total_usd": "0.03343496875",
+      "two_extra_development_passes_estimate_usd": "0.06686993750",
+      "six_smokes_18_calls_estimate_usd": "0.003343496875",
+      "two_passes_plus_smokes_estimate_usd": "0.070213434375",
+      "planned_calls": {
+        "development": 360,
+        "smoke": 18,
+        "total": 378
+      },
+      "public_route": {
+        "status": "verified_public_endpoint",
+        "url": "https://openrouter.ai/api/v1/models/mistralai/mistral-small-3.2-24b-instruct/endpoints",
+        "context_tokens_for_reservation": 256000,
+        "pricing_usd_per_million": {
+          "prompt": "0.09375",
+          "completion": "0.25"
+        },
+        "price_and_tag_match_historical_controls": true,
+        "observation": "Exact route metadata observed on 2026-09-25"
+      },
+      "per_call_reserve_usd": "0.025024",
+      "proposed_partition_cap_usd": "0.15",
+      "max_concurrent_requests": 1,
+      "partition_status": "conditional_pending_live_ledger_and_endpoint_check",
+      "concurrent_with_other_configurations": true
+    },
+    {
+      "id": "openrouter-paid-qwen3.8-27b-off",
+      "model": "qwen/qwen3.8-27b",
+      "historical_order": [
+        "P0",
+        "P2",
+        "P1"
+      ],
+      "eligibility": "eligible_first_pass",
+      "paired_manifest": {
+        "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/openrouter-paid-qwen3.8-27b-off/paired-manifest.json",
+        "sha256": "6f6e5617a5b3da55d2c04dd7ff881ec77437f44d5ff6b3233dbcbf32305b0779"
+      },
+      "historical_request_evidence": {
+        "P0": {
+          "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-off/historical-attempts.jsonl",
+          "sha256": "b702a3d2129075d31fef2249f105a72f61da2fcf38a05e9fd85be3051bcd6d40"
+        },
+        "P1": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P1/development.jsonl",
+          "sha256": "464e971d6d75a533392f5f31c65c03a7619338cad82bb2c768c63f193e5595d6"
+        },
+        "P2": {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-off/P2/development.jsonl",
+          "sha256": "fc26778e36393a99db9565c7c0808702c54987c09f52e6e7ab067632c0f9a45e"
+        }
+      },
+      "controls": {
+        "provider_tag": "deepinfra/bf16",
+        "quantization": "bf16",
+        "reasoning_effort": "off",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "stream": false,
+        "response_format": "strict_json_schema",
+        "fallbacks": false,
+        "require_parameters": true,
+        "price_ceiling_usd_per_million": {
+          "prompt": "0.15",
+          "completion": "1.875"
+        }
+      },
+      "historical_development_charges_usd": {
+        "P0": "0.013049550",
+        "P1": "0.010485900",
+        "P2": "0.015717150"
+      },
+      "historical_three_condition_total_usd": "0.039252600",
+      "two_extra_development_passes_estimate_usd": "0.078505200",
+      "six_smokes_18_calls_estimate_usd": "0.003925260",
+      "two_passes_plus_smokes_estimate_usd": "0.082430460",
+      "planned_calls": {
+        "development": 360,
+        "smoke": 18,
+        "total": 378
+      },
+      "public_route": {
+        "status": "exact_endpoint_unverified",
+        "url": "https://openrouter.ai/qwen/qwen3.8-27b",
+        "context_tokens_for_reservation": 1000000,
+        "pricing_usd_per_million": {
+          "prompt": "0.15",
+          "completion": "1.875"
+        },
+        "price_and_tag_match_historical_controls": false,
+        "observation": "Model page lists DeepInfra but exact deepinfra/bf16 endpoint GET failed; page headline output price $4.40/M exceeds historical $1.875/M ceiling but does not identify the exact DeepInfra price. Reserve uses 1M model context provisionally; dispatch requires exact tag, quantization, price, schema and context check.",
+        "model_page_headline_completion_usd_per_million": "4.40"
+      },
+      "per_call_reserve_usd": "0.15768",
+      "proposed_partition_cap_usd": "0.20",
+      "max_concurrent_requests": 1,
+      "partition_status": "conditional_pending_live_ledger_and_endpoint_check",
+      "concurrent_with_other_configurations": false
+    }
+  ],
+  "five_historical_three_condition_total_usd": "0.16255040875",
+  "five_two_passes_plus_smokes_estimate_usd": "0.341355858375",
+  "concurrency_policy": {
+    "max_active_requests_per_configuration": 1,
+    "max_active_verified_configurations": 4,
+    "qwen_excluded_until_exact_endpoint_verified": true,
+    "child_partitions_independent": true,
+    "master_allocation_encumbers_full_one_usd_until_reconciliation": true,
+    "within_configuration_condition_order": "frozen_rotation_only",
+    "observation_limit": "Cross-configuration concurrent load changes scheduling context; report client request time, not pure inference time."
+  }
+}
