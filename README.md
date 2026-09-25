@@ -23,6 +23,8 @@ The [visual findings](https://adambkovacs.github.io/candidate-experience-benchma
 
 Use [model comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#models), [prompt versions](https://adambkovacs.github.io/candidate-experience-benchmark/#explore), and [usage details](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) to investigate a specific result. These are single-pass development observations on the same 60 synthetic reviews, not a held-out leaderboard.
 
+The [follow-up reference review](docs/REFERENCE_REVIEW_V1.md) proposes one correction, which would change Jev from 54 to 55 all-four matches. Original labels and published scores remain preserved. The [repeatability study](docs/REPEATABILITY_PLAN.md) is still a proposal: second and third identical full passes have not run.
+
 ## What the models decide
 
 | Judgment | Question |

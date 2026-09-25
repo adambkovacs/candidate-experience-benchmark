@@ -20,6 +20,10 @@ Follow the user's latest instructions over older plans. Benchmark model settings
 - Prefer paid OpenRouter for non-Claude/non-GPT hosted models within the approved aggregate $10 cap. TypeSafe has a separate $1 cap. Existing subscriptions serve Claude and Codex. The user also authorized Gemini through OpenRouter on 2026-09-25 within the same aggregate $10 cap; record it as a separate hosted configuration from Antigravity. Never enable paid subscription overage or redeem credits.
 - Use local execution only when the required model or native specialist interface has no suitable hosted route. Before launching a pending local generic model, verify hosted availability and document why local execution is necessary. Existing local baselines do not authorize redundant local prompt reruns.
 - Do not resume the cancelled DeepSeek R1 Distill download. Preserve its partial artifacts and historical evidence.
-- Preserve every attempt, unknown-cost reservation, intrinsic output failure, and provider failure. Never silently repair results, substitute models, or rerun completed configurations.
+- Preserve every attempt, unknown-cost reservation, intrinsic output failure, and provider failure. Never silently repair results or substitute models. Do not rerun completed configurations except as distinct, explicitly scheduled repeatability passes authorized on 2026-09-25; preserve their repeat identities and admit them against the existing budget.
 - A new execution surface or changed control produces a separate configuration. Document gaps in prompt comparisons instead of using comparability as a reason to ignore the user's hosted-routing preference.
 - Commit and push useful, verified checkpoints. Stage only immutable completed evidence; never blanket-stage live run folders or the active execution journal.
+
+## Current direction
+
+Read docs/CURRENT_GOALS.md for the latest objectives. P0, P1 and P2 each need declared repeatability passes; none have run yet. The private AI-Enablement-Academy/classification-bench repository is a separate reusable-tool workstream. Do not mutate frozen reference labels or move the current benchmark into unfinished orchestration.

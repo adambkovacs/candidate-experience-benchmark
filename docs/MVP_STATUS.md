@@ -2,6 +2,16 @@
 
 The [full roster accounting](MVP_ROSTER_ACCOUNTING.md) lists all 163 configurations with evidence, prompt-condition coverage and remaining work. Historical frozen scheduling labels are distinguished from current completion status.
 
+## 2026-09-25 current checkpoint: analysis, reference review and repeat scope
+
+This checkpoint supersedes the earlier same-date operational summaries below. The public export contains 290 run views and 17,400 case rows. Its 43 eligible prompt comparisons comprise 38 hosted/subscription setups and five local historical-baseline pairs; nine observational hosted Gemini comparisons and the native Jev comparison are separate. The new findings page, deterministic analysis and report are published.
+
+The [reference review](REFERENCE_REVIEW_V1.md) proposes one DEV-006 correction and retains DEV-013/030 sentiment pending human adjudication. Its separate offline rescore preserves original scores. No inference was used for this review.
+
+The user now requires repeated P0, P1 and P2 runs. None have started; the [repeatability protocol](REPEATABILITY_PLAN.md) requires identity, first-pass and budget checks before a declared series. Historical recovery attempts are not independent repetitions. Gemini's nine completed hosted triples supersede the earlier subscription quota block for those hosted configurations; the blocked high-effort Gemini smoke and earlier Qwen/Mistral route failures remain distinct unresolved evidence.
+
+The user also created the private organization repository `AI-Enablement-Academy/classification-bench`. Its v0.1 offline planner/evaluator and repeat metrics pass eight tests and CI. Live adapters, strict budget execution and resumable evidence storage are still planned. See [current objectives](CURRENT_GOALS.md).
+
 ## 2026-09-25 local prompt runs finished; hosted capacity still blocked
 
 Five earlier local Qwen triples now have [descriptive comparison reports](../results/legacy-local-prompt-pairs-v1/README.md), including per-field scores and changed review labels. They remain outside the 43 strict comparisons because historical P0 attempt journals are absent. Seven focused tests and independent source/count review passed; no new inference was used.

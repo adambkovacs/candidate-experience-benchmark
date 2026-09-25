@@ -1,7 +1,9 @@
 # Recruitment Feedback Comparison — project plan
 
 Updated: 2026-09-23. Status: development runs in progress. See [the run guide](RUN_MVP.md), [current comparison](../results/comparison/REPORT.md) and linked registries for completed and pending configurations. Labels remain provisional; baseline and prompt-experiment work is incomplete.
-Repository: https://github.com/adambkovacs/recruitment-feedback-demo (private).
+Repository: https://github.com/adambkovacs/candidate-experience-benchmark (public).
+
+Current routing, repeatability scope and the separate private classification-bench workstream are recorded in [CURRENT_GOALS.md](CURRENT_GOALS.md). That document supersedes historical candidate lists, subscription-only Gemini routing and free-only OpenRouter language below. The 400-record design remains a future allocation; only the existing 60 are authorized.
 
 ## Research question
 

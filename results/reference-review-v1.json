@@ -1,0 +1,446 @@
+{
+  "schema_version": "reference-review-rescore-v1",
+  "review_date": "2026-09-25",
+  "status": "counterfactual_only_no_inference_or_reference_mutation",
+  "proposed_revision_path": "data/pilot/reference-revisions/v0.3.json",
+  "proposed_change": {
+    "id": "DEV-006",
+    "field": "serious_concern_reported",
+    "from": "insufficient_information",
+    "to": "no",
+    "reason": "The feedback says an unspecified problem recurred and remains unresolved, but alleges no serious category or qualifying conduct. The v0.2 guide reserves insufficient_information for a specifically alleged but underspecified serious issue.",
+    "decision": "definitive_under_current_guide"
+  },
+  "source_sha256": {
+    "docs/LABELING_GUIDE.md": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925",
+    "docs/PILOT_AUDIT.md": "912086c5e60a19dc9f4e547606f6ff857a5726b2498a8db41a86da2b4fbc1075",
+    "data/pilot/inputs.jsonl": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+    "data/pilot/proposed_labels.jsonl": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "public-site/data.json": "b3f8a43b1a7a0ae710668c882146cb1a246f6089c0bb49e26587c9e8cf19db4d",
+    "public-site/findings.json": "535012be8f437254f87fddeb0514c108118f8e601cb3a9f7ccd3e2a0670f851f",
+    "results/openjev/typesafe-development-v2-reconciled.jsonl": "5bb3186a23e884fddeeccd9051ec77cc2e3079b6698148b9cdb44c40b602bab4"
+  },
+  "method": {
+    "case_export": "public-site/data.json",
+    "strict_cohort": "P0 IDs from the strict group in public-site/findings.json charts.promptDeltas.groups",
+    "record_ids": "The 60 sorted IDs in data/pilot/proposed_labels.jsonl",
+    "validity_rule": "Only status=ok with a non-null prediction can match; invalid outcomes remain in the denominator.",
+    "scoring_rule": "Compare all four prediction fields with the saved reference, then replace only DEV-006 serious_concern_reported with no in memory and repeat.",
+    "denominator_rule": "Jev: 60 records. Strict P0: 38 configurations times 60 records = 2,280 correlated configuration-record outcomes."
+  },
+  "jev_p0": {
+    "configuration_count": 1,
+    "configuration_ids": [
+      "typesafe-jev113-v2"
+    ],
+    "denominator": 60,
+    "all_four": {
+      "saved": 54,
+      "proposed": 55,
+      "delta": 1,
+      "denominator": 60
+    },
+    "field_matches": {
+      "sentiment": {
+        "saved": 56,
+        "proposed": 56,
+        "delta": 0,
+        "denominator": 60
+      },
+      "follow_up_needed": {
+        "saved": 58,
+        "proposed": 58,
+        "delta": 0,
+        "denominator": 60
+      },
+      "serious_concern_reported": {
+        "saved": 57,
+        "proposed": 58,
+        "delta": 1,
+        "denominator": 60
+      },
+      "testimonial_potential": {
+        "saved": 58,
+        "proposed": 58,
+        "delta": 0,
+        "denominator": 60
+      }
+    },
+    "dev_006": {
+      "serious_concern_predictions": {
+        "yes": 0,
+        "no": 1,
+        "insufficient_information": 0
+      },
+      "all_four_saved": 0,
+      "all_four_proposed": 1,
+      "per_configuration": [
+        {
+          "run_id": "typesafe-jev113-v2",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        }
+      ]
+    }
+  },
+  "strict_38_p0": {
+    "configuration_count": 38,
+    "configuration_ids": [
+      "codex-gpt-5.6-luna-high",
+      "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+      "codex-gpt-5.6-luna-medium",
+      "codex-gpt-5.6-sol-high",
+      "codex-gpt-5.6-sol-low",
+      "codex-gpt-5.6-sol-medium",
+      "codex-gpt-5.6-sol-xhigh",
+      "codex-gpt-5.6-terra-high",
+      "codex-gpt-5.6-terra-xhigh",
+      "codex-gpt-6-astra-high",
+      "codex-gpt-6-astra-low-phase2-batch10-p0",
+      "codex-gpt-6-astra-xhigh",
+      "codex-gpt-6-luna-high-batch10",
+      "codex-gpt-6-luna-medium-batch10",
+      "codex-gpt-6-luna-xhigh-batch10",
+      "codex-gpt-6-sol-high-batch10",
+      "codex-gpt-6-sol-xhigh-batch10",
+      "fable51-high-phase2-batch10-p0",
+      "fable51-low-phase2-batch10-p0",
+      "fable51-medium-phase2-batch10-p0",
+      "fable51-xhigh-phase2-batch10-p0",
+      "openrouter-paid-gemma4-26b-a4b-off",
+      "openrouter-paid-gemma4-31b-off",
+      "openrouter-paid-gemma4-31b-on",
+      "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+      "openrouter-paid-qwen3.8-27b-off",
+      "opus5-high-phase2-batch10-p0",
+      "opus5-low-phase2-batch10-p0",
+      "opus5-medium-phase2-batch10-p0",
+      "opus5-xhigh-phase2-batch10-p0",
+      "opus55-high-batch10",
+      "opus55-low-batch10",
+      "opus55-medium-batch10",
+      "opus55-xhigh-batch10",
+      "sonnet5-high-phase2-batch10-p0",
+      "sonnet5-low-first-pass-phase2-batch10-p0",
+      "sonnet5-medium-phase2-batch10-p0",
+      "sonnet5-xhigh-phase2-batch10-p0"
+    ],
+    "denominator": 2280,
+    "all_four": {
+      "saved": 2143,
+      "proposed": 2139,
+      "delta": -4,
+      "denominator": 2280
+    },
+    "field_matches": {
+      "sentiment": {
+        "saved": 2209,
+        "proposed": 2209,
+        "delta": 0,
+        "denominator": 2280
+      },
+      "follow_up_needed": {
+        "saved": 2259,
+        "proposed": 2259,
+        "delta": 0,
+        "denominator": 2280
+      },
+      "serious_concern_reported": {
+        "saved": 2233,
+        "proposed": 2239,
+        "delta": 6,
+        "denominator": 2280
+      },
+      "testimonial_potential": {
+        "saved": 2251,
+        "proposed": 2251,
+        "delta": 0,
+        "denominator": 2280
+      }
+    },
+    "dev_006": {
+      "serious_concern_predictions": {
+        "yes": 0,
+        "no": 22,
+        "insufficient_information": 16
+      },
+      "all_four_saved": 13,
+      "all_four_proposed": 9,
+      "per_configuration": [
+        {
+          "run_id": "codex-gpt-5.6-luna-high",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "codex-gpt-5.6-luna-low-phase2-batch10-p0",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "codex-gpt-5.6-luna-medium",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "codex-gpt-5.6-sol-high",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-5.6-sol-low",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "codex-gpt-5.6-sol-medium",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-5.6-sol-xhigh",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-5.6-terra-high",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-5.6-terra-xhigh",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-6-astra-high",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-6-astra-low-phase2-batch10-p0",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-6-astra-xhigh",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-6-luna-high-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-6-luna-medium-batch10",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "codex-gpt-6-luna-xhigh-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-6-sol-high-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "codex-gpt-6-sol-xhigh-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "fable51-high-phase2-batch10-p0",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "fable51-low-phase2-batch10-p0",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "fable51-medium-phase2-batch10-p0",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "fable51-xhigh-phase2-batch10-p0",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "openrouter-paid-gemma4-26b-a4b-off",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "openrouter-paid-gemma4-31b-off",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "openrouter-paid-gemma4-31b-on",
+          "saved_all_four": false,
+          "proposed_all_four": true,
+          "delta": 1,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "openrouter-paid-mistral-small32-24b-venice-not-applicable",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "openrouter-paid-qwen3.8-27b-off",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "opus5-high-phase2-batch10-p0",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "opus5-low-phase2-batch10-p0",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "opus5-medium-phase2-batch10-p0",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "opus5-xhigh-phase2-batch10-p0",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "opus55-high-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "opus55-low-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "opus55-medium-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "opus55-xhigh-batch10",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "sonnet5-high-phase2-batch10-p0",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "sonnet5-low-first-pass-phase2-batch10-p0",
+          "saved_all_four": true,
+          "proposed_all_four": false,
+          "delta": -1,
+          "predicted_serious_concern": "insufficient_information"
+        },
+        {
+          "run_id": "sonnet5-medium-phase2-batch10-p0",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        },
+        {
+          "run_id": "sonnet5-xhigh-phase2-batch10-p0",
+          "saved_all_four": false,
+          "proposed_all_four": false,
+          "delta": 0,
+          "predicted_serious_concern": "no"
+        }
+      ]
+    }
+  },
+  "not_rescored": [
+    "DEV-013 sentiment",
+    "DEV-030 sentiment"
+  ],
+  "limitations": "AI-authored synthetic development references; a counterfactual agreement calculation, not new inference or human validation. The 38 strict runs are correlated."
+}

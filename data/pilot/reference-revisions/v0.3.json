@@ -1,0 +1,38 @@
+{
+  "schema_version": "reference-revision-proposal-v1",
+  "revision": "v0.3",
+  "status": "proposed_not_applied",
+  "review_date": "2026-09-25",
+  "reviewer": "separate Codex AI review; not human adjudication",
+  "base_reference_path": "data/pilot/proposed_labels.jsonl",
+  "base_reference_sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+  "guide_path": "docs/LABELING_GUIDE.md",
+  "guide_sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925",
+  "changes": [
+    {
+      "id": "DEV-006",
+      "field": "serious_concern_reported",
+      "from": "insufficient_information",
+      "to": "no",
+      "reason": "The feedback says an unspecified problem recurred and remains unresolved, but alleges no serious category or qualifying conduct. The v0.2 guide reserves insufficient_information for a specifically alleged but underspecified serious issue.",
+      "decision": "definitive_under_current_guide"
+    }
+  ],
+  "unchanged_needs_human": [
+    {
+      "id": "DEV-013",
+      "field": "sentiment",
+      "saved": "neutral",
+      "alternative": "positive",
+      "reason": "Straightforward can be mild praise or a factual description."
+    },
+    {
+      "id": "DEV-030",
+      "field": "sentiment",
+      "saved": "neutral",
+      "alternative": "negative",
+      "reason": "Accessibility issue and uncertain remedy may imply criticism, but the candidate gives no clear evaluation."
+    }
+  ],
+  "source_review": "docs/REFERENCE_REVIEW_V1.md"
+}
