@@ -1,0 +1,43 @@
+{
+  "schema": "repeat-pair-label-stability-v1",
+  "configuration": "codex-gpt-6-luna-medium-batch10",
+  "condition": "P2",
+  "passes": [
+    "historical_first_pass",
+    "repeat2"
+  ],
+  "source_files": [
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-luna-medium-batch10/P2/development.jsonl",
+      "sha256_bytes": "b71779410b7f11d50edfb5a8d7c778946f14489388727040fda79cc0b5c026a3"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-medium-batch10/repeat2/P2/development.records.jsonl",
+      "sha256_bytes": "a076a4f67e615576ee3e2155d562392a8b4a234f43c22ad89dd3855c8da7037b"
+    }
+  ],
+  "comparable_records": 60,
+  "excluded_record_ids": [],
+  "changed_record_ids": [
+    "DEV-028",
+    "DEV-030",
+    "DEV-055",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "vector_flip_rate": 0.08333333333333333,
+  "field_changed_record_ids": {
+    "follow_up_needed": [],
+    "sentiment": [
+      "DEV-028",
+      "DEV-030",
+      "DEV-055",
+      "DEV-059",
+      "DEV-060"
+    ],
+    "serious_concern_reported": [],
+    "testimonial_potential": []
+  },
+  "reference_labels_read": false,
+  "limitation": "Exact prompt bytes and ordered batches retained; accepted CLI patch transition and unexposed provider revision prevent attributing changes solely to model nondeterminism."
+}

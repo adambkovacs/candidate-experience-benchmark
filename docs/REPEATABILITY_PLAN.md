@@ -1,6 +1,6 @@
 # Repeatability study for P0, P1 and P2
 
-Status: the user requested repeated runs for P0, P1 and P2 on 2026-09-25. The target is three total independent passes per eligible configuration and condition. No additional passes have run. Execution still requires a frozen per-configuration schedule, first-pass eligibility and budget admission within the existing caps; this update does not raise a cap.
+Status: the user requested repeated runs for P0, P1 and P2 on 2026-09-25. The target is three total independent passes per eligible configuration and condition. The first additional P2 pass for GPT-6 Luna medium completed on 2026-09-25; the remaining study is unfinished. Execution still requires a frozen per-configuration schedule, first-pass eligibility and budget admission within the existing caps; this update does not raise a cap.
 
 A second and third pass would help distinguish prompt effects from run-to-run variation on the existing 60 development records. Three total passes per eligible configuration and condition are a useful diagnostic, but too few to support precise confidence intervals or a claim of generalization. The 340 planned validation and test records remain outside this study. The task, labels and limits come from the [project plan](PLAN.md); P0/P1/P2 and their controls come from the [prompt experiment protocol](PROMPT_VARIANTS.md).
 

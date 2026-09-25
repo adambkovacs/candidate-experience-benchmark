@@ -8,9 +8,13 @@ This checkpoint supersedes the earlier same-date operational summaries below. Th
 
 The [reference review](REFERENCE_REVIEW_V1.md) proposes one DEV-006 correction and retains DEV-013/030 sentiment pending human adjudication. Its separate offline rescore preserves original scores. No inference was used for this review.
 
-The user now requires repeated P0, P1 and P2 runs. None have started; the [repeatability protocol](REPEATABILITY_PLAN.md) requires identity, first-pass and budget checks before a declared series. Historical recovery attempts are not independent repetitions. Gemini's nine completed hosted triples supersede the earlier subscription quota block for those hosted configurations; the blocked high-effort Gemini smoke and earlier Qwen/Mistral route failures remain distinct unresolved evidence.
+The user now requires repeated P0, P1 and P2 runs. Execution has started as recorded below; the [repeatability protocol](REPEATABILITY_PLAN.md) requires identity, first-pass and budget checks before a declared series. Historical recovery attempts are not independent repetitions. Gemini's nine completed hosted triples supersede the earlier subscription quota block for those hosted configurations; the blocked high-effort Gemini smoke and earlier Qwen/Mistral route failures remain distinct unresolved evidence.
 
 The user also created the private organization repository `AI-Enablement-Academy/classification-bench`. Its v0.1 offline planner/evaluator and repeat metrics pass eight tests and CI. Live adapters, strict budget execution and resumable evidence storage are still planned. See [current objectives](CURRENT_GOALS.md).
+
+## 2026-09-25 repeat study started
+
+The first additional full pass completed for GPT-6 Luna medium, P2: 60 valid outputs in six batches of ten. Five reviews changed sentiment relative to the saved original P2 pass (DEV-028, DEV-030, DEV-055, DEV-059, DEV-060); follow-up, serious-concern and testimonial labels were unchanged. Prompt bytes and ordered batches match, while the explicitly accepted CLI patch transition remains an observational limitation. This is one repeat comparison, not a completed three-pass study or proof that the changes arise solely from model nondeterminism. Other prompt conditions and configurations remain unfinished.
 
 ## 2026-09-25 local prompt runs finished; hosted capacity still blocked
 
