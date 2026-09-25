@@ -73,4 +73,4 @@ Actual per-request subscription cost is unknown. Request durations are six batch
 
 The accepted Codex CLI patch amendment does not establish runtime equivalence. Hidden serving revision and effective seed are unavailable. The reference labels are provisional, and these 60 repeated records are not 180 independent cases.
 
-Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts and journals are in [repeats.json](../public-site/repeats.json).
+Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts, journals and completion claims are in [repeats.json](../public-site/repeats.json).

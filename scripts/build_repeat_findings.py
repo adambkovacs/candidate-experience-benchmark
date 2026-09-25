@@ -161,12 +161,15 @@ def build():
                 record_binding = binding(folder / 'development.records.jsonl')
                 attempt_binding = binding(folder / 'development.attempts.jsonl')
                 journal_binding = binding(folder / 'development.journal.jsonl')
+                claim_binding = binding(folder / 'development.claim.json')
             records = rows(ROOT / record_binding['path']); attempts = rows(ROOT / attempt_binding['path'])
             indexed = validate_evidence(records, attempts, ids, condition, pass_name, manifest)
             entry = {'score': score(indexed, labels, ids), 'usage': usage(attempts), 'evidence': {'records': record_binding, 'attempts': attempt_binding}}
-            if journal_binding: entry['evidence']['journal'] = journal_binding
+            if journal_binding:
+                entry['evidence']['journal'] = journal_binding
+                entry['evidence']['claim'] = claim_binding
             data[pass_name][condition] = entry
-            sources.extend([record_binding, attempt_binding] + ([journal_binding] if journal_binding else []))
+            sources.extend([record_binding, attempt_binding] + ([journal_binding, claim_binding] if journal_binding else []))
     pair_deltas = []
     for pass_name in PASSES:
         for target in ('P1', 'P2'):
@@ -248,7 +251,7 @@ def markdown(report):
     for row in report['pairwiseFlips']:
         cell = lambda key: f"{row[key]['changed']}/{row['denominator']}"
         lines.append(f"| {row['condition']} | {row['from']} to {row['to']} | {row['denominator']}/60 | {cell('fourFieldVector')} | {cell('sentiment')} | {cell('follow_up_needed')} | {cell('serious_concern_reported')} | {cell('testimonial_potential')} |")
-    lines.extend(['', 'The JSON gives excluded IDs and changed record IDs for each comparison, plus changes across all three passes.', '', 'Actual per-request subscription cost is unknown. Request durations are six batch durations per completed condition, not 60 independent latencies.', '', 'The accepted Codex CLI patch amendment does not establish runtime equivalence. Hidden serving revision and effective seed are unavailable. The reference labels are provisional, and these 60 repeated records are not 180 independent cases.', '', 'Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts and journals are in [repeats.json](../public-site/repeats.json).'])
+    lines.extend(['', 'The JSON gives excluded IDs and changed record IDs for each comparison, plus changes across all three passes.', '', 'Actual per-request subscription cost is unknown. Request durations are six batch durations per completed condition, not 60 independent latencies.', '', 'The accepted Codex CLI patch amendment does not establish runtime equivalence. Hidden serving revision and effective seed are unavailable. The reference labels are provisional, and these 60 repeated records are not 180 independent cases.', '', 'Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts, journals and completion claims are in [repeats.json](../public-site/repeats.json).'])
     return '\n'.join(lines) + '\n'
 
 
