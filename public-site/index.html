@@ -14,15 +14,16 @@
   <meta property="og:image" content="https://adambkovacs.github.io/candidate-experience-benchmark/preview.png">
   <meta property="og:image:alt" content="Preview of the candidate feedback benchmark results page">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=repeat-study-1">
   <script defer src="./app.js"></script>
   <script defer src="./findings.js"></script>
+  <script defer src="./repeats.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header" id="top">
   <a class="brand" href="#top"><span class="brand-symbol" aria-hidden="true">C<span>.</span></span><span>Candidate Experience<br>Feedback Benchmark</span></a>
-  <nav class="main-nav" aria-label="Main navigation"><a href="#findings">Findings</a><a href="#prompt-analysis">Prompt shifts</a><a href="#models">Models</a><a href="#explore">Prompts</a><a href="#usage">Usage</a><a href="#inspect">Comments</a><a href="#method">Method</a></nav>
+  <nav class="main-nav" aria-label="Main navigation"><a href="#findings">Findings</a><a href="#prompt-analysis">Prompt shifts</a><a href="#repeat-analysis">Repeatability</a><a href="#models">Models</a><a href="#explore">Prompts</a><a href="#usage">Usage</a><a href="#inspect">Comments</a><a href="#method">Method</a></nav>
   <span class="edition">60 fictional comments · development test</span>
 </header>
 <main id="main">
@@ -36,6 +37,11 @@
       <div class="analysis-intro"><div><p class="eyebrow">01 / Paired prompt comparisons</p><h2 id="prompt-headline">Loading paired prompt results…</h2><p id="prompt-deck">Matched setups are compared against the same 60 provisional answers.</p></div><p class="analysis-question">Did the added instructions help the same setups?</p></div>
       <div id="finding-prompts" class="analysis-body" aria-live="polite"><p class="loading">Loading paired comparisons…</p></div>
       <p class="analysis-caveat">Prompt changes are associations within saved runs. The categories keep controlled pairs, hosted observations and Jev's native Choice changes separate. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/FINDINGS.md">Read the analysis and comparison limits</a>.</p>
+    </section>
+    <section class="analysis-section section" id="repeat-analysis" aria-labelledby="repeat-title">
+      <div class="analysis-intro"><div><p class="eyebrow">Repeatability / One model, three passes</p><h2 id="repeat-title">The same prompt can produce different answers.</h2><p>Compare repeated scores before interpreting a small prompt improvement.</p></div></div>
+      <div id="repeat-results" class="analysis-body"><p>Loading repeat comparisons…</p></div>
+      <p class="analysis-caveat">This first completed series covers GPT-6 Luna medium only. The accepted CLI patch change and hidden serving details prevent attributing every difference solely to randomness. Three passes are descriptive evidence, not a precise estimate of future variation. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPEAT_FINDINGS.md">Read the analysis and source hashes</a>.</p>
     </section>
     <section class="analysis-section section" id="jev-analysis" aria-labelledby="jev-headline">
       <div class="analysis-intro"><div><p class="eyebrow">02 / Decision errors</p><h2 id="jev-headline">Loading Jev decision profile…</h2><p id="jev-deck">The four decisions can fail in different ways.</p></div><p class="analysis-question">Where did Jev disagree, and did other runs miss the same comments?</p></div>

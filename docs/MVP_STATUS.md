@@ -1,5 +1,11 @@
 # MVP completion status
 
+## Latest checkpoint: first complete three-pass repeat series
+
+GPT-6 Luna medium now has three full passes per P0/P1/P2 condition, with 60 valid outputs in every pass. All-four agreement was P0: 50/54/51, P1: 52/52/53, P2: 51/53/51. The [repeat findings](REPEAT_FINDINGS.md) give field scores, changed records, usage, source hashes and limits. This finishes one configuration's repeat series; the broader repeat matrix and unresolved roster work remain open. Older checkpoints below describe their state at the time.
+
+The private reusable tool now includes tested immutable evidence/parser bindings and offline budget accounting, plus a completed Inspect/promptfoo comparison. Live dispatch, recovery and reference-isolation integration remain unfinished. Current routing and caps remain in [CURRENT_GOALS.md](CURRENT_GOALS.md).
+
 The [full roster accounting](MVP_ROSTER_ACCOUNTING.md) lists all 163 configurations with evidence, prompt-condition coverage and remaining work. Historical frozen scheduling labels are distinguished from current completion status.
 
 ## 2026-09-25 current checkpoint: analysis, reference review and repeat scope
