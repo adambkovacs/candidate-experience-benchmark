@@ -25,3 +25,9 @@ TypeSafe retains its separate $1 cap. The [Jev planning audit](JEV_PROMPT_AND_TI
 Subscription fees have no allocated per-run price and must not be displayed as zero cost. Check subscription quota before launching. The five local historical configurations have no hosted price in this estimate; a hosted replacement changes the configuration and cannot count as an identical repeat of the local run.
 
 No repeat inference was launched for this preflight. See the [repeat protocol](REPEATABILITY_PLAN.md) and [current goals](CURRENT_GOALS.md).
+
+## Later checkpoint: Qwen continuation
+
+The [closed Qwen DEV-042 attempt](../results/qwen36-on-p2-final19-v4/SUMMARY.md) adds a $0.0299008 unknown-cost upper bound after another upstream HTTP 429. Aggregate accounted usage is now $6.04068449650, leaving $3.95931550350. Against the unchanged historical estimate above, the full paid repeat set exceeds that headroom by $0.696043814 before smoke calls and other uncertainty.
+
+This blocks admission of the full paid set together; it does not forbid a separately bounded affordable wave under the existing cap. Each wave still needs exact route/control checks, declared repeat identities, inspected smoke outputs and shared-ledger admission before dispatch. Keep all deferred configurations in the coverage matrix. Neither this note nor a wave proposal increases the approved $10 cap.
