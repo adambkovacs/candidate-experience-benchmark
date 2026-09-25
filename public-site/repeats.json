@@ -4911,25 +4911,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 6,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "passes": {
         "original": {
           "P0": {
@@ -5295,153 +5279,406 @@
             }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                45.82739325000148,
+                34.61884262500098,
+                31.235166250000475,
+                24.79405566699279,
+                24.260851250000997,
+                25.24024850000569
+              ],
+              "requestSecondsTotal": 185.9765575420024,
+              "tokens": {
+                "input_tokens": 63709,
+                "cached_input_tokens": 21504,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3108,
+                "reasoning_output_tokens": 1068
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.records.jsonl",
+                "sha256": "e405e301ac87c82f27008e1f68edb273930f2817df6a3abfc7714402f03f047d"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.attempts.jsonl",
+                "sha256": "aed8340c90a4bafc0726bd5c5fcd3cc107b8f37c11864665e20a38f0572471cf"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.journal.jsonl",
+                "sha256": "c70bb83c3bed2a08133421abf229f701f894c532b991f52a6596d18c489b644a"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.claim.json",
+                "sha256": "df3fa3a65dd7db0acf343d36ddb87c0e674952c6e8cf5e603b0e4959ccb96d05"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                70.03845916700084,
+                67.60295329200744,
+                54.401480500004254,
+                73.88396158300748,
+                62.44347858299443,
+                70.05671124999935
+              ],
+              "requestSecondsTotal": 398.4270443750138,
+              "tokens": {
+                "input_tokens": 64745,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3273,
+                "reasoning_output_tokens": 1231
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.records.jsonl",
+                "sha256": "5b333ef4a36a3f7bd6016d79e07807777a5d8c12dd5de9edf89d72eb52c66604"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.attempts.jsonl",
+                "sha256": "c26aa786a6f78927c1ccaa9e093a8d5f110c45a82762bee0266a1bbb934cfb4b"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.journal.jsonl",
+                "sha256": "1a3f53974941138c85bf1177cc6517f8af638c2a66786b30eeddf8b08a5b834d"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.claim.json",
+                "sha256": "ad194fadf81dd23e66df399fc5827b46db5ab435b4e7623c16b32e8727c53529"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                26.27736462499888,
+                25.610056915989844,
+                26.838783333005267,
+                23.665183167002397,
+                337.70409991599445,
+                28.075334583001677
+              ],
+              "requestSecondsTotal": 468.1708225399925,
+              "tokens": {
+                "input_tokens": 70234,
+                "cached_input_tokens": 25856,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 2914,
+                "reasoning_output_tokens": 878
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.records.jsonl",
+                "sha256": "a80c28c6da5b54b5ff4efe3df973ef0f9ef922a4076d46a8948533704331ff17"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.attempts.jsonl",
+                "sha256": "3af8bcb8ab872dbe89b5bda6a10d9187b665205ca158470c00c7480a6a0337c0"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.journal.jsonl",
+                "sha256": "b90f07af502a21b68a6e2f2f996d56f8569ec4bc1845189da88a7249fb022cbd"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.claim.json",
+                "sha256": "64e26b313c3ad87aa0fac91398a3f3ae098417d5ec85c83b0ba86453135aaa37"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               58,
+              57,
               57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.333333333333336,
+            "range": [
+              57,
+              58
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 59,
+                58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 60,
-                59
+                59,
+                60
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.666666666666664,
+              "range": [
+                59,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                59,
                 59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              57,
               57,
               57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.0,
+            "range": [
+              57,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
                 58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 60,
-                59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 2,
-              "values": [
                 59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                59,
+                59,
+                59
+              ],
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              57,
               57,
               57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.0,
+            "range": [
+              57,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
                 58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 60,
-                59
+                59,
+                60
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.666666666666664,
+              "range": [
+                59,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 59,
-                59
+                59,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         }
@@ -5487,6 +5724,78 @@
           }
         },
         {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-013"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-013"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
+        {
           "condition": "P1",
           "from": "original",
           "to": "repeat2",
@@ -5520,6 +5829,74 @@
             "caseIds": [
               "DEV-006"
             ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
           }
         },
         {
@@ -5557,9 +5934,136 @@
               "DEV-006"
             ]
           }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-013"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-013"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006"
+          ]
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [
+              "DEV-030"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-030"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -5612,35 +6116,93 @@
             "serious_concern_reported": 0,
             "testimonial_potential": 0
           }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": -1,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": -1,
+            "testimonial_potential": 0
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 2,
+          "completedPairs": 3,
           "allFourValues": [
+            -1,
+            0,
+            0
+          ],
+          "allFourRange": [
             -1,
             0
           ],
-          "allFourRange": null,
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -1,
+              0
+            ],
+            "follow_up_needed": [
+              -1,
+              0
+            ],
+            "serious_concern_reported": [
+              0,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         },
         "P2": {
-          "completedPairs": 2,
+          "completedPairs": 3,
           "allFourValues": [
+            -1,
+            0,
+            0
+          ],
+          "allFourRange": [
             -1,
             0
           ],
-          "allFourRange": null,
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -1,
+              0
+            ],
+            "follow_up_needed": [
+              0,
+              0
+            ],
+            "serious_concern_reported": [
+              -1,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         }
       },
@@ -5732,6 +6294,54 @@
         {
           "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/manifest.json",
           "sha256": "b708bc3cbaba4cbde3210f3ce476dc6b6c315860ca666fc5c928279b9ff70b6c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.records.jsonl",
+          "sha256": "e405e301ac87c82f27008e1f68edb273930f2817df6a3abfc7714402f03f047d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.attempts.jsonl",
+          "sha256": "aed8340c90a4bafc0726bd5c5fcd3cc107b8f37c11864665e20a38f0572471cf"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.journal.jsonl",
+          "sha256": "c70bb83c3bed2a08133421abf229f701f894c532b991f52a6596d18c489b644a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P0/development.claim.json",
+          "sha256": "df3fa3a65dd7db0acf343d36ddb87c0e674952c6e8cf5e603b0e4959ccb96d05"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.records.jsonl",
+          "sha256": "5b333ef4a36a3f7bd6016d79e07807777a5d8c12dd5de9edf89d72eb52c66604"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.attempts.jsonl",
+          "sha256": "c26aa786a6f78927c1ccaa9e093a8d5f110c45a82762bee0266a1bbb934cfb4b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.journal.jsonl",
+          "sha256": "1a3f53974941138c85bf1177cc6517f8af638c2a66786b30eeddf8b08a5b834d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P1/development.claim.json",
+          "sha256": "ad194fadf81dd23e66df399fc5827b46db5ab435b4e7623c16b32e8727c53529"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.records.jsonl",
+          "sha256": "a80c28c6da5b54b5ff4efe3df973ef0f9ef922a4076d46a8948533704331ff17"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.attempts.jsonl",
+          "sha256": "3af8bcb8ab872dbe89b5bda6a10d9187b665205ca158470c00c7480a6a0337c0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.journal.jsonl",
+          "sha256": "b90f07af502a21b68a6e2f2f996d56f8569ec4bc1845189da88a7249fb022cbd"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/P2/development.claim.json",
+          "sha256": "64e26b313c3ad87aa0fac91398a3f3ae098417d5ec85c83b0ba86453135aaa37"
         }
       ],
       "limitations": [
@@ -5741,7 +6351,13 @@
         "Batch timing is request timing; per-record shares are not independent latency.",
         "Subscription request cost is unknown, not zero."
       ],
-      "interpretation": []
+      "interpretation": [
+        "P0 matched all four references on 57 to 58 of 60 comments per pass; 2 comments changed at least one decision across the three passes.",
+        "P1 matched all four references on 57 to 57 of 60 comments per pass; 1 comments changed at least one decision across the three passes.",
+        "P2 matched all four references on 57 to 57 of 60 comments per pass; 2 comments changed at least one decision across the three passes.",
+        "P1 versus P0 did not improve agreement in every pass: changes were -1, +0, +0 matches out of 60. Three passes do not establish a reliable future effect.",
+        "P2 versus P0 did not improve agreement in every pass: changes were -1, +0, +0 matches out of 60. Three passes do not establish a reliable future effect."
+      ]
     }
   ],
   "availableConfigurations": [
