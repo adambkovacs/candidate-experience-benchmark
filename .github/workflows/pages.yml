@@ -27,6 +27,9 @@ jobs:
           test -f public-site/data.json
           test -z "$(find public-site -type l -print)"
           node --check public-site/app.js
+          node --check public-site/findings.js
+          python3 scripts/build_findings.py --check
+          python3 -m unittest discover -s tests -p test_findings.py -q
           python3 -m json.tool public-site/data.json > /dev/null
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

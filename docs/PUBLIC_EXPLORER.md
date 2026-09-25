@@ -6,11 +6,17 @@ The visible project name is **Candidate Experience Feedback Benchmark**. The Git
 
 ## Build and validate
 
-Run `python3 scripts/build_public_explorer.py` after refreshing saved reports. The exporter reads baseline and prompt evidence, with explicit condition and eligibility information. Native interfaces and descriptive comparisons remain distinct from audited generative prompt pairs.
+Run `python3 scripts/build_public_explorer.py` after refreshing saved reports, then `python3 scripts/build_findings.py` to rebuild the analysis. The exporter reads baseline and prompt evidence, with explicit condition and eligibility information. Native interfaces and descriptive comparisons remain distinct from audited generative prompt pairs.
 
-Run `python3 -m unittest discover -s tests -p test_public_explorer.py` and `node --check public-site/app.js`. Serve the repository locally and open `/public-site/` to inspect filters, comparisons and case details.
+Run `python3 scripts/build_findings.py --check`, `python3 -m unittest discover -s tests -p test_findings.py`, `python3 -m unittest discover -s tests -p test_public_explorer.py`, and `node --check public-site/app.js`. Serve the repository locally and open `/public-site/` to inspect filters, comparisons and case details.
 
 Every score uses the 60-record denominator. Configuration views may overlap or include continuations; they are not independent model samples. Validity means conformance to the output contract, while agreement means a judgment matches a provisional reference.
+
+## Findings and reproducibility
+
+The page leads with analysis of prompt changes, Jev's disagreement patterns, observed costs and reviews that need closer inspection. `scripts/build_findings.py` computes `public-site/findings.json` from saved evidence. Its source hashes and cohort definitions make the selection and arithmetic inspectable; `--check` rejects a stale generated file.
+
+The [findings report](FINDINGS.md) explains the observed patterns and reference-adjudication priorities. Charts retain exact-value tables and evidence links. Links can select an individual review with `?run=<run-id>&case=<review-id>#inspect`. Rebuilding analysis never runs a model or changes reference labels.
 
 ## Resource reporting
 

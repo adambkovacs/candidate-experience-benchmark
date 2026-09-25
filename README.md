@@ -15,7 +15,13 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
-Start with the [comparison chart](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) to see agreement counts, then [compare a model with Jev](https://adambkovacs.github.io/candidate-experience-benchmark/#models). The [prompt view](https://adambkovacs.github.io/candidate-experience-benchmark/#explore) shows P0, P1 and P2 together and lets you inspect reviews whose answers changed. [Usage](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) follows the selected run and separates tokens, charges and reported timing. The complete run table is available under "Browse every saved run."
+The [visual findings](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) explain prompt changes, Jev's disagreements, difficult reviews and observed costs. The [analysis report](docs/FINDINGS.md) gives the interpretation and links to saved evidence.
+
+- Adding a decision tree after classifier framing reduced agreement in 21 of 38 audited hosted/subscription setups, improved it in 4, and left 13 unchanged. Extra instructions did not consistently help.
+- Jev matched all 25 reviews whose reference reported a serious concern. Its six all-four disagreements included an off-topic review, a misread positive review and cases whose provisional labels need independent review.
+- Returning no for every testimonial judgment already matches 50 of 60 references. Read field scores alongside their class balance.
+
+Use [model comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#models), [prompt versions](https://adambkovacs.github.io/candidate-experience-benchmark/#explore), and [usage details](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) to investigate a specific result. These are single-pass development observations on the same 60 synthetic reviews, not a held-out leaderboard.
 
 ## What the models decide
 

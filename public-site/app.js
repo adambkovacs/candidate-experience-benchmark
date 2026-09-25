@@ -182,6 +182,12 @@
     $('#case-disagreements').addEventListener('change',update);
     $('#case-select').addEventListener('change',() => {$('#case-current').innerHTML=matches[Number($('#case-select').value)] ? caseCard(matches[Number($('#case-select').value)]) : '';});
     update();
+    const requestedCase = new URL(location.href).searchParams.get('case');
+    const requestedIndex = matches.findIndex(item => item.id === requestedCase);
+    if (requestedIndex >= 0) {
+      $('#case-select').value=String(requestedIndex);
+      $('#case-current').innerHTML=caseCard(matches[requestedIndex]);
+    }
   }
   function resourceSection(title,rows,note) {return `<section class="resource-group"><h5>${esc(title)}</h5><dl class="data-list">${rows.join('')}</dl>${note ? `<p class="note">${esc(note)}</p>` : ''}</section>`;}
   function timingRows(timing,run) {
