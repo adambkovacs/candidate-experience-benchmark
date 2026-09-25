@@ -15,6 +15,98 @@ import build_hosted_wave_findings as report
 
 
 class HostedWaveFindingsTest(unittest.TestCase):
+    def test_qwen_series_uses_frozen_review_and_complete_phases(self):
+        spec = report.qwen.SPEC
+        series = report.build_series(spec)
+        self.assertEqual(series['configuration'], spec.id)
+        self.assertEqual(series['denominator'], 60)
+        self.assertEqual(series['plannedConditions'], 9)
+        self.assertEqual(series['passes']['original']['P0']['completionStatus'], 'complete')
+        self.assertEqual(series['passes']['repeat2']['P2']['completionStatus'], 'complete')
+        self.assertIn('responses', series['passes']['repeat2']['P2']['evidence'])
+        self.assertEqual(series['completedConditions'] + len(series['partialPasses']) +
+                         len(series['missingPasses']), 9)
+        paths = {binding['path'] for binding in series['sourceBindings']}
+        self.assertIn('scripts/openrouter_qwen27_repeat.py', paths)
+        self.assertIn(report.qwen.PREFLIGHT, paths)
+
+    def test_qwen_review_preflight_binding_survives_checkout_relocation(self):
+        spec = report.qwen.SPEC
+        base = Path('results/repeatability-v1') / spec.id
+        paths = {report.LABELS, Path(spec.pair), report.HOSTED,
+                 base / 'root-review-v1.json', base / 'budget-partition-v1.json',
+                 base / 'public-route-preflight.json',
+                 base / 'repeat2/manifest.json', base / 'repeat3/manifest.json'}
+        for repeat in ('repeat2', 'repeat3'):
+            plan = json.loads((ROOT / base / repeat / 'manifest.json').read_text())
+            paths.update(Path(binding['path']) for binding in plan['source_bindings'])
+        with tempfile.TemporaryDirectory() as temp:
+            clone = Path(temp)
+            for relative in paths:
+                target = clone / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / relative, target)
+            series = report.build_series(spec, clone)
+            self.assertEqual(series['completedConditions'], 3)
+            self.assertEqual(len(series['missingPasses']), 6)
+            preflight = clone / report.qwen.PREFLIGHT
+            preflight.write_text(preflight.read_text().replace('262144', '262143'))
+            with self.assertRaisesRegex(ValueError, 'Source hash changed'):
+                report.build_series(spec, clone)
+
+    def test_qwen_partial_unknown_cost_keeps_sixty_positions(self):
+        spec = report.qwen.SPEC
+        base = Path('results/repeatability-v1') / spec.id
+        folder = base / 'repeat2/P2'
+        plan = json.loads((ROOT / base / 'repeat2/manifest.json').read_text())
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for relative in [base / 'repeat2/manifest.json',
+                             *(folder / name for name in ('development.claim.json',
+                                                          'development.journal.jsonl',
+                                                          'development.attempts.jsonl',
+                                                          'development.responses.jsonl'))]:
+                target = root / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / relative, target)
+            attempts_path = root / folder / 'development.attempts.jsonl'
+            attempt = json.loads(attempts_path.read_text().splitlines()[0])
+            attempt.pop('raw_response')
+            attempt['status'] = 'service_error'
+            attempt['error_body'] = '{"error":"limited"}'
+            attempt['http_status'] = 429
+            attempt['error_headers'] = {}
+            attempt['observed_cost_usd'] = None
+            attempt['cost_unknown'] = True
+            attempt['billing_ok'] = False
+            attempts_path.write_text(json.dumps(attempt) + '\n')
+            journal = root / folder / 'development.journal.jsonl'
+            events = [json.loads(line) for line in journal.read_text().splitlines()][:4]
+            events[3].update(status='service_error', billing_ok=False, cost_unknown=True)
+            events.append({'event': 'phase_stopped', 'id': 'DEV-001', 'reason': 'service_error'})
+            journal.write_text(''.join(json.dumps(event) + '\n' for event in events))
+            responses = root / folder / 'development.responses.jsonl'
+            raw = json.loads(responses.read_text().splitlines()[0])
+            raw = {'id': raw['id'], 'attempt_id': raw['attempt_id'],
+                   'request_sha256': raw['request_sha256'], 'http_status': 429,
+                   'error_body': attempt['error_body'], 'error_headers': {}}
+            responses.write_text(json.dumps(raw) + '\n')
+            bind, _ = report.binder(root)
+            review_sha = json.loads((root / folder / 'development.claim.json').read_text())['root_review_sha256']
+            ids = [f'DEV-{i:03d}' for i in range(1, 61)]
+            labels = {row['id']: row['proposed_labels'] for row in report.rows(ROOT, report.LABELS)}
+            with patch.object(report, '_smoke', return_value={}):
+                entry, reason, _ = report._repeat_phase(root, spec, base, 'repeat2', 'P2', plan,
+                                                        review_sha, ids, labels, bind)
+            self.assertIsNone(reason)
+            self.assertEqual(entry['completionStatus'], 'partial')
+            self.assertEqual(entry['score']['denominator'], 60)
+            self.assertEqual(entry['score']['outcomes']['service_error'], 1)
+            self.assertEqual(entry['score']['outcomes']['never_sent'], 59)
+            self.assertEqual(entry['usage']['unknownCostCount'], 1)
+            self.assertIsNone(entry['usage']['actualCostUsd'])
+            self.assertIsNone(entry['usage']['tokens']['input_tokens'])
+
     def test_cli_check_detects_stale_output_without_writing(self):
         payload = {'schema': 'hosted-repeat-series-v1', 'series': []}
         with tempfile.TemporaryDirectory() as temp:

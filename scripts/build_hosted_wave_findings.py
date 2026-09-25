@@ -9,6 +9,7 @@ from pathlib import Path
 
 import build_hosted_repeat_findings as legacy
 import build_repeat_findings as shared
+import openrouter_qwen27_repeat as qwen
 import openrouter_repeat_wave as wave
 from development_benchmark import digest, valid
 from openrouter_benchmark import allowed_returned_models
@@ -24,6 +25,7 @@ DISPLAY = {
     'openrouter-paid-gemma4-31b-on': 'Gemma 4 31B · DeepInfra turbo fp4 · reasoning on',
     'openrouter-paid-mistral-small32-24b-venice-not-applicable':
         'Mistral Small 3.2 24B · Venice fp8 · reasoning not applicable',
+    'openrouter-paid-qwen3.8-27b-off': 'Qwen 3.8 27B · DeepInfra bf16 · reasoning off',
 }
 
 
@@ -65,6 +67,7 @@ def money(value):
 
 
 def _source_context(root, spec):
+    is_qwen = spec.id == qwen.SPEC.id
     bind, sources = binder(root)
     bind(LABELS, shared.PINNED_SHA[str(LABELS)])
     label_rows = rows(root, LABELS)
@@ -87,10 +90,33 @@ def _source_context(root, spec):
     review = json.loads(file(root, review_path).read_text())
     if (review.get('schema'), review.get('approved'), review.get('review_verdict'),
             review.get('configuration_id'), review.get('partition_cap_usd')) != (
-            wave.RECEIPT_SCHEMA, True, 'APPROVE', spec.id, spec.cap):
+            qwen.RECEIPT_SCHEMA if is_qwen else wave.RECEIPT_SCHEMA,
+            True, 'APPROVE', spec.id, spec.cap):
         raise ValueError('Root review identity differs')
-    bind('scripts/openrouter_repeat_wave.py', review['controller_sha256'])
+    bind('scripts/openrouter_qwen27_repeat.py' if is_qwen else
+         'scripts/openrouter_repeat_wave.py', review['controller_sha256'])
     bind(HOSTED, review['hosted_execution_sha256'])
+    if is_qwen:
+        bind(qwen.PREFLIGHT, review['preflight_sha256'])
+        preflight = json.loads(file(root, qwen.PREFLIGHT).read_text())
+        route = preflight.get('exact_route') or {}
+        if (preflight.get('schema'), preflight.get('configuration_id'),
+                preflight.get('proposed_partition_cap_usd'),
+                preflight.get('per_call_reserve_usd'),
+                preflight.get('max_concurrent_requests_for_configuration'),
+                preflight.get('max_tokens'),
+                route.get('model_id'), route.get('tag'), route.get('provider_name'),
+                route.get('quantization'), route.get('status'),
+                route.get('context_length'), route.get('reasoning_mandatory')) != (
+                'openrouter-qwen27-public-route-preflight-v1', spec.id, spec.cap,
+                '0.047001600', 1, 4096, spec.model, spec.provider, spec.provider_name,
+                spec.quantization, 0, spec.context, False):
+            raise ValueError('Qwen public route preflight differs')
+        if (money(route['pricing_usd_per_token']['prompt']) * 1000000 != money(spec.prompt_price) or
+                money(route['pricing_usd_per_token']['completion']) * 1000000 != money(spec.completion_price) or
+                not {'structured_outputs', 'max_tokens', 'temperature', 'reasoning', 'reasoning_effort'} <=
+                set(route['required_supported_parameters'])):
+            raise ValueError('Qwen preflight price or parameter support differs')
     historical = json.loads(file(root, HOSTED).read_text())
     policies = [x for x in historical['configurations'] if x['id'] == spec.id]
     if (len(policies) != 1 or policies[0]['continue_on_invalid_output'] is not spec.continue_invalid or
@@ -129,14 +155,29 @@ def _source_context(root, spec):
                 plan.get('request_timeout_seconds'), plan.get('continue_on_invalid_output'),
                 plan.get('partition_cap_usd'), plan.get('input_count'),
                 plan.get('request_unit')) != (
+                'openrouter-qwen27-repeat-plan-v1' if is_qwen else
                 'openrouter-paid-repeat-wave-plan-v1', spec.id, repeat,
                 spec.model, spec.provider, spec.effort, spec.timeout,
                 spec.continue_invalid, spec.cap, 60, 'single_record_fresh_context'):
             raise ValueError('Frozen plan identity differs')
+        if is_qwen and plan.get('per_call_reserve_usd') != preflight['per_call_reserve_usd']:
+            raise ValueError('Qwen plan reserve differs from public preflight')
         if plan.get('condition_order') != list(spec.orders[repeat]) or plan.get('historical_pass_order') != list(spec.historical_order):
             raise ValueError('Frozen condition rotation differs')
         for source in plan['source_bindings']:
             bind(source['path'], source['sha256'])
+        if is_qwen:
+            paths = {source['path'] for source in plan['source_bindings']}
+            required = {str(pair_path), str(HOSTED), str(qwen.PREFLIGHT),
+                        'results/repeatability-v1/coverage.json',
+                        'results/repeatability-v1/paid-wave-preflight-v1.json',
+                        'data/pilot/inputs.jsonl', 'schemas/judgments.schema.json',
+                        'scripts/openrouter_qwen27_repeat.py', 'scripts/openrouter_repeat_wave.py',
+                        'scripts/openrouter_paid_benchmark.py', 'scripts/paid_budget_partitions_v2.py',
+                        *(pair['conditions'][condition]['request_evidence']['file']
+                          for condition in CONDITIONS)}
+            if not required <= paths:
+                raise ValueError('Qwen plan omits a required frozen source')
         for condition in CONDITIONS:
             planned = plan['conditions'][condition]['development']
             if ([x['record_id'] for x in planned] != ids or
@@ -157,6 +198,9 @@ def _source_context(root, spec):
                         ('reasoning' in payload) != (spec.effort != 'na') or
                         payload.get('reasoning') != ({'enabled': spec.effort == 'on'} if spec.effort != 'na' else None)):
                     raise ValueError('Frozen request control differs')
+                if is_qwen and (set(payload) != set(controls['request_controls']) | {'messages'} or
+                                any(payload[key] != value for key, value in controls['request_controls'].items())):
+                    raise ValueError('Qwen request differs from historical controls')
         plans[repeat] = plan
     return ids, labels, pair, review, plans, bind, sources, base
 
@@ -525,7 +569,8 @@ def build_series(spec, root=ROOT):
 def build(root=ROOT):
     root = Path(root)
     return {'schema': 'hosted-repeat-series-v1',
-            'series': [legacy.build(root), *(build_series(spec, root) for spec in wave.SPECS.values())]}
+            'series': [legacy.build(root), *(build_series(spec, root) for spec in wave.SPECS.values()),
+                       build_series(qwen.SPEC, root)]}
 
 
 def main(argv=None):
