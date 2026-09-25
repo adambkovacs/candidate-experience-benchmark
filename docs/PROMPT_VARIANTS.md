@@ -95,6 +95,8 @@ Continue these checks for every development request and preserve every failure a
 
 This clarification preserves the user's existing experiment authorization, baseline-first order, frozen roster, counterbalanced condition schedule, smoke inspection, subscription restrictions and aggregate spending caps. It introduces no new data, model, paid fallback or prompt revision. Implementation of admission and schedule enforcement must be completed before P1/P2 inference.
 
+The official TypeSafe Jev Choice interface now has a separate [native instruction-sensitivity protocol](JEV_PROMPT_AND_TIMING_AUDIT.md). Its P1/P2 additions go into each Choice question's `instructions`; they are not generative system prompts. The original generative roster and prompt files remain separate from this native comparison.
+
 ## Execution support, September24
 
 Claude batch, Codex batch and paid OpenRouter controllers now support live P1/P2 admission. Default P0 requests are unchanged. New conditions require a hash-bound execution manifest, configuration ID and append-only schedule journal. Each actual request is checked against its recorded client payload and controls before inference. Development additionally requires a separate hash-bound smoke supplement with the inspection evidence; the original frozen manifest remains unchanged.

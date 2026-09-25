@@ -101,3 +101,16 @@ test('an experiment without an eligible audited report has no comparison panel',
   assert.equal(panel().hidden, true);
   assert.equal(panel().innerHTML, '');
 });
+
+test('native Jev comparison is shown separately without treating it as an eligible chat prompt pair', () => {
+  const {ui, panel} = fixture();
+  const native = {...report(), id: 'typesafe-jev113-v2', eligible: false,
+    comparisonLimit: 'Historical P0 and one pass per condition do not isolate time or stochastic effects.'};
+  ui.state.data = {promptComparisons: [], nativeInstructionComparisons: [native]};
+  ui.renderAuditedComparison('typesafe-jev113-v2');
+  assert.equal(panel().hidden, false);
+  assert.match(panel().innerHTML, /Jev instruction comparison/);
+  assert.match(panel().innerHTML, /native Choice questions, not chat system prompts/);
+  assert.match(panel().innerHTML, /Historical P0 and one pass/);
+  assert.match(panel().innerHTML, /58 \/ 60/);
+});

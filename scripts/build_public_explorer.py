@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import statistics
+from functools import lru_cache
 from datetime import datetime, timezone
 from decimal import Decimal
 from pathlib import Path
@@ -24,6 +25,41 @@ def digest(path):
 
 def number(value):
     return value if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value) and value >= 0 else None
+
+
+@lru_cache(maxsize=4)
+def read_generation_metadata(root, modified):
+    folder = Path(root) / 'results/generation-metadata-v1'
+    manifest = json.loads((folder / 'manifest.json').read_text())
+    saved = rows(folder / 'metadata.jsonl')
+    if len({row['id'] for row in saved}) != len(saved):
+        raise ValueError('Duplicate generation metadata')
+    return manifest, {row['id']: row['data'] for row in saved if row['status'] == 'ok'}
+
+
+def generation_metadata(paths, root):
+    folder = root / 'results/generation-metadata-v1'
+    saved_path = folder / 'metadata.jsonl'
+    if not saved_path.is_file() or not (folder / 'manifest.json').is_file():
+        return None
+    manifest, saved = read_generation_metadata(str(root), saved_path.stat().st_mtime_ns)
+    ids = set()
+    for name in paths:
+        source = manifest['sources'].get(str(name))
+        if source is None:
+            continue
+        if digest(root / name) != source['sha256']:
+            raise ValueError('Generation metadata source hash mismatch: ' + str(name))
+        ids.update(source['generation_ids'])
+    if not ids:
+        return None
+    milliseconds = [number(saved.get(ident, {}).get('generation_time')) for ident in ids]
+    measured = [value / 1000 for value in milliseconds if value is not None]
+    return {'providerGenerationSeconds': statistics.median(measured) if measured else None,
+            'providerGenerationReportedRequests': len(measured),
+            'providerGenerationTotalRequests': len(ids),
+            'providerGenerationBasis': 'Median OpenRouter generation_time, converted from milliseconds. Provider generation duration does not establish pure accelerator inference time. Batch durations cover the whole batch.',
+            'providerGenerationSource': 'https://openrouter.ai/docs/api/api-reference/generations/get-generation'}
 
 
 def tokens(config, root=ROOT):
@@ -59,7 +95,7 @@ def tokens(config, root=ROOT):
             for key, val in vals.items():
                 if val is not None:
                     totals[key] = (totals[key] or 0) + val
-    return {**totals, 'reportedRequests': reported, 'totalRequests': count,
+    return {**totals, '_providerGeneration': generation_metadata(paths, root), 'reportedRequests': reported, 'totalRequests': count,
             'complete': count > 0 and reported == count,
             'note': 'Development requests only; batch usage counted once. Cache and reasoning counts are separately reported provider fields, not additional totals. Missing usage is not zero.'}
 
@@ -1148,13 +1184,41 @@ def export(root=ROOT):
 
     pairs.extend(local_pair_reports(root, runs, reference_cases))
 
+    native_instructions = []
+    jev_report_path = root / 'results/jev-native-prompt-variants-v1/report.json'
+    if jev_report_path.is_file():
+        from build_jev_native_prompt_report_v1 import build as build_jev_report
+        report = json.loads(jev_report_path.read_text())
+        if report != build_jev_report(jev_report_path.parent):
+            raise ValueError('Native Jev report differs from validated evidence')
+        for run in report['public_runs']:
+            previous = next((old for old in runs if old['id'] == run['id']), {})
+            run = {**previous, **run, 'timing': {**previous.get('timing', {}), **run['timing']}}
+            run['nativeInstructionComparison'] = True
+            run['comparisonLimitation'] = report['comparison_limit']
+            runs = [old for old in runs if old['id'] != run['id']]
+            runs.append(run)
+        native_ids = {run['id'] for run in report['public_runs']}
+        cases = [case for case in cases if case['configuration'] not in native_ids]
+        cases.extend(report['public_cases'])
+        native_instructions.append({**report['public_pair'], 'comparisonLimit': report['comparison_limit']})
+        for entry in roster:
+            if entry['parentBaselineId'] == 'typesafe-jev113-v2':
+                entry['reason'] = 'Native P1 and P2 question-instruction runs completed in a separate Jev protocol. These are distinct from chat system prompts.'
+
     ids = [run['id'] for run in runs]
     if len(ids) != len(set(ids)):
         raise ValueError('Duplicate public run IDs')
     for run in runs:
+        # Saved elapsed_seconds measures the client request, including transport
+        # and sometimes bookkeeping. It cannot establish server inference time.
+        run['timing'].update(run['tokens'].pop('_providerGeneration', None) or {})
+        run['timing'].setdefault('inferenceSeconds', None)
+        run['timing'].setdefault('inferenceBasis', 'No verified provider inference duration in this export.')
+        run['timing'].setdefault('inferenceReportedRequests', 0)
         if run['experimentId'] != (run['parentBaselineId'] or run['id']):
             raise ValueError('Public experiment must identify one configuration')
-    return {'nativeComparisons': native, 'generatedAt': datetime.now(timezone.utc).isoformat(),
+    return {'nativeComparisons': native, 'nativeInstructionComparisons': native_instructions, 'generatedAt': datetime.now(timezone.utc).isoformat(),
             'denominator': 60,
             'referenceNote': '60 synthetic development records. References drafted and reviewed by the same AI assistant; no independent human adjudication. Agreement is descriptive, not real-world hiring accuracy.',
             'runs': runs, 'cases': cases, 'promptComparisons': pairs, 'roster': roster}
