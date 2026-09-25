@@ -193,7 +193,7 @@ Serialize local GPU inference and model loads. Route planning checks hosted avai
 
 ## Money and quota accounting
 
-Keep one atomic budget per authorization scope. The current OpenRouter $5 and TypeSafe $1 are separate lifetime caps for the authorized work, including previous spending. Subscription access is a separate policy with paid overage disabled. No part of this proposal raises those limits.
+Keep one atomic budget per authorization scope. The current OpenRouter $10 and TypeSafe $1 are separate lifetime caps for the authorized work, including previous spending. Subscription access is a separate policy with paid overage disabled. No part of this proposal raises those limits.
 
 Before sending, a transaction checks:
 
@@ -208,7 +208,7 @@ Store authorization ID, price source/date, currency and conversion assumptions w
 
 Settlement replaces the in-flight reserve once. A timeout or missing usage does not settle to zero. Move the full reserve to an unresolved hold until reconciled; a later observed charge releases only the proven unused amount. A conservative upper-bound accounting event is separate from actual billed cost. Repeated settlement callbacks must be idempotent.
 
-Prefer a shared transaction over permanently dividing the $5 into many tiny lane caps. Optional lane envelopes can prevent starvation, but are allocations, not charges, and unused capacity returns safely. Track subscriptions through observable quota and cooldown fields, without inventing dollar cost. API-equivalent cost can appear only as a separately labeled estimate, never as actual subscription spending.
+Prefer a shared transaction over permanently dividing the $10 into many tiny lane caps. Optional lane envelopes can prevent starvation, but are allocations, not charges, and unused capacity returns safely. Track subscriptions through observable quota and cooldown fields, without inventing dollar cost. API-equivalent cost can appear only as a separately labeled estimate, never as actual subscription spending.
 
 ## Versioning, evaluation and reports
 

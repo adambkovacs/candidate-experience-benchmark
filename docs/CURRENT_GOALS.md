@@ -22,7 +22,7 @@ Use deterministic code for bookkeeping and cheaper agents for suitable bounded w
 - Reference review: one proposed correction for DEV-006; DEV-013/030 sentiment still needs human adjudication. Original labels and published chart scores remain intact.
 - Repeat study: P0/P1/P2 repeats are now requested. No second or third full passes have been executed. Matrix eligibility and budget admission are pending. The [budget preflight](REPEAT_BUDGET_PREFLIGHT.md) shows the complete paid repeat set exceeds remaining OpenRouter headroom.
 - Standalone repository: private `AI-Enablement-Academy/classification-bench`, initial offline planner/evaluator/repeat-metric core implemented and tested. Live execution, budgets/resume and report UI remain planned.
-- App goal: inspected as blocked with stale free-only/Gemini-subscription instructions. The exposed goal API cannot change an existing objective or resume it. Replace that text in the app with the text above; repository guidance is updated now.
+- App goal: rechecked active on 2026-09-25 after the user supplied this direction through an attached objective file. The earlier stale, blocked goal has been replaced. Work continues against that full objective.
 
 ## Completion boundaries
 
