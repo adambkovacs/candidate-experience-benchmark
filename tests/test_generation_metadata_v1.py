@@ -30,14 +30,14 @@ class GenerationMetadataTests(unittest.TestCase):
     def test_hash_bound_median_deduplicates_and_preserves_missing(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory); folder=root/'results/generation-metadata-v1';folder.mkdir(parents=True)
-            source=root/'results/attempts.jsonl';source.write_text('{}\n')
+            source=root/'results/attempts.jsonl';source.write_text(json.dumps({'raw_response':{'id':'gen-a'}})+'\n'+json.dumps({'raw_response':{'id':'gen-b'}})+'\n'+json.dumps({'attempt_id':'failed','status':'service_error'})+'\n')
             binding={'sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'generation_ids':['gen-a','gen-b','gen-a']}
             (folder/'manifest.json').write_text(json.dumps({'sources':{'results/attempts.jsonl':binding}}))
             (folder/'metadata.jsonl').write_text(json.dumps({'id':'gen-a','status':'ok','data':{'generation_time':1200}})+'\n'+json.dumps({'id':'gen-b','status':'unavailable'})+'\n')
             result=generation_metadata(['results/attempts.jsonl'],root)
             self.assertEqual(result['providerGenerationSeconds'],1.2)
             self.assertEqual(result['providerGenerationReportedRequests'],1)
-            self.assertEqual(result['providerGenerationTotalRequests'],2)
+            self.assertEqual(result['providerGenerationTotalRequests'],3)
             source.write_text('changed\n')
             with self.assertRaises(ValueError):generation_metadata(['results/attempts.jsonl'],root)
 

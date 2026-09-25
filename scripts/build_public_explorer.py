@@ -44,6 +44,7 @@ def generation_metadata(paths, root):
         return None
     manifest, saved = read_generation_metadata(str(root), saved_path.stat().st_mtime_ns)
     ids = set()
+    missing = set()
     for name in paths:
         source = manifest['sources'].get(str(name))
         if source is None:
@@ -51,13 +52,16 @@ def generation_metadata(paths, root):
         if digest(root / name) != source['sha256']:
             raise ValueError('Generation metadata source hash mismatch: ' + str(name))
         ids.update(source['generation_ids'])
+        for attempt in rows(root / name):
+            if not (attempt.get('raw_response') or {}).get('id'):
+                missing.add(attempt.get('attempt_id') or attempt.get('budget_attempt_id') or hashlib.sha256(json.dumps(attempt, sort_keys=True).encode()).hexdigest())
     if not ids:
         return None
     milliseconds = [number(saved.get(ident, {}).get('generation_time')) for ident in ids]
     measured = [value / 1000 for value in milliseconds if value is not None]
     return {'providerGenerationSeconds': statistics.median(measured) if measured else None,
             'providerGenerationReportedRequests': len(measured),
-            'providerGenerationTotalRequests': len(ids),
+            'providerGenerationTotalRequests': len(ids) + len(missing),
             'providerGenerationBasis': 'Median OpenRouter generation_time, converted from milliseconds. Provider generation duration does not establish pure accelerator inference time. Batch durations cover the whole batch.',
             'providerGenerationSource': 'https://openrouter.ai/docs/api/api-reference/generations/get-generation'}
 
