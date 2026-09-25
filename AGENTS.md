@@ -17,7 +17,7 @@ Follow the user's latest instructions over older plans. Benchmark model settings
 ## Benchmark invariants
 
 - Use only the existing 60 development records until the user authorizes more. Keep references out of inference requests and score offline.
-- Prefer paid OpenRouter for non-Claude/non-GPT hosted models within the approved aggregate $10 cap. TypeSafe has a separate $1 cap. Existing subscriptions serve Claude, Codex, and Gemini; never enable paid subscription overage or redeem credits.
+- Prefer paid OpenRouter for non-Claude/non-GPT hosted models within the approved aggregate $10 cap. TypeSafe has a separate $1 cap. Existing subscriptions serve Claude and Codex. The user also authorized Gemini through OpenRouter on 2026-09-25 within the same aggregate $10 cap; record it as a separate hosted configuration from Antigravity. Never enable paid subscription overage or redeem credits.
 - Use local execution only when the required model or native specialist interface has no suitable hosted route. Before launching a pending local generic model, verify hosted availability and document why local execution is necessary. Existing local baselines do not authorize redundant local prompt reruns.
 - Do not resume the cancelled DeepSeek R1 Distill download. Preserve its partial artifacts and historical evidence.
 - Preserve every attempt, unknown-cost reservation, intrinsic output failure, and provider failure. Never silently repair results, substitute models, or rerun completed configurations.
