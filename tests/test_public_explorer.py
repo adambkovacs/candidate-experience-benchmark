@@ -1,8 +1,131 @@
 import json,sys,tempfile,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from build_public_explorer import tokens,export,surface,local_suffix_run,local_condition_runs,local_pair_reports,score_saved,metric
+from build_public_explorer import tokens,export,surface,local_suffix_run,local_condition_runs,local_pair_reports,qwen06_sdk_runs,amended_roster,score_saved,metric
 class PublicExportTests(unittest.TestCase):
+ def test_qwen06_sdk_export_requires_sealed_sources_and_preserves_invalid_output(self):
+  import hashlib
+  with tempfile.TemporaryDirectory() as temp:
+   root=Path(temp);folder=root/'results/qwen06-prompt-exact-v1';folder.mkdir(parents=True)
+   (root/'scripts').mkdir();(root/'prompts').mkdir();(root/'data/pilot').mkdir(parents=True)
+   (root/'scripts/qwen06_prompt_execution.cjs').write_text('frozen controller\n')
+   (root/'scripts/development_benchmark.py').write_text('frozen scorer\n')
+   (root/'prompts/base.txt').write_text('frozen prompt\n')
+   sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
+   truth={'sentiment':'positive','follow_up_needed':'no',
+          'serious_concern_reported':'no','testimonial_potential':'no'}
+   refs=[{'id':f'DEV-{i:03}','proposed_labels':truth} for i in range(1,61)]
+   (root/'data/pilot/proposed_labels.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in refs))
+   (root/'data/pilot/pairs.json').write_text('[]\n')
+   names=['thinking-on-P2','thinking-on-P1','thinking-off-P1','thinking-off-P2']
+   controller_sha=sha(root/'scripts/qwen06_prompt_execution.cjs')
+   manifest={'version':'qwen06-prompt-exact-v1','conditions':names,
+             'record_ids':[r['id'] for r in refs],
+             'controller_sha256':controller_sha,
+             'source_sha256':{'prompts/base.txt':sha(root/'prompts/base.txt')},
+             'model':{'identifier':'synthetic-model','path':'synthetic/model.gguf'},
+             'runtime':{'selected_engine':'synthetic-engine'}}
+   manifest_path=folder/'manifest.json';manifest_path.write_text(json.dumps(manifest))
+   manifest_sha=sha(manifest_path)
+   preflight_path=folder/'preflight.json'
+   preflight_path.write_text(json.dumps({'manifest_sha256':manifest_sha,'controller_sha256':controller_sha}))
+   preflight_sha=sha(preflight_path)
+   references={r['id']:{'feedback':'synthetic feedback','reference':truth} for r in refs}
+   baseline={f'qwen3-0.6b-sdk-thinking-{mode}':{'model':'Synthetic Qwen','effort':mode,
+                                                'surface':'Local / specialist'} for mode in ('on','off')}
+   for name in names:
+    condition_folder=folder/name;condition_folder.mkdir()
+    output_path=condition_folder/'development.jsonl'
+    journal_path=condition_folder/'development.attempts.jsonl'
+    lines=[];events=[];normalized=[]
+    for index,ref in enumerate(refs):
+     ident=ref['id'];attempt=f'attempt-{index}';request={'messages':[{'role':'user','content':'Synthetic input'}]}
+     request_sha=hashlib.sha256(json.dumps(request,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+     status='invalid_output' if name=='thinking-off-P2' and index==0 else 'ok'
+     prediction=truth if status=='ok' else None
+     row={'id':ident,'condition':name,'phase':'development','attempt_id':attempt,
+          'manifest_sha256':manifest_sha,'preflight_sha256':preflight_sha,
+          'controller_sha256':controller_sha,'reference_labels_read':False,
+          'model_identifier':'synthetic-model','model_path':'synthetic/model.gguf',
+          'runtime_attestation':{'selected_engine':'synthetic-engine'},
+          'request':request,'request_sha256':request_sha,
+          'decision':{'status':status,'prediction':prediction},
+          'stats':{'promptTokensCount':10,'predictedTokensCount':2},'elapsed_seconds':1.0}
+     raw=json.dumps(row,separators=(',',':')).encode();lines.append(raw+b'\n')
+     events.extend([{'event':'started','id':ident,'attempt_id':attempt,'request_sha256':request_sha},
+                    {'event':'finished','id':ident,'attempt_id':attempt,'status':status,
+                     'output_sha256':hashlib.sha256(raw).hexdigest()}])
+     normalized.append({'id':ident,'status':status,'prediction':prediction})
+    output_path.write_bytes(b''.join(lines))
+    journal_path.write_text(''.join(json.dumps(e)+'\n' for e in events))
+    terminal_path=condition_folder/'development.terminal.json'
+    terminal={'condition':name,'phase':'development','status':'completed','ambiguous_timeout':False,
+              'requested_records':60,'claimed_attempts':60,'finished_attempts':60,'saved_rows':60,
+              'manifest_sha256':manifest_sha,'preflight_sha256':preflight_sha,
+              'controller_sha256':controller_sha,'output_sha256':sha(output_path),
+              'journal_sha256':sha(journal_path),'runtime_attestation':{'selected_engine':'synthetic-engine'},
+              'ok_rows':sum(x['status']=='ok' for x in normalized),
+              'invalid_output_rows':sum(x['status']!='ok' for x in normalized)}
+    terminal_path.write_text(json.dumps(terminal))
+    score,all_four=score_saved(normalized,root)
+    sources={'development.jsonl':output_path,'development.attempts.jsonl':journal_path,
+             'development.terminal.json':terminal_path,
+             'data/pilot/proposed_labels.jsonl':root/'data/pilot/proposed_labels.jsonl',
+             'data/pilot/pairs.json':root/'data/pilot/pairs.json',
+             'scripts/development_benchmark.py':root/'scripts/development_benchmark.py'}
+    evaluation={'version':'qwen06-prompt-development-evaluation-v1','condition':name,
+                'terminal_status':'completed','reference_labels_read_offline_after_inference':True,
+                'reference_labels_sent_to_model':False,
+                'source_sha256':{key:sha(path) for key,path in sources.items()},
+                'records':60,'valid_outputs':score['valid_outputs'],
+                'invalid_output_ids':[x['id'] for x in normalized if x['status']!='ok'],
+                'all_four_correct':all_four,
+                'per_field_correct':{key:score['metrics'][key]['correct'] for key in truth},
+                'score':score,'sum_record_elapsed_seconds':60.0,
+                'total_prompt_tokens':600,'total_predicted_tokens':120}
+    (condition_folder/'development-evaluation.json').write_text(json.dumps(evaluation))
+   views=qwen06_sdk_runs(root,baseline,references)
+   self.assertEqual(len(views),4)
+   off_p2=next((run,cases) for run,cases in views if run['id']=='qwen3-0.6b-sdk-thinking-off--p2')
+   self.assertEqual((off_p2[0]['records'],off_p2[0]['valid'],off_p2[0]['metrics']['all_four']),(60,59,59))
+   self.assertEqual(next(case for case in off_p2[1] if case['id']=='DEV-001')['status'],'invalid_output')
+   self.assertFalse(off_p2[0]['pairedEligible'])
+   self.assertFalse(off_p2[0]['timing']['comparableHosted'])
+   self.assertIsNone(off_p2[0]['cost']['actualUsd'])
+   output=folder/'thinking-on-P1/development.jsonl';original=output.read_bytes()
+   output.write_bytes(original+b'\n')
+   with self.assertRaises(ValueError):qwen06_sdk_runs(root,baseline,references)
+   output.write_bytes(original)
+   missing=folder/'thinking-on-P1/development.terminal.json';original=missing.read_bytes();missing.unlink()
+   self.assertEqual(len(qwen06_sdk_runs(root,baseline,references)),3)
+   missing.write_bytes(original)
+   evaluation=folder/'thinking-on-P1/development-evaluation.json'
+   altered=json.loads(evaluation.read_text());altered['valid_outputs']+=1;evaluation.write_text(json.dumps(altered))
+   with self.assertRaises(ValueError):qwen06_sdk_runs(root,baseline,references)
+
+ def test_hosted_first_amendment_is_additive_and_requires_separate_hosted_evidence(self):
+  import copy,hashlib
+  with tempfile.TemporaryDirectory() as temp:
+   root=Path(temp);phase=root/'results/prompt-comparison-v1-2026-09-24';phase.mkdir(parents=True)
+   template=json.loads((Path(__file__).resolve().parents[1]/'results/prompt-comparison-v1-2026-09-24/roster-amendment-hosted-first-v1.json').read_text())
+   entries=[{'id':c['local_configuration_id'],'parent_baseline_id':c['local_configuration_id'],
+             'state':'scheduled','reason':'Frozen scheduled'} for c in template['changes']]
+   roster_path=phase/'roster.json';roster_path.write_text(json.dumps({'entries':entries}))
+   amendment=copy.deepcopy(template)
+   amendment['frozen_roster_sha256']=hashlib.sha256(roster_path.read_bytes()).hexdigest()
+   runs=[]
+   for change in amendment['changes']:
+    for suffix in ('','--p1','--p2'):runs.append({'id':change['hosted_configuration_id']+suffix})
+    for name in change['hosted_evidence']:
+     path=root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('saved evidence')
+   amendment_path=phase/'roster-amendment-hosted-first-v1.json'
+   amendment_path.write_text(json.dumps(amendment))
+   updated=amended_roster(root,entries,runs)
+   self.assertTrue(all(x['state']=='excluded' and x['hosted_configuration_id'] for x in updated))
+   self.assertTrue(all(x['state']=='scheduled' for x in entries))
+   with self.assertRaises(ValueError):amended_roster(root,entries,runs[:-1])
+   roster_path.write_text('{}')
+   with self.assertRaises(ValueError):amended_roster(root,entries,runs)
  def test_local_pair_report_requires_exact_offline_audit_and_matching_runs(self):
   import copy,hashlib
   import evaluate_local_prompt_pairs_v1 as audit
@@ -259,20 +382,22 @@ class PublicExportTests(unittest.TestCase):
   off=runs['openrouter-paid-qwen36-35b-a3b-off--p2']
   on=runs['openrouter-paid-qwen36-35b-a3b-on--p2']
   self.assertEqual((off['records'],off['valid'],off['neverSent']),(60,59,0))
-  v2=Path(__file__).resolve().parents[1]/'results/hosted-final-suffix-reconciled-v2/qwen36-on-p2.json'
-  expected=(40,37,20,3) if v2.is_file() else (39,37,21,2)
+  root=Path(__file__).resolve().parents[1]
+  v2=root/'results/hosted-final-suffix-reconciled-v2/qwen36-on-p2.json'
+  v3=root/'results/hosted-final-suffix-reconciled-v3/qwen36-on-p2.json'
+  expected=(41,37,19,4) if v3.is_file() else ((40,37,20,3) if v2.is_file() else (39,37,21,2))
   self.assertEqual((on['records'],on['valid'],on['neverSent'],on['statusCounts']['service_error']),expected)
   self.assertFalse(on['complete'])
   self.assertTrue(off['complete'])
   self.assertFalse(on['pairedEligible'])
   self.assertAlmostEqual(on['cost']['knownUsd'],0.0417374)
-  self.assertEqual(on['cost']['unknownUpperBoundUsd'],'0.0897024' if v2.is_file() else '0.0598016')
-  if v2.is_file():
-   self.assertEqual(on['protocolId'],'hosted-final-suffix-v2')
-   self.assertEqual(len(on['sourceViews']),2)
+  self.assertEqual(on['cost']['unknownUpperBoundUsd'],'0.1196032' if v3.is_file() else ('0.0897024' if v2.is_file() else '0.0598016'))
+  if v2.is_file() or v3.is_file():
+   self.assertEqual(on['protocolId'],'hosted-final-suffix-v3' if v3.is_file() else 'hosted-final-suffix-v2')
+   self.assertEqual(len(on['sourceViews']),3 if v3.is_file() else 2)
    dev040=next(c for c in x['cases'] if c['configuration']==on['id'] and c['id']=='DEV-040')
    self.assertEqual(dev040['status'],'service_error')
-   self.assertEqual(next(c for c in x['cases'] if c['configuration']==on['id'] and c['id']=='DEV-041')['status'],'missing')
+   self.assertEqual(next(c for c in x['cases'] if c['configuration']==on['id'] and c['id']=='DEV-041')['status'],'service_error' if v3.is_file() else 'missing')
   self.assertTrue(all(r['sourceViews'] for r in (off,on)))
  def test_qwen8_on_p2_requires_sealed_reconciliation_and_keeps_dev027_ambiguous(self):
   x=export();runs={r['id']:r for r in x['runs']}

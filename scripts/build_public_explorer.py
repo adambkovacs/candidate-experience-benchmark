@@ -18,6 +18,10 @@ def rows(path):
     return [json.loads(x) for x in path.read_text().splitlines() if x.strip()]
 
 
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def number(value):
     return value if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value) and value >= 0 else None
 
@@ -304,6 +308,163 @@ def local_condition_runs(root, baseline, reference_cases):
         run['cost']['note'] = resource['cost_note']
         result.append((run, cases_for(run['id'], public_predictions, reference_cases)))
     return result
+
+
+def qwen06_sdk_runs(root, baseline, reference_cases):
+    """Publish sealed Qwen 0.6B SDK variants from their frozen, scored sources."""
+    folder = root / 'results/qwen06-prompt-exact-v1'
+    manifest_path = folder / 'manifest.json'
+    if not manifest_path.is_file():
+        return []
+    manifest = json.loads(manifest_path.read_text())
+    conditions = ('thinking-on-P2', 'thinking-on-P1', 'thinking-off-P1', 'thinking-off-P2')
+    if manifest.get('version') != 'qwen06-prompt-exact-v1' or manifest.get('conditions') != list(conditions):
+        raise ValueError('Unsupported Qwen06 SDK prompt manifest')
+    manifest_sha = digest(manifest_path)
+    controller_sha = digest(root / 'scripts/qwen06_prompt_execution.cjs')
+    preflight_path = folder / 'preflight.json'
+    preflight_sha = digest(preflight_path)
+    preflight = json.loads(preflight_path.read_text())
+    if (manifest.get('controller_sha256') != controller_sha or
+        preflight.get('manifest_sha256') != manifest_sha or
+        preflight.get('controller_sha256') != controller_sha):
+        raise ValueError('Qwen06 SDK frozen controller or preflight mismatch')
+    for relative, expected in manifest['source_sha256'].items():
+        source = root / relative
+        if not source.is_file() or digest(source) != expected:
+            raise ValueError('Qwen06 SDK frozen source mismatch: ' + relative)
+    expected_ids = [f'DEV-{index:03}' for index in range(1, 61)]
+    if manifest['record_ids'] != expected_ids:
+        raise ValueError('Qwen06 SDK canonical record IDs differ')
+    result = []
+    for name in conditions:
+        condition_folder = folder / name
+        terminal_path = condition_folder / 'development.terminal.json'
+        if not terminal_path.is_file():
+            continue  # An open or unstarted condition has no public development score.
+        terminal = json.loads(terminal_path.read_text())
+        if (terminal.get('condition') != name or terminal.get('phase') != 'development' or
+            terminal.get('status') != 'completed' or terminal.get('ambiguous_timeout') is not False or
+            any(terminal.get(key) != 60 for key in ('requested_records','claimed_attempts',
+                                                  'finished_attempts','saved_rows')) or
+            terminal.get('manifest_sha256') != manifest_sha or
+            terminal.get('preflight_sha256') != preflight_sha or
+            terminal.get('controller_sha256') != controller_sha):
+            raise ValueError('Qwen06 SDK development terminal is not complete and bound: ' + name)
+        output_path = condition_folder / 'development.jsonl'
+        journal_path = condition_folder / 'development.attempts.jsonl'
+        evaluation_path = condition_folder / 'development-evaluation.json'
+        output_sha, journal_sha = digest(output_path), digest(journal_path)
+        if terminal['output_sha256'] != output_sha or terminal['journal_sha256'] != journal_sha:
+            raise ValueError('Qwen06 SDK terminal output or journal hash mismatch: ' + name)
+        evaluation = json.loads(evaluation_path.read_text())
+        if (evaluation.get('version') != 'qwen06-prompt-development-evaluation-v1' or
+            evaluation.get('condition') != name or evaluation.get('terminal_status') != 'completed' or
+            evaluation.get('reference_labels_read_offline_after_inference') is not True or
+            evaluation.get('reference_labels_sent_to_model') is not False):
+            raise ValueError('Qwen06 SDK offline evaluation metadata mismatch: ' + name)
+        required_sources = {'development.jsonl','development.attempts.jsonl','development.terminal.json',
+                            'data/pilot/proposed_labels.jsonl','data/pilot/pairs.json',
+                            'scripts/development_benchmark.py'}
+        if not required_sources <= set(evaluation['source_sha256']):
+            raise ValueError('Qwen06 SDK offline evaluation lacks source bindings: ' + name)
+        for relative, expected in evaluation['source_sha256'].items():
+            source = condition_folder / relative if '/' not in relative else root / relative
+            if not source.is_file() or digest(source) != expected:
+                raise ValueError('Qwen06 SDK evaluation source mismatch: ' + relative)
+        raw_lines = [line for line in output_path.read_bytes().splitlines() if line.strip()]
+        saved = [json.loads(line) for line in raw_lines]
+        journal = rows(journal_path)
+        if len(saved) != 60 or len(journal) != 120 or [row['id'] for row in saved] != expected_ids:
+            raise ValueError('Qwen06 SDK saved coverage or journal length mismatch: ' + name)
+        normalized = []
+        for index, (row, raw) in enumerate(zip(saved, raw_lines)):
+            started, finished = journal[2*index:2*index+2]
+            request_sha = hashlib.sha256(json.dumps(row['request'], ensure_ascii=False,
+                                                  separators=(',', ':')).encode()).hexdigest()
+            if (row.get('condition') != name or row.get('phase') != 'development' or
+                row.get('manifest_sha256') != manifest_sha or row.get('preflight_sha256') != preflight_sha or
+                row.get('controller_sha256') != controller_sha or row.get('reference_labels_read') is not False or
+                row.get('model_identifier') != manifest['model']['identifier'] or
+                row.get('model_path') != manifest['model']['path'] or
+                row.get('runtime_attestation') != terminal['runtime_attestation'] or
+                row['runtime_attestation'].get('selected_engine') != manifest['runtime']['selected_engine'] or
+                row.get('request_sha256') != request_sha or
+                started.get('event') != 'started' or finished.get('event') != 'finished' or
+                any(event.get('id') != row['id'] or event.get('attempt_id') != row['attempt_id']
+                    for event in (started, finished)) or
+                started.get('request_sha256') != request_sha or
+                finished.get('status') != row['decision']['status'] or
+                finished.get('output_sha256') != hashlib.sha256(raw).hexdigest()):
+                raise ValueError('Qwen06 SDK row and attempt journal mismatch: ' + name)
+            normalized.append({'id': row['id'], 'status': row['decision']['status'],
+                               'prediction': row['decision'].get('prediction')})
+        checked, all_four = score_saved(normalized, root)
+        invalid = [row['id'] for row in normalized if row['status'] != 'ok']
+        if (checked != evaluation['score'] or all_four != evaluation['all_four_correct'] or
+            evaluation['records'] != 60 or evaluation['valid_outputs'] != checked['valid_outputs'] or
+            evaluation['invalid_output_ids'] != invalid or
+            terminal['ok_rows'] != checked['valid_outputs'] or
+            terminal['invalid_output_rows'] != len(invalid) or
+            any(evaluation['per_field_correct'][key] != checked['metrics'][key]['correct'] for key in FIELDS)):
+            raise ValueError('Qwen06 SDK offline score differs from saved evidence: ' + name)
+        parent = 'qwen3-0.6b-sdk-thinking-' + ('on' if 'thinking-on' in name else 'off')
+        variant = name[-2:]
+        if parent not in baseline:
+            raise ValueError('Qwen06 SDK baseline is missing: ' + parent)
+        run = phase_run(parent, variant, checked, all_four, output_path.relative_to(root), root,
+                        baseline, predictions=normalized, experiment='qwen06-prompt-exact-v1')
+        elapsed = [number(row.get('elapsed_seconds')) for row in saved]
+        prompt_tokens = [number((row.get('stats') or {}).get('promptTokensCount')) for row in saved]
+        output_tokens = [number((row.get('stats') or {}).get('predictedTokensCount')) for row in saved]
+        if (None in elapsed or None in prompt_tokens or None in output_tokens or
+            abs(sum(elapsed) - evaluation['sum_record_elapsed_seconds']) > 1e-6 or
+            sum(prompt_tokens) != evaluation['total_prompt_tokens'] or
+            sum(output_tokens) != evaluation['total_predicted_tokens']):
+            raise ValueError('Qwen06 SDK resource totals differ: ' + name)
+        run['timing'].update({'totalSeconds': sum(elapsed), 'medianSeconds': statistics.median(elapsed),
+                              'p95Seconds': sorted(elapsed)[math.ceil(.95*60)-1], 'requests': 60,
+                              'complete': True, 'comparableHosted': False,
+                              'note': 'Local device prediction time; diagnostic, not hosted-comparable.'})
+        run['tokens'].update({'input': sum(prompt_tokens), 'output': sum(output_tokens),
+                              'reportedRequests': 60, 'totalRequests': 60, 'complete': True})
+        run['cost']['note'] = 'Local execution; no provider bill. Device costs unmeasured.'
+        run['resultStatus'] = 'terminal completed; intrinsic invalid outputs retained'
+        result.append((run, cases_for(run['id'], normalized, reference_cases)))
+    return result
+
+
+def amended_roster(root, entries, runs):
+    """Apply a documented future-local disposition without changing the frozen roster."""
+    path = root / PHASE / 'roster-amendment-hosted-first-v1.json'
+    if not path.is_file():
+        return entries
+    amendment = json.loads(path.read_text())
+    frozen_path = root / PHASE / 'roster.json'
+    if (amendment.get('version') != 'prompt-roster-hosted-first-amendment-v1' or
+        amendment.get('frozen_roster_file') != str(PHASE / 'roster.json') or
+        amendment.get('frozen_roster_sha256') != digest(frozen_path)):
+        raise ValueError('Hosted-first roster amendment is not bound to frozen roster')
+    expected = {'qwen3-8b-sdk-thinking-on':'openrouter-qwen3-8b-on-json-object-p0',
+                'qwen3-8b-sdk-thinking-off':'openrouter-qwen3-8b-off-json-object-p0',
+                'qwen3.8-27b-sdk-thinking-low':'openrouter-qwen27-low-darkbloom-fp4'}
+    changes = amendment['changes']
+    if {item['local_configuration_id']: item['hosted_configuration_id'] for item in changes} != expected or len(changes) != 3:
+        raise ValueError('Hosted-first amendment does not name the exact separate configurations')
+    by_id = {item['id']: item for item in entries}
+    run_ids = {item['id'] for item in runs}
+    for change in changes:
+        local, hosted = change['local_configuration_id'], change['hosted_configuration_id']
+        if (change['conditions'] != ['P1','P2'] or change['disposition'] != 'excluded' or
+            local not in by_id or by_id[local]['state'] != 'scheduled' or
+            not all(hosted + suffix in run_ids for suffix in ('','--p1','--p2')) or
+            not all((root / source).is_file() for source in change['hosted_evidence'])):
+            raise ValueError('Hosted-first amendment evidence or original state mismatch: ' + local)
+        by_id[local] = {**by_id[local], 'state':'excluded',
+                        'reason':'Future local prompt requests excluded under hosted-first direction. '
+                                 'The separate hosted configuration is not runtime or quantization equivalent.',
+                        'hosted_configuration_id': hosted}
+    return list(by_id.values())
 
 
 def local_pair_reports(root, runs, reference_cases):
@@ -612,6 +773,12 @@ def export(root=ROOT):
         runs.append(run)
         cases.extend(local_cases)
 
+    for run, local_cases in qwen06_sdk_runs(root, baseline, reference_cases):
+        if run['id'] in {item['id'] for item in runs}:
+            raise ValueError('Qwen06 SDK condition duplicates an existing public run')
+        runs.append(run)
+        cases.extend(local_cases)
+
     # Original Qwen3.6 P0 baselines were completed before the bounded prompt
     # recovery and are separate evidence from its P1/P2 runs.
     for mode in ('on', 'off'):
@@ -912,8 +1079,57 @@ def export(root=ROOT):
         run['statusCounts'] = report['status_counts']
         replace_with_reconciliation(run, predictions, source_paths + [Path(sources['prior_report']['file'])])
 
+    # A third sealed, never-sent-only suffix supersedes the v2 DEV-040 failure view.
+    v3_report_path = root / 'results/hosted-final-suffix-reconciled-v3/qwen36-on-p2.json'
+    if v3_report_path.is_file():
+        from build_qwen36_on_p2_v3_reconciliation import reconcile as reconcile_v3
+        report = json.loads(v3_report_path.read_text())
+        sources = report['sources']
+        recomputed = reconcile_v3(root, root / sources['budget']['manifest']['file'],
+                                  sources['budget']['partition_id'], root / sources['review']['file'])
+        if report != recomputed:
+            raise ValueError('Qwen36 final20 report differs from sealed offline reconciliation')
+        if (report.get('contract') != 'qwen36-on-p2-final20-reconciliation-v3' or
+            report.get('configuration_id') != 'openrouter-paid-qwen36-35b-a3b-on' or
+            report.get('condition') != 'P2' or report.get('eligible_paired_comparison') is not False):
+            raise ValueError('Unsupported Qwen36 final20 report')
+        source_paths = [Path(sources[key]['file']) for key in
+                        ('original', 'suffix_v1', 'suffix_v2', 'suffix_v3')]
+        predictions = [row for path in source_paths for row in rows(root / path)]
+        evaluation, all_four = score_saved(predictions, root)
+        if (len(predictions) != report['attempted'] or
+            [row['id'] for row in predictions] != [f'DEV-{i:03}' for i in range(1, 42)] or
+            evaluation != report['evaluation'] or
+            evaluation['valid_outputs'] != report['valid_outputs'] or
+            all_four != report['all_four_correct'] or
+            report['never_sent_ids'] != [f'DEV-{i:03}' for i in range(42, 61)]):
+            raise ValueError('Qwen36 final20 public score or coverage differs')
+        run = phase_run(report['configuration_id'], 'P2', evaluation, all_four,
+                        v3_report_path.relative_to(root), root, baseline,
+                        predictions=predictions, experiment='hosted-final-suffix-v3')
+        run['tokens'] = tokens({'attempt_files': [str(path) for path in source_paths]}, root)
+        elapsed = [number(row.get('elapsed_seconds')) for row in predictions]
+        known_elapsed = [value for value in elapsed if value is not None]
+        run['timing'].update({'totalSeconds': report['timing']['sum_reported_attempt_seconds'],
+                              'medianSeconds': statistics.median(known_elapsed) if len(known_elapsed) == len(predictions) else None,
+                              'p95Seconds': sorted(known_elapsed)[math.ceil(.95*len(known_elapsed))-1] if len(known_elapsed) == len(predictions) else None,
+                              'kind': 'record', 'requests': len(predictions),
+                              'complete': len(known_elapsed) == len(predictions), 'comparableHosted': True,
+                              'note': 'Per-request development elapsed only; original counterbalanced schedule was not preserved.'})
+        cost = report['cost']
+        run['cost'].update({'actualUsd': float(cost['actual_total_usd']) if cost['actual_total_usd'] is not None else None,
+                            'knownUsd': float(cost['known_observed_usd']),
+                            'unknownUpperBoundUsd': cost['unknown_reserved_upper_bound_usd'],
+                            'availability': 'complete' if cost['actual_total_usd'] is not None else 'partial',
+                            'note': cost['note']})
+        run['neverSent'] = report['never_sent_count']
+        run['neverSentIds'] = report['never_sent_ids']
+        run['statusCounts'] = report['status_counts']
+        replace_with_reconciliation(run, predictions, source_paths + [Path(sources['prior_report']['file'])])
+
     roster = []
-    for entry in json.loads((phase_dir / 'roster.json').read_text())['entries']:
+    roster_entries = amended_roster(root, json.loads((phase_dir / 'roster.json').read_text())['entries'], runs)
+    for entry in roster_entries:
         raw_reason = entry['reason'].lower()
         if 'native decision method' in raw_reason or 'deterministic rule' in raw_reason:
             reason = 'Prompt variants are not applicable to this native decision method.'
@@ -926,7 +1142,9 @@ def export(root=ROOT):
         else:
             reason = 'Outside the paired prompt comparison scope.'
         roster.append({'id': entry['id'], 'parentBaselineId': entry['parent_baseline_id'],
-                       'disposition': entry['state'], 'reason': reason})
+                       'disposition': entry['state'], 'reason': entry.get('reason') if entry.get('hosted_configuration_id') else reason,
+                       **({'hostedConfigurationId': entry['hosted_configuration_id']}
+                          if entry.get('hosted_configuration_id') else {})})
 
     pairs.extend(local_pair_reports(root, runs, reference_cases))
 

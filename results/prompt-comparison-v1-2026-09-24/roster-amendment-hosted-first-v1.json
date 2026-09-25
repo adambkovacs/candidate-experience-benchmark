@@ -1,0 +1,42 @@
+{
+  "version": "prompt-roster-hosted-first-amendment-v1",
+  "frozen_roster_file": "results/prompt-comparison-v1-2026-09-24/roster.json",
+  "frozen_roster_sha256": "df348da8bcc6586a47db2404ca7e21ca839b31cf9f742c1f1722e380aa95d759",
+  "scope": "Future local P1 and P2 prompt requests only. Completed local P0 evidence remains unchanged.",
+  "reason": "The user moved remaining inference for these exact model families to separately recorded hosted configurations. Their provider, quantization and runtime differ from the local Q4_K_M baselines. Hosted results do not fulfill a local paired protocol.",
+  "changes": [
+    {
+      "local_configuration_id": "qwen3-8b-sdk-thinking-on",
+      "conditions": ["P1", "P2"],
+      "disposition": "excluded",
+      "hosted_configuration_id": "openrouter-qwen3-8b-on-json-object-p0",
+      "hosted_evidence": [
+        "results/qwen8-hosted-full60-prep-v1/on-p0-full60-results.jsonl",
+        "results/qwen8-hosted-prompt-full60-prep-v1/on-p1-full60-results.jsonl",
+        "results/hosted-final-suffix-reconciled-v1/qwen8-on-p2.json"
+      ]
+    },
+    {
+      "local_configuration_id": "qwen3-8b-sdk-thinking-off",
+      "conditions": ["P1", "P2"],
+      "disposition": "excluded",
+      "hosted_configuration_id": "openrouter-qwen3-8b-off-json-object-p0",
+      "hosted_evidence": [
+        "results/qwen8-hosted-full60-prep-v1/off-p0-full60-results.jsonl",
+        "results/qwen8-hosted-prompt-full60-prep-v1/off-p1-full60-results.jsonl",
+        "results/qwen8-hosted-prompt-full60-prep-v1/off-p2-full60-results.jsonl"
+      ]
+    },
+    {
+      "local_configuration_id": "qwen3.8-27b-sdk-thinking-low",
+      "conditions": ["P1", "P2"],
+      "disposition": "excluded",
+      "hosted_configuration_id": "openrouter-qwen27-low-darkbloom-fp4",
+      "hosted_evidence": [
+        "results/openrouter-qwen27-low-hosted-2026-09-24/development.jsonl",
+        "results/hosted-unattempted-continuation-v4/final-ten/qwen27-low-hosted-addendum-v1-p1-score.json",
+        "results/hosted-unattempted-continuation-v4/final-ten/qwen27-low-hosted-addendum-v1-p2-score.json"
+      ]
+    }
+  ]
+}
