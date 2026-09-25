@@ -1,0 +1,351 @@
+{
+  "contract": "qwen36-on-p2-final20-reconciliation-v3",
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-on",
+  "condition": "P2",
+  "denominator": 60,
+  "attempted": 41,
+  "never_sent_ids": [
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "never_sent_count": 19,
+  "coverage_complete": false,
+  "status_counts": {
+    "ok": 37,
+    "service_error": 4
+  },
+  "valid_outputs": 37,
+  "all_four_correct": 33,
+  "eligible_paired_comparison": false,
+  "original_timing_preserved": false,
+  "timing": {
+    "attempts": 41,
+    "elapsed_available": 41,
+    "sum_reported_attempt_seconds": 300.0349369589676,
+    "complete": true,
+    "note": "Per-request elapsed only; original counterbalanced timing was not preserved."
+  },
+  "cost": {
+    "known_observed_usd": "0.0417374",
+    "unknown_reserved_upper_bound_usd": "0.1196032",
+    "actual_total_usd": null,
+    "note": "Development attempts only; retained HTTP429 failures included. Unknown reserves are not observed spend; smoke excluded."
+  },
+  "evaluation": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 37,
+    "missing_or_failed": [
+      "DEV-033",
+      "DEV-039",
+      "DEV-040",
+      "DEV-041",
+      "DEV-042",
+      "DEV-043",
+      "DEV-044",
+      "DEV-045",
+      "DEV-046",
+      "DEV-047",
+      "DEV-048",
+      "DEV-049",
+      "DEV-050",
+      "DEV-051",
+      "DEV-052",
+      "DEV-053",
+      "DEV-054",
+      "DEV-055",
+      "DEV-056",
+      "DEV-057",
+      "DEV-058",
+      "DEV-059",
+      "DEV-060"
+    ],
+    "metrics": {
+      "sentiment": {
+        "correct": 35,
+        "denominator": 60,
+        "accuracy": 0.5833333333333334,
+        "macro_f1": 0.7672848890240195,
+        "per_label": {
+          "positive": {
+            "tp": 10,
+            "fp": 2,
+            "fn": 1,
+            "precision": 0.8333333333333334,
+            "recall": 0.9090909090909091,
+            "f1": 0.8695652173913043
+          },
+          "negative": {
+            "tp": 15,
+            "fp": 0,
+            "fn": 16,
+            "precision": 1.0,
+            "recall": 0.4838709677419355,
+            "f1": 0.6521739130434783
+          },
+          "mixed": {
+            "tp": 5,
+            "fp": 0,
+            "fn": 3,
+            "precision": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693
+          },
+          "neutral": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 5,
+            "precision": 1.0,
+            "recall": 0.375,
+            "f1": 0.5454545454545454
+          },
+          "insufficient_information": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 37,
+        "denominator": 60,
+        "accuracy": 0.6166666666666667,
+        "macro_f1": 0.8443239987955434,
+        "per_label": {
+          "yes": {
+            "tp": 19,
+            "fp": 0,
+            "fn": 16,
+            "precision": 1.0,
+            "recall": 0.5428571428571428,
+            "f1": 0.7037037037037037
+          },
+          "no": {
+            "tp": 17,
+            "fp": 0,
+            "fn": 7,
+            "precision": 1.0,
+            "recall": 0.7083333333333334,
+            "f1": 0.8292682926829268
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 35,
+        "denominator": 60,
+        "accuracy": 0.5833333333333334,
+        "macro_f1": 0.6725274725274725,
+        "per_label": {
+          "yes": {
+            "tp": 10,
+            "fp": 0,
+            "fn": 15,
+            "precision": 1.0,
+            "recall": 0.4,
+            "f1": 0.5714285714285714
+          },
+          "no": {
+            "tp": 22,
+            "fp": 1,
+            "fn": 7,
+            "precision": 0.9565217391304348,
+            "recall": 0.7586206896551724,
+            "f1": 0.8461538461538461
+          },
+          "insufficient_information": {
+            "tp": 3,
+            "fp": 1,
+            "fn": 3,
+            "precision": 0.75,
+            "recall": 0.5,
+            "f1": 0.6
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 36,
+        "denominator": 60,
+        "accuracy": 0.6,
+        "macro_f1": 0.8612869198312237,
+        "per_label": {
+          "yes": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 2,
+            "precision": 1.0,
+            "recall": 0.7777777777777778,
+            "f1": 0.875
+          },
+          "no": {
+            "tp": 28,
+            "fp": 1,
+            "fn": 22,
+            "precision": 0.9655172413793104,
+            "recall": 0.56,
+            "f1": 0.7088607594936709
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [
+        "DEV-039",
+        "DEV-041",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "identity_evidence",
+        "status": "missing_or_failed"
+      },
+      {
+        "id": "complaint_style",
+        "status": "missing_or_failed"
+      }
+    ]
+  },
+  "sources": {
+    "plan": {
+      "file": "results/qwen36-on-p2-final20-v3/plan.json",
+      "sha256": "79a383c8725e4e111c51e992df1b8c8e359f9a4c0549f897b30f718d405b52cf"
+    },
+    "controller": {
+      "file": "scripts/qwen36_on_p2_suffix_v3.py",
+      "sha256": "1e1413880e076851e859ebd4cefbc7d4c573cf9da0bfb02d8d826a5942edaddc"
+    },
+    "original": {
+      "file": "results/qwen36-prompt-recovery-v1/on-p2-development.jsonl",
+      "sha256": "06dfa3870d1e1a5fb2d3b2e2aa93800a1762ba36872dea783ccf93e977ee232a"
+    },
+    "original_journal": {
+      "file": "results/qwen36-prompt-recovery-v1/on-p2-development.jsonl.attempts.jsonl",
+      "sha256": "6860692f3e9e29d58fc1ff804b8ca825e7f6daa34173692a534e5808f0627a93"
+    },
+    "suffix_v1": {
+      "file": "results/qwen36-prompt-recovery-v1/on-p2-dev034-060-suffix.jsonl",
+      "sha256": "6df034ce5f2864539b0ec5b7e7805ab8d2df4d7b24f77072a57f8690fca064fc"
+    },
+    "suffix_v1_journal": {
+      "file": "results/qwen36-prompt-recovery-v1/on-p2-dev034-060-suffix.jsonl.attempts.jsonl",
+      "sha256": "1a41d9dca661a19d09eaa22833949341c27abf7652538b686c982fe2316db284"
+    },
+    "suffix_v2": {
+      "file": "results/qwen36-on-p2-final21-v2/development.jsonl",
+      "sha256": "200a9b44d2c04a401d9f16d773524e97d9949325864dc9e742be5b1743e5fe60"
+    },
+    "suffix_v2_journal": {
+      "file": "results/qwen36-on-p2-final21-v2/development.jsonl.attempts.jsonl",
+      "sha256": "d6a4896524cf75b94bbb5d048484e238a9922557bd62cd142f24d906cd60d865"
+    },
+    "prior_report": {
+      "file": "results/hosted-final-suffix-reconciled-v2/qwen36-on-p2.json",
+      "sha256": "f294abac331be9040880833792001e090969c2d0e38d71839f09fed5ab01e6e5"
+    },
+    "suffix_v3": {
+      "file": "results/qwen36-on-p2-final20-v3/development.jsonl",
+      "sha256": "4477412e4dd2c37ab77421e321f9ea19d7d3dbc7773c83b4520cdc98879574bd"
+    },
+    "suffix_v3_journal": {
+      "file": "results/qwen36-on-p2-final20-v3/development.jsonl.attempts.jsonl",
+      "sha256": "55c0e039dd09b3157bd5fe8ee96198fa53a3782e80b0a711dc44845e050a125c"
+    },
+    "review": {
+      "file": "results/qwen36-on-p2-final20-v3/root-review.json",
+      "sha256": "402204ea417743a7c3f98af4d2145d935d5352031653f63d6f49176e898f6b30"
+    },
+    "budget": {
+      "manifest": {
+        "file": "results/qwen36-on-p2-final20-v3/budget-manifest.json",
+        "sha256": "c30b3ecb3d07ef97e601c02bf0f616f3b4915f83ce1ab594bf8684b24d75a064"
+      },
+      "child": {
+        "file": "results/qwen36-on-p2-final20-v3/budget-manifest-qwen36-on-p2-final20-v3.jsonl",
+        "sha256": "be5a3a5f76d2d10b0ca7d280ba118fae96408c2d8b45fbdb35769457edf06f52"
+      },
+      "partition_id": "qwen36-on-p2-final20-v3",
+      "known_actual_usd": "0",
+      "unknown_upper_bound_usd": "0.0299008"
+    }
+  },
+  "terminal": {
+    "attempted_records": 1,
+    "planned_records": 20,
+    "completed": false,
+    "terminal_status": "service_error"
+  }
+}

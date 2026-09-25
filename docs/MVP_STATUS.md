@@ -1,5 +1,13 @@
 # MVP completion status
 
+## 2026-09-25 local prompt runs finished; hosted capacity still blocked
+
+All reviewed local prompt conditions have now finished their required attempts. Gemma E4B returned 60 valid responses in each condition. All-four agreement was 44/60 for thinking-on classifier instructions (P1), 49/60 for thinking-on decision-tree instructions (P2), 39/60 for thinking-off P1 and 44/60 for thinking-off P2. Both [thinking-on](../results/local-prompt-pairs-v1/gemma4-e4b-sdk-thinking-on.json) and [thinking-off](../results/local-prompt-pairs-v1/gemma4-e4b-sdk-thinking-off.json) comparisons passed the offline source audit. Historical baseline timing remains a limitation; local timing is a device diagnostic.
+
+After more than two hours of cooldown, the separately reviewed hosted Qwen continuation received HTTP 429 on DEV-041 and stopped. Its [reconciliation](../results/hosted-final-suffix-reconciled-v3/qwen36-on-p2.json) preserves 41 attempts, 37 valid responses, four service failures and 19 never-sent records (DEV-042 through DEV-060). No failed record was replayed. The child partition is sealed; $0.0299008 remains an unknown-charge upper bound and $0.6100992 was released. Aggregate OpenRouter accounted usage is $2.58741644650 under the approved $10 cap, including historical unknown bounds rather than claiming all of it was billed.
+
+The [unresolved-run inventory](../results/hosted-final-suffix-reconciled-v3/unresolved-run-inventory-v1.json) lists the hosted provider failures, shared Gemini quota block, original Gemini tool-isolation failures and cancelled DeepSeek 32B route. The next actions require provider capacity, subscription quota reset, or verified execution controls. No model inference is running at this checkpoint. The MVP remains incomplete; second and third repeatability passes have not started.
+
 ## 2026-09-24 Gemma E4B classifier condition completed
 
 Gemma E4B thinking-on P1 completed 60 requests with **60 valid outputs and 44 all-four matches**. Its [verified report](../results/local-prompt-condition-reconciliations-v1/gemma4-e4b-sdk-thinking-on/P1.json) is included in the public export: 254 run views, 15,240 cases and 41 audited comparisons. P2 passed its three-record smoke inspection and is active in root session 13846; both thinking-off conditions remain after it.
