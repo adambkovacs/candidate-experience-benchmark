@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -44,24 +45,27 @@ class CodexRepeatStudyTest(unittest.TestCase):
 
     def test_schedule_blocks_condition_skipping_before_runtime(self):
         manifest = study.plan_data('repeat2')
-        with patch.object(study, 'runtime_check', side_effect=AssertionError('runtime was called')):
-            with self.assertRaisesRegex(ValueError, 'Previous condition lacks completed development'):
-                study.run_phase(manifest, 'P1', 'smoke', '/unused/codex')
-        self.assertFalse((study.BASE/'repeat2'/'P1'/'smoke.claim.json').exists())
+        with tempfile.TemporaryDirectory() as temp, patch.object(study, 'BASE', Path(temp)):
+            with patch.object(study, 'runtime_check', side_effect=AssertionError('runtime was called')):
+                with self.assertRaisesRegex(ValueError, 'Previous condition lacks completed development'):
+                    study.run_phase(manifest, 'P1', 'smoke', '/unused/codex')
+            self.assertFalse((study.BASE/'repeat2'/'P1'/'smoke.claim.json').exists())
 
     def test_repeat_three_waits_for_repeat_two(self):
         manifest = study.plan_data('repeat3')
-        with patch.object(study, 'runtime_check', side_effect=AssertionError('runtime was called')):
-            with self.assertRaisesRegex(ValueError, 'Repeat two is incomplete'):
-                study.run_phase(manifest, 'P1', 'smoke', '/unused/codex')
-        self.assertFalse((study.BASE/'repeat3'/'P1'/'smoke.claim.json').exists())
+        with tempfile.TemporaryDirectory() as temp, patch.object(study, 'BASE', Path(temp)):
+            with patch.object(study, 'runtime_check', side_effect=AssertionError('runtime was called')):
+                with self.assertRaisesRegex(ValueError, 'Repeat two is incomplete'):
+                    study.run_phase(manifest, 'P1', 'smoke', '/unused/codex')
+            self.assertFalse((study.BASE/'repeat3'/'P1'/'smoke.claim.json').exists())
 
     def test_development_requires_inspected_smoke_before_runtime(self):
         manifest = study.plan_data('repeat2')
-        with patch.object(study, 'runtime_check', side_effect=AssertionError('runtime was called')):
-            with self.assertRaisesRegex(ValueError, 'Inspected smoke required'):
-                study.run_phase(manifest, 'P2', 'development', '/unused/codex')
-        self.assertFalse((study.BASE/'repeat2'/'P2'/'development.claim.json').exists())
+        with tempfile.TemporaryDirectory() as temp, patch.object(study, 'BASE', Path(temp)):
+            with patch.object(study, 'runtime_check', side_effect=AssertionError('runtime was called')):
+                with self.assertRaisesRegex(ValueError, 'Inspected smoke required'):
+                    study.run_phase(manifest, 'P2', 'development', '/unused/codex')
+            self.assertFalse((study.BASE/'repeat2'/'P2'/'development.claim.json').exists())
 
 
 if __name__ == '__main__':
