@@ -2,7 +2,7 @@
 
 Updated 2026-09-25 following the user's reference-review, repeatability and standalone-tool instructions. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
 
-## Replacement app-goal text
+## Standing objective
 
 Complete and document the Candidate Experience Feedback Benchmark on the existing 60 synthetic development reviews, and develop the separate private AI-Enablement-Academy/classification-bench repository as a reusable classification experiment tool. Do not generate the remaining 340 case-study records.
 
@@ -16,13 +16,22 @@ For classification-bench, preserve the current case-study archive. Build generic
 
 Use deterministic code for bookkeeping and cheaper agents for suitable bounded work; use parallel agents with exclusive ownership. Keep current status, analysis, public case-study presentation and private tool documentation consistent. Run relevant checks, commit and push verified changes, and finish each checkpoint with exact completed, pending and blocked work. Do not claim the complete MVP or repeat study is finished while required work remains.
 
-## Current checkpoint
+## Work order and separate completion milestones
+
+1. Finish the case study with its existing adapters. Reconcile the full requested roster, finish available authorized runs, and record exact blockers for the rest. The 53 complete comparison groups are a subset of the roster, not permission to omit unfinished configurations.
+2. Complete the P0/P1/P2 repeat study within the approved budgets and subscription quotas. Publish within-condition variation alongside paired prompt effects so a small single-pass difference is not presented as a reliable improvement. Keep label adjudication separate from model consensus.
+3. Publish the findings and supporting evidence on the public case-study site. Explain denominators, show Jev comparisons prominently, and distinguish measured inference time from client request time. Missing token, price or inference measurements remain explicitly unavailable.
+4. Develop the private reusable tool incrementally against its delivery plan. The next milestone is a tested single-host execution coordinator with claims, recovery, accounting and reference isolation, followed by one controlled adapter. Keep the current experiment on its existing implementation until a replacement passes those gates. Framework adoption remains conditional on demonstrated benefit; the offline comparison is complete.
+
+The benchmark, repeat study and reusable tool have separate completion milestones. A working offline library does not complete the reusable tool, and tool development must not delay publication of completed benchmark evidence. New task packs need their own labels, scope and execution authorization.
+
+## Checkpoint reviewed on 2026-09-25
 
 - Public case study: 290 saved run views, 17,400 case rows; 38 audited hosted/subscription prompt setups, five local historical-baseline pairs, nine observational Gemini pairs, and one native Jev comparison. These categories must remain separate.
 - Reference review: one proposed correction for DEV-006; DEV-013/030 sentiment still needs human adjudication. Original labels and published chart scores remain intact.
-- Repeat study: P0/P1/P2 repeats are now requested. The first GPT-6 Luna medium P2 repeat completed with 60 valid outputs. The [coverage audit](REPEAT_COVERAGE_MATRIX.md) finds 51 usable historical triples and two P0 cases needing review; the remaining execution and budget admission are pending. The [budget preflight](REPEAT_BUDGET_PREFLIGHT.md) shows the complete paid repeat set exceeds remaining OpenRouter headroom.
-- Standalone repository: private `AI-Enablement-Academy/classification-bench`, initial offline planner/evaluator/repeat-metric core implemented and tested. Live execution, budgets/resume and report UI remain planned.
-- App goal: rechecked active on 2026-09-25 after the user supplied this direction through an attached objective file. The earlier stale, blocked goal has been replaced. Work continues against that full objective.
+- Repeat study: GPT-6 Luna medium has completed its second full pass for P0/P1/P2 and third full pass for P0/P1. The final P2 condition is underway at this checkpoint. All eight completed condition/pass combinations, including the historical first pass, contain 60 valid outputs. This is one configuration, not completion of the full repeat matrix. The [coverage audit](REPEAT_COVERAGE_MATRIX.md) finds 51 usable historical triples and two P0 cases needing review. The [budget preflight](REPEAT_BUDGET_PREFLIGHT.md) shows the complete paid repeat set exceeds remaining OpenRouter headroom. The proposed $15 aggregate cap is not approved; the existing $10 cap still applies.
+- Standalone repository: private `AI-Enablement-Academy/classification-bench`. Offline planning, scoring, repeat metrics, immutable raw artifacts/parser bindings and a tested SQLite budget ledger are implemented. The Inspect/promptfoo comparison and one saved-run scoring verification are complete. Dispatch integration, request claims, full execution recovery, enforced reference isolation, live adapters and report UI remain unfinished. The offline budget ledger does not yet control real spending.
+- App goal: rechecked active on 2026-09-25 after the user supplied this direction through an attached objective file. The earlier stale, blocked goal has been replaced. The app points to an attached snapshot whose checkpoint is now stale. Its standing objective still applies; use this version-controlled document and the run evidence for subsequent status. The exposed goal API supports status changes but cannot replace an active objective; no goal status change is needed.
 
 ## Completion boundaries
 
