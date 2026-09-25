@@ -90,7 +90,6 @@ P2 matched all four references on 51 to 53 of 60 comments per pass; 9 comments c
 P1 versus P0 changed direction across passes: changes were +2, -2, +2 matches out of 60. Three passes do not establish a reliable future effect.
 
 P2 versus P0 changed direction across passes: changes were +1, -1, +0 matches out of 60. Three passes do not establish a reliable future effect.
-
 ## GPT-6 Sol · high effort
 
 Completed conditions: 9/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
@@ -179,7 +178,6 @@ P2 matched all four references on 57 to 58 of 60 comments per pass; 3 comments c
 P1 versus P0 did not improve agreement in every pass: changes were +0, +1, +1 matches out of 60. Three passes do not establish a reliable future effect.
 
 P2 versus P0 did not improve agreement in every pass: changes were +0, +0, +1 matches out of 60. Three passes do not establish a reliable future effect.
-
 ## GPT-6 Sol · medium effort
 
 Completed conditions: 6/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
@@ -248,7 +246,3 @@ Actual per-request subscription cost is unknown. Request durations are six batch
 The accepted Codex CLI patch amendment does not establish runtime equivalence. Hidden serving revision and effective seed are unavailable. The reference labels are provisional, and these 60 repeated records are not 180 independent cases.
 
 Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts, journals and completion claims are in [repeats.json](../public-site/repeats.json).
-
-Observed patterns:
-
-

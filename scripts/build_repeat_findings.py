@@ -295,7 +295,7 @@ def markdown_series(report):
 
 def markdown(report):
     intro = '# Prompt repeat findings\n\nEach configuration is a separate series on the same 60 development records. Scores and pass counts are reported within each configuration.\n\n'
-    return intro + '\n'.join(markdown_series(series) + '\nObserved patterns:\n\n' + '\n\n'.join(series['interpretation']) + '\n' for series in report['series'])
+    return (intro + '\n'.join(markdown_series(series) + ('\nObserved patterns:\n\n' + '\n\n'.join(series['interpretation']) if series['interpretation'] else '') for series in report['series'])).rstrip() + '\n'
 
 
 def main():
