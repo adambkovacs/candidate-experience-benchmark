@@ -1,5 +1,7 @@
 # MVP completion status
 
+The [full roster accounting](MVP_ROSTER_ACCOUNTING.md) lists all 163 configurations with evidence, prompt-condition coverage and remaining work. Historical frozen scheduling labels are distinguished from current completion status.
+
 ## 2026-09-25 local prompt runs finished; hosted capacity still blocked
 
 Five earlier local Qwen triples now have [descriptive comparison reports](../results/legacy-local-prompt-pairs-v1/README.md), including per-field scores and changed review labels. They remain outside the 43 strict comparisons because historical P0 attempt journals are absent. Seven focused tests and independent source/count review passed; no new inference was used.

@@ -85,6 +85,7 @@ The website is static. Its published bundle contains an allowlisted result expor
 | [Output schema](schemas/judgments.schema.json) | Required fields and allowed values |
 | [Pilot audit](docs/PILOT_AUDIT.md) | Dataset and reference limitations |
 | [MVP status](docs/MVP_STATUS.md) | Operational progress and outstanding work |
+| [Full roster accounting](docs/MVP_ROSTER_ACCOUNTING.md) | Every configuration, saved outcomes, exclusions and remaining blockers |
 | [Harness research](docs/HARNESS_RESEARCH.md) | Options for reducing manual coordination in later runs |
 
 The broader plan describes 400 records. **Only the 60 development records are in scope for this run; the remaining 340 have not been generated.** Future validation and test sets need separate authorization and independent reference review.
