@@ -9,9 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = 'codex-gpt-6-luna-medium-batch10'
 SOL_CONFIG = 'codex-gpt-6-sol-high-batch10'
+SOL_MEDIUM_CONFIG = 'codex-gpt-6-sol-medium-batch10'
 REPEAT_ROOT = Path('results/repeatability-v1')
 PAIR_ROOT = Path('results/prompt-comparison-v1-2026-09-24/paired-reports')
-SERIES = ((CONFIG, 'GPT-6 Luna · medium effort'), (SOL_CONFIG, 'GPT-6 Sol · high effort'))
+SERIES = ((CONFIG, 'GPT-6 Luna · medium effort'), (SOL_CONFIG, 'GPT-6 Sol · high effort'), (SOL_MEDIUM_CONFIG, 'GPT-6 Sol · medium effort'))
 LABELS = Path('data/pilot/proposed_labels.jsonl')
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
 CONDITIONS = ('P0', 'P1', 'P2')
@@ -22,6 +23,8 @@ PINNED_SHA = {
     str(REPEAT_ROOT / CONFIG / 'repeat3/manifest.json'): 'b29ff4b0de2712beaacd66680bf6efdcc3f4ad6293df176477d6b01759b74c45',
     str(REPEAT_ROOT / SOL_CONFIG / 'repeat2/manifest.json'): 'a8ea850980a39ebc723c09e31d11c7e5a85701f3bb248b1d39630d630be07a48',
     str(REPEAT_ROOT / SOL_CONFIG / 'repeat3/manifest.json'): '5572258506b20d3308e504399b4deea337fe1642325b37453d87076871152c1e',
+    str(REPEAT_ROOT / SOL_MEDIUM_CONFIG / 'repeat2/manifest.json'): '2a2ea73fee8c393c44d8224f15a5d58ff5e29bae3bb05df53d058967e5b46cc3',
+    str(REPEAT_ROOT / SOL_MEDIUM_CONFIG / 'repeat3/manifest.json'): 'b708bc3cbaba4cbde3210f3ce476dc6b6c315860ca666fc5c928279b9ff70b6c',
 }
 
 

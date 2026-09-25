@@ -4859,10 +4859,894 @@
         "P1 versus P0 did not improve agreement in every pass: changes were +0, +1, +1 matches out of 60. Three passes do not establish a reliable future effect.",
         "P2 versus P0 did not improve agreement in every pass: changes were +0, +0, +1 matches out of 60. Three passes do not establish a reliable future effect."
       ]
+    },
+    {
+      "schema": "repeat-findings-v1",
+      "configuration": "codex-gpt-6-sol-medium-batch10",
+      "displayName": "GPT-6 Sol · medium effort",
+      "model": "gpt-6-sol",
+      "effort": "medium",
+      "historicalControls": {
+        "auth_mode": "ChatGPT",
+        "cli_executable": "/Applications/ChatGPT.app/Contents/Resources/codex",
+        "cli_version": "codex-cli 0.155.0-alpha.16",
+        "configured_batch_size": 10,
+        "controller_timeout_seconds": 600.0,
+        "effort": "medium",
+        "policy_sha256": "81e5f843de69c1c54ca4f17b70df51886405ad3a7606d5644ac24aeb29f839a5",
+        "requested_model": "gpt-6-sol",
+        "workflow": "codex-subscription-batch"
+      },
+      "repeatRuntimeAmendment": {
+        "from": "codex-cli 0.155.0-alpha.16.3",
+        "historical_p0": "codex-cli 0.155.0-alpha.16",
+        "to": "codex-cli 0.155.0-alpha.16.4",
+        "basis": "User accepted CLI patch continuation; live flags and subscription quota require check before execution",
+        "limit": "Patch equivalence, hidden CLI wrapper and serving revision remain observational."
+      },
+      "referenceVersion": "0.2",
+      "referenceStatus": "AI reviewed provisional, not independent adjudication",
+      "referenceClassCounts": {
+        "sentiment": {
+          "insufficient_information": 2,
+          "mixed": 8,
+          "negative": 31,
+          "neutral": 8,
+          "positive": 11
+        },
+        "follow_up_needed": {
+          "insufficient_information": 1,
+          "no": 24,
+          "yes": 35
+        },
+        "serious_concern_reported": {
+          "insufficient_information": 6,
+          "no": 29,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "insufficient_information": 1,
+          "no": 50,
+          "yes": 9
+        }
+      },
+      "denominator": 60,
+      "completedConditions": 6,
+      "plannedConditions": 9,
+      "missingPasses": [
+        {
+          "pass": "repeat3",
+          "condition": "P0",
+          "status": "incomplete_or_not_started"
+        },
+        {
+          "pass": "repeat3",
+          "condition": "P1",
+          "status": "incomplete_or_not_started"
+        },
+        {
+          "pass": "repeat3",
+          "condition": "P2",
+          "status": "incomplete_or_not_started"
+        }
+      ],
+      "passes": {
+        "original": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                243.78591354191303,
+                180.16631008381955,
+                176.48317020898685,
+                320.3202907498926,
+                139.74685062491335,
+                206.50321837491356
+              ],
+              "requestSecondsTotal": 1267.005753584439,
+              "tokens": {
+                "input_tokens": 62523,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3118,
+                "reasoning_output_tokens": 1078
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl",
+                "sha256": "e58e3f21125b0b6502a8a6ffdfbdf81db03e4c123a7cde638e96d304dcd68681"
+              },
+              "attempts": {
+                "path": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch-attempts.jsonl",
+                "sha256": "19d75d37d4f8056bde4e2b59415e0c5b93be16af21d4eb01f69fda4236e5a37a"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                21.611543166996853,
+                20.640146207995713,
+                24.109184542001458,
+                19.734126041003037,
+                19.673221832999843,
+                30.78298845900281
+              ],
+              "requestSecondsTotal": 136.5512102499997,
+              "tokens": {
+                "input_tokens": 63565,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3070,
+                "reasoning_output_tokens": 1030
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P1/development.jsonl",
+                "sha256": "77824d12ff0582640f085b136ed1b8566c6f52a64414583b8845eb9c948f37ae"
+              },
+              "attempts": {
+                "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P1/development-attempts.jsonl",
+                "sha256": "ff72c7bade41571afc0a549888d17213b6c8c7f0848483bec0805523ff6afc95"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                25.898544292002043,
+                25.91504545900534,
+                26.057045208995987,
+                19.002300374995684,
+                18.40816666599858,
+                21.103655250000884
+              ],
+              "requestSecondsTotal": 136.38475725099852,
+              "tokens": {
+                "input_tokens": 68967,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3218,
+                "reasoning_output_tokens": 1178
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P2/development.jsonl",
+                "sha256": "66694a51b97bc336c283fac827014e9d73c96fc550d9f44391c5f60238e10396"
+              },
+              "attempts": {
+                "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P2/development-attempts.jsonl",
+                "sha256": "20d7d6e90645dd2dfeb9dc2663cbc84147e8884fbda48e9ab46770bb2cf57298"
+              }
+            }
+          }
+        },
+        "repeat2": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                28.892655167001067,
+                41.20597608300159,
+                61.26945037500991,
+                70.03980466599751,
+                54.40947454200068,
+                34.03829774999758
+              ],
+              "requestSecondsTotal": 289.85565858300833,
+              "tokens": {
+                "input_tokens": 63709,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3216,
+                "reasoning_output_tokens": 1174
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.records.jsonl",
+                "sha256": "baa8495fa2bb3fdf5184f067be9c64f1f989fb1f16c91a4249e5b17b08825d47"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.attempts.jsonl",
+                "sha256": "5b4b42b6771bdcc84e5b230c288020f6476399fd4c7383fc31be2e755937e599"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.journal.jsonl",
+                "sha256": "0d35f76afcf706c004e959cb37265033fbf725e1c223592d45e3a5f77fc07277"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.claim.json",
+                "sha256": "26e9ff66e41ce823b733a5b56d69e0ce8c139644cca304ff2f82daf81f5e20b1"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                31.273990458008484,
+                28.671761707999394,
+                45.93727358299657,
+                31.270419291002327,
+                32.196303125005215,
+                28.481374999988475
+              ],
+              "requestSecondsTotal": 197.83112316500046,
+              "tokens": {
+                "input_tokens": 64735,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3036,
+                "reasoning_output_tokens": 994
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.records.jsonl",
+                "sha256": "eef965b3139b7af446b39ac1f3df227aa0d29f795314b4a70ed49170af863385"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.attempts.jsonl",
+                "sha256": "7bbe8c5b536d3b855b096c77d997c98910882e70dea1026e9e0f5f0eb27d8845"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.journal.jsonl",
+                "sha256": "fca02f0c70507402b1229ec17ab9feb8e21b61eea641dd138fa37abebd2cd452"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.claim.json",
+                "sha256": "443a2a2ce59284206ac7c14b5311cdd7e96f614172a19de428a926d3a9723d58"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                25.2767689589964,
+                34.689401458002976,
+                35.11708329200337,
+                29.036017957987497,
+                29.618340625005658,
+                67.52357949998986
+              ],
+              "requestSecondsTotal": 221.26119179198577,
+              "tokens": {
+                "input_tokens": 70149,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3053,
+                "reasoning_output_tokens": 1011
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.records.jsonl",
+                "sha256": "c09e1a6656ed4c358613954d79fa5fe1c5d9ac3f456baaae8df59f8149e57317"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.attempts.jsonl",
+                "sha256": "b23182f73fec79f4310bd9e082469f18615945b40412a9a516b1914ef213c5d5"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.journal.jsonl",
+                "sha256": "b6a7280f988a1910a77f26e38f040ae498765dc0afce756db65877ad0085ad43"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.claim.json",
+                "sha256": "044960b8af6709f69d2469e50a73c62e0aa60cf733679d03d806593614c79b1a"
+              }
+            }
+          }
+        },
+        "repeat3": {}
+      },
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 2,
+            "values": [
+              58,
+              57
+            ],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 2,
+              "values": [
+                59,
+                58
+              ],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 2,
+              "values": [
+                60,
+                59
+              ],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 2,
+              "values": [
+                59,
+                59
+              ],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 2,
+              "values": [
+                60,
+                60
+              ],
+              "mean": null,
+              "range": null
+            }
+          }
+        },
+        "P1": {
+          "allFour": {
+            "completedPasses": 2,
+            "values": [
+              57,
+              57
+            ],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 2,
+              "values": [
+                58,
+                58
+              ],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 2,
+              "values": [
+                60,
+                59
+              ],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 2,
+              "values": [
+                59,
+                59
+              ],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 2,
+              "values": [
+                60,
+                60
+              ],
+              "mean": null,
+              "range": null
+            }
+          }
+        },
+        "P2": {
+          "allFour": {
+            "completedPasses": 2,
+            "values": [
+              57,
+              57
+            ],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 2,
+              "values": [
+                58,
+                58
+              ],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 2,
+              "values": [
+                60,
+                59
+              ],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 2,
+              "values": [
+                59,
+                59
+              ],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 2,
+              "values": [
+                60,
+                60
+              ],
+              "mean": null,
+              "range": null
+            }
+          }
+        }
+      },
+      "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-013"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        }
+      ],
+      "changesAcrossThreePasses": {},
+      "withinPassPromptDeltas": [
+        {
+          "pass": "original",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": -1,
+          "fields": {
+            "sentiment": -1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "original",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": -1,
+          "fields": {
+            "sentiment": -1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        }
+      ],
+      "pairedDeltaSpread": {
+        "P1": {
+          "completedPairs": 2,
+          "allFourValues": [
+            -1,
+            0
+          ],
+          "allFourRange": null,
+          "fieldRanges": {
+            "sentiment": null,
+            "follow_up_needed": null,
+            "serious_concern_reported": null,
+            "testimonial_potential": null
+          }
+        },
+        "P2": {
+          "completedPairs": 2,
+          "allFourValues": [
+            -1,
+            0
+          ],
+          "allFourRange": null,
+          "fieldRanges": {
+            "sentiment": null,
+            "follow_up_needed": null,
+            "serious_concern_reported": null,
+            "testimonial_potential": null
+          }
+        }
+      },
+      "sourceBindings": [
+        {
+          "path": "data/pilot/proposed_labels.jsonl",
+          "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-sol-medium-batch10/paired-manifest.json",
+          "sha256": "38db4c2e7676016a5b5eef4c2f177be53440e213ca4ab417414ae22e6ea16077"
+        },
+        {
+          "path": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch.jsonl",
+          "sha256": "e58e3f21125b0b6502a8a6ffdfbdf81db03e4c123a7cde638e96d304dcd68681"
+        },
+        {
+          "path": "results/codex-gpt-6-sol-medium-2026-09-23/development-batch-attempts.jsonl",
+          "sha256": "19d75d37d4f8056bde4e2b59415e0c5b93be16af21d4eb01f69fda4236e5a37a"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P1/development.jsonl",
+          "sha256": "77824d12ff0582640f085b136ed1b8566c6f52a64414583b8845eb9c948f37ae"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P1/development-attempts.jsonl",
+          "sha256": "ff72c7bade41571afc0a549888d17213b6c8c7f0848483bec0805523ff6afc95"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P2/development.jsonl",
+          "sha256": "66694a51b97bc336c283fac827014e9d73c96fc550d9f44391c5f60238e10396"
+        },
+        {
+          "path": "results/prompt-comparison-v1-2026-09-24/runs/codex-gpt-6-sol-medium-batch10/P2/development-attempts.jsonl",
+          "sha256": "20d7d6e90645dd2dfeb9dc2663cbc84147e8884fbda48e9ab46770bb2cf57298"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/manifest.json",
+          "sha256": "2a2ea73fee8c393c44d8224f15a5d58ff5e29bae3bb05df53d058967e5b46cc3"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.records.jsonl",
+          "sha256": "baa8495fa2bb3fdf5184f067be9c64f1f989fb1f16c91a4249e5b17b08825d47"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.attempts.jsonl",
+          "sha256": "5b4b42b6771bdcc84e5b230c288020f6476399fd4c7383fc31be2e755937e599"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.journal.jsonl",
+          "sha256": "0d35f76afcf706c004e959cb37265033fbf725e1c223592d45e3a5f77fc07277"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P0/development.claim.json",
+          "sha256": "26e9ff66e41ce823b733a5b56d69e0ce8c139644cca304ff2f82daf81f5e20b1"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.records.jsonl",
+          "sha256": "eef965b3139b7af446b39ac1f3df227aa0d29f795314b4a70ed49170af863385"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.attempts.jsonl",
+          "sha256": "7bbe8c5b536d3b855b096c77d997c98910882e70dea1026e9e0f5f0eb27d8845"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.journal.jsonl",
+          "sha256": "fca02f0c70507402b1229ec17ab9feb8e21b61eea641dd138fa37abebd2cd452"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P1/development.claim.json",
+          "sha256": "443a2a2ce59284206ac7c14b5311cdd7e96f614172a19de428a926d3a9723d58"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.records.jsonl",
+          "sha256": "c09e1a6656ed4c358613954d79fa5fe1c5d9ac3f456baaae8df59f8149e57317"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.attempts.jsonl",
+          "sha256": "b23182f73fec79f4310bd9e082469f18615945b40412a9a516b1914ef213c5d5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.journal.jsonl",
+          "sha256": "b6a7280f988a1910a77f26e38f040ae498765dc0afce756db65877ad0085ad43"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat2/P2/development.claim.json",
+          "sha256": "044960b8af6709f69d2469e50a73c62e0aa60cf733679d03d806593614c79b1a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-medium-batch10/repeat3/manifest.json",
+          "sha256": "b708bc3cbaba4cbde3210f3ce476dc6b6c315860ca666fc5c928279b9ff70b6c"
+        }
+      ],
+      "limitations": [
+        "Same 60 synthetic records in every pass; observations are dependent.",
+        "Original CLI and repeat CLI differ by accepted patch amendment; equivalence is unproven.",
+        "Provider serving revision and effective seed are unavailable.",
+        "Batch timing is request timing; per-record shares are not independent latency.",
+        "Subscription request cost is unknown, not zero."
+      ],
+      "interpretation": []
     }
   ],
   "availableConfigurations": [
     "codex-gpt-6-luna-medium-batch10",
-    "codex-gpt-6-sol-high-batch10"
+    "codex-gpt-6-sol-high-batch10",
+    "codex-gpt-6-sol-medium-batch10"
   ]
 }

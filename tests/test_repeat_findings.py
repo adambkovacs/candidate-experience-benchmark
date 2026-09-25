@@ -98,12 +98,12 @@ class RepeatFindingsTest(unittest.TestCase):
 
     def test_saved_series_are_separate_and_missing_passes_have_no_scores(self):
         report = repeat.build()
-        self.assertEqual([s['configuration'] for s in report['series']], [repeat.CONFIG, repeat.SOL_CONFIG])
-        luna, sol = report['series']
+        self.assertEqual([s['configuration'] for s in report['series']], [repeat.CONFIG, repeat.SOL_CONFIG, repeat.SOL_MEDIUM_CONFIG])
+        luna, sol, sol_medium = report['series']
         self.assertEqual(luna['passes']['original']['P0']['score']['allFour'], 50)
         self.assertEqual(luna['completedConditions'], 9)
         self.assertEqual(report['passes'], luna['passes'])  # Legacy Luna view is unchanged.
-        for series in (luna, sol):
+        for series in (luna, sol, sol_medium):
             self.assertEqual(series['denominator'], 60)
             self.assertEqual(series['completedConditions'] + len(series['missingPasses']), 9)
             self.assertEqual(len(series['passes']['original']), 3)

@@ -32,7 +32,7 @@
     if (p2) {
       const net=(p2.rows || []).reduce((sum,r)=>sum+count(r.delta),0);
       text('prompt-headline', `Decision-tree instructions lost ground in ${count(p2.worsened)} of ${count(strict.configurations)} setups`);
-      text('prompt-deck', `Adding the decision tree in P2, compared with P1, improved ${count(p2.improved)}, tied ${count(p2.tied)} and worsened ${count(p2.worsened)} audited comparisons. The net change was ${net>0?'+':''}${net} all-four matches across those runs. Each condition was run once.`);
+      text('prompt-deck', `Adding the decision tree in P2, compared with P1, improved ${count(p2.improved)}, tied ${count(p2.tied)} and worsened ${count(p2.worsened)} audited comparisons. The net change was ${net>0?'+':''}${net} all-four matches across those runs. These comparisons use the first recorded pass; repeat results below assess variation.`);
     }
   }
 
