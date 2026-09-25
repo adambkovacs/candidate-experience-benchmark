@@ -26,4 +26,4 @@ Follow the user's latest instructions over older plans. Benchmark model settings
 
 ## Current direction
 
-Read docs/CURRENT_GOALS.md for the latest objectives. P0, P1 and P2 each need declared repeatability passes. The first GPT-6 Luna medium P2 repeat completed; inspect results/repeatability-v1 for subsequent progress. The private AI-Enablement-Academy/classification-bench repository is a separate reusable-tool workstream. Do not mutate frozen reference labels or move the current benchmark into unfinished orchestration.
+Read docs/CURRENT_GOALS.md for the latest objectives. P0, P1 and P2 each need declared repeatability passes. Use docs/CURRENT_GOALS.md and results/repeatability-v1 for completion status; do not infer the whole matrix is complete from one finished configuration. The private AI-Enablement-Academy/classification-bench repository is a separate reusable-tool workstream. Do not mutate frozen reference labels or move the current benchmark into unfinished orchestration.
