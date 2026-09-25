@@ -82,5 +82,46 @@ class RepeatFindingsTest(unittest.TestCase):
         self.assertEqual(result['outcomes']['other_error'], 0)
         self.assertEqual(result['invalidIds'], ids[:2])
 
+    def test_unfinished_repeats_never_produce_ranges_or_prompt_deltas(self):
+        with patch.object(repeat, 'completed_repeat', return_value=False):
+            report = repeat.build_series(repeat.SOL_CONFIG, 'Sol high')
+        self.assertEqual(report['completedConditions'], 3)
+        self.assertEqual(len(report['missingPasses']), 6)
+        self.assertEqual(report['passes']['repeat2'], {})
+        self.assertEqual(report['passes']['repeat3'], {})
+        self.assertEqual(report['pairwiseFlips'], [])
+        self.assertTrue(all(x['pass'] == 'original' for x in report['withinPassPromptDeltas']))
+        for condition in repeat.CONDITIONS:
+            self.assertIsNone(report['threePassSummary'][condition]['allFour']['range'])
+            self.assertIsNone(report['threePassSummary'][condition]['allFour']['mean'])
+            self.assertNotIn(condition, report['changesAcrossThreePasses'])
+
+    def test_saved_series_are_separate_and_missing_passes_have_no_scores(self):
+        report = repeat.build()
+        self.assertEqual([s['configuration'] for s in report['series']], [repeat.CONFIG, repeat.SOL_CONFIG])
+        luna, sol = report['series']
+        self.assertEqual(luna['passes']['original']['P0']['score']['allFour'], 50)
+        self.assertEqual(luna['completedConditions'], 9)
+        self.assertEqual(report['passes'], luna['passes'])  # Legacy Luna view is unchanged.
+        for series in (luna, sol):
+            self.assertEqual(series['denominator'], 60)
+            self.assertEqual(series['completedConditions'] + len(series['missingPasses']), 9)
+            self.assertEqual(len(series['passes']['original']), 3)
+            for missing in series['missingPasses']:
+                self.assertNotIn(missing['condition'], series['passes'][missing['pass']])
+            for condition in repeat.CONDITIONS:
+                scores = [series['passes'][name][condition]['score']['allFour'] for name in repeat.PASSES if condition in series['passes'][name]]
+                summary = series['threePassSummary'][condition]['allFour']
+                self.assertEqual(summary['values'], scores)
+                if len(scores) < 3:
+                    self.assertIsNone(summary['mean'])
+                    self.assertIsNone(summary['range'])
+                else:
+                    self.assertEqual(summary['range'], [min(scores), max(scores)])
+            for delta in series['withinPassPromptDeltas']:
+                base = series['passes'][delta['pass']]['P0']['score']['allFour']
+                variant = series['passes'][delta['pass']][delta['to']]['score']['allFour']
+                self.assertEqual(delta['allFour'], variant - base)
+
 
 if __name__ == '__main__': unittest.main()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a hash-bound, offline report for the GPT-6 Luna prompt repeat series."""
+"""Build hash-bound, offline reports for completed Codex prompt repeat series."""
 import argparse
 import hashlib
 import json
@@ -8,16 +8,20 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = 'codex-gpt-6-luna-medium-batch10'
-BASE = Path('results/repeatability-v1') / CONFIG
-PAIR = Path('results/prompt-comparison-v1-2026-09-24/paired-reports') / CONFIG / 'paired-manifest.json'
+SOL_CONFIG = 'codex-gpt-6-sol-high-batch10'
+REPEAT_ROOT = Path('results/repeatability-v1')
+PAIR_ROOT = Path('results/prompt-comparison-v1-2026-09-24/paired-reports')
+SERIES = ((CONFIG, 'GPT-6 Luna · medium effort'), (SOL_CONFIG, 'GPT-6 Sol · high effort'))
 LABELS = Path('data/pilot/proposed_labels.jsonl')
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
 CONDITIONS = ('P0', 'P1', 'P2')
 PASSES = ('original', 'repeat2', 'repeat3')
 PINNED_SHA = {
     str(LABELS): '440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464',
-    str(BASE / 'repeat2/manifest.json'): 'ac6b282c5527ea1a263fd26c474e09b9475d36c7666b6bbde122166e72aca1f3',
-    str(BASE / 'repeat3/manifest.json'): 'b29ff4b0de2712beaacd66680bf6efdcc3f4ad6293df176477d6b01759b74c45',
+    str(REPEAT_ROOT / CONFIG / 'repeat2/manifest.json'): 'ac6b282c5527ea1a263fd26c474e09b9475d36c7666b6bbde122166e72aca1f3',
+    str(REPEAT_ROOT / CONFIG / 'repeat3/manifest.json'): 'b29ff4b0de2712beaacd66680bf6efdcc3f4ad6293df176477d6b01759b74c45',
+    str(REPEAT_ROOT / SOL_CONFIG / 'repeat2/manifest.json'): 'a8ea850980a39ebc723c09e31d11c7e5a85701f3bb248b1d39630d630be07a48',
+    str(REPEAT_ROOT / SOL_CONFIG / 'repeat3/manifest.json'): '5572258506b20d3308e504399b4deea337fe1642325b37453d87076871152c1e',
 }
 
 
@@ -125,7 +129,9 @@ def usage(attempts):
             'tokens': token_totals, 'actualCostUsd': None, 'costNote': 'ChatGPT subscription; attributable request cost unavailable.'}
 
 
-def build():
+def build_series(config, display_name):
+    base = REPEAT_ROOT / config
+    pair_path = PAIR_ROOT / config / 'paired-manifest.json'
     sources = []
     labels_binding = binding(LABELS, PINNED_SHA[str(LABELS)]); sources.append(labels_binding)
     label_rows = rows(ROOT / LABELS)
@@ -133,18 +139,22 @@ def build():
     if len(ids) != 60 or len(set(ids)) != 60 or any(r.get('review_version') != '0.2' for r in label_rows):
         raise ValueError('Expected 60 unique provisional v0.2 references')
     labels = {r['id']: r['proposed_labels'] for r in label_rows}
-    pair_binding = binding(PAIR); sources.append(pair_binding)
-    pair = json.loads((ROOT / PAIR).read_text())
+    pair_binding = binding(pair_path); sources.append(pair_binding)
+    pair = json.loads((ROOT / pair_path).read_text())
+    if pair['parent_baseline_id'] != config:
+        raise ValueError(f'Historical paired configuration mismatch: {config}')
     data = {}; missing = []
     for pass_name in PASSES:
         data[pass_name] = {}
         manifest = None
         if pass_name != 'original':
-            manifest_path = BASE / pass_name / 'manifest.json'
+            manifest_path = base / pass_name / 'manifest.json'
             manifest_binding = binding(manifest_path, PINNED_SHA[str(manifest_path)]); sources.append(manifest_binding)
             manifest = json.loads((ROOT / manifest_path).read_text()); manifest['_sha256'] = manifest_binding['sha256']
-            if manifest['configuration_id'] != CONFIG or manifest['repeat'] != pass_name:
+            if manifest['configuration_id'] != config or manifest['repeat'] != pass_name:
                 raise ValueError('Manifest identity changed')
+            if manifest['model'] != pair['controls']['requested_model'] or manifest['effort'] != pair['controls']['effort'] or manifest['batch_size'] != pair['controls']['configured_batch_size']:
+                raise ValueError(f'Manifest controls differ from historical pair: {config}')
             for item in manifest['source_bindings']:
                 binding(item['path'], item['sha256'])
         for condition in CONDITIONS:
@@ -154,7 +164,7 @@ def build():
                 attempt_binding = binding(source['request_evidence']['file'], source['request_evidence']['sha256'])
                 journal_binding = None
             else:
-                folder = BASE / pass_name / condition
+                folder = base / pass_name / condition
                 if not completed_repeat(folder, pass_name, condition, manifest['_sha256']):
                     missing.append({'pass': pass_name, 'condition': condition, 'status': 'incomplete_or_not_started'})
                     continue
@@ -206,7 +216,11 @@ def build():
         across[condition] = {'denominator': len(eligible), 'excludedIds': [rid for rid in ids if rid not in eligible],
                              'fields': {f: [rid for rid in eligible if len({run[rid]['prediction'][f] for run in triplet}) > 1] for f in FIELDS},
                              'fourFieldVector': [rid for rid in eligible if len({tuple(run[rid]['prediction'][f] for f in FIELDS) for run in triplet}) > 1]}
-    return {'schema': 'repeat-findings-v1', 'configuration': CONFIG, 'referenceVersion': '0.2', 'referenceStatus': 'AI reviewed provisional, not independent adjudication',
+    return {'schema': 'repeat-findings-v1', 'configuration': config, 'displayName': display_name,
+            'model': pair['controls']['requested_model'], 'effort': pair['controls']['effort'],
+            'historicalControls': pair.get('historical_controls', pair['controls']),
+            'repeatRuntimeAmendment': manifest['runtime_amendment'],
+            'referenceVersion': '0.2', 'referenceStatus': 'AI reviewed provisional, not independent adjudication',
             'referenceClassCounts': {field: dict(sorted(Counter(labels[rid][field] for rid in ids).items())) for field in FIELDS},
             'denominator': 60, 'completedConditions': sum(len(x) for x in data.values()), 'plannedConditions': 9, 'missingPasses': missing,
             'passes': data, 'threePassSummary': ranges, 'pairwiseFlips': flips, 'changesAcrossThreePasses': across,
@@ -214,8 +228,29 @@ def build():
             'limitations': ['Same 60 synthetic records in every pass; observations are dependent.', 'Original CLI and repeat CLI differ by accepted patch amendment; equivalence is unproven.', 'Provider serving revision and effective seed are unavailable.', 'Batch timing is request timing; per-record shares are not independent latency.', 'Subscription request cost is unknown, not zero.']}
 
 
-def markdown(report):
-    lines = ['# GPT-6 Luna medium repeat findings', '', f"Completed conditions: {report['completedConditions']}/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.", '',
+def build():
+    reports = [build_series(config, display) for config, display in SERIES]
+    # Keep the original Luna view at the top level for saved clients. All comparisons
+    # in `series` have separate 60-record denominators and their own source bindings.
+    for report in reports:
+        insights = []
+        for condition in CONDITIONS:
+            summary = report['threePassSummary'][condition]['allFour']
+            changes = report['changesAcrossThreePasses'].get(condition)
+            if summary['range'] is not None and changes is not None:
+                lo, hi = summary['range']
+                insights.append(f"{condition} matched all four references on {lo} to {hi} of 60 comments per pass; {len(changes['fourFieldVector'])} comments changed at least one decision across the three passes.")
+        for condition in ('P1', 'P2'):
+            deltas = [x['allFour'] for x in report['withinPassPromptDeltas'] if x['to'] == condition]
+            if len(deltas) == 3:
+                direction = 'changed direction across passes' if min(deltas) < 0 < max(deltas) else 'did not improve agreement in every pass' if min(deltas) <= 0 else 'improved agreement in all three observed passes'
+                insights.append(f"{condition} versus P0 {direction}: changes were {', '.join(f'{x:+d}' for x in deltas)} matches out of 60. Three passes do not establish a reliable future effect.")
+        report['interpretation'] = insights
+    return {**reports[0], 'series': reports, 'availableConfigurations': [r['configuration'] for r in reports]}
+
+
+def markdown_series(report):
+    lines = [f"## {report['displayName']}", '', f"Completed conditions: {report['completedConditions']}/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.", '',
              '| Pass | Condition | Valid | All four | Sentiment | Follow-up | Serious concern | Testimonial | Request seconds | Input tokens | Output tokens |',
              '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
     for pass_name in PASSES:
@@ -255,6 +290,11 @@ def markdown(report):
     return '\n'.join(lines) + '\n'
 
 
+def markdown(report):
+    intro = '# Prompt repeat findings\n\nEach configuration is a separate series on the same 60 development records. Scores and pass counts are reported within each configuration.\n\n'
+    return intro + '\n'.join(markdown_series(series) + '\nObserved patterns:\n\n' + '\n\n'.join(series['interpretation']) + '\n' for series in report['series'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='Check outputs without writing')
@@ -266,7 +306,7 @@ def main():
             if not path.exists() or path.read_text() != value: raise ValueError(f'Stale report: {path}')
         else:
             path.write_text(value)
-    print(f"{report['completedConditions']}/9 completed conditions; {len(report['pairwiseFlips'])} completed pass comparisons")
+    print('; '.join(f"{r['configuration']}: {r['completedConditions']}/9 complete" for r in report['series']))
 
 
 if __name__ == '__main__': main()
