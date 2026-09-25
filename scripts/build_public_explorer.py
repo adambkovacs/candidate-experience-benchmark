@@ -1210,6 +1210,19 @@ def export(root=ROOT):
             if entry['parentBaselineId'] == 'typesafe-jev113-v2':
                 entry['reason'] = 'Native P1 and P2 question-instruction runs completed in a separate Jev protocol. These are distinct from chat system prompts.'
 
+    # Publish only closed Gemini results that reproduce the saved offline report.
+    for gemini_folder in ('gemini-openrouter-prep-v2', 'gemini-openrouter-prep-v3'):
+        gemini_report_path = root / 'results' / gemini_folder / 'report-v1.json'
+        if not gemini_report_path.is_file():
+            continue
+        from build_gemini_openrouter_report_v1 import build as build_gemini_report
+        report = json.loads(gemini_report_path.read_text())
+        if report != build_gemini_report(gemini_report_path.parent):
+            raise ValueError('Gemini report differs from validated closed evidence')
+        runs.extend(report['public_runs'])
+        cases.extend(report['public_cases'])
+        pairs.extend(report['public_pairs'])
+
     ids = [run['id'] for run in runs]
     if len(ids) != len(set(ids)):
         raise ValueError('Duplicate public run IDs')
