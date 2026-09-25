@@ -319,7 +319,10 @@ class PublicExportTests(unittest.TestCase):
   self.assertTrue(all(r['disposition'] in ('scheduled','blocked','excluded') for r in x['roster']))
   self.assertGreaterEqual(sum(r['condition']=='P1' for r in x['runs']),55)
   self.assertGreaterEqual(sum(r['condition']=='P2' for r in x['runs']),54)
-  self.assertTrue(all(p['eligible'] for p in x['promptComparisons']))
+  self.assertTrue(all(p['eligible'] or p.get('kind')=='hosted-observational' for p in x['promptComparisons']))
+  observed=[p for p in x['promptComparisons'] if p.get('kind')=='hosted-observational']
+  self.assertEqual(len(observed),9)
+  self.assertTrue(all(p['eligible'] is False and len(p['comparisons'])==3 for p in observed))
   self.assertEqual(len(x['nativeInstructionComparisons']),1)
   self.assertFalse(x['nativeInstructionComparisons'][0]['eligible'])
   self.assertTrue(all(r['timing']['inferenceSeconds'] is None for r in x['runs']))

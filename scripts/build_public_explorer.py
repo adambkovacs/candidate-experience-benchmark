@@ -1223,6 +1223,24 @@ def export(root=ROOT):
         cases.extend(report['public_cases'])
         pairs.extend(report['public_pairs'])
 
+    gemini_v2_path = root / 'results/gemini-openrouter-prep-v3/report-v2.json'
+    if gemini_v2_path.is_file():
+        from build_gemini_openrouter_report_v2 import build as build_gemini_v2
+        report = json.loads(gemini_v2_path.read_text())
+        if report != build_gemini_v2(gemini_v2_path.parent):
+            raise ValueError('Gemini comparison report differs from closed evidence')
+        existing = {run['id']: run for run in runs}
+        for run in report['public_runs']:
+            if run['id'] in existing and existing[run['id']] != run:
+                raise ValueError('Repeated Gemini baseline differs across reports')
+            existing[run['id']] = run
+        runs = list(existing.values())
+        incoming_ids = {run['id'] for run in report['public_runs']}
+        cases = [case for case in cases if case['configuration'] not in incoming_ids]
+        cases.extend(report['public_cases'])
+        pairs.extend({**pair, 'sourceStatus': 'hash-verified saved report', 'evidenceUrl': 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/gemini-openrouter-prep-v3/report-v2.json'}
+                     for pair in report['public_pairs'])
+
     ids = [run['id'] for run in runs]
     if len(ids) != len(set(ids)):
         raise ValueError('Duplicate public run IDs')
@@ -1230,6 +1248,7 @@ def export(root=ROOT):
         # Saved elapsed_seconds measures the client request, including transport
         # and sometimes bookkeeping. It cannot establish server inference time.
         run['timing'].update(run['tokens'].pop('_providerGeneration', None) or {})
+        run['timing'].setdefault('comparableHosted', False)
         run['timing'].setdefault('inferenceSeconds', None)
         run['timing'].setdefault('inferenceBasis', 'No verified provider inference duration in this export.')
         run['timing'].setdefault('inferenceReportedRequests', 0)

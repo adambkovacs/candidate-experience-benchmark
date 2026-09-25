@@ -6,6 +6,8 @@ The roster has Gemini 3.1 Pro low/high, 3.6 Flash low/medium, and 3.7 and 3.8 Fl
 
 The selected provider is Google AI Studio's standard endpoint, with fallback disabled. Published rates in the saved catalog are $2/M input and $12/M output for Pro, and $0.75/M input and $3.75/M output for Flash. The locked budget ledger reserves a conservative request bound before inference and retains unknown charges. Reservations are not bills. See the [catalog](../results/gemini-openrouter-prep-v1/catalog.json) and [OpenRouter provider controls](https://openrouter.ai/docs/guides/routing/provider-selection).
 
+The runtime is OpenRouter's hosted chat-completions API routed to Google AI Studio. The saved requests and raw responses retain exact model IDs and returned revisions. Provider hardware and quantization are not recorded, so they remain unknown; the Mac is only the API client for these runs.
+
 ## Preserved routing failures
 
 The first ten smoke requests received HTTP 404 at `Filter by Max Price`. They returned no model response or billing receipt. Version 1 set zero request and image price ceilings alongside token price ceilings. Those filters are inappropriate for choosing a multimodal endpoint for a text-only workload. Version 2 keeps the prompt/completion price ceilings and removes the other two filters. Both versions and all attempted requests are preserved.
@@ -29,3 +31,13 @@ Generation metadata was also delayed for development batch 1. A later read-only 
 Version 3 verifies the exact response provider and model when those fields are present. Missing provider identity requires a successful generation lookup; a conflicting identity stops the configuration. Timing metadata can arrive later without invalidating a response whose identity is already verified. Inference POST requests are never retried automatically.
 
 The remaining nine hosted baselines use distinct budget partitions and run concurrently. A completed smoke is inspected before its development requests are admitted. Only closed, validated results enter the public website.
+
+## Completed prompt comparison
+
+Nine hosted model/effort configurations completed P0, P1 and P2, for 27 development runs and 1,620 review responses. Five ten-review batches had invalid output and remain in the results. All other batches were valid. Gemini 3.8 Flash high stopped at its P0 smoke with HTTP 429; its P1/P2 runs were not sent. No completed inference was repeated.
+
+The 27 completed configurations cost **$2.328085 including their smoke tests**. The rate-limited smoke has no reported bill; its $0.071826 reservation remains an unknown-cost upper bound. After all Gemini partitions were closed, the aggregate OpenRouter ledger accounted for $6.01078369650 against the $10 cap, including earlier unknown-charge bounds. This ledger total is not an observed provider bill. See the [completed partition reconciliation](../results/gemini-openrouter-prep-v3/completed-budget-reconciliation-v1.json).
+
+Gemini 3.8 Flash low matched all four reference judgments on 57/60 reviews at P0 and 56/60 at both P1 and P2. All three runs had 60 valid responses. These are single-pass observations; repeated runs would be needed to assess variation. The public prompt comparison preserves changed review IDs and their original responses.
+
+Each request classified ten reviews. Provider generation duration, when available, describes that batch. It is never divided by ten and presented as measured per-review inference latency. Missing server timing remains unavailable.

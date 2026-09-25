@@ -13,6 +13,10 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 [![Public explorer preview](public-site/preview.png)](https://adambkovacs.github.io/candidate-experience-benchmark/)
 
+## Explore the findings
+
+Start with the [comparison chart](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) to see agreement counts, then [compare a model with Jev](https://adambkovacs.github.io/candidate-experience-benchmark/#models). The [prompt view](https://adambkovacs.github.io/candidate-experience-benchmark/#explore) shows P0, P1 and P2 together and lets you inspect reviews whose answers changed. [Usage](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) follows the selected run and separates tokens, charges and reported timing. The complete run table is available under "Browse every saved run."
+
 ## What the models decide
 
 | Judgment | Question |
@@ -35,6 +39,8 @@ These are development findings, not a held-out leaderboard. The same AI assistan
 The new native Jev instruction runs completed all 60 reviews: P1 and P2 each produced 59 valid responses and 53 all-four matches. Each had one response rejected by the unchanged probability validator because one distribution summed to 0.99. These failures remain in the score. P1 adds classifier instructions; P2 adds decision procedures to the native Choice questions. See the [native comparison report](results/jev-native-prompt-variants-v1/report.json) and [timing and prompt audit](docs/JEV_PROMPT_AND_TIMING_AUDIT.md).
 
 Jev's server inference time is unavailable. Its earlier 2.2-minute display was the sum of 61 client requests, including a failed request. The public explorer now separates client timing from OpenRouter-reported generation duration, and displays input/output/reasoning tokens and actual or estimated cost. Provider generation duration is also not a measurement of pure accelerator computation.
+
+Gemini now also has 27 completed hosted P0/P1/P2 runs through OpenRouter, covering nine model/effort configurations. Their smoke and development requests cost $2.328085 in total. Five invalid ten-review batches remain in the results; one additional configuration stopped at its rate-limited smoke. See the [Gemini run notes](docs/GEMINI_OPENROUTER_RUN.md).
 
 ## Does the prompt change the result?
 

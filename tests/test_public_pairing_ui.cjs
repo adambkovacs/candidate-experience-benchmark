@@ -9,13 +9,21 @@ const source = fs.readFileSync(path.join(__dirname, '..', 'public-site', 'app.js
 function fixture() {
   let panel = null;
   const experiment = {value: 'model-a'};
-  const note = {after(node) { panel = node; }};
+  const note = {textContent: '', after(node) { panel = node; }};
+  const title = {textContent: ''};
+  const contextLabel = {textContent: ''};
+  const conditionGrid = {innerHTML: '', querySelectorAll() { return []; }};
+  const metric = {value: 'all_four'};
   let focused = null;
   const document = {
     querySelector(selector) {
       if (selector === '#audited-comparison') return panel;
       if (selector === '#experiment-note') return note;
       if (selector === '#experiment-select') return experiment;
+      if (selector === '#experiment-title') return title;
+      if (selector === '#experiment-context') return contextLabel;
+      if (selector === '#condition-grid') return conditionGrid;
+      if (selector === '#metric') return metric;
       return null;
     },
     createElement() {
@@ -27,11 +35,11 @@ function fixture() {
       };
     },
   };
-  const instrumented = source.replace('  init();\n})();', '  globalThis.__pairUi = {state,renderAuditedComparison};\n})();');
+  const instrumented = source.replace('  init();\n})();', '  globalThis.__pairUi = {state,renderAuditedComparison,renderExperiment,comparisonNote};\n})();');
   assert.notEqual(instrumented, source, 'test hook must replace only the init call');
   const context = {document, URL};
   vm.runInNewContext(instrumented, context, {filename: 'app.js'});
-  return {ui: context.__pairUi, panel: () => panel, focused: () => focused};
+  return {ui: context.__pairUi, panel: () => panel, note: () => note.textContent, focused: () => focused};
 }
 
 function report() {
@@ -113,4 +121,48 @@ test('native Jev comparison is shown separately without treating it as an eligib
   assert.match(panel().innerHTML, /native Choice questions, not chat system prompts/);
   assert.match(panel().innerHTML, /Historical P0 and one pass/);
   assert.match(panel().innerHTML, /58 \/ 60/);
+});
+
+function hostedReport() {
+  return {...report(), eligible: false, kind: 'hosted-observational',
+    comparisonLimit: 'One pass per condition; prompt variant effects remain observational.'};
+}
+
+test('marked hosted Gemini pairs show changed cases with an observational limit', () => {
+  const {ui, panel, note, focused} = fixture();
+  const runs = ['P0', 'P1', 'P2'].map((condition, index) => ({
+    id: index ? `model-a-${condition.toLowerCase()}` : 'model-a',
+    parentBaselineId: index ? 'model-a' : null,
+    model: 'Gemini 3.8 Flash', effort: 'low', surface: 'OpenRouter Gemini hosted batch10',
+    condition, complete: true, records: 60, valid: 60,
+    metrics: {all_four: 50}, pairedEligible: false,
+  }));
+  ui.state.data = {promptComparisons: [hostedReport()], runs};
+  ui.state.experiments = new Map([['model-a', runs]]);
+  ui.renderExperiment();
+  assert.match(note(), /Compare changed answers by record below/);
+  assert.match(note(), /Each prompt version was run once/);
+  assert.equal(panel().hidden, false);
+  assert.match(panel().innerHTML, /Hosted prompt comparison/);
+  assert.match(panel().innerHTML, /One pass per condition/);
+  assert.match(panel().innerHTML, /58 \/ 60/);
+  assert.match(panel().innerHTML, /REVIEW DEV-006/);
+  assert.match(ui.comparisonNote(runs[1]), /Part of the hosted prompt comparison/);
+  assert.doesNotMatch(ui.comparisonNote(runs[1]), /not part of the record-by-record/);
+  panel().change({target: {id: 'pair-case-select', value: '1'}});
+  assert.match(panel().innerHTML, /Second feedback/);
+  assert.equal(focused(), '#pair-case-select');
+  panel().change({target: {id: 'pair-select', value: 'P0_to_P2'}});
+  assert.match(panel().innerHTML, /REVIEW DEV-009/);
+  assert.match(panel().innerHTML, /56 \/ 60/);
+});
+
+test('unmarked ineligible pairs stay hidden and native Jev detail copy stays native', () => {
+  const {ui, panel} = fixture();
+  ui.state.data = {promptComparisons: [{...report(), eligible: false, kind: 'other-observation'}]};
+  ui.renderAuditedComparison('model-a');
+  assert.equal(panel().hidden, true);
+  const jev = {id: 'typesafe-jev113-v2', nativeInstructionComparison: true, pairedEligible: false};
+  assert.match(ui.comparisonNote(jev), /Native Jev instruction comparison/);
+  assert.doesNotMatch(ui.comparisonNote(jev), /hosted prompt comparison/);
 });
