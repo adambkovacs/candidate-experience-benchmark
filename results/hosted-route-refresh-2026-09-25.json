@@ -1,0 +1,462 @@
+{
+  "schema": "hosted-pending-route-refresh-v1",
+  "scope": {
+    "as_of_date": "2026-09-25",
+    "intent": "Read-only inventory of unfinished original Qwen, Mistral, DeepSeek, and Gemini conditions and exact OpenRouter catalog routes. Repeatability runs are excluded.",
+    "no_inference_performed": true,
+    "no_api_key_used": true,
+    "substitutions_made": [],
+    "authorization": {
+      "aggregate_openrouter_cap_usd": "10",
+      "increase_requested_usd": "15",
+      "increase_approved": false,
+      "new_budget_reservations_or_ledger_writes": false
+    },
+    "interpretation": "A model or endpoint listing proves catalog metadata only. It does not prove request capacity, successful inference, or a recovered provider after HTTP 429."
+  },
+  "retrieval": {
+    "catalog_url": "https://openrouter.ai/api/v1/models",
+    "catalog_models_exact_query_utc": "2026-09-25T11:33:46Z",
+    "qwen_and_mistral_endpoint_query_utc": "2026-09-25T11:33:03Z",
+    "acquisition": "Public OpenRouter API pages were read through the web retrieval tool without authentication. Exact IDs were searched in the current catalog view.",
+    "raw_catalog_sha256": null,
+    "raw_hash_note": "The web retrieval exposed rendered page text rather than original response bytes. A direct local urllib GET failed with URLError caused by DNS resolution; no HTTP status or response bytes were received through that path. This does not affect the separately successful public web retrieval and is not evidence that an ID is unavailable.",
+    "endpoint_query_limitations": "Current Qwen and Mistral endpoint pages returned data. Direct Gemini and DeepSeek endpoint pages were reported inaccessible by the web retrieval tool; that tool error is not interpreted as an HTTP status or endpoint absence."
+  },
+  "pending_original_conditions": [
+    {
+      "family": "Qwen",
+      "configuration_id": "openrouter-paid-qwen36-35b-a3b-on",
+      "condition": "P2",
+      "exact_model_id": "qwen/qwen3.6-35b-a3b",
+      "state": "incomplete_after_provider_failures",
+      "accounting": {
+        "denominator": 60,
+        "attempted": 41,
+        "valid_outputs": 37,
+        "service_error_positions": 4,
+        "latest_stop": "DEV-041 HTTP 429",
+        "never_sent_ids": [
+          "DEV-042",
+          "DEV-043",
+          "DEV-044",
+          "DEV-045",
+          "DEV-046",
+          "DEV-047",
+          "DEV-048",
+          "DEV-049",
+          "DEV-050",
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "eligible_paired_comparison": false
+      },
+      "cost_evidence_usd": {
+        "known_observed_development": "0.0417374",
+        "unknown_upper_bound_for_condition_development_attempts": "0.1196032",
+        "latest_continuation_partition_unknown_upper_bound": "0.0299008",
+        "caveat": "Unknown-charge values are retained upper bounds, not observed spend."
+      },
+      "next_action": "Recheck only the exact route's capacity before any separately admitted continuation. Preserve all four failed positions; only DEV-042 through DEV-060 are never-sent. Do not infer capacity from the catalog listing."
+    },
+    {
+      "family": "Mistral",
+      "configuration_ids": [
+        "openrouter-paid-mistral-small4-119b-none",
+        "openrouter-paid-mistral-small4-119b-high"
+      ],
+      "conditions": [
+        "none",
+        "high"
+      ],
+      "exact_model_id": "mistralai/mistral-small-2603",
+      "exact_provider_tag_attempted": "mistral/zdr",
+      "state": "smoke_blocked_no_development_admitted",
+      "per_condition": {
+        "attempted_ids": [
+          "DEV-001"
+        ],
+        "response": "HTTP 429 service_error",
+        "billing_status": "billing_ok=false; unknown charge retained",
+        "never_sent_ids": [
+          "DEV-002",
+          "DEV-003"
+        ],
+        "development_requests_started": false,
+        "unknown_upper_bound_usd": "0.04177920",
+        "unused_allocation_released_usd": "0.10822080"
+      },
+      "next_action": "Require a new capacity decision before any smoke. Keep the none/high ledgers separate; do not replay DEV-001 or count DEV-002/003 as attempted."
+    },
+    {
+      "family": "DeepSeek",
+      "configuration_id": "deepseek-r1-distill-qwen32b-native-reasoning",
+      "exact_model_id": "deepseek/deepseek-r1-distill-qwen-32b",
+      "state": "exact_hosted_route_not_found_in_current_catalog_query",
+      "current_catalog_exact_standalone_id_hit": false,
+      "last_persisted_exact_endpoint_check": {
+        "observed_utc": "2026-09-24T13:20:05Z",
+        "http_status": 200,
+        "endpoint_count": 0
+      },
+      "inference_requests_sent": 0,
+      "local_download": "Cancelled by user on 2026-09-24; remains stopped.",
+      "substitute_models_considered": [],
+      "next_action": "Wait for a catalog entry and provider endpoint for this exact checkpoint. Keep local download and inference stopped; do not substitute another DeepSeek model."
+    },
+    {
+      "family": "Gemini",
+      "original_native_quota_condition": {
+        "configuration_id": "antigravity-gemini-3.1-pro-low-native-observed-batch10",
+        "condition": "P1",
+        "state": "historical_partial_quota_blocked_preserve_only",
+        "attempted": 50,
+        "valid_outputs": 40,
+        "service_errors": 10,
+        "never_sent_ids": [
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "shared_quota_remaining_fraction": 0,
+        "backend_reported_reset_utc": "2026-09-30T16:30:49Z",
+        "inference_performed_by_quota_check": false,
+        "current_execution_disposition": "Do not schedule renewed Antigravity execution under the current OpenRouter-hosted requirement."
+      },
+      "original_native_unattempted_conditions": [
+        "antigravity-gemini-3.1-pro-low-native-observed-batch10/P2",
+        "antigravity-gemini-3.1-pro-high-native-observed-batch10/P1",
+        "antigravity-gemini-3.1-pro-high-native-observed-batch10/P2",
+        "antigravity-gemini-3.6-flash-low-native-observed-batch10/P1",
+        "antigravity-gemini-3.6-flash-low-native-observed-batch10/P2",
+        "antigravity-gemini-3.6-flash-medium-native-observed-batch10/P1",
+        "antigravity-gemini-3.6-flash-medium-native-observed-batch10/P2",
+        "antigravity-gemini-3.7-flash-low-native-observed-batch10/P1",
+        "antigravity-gemini-3.7-flash-low-native-observed-batch10/P2",
+        "antigravity-gemini-3.7-flash-medium-native-observed-batch10/P1",
+        "antigravity-gemini-3.7-flash-medium-native-observed-batch10/P2",
+        "antigravity-gemini-3.7-flash-high-native-observed-batch10/P1",
+        "antigravity-gemini-3.7-flash-high-native-observed-batch10/P2"
+      ],
+      "original_native_tool_isolation_conditions": [
+        {
+          "configuration_id": "Gemini 3.8 Flash low, original native CLI 1.2.9",
+          "valid_outputs": 10,
+          "attempted_isolation_violation_positions": 10,
+          "never_sent_count": 40,
+          "cause": "A later batch attempted an external tool; headless permission denied the call."
+        },
+        {
+          "configuration_id": "Gemini 3.8 Flash medium, original native CLI 1.2.9",
+          "valid_outputs": 10,
+          "attempted_isolation_violation_positions": 10,
+          "never_sent_count": 40,
+          "cause": "A later batch attempted an external tool; headless permission denied the call."
+        },
+        {
+          "configuration_id": "Gemini 3.8 Flash high, original native CLI 1.2.9",
+          "valid_outputs": 10,
+          "attempted_isolation_violation_positions": 10,
+          "never_sent_count": 40,
+          "cause": "A later batch attempted an external tool; headless permission denied the call."
+        }
+      ],
+      "separate_openrouter_original_smoke": {
+        "configuration_id": "g3-gemini38-flash-high",
+        "exact_model_id": "google/gemini-3.8-flash",
+        "provider_tag": "google-ai-studio",
+        "phase": "P0 smoke only",
+        "attempted_ids": [
+          "DEV-001",
+          "DEV-002",
+          "DEV-003"
+        ],
+        "record_statuses": [
+          "service_error",
+          "service_error",
+          "service_error"
+        ],
+        "batch_http_status": 429,
+        "billing_ok": false,
+        "unknown_upper_bound_usd": "0.07182600",
+        "development_requests_started": false,
+        "last_observed_endpoint_time_utc": "2026-09-25T07:41:47Z",
+        "current_catalog_standalone_exact_id_hit": false,
+        "interpretation": "The exact route was present in the saved same-day request endpoint metadata, but the current catalog query did not return a standalone exact model row. Current endpoint status could not be obtained through the web tool.",
+        "state": "blocked_after_http_429_and_unknown_billing",
+        "covered_by_nine_completed_triples": false
+      },
+      "next_action": "Preserve native quota/tool-isolation states as historical blocks and do not schedule Antigravity continuations. Continue Gemini work through its exact OpenRouter-hosted configurations. The nine completed hosted triples remain separate evidence; resolve the distinct Gemini 3.8 high P0 smoke HTTP 429 and billing uncertainty before any further paid OpenRouter attempt.",
+      "state": "historical_native_blocks_plus_separate_hosted_smoke_block",
+      "original_native_unattempted_conditions_disposition": "Preserve as historical native unattempted conditions; do not schedule Antigravity calls.",
+      "original_native_tool_isolation_disposition": "Preserve as historical blocked native configurations; do not schedule renewed Antigravity calls.",
+      "completed_separate_openrouter_gemini_triples": {
+        "count_reported_complete": 9,
+        "evidence_path": "docs/MVP_STATUS.md",
+        "interpretation": "These are completed OpenRouter-hosted configurations. They are separate from, and do not retroactively complete, the original Antigravity configurations."
+      }
+    }
+  ],
+  "current_openrouter_catalog": [
+    {
+      "exact_model_id": "qwen/qwen3.6-35b-a3b",
+      "standalone_catalog_row": "present",
+      "canonical_slug": "qwen/qwen3.6-35b-a3b-20260415",
+      "model_name": "Qwen: Qwen3.6 35B A3B",
+      "model_context_tokens": 262144,
+      "model_level_price_usd_per_million_tokens": {
+        "input": "0.15",
+        "output": "1.00"
+      },
+      "model_level_max_completion_tokens": 235929,
+      "listed_provider_endpoint_count": 9,
+      "listed_provider_names": [
+        "Darkbloom",
+        "AkashML",
+        "DeepInfra",
+        "Venice",
+        "Parasail",
+        "AtlasCloud",
+        "Phala",
+        "SiliconFlow",
+        "CoreWeave"
+      ],
+      "endpoint_observations": "Provider endpoint records expose provider-specific prices and uptime_last_30m fields; latency_last_30m and throughput_last_30m were null in returned records. Endpoint controls vary. No selected provider was treated as capacity-confirmed."
+    },
+    {
+      "exact_model_id": "mistralai/mistral-small-2603",
+      "standalone_catalog_row": "present",
+      "canonical_slug": "mistralai/mistral-small-2603",
+      "model_name": "Mistral: Mistral Small 4",
+      "model_context_tokens": 262144,
+      "model_level_price_usd_per_million_tokens": {
+        "input": "0.15",
+        "output": "0.60"
+      },
+      "model_level_max_completion_tokens": 209715,
+      "reasoning_efforts_listed": [
+        "none",
+        "high"
+      ],
+      "listed_provider_endpoint_count": 4,
+      "listed_provider_tags": [
+        "mistral/zdr",
+        "mistral",
+        "mistral/eu",
+        "mistral/us"
+      ],
+      "exact_attempted_provider_currently_listed": true,
+      "endpoint_price_range_usd_per_million_tokens": {
+        "input": [
+          "0.15",
+          "0.165"
+        ],
+        "output": [
+          "0.60",
+          "0.66"
+        ]
+      },
+      "telemetry": "The mistral/zdr entry exposed uptime_last_30m 99.92570579494799%; endpoint latency and throughput fields were null. A listed endpoint does not resolve the historical HTTP 429."
+    },
+    {
+      "exact_model_id": "deepseek/deepseek-r1-distill-qwen-32b",
+      "standalone_catalog_row": "not_found_by_exact_current_query",
+      "model_level_context_or_price": null,
+      "current_endpoint_query": "Web retrieval tool reported the exact endpoint URL inaccessible; no HTTP status obtained. The prior persisted official endpoint response was HTTP 200 with endpoint_count 0."
+    },
+    {
+      "exact_model_id": "google/gemini-3.1-pro-preview",
+      "standalone_catalog_row": "present",
+      "canonical_slug": "google/gemini-3.1-pro-preview-20260219",
+      "model_context_tokens": 1048576,
+      "model_level_max_completion_tokens": 65536,
+      "model_level_price_usd_per_million_tokens": {
+        "input": "2.00",
+        "output": "18.00",
+        "input_rate_at_or_above_200k_prompt_tokens": "4.00"
+      },
+      "reasoning_efforts_listed": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "current_provider_endpoint_detail": "Not obtained; the exact endpoint API page was inaccessible through the web retrieval tool."
+    },
+    {
+      "exact_model_id": "google/gemini-3.6-flash",
+      "standalone_catalog_row": "present",
+      "canonical_slug": "google/gemini-3.6-flash-20260721",
+      "model_context_tokens": 1048576,
+      "model_level_max_completion_tokens": 65536,
+      "model_level_price_usd_per_million_tokens": {
+        "input": "0.75",
+        "output": "3.75"
+      },
+      "reasoning_efforts_listed": [
+        "high",
+        "medium",
+        "low",
+        "minimal"
+      ],
+      "current_provider_endpoint_detail": "Not obtained; the exact endpoint API page was inaccessible through the web retrieval tool."
+    },
+    {
+      "exact_model_id": "google/gemini-3.7-flash",
+      "standalone_catalog_row": "present",
+      "canonical_slug": "google/gemini-3.7-flash-20260813",
+      "model_context_tokens": 1048576,
+      "model_level_max_completion_tokens": 65536,
+      "model_level_price_usd_per_million_tokens": {
+        "input": "0.75",
+        "output": "3.75"
+      },
+      "reasoning_efforts_listed": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "current_provider_endpoint_detail": "Not obtained; the exact endpoint API page was inaccessible through the web retrieval tool."
+    },
+    {
+      "exact_model_id": "google/gemini-3.8-flash",
+      "standalone_catalog_row": "not_found_by_exact_current_query",
+      "model_context_or_price": null,
+      "last_observed_endpoint_metadata": {
+        "observation_utc": "2026-09-25T07:41:47Z",
+        "provider": "Google AI Studio",
+        "context_tokens": 1048576,
+        "max_completion_tokens": 65536,
+        "model_level_endpoint_input_usd_per_million_tokens": "0.75",
+        "model_level_endpoint_output_usd_per_million_tokens": "3.75",
+        "uptime_last_30m_percent_at_that_observation": 99.8736068022521,
+        "latency_and_throughput": null
+      },
+      "note": "Exact endpoint metadata is from the same-day P0 attempt, not the 11:33 catalog refresh. The attempt returned HTTP 429 and billing_ok=false; endpoint metadata does not establish current capacity."
+    }
+  ],
+  "next_actions": [
+    "Do not spend above the authorized aggregate $10 cap; the requested increase to $15 remains unapproved.",
+    "For Qwen and Mistral, require an exact-route capacity decision and budget preflight before any separately admitted work; preserve failures and never-sent IDs distinctly.",
+    "For DeepSeek R1 Distill Qwen 32B, keep the cancelled local download stopped until the exact checkpoint has a provider endpoint.",
+    "Preserve original Antigravity Gemini quota and tool-isolation evidence as historical blocked configurations; do not schedule native continuations under the current OpenRouter-hosted requirement. The nine completed hosted Gemini triples are separate completed evidence. Keep the distinct 3.8 high OpenRouter smoke blocked until its 429 and billing uncertainty are resolved.",
+    "Do not schedule repeatability passes as part of this inventory."
+  ],
+  "evidence_paths_and_sha256": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "0f0decbb1dace4ff406a335573c066c3efd03242ed31c1abacffb7daed3ac685",
+      "use": "$10 cap and route policy"
+    },
+    {
+      "path": "docs/MVP_STATUS.md",
+      "sha256": "437904c79f875577d3a88aa9e68f38e37128de05c2a19f5cc95520f4e8ecb2c1",
+      "use": "latest completion checkpoint, current unresolved hosted capacity statement"
+    },
+    {
+      "path": "docs/MVP_ROSTER_ACCOUNTING.md",
+      "sha256": "15ce2e0bb06eb2cf8274a91f54856deb39c97bc8f2a9a5ac0e164699f0bf93a2",
+      "use": "blocked configuration boundaries and exact pending disposition"
+    },
+    {
+      "path": "results/hosted-final-suffix-reconciled-v3/unresolved-run-inventory-v1.json",
+      "sha256": "23aec4fe48a079eeeccccc30f21d3c4b42d6906f6440e01d56b1fa90e0edc4c2",
+      "use": "original pending IDs and unresolved condition statuses"
+    },
+    {
+      "path": "results/hosted-final-suffix-reconciled-v3/qwen36-on-p2.json",
+      "sha256": "6b96d3b7d66906940365926cfe1b4fcb7d10994b4687128dc3ae3c2cbf82af9a",
+      "use": "Qwen P2 completeness and cost bounds"
+    },
+    {
+      "path": "results/mistral119-recovery-prep-v2/README.md",
+      "sha256": "86ec017160b27e74ef50860e486d85cce8d84eb245ca2380828d52a632abf461",
+      "use": "Mistral none/high retry disposition"
+    },
+    {
+      "path": "results/mistral119-recovery-prep-v2/none-smoke.jsonl",
+      "sha256": "29187b648dd9c946cc9ebf3f6b8670382d02dfed45f0b847351a091de2482b22",
+      "use": "none mode exact route and HTTP 429"
+    },
+    {
+      "path": "results/mistral119-recovery-prep-v2/none-smoke.jsonl.attempts.jsonl",
+      "sha256": "4edc6c336316d2b14ce69d98eb8b3be13b7dbb55757df1de50e8e78e3e4f0110",
+      "use": "none mode sent attempt journal"
+    },
+    {
+      "path": "results/mistral119-recovery-prep-v2/high-smoke.jsonl",
+      "sha256": "a919904e3712818055dcbd36908b4756924d0dc5a3cb3e4e349accd92ab4d233",
+      "use": "high mode exact route and HTTP 429"
+    },
+    {
+      "path": "results/mistral119-recovery-prep-v2/high-smoke.jsonl.attempts.jsonl",
+      "sha256": "211905a983bc17950b33450dc716867cc2eb25390cfeb7872f4cdb1113ba95c3",
+      "use": "high mode sent attempt journal"
+    },
+    {
+      "path": "results/hosted-recovery-budget-v2/mistral119-recovery-v2-none-reconciliation.json",
+      "sha256": "db180d6dd8fe30c34bbb9b2b2c22bdfbac31937392d9cd23dfb46155368b433e",
+      "use": "none mode unknown-cost upper bound"
+    },
+    {
+      "path": "results/hosted-recovery-budget-v2/mistral119-recovery-v2-high-reconciliation.json",
+      "sha256": "d1edc4170e6ddfb1c6f739e402d235b5c0d23de199c448d3a2c9875e764fbf87",
+      "use": "high mode unknown-cost upper bound"
+    },
+    {
+      "path": "results/deepseek-r1-download-cancelled-2026-09-24.json",
+      "sha256": "b82e35e6fd9eb84e38e4d5b7b5fe116f4b5bd29db283ec5a85e3e0dc8ff2be56",
+      "use": "user-cancelled local download boundary"
+    },
+    {
+      "path": "results/routing-review-2026-09-24.json",
+      "sha256": "090b505fd8479e0eaabb844dc1860fa4fe244af5298b82b7fc10845800f68c67",
+      "use": "prior exact DeepSeek endpoint API response with zero providers"
+    },
+    {
+      "path": "results/gemini-quota-confirmation-2026-09-24.json",
+      "sha256": "7dbe6491b2225667e50eb4bf859473d5b73f2512be75cf929a3629f7c0aaf989",
+      "use": "native Gemini quota, reset time, and no-inference check"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini38-flash-high/smoke-records.jsonl",
+      "sha256": "3f78fb25dc90f3b87fc27d77b29285b426cc3f2876d318be47efd38cf4fb176c",
+      "use": "three Gemini high smoke record outcomes"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini38-flash-high/smoke-attempts.jsonl",
+      "sha256": "7b19266c711e19ad1e0320d29db3ca4b191d5ec0ccefb5875d07b118d828d26f",
+      "use": "exact Gemini model/provider request and HTTP 429"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini38-flash-high/smoke-journal.jsonl",
+      "sha256": "c9340d655753b311fa4a306c10e82d5514d57d97fc9ebcd36a7a5404d29ebc9f",
+      "use": "Gemini batch start/finish and billing uncertainty"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/gemini38-high-terminal-reconciliation-v1.json",
+      "sha256": "9c5b5cdd6b649c70ef44215cf7c1fa7493674046a5b4e751b22ef8de53e179dd",
+      "use": "Gemini high P0 unknown charge and released allocation"
+    }
+  ],
+  "limitations": [
+    "No raw OpenRouter catalog response body or response hash was available through the web retrieval tool.",
+    "Direct local API GET failed DNS resolution; no HTTP result was inferred from that failure.",
+    "Google and DeepSeek exact endpoint API pages were inaccessible through the web retrieval tool. Their capacity remains unknown unless the persisted exact DeepSeek response explicitly reports zero endpoints.",
+    "Catalog and endpoint metadata are observations, not evidence that a benchmark request will be accepted."
+  ]
+}
