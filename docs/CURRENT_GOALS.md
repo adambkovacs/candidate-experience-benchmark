@@ -45,7 +45,7 @@ Reference review still has a proposed DEV-006 correction and unresolved DEV-013/
 
 The private tool handoff is complete at aff6f02 and no longer pending work here. Its separate task owns further implementation. The [handoff](https://github.com/AI-Enablement-Academy/classification-bench/blob/main/docs/HANDOFF.md) requires organization access.
 
-The app goal API still reports `usageLimited` after the user's quota-reset message. Its status API cannot resume it or replace its text. Work has resumed under the user's instruction and freshly checked subscription allowance; the attached goal checkpoint is stale. No reset credit or paid overage was enabled.
+The earlier app goal was usage-limited. The user has since replaced its text with the benchmark-only objective, and the API now confirms it is active. No reset credit or paid overage was enabled.
 
 ## Execution update at 2026-09-28 08:50 UTC
 
@@ -56,6 +56,14 @@ Jev's 378 new smoke and development requests have a token-price estimate of $0.0
 Four Gemini configurations are executing on OpenRouter: 3.1 Pro low and 3.6, 3.7 and 3.8 Flash medium. Their $2.70 combined allocations make the master ledger account for $9.39733468150, leaving $0.60266531850 unallocated at this checkpoint. Allocated capacity includes unfinished work and is not spent money. Reconcile closed partitions before calculating final headroom. The [next-wave inventory](HOSTED_REPEAT_NEXT_WAVE.md) retains the other unfinished Gemini configurations and the possible funding shortfall.
 
 GPT-5.6 Luna medium and Sol high repeats are running in their subscription lane. Fable 5.1 low/medium repeats are running, with high/xhigh prepared. Exact controls are in the [Codex](CODEX_REPEAT_ROSTER.md) and [Claude](CLAUDE_REPEAT_ROSTER.md) roster documents. Haiku remains required and needs separate first-pass eligibility handling; its historical failed batch is not a complete valid result.
+
+## Gemini completion update, 2026-09-28
+
+All four configurations in the latest Gemini wave now have nine closed condition/pass combinations: 3.1 Pro low and 3.6, 3.7 and 3.8 Flash medium. The first three produced 60 valid outputs in every combination. Gemini 3.8 has five combinations with 50 valid outputs and ten invalid outputs, caused by a truncated batch; the other four have 60 valid outputs. Completed execution does not mean every output was valid. See the [Gemini repeat findings](GEMINI_REPEAT_FINDINGS_2026-09-28.md).
+
+The four allocations are reconciled. Their six new passes and smoke calls cost $1.928587 according to returned provider charges. The master ledger accounts for $8.62592168150, including prior unknown-charge bounds, leaving $1.37407831850 under $10. No additional spending cap has been authorized. The Qwen suffix still requires controller review before allocation.
+
+The public deployment for commit 0755b39 succeeded, including the two completed Luna repeat series and the Jev report. The new Gemini report is verified offline and awaiting its own publication checkpoint. Fable low and medium have completed their six new development phases; report integration remains pending. Codex Luna medium/Sol high and Fable high/xhigh continue in their subscription lanes.
 
 ## Next delivery checkpoints
 
