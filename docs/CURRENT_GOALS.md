@@ -273,3 +273,14 @@ AnyJev generated reporting (`8d5bbf7`), SemIf generated reporting (`08a667a`) an
 ## AnyJev L0 publication verified, 2026-09-28
 
 Commit `83fb7c4` published the full L0 three-pass evidence and findings. Pages deployment `36472810339` succeeded, including the closed-report check and tests. Live `anyjev-l0-repeats.json`, `index.html` and `repeats.js` matched the committed bytes exactly. The live report SHA-256 is `2bcf22675dadfc1b3e15cec27d68edfcdd4901fbbd405f0e595c2941708f3958`. L0 is complete; the wider specialist and repeat roster remains unfinished. Alex 0.8B fresh-one development continues under its reviewed receipt.
+
+
+## Alex 0.8B first fresh pass closed, 2026-09-28
+
+Alex OpenJev 0.8B fresh-one native P0 development exited successfully. The frozen controller and the offline report independently verify all 60 saved outputs; record SHA-256 is `f4f5323876adc7f18bbe42b30a64179423af7600505dbba41f8bffcc527314f2`. All outputs are valid; all-four agreement is 3/60. Per-field agreement is sentiment 39/60, follow-up 37/60, serious concern 20/60 and testimonial potential 9/60. The model predicts testimonial yes for 59 reviews, including 49 reference-negative cases. These provisional-reference results describe this native NLI configuration. One completed fresh pass does not establish repeat stability. The historical observation remains separate.
+
+The second fresh pass has a separate admitted smoke test; its full development pass is not yet admitted. The third pass and the 4B series remain pending. The recorded 1,321.63 seconds is the sum of client prediction durations for the first full pass, not isolated inference time; observed local cost is unavailable.
+
+Native L1 reporting passed nine offline tests, independent review and a clean-export test run. L2 reporting passed seven offline tests, independent review and a real saved-evidence build/check. These tools add no inference results: L1 remains 0/3 complete, while L2 has its historical first pass only. L2 third-pass reporting will require an update after its successor plan is frozen. The current L1 report leaves interrupted partial stages unscored without exporting their partial record details.
+
+The published L0 selector was checked in a browser: three 4/60 scores and zero changed classifications are visible. The local `.env` is ignored, untracked and mode 0600; a bounded current tracked-file scan found no confirmed live credential. This is not a claim about arbitrary credential formats or all Git history. Spending caps and remaining scope are unchanged.
