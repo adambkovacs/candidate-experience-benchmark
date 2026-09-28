@@ -4,10 +4,11 @@
 manifest serializes payload keys in sorted order, while the execution check
 expects the original insertion-order wire hash. Reloading the saved manifest
 therefore fails the request-byte check before HTTP dispatch. Do not execute
-this v1 controller. No generated stage has run. A separately versioned
-correction and persisted-manifest regression are being prepared; original
+this v1 controller. No generated stage has run. The [reviewed v2 amendment](OPENJEV_GENERATED_V2_AMENDMENT_2026-09-28.md)
+preserves the intended wire bytes and passes persisted-manifest regressions;
+use its separate controller and manifest for future stage admission. Original
 controller and manifest bytes remain preserved. This finding supersedes the
-earlier approval recorded below.
+earlier v1 approval recorded below.
 
 The generated-off and generated-on comparisons use a fresh matched three-pass
 series. The historical P0/P1/P2 records remain observational: the original P0
