@@ -30,3 +30,13 @@ For three of the six configurations, the direction of the P1-versus-P0 score dif
 Each comparison uses the same 60 reviews. A changed review means at least one of its four predicted labels differs; it does not necessarily mean the new answer is less accurate. The reference labels are provisional, including the disputed cases described in the reference-review document. These repeated responses do not add independent reviews, and serving revisions or caching are not fully observable. The third pass is needed before the declared three-pass ranges are complete.
 
 DeepSeek Flash off has also passed its first smoke inspection and begun the first development phase under the bounded $0.46 child allocation. That allocation remains within the original $10 cap; it is not $0.46 of observed spending. Alex 4B's second native pass continues separately. See the [DeepSeek admission](DEEPSEEK_FRESH_REPEAT_ADMISSION.md) and [local-Qwen preparation](LEGACY_QWEN_FRESH3_ADMISSION.md).
+
+## Fresh hosted results and subscription progress
+
+The six additional Codex configurations have 50 of 54 planned full conditions closed in this publication. GPT-6 Luna low and Sol low each have all nine complete. The four remaining conditions belong to Luna 5.6 xhigh, Astra 6 medium, and Terra 5.6 low/medium. These counts describe this additional wave, not the entire repeat roster.
+
+The fresh DeepSeek V4.1 Flash series has its first P0 and P1 conditions closed, each with 60 valid responses. All-four agreement is 48/60 for P0 and 47/60 for P1. P1 improves follow-up agreement from 59 to 60 and testimonial agreement from 55 to 57, while sentiment agreement falls from 52 to 50; serious-concern agreement stays at 57. A one-review aggregate difference from a single paired pass does not establish a prompt benefit or harm. Seven of the nine conditions remain unfinished at this checkpoint.
+
+Provider-reported development charges are $0.00275230 for P0 and $0.00297068 for P1. Their input/output token counts are 84,217/2,793 and 94,837/2,558. Summed client HTTP durations are 389.88 and 344.31 seconds; these include network and service overhead and are not pure inference times. Smoke calls are excluded from these development totals.
+
+The new public DeepSeek repeat view preserves the historical configuration separately. Each published phase is bound to an immutable prefix of its settled child budget, so later live ledger writes cannot change the evidence behind published results. Frozen manifest paths are resolved relative to their recorded original checkout and verified after relocation; the original manifest bytes are retained.
