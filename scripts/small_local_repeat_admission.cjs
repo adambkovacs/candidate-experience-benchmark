@@ -18,7 +18,21 @@ const NAMES = [
   'qwen3.5-4b-sdk-thinking-off',
 ];
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
-const hashFile = filename => hash(fs.readFileSync(filename));
+const hashFile = filename => {
+  const digest = crypto.createHash('sha256');
+  const fd = fs.openSync(filename, 'r');
+  const chunk = Buffer.allocUnsafe(1024 * 1024);
+  try {
+    for (;;) {
+      const count = fs.readSync(fd, chunk, 0, chunk.length, null);
+      if (count === 0) break;
+      digest.update(chunk.subarray(0, count));
+    }
+  } finally {
+    fs.closeSync(fd);
+  }
+  return digest.digest('hex');
+};
 const read = filename => JSON.parse(fs.readFileSync(filename, 'utf8'));
 const rows = filename => fs.readFileSync(filename, 'utf8').split('\n').filter(Boolean).map(JSON.parse);
 const stable = value => JSON.stringify(value);

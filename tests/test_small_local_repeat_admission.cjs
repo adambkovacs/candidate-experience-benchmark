@@ -10,6 +10,24 @@ const plan = admission.makePlan();
 const [e2bOff, e2bOn, e4bOff, e4bOn, qwen] = admission.NAMES;
 const phase = (id, pass, condition) => `${id}/${pass}/${condition}`;
 
+test('hashFile streams a file larger than Node readFileSync limit', t => {
+  const config = plan.configurations[e2bOff];
+  const artifact = path.join(plan.parent_runtime.models_dir, config.artifact_path);
+  if (!fs.existsSync(artifact)) return t.skip('Pinned GGUF is not installed on this host');
+  assert(fs.statSync(artifact).size > 2 ** 31);
+  assert.equal(admission.hashFile(artifact), config.artifact_sha256);
+});
+
+test('hashFile matches direct SHA-256 for a bounded fixture', t => {
+  const folder = fs.mkdtempSync(path.join(os.tmpdir(), 'small-local-hash-'));
+  t.after(() => fs.rmSync(folder, {recursive:true,force:true}));
+  const file = path.join(folder, 'bytes.bin');
+  const bytes = Buffer.alloc(3 * 1024 * 1024 + 17);
+  for (let i = 0; i < bytes.length; i++) bytes[i] = i % 251;
+  fs.writeFileSync(file, bytes);
+  assert.equal(admission.hashFile(file), require('node:crypto').createHash('sha256').update(bytes).digest('hex'));
+});
+
 function fixture(id, pass, condition, stage, predict) {
   const folder = fs.mkdtempSync(path.join(os.tmpdir(), 'small-local-repeat-'));
   const paths = () => ({folder, claim:path.join(folder,`${stage}.claim.json`),
