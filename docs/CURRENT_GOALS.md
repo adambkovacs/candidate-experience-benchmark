@@ -181,3 +181,9 @@ Freeze the requested roster for this study. A newly discovered model does not au
 ## Completion boundaries
 
 The case study is complete only when each required baseline/prompt/repeat configuration has an evidence-backed disposition and the requested available runs are finished within budget. A recorded blocker explains unfinished work; it does not count as a completed run or an accepted exclusion. Report a budget-limited or route-limited checkpoint as such. Required work can be removed from completion scope only by an explicit user decision. Completion of the separate classification-bench task is outside this task's completion criteria.
+
+## Public evidence cleanup verified, 2026-09-28 14:49 UTC
+
+Commit `2ef36e7` replaces 14 historical Claude evidence links with redacted public copies and removes 648 quota-bearing captures from the current Git tree. All working originals and private backups remain intact and hash-verified. Scores and usage are unchanged. The full Pages workflow passed in an actual staged-tree archive (97 Python tests and three UI tests), with four additional inventory tests passing. Independent review approved the change; historical Git exposure remains explicitly unresolved. Pages deployment `36438655663` succeeded, and live `data.json` and `findings.json` matched the committed files byte-for-byte. See the [cleanup record](PRIVATE_EVIDENCE_REMOVAL_PLAN_2026-09-28.md).
+
+Gemini 3.8 Flash low repeat admission and AnyJev raw P0 repeat admission are being prepared offline in separate agent tasks. Neither has sent a new inference request. The five exact small-local configurations remain pending; the large-file hash fix is committed and the first smoke receipt now binds it, but runtime load verification must pass before dispatch. No new hosted spend or higher cap is authorized by this checkpoint.
