@@ -324,14 +324,31 @@ class HostedWaveFindingsTest(unittest.TestCase):
         self.assertEqual(entry['completionStatus'], 'partial')
         self.assertEqual(entry['terminalEvent'], 'phase_stopped')
         self.assertEqual(entry['finishedRequests'], 43)
+        self.assertEqual(entry['compositeFinishedRequests'], 60)
+        self.assertEqual(entry['coverageStatus'], 'closed_with_historical_service_error')
         self.assertEqual(entry['score']['denominator'], 60)
-        self.assertEqual(entry['score']['outcomes']['valid'], 42)
+        self.assertEqual(entry['score']['outcomes']['valid'], 59)
         self.assertEqual(entry['score']['outcomes']['service_error'], 1)
-        self.assertEqual(entry['score']['outcomes']['never_sent'], 17)
+        self.assertEqual(entry['score']['outcomes']['never_sent'], 0)
         self.assertEqual(entry['usage']['unknownCostCount'], 1)
+        self.assertEqual(entry['usage']['requestCount'], 60)
+        self.assertEqual(entry['usage']['knownCostUsd'], '0.00956737500')
         self.assertIsNone(entry['usage']['actualCostUsd'])
         self.assertIsNone(entry['usage']['tokens']['input_tokens'])
         self.assertIn('responses', entry['evidence'])
+        extension = entry['suffixExtension']
+        self.assertTrue(extension['changedTiming'])
+        self.assertFalse(extension['strictCompletePass'])
+        self.assertEqual(extension['originalPhaseScore']['outcomes']['valid'], 42)
+        self.assertEqual(extension['originalPhaseScore']['outcomes']['never_sent'], 17)
+        self.assertEqual(extension['developmentRequests'], 17)
+        self.assertEqual(extension['capacityProbeUsage']['requestCount'], 3)
+        self.assertIsNone(extension['dev043ActualCostUsd'])
+        self.assertEqual(extension['dev043UnknownCostUpperBoundUsd'], '0.02502400000')
+        self.assertIn('capacityProbeInspection', extension['evidence'])
+        self.assertIn('developmentReview', extension['evidence'])
+        self.assertIn('development_responses', extension['evidence'])
+        self.assertNotIn('child_ledger', str(extension['evidence']))
         folder = ROOT / 'results/repeatability-v1' / spec.id / 'repeat2/P1'
         attempt = json.loads((folder / 'development.attempts.jsonl').read_text().splitlines()[-1])
         response = json.loads((folder / 'development.responses.jsonl').read_text().splitlines()[-1])
@@ -343,6 +360,47 @@ class HostedWaveFindingsTest(unittest.TestCase):
         self.assertEqual(response['attempt_id'], attempt['attempt_id'])
         self.assertEqual(response['error_body'], attempt['error_body'])
         self.assertTrue(response['error_body'])
+
+    def test_mistral_suffix_reproduces_without_active_child_ledger(self):
+        spec = report.wave.SPECS['openrouter-paid-mistral-small32-24b-venice-not-applicable']
+        current = report.build_series(spec)
+        paths = {Path(binding['path']) for binding in current['sourceBindings']}
+        for evidence in current['passes']['repeat2']['P1']['suffixExtension']['evidence'].values():
+            paths.add(Path(evidence['path']))
+        with tempfile.TemporaryDirectory() as temp:
+            clone = Path(temp)
+            for relative in paths:
+                target = clone / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / relative, target)
+            entry = report.build_series(spec, clone)['passes']['repeat2']['P1']
+            self.assertEqual(entry['score']['outcomes']['valid'], 59)
+            self.assertEqual(entry['score']['outcomes']['service_error'], 1)
+            self.assertIsNone(entry['usage']['actualCostUsd'])
+            self.assertEqual(entry['completionStatus'], 'partial')
+            evidence = entry['suffixExtension']['evidence']
+            raw = clone / evidence['development_responses']['path']
+            raw.write_text(raw.read_text().replace('body_base64', 'changed_base64', 1))
+            with self.assertRaisesRegex(ValueError, 'Raw response sidecar|reconciliation differs'):
+                report.build_series(spec, clone)
+
+    def test_mistral_suffix_reconciliation_cannot_promote_failed_043(self):
+        spec = report.wave.SPECS['openrouter-paid-mistral-small32-24b-venice-not-applicable']
+        current = report.build_series(spec)
+        paths = {Path(binding['path']) for binding in current['sourceBindings']}
+        with tempfile.TemporaryDirectory() as temp:
+            clone = Path(temp)
+            for relative in paths:
+                target = clone / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / relative, target)
+            suffix = Path('results/repeatability-v1') / spec.id / 'repeat2/P1/never-sent-suffix-v1'
+            reconciliation = clone / suffix / 'reconciliation.json'
+            data = json.loads(reconciliation.read_text())
+            data['positions'][42]['status'] = 'ok'
+            reconciliation.write_text(json.dumps(data) + '\n')
+            with self.assertRaisesRegex(ValueError, 'reconciliation differs'):
+                report.build_series(spec, clone)
 
 
 if __name__ == '__main__':

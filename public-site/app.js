@@ -64,15 +64,16 @@
   }
   function renderOverview() {
     const condition=$('#overview-condition').value;
-    const hostedOnly=$('#overview-hosted').checked;
-    const runs=state.data.runs.filter(r=>r.condition===condition && complete(r) && n(r.metrics?.all_four)!==null && (!hostedOnly || r.surface!=='Local / specialist')).sort((a,b)=>n(b.metrics.all_four)-n(a.metrics.all_four) || label(a).localeCompare(label(b)) || a.id.localeCompare(b.id));
+    const route=$('#overview-surface').value;
+    const runs=state.data.runs.filter(r=>r.condition===condition && complete(r) && n(r.metrics?.all_four)!==null && (route==='all' || (route==='local' ? r.surface==='Local / specialist' : r.surface!=='Local / specialist'))).sort((a,b)=>n(b.metrics.all_four)-n(a.metrics.all_four) || label(a).localeCompare(label(b)) || a.id.localeCompare(b.id));
     const visible=state.overviewAll ? runs : runs.slice(0,8);
     const jev=runs.find(r=>r.id==='typesafe-jev113-v2' || r.nativeInstructionComparison === true);
     const fallback=state.data.runs.find(r=>r.id==='typesafe-jev113-v2');
-    const reference=!state.overviewAll && jev && !visible.includes(jev) ? jev : !state.overviewAll && !jev && fallback ? fallback : null;
+    const reference=route==='local' ? null : !state.overviewAll && jev && !visible.includes(jev) ? jev : !state.overviewAll && !jev && fallback ? fallback : null;
     const row=(run,referenceRow=false)=>`<button type="button" class="overview-row${run.id===state.selectedId?' selected':''}${referenceRow?' reference':''}" data-overview-run="${esc(run.id)}" aria-label="Inspect ${esc(label(run))}, ${esc(run.condition)}, ${esc(run.metrics?.all_four)} of 60 matches"><span class="overview-row-name"><strong>${esc(run.model)}</strong><small>${esc([run.effort,run.surface,run.condition,run.id].filter(Boolean).join(' · '))}</small>${referenceRow ? `<em>${run.condition === condition ? 'Jev reference outside the first eight shown' : 'Jev P0 reference · different prompt version'}</em>` : ''}</span><span class="overview-row-track" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,n(run.metrics.all_four)/60*100))}%"></span></span><strong class="overview-row-score">${esc(run.metrics.all_four)} / 60</strong><small class="overview-row-cost">${esc(costSummary(run.cost))}</small></button>`;
     const extra=reference && !visible.includes(reference) ? row(reference,true) : '';
-    $('#overview-count').textContent=`${state.overviewAll ? runs.length : Math.min(8,runs.length)} of ${runs.length} complete ${hostedOnly?'hosted ':''}${condition} runs shown${extra ? reference.condition === condition ? ', plus Jev reference' : ', plus Jev P0 for context' : ''}.`;
+    const routeLabel=route==='local' ? 'local specialist ' : route==='hosted' ? 'hosted / API ' : '';
+    $('#overview-count').textContent=`${state.overviewAll ? runs.length : Math.min(8,runs.length)} of ${runs.length} complete ${routeLabel}${condition} runs shown${extra ? reference.condition === condition ? ', plus Jev reference' : ', plus Jev P0 for context' : ''}.`;
     $('#overview-rows').innerHTML=visible.map(r=>row(r)).join('')+extra || '<p class="empty-state">No complete runs match these settings.</p>';
     $('#overview-rows').querySelectorAll('[data-overview-run]').forEach(button=>button.addEventListener('click',()=>selectRun(button.dataset.overviewRun,true)));
     const toggle=$('#overview-toggle');toggle.hidden=runs.length<=8;toggle.textContent=state.overviewAll?'Show first eight':'Show all complete runs';toggle.setAttribute('aria-expanded',String(state.overviewAll));
@@ -274,7 +275,8 @@
       state.data={...data,runs:data.runs.filter(r => r?.id && ['P0','P1','P2'].includes(r.condition)),cases:Array.isArray(data.cases)?data.cases:[],roster:Array.isArray(data.roster)?data.roster:[]};
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;
       groups();renderExperimentSelect();renderModelSelect();
-      ['#overview-condition','#overview-hosted'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));
+      ['#overview-condition','#overview-surface'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));
+      $('#overview-specialists').addEventListener('click',()=>{$('#overview-surface').value='local';state.overviewAll=true;renderOverview();});
       $('#overview-toggle').addEventListener('click',()=>{state.overviewAll=!state.overviewAll;renderOverview();});
       $('#compare-search').addEventListener('input',renderModelSelect);
       $('#compare-run-select').addEventListener('change',event=>{if(event.target.value)selectRun(event.target.value,false);});

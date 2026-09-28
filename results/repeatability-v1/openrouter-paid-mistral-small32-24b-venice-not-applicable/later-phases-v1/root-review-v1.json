@@ -1,0 +1,55 @@
+{
+  "schema": "mistral-later-phases-root-review-v1",
+  "approved": true,
+  "manifest_sha256": "c549635e522e5fdac0f07da8551ce72be6b1d97e6b3d2d84563898e3ff8bec0f",
+  "controller_sha256": "5cd0bf9a0b0cb26ddba16c2fbb6881d4125e77c1449412fde9c120ad40e8ef7c",
+  "suffix_reconciliation_sha256": "e5bc90ad3a7c022af87414c433649222d439e40fc8f89f500c2f34b9444929a6",
+  "original_review_sha256": "1756a8576db662356f01cd177f12a1bb7df6170e7fcd0732e5513da78d6be804",
+  "budget_manifest_sha256": "a91e0ffea3e4086e2e9e5ff250afba759559f5d1da174f512f805c6bb4d6f622",
+  "partition_id": "mistral32-repeat-v1",
+  "acknowledge_historical_p1_59_plus_1": true,
+  "acknowledge_timing_deviation": true,
+  "approved_phases": [
+    {
+      "repeat": "repeat2",
+      "condition": "P0",
+      "phase": "smoke"
+    },
+    {
+      "repeat": "repeat2",
+      "condition": "P0",
+      "phase": "development"
+    },
+    {
+      "repeat": "repeat3",
+      "condition": "P1",
+      "phase": "smoke"
+    },
+    {
+      "repeat": "repeat3",
+      "condition": "P1",
+      "phase": "development"
+    },
+    {
+      "repeat": "repeat3",
+      "condition": "P0",
+      "phase": "smoke"
+    },
+    {
+      "repeat": "repeat3",
+      "condition": "P0",
+      "phase": "development"
+    },
+    {
+      "repeat": "repeat3",
+      "condition": "P2",
+      "phase": "smoke"
+    },
+    {
+      "repeat": "repeat3",
+      "condition": "P2",
+      "phase": "development"
+    }
+  ],
+  "review_note": "APPROVE: root independently reviewed exact request bindings, phase ordering, no-replay claims, raw capture, budget reservation and unknown holds, and smoke inspection gates; 14 focused tests pass. Historical P1 remains 59 valid plus DEV-043 service error with separate suffix timing. RESIDUAL: reconciliation does not independently reparse prediction status; normal dispatch validates it and preserved raw responses permit offline verification."
+}

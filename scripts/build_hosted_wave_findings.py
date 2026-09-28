@@ -481,6 +481,180 @@ def _repeat_phase(root, spec, base, repeat, condition, plan, review_sha, ids, la
             'usage': legacy._usage(attempts, pending is not None), 'evidence': evidence}, None, indexed
 
 
+def _mistral_suffix(root, spec, base, plan, entry, original, ids, labels, bind):
+    """Audit the later never-sent suffix without promoting the stopped pass."""
+    folder = base / 'repeat2/P1/never-sent-suffix-v1'
+    frozen_path = folder / 'frozen-manifest.json'
+    if not file(root, frozen_path).exists():
+        return entry
+    frozen_binding = bind(frozen_path)
+    frozen = json.loads(file(root, frozen_path).read_text())
+    expected_ids = [f'DEV-{i:03d}' for i in range(44, 61)]
+    original_last = original['DEV-043']
+    if (entry['completionStatus'] != 'partial' or entry['terminalEvent'] != 'phase_stopped' or
+            entry['finishedRequests'] != 43 or
+            original_last.get('status') != 'service_error' or original_last.get('http_status') != 429 or
+            original_last.get('cost_unknown') is not True or original_last.get('billing_ok') is not False or
+            original_last.get('observed_cost_usd') is not None or
+            any(original[rid]['status'] != 'never_sent' for rid in expected_ids)):
+        raise ValueError('Mistral original 429 and never-sent suffix boundary differs')
+    source = frozen.get('sources') or {}
+    required_sources = {'manifest', 'original_review', 'claim', 'journal', 'attempts',
+                        'responses', 'smoke_claim', 'smoke_journal', 'smoke_attempts',
+                        'smoke_responses', 'smoke_inspection', 'budget_manifest',
+                        'dev043_accounting'}
+    if (frozen.get('schema') != 'mistral-p1-never-sent-suffix-v1' or
+            frozen.get('status') != 'FROZEN' or frozen.get('configuration_id') != spec.id or
+            frozen.get('repeat') != 'repeat2' or frozen.get('condition') != 'P1' or
+            frozen.get('reference_labels_read') is not False or
+            frozen.get('request_ids') != expected_ids or
+            frozen.get('output_directory') != str(folder) or
+            set(source) != required_sources or
+            frozen.get('policy') != {'retry_count': 0, 'failed_attempts_reused': False,
+                                     'stop_on_unknown_cost': True, 'canonical_denominator': 60,
+                                     'original_failed_id': 'DEV-043',
+                                     'original_failed_attempt_id': original_last['attempt_id']}):
+        raise ValueError('Mistral frozen suffix identity differs')
+    controller = frozen['controller']
+    if controller['path'] != 'scripts/mistral_p1_never_sent_suffix.py':
+        raise ValueError('Mistral suffix controller identity differs')
+    evidence = {'manifest': frozen_binding, 'controller': bind(controller['path'], controller['sha256'])}
+    for key, item in source.items():
+        evidence['original_' + key] = bind(item['path'], item['sha256'])
+    if (source['manifest'] != {'path': str(base / 'repeat2/manifest.json'),
+                              'sha256': sha(file(root, base / 'repeat2/manifest.json'))} or
+            source['original_review'] != {'path': str(base / 'root-review-v1.json'),
+                                          'sha256': sha(file(root, base / 'root-review-v1.json'))} or
+            source['attempts'] != entry['evidence']['attempts'] or
+            source['journal'] != entry['evidence']['journal']):
+        raise ValueError('Mistral suffix original evidence binding differs')
+    accounting = json.loads(file(root, source['dev043_accounting']['path']).read_text())
+    if (accounting.get('event') != 'unknown_cost_accounted_as_upper_bound' or
+            accounting.get('attempt_id') != original_last['attempt_id'] or
+            accounting.get('evidence_sha256') != source['attempts']['sha256'] or
+            money(accounting.get('usd')) != money(original_last['reserved_cost_usd']) or
+            accounting.get('actual_cost_usd') is not None):
+        raise ValueError('DEV-043 conservative bound differs from original unknown cost')
+    planned = plan['conditions']['P1']['development'][43:]
+    if (len(frozen.get('requests', [])) != 17 or frozen['requests'] != planned or
+            [r['record_id'] for r in planned] != expected_ids):
+        raise ValueError('Mistral suffix request identity or membership differs')
+    receipt_paths = {'capacity_probe': folder / 'probe-root-review-v1.json',
+                     'development': folder / 'development-root-review-v1.json'}
+    receipts = {}
+    for phase, path in receipt_paths.items():
+        evidence[phase + 'Review'] = bind(path)
+        receipt = json.loads(file(root, path).read_text())
+        if (receipt.get('schema') != 'mistral-p1-suffix-root-review-v1' or
+                receipt.get('approved') is not True or
+                receipt.get('manifest_sha256') != frozen_binding['sha256'] or
+                receipt.get('original_review_sha256') != source['original_review']['sha256'] or
+                receipt.get('budget_manifest_sha256') != source['budget_manifest']['sha256'] or
+                receipt.get('controller_sha256') != controller['sha256'] or
+                receipt.get('partition_id') != 'mistral32-repeat-v1' or
+                phase not in receipt.get('approved_phases', []) or
+                receipt.get('capacity_probe_policy') != 'required' or
+                not str(receipt.get('cooldown_note', '')).strip()):
+            raise ValueError('Mistral suffix root review differs')
+        receipts[phase] = receipt
+    inspection_path = folder / 'capacity-probe-inspection.json'
+    evidence['capacityProbeInspection'] = bind(inspection_path)
+    inspection = json.loads(file(root, inspection_path).read_text())
+    if (receipts['development'].get('capacity_probe_inspection') != evidence['capacityProbeInspection'] or
+            inspection.get('schema') != 'mistral-p1-capacity-probe-inspection-v1' or
+            inspection.get('decision') != 'accepted_unchanged' or
+            inspection.get('manifest_sha256') != frozen_binding['sha256']):
+        raise ValueError('Mistral capacity probe inspection differs')
+
+    def phase(phase_name, requests, expected):
+        files = {kind: folder / (phase_name + '.' + suffix) for kind, suffix in (
+            ('claim', 'claim.json'), ('journal', 'journal.jsonl'),
+            ('attempts', 'attempts.jsonl'), ('responses', 'responses.jsonl'))}
+        for kind, path in files.items():
+            evidence[phase_name + '_' + kind] = bind(path)
+        claim = json.loads(file(root, files['claim']).read_text())
+        if (claim.get('schema') != 'mistral-p1-never-sent-suffix-v1-claim' or
+                claim.get('phase') != phase_name or
+                claim.get('manifest_sha256') != frozen_binding['sha256'] or
+                claim.get('review_sha256') != evidence[phase_name + 'Review']['sha256'] or
+                claim.get('request_ids') != expected):
+            raise ValueError('Mistral suffix phase claim differs')
+        events = rows(root, files['journal'])
+        attempts = rows(root, files['attempts'])
+        if (len(attempts) != len(expected) or len(events) != 3 * len(expected) + 2 or
+                events[0].get('event') != 'phase_started' or
+                events[-1].get('event') != 'phase_completed' or
+                events[-1].get('request_count') != len(expected) or
+                [r.get('id') for r in attempts] != expected or
+                len({r.get('attempt_id') for r in attempts}) != len(expected)):
+            raise ValueError('Mistral suffix phase did not close in exact order')
+        for index, (row, request) in enumerate(zip(attempts, requests)):
+            _check_attempt(spec, row, request, phase_name, 'repeat2', 'P1', frozen_binding['sha256'])
+            if row.get('status') != 'ok' or row.get('billing_ok') is not True or row.get('cost_unknown') is not False:
+                raise ValueError('Mistral suffix accepted a failed or unknown-cost response')
+            intent, start, finish = events[1 + 3 * index:4 + 3 * index]
+            if ((intent.get('event'), intent.get('id'), intent.get('request_sha256')) !=
+                    ('request_intent', row['id'], row['request_sha256']) or
+                    (start.get('event'), start.get('id'), start.get('attempt_id'), start.get('request_sha256')) !=
+                    ('request_started', row['id'], row['attempt_id'], row['request_sha256']) or
+                    (finish.get('event'), finish.get('id'), finish.get('attempt_id'),
+                     finish.get('status'), finish.get('billing_ok'), finish.get('cost_unknown')) !=
+                    ('request_finished', row['id'], row['attempt_id'], 'ok', True, False)):
+                raise ValueError('Mistral suffix journal differs from attempts')
+        _sidecar(root, files['responses'], attempts, bind, required=True)
+        if len(rows(root, files['responses'])) != len(expected):
+            raise ValueError('Mistral suffix raw response count differs')
+        return attempts
+
+    probe = phase('capacity_probe', plan['conditions']['P1']['smoke'],
+                  ['DEV-001', 'DEV-002', 'DEV-003'])
+    for kind in ('journal', 'attempts', 'responses'):
+        if inspection.get(kind + '_sha256') != evidence['capacity_probe_' + kind]['sha256']:
+            raise ValueError('Mistral capacity probe evidence changed after inspection')
+    suffix = phase('development', planned, expected_ids)
+    reconciliation_path = folder / 'reconciliation.json'
+    evidence['reconciliation'] = bind(reconciliation_path)
+    reconciliation = json.loads(file(root, reconciliation_path).read_text())
+    combined = {**original, **{row['id']: row for row in suffix}}
+    expected_positions = [{'id': rid, 'status': combined[rid]['status'],
+                           'attempt_id': combined[rid]['attempt_id']} for rid in ids]
+    reconciliation_evidence = reconciliation.get('evidence') or {}
+    if (reconciliation.get('schema') != 'mistral-p1-never-sent-suffix-v1-reconciliation' or
+            reconciliation.get('manifest_sha256') != frozen_binding['sha256'] or
+            reconciliation.get('original_terminal') != 'phase_stopped' or
+            reconciliation.get('suffix_terminal') != 'phase_completed' or
+            reconciliation.get('coverage_status') != 'closed_with_historical_service_error' or
+            reconciliation.get('strict_complete_pass') is not False or
+            reconciliation.get('denominator') != 60 or
+            reconciliation.get('status_counts') != {'ok': 59, 'service_error': 1} or
+            reconciliation.get('positions') != expected_positions or
+            any(reconciliation.get(key) != [] for key in ('unknown_started_ids', 'unknown_reserved_ids', 'never_sent_ids')) or
+            reconciliation_evidence.get('original_attempts') != source['attempts'] or
+            reconciliation_evidence.get('original_journal') != source['journal'] or
+            any(reconciliation_evidence.get('suffix_' + kind + '_sha256') !=
+                evidence['development_' + kind]['sha256']
+                for kind in ('claim', 'journal', 'attempts', 'responses'))):
+        raise ValueError('Mistral suffix reconciliation differs from attributable evidence')
+    original_usage = entry['usage']
+    original_score = entry['score']
+    original_attempts = rows(root, source['attempts']['path'])
+    entry = {**entry, 'score': shared.score(combined, labels, ids),
+             'usage': legacy._usage(original_attempts + suffix),
+             'compositeFinishedRequests': 60,
+             'coverageStatus': 'closed_with_historical_service_error',
+             'suffixExtension': {'status': 'completed_never_sent_suffix',
+                                 'changedTiming': True, 'originalTerminal': 'phase_stopped',
+                                 'strictCompletePass': False,
+                                 'originalPhaseScore': original_score,
+                                 'originalPhaseUsage': original_usage,
+                                 'developmentRequests': 17,
+                                 'capacityProbeUsage': legacy._usage(probe),
+                                 'dev043UnknownCostUpperBoundUsd': accounting['usd'],
+                                 'dev043ActualCostUsd': None,
+                                 'evidence': evidence}}
+    return entry
+
+
 def build_series(spec, root=ROOT):
     root = Path(root)
     ids, labels, pair, review, plans, bind, sources, base = _source_context(root, spec)
@@ -498,6 +672,10 @@ def build_series(spec, root=ROOT):
             if entry is None:
                 missing.append({'pass': repeat, 'condition': condition, 'status': reason})
                 continue
+            if (spec.id == 'openrouter-paid-mistral-small32-24b-venice-not-applicable' and
+                    repeat == 'repeat2' and condition == 'P1'):
+                entry = _mistral_suffix(root, spec, base, plans[repeat], entry, records,
+                                        ids, labels, bind)
             data[repeat][condition] = entry
             if entry['completionStatus'] == 'partial':
                 partial.append({'pass': repeat, 'condition': condition,
