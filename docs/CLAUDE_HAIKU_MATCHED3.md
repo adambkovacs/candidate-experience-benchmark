@@ -12,7 +12,7 @@ The offline preparation command is:
 python3 scripts/claude_haiku_matched3.py prepare
 ```
 
-It exclusively creates `pass1`, `pass2`, and `pass3` manifests and prints their SHA-256 hashes. **Preparation has not been run for the study.** Before any live phase, an operator must review those exact manifests and provide a fresh private subscription preflight receipt outside the repository. The receipt must satisfy the reviewed Claude preflight: `operator=root`, pinned CLI version, `claude.ai`/`firstParty`, credits and extra usage off, both quota percentages below 95, and timestamp no older than 30 minutes. The public phase review contains only hashes and the exact admitted condition/phase; it must not include private quota values. Its required shape is:
+It exclusively creates `pass1`, `pass2`, and `pass3` manifests and prints their SHA-256 hashes. Preparation was completed on 2026-09-28 after independent review and seven passing controller tests. The three manifests are frozen under the directory above. Before any live phase, an operator must review those exact manifests and provide a fresh private subscription preflight receipt outside the repository. The receipt must satisfy the reviewed Claude preflight: `operator=root`, pinned CLI version, `claude.ai`/`firstParty`, credits and extra usage off, both quota percentages below 95, and timestamp no older than 30 minutes. The public phase review contains only hashes and the exact admitted condition/phase; it must not include private quota values. Its required shape is:
 
 ```json
 {
@@ -36,4 +36,4 @@ For each condition in frozen order, the operator runs `smoke` with `--pass`, `--
 
 `python3 scripts/claude_haiku_matched3.py report` is read-only. It records smoke and development states separately, counts `ok`, `invalid_output`, and `service_error` records, and verifies saved raw hashes. It does not score labels or turn missing predictions into valid ones. A later scoring report must distinguish 60 attempted positions from valid-prediction intersections, preserve every failed batch, and keep the historical attempt-outcome analysis separate from this new matched series.
 
-This implementation is offline and unadmitted. No subscription call, manifest freeze, quota allocation, or evidence publication is part of this checkpoint.
+The initial implementation checkpoint was offline. On 2026-09-28 the root task reviewed the controller, froze and independently verified all three manifests, and admitted this separate study through the existing Claude subscription. Execution remains subject to a fresh private quota receipt and smoke inspection for every condition. Admission is not completion; terminal journals and raw evidence establish each finished phase.
