@@ -1236,7 +1236,7 @@ P1 versus P0 did not improve agreement in every pass: changes were +0, +0, +0 ma
 P2 versus P0 changed direction across passes: changes were -1, -1, +1 matches out of 60. Three passes do not establish a reliable future effect.
 ## GPT-6 Astra · xhigh effort
 
-Completed conditions: 8/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
+Completed conditions: 9/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
 
 | Pass | Condition | Valid | All four | Sentiment | Follow-up | Serious concern | Testimonial | Request seconds | Input tokens | Output tokens |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -1248,7 +1248,7 @@ Completed conditions: 8/9. Reference: provisional v0.2 labels on the same 60 syn
 | repeat2 | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 220.8 | 74521 | 4027 |
 | repeat3 | P0 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 875.6 | 68075 | 4316 |
 | repeat3 | P1 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 486.6 | 69107 | 3964 |
-| repeat3 | P2 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
+| repeat3 | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 686.9 | 74513 | 3714 |
 
 Prompt changes within each completed pass (P1/P2 minus P0, points out of 60):
 
@@ -1257,6 +1257,7 @@ Prompt changes within each completed pass (P1/P2 minus P0, points out of 60):
 - repeat2 P1: all four +1; sentiment +1, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
 - repeat2 P2: all four +0; sentiment +0, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
 - repeat3 P1: all four +0; sentiment +0, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
+- repeat3 P2: all four +0; sentiment +0, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
 
 Three-pass scores (mean and range appear when all three passes are complete):
 
@@ -1270,16 +1271,16 @@ Three-pass scores (mean and range appear when all three passes are complete):
 - P1 follow_up_needed: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
 - P1 serious_concern_reported: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
 - P1 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
-- P2 all four: 57, 57 of 60; mean pending; range pending.
-- P2 sentiment: 58, 58 of 60; mean pending; range pending.
-- P2 follow_up_needed: 59, 59 of 60; mean pending; range pending.
-- P2 serious_concern_reported: 59, 59 of 60; mean pending; range pending.
-- P2 testimonial_potential: 60, 60 of 60; mean pending; range pending.
+- P2 all four: 57, 57, 57 of 60; mean 57.00; range 57 to 57.
+- P2 sentiment: 58, 58, 58 of 60; mean 58.00; range 58 to 58.
+- P2 follow_up_needed: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
+- P2 serious_concern_reported: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
+- P2 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
 
 Paired P1/P2 minus P0 all-four spread:
 
 - P1: -1, +1, +0; three-pair range -1 to +1.
-- P2: -1, +0; three-pair range pending.
+- P2: -1, +0, +0; three-pair range -1 to +0.
 
 Reference class counts (60 records):
 
@@ -1299,6 +1300,8 @@ Completed pass comparisons, changed labels among records valid in both passes:
 | P1 | original to repeat3 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
 | P1 | repeat2 to repeat3 | 60/60 | 1/60 | 1/60 | 0/60 | 0/60 | 0/60 |
 | P2 | original to repeat2 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
+| P2 | original to repeat3 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
+| P2 | repeat2 to repeat3 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
 
 The JSON gives excluded IDs and changed record IDs for each comparison, plus changes across all three passes.
 
@@ -1314,7 +1317,11 @@ P0 matched all four references on 57 to 58 of 60 comments per pass; 1 comments c
 
 P1 matched all four references on 57 to 58 of 60 comments per pass; 1 comments changed at least one decision across the three passes.
 
+P2 matched all four references on 57 to 57 of 60 comments per pass; 0 comments changed at least one decision across the three passes.
+
 P1 versus P0 changed direction across passes: changes were -1, +1, +0 matches out of 60. Three passes do not establish a reliable future effect.
+
+P2 versus P0 did not improve agreement in every pass: changes were -1, +0, +0 matches out of 60. Three passes do not establish a reliable future effect.
 ## GPT-6 Luna · high effort
 
 Completed conditions: 4/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
