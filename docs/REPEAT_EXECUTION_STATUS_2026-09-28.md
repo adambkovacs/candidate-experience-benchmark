@@ -92,7 +92,7 @@ Sources: [native audit](ANYJEV_ALEX_OPENJEV_NATIVE_P0_NEXT_ADMISSION_2026-09-28.
 
 ## Source reports
 
-- [alex-native-repeats.json](../public-site/alex-native-repeats.json): SHA-256 `ea9bb9fc8a5691ab9f4f76e20eb554a7ae4b6da5505724c2c85a1e01e99c2b6f`; 0.8B 3/3 fresh passes, 4B 0/3. Third-pass evidence is closed; publication verification follows deployment.
+- [alex-native-repeats.json](../public-site/alex-native-repeats.json): SHA-256 `67083bf7a1664209f66f15debd9b836d367a6425ced9817b9760fd83940606ed`; 0.8B 3/3 fresh passes, 4B 0/3. Third-pass evidence is closed; publication verification follows deployment.
 
 - [repeats.json](../public-site/repeats.json): SHA-256 `e6acc3e09d4a2d59042e08d268c64ab9ff5a9949810513547802965d3f447c4a`.
 - [claude-roster-repeats.json](../public-site/claude-roster-repeats.json): SHA-256 `11a44a7368695bb8f53961ba05b55b8eeca1701487ecd6036b9a110027af6a4d`.

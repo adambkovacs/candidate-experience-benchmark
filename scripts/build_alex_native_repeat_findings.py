@@ -320,10 +320,9 @@ def build_one(root, config_id):
         phase = f'{name}/P0'
         entry, records = closed_repeat(root, plan, labels, spec, base, phase, bind)
         if entry is None:
-            folder = base / phase
-            status = ('claimed_in_progress_or_interrupted' if any(path(root, folder / f'{stage}.claim.json').exists()
-                      for stage in ('smoke', 'development')) else 'not_started')
-            missing.append({'pass': name, 'condition': 'P0', 'status': status})
+            # Public scoring depends only on closed evidence. Active claims stay
+            # local until their stages close and must not alter this report.
+            missing.append({'pass': name, 'condition': 'P0', 'status': 'not_completed'})
             previous_open = True
         else:
             if previous_open:

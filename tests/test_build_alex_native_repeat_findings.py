@@ -192,13 +192,15 @@ class AlexNativeFindingsTest(unittest.TestCase):
 
     def test_in_progress_partial_is_not_read_or_scored(self):
         name = 'alex-openjev08-native-p0-v1'
+        before = report.build(self.root, (name,))['series'][0]
         folder = Path('results/repeatability-v1') / name / 'fresh1/P0'
         self.write(folder / 'smoke.claim.json', {'phase': 'fresh1/P0'})
         target = self.root / folder / 'development.raw.jsonl'
         target.write_text('{partial')
         series = report.build(self.root, (name,))['series'][0]
         self.assertEqual(series['completedConditions'], 0)
-        self.assertEqual(series['missingPasses'][0]['status'], 'claimed_in_progress_or_interrupted')
+        self.assertEqual(series['missingPasses'][0]['status'], 'not_completed')
+        self.assertEqual(series, before)
 
     def test_later_completion_after_open_predecessor_rejected(self):
         name = 'alex-openjev08-native-p0-v1'
