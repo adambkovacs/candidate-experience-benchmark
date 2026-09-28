@@ -29,7 +29,7 @@ jobs:
           node --check public-site/app.js
           node --check public-site/findings.js
           node --check public-site/repeats.js
-          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs
+          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs
           python3 scripts/build_repeat_findings.py --check
           python3 scripts/build_hosted_wave_findings.py --output public-site/hosted-repeats.json --check
           python3 -m unittest tests.test_hosted_repeat_findings tests.test_hosted_wave_findings -q
@@ -54,6 +54,7 @@ jobs:
           python3 -m unittest tests.test_build_semif_repeat_findings -q
           python3 scripts/build_anyjev_raw_repeat_findings.py --output public-site/anyjev-raw-repeats.json --check
           python3 -m unittest tests.test_build_anyjev_raw_repeat_findings -q
+          python3 -m unittest tests.test_build_anyjev_l0_repeat_findings -q
           python3 scripts/build_small_local_repeat_findings.py --output public-site/small-local-repeats.json --check
           python3 -m unittest tests.test_build_small_local_repeat_findings -q
           python3 scripts/build_findings.py --check
