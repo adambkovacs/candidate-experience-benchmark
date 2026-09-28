@@ -15,6 +15,112 @@ import build_hosted_wave_findings as report
 
 
 class HostedWaveFindingsTest(unittest.TestCase):
+    def _copy_bound_series(self, series, root):
+        for binding in series['sourceBindings']:
+            relative = Path(binding['path'])
+            target = root / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / relative, target)
+
+    def test_mistral_later_phases_preserve_historical_failure(self):
+        spec = report.wave.SPECS['openrouter-paid-mistral-small32-24b-venice-not-applicable']
+        series = report.build_series(spec)
+        self.assertEqual(series['completedConditions'], 8)
+        self.assertEqual(series['missingPasses'], [])
+        self.assertEqual([(x['pass'], x['condition']) for x in series['partialPasses']],
+                         [('repeat2', 'P1')])
+        failed = series['passes']['repeat2']['P1']
+        self.assertEqual(failed['completionStatus'], 'partial')
+        self.assertEqual(failed['score']['denominator'], 60)
+        self.assertEqual(failed['score']['outcomes']['valid'], 59)
+        self.assertEqual(failed['score']['outcomes']['service_error'], 1)
+        self.assertFalse(failed['suffixExtension']['strictCompletePass'])
+        for repeat, condition in (('repeat2', 'P0'), ('repeat3', 'P1'),
+                                  ('repeat3', 'P0'), ('repeat3', 'P2')):
+            with self.subTest(repeat=repeat, condition=condition):
+                entry = series['passes'][repeat][condition]
+                self.assertEqual(entry['completionStatus'], 'complete')
+                self.assertEqual(entry['finishedRequests'], 60)
+                self.assertEqual(entry['score']['denominator'], 60)
+                self.assertEqual(entry['usage']['unknownCostCount'], 0)
+                self.assertIn('responses', entry['evidence'])
+        paths = {x['path'] for x in series['sourceBindings']}
+        base = Path('results/repeatability-v1') / spec.id
+        self.assertIn(str(base / 'later-phases-v1/frozen-manifest.json'), paths)
+        self.assertIn(str(base / 'budget-reconciliation-v1.json'), paths)
+        self.assertIn(str(base / 'budget-partition-v1-mistral32-repeat-v1.jsonl'), paths)
+        self.assertIn('scripts/mistral_later_phase_continuation.py', paths)
+
+    def test_mistral_later_phases_relocate_and_exclude_open_journal(self):
+        spec = report.wave.SPECS['openrouter-paid-mistral-small32-24b-venice-not-applicable']
+        series = report.build_series(spec)
+        base = Path('results/repeatability-v1') / spec.id
+        with tempfile.TemporaryDirectory() as temp:
+            clone = Path(temp)
+            self._copy_bound_series(series, clone)
+            moved = report.build_series(spec, clone)
+            self.assertEqual(moved['completedConditions'], 8)
+            journal = clone / base / 'later-phases-v1/repeat3/P2/development.journal.jsonl'
+            lines = journal.read_text().splitlines()
+            self.assertEqual(json.loads(lines[-1])['event'], 'phase_completed')
+            journal.write_text(''.join(line + '\n' for line in lines[:-1]))
+            open_series = report.build_series(spec, clone)
+            self.assertEqual(open_series['completedConditions'], 7)
+            self.assertEqual(open_series['missingPasses'], [
+                {'pass': 'repeat3', 'condition': 'P2', 'status': 'open_no_terminal'}])
+            self.assertEqual(len(open_series['partialPasses']), 1)
+
+    def test_mistral_later_phase_rejects_charge_and_raw_tamper(self):
+        spec = report.wave.SPECS['openrouter-paid-mistral-small32-24b-venice-not-applicable']
+        series = report.build_series(spec)
+        base = Path('results/repeatability-v1') / spec.id
+        folder = base / 'later-phases-v1/repeat3/P1'
+        with tempfile.TemporaryDirectory() as temp:
+            clone = Path(temp)
+            self._copy_bound_series(series, clone)
+            attempts = clone / folder / 'development.attempts.jsonl'
+            original = attempts.read_bytes()
+            rows = [json.loads(line) for line in original.splitlines()]
+            rows[0]['observed_cost_usd'] = '0.123'
+            rows[0]['raw_response']['usage']['cost'] = 0.123
+            rows[0]['usage']['cost'] = 0.123
+            attempts.write_text(''.join(json.dumps(row) + '\n' for row in rows))
+            with self.assertRaisesRegex(ValueError, 'settlement differs'):
+                report.build_series(spec, clone)
+            attempts.write_bytes(original)
+            sidecar = clone / folder / 'development.responses.jsonl'
+            raw_rows = [json.loads(line) for line in sidecar.read_text().splitlines()]
+            body = json.loads(base64.b64decode(raw_rows[0]['body_base64']))
+            body['provider'] = 'Other'
+            encoded = json.dumps(body).encode()
+            raw_rows[0]['body_base64'] = base64.b64encode(encoded).decode()
+            raw_rows[0]['body_bytes_captured'] = len(encoded)
+            sidecar.write_text(''.join(json.dumps(row) + '\n' for row in raw_rows))
+            with self.assertRaisesRegex(ValueError, 'Raw body differs'):
+                report.build_series(spec, clone)
+
+    def test_mistral_later_review_and_reconciliation_are_bound(self):
+        spec = report.wave.SPECS['openrouter-paid-mistral-small32-24b-venice-not-applicable']
+        series = report.build_series(spec)
+        base = Path('results/repeatability-v1') / spec.id / 'later-phases-v1'
+        with tempfile.TemporaryDirectory() as temp:
+            clone = Path(temp)
+            self._copy_bound_series(series, clone)
+            receipt_path = clone / base / 'root-review-v1.json'
+            original_receipt = receipt_path.read_bytes()
+            receipt = json.loads(original_receipt)
+            receipt['controller_sha256'] = '0' * 64
+            receipt_path.write_text(json.dumps(receipt) + '\n')
+            with self.assertRaisesRegex(ValueError, 'root review differs'):
+                report.build_series(spec, clone)
+            receipt_path.write_bytes(original_receipt)
+            reconciliation_path = clone / base / 'repeat3/P0/reconciliation.json'
+            reconciliation = json.loads(reconciliation_path.read_text())
+            reconciliation['positions'][0]['status'] = 'service_error'
+            reconciliation_path.write_text(json.dumps(reconciliation) + '\n')
+            with self.assertRaisesRegex(ValueError, 'reconciliation differs'):
+                report.build_series(spec, clone)
+
     def test_qwen_series_uses_frozen_review_and_complete_phases(self):
         spec = report.qwen.SPEC
         series = report.build_series(spec)

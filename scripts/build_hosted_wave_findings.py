@@ -655,6 +655,302 @@ def _mistral_suffix(root, spec, base, plan, entry, original, ids, labels, bind):
     return entry
 
 
+def _mistral_later_context(root, spec, base, plans, review, data, bind):
+    """Bind the separately reviewed continuation without reading its live ledger."""
+    later = base / 'later-phases-v1'
+    frozen_path = later / 'frozen-manifest.json'
+    if not file(root, frozen_path).exists():
+        return None
+    frozen_binding = bind(frozen_path)
+    manifest = json.loads(file(root, frozen_path).read_text())
+    order = [('repeat2', 'P0'), ('repeat3', 'P1'), ('repeat3', 'P0'), ('repeat3', 'P2')]
+    suffix_evidence = data['repeat2']['P1']['suffixExtension']['evidence']
+    original_p2 = data['repeat2']['P2']['evidence']
+    expected_sources = {
+        'manifest': suffix_evidence['manifest'],
+        'reconciliation': suffix_evidence['reconciliation'],
+        'root_review': {'path': str(base / 'root-review-v1.json'),
+                        'sha256': sha(file(root, base / 'root-review-v1.json'))},
+        'budget_manifest': review['budget_manifest'],
+        'original_p2_claim': original_p2['claim'],
+        'original_p2_journal': original_p2['journal'],
+        'original_p2_attempts': original_p2['attempts'],
+        'original_p2_responses': original_p2['responses'],
+        'original_p2_smoke_inspection': original_p2['inspection'],
+    }
+    if (manifest.get('schema') != 'mistral-later-phases-v1' or
+            manifest.get('status') != 'FROZEN' or
+            manifest.get('configuration_id') != spec.id or
+            manifest.get('root_partition_id') != review['partition_id'] or
+            manifest.get('sources') != expected_sources or
+            manifest.get('order') != [{'repeat': r, 'condition': c} for r, c in order] or
+            manifest.get('policy') != {
+                'historical_p1_strict_complete': False,
+                'historical_p1_status_counts': {'ok': 59, 'service_error': 1},
+                'historical_failed_id': 'DEV-043', 'retry_count': 0,
+                'continue_invalid_output': True, 'reference_labels_read': False,
+                'partition_cap_usd': spec.cap,
+                'timing_deviation': 'Later phases follow a separately completed P1 suffix after the historical 429'}):
+        raise ValueError('Mistral continuation identity or historical 59 plus 1 boundary differs')
+    if manifest.get('output_directory') != str(later):
+        raise ValueError('Mistral continuation output identity differs')
+    controller = manifest.get('controller') or {}
+    if controller.get('path') != 'scripts/mistral_later_phase_continuation.py':
+        raise ValueError('Mistral continuation controller path differs')
+    bind(controller['path'], controller['sha256'])
+    for source in expected_sources.values():
+        bind(source['path'], source['sha256'])
+    expected_plans = {r: {'path': str(base / r / 'manifest.json'),
+                          'sha256': sha(file(root, base / r / 'manifest.json'))}
+                      for r in ('repeat2', 'repeat3')}
+    if manifest.get('plans') != expected_plans:
+        raise ValueError('Mistral continuation plan binding differs')
+    phases = manifest.get('phases')
+    if not isinstance(phases, list) or len(phases) != len(order):
+        raise ValueError('Mistral continuation phase count differs')
+    for phase, (repeat, condition) in zip(phases, order):
+        planned = plans[repeat]['conditions'][condition]
+        if (phase.get('repeat'), phase.get('condition'), phase.get('smoke'),
+                phase.get('development')) != (repeat, condition, planned['smoke'],
+                                               planned['development']):
+            raise ValueError('Mistral continuation request plan differs')
+    review_path = later / 'root-review-v1.json'
+    review_binding = bind(review_path)
+    receipt = json.loads(file(root, review_path).read_text())
+    approved = [{'repeat': r, 'condition': c, 'phase': p}
+                for r, c in order for p in ('smoke', 'development')]
+    if (receipt.get('schema') != 'mistral-later-phases-root-review-v1' or
+            receipt.get('approved') is not True or
+            receipt.get('manifest_sha256') != frozen_binding['sha256'] or
+            receipt.get('controller_sha256') != controller['sha256'] or
+            receipt.get('suffix_reconciliation_sha256') != expected_sources['reconciliation']['sha256'] or
+            receipt.get('original_review_sha256') != expected_sources['root_review']['sha256'] or
+            receipt.get('budget_manifest_sha256') != expected_sources['budget_manifest']['sha256'] or
+            receipt.get('partition_id') != review['partition_id'] or
+            receipt.get('acknowledge_historical_p1_59_plus_1') is not True or
+            receipt.get('acknowledge_timing_deviation') is not True or
+            receipt.get('approved_phases') != approved or
+            not str(receipt.get('review_note', '')).strip()):
+        raise ValueError('Mistral continuation root review differs')
+    budget_path = base / 'budget-reconciliation-v1.json'
+    bind(budget_path)
+    settled_budget = json.loads(file(root, budget_path).read_text())
+    child_path = base / f"budget-partition-v1-{review['partition_id']}.jsonl"
+    historical_root = Path(review['master_ledger']).parent.parent
+    if (settled_budget.get('event') != 'partition_reconciled' or
+            settled_budget.get('partition_id') != review['partition_id'] or
+            settled_budget.get('child_ledger') != str(historical_root / child_path)):
+        raise ValueError('Mistral sealed budget identity differs')
+    bind(child_path, settled_budget['child_sha256'])
+    ledger = rows(root, child_path)
+    if ledger[0] != {'event': 'budget', 'cap_usd': spec.cap} or (
+            ledger[-1].get('event') != 'partition_closed'):
+        raise ValueError('Mistral child budget is not sealed')
+    active, known, unknown = {}, money('0'), money('0')
+    for event in ledger[1:-1]:
+        attempt_id = event.get('attempt_id')
+        if event.get('event') == 'reserve':
+            if attempt_id in active:
+                raise ValueError('Mistral budget reused an attempt ID')
+            active[attempt_id] = event
+        elif event.get('event') in ('settle', 'unknown_cost_accounted_as_upper_bound'):
+            if attempt_id not in active:
+                raise ValueError('Mistral budget has unattributed settlement')
+            active.pop(attempt_id)
+            if event['event'] == 'settle':
+                known += money(event['usd'])
+            else:
+                unknown += money(event['usd'])
+        else:
+            raise ValueError('Mistral budget has unexpected event')
+    if (active or known != money(settled_budget['known_actual_usd']) or
+            unknown != money(settled_budget['unknown_upper_bound_usd']) or
+            money(spec.cap) - known - unknown !=
+            money(settled_budget['unused_allocation_released_usd'])):
+        raise ValueError('Mistral sealed budget totals differ')
+    return later, manifest, frozen_binding, review_binding, ledger
+
+
+def _mistral_phase_charges(ledger, start, end, attempts, pending=None):
+    if type(start) is not int or type(end) is not int or not 0 <= start <= end < len(ledger):
+        raise ValueError('Mistral phase ledger boundary differs')
+    events = ledger[start:end]
+    cursor = 0
+    for row in attempts:
+        expected = {'event': 'reserve', 'attempt_id': row['attempt_id'],
+                    'record_id': row['id']}
+        if cursor >= len(events) or any(events[cursor].get(k) != v
+                                        for k, v in expected.items()) or (
+                money(events[cursor].get('usd')) != money(row['reserved_cost_usd'])):
+            raise ValueError('Mistral phase reservation differs from attempt')
+        cursor += 1
+        if row.get('cost_unknown') is False:
+            if (cursor >= len(events) or events[cursor].get('event') != 'settle' or
+                    events[cursor].get('attempt_id') != row['attempt_id'] or
+                    money(events[cursor].get('usd')) != money(row['observed_cost_usd'])):
+                raise ValueError('Mistral phase settlement differs from raw charge')
+            cursor += 1
+    if pending is not None:
+        if (cursor >= len(events) or events[cursor].get('event') != 'reserve' or
+                events[cursor].get('attempt_id') != pending['attempt_id'] or
+                events[cursor].get('record_id') != pending['id']):
+            raise ValueError('Mistral pending attempt lacks reservation')
+        cursor += 1
+    if cursor != len(events):
+        raise ValueError('Mistral phase has unattributed budget events')
+
+
+def _mistral_later_phase(root, spec, context, repeat, condition, ids, labels, bind):
+    later, manifest, frozen_binding, review_binding, ledger = context
+    folder = later / repeat / condition
+    journal_path = folder / 'development.journal.jsonl'
+    if not file(root, journal_path).exists():
+        return None, 'not_started', None
+    raw_journal = file(root, journal_path).read_bytes()
+    if not raw_journal.endswith(b'\n'):
+        return None, 'open_no_terminal', None
+    events = [json.loads(line) for line in raw_journal.splitlines()]
+    if not events or events[-1].get('event') not in ('phase_completed', 'phase_stopped', 'phase_aborted'):
+        return None, 'open_no_terminal', None
+    planned = next(p for p in manifest['phases'] if (p['repeat'], p['condition']) ==
+                   (repeat, condition))
+    terminal, journal_rows, pending = legacy._terminal_events(
+        events, planned['development'], repeat, condition)
+    manifest_sha = frozen_binding['sha256']
+    claim_path = folder / 'development.claim.json'
+    claim = json.loads(file(root, claim_path).read_text())
+    if (claim.get('schema'), claim.get('repeat'), claim.get('condition'), claim.get('phase'),
+            claim.get('manifest_sha256'), claim.get('review_sha256'), claim.get('request_ids')) != (
+            'mistral-later-phases-v1-claim', repeat, condition, 'development',
+            manifest_sha, review_binding['sha256'], ids):
+        raise ValueError('Mistral continuation development claim differs')
+    if (events[0].get('manifest_sha256') != manifest_sha or
+            type(claim.get('ledger_event_count')) is not int or
+            type(events[-1].get('ledger_event_count')) is not int or
+            not 0 <= claim['ledger_event_count'] <= events[-1]['ledger_event_count'] < len(ledger)):
+        raise ValueError('Mistral continuation journal boundary differs')
+    inspection_path = folder / 'smoke-inspection.json'
+    inspection_binding = bind(inspection_path)
+    inspection = json.loads(file(root, inspection_path).read_text())
+    smoke_paths = {kind: folder / ('smoke.' + suffix) for kind, suffix in (
+        ('claim', 'claim.json'), ('journal', 'journal.jsonl'),
+        ('attempts', 'attempts.jsonl'), ('responses', 'responses.jsonl'))}
+    if (inspection.get('schema') != 'mistral-later-phases-v1-smoke-inspection' or
+            inspection.get('decision') != 'accepted_unchanged' or
+            (inspection.get('repeat'), inspection.get('condition'),
+             inspection.get('manifest_sha256')) != (repeat, condition, manifest_sha)):
+        raise ValueError('Mistral continuation smoke inspection differs')
+    smoke_binding = {kind: bind(path, inspection[kind + '_sha256'])
+                     for kind, path in smoke_paths.items() if kind != 'claim'}
+    smoke_claim = json.loads(file(root, smoke_paths['claim']).read_text())
+    if (smoke_claim.get('schema'), smoke_claim.get('repeat'), smoke_claim.get('condition'),
+            smoke_claim.get('phase'), smoke_claim.get('manifest_sha256'),
+            smoke_claim.get('review_sha256'), smoke_claim.get('request_ids')) != (
+            'mistral-later-phases-v1-claim', repeat, condition, 'smoke', manifest_sha,
+            review_binding['sha256'], ids[:3]):
+        raise ValueError('Mistral continuation smoke claim differs')
+    smoke_events = rows(root, smoke_paths['journal'])
+    smoke_attempts = rows(root, smoke_paths['attempts'])
+    if (len(smoke_events) != 11 or smoke_events[0].get('event') != 'phase_started' or
+            smoke_events[-1].get('event') != 'phase_completed' or
+            smoke_events[-1].get('request_count') != 3 or len(smoke_attempts) != 3 or
+            smoke_events[0].get('manifest_sha256') != manifest_sha or
+            type(smoke_claim.get('ledger_event_count')) is not int or
+            type(smoke_events[-1].get('ledger_event_count')) is not int or
+            smoke_events[-1]['ledger_event_count'] < smoke_claim['ledger_event_count']):
+        raise ValueError('Mistral continuation smoke did not close')
+    for index, (row, request) in enumerate(zip(smoke_attempts, planned['smoke'])):
+        _check_attempt(spec, row, request, 'smoke', repeat, condition, manifest_sha)
+        triple = smoke_events[1 + 3 * index:4 + 3 * index]
+        if (row.get('status') != 'ok' or row.get('billing_ok') is not True or
+                row.get('cost_unknown') is not False or
+                [(x.get('event'), x.get('id'), x.get('attempt_id')) for x in triple] != [
+                    ('request_intent', row['id'], None),
+                    ('request_started', row['id'], row['attempt_id']),
+                    ('request_finished', row['id'], row['attempt_id'])] or
+                triple[0].get('request_sha256') != row['request_sha256'] or
+                triple[1].get('request_sha256') != row['request_sha256'] or
+                (triple[2].get('status'), triple[2].get('billing_ok'),
+                 triple[2].get('cost_unknown')) != ('ok', True, False)):
+            raise ValueError('Mistral continuation smoke outcome differs')
+    _mistral_phase_charges(ledger, smoke_claim['ledger_event_count'],
+                           smoke_events[-1]['ledger_event_count'], smoke_attempts)
+    _sidecar(root, smoke_paths['responses'], smoke_attempts, bind, required=True)
+    if len(rows(root, smoke_paths['responses'])) != 3:
+        raise ValueError('Mistral continuation smoke raw count differs')
+    attempts_path = folder / 'development.attempts.jsonl'
+    responses_path = folder / 'development.responses.jsonl'
+    attempts = rows(root, attempts_path)
+    if len(attempts) != len(journal_rows):
+        raise ValueError('Mistral continuation finished journal count differs')
+    indexed, started_ids = {}, []
+    for index, ((started, finished), row) in enumerate(zip(journal_rows, attempts)):
+        _check_attempt(spec, row, planned['development'][index], 'development',
+                       repeat, condition, manifest_sha)
+        if (row['attempt_id'], row.get('status'), row.get('billing_ok'),
+                row.get('cost_unknown')) != (started['attempt_id'], finished.get('status'),
+                                             finished.get('billing_ok'), finished.get('cost_unknown')):
+            raise ValueError('Mistral continuation journal outcome differs')
+        indexed[row['id']] = row
+        started_ids.append(row['attempt_id'])
+    if pending is not None:
+        indexed[pending['id']] = {'id': pending['id'], 'status': 'unknown_started', 'prediction': None}
+        started_ids.append(pending['attempt_id'])
+    if len(set(started_ids)) != len(started_ids):
+        raise ValueError('Mistral continuation attempt ID reused')
+    _mistral_phase_charges(ledger, claim['ledger_event_count'],
+                           events[-1]['ledger_event_count'], attempts, pending)
+    for rid in ids:
+        indexed.setdefault(rid, {'id': rid, 'status': 'never_sent', 'prediction': None})
+    response_binding = _sidecar(root, responses_path, attempts, bind, pending=pending,
+                                required=(terminal == 'phase_completed' or
+                                          any('raw_response' in row or 'error_body' in row
+                                              for row in attempts)))
+    if terminal == 'phase_completed':
+        if (len(attempts) != 60 or pending is not None or
+                any(row.get('status') not in ('ok', 'invalid_output') or
+                    row.get('billing_ok') is not True or row.get('cost_unknown') is not False
+                    for row in attempts) or len(rows(root, responses_path)) != 60 or
+                any(row.get('status') == 'invalid_output' and
+                    not _continued_intrinsic_invalid(row) for row in attempts)):
+            raise ValueError('Mistral continuation completed with unresolved outcome')
+    reconciliation_path = folder / 'reconciliation.json'
+    reconciliation_binding = bind(reconciliation_path)
+    reconciliation = json.loads(file(root, reconciliation_path).read_text())
+    positions = [{'id': rid, 'status': indexed[rid]['status'],
+                  **({'attempt_id': indexed[rid]['attempt_id']}
+                     if 'attempt_id' in indexed[rid] else {})} for rid in ids]
+    expected_status = ('complete' if all(x['status'] == 'ok' for x in positions)
+                       else 'closed_with_failures') if terminal == 'phase_completed' else 'partial'
+    if (reconciliation.get('completion_status') != expected_status or
+            reconciliation.get('terminal_event') != terminal or
+            reconciliation.get('status_counts') != dict(sorted(Counter(
+                x['status'] for x in positions).items())) or
+            reconciliation.get('finished_requests') != len(attempts) or
+            reconciliation.get('positions') != positions or
+            reconciliation.get('never_sent_ids') != [x['id'] for x in positions
+                                                       if x['status'] == 'never_sent'] or
+            reconciliation.get('unknown_started_ids') != [x['id'] for x in positions
+                                                           if x['status'] == 'unknown_started'] or
+            reconciliation.get('unknown_reserved_ids') != []):
+        raise ValueError('Mistral continuation reconciliation differs from evidence')
+    evidence = {'manifest': frozen_binding, 'rootReview': review_binding,
+                'claim': bind(claim_path), 'journal': bind(journal_path),
+                'attempts': bind(attempts_path), 'reconciliation': reconciliation_binding,
+                'smokeInspection': inspection_binding,
+                'smokeClaim': bind(smoke_paths['claim']),
+                'smokeJournal': smoke_binding['journal'],
+                'smokeAttempts': smoke_binding['attempts'],
+                'smokeResponses': smoke_binding['responses']}
+    if response_binding is not None:
+        evidence['responses'] = response_binding
+    return {'completionStatus': 'complete' if terminal == 'phase_completed' else 'partial',
+            'terminalEvent': terminal, 'finishedRequests': len(attempts),
+            'score': shared.score(indexed, labels, ids),
+            'usage': legacy._usage(attempts, pending is not None),
+            'evidence': evidence}, None, indexed
+
+
 def build_series(spec, root=ROOT):
     root = Path(root)
     ids, labels, pair, review, plans, bind, sources, base = _source_context(root, spec)
@@ -683,6 +979,27 @@ def build_series(spec, root=ROOT):
                                 'finishedRequests': entry['finishedRequests']})
             else:
                 indexed[repeat][condition] = records
+    if spec.id == 'openrouter-paid-mistral-small32-24b-venice-not-applicable':
+        context = _mistral_later_context(root, spec, base, plans, review, data, bind)
+        if context is not None:
+            for repeat, condition in (('repeat2', 'P0'), ('repeat3', 'P1'),
+                                      ('repeat3', 'P0'), ('repeat3', 'P2')):
+                if condition in data[repeat]:
+                    raise ValueError('Mistral continuation would replace original phase')
+                entry, reason, records = _mistral_later_phase(
+                    root, spec, context, repeat, condition, ids, labels, bind)
+                missing = [x for x in missing if (x['pass'], x['condition']) !=
+                           (repeat, condition)]
+                if entry is None:
+                    missing.append({'pass': repeat, 'condition': condition, 'status': reason})
+                    continue
+                data[repeat][condition] = entry
+                if entry['completionStatus'] == 'partial':
+                    partial.append({'pass': repeat, 'condition': condition,
+                                    'terminalEvent': entry['terminalEvent'],
+                                    'finishedRequests': entry['finishedRequests']})
+                else:
+                    indexed[repeat][condition] = records
     def full(pass_name, condition):
         return (condition in data[pass_name] and
                 data[pass_name][condition]['completionStatus'] == 'complete')

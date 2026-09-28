@@ -6919,30 +6919,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 4,
+      "completedConditions": 8,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat2",
-          "condition": "P0",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "not_started"
-        }
-      ],
+      "missingPasses": [],
       "partialPasses": [
         {
           "pass": "repeat2",
@@ -7819,59 +7798,710 @@
                 "sha256": "93990a8c1612dbd4174fc36f266b8b9d469906d2b3c2c691049c0c0ee4e86ad9"
               }
             }
+          },
+          "P0": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 47,
+              "fields": {
+                "sentiment": 54,
+                "follow_up_needed": 57,
+                "serious_concern_reported": 54,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                2.850478667009156,
+                4.011052292014938,
+                1.582927000010386,
+                1.65068416701979,
+                2.4762884579831734,
+                3.483009208983276,
+                4.374251499975799,
+                3.391638665983919,
+                2.059641208004905,
+                3.7982198340178,
+                2.980173541989643,
+                2.4159389160049614,
+                1.4767146249942016,
+                1.9618232499924488,
+                2.2666349170031026,
+                2.278773874975741,
+                1.8683177919883747,
+                2.399141834001057,
+                5.0804109160089865,
+                2.9321815409930423,
+                2.3490931669948623,
+                1.6826412919908762,
+                2.055533042002935,
+                1.968327540991595,
+                2.71350304200314,
+                2.3581837090023328,
+                2.6147051669831853,
+                1.8578639159968589,
+                1.516779834026238,
+                1.8509795409918297,
+                2.5143156250123866,
+                5.246307458000956,
+                2.4683468749863096,
+                3.0022956249886192,
+                2.782141458010301,
+                2.191008875000989,
+                2.0431785830005538,
+                2.7745622499787714,
+                2.060659749986371,
+                2.37482591700973,
+                1.8490292909846175,
+                2.370873625011882,
+                4.1521630420174915,
+                1.9194040840084199,
+                3.3375144579913467,
+                3.6130763750115875,
+                2.2631557089916896,
+                2.258319417014718,
+                2.327070958999684,
+                2.7489628329931293,
+                2.622428000002401,
+                1.9772722079942469,
+                2.542321707995143,
+                2.575696332991356,
+                2.2019319589890074,
+                3.2067249590181746,
+                2.2205121250008233,
+                1.921332291996805,
+                1.4452782080043107,
+                2.213029540987918
+              ],
+              "requestSecondsTotal": 153.5296520019183,
+              "tokens": {
+                "input_tokens": 85851,
+                "output_tokens": 2727,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.00873028125",
+              "actualCostUsd": "0.00873028125",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "manifest": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/frozen-manifest.json",
+                "sha256": "c549635e522e5fdac0f07da8551ce72be6b1d97e6b3d2d84563898e3ff8bec0f"
+              },
+              "rootReview": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/root-review-v1.json",
+                "sha256": "38f50fdd751db725b228a74add0959f76873430d52ec9fcba6ee4e0ac3c36454"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.claim.json",
+                "sha256": "ed9ef303d448189fc61f8895d7a981bafc0adce335a14f83d6b5429732f8bef8"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.journal.jsonl",
+                "sha256": "5b965e30aa433bffbc840784fa467fe9044d4cb282ca0de1d03c2b537093c7ee"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.attempts.jsonl",
+                "sha256": "113e5fda746c9126e34fe5b2e591816082332d0818322f79766211a32aee3cc9"
+              },
+              "reconciliation": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/reconciliation.json",
+                "sha256": "556aa5578763c4a0b1930f639b3d85214ab6e011e442c613acda1e2e84c28689"
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke-inspection.json",
+                "sha256": "480214f2b4ef6bbf9f375894d8c7ff24379789cc64a42b63968bb31515b0d46b"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.claim.json",
+                "sha256": "853b6359c09890505c2c199a9a7b04622a5f4bf20f8969c339c36cfe2e9a62ca"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.journal.jsonl",
+                "sha256": "554bfda5cdcc3c8c9fd5202cd5ec4782ab06c82dacf214ebe6ac29817d0195c4"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.attempts.jsonl",
+                "sha256": "83c3e6c7343add0e4e5cccd58c38e931376357a8ecc6cb25d91309d2eac01905"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.responses.jsonl",
+                "sha256": "bb2e1abfbd0bc040b9e5e47f2e7eb7ad27831f0bc67ebfe45cea7206b761bc8e"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.responses.jsonl",
+                "sha256": "a59c091664af7f52815d8323156002d81b3c889213db4e0faa158bb4e8a2e9ee"
+              }
+            }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P1": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 45,
+              "fields": {
+                "sentiment": 54,
+                "follow_up_needed": 57,
+                "serious_concern_reported": 52,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                3.8807934999931604,
+                2.814448249991983,
+                2.671825458004605,
+                4.6249127500050236,
+                4.084583500021836,
+                2.403242708009202,
+                2.4992864159867167,
+                6.293314458016539,
+                4.749171125004068,
+                3.3197417079936713,
+                2.5662130000127945,
+                1.821484916988993,
+                2.4046031659818254,
+                2.5672992499894463,
+                2.031097625003895,
+                1.8710635830066167,
+                1.9903668749902863,
+                3.4176699579984415,
+                2.6764251670101658,
+                3.3891583750082646,
+                4.528829374990892,
+                2.328236833011033,
+                2.867168541997671,
+                2.9840954590181354,
+                4.276419082976645,
+                2.491484166996088,
+                3.346810041985009,
+                3.3803677079849876,
+                3.8783534170070197,
+                2.559061167004984,
+                2.0769294170022476,
+                2.009041666984558,
+                1.7476150000002235,
+                2.075246791995596,
+                2.8170568330097012,
+                3.0110624579829164,
+                1.5701132499962114,
+                3.1465505830128677,
+                1.3992776249942835,
+                1.8605973749945406,
+                1.784159125003498,
+                3.0440740839985665,
+                1.8894068749796133,
+                2.5340939160087146,
+                3.343582375004189,
+                3.1970588749973103,
+                2.9294251250103116,
+                2.06434270797763,
+                1.7965030409977771,
+                2.589268749987241,
+                3.8892832080018707,
+                2.0740300419856794,
+                1.7054678330023307,
+                2.110626207984751,
+                2.03878933301894,
+                1.6096557079872582,
+                1.7873649169923738,
+                2.179319459013641,
+                1.6621318340185098,
+                1.5108464999939315
+              ],
+              "requestSecondsTotal": 162.17044849792728,
+              "tokens": {
+                "input_tokens": 96591,
+                "output_tokens": 2687,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.00972715625",
+              "actualCostUsd": "0.00972715625",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "manifest": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/frozen-manifest.json",
+                "sha256": "c549635e522e5fdac0f07da8551ce72be6b1d97e6b3d2d84563898e3ff8bec0f"
+              },
+              "rootReview": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/root-review-v1.json",
+                "sha256": "38f50fdd751db725b228a74add0959f76873430d52ec9fcba6ee4e0ac3c36454"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.claim.json",
+                "sha256": "0f94bfa198a64c8d7464b40a18b072bc99022fd1b73a021ff8a9a62565d9da78"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.journal.jsonl",
+                "sha256": "e9f1d70b4f641c19b20274a2466e3df255673a279a0de3a449da5ec5cccde105"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.attempts.jsonl",
+                "sha256": "a0ca9a2e16ae67c55e289b7640f050bac99458f2f6b89b3dda5129dc3bc7c445"
+              },
+              "reconciliation": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/reconciliation.json",
+                "sha256": "094eb347c833de49cd0c0b3fa78ff62e52936fa73c4df64fa2c73789352d32d9"
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke-inspection.json",
+                "sha256": "bc8d91eaf8de17ba06f51734fc333e4bfe0002d66af6fbdc54be761a59c07908"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.claim.json",
+                "sha256": "c513ef05b8a28e419f942eeab4b965ea7ab6ac96ff8d80582fa0eb37aaffe480"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.journal.jsonl",
+                "sha256": "c4d48931f5cf7bef1cd889888ca85a22a35c0593ce9f40889cffbb82961fa6cd"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.attempts.jsonl",
+                "sha256": "224db04cadb8e5a22919622911fd77d4deec375677ae0b3764d2e7e15182fc02"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.responses.jsonl",
+                "sha256": "4aa0d882ebfa4803a1f9e169f1bbc71a9d5f2c87b5810adb4e922e91502d9443"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.responses.jsonl",
+                "sha256": "03896bb45b31bf495b52c31b5b2ead596b736a93abc4eae1653243056a8480e7"
+              }
+            }
+          },
+          "P0": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 47,
+              "fields": {
+                "sentiment": 54,
+                "follow_up_needed": 57,
+                "serious_concern_reported": 54,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                1.3607622080016881,
+                2.8493847500067204,
+                2.6938005840056576,
+                1.3206345840007998,
+                1.3874182500003371,
+                1.87553258400294,
+                1.5564885420026258,
+                1.3677486660017166,
+                1.2961991250049323,
+                2.935053083987441,
+                1.5972287080076057,
+                2.3135861250048038,
+                2.322883750020992,
+                2.201089750014944,
+                1.6853408750030212,
+                2.155121583986329,
+                1.5968665419786703,
+                1.519934458017815,
+                2.7914985419774894,
+                2.487259207991883,
+                1.5570921660109889,
+                3.131721916986862,
+                1.2394542919937521,
+                1.585936874995241,
+                1.4263694999972358,
+                1.4265796249965206,
+                1.5392716669884976,
+                1.3464686249790248,
+                1.5392757919908036,
+                1.4343987500178628,
+                1.2330730839748867,
+                1.4425337919965386,
+                1.0368023329938296,
+                1.2448701249959413,
+                1.312033041001996,
+                1.353523875004612,
+                1.228283458010992,
+                1.5455131249909755,
+                1.5412349169782829,
+                4.898073874996044,
+                1.4337744170043152,
+                1.4369414169923402,
+                1.2348847500106785,
+                1.5453016250103246,
+                1.260471834015334,
+                2.010356916987803,
+                1.1900611669989303,
+                1.188915500009898,
+                1.1332112500094809,
+                1.4034875409852248,
+                1.6913814170111436,
+                2.3426296669931617,
+                1.9242907919979189,
+                1.5667900839762297,
+                1.3619395419955254,
+                1.3031860000046436,
+                1.1448785419925116,
+                1.3713581660122145,
+                1.1804620420152787,
+                2.59913383302046
+              ],
+              "requestSecondsTotal": 102.69979925596272,
+              "tokens": {
+                "input_tokens": 85851,
+                "output_tokens": 2727,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.00873028125",
+              "actualCostUsd": "0.00873028125",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "manifest": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/frozen-manifest.json",
+                "sha256": "c549635e522e5fdac0f07da8551ce72be6b1d97e6b3d2d84563898e3ff8bec0f"
+              },
+              "rootReview": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/root-review-v1.json",
+                "sha256": "38f50fdd751db725b228a74add0959f76873430d52ec9fcba6ee4e0ac3c36454"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.claim.json",
+                "sha256": "ae84ca92b2d0ff1686cc5afd4266c9eece74277e49c0e2f50aa131c041d79682"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.journal.jsonl",
+                "sha256": "8dfe6c935eb50e2407aa58a7ed313b4dd68ba8379d0918fb8161ae69b9638d8d"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.attempts.jsonl",
+                "sha256": "802ff7914c6c75b636023a354ebe1fc18d9b51eef55d85ebf3834400ed168290"
+              },
+              "reconciliation": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/reconciliation.json",
+                "sha256": "7d2779277c9f1665bbe337d665d35426722a89e16fcc3aeede8e581a51e2298a"
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke-inspection.json",
+                "sha256": "ed947a839e5925dff27ad13c85941e626dcb8115a0160e51ea2b866dfc110334"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.claim.json",
+                "sha256": "33be4bd43568611bcdf3ae954e4143a2539d09b70aa47ea06790121ae61073c9"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.journal.jsonl",
+                "sha256": "858f0dacb857f90817d99ff087651ffa32a4a588ce7c03939981eb273a8184d1"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.attempts.jsonl",
+                "sha256": "4f44b4c15b6faa982e8de1903ea7934b5804410d5de515e94cdcdc25c780296d"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.responses.jsonl",
+                "sha256": "ab96a88a2223162de3de63d56df0fc92aa14949e017f3b0ceac79bb51c498f4f"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.responses.jsonl",
+                "sha256": "1c3711ac5ae96a90a9052b30b24a29ac1b4ee4db0348ab2e64bdac5fdd145e42"
+              }
+            }
+          },
+          "P2": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 46,
+              "fields": {
+                "sentiment": 53,
+                "follow_up_needed": 57,
+                "serious_concern_reported": 54,
+                "testimonial_potential": 56
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                2.9509035410010256,
+                2.5927168329944834,
+                2.620595541986404,
+                2.566150333994301,
+                3.332450209010858,
+                2.8409016669902485,
+                2.152544874988962,
+                4.2531874169944786,
+                2.4992905000108294,
+                3.5370263750082813,
+                2.4583240000065416,
+                4.007693749997998,
+                3.6764807919971645,
+                2.8327247079869267,
+                2.564323541999329,
+                2.568316041986691,
+                2.2783481660007965,
+                2.0438956249854527,
+                3.894546833995264,
+                2.204522707994329,
+                3.233946416992694,
+                2.677322458999697,
+                2.4608967500098515,
+                8.91340200000559,
+                9.316103457997087,
+                8.412698375002947,
+                2.7550469579873607,
+                1.9851306249911431,
+                3.451026249997085,
+                2.6836997080245055,
+                1.8376870829961263,
+                2.7529150409973226,
+                7.293618041003356,
+                2.41370974999154,
+                3.3657699579780456,
+                2.670308208995266,
+                2.600977291993331,
+                3.3671964170061983,
+                4.7292991670256015,
+                2.8719857499818318,
+                2.500244875001954,
+                2.783639208006207,
+                2.417086333996849,
+                2.7579470420023426,
+                3.4062959589937236,
+                4.215470166003797,
+                2.6371642909944057,
+                3.1152805000019725,
+                2.5969563749968074,
+                5.933473125012824,
+                3.6161364580038935,
+                3.029572833009297,
+                2.1030752079968806,
+                4.813394249998964,
+                3.7390807090268936,
+                3.449755957990419,
+                2.264583792013582,
+                4.891910916980123,
+                7.271162042015931,
+                5.308675708016381
+              ],
+              "requestSecondsTotal": 210.5185889179702,
+              "tokens": {
+                "input_tokens": 152451,
+                "output_tokens": 2731,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.01497503125",
+              "actualCostUsd": "0.01497503125",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "manifest": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/frozen-manifest.json",
+                "sha256": "c549635e522e5fdac0f07da8551ce72be6b1d97e6b3d2d84563898e3ff8bec0f"
+              },
+              "rootReview": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/root-review-v1.json",
+                "sha256": "38f50fdd751db725b228a74add0959f76873430d52ec9fcba6ee4e0ac3c36454"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.claim.json",
+                "sha256": "dfe149a9a450e36238dd2dadbf6b15e3532caf722dc916db520416d2018f1782"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.journal.jsonl",
+                "sha256": "96858d5b88d77e0dc81f4dfae05ce1edbb44eeae724d30d6c0c5d51263df8464"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.attempts.jsonl",
+                "sha256": "8b653f3d7472c9b7fdf45ac1511aba160819fe8f90a1b36aaa71beaced70b38c"
+              },
+              "reconciliation": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/reconciliation.json",
+                "sha256": "94e1dfd790955a78d62ed5e5811c1c12048e8d6c53800fb0c8fda26874e65621"
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke-inspection.json",
+                "sha256": "cd1fdafbfe4277b2cf55c28794b80cdccb275a5b432e01f2625b1cf86b68322c"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.claim.json",
+                "sha256": "093076cab01ab13218d46a4f583c08aa786d19aeb26c783997d8e50f9cb818f1"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.journal.jsonl",
+                "sha256": "0cb200da6d34e44bd964dfc51d203cd644cc62b8320f257561b22ba400623a2d"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.attempts.jsonl",
+                "sha256": "57f104f37bc04e3769bc703ce81faba41d35e45a0f4e399353b259732054e4d5"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.responses.jsonl",
+                "sha256": "87c4254cec62455d5cadd18a636f8bd56b361b492f491e05b349d38db7c5490b"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.responses.jsonl",
+                "sha256": "436462a16dd5fed66d59c132ba1b0b9af2e462ec8b2cb1e2683bb2c93e14e28c"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              48
+              48,
+              47,
+              47
             ],
-            "mean": null,
-            "range": null
+            "mean": 47.333333333333336,
+            "range": [
+              47,
+              48
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                54,
+                54,
                 54
               ],
-              "mean": null,
-              "range": null
+              "mean": 54.0,
+              "range": [
+                54,
+                54
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                57,
+                57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                55
+                55,
+                54,
+                54
               ],
-              "mean": null,
-              "range": null
+              "mean": 54.333333333333336,
+              "range": [
+                54,
+                55
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                57,
+                57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
+              45,
               45
             ],
             "mean": null,
@@ -7879,32 +8509,36 @@
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                54,
                 54
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                57,
                 57
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                53
+                53,
+                52
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                57,
                 57
               ],
               "mean": null,
@@ -7914,55 +8548,234 @@
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              46,
               46,
               46
             ],
-            "mean": null,
-            "range": null
+            "mean": 46.0,
+            "range": [
+              46,
+              46
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                53,
                 53,
                 53
               ],
-              "mean": null,
-              "range": null
+              "mean": 53.0,
+              "range": [
+                53,
+                53
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                57,
                 57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                54,
                 54,
                 54
               ],
-              "mean": null,
-              "range": null
+              "mean": 54.0,
+              "range": [
+                54,
+                54
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 57,
-                57
+                57,
+                56
               ],
-              "mean": null,
-              "range": null
+              "mean": 56.666666666666664,
+              "range": [
+                56,
+                57
+              ]
             }
           }
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-008",
+              "DEV-033",
+              "DEV-049"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-008",
+              "DEV-033",
+              "DEV-049"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-008"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-008"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-033",
+              "DEV-049"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-033",
+              "DEV-049"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-008",
+              "DEV-028"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-049"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-007",
+              "DEV-028"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-007",
+              "DEV-008",
+              "DEV-028",
+              "DEV-049"
+            ]
+          }
+        },
         {
           "condition": "P2",
           "from": "original",
@@ -7994,9 +8807,116 @@
             "rate": 0.0,
             "caseIds": []
           }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-028"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-028"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-028"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-028"
+            ]
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [
+              "DEV-008",
+              "DEV-033",
+              "DEV-049"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-008",
+            "DEV-033",
+            "DEV-049"
+          ]
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": [
+              "DEV-028"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-028"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -8023,13 +8943,53 @@
             "serious_concern_reported": -1,
             "testimonial_potential": 0
           }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": -1,
+          "fields": {
+            "sentiment": -1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": -2,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": -2,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": -1,
+          "fields": {
+            "sentiment": -1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": -1
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 2,
           "allFourValues": [
-            -3
+            -3,
+            -2
           ],
           "allFourRange": null,
           "fieldRanges": {
@@ -8040,16 +9000,33 @@
           }
         },
         "P2": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
-            -2
+            -2,
+            -1,
+            -1
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            -2,
+            -1
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -1,
+              -1
+            ],
+            "follow_up_needed": [
+              0,
+              0
+            ],
+            "serious_concern_reported": [
+              -1,
+              0
+            ],
+            "testimonial_potential": [
+              -1,
+              0
+            ]
           }
         }
       },
@@ -8265,6 +9242,186 @@
         {
           "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/repeat2/P2/development.attempts.jsonl",
           "sha256": "ca7fa93004085387b16ac29fe0675fdc4e2e3f890f2629167bb8c261204ad0ca"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/frozen-manifest.json",
+          "sha256": "c549635e522e5fdac0f07da8551ce72be6b1d97e6b3d2d84563898e3ff8bec0f"
+        },
+        {
+          "path": "scripts/mistral_later_phase_continuation.py",
+          "sha256": "5cd0bf9a0b0cb26ddba16c2fbb6881d4125e77c1449412fde9c120ad40e8ef7c"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/root-review-v1.json",
+          "sha256": "38f50fdd751db725b228a74add0959f76873430d52ec9fcba6ee4e0ac3c36454"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/budget-reconciliation-v1.json",
+          "sha256": "08c94907fd5048ce3bbd2c997d967e5b30d71b7829ae5319325f90ded59413fa"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/budget-partition-v1-mistral32-repeat-v1.jsonl",
+          "sha256": "f145935e85fdec188fc1a0b3a4f6fddc87c593a29ddf81fba825daa45a11a62d"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke-inspection.json",
+          "sha256": "480214f2b4ef6bbf9f375894d8c7ff24379789cc64a42b63968bb31515b0d46b"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "554bfda5cdcc3c8c9fd5202cd5ec4782ab06c82dacf214ebe6ac29817d0195c4"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.attempts.jsonl",
+          "sha256": "83c3e6c7343add0e4e5cccd58c38e931376357a8ecc6cb25d91309d2eac01905"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.responses.jsonl",
+          "sha256": "bb2e1abfbd0bc040b9e5e47f2e7eb7ad27831f0bc67ebfe45cea7206b761bc8e"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.responses.jsonl",
+          "sha256": "a59c091664af7f52815d8323156002d81b3c889213db4e0faa158bb4e8a2e9ee"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/reconciliation.json",
+          "sha256": "556aa5578763c4a0b1930f639b3d85214ab6e011e442c613acda1e2e84c28689"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.claim.json",
+          "sha256": "ed9ef303d448189fc61f8895d7a981bafc0adce335a14f83d6b5429732f8bef8"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.journal.jsonl",
+          "sha256": "5b965e30aa433bffbc840784fa467fe9044d4cb282ca0de1d03c2b537093c7ee"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/development.attempts.jsonl",
+          "sha256": "113e5fda746c9126e34fe5b2e591816082332d0818322f79766211a32aee3cc9"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat2/P0/smoke.claim.json",
+          "sha256": "853b6359c09890505c2c199a9a7b04622a5f4bf20f8969c339c36cfe2e9a62ca"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke-inspection.json",
+          "sha256": "bc8d91eaf8de17ba06f51734fc333e4bfe0002d66af6fbdc54be761a59c07908"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "c4d48931f5cf7bef1cd889888ca85a22a35c0593ce9f40889cffbb82961fa6cd"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "224db04cadb8e5a22919622911fd77d4deec375677ae0b3764d2e7e15182fc02"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.responses.jsonl",
+          "sha256": "4aa0d882ebfa4803a1f9e169f1bbc71a9d5f2c87b5810adb4e922e91502d9443"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.responses.jsonl",
+          "sha256": "03896bb45b31bf495b52c31b5b2ead596b736a93abc4eae1653243056a8480e7"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/reconciliation.json",
+          "sha256": "094eb347c833de49cd0c0b3fa78ff62e52936fa73c4df64fa2c73789352d32d9"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.claim.json",
+          "sha256": "0f94bfa198a64c8d7464b40a18b072bc99022fd1b73a021ff8a9a62565d9da78"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.journal.jsonl",
+          "sha256": "e9f1d70b4f641c19b20274a2466e3df255673a279a0de3a449da5ec5cccde105"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/development.attempts.jsonl",
+          "sha256": "a0ca9a2e16ae67c55e289b7640f050bac99458f2f6b89b3dda5129dc3bc7c445"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P1/smoke.claim.json",
+          "sha256": "c513ef05b8a28e419f942eeab4b965ea7ab6ac96ff8d80582fa0eb37aaffe480"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke-inspection.json",
+          "sha256": "ed947a839e5925dff27ad13c85941e626dcb8115a0160e51ea2b866dfc110334"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "858f0dacb857f90817d99ff087651ffa32a4a588ce7c03939981eb273a8184d1"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.attempts.jsonl",
+          "sha256": "4f44b4c15b6faa982e8de1903ea7934b5804410d5de515e94cdcdc25c780296d"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.responses.jsonl",
+          "sha256": "ab96a88a2223162de3de63d56df0fc92aa14949e017f3b0ceac79bb51c498f4f"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.responses.jsonl",
+          "sha256": "1c3711ac5ae96a90a9052b30b24a29ac1b4ee4db0348ab2e64bdac5fdd145e42"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/reconciliation.json",
+          "sha256": "7d2779277c9f1665bbe337d665d35426722a89e16fcc3aeede8e581a51e2298a"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.claim.json",
+          "sha256": "ae84ca92b2d0ff1686cc5afd4266c9eece74277e49c0e2f50aa131c041d79682"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.journal.jsonl",
+          "sha256": "8dfe6c935eb50e2407aa58a7ed313b4dd68ba8379d0918fb8161ae69b9638d8d"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/development.attempts.jsonl",
+          "sha256": "802ff7914c6c75b636023a354ebe1fc18d9b51eef55d85ebf3834400ed168290"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P0/smoke.claim.json",
+          "sha256": "33be4bd43568611bcdf3ae954e4143a2539d09b70aa47ea06790121ae61073c9"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke-inspection.json",
+          "sha256": "cd1fdafbfe4277b2cf55c28794b80cdccb275a5b432e01f2625b1cf86b68322c"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "0cb200da6d34e44bd964dfc51d203cd644cc62b8320f257561b22ba400623a2d"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "57f104f37bc04e3769bc703ce81faba41d35e45a0f4e399353b259732054e4d5"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.responses.jsonl",
+          "sha256": "87c4254cec62455d5cadd18a636f8bd56b361b492f491e05b349d38db7c5490b"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.responses.jsonl",
+          "sha256": "436462a16dd5fed66d59c132ba1b0b9af2e462ec8b2cb1e2683bb2c93e14e28c"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/reconciliation.json",
+          "sha256": "94e1dfd790955a78d62ed5e5811c1c12048e8d6c53800fb0c8fda26874e65621"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.claim.json",
+          "sha256": "dfe149a9a450e36238dd2dadbf6b15e3532caf722dc916db520416d2018f1782"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.journal.jsonl",
+          "sha256": "96858d5b88d77e0dc81f4dfae05ce1edbb44eeae724d30d6c0c5d51263df8464"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/development.attempts.jsonl",
+          "sha256": "8b653f3d7472c9b7fdf45ac1511aba160819fe8f90a1b36aaa71beaced70b38c"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-mistral-small32-24b-venice-not-applicable/later-phases-v1/repeat3/P2/smoke.claim.json",
+          "sha256": "093076cab01ab13218d46a4f583c08aa786d19aeb26c783997d8e50f9cb818f1"
         }
       ],
       "limitations": [
@@ -8309,30 +9466,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 5,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat2",
-          "condition": "P0",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "not_started"
-        }
-      ],
+      "missingPasses": [],
       "partialPasses": [],
       "passes": {
         "original": {
@@ -8668,6 +9804,150 @@
           }
         },
         "repeat2": {
+          "P0": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 53,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 56
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                3.412155708996579,
+                2.4689189579949016,
+                2.1073240830010036,
+                2.0504454170004465,
+                1.8989156669995282,
+                2.934079375001602,
+                1.8860658749908907,
+                5.886763250004151,
+                3.677375083003426,
+                2.4992954159970395,
+                2.1434130830020877,
+                3.6376710839977022,
+                2.923375958998804,
+                2.507401625000057,
+                4.707682915992336,
+                3.6413257499953033,
+                15.214418584000668,
+                2.117865874999552,
+                17.053122290992178,
+                3.2699253750033677,
+                3.0245442500017816,
+                2.951160875003552,
+                6.256578458007425,
+                5.690877709013876,
+                6.622589540987974,
+                2.188570375001291,
+                3.776272707997123,
+                9.316147167002782,
+                2.845650207993458,
+                3.508355958998436,
+                2.6535575840098318,
+                6.500762541996664,
+                2.327911584012327,
+                2.1066444580064854,
+                3.3257999580091564,
+                2.5318408330058446,
+                2.1024018750031246,
+                2.6434141659992747,
+                2.3886336669966113,
+                20.588156249999884,
+                1.9778784999944037,
+                3.106284749999759,
+                19.803061749989865,
+                4.09023154200986,
+                3.4473394579981687,
+                3.09055329200055,
+                3.5732444580062293,
+                7.467032000000472,
+                3.176061792008113,
+                3.842574041991611,
+                16.630673457999364,
+                3.4457314159953967,
+                6.203985166997882,
+                1.848668833001284,
+                1.9548523329867749,
+                22.212399166994146,
+                6.688648333001765,
+                2.6487599999964004,
+                5.442208375010523,
+                3.5634785829897737
+              ],
+              "requestSecondsTotal": 303.60107879099087,
+              "tokens": {
+                "input_tokens": 85950,
+                "output_tokens": 2703,
+                "cached_input_tokens": 27440,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.014873625",
+              "actualCostUsd": "0.014873625",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.claim.json",
+                "sha256": "5b244c14199fdd53a1fb075b4c9406aac74cba12e27e65eb90ef88bb4fcbd7df"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.journal.jsonl",
+                "sha256": "54eb3206ed1d3ab0c1a35fc5b820004291c1097a19d61ed9ce82bbc41639603f"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.attempts.jsonl",
+                "sha256": "6eaf1548e5c2e9ca46f5faa64cbd5db14292d298a3fef760e3ac7d36151ea79f"
+              },
+              "inspection": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke-inspection.json",
+                "sha256": "5d477192fe18bb78fa5fa522c5ef66d106220d9b94ea9a0bb4e9db5bc960ca5a"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.journal.jsonl",
+                "sha256": "0d45e1bbbc28f0935077ece042eded694a872fabfadc56ee8a09177fdb26b8e6"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.attempts.jsonl",
+                "sha256": "7e7a112c0bffe678fa93514f32d742cadae90626a008041158fcab0d971c9688"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.responses.jsonl",
+                "sha256": "5f94830ad5e1ea4965c81a681f122ff3af26a2e2d5a8d85db223c17d661e91a9"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.claim.json",
+                "sha256": "298639e276f632af8ea23c42848691186f01569569cb899a36ec1e025383c023"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.responses.jsonl",
+                "sha256": "4cdb3d16450007ae9d13aa8f349b58b2fcac51441898589207a59f69fa71e7d1"
+              }
+            }
+          },
           "P1": {
             "completionStatus": "complete",
             "terminalEvent": "phase_completed",
@@ -8957,157 +10237,823 @@
             }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 54,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                3.3684864999959245,
+                3.105143082997529,
+                2.9611274169874378,
+                20.37583849998191,
+                2.9522553340066224,
+                2.0510805410158355,
+                2.809214582986897,
+                2.981276042002719,
+                2.460911957983626,
+                1.6782007910078391,
+                3.848394583008485,
+                4.152080540981842,
+                4.225415666995104,
+                2.9287968749995343,
+                3.139404874993488,
+                3.7718897919985466,
+                3.056490999995731,
+                3.1291797919839155,
+                2.9002166249847505,
+                3.621771834004903,
+                2.785456957994029,
+                1.7490812499891035,
+                1.5106068330060225,
+                3.861109249992296,
+                3.1716560419881716,
+                1.8200047090067528,
+                3.1506357089965604,
+                4.355845500016585,
+                3.310152541991556,
+                2.30667120902217,
+                4.100269833026687,
+                4.094623667013366,
+                2.3683482499909587,
+                3.7558684169780463,
+                3.925633624981856,
+                1.68195970801753,
+                1.9279693750140723,
+                2.2539188749797177,
+                3.415259083005367,
+                2.207114165998064,
+                1.8761177500127815,
+                4.40549279100378,
+                2.0926581250096206,
+                2.208208750002086,
+                2.9969759169907775,
+                3.6642747500154655,
+                4.304173375014216,
+                4.1565252500004135,
+                3.3501265830127522,
+                1.7091562089917716,
+                2.2047942919889465,
+                2.7727657919749618,
+                3.2412016249727458,
+                3.665505540993763,
+                2.630548250017455,
+                3.0026074160123244,
+                4.040800540999044,
+                4.5421794170106295,
+                3.228170833986951,
+                3.1622799999895506
+              ],
+              "requestSecondsTotal": 200.5239245419216,
+              "tokens": {
+                "input_tokens": 85950,
+                "output_tokens": 2718,
+                "cached_input_tokens": 45472,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.012873150",
+              "actualCostUsd": "0.012873150",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.claim.json",
+                "sha256": "c5c835fd250f9ac6170d3a1bfcaf94f4d5a063bb5acba4de79425af6ea6d575f"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.journal.jsonl",
+                "sha256": "46ad96c742f433b5bf8312c610dda57cfbfae49e40ee1d52b9f54e020e073206"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.attempts.jsonl",
+                "sha256": "f22b0c6b2df1c6534118aae379f972a82a969abf12c50398642e012a6df81733"
+              },
+              "inspection": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke-inspection.json",
+                "sha256": "5dd1c14b44e3f73c61182ee37c197add506912ab93fd5dd51fb4d8f5a179accb"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.journal.jsonl",
+                "sha256": "2938b60f1a7d1fe942a76164b7fbf02db49ba9c4882d8bc343cf0f130b1a5869"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.attempts.jsonl",
+                "sha256": "12f41062f5214c5fa0c62bf77ffdec8afe4ba689a359d1aee0ea81d2e9779687"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.responses.jsonl",
+                "sha256": "6144784636571502c436f31d1880aa9292b33076d3362f5c373c65068628b9a4"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.claim.json",
+                "sha256": "5fe3a12fd0b52023578d4b9d5c42788aee39b6332c790627ee96aaa78d50ce85"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.responses.jsonl",
+                "sha256": "d0e9f0ea9ab3f32acae5ebf3353d0f0f15d272e154a69cda262dc516ad1a7423"
+              }
+            }
+          },
+          "P1": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 55,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 60,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                3.2653630830172915,
+                1.8377814580162521,
+                8.331307124986779,
+                2.9080626250070054,
+                2.3210267499962356,
+                2.2731573749915697,
+                2.6658494170114864,
+                1.7650199589843396,
+                2.0893035420158412,
+                1.8993134579795878,
+                1.971263874991564,
+                3.0531593339983374,
+                17.612789708015043,
+                2.0321271670109127,
+                2.152085583016742,
+                3.054185499990126,
+                1.9601842499978375,
+                4.078903124987846,
+                19.48402500001248,
+                2.528720208996674,
+                1.713946665986441,
+                2.4305578749917913,
+                2.8698083749914076,
+                2.9931706670031417,
+                3.026187249983195,
+                2.2896840420144144,
+                2.0200074579915963,
+                7.149316666997038,
+                2.5292679170088377,
+                3.333275249984581,
+                1.4324149999883957,
+                1.5434199580049608,
+                1.924741708993679,
+                13.90244145799079,
+                2.467959208006505,
+                1.6842532499867957,
+                3.1297306659980677,
+                2.6830911670112982,
+                3.116439583012834,
+                4.363100749993464,
+                4.595240958005888,
+                3.8343641660176218,
+                5.324382124992553,
+                2.0799422910204157,
+                3.223699124995619,
+                3.8239526659890544,
+                3.1022450829914305,
+                4.789005875005387,
+                4.701054166973336,
+                6.177555583999492,
+                5.199122040998191,
+                4.347518542024773,
+                3.905004625004949,
+                3.868654333986342,
+                3.1869002919993363,
+                3.296493083005771,
+                2.4593812079983763,
+                1.716123707999941,
+                4.244812457996886,
+                2.474421417020494
+              ],
+              "requestSecondsTotal": 230.23631720698904,
+              "tokens": {
+                "input_tokens": 96570,
+                "output_tokens": 2716,
+                "cached_input_tokens": 81536,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.010405200",
+              "actualCostUsd": "0.010405200",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.claim.json",
+                "sha256": "d3463ce5201c35e10cc7c104e198c02352a4c5ebfc73a910ce68ef56d3cb0756"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.journal.jsonl",
+                "sha256": "bbf7052b0c1e5a495a02989b9e501199e6de161ebb201a494ef8e2f465aa06d7"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.attempts.jsonl",
+                "sha256": "86516dfb61737f1345cb51913c15a22348f41a2668065c10f6fe4559176cc478"
+              },
+              "inspection": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke-inspection.json",
+                "sha256": "2671e0bae764692d41f47012b6fdc5e364d7ebb0bb396b35ab8b943ab279515c"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.journal.jsonl",
+                "sha256": "d9eb2c1d62fc4e702a6a09d86d5b81d77215bef27f4ffb387b73d1ffdead4096"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.attempts.jsonl",
+                "sha256": "c71bbc4b9bdbb68e9bcfe63971a5dee90a2eb1f15483b865a556512b3e98b875"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.responses.jsonl",
+                "sha256": "907718d5000e45baf109b1a806d32429496d4d83e5d4bdfd73db7512a40b0444"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.claim.json",
+                "sha256": "06218d6965a4870ad3f790c817e036af0d05e7badc34819812d6ed4a176f6cdb"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.responses.jsonl",
+                "sha256": "c69f19a91d2d724b108eac24cb69b21933d95dd7b7c0a0fd1625853ca0baabc7"
+              }
+            }
+          },
+          "P2": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 60,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 54,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "requestSeconds": [
+                4.022720375010977,
+                2.360711415996775,
+                3.172260708990507,
+                2.3937128329998814,
+                3.6246393339824863,
+                3.1095194579975214,
+                1.5691293749841861,
+                3.087700499978382,
+                2.828816499997629,
+                4.2409053329902235,
+                2.285048374993494,
+                3.017416582995793,
+                4.979850333009381,
+                3.828573208011221,
+                4.543403000017861,
+                2.616583124996396,
+                2.6258076670055743,
+                3.1691742499824613,
+                1.7565029170073103,
+                4.5295923330122605,
+                3.7377693750022445,
+                2.8267585829889867,
+                2.1385687080037314,
+                2.45121550001204,
+                2.765476291999221,
+                2.9320128330145963,
+                2.1131832500104792,
+                2.1350832910102326,
+                2.054958875000011,
+                3.494307792017935,
+                4.216886042006081,
+                2.6434310839977115,
+                2.7726360829838086,
+                2.490078375005396,
+                3.5993276250083,
+                4.90040987500106,
+                4.6550638749904465,
+                1.9535136250196956,
+                5.461490416986635,
+                2.818321583996294,
+                3.462833708996186,
+                5.445567250018939,
+                5.423579875001451,
+                4.748796083003981,
+                3.4425736670091283,
+                4.475846957997419,
+                2.9388922920043115,
+                2.983352624985855,
+                2.0288382910075597,
+                1.6757457500207238,
+                3.93372649999219,
+                3.588283083983697,
+                3.165715666982578,
+                2.129430875007529,
+                9.251532041991595,
+                3.043575207993854,
+                4.6870185830048285,
+                2.4086128330091015,
+                13.40907429199433,
+                3.407304499996826
+              ],
+              "requestSecondsTotal": 211.5728607920173,
+              "tokens": {
+                "input_tokens": 151950,
+                "output_tokens": 2718,
+                "cached_input_tokens": 134064,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 0
+              },
+              "knownCostUsd": "0.012806550",
+              "actualCostUsd": "0.012806550",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.claim.json",
+                "sha256": "17bb4db0969013acbf58c1f1c279c41e8c6d780c25fc549fdff369cc53c4c745"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.journal.jsonl",
+                "sha256": "77b942ace84e6ff5a5a13bf25508b9027fb52154a165d429306b3228201498d3"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.attempts.jsonl",
+                "sha256": "98b2ebed05a3ccf61e9556aef5d3acf6565fcc782b042a11a6d987c5b372bd74"
+              },
+              "inspection": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke-inspection.json",
+                "sha256": "50a24a70580774dd47a84968639ebbcb23b2b309f9a8ec0559d1f384fb251798"
+              },
+              "smokeJournal": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.journal.jsonl",
+                "sha256": "226909c4084b8618278e9e08f77e2777f88ef2c985f1ef45026f0cc3b7e93688"
+              },
+              "smokeAttempts": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.attempts.jsonl",
+                "sha256": "d1d2d058ab0c109005ce1e7b5bfe48334aeb215b36335a2211c89807f34b67ff"
+              },
+              "smokeResponses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.responses.jsonl",
+                "sha256": "835d44858454c548359ae3d459ea4f1d9bfb1fff80ed973291e782076c0235a9"
+              },
+              "smokeClaim": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.claim.json",
+                "sha256": "ed94c2debc63ed3975447e552c1765f9d5ff8c8b46f2dc73be4b7453d6d80e2c"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.responses.jsonl",
+                "sha256": "a8f479c80b385131caf3049d35cb041e938cffd43f9ad904f1436fef3df01cc0"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
+              54,
+              53,
               54
             ],
-            "mean": null,
-            "range": null
+            "mean": 53.666666666666664,
+            "range": [
+              53,
+              54
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                58,
+                58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                59,
+                59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                57,
+                56,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 56.666666666666664,
+              "range": [
+                56,
+                57
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              55,
               55,
               55
             ],
-            "mean": null,
-            "range": null
+            "mean": 55.0,
+            "range": [
+              55,
+              55
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
                 58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                57,
                 57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              54,
               54,
               54
             ],
-            "mean": null,
-            "range": null
+            "mean": 54.0,
+            "range": [
+              54,
+              54
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
                 58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                59,
                 59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                57,
                 57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ]
             }
           }
         }
       },
       "pairwiseFlips": [
         {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-027"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-027"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-027"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-027"
+            ]
+          }
+        },
+        {
           "condition": "P1",
           "from": "original",
           "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
           "denominator": 60,
           "excludedIds": [],
           "sentiment": {
@@ -9167,9 +11113,111 @@
             "rate": 0.0,
             "caseIds": []
           }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": [
+              "DEV-027"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-027"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -9196,33 +11244,119 @@
             "serious_concern_reported": 0,
             "testimonial_potential": 0
           }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 2,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 1
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 1
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            1,
+            2,
             1
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            1,
+            2
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              0,
+              0
+            ],
+            "follow_up_needed": [
+              0,
+              0
+            ],
+            "serious_concern_reported": [
+              1,
+              1
+            ],
+            "testimonial_potential": [
+              0,
+              1
+            ]
           }
         },
         "P2": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            0,
+            1,
             0
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            0,
+            1
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              0,
+              0
+            ],
+            "follow_up_needed": [
+              0,
+              0
+            ],
+            "serious_concern_reported": [
+              0,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              1
+            ]
           }
         }
       },
@@ -9320,6 +11454,42 @@
           "sha256": "715f52f5c359d39f991e4e4182734184b0c1d3d28ec7d4e2e417a8fb41438541"
         },
         {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke-inspection.json",
+          "sha256": "5d477192fe18bb78fa5fa522c5ef66d106220d9b94ea9a0bb4e9db5bc960ca5a"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "0d45e1bbbc28f0935077ece042eded694a872fabfadc56ee8a09177fdb26b8e6"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.attempts.jsonl",
+          "sha256": "7e7a112c0bffe678fa93514f32d742cadae90626a008041158fcab0d971c9688"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.responses.jsonl",
+          "sha256": "5f94830ad5e1ea4965c81a681f122ff3af26a2e2d5a8d85db223c17d661e91a9"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/smoke.claim.json",
+          "sha256": "298639e276f632af8ea23c42848691186f01569569cb899a36ec1e025383c023"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.responses.jsonl",
+          "sha256": "4cdb3d16450007ae9d13aa8f349b58b2fcac51441898589207a59f69fa71e7d1"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.claim.json",
+          "sha256": "5b244c14199fdd53a1fb075b4c9406aac74cba12e27e65eb90ef88bb4fcbd7df"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.journal.jsonl",
+          "sha256": "54eb3206ed1d3ab0c1a35fc5b820004291c1097a19d61ed9ce82bbc41639603f"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P0/development.attempts.jsonl",
+          "sha256": "6eaf1548e5c2e9ca46f5faa64cbd5db14292d298a3fef760e3ac7d36151ea79f"
+        },
+        {
           "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P1/smoke-inspection.json",
           "sha256": "984b472e0d9a2dc53791cd9d8dcf176c1daa475f77dbda32cd2cc5be4bd092f2"
         },
@@ -9390,6 +11560,114 @@
         {
           "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat2/P2/development.attempts.jsonl",
           "sha256": "e3dc5fcdf62133a5ab7fe69e72bc46fe9ec4ae01bb7026a823efdbbfb36867d3"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke-inspection.json",
+          "sha256": "5dd1c14b44e3f73c61182ee37c197add506912ab93fd5dd51fb4d8f5a179accb"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "2938b60f1a7d1fe942a76164b7fbf02db49ba9c4882d8bc343cf0f130b1a5869"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.attempts.jsonl",
+          "sha256": "12f41062f5214c5fa0c62bf77ffdec8afe4ba689a359d1aee0ea81d2e9779687"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.responses.jsonl",
+          "sha256": "6144784636571502c436f31d1880aa9292b33076d3362f5c373c65068628b9a4"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/smoke.claim.json",
+          "sha256": "5fe3a12fd0b52023578d4b9d5c42788aee39b6332c790627ee96aaa78d50ce85"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.responses.jsonl",
+          "sha256": "d0e9f0ea9ab3f32acae5ebf3353d0f0f15d272e154a69cda262dc516ad1a7423"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.claim.json",
+          "sha256": "c5c835fd250f9ac6170d3a1bfcaf94f4d5a063bb5acba4de79425af6ea6d575f"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.journal.jsonl",
+          "sha256": "46ad96c742f433b5bf8312c610dda57cfbfae49e40ee1d52b9f54e020e073206"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P0/development.attempts.jsonl",
+          "sha256": "f22b0c6b2df1c6534118aae379f972a82a969abf12c50398642e012a6df81733"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke-inspection.json",
+          "sha256": "2671e0bae764692d41f47012b6fdc5e364d7ebb0bb396b35ab8b943ab279515c"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "d9eb2c1d62fc4e702a6a09d86d5b81d77215bef27f4ffb387b73d1ffdead4096"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "c71bbc4b9bdbb68e9bcfe63971a5dee90a2eb1f15483b865a556512b3e98b875"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.responses.jsonl",
+          "sha256": "907718d5000e45baf109b1a806d32429496d4d83e5d4bdfd73db7512a40b0444"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/smoke.claim.json",
+          "sha256": "06218d6965a4870ad3f790c817e036af0d05e7badc34819812d6ed4a176f6cdb"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.responses.jsonl",
+          "sha256": "c69f19a91d2d724b108eac24cb69b21933d95dd7b7c0a0fd1625853ca0baabc7"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.claim.json",
+          "sha256": "d3463ce5201c35e10cc7c104e198c02352a4c5ebfc73a910ce68ef56d3cb0756"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.journal.jsonl",
+          "sha256": "bbf7052b0c1e5a495a02989b9e501199e6de161ebb201a494ef8e2f465aa06d7"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P1/development.attempts.jsonl",
+          "sha256": "86516dfb61737f1345cb51913c15a22348f41a2668065c10f6fe4559176cc478"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke-inspection.json",
+          "sha256": "50a24a70580774dd47a84968639ebbcb23b2b309f9a8ec0559d1f384fb251798"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "226909c4084b8618278e9e08f77e2777f88ef2c985f1ef45026f0cc3b7e93688"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "d1d2d058ab0c109005ce1e7b5bfe48334aeb215b36335a2211c89807f34b67ff"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.responses.jsonl",
+          "sha256": "835d44858454c548359ae3d459ea4f1d9bfb1fff80ed973291e782076c0235a9"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/smoke.claim.json",
+          "sha256": "ed94c2debc63ed3975447e552c1765f9d5ff8c8b46f2dc73be4b7453d6d80e2c"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.responses.jsonl",
+          "sha256": "a8f479c80b385131caf3049d35cb041e938cffd43f9ad904f1436fef3df01cc0"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.claim.json",
+          "sha256": "17bb4db0969013acbf58c1f1c279c41e8c6d780c25fc549fdff369cc53c4c745"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.journal.jsonl",
+          "sha256": "77b942ace84e6ff5a5a13bf25508b9027fb52154a165d429306b3228201498d3"
+        },
+        {
+          "path": "results/repeatability-v1/openrouter-paid-qwen3.8-27b-off/repeat3/P2/development.attempts.jsonl",
+          "sha256": "98b2ebed05a3ccf61e9556aef5d3acf6565fcc782b042a11a6d987c5b372bd74"
         }
       ],
       "limitations": [

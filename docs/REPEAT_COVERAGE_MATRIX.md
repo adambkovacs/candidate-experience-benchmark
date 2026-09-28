@@ -1,6 +1,6 @@
 # Repeat coverage matrix
 
-Checked against the saved public export and source evidence on 2026-09-25. This is a read-only eligibility audit; no repeat inference has run. The 53 rows are complete exported triples, not the entire 163-configuration roster. The separate [roster accounting](MVP_ROSTER_ACCOUNTING.md) retains partial, unsupported and blocked configurations.
+Checked against the saved public export and source evidence on 2026-09-25. This was the pre-execution eligibility audit. Repeats have since run; see the dated [current checkpoint](CURRENT_GOALS.md) and saved reports for execution status. The 53 rows are complete exported triples, not the entire 163-configuration roster. The separate [roster accounting](MVP_ROSTER_ACCOUNTING.md) retains partial, unsupported and blocked configurations.
 
 A historical pass counts only when 60 positions, request units, prompt composition, batch membership, visible settings and failure handling can be reconstructed. An invalid model output can stay in an eligible pass. A comparison flag alone does not prove repeat eligibility. Hidden provider revisions, cache state and client wrapper rendering remain observational limits. The accepted Codex CLI patch change alone is not a disqualifier.
 

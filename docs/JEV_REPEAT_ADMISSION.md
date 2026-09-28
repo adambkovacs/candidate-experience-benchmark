@@ -1,0 +1,32 @@
+# Jev repeat admission audit
+
+The defensible series uses the historical first attempt at each development ID as pass one, followed by two new passes. This decision keeps the failed DEV-046 request in P0. The later manual success for DEV-046 remains saved, but it does not replace that failure in the repeat study. The [offline checker](../scripts/typesafe_repeat_study.py) reconstructs this selection and rejects changed source bytes, request hashes, controls, outcomes, or ledger settlements. It makes no TypeSafe call and does not authorize dispatch.
+
+| Historical condition | First-pass development outcomes | Selection |
+| --- | --- | --- |
+| P0 | 59 valid, one `RemoteDisconnected` service error at DEV-046 | First attempt per ID from the [46-attempt prefix](../results/openjev/typesafe-development-v2.jsonl) and [15-attempt continuation](../results/openjev/typesafe-development-v2-continuation.jsonl). The second DEV-046 attempt is separate recovery evidence. |
+| P1 | 59 valid, one invalid probability distribution at DEV-053 | The complete saved [P1 responses](../results/jev-native-prompt-variants-v1/P1-development.jsonl) and [journal](../results/jev-native-prompt-variants-v1/P1-development.attempts.jsonl). |
+| P2 | 59 valid, one invalid probability distribution at DEV-040 | The complete saved [P2 responses](../results/jev-native-prompt-variants-v1/P2-development.jsonl) and [journal](../results/jev-native-prompt-variants-v1/P2-development.attempts.jsonl). |
+
+The public [P0 reconciled file](../results/openjev/typesafe-development-v2-reconciled.jsonl) contains 60 successful predictions after the manual DEV-046 retry. It remains valid for its original comparison. It is not the first-pass input for this repeat series. The repeat selector covers all 60 IDs exactly once and reports the failure in the denominator. No output is repaired or resent to make a pass valid. The first pass was assembled retrospectively from a stopped run and its continuation, so it has weaker timing comparability than a prospective single run. The DEV-046 retry occurred before requests for DEV-047 through DEV-060; any hidden server state or serving drift remains unknown. Future passes must allow a separately reviewed continuation of **never-sent** IDs after a stop while retaining the failed first attempt. Otherwise a future failure would leave a different coverage rule from historical P0. A fresh matched three-pass series would avoid this history but does not fit the present $1 client cap.
+
+The future schedule is repeat2 P1, P2, P0 and repeat3 P2, P0, P1. Each condition uses a separate three-record smoke and 60-record development phase. Each record sends one request with the same `feedback` and policy and four parallel Choice questions. The model stays pinned to `jev-1.13.0` at `POST https://api.typesafe.ai/v1/systemone`. P1 and P2 change only `questions.*.instructions`: P1 adds classifier framing, and P2 adds the field-specific procedure after that same framing. The checker compares all other wire fields, each question's criteria and order, every request hash, and each reservation against the [frozen input-only manifest](../results/jev-native-prompt-variants-v1/input-only-manifest.json). No reference label enters a request. TypeSafe's current [model page](https://docs.typesafe.ai/models) confirms the versioned model and $0.042 per million input-token price; its [API reference](https://docs.typesafe.ai/api) documents the state and typed-question endpoint. This is a native Choice sensitivity study, not a chat-prompt experiment.
+
+## Budget at this audit
+
+The separate [TypeSafe ledger](../results/typesafe-budget.jsonl) has a $1 cap and accounts for **$0.022227240**, leaving **$0.977772760**. That accounted amount retains the failed DEV-046 reservation of **$0.002123688** at its full client upper bound. The failed request has no reported usage or known provider charge. All other historical attempts checked by this audit have matching reservations and input-token-price settlements. The ledger SHA-256 at this snapshot is `926ea3ab530c4f8abb1f87a8ac47743a683e93415346cfe5a63a9339472702a6`.
+
+| One new pass, including smoke and development | Client reservation upper bound |
+| --- | ---: |
+| P0 | $0.133768152 |
+| P1 | $0.144648504 |
+| P2 | $0.155211336 |
+| Total | $0.433627992 |
+
+Two new passes require **$0.867255984** in summed client reservation bounds. Existing accounted usage plus that amount is **$0.889483224**, leaving **$0.110516776** within $1. A fresh three-pass series alone requires **$1.300883976** in these bounds, before existing usage, so it cannot be admitted under the current cap. These figures assume that each reserved call settles before the next call. They are conservative client estimates from the frozen payload bytes and the published token price, not a TypeSafe invoice or an enforceable provider-side maximum. The saved Jev responses do not expose server-only inference time. The [earlier timing and cost audit](JEV_PROMPT_AND_TIMING_AUDIT.md) explains the distinction between client duration and inference time.
+
+## Before any live pass
+
+This audit is a snapshot, not an execution receipt. Recompute it after any source or ledger change. A future runner needs its own reviewed, immutable repeat plan and exact root admission; exclusive phase claims; a live check of version, API route and pricing before loading a key; a locked check of the shared $1 ledger before each call; durable request intent and raw response evidence before parsing; no automatic retry; and separate smoke inspection before each development phase. If a phase stops, only never-sent IDs may enter a separately reviewed continuation; attempted failures remain in the pass. The runner must retain service errors, invalid distributions, missing usage, and the DEV-046 unknown reservation. An unknown new charge or route change stops the affected phase. A client reservation heuristic alone does not guarantee provider billing stays under $1, so the runner must also stop and record any observed cost above the reservation. No allocation, key read, API dispatch, or new repeat result is made by this audit.
+
+Reproduce the offline calculation with `PYTHONDONTWRITEBYTECODE=1 python3 scripts/typesafe_repeat_study.py` from the repository root. `--output NEW_PATH` writes the complete plan to a new file for review. The command reads saved requests, responses, attempts, source files, and the ledger; it does not read reference labels or call TypeSafe.
