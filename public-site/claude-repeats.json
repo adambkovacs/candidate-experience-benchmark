@@ -32,25 +32,9 @@
     }
   },
   "denominator": 60,
-  "completedConditions": 6,
+  "completedConditions": 9,
   "plannedConditions": 9,
-  "missingPasses": [
-    {
-      "pass": "repeat3",
-      "condition": "P0",
-      "status": "smoke_open_or_incomplete"
-    },
-    {
-      "pass": "repeat3",
-      "condition": "P1",
-      "status": "smoke_open_or_incomplete"
-    },
-    {
-      "pass": "repeat3",
-      "condition": "P2",
-      "status": "smoke_open_or_incomplete"
-    }
-  ],
+  "missingPasses": [],
   "partialPasses": [],
   "passes": {
     "original": {
@@ -525,153 +509,502 @@
         }
       }
     },
-    "repeat3": {}
+    "repeat3": {
+      "P0": {
+        "completionStatus": "complete",
+        "terminalEvent": "phase_completed",
+        "finishedRequests": 6,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 57,
+          "fields": {
+            "sentiment": 58,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            13.217938999994658,
+            11.240093083993997,
+            12.920407917001285,
+            8.459095124999294,
+            9.166121165995719,
+            11.22311691698269
+          ],
+          "requestSecondsTotal": 66.22677320896764,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 26083,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 6410,
+            "thinking_tokens": 2662
+          },
+          "cliListPriceEstimateUsd": "0.336912000000000005",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "claim": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.claim.json",
+            "sha256": "bd49603ad9a335447515609e55a67d62bf632994fa803a735ecd01d725f445ec"
+          },
+          "journal": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.journal.jsonl",
+            "sha256": "15abf6fc278631564b0c7b5ecb017d0bee563d31134fe465d1f7cb0488530926"
+          },
+          "attempts": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.attempts.jsonl",
+            "sha256": "9d2b8a8105f470613229819458e7a7569208914a6dbbc6db18172eab8c447ac3"
+          },
+          "records": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.records.jsonl",
+            "sha256": "7bc608b7f8bb9f79a370297fdc7a55bc76b9ffff7a431ea1e9cca9eb41085b45"
+          },
+          "rawCaptures": [
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-001.raw.jsonl",
+              "sha256": "5328f2ec65f32e1aed69b5d221d1e0523c8c01be8c687becbd87ca6c5ba0a3cb"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-002.raw.jsonl",
+              "sha256": "fb952aeb731709cf269607fa27cbb53c2b89dd828c374e3175ab4c661c34a94d"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-003.raw.jsonl",
+              "sha256": "236c7938fe8d646ee7a01d26737f28634cb1497e48b26d77c8c155239cf7da22"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-004.raw.jsonl",
+              "sha256": "d4861745ff4667a6373b723030326b90a89fb8fc899ae0f92bfb7bc07025299f"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-005.raw.jsonl",
+              "sha256": "aeee8a9a33c59ad6768b40352cc0244bf7c9364781e738df300c3a8eaafa7254"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-006.raw.jsonl",
+              "sha256": "ed8c608aa29d5824c5e72183074dacd6e7bc2cb902bed6ca1b35f0c098f4a050"
+            }
+          ]
+        }
+      },
+      "P1": {
+        "completionStatus": "complete",
+        "terminalEvent": "phase_completed",
+        "finishedRequests": 6,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            12.284683082994889,
+            11.594014041009359,
+            11.02576033299556,
+            8.551364458995522,
+            9.251163958993857,
+            11.761310375004541
+          ],
+          "requestSecondsTotal": 64.46829624999373,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 6400,
+            "cache_read_input_tokens": 21486,
+            "output_tokens": 6420,
+            "thinking_tokens": 2671
+          },
+          "cliListPriceEstimateUsd": "0.183945200000000007",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "claim": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.claim.json",
+            "sha256": "e4fcac38fe92a95a33647b72306efbff271edebaef311078983223392750d007"
+          },
+          "journal": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.journal.jsonl",
+            "sha256": "d06e267a54722260d05dfb3fe7606ddd3b0436c4a1e30afb2b9e0fcbb5a04b77"
+          },
+          "attempts": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.attempts.jsonl",
+            "sha256": "5a90ce825fe65ebf15e31fb29a79f90b7e34ad3c68ca43930bb7ee2badce3a6c"
+          },
+          "records": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.records.jsonl",
+            "sha256": "b98945ee4ec529e48817ccd35980f08d996ea3e299f0d7a926338c47fadfb2b5"
+          },
+          "rawCaptures": [
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-001.raw.jsonl",
+              "sha256": "87503609b7186db9d46d7fc4970df8e748e34af8bc27993c5ae5c9403ded0909"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-002.raw.jsonl",
+              "sha256": "172499a37ba32165a4d6e325390edfd2525102b9b81c50ac41ae19068d061b0b"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-003.raw.jsonl",
+              "sha256": "140debb576b907545f435c5a1adee6bcde3683b14e13063b94d79e5f1fc97ecb"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-004.raw.jsonl",
+              "sha256": "841a2f8c5b9767eaae85f3a6aef0e5c6d53465095c7470efabb8083b371ea55f"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-005.raw.jsonl",
+              "sha256": "136ff2ed4cd53b96ae413b7b80af2a8359473294b4ae27c3f322e5b8fd468bfb"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-006.raw.jsonl",
+              "sha256": "de4e85afc9e49e8d3eb7196e509c01d2261f6d43c9a6f64ac32f2e02dc1471eb"
+            }
+          ]
+        }
+      },
+      "P2": {
+        "completionStatus": "complete",
+        "terminalEvent": "phase_completed",
+        "finishedRequests": 6,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 56,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 58,
+            "testimonial_potential": 59
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "usage": {
+          "requestCount": 6,
+          "requestSeconds": [
+            12.170765415998176,
+            11.673081624991028,
+            12.036299541010521,
+            8.946850292006275,
+            8.756288415985182,
+            12.063869292003801
+          ],
+          "requestSecondsTotal": 65.64715458199498,
+          "requestTimeKind": "client_wall_clock",
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 33215,
+            "cache_read_input_tokens": 4884,
+            "output_tokens": 6334,
+            "thinking_tokens": 2591
+          },
+          "cliListPriceEstimateUsd": "0.39342479999999999",
+          "actualCostUsd": null,
+          "costNote": "CLI API-equivalent list-price estimate; subscription billing and quota consumed are unknown."
+        },
+        "evidence": {
+          "claim": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.claim.json",
+            "sha256": "5c5d57f27512dd046dbb1f9b9e84031be69cba7e61c5733d8dc6eafe49091cb2"
+          },
+          "journal": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.journal.jsonl",
+            "sha256": "eab71fd18b3430f049bdc71694ac025e087b8911703a44b0aae47d9bfdf68780"
+          },
+          "attempts": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.attempts.jsonl",
+            "sha256": "8edf9995290dac10bcbe48cd164b0f6c3be2decb4e86aa05c5f365dad443d6dd"
+          },
+          "records": {
+            "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.records.jsonl",
+            "sha256": "fac38eb5fa9c8629bdb0febeaa7b84c516432b6a8a6e8df8b08d1c7be35d7b8f"
+          },
+          "rawCaptures": [
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-001.raw.jsonl",
+              "sha256": "b4ae5d8271c8f1e545dabfb8811f15acd9e3fb51858018ec89d8c412b40f9d00"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-002.raw.jsonl",
+              "sha256": "73bff1084d3ad813bd14505a6fef14d0e5148fa77627d3d5cc68ff5b564b6cce"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-003.raw.jsonl",
+              "sha256": "0967285d88cae5e9134c2c6187d45b5c30c5c3f835ddac38b60f54dc169f0cbe"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-004.raw.jsonl",
+              "sha256": "420e08ece770b126bbab4ac44a35b317f5b2e0c86027909353be8f5df6da587a"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-005.raw.jsonl",
+              "sha256": "6050c3064a06c7976f7a080459237ddd1c30c6a86483f75ea4883b5c6fe2e8df"
+            },
+            {
+              "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-006.raw.jsonl",
+              "sha256": "fd9315a235c5440167516e8246d36dae76276d70ba78f6def43db016d61b49ee"
+            }
+          ]
+        }
+      }
+    }
   },
   "threePassSummary": {
     "P0": {
       "allFour": {
-        "completedPasses": 2,
+        "completedPasses": 3,
         "values": [
           58,
-          58
+          58,
+          57
         ],
-        "mean": null,
-        "range": null
+        "mean": 57.666666666666664,
+        "range": [
+          57,
+          58
+        ]
       },
       "fields": {
         "sentiment": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
             59,
-            59
+            59,
+            58
           ],
-          "mean": null,
-          "range": null
+          "mean": 58.666666666666664,
+          "range": [
+            58,
+            59
+          ]
         },
         "follow_up_needed": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            59,
             59,
             59
           ],
-          "mean": null,
-          "range": null
+          "mean": 59.0,
+          "range": [
+            59,
+            59
+          ]
         },
         "serious_concern_reported": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            59,
             59,
             59
           ],
-          "mean": null,
-          "range": null
+          "mean": 59.0,
+          "range": [
+            59,
+            59
+          ]
         },
         "testimonial_potential": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            60,
             60,
             60
           ],
-          "mean": null,
-          "range": null
+          "mean": 60.0,
+          "range": [
+            60,
+            60
+          ]
         }
       }
     },
     "P1": {
       "allFour": {
-        "completedPasses": 2,
+        "completedPasses": 3,
         "values": [
+          58,
           58,
           58
         ],
-        "mean": null,
-        "range": null
+        "mean": 58.0,
+        "range": [
+          58,
+          58
+        ]
       },
       "fields": {
         "sentiment": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            59,
             59,
             59
           ],
-          "mean": null,
-          "range": null
+          "mean": 59.0,
+          "range": [
+            59,
+            59
+          ]
         },
         "follow_up_needed": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
             60,
-            59
-          ],
-          "mean": null,
-          "range": null
-        },
-        "serious_concern_reported": {
-          "completedPasses": 2,
-          "values": [
             59,
             59
           ],
-          "mean": null,
-          "range": null
+          "mean": 59.333333333333336,
+          "range": [
+            59,
+            60
+          ]
+        },
+        "serious_concern_reported": {
+          "completedPasses": 3,
+          "values": [
+            59,
+            59,
+            59
+          ],
+          "mean": 59.0,
+          "range": [
+            59,
+            59
+          ]
         },
         "testimonial_potential": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            60,
             60,
             60
           ],
-          "mean": null,
-          "range": null
+          "mean": 60.0,
+          "range": [
+            60,
+            60
+          ]
         }
       }
     },
     "P2": {
       "allFour": {
-        "completedPasses": 2,
+        "completedPasses": 3,
         "values": [
           56,
-          58
+          58,
+          56
         ],
-        "mean": null,
-        "range": null
+        "mean": 56.666666666666664,
+        "range": [
+          56,
+          58
+        ]
       },
       "fields": {
         "sentiment": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
             58,
-            60
+            60,
+            59
           ],
-          "mean": null,
-          "range": null
+          "mean": 59.0,
+          "range": [
+            58,
+            60
+          ]
         },
         "follow_up_needed": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            59,
             59,
             59
           ],
-          "mean": null,
-          "range": null
+          "mean": 59.0,
+          "range": [
+            59,
+            59
+          ]
         },
         "serious_concern_reported": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
             59,
-            59
+            59,
+            58
           ],
-          "mean": null,
-          "range": null
+          "mean": 58.666666666666664,
+          "range": [
+            58,
+            59
+          ]
         },
         "testimonial_potential": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            59,
             59,
             59
           ],
-          "mean": null,
-          "range": null
+          "mean": 59.0,
+          "range": [
+            59,
+            59
+          ]
         }
       }
     }
@@ -707,6 +1040,78 @@
         "changed": 0,
         "rate": 0.0,
         "caseIds": []
+      }
+    },
+    {
+      "condition": "P0",
+      "from": "original",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
+      }
+    },
+    {
+      "condition": "P0",
+      "from": "repeat2",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
       }
     },
     {
@@ -746,6 +1151,74 @@
       }
     },
     {
+      "condition": "P1",
+      "from": "original",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-006"
+        ]
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-006"
+        ]
+      }
+    },
+    {
+      "condition": "P1",
+      "from": "repeat2",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      }
+    },
+    {
       "condition": "P2",
       "from": "original",
       "to": "repeat2",
@@ -782,9 +1255,136 @@
           "DEV-030"
         ]
       }
+    },
+    {
+      "condition": "P2",
+      "from": "original",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
+      }
+    },
+    {
+      "condition": "P2",
+      "from": "repeat2",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-013"
+        ]
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 1,
+        "rate": 0.016666666666666666,
+        "caseIds": [
+          "DEV-030"
+        ]
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 2,
+        "rate": 0.03333333333333333,
+        "caseIds": [
+          "DEV-013",
+          "DEV-030"
+        ]
+      }
     }
   ],
-  "changesAcrossThreePasses": {},
+  "changesAcrossThreePasses": {
+    "P0": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [
+          "DEV-030"
+        ],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": [
+        "DEV-030"
+      ]
+    },
+    "P1": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [],
+        "follow_up_needed": [
+          "DEV-006"
+        ],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": [
+        "DEV-006"
+      ]
+    },
+    "P2": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [
+          "DEV-013",
+          "DEV-030"
+        ],
+        "follow_up_needed": [],
+        "serious_concern_reported": [
+          "DEV-030"
+        ],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": [
+        "DEV-013",
+        "DEV-030"
+      ]
+    }
+  },
   "withinPassPromptDeltas": [
     {
       "pass": "original",
@@ -837,35 +1437,93 @@
         "serious_concern_reported": 0,
         "testimonial_potential": -1
       }
+    },
+    {
+      "pass": "repeat3",
+      "from": "P0",
+      "to": "P1",
+      "denominator": 60,
+      "allFour": 1,
+      "fields": {
+        "sentiment": 1,
+        "follow_up_needed": 0,
+        "serious_concern_reported": 0,
+        "testimonial_potential": 0
+      }
+    },
+    {
+      "pass": "repeat3",
+      "from": "P0",
+      "to": "P2",
+      "denominator": 60,
+      "allFour": -1,
+      "fields": {
+        "sentiment": 1,
+        "follow_up_needed": 0,
+        "serious_concern_reported": -1,
+        "testimonial_potential": -1
+      }
     }
   ],
   "pairedDeltaSpread": {
     "P1": {
-      "completedPairs": 2,
+      "completedPairs": 3,
       "allFourValues": [
         0,
-        0
+        0,
+        1
       ],
-      "allFourRange": null,
+      "allFourRange": [
+        0,
+        1
+      ],
       "fieldRanges": {
-        "sentiment": null,
-        "follow_up_needed": null,
-        "serious_concern_reported": null,
-        "testimonial_potential": null
+        "sentiment": [
+          0,
+          1
+        ],
+        "follow_up_needed": [
+          0,
+          1
+        ],
+        "serious_concern_reported": [
+          0,
+          0
+        ],
+        "testimonial_potential": [
+          0,
+          0
+        ]
       }
     },
     "P2": {
-      "completedPairs": 2,
+      "completedPairs": 3,
       "allFourValues": [
+        -2,
+        0,
+        -1
+      ],
+      "allFourRange": [
         -2,
         0
       ],
-      "allFourRange": null,
       "fieldRanges": {
-        "sentiment": null,
-        "follow_up_needed": null,
-        "serious_concern_reported": null,
-        "testimonial_potential": null
+        "sentiment": [
+          -1,
+          1
+        ],
+        "follow_up_needed": [
+          0,
+          0
+        ],
+        "serious_concern_reported": [
+          -1,
+          0
+        ],
+        "testimonial_potential": [
+          -1,
+          -1
+        ]
       }
     }
   },
@@ -1189,6 +1847,198 @@
     {
       "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat2/P2/development.batch-006.raw.jsonl",
       "sha256": "b60367a65c5b0967db16cbafe36f758c173ad9e50c4d24857b37e00623cc0467"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/smoke.claim.json",
+      "sha256": "f93cbf3a664ba7bc2552b7b9c85092ab0280ad25cd6cab887323f7894f90d9f0"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/smoke.journal.jsonl",
+      "sha256": "4a43394dd1567591a29950ee3f08edf3aef86e2b8f5f75dab60868d8c4be3ae8"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/smoke.attempts.jsonl",
+      "sha256": "cea44f953aced955421d75d6e73a9542fde43ef21a54f3675043acba3f9593c4"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/smoke.records.jsonl",
+      "sha256": "84d1c90c7e8ee11ab0902a3eb0658e50e2ff5aaa3a727df7dde483d51320ea45"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/smoke.batch-000.raw.jsonl",
+      "sha256": "9b0884d205f24009b247f3256bef4c2a9b571b7ecf21e51ce0b81af471c9dc15"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/smoke-inspection.json",
+      "sha256": "8a79cd9f4b2fdcf5f6c2ddd2e392ddc90eb6048b65e7fb11c7354c5f51a01078"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.claim.json",
+      "sha256": "bd49603ad9a335447515609e55a67d62bf632994fa803a735ecd01d725f445ec"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.journal.jsonl",
+      "sha256": "15abf6fc278631564b0c7b5ecb017d0bee563d31134fe465d1f7cb0488530926"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.attempts.jsonl",
+      "sha256": "9d2b8a8105f470613229819458e7a7569208914a6dbbc6db18172eab8c447ac3"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.records.jsonl",
+      "sha256": "7bc608b7f8bb9f79a370297fdc7a55bc76b9ffff7a431ea1e9cca9eb41085b45"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-001.raw.jsonl",
+      "sha256": "5328f2ec65f32e1aed69b5d221d1e0523c8c01be8c687becbd87ca6c5ba0a3cb"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-002.raw.jsonl",
+      "sha256": "fb952aeb731709cf269607fa27cbb53c2b89dd828c374e3175ab4c661c34a94d"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-003.raw.jsonl",
+      "sha256": "236c7938fe8d646ee7a01d26737f28634cb1497e48b26d77c8c155239cf7da22"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-004.raw.jsonl",
+      "sha256": "d4861745ff4667a6373b723030326b90a89fb8fc899ae0f92bfb7bc07025299f"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-005.raw.jsonl",
+      "sha256": "aeee8a9a33c59ad6768b40352cc0244bf7c9364781e738df300c3a8eaafa7254"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P0/development.batch-006.raw.jsonl",
+      "sha256": "ed8c608aa29d5824c5e72183074dacd6e7bc2cb902bed6ca1b35f0c098f4a050"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/smoke.claim.json",
+      "sha256": "60f8f461856cb809e567999aac6e5a7bed2917506b0ce40565b96e81a1312b67"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/smoke.journal.jsonl",
+      "sha256": "8c7ffe66d86cbb8f4236ea2d89035f236c3604d614caff98b12a3e5f2a6815f5"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/smoke.attempts.jsonl",
+      "sha256": "7e07b76a68c365423c19bf206efb86c93223e7da79a200d8cd0ff5461e9cce50"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/smoke.records.jsonl",
+      "sha256": "990016a7c37a067103289e2138e5c19b50bfb961490438f092d4569aac8e04fe"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/smoke.batch-000.raw.jsonl",
+      "sha256": "4664dbb6d8669c31d941a17446494d986d3417cab5f089bb7c4b40c95aefed11"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/smoke-inspection.json",
+      "sha256": "ca6e6dd9b152c69bac70ab33118ebdb91c014514dc7f2afa819c58c9727c70c7"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.claim.json",
+      "sha256": "e4fcac38fe92a95a33647b72306efbff271edebaef311078983223392750d007"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.journal.jsonl",
+      "sha256": "d06e267a54722260d05dfb3fe7606ddd3b0436c4a1e30afb2b9e0fcbb5a04b77"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.attempts.jsonl",
+      "sha256": "5a90ce825fe65ebf15e31fb29a79f90b7e34ad3c68ca43930bb7ee2badce3a6c"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.records.jsonl",
+      "sha256": "b98945ee4ec529e48817ccd35980f08d996ea3e299f0d7a926338c47fadfb2b5"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-001.raw.jsonl",
+      "sha256": "87503609b7186db9d46d7fc4970df8e748e34af8bc27993c5ae5c9403ded0909"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-002.raw.jsonl",
+      "sha256": "172499a37ba32165a4d6e325390edfd2525102b9b81c50ac41ae19068d061b0b"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-003.raw.jsonl",
+      "sha256": "140debb576b907545f435c5a1adee6bcde3683b14e13063b94d79e5f1fc97ecb"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-004.raw.jsonl",
+      "sha256": "841a2f8c5b9767eaae85f3a6aef0e5c6d53465095c7470efabb8083b371ea55f"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-005.raw.jsonl",
+      "sha256": "136ff2ed4cd53b96ae413b7b80af2a8359473294b4ae27c3f322e5b8fd468bfb"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P1/development.batch-006.raw.jsonl",
+      "sha256": "de4e85afc9e49e8d3eb7196e509c01d2261f6d43c9a6f64ac32f2e02dc1471eb"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/smoke.claim.json",
+      "sha256": "2d786831596ec36cb2210539f5608ddf02dc630ced8a129b33b42dc26d573147"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/smoke.journal.jsonl",
+      "sha256": "eaf0822a5d7077327a54dfc62be1d9a0dcacbccd8914d3dae73c941a552265cf"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/smoke.attempts.jsonl",
+      "sha256": "bfbb4637630624c51aaa9fe31427a54ba1d879e990820f0f2ff2f22accf51d81"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/smoke.records.jsonl",
+      "sha256": "acd74622244f5b2450de42fbde4f7d90f0b20f6daca36830a60b0bebdb30d0d3"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/smoke.batch-000.raw.jsonl",
+      "sha256": "f25e9897be81502df86c19c24c2af11eef3499762f9a013131037f870cc755a5"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/smoke-inspection.json",
+      "sha256": "c56e8421ce1e689184b00202fa4eb5686a73deb4c3ddc5ef201963bdc8ca8476"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.claim.json",
+      "sha256": "5c5d57f27512dd046dbb1f9b9e84031be69cba7e61c5733d8dc6eafe49091cb2"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.journal.jsonl",
+      "sha256": "eab71fd18b3430f049bdc71694ac025e087b8911703a44b0aae47d9bfdf68780"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.attempts.jsonl",
+      "sha256": "8edf9995290dac10bcbe48cd164b0f6c3be2decb4e86aa05c5f365dad443d6dd"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.records.jsonl",
+      "sha256": "fac38eb5fa9c8629bdb0febeaa7b84c516432b6a8a6e8df8b08d1c7be35d7b8f"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-001.raw.jsonl",
+      "sha256": "b4ae5d8271c8f1e545dabfb8811f15acd9e3fb51858018ec89d8c412b40f9d00"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-002.raw.jsonl",
+      "sha256": "73bff1084d3ad813bd14505a6fef14d0e5148fa77627d3d5cc68ff5b564b6cce"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-003.raw.jsonl",
+      "sha256": "0967285d88cae5e9134c2c6187d45b5c30c5c3f835ddac38b60f54dc169f0cbe"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-004.raw.jsonl",
+      "sha256": "420e08ece770b126bbab4ac44a35b317f5b2e0c86027909353be8f5df6da587a"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-005.raw.jsonl",
+      "sha256": "6050c3064a06c7976f7a080459237ddd1c30c6a86483f75ea4883b5c6fe2e8df"
+    },
+    {
+      "path": "results/repeatability-v1/claude-opus55-medium-batch10/repeat3/P2/development.batch-006.raw.jsonl",
+      "sha256": "fd9315a235c5440167516e8246d36dae76276d70ba78f6def43db016d61b49ee"
     }
   ],
   "limitations": [
