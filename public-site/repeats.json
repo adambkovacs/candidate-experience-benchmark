@@ -10355,35 +10355,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 4,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat2",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat2",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "passes": {
         "original": {
           "P0": {
@@ -10556,6 +10530,100 @@
           }
         },
         "repeat2": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 60,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                29.42648729198845,
+                23.554267999978038,
+                30.075977250002325,
+                25.192834374989616,
+                26.863858083990635,
+                27.835022125014802
+              ],
+              "requestSecondsTotal": 162.94844712596387,
+              "tokens": {
+                "input_tokens": 50587,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4048,
+                "reasoning_output_tokens": 2002
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.records.jsonl",
+                "sha256": "9a4bc7e3eb55ecffb7b41632183fa33a5fb6c3aea59719adaa1a9bd8fb45f7cf"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.attempts.jsonl",
+                "sha256": "ef903d41b26a637cf0f3002c878a8522ec71dab57facfbb518fe024d8364c37a"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.journal.jsonl",
+                "sha256": "45aa807090c2d9663e4bce0ac84c6ac2f266cb667d3f196da1a6c3a118bca915"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.claim.json",
+                "sha256": "69fa97849b17b2aeaf455904d40a10eb64dedc51277ccf4b8205b97417904630"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.claim.json",
+                  "sha256": "238ebd28fdd2b8bd78acdc5048c4dd7295f558634f1893b5e10ab0f7fa2f994f"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "32abc8fb5189e4b129654f48a4e5e05251a3f2ed69babc19ceca70ee8629552b"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.attempts.jsonl",
+                  "sha256": "0a5463e5d84c6c4a1d836d0c137aba5aaa91e1b3578375534afc77b1f5334edd"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "c65f302da47159e034f7dc0b8c3519521339ffd7e04e297ef6725bdd8939718b"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.admission-f13bad29925b2b1b45a5724f8a6c7f74eea940d572a0ec339b0703913d29f2f4.json",
+                  "sha256": "27fa0150c6288278a5bc6e9103164399389193e0d47b59565b4b19cee9bd2983"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke-inspection.json",
+                "sha256": "a0680f343bef220b02038396611ba0f6ceac36fd2da26ed870914c8a6057ae15"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.admission-8da1733a8ddba3dca2e5c6dbaa371c0dea331a983cf95aa0cdf44135d74fb5da.json",
+                "sha256": "c9ed678d6d6b823e0483dc9374421bc67d8e43c95af7b58f4b67ccb5cf1046d7"
+              }
+            }
+          },
           "P1": {
             "score": {
               "denominator": 60,
@@ -10649,150 +10717,745 @@
                 "sha256": "a05a57a6913ebcce2f797cfc106eac29f8046c57f7bc6f93e2c24d0720bea71a"
               }
             }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 56,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                26.24666299999808,
+                26.483412790985312,
+                27.921569541998906,
+                26.06220874999417,
+                23.89795537502505,
+                28.573761459003435
+              ],
+              "requestSecondsTotal": 159.18557091700495,
+              "tokens": {
+                "input_tokens": 57031,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3936,
+                "reasoning_output_tokens": 1896
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.records.jsonl",
+                "sha256": "59c9fa2bcf5ed047552cbafbcafabcc971e6b9cd75883ea3c69677a2790f02fc"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.attempts.jsonl",
+                "sha256": "7790c030dc9341e8d2cb6caf1b65fd61b4c64b4f2160c234f37c468e772bb8d4"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.journal.jsonl",
+                "sha256": "95e60daa18c1536e3aacc9f9be0d5da0f6f1fe87541827af52778a4a8aac1ca3"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.claim.json",
+                "sha256": "f0803bdd3a54203b7cb30cf84268e1fab0d12817b7768bd562cac5a332253ac9"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.claim.json",
+                  "sha256": "cbdc7ae7418bee1908242b0aac18b489d260b20a1f36a2ab36ada7a5e70efcf1"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.journal.jsonl",
+                  "sha256": "06ca43f1465614bf5c5618863805087d411513f4cf67eea04b6a1d27cee8d541"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.attempts.jsonl",
+                  "sha256": "5a495608a8952562e8bf2e955a3fc5ebc69f299b9196c12c5acb33c218ecc30e"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.records.jsonl",
+                  "sha256": "e11824c3e586cf2c457ab15abd288dfb194495112c1ecd4c8d4956a53b34aec5"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.admission-c7198f871458d2619d5f2ef0ffe7fdb4a0c789259a6ad308d05bc0c7dc372792.json",
+                  "sha256": "540da5c06aa5ca87c08d737d3debdd67b69c18206b86cdc6c70da4c19b98d3ae"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke-inspection.json",
+                "sha256": "3564cf603d1b8d7a48acb99513a2c40d4cd6d2d76ec8372a26c722ad67da1395"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.admission-d64375ce45f7032d0b8f1f8e11a122bde64f5ce217857f6d77935d1f3e1fe52c.json",
+                "sha256": "e275664804016e2801da8a2f219821e0611d7196898249887e202d9c510b3c00"
+              }
+            }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 55,
+              "fields": {
+                "sentiment": 56,
+                "follow_up_needed": 58,
+                "serious_concern_reported": 60,
+                "testimonial_potential": 58
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                33.04333137499634,
+                27.623757791996468,
+                28.63696754098055,
+                24.810513542004628,
+                26.0394310420088,
+                26.666479791980237
+              ],
+              "requestSecondsTotal": 166.82048108396702,
+              "tokens": {
+                "input_tokens": 52261,
+                "cached_input_tokens": 4864,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4283,
+                "reasoning_output_tokens": 2229
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.records.jsonl",
+                "sha256": "655f1b2c501d6c397f1abe6ec4990d55722ae451638f1ef9468ab67d8d9a6760"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.attempts.jsonl",
+                "sha256": "b9caf9983d0d1bb5b2dc73c4ba20587c089bc47dd614cdf66bf2455311648417"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.journal.jsonl",
+                "sha256": "6dfc7f12157d629c478365677888abd2856e5069c68d644f349c30a7855ccb8d"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.claim.json",
+                "sha256": "7762cbe8efaaf71fd5ca1072273f3538b0deb5a0c6110ca172d83cada5222299"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.claim.json",
+                  "sha256": "c3f60f5bb4f2c3ce7c9379e99f6905cb4e2560f8326ed1e50b5948267e027f53"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "8c74af06a08f14b5a96f128da540da67ffa8a11225f892a67ca3edc3154acf49"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.attempts.jsonl",
+                  "sha256": "03410eb0e039f5a7b447cbaefb14e761503419cb29da6cf30df963b1d2708cb7"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "101103bf610c97bc9b2e4f4ae9ef8fcbf9c603a943ef1c2a4012c062094d5f9c"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.admission-47684be5ed7afb75905ca8ba6e2e0a99d1a904a1e943f577fe7cd029f4e44ff5.json",
+                  "sha256": "3d50c903e6bb82bbc1c844ed7be1335a9f816b7350ff03c5442dcbab35c485e7"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke-inspection.json",
+                "sha256": "68ad8ec6b95ab28771e7563bda167263e06fc320cff677f0d798c4523aef6981"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.admission-acdee060b17e9d1eefed166e81c705e649e1982de4b0e473a1c96be6e41a6826.json",
+                "sha256": "e91fa6491656ff06f7a8515850872004892736d51873734f8bc915f69bfa1aff"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 55,
+              "fields": {
+                "sentiment": 56,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 60,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                26.421605708019342,
+                27.900637333019404,
+                27.297886208019918,
+                22.81472962500993,
+                27.503111416008323,
+                27.389595958025893
+              ],
+              "requestSecondsTotal": 159.3275662481028,
+              "tokens": {
+                "input_tokens": 53297,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4112,
+                "reasoning_output_tokens": 2066
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.records.jsonl",
+                "sha256": "5e2833c0dd01d8cdd00ee21d51ca5e14440ff1567270c0fe49b974b385b5b826"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.attempts.jsonl",
+                "sha256": "e4ec1202e1ee09e90d74f51777c0ef66483b87b6e3308d26d3c50eb1117f3b5c"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.journal.jsonl",
+                "sha256": "0323d01de5f83b9aa15b5aa5fdec5ff86a6163f5cb14af58834de6bc78ef4d43"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.claim.json",
+                "sha256": "25d495eb3ee12f689395cb214e3886c1f294255ab2e3cd9401d0525693aa7988"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.claim.json",
+                  "sha256": "102c6038e2efc32c9ef232f6facb044fc44531d8a7fcdeb7b2690a52b1812a89"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.journal.jsonl",
+                  "sha256": "d33ac5a50882e82ef2f2e191852c9bc0d3f0a63d0fa0cbfc5f89f72bea08855e"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.attempts.jsonl",
+                  "sha256": "0cc421c28bd153f24491ecf0f29409e6bc94d2441c3fa24a385ad1791b064426"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.records.jsonl",
+                  "sha256": "374d0f580a2aa8b1aaadf98712008bbdcd0ed60bf0c4163108623763873ed4a4"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.admission-deebcb9548ba5b3b6457dc53b80c07034610236a4bdaad04b14e4802377d4e6f.json",
+                  "sha256": "1ac45542fde3ebdb0767baaab347a0509c18bf3855422936791b3e0db7a9d6b0"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke-inspection.json",
+                "sha256": "136a0e75d2226999819cbb13c4a04a438c1dfc6dd49e169a9b14e39851f77121"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.admission-a5ca2abb3af7e797a999c4618e870ac8804212e474c1e85492cf7293eefc672f.json",
+                "sha256": "25d8125e1eb9b0f6ed128c27acf087dead901f5f35330ffab2e38336eac2d7c4"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 56,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                31.836051207996206,
+                27.134416625020094,
+                26.43977066699881,
+                24.723014959017746,
+                24.45013716700487,
+                28.123198125016643
+              ],
+              "requestSecondsTotal": 162.70658875105437,
+              "tokens": {
+                "input_tokens": 58145,
+                "cached_input_tokens": 4864,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4112,
+                "reasoning_output_tokens": 2070
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.records.jsonl",
+                "sha256": "2861d1384c93704378929306169276cb9eacbe56c86090d60a7bc3eb0e7e39fd"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.attempts.jsonl",
+                "sha256": "e517e4b67b1354636cb2fa10c6fbb760e2a0e1d31e2f5a24944e41929abce996"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.journal.jsonl",
+                "sha256": "02ba36a98f511caee38f251ccc3f4756ae9a838b81b2b58d83e6fca89c7165fa"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.claim.json",
+                "sha256": "b2c1664ed981edcc31c0a0cc629abf13b231b0d30556acd615a4ba8d219ae673"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.claim.json",
+                  "sha256": "b3a7ebe7db1bd9938d3c0995783be3b4df839fd633807049c6b110e908b511f7"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.journal.jsonl",
+                  "sha256": "a1e87fad02bda7294949db78de4fbb0d9b39c40084a3b0dbb4e216e7167c3199"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.attempts.jsonl",
+                  "sha256": "a9eaddeba0fcafb67da1ee6da834652de5a06698776ca5875192ad4069fe6056"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.records.jsonl",
+                  "sha256": "4e946d423286c92e19c9a89d8c1aee310f878f32e4cb31da02d5710b478ae3d2"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.admission-535bddbd319fea10c9f9f1ba0069a98e5389dafa645b3a8260ae1dcb05b86130.json",
+                  "sha256": "fcf2acbd1e5d4ce36bcc26e1a50ecdf77d7a494d6cfee17eca613966d95d4e4b"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke-inspection.json",
+                "sha256": "e3864af6c751f3dcba1f3bd4daf9e25d6e8a811790b847df21a8e6d6eb523d6b"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.admission-830d4374e5f44bed206e27e6a790567ea8691775e8ec222dcbf32593a4113cc6.json",
+                "sha256": "631f8099289e0edd225e52a2f453ab1f944753080469190039722dffd113121e"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              54
+              54,
+              57,
+              55
             ],
-            "mean": null,
-            "range": null
+            "mean": 55.333333333333336,
+            "range": [
+              54,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                58
+                58,
+                58,
+                56
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.333333333333336,
+              "range": [
+                56,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                60
+                60,
+                59,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                58,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                58
+                58,
+                60,
+                60
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.333333333333336,
+              "range": [
+                58,
+                60
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                58,
+                59,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               57,
-              57
+              57,
+              55
             ],
-            "mean": null,
-            "range": null
+            "mean": 56.333333333333336,
+            "range": [
+              55,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 57,
-                57
+                57,
+                56
               ],
-              "mean": null,
-              "range": null
+              "mean": 56.666666666666664,
+              "range": [
+                56,
+                57
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 60,
-                60
+                60,
+                59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.666666666666664,
+              "range": [
+                59,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              55
+              55,
+              56,
+              56
             ],
-            "mean": null,
-            "range": null
+            "mean": 55.666666666666664,
+            "range": [
+              55,
+              56
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                57
+                57,
+                59,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                57,
+                59
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                59,
+                59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                59
+                59,
+                58,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-030",
+              "DEV-050"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-053"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 5,
+            "rate": 0.08333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-030",
+              "DEV-050",
+              "DEV-053"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-030",
+              "DEV-050"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-005",
+              "DEV-006",
+              "DEV-028",
+              "DEV-053"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 6,
+            "rate": 0.1,
+            "caseIds": [
+              "DEV-005",
+              "DEV-006",
+              "DEV-028",
+              "DEV-030",
+              "DEV-050",
+              "DEV-053"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-005",
+              "DEV-006",
+              "DEV-028"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 5,
+            "rate": 0.08333333333333333,
+            "caseIds": [
+              "DEV-005",
+              "DEV-006",
+              "DEV-013",
+              "DEV-028",
+              "DEV-030"
+            ]
+          }
+        },
         {
           "condition": "P1",
           "from": "original",
@@ -10828,9 +11491,293 @@
               "DEV-030"
             ]
           }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-060"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-060"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-030",
+              "DEV-060"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030",
+              "DEV-060"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-057",
+              "DEV-059"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-022"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-022",
+              "DEV-057",
+              "DEV-059"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-057",
+              "DEV-059",
+              "DEV-060"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-006",
+              "DEV-057",
+              "DEV-059",
+              "DEV-060"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-060"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-022"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-006",
+              "DEV-022",
+              "DEV-060"
+            ]
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-030"
+            ],
+            "follow_up_needed": [
+              "DEV-006",
+              "DEV-030"
+            ],
+            "serious_concern_reported": [
+              "DEV-030",
+              "DEV-050"
+            ],
+            "testimonial_potential": [
+              "DEV-005",
+              "DEV-006",
+              "DEV-028",
+              "DEV-053"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-005",
+            "DEV-006",
+            "DEV-013",
+            "DEV-028",
+            "DEV-030",
+            "DEV-050",
+            "DEV-053"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-030",
+              "DEV-060"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-030",
+            "DEV-060"
+          ]
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-057",
+              "DEV-059",
+              "DEV-060"
+            ],
+            "follow_up_needed": [],
+            "serious_concern_reported": [
+              "DEV-006",
+              "DEV-022"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-022",
+            "DEV-057",
+            "DEV-059",
+            "DEV-060"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -10857,33 +11804,119 @@
             "serious_concern_reported": 1,
             "testimonial_potential": 2
           }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": -1,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 1
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": -1,
+          "fields": {
+            "sentiment": 1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": -2,
+            "testimonial_potential": 1
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 2
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 2,
+            "follow_up_needed": 1,
+            "serious_concern_reported": -2,
+            "testimonial_potential": 2
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            3,
+            0,
+            0
+          ],
+          "allFourRange": [
+            0,
             3
           ],
-          "allFourRange": null,
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -1,
+              0
+            ],
+            "follow_up_needed": [
+              0,
+              1
+            ],
+            "serious_concern_reported": [
+              0,
+              2
+            ],
+            "testimonial_potential": [
+              1,
+              2
+            ]
           }
         },
         "P2": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            1,
+            -1,
             1
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            -1,
+            1
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -1,
+              2
+            ],
+            "follow_up_needed": [
+              -1,
+              1
+            ],
+            "serious_concern_reported": [
+              -2,
+              1
+            ],
+            "testimonial_potential": [
+              1,
+              2
+            ]
           }
         }
       },
@@ -10925,6 +11958,22 @@
           "sha256": "60be74ccb8aa4599026ac874e06dd5dae75008b6b4d9cbfe7418199333721670"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.records.jsonl",
+          "sha256": "9a4bc7e3eb55ecffb7b41632183fa33a5fb6c3aea59719adaa1a9bd8fb45f7cf"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.attempts.jsonl",
+          "sha256": "ef903d41b26a637cf0f3002c878a8522ec71dab57facfbb518fe024d8364c37a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.journal.jsonl",
+          "sha256": "45aa807090c2d9663e4bce0ac84c6ac2f266cb667d3f196da1a6c3a118bca915"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.claim.json",
+          "sha256": "69fa97849b17b2aeaf455904d40a10eb64dedc51277ccf4b8205b97417904630"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P1/development.records.jsonl",
           "sha256": "5bee0caa06ff8afe68dc54e6f9f45c3c0b75e4a250f0e769ab9bb2f4a717d189"
         },
@@ -10941,8 +11990,72 @@
           "sha256": "760d6ac627f230cbfc5344c54df422f65402eedc69ad570628e1d867ad373537"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.records.jsonl",
+          "sha256": "59c9fa2bcf5ed047552cbafbcafabcc971e6b9cd75883ea3c69677a2790f02fc"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.attempts.jsonl",
+          "sha256": "7790c030dc9341e8d2cb6caf1b65fd61b4c64b4f2160c234f37c468e772bb8d4"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.journal.jsonl",
+          "sha256": "95e60daa18c1536e3aacc9f9be0d5da0f6f1fe87541827af52778a4a8aac1ca3"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.claim.json",
+          "sha256": "f0803bdd3a54203b7cb30cf84268e1fab0d12817b7768bd562cac5a332253ac9"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/manifest.json",
           "sha256": "19e8a057dfb9e7fe1d38c55d92003047ca372d009548f22dd0a20ed2c857b23e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.records.jsonl",
+          "sha256": "655f1b2c501d6c397f1abe6ec4990d55722ae451638f1ef9468ab67d8d9a6760"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.attempts.jsonl",
+          "sha256": "b9caf9983d0d1bb5b2dc73c4ba20587c089bc47dd614cdf66bf2455311648417"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.journal.jsonl",
+          "sha256": "6dfc7f12157d629c478365677888abd2856e5069c68d644f349c30a7855ccb8d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.claim.json",
+          "sha256": "7762cbe8efaaf71fd5ca1072273f3538b0deb5a0c6110ca172d83cada5222299"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.records.jsonl",
+          "sha256": "5e2833c0dd01d8cdd00ee21d51ca5e14440ff1567270c0fe49b974b385b5b826"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.attempts.jsonl",
+          "sha256": "e4ec1202e1ee09e90d74f51777c0ef66483b87b6e3308d26d3c50eb1117f3b5c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.journal.jsonl",
+          "sha256": "0323d01de5f83b9aa15b5aa5fdec5ff86a6163f5cb14af58834de6bc78ef4d43"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.claim.json",
+          "sha256": "25d495eb3ee12f689395cb214e3886c1f294255ab2e3cd9401d0525693aa7988"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.records.jsonl",
+          "sha256": "2861d1384c93704378929306169276cb9eacbe56c86090d60a7bc3eb0e7e39fd"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.attempts.jsonl",
+          "sha256": "e517e4b67b1354636cb2fa10c6fbb760e2a0e1d31e2f5a24944e41929abce996"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.journal.jsonl",
+          "sha256": "02ba36a98f511caee38f251ccc3f4756ae9a838b81b2b58d83e6fca89c7165fa"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.claim.json",
+          "sha256": "b2c1664ed981edcc31c0a0cc629abf13b231b0d30556acd615a4ba8d219ae673"
         },
         {
           "path": "scripts/codex_repeat_roster.py",
@@ -10997,6 +12110,34 @@
           "sha256": "354675145fcf4dee21b765789a6b1102838867718ef279890193ca0c5f03d332"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.claim.json",
+          "sha256": "238ebd28fdd2b8bd78acdc5048c4dd7295f558634f1893b5e10ab0f7fa2f994f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "32abc8fb5189e4b129654f48a4e5e05251a3f2ed69babc19ceca70ee8629552b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.attempts.jsonl",
+          "sha256": "0a5463e5d84c6c4a1d836d0c137aba5aaa91e1b3578375534afc77b1f5334edd"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.records.jsonl",
+          "sha256": "c65f302da47159e034f7dc0b8c3519521339ffd7e04e297ef6725bdd8939718b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke.admission-f13bad29925b2b1b45a5724f8a6c7f74eea940d572a0ec339b0703913d29f2f4.json",
+          "sha256": "27fa0150c6288278a5bc6e9103164399389193e0d47b59565b4b19cee9bd2983"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/smoke-inspection.json",
+          "sha256": "a0680f343bef220b02038396611ba0f6ceac36fd2da26ed870914c8a6057ae15"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P0/development.admission-8da1733a8ddba3dca2e5c6dbaa371c0dea331a983cf95aa0cdf44135d74fb5da.json",
+          "sha256": "c9ed678d6d6b823e0483dc9374421bc67d8e43c95af7b58f4b67ccb5cf1046d7"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P1/smoke.claim.json",
           "sha256": "f46f969a18d3bf07ef0bfcafff08dbd5fcd1fea110f3560f0c54ec65fa379679"
         },
@@ -11023,6 +12164,118 @@
         {
           "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P1/development.admission-0b32d6ff92a436dc374b1f5c0a8462f02028f51b9bca8c7768b5b4d96e056faa.json",
           "sha256": "a05a57a6913ebcce2f797cfc106eac29f8046c57f7bc6f93e2c24d0720bea71a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.claim.json",
+          "sha256": "cbdc7ae7418bee1908242b0aac18b489d260b20a1f36a2ab36ada7a5e70efcf1"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.journal.jsonl",
+          "sha256": "06ca43f1465614bf5c5618863805087d411513f4cf67eea04b6a1d27cee8d541"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.attempts.jsonl",
+          "sha256": "5a495608a8952562e8bf2e955a3fc5ebc69f299b9196c12c5acb33c218ecc30e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.records.jsonl",
+          "sha256": "e11824c3e586cf2c457ab15abd288dfb194495112c1ecd4c8d4956a53b34aec5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke.admission-c7198f871458d2619d5f2ef0ffe7fdb4a0c789259a6ad308d05bc0c7dc372792.json",
+          "sha256": "540da5c06aa5ca87c08d737d3debdd67b69c18206b86cdc6c70da4c19b98d3ae"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/smoke-inspection.json",
+          "sha256": "3564cf603d1b8d7a48acb99513a2c40d4cd6d2d76ec8372a26c722ad67da1395"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat2/P2/development.admission-d64375ce45f7032d0b8f1f8e11a122bde64f5ce217857f6d77935d1f3e1fe52c.json",
+          "sha256": "e275664804016e2801da8a2f219821e0611d7196898249887e202d9c510b3c00"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.claim.json",
+          "sha256": "c3f60f5bb4f2c3ce7c9379e99f6905cb4e2560f8326ed1e50b5948267e027f53"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "8c74af06a08f14b5a96f128da540da67ffa8a11225f892a67ca3edc3154acf49"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.attempts.jsonl",
+          "sha256": "03410eb0e039f5a7b447cbaefb14e761503419cb29da6cf30df963b1d2708cb7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.records.jsonl",
+          "sha256": "101103bf610c97bc9b2e4f4ae9ef8fcbf9c603a943ef1c2a4012c062094d5f9c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke.admission-47684be5ed7afb75905ca8ba6e2e0a99d1a904a1e943f577fe7cd029f4e44ff5.json",
+          "sha256": "3d50c903e6bb82bbc1c844ed7be1335a9f816b7350ff03c5442dcbab35c485e7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/smoke-inspection.json",
+          "sha256": "68ad8ec6b95ab28771e7563bda167263e06fc320cff677f0d798c4523aef6981"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P0/development.admission-acdee060b17e9d1eefed166e81c705e649e1982de4b0e473a1c96be6e41a6826.json",
+          "sha256": "e91fa6491656ff06f7a8515850872004892736d51873734f8bc915f69bfa1aff"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.claim.json",
+          "sha256": "102c6038e2efc32c9ef232f6facb044fc44531d8a7fcdeb7b2690a52b1812a89"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "d33ac5a50882e82ef2f2e191852c9bc0d3f0a63d0fa0cbfc5f89f72bea08855e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "0cc421c28bd153f24491ecf0f29409e6bc94d2441c3fa24a385ad1791b064426"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.records.jsonl",
+          "sha256": "374d0f580a2aa8b1aaadf98712008bbdcd0ed60bf0c4163108623763873ed4a4"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke.admission-deebcb9548ba5b3b6457dc53b80c07034610236a4bdaad04b14e4802377d4e6f.json",
+          "sha256": "1ac45542fde3ebdb0767baaab347a0509c18bf3855422936791b3e0db7a9d6b0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/smoke-inspection.json",
+          "sha256": "136a0e75d2226999819cbb13c4a04a438c1dfc6dd49e169a9b14e39851f77121"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P1/development.admission-a5ca2abb3af7e797a999c4618e870ac8804212e474c1e85492cf7293eefc672f.json",
+          "sha256": "25d8125e1eb9b0f6ed128c27acf087dead901f5f35330ffab2e38336eac2d7c4"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.claim.json",
+          "sha256": "b3a7ebe7db1bd9938d3c0995783be3b4df839fd633807049c6b110e908b511f7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "a1e87fad02bda7294949db78de4fbb0d9b39c40084a3b0dbb4e216e7167c3199"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "a9eaddeba0fcafb67da1ee6da834652de5a06698776ca5875192ad4069fe6056"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.records.jsonl",
+          "sha256": "4e946d423286c92e19c9a89d8c1aee310f878f32e4cb31da02d5710b478ae3d2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke.admission-535bddbd319fea10c9f9f1ba0069a98e5389dafa645b3a8260ae1dcb05b86130.json",
+          "sha256": "fcf2acbd1e5d4ce36bcc26e1a50ecdf77d7a494d6cfee17eca613966d95d4e4b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/smoke-inspection.json",
+          "sha256": "e3864af6c751f3dcba1f3bd4daf9e25d6e8a811790b847df21a8e6d6eb523d6b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-luna-medium/repeat3/P2/development.admission-830d4374e5f44bed206e27e6a790567ea8691775e8ec222dcbf32593a4113cc6.json",
+          "sha256": "631f8099289e0edd225e52a2f453ab1f944753080469190039722dffd113121e"
         }
       ],
       "limitations": [
@@ -11032,7 +12285,13 @@
         "Batch timing is request timing; per-record shares are not independent latency.",
         "Subscription request cost is unknown, not zero."
       ],
-      "interpretation": []
+      "interpretation": [
+        "P0 matched all four references on 54 to 57 of 60 comments per pass; 7 comments changed at least one decision across the three passes.",
+        "P1 matched all four references on 55 to 57 of 60 comments per pass; 3 comments changed at least one decision across the three passes.",
+        "P2 matched all four references on 55 to 56 of 60 comments per pass; 5 comments changed at least one decision across the three passes.",
+        "P1 versus P0 did not improve agreement in every pass: changes were +3, +0, +0 matches out of 60. Three passes do not establish a reliable future effect.",
+        "P2 versus P0 changed direction across passes: changes were +1, -1, +1 matches out of 60. Three passes do not establish a reliable future effect."
+      ]
     },
     {
       "schema": "repeat-findings-v1",
@@ -11085,35 +12344,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 4,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat2",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat2",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "passes": {
         "original": {
           "P0": {
@@ -11286,6 +12519,100 @@
           }
         },
         "repeat2": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                28.754604458023096,
+                28.767764958000043,
+                28.784643499995582,
+                25.402858542016475,
+                23.396722290985053,
+                27.33990641697892
+              ],
+              "requestSecondsTotal": 162.44650016599917,
+              "tokens": {
+                "input_tokens": 59643,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4071,
+                "reasoning_output_tokens": 2029
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.records.jsonl",
+                "sha256": "c39b441b6214eae7914b6a3c9571e650da9f57d07ff38fd0001929cc21c15b79"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.attempts.jsonl",
+                "sha256": "ed581164b49247d406614be8f0624b6a362c95d3f080454eee918dd756e44ef6"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.journal.jsonl",
+                "sha256": "f411f7f08dcafa7e64472d8100aa74a1b679d3e2ae771cd8b09828affed1195a"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.claim.json",
+                "sha256": "21591198e9474d1595f8453b1efa42f825026ad968bb12366dea54549f3a1632"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.claim.json",
+                  "sha256": "9f2fe3dfca41ff4ca061b087f49c5e6b3ca520a8d4c697283129cf4cdec7ef1a"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "80e4e6ab2ddd8e8b8bad46ec94f97f75b35cff906fc373b75f9ae2c5fe40ce87"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.attempts.jsonl",
+                  "sha256": "5082b569cf970251fe3852c6cc33f72579363d3b4193db9904c83591083d253f"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "e5bfe69e666eebfbbed55fb717fe8564053a3c18151abea2377f91b3eb1e045e"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.admission-2ff5ee5aeb2bd59b0ae8599e5a95cf3fa82062b74c8f6c2ae6917862892832fd.json",
+                  "sha256": "193c3ddf5e75b801edccb8b028a57f3cd117e141ca9cede168c106d03f25eb41"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke-inspection.json",
+                "sha256": "562e45c7f851e2ec87a1c33c8fc7e319fbe04a0ccb8e9381ffcd758db02618af"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.admission-1cbf962f2a91cdc4686fc94cacd3e10685d293811a6a56e55ca455819252e147.json",
+                "sha256": "4957747eab0732ea9ee373fd045f8d67e55282314fbacf9f3ed53dced5f6ce7c"
+              }
+            }
+          },
           "P1": {
             "score": {
               "denominator": 60,
@@ -11379,150 +12706,708 @@
                 "sha256": "bf480cbfb8ca5b71d3cf3b1df458da137467e9805dcf11285df963b4ff8f4e51"
               }
             }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                30.61129804200027,
+                26.319629957986763,
+                27.841108166001504,
+                23.64227229199605,
+                27.525838749977993,
+                26.610722167009953
+              ],
+              "requestSecondsTotal": 162.55086937497254,
+              "tokens": {
+                "input_tokens": 66093,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3794,
+                "reasoning_output_tokens": 1756
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.records.jsonl",
+                "sha256": "c395e796a164835c526f0671bdfbe7029e95fa7ff20dc332b1c44753f5d2c7de"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.attempts.jsonl",
+                "sha256": "4a405261a386eb470774ee5da9f25018af010b39707c883ca7d0b2a4fba97448"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.journal.jsonl",
+                "sha256": "215272835e833933ec94084888e8225b017ab92e367f545332c9ee39fbe66e13"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.claim.json",
+                "sha256": "dfbc7a78b8955197cc9682cf7d957ec6c8787d6701a6fa8dc96972345a6a6b72"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.claim.json",
+                  "sha256": "434afc1ee7fe30494347ef1a42eb7f5f0efffca964b7a21b9b189415689a2bc2"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.journal.jsonl",
+                  "sha256": "1f53063ba00e40c6c4cf6ebaa12bed3d4cdc354bdb4a10a5c1f3fd63a1662ac6"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.attempts.jsonl",
+                  "sha256": "45c32e88bc201dcaef555ca54c95f8102d914db1bd6d7c3074eb8415eefdcb0c"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.records.jsonl",
+                  "sha256": "9b537a992e9c499c7bd7a717e57bc14dd6dac68d8b39dfd089e13417d5efc782"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.admission-7ccfdebde1b2c0ba7e752df91f497e4dde1af3e678e93d564243a0ae672efca5.json",
+                  "sha256": "b6bf8d6ac9b410bafbb81965369e01558d0b22e56cf246c80b66fc8b5abc0814"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke-inspection.json",
+                "sha256": "96a01047204297bcd2fe3195e1938791402f9f88b85a051a7a4d0153e433639e"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.admission-82684065a23aab7cdae189717c53d10710563d1597a0418c2c74b4a5ad2b0aba.json",
+                "sha256": "9f7a5064031e4622a79ba4a15919b43b124c5c23332689c0b74d0fbdfcb972d0"
+              }
+            }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                27.475479999993695,
+                25.407720374991186,
+                31.181462499982445,
+                25.110803124989616,
+                27.646798292000312,
+                27.353453165997053
+              ],
+              "requestSecondsTotal": 164.1757174579543,
+              "tokens": {
+                "input_tokens": 61315,
+                "cached_input_tokens": 6656,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4071,
+                "reasoning_output_tokens": 2031
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.records.jsonl",
+                "sha256": "fb0217514e05a08e45ed1c0b45a6898fb14f1b84523b058a7865ee6c9766296f"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.attempts.jsonl",
+                "sha256": "7f5813ffbcc0d6e5eba603055f9f53fab2d41631b06e286665f69088b7fb8b50"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.journal.jsonl",
+                "sha256": "137840ab3c819ae7c25978cbb46cd4a837fde07c8d655c802f69fca8dcd4ca6f"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.claim.json",
+                "sha256": "4c0a11998dc401e08e0a37990bc5979b9eb3ccb0c5e11655eac581c4c76c3c77"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.claim.json",
+                  "sha256": "817b82181200cca332fb73c8828be2c86a015d8370de35d6670c11d3be9a3df4"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "a90c02010fb93fc7eb2476efd5bc37b24bea71de6c0c1b1c5e367b054710f6f7"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.attempts.jsonl",
+                  "sha256": "4004b42893dd85ca8e0a7b785b5bd754e4e5e614b5dfbd0a91ed4cf875dd16f5"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "5542c854aacd6e6954aaa0d45c042071836328f5fd2e4e30873b30459b2e05e1"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.admission-933345c20ca319f31ed46fb8f20c15392dc4c100ab7f27030bb76a27498ac39c.json",
+                  "sha256": "407fd01c111bfeac02ac22f05adc9a55b2f9ae04822f6b7fca85c72b06f082fc"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke-inspection.json",
+                "sha256": "6d8ffc13031c2ef642c6dff30ae73547eeb3df39b85afd049213fc0f7bdca4f3"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.admission-7e43508d3b2b8d838b8acff47aecfbb7d5142304c3b6c98a5d4f48b524643d24.json",
+                "sha256": "e741dae90d08331df99dea1130efcdca89c708875cea84f2d5a80180e956b8cd"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                26.617218250001315,
+                25.53878837497905,
+                29.571052250015782,
+                24.829404375021113,
+                24.328911082993727,
+                28.02143804199295
+              ],
+              "requestSecondsTotal": 158.90681237500394,
+              "tokens": {
+                "input_tokens": 62349,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3846,
+                "reasoning_output_tokens": 1806
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.records.jsonl",
+                "sha256": "a4cda8ac6bef4d4a5877d65fd0c721325f9afaebea47605521ef313f84e3d518"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.attempts.jsonl",
+                "sha256": "f48659c79265754466a7d3da89934bcea2797d9c770c546aed787e5c3cec6053"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.journal.jsonl",
+                "sha256": "5c73985b36affa1f78e8f879f5d4cd4ded96f502029e6dc40851441ac5c258c7"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.claim.json",
+                "sha256": "7b03abf1d4c3e425720ba5c501d78db6296492e36ad2902615e48625a31eca0c"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.claim.json",
+                  "sha256": "c1f608ccc02ae06f20bea7544ecd7c9c49f580ecf8461e3cfa6298376e85b003"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.journal.jsonl",
+                  "sha256": "3c31c0dc9e396226792320302563c5482c97d3912d12a132fd64c5799da7ee1a"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.attempts.jsonl",
+                  "sha256": "01b7ddf5fa647623c4f8a4a540300a809a81675e26d5853f680097d6f4ec5e85"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.records.jsonl",
+                  "sha256": "254feb81c92f2497be2cd04fa5cf7d8dc56d209f072459a34a054f4d0365aab7"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.admission-f43d21b2d5fc205c87ec8ee2ccf2a369f8a7573cd76dc4bf766785d66a732f42.json",
+                  "sha256": "9dee4f3b48df8a38355badf5728c037b9fcd97f159dad0b4d5185cb948ca02a0"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke-inspection.json",
+                "sha256": "3e876b82077581c3864d70fbeebd6091f55ab08ecaac13c8417f2f8d7991ec13"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.admission-ba383ffc960f9a185652ece784e835c06cb4f9c831b951c5a7c0697574cf529d.json",
+                "sha256": "af891297884e8786f10d65360caa37da32d0cb77222b990b99b8f484057a0655"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                26.903558124991832,
+                27.309517916990444,
+                25.890121083008125,
+                27.9582208750071,
+                22.816986707999604,
+                26.67125399998622
+              ],
+              "requestSecondsTotal": 157.54965870798333,
+              "tokens": {
+                "input_tokens": 67755,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3756,
+                "reasoning_output_tokens": 1714
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.records.jsonl",
+                "sha256": "87cc8512bc34876fb186ce7afbbf37dd9ad3d67bcbc9f76f26ef937e07b86d32"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.attempts.jsonl",
+                "sha256": "e1d7f1aea18dfd999aa77137e6166a66de2feaed598140aa42a38ed2c3cd88d9"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.journal.jsonl",
+                "sha256": "33b77bca43cb9f3ec860aea1af61294e9d2c7d3e39f7999a4dd93bf97de64127"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.claim.json",
+                "sha256": "4a27d265f61cc89c45f012c8f6ff6ee4ffdc963a9c954c29ad2cd1d042d671b1"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.claim.json",
+                  "sha256": "6d96d802ff1461eb7abdc495c0883d951ae25d13c683a4b36ff6b3d82ff4a481"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.journal.jsonl",
+                  "sha256": "3fe23aceebf931de6bd0e9a0eb062d57e7dcae46779f4a36cc117f18aa51b042"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.attempts.jsonl",
+                  "sha256": "41651bfe549909f19499ac8644d808c1cac590db1580b705251c692b6cf0240a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.records.jsonl",
+                  "sha256": "e357dc89c3f19a9ffdc01c2318327d154a02ffb9405a66b5d7c82041a9ddf6de"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.admission-cf988e8e1c43e7094746978a99e15a636f7abc8af5b87fa9796305458dc1e91c.json",
+                  "sha256": "b5237778196fa3d3e766a36a30d55380d09e4c14607b6b0f2b52390e8fd9060f"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke-inspection.json",
+                "sha256": "7eda1b73418fc54d51dd9ae58842828c941c82ff32de79dc7b531f76db071e30"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.admission-df6cf3f9c45f800518b1c62e982f229f21fd05106dfda1c9e2695e5cfbd94ecb.json",
+                "sha256": "6611217e1f25928690376cfdf5285bd971c751aaaac1234b9ab74f589516fdbe"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              58
+              58,
+              57,
+              57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.333333333333336,
+            "range": [
+              57,
+              58
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                59
+                59,
+                58,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 1,
-              "values": [
-                59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "testimonial_potential": {
-              "completedPasses": 1,
-              "values": [
+                59,
+                59,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                59,
+                59,
+                59
+              ],
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
+            },
+            "testimonial_potential": {
+              "completedPasses": 3,
+              "values": [
+                60,
+                60,
+                60
+              ],
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              58,
               58,
               58
             ],
-            "mean": null,
-            "range": null
+            "mean": 58.0,
+            "range": [
+              58,
+              58
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 59,
-                58
+                58,
+                59
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                59
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 59,
-                60
+                60,
+                59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
+              57,
+              57,
               57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.0,
+            "range": [
+              57,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                58,
+                58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                59,
+                60,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                58
+                58,
+                58,
+                59
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
         {
           "condition": "P1",
           "from": "original",
@@ -11561,9 +13446,246 @@
               "DEV-030"
             ]
           }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-030"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-030"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-030"
+            ],
+            "follow_up_needed": [],
+            "serious_concern_reported": [
+              "DEV-006"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-030"
+          ]
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [
+              "DEV-030"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-030"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -11590,33 +13712,119 @@
             "serious_concern_reported": -1,
             "testimonial_potential": 0
           }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 1,
+            "serious_concern_reported": -1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": -1,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
-            0
+            0,
+            1,
+            1
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            0,
+            1
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              0,
+              1
+            ],
+            "follow_up_needed": [
+              0,
+              1
+            ],
+            "serious_concern_reported": [
+              0,
+              1
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         },
         "P2": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
-            -1
+            -1,
+            0,
+            0
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            -1,
+            0
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -1,
+              0
+            ],
+            "follow_up_needed": [
+              -1,
+              1
+            ],
+            "serious_concern_reported": [
+              -1,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         }
       },
@@ -11658,6 +13866,22 @@
           "sha256": "01e2100721ab9bc140cb8fb1b440bf7c9e040aa509ef9bd6ba9e42ab50622fe6"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.records.jsonl",
+          "sha256": "c39b441b6214eae7914b6a3c9571e650da9f57d07ff38fd0001929cc21c15b79"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.attempts.jsonl",
+          "sha256": "ed581164b49247d406614be8f0624b6a362c95d3f080454eee918dd756e44ef6"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.journal.jsonl",
+          "sha256": "f411f7f08dcafa7e64472d8100aa74a1b679d3e2ae771cd8b09828affed1195a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.claim.json",
+          "sha256": "21591198e9474d1595f8453b1efa42f825026ad968bb12366dea54549f3a1632"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P1/development.records.jsonl",
           "sha256": "99da515d2e5ce07e867f19b2cf19f6f64a28899c703a1159074f62457932d652"
         },
@@ -11674,8 +13898,72 @@
           "sha256": "5d5a3e8eca058f4f3991faebe86bff9e8da4fa441e81b7f2c2ca9d528dc21b24"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.records.jsonl",
+          "sha256": "c395e796a164835c526f0671bdfbe7029e95fa7ff20dc332b1c44753f5d2c7de"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.attempts.jsonl",
+          "sha256": "4a405261a386eb470774ee5da9f25018af010b39707c883ca7d0b2a4fba97448"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.journal.jsonl",
+          "sha256": "215272835e833933ec94084888e8225b017ab92e367f545332c9ee39fbe66e13"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.claim.json",
+          "sha256": "dfbc7a78b8955197cc9682cf7d957ec6c8787d6701a6fa8dc96972345a6a6b72"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/manifest.json",
           "sha256": "8fe9ffed84d41a7351858d5bf2f6595c23a99d1afa72942326b09d403f83f72c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.records.jsonl",
+          "sha256": "fb0217514e05a08e45ed1c0b45a6898fb14f1b84523b058a7865ee6c9766296f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.attempts.jsonl",
+          "sha256": "7f5813ffbcc0d6e5eba603055f9f53fab2d41631b06e286665f69088b7fb8b50"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.journal.jsonl",
+          "sha256": "137840ab3c819ae7c25978cbb46cd4a837fde07c8d655c802f69fca8dcd4ca6f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.claim.json",
+          "sha256": "4c0a11998dc401e08e0a37990bc5979b9eb3ccb0c5e11655eac581c4c76c3c77"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.records.jsonl",
+          "sha256": "a4cda8ac6bef4d4a5877d65fd0c721325f9afaebea47605521ef313f84e3d518"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.attempts.jsonl",
+          "sha256": "f48659c79265754466a7d3da89934bcea2797d9c770c546aed787e5c3cec6053"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.journal.jsonl",
+          "sha256": "5c73985b36affa1f78e8f879f5d4cd4ded96f502029e6dc40851441ac5c258c7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.claim.json",
+          "sha256": "7b03abf1d4c3e425720ba5c501d78db6296492e36ad2902615e48625a31eca0c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.records.jsonl",
+          "sha256": "87cc8512bc34876fb186ce7afbbf37dd9ad3d67bcbc9f76f26ef937e07b86d32"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.attempts.jsonl",
+          "sha256": "e1d7f1aea18dfd999aa77137e6166a66de2feaed598140aa42a38ed2c3cd88d9"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.journal.jsonl",
+          "sha256": "33b77bca43cb9f3ec860aea1af61294e9d2c7d3e39f7999a4dd93bf97de64127"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.claim.json",
+          "sha256": "4a27d265f61cc89c45f012c8f6ff6ee4ffdc963a9c954c29ad2cd1d042d671b1"
         },
         {
           "path": "scripts/codex_repeat_roster.py",
@@ -11730,6 +14018,34 @@
           "sha256": "354675145fcf4dee21b765789a6b1102838867718ef279890193ca0c5f03d332"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.claim.json",
+          "sha256": "9f2fe3dfca41ff4ca061b087f49c5e6b3ca520a8d4c697283129cf4cdec7ef1a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "80e4e6ab2ddd8e8b8bad46ec94f97f75b35cff906fc373b75f9ae2c5fe40ce87"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.attempts.jsonl",
+          "sha256": "5082b569cf970251fe3852c6cc33f72579363d3b4193db9904c83591083d253f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.records.jsonl",
+          "sha256": "e5bfe69e666eebfbbed55fb717fe8564053a3c18151abea2377f91b3eb1e045e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke.admission-2ff5ee5aeb2bd59b0ae8599e5a95cf3fa82062b74c8f6c2ae6917862892832fd.json",
+          "sha256": "193c3ddf5e75b801edccb8b028a57f3cd117e141ca9cede168c106d03f25eb41"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/smoke-inspection.json",
+          "sha256": "562e45c7f851e2ec87a1c33c8fc7e319fbe04a0ccb8e9381ffcd758db02618af"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P0/development.admission-1cbf962f2a91cdc4686fc94cacd3e10685d293811a6a56e55ca455819252e147.json",
+          "sha256": "4957747eab0732ea9ee373fd045f8d67e55282314fbacf9f3ed53dced5f6ce7c"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P1/smoke.claim.json",
           "sha256": "d0c449786147789706c01bcf234b2c1fe772b32d136e8b720e41c0372cfe1f74"
         },
@@ -11756,6 +14072,118 @@
         {
           "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P1/development.admission-3e75bc70a5ebf4aecea2a14333f732ddc37e7cd9b3dd97c465420ec076869042.json",
           "sha256": "bf480cbfb8ca5b71d3cf3b1df458da137467e9805dcf11285df963b4ff8f4e51"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.claim.json",
+          "sha256": "434afc1ee7fe30494347ef1a42eb7f5f0efffca964b7a21b9b189415689a2bc2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.journal.jsonl",
+          "sha256": "1f53063ba00e40c6c4cf6ebaa12bed3d4cdc354bdb4a10a5c1f3fd63a1662ac6"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.attempts.jsonl",
+          "sha256": "45c32e88bc201dcaef555ca54c95f8102d914db1bd6d7c3074eb8415eefdcb0c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.records.jsonl",
+          "sha256": "9b537a992e9c499c7bd7a717e57bc14dd6dac68d8b39dfd089e13417d5efc782"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke.admission-7ccfdebde1b2c0ba7e752df91f497e4dde1af3e678e93d564243a0ae672efca5.json",
+          "sha256": "b6bf8d6ac9b410bafbb81965369e01558d0b22e56cf246c80b66fc8b5abc0814"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/smoke-inspection.json",
+          "sha256": "96a01047204297bcd2fe3195e1938791402f9f88b85a051a7a4d0153e433639e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat2/P2/development.admission-82684065a23aab7cdae189717c53d10710563d1597a0418c2c74b4a5ad2b0aba.json",
+          "sha256": "9f7a5064031e4622a79ba4a15919b43b124c5c23332689c0b74d0fbdfcb972d0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.claim.json",
+          "sha256": "817b82181200cca332fb73c8828be2c86a015d8370de35d6670c11d3be9a3df4"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "a90c02010fb93fc7eb2476efd5bc37b24bea71de6c0c1b1c5e367b054710f6f7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.attempts.jsonl",
+          "sha256": "4004b42893dd85ca8e0a7b785b5bd754e4e5e614b5dfbd0a91ed4cf875dd16f5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.records.jsonl",
+          "sha256": "5542c854aacd6e6954aaa0d45c042071836328f5fd2e4e30873b30459b2e05e1"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke.admission-933345c20ca319f31ed46fb8f20c15392dc4c100ab7f27030bb76a27498ac39c.json",
+          "sha256": "407fd01c111bfeac02ac22f05adc9a55b2f9ae04822f6b7fca85c72b06f082fc"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/smoke-inspection.json",
+          "sha256": "6d8ffc13031c2ef642c6dff30ae73547eeb3df39b85afd049213fc0f7bdca4f3"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P0/development.admission-7e43508d3b2b8d838b8acff47aecfbb7d5142304c3b6c98a5d4f48b524643d24.json",
+          "sha256": "e741dae90d08331df99dea1130efcdca89c708875cea84f2d5a80180e956b8cd"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.claim.json",
+          "sha256": "c1f608ccc02ae06f20bea7544ecd7c9c49f580ecf8461e3cfa6298376e85b003"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "3c31c0dc9e396226792320302563c5482c97d3912d12a132fd64c5799da7ee1a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "01b7ddf5fa647623c4f8a4a540300a809a81675e26d5853f680097d6f4ec5e85"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.records.jsonl",
+          "sha256": "254feb81c92f2497be2cd04fa5cf7d8dc56d209f072459a34a054f4d0365aab7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke.admission-f43d21b2d5fc205c87ec8ee2ccf2a369f8a7573cd76dc4bf766785d66a732f42.json",
+          "sha256": "9dee4f3b48df8a38355badf5728c037b9fcd97f159dad0b4d5185cb948ca02a0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/smoke-inspection.json",
+          "sha256": "3e876b82077581c3864d70fbeebd6091f55ab08ecaac13c8417f2f8d7991ec13"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P1/development.admission-ba383ffc960f9a185652ece784e835c06cb4f9c831b951c5a7c0697574cf529d.json",
+          "sha256": "af891297884e8786f10d65360caa37da32d0cb77222b990b99b8f484057a0655"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.claim.json",
+          "sha256": "6d96d802ff1461eb7abdc495c0883d951ae25d13c683a4b36ff6b3d82ff4a481"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "3fe23aceebf931de6bd0e9a0eb062d57e7dcae46779f4a36cc117f18aa51b042"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "41651bfe549909f19499ac8644d808c1cac590db1580b705251c692b6cf0240a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.records.jsonl",
+          "sha256": "e357dc89c3f19a9ffdc01c2318327d154a02ffb9405a66b5d7c82041a9ddf6de"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke.admission-cf988e8e1c43e7094746978a99e15a636f7abc8af5b87fa9796305458dc1e91c.json",
+          "sha256": "b5237778196fa3d3e766a36a30d55380d09e4c14607b6b0f2b52390e8fd9060f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/smoke-inspection.json",
+          "sha256": "7eda1b73418fc54d51dd9ae58842828c941c82ff32de79dc7b531f76db071e30"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-5.6-sol-high/repeat3/P2/development.admission-df6cf3f9c45f800518b1c62e982f229f21fd05106dfda1c9e2695e5cfbd94ecb.json",
+          "sha256": "6611217e1f25928690376cfdf5285bd971c751aaaac1234b9ab74f589516fdbe"
         }
       ],
       "limitations": [
@@ -11765,7 +14193,13 @@
         "Batch timing is request timing; per-record shares are not independent latency.",
         "Subscription request cost is unknown, not zero."
       ],
-      "interpretation": []
+      "interpretation": [
+        "P0 matched all four references on 57 to 58 of 60 comments per pass; 2 comments changed at least one decision across the three passes.",
+        "P1 matched all four references on 58 to 58 of 60 comments per pass; 2 comments changed at least one decision across the three passes.",
+        "P2 matched all four references on 57 to 57 of 60 comments per pass; 2 comments changed at least one decision across the three passes.",
+        "P1 versus P0 did not improve agreement in every pass: changes were +0, +1, +1 matches out of 60. Three passes do not establish a reliable future effect.",
+        "P2 versus P0 did not improve agreement in every pass: changes were -1, +0, +0 matches out of 60. Three passes do not establish a reliable future effect."
+      ]
     }
   ],
   "availableConfigurations": [

@@ -71,6 +71,12 @@ After the reviewed controller fixes and 13 passing offline tests, the first neve
 
 The composite has 37 valid outputs, six service errors and 17 never-sent positions. The [publication record](../results/qwen36-on-p2-never-sent-episodes-v1/episode-001/PUBLICATION.md) explains the exact failure and the explicitly redacted public error copy. The original response remains private because it contains an account identifier. Further calls need a new admission after capacity review; no failed position is replayed. The requested $15 cap increase is still pending.
 
+## Codex wave completion, 2026-09-28
+
+GPT-5.6 Luna low, medium and high and GPT-5.6 Sol high have now closed all nine condition/pass combinations each, with 60 valid outputs in every combination. All 24 new development phases and their smokes are complete. The public report was rebuilt from a clean staged export; its 12 tests passed and the unchanged Jev report still reproduces. See the [updated repeat analysis](REPEAT_CHECKPOINT_2026-09-28.md).
+
+The next four Codex configurations are in offline preparation: GPT-5.6 Sol low, medium and xhigh, and Terra high. Preparation is not dispatch. Fable high/xhigh repeats continue, followed by report integration. Haiku's saved P1 failure is attributable to a CLI ENOTFOUND transport failure, but its delayed suffix and retry history do not meet the existing matched-triple protocol. A separate fresh three-pass series is being prepared; the historical 50-valid/10-failed P1 remains preserved.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.

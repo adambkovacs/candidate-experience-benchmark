@@ -30,3 +30,20 @@ The same 60 reviews appear in every pass; there are not 180 independent reviews 
 Request durations remain client measurements unless the provider exposes inference time. Token fields can include provider-specific cache and reasoning categories. Subscription list-price estimates are not actual charges. Missing quantities stay unavailable rather than zero.
 
 Mistral's second-pass P1 is excluded from clean three-pass summaries: it retains one HTTP 429 alongside 59 valid responses, with the final 17 obtained later. Its other phases do not erase that failure. See the [current checkpoint](CURRENT_GOALS.md) for completion and budget status across the full requested work.
+
+## Additional Codex series completed on 28 September
+
+The four GPT-5.6 series below now have all nine condition/pass combinations, each with 60 valid outputs. Values count matching all four reference labels out of 60, in historical, second-pass and third-pass order.
+
+| Configuration | P0 scores | P1 scores | P2 scores | Reviews changing any decision, P0 / P1 / P2 |
+| --- | --- | --- | --- | --- |
+| GPT 5.6 luna high | 57, 59, 57 | 59, 59, 60 | 58, 57, 57 | 3 / 2 / 3 |
+| GPT 5.6 luna low | 56, 54, 55 | 57, 58, 57 | 56, 54, 56 | 5 / 4 / 7 |
+| GPT 5.6 luna medium | 54, 57, 55 | 57, 57, 55 | 55, 56, 56 | 7 / 3 / 5 |
+| GPT 5.6 sol high | 58, 57, 57 | 58, 58, 58 | 57, 57, 57 | 2 / 2 / 2 |
+
+Luna medium's P0 score ranges from 54 to 57, with seven reviews changing at least one decision across the three passes. Its P1 range is 55–57 and P2 range 55–56. These overlapping ranges caution against treating a single-pass prompt improvement as settled.
+
+Sol high scores 58 in every P1 pass and 57 in every P2 pass, but two reviews change decisions within each condition. Its stable totals therefore do not imply identical outputs. The [Codex report](../public-site/repeats.json) lists the changed review IDs and field-level comparisons; all 12 report tests passed in a clean export of the committed sources. The accepted CLI patch difference and unobserved serving changes remain limits on attributing variation purely to sampling.
+
+The [new Gemini analysis](GEMINI_REPEAT_FINDINGS_2026-09-28.md) adds four more completed series and separates token-truncated batches from classification changes.
