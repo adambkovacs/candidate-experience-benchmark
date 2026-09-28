@@ -11,15 +11,23 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './alex-native-repeats.json'];
+  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json'];
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './alex-native-repeats.json') && r.status === 404) return {series: []};
+    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json') && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
-    return r.json();
+    return r.json().then(payload => {
+      if (url === './codex-fresh-repeats.json' && (payload?.schema || payload?.series?.length) &&
+          (payload?.schema !== 'codex-fresh-repeat-findings-v1' || !Array.isArray(payload.series) ||
+           payload.series.some(s => s?.schema !== 'codex-fresh-repeat-findings-v1' || s.method !== 'fresh-matched-three' ||
+             s.seriesId !== `${s.configuration}-fresh-matched3`))) throw Error('Invalid Codex fresh repeat results');
+      return payload;
+    });
   }))).then(payloads => {
     const series = payloads.flatMap(payload => payload?.series || (payload ? [payload] : []));
     if (!series.length) throw Error('No repeat series');
-    root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(s.configuration)}">${esc(s.displayName || s.configuration)}</option>`).join('')}</select></label>
+    const isFreshCodex = s => s.schema === 'codex-fresh-repeat-findings-v1' && s.method === 'fresh-matched-three';
+    const seriesKey = s => isFreshCodex(s) ? s.seriesId : s.configuration;
+    root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · fresh matched three' : ''}</option>`).join('')}</select></label>
       <p class="repeat-lead" id="repeat-lead"></p><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
       <div id="repeat-chart" aria-live="polite"></div>
@@ -31,14 +39,18 @@
     const conditionControl = document.getElementById('repeat-condition');
 
     function render() {
-      const data = series.find(s => s.configuration === configControl.value);
+      const data = series.find(s => seriesKey(s) === configControl.value);
       if (!data) throw Error('Unknown repeat configuration');
+      const freshCodex = isFreshCodex(data);
       const localFresh = data.method === 'fresh-matched-local-output-stability';
       const passes = data.passOrder || (localFresh ? ['fresh1', 'fresh2', 'fresh3'] : ['original', 'repeat2', 'repeat3']);
       const conditionOrder = data.conditionOrder || ['P0', 'P1', 'P2'];
       const nativeP0 = data.method === 'native-output-stability';
       const nativeL0 = data.schema === 'anyjev-l0-native-repeat-findings-v1';
       const nativeAlex = data.schema === 'alex-native-repeat-findings-v1';
+      const closed = phase => freshCodex ? phase?.status === 'completed'
+        : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
+          : Boolean(phase) && phase.completionStatus !== 'partial';
       const nativeLabel = nativeL0 ? 'Native L0 readout' : nativeAlex ? 'Native NLI output' : 'Native output';
       document.getElementById('repeat-condition-label').textContent = nativeP0 ? 'Native condition' : 'Prompt condition';
       if (!conditionOrder.includes(conditionControl.value)) conditionControl.value = conditionOrder[0];
@@ -47,9 +59,10 @@
       document.getElementById('repeat-interpretation').innerHTML = (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
       document.getElementById('repeat-lead').textContent = `${data.displayName || data.configuration}. ${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt/pass combinations'} have complete evidence on the same ${data.denominator} development comments. Incomplete passes are not zero scores.` + Object.entries(data.passes).flatMap(([pass, conditions]) => Object.entries(conditions).filter(([, phase]) => phase.completionStatus === 'partial').map(([condition, phase]) => { const o = phase.score.outcomes; return ` ${condition} ${passName[pass]} stopped with ${o.valid} valid responses, ${o.service_error || 0} service errors and ${o.never_sent || 0} reviews not sent.`; })).join('');
       if (localFresh) document.getElementById('repeat-lead').textContent += ` These are three fresh local passes. Earlier local results are observational and are not counted here. Only terminal phases have scores. Reference labels are provisional and were used only for offline scoring. Client request time includes runtime overhead; loaded engine version, model load time and local cost are unknown.`;
+      if (freshCodex) document.getElementById('repeat-lead').textContent += ' Each series schedules three fresh Codex subscription passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. The requested model and CLI version are recorded; the served model identity and revision, effective seed and attributable subscription cost are unavailable. Request time includes client overhead.';
       if (nativeL0) document.getElementById('repeat-lead').textContent += ' AnyJev L0 combines cyclic option shifts with a content-free prior. It has one native P0 procedure, not P1/P2 chat prompts. Agreement uses all 60 comments and provisional references; valid output is counted separately. Only completed passes are scored. Client request time includes overhead; pure inference time and local cost are unavailable.';
       if (nativeAlex) document.getElementById('repeat-lead').textContent += ' Alex uses one native NLI procedure. Earlier results are observational and excluded from the fresh-pass comparison. Client prediction time includes local overhead; isolated inference time and local cost are unavailable. Native NLI input positions are not billed API tokens.';
-      const validity = Object.entries(data.passes).flatMap(([pass, entries]) => Object.entries(entries).filter(([, phase]) => ((localFresh || nativeP0) ? phase.completionStatus === 'complete' : phase.completionStatus !== 'partial') && phase.score.valid < data.denominator).map(([condition, phase]) => `${condition} ${passName[pass]}: ${phase.score.valid}/${data.denominator} valid responses`));
+      const validity = Object.entries(data.passes).flatMap(([pass, entries]) => Object.entries(entries).filter(([, phase]) => closed(phase) && phase.score.valid < data.denominator).map(([condition, phase]) => `${condition} ${passName[pass]}: ${phase.score.valid}/${data.denominator} valid responses`));
       if (validity.length) document.getElementById('repeat-lead').textContent += ' Failed or invalid answers remain in the score denominator. ' + validity.join('; ') + '.';
       if (data.historicalContext?.firstPassEligible === false) document.getElementById('repeat-lead').textContent += ' These are three new passes. The earlier run with transport failures remains separate.';
       if (data.method === 'native-choice') document.getElementById('repeat-lead').textContent += ' Jev uses native Choice instruction variants. Pass 1 preserves the original failed request rather than its later successful retry.';
@@ -60,7 +73,7 @@
         return `<article><h3>${c} <span>${esc(label)}</span></h3>${passes.map(p => {
           const phase = data.passes[p]?.[c];
           const partial = phase?.completionStatus === 'partial';
-          const score = partial || ((localFresh || nativeP0) && phase?.completionStatus !== 'complete') ? null : phase?.score;
+          const score = partial || !closed(phase) ? null : phase.score;
           const n = score ? valueOf(score,field) : null;
           return `<div class="repeat-bar-row"><span>${passName[p]}</span>${n == null ? (partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${passName[p]} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
         }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
@@ -79,7 +92,7 @@
       const pairs = (data.pairwiseFlips || []).filter(x => x.condition === c);
       document.getElementById('repeat-flips').innerHTML = `${ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>${changes.excludedIds.length} comments excluded because not all passes had valid answers.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {const f = field === 'allFour' ? x.fourFieldVector : x[field]; return `<li>${passName[x.from]} to ${passName[x.to]}: ${f.changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
       document.getElementById('repeat-usage-body').innerHTML = conditionOrder.flatMap(c => passes.map(p => {
-        const u = (localFresh || nativeP0) && data.passes[p]?.[c]?.completionStatus !== 'complete' ? null : data.passes[p]?.[c]?.usage;
+        const u = (localFresh || nativeP0 || freshCodex) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
         const elapsed = u?.requestSecondsTotal ?? u?.clientHttpCallSecondsTotal ?? u?.clientRequestSecondsTotal ?? u?.clientPredictionSeconds;
         const nativePositions = nativeAlex && u?.nativeNliInputTokenPositions != null ? `<br><small>Native NLI input positions: ${number(u.nativeNliInputTokenPositions)}</small>` : '';
         return `<tr><th scope="row">${c}</th><td>${passName[p]}${data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${money(u?.actualCostUsd)}${u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
