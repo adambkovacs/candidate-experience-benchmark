@@ -68,7 +68,33 @@ class ClaudeRosterFindingsTests(unittest.TestCase):
         published = json.loads((ROOT / 'public-site/claude-roster-repeats.json').read_text())
         published_fable = {**published, 'series': [s for s in published['series']
                                               if s['configuration'] in report.FABLE_CONFIGS]}
-        self.assertEqual(report.build(ROOT, configs=report.FABLE_CONFIGS), published_fable)
+        def private_bindings(value):
+            if isinstance(value, dict):
+                restored = {key: private_bindings(item) for key, item in value.items()
+                            if key not in ('originalPath', 'privateOriginalSha256')}
+                if 'originalPath' in value and 'privateOriginalSha256' in value:
+                    restored.update(path=value['originalPath'], sha256=value['privateOriginalSha256'])
+                return restored
+            if isinstance(value, list):
+                return [private_bindings(item) for item in value]
+            return value
+        self.assertEqual(report.build(ROOT, configs=report.FABLE_CONFIGS),
+                         private_bindings(published_fable))
+
+    def test_remaining_sonnet_opus55_plans_keep_historical_and_missing_passes_separate(self):
+        configs = report.SONNET5_CONFIGS + report.OPUS55_CONFIGS
+        self.assertEqual(len(configs), 7)
+        self.assertNotIn('opus55-medium-batch10', configs)
+        for config in configs:
+            with self.subTest(config=config):
+                root = self._copy_config(config=config, include_phases=False)
+                series = report.build(root, configs=(config,))['series'][0]
+                self.assertEqual(series['completedConditions'], 3)
+                self.assertEqual(len(series['missingPasses']), 6)
+                for condition in report.CONDITIONS:
+                    self.assertEqual(series['passes']['original'][condition]['score']['valid'], 60)
+                model = roster.ROSTER[config][0]
+                self.assertTrue(series['displayName'].startswith(report.DISPLAY_MODELS[model]))
 
     def test_opus5_four_efforts_bind_original_and_closed_first_phase(self):
         self.assertEqual(len(report.OPUS5_CONFIGS), 4)

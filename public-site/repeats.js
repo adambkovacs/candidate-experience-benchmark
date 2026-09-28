@@ -3,8 +3,7 @@
   const root = document.getElementById('repeat-results');
   if (!root) return;
   const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const passes = ['original', 'repeat2', 'repeat3'];
-  const passName = {original:'Pass 1', repeat2:'Pass 2', repeat3:'Pass 3'};
+  const passName = {original:'Pass 1', repeat2:'Pass 2', repeat3:'Pass 3', pass1:'Pass 1', pass2:'Pass 2', pass3:'Pass 3'};
   const conditions = {P0:'Base task', P1:'Classifier instructions', P2:'Instructions and decision tree'};
   const fields = {allFour:'All four decisions', sentiment:'Sentiment', follow_up_needed:'Follow-up needed', serious_concern_reported:'Serious concern', testimonial_potential:'Testimonial potential'};
   const valueOf = (score, field) => field === 'allFour' ? score.allFour : score.fields[field];
@@ -12,7 +11,7 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  Promise.all(['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json'].map(url => fetch(url).then(r => {if (!r.ok) throw Error('Missing repeat results'); return r.json();}))).then(payloads => {
+  Promise.all(['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json'].map(url => fetch(url).then(r => {if (!r.ok) throw Error('Missing repeat results'); return r.json();}))).then(payloads => {
     const series = payloads.flatMap(payload => payload.series || [payload]);
     if (!series.length) throw Error('No repeat series');
     root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(s.configuration)}">${esc(s.displayName || s.configuration)}</option>`).join('')}</select></label>
@@ -29,11 +28,13 @@
     function render() {
       const data = series.find(s => s.configuration === configControl.value);
       if (!data) throw Error('Unknown repeat configuration');
+      const passes = data.passOrder || ['original', 'repeat2', 'repeat3'];
       const field = fieldControl.value;
       document.getElementById('repeat-interpretation').innerHTML = (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
       document.getElementById('repeat-lead').textContent = `${data.displayName || data.configuration}. ${data.completedConditions} of ${data.plannedConditions} planned prompt/pass combinations have complete evidence on the same ${data.denominator} development comments. Incomplete passes are not zero scores.` + Object.entries(data.passes).flatMap(([pass, conditions]) => Object.entries(conditions).filter(([, phase]) => phase.completionStatus === 'partial').map(([condition, phase]) => { const o = phase.score.outcomes; return ` ${condition} ${passName[pass]} stopped with ${o.valid} valid responses, ${o.service_error || 0} service errors and ${o.never_sent || 0} reviews not sent.`; })).join('');
       const validity = Object.entries(data.passes).flatMap(([pass, entries]) => Object.entries(entries).filter(([, phase]) => phase.completionStatus !== 'partial' && phase.score.valid < data.denominator).map(([condition, phase]) => `${condition} ${passName[pass]}: ${phase.score.valid}/${data.denominator} valid responses`));
       if (validity.length) document.getElementById('repeat-lead').textContent += ' Failed or invalid answers remain in the score denominator. ' + validity.join('; ') + '.';
+      if (data.historicalContext?.firstPassEligible === false) document.getElementById('repeat-lead').textContent += ' These are three new passes. The earlier run with transport failures remains separate.';
       if (data.method === 'native-choice') document.getElementById('repeat-lead').textContent += ' Jev uses native Choice instruction variants. Pass 1 preserves the original failed request rather than its later successful retry.';
       document.getElementById('repeat-chart').innerHTML = `<div class="repeat-score-grid">${Object.entries(conditions).map(([c,label]) => {
         const stats = field === 'allFour' ? data.threePassSummary[c].allFour : data.threePassSummary[c].fields[field];
@@ -53,7 +54,7 @@
       const changes = data.changesAcrossThreePasses[c];
       const ids = changes ? (field === 'allFour' ? changes.fourFieldVector : changes.fields[field]) : null;
       const pairs = data.pairwiseFlips.filter(x => x.condition === c);
-      document.getElementById('repeat-flips').innerHTML = `${ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>${changes.excludedIds.length} comments excluded because not all passes had valid answers.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {const f = field === 'allFour' ? x.fourFieldVector : x[field]; return `<li>${passName[x.from]} to ${passName[x.to]}: ${f.changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
+      document.getElementById('repeat-flips').innerHTML = `${ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>${changes.excludedIds.length} comments excluded because not all passes had valid answers.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {const f = field === 'allFour' ? x.fourFieldVector : x[field]; return `<li>${passName[x.from]} to ${passName[x.to]}: ${f.changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
       document.getElementById('repeat-usage-body').innerHTML = Object.keys(conditions).flatMap(c => passes.map(p => {
         const u = data.passes[p]?.[c]?.usage;
         return `<tr><th scope="row">${c}</th><td>${passName[p]}${data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens)}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${money(u?.actualCostUsd)}${u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${(u?.requestSecondsTotal ?? u?.clientHttpCallSecondsTotal) == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : (u.requestSecondsTotal ?? u.clientHttpCallSecondsTotal).toFixed(1)}</td></tr>`;

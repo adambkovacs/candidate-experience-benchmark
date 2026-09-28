@@ -16,8 +16,12 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = Path('results/repeatability-v1/claude-roster-v1')
 FABLE_CONFIGS = tuple(f'fable51-{effort}-phase2-batch10-p0' for effort in ('low', 'medium', 'high', 'xhigh'))
 OPUS5_CONFIGS = tuple(f'opus5-{effort}-phase2-batch10-p0' for effort in ('low', 'medium', 'high', 'xhigh'))
-CONFIGS = FABLE_CONFIGS + OPUS5_CONFIGS
-DISPLAY_MODELS = {'claude-fable-5-1': 'Claude Fable 5.1', 'claude-opus-5': 'Claude Opus 5'}
+SONNET5_CONFIGS = ('sonnet5-low-first-pass-phase2-batch10-p0',) + tuple(
+    f'sonnet5-{effort}-phase2-batch10-p0' for effort in ('medium', 'high', 'xhigh'))
+OPUS55_CONFIGS = tuple(f'opus55-{effort}-batch10' for effort in ('low', 'high', 'xhigh'))
+CONFIGS = FABLE_CONFIGS + OPUS5_CONFIGS + SONNET5_CONFIGS + OPUS55_CONFIGS
+DISPLAY_MODELS = {'claude-fable-5-1': 'Claude Fable 5.1', 'claude-opus-5': 'Claude Opus 5',
+                  'claude-sonnet-5': 'Claude Sonnet 5', 'claude-opus-5-5': 'Claude Opus 5.5'}
 PASSES = ('original', 'repeat2', 'repeat3')
 CONDITIONS = ('P0', 'P1', 'P2')
 FIELDS = shared.FIELDS

@@ -143,8 +143,8 @@ class RepeatFindingsTest(unittest.TestCase):
     def test_new_roster_series_are_complete_and_bound(self):
         expected = {'codex-gpt-5.6-sol-low', 'codex-gpt-5.6-sol-medium',
                     'codex-gpt-5.6-sol-xhigh', 'codex-gpt-5.6-terra-high'}
-        self.assertEqual({config for config, _ in repeat.ROSTER_SERIES[-4:]}, expected)
-        for config, display in repeat.ROSTER_SERIES[-4:]:
+        self.assertEqual({config for config, _ in repeat.ROSTER_SERIES[4:8]}, expected)
+        for config, display in repeat.ROSTER_SERIES[4:8]:
             series = repeat.build_roster_series(config, display)
             self.assertEqual(series['completedConditions'], 9)
             self.assertEqual(series['missingPasses'], [])
@@ -158,6 +158,60 @@ class RepeatFindingsTest(unittest.TestCase):
                     self.assertEqual(set(entry['evidence']),
                                      {'records', 'attempts', 'journal', 'claim', 'smoke',
                                       'smokeInspection', 'admission'})
+            self.assertNotIn('/private/tmp/codex-repeat-root-review/', json.dumps(series))
+
+    def test_latest_roster_series_keep_unfinished_phases_missing(self):
+        expected = {'codex-gpt-5.6-terra-xhigh', 'codex-gpt-6-astra-high',
+                    'codex-gpt-6-astra-low-phase2-batch10-p0', 'codex-gpt-6-astra-xhigh'}
+        self.assertEqual({config for config, _ in repeat.ROSTER_SERIES[8:12]}, expected)
+        for config, display in repeat.ROSTER_SERIES[8:12]:
+            series = repeat.build_roster_series(config, display)
+            self.assertEqual(series['denominator'], 60)
+            self.assertEqual(len(series['passes']['original']), 3)
+            self.assertEqual(series['completedConditions'] + len(series['missingPasses']), 9)
+            for pass_name in ('repeat2', 'repeat3'):
+                manifest_path = repeat.REPEAT_ROOT / config / pass_name / 'manifest.json'
+                self.assertEqual(repeat.sha(repeat.ROOT / manifest_path),
+                                 repeat.PINNED_SHA[str(manifest_path)])
+                for condition in repeat.CONDITIONS:
+                    entry = series['passes'][pass_name].get(condition)
+                    if entry is None:
+                        self.assertTrue(any(item['pass'] == pass_name and
+                                            item['condition'] == condition and
+                                            item['status'] == 'incomplete_or_not_started'
+                                            for item in series['missingPasses']))
+                    else:
+                        self.assertEqual(entry['score']['valid'], 60)
+                        self.assertEqual(set(entry['evidence']),
+                                         {'records', 'attempts', 'journal', 'claim', 'smoke',
+                                          'smokeInspection', 'admission'})
+            self.assertNotIn('/private/tmp/codex-repeat-root-review/', json.dumps(series))
+
+    def test_final_gpt6_roster_series_keep_unfinished_phases_missing(self):
+        expected = {'codex-gpt-6-luna-high-batch10', 'codex-gpt-6-luna-xhigh-batch10',
+                    'codex-gpt-6-sol-xhigh-batch10'}
+        self.assertEqual({config for config, _ in repeat.ROSTER_SERIES[12:]}, expected)
+        for config, display in repeat.ROSTER_SERIES[12:]:
+            series = repeat.build_roster_series(config, display)
+            self.assertEqual(series['denominator'], 60)
+            self.assertEqual(len(series['passes']['original']), 3)
+            self.assertEqual(series['completedConditions'] + len(series['missingPasses']), 9)
+            for pass_name in ('repeat2', 'repeat3'):
+                manifest_path = repeat.REPEAT_ROOT / config / pass_name / 'manifest.json'
+                self.assertEqual(repeat.sha(repeat.ROOT / manifest_path),
+                                 repeat.PINNED_SHA[str(manifest_path)])
+                for condition in repeat.CONDITIONS:
+                    entry = series['passes'][pass_name].get(condition)
+                    if entry is None:
+                        self.assertTrue(any(item['pass'] == pass_name and
+                                            item['condition'] == condition and
+                                            item['status'] == 'incomplete_or_not_started'
+                                            for item in series['missingPasses']))
+                    else:
+                        self.assertEqual(entry['score']['valid'], 60)
+                        self.assertEqual(set(entry['evidence']),
+                                         {'records', 'attempts', 'journal', 'claim', 'smoke',
+                                          'smokeInspection', 'admission'})
             self.assertNotIn('/private/tmp/codex-repeat-root-review/', json.dumps(series))
 
     def test_roster_raw_output_disagreement_rejected(self):

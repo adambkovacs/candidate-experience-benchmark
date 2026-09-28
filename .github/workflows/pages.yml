@@ -32,8 +32,14 @@ jobs:
           python3 scripts/build_repeat_findings.py --check
           python3 scripts/build_hosted_wave_findings.py --output public-site/hosted-repeats.json --check
           python3 -m unittest tests.test_hosted_repeat_findings tests.test_hosted_wave_findings -q
-          python3 scripts/build_claude_repeat_findings.py --output public-site/claude-repeats.json --check
-          python3 -m unittest tests.test_build_claude_repeat_findings -q
+          python3 scripts/export_claude_public_evidence.py --output-dir public-evidence/claude-20260928/claude-roster --check
+          cmp public-evidence/claude-20260928/claude-roster/report.json public-site/claude-roster-repeats.json
+          python3 scripts/export_claude_public_evidence.py --output-dir public-evidence/claude-20260928/haiku --check
+          cmp public-evidence/claude-20260928/haiku/report.json public-site/haiku-fresh-matched3.json
+          python3 scripts/export_claude_public_evidence.py --output-dir public-evidence/claude-20260928/opus-medium --check
+          cmp public-evidence/claude-20260928/opus-medium/report.json public-site/claude-repeats.json
+          python3 -m unittest tests.test_export_claude_public_evidence -q
+          python3 -m unittest tests.test_build_claude_repeat_findings tests.test_build_claude_roster_findings tests.test_build_haiku_matched3_findings -q
           python3 scripts/build_gemini_repeat_findings.py --output public-site/gemini-repeats.json --check
           python3 -m unittest tests.test_build_gemini_repeat_findings -q
           python3 -m unittest discover -s tests -p test_repeat_findings.py -q

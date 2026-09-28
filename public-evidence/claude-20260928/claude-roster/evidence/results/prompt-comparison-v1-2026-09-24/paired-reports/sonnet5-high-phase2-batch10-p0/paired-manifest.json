@@ -1,0 +1,113 @@
+{
+  "contract": "prompt-pairs-v1",
+  "parent_baseline_id": "sonnet5-high-phase2-batch10-p0",
+  "role": "system",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/sonnet5-high-phase2-batch10-p0/P0-instruction.txt",
+    "sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34"
+  },
+  "controls": {
+    "workflow": "batch10",
+    "requested_model": "claude-sonnet-5",
+    "effort": "high",
+    "cli_version": "2.1.280 (Claude Code)",
+    "auth_method": "claude.ai",
+    "extra_usage_disabled_operator_verified": true,
+    "controller_retries": 0,
+    "cli_internal_retries": "not exposed"
+  },
+  "attempt_selection": "latest_chronological",
+  "retry_authorizations": {
+    "P0": []
+  },
+  "allow_missing_outputs": false,
+  "conditions": {
+    "P0": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/subscription-batch-p0-2026-09-23/sonnet5-high-phase2-batch10-p0/development.jsonl",
+        "sha256": "83f5263399f055225a6056f7db96f89abcfdcc40862e0acc6de9e3579951438d"
+      },
+      "request_evidence": {
+        "file": "results/subscription-batch-p0-2026-09-23/sonnet5-high-phase2-batch10-p0/development.batches.normalized.jsonl",
+        "sha256": "f7a2792c520b3cece53b5109251638c8559a3af38fbdf72e2faadcb2efa2a5ad"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P1/development.jsonl",
+        "sha256": "751bef4385f2a0f289011b54b88a86c68d4597691a749c788d0f46c17d00ec80"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P1/development.jsonl.batches.jsonl",
+        "sha256": "494db24619a070b1aefe45e9432d75b77fbe76a62e6a3a58344caeb93ff3d259"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P2/development.jsonl",
+        "sha256": "2cc794a94d1f0a2d73aa2494151fdc0803ee5bfb54dc2255bc3fdd346f4db5f3"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P2/development.jsonl.batches.jsonl",
+        "sha256": "c85fdf94c153ef9b8267115a0bab55c12a01f174696867bae2245cca98fe6415"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/sonnet5-high-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "66f3af705ba089d62d8fd8a07a63f894d40f69a76b7d8c947980d65f63212159"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P1/smoke-supplement.json",
+        "sha256": "fe1c78f87bca75f052df11e6b1fd976875f739aa982b04155f11690847cc3b76"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P1/development.jsonl.prompt-admission.json",
+        "sha256": "5b7b29218375d63e2df8b42ebe730e48848ed2e9c627a41eac529789a63cde4b"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/sonnet5-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+      }
+    },
+    "P2": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/sonnet5-high-phase2-batch10-p0/execution-manifest.json",
+        "sha256": "66f3af705ba089d62d8fd8a07a63f894d40f69a76b7d8c947980d65f63212159"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P2/smoke-supplement.json",
+        "sha256": "2d3f69d34a875210e94fc36a0b1f4320fe8d8741810515f05b819257851e60eb"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/sonnet5-high-phase2-batch10-p0/P2/development.jsonl.prompt-admission.json",
+        "sha256": "e7c971db67f6a65430ceb25838ed91f911cd74257232a3200388fd0a74a86f67"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/sonnet5-high-phase2-batch10-p0/execution-journal-snapshot.jsonl",
+        "sha256": "513cae75944b9f2e784fd3faadae6e03bd0387dfd0280240c08fae80ea711294"
+      }
+    }
+  },
+  "controls_sha256": "965d27bcc694e76c60aa634c86c6bc263f4f5160e4ffe6d6f2cbda5e65802d64"
+}

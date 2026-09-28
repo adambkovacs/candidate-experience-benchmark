@@ -1,0 +1,113 @@
+{
+  "contract": "prompt-pairs-v1",
+  "parent_baseline_id": "opus55-high-batch10",
+  "role": "system",
+  "inputs": {
+    "file": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "baseline_instruction": {
+    "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/P0-instruction.txt",
+    "sha256": "f54b166093fbedc84efc3d9b361f522ce57bf6fd47f361219002957b7145ba34"
+  },
+  "controls": {
+    "workflow": "batch10",
+    "requested_model": "claude-opus-5-5",
+    "effort": "high",
+    "cli_version": "2.1.280 (Claude Code)",
+    "auth_method": "claude.ai",
+    "extra_usage_disabled_operator_verified": true,
+    "controller_retries": 0,
+    "cli_internal_retries": "not exposed"
+  },
+  "controls_sha256": "7d621d8492861a554739478d26d24eede91dc1bcb810879b27d6d3ccbbee44be",
+  "attempt_selection": "latest_chronological",
+  "retry_authorizations": {
+    "P0": []
+  },
+  "allow_missing_outputs": false,
+  "conditions": {
+    "P0": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl",
+        "sha256": "75139c6df4632614ab216ed405871fd7f2efcf247e9c6e2ca51696c0bc7f40c5"
+      },
+      "request_evidence": {
+        "file": "results/claude-subscription-2026-09-23/opus55-high-batch10-development.jsonl.batches-normalized.jsonl",
+        "sha256": "8c6a05bfda590e3aae71c84e9807f5b54a340773e73571f6fe81bdf6939b83b5"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P1": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P1/development.jsonl",
+        "sha256": "19f0e30ec0dc81ef09fe351975ecb5bba3e469c5118697ae8ea3b8be5c1d5673"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P1/development.jsonl.batches.jsonl",
+        "sha256": "58191de249ecb1c3468a81aebd1aeb1a58a9385891bf7817af51cdfa064b2cab"
+      },
+      "request_evidence_phase": "development"
+    },
+    "P2": {
+      "extractor": "claude_batch_v1",
+      "predictions": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P2/development.jsonl",
+        "sha256": "88365ef98f80f489b1e1bcacc5f730ae0ed59ab3946550a021ea2fcfc5957c5a"
+      },
+      "request_evidence": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P2/development.jsonl.batches.jsonl",
+        "sha256": "4c2b1a323185121893e11d90da778c43a811c227ec42ab8e550666c0c0777653"
+      },
+      "request_evidence_phase": "development"
+    }
+  },
+  "execution_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/execution-manifest.json",
+        "sha256": "12f8312aee6d67a289e773589b4523ea5acb8e973b3d5c74b95f09d785abbf99"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P1/smoke-supplement.json",
+        "sha256": "56deb3b69b573694dfc61bf88a83f6ac8d8a196686b76483e263bf1ae4422daa"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P1/development.jsonl.prompt-admission.json",
+        "sha256": "41971f8ec1438691e63a1137e811dc2e74c1aa996391d204265143b0ec87277a"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus55-high-batch10/execution-journal-snapshot.jsonl",
+        "sha256": "9dd389c6561c941ff81b1d2b47847a715774ab5450d567cddb138fb1a62334f9"
+      }
+    },
+    "P2": {
+      "execution_manifest": {
+        "file": "results/prompt-comparison-v1-2026-09-24/subscription-preparation-v1/opus55-high-batch10/execution-manifest.json",
+        "sha256": "12f8312aee6d67a289e773589b4523ea5acb8e973b3d5c74b95f09d785abbf99"
+      },
+      "smoke_supplement": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P2/smoke-supplement.json",
+        "sha256": "a48c27c262c9d9a587b5a145a16ad1d98742190377ff572bb4cad935dc876977"
+      },
+      "development_admission": {
+        "file": "results/prompt-comparison-v1-2026-09-24/runs/opus55-high-batch10/P2/development.jsonl.prompt-admission.json",
+        "sha256": "830fda0e670d97ac478b03c6d24941ca56108b727e91d7ffb13dd3df329fa5d7"
+      },
+      "journal": {
+        "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/opus55-high-batch10/execution-journal-snapshot.jsonl",
+        "sha256": "9dd389c6561c941ff81b1d2b47847a715774ab5450d567cddb138fb1a62334f9"
+      }
+    }
+  }
+}

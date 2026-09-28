@@ -125,6 +125,22 @@ The native Laya admission plan and eight passing guard tests are committed and p
 
 Publication of the new Claude raw evidence is held for a privacy audit: CLI captures contain account-wide quota metadata that does not belong in the public report. Preserve immutable originals and their hashes; verify a redacted publication boundary before pushing new captures. This hold does not change inference evidence or stop admitted model runs. The current public site still contains the last verified published checkpoint.
 
+## Claude closure and quota recovery, 2026-09-28
+
+All four Sonnet 5 efforts and Opus 5.5 low/high/extra-high have now closed all nine condition/pass combinations per configuration. Every new development phase has 60 valid outputs. Across these seven configurations, the two new passes contain 2,520 development responses plus 126 smoke responses; all 294 captured requests passed the raw/control checks. The [Sonnet findings](SONNET5_REPEAT_FINDINGS_2026-09-28.md) and [Opus 5.5 findings](OPUS55_REPEAT_FINDINGS_2026-09-28.md) describe score reversals and per-review variation. New public evidence exports are still under review, so this does not claim the site has been updated.
+
+The Codex quota service returned successfully after the earlier hold. New phases still need fresh per-phase receipts. The final three eligible roster configurations now have six prepared and reconstructed manifests: GPT-6 Luna high and extra-high, and GPT-6 Sol extra-high. Their pinned runtime and ChatGPT authentication check passed. The existing Terra/Astra wave retains its separate owner; no completed request is repeated.
+
+Laya English repeat-two P0 is complete with 60 valid outputs and no changed classifications against its historical first pass. Typed repeat-two is running in the frozen serial sequence. Remaining native phases and the broader roster are still open. OpenRouter and TypeSafe caps are unchanged.
+
+## Verified export and execution checkpoint, 2026-09-28
+
+All seventeen eligible Claude configurations now have nine closed condition/pass combinations with 60 valid development responses in each. Haiku uses its separate fresh three-pass protocol. The new reports have verified public copies with immutable source snapshots and explicit original/public hash mappings. The exporter is committed in `9893c7e`; website integration is undergoing clean-checkout verification. Earlier published account metadata still requires separate assessment, as explained in the [privacy record](PUBLIC_EVIDENCE_PRIVACY.md).
+
+The current Codex report includes eighteen eligible configurations. Fourteen have all nine combinations closed; Astra extra-high and the final Luna high/extra-high and Sol extra-high series remain in progress. Reports include only closed phases, with unfinished combinations shown explicitly. Existing admissions retain exclusive execution owners.
+
+All three expanded CPU Laya variants have closed repeat-two P0 with 60 valid results and no changed predictions against their own historical first passes. Repeat three is proceeding serially under the frozen native plan. These categorical stability results do not establish controlled inference timing. Hosted budget headroom remains $0.63491151850 under the unchanged $10 cap. The requested $15 cap increase is still pending; no new hosted wave is authorized by this checkpoint.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
