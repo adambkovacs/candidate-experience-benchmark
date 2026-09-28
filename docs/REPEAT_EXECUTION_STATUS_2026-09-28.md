@@ -83,7 +83,7 @@ This table records experiment families outside the 55-series table above. The sp
 | SemIf native, three modes | 9/9 native P0 | Repeat findings published. |
 | AnyJev raw | 3/3 native P0 | Findings published and live bytes verified. |
 | AnyJev L0 | 3/3 native P0 | All three development passes have 60 valid outputs and 4/60 all-field agreement with provisional references. Per-field agreement is 37/60 sentiment, 13/60 follow-up, 34/60 serious concern and 44/60 testimonial potential. No case changes classification across passes. Findings published; live report, page and script bytes verified. |
-| Alex OpenJev 0.8B and 4B | 3/6 fresh native P0 | All three 0.8B passes are closed: 60 valid and 3/60 all-field matches each, with no classification changes. The 4B first smoke is running; its full passes remain pending. Historical observations stay excluded. |
+| Alex OpenJev 0.8B and 4B | 3/6 fresh native P0 | All three 0.8B passes are closed: 60 valid and 3/60 all-field matches each, with no classification changes. The 4B first smoke is complete and inspected. Its first 60-review development pass has started; all three full passes remain unclosed. Historical observations stay excluded. |
 | OpenJev fixed, adaptive and thinking | 0/9 fresh native P0 | Reviewed manifest frozen; all development passes pending. |
 | Generated OpenJev off/on, SemIf and AnyJev | 0/36 fresh prompt/pass combinations | AnyJev (`8d5bbf7`), SemIf (`08a667a`) and OpenJev v2 (`de88662`, reporter `85e81e6`) have reviewed offline admission/report paths. OpenJev v1 remains blocked; v2 preserves intended request bytes. No development phases dispatched. Historical invalid and unknown outcomes remain separate. |
 | AnyJev L1/L2 calibration | L1 0/3; L2 historical 1/3 | Direct-native L1 has a frozen three-pass plan and reviewed reporter (`39bc1e0`). L2 has repeat-two frozen manifests and a reviewed reporter (`7588254`); repeat three requires a successor plan after repeat two closes. Neither has new repeat inference. Cached L1 refits remain observational. |
@@ -92,7 +92,7 @@ Sources: [native audit](ANYJEV_ALEX_OPENJEV_NATIVE_P0_NEXT_ADMISSION_2026-09-28.
 
 ## Source reports
 
-- [alex-native-repeats.json](../public-site/alex-native-repeats.json): SHA-256 `67083bf7a1664209f66f15debd9b836d367a6425ced9817b9760fd83940606ed`; 0.8B 3/3 fresh passes, 4B 0/3. Third-pass evidence is closed; publication verification follows deployment.
+- [alex-native-repeats.json](../public-site/alex-native-repeats.json): SHA-256 `67083bf7a1664209f66f15debd9b836d367a6425ced9817b9760fd83940606ed`; 0.8B 3/3 fresh passes, 4B 0/3. Third-pass evidence is closed. Deployment 36483907226 succeeded; the live report and repeats.js bytes match the committed files.
 
 - [repeats.json](../public-site/repeats.json): SHA-256 `e6acc3e09d4a2d59042e08d268c64ab9ff5a9949810513547802965d3f447c4a`.
 - [claude-roster-repeats.json](../public-site/claude-roster-repeats.json): SHA-256 `11a44a7368695bb8f53961ba05b55b8eeca1701487ecd6036b9a110027af6a4d`.
