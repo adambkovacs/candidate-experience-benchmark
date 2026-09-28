@@ -141,6 +141,16 @@ The current Codex report includes eighteen eligible configurations. Fourteen hav
 
 All three expanded CPU Laya variants have closed repeat-two P0 with 60 valid results and no changed predictions against their own historical first passes. Repeat three is proceeding serially under the frozen native plan. These categorical stability results do not establish controlled inference timing. Hosted budget headroom remains $0.63491151850 under the unchanged $10 cap. The requested $15 cap increase is still pending; no new hosted wave is authorized by this checkpoint.
 
+## Closed Qwen suffix and Terra/Astra update, 2026-09-28
+
+The Qwen thinking-on P2 AkashML endpoint responded after a new exact-route review. Episode 002 sent only DEV-044–060 and returned 17 valid classifications, costing $0.0211142. Its closed child partition released $0.4871994 of unused allocation. The composite now has 60 attempted positions: 54 valid, six preserved service errors, zero never sent. No failed position was retried. It remains outside the clean paired-prompt cohort; the [publication record](../results/qwen36-on-p2-never-sent-episodes-v1/episode-002/PUBLICATION.md) explains the source and cost boundaries. Public explorer integration is pending.
+
+OpenRouter master accounted charges and retained bounds are now $9.38620268150, leaving $0.61379731850 under $10. This does not fund the proposed $2 Gemini 3.1 Pro high allocation. The requested $15 cap remains pending.
+
+Terra extra-high and Astra low/high/extra-high have all nine combinations closed, bringing completed Codex configurations to fifteen. The final Luna high/extra-high and Sol extra-high series continue. See the [Terra/Astra findings](TERRA_ASTRA_REPEAT_FINDINGS_2026-09-28.md) and [full repeat inventory](REPEAT_EXECUTION_STATUS_2026-09-28.md).
+
+Laya English repeat three is closed with 60 valid outputs and no changes from either earlier pass. Its client elapsed sum differed substantially between repeats; uncontrolled local load/cache conditions prevent treating that as model-only latency drift. Typed and multilingual repeat three remain in progress. The [next native admission review](NATIVE_NEXT_REPEAT_ADMISSION_REVIEW_2026-09-28.md) supports SemIf direct/serial/shared eligibility; preparation does not authorize overlapping native execution.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
