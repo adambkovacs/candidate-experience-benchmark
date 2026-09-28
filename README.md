@@ -25,11 +25,11 @@ Use [model comparison](https://adambkovacs.github.io/candidate-experience-benchm
 
 The [follow-up reference review](docs/REFERENCE_REVIEW_V1.md) proposes one correction, which would change Jev from 54 to 55 all-four matches. Original labels and published scores remain preserved.
 
-The [repeat comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#repeat-analysis) now covers multiple GPT, Claude, Gemini and other hosted configurations, plus native Jev instructions. Three separately dispatched passes often change the apparent prompt advantage. For example, [Opus 5 high](docs/OPUS5_REPEAT_FINDINGS_2026-09-28.md) gained two matches from decision-tree instructions in its first two passes and lost two in its third. [Fable 5.1 low](docs/FABLE_REPEAT_FINDINGS_2026-09-28.md) returned the same 57/60 classifier-instruction score in all three passes while changing three reviews' classifications. A stable total does not imply stable answers. 
+The [repeat comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#repeat-analysis) now covers multiple GPT, Claude, Gemini and other hosted configurations, plus native Jev instructions. Three separately dispatched passes often change the apparent prompt advantage. For example, [Opus 5 high](docs/OPUS5_REPEAT_FINDINGS_2026-09-28.md) gained two matches from decision-tree instructions in its first two passes and lost two in its third. [Fable 5.1 low](docs/FABLE_REPEAT_FINDINGS_2026-09-28.md) returned the same 57/60 classifier-instruction score in all three passes while changing three reviews' classifications. A stable total does not imply stable answers.
 
 [Haiku's fresh three-pass comparison](docs/HAIKU_MATCHED3_FINDINGS_2026-09-28.md) ranges from 53 to 59 classifier-instruction matches out of 60. [Sonnet 5 medium](docs/SONNET5_REPEAT_FINDINGS_2026-09-28.md) gained two and one matches from those instructions in its first two passes, then lost four in the third.
 
-The full requested repeat matrix remains unfinished; see [current objectives and checkpoints](docs/CURRENT_GOALS.md).
+Across the [17 completed Claude configurations](docs/CLAUDE_REPEAT_SYNTHESIS_2026-09-28.md), neither added-instruction prompt beat the base task in all three observed passes. The full requested repeat matrix remains unfinished; see [current objectives and checkpoints](docs/CURRENT_GOALS.md).
 
 ## What the models decide
 
