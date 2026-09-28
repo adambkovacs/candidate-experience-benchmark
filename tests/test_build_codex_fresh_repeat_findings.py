@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from datetime import datetime, timezone
+from types import SimpleNamespace
 from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[1]
@@ -42,6 +43,17 @@ class ReporterTests(unittest.TestCase):
         self.patcher = patch.object(controller, 'base_dir', return_value=self.base)
         self.patcher.start()
         self.addCleanup(self.patcher.stop)
+        real_temporary_directory = tempfile.TemporaryDirectory
+
+        def portable_temporary_directory(*args, **kwargs):
+            if kwargs.get('dir') == '/private/tmp':
+                kwargs['dir'] = self.temp.name
+            return real_temporary_directory(*args, **kwargs)
+
+        temp_patcher = patch.object(controller, 'tempfile', SimpleNamespace(
+            TemporaryDirectory=portable_temporary_directory))
+        temp_patcher.start()
+        self.addCleanup(temp_patcher.stop)
 
     def copy(self, relative):
         target = self.root / relative
