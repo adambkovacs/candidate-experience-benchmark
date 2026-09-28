@@ -42,6 +42,8 @@ The [Gemini 3.8 Flash low repeats](docs/GEMINI38_LOW_REPEAT_FINDINGS_2026-09-28.
 
 Across the [17 completed Claude configurations](docs/CLAUDE_REPEAT_SYNTHESIS_2026-09-28.md), neither added-instruction prompt beat the base task in all three observed passes. The full requested repeat matrix remains unfinished; see the [full repeat execution inventory](docs/REPEAT_EXECUTION_STATUS_2026-09-28.md) and [current objectives](docs/CURRENT_GOALS.md).
 
+The [six additional fresh Codex comparisons](docs/CODEX_FRESH_REPEAT_FINDINGS_2026-09-29.md) are complete: three passes for each of three prompt versions. Neither added-instruction prompt improved all-four agreement in every pass for any of the six configurations. Classifier instructions switched between a gain and a loss in four configurations. These 3,240 responses still describe the same 60 reviews, not 3,240 independent cases.
+
 ## What the models decide
 
 | Judgment | Question |
