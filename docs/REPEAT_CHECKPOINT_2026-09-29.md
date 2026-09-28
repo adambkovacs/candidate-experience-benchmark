@@ -46,3 +46,9 @@ The new public DeepSeek repeat view preserves the historical configuration separ
 The six additional Codex configurations now have all **54 of 54** planned fresh condition/pass results closed, nine per configuration. Each result has 60 valid classifications of the same synthetic reviews. The [final source-bound feed](../public-site/codex-fresh-repeats.json) has SHA-256 `335d7676d2d81e2a9eb258d34acdc808a428a3faff2adaedde904ccdcf5631dd`. This closes the additional wave described above; the earlier 18/54, 36/54 and 50/54 counts remain dated progress snapshots.
 
 The [six-series findings](CODEX_FRESH_REPEAT_FINDINGS_2026-09-29.md) give per-field ranges, matched P1/P2 deltas, changed-review counts and reference-class confusion. Neither P1 nor P2 strictly beat P0 on all-four agreement in all three passes for any of the six configurations. P1 switched between gains and losses in four of six. These comparisons are descriptive observations on repeated reviews with provisional labels; they do not establish statistical significance or a general prompt effect. Commit and live-site publication of this final feed require separate verification.
+
+## Alex 4B second native pass
+
+Alex OpenJev 4B has two closed 60-review native passes. Both match all four provisional reference fields on 39/60 reviews, with field agreement of 49/60 sentiment, 57/60 follow-up, 47/60 serious concern and 57/60 testimonial potential. No review changed any classification between these two passes. The third pass is still required; two unchanged passes are not a completed three-pass study.
+
+The second pass recorded 4,422.31 seconds of client prediction time and 1,251,194 native NLI input token positions across the 14 hypotheses per review. Those positions are not billed API tokens, and the duration includes local runtime overhead. Isolated inference time and attributable local cost remain unavailable.
