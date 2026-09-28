@@ -296,3 +296,10 @@ Alex fresh-two smoke subsequently exited successfully; root inspected its 42 nor
 ## Alex second fresh pass closed, 2026-09-28
 
 Alex 0.8B fresh-two development exited successfully and passed the frozen controller, output and predecessor checks. Record SHA-256 is `92b8c482f35cbafe9bf17361a3f4a1a1e5d903f1fd8a6f8268aae805912a5ef0`. Both closed fresh passes have 60 valid outputs, 3/60 all-four agreement and identical classifications on all 60 reviews; field matches remain 39/37/20/9. The second pass records 1,251,194 native input-token positions and 1,300.14 seconds of client prediction time; pure inference time and local cost remain unavailable. Third-pass smoke is separately admitted and running. The public chart still reflects the verified first-pass publication until its next refresh.
+
+
+## Alex 0.8B three-pass closure, 2026-09-28
+
+The third 0.8B development pass exited successfully. Frozen-plan and all three output/completion checks passed; the third record SHA-256 is `6e99d4a97b4f4ad9d18a3e75da4b6c555be6ebb3ae3d9f3caac893a598c11514`. All three passes have 60 valid outputs, 3/60 all-four agreement and identical classifications on all 60 reviews. Field matches are 39/37/20/9 each time. The public report and findings now include all three passes, pending deployment verification. Alex 4B's frozen source/runtime/model hashes were reverified before admitting its separate first smoke. That smoke is running; no 4B fresh full pass is complete.
+
+The seven hosted continuation audits passed independent review and are committed in `527b78e`. A separate offline adapter supports descriptive comparisons by checking saved requests and continuation journals, with seven tests and seven real recomputations passing. Every comparison remains strictly ineligible because the recorded suffix ran outside the original counterbalanced schedule; original smoke/admission gates and historical retry-selection proof are not established by that adapter. Its results must not be merged into the audited-pair category. No new provider requests were made.

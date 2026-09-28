@@ -38,7 +38,7 @@ The [Gemini 3.8 Flash low repeats](docs/GEMINI38_LOW_REPEAT_FINDINGS_2026-09-28.
 
 [AnyJev L0](docs/ANYJEV_L0_REPEAT_FINDINGS_2026-09-28.md) also returned unchanged classifications in all three passes, with 60 valid outputs each, but only 4/60 reviews matched all four provisional reference fields. It answered "insufficient information" for follow-up 44 times against one such reference. The raw and L0 methods differ in several ways, so the score gap does not tell us which change caused it.
 
-[Alex OpenJev 0.8B](docs/ALEX_NATIVE_REPEAT_FINDINGS_2026-09-28.md) matched all four reference decisions on 3/60 reviews in its first fresh native pass. All outputs were valid, but it marked 59 reviews as potential testimonials, including 49 reference-negative cases. Its three-pass study is not complete.
+[Alex OpenJev 0.8B](docs/ALEX_NATIVE_REPEAT_FINDINGS_2026-09-28.md) matched all four reference decisions on 3/60 reviews in each of three fresh native passes, with no changed classifications. All outputs were valid, but it marked 59 reviews as potential testimonials, including 49 reference-negative cases. Its 0.8B native repeat study is complete; the separate 4B series remains pending.
 
 Across the [17 completed Claude configurations](docs/CLAUDE_REPEAT_SYNTHESIS_2026-09-28.md), neither added-instruction prompt beat the base task in all three observed passes. The full requested repeat matrix remains unfinished; see the [full repeat execution inventory](docs/REPEAT_EXECUTION_STATUS_2026-09-28.md) and [current objectives](docs/CURRENT_GOALS.md).
 
