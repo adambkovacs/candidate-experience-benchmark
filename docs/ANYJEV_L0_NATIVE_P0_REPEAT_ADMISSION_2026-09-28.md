@@ -1,0 +1,22 @@
+# AnyJev L0 native P0 repeat admission, 28 September 2026
+
+This is an offline preparation for `anyjev-qwen06-l0`. It makes no model call and does not authorize GPU execution. The saved [23 September development run](../results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl) is eligible as pass 1 under the checks below. The [raw-level repeat](ANYJEV_RAW_NATIVE_P0_REPEAT_ADMISSION_2026-09-28.md), generated Qwen control, and calibrated L1/L2 studies are separate configurations. Native L0 has no generative P1/P2 prompt condition.
+
+The [controller](../scripts/anyjev_l0_repeat_admission.py) reconstructs each record's native L0 operation from the pinned [AnyJev adapter](../scripts/anyjev_benchmark.py), source revision `3cd8c6fcd9e90fc04214575ade6779da1e3f3704`, and local Qwen3-0.6B artifact revision `c1899de289a04d12100db370d81485cdf75e47ca`. Each record uses four questions, all cyclic option shifts, and the ordered content-free probes `N/A`, empty string, and `[MASK]`. A fresh decider gives each record a fresh probe cache and running prior. The reconstructed operation makes two backend calls with 14 real prompts followed by 42 probe prompts. It uses MPS BF16, batch size 4, context 4,096, no shared prefix, no adaptive shifts, and no fitted calibration artifact.
+
+The controller checked all 60 ordered development rows and three smoke rows against the saved policy, input and question-spec hashes, 56 prompt token counts per row, raw L0 option distributions, predictions, backend statistics, runtime versions and controls. It also checked the historical runner bytes against commit `9f0dda66b633c9d185fccf459b45c65234354ceb` and the native request-builder function syntax at that commit. The old records did not save prompt bytes or hashes. Exact prompt identity is therefore a reconstruction from pinned source and tokenizer, supported by all 3,360 saved prompt lengths, not an independently observed historical prompt hash. If a later verification fails, retain the old run as historical evidence and plan a separately named fresh matched three-pass series.
+
+The exclusive-created [manifest](../results/repeatability-v1/anyjev-l0-p0-v1/manifest.json), SHA-256 `29095d4a527cefaac3e4169a1dfc94879a7571f909d7f8fb4b2213e32f1a3049`, binds every DEV input to its 14 real and 42 probe prompt hashes, tokenizer input-ID hashes, answer-token IDs and lengths. It binds both historical files, all local model assets, the source revision, policy, code, runtime, hardware, options and the sequence `repeat2/P0` then `repeat3/P0`. It contains no reference labels. Offline `verify` rechecks this evidence without loading model weights.
+
+Use the pinned specialist Python. These commands only verify the plan or display its first stage:
+
+```sh
+PY=/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/specialist-venv/bin/python
+HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 "$PY" scripts/anyjev_l0_repeat_admission.py verify
+HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 "$PY" scripts/anyjev_l0_repeat_admission.py command --phase repeat2/P0 --stage smoke
+HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 "$PY" -m unittest tests.test_anyjev_l0_repeat_admission
+```
+
+Before each stage, the root reviewer must check the manifest hash, controls and GPU availability, then create an exact receipt with `kind=root-reviewed-anyjev-l0-native-p0-stage-v1`, `approved=true`, `phase`, `stage` and `plan_sha256`. Only an admitted stage may use `run --phase <phase> --stage <smoke|development> --receipt <receipt.json>`. The controller takes the shared nonblocking GPU lock, verifies predecessors and receipts, writes an exclusive durable claim, and then loads the model. It saves `request_started` before each native call and the raw decision set, diagnostics and observed prompt signatures before projection. A started call that fails or has uncertain output remains unknown and cannot replay. The three-record smoke requires raw inspection and a saved `smoke-inspection.json`; a separate development receipt must bind that inspection hash. Repeat 3 requires verified 60-record closure of repeat 2. No downloads, retries, fallback, truncation, or reference-label reads are allowed.
+
+The [offline tests](../tests/test_anyjev_l0_repeat_admission.py) exercise the stage guards with saved raw structures and a fake scorer. They do not load model weights. Local client elapsed time can be recorded, but the original run's background artifact downloads make its duration an unmatched timing baseline. Local inference has no provider charge.
