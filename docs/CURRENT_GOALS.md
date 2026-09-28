@@ -239,3 +239,9 @@ The OpenJev native report builder is committed in `d4368b4`, with eight offline 
 The generated AnyJev, SemIf and OpenJev runners are reviewed and frozen in `cd085d7`, `792ce89` and `6e9fe50`; all 36 generated specialist development phases remain pending. Alex native and OpenJev native fresh runs also remain pending. AnyJev L0 repeat two is live, with 32 of 60 saved rows at this checkpoint; repeat three has not started.
 
 The [calibration implementation plan](ANYJEV_CALIBRATION_IMPLEMENTATION_PLAN_2026-09-28.md) is committed in `3b129ca`. L2 offline protocol, source, runtime and model-file checks pass. Independent review requested changes to its new runner: a durable completion must bind raw responses, the operation journal and review to the historical runner's collection before any successor stage is admitted. The candidate remains unfrozen and has made no model calls. Direct-native L1 remains required and is being prepared separately; cached-score refits do not meet that requirement.
+
+## AnyJev L0 repeat two closed, 2026-09-28
+
+The L0 second development pass exited successfully with all 60 records valid. The closed-evidence report verifies output SHA-256 `d7e0151e86d7dc4570679af91b903308830827ff52b31f27d93c452641c2b3ae` and finds no categorical changes from the historical first pass. Both passes score 4/60 all-field agreement against provisional v0.2 references; per-field agreement is sentiment 37/60, follow-up 13/60, serious concern 34/60 and testimonial potential 44/60. The full three-pass study remains incomplete. A separate repeat-three smoke has been launched under the same frozen manifest; its outcome is not yet established.
+
+Direct-native L1 is reviewed, frozen and pushed in `b96b420`; all eleven offline tests and pinned manifest verification pass. Its three fresh calibration passes remain undispatched. L2 repeat-two manifests are frozen in `2ab6396` with the historical controls preserved; no L2 repeat has been dispatched.
