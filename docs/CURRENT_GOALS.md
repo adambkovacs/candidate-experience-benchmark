@@ -109,6 +109,12 @@ The next admitted Codex wave is Terra extra-high and Astra low/high/extra-high. 
 
 The remaining Opus 5.5 low/high/extra-high and four Sonnet 5 effort manifests are prepared and verified offline; preparation is not dispatch. The [native-specialist audit](NATIVE_SPECIALIST_REPEAT_AUDIT_2026-09-28.md) distinguishes fifteen saved native P0 outputs from original Laya length failures and AnyJev calibration-only work. Generative P1/P2 exclusions do not close the native P0 repeat requirement. The three expanded CPU Laya configurations are next in offline eligibility and admission preparation; no new local inference has started.
 
+## Opus 5 publication, 2026-09-28
+
+All four Opus 5 efforts now have nine closed condition/pass combinations, each with 60 valid outputs. Their two new passes contain 1,440 development responses, with smokes recorded separately. Commit e8fd6b5 passed 16 Claude report tests in a clean staged export; deployment 36409198713 succeeded. The fetched public report contains eight completed Fable/Opus 5 series, and the Opus findings paragraph is live. See [Opus 5 repeat findings](OPUS5_REPEAT_FINDINGS_2026-09-28.md).
+
+Sonnet 5 low/medium/high/extra-high are admitted and running their frozen repeats through the Claude subscription. Opus 5.5 low/high/extra-high remain prepared but not dispatched. Haiku's third fresh pass, the next Terra/Astra Codex wave, and expanded Laya CPU admission preparation continue. OpenRouter accounted spending remains $9.36508848150, with $0.63491151850 remaining; no additional paid wave has been admitted.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
