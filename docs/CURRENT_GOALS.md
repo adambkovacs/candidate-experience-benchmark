@@ -101,6 +101,14 @@ Gemini 3.7 Flash high now has nine closed combinations. Its three repeat-two con
 
 Haiku has completed its first fresh full P0/P1/P2 pass, with 60 valid outputs per condition, and is running pass two. All four Opus 5 efforts have completed their first two repeat-two conditions and are progressing through the remaining frozen sequence. These are progress checkpoints, not completion of their three-pass series.
 
+## Codex publication and remaining native work, 2026-09-28
+
+GPT-5.6 Sol low/medium/extra-high and Terra high are published in 0e6770b. Deployment 36407950092 succeeded, and the fetched public report contains eleven Codex configurations with all nine combinations complete. The clean staged export passed 13 report tests; the Jev report was regenerated only to update its shared code binding, with its results unchanged.
+
+The next admitted Codex wave is Terra extra-high and Astra low/high/extra-high. All four first smokes passed and development is running after fresh quota checks. No max or ultra efforts are admitted. Haiku has closed two full fresh passes, all conditions 60 valid, and is running pass three. Opus 5's four efforts are progressing through their final repeat-three conditions.
+
+The remaining Opus 5.5 low/high/extra-high and four Sonnet 5 effort manifests are prepared and verified offline; preparation is not dispatch. The [native-specialist audit](NATIVE_SPECIALIST_REPEAT_AUDIT_2026-09-28.md) distinguishes fifteen saved native P0 outputs from original Laya length failures and AnyJev calibration-only work. Generative P1/P2 exclusions do not close the native P0 repeat requirement. The three expanded CPU Laya configurations are next in offline eligibility and admission preparation; no new local inference has started.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
