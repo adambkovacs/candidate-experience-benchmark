@@ -93,6 +93,14 @@ Gemini 3.7 Flash high has closed repeat two P0/P1/P2 and started repeat three. I
 
 Opus 5 low, medium, high and xhigh have eight verified frozen repeat manifests. Their first smokes are admitted through the pinned Claude subscription runtime. Development requires inspection of each saved smoke before dispatch. No paid overage or new OpenRouter allocation is authorized by this update.
 
+## Published and reconciled update, 2026-09-28
+
+Fable's four effort series and findings are live in commit e31cf1c. Pages deployment 36406152132 succeeded; the public JSON and findings paragraph were fetched and verified. The clean staged export passed all 13 Claude report tests.
+
+Gemini 3.7 Flash high now has nine closed combinations. Its three repeat-two conditions each have 60 valid outputs; all three repeat-three conditions have 50 valid and ten token-truncated invalid outputs. The historical P0/P1 each also retain ten invalid outputs. The closed wave returned $0.709266 in charges, bringing aggregate accounted spending and retained unknown-charge bounds to $9.36508848150. Remaining headroom is $0.63491151850; Gemini 3.1 Pro high remains pending budget admission. The requested $15 cap is not yet authorized.
+
+Haiku has completed its first fresh full P0/P1/P2 pass, with 60 valid outputs per condition, and is running pass two. All four Opus 5 efforts have completed their first two repeat-two conditions and are progressing through the remaining frozen sequence. These are progress checkpoints, not completion of their three-pass series.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.

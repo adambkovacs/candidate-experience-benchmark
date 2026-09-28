@@ -32,3 +32,11 @@ Request duration is client-observed time, not pure inference time. Missing provi
 ## Evidence
 
 The [machine-readable report](../public-site/gemini-repeats.json) contains scores, validity, per-field changes, token usage, costs and hashes linking each result to its saved requests and raw responses. The [budget reconciliation receipts](../results/repeatability-v1/gemini-roster-wave-v1/) bind the four closed allocations. The [controller](../scripts/gemini_repeat_roster.py) preserves exact prompts, ordered batches and controls. All 23 Gemini planner, controller and report tests passed in a clean export of the staged sources.
+
+## Gemini 3.7 Flash high: completed follow-up
+
+The high-effort series now has nine closed condition/pass combinations. Repeat two produced 60 valid outputs for each prompt. Repeat three produced 50 valid and ten invalid outputs in each condition; DEV-011 through DEV-020 reached `length` / `MAX_TOKENS` in all three batches. The reported reasoning-token counts were 7,865, 7,863 and 7,860 for P0, P1 and P2. These are output-generation limits, not account-credit failures. The historical P0 and P1 also contain ten invalid outputs each.
+
+All-four-field agreement scores were P0: 47, 57, 47; P1: 47, 56, 47; P2: 56, 56, 47, always with a denominator of 60. These differences combine classification agreement and output validity. They must not be interpreted entirely as changes in classification decisions. The report separately compares predictions among reviews that were valid in every compared pass.
+
+The six new development phases and six smoke requests returned $0.709266 in provider charges. The $1 allocation is closed and its unused $0.290734 released. Master accounted spending and retained unknown-charge bounds total $9.36508848150, leaving $0.63491151850 under the $10 cap. Gemini 3.1 Pro high remains unallocated; the requested budget increase is pending. See the [reconciliation](../results/repeatability-v1/gemini37-high-wave-v1/reconciliation.json) and [updated report](../public-site/gemini-repeats.json).
