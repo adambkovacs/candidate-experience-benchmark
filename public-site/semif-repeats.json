@@ -969,15 +969,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 2,
+      "completedConditions": 3,
       "plannedConditions": 3,
-      "missingPasses": [
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "open_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "partialPasses": [],
       "passes": {
         "original": {
@@ -1306,55 +1300,260 @@
             }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 49,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 37,
+                "yes": 21
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                7.471676333982032,
+                7.707980791019509,
+                7.947627624991583,
+                7.996064417005982,
+                8.11110933299642,
+                8.515872416988714,
+                10.436589249991812,
+                8.665673290990526,
+                9.52562504200614,
+                16.948466540983645,
+                20.018513749993872,
+                15.041346332989633,
+                9.000267249997705,
+                15.358748041995568,
+                11.085397999995621,
+                9.212369332992239,
+                7.831165916984901,
+                8.238308416999644,
+                8.123660083016148,
+                11.445288207993144,
+                8.610620124993147,
+                8.388024457992287,
+                8.545940707990667,
+                10.144919832993764,
+                11.014347292017192,
+                10.446312582993414,
+                10.488494458986679,
+                11.257634000008693,
+                10.651178333995631,
+                7.270606541016605,
+                6.950680583016947,
+                7.477364167018095,
+                10.565342416986823,
+                10.049751457991078,
+                7.362677291006548,
+                11.254499625007156,
+                10.994309125002474,
+                8.902421125007095,
+                9.196110749995569,
+                7.478806499973871,
+                7.067247208004119,
+                7.529728249995969,
+                6.801752750005107,
+                7.987151207984425,
+                8.307335791992955,
+                10.214751292020082,
+                8.867990667000413,
+                8.702473999990616,
+                7.16705925000133,
+                7.340126916998997,
+                7.091125959006604,
+                7.541987957985839,
+                7.244480957975611,
+                8.240728666976793,
+                8.238879042008193,
+                7.159474791988032,
+                7.726273584004957,
+                8.423842583986698,
+                7.741663458000403,
+                8.037930082995445
+              ],
+              "requestSecondsTotal": 553.1637961668312,
+              "modelLoadSeconds": null,
+              "clientRunSecondsLowerBound": null,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.root-review.json",
+                  "sha256": "8bad41f26ace78db59725fcffca60dbfd6d43bdb9dcd17d5f6a45fa5f222615b"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.claim.json",
+                  "sha256": "663196776bc7f105ffecd09d397c77285e54ff1730c74d446137ca06ca6940b1"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "94af59b6baa2a1adf136849b2bcb2a2c5ce7193d73de8e6e78b14744b36ca710"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.raw.jsonl",
+                  "sha256": "89c03cb78ccf40b36d9eaeb7c48d78970b6958eaad05fa35eaa91d844e062d3e"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "9945c1c22fda78fc45720747922b34323a4e248a09b3142f3603a38ae2e863cd"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.completion.json",
+                  "sha256": "5dca88e59f1f3ee344cee69431c0b59695a86dd8afa241f4792d94c42eb09983"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke-inspection.json",
+                "sha256": "0870af0c2d84ef09b68fa4ed7117c6573c6bb6435c28a438cd9b9f956f16d2ed"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.root-review.json",
+                  "sha256": "82ddda3ec2489a1694e4e303b10cc6def6feed6feef37aac7663f30e612df425"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.claim.json",
+                  "sha256": "d372e13e65f6ae203cb65ea1648813b44fb590d949664e676c545ddafde1594f"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.journal.jsonl",
+                  "sha256": "ba925f67ece4facaa21bb10cdf07eef706df50144988694d8a7feffcae45196b"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.raw.jsonl",
+                  "sha256": "1f11ba26337491be3ef10c47c49db61cdf242c804b74edcc6b69eee35d9dc35a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.records.jsonl",
+                  "sha256": "f511362f1240b0d0eb6e5d7527502a4ba427197705e745d118001872eaa1f30a"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.completion.json",
+                  "sha256": "fad80740929d7e4b598f318899d9add65001959923ad7c76c2ec1a7ad495781f"
+                }
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              35,
               35,
               35
             ],
-            "mean": null,
-            "range": null
+            "mean": 35.0,
+            "range": [
+              35,
+              35
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                50,
                 50,
                 50
               ],
-              "mean": null,
-              "range": null
+              "mean": 50.0,
+              "range": [
+                50,
+                50
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                56,
                 56,
                 56
               ],
-              "mean": null,
-              "range": null
+              "mean": 56.0,
+              "range": [
+                56,
+                56
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                49,
                 49,
                 49
               ],
-              "mean": null,
-              "range": null
+              "mean": 49.0,
+              "range": [
+                49,
+                49
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                54,
                 54,
                 54
               ],
-              "mean": null,
-              "range": null
+              "mean": 54.0,
+              "range": [
+                54,
+                54
+              ]
             }
           }
         }
@@ -1391,9 +1590,85 @@
             "rate": 0.0,
             "caseIds": []
           }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        }
+      },
       "withinPassPromptDeltas": [],
       "sourceBindings": [
         {
@@ -1495,6 +1770,58 @@
         {
           "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke-inspection.json",
           "sha256": "1df4749883cee7ef5a3bf0b359fcedc5826c29ea355f4d766e3073e6b3993a91"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.root-review.json",
+          "sha256": "8bad41f26ace78db59725fcffca60dbfd6d43bdb9dcd17d5f6a45fa5f222615b"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.claim.json",
+          "sha256": "663196776bc7f105ffecd09d397c77285e54ff1730c74d446137ca06ca6940b1"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "94af59b6baa2a1adf136849b2bcb2a2c5ce7193d73de8e6e78b14744b36ca710"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.raw.jsonl",
+          "sha256": "89c03cb78ccf40b36d9eaeb7c48d78970b6958eaad05fa35eaa91d844e062d3e"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.records.jsonl",
+          "sha256": "9945c1c22fda78fc45720747922b34323a4e248a09b3142f3603a38ae2e863cd"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke.completion.json",
+          "sha256": "5dca88e59f1f3ee344cee69431c0b59695a86dd8afa241f4792d94c42eb09983"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.root-review.json",
+          "sha256": "82ddda3ec2489a1694e4e303b10cc6def6feed6feef37aac7663f30e612df425"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.claim.json",
+          "sha256": "d372e13e65f6ae203cb65ea1648813b44fb590d949664e676c545ddafde1594f"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.journal.jsonl",
+          "sha256": "ba925f67ece4facaa21bb10cdf07eef706df50144988694d8a7feffcae45196b"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.raw.jsonl",
+          "sha256": "1f11ba26337491be3ef10c47c49db61cdf242c804b74edcc6b69eee35d9dc35a"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.records.jsonl",
+          "sha256": "f511362f1240b0d0eb6e5d7527502a4ba427197705e745d118001872eaa1f30a"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/development.completion.json",
+          "sha256": "fad80740929d7e4b598f318899d9add65001959923ad7c76c2ec1a7ad495781f"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat3/P0/smoke-inspection.json",
+          "sha256": "0870af0c2d84ef09b68fa4ed7117c6573c6bb6435c28a438cd9b9f956f16d2ed"
         }
       ],
       "declaredExternalSourceHashes": {
@@ -1573,15 +1900,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 2,
+      "completedConditions": 3,
       "plannedConditions": 3,
-      "missingPasses": [
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "open_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "partialPasses": [],
       "passes": {
         "original": {
@@ -1910,55 +2231,260 @@
             }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 49,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 37,
+                "yes": 21
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                4.901641333010048,
+                4.906539457995677,
+                5.28016204200685,
+                5.107308208011091,
+                5.104183167015435,
+                5.098855457996251,
+                5.14845720800804,
+                5.344887083017966,
+                5.254673666000599,
+                5.216454333014553,
+                5.2413062500127126,
+                5.061176250019344,
+                5.114111000002595,
+                5.120715750003001,
+                5.253392125014216,
+                5.042633249977371,
+                5.086858374997973,
+                5.116323874972295,
+                5.104218124994077,
+                5.072619624988874,
+                5.076579749991652,
+                4.944193542003632,
+                5.020409874996403,
+                5.019124667014694,
+                4.906034749990795,
+                5.100863375002518,
+                4.984412499994505,
+                5.126626499986742,
+                5.1892921249964274,
+                5.199696333002066,
+                4.944679166015703,
+                5.001107499992941,
+                6.458238249993883,
+                4.920860542013543,
+                5.274927541002398,
+                5.126903249998577,
+                5.570735457993578,
+                5.507106917008059,
+                5.510715542011894,
+                5.5654639169806615,
+                5.51343445898965,
+                5.2778962919837795,
+                4.954532750009093,
+                5.118914874998154,
+                4.971095167013118,
+                4.706781124987174,
+                4.817248291015858,
+                4.328945833985927,
+                4.7627115409995895,
+                4.413809792022221,
+                4.191555667028297,
+                4.696434707992012,
+                4.450087999983225,
+                4.389507291984046,
+                5.100438374996884,
+                4.746234083024319,
+                4.9663038330036215,
+                5.068961874989327,
+                5.0108793330146,
+                4.997126333008055
+              ],
+              "requestSecondsTotal": 303.5073877060786,
+              "modelLoadSeconds": null,
+              "clientRunSecondsLowerBound": null,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.root-review.json",
+                  "sha256": "579b7e22fc9dbdc5a0b67cbc1b06cc559d3b004ea4329dadf5d1a3a5e2531f8a"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.claim.json",
+                  "sha256": "fcd1ee549675a64b2a9d2066e357cb1097bcbc439da997f9aac76cbead991ff2"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "00831cad1bb09e9395a321fdb5e682f1e33d767067225372413f145e4ad47bc6"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.raw.jsonl",
+                  "sha256": "4f0d84f5d1beb222906973a5349333ac4f05f176803e7a6512fbc270fdbe0f9e"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "20d906b9927871453f5a0270e0781bbffbb260e83a7fab65c010eaac6654d042"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.completion.json",
+                  "sha256": "929010b49ea3d19939ae1b50e20bba4f9fc59f5b32a660d98a39979ba957f03b"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke-inspection.json",
+                "sha256": "c21f83dcd142e6a5cc337ea2a93c6094a34803ebc757a6009aa155fbf3f40a81"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.root-review.json",
+                  "sha256": "60082bab852342108c35de76333b922a607a497f41c24bff1bb7a64c806ae42c"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.claim.json",
+                  "sha256": "30fee2a5b7837219bef697f82947c1bf39c04a2c510864087392850ebf0985c9"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.journal.jsonl",
+                  "sha256": "c00c92bf13d58d5be7c8da2e5a4f51afd46473d399639a2e8c8f0648acb6c238"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.raw.jsonl",
+                  "sha256": "8fb01dd30a48df9604cf9c513a0f260f6e757304dd6d89f2374c6becb7ff021d"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.records.jsonl",
+                  "sha256": "fe5a6eaf267081bba22c0cf3d916d2cd191bf1bf9f3dc05dce14e0a62fd2e647"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.completion.json",
+                  "sha256": "8a5888ea0534ac17310d5f8c2c53c61493acd9cfe507907f70f0d9322511b924"
+                }
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              35,
               35,
               35
             ],
-            "mean": null,
-            "range": null
+            "mean": 35.0,
+            "range": [
+              35,
+              35
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                50,
                 50,
                 50
               ],
-              "mean": null,
-              "range": null
+              "mean": 50.0,
+              "range": [
+                50,
+                50
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                56,
                 56,
                 56
               ],
-              "mean": null,
-              "range": null
+              "mean": 56.0,
+              "range": [
+                56,
+                56
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                49,
                 49,
                 49
               ],
-              "mean": null,
-              "range": null
+              "mean": 49.0,
+              "range": [
+                49,
+                49
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                54,
                 54,
                 54
               ],
-              "mean": null,
-              "range": null
+              "mean": 54.0,
+              "range": [
+                54,
+                54
+              ]
             }
           }
         }
@@ -1995,9 +2521,85 @@
             "rate": 0.0,
             "caseIds": []
           }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        }
+      },
       "withinPassPromptDeltas": [],
       "sourceBindings": [
         {
@@ -2099,6 +2701,58 @@
         {
           "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke-inspection.json",
           "sha256": "f97a2bbe143f170940eaeeeba1c9f2cac6493bc3b46c377f9617ad39cee756d0"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.root-review.json",
+          "sha256": "579b7e22fc9dbdc5a0b67cbc1b06cc559d3b004ea4329dadf5d1a3a5e2531f8a"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.claim.json",
+          "sha256": "fcd1ee549675a64b2a9d2066e357cb1097bcbc439da997f9aac76cbead991ff2"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "00831cad1bb09e9395a321fdb5e682f1e33d767067225372413f145e4ad47bc6"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.raw.jsonl",
+          "sha256": "4f0d84f5d1beb222906973a5349333ac4f05f176803e7a6512fbc270fdbe0f9e"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.records.jsonl",
+          "sha256": "20d906b9927871453f5a0270e0781bbffbb260e83a7fab65c010eaac6654d042"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke.completion.json",
+          "sha256": "929010b49ea3d19939ae1b50e20bba4f9fc59f5b32a660d98a39979ba957f03b"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.root-review.json",
+          "sha256": "60082bab852342108c35de76333b922a607a497f41c24bff1bb7a64c806ae42c"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.claim.json",
+          "sha256": "30fee2a5b7837219bef697f82947c1bf39c04a2c510864087392850ebf0985c9"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.journal.jsonl",
+          "sha256": "c00c92bf13d58d5be7c8da2e5a4f51afd46473d399639a2e8c8f0648acb6c238"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.raw.jsonl",
+          "sha256": "8fb01dd30a48df9604cf9c513a0f260f6e757304dd6d89f2374c6becb7ff021d"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.records.jsonl",
+          "sha256": "fe5a6eaf267081bba22c0cf3d916d2cd191bf1bf9f3dc05dce14e0a62fd2e647"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/development.completion.json",
+          "sha256": "8a5888ea0534ac17310d5f8c2c53c61493acd9cfe507907f70f0d9322511b924"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat3/P0/smoke-inspection.json",
+          "sha256": "c21f83dcd142e6a5cc337ea2a93c6094a34803ebc757a6009aa155fbf3f40a81"
         }
       ],
       "declaredExternalSourceHashes": {

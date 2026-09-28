@@ -1,6 +1,6 @@
 # SemIf native repeat findings, 28 September 2026
 
-Interim analysis: direct mode has three completed passes; serial and shared each have two. Every completed pass contains 60 valid classifications, with no changed predictions within a mode. The third serial and shared passes are still pending; the full three-mode study is unfinished.
+All three native modes completed three full passes. Every pass contains 60 valid classifications, with no changed predictions within a mode. This closes the SemIf native P0 stability study; it does not close the wider benchmark roster.
 
 | Native mode | All four fields | Sentiment | Follow-up | Serious concern | Testimonial |
 | --- | ---: | ---: | ---: | ---: | ---: |
