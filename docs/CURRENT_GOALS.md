@@ -77,6 +77,14 @@ GPT-5.6 Luna low, medium and high and GPT-5.6 Sol high have now closed all nine 
 
 The next four Codex configurations are in offline preparation: GPT-5.6 Sol low, medium and xhigh, and Terra high. Preparation is not dispatch. Fable high/xhigh repeats continue, followed by report integration. Haiku's saved P1 failure is attributable to a CLI ENOTFOUND transport failure, but its delayed suffix and retry history do not meet the existing matched-triple protocol. A separate fresh three-pass series is being prepared; the historical 50-valid/10-failed P1 remains preserved.
 
+## Additional admissions, 2026-09-28
+
+The completed four-configuration Codex wave is published in dad92c1; deployment 36403333599 succeeded and the public report was fetched with all seven published Codex series at nine completed combinations each. The next four configurations (GPT-5.6 Sol low/medium/xhigh and Terra high) are now admitted, with up to four independent configurations running concurrently under fresh phase-specific quota checks.
+
+Haiku's separate matched three-pass study is frozen and admitted through the Claude subscription. Its P0 smoke passed and first development condition is running. The historical transport failure remains separate. See the [Haiku protocol](CLAUDE_HAIKU_MATCHED3.md).
+
+Gemini 3.7 Flash high is also admitted on OpenRouter, with its first smoke passed and development running. A $1 child allocation raises master accounted/encumbered capacity to $9.65582248150, leaving $0.34417751850 unallocated under $10. This includes the full active allocation and is not actual spending. Reconcile it after closure. Gemini 3.1 Pro high is prepared in the reviewed controller but not allocated or dispatched; the requested $15 total cap remains pending. See the [high-effort wave](GEMINI_HIGH_REPEAT_WAVE.md).
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
