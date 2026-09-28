@@ -85,7 +85,7 @@ This table records experiment families outside the 55-series table above. Counts
 | AnyJev L0 | 1/3 native P0 | Repeat two is active after a successful smoke; repeat three has not started. |
 | Alex OpenJev 0.8B and 4B | 0/6 fresh native P0 | Reviewed manifests frozen; historical observations do not count as fresh passes. |
 | OpenJev fixed, adaptive and thinking | 0/9 fresh native P0 | Reviewed manifest frozen; all development passes pending. |
-| Generated OpenJev off/on, SemIf and AnyJev | 0/36 fresh prompt/pass combinations | New P0/P1/P2 admission controllers are being prepared. Historical invalid and unknown outcomes remain separate. |
+| Generated OpenJev off/on, SemIf and AnyJev | 0/36 fresh prompt/pass combinations | AnyJev, SemIf and OpenJev P0/P1/P2 controllers are reviewed and frozen; no development phases dispatched. Historical invalid and unknown outcomes remain separate. |
 | AnyJev L1/L2 calibration | Procedure admission pending | Cached L1 refits do not measure new inference variability. Direct L1 and exact staged L2 need distinct declared procedures. |
 
 Sources: [native audit](ANYJEV_ALEX_OPENJEV_NATIVE_P0_NEXT_ADMISSION_2026-09-28.md), [generated-control audit](GENERATED_SPECIALIST_REPEAT_NEXT_ADMISSION_2026-09-28.md), [calibration audit](ANYJEV_CALIBRATION_NEXT_ADMISSION_2026-09-28.md), and [current verified checkpoints](CURRENT_GOALS.md). None of these pending requirements is excluded from scope.
