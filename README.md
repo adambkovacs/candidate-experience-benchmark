@@ -15,7 +15,7 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
-The [visual findings](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) explain prompt changes, Jev's disagreements, difficult reviews and observed costs. The [analysis report](docs/FINDINGS.md) gives the interpretation and links to saved evidence.
+The [visual findings](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) explain prompt changes, Jev's disagreements, difficult reviews and observed costs. The [analysis report](docs/FINDINGS.md) gives the interpretation and links to saved evidence. A separate [analysis of seven hosted continuation runs](docs/HOSTED_CONTINUATION_FINDINGS_2026-09-28.md) compares field changes and output failures. Those runs departed from the planned schedule and remain outside the strict paired cohort.
 
 - Adding a decision tree after classifier framing reduced agreement in 21 of 39 audited hosted/subscription setups, improved it in 4, and left 14 unchanged. Extra instructions did not consistently help.
 - All 18 Codex configurations completed their three-pass studies. Classifier instructions improved agreement in every pass for two configurations; decision-tree instructions did so for none. [See the repeat analysis](docs/CODEX_REPEAT_SYNTHESIS_2026-09-28.md).

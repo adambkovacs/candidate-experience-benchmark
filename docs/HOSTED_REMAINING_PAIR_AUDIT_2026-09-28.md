@@ -26,3 +26,7 @@ The [audit index](../results/prompt-comparison-v1-2026-09-24/paired-reports/host
 The [versioned offline adapter](../scripts/evaluate_hosted_continuation_pairs_v1.py) and [seven source-bound evaluations](../results/prompt-comparison-v1-2026-09-24/paired-reports/hosted-remaining-audit-v1/continuation-pairs-v1/index.json) verify raw requests, continuation journals and Qwen's suffix plan without inventing timestamps. Seven tests and all seven real-source recomputations pass. Invalid and failed positions remain in the denominator.
 
 These are descriptive comparisons only: each continuation departed from the original counterbalanced schedule. The adapter does not establish semantic smoke/admission gate review or the original evaluator's historical retry-selection contract. Every output therefore retains `eligible_paired_comparison: false`. The original audit's public-data hash remains a historical discovery snapshot; the adapter verifies the immutable request and protocol sources and explicitly excludes that mutable discovery export from runtime checks.
+
+## Descriptive findings
+
+The [continuation findings](HOSTED_CONTINUATION_FINDINGS_2026-09-28.md) analyze the saved scores, field changes and failure patterns using the versioned offline adapter. They preserve the strict eligibility failures described above and do not change the audited cohort count.
