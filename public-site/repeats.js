@@ -12,7 +12,7 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  Promise.all(['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './gemini-repeats.json'].map(url => fetch(url).then(r => {if (!r.ok) throw Error('Missing repeat results'); return r.json();}))).then(payloads => {
+  Promise.all(['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json'].map(url => fetch(url).then(r => {if (!r.ok) throw Error('Missing repeat results'); return r.json();}))).then(payloads => {
     const series = payloads.flatMap(payload => payload.series || [payload]);
     if (!series.length) throw Error('No repeat series');
     root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(s.configuration)}">${esc(s.displayName || s.configuration)}</option>`).join('')}</select></label>
