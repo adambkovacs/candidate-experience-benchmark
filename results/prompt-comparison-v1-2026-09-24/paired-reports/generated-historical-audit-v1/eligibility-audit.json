@@ -1,0 +1,352 @@
+{
+  "schema": "generated-historical-pair-eligibility-audit-v1",
+  "asOf": "2026-09-28",
+  "inferencePerformed": false,
+  "strictPairedEligibilityEstablished": false,
+  "pairedEvaluatorInvoked": false,
+  "inputs": {
+    "path": "data/pilot/inputs.jsonl",
+    "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+  },
+  "references": {
+    "path": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "usedOnlyOffline": true
+  },
+  "evaluator": {
+    "path": "scripts/evaluate_prompt_variants.py",
+    "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69",
+    "localGeneratedExtractorAvailable": false,
+    "declaredOnlyIsEligible": false
+  },
+  "admissionAudit": {
+    "path": "docs/GENERATED_SPECIALIST_REPEAT_NEXT_ADMISSION_2026-09-28.md",
+    "sha256": "8909df7d32605d52ae848c03c5633d1f13465a40533c7bd9e94fa7457586c890"
+  },
+  "configurations": {
+    "openjev-generated-off": {
+      "disposition": "not_strictly_pair_eligible",
+      "conditions": {
+        "P0": {
+          "path": "results/openjev-local-generated-off-2026-09-23/development.jsonl",
+          "sha256": "e29f4f0ef76ec8d62bbd5efe0791b0e536e38b8d50bbfd0623a72fbf7572d46f",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 8,
+            "ok": 52
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": false,
+            "request_body_sha256": false,
+            "rendered_token_ids_sha256": false,
+            "rendered_prompt_sha256": false,
+            "messages": false,
+            "generated_token_ids": false,
+            "raw_response": true,
+            "finish_reason": false
+          }
+        },
+        "P1": {
+          "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-development.jsonl",
+          "sha256": "8a830d9460f30a1e59715f5847d1b1fb33f8e688f9ae3ece18fbe2dcd0a04243",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 6,
+            "ok": 54
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": true,
+            "request_body_sha256": true,
+            "rendered_token_ids_sha256": true,
+            "rendered_prompt_sha256": false,
+            "messages": false,
+            "generated_token_ids": false,
+            "raw_response": true,
+            "finish_reason": true
+          },
+          "supplementalEvidence": [
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-development.jsonl.events.jsonl",
+              "sha256": "c967a34909fffa069f3b6d618b9ee1132a22ba905a9b5515a84f5535892de2f5"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-development.jsonl.terminal.json",
+              "sha256": "737fc3c3c128f9bc98b424e97e2160713befe79418f5367c7c8137c28bd37ced"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P1-smoke-inspection.json",
+              "sha256": "d9f382c54714c4534f6fd2cb6ad5db5adcba95a5a336a3a6397acbeab5eff8a7"
+            }
+          ],
+          "verifiedRequestHashMirrors": 60
+        },
+        "P2": {
+          "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl",
+          "sha256": "b21b1f4d93f5c881ee669287cfcb28b9688af7d35497a8a78064a78b2ae38a3c",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 4,
+            "ok": 56
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": true,
+            "request_body_sha256": true,
+            "rendered_token_ids_sha256": true,
+            "rendered_prompt_sha256": false,
+            "messages": false,
+            "generated_token_ids": false,
+            "raw_response": true,
+            "finish_reason": true
+          },
+          "supplementalEvidence": [
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl.events.jsonl",
+              "sha256": "b539a960ff147d41a5f31bff3f6c18c7516bb686e9b9d1a8df86133cce8e3b89"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-development.jsonl.terminal.json",
+              "sha256": "f2b38270c63f0e90b67074ab2e1a7d4077288b3f6b1fb5da3871c6503bcda159"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-off/P2-smoke-inspection.json",
+              "sha256": "edac0b58e3d984cb6a8d38fac31c2963ae6beb7d0cf8653c1449d085a4e50bcf"
+            }
+          ],
+          "verifiedRequestHashMirrors": 60
+        }
+      },
+      "sourceReconstruction": {
+        "currentSourcePath": "scripts/jev_benchmark.py",
+        "currentSourceSha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22",
+        "historicalP0RequestHashesMatched": 60,
+        "historicalP0RequestHashCount": 60,
+        "limit": "Current pure composer reproduces saved request hashes; historical executing source bytes and rendered/wire bytes are not established by this check."
+      },
+      "gap": "P0 has canonical request hashes and raw responses but no saved wire body or server-rendered token IDs. P1/P2 have both; exact P0 execution parity is not observed."
+    },
+    "openjev-generated-on": {
+      "disposition": "not_strictly_pair_eligible",
+      "conditions": {
+        "P0": {
+          "path": "results/openjev-local-generated-on-2026-09-23/development.jsonl",
+          "sha256": "08ea1e5b3efa7551dcfc588c1524a00c1a20f08e922a04d732c8ebe6f867b05e",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 1,
+            "ok": 59
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": false,
+            "request_body_sha256": false,
+            "rendered_token_ids_sha256": false,
+            "rendered_prompt_sha256": false,
+            "messages": false,
+            "generated_token_ids": false,
+            "raw_response": true,
+            "finish_reason": false
+          }
+        },
+        "P1": {
+          "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-development.jsonl",
+          "sha256": "2ff23eab29cb0a22c198d11e88549bd783f278d722374f04a6db6731ba075426",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 10,
+            "ok": 50
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": true,
+            "request_body_sha256": true,
+            "rendered_token_ids_sha256": true,
+            "rendered_prompt_sha256": false,
+            "messages": false,
+            "generated_token_ids": false,
+            "raw_response": true,
+            "finish_reason": true
+          },
+          "supplementalEvidence": [
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-development.jsonl.events.jsonl",
+              "sha256": "73c91a5c986528644bfd975bbccf2740f257e676a97cf09d7cbf7d4fdc554f03"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-development.jsonl.terminal.json",
+              "sha256": "19696f6d0590bac3bfaa5939ac187e1d92d452e0e34cec095702e5205af22b47"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P1-smoke-inspection.json",
+              "sha256": "94def630a479cb354b2044627bbaa31638afb2055232102fbfa2070ca67222d4"
+            }
+          ],
+          "verifiedRequestHashMirrors": 60
+        },
+        "P2": {
+          "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-development.jsonl",
+          "sha256": "2f3b3975b57e2ec618878d4fdc3457203bb817fe511fbbd94b9164e721639202",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 7,
+            "ok": 53
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": true,
+            "request_body_sha256": true,
+            "rendered_token_ids_sha256": true,
+            "rendered_prompt_sha256": false,
+            "messages": false,
+            "generated_token_ids": false,
+            "raw_response": true,
+            "finish_reason": true
+          },
+          "supplementalEvidence": [
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-development.jsonl.events.jsonl",
+              "sha256": "54791b3a7580c197fe148c49f45cc86bcb32a81f928211f6c989e5d0552bdcb3"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-development.jsonl.terminal.json",
+              "sha256": "781edb941ce36163ef110c0ea1e2b9af20054571bf8681d1d1fb8a2d6947ee60"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/openjev-generated-exact-v1/generated-on/P2-smoke-inspection.json",
+              "sha256": "917ca81e6b01500fbee69d3e2f7602bc00f545c6244c14d454199c1cd17b0f18"
+            }
+          ],
+          "verifiedRequestHashMirrors": 60
+        }
+      },
+      "sourceReconstruction": {
+        "currentSourcePath": "scripts/jev_benchmark.py",
+        "currentSourceSha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22",
+        "historicalP0RequestHashesMatched": 60,
+        "historicalP0RequestHashCount": 60,
+        "limit": "Current pure composer reproduces saved request hashes; historical executing source bytes and rendered/wire bytes are not established by this check."
+      },
+      "gap": "P0 has no saved wire body or server-rendered token IDs. The requested enable_thinking true does not prove effective reasoning; P1/P2 also lack an effective-thinking observation."
+    },
+    "anyjev-qwen06-generated-control": {
+      "disposition": "not_strictly_pair_eligible",
+      "conditions": {
+        "P0": {
+          "path": "results/anyjev-qwen06-generated-mps-2026-09-23/development.jsonl",
+          "sha256": "0018a1e2f7db62f2d65af1fdb59ff8194f11d6af57b5d164801dcd425fe18d14",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 60
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": false,
+            "request_body_sha256": false,
+            "rendered_token_ids_sha256": false,
+            "rendered_prompt_sha256": false,
+            "messages": false,
+            "generated_token_ids": false,
+            "raw_response": true,
+            "finish_reason": true
+          }
+        },
+        "P1": {
+          "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P1-development.jsonl",
+          "sha256": "1909242d779350d36ffec32da66459363d03e6f5ee5602e5c22123fe6545236d",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 60
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": false,
+            "request_body_sha256": false,
+            "rendered_token_ids_sha256": false,
+            "rendered_prompt_sha256": true,
+            "messages": true,
+            "generated_token_ids": true,
+            "raw_response": true,
+            "finish_reason": true
+          },
+          "supplementalEvidence": [
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P1-development.jsonl.events.jsonl",
+              "sha256": "e2bffbe867b48a5872de55843bdf4bca7687fe26f77434d89b1c9a7acf21e18f"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P1-development.jsonl.terminal.json",
+              "sha256": "c225612ca64c14e34a8b68c8c515bcda6bc2034377d4fc5b3704bba2c593f03b"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P1-development.jsonl.token-preflight.json",
+              "sha256": "a8d17030cc93e19eb0bfd5950f4b69904d1ace191c999f23826d03cab6dfb843"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P1-smoke-inspection.json",
+              "sha256": "a100e2cab02bae260d5d1950722d2d8e3fbc4d7921cfbf06f70ad29e2da4ff49"
+            }
+          ],
+          "verifiedRequestHashMirrors": 60
+        },
+        "P2": {
+          "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl",
+          "sha256": "1b432869380647970046e3cd33c34bdc3bfb68ddaef021c52f02b53f194339c9",
+          "records": 60,
+          "exactOrderedIds": true,
+          "statusCounts": {
+            "invalid_output": 30,
+            "ok": 30
+          },
+          "savedEvidenceFieldsAllRows": {
+            "request_sha256": true,
+            "request_body_utf8": false,
+            "request_body_sha256": false,
+            "rendered_token_ids_sha256": false,
+            "rendered_prompt_sha256": true,
+            "messages": true,
+            "generated_token_ids": true,
+            "raw_response": true,
+            "finish_reason": true
+          },
+          "supplementalEvidence": [
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl.events.jsonl",
+              "sha256": "a8334566b2f25ddcfd492022646c668acbd25baa6217622522652a17785e377c"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl.terminal.json",
+              "sha256": "53aac56cceb21d0fb961adf4cb0f1abf39db151a741ed00824a3ca959421adae"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-development.jsonl.token-preflight.json",
+              "sha256": "8d3f811fda80bbf7eff1cc6d0d374b3b708a3c24e61816f6462ace7759781ede"
+            },
+            {
+              "path": "results/prompt-comparison-v1-2026-09-24/anyjev-generated-exact/P2-smoke-inspection.json",
+              "sha256": "1816bd4090c5655d5e5464c3453b59b7e59555606cc568fb8aeccf4a27833f89"
+            }
+          ],
+          "verifiedRequestHashMirrors": 60
+        }
+      },
+      "sourceReconstruction": {
+        "currentSourcePath": "scripts/anyjev_generation_control.py",
+        "currentSourceSha256": "dc3971124d49c9f49a0db99eddc005ba4eea5ba7ccf1068e8fba8a60595b5a2a",
+        "historicalP0RequestHashesMatched": 60,
+        "historicalP0RequestHashCount": 60,
+        "limit": "Current pure composer reproduces saved request hashes; historical executing source bytes and rendered/wire bytes are not established by this check."
+      },
+      "gap": "P0 has request hashes, raw generations and token counts but no saved messages, rendered prompt hash or generated token IDs. P1/P2 save these; exact P0 prompt parity is not observed."
+    }
+  }
+}
