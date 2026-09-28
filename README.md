@@ -84,7 +84,7 @@ python3 -m unittest discover -s tests -q
 node --test tests/*.cjs
 ```
 
-These checks do not launch paid inference. Runner-specific dependencies and instructions are in [development setup](docs/RUN_DEVELOPMENT.md) and [MVP run notes](docs/RUN_MVP.md).
+These checks do not launch paid inference or download models. Native Laya admission checks require the pinned local interpreter and checkpoint files; they report an explicit skip when those are absent. Runner-specific dependencies and instructions are in [development setup](docs/RUN_DEVELOPMENT.md) and [MVP run notes](docs/RUN_MVP.md).
 
 To serve the saved public view locally:
 

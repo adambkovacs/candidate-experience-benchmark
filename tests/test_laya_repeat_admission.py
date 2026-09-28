@@ -15,6 +15,11 @@ import laya_repeat_admission as admission
 class LayaRepeatAdmissionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if (Path(sys.executable).resolve() != admission.VENV_PYTHON.resolve()
+                or not admission.MODEL_ROOT.is_dir()):
+            raise unittest.SkipTest(
+                'Laya admission integration checks require the pinned local specialist '
+                'interpreter and checkpoint assets; they never download models.')
         cls.plan, cls.plan_sha = admission.verify_plan()
 
     def setUp(self):
