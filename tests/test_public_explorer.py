@@ -391,14 +391,25 @@ class PublicExportTests(unittest.TestCase):
   root=Path(__file__).resolve().parents[1]
   v2=root/'results/hosted-final-suffix-reconciled-v2/qwen36-on-p2.json'
   v3=root/'results/hosted-final-suffix-reconciled-v3/qwen36-on-p2.json'
-  expected=(41,37,19,4) if v3.is_file() else ((40,37,20,3) if v2.is_file() else (39,37,21,2))
+  episode2=root/'results/qwen36-on-p2-never-sent-episodes-v1/episode-002/reconciliation.json'
+  expected=(60,54,0,6) if episode2.is_file() else ((41,37,19,4) if v3.is_file() else ((40,37,20,3) if v2.is_file() else (39,37,21,2)))
   self.assertEqual((on['records'],on['valid'],on['neverSent'],on['statusCounts']['service_error']),expected)
-  self.assertFalse(on['complete'])
+  self.assertEqual(on['complete'],episode2.is_file())
   self.assertTrue(off['complete'])
   self.assertFalse(on['pairedEligible'])
-  self.assertAlmostEqual(on['cost']['knownUsd'],0.0417374)
-  self.assertEqual(on['cost']['unknownUpperBoundUsd'],'0.1196032' if v3.is_file() else ('0.0897024' if v2.is_file() else '0.0598016'))
-  if v2.is_file() or v3.is_file():
+  self.assertAlmostEqual(on['cost']['knownUsd'],0.0628516 if episode2.is_file() else 0.0417374)
+  self.assertEqual(on['cost']['unknownUpperBoundUsd'],'0.1794048' if episode2.is_file() else ('0.1196032' if v3.is_file() else ('0.0897024' if v2.is_file() else '0.0598016')))
+  if episode2.is_file():
+   self.assertEqual(on['protocolId'],'qwen36-on-p2-never-sent-episodes-v1')
+   self.assertEqual(on['statusCounts'],{'ok':54,'service_error':6})
+   self.assertEqual(on['failedIds'],['DEV-033','DEV-039','DEV-040','DEV-041','DEV-042','DEV-043'])
+   self.assertIsNone(on['cost']['actualUsd'])
+   self.assertIn('private',on['evidenceBoundary'])
+   self.assertTrue(any('episode-002/reconciliation.json' in source for source in on['evidenceSources']))
+   self.assertFalse(any(source.endswith('episode-001/responses.jsonl') for source in on['evidenceSources']))
+   self.assertEqual(len([case for case in x['cases'] if case['configuration']==on['id']]),60)
+   self.assertTrue(all(next(c for c in x['cases'] if c['configuration']==on['id'] and c['id']==ident)['status']=='service_error' for ident in on['failedIds']))
+  elif v2.is_file() or v3.is_file():
    self.assertEqual(on['protocolId'],'hosted-final-suffix-v3' if v3.is_file() else 'hosted-final-suffix-v2')
    self.assertEqual(len(on['sourceViews']),3 if v3.is_file() else 2)
    dev040=next(c for c in x['cases'] if c['configuration']==on['id'] and c['id']=='DEV-040')

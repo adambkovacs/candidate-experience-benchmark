@@ -155,8 +155,12 @@ The [current OpenRouter catalog audit](../results/route-audits/local-historical-
 
 ## Next delivery checkpoints
 
+Latest integration checkpoint, 2026-09-28: the Qwen P2 explorer now includes the closed episode-002 evidence (54 valid, six retained failures, none never sent). Its known charges are $0.0628516 plus $0.1794048 of unresolved upper bounds; the bounds are not observed spending. The audited Sol medium comparison raises the hosted/subscription prompt cohort from 38 to 39, with the accepted CLI patch difference and provider-rendering uncertainty retained. P2 versus P1 now has 21 decreases, four increases and fourteen ties. Generated findings and copy have been refreshed; deployment verification follows the publication commit.
+
+SemIf native repeat preparation and P0-only UI support are committed in `9cca967`; Pages deployment `36420999273` succeeded. All nine offline SemIf checks passed in the pinned runtime. The final Laya pass remains active, and no SemIf inference has begun. Repository-local `.env` credentials are ignored and owner-only; no API key belongs in committed evidence.
+
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
-2. Reconcile and admit the remaining requested hosted and subscription configurations against routes, frozen protocols, quotas and current budgets. Finish the never-sent Qwen suffix only after its exact route and preserved failures are audited. Do not replay failed positions.
+2. Reconcile and admit the remaining requested hosted and subscription configurations against routes, frozen protocols, quotas and current budgets. Verify publication of the closed Qwen suffix and preserve its failed positions without replay.
 3. Complete native-specialist eligibility work, unresolved-attempt dispositions, reference-review follow-up, repeat analysis and publication. Do not relabel unknown started attempts as never sent. Required human adjudication remains pending rather than fabricated.
 4. Keep the full requested roster and remaining funding or route requirements explicit. Completed subsets do not replace that roster. Do not exceed the $10/$1 caps without new user authorization.
 

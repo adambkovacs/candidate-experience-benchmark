@@ -200,7 +200,7 @@ def hard_cases(runs, cases, ids, labels, prompt):
         case_rows.append(row)
     case_rows.sort(key=lambda r:(-(r['wrongValid']+r['invalid']),r['id']))
     return {'categories':category_rows,'cases':case_rows,'rows':case_rows,'runIds':run_ids,
-            'note':'These are P0 results for the 38 strict hosted/subscription prompt configurations. A configuration-case outcome is counted once; rows are correlated and not independent trials. Category slices overlap. Ranked cases are disagreements with provisional AI-authored references, not adjudicated task difficulty.'}
+            'note':f'These are P0 results for the {len(run_ids)} audited hosted/subscription prompt configurations. A configuration-case outcome is counted once; rows are correlated and not independent trials. Category slices overlap. Ranked cases are disagreements with provisional AI-authored references, not adjudicated task difficulty.'}
 
 
 def effort_comparisons(runs, cases, ids):

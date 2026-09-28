@@ -156,6 +156,126 @@ def score_saved(predictions, root):
     return evaluation, all_four
 
 
+def qwen_on_p2_episode_public_view(root):
+    """Reconstruct the closed 60-position view from publication-safe evidence.
+
+    Episode 001's original response capture is intentionally private. Its
+    published redaction is checked as a separate object, not represented as
+    proof of the unavailable original bytes.
+    """
+    root = Path(root)
+    prefix = Path('results/qwen36-on-p2-never-sent-episodes-v1')
+    v3_path = Path('results/hosted-final-suffix-reconciled-v3/qwen36-on-p2.json')
+    v4_path = Path('results/qwen36-on-p2-final19-v4/reconciliation.json')
+    v3 = json.loads((root / v3_path).read_text())
+    v4 = json.loads((root / v4_path).read_text())
+
+    def bound(binding):
+        path = Path(binding['file'])
+        if path.is_absolute() or '..' in path.parts or digest(root / path) != binding['sha256']:
+            raise ValueError('Qwen episode public source binding differs: ' + str(path))
+        return path
+
+    if (v3.get('configuration_id') != 'openrouter-paid-qwen36-35b-a3b-on' or
+            v3.get('condition') != 'P2' or v3.get('attempted') != 41 or
+            v4.get('configuration_id') != v3['configuration_id'] or
+            v4.get('attempted') != 42 or v4.get('failed_ids') !=
+            ['DEV-033', 'DEV-039', 'DEV-040', 'DEV-041', 'DEV-042'] or
+            bound(v4['sources']['prior_report']) != v3_path):
+        raise ValueError('Qwen v3/v4 public prefix differs')
+    source_paths = [bound(v3['sources'][key]) for key in
+                    ('original', 'suffix_v1', 'suffix_v2', 'suffix_v3')]
+    source_paths.append(bound(v4['sources']['suffix_v4']))
+    saved = [row for path in source_paths for row in rows(root / path)]
+    if ([row.get('id') for row in saved] != [f'DEV-{n:03}' for n in range(1, 43)] or
+            sum(row.get('status') == 'ok' for row in saved) != 37):
+        raise ValueError('Qwen public prefix positions differ')
+
+    reports = []
+    for index in (1, 2):
+        folder = prefix / f'episode-{index:03}'
+        report_path = folder / 'reconciliation.json'
+        report = json.loads((root / report_path).read_text())
+        manifest_path = folder / 'manifest.json'
+        manifest = json.loads((root / manifest_path).read_text())
+        publication = (root / folder / 'PUBLICATION.md').read_text()
+        if (report.get('schema') != 'qwen36-on-p2-never-sent-episode-v1-reconciliation' or
+                report.get('episode_index') != index or
+                digest(root / manifest_path) != report.get('manifest_sha256') or
+                manifest.get('episode_index') != index or
+                manifest.get('provider') != 'akashml/fp8' or
+                manifest.get('reasoning') != 'on' or
+                manifest.get('retry_policy') != 'never retry attempted IDs' or
+                manifest.get('reference_labels_read') is not False or
+                manifest.get('previous_attempted_ids') != report.get('previous_attempted_ids') or
+                report.get('failed_ids') != ['DEV-033', 'DEV-039', 'DEV-040', 'DEV-041', 'DEV-042', 'DEV-043']):
+            raise ValueError('Qwen episode manifest or reconciliation differs')
+        expected_start = 43 if index == 1 else 44
+        expected_end = 43 if index == 1 else 60
+        expected_ids = [f'DEV-{n:03}' for n in range(expected_start, expected_end + 1)]
+        if (manifest.get('request_ids') != [f'DEV-{n:03}' for n in range(expected_start, 61)] or
+                report.get('attempted_ids') != [f'DEV-{n:03}' for n in range(1, expected_end + 1)] or
+                report.get('remaining_never_sent_ids') !=
+                [f'DEV-{n:03}' for n in range(expected_end + 1, 61)]):
+            raise ValueError('Qwen episode attempted membership differs')
+        if index == 2 and bound(manifest['previous_reconciliation']) != prefix / 'episode-001/reconciliation.json':
+            raise ValueError('Qwen episode predecessor differs')
+        for key in ('claim', 'journal', 'attempts', 'review'):
+            bound(report['evidence'][key])
+        bound(report['budget_manifest'])
+        bound(report['child_ledger'])
+        attempts_path = bound(report['evidence']['attempts'])
+        attempts = rows(root / attempts_path)
+        response_path = (folder / 'responses.public.jsonl') if index == 1 else bound(report['evidence']['responses'])
+        if index == 1:
+            # The publication explicitly describes the private-original/public-copy boundary.
+            if (report['evidence']['responses']['sha256'] not in publication or
+                    digest(root / response_path) != '8759c84e7bd5b0ec769122057dee82e2b07c0cf59a09b55cba543551aff043d1' or
+                    'redacted' not in publication.lower()):
+                raise ValueError('Qwen episode 001 public redaction boundary differs')
+        elif (report['evidence']['responses']['sha256'] not in publication or
+              report['evidence']['attempts']['sha256'] not in publication):
+            raise ValueError('Qwen episode 002 publication boundary differs')
+        response_rows = rows(root / response_path)
+        if (len(attempts) != len(expected_ids) or len(response_rows) != len(expected_ids) or
+                [a.get('id') for a in attempts] != expected_ids or
+                [(a.get('id'), a.get('attempt_id'), a.get('request_sha256')) for a in attempts] !=
+                [(r.get('id'), r.get('attempt_id'), r.get('request_sha256')) for r in response_rows]):
+            raise ValueError('Qwen episode public attempts or response attribution differ')
+        if index == 1:
+            if (attempts[0].get('status') != 'service_error' or
+                    attempts[0].get('cost_unknown') is not True or
+                    response_rows[0].get('publication_redaction') is None):
+                raise ValueError('Qwen episode 001 failure or redaction differs')
+        elif any(a.get('status') != 'ok' or a.get('cost_unknown') is not False or
+                 not isinstance(a.get('prediction'), dict) for a in attempts):
+            raise ValueError('Qwen episode 002 valid outcomes differ')
+        # Only the fields required for public scoring/usage leave this helper.
+        saved.extend({key: a[key] for key in ('id', 'status', 'prediction', 'elapsed_seconds', 'usage') if key in a}
+                     for a in attempts)
+        source_paths.extend((attempts_path, response_path, report_path, manifest_path,
+                             folder / 'PUBLICATION.md'))
+        reports.append(report)
+
+    if len(saved) != 60 or [r['id'] for r in saved] != [f'DEV-{n:03}' for n in range(1, 61)]:
+        raise ValueError('Qwen episode composite does not cover exactly 60 positions')
+    if sum(r.get('status') == 'ok' for r in saved) != 54 or any(
+            r.get('status') != 'service_error' for r in saved if r.get('id') in reports[-1]['failed_ids']):
+        raise ValueError('Qwen episode composite outcomes differ')
+    known = (Decimal(v3['cost']['known_observed_usd']) +
+             Decimal(v4['budget_reconciliation']['known_actual_usd']) +
+             sum(Decimal(r['master_reconciliation_event']['known_actual_usd']) for r in reports))
+    unknown = (Decimal(v3['cost']['unknown_reserved_upper_bound_usd']) +
+               Decimal(v4['budget_reconciliation']['unknown_upper_bound_usd']) +
+               sum(Decimal(r['master_reconciliation_event']['unknown_upper_bound_usd']) for r in reports))
+    if known != Decimal('0.0628516') or unknown != Decimal('0.1794048'):
+        raise ValueError('Qwen known cost or six retained unknown bounds differ')
+    private_capture = prefix / 'episode-001/responses.jsonl'
+    if private_capture in source_paths:
+        raise ValueError('Private episode 001 response cannot be a public source')
+    return saved, source_paths, known, unknown, reports[-1]['failed_ids']
+
+
 def phase_run(parent, condition, evaluation, all_four, source, root, baseline, telemetry=None, cost=None,
               predictions=None, paired=False, experiment='prompt-comparison-v1', status=None):
     base = baseline.get(parent, {})
@@ -1166,6 +1286,31 @@ def export(root=ROOT):
         run['neverSentIds'] = report['never_sent_ids']
         run['statusCounts'] = report['status_counts']
         replace_with_reconciliation(run, predictions, source_paths + [Path(sources['prior_report']['file'])])
+
+    # The terminal episode extends the interrupted P2 series. Public source
+    # paths are selected by qwen_on_p2_episode_public_view; episode 001's
+    # private original response is explicitly excluded there.
+    final_episode = root / 'results/qwen36-on-p2-never-sent-episodes-v1/episode-002/reconciliation.json'
+    if final_episode.is_file():
+        predictions, public_sources, known, unknown, failed_ids = qwen_on_p2_episode_public_view(root)
+        evaluation, all_four = score_saved(predictions, root)
+        if evaluation['valid_outputs'] != 54:
+            raise ValueError('Qwen episode public score differs from closed evidence')
+        report_path = final_episode.relative_to(root)
+        run = phase_run('openrouter-paid-qwen36-35b-a3b-on', 'P2', evaluation, all_four,
+                        report_path, root, baseline, predictions=predictions,
+                        experiment='qwen36-on-p2-never-sent-episodes-v1')
+        attempt_sources = public_sources[:5] + [path for path in public_sources[5:] if path.name == 'attempts.jsonl']
+        run['tokens'] = tokens({'attempt_files': [str(path) for path in attempt_sources]}, root)
+        run['cost'].update({'actualUsd': None, 'knownUsd': float(known),
+                            'unknownUpperBoundUsd': str(unknown), 'availability': 'partial',
+                            'note': 'Known development charges plus six conservatively held unknown-charge bounds; bounds are not observed spending.'})
+        run['neverSent'] = 0
+        run['neverSentIds'] = []
+        run['statusCounts'] = {'ok': 54, 'service_error': 6}
+        run['failedIds'] = failed_ids
+        run['evidenceBoundary'] = ('Episode 001 original response is private; its redacted public copy does not authenticate the original bytes.')
+        replace_with_reconciliation(run, predictions, public_sources)
 
     roster = []
     roster_entries = amended_roster(root, json.loads((phase_dir / 'roster.json').read_text())['entries'], runs)

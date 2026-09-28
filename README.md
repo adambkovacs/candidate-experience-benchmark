@@ -17,7 +17,7 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 The [visual findings](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) explain prompt changes, Jev's disagreements, difficult reviews and observed costs. The [analysis report](docs/FINDINGS.md) gives the interpretation and links to saved evidence.
 
-- Adding a decision tree after classifier framing reduced agreement in 21 of 38 audited hosted/subscription setups, improved it in 4, and left 13 unchanged. Extra instructions did not consistently help.
+- Adding a decision tree after classifier framing reduced agreement in 21 of 39 audited hosted/subscription setups, improved it in 4, and left 14 unchanged. Extra instructions did not consistently help.
 - Jev matched all 25 reviews whose reference reported a serious concern. Its six all-four disagreements included an off-topic review, a misread positive review and cases whose provisional labels need independent review.
 - Returning no for every testimonial judgment already matches 50 of 60 references. Read field scores alongside their class balance.
 
@@ -64,7 +64,7 @@ Gemini now also has 27 completed hosted P0/P1/P2 runs through OpenRouter, coveri
 | P1: classifier framing | An explicit classifier role and task instructions. |
 | P2: SOP and decision tree | Classifier framing plus a procedure for making the judgments. |
 
-Prompt comparisons have run. The [38 audited paired comparisons](results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-eight-eligible-comparisons.html) preserve eligibility checks. Other saved outcomes can be descriptive without qualifying as a controlled P0/P1/P2 comparison. Native classification interfaces do not automatically have equivalent generative prompt conditions.
+Prompt comparisons have run. The original [38 audited paired comparisons](results/prompt-comparison-v1-2026-09-24/paired-reports/thirty-eight-eligible-comparisons.html) preserve eligibility checks. The current export also includes the [audited GPT-6 Sol medium comparison](results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-6-sol-medium-batch10/evaluation.json), bringing this cohort to 39. The accepted CLI patch difference and unobserved provider rendering limit causal interpretation. Other saved outcomes can be descriptive without qualifying as a controlled P0/P1/P2 comparison. Native classification interfaces do not automatically have equivalent generative prompt conditions.
 
 Batch-context baselines remain separate from historical single-record runs. Missing results and invalid outputs remain visible; they are not dropped to improve a score. Read the [prompt protocol](docs/PROMPT_VARIANTS.md) for the exact distinctions.
 

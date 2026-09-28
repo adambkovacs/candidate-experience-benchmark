@@ -6,7 +6,7 @@ This analysis asks what the saved responses reveal about classification, instruc
 
 ## More instructions did not consistently improve agreement
 
-Across **38 audited hosted and subscription prompt setups**, classifier framing (P1) improved all-four agreement over the original rubric (P0) in 15 setups, tied in 15, and worsened it in 8. Adding the SOP and decision tree (P2) to P1 improved 4, tied 13, and worsened 21.
+Across **39 audited hosted and subscription prompt setups**, classifier framing (P1) improved all-four agreement over the original rubric (P0) in 15 setups, tied in 15, and worsened it in 9. Adding the SOP and decision tree (P2) to P1 improved 4, tied 14, and worsened 21.
 
 | Comparison | More matches | Same score | Fewer matches |
 | --- | ---: | ---: | ---: |
@@ -63,7 +63,7 @@ These named examples illustrate methods and overlapping errors; they are not a r
 
 ## Disagreements cluster around three ambiguous reviews
 
-In the P0 runs of the 38 audited hosted/subscription configurations, DEV-013 drew 30 valid disagreements, DEV-030 drew 27, and DEV-006 drew 25. Each denominator is 38 configurations answering the same review, not 38 independently sampled reviews. The website shows all 60 reviews, separates invalid responses, and links to the wording and labels.
+In the P0 runs of the 39 audited hosted/subscription configurations, DEV-013 drew 30 valid disagreements, DEV-030 drew 28, and DEV-006 drew 26. Each denominator is 39 configurations answering the same review, not 39 independently sampled reviews. The website shows all 60 reviews, separates invalid responses, and links to the wording and labels.
 
 All three cases involve interpretation rather than a simple explicit category: mild praise versus neutrality, uncertain resolution, and an unspecified recurring problem. They should be early targets for independent reference review. Frequent disagreement can identify a weak reference as well as a weak classifier.
 
@@ -71,7 +71,7 @@ All three cases involve interpretation rather than a simple explicit category: m
 
 The [versioned review](REFERENCE_REVIEW_V1.md), completed after this analysis, proposes one correction: DEV-006 serious concern should be no under the existing guide. Its wording does not allege a serious category. DEV-013 and DEV-030 sentiment remain unchanged pending human adjudication. This follow-up is another AI review, not an independent human reference standard.
 
-The [separate rescore](../results/reference-review-v1.json) changes Jev from 54 to 55 all-four matches and the 38 audited P0 configurations from 2,143 to 2,139 matches across 2,280 configuration-review outcomes. No inference was repeated. The published charts retain their original v0.2 reference; the [proposed v0.3 patch](../data/pilot/reference-revisions/v0.3.json) is not silently substituted.
+The earlier 38-configuration [separate rescore](../results/reference-review-v1.json) changes Jev from 54 to 55 all-four matches and the 38 audited P0 configurations from 2,143 to 2,139 matches across 2,280 configuration-review outcomes. No inference was repeated. The published charts retain their original v0.2 reference; the [proposed v0.3 patch](../data/pilot/reference-revisions/v0.3.json) is not silently substituted.
 
 ## Some reference labels need independent review
 

@@ -41,7 +41,7 @@ class FindingsTests(unittest.TestCase):
         self.assertEqual(290,output['meta']['runCount'])
         self.assertEqual(17400,output['meta']['caseCount'])
         prompt=output['charts']['promptDeltas']['cohorts']
-        self.assertEqual([('strict',38),('hosted_observational',9),('local_historical_baseline',5)],
+        self.assertEqual([('strict',39),('hosted_observational',9),('local_historical_baseline',5)],
                          [(r['id'],r['configurations']) for r in prompt])
         for group in prompt:
             for comparison in group['comparisons'].values():
