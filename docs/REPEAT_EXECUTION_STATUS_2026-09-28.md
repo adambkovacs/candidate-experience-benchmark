@@ -71,11 +71,11 @@ Of these 55 series, 49 have nine full condition/pass entries, one Mistral series
 - [Reference review](REFERENCE_REVIEW_V1.md): proposed DEV-006 correction and DEV-013/030 human adjudication remain unresolved. No inference label is silently changed.
 - [Publication privacy](PUBLIC_EVIDENCE_PRIVACY.md): new Claude exports are verified and published; 648 quota-bearing captures were removed from the current Git tree with private originals preserved; historical Git exposure remains unresolved.
 
-Funding and route failures explain unfinished work. They do not remove it from scope. OpenRouter remains capped at $10, TypeSafe at $1; the requested $15 OpenRouter cap has not been authorized. Reconcile the live ledger before any new allocation.
+Funding and route failures explain unfinished work. They do not remove it from scope. OpenRouter remains capped at $10, TypeSafe at $1; proposed increases to $12 and $15 have not been authorized. Reconcile the live ledger before any new allocation.
 
 ## Separate native and generated specialist work
 
-This table records experiment families outside the 55-series table above. Its AnyJev L0 row reflects the saved repeat-three completion and source-bound offline report; the 55-series snapshot above retains its earlier timestamp. Counts refer to development passes, not smoke tests, and do not imply that a valid answer matches a reference.
+This table records experiment families outside the 55-series table above. The specialist rows include the latest closed Alex first pass and published L0 three-pass study; the 55-series snapshot above retains its earlier timestamp. Counts refer to development passes, not smoke tests, and do not imply that a valid answer matches a reference.
 
 | Family | Closed passes | Remaining work |
 | --- | ---: | --- |
@@ -83,14 +83,16 @@ This table records experiment families outside the 55-series table above. Its An
 | SemIf native, three modes | 9/9 native P0 | Repeat findings published. |
 | AnyJev raw | 3/3 native P0 | Findings published and live bytes verified. |
 | AnyJev L0 | 3/3 native P0 | All three development passes have 60 valid outputs and 4/60 all-field agreement with provisional references. Per-field agreement is 37/60 sentiment, 13/60 follow-up, 34/60 serious concern and 44/60 testimonial potential. No case changes classification across passes. Findings published; live report, page and script bytes verified. |
-| Alex OpenJev 0.8B and 4B | 0/6 fresh native P0 | Reviewed manifests frozen; historical observations do not count as fresh passes. The 0.8B fresh-one smoke closed with three valid outputs and an inspected 42-distribution NLI check; its development pass is running and remains unscored. The 4B passes have not begun. |
+| Alex OpenJev 0.8B and 4B | 1/6 fresh native P0 | The 0.8B first fresh pass is closed and published: 60 valid, 3/60 all-field matches. Its second smoke is closed and inspected; second development is running. Third pass and all 4B fresh passes remain pending. Historical observations stay excluded. |
 | OpenJev fixed, adaptive and thinking | 0/9 fresh native P0 | Reviewed manifest frozen; all development passes pending. |
 | Generated OpenJev off/on, SemIf and AnyJev | 0/36 fresh prompt/pass combinations | AnyJev (`8d5bbf7`), SemIf (`08a667a`) and OpenJev v2 (`de88662`, reporter `85e81e6`) have reviewed offline admission/report paths. OpenJev v1 remains blocked; v2 preserves intended request bytes. No development phases dispatched. Historical invalid and unknown outcomes remain separate. |
-| AnyJev L1/L2 calibration | 0 fresh passes | Direct-native L1's three-pass manifest and reviewed controller are frozen in `b96b420`. L2's reviewed controller is in `ed62fc5`, with repeat-two offline manifests frozen in `2ab6396`. Neither study has a stage receipt or repeat inference. Cached L1 refits remain observational. |
+| AnyJev L1/L2 calibration | L1 0/3; L2 historical 1/3 | Direct-native L1 has a frozen three-pass plan and reviewed reporter (`39bc1e0`). L2 has repeat-two frozen manifests and a reviewed reporter (`7588254`); repeat three requires a successor plan after repeat two closes. Neither has new repeat inference. Cached L1 refits remain observational. |
 
 Sources: [native audit](ANYJEV_ALEX_OPENJEV_NATIVE_P0_NEXT_ADMISSION_2026-09-28.md), [generated-control audit](GENERATED_SPECIALIST_REPEAT_NEXT_ADMISSION_2026-09-28.md), [calibration audit](ANYJEV_CALIBRATION_NEXT_ADMISSION_2026-09-28.md), and [current verified checkpoints](CURRENT_GOALS.md). None of these pending requirements is excluded from scope.
 
 ## Source reports
+
+- [alex-native-repeats.json](../public-site/alex-native-repeats.json): SHA-256 `6160834a1c11625e2b2c612f16d9fc7dd11524960195220eda506158201a2f03`; 0.8B 1/3 fresh passes, 4B 0/3. Published in `74115d8`, deployment `36476372868` and live bytes verified.
 
 - [repeats.json](../public-site/repeats.json): SHA-256 `e6acc3e09d4a2d59042e08d268c64ab9ff5a9949810513547802965d3f447c4a`.
 - [claude-roster-repeats.json](../public-site/claude-roster-repeats.json): SHA-256 `11a44a7368695bb8f53961ba05b55b8eeca1701487ecd6036b9a110027af6a4d`.
