@@ -1,0 +1,179 @@
+{
+  "contract": "hosted-remaining-pair-audit-v1",
+  "configuration_id": "openrouter-paid-qwen3.8-27b-medium",
+  "status": "blocked_for_existing_paired_evaluator",
+  "reference_labels_read": false,
+  "inference_performed": false,
+  "source_bindings": [
+    {
+      "file": "public-site/data.json",
+      "sha256": "5cc6b65ea0c6196bfa58bbed2ccf0414e4bf64b831a5c7ef86a2e21fb3d4bd2f"
+    },
+    {
+      "file": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "file": "prompts/variants-v1/manifest.json",
+      "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+    },
+    {
+      "file": "prompts/variants-v1/P1-classifier.txt",
+      "sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7"
+    },
+    {
+      "file": "prompts/variants-v1/P2-classifier-sop.txt",
+      "sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9"
+    },
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/configuration.json",
+      "sha256": "b83722d8580f43cb33f1c73b2c949f1ab98fe76fa42896f2355163b1299f18bf"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/baseline.txt",
+      "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+    }
+  ],
+  "conditions": {
+    "P0": {
+      "record_count": 60,
+      "unique_ids": 60,
+      "valid_count": 59,
+      "status_counts": {
+        "ok": 59,
+        "service_error": 1
+      },
+      "source_bindings": [
+        {
+          "file": "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl",
+          "sha256": "5704234c79b3952e5545cb27fd08426da390068c01e645e99392bf918a3a9a14"
+        }
+      ],
+      "lifecycle_bindings": [],
+      "requested_model": "qwen/qwen3.8-27b",
+      "provider_tag": "deepinfra/bf16",
+      "quantization": "bf16",
+      "reasoning_effort": "medium",
+      "instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+      "observed_context_lengths": [
+        262144
+      ],
+      "missing_required_saved_fields": {},
+      "saved_request_control_mismatches": [],
+      "existing_request_auditor": {
+        "status": "passes_unchanged_request_auditor"
+      },
+      "all_60_accounted_not_clean_timing": false
+    },
+    "P1": {
+      "record_count": 60,
+      "unique_ids": 60,
+      "valid_count": 59,
+      "status_counts": {
+        "ok": 59,
+        "service_error": 1
+      },
+      "source_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/development.jsonl",
+          "sha256": "2077ef425815654a617ed1c159c1b5fb872b4c9060ae8cb3cd5fbe79e1be9845"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/development.jsonl",
+          "sha256": "90f919ec2ea9a82ac39e362ce6a93efcdd1633bf85239cc4cf7fd7f49732c647"
+        }
+      ],
+      "lifecycle_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/smoke-inspection.json",
+          "sha256": "fd9ea90d2efa2b895a84e45622a220d8ee9e189ad45d7cb5caf07c036c29d2cb"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/attempts.jsonl",
+          "sha256": "43d8563fc36b4772c96983e9b214e53868363a645ca67073e89d44ffc9ae7ab4"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/frozen-manifest.json",
+          "sha256": "35a176a3e4df93b43994085a816e5095c5504825366cf2dd87aa740a15a4fbaf"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/root-review.json",
+          "sha256": "5fa04735c304149efa00104b54185de9329039b85dfab588d39c259973dee02c"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/reconciliation-v1.json",
+          "sha256": "e4e05d1eb32e2989da2cfc614b31eafc6c93e13e9ecfa2750d36fcde4bdd3347"
+        }
+      ],
+      "requested_model": "qwen/qwen3.8-27b",
+      "provider_tag": "deepinfra/bf16",
+      "quantization": "bf16",
+      "reasoning_effort": "medium",
+      "instruction_sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1",
+      "observed_context_lengths": [
+        262144
+      ],
+      "missing_required_saved_fields": {
+        "input_sha256": 56,
+        "policy_sha256": 56,
+        "request_sha256": 56,
+        "schema_sha256": 56,
+        "started_utc": 56
+      },
+      "saved_request_control_mismatches": [],
+      "existing_request_auditor": {
+        "status": "fails_unchanged_request_auditor",
+        "reason": "Missing or invalid attempt timestamp"
+      },
+      "all_60_accounted_not_clean_timing": true
+    },
+    "P2": {
+      "record_count": 60,
+      "unique_ids": 60,
+      "valid_count": 60,
+      "status_counts": {
+        "ok": 60
+      },
+      "source_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P2/development.jsonl",
+          "sha256": "1be7b8d32ca50471541d4284328845808cc79c38cef1c45439de0000df4df735"
+        }
+      ],
+      "lifecycle_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P2/smoke-inspection.json",
+          "sha256": "9db8514cf8e8d057351359b5a4cceeb751e85c8603c398b83172141fb3ad80d2"
+        }
+      ],
+      "requested_model": "qwen/qwen3.8-27b",
+      "provider_tag": "deepinfra/bf16",
+      "quantization": "bf16",
+      "reasoning_effort": "medium",
+      "instruction_sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184",
+      "observed_context_lengths": [
+        262144
+      ],
+      "missing_required_saved_fields": {},
+      "saved_request_control_mismatches": [],
+      "existing_request_auditor": {
+        "status": "passes_unchanged_request_auditor"
+      },
+      "all_60_accounted_not_clean_timing": false
+    }
+  },
+  "eligibility": {
+    "eligible_paired_comparison": false,
+    "reason": "At least one condition uses source-bound continuation rows that lack fields required by the unchanged paired evaluator. A versioned adapter and chronology audit would be needed; 60 accounted positions alone do not prove a paired lifecycle.",
+    "paired_manifest_created": false,
+    "evaluation_created": false
+  }
+}

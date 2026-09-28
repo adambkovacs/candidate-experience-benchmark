@@ -1,0 +1,218 @@
+{
+  "contract": "hosted-remaining-pair-audit-v1",
+  "configuration_id": "openrouter-paid-deepseek-v41-flash-high",
+  "status": "blocked_for_existing_paired_evaluator",
+  "reference_labels_read": false,
+  "inference_performed": false,
+  "source_bindings": [
+    {
+      "file": "public-site/data.json",
+      "sha256": "5cc6b65ea0c6196bfa58bbed2ccf0414e4bf64b831a5c7ef86a2e21fb3d4bd2f"
+    },
+    {
+      "file": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "file": "prompts/variants-v1/manifest.json",
+      "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+    },
+    {
+      "file": "prompts/variants-v1/P1-classifier.txt",
+      "sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7"
+    },
+    {
+      "file": "prompts/variants-v1/P2-classifier-sop.txt",
+      "sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9"
+    },
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/configuration.json",
+      "sha256": "4d045dd0e7145dcef875eb12dc226f38c4bc0a90849995deba16c42866b81962"
+    },
+    {
+      "file": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/baseline.txt",
+      "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+    }
+  ],
+  "conditions": {
+    "P0": {
+      "record_count": 60,
+      "unique_ids": 60,
+      "valid_count": 56,
+      "status_counts": {
+        "invalid_output": 4,
+        "ok": 56
+      },
+      "source_bindings": [
+        {
+          "file": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl",
+          "sha256": "24df93f7669839f580413dbb8a2fb8f68ece8754a2bb6562cb9158571c25f6e9"
+        }
+      ],
+      "lifecycle_bindings": [],
+      "requested_model": "deepseek/deepseek-v4.1-flash",
+      "provider_tag": "open-inference/fp4",
+      "quantization": "fp4",
+      "reasoning_effort": "high",
+      "instruction_sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f",
+      "observed_context_lengths": [
+        1048576
+      ],
+      "missing_required_saved_fields": {},
+      "saved_request_control_mismatches": [],
+      "existing_request_auditor": {
+        "status": "passes_unchanged_request_auditor"
+      },
+      "all_60_accounted_not_clean_timing": false
+    },
+    "P1": {
+      "record_count": 60,
+      "unique_ids": 60,
+      "valid_count": 56,
+      "status_counts": {
+        "invalid_output": 2,
+        "ok": 56,
+        "prompt_admission_failure": 1,
+        "service_error": 1
+      },
+      "source_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/development.jsonl",
+          "sha256": "e7107c7f15c6bb7c013a22819c173d247dbca0088be8be0b4fee445ab427c5fd"
+        },
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/development.jsonl",
+          "sha256": "87607c83eac4d5a8f80a1e0373fa3d3148b2c95f0ed52fe91f834b8f3a0d8cc0"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/development.jsonl",
+          "sha256": "1859dad45f2196dc1befb21142cb3a842b169b5956832926f0086125fb693463"
+        }
+      ],
+      "lifecycle_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/smoke-inspection.json",
+          "sha256": "76ad96c4b0e0a26559ebb35d2991e0cd3c2a2f11dee5427c2fd85ab157c2dc50"
+        },
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/reconciliation-v1.json",
+          "sha256": "1ac28c5b5b8a7160fdde03949d0258dc46a8183ed2ed2a0b2710624c8a1dfc3c"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/attempts.jsonl",
+          "sha256": "34a09a2fbf26dcc43b2269c8c7d6715e688970bcfbadafc121db991de1c95095"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/frozen-manifest.json",
+          "sha256": "606e1306da08cc3400904efae750081a6e5dbf5818f9c2210274d0b975c747f3"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/root-review.json",
+          "sha256": "5f0f9d6113a96b6f19b77fa5a53dc53ea9a15003c71f2cc4cfdeee5bf194ab85"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/reconciliation-v1.json",
+          "sha256": "9c4c576b840195b5b0af5fa13f9b4467d1a47f6fb2259a49afbdbd3953dd5739"
+        }
+      ],
+      "requested_model": "deepseek/deepseek-v4.1-flash",
+      "provider_tag": "open-inference/fp4",
+      "quantization": "fp4",
+      "reasoning_effort": "high",
+      "instruction_sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1",
+      "observed_context_lengths": [
+        1048576
+      ],
+      "missing_required_saved_fields": {
+        "input_sha256": 54,
+        "policy_sha256": 54,
+        "request_sha256": 54,
+        "schema_sha256": 54,
+        "started_utc": 54
+      },
+      "saved_request_control_mismatches": [],
+      "existing_request_auditor": {
+        "status": "fails_unchanged_request_auditor",
+        "reason": "Missing or invalid attempt timestamp"
+      },
+      "all_60_accounted_not_clean_timing": true
+    },
+    "P2": {
+      "record_count": 60,
+      "unique_ids": 60,
+      "valid_count": 58,
+      "status_counts": {
+        "invalid_output": 1,
+        "ok": 58,
+        "service_error": 1
+      },
+      "source_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P2/development.jsonl",
+          "sha256": "fa6325a66cc4c23dce43e6dca23412a1d2e6e80c49da3cb3b236f768a4ac5405"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/development.jsonl",
+          "sha256": "21b5a603eaa4ef8d5e25a6f9debb549dcaacf7633eabe049858a5be75209142a"
+        }
+      ],
+      "lifecycle_bindings": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P2/smoke-inspection.json",
+          "sha256": "9f7b39c2569012c34ab5769dbb72f4d1149c3d8d5941e748fa396e68eb4eed90"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/attempts.jsonl",
+          "sha256": "e44717bd77d9277941006e6536beb66dfe89e80a6b6f6ae66d70b90b11089add"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/frozen-manifest.json",
+          "sha256": "3135a8da5371e1c74e83f150841f4a0ee1166e96a8f4325e4af754ae85337f86"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/root-review.json",
+          "sha256": "1d125d90ac96d2dd2f7bf68cee2574a90a327388ab6af7de5a829e1adf55214d"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/reconciliation-v1.json",
+          "sha256": "df99853b668516b60c38ae77c279004fe3f4c18d4df48ad0ee26cc87a2585388"
+        }
+      ],
+      "requested_model": "deepseek/deepseek-v4.1-flash",
+      "provider_tag": "open-inference/fp4",
+      "quantization": "fp4",
+      "reasoning_effort": "high",
+      "instruction_sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184",
+      "observed_context_lengths": [
+        1048576
+      ],
+      "missing_required_saved_fields": {
+        "input_sha256": 59,
+        "policy_sha256": 59,
+        "request_sha256": 59,
+        "schema_sha256": 59,
+        "started_utc": 59
+      },
+      "saved_request_control_mismatches": [],
+      "existing_request_auditor": {
+        "status": "fails_unchanged_request_auditor",
+        "reason": "Missing or invalid attempt timestamp"
+      },
+      "all_60_accounted_not_clean_timing": true
+    }
+  },
+  "eligibility": {
+    "eligible_paired_comparison": false,
+    "reason": "At least one condition uses source-bound continuation rows that lack fields required by the unchanged paired evaluator. A versioned adapter and chronology audit would be needed; 60 accounted positions alone do not prove a paired lifecycle.",
+    "paired_manifest_created": false,
+    "evaluation_created": false
+  }
+}
