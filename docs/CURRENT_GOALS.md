@@ -65,6 +65,12 @@ The four allocations are reconciled. Their six new passes and smoke calls cost $
 
 The public deployment for commit 0755b39 succeeded, including the two completed Luna repeat series and the Jev report. The new Gemini report and findings are published in d8f7786; GitHub Pages deployment 36401659783 succeeded, and the public JSON and findings paragraph were fetched and verified. Fable low and medium have completed their six new development phases; report integration remains pending. Codex Luna medium/Sol high and Fable high/xhigh continue in their subscription lanes.
 
+## Qwen capacity update, 2026-09-28
+
+After the reviewed controller fixes and 13 passing offline tests, the first never-sent Qwen position, DEV-043, returned HTTP 429 from AkashML with `queue_timeout` and `upstream_provider_shared_pool`. This is a provider-capacity failure, not evidence of exhausted account credits. The episode stopped, retained the full $0.0299008 unknown-charge bound and released its unused allocation. The master now accounts for $8.65582248150, leaving $1.34417751850 under $10.
+
+The composite has 37 valid outputs, six service errors and 17 never-sent positions. The [publication record](../results/qwen36-on-p2-never-sent-episodes-v1/episode-001/PUBLICATION.md) explains the exact failure and the explicitly redacted public error copy. The original response remains private because it contains an account identifier. Further calls need a new admission after capacity review; no failed position is replayed. The requested $15 cap increase is still pending.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
