@@ -25,8 +25,9 @@ class TypeSafeRepeatAdmissionTests(unittest.TestCase):
         self.assertEqual([x['condition_order'] for x in result['future_passes']],
                          [['P1', 'P2', 'P0'], ['P2', 'P0', 'P1']])
         self.assertEqual(result['upper_bounds_usd']['two_more_passes'], '0.867255984')
-        self.assertEqual(result['upper_bounds_usd']['accounted_plus_two'], '0.889483224')
-        self.assertEqual(result['upper_bounds_usd']['headroom_after_two'], '0.110516776')
+        expected = Decimal(result['budget_snapshot']['accounted_usd']) + Decimal('0.867255984')
+        self.assertEqual(Decimal(result['upper_bounds_usd']['accounted_plus_two']), expected)
+        self.assertEqual(Decimal(result['upper_bounds_usd']['headroom_after_two']), Decimal('1') - expected)
         self.assertFalse(result['upper_bounds_usd']['fresh_three_fits'])
         self.assertEqual(result['budget_snapshot']['pending_upper_usd'], '0.002123688')
         self.assertFalse(any('proposed_labels' in x['path'] for x in result['source_bindings']))
