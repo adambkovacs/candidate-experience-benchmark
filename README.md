@@ -18,6 +18,7 @@ This project compares their responses to the same 60 fictional reviews, complain
 The [visual findings](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) explain prompt changes, Jev's disagreements, difficult reviews and observed costs. The [analysis report](docs/FINDINGS.md) gives the interpretation and links to saved evidence.
 
 - Adding a decision tree after classifier framing reduced agreement in 21 of 39 audited hosted/subscription setups, improved it in 4, and left 14 unchanged. Extra instructions did not consistently help.
+- Three native Laya configurations produced unchanged answers across three passes, but each matched all four reference decisions on 0 of 60 reviews. [Repeatability did not imply agreement with the rubric](docs/LAYA_REPEAT_FINDINGS_2026-09-28.md).
 - Jev matched all 25 reviews whose reference reported a serious concern. Its six all-four disagreements included an off-topic review, a misread positive review and cases whose provisional labels need independent review.
 - Returning no for every testimonial judgment already matches 50 of 60 references. Read field scores alongside their class balance.
 

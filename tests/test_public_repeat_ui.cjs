@@ -9,7 +9,7 @@ const source = fs.readFileSync(path.join(site, 'repeats.js'), 'utf8');
 const feeds = [
   'typesafe-repeats.json', 'repeats.json', 'hosted-repeats.json',
   'claude-repeats.json', 'claude-roster-repeats.json',
-  'gemini-repeats.json', 'haiku-fresh-matched3.json',
+  'gemini-repeats.json', 'haiku-fresh-matched3.json', 'laya-repeats.json',
 ];
 
 async function renderWith(payloads) {
