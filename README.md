@@ -99,6 +99,8 @@ python3 -m http.server 8768
 
 The website is static. Its published bundle contains an allowlisted result export and site assets; it needs no API key or backend. See [publishing notes](docs/PUBLIC_EXPLORER.md).
 
+Provider keys belong in an ignored `.env` file, never in source code or saved results. See [credential setup](docs/CREDENTIALS.md) and the empty [environment template](.env.example).
+
 ## Data and evidence
 
 | Start here | Contents |
