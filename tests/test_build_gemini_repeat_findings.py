@@ -24,7 +24,7 @@ def write_rows(path, rows):
 
 class GeminiRepeatFindingsTest(unittest.TestCase):
     def test_real_historical_series_and_unknown_time(self):
-        value=report.build()
+        value={'series':[report.build_series(config) for config in study.CONFIGS]}
         self.assertEqual(len(value['series']),2)
         expected={'gemini36-flash-low-p0-openrouter-v3':(55,55,54),
                   'gemini37-flash-low-p0-openrouter-v3':(57,55,57)}
@@ -43,6 +43,21 @@ class GeminiRepeatFindingsTest(unittest.TestCase):
                 attempts=report._rows(ROOT,original['evidence']['development_attempts']['path'])
                 observed=sum((Decimal(a['observed_cost_usd']) for a in attempts),Decimal(0))
                 self.assertEqual(Decimal(original['usage']['actualCostUsd']),observed)
+
+    def test_roster_medium_effort_preserved_and_mismatch_rejected(self):
+        config='gemini36-flash-medium-p0-openrouter-v3'
+        controller=report._controller(config)
+        plan=controller.expected_plan(config,'repeat2')
+        ids=[f'DEV-{i:03d}' for i in range(1,61)]
+        labels={r['id']:r['proposed_labels'] for r in report._rows(ROOT,report.LABELS)}
+        bind,_=report._binder(ROOT)
+        entry,records=report._historical(ROOT,plan,'P1',ids,labels,bind)
+        self.assertEqual(entry['score']['valid'],60)
+        self.assertEqual(len(records),60)
+        self.assertEqual(plan['effort'],'medium')
+        bad=copy.deepcopy(plan);bad['effort']='low'
+        with self.assertRaisesRegex(ValueError,'frozen request'):
+            report._historical(ROOT,bad,'P1',ids,labels,bind)
 
     def test_open_journal_excluded_and_source_hash_enforced(self):
         with tempfile.TemporaryDirectory() as folder:

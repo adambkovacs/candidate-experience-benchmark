@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build offline repeat findings for the two frozen Gemini low-effort routes."""
+"""Build offline repeat findings for frozen Gemini configurations."""
 import argparse
 import base64
 import binascii
@@ -12,6 +12,7 @@ from pathlib import Path
 
 import build_repeat_findings as shared
 import gemini_repeat_study as study
+import gemini_repeat_roster as roster
 from development_benchmark import valid
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +21,14 @@ LABELS = Path('data/pilot/proposed_labels.jsonl')
 PASSES = ('original', 'repeat2', 'repeat3')
 CONDITIONS = ('P0', 'P1', 'P2')
 FIELDS = shared.FIELDS
+
+
+def _controller(config):
+    if config in study.CONFIGS:
+        return study
+    if config in roster.CONFIGS:
+        return roster
+    raise ValueError('Configuration outside frozen Gemini controllers')
 
 
 def _path(root, relative):
@@ -104,7 +113,7 @@ def _source_context(root,config):
         relative=BASE/config/repeat/'manifest.json'
         item=bind(relative)
         plan=json.loads(_path(root,relative).read_text())
-        if plan!=study.expected_plan(config,repeat):
+        if plan!=_controller(config).expected_plan(config,repeat):
             raise ValueError(f'Frozen Gemini plan changed: {config} {repeat}')
         for source in plan['source_bindings'].values():bind(source['path'],source['sha256'])
         for condition in CONDITIONS:
@@ -120,7 +129,7 @@ def _check_attempt(attempt,request,plan,condition,phase):
             attempt.get('request'),attempt.get('request_sha256'),attempt.get('model'),
             attempt.get('effort'),attempt.get('provider'),attempt.get('reference_labels_read')) != (
             phase,ids,0 if phase=='smoke' else request['_index'],request['payload'],
-            request['payload_sha256'],plan['model'],'low',plan['provider'],False):
+            request['payload_sha256'],plan['model'],plan['effort'],plan['provider'],False):
         raise ValueError('Gemini attempt differs from frozen request')
     if not isinstance(attempt.get('attempt_id'),str) or not attempt['attempt_id']:
         raise ValueError('Gemini attempt ID missing')
@@ -176,7 +185,7 @@ def _historical(root,plan,condition,ids,labels,bind):
                     record.get('batch_position'),record.get('status'),record.get('prediction'),
                     record.get('model'),record.get('effort'),record.get('request_sha256')) != (
                     rid,'development',index+1,position,attempt['status'],expected,
-                    plan['model'],'low',attempt['request_sha256']):
+                    plan['model'],plan['effort'],attempt['request_sha256']):
                 raise ValueError('Historical Gemini record differs from batch')
             indexed[rid]=record
     return {'completionStatus':'complete','score':shared.score(indexed,labels,ids),
@@ -208,8 +217,8 @@ def _review(root,folder,phase,plan,plan_hash,condition,claim,bind):
             review.get('repeat'),review.get('condition'),review.get('phase'),
             review.get('plan_sha256'),review.get('controller_sha256'),
             review.get('partition_id'),review.get('partition_cap_usd')) != (
-            study.REVIEW_SCHEMA,True,plan['configuration_id'],plan['repeat'],condition,phase,
-            plan_hash,plan['source_bindings']['controller']['sha256'],plan['partition_id'],study.CAP):
+            _controller(plan['configuration_id']).REVIEW_SCHEMA,True,plan['configuration_id'],plan['repeat'],condition,phase,
+            plan_hash,plan['source_bindings']['controller']['sha256'],plan['partition_id'],plan['proposed_partition_cap_usd']):
         raise ValueError('Gemini root review controls differ')
     for repeat in ('repeat2','repeat3'):
         target=BASE/plan['configuration_id']/repeat/'manifest.json'
@@ -269,7 +278,7 @@ def _phase(root,plan,plan_hash,condition,phase,ids,labels,bind):
     if len(claims)!=1:raise ValueError('Gemini phase claim count differs')
     claim=claims[0]
     if (claim.get('schema'),claim.get('plan_sha256'),claim.get('condition'),claim.get('phase')) != (
-            study.SCHEMA+'-claim',plan_hash,condition,phase):
+            _controller(plan['configuration_id']).SCHEMA+'-claim',plan_hash,condition,phase):
         raise ValueError('Gemini phase claim differs')
     bindings['rootReview']=_review(root,folder,phase,plan,plan_hash,condition,claim,bind)
     attempts=_rows(root,paths['attempts'])
@@ -344,7 +353,7 @@ def _phase(root,plan,plan_hash,condition,phase,ids,labels,bind):
     indexed={};offset=0
     endpoint_catalog=json.loads(_path(root,plan['conditions'][condition]['catalog']['path']).read_text())
     endpoint_rows=json.loads(_path(root,plan['conditions'][condition]['endpoints']['path']).read_text())
-    _,endpoint=study.v3.check_catalog(plan['model'],'low',endpoint_catalog,endpoint_rows)
+    _,endpoint=study.v3.check_catalog(plan['model'],plan['effort'],endpoint_catalog,endpoint_rows)
     for index,attempt in enumerate(attempts):
         request={**requests[index], '_index':index+1}
         response=by_attempt.get(attempt['attempt_id'])
@@ -470,10 +479,11 @@ def build_series(config,root=ROOT):
             across[condition]={'denominator':len(eligible),'excludedIds':[rid for rid in ids if rid not in eligible],
                                'fields':{f:[rid for rid in eligible if len({indexed[name][condition][rid]['prediction'][f] for name in PASSES})>1] for f in FIELDS},
                                'fourFieldVector':[rid for rid in eligible if len({tuple(indexed[name][condition][rid]['prediction'][f] for f in FIELDS) for name in PASSES})>1]}
-    model=study.CONFIGS[config][1]
+    model=plans['repeat2'][0]['model']
+    effort=plans['repeat2'][0]['effort']
     return {'schema':'gemini-repeat-findings-v1','configuration':config,
-            'displayName':model+' · low effort · OpenRouter batch 10',
-            'model':model,'effort':'low','provider':'google-ai-studio',
+            'displayName':model+' · '+effort+' effort · OpenRouter batch 10',
+            'model':model,'effort':effort,'provider':'google-ai-studio',
             'referenceVersion':'0.2','referenceStatus':'AI reviewed provisional, not independent adjudication',
             'referenceClassCounts':{f:dict(sorted(Counter(labels[rid][f] for rid in ids).items())) for f in FIELDS},
             'denominator':60,'completedConditions':sum(full(name,c) for name in PASSES for c in CONDITIONS),
@@ -490,7 +500,8 @@ def build_series(config,root=ROOT):
 
 def build(root=ROOT):
     return {'schema':'gemini-repeat-series-v1',
-            'series':[build_series(config,root) for config in study.CONFIGS]}
+            'series':[build_series(config,root) for config in (*study.CONFIGS, *roster.CONFIGS)
+                      if config in study.CONFIGS or all((Path(root)/BASE/config/r/'manifest.json').exists() for r in ('repeat2','repeat3'))]}
 
 
 def main(argv=None):

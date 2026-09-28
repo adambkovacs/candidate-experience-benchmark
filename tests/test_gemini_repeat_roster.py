@@ -11,18 +11,18 @@ import urllib.error
 from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-import gemini_repeat_study as study
+import gemini_repeat_roster as study
 
 
-class GeminiRepeatStudyTests(unittest.TestCase):
-    def test_four_plans_bind_two_exact_historical_triples(self):
-        for config, (_, model, partition) in study.CONFIGS.items():
+class GeminiRepeatRosterTests(unittest.TestCase):
+    def test_eight_plans_bind_four_exact_historical_triples(self):
+        for config, (_, model, effort, partition, cap) in study.CONFIGS.items():
             for repeat, order in study.ORDERS.items():
                 plan = study.expected_plan(config, repeat)
                 self.assertEqual(plan['condition_order'], list(order))
                 self.assertEqual(plan['model'], model)
                 self.assertEqual(plan['partition_id'], partition)
-                self.assertEqual(plan['proposed_partition_cap_usd'], '0.30')
+                self.assertEqual(plan['proposed_partition_cap_usd'], cap)
                 self.assertFalse(plan['partition_allocated'])
                 self.assertEqual(plan['original_p0_baseline_id'], config)
                 for condition in ('P0', 'P1', 'P2'):
@@ -36,7 +36,7 @@ class GeminiRepeatStudyTests(unittest.TestCase):
                         self.assertEqual(payload['model'], model)
                         self.assertEqual(payload['temperature'], 0)
                         self.assertEqual(payload['max_tokens'], 8192)
-                        self.assertEqual(payload['reasoning'], {'enabled': True, 'effort': 'low'})
+                        self.assertEqual(payload['reasoning'], {'enabled': True, 'effort': effort})
                         self.assertEqual(payload['provider']['only'], ['google-ai-studio'])
                         self.assertFalse(payload['provider']['allow_fallbacks'])
                         self.assertEqual(payload['tools'], [])
@@ -46,7 +46,7 @@ class GeminiRepeatStudyTests(unittest.TestCase):
                         self.assertEqual(request['payload_sha256'], study.v3.sha(study.v3.canon(payload)))
 
     def test_plan_tampering_and_wrong_parent_rejected(self):
-        plan = study.expected_plan('gemini36-flash-low-p0-openrouter-v3', 'repeat2')
+        plan = study.expected_plan('gemini36-flash-medium-p0-openrouter-v3', 'repeat2')
         with tempfile.TemporaryDirectory(dir=study.BASE) as name:
             path = Path(name) / 'plan.json'
             raw = (json.dumps(plan) + '\n').encode()
@@ -64,7 +64,7 @@ class GeminiRepeatStudyTests(unittest.TestCase):
                 study.validate_plan(path)
 
     def test_order_gate_keeps_unsent_phases_closed(self):
-        plan = study.expected_plan('gemini37-flash-low-p0-openrouter-v3', 'repeat2')
+        plan = study.expected_plan('gemini37-flash-medium-p0-openrouter-v3', 'repeat2')
         with tempfile.TemporaryDirectory() as folder, mock.patch.object(study, 'BASE', Path(folder)):
             study.require_order(plan, 'P1', 'smoke')
             with self.assertRaisesRegex(ValueError, 'Prior condition'):
@@ -73,7 +73,7 @@ class GeminiRepeatStudyTests(unittest.TestCase):
                 study.require_order(plan, 'P1', 'development')
 
     def test_live_catalog_drift_rejected_before_key(self):
-        plan = study.expected_plan('gemini36-flash-low-p0-openrouter-v3', 'repeat2')
+        plan = study.expected_plan('gemini36-flash-medium-p0-openrouter-v3', 'repeat2')
         condition = plan['conditions']['P1']
         cat = json.loads(study.bound(condition['catalog']).read_text())
         eps = json.loads(study.bound(condition['endpoints']).read_text())
@@ -93,7 +93,7 @@ class GeminiRepeatStudyTests(unittest.TestCase):
                 raise http.client.IncompleteRead(b'{"error":"cut synthetic-key', 8)
             def close(self):
                 pass
-        request = study.expected_plan('gemini37-flash-low-p0-openrouter-v3', 'repeat2')['conditions']['P1']['requests'][1]
+        request = study.expected_plan('gemini37-flash-medium-p0-openrouter-v3', 'repeat2')['conditions']['P1']['requests'][1]
         error = urllib.error.HTTPError('https://invalid.example', 429, 'limited',
                                        {'retry-after': '8'}, Broken())
         with tempfile.TemporaryFile(mode='w+') as output:
@@ -109,11 +109,11 @@ class GeminiRepeatStudyTests(unittest.TestCase):
         error.close()
 
     def test_smoke_saves_raw_before_parse_and_stops_without_retry(self):
-        config = 'gemini36-flash-low-p0-openrouter-v3'
+        config = 'gemini36-flash-medium-p0-openrouter-v3'
         plan = study.expected_plan(config, 'repeat2')
         order = []
         class Ledger:
-            cap = Decimal('0.30')
+            cap = Decimal('0.60')
             def __init__(self):
                 self.reserved = []
                 self.settled = []
@@ -171,11 +171,11 @@ class GeminiRepeatStudyTests(unittest.TestCase):
             self.assertEqual(journal[-1]['event'], 'phase_stopped')
 
     def test_offline_parser_keeps_provider_and_tool_controls(self):
-        plan = study.expected_plan('gemini36-flash-low-p0-openrouter-v3', 'repeat2')
+        plan = study.expected_plan('gemini36-flash-medium-p0-openrouter-v3', 'repeat2')
         condition = plan['conditions']['P1']
         historical = study.lines(study.bound(condition['historical']['development_attempts']))[0]
         endpoint = json.loads(study.bound(condition['endpoints']).read_text())
-        _, selected = study.v3.check_catalog(plan['model'], 'low',
+        _, selected = study.v3.check_catalog(plan['model'], plan['effort'],
                                               json.loads(study.bound(condition['catalog']).read_text()), endpoint)
         body = copy.deepcopy(historical['raw_response'])
         result = study.classify(plan, condition['requests'][1], body, selected)
