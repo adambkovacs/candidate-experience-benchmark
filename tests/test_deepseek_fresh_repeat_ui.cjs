@@ -56,18 +56,20 @@ function usageRow(ui, condition, pass) {
 test('actual DeepSeek fresh feed is separate from historical same-ID result and shows only closed scores', async () => {
   const item = actual.series[0];
   assert.equal(actual.schema, 'deepseek-fresh-repeat-findings-v1');
-  assert.equal(item.completedConditions, 2);
+  const closedCount = Object.values(item.passes).flatMap(cs => Object.values(cs)).filter(p => p.status === 'completed').length;
+  assert.equal(item.completedConditions, closedCount);
+  assert.ok(closedCount >= 2);
   const ui = await render();
   assert.equal(ui.requested.filter(url => url === feedUrl).length, 1);
   assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${item.configuration}"`));
   assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${item.seriesId}"`));
-  assert.match(ui.get('repeat-lead').textContent, /2 of 9 planned prompt\/pass combinations/);
+  assert.ok(ui.get('repeat-lead').textContent.includes(`${closedCount} of 9 planned prompt/pass combinations`));
   assert.match(ui.get('repeat-lead').textContent, /Earlier results remain separate and are not pass one/);
   assert.match(ui.get('repeat-lead').textContent, /Costs are provider-reported charges/);
-  assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 2);
+  assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, closedCount);
   assert.match(ui.get('repeat-chart').innerHTML, /P0 Fresh pass 1 All four decisions: 48 out of 60/);
   assert.match(ui.get('repeat-chart').innerHTML, /P1 Fresh pass 1 All four decisions: 47 out of 60/);
-  assert.match(ui.get('repeat-chart').innerHTML, /Not completed/);
+  if (closedCount < 9) assert.match(ui.get('repeat-chart').innerHTML, /Not completed/);
   ui.select(item.configuration);
   assert.match(ui.get('repeat-lead').textContent, /Historical DeepSeek result/);
   assert.doesNotMatch(ui.get('repeat-lead').textContent, /three fresh hosted passes/);
@@ -88,11 +90,17 @@ test('actual provider tokens, charges, and client duration appear in closed deve
     assert.ok(row.includes(usage.requestSecondsTotal.toFixed(1)), `${condition} client HTTP seconds`);
     assert.match(row, /<td>Unavailable<\/td>/, `${condition} has no invented token-price estimate`);
   }
-  assert.match(usageRow(ui, 'P2', 'Fresh pass 1'), /Unavailable/);
+  if (actual.series[0].passes.fresh1.P2?.status !== 'completed') {
+    assert.match(usageRow(ui, 'P2', 'Fresh pass 1'), /Unavailable/);
+  }
 });
 
 test('an unclosed slot cannot expose stale score, tokens, charge, or duration', async () => {
   const payload = clone(actual);
+  payload.series[0].passes = {fresh1: {P0: payload.series[0].passes.fresh1.P0, P1: payload.series[0].passes.fresh1.P1}, fresh2: {}, fresh3: {}};
+  payload.series[0].completedConditions = 2;
+  payload.series[0].pairwiseFlips = [];
+  payload.series[0].changesAcrossThreePasses = {};
   payload.series[0].passes.fresh1.P2 = {status: 'not_completed',
     score: {denominator: 60, valid: 60, allFour: 60, fields: {}},
     usage: {requestCount: 60, requestSecondsTotal: 999.9,
