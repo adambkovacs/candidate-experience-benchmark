@@ -147,9 +147,11 @@ The Qwen thinking-on P2 AkashML endpoint responded after a new exact-route revie
 
 OpenRouter master accounted charges and retained bounds are now $9.38620268150, leaving $0.61379731850 under $10. This does not fund the proposed $2 Gemini 3.1 Pro high allocation. The requested $15 cap remains pending.
 
-Terra extra-high and Astra low/high/extra-high have all nine combinations closed, bringing completed Codex configurations to fifteen. The final Luna high/extra-high and Sol extra-high series continue. See the [Terra/Astra findings](TERRA_ASTRA_REPEAT_FINDINGS_2026-09-28.md) and [full repeat inventory](REPEAT_EXECUTION_STATUS_2026-09-28.md).
+Terra extra-high and Astra low/high/extra-high have all nine combinations closed, bringing completed Codex configurations to fifteen. Their public report is deployed in `bd7cd60`; Pages run `36419143867` succeeded, and the fetched report matched the committed bytes with fifteen complete configurations out of eighteen. The final Luna high/extra-high and Sol extra-high series continue. See the [Terra/Astra findings](TERRA_ASTRA_REPEAT_FINDINGS_2026-09-28.md) and [full repeat inventory](REPEAT_EXECUTION_STATUS_2026-09-28.md).
 
 Laya English repeat three is closed with 60 valid outputs and no changes from either earlier pass. Its client elapsed sum differed substantially between repeats; uncontrolled local load/cache conditions prevent treating that as model-only latency drift. Typed and multilingual repeat three remain in progress. The [next native admission review](NATIVE_NEXT_REPEAT_ADMISSION_REVIEW_2026-09-28.md) supports SemIf direct/serial/shared eligibility; preparation does not authorize overlapping native execution.
+
+The [current OpenRouter catalog audit](../results/route-audits/local-historical-small-models-20260928/catalog-audit.json) searched all 458 listed model IDs and names and found no Gemma E2B/E4B or Qwen3.5-4B matches. This is evidence about the public OpenRouter catalog only, not every possible host. The five exact local historical configurations remain pending runtime/artifact and repeat admission checks; the audit makes no inference calls or downloads.
 
 ## Next delivery checkpoints
 
