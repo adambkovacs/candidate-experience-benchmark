@@ -5,6 +5,7 @@ import shutil
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -15,15 +16,18 @@ import claude_repeat_roster as roster
 class ClaudeRosterFindingsTests(unittest.TestCase):
     config = report.CONFIGS[0]
 
-    def _copy_config(self):
+    def _copy_config(self, config=None, include_phases=True):
+        config = config or self.config
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         root = Path(temp.name)
-        pair_path = Path(roster.PAIRS) / self.config / 'paired-manifest.json'
+        pair_path = Path(roster.PAIRS) / config / 'paired-manifest.json'
         pair = json.loads((ROOT / pair_path).read_text())
         paths = {report.opus.LABELS, Path(roster.COVERAGE), pair_path}
         for repeat in ('repeat2', 'repeat3'):
-            plan = json.loads((ROOT / report.BASE / self.config / repeat / 'manifest.json').read_text())
+            plan_path = report.BASE / config / repeat / 'manifest.json'
+            paths.add(plan_path)
+            plan = json.loads((ROOT / plan_path).read_text())
             paths.update(Path(item['path']) for item in plan['source_bindings'])
         for condition in report.CONDITIONS:
             sources = pair['conditions'][condition]
@@ -33,12 +37,13 @@ class ClaudeRosterFindingsTests(unittest.TestCase):
             dest = root / relative
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / relative, dest)
-        shutil.copytree(ROOT / report.BASE / self.config, root / report.BASE / self.config)
+        if include_phases:
+            shutil.copytree(ROOT / report.BASE / config, root / report.BASE / config, dirs_exist_ok=True)
         return root
 
     def test_real_closed_roster_has_four_separate_full_series(self):
-        payload = report.build(ROOT)
-        self.assertEqual([s['configuration'] for s in payload['series']], list(report.CONFIGS))
+        payload = report.build(ROOT, configs=report.FABLE_CONFIGS)
+        self.assertEqual([s['configuration'] for s in payload['series']], list(report.FABLE_CONFIGS))
         for series in payload['series']:
             self.assertEqual(series['completedConditions'], 9)
             self.assertEqual(series['plannedConditions'], 9)
@@ -58,6 +63,45 @@ class ClaudeRosterFindingsTests(unittest.TestCase):
                     self.assertEqual(phase['score']['valid'], 60)
                     self.assertIsNone(phase['usage']['actualCostUsd'])
                     self.assertIsNone(phase['usage']['inferenceSeconds'])
+
+    def test_published_fable_series_stay_unchanged(self):
+        published = json.loads((ROOT / 'public-site/claude-roster-repeats.json').read_text())
+        published_fable = {**published, 'series': [s for s in published['series']
+                                              if s['configuration'] in report.FABLE_CONFIGS]}
+        self.assertEqual(report.build(ROOT, configs=report.FABLE_CONFIGS), published_fable)
+
+    def test_opus5_four_efforts_bind_original_and_closed_first_phase(self):
+        self.assertEqual(len(report.OPUS5_CONFIGS), 4)
+        for config in report.OPUS5_CONFIGS:
+            with self.subTest(config=config):
+                ids, labels, pair, plans, bind, _ = report._source_context(ROOT, config)
+                self.assertEqual(len(ids), 60)
+                for condition in report.CONDITIONS:
+                    historical, _ = report._historical(ROOT, config, condition, pair,
+                                                       plans['repeat2'][0], ids, labels, bind)
+                    self.assertEqual(historical['score']['denominator'], 60)
+                    self.assertEqual(historical['score']['valid'], 60)
+                plan, plan_binding = plans['repeat2']
+                smoke, _, _ = report._phase(ROOT, config, 'repeat2', 'P0', 'smoke',
+                                            plan, plan_binding, ids, labels, bind)
+                development, _, _ = report._phase(ROOT, config, 'repeat2', 'P0', 'development',
+                                                  plan, plan_binding, ids, labels, bind)
+                self.assertEqual(smoke['completionStatus'], 'complete')
+                self.assertEqual(development['completionStatus'], 'complete')
+                self.assertEqual(development['score']['valid'], 60)
+                self.assertIsNone(development['usage']['actualCostUsd'])
+
+    def test_opus5_prepared_but_unstarted_phases_are_missing(self):
+        config = report.OPUS5_CONFIGS[0]
+        root = self._copy_config(config=config, include_phases=False)
+        series = report.build(root, configs=(config,))['series'][0]
+        self.assertEqual(series['displayName'], 'Claude Opus 5 · low effort · batch 10')
+        self.assertEqual(series['completedConditions'], 3)
+        self.assertEqual(len(series['missingPasses']), 6)
+        self.assertEqual(series['partialPasses'], [])
+        self.assertEqual(set(series['passes']['original']), set(report.CONDITIONS))
+        self.assertEqual(series['passes']['repeat2'], {})
+        self.assertEqual(series['passes']['repeat3'], {})
 
     def test_missing_development_is_open_not_zero(self):
         root = self._copy_config()
@@ -127,14 +171,16 @@ class ClaudeRosterFindingsTests(unittest.TestCase):
     def test_check_is_deterministic_and_does_not_rewrite_stale_output(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / 'fable.json'
-            report.main(['--output', str(path)])
-            expected = path.read_bytes()
-            report.main(['--output', str(path), '--check'])
-            self.assertEqual(path.read_bytes(), expected)
-            path.write_bytes(expected + b' ')
-            with self.assertRaisesRegex(ValueError, 'Stale report'):
+            frozen = report.build(ROOT, configs=report.FABLE_CONFIGS)
+            with mock.patch.object(report, 'build', return_value=frozen):
+                report.main(['--output', str(path)])
+                expected = path.read_bytes()
                 report.main(['--output', str(path), '--check'])
-            self.assertEqual(path.read_bytes(), expected + b' ')
+                self.assertEqual(path.read_bytes(), expected)
+                path.write_bytes(expected + b' ')
+                with self.assertRaisesRegex(ValueError, 'Stale report'):
+                    report.main(['--output', str(path), '--check'])
+                self.assertEqual(path.read_bytes(), expected + b' ')
 
 
 if __name__ == '__main__':
