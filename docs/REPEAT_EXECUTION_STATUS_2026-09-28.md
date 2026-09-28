@@ -32,7 +32,7 @@ Of these 55 series, 49 have nine full condition/pass entries, one Mistral series
 | `openrouter-paid-gemma4-26b-a4b-off` | 9 | Nine full recorded combinations; inspect validity separately. |
 | `openrouter-paid-gemma4-31b-off` | 9 | Nine full recorded combinations; inspect validity separately. |
 | `openrouter-paid-gemma4-31b-on` | 9 | Nine full recorded combinations; inspect validity separately. |
-| `openrouter-paid-mistral-small32-24b-venice-not-applicable` | 8 | Terminal partial combination retains its failed request; no silent retry. |
+| `openrouter-paid-mistral-small32-24b-venice-not-applicable` | 8 | Terminal partial combination accounts for all 60 reviews: 59 valid and one service error, none never sent. No replay. |
 | `openrouter-paid-qwen3.8-27b-off` | 9 | Nine full recorded combinations; inspect validity separately. |
 | `opus5-high-phase2-batch10-p0` | 9 | Nine full recorded combinations; inspect validity separately. |
 | `opus5-low-phase2-batch10-p0` | 9 | Nine full recorded combinations; inspect validity separately. |
@@ -72,6 +72,23 @@ Of these 55 series, 49 have nine full condition/pass entries, one Mistral series
 - [Publication privacy](PUBLIC_EVIDENCE_PRIVACY.md): new Claude exports are verified and published; 648 quota-bearing captures were removed from the current Git tree with private originals preserved; historical Git exposure remains unresolved.
 
 Funding and route failures explain unfinished work. They do not remove it from scope. OpenRouter remains capped at $10, TypeSafe at $1; the requested $15 OpenRouter cap has not been authorized. Reconcile the live ledger before any new allocation.
+
+## Separate native and generated specialist work
+
+This table records experiment families outside the 55-series table above. Counts refer to development passes, not smoke tests, and do not imply that a valid answer matches a reference.
+
+| Family | Closed passes | Remaining work |
+| --- | ---: | --- |
+| Laya expanded CPU, three configurations | 9/9 native P0 | Repeat findings published; original length-limited failures remain separate. |
+| SemIf native, three modes | 9/9 native P0 | Repeat findings published. |
+| AnyJev raw | 3/3 native P0 | Findings published and live bytes verified. |
+| AnyJev L0 | 1/3 native P0 | Repeat two is active after a successful smoke; repeat three has not started. |
+| Alex OpenJev 0.8B and 4B | 0/6 fresh native P0 | Reviewed manifests frozen; historical observations do not count as fresh passes. |
+| OpenJev fixed, adaptive and thinking | 0/9 fresh native P0 | Reviewed manifest frozen; all development passes pending. |
+| Generated OpenJev off/on, SemIf and AnyJev | 0/36 fresh prompt/pass combinations | New P0/P1/P2 admission controllers are being prepared. Historical invalid and unknown outcomes remain separate. |
+| AnyJev L1/L2 calibration | Procedure admission pending | Cached L1 refits do not measure new inference variability. Direct L1 and exact staged L2 need distinct declared procedures. |
+
+Sources: [native audit](ANYJEV_ALEX_OPENJEV_NATIVE_P0_NEXT_ADMISSION_2026-09-28.md), [generated-control audit](GENERATED_SPECIALIST_REPEAT_NEXT_ADMISSION_2026-09-28.md), [calibration audit](ANYJEV_CALIBRATION_NEXT_ADMISSION_2026-09-28.md), and [current verified checkpoints](CURRENT_GOALS.md). None of these pending requirements is excluded from scope.
 
 ## Source reports
 
