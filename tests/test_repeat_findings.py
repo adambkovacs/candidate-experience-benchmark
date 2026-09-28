@@ -1,12 +1,14 @@
 """Safety checks for offline repeat evidence admission and scoring."""
 import importlib.util
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'scripts/build_repeat_findings.py'
+sys.path.insert(0, str(SCRIPT.parent))
 spec = importlib.util.spec_from_file_location('build_repeat_findings', SCRIPT)
 repeat = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(repeat)
@@ -98,12 +100,14 @@ class RepeatFindingsTest(unittest.TestCase):
 
     def test_saved_series_are_separate_and_missing_passes_have_no_scores(self):
         report = repeat.build()
-        self.assertEqual([s['configuration'] for s in report['series']], [repeat.CONFIG, repeat.SOL_CONFIG, repeat.SOL_MEDIUM_CONFIG])
-        luna, sol, sol_medium = report['series']
+        self.assertEqual([s['configuration'] for s in report['series']],
+                         [repeat.CONFIG, repeat.SOL_CONFIG, repeat.SOL_MEDIUM_CONFIG,
+                          *(config for config, _ in repeat.ROSTER_SERIES)])
+        luna, sol, sol_medium = report['series'][:3]
         self.assertEqual(luna['passes']['original']['P0']['score']['allFour'], 50)
         self.assertEqual(luna['completedConditions'], 9)
         self.assertEqual(report['passes'], luna['passes'])  # Legacy Luna view is unchanged.
-        for series in (luna, sol, sol_medium):
+        for series in report['series']:
             self.assertEqual(series['denominator'], 60)
             self.assertEqual(series['completedConditions'] + len(series['missingPasses']), 9)
             self.assertEqual(len(series['passes']['original']), 3)
@@ -122,6 +126,62 @@ class RepeatFindingsTest(unittest.TestCase):
                 base = series['passes'][delta['pass']]['P0']['score']['allFour']
                 variant = series['passes'][delta['pass']][delta['to']]['score']['allFour']
                 self.assertEqual(delta['allFour'], variant - base)
+
+    def test_roster_sealed_evidence_and_public_admission_are_bound(self):
+        for config, display in repeat.ROSTER_SERIES[:2]:
+            report = repeat.build_roster_series(config, display)
+            self.assertEqual(report['completedConditions'], 9)
+            for pass_name in ('repeat2', 'repeat3'):
+                for condition in repeat.CONDITIONS:
+                    evidence = report['passes'][pass_name][condition]['evidence']
+                    self.assertEqual(set(evidence), {'records', 'attempts', 'journal', 'claim',
+                                                     'smoke', 'smokeInspection', 'admission'})
+                    self.assertEqual(set(evidence['smoke']), {'records', 'attempts', 'journal',
+                                                               'claim', 'admission'})
+            self.assertNotIn('/private/tmp/codex-repeat-root-review/', json.dumps(report))
+
+    def test_roster_raw_output_disagreement_rejected(self):
+        config = repeat.ROSTER_SERIES[0][0]
+        manifest_path = repeat.REPEAT_ROOT / config / 'repeat2/manifest.json'
+        manifest = json.loads((repeat.ROOT / manifest_path).read_text())
+        manifest['_sha256'] = repeat.PINNED_SHA[str(manifest_path)]
+        actual_rows = repeat.rows
+
+        def changed_rows(path):
+            found = actual_rows(path)
+            if str(path).endswith('/P1/smoke.attempts.jsonl'):
+                found[0]['raw_response'] = '{"records":[]}'
+            return found
+
+        with patch.object(repeat, 'rows', side_effect=changed_rows):
+            with self.assertRaisesRegex(ValueError, 'raw response is invalid'):
+                repeat.validate_roster_phase(config, 'repeat2', 'P1', 'smoke', manifest)
+
+    def test_roster_public_admission_disagreement_rejected(self):
+        config = repeat.ROSTER_SERIES[0][0]
+        manifest_path = repeat.REPEAT_ROOT / config / 'repeat2/manifest.json'
+        manifest = json.loads((repeat.ROOT / manifest_path).read_text())
+        manifest['_sha256'] = repeat.PINNED_SHA[str(manifest_path)]
+        original = repeat.json.loads
+
+        def changed_loads(value, *args, **kwargs):
+            parsed = original(value, *args, **kwargs)
+            if isinstance(parsed, dict) and parsed.get('schema') == 'codex-repeat-roster-admission-v1':
+                parsed['dispatch_status'] = 'asserted'
+            return parsed
+
+        with patch.object(repeat.json, 'loads', side_effect=changed_loads):
+            with self.assertRaisesRegex(ValueError, 'Public roster admission identity changed'):
+                repeat.validate_roster_phase(config, 'repeat2', 'P1', 'smoke', manifest)
+
+    def test_roster_unstarted_config_keeps_original_scores(self):
+        config, display = repeat.ROSTER_SERIES[2]
+        with patch.object(repeat, 'completed_repeat', return_value=False):
+            report = repeat.build_roster_series(config, display)
+        self.assertEqual(report['completedConditions'], 3)
+        self.assertEqual(report['passes']['repeat2'], {})
+        self.assertEqual(report['passes']['repeat3'], {})
+        self.assertTrue(all(item['pass'] != 'original' for item in report['missingPasses']))
 
 
 if __name__ == '__main__': unittest.main()

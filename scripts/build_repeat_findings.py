@@ -5,6 +5,8 @@ import hashlib
 import json
 from collections import Counter
 from pathlib import Path
+import codex_batch_benchmark as batch_runner
+import codex_repeat_roster as roster
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = 'codex-gpt-6-luna-medium-batch10'
@@ -13,6 +15,12 @@ SOL_MEDIUM_CONFIG = 'codex-gpt-6-sol-medium-batch10'
 REPEAT_ROOT = Path('results/repeatability-v1')
 PAIR_ROOT = Path('results/prompt-comparison-v1-2026-09-24/paired-reports')
 SERIES = ((CONFIG, 'GPT-6 Luna · medium effort'), (SOL_CONFIG, 'GPT-6 Sol · high effort'), (SOL_MEDIUM_CONFIG, 'GPT-6 Sol · medium effort'))
+ROSTER_SERIES = (
+    ('codex-gpt-5.6-luna-high', 'GPT-5.6 Luna · high effort'),
+    ('codex-gpt-5.6-luna-low-phase2-batch10-p0', 'GPT-5.6 Luna · low effort'),
+    ('codex-gpt-5.6-luna-medium', 'GPT-5.6 Luna · medium effort'),
+    ('codex-gpt-5.6-sol-high', 'GPT-5.6 Sol · high effort'),
+)
 LABELS = Path('data/pilot/proposed_labels.jsonl')
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
 CONDITIONS = ('P0', 'P1', 'P2')
@@ -25,6 +33,14 @@ PINNED_SHA = {
     str(REPEAT_ROOT / SOL_CONFIG / 'repeat3/manifest.json'): '5572258506b20d3308e504399b4deea337fe1642325b37453d87076871152c1e',
     str(REPEAT_ROOT / SOL_MEDIUM_CONFIG / 'repeat2/manifest.json'): '2a2ea73fee8c393c44d8224f15a5d58ff5e29bae3bb05df53d058967e5b46cc3',
     str(REPEAT_ROOT / SOL_MEDIUM_CONFIG / 'repeat3/manifest.json'): 'b708bc3cbaba4cbde3210f3ce476dc6b6c315860ca666fc5c928279b9ff70b6c',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-luna-high/repeat2/manifest.json'): '1c3e7bfc838660cd81d164e14c99c96a15dfe0dcb1109d00d88acff98cda7454',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-luna-high/repeat3/manifest.json'): 'a717166bc151c62e13423bf868d1d59daa30f451092015ab8aa588f7b7b6bd33',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-luna-low-phase2-batch10-p0/repeat2/manifest.json'): '5a21bbd04fbff23885869c786e24e6fcc1cd4e363fe0747e1d76efbe9abf40a1',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-luna-low-phase2-batch10-p0/repeat3/manifest.json'): '5ca19eb89b33598b80a4062d71a13e4fb0bc29c2ac0bf25c27cc55bcb8a686eb',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-luna-medium/repeat2/manifest.json'): '60be74ccb8aa4599026ac874e06dd5dae75008b6b4d9cbfe7418199333721670',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-luna-medium/repeat3/manifest.json'): '19e8a057dfb9e7fe1d38c55d92003047ca372d009548f22dd0a20ed2c857b23e',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-high/repeat2/manifest.json'): '01e2100721ab9bc140cb8fb1b440bf7c9e040aa509ef9bd6ba9e42ab50622fe6',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-high/repeat3/manifest.json'): '8fe9ffed84d41a7351858d5bf2f6595c23a99d1afa72942326b09d403f83f72c',
 }
 
 
@@ -231,8 +247,140 @@ def build_series(config, display_name):
             'limitations': ['Same 60 synthetic records in every pass; observations are dependent.', 'Original CLI and repeat CLI differ by accepted patch amendment; equivalence is unproven.', 'Provider serving revision and effective seed are unavailable.', 'Batch timing is request timing; per-record shares are not independent latency.', 'Subscription request cost is unknown, not zero.']}
 
 
+def validate_roster_phase(config, repeat, condition, phase, manifest, inspection_binding=None):
+    """Bind sealed roster evidence, including saved raw output and public admission."""
+    folder = REPEAT_ROOT / config / repeat / condition
+    prefix = folder / phase
+    claim_binding = binding(Path(str(prefix) + '.claim.json'))
+    journal_binding = binding(Path(str(prefix) + '.journal.jsonl'))
+    attempt_binding = binding(Path(str(prefix) + '.attempts.jsonl'))
+    record_binding = binding(Path(str(prefix) + '.records.jsonl'))
+    claim = json.loads((ROOT / claim_binding['path']).read_text())
+    identity = {'repeat': repeat, 'condition': condition, 'phase': phase}
+    if any(claim.get(k) != v for k, v in identity.items()) or claim.get('manifest_sha256') != manifest['_sha256']:
+        raise ValueError(f'Roster claim identity changed: {prefix}')
+    expected_requests = ([manifest['conditions'][condition]['smoke']] if phase == 'smoke'
+                         else manifest['conditions'][condition]['development'])
+    expected_count = len(expected_requests)
+    events = rows(ROOT / journal_binding['path'])
+    if ([event.get('event') for event in events] !=
+            ['phase_started', *['request_started', 'request_completed'] * expected_count, 'phase_completed'] or
+            any(events[0].get(k) != v or events[-1].get(k) != v for k, v in identity.items()) or
+            events[0].get('runtime') != roster.RUNTIME or
+            events[-1].get('request_count') != expected_count or
+            events[-1].get('record_count') != sum(len(x['record_ids']) for x in expected_requests)):
+        raise ValueError(f'Roster journal is not a sealed phase: {prefix}')
+    attempts = rows(ROOT / attempt_binding['path'])
+    records = rows(ROOT / record_binding['path'])
+    if len(attempts) != expected_count or len(records) != sum(len(x['record_ids']) for x in expected_requests):
+        raise ValueError(f'Roster evidence count changed: {prefix}')
+    source_digest = hashlib.sha256(json.dumps(manifest['source_bindings'], sort_keys=True).encode()).hexdigest()
+    record_offset = 0
+    for index, (attempt, planned) in enumerate(zip(attempts, expected_requests)):
+        started, finished = events[1 + index * 2:3 + index * 2]
+        expected = {**identity, 'batch_index': planned['batch_index']}
+        if any(attempt.get(k) != v or started.get(k) != v or finished.get(k) != v for k, v in expected.items()):
+            raise ValueError(f'Roster attempt/journal identity changed: {prefix}')
+        if (attempt.get('configuration_id') != config or attempt.get('manifest_sha256') != manifest['_sha256'] or
+                attempt.get('request') != planned['request'] or attempt.get('request_sha256') != planned['request_sha256'] or
+                attempt.get('schema_sha256') != planned['schema_sha256'] or
+                attempt.get('historical_attempt_file_sha256') != planned['historical_attempt_file_sha256'] or
+                attempt.get('source_bindings') != manifest['source_bindings'] or
+                attempt.get('source_bindings_sha256') != source_digest or
+                planned['source_bindings_sha256'] != source_digest or
+                attempt.get('record_order') != planned['record_ids'] or
+                attempt.get('batch_size') != len(planned['record_ids']) or
+                attempt.get('configured_batch_size') != manifest['batch_size'] or
+                attempt.get('controller_timeout_seconds') != manifest['timeout_seconds'] or
+                attempt.get('requested_model') != manifest['model'] or attempt.get('effort') != manifest['effort'] or
+                attempt.get('cli_version') != roster.RUNTIME or attempt.get('auth_mode') != 'ChatGPT' or
+                attempt.get('reference_labels_read') is not False or attempt.get('status') != 'ok' or
+                started.get('manifest_sha256') != manifest['_sha256'] or
+                started.get('request_sha256') != planned['request_sha256'] or finished.get('status') != 'ok'):
+            raise ValueError(f'Roster request controls or binding changed: {prefix}')
+        members = [{'id': rid} for rid in planned['record_ids']]
+        try:
+            parsed = batch_runner.parse_batch(attempt['raw_response'], members)
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError(f'Roster raw response is invalid: {prefix}') from exc
+        if parsed != attempt.get('batch_predictions'):
+            raise ValueError(f'Roster raw response differs from predictions: {prefix}')
+        for position, rid in enumerate(planned['record_ids']):
+            record = records[record_offset + position]
+            if (any(record.get(k) != v for k, v in identity.items()) or
+                    record.get('id') != rid or record.get('batch_index') != planned['batch_index'] or
+                    record.get('batch_position') != position or record.get('status') != 'ok' or
+                    record.get('prediction') != parsed[rid] or
+                    record.get('request_sha256') != planned['request_sha256'] or
+                    record.get('source_attempt_sha256') != planned['historical_attempt_file_sha256'] or
+                    record.get('requested_model') != manifest['model'] or
+                    record.get('reasoning_effort') != manifest['effort'] or
+                    record.get('cli_version') != roster.RUNTIME):
+                raise ValueError(f'Roster record differs from raw attempt: {prefix}')
+        record_offset += len(planned['record_ids'])
+    admissions = list((ROOT / folder).glob(f'{phase}.admission-*.json'))
+    if len(admissions) != 1:
+        raise ValueError(f'Expected one public roster admission: {prefix}')
+    admission_path = admissions[0].relative_to(ROOT)
+    admission_binding = binding(admission_path)
+    admission = json.loads(admissions[0].read_text())
+    review_hash = admissions[0].stem.removeprefix(f'{phase}.admission-')
+    expected_admission = {'schema': 'codex-repeat-roster-admission-v1',
+                          'status': 'admitted_before_dispatch', 'dispatch_status': 'not_asserted',
+                          'configuration_id': config, **identity, 'model': manifest['model'],
+                          'effort': manifest['effort'], 'runtime': roster.RUNTIME,
+                          'manifest_sha256': manifest['_sha256'],
+                          'controller_sha256': PINNED_ROSTER_CONTROLLER,
+                          'private_review_sha256': review_hash}
+    if phase == 'development':
+        expected_admission['smoke_inspection_sha256'] = inspection_binding['sha256']
+    if len(review_hash) != 64 or any(c not in '0123456789abcdef' for c in review_hash) or admission != expected_admission:
+        raise ValueError(f'Public roster admission identity changed: {prefix}')
+    return {'claim': claim_binding, 'journal': journal_binding, 'attempts': attempt_binding,
+            'records': record_binding, 'admission': admission_binding}
+
+
+def build_roster_series(config, display_name):
+    report = build_series(config, display_name)
+    controller_binding = binding(Path('scripts/codex_repeat_roster.py'), PINNED_ROSTER_CONTROLLER)
+    report['sourceBindings'].append(controller_binding)
+    for repeat in ('repeat2', 'repeat3'):
+        manifest_path = REPEAT_ROOT / config / repeat / 'manifest.json'
+        manifest = json.loads((ROOT / manifest_path).read_text())
+        if manifest != roster.plan_data(config, repeat):
+            raise ValueError(f'Roster manifest differs from audited plan: {manifest_path}')
+        manifest['_sha256'] = PINNED_SHA[str(manifest_path)]
+        for source in manifest['source_bindings']:
+            item = binding(Path(source['path']), source['sha256'])
+            if item not in report['sourceBindings']:
+                report['sourceBindings'].append(item)
+        for condition in report['passes'][repeat]:
+            smoke = validate_roster_phase(config, repeat, condition, 'smoke', manifest)
+            inspection_path = REPEAT_ROOT / config / repeat / condition / 'smoke-inspection.json'
+            inspection_binding = binding(inspection_path)
+            inspection = json.loads((ROOT / inspection_path).read_text())
+            if (inspection.get('schema') != 'codex-repeat-smoke-inspection-v1' or
+                    inspection.get('repeat') != repeat or inspection.get('condition') != condition or
+                    inspection.get('inspection') != 'accepted_unchanged' or
+                    inspection.get('record_ids') != manifest['conditions'][condition]['smoke']['record_ids'] or
+                    any(inspection.get(f'{key}_sha256') != smoke[key]['sha256'] for key in ('attempts', 'records', 'journal'))):
+                raise ValueError(f'Roster smoke inspection differs from saved evidence: {inspection_path}')
+            development = validate_roster_phase(config, repeat, condition, 'development', manifest, inspection_binding)
+            entry = report['passes'][repeat][condition]
+            if any(entry['evidence'][key] != development[key] for key in ('claim', 'journal', 'attempts', 'records')):
+                raise ValueError(f'Roster report evidence changed: {repeat} {condition}')
+            entry['evidence'].update({'smoke': smoke, 'smokeInspection': inspection_binding,
+                                      'admission': development['admission']})
+            report['sourceBindings'].extend([*smoke.values(), inspection_binding, development['admission']])
+    return report
+
+
+PINNED_ROSTER_CONTROLLER = '5a83711e5b87f3535c581ed69f247632834d50bc309825933bb51ac71e0527de'
+
+
 def build():
-    reports = [build_series(config, display) for config, display in SERIES]
+    reports = ([build_series(config, display) for config, display in SERIES] +
+               [build_roster_series(config, display) for config, display in ROSTER_SERIES])
     # Keep the original Luna view at the top level for saved clients. All comparisons
     # in `series` have separate 60-record denominators and their own source bindings.
     for report in reports:
