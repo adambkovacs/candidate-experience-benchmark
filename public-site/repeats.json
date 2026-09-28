@@ -29489,35 +29489,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 4,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat2",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat2",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "passes": {
         "original": {
           "P0": {
@@ -29690,6 +29664,100 @@
           }
         },
         "repeat2": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 59,
+              "fields": {
+                "sentiment": 60,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                93.62541087498539,
+                73.93097466701875,
+                68.94471800001338,
+                39.87543991699931,
+                80.97185379100847,
+                38.40934070799267
+              ],
+              "requestSecondsTotal": 395.75773795801797,
+              "tokens": {
+                "input_tokens": 64307,
+                "cached_input_tokens": 6912,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4500,
+                "reasoning_output_tokens": 2460
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.records.jsonl",
+                "sha256": "21c4b875102c24bb8e66441858ce9d41c768808f838d87934a7d84c3f99be761"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.attempts.jsonl",
+                "sha256": "3625b83b09ce7a3d87caefd29dfcab4e5e13f63ea46951241c8dd49190bda386"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.journal.jsonl",
+                "sha256": "c32b32a47bf114182a19dfdd33e894b20448066e2683e65779493645fa5076d0"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.claim.json",
+                "sha256": "014d8939acfc6eb90204c66fe9f527b021368bd40e8b3de82a8895ac65058751"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.claim.json",
+                  "sha256": "f70d14ec80d61711b4d15efa42c9ec6a674895f01bbb1f53b5752a0ab62f245d"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "8639931db39c45800adaab332fe6b6aa2b541aefadd14ec84dd9f60bdda2d336"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.attempts.jsonl",
+                  "sha256": "941f245e2356fe405311d4ac20b02171827a0de608ed3936b7aba25ad1c50898"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "afddb4081a231b0127dd175489a1704ad47b5e2d56687384692096505237d4a6"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.admission-a07da0384b6abdffe67853c8eada7578f3273fb2f16b669b68da96bb8df423b2.json",
+                  "sha256": "32e07fe9a4e66d9070d07d4a5863b8eda7efa9e729d73db01237470b5d0cbeb7"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke-inspection.json",
+                "sha256": "3e81e6ced4532be54d3bb380e3be08f3f3b38cc7b58fb8d8d62c72d1ef41a55f"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.admission-a562170d73e4c4050669b1bedd4b55be7179d6dd21794aa5ceb17658131698a7.json",
+                "sha256": "3949a7d4ac6d5eeeede739e95ac7ad98e2472c55c2e7ca34c1071aff2efb8227"
+              }
+            }
+          },
           "P1": {
             "score": {
               "denominator": 60,
@@ -29783,150 +29851,721 @@
                 "sha256": "473641acca3671209f30a25c2673126ec038d716eb1aa9cb394d755244476359"
               }
             }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                155.9020760830026,
+                109.51808095801971,
+                102.50828437501332,
+                119.13713791701593,
+                87.03320304097724,
+                111.081619375007
+              ],
+              "requestSecondsTotal": 685.1804017490358,
+              "tokens": {
+                "input_tokens": 70749,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4365,
+                "reasoning_output_tokens": 2325
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.records.jsonl",
+                "sha256": "a097ea6ec32655b0833f18ae4703bcd127dd0bb9e291c993b8e203c894aef414"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.attempts.jsonl",
+                "sha256": "8335dfa68ddd20f16bf19444b97798f115275d35c1ee5fc44f5d4bae32f254c2"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.journal.jsonl",
+                "sha256": "6a62fb984bf6c0bb2754999dc428fb0d6012a629a83ca5645ceac3309e020f7f"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.claim.json",
+                "sha256": "59c5e2b0cf40325b01484ca798c2c8f8369b97f922fde883aa07ef32bbddf95f"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.claim.json",
+                  "sha256": "53447faa4343e6e6675097afd200eeb75c79e346af05f20d2cfc545fb2933f2a"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.journal.jsonl",
+                  "sha256": "67250d2cc99b28db842c492e03af53f401f66fa7b2580f731bd5023f73f976e3"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.attempts.jsonl",
+                  "sha256": "4556da5ff3aae25ab200d2a821989e3ffa7ff998a70f59d4d1c84d724e4d9e88"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.records.jsonl",
+                  "sha256": "2b70a61222a43ee02617783d99a2a9e4bf6087569f2738feff9720b361a320e5"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.admission-f4b7d734366ceab5a9c3046a64442a9d7580f2450afce653c99ec36539e29e9a.json",
+                  "sha256": "f911e96a175ae99f470e4cd6b44bb37cfa9d9ea5aa1f01075f69eee3e30e8756"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke-inspection.json",
+                "sha256": "debf47e68122a8f3cfcf479e82d81729581f131aecff45cd51260c545a50eaec"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.admission-f2761a2607e3909bb91f3499d03844a798e142b6936bf67aa9a3c527e0b782ec.json",
+                "sha256": "86cd39d1714e5af76b0a07b0eb6d920ec5164bafc01520de30c4f81cd0cb76c5"
+              }
+            }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                164.58217479201267,
+                380.8070460839954,
+                598.820574042009,
+                55.6233024999965,
+                60.69323150001583,
+                70.04090620900388
+              ],
+              "requestSecondsTotal": 1330.5672351270332,
+              "tokens": {
+                "input_tokens": 64313,
+                "cached_input_tokens": 27648,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4358,
+                "reasoning_output_tokens": 2318
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.records.jsonl",
+                "sha256": "160fa3c77a31709b5e339fa8d1dbe5dd2c9ff02f96592e812ca600e157545ee0"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.attempts.jsonl",
+                "sha256": "d03c6c8305946bebb70f28d42a1b290b23a1686ebfee62b11bc5e94d8b71be18"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.journal.jsonl",
+                "sha256": "75723a6eff832ee8e8a7130b796f9d13a8b7193ecc5a618c7dac70610e0cf984"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.claim.json",
+                "sha256": "9f66a67d927fa5b6b19c1f1da810f851caf1f470bd02cd36ae3d9daa7f923e71"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.claim.json",
+                  "sha256": "1b2edffba5e1ab2fa5639af20558689eb86053e93b9315ae49cc855b01902316"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "e8163cf933a05cfe3608806df62d668b428116af97f92a8577b3e38c83322431"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.attempts.jsonl",
+                  "sha256": "02b641c73fe1ec33126cb2206ffbec152d0a4b5aabfab66f25cc428edd20389f"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "f505094c69dc26c836e5d451c567aeb9b8fbeec93423d83fe1cbcfda0386177a"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.admission-162c5f9dbcab670882833ad9ce5655e0055d90d8d20a591e3efc8989cf431f4a.json",
+                  "sha256": "20fb0d2c2666c6015b4a999ea38f53e445c488f01bfbb064bbae209898e75149"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke-inspection.json",
+                "sha256": "40977017850549d7ba68b2c944661dc6f5f21a15bdeeadd864e5b1a73928ab6f"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.admission-f79ca4fa925a00d11ac90d8ace006438b18a9bf782a0f3798da94fa3df4c0938.json",
+                "sha256": "5300c73659158f64383d6c0f0099d07a12e2b6a61fedbebb26c36da83aa2828a"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 59,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                60.10830733401235,
+                59.56822350001312,
+                150.12074454201502,
+                189.2984431250079,
+                78.10169608402066,
+                105.79141137501574
+              ],
+              "requestSecondsTotal": 642.9888259600848,
+              "tokens": {
+                "input_tokens": 65333,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4261,
+                "reasoning_output_tokens": 2221
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.records.jsonl",
+                "sha256": "d99dfb9dd39730eea2ec1123b24e9d70de61d49996c0119a29b331e8b6b4ade6"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.attempts.jsonl",
+                "sha256": "887a3dbcfc36fbb20ebff81ad753d0376c151a16e056dc98ac563c22f16d64b8"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.journal.jsonl",
+                "sha256": "c46a075de481acbc5760d4e503de71c7919c9411c223617b2ecccb7ec266b8ce"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.claim.json",
+                "sha256": "60e70f98e25ade28ac87bc324c9096e6770cf12605f834b65d5a2c7edec6addb"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.claim.json",
+                  "sha256": "64195478087d9eff00ec09a54a38ec4c8977f897a433f00c5f4b9f715525f2da"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.journal.jsonl",
+                  "sha256": "cb771ed0402515213ea1455ada3187e1cde28b1256e67f4c84bbeed59488e47f"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.attempts.jsonl",
+                  "sha256": "48db1a6076ea68c7210c6d75c5ef73ccc76050eb4a9b1f589603d49784ec9f44"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.records.jsonl",
+                  "sha256": "6041fa4e942172855657f3cd2edd958d0f22120f3c4fd71d1f37430eba56f262"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.admission-635aab0ae9958138c1ab262ae5d9837ec3785b07ea0c05e076500927930e00c4.json",
+                  "sha256": "7fc9b21309d6bed4cf7616bfa68ed309fbef0dada77586062ea774547fd47e3e"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke-inspection.json",
+                "sha256": "869f54d75a868cce4db9884454b6ced4e4871c0fd2bb30cb8bc4144e48ba9cb5"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.admission-b19925a1e21fd5db37b6a87d590c92221c0f22902b92144e154af7cd5d144772.json",
+                "sha256": "c8bc90c090226c407e124b1287f1595b87cfc0d8e2b1d76449582be94235d003"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                84.0574634159857,
+                84.71961612498853,
+                75.53642870800104,
+                33.526460458000656,
+                35.99472462499398,
+                35.71125712498906
+              ],
+              "requestSecondsTotal": 349.54595045695896,
+              "tokens": {
+                "input_tokens": 70747,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4409,
+                "reasoning_output_tokens": 2369
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.records.jsonl",
+                "sha256": "81cf2b3c371e57f7284e39cb05e7dcf37d856c71e9257096578b668e6e05c943"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.attempts.jsonl",
+                "sha256": "c6af4d169a5c93df3be9df1d2ff693c0afa2f7cce1f38aa3f17eb521228b1092"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.journal.jsonl",
+                "sha256": "3884d6d9a52420be899733113957ebf0b600c9d448cb8b42105ef2bc191a8f3d"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.claim.json",
+                "sha256": "c753a9f1fd3191b8f705e64ee5cdf0974a1efe612c478daedecd560068f2af66"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.claim.json",
+                  "sha256": "7a12a259537d5b7bb60b07d1c4162852afbeb22006ea05adcff77ab32e260219"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.journal.jsonl",
+                  "sha256": "270c57c1138ea99db03714b93617cd65dd4e87e1345934926f6bfa527758c6a5"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.attempts.jsonl",
+                  "sha256": "e6415ee8a95b30432bee6dc36870db3b276ae5ae61cc9cb26507da74be4e65aa"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.records.jsonl",
+                  "sha256": "f96f615a8e6f9fdd67ded953e47f7b046dee402fb2ba8c0ba1ace9f14de2ef2d"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.admission-ce60aa8b22c4e9075f23d990e5bcaf416df738a160a2409cc61d038295f64a9d.json",
+                  "sha256": "09951faaa01e674c62ff32d27a3267f32039ff124436a8b2d4d9490211363b92"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke-inspection.json",
+                "sha256": "f954ec3abf6243fcd98c78d359e0494a236995cfbe0a6d21416fcdf3074b31f9"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.admission-75232237c0b4d19861b651b878420eb4cb288cc03c8da77d29516575cd9b00eb.json",
+                "sha256": "40904b1adfd3f79723d8a876ba31380d07815f0ddcab45d97fe2cdc322e1234d"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              56
+              56,
+              59,
+              57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.333333333333336,
+            "range": [
+              56,
+              59
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                58,
+                60,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                60
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                59,
+                60,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                58,
+                59,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               57,
-              58
+              58,
+              59
             ],
-            "mean": null,
-            "range": null
+            "mean": 58.0,
+            "range": [
+              57,
+              59
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
+                59,
+                59
+              ],
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                59
+              ]
+            },
+            "follow_up_needed": {
+              "completedPasses": 3,
+              "values": [
+                59,
+                59,
+                60
+              ],
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                59,
                 58,
                 59
               ],
-              "mean": null,
-              "range": null
-            },
-            "follow_up_needed": {
-              "completedPasses": 2,
-              "values": [
-                59,
+              "mean": 58.666666666666664,
+              "range": [
+                58,
                 59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 2,
-              "values": [
-                59,
-                58
-              ],
-              "mean": null,
-              "range": null
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              56
+              56,
+              57,
+              57
             ],
-            "mean": null,
-            "range": null
+            "mean": 56.666666666666664,
+            "range": [
+              56,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                57
+                57,
+                58,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.666666666666664,
+              "range": [
+                57,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                59,
+                59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                59
+                59,
+                58,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-059"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-059"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-030",
+              "DEV-059"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030",
+              "DEV-059"
+            ]
+          }
+        },
         {
           "condition": "P1",
           "from": "original",
@@ -29965,9 +30604,279 @@
               "DEV-030"
             ]
           }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-018"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-006",
+              "DEV-018",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-013",
+              "DEV-018",
+              "DEV-059"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-013",
+              "DEV-018",
+              "DEV-030",
+              "DEV-059"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-018"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-018",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-059"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-059"
+            ]
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-013",
+              "DEV-030",
+              "DEV-059"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [
+              "DEV-006"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-013",
+            "DEV-030",
+            "DEV-059"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-018"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [
+              "DEV-006",
+              "DEV-030"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-018",
+            "DEV-030"
+          ]
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-013",
+              "DEV-018",
+              "DEV-059"
+            ],
+            "follow_up_needed": [],
+            "serious_concern_reported": [
+              "DEV-030"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-013",
+            "DEV-018",
+            "DEV-030",
+            "DEV-059"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -29994,33 +30903,119 @@
             "serious_concern_reported": 1,
             "testimonial_potential": 0
           }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": -1,
+          "fields": {
+            "sentiment": -1,
+            "follow_up_needed": -1,
+            "serious_concern_reported": -1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": -2,
+          "fields": {
+            "sentiment": -2,
+            "follow_up_needed": -1,
+            "serious_concern_reported": -1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 2,
+          "fields": {
+            "sentiment": 1,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
-            1
+            1,
+            -1,
+            2
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            -1,
+            2
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -1,
+              1
+            ],
+            "follow_up_needed": [
+              -1,
+              1
+            ],
+            "serious_concern_reported": [
+              -1,
+              1
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         },
         "P2": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            0,
+            -2,
             0
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            -2,
+            0
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              -2,
+              0
+            ],
+            "follow_up_needed": [
+              -1,
+              0
+            ],
+            "serious_concern_reported": [
+              -1,
+              1
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         }
       },
@@ -30062,6 +31057,22 @@
           "sha256": "5f3fa99c40e3cce00f8d9b0f8b71397b8360c9e83524f496544f86a751c8431e"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.records.jsonl",
+          "sha256": "21c4b875102c24bb8e66441858ce9d41c768808f838d87934a7d84c3f99be761"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.attempts.jsonl",
+          "sha256": "3625b83b09ce7a3d87caefd29dfcab4e5e13f63ea46951241c8dd49190bda386"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.journal.jsonl",
+          "sha256": "c32b32a47bf114182a19dfdd33e894b20448066e2683e65779493645fa5076d0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.claim.json",
+          "sha256": "014d8939acfc6eb90204c66fe9f527b021368bd40e8b3de82a8895ac65058751"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P1/development.records.jsonl",
           "sha256": "4fdf5c8f40733818ce165c619b0c1792ab68fabcfeb0b9d16bab8acc314662b4"
         },
@@ -30078,8 +31089,72 @@
           "sha256": "c5c6d87595a53e32bc3ddd3b9bcea87025a299101aa9fbccf7b9a9e37a0e16d1"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.records.jsonl",
+          "sha256": "a097ea6ec32655b0833f18ae4703bcd127dd0bb9e291c993b8e203c894aef414"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.attempts.jsonl",
+          "sha256": "8335dfa68ddd20f16bf19444b97798f115275d35c1ee5fc44f5d4bae32f254c2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.journal.jsonl",
+          "sha256": "6a62fb984bf6c0bb2754999dc428fb0d6012a629a83ca5645ceac3309e020f7f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.claim.json",
+          "sha256": "59c5e2b0cf40325b01484ca798c2c8f8369b97f922fde883aa07ef32bbddf95f"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/manifest.json",
           "sha256": "3b1d370c40a8250c6b96c98f6740722b74e9eb1a8f2751e77e5d15cc8bb3931d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.records.jsonl",
+          "sha256": "160fa3c77a31709b5e339fa8d1dbe5dd2c9ff02f96592e812ca600e157545ee0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.attempts.jsonl",
+          "sha256": "d03c6c8305946bebb70f28d42a1b290b23a1686ebfee62b11bc5e94d8b71be18"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.journal.jsonl",
+          "sha256": "75723a6eff832ee8e8a7130b796f9d13a8b7193ecc5a618c7dac70610e0cf984"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.claim.json",
+          "sha256": "9f66a67d927fa5b6b19c1f1da810f851caf1f470bd02cd36ae3d9daa7f923e71"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.records.jsonl",
+          "sha256": "d99dfb9dd39730eea2ec1123b24e9d70de61d49996c0119a29b331e8b6b4ade6"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.attempts.jsonl",
+          "sha256": "887a3dbcfc36fbb20ebff81ad753d0376c151a16e056dc98ac563c22f16d64b8"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.journal.jsonl",
+          "sha256": "c46a075de481acbc5760d4e503de71c7919c9411c223617b2ecccb7ec266b8ce"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.claim.json",
+          "sha256": "60e70f98e25ade28ac87bc324c9096e6770cf12605f834b65d5a2c7edec6addb"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.records.jsonl",
+          "sha256": "81cf2b3c371e57f7284e39cb05e7dcf37d856c71e9257096578b668e6e05c943"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.attempts.jsonl",
+          "sha256": "c6af4d169a5c93df3be9df1d2ff693c0afa2f7cce1f38aa3f17eb521228b1092"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.journal.jsonl",
+          "sha256": "3884d6d9a52420be899733113957ebf0b600c9d448cb8b42105ef2bc191a8f3d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.claim.json",
+          "sha256": "c753a9f1fd3191b8f705e64ee5cdf0974a1efe612c478daedecd560068f2af66"
         },
         {
           "path": "scripts/codex_repeat_roster.py",
@@ -30134,6 +31209,34 @@
           "sha256": "354675145fcf4dee21b765789a6b1102838867718ef279890193ca0c5f03d332"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.claim.json",
+          "sha256": "f70d14ec80d61711b4d15efa42c9ec6a674895f01bbb1f53b5752a0ab62f245d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "8639931db39c45800adaab332fe6b6aa2b541aefadd14ec84dd9f60bdda2d336"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.attempts.jsonl",
+          "sha256": "941f245e2356fe405311d4ac20b02171827a0de608ed3936b7aba25ad1c50898"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.records.jsonl",
+          "sha256": "afddb4081a231b0127dd175489a1704ad47b5e2d56687384692096505237d4a6"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke.admission-a07da0384b6abdffe67853c8eada7578f3273fb2f16b669b68da96bb8df423b2.json",
+          "sha256": "32e07fe9a4e66d9070d07d4a5863b8eda7efa9e729d73db01237470b5d0cbeb7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/smoke-inspection.json",
+          "sha256": "3e81e6ced4532be54d3bb380e3be08f3f3b38cc7b58fb8d8d62c72d1ef41a55f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P0/development.admission-a562170d73e4c4050669b1bedd4b55be7179d6dd21794aa5ceb17658131698a7.json",
+          "sha256": "3949a7d4ac6d5eeeede739e95ac7ad98e2472c55c2e7ca34c1071aff2efb8227"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P1/smoke.claim.json",
           "sha256": "43ad945a1acbe5e7fc50d964aed560d43a045c007156de3664bb43cf42ba1d03"
         },
@@ -30160,6 +31263,118 @@
         {
           "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P1/development.admission-46c9196f31009fdfa7191f2cbd08a91a052608d22fe06413799e489052e0fcea.json",
           "sha256": "473641acca3671209f30a25c2673126ec038d716eb1aa9cb394d755244476359"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.claim.json",
+          "sha256": "53447faa4343e6e6675097afd200eeb75c79e346af05f20d2cfc545fb2933f2a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.journal.jsonl",
+          "sha256": "67250d2cc99b28db842c492e03af53f401f66fa7b2580f731bd5023f73f976e3"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.attempts.jsonl",
+          "sha256": "4556da5ff3aae25ab200d2a821989e3ffa7ff998a70f59d4d1c84d724e4d9e88"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.records.jsonl",
+          "sha256": "2b70a61222a43ee02617783d99a2a9e4bf6087569f2738feff9720b361a320e5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke.admission-f4b7d734366ceab5a9c3046a64442a9d7580f2450afce653c99ec36539e29e9a.json",
+          "sha256": "f911e96a175ae99f470e4cd6b44bb37cfa9d9ea5aa1f01075f69eee3e30e8756"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/smoke-inspection.json",
+          "sha256": "debf47e68122a8f3cfcf479e82d81729581f131aecff45cd51260c545a50eaec"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat2/P2/development.admission-f2761a2607e3909bb91f3499d03844a798e142b6936bf67aa9a3c527e0b782ec.json",
+          "sha256": "86cd39d1714e5af76b0a07b0eb6d920ec5164bafc01520de30c4f81cd0cb76c5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.claim.json",
+          "sha256": "1b2edffba5e1ab2fa5639af20558689eb86053e93b9315ae49cc855b01902316"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "e8163cf933a05cfe3608806df62d668b428116af97f92a8577b3e38c83322431"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.attempts.jsonl",
+          "sha256": "02b641c73fe1ec33126cb2206ffbec152d0a4b5aabfab66f25cc428edd20389f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.records.jsonl",
+          "sha256": "f505094c69dc26c836e5d451c567aeb9b8fbeec93423d83fe1cbcfda0386177a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke.admission-162c5f9dbcab670882833ad9ce5655e0055d90d8d20a591e3efc8989cf431f4a.json",
+          "sha256": "20fb0d2c2666c6015b4a999ea38f53e445c488f01bfbb064bbae209898e75149"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/smoke-inspection.json",
+          "sha256": "40977017850549d7ba68b2c944661dc6f5f21a15bdeeadd864e5b1a73928ab6f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P0/development.admission-f79ca4fa925a00d11ac90d8ace006438b18a9bf782a0f3798da94fa3df4c0938.json",
+          "sha256": "5300c73659158f64383d6c0f0099d07a12e2b6a61fedbebb26c36da83aa2828a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.claim.json",
+          "sha256": "64195478087d9eff00ec09a54a38ec4c8977f897a433f00c5f4b9f715525f2da"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "cb771ed0402515213ea1455ada3187e1cde28b1256e67f4c84bbeed59488e47f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "48db1a6076ea68c7210c6d75c5ef73ccc76050eb4a9b1f589603d49784ec9f44"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.records.jsonl",
+          "sha256": "6041fa4e942172855657f3cd2edd958d0f22120f3c4fd71d1f37430eba56f262"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke.admission-635aab0ae9958138c1ab262ae5d9837ec3785b07ea0c05e076500927930e00c4.json",
+          "sha256": "7fc9b21309d6bed4cf7616bfa68ed309fbef0dada77586062ea774547fd47e3e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/smoke-inspection.json",
+          "sha256": "869f54d75a868cce4db9884454b6ced4e4871c0fd2bb30cb8bc4144e48ba9cb5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P1/development.admission-b19925a1e21fd5db37b6a87d590c92221c0f22902b92144e154af7cd5d144772.json",
+          "sha256": "c8bc90c090226c407e124b1287f1595b87cfc0d8e2b1d76449582be94235d003"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.claim.json",
+          "sha256": "7a12a259537d5b7bb60b07d1c4162852afbeb22006ea05adcff77ab32e260219"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "270c57c1138ea99db03714b93617cd65dd4e87e1345934926f6bfa527758c6a5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "e6415ee8a95b30432bee6dc36870db3b276ae5ae61cc9cb26507da74be4e65aa"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.records.jsonl",
+          "sha256": "f96f615a8e6f9fdd67ded953e47f7b046dee402fb2ba8c0ba1ace9f14de2ef2d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke.admission-ce60aa8b22c4e9075f23d990e5bcaf416df738a160a2409cc61d038295f64a9d.json",
+          "sha256": "09951faaa01e674c62ff32d27a3267f32039ff124436a8b2d4d9490211363b92"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/smoke-inspection.json",
+          "sha256": "f954ec3abf6243fcd98c78d359e0494a236995cfbe0a6d21416fcdf3074b31f9"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-high-batch10/repeat3/P2/development.admission-75232237c0b4d19861b651b878420eb4cb288cc03c8da77d29516575cd9b00eb.json",
+          "sha256": "40904b1adfd3f79723d8a876ba31380d07815f0ddcab45d97fe2cdc322e1234d"
         }
       ],
       "limitations": [
@@ -30169,7 +31384,13 @@
         "Batch timing is request timing; per-record shares are not independent latency.",
         "Subscription request cost is unknown, not zero."
       ],
-      "interpretation": []
+      "interpretation": [
+        "P0 matched all four references on 56 to 59 of 60 comments per pass; 4 comments changed at least one decision across the three passes.",
+        "P1 matched all four references on 57 to 59 of 60 comments per pass; 3 comments changed at least one decision across the three passes.",
+        "P2 matched all four references on 56 to 57 of 60 comments per pass; 4 comments changed at least one decision across the three passes.",
+        "P1 versus P0 changed direction across passes: changes were +1, -1, +2 matches out of 60. Three passes do not establish a reliable future effect.",
+        "P2 versus P0 did not improve agreement in every pass: changes were +0, -2, +0 matches out of 60. Three passes do not establish a reliable future effect."
+      ]
     },
     {
       "schema": "repeat-findings-v1",
@@ -30222,35 +31443,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 4,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat2",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat2",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "passes": {
         "original": {
           "P0": {
@@ -30423,6 +31618,194 @@
           }
         },
         "repeat2": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                89.27151458300068,
+                79.06856387498556,
+                72.52980712501449,
+                46.796608582983026,
+                79.15352312498726,
+                47.75682029200834
+              ],
+              "requestSecondsTotal": 414.57683758297935,
+              "tokens": {
+                "input_tokens": 64311,
+                "cached_input_tokens": 6912,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 6266,
+                "reasoning_output_tokens": 4226
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.records.jsonl",
+                "sha256": "b080a573bf8bf1a119f72b490c7cb57c9ee2df434a187647222dff0f353ef8f2"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.attempts.jsonl",
+                "sha256": "24fdacbd4a0aa125ec1deeb567ed5d28b68261746226fd2f9869e43fab55f380"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.journal.jsonl",
+                "sha256": "c20fb447ca937213b11194fb5181e0dd10848ccd06bb723bfe99e5034c54e155"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.claim.json",
+                "sha256": "ae94e29ef3eb31d7cb98afc968f22ba8bd6054ac4b548dd5f12a9505a19256cc"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.claim.json",
+                  "sha256": "aae491391103275c6931701d340b4c6cf58162ab8a7a4efd26f798433e3af095"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "771271f604e6a7bd80a85d10e054b5d35e5cf80b44293ac98dd2625805281f84"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.attempts.jsonl",
+                  "sha256": "728af111bed3e041279710bf327b28fef9de64f3bb8c2ce3ab6971abdc7b2217"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "ca5aa0e497434f0e87365c3578e572a3402e803f569c280696ce25faa52332f1"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.admission-c1683e01fd9e2958b854f59a4714264fb7a83d74c932b09c8d96c628d7cd07c2.json",
+                  "sha256": "f5ce81023bd679c11f545feabac33700e7747c827fbebeb9cedbfd30547f586c"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke-inspection.json",
+                "sha256": "89d52cdceba3b16af969f967596e8e7424b1e0da3f3f7256cdeddfd4bfcfffcb"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.admission-0e23be77e9c578acd7ea264e5ebc328744f3306d67c13ab54502868ee694fc22.json",
+                "sha256": "e17d8e47092328e7f9329b45f238685bd1026628d092d1570472352f4bc3013a"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 60,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                166.85095299998648,
+                126.51052899999195,
+                111.5972584580013,
+                117.44429058299283,
+                79.78601591600454,
+                100.00309387501329
+              ],
+              "requestSecondsTotal": 702.1921408319904,
+              "tokens": {
+                "input_tokens": 65343,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 5842,
+                "reasoning_output_tokens": 3802
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.records.jsonl",
+                "sha256": "c9805bc70b89532fbd2b691c26cacb4447690dd62167e748aef4747d05093038"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.attempts.jsonl",
+                "sha256": "a4ca68745e6b570f93c7a062748e18243456f8ee0ee1eb2e1a6fe3548fc2fdbc"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.journal.jsonl",
+                "sha256": "5558c1f77f0d3563d00ec6d6bd5366789a6254d9454e1e8ced8fc2f733e69001"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.claim.json",
+                "sha256": "274c3ae3bcf43309699c5c810428e642a296d00e452fba255e04dc9a8e8e924f"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.claim.json",
+                  "sha256": "0634f6aee87c92e456bfbe666091d208f3e324a55448ead3082239bc496965c3"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.journal.jsonl",
+                  "sha256": "3e691bad438a4210c3307aefb6f59dc1724aefe44a885a6fb93eecd39487396b"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.attempts.jsonl",
+                  "sha256": "7b742983045b6e01e655b0e9b46e41c6eb9ccd283f5235f98f3407c6024bf02d"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.records.jsonl",
+                  "sha256": "046c5065200549fe3843bd42ae23fee0053506394baf3b5aa48bb83e8074d5d0"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.admission-3171df2496248102642007e91a82f7a51fc718818ef30603ea879c2a0e3a2d44.json",
+                  "sha256": "c235360fb42d63c6509a5e9c6b02505dd1eea70e3a9838908f48dfaf889c9b82"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke-inspection.json",
+                "sha256": "7979c259e0148a8a8fbc450482d8c3a86c6bc1a0343ff9f142b207d5adf25f58"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.admission-dae0f9a7eaf1338da70001706b3b89f8aa19e5716049ed9bf554326265272dbe.json",
+                "sha256": "b33959a3f16d3108572d49eba06497fca73d2c111993591fd3b6de6c734bcb36"
+              }
+            }
+          },
           "P2": {
             "score": {
               "denominator": 60,
@@ -30518,148 +31901,707 @@
             }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                154.65999216699856,
+                406.80962320801336,
+                595.034171916981,
+                77.03251587500563,
+                59.69124495898723,
+                70.05591062500025
+              ],
+              "requestSecondsTotal": 1363.283458750986,
+              "tokens": {
+                "input_tokens": 64305,
+                "cached_input_tokens": 13824,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 6324,
+                "reasoning_output_tokens": 4284
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.records.jsonl",
+                "sha256": "1b8f8c18f63ef108b8fe5429b1e882418ffe616803e93b5b1db26352d15c56bf"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.attempts.jsonl",
+                "sha256": "12c5a9345b38b33c5448764f16b52b16692abaf96bdd7e8cddcf6e67c5269ae2"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.journal.jsonl",
+                "sha256": "e7576cc4bed9166fb670435bbd65783fd8c23840afd721a72e21e831d09f5324"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.claim.json",
+                "sha256": "04fd31f1ccf9bd1a09c6b9d0b35338839a07622ac9c2a92de56dc7cb6e95b01b"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.claim.json",
+                  "sha256": "480f6843bd7d7d60037cb1ea191ff02f5726ba3e70102512da9e9fa8791ed56a"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "165165930c0455d07b6595e6eda851732a71cf4aa4f1149c3c9fd9ce22b9903b"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.attempts.jsonl",
+                  "sha256": "d95830d7cb6a17b731ac7b43b422e4458338f595ff61bb6604ba09df6c7ff80e"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "a2e79efa7040ef52f1c21a1c7266b472290d401ba2a3cfdb767d87a984a5f841"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.admission-df59f197635dfd78a803f90e6148b0becc8ab2e35be988f7653be94501e2d939.json",
+                  "sha256": "102b9fd706fe334533550bcc5b547244ae59c87d657714d112f4055e60ae5f54"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke-inspection.json",
+                "sha256": "07ba3ff7fe52757d6736a9fe8040976f488a4b8c3eebd986d2c1a7fa744c5f19"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.admission-c1c4dded6cedbed729e2913bdd3b34992a27a2376e0d6fcf97b6a98a92f5aaec.json",
+                "sha256": "2f4587eae3642cac412a44e3d3c89df9eb1df33615faa80de7397c107685f751"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 60,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                78.19784462498501,
+                87.68165554202278,
+                77.11626295899623,
+                36.930267208023,
+                39.52971041700221,
+                45.8380705830059
+              ],
+              "requestSecondsTotal": 365.2938113340351,
+              "tokens": {
+                "input_tokens": 65335,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 5827,
+                "reasoning_output_tokens": 3787
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.records.jsonl",
+                "sha256": "495232838327f08b82854de2f55ed34b1741b1ac404806c6f3abca08ab182488"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.attempts.jsonl",
+                "sha256": "f9f0c24fef928e2fc9bc8b659bae75041270c0ea1e23da59fa2dffca227b55c0"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.journal.jsonl",
+                "sha256": "4333b6b0c49ae2864b5f5a755a9ddb7ec605b8ffda57a73ab5fdf445aea23356"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.claim.json",
+                "sha256": "6a013a58c39741dc14198a87610ee9f2eae39081557e2655cb38e1d7f9657620"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.claim.json",
+                  "sha256": "854cd432ffdca6ea77eecde1b1bae16d904d81789994bf22b5a76e888ace8f14"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.journal.jsonl",
+                  "sha256": "505475c081fe46e5503833eaea336228a32fd9e12aab00a9a7692b2e7ef3211b"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.attempts.jsonl",
+                  "sha256": "7055cae42673baddbeafcc8196e2c2c5c82d868d8aef1a54c3867dc12211faf2"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.records.jsonl",
+                  "sha256": "ac037dcfcec43c8920c0b3dc6027c9cc9439a51b01ad2af059db9fff502a1c8d"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.admission-c436c305d0aca91826bc2c96117ada59e02b0dc31978a483428a565bf4486a0c.json",
+                  "sha256": "788fe10c777d91633ad99d5e3ee0a295e8a14155cedaef714a9886b7d0480f85"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke-inspection.json",
+                "sha256": "1016da6369eb4aa4f6c4ca8c051873ea396cec80309b251466b769b76f3e9214"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.admission-d96609dfd424c9dbc9a2a0bd67a4e41b2dc24711c7bc8d602ceb9585df744005.json",
+                "sha256": "56f1267e03a0f11a3f1df81c24d797826fef9e0aa47110038e67ee909ccc2a70"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                55.724723625025945,
+                59.32314541598316,
+                153.0158734160068,
+                184.32820250000805,
+                89.3881881670095,
+                96.85323116701329
+              ],
+              "requestSecondsTotal": 638.6333642910467,
+              "tokens": {
+                "input_tokens": 70755,
+                "cached_input_tokens": 6912,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 5985,
+                "reasoning_output_tokens": 3947
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.records.jsonl",
+                "sha256": "9a0530c9277f009abbfd95e4263681b9e95845dc8911fbdc73f4dc24a62b77b7"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.attempts.jsonl",
+                "sha256": "bdea92fb482aec4ced9657c21f191c01862854d225afa88b9ba5cb3dd2727c8c"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.journal.jsonl",
+                "sha256": "2182a2086e4ab7f3e595281d61c6c7e262b3129cfdd725fb46cc16fd539b9aa5"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.claim.json",
+                "sha256": "86ffee57e1772ff7b27cd34d9a9c3635125a1cdea17275a5830fe2360ed05d92"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.claim.json",
+                  "sha256": "258c5ba01e44026fee05062e687a1355f803890b6649526f0cf1eca102a3c76d"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.journal.jsonl",
+                  "sha256": "c9fa6a3137d79745a7253305d6d1d86dc7a138b35af6d62d87618ffb3a0e1c81"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.attempts.jsonl",
+                  "sha256": "f670c64fe3728fbea1bca128d7bf775b11f2982c554dca578bdfa04b3d48c0fe"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.records.jsonl",
+                  "sha256": "8a583cc2876bafa5b9ec77900fb704af8db4595f2239e57ec910168539194412"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.admission-26682ee3b7e355fe0b536f11eac968d82868d077105a22a2fd46e8327437e822.json",
+                  "sha256": "c6bc4fd32ec05e7eef450a6f75ba7d7ec4922805f337842bbc10b14257b21505"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke-inspection.json",
+                "sha256": "cf296b42b27db6eaddc3bc9ab9ebc827be448f7bb5264126e2163acb23706485"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.admission-b7aa325d7bf8e76f6df9b5efccbd9f11d5f129666e0cf49780595248a858408b.json",
+                "sha256": "0047963754be1c43caab5a1dab5ce52766f6174914721e4ab024a68bc5ed6ad5"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
+              57,
+              57,
               57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.0,
+            "range": [
+              57,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "follow_up_needed": {
-              "completedPasses": 1,
-              "values": [
-                60
-              ],
-              "mean": null,
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 1,
-              "values": [
+                59,
+                58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
+            },
+            "follow_up_needed": {
+              "completedPasses": 3,
+              "values": [
+                60,
+                59,
+                59
+              ],
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                58,
+                58,
+                58
+              ],
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
+              58,
+              58,
               58
             ],
-            "mean": null,
-            "range": null
+            "mean": 58.0,
+            "range": [
+              58,
+              58
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                59,
+                59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                58,
+                58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               57,
-              57
+              57,
+              58
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.333333333333336,
+            "range": [
+              57,
+              58
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 59,
-                58
-              ],
-              "mean": null,
-              "range": null
-            },
-            "follow_up_needed": {
-              "completedPasses": 2,
-              "values": [
-                59,
+                58,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                59
+              ]
+            },
+            "follow_up_needed": {
+              "completedPasses": 3,
+              "values": [
+                59,
+                59,
+                60
+              ],
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
                 58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
         {
           "condition": "P2",
           "from": "original",
@@ -30695,9 +32637,139 @@
               "DEV-030"
             ]
           }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-030"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "rate": 0.05,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-013"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013"
+            ]
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-030"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-030"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-013",
+              "DEV-030"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-013",
+            "DEV-030"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -30724,33 +32796,119 @@
             "serious_concern_reported": 0,
             "testimonial_potential": 0
           }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 2,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 2,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 1,
+          "fields": {
+            "sentiment": 1,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            1,
+            1,
             1
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            1,
+            1
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              1,
+              2
+            ],
+            "follow_up_needed": [
+              -1,
+              0
+            ],
+            "serious_concern_reported": [
+              0,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         },
         "P2": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
-            0
+            0,
+            0,
+            1
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            0,
+            1
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              0,
+              1
+            ],
+            "follow_up_needed": [
+              -1,
+              1
+            ],
+            "serious_concern_reported": [
+              0,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         }
       },
@@ -30792,6 +32950,38 @@
           "sha256": "d1e48d0d137a53400e845a42975b9c2df8e09dfdfcbca94a271af976e005aca5"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.records.jsonl",
+          "sha256": "b080a573bf8bf1a119f72b490c7cb57c9ee2df434a187647222dff0f353ef8f2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.attempts.jsonl",
+          "sha256": "24fdacbd4a0aa125ec1deeb567ed5d28b68261746226fd2f9869e43fab55f380"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.journal.jsonl",
+          "sha256": "c20fb447ca937213b11194fb5181e0dd10848ccd06bb723bfe99e5034c54e155"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.claim.json",
+          "sha256": "ae94e29ef3eb31d7cb98afc968f22ba8bd6054ac4b548dd5f12a9505a19256cc"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.records.jsonl",
+          "sha256": "c9805bc70b89532fbd2b691c26cacb4447690dd62167e748aef4747d05093038"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.attempts.jsonl",
+          "sha256": "a4ca68745e6b570f93c7a062748e18243456f8ee0ee1eb2e1a6fe3548fc2fdbc"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.journal.jsonl",
+          "sha256": "5558c1f77f0d3563d00ec6d6bd5366789a6254d9454e1e8ced8fc2f733e69001"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.claim.json",
+          "sha256": "274c3ae3bcf43309699c5c810428e642a296d00e452fba255e04dc9a8e8e924f"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P2/development.records.jsonl",
           "sha256": "7e8ce8ddccae97d4c019de56049289ec9d836844ab6cb198cc8fbed46643bbe0"
         },
@@ -30810,6 +33000,54 @@
         {
           "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/manifest.json",
           "sha256": "411226b822f769a1f5117b0148ca33fff505f9c1fc3cf07076a6bb19e6016dd2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.records.jsonl",
+          "sha256": "1b8f8c18f63ef108b8fe5429b1e882418ffe616803e93b5b1db26352d15c56bf"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.attempts.jsonl",
+          "sha256": "12c5a9345b38b33c5448764f16b52b16692abaf96bdd7e8cddcf6e67c5269ae2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.journal.jsonl",
+          "sha256": "e7576cc4bed9166fb670435bbd65783fd8c23840afd721a72e21e831d09f5324"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.claim.json",
+          "sha256": "04fd31f1ccf9bd1a09c6b9d0b35338839a07622ac9c2a92de56dc7cb6e95b01b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.records.jsonl",
+          "sha256": "495232838327f08b82854de2f55ed34b1741b1ac404806c6f3abca08ab182488"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.attempts.jsonl",
+          "sha256": "f9f0c24fef928e2fc9bc8b659bae75041270c0ea1e23da59fa2dffca227b55c0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.journal.jsonl",
+          "sha256": "4333b6b0c49ae2864b5f5a755a9ddb7ec605b8ffda57a73ab5fdf445aea23356"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.claim.json",
+          "sha256": "6a013a58c39741dc14198a87610ee9f2eae39081557e2655cb38e1d7f9657620"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.records.jsonl",
+          "sha256": "9a0530c9277f009abbfd95e4263681b9e95845dc8911fbdc73f4dc24a62b77b7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.attempts.jsonl",
+          "sha256": "bdea92fb482aec4ced9657c21f191c01862854d225afa88b9ba5cb3dd2727c8c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.journal.jsonl",
+          "sha256": "2182a2086e4ab7f3e595281d61c6c7e262b3129cfdd725fb46cc16fd539b9aa5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.claim.json",
+          "sha256": "86ffee57e1772ff7b27cd34d9a9c3635125a1cdea17275a5830fe2360ed05d92"
         },
         {
           "path": "scripts/codex_repeat_roster.py",
@@ -30864,6 +33102,62 @@
           "sha256": "354675145fcf4dee21b765789a6b1102838867718ef279890193ca0c5f03d332"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.claim.json",
+          "sha256": "aae491391103275c6931701d340b4c6cf58162ab8a7a4efd26f798433e3af095"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "771271f604e6a7bd80a85d10e054b5d35e5cf80b44293ac98dd2625805281f84"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.attempts.jsonl",
+          "sha256": "728af111bed3e041279710bf327b28fef9de64f3bb8c2ce3ab6971abdc7b2217"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.records.jsonl",
+          "sha256": "ca5aa0e497434f0e87365c3578e572a3402e803f569c280696ce25faa52332f1"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke.admission-c1683e01fd9e2958b854f59a4714264fb7a83d74c932b09c8d96c628d7cd07c2.json",
+          "sha256": "f5ce81023bd679c11f545feabac33700e7747c827fbebeb9cedbfd30547f586c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/smoke-inspection.json",
+          "sha256": "89d52cdceba3b16af969f967596e8e7424b1e0da3f3f7256cdeddfd4bfcfffcb"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P0/development.admission-0e23be77e9c578acd7ea264e5ebc328744f3306d67c13ab54502868ee694fc22.json",
+          "sha256": "e17d8e47092328e7f9329b45f238685bd1026628d092d1570472352f4bc3013a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.claim.json",
+          "sha256": "0634f6aee87c92e456bfbe666091d208f3e324a55448ead3082239bc496965c3"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.journal.jsonl",
+          "sha256": "3e691bad438a4210c3307aefb6f59dc1724aefe44a885a6fb93eecd39487396b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.attempts.jsonl",
+          "sha256": "7b742983045b6e01e655b0e9b46e41c6eb9ccd283f5235f98f3407c6024bf02d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.records.jsonl",
+          "sha256": "046c5065200549fe3843bd42ae23fee0053506394baf3b5aa48bb83e8074d5d0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke.admission-3171df2496248102642007e91a82f7a51fc718818ef30603ea879c2a0e3a2d44.json",
+          "sha256": "c235360fb42d63c6509a5e9c6b02505dd1eea70e3a9838908f48dfaf889c9b82"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/smoke-inspection.json",
+          "sha256": "7979c259e0148a8a8fbc450482d8c3a86c6bc1a0343ff9f142b207d5adf25f58"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P1/development.admission-dae0f9a7eaf1338da70001706b3b89f8aa19e5716049ed9bf554326265272dbe.json",
+          "sha256": "b33959a3f16d3108572d49eba06497fca73d2c111993591fd3b6de6c734bcb36"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P2/smoke.claim.json",
           "sha256": "f828897cc19bb8e93cad16589a2b57486c896ff6e99e7b70f44a728bc93e877e"
         },
@@ -30890,6 +33184,90 @@
         {
           "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat2/P2/development.admission-c7d26c7750ba9a5939012586fbd3613f7dc2d49da6f617e8462a21032e575857.json",
           "sha256": "f6b398bec8b823f0d262a427f17bc8154c85d2785531c3cd1e2d67bb1c355c27"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.claim.json",
+          "sha256": "480f6843bd7d7d60037cb1ea191ff02f5726ba3e70102512da9e9fa8791ed56a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "165165930c0455d07b6595e6eda851732a71cf4aa4f1149c3c9fd9ce22b9903b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.attempts.jsonl",
+          "sha256": "d95830d7cb6a17b731ac7b43b422e4458338f595ff61bb6604ba09df6c7ff80e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.records.jsonl",
+          "sha256": "a2e79efa7040ef52f1c21a1c7266b472290d401ba2a3cfdb767d87a984a5f841"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke.admission-df59f197635dfd78a803f90e6148b0becc8ab2e35be988f7653be94501e2d939.json",
+          "sha256": "102b9fd706fe334533550bcc5b547244ae59c87d657714d112f4055e60ae5f54"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/smoke-inspection.json",
+          "sha256": "07ba3ff7fe52757d6736a9fe8040976f488a4b8c3eebd986d2c1a7fa744c5f19"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P0/development.admission-c1c4dded6cedbed729e2913bdd3b34992a27a2376e0d6fcf97b6a98a92f5aaec.json",
+          "sha256": "2f4587eae3642cac412a44e3d3c89df9eb1df33615faa80de7397c107685f751"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.claim.json",
+          "sha256": "854cd432ffdca6ea77eecde1b1bae16d904d81789994bf22b5a76e888ace8f14"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "505475c081fe46e5503833eaea336228a32fd9e12aab00a9a7692b2e7ef3211b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "7055cae42673baddbeafcc8196e2c2c5c82d868d8aef1a54c3867dc12211faf2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.records.jsonl",
+          "sha256": "ac037dcfcec43c8920c0b3dc6027c9cc9439a51b01ad2af059db9fff502a1c8d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke.admission-c436c305d0aca91826bc2c96117ada59e02b0dc31978a483428a565bf4486a0c.json",
+          "sha256": "788fe10c777d91633ad99d5e3ee0a295e8a14155cedaef714a9886b7d0480f85"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/smoke-inspection.json",
+          "sha256": "1016da6369eb4aa4f6c4ca8c051873ea396cec80309b251466b769b76f3e9214"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P1/development.admission-d96609dfd424c9dbc9a2a0bd67a4e41b2dc24711c7bc8d602ceb9585df744005.json",
+          "sha256": "56f1267e03a0f11a3f1df81c24d797826fef9e0aa47110038e67ee909ccc2a70"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.claim.json",
+          "sha256": "258c5ba01e44026fee05062e687a1355f803890b6649526f0cf1eca102a3c76d"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "c9fa6a3137d79745a7253305d6d1d86dc7a138b35af6d62d87618ffb3a0e1c81"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "f670c64fe3728fbea1bca128d7bf775b11f2982c554dca578bdfa04b3d48c0fe"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.records.jsonl",
+          "sha256": "8a583cc2876bafa5b9ec77900fb704af8db4595f2239e57ec910168539194412"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke.admission-26682ee3b7e355fe0b536f11eac968d82868d077105a22a2fd46e8327437e822.json",
+          "sha256": "c6bc4fd32ec05e7eef450a6f75ba7d7ec4922805f337842bbc10b14257b21505"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/smoke-inspection.json",
+          "sha256": "cf296b42b27db6eaddc3bc9ab9ebc827be448f7bb5264126e2163acb23706485"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-luna-xhigh-batch10/repeat3/P2/development.admission-b7aa325d7bf8e76f6df9b5efccbd9f11d5f129666e0cf49780595248a858408b.json",
+          "sha256": "0047963754be1c43caab5a1dab5ce52766f6174914721e4ab024a68bc5ed6ad5"
         }
       ],
       "limitations": [
@@ -30899,7 +33277,13 @@
         "Batch timing is request timing; per-record shares are not independent latency.",
         "Subscription request cost is unknown, not zero."
       ],
-      "interpretation": []
+      "interpretation": [
+        "P0 matched all four references on 57 to 57 of 60 comments per pass; 2 comments changed at least one decision across the three passes.",
+        "P1 matched all four references on 58 to 58 of 60 comments per pass; 0 comments changed at least one decision across the three passes.",
+        "P2 matched all four references on 57 to 58 of 60 comments per pass; 3 comments changed at least one decision across the three passes.",
+        "P1 versus P0 improved agreement in all three observed passes: changes were +1, +1, +1 matches out of 60. Three passes do not establish a reliable future effect.",
+        "P2 versus P0 did not improve agreement in every pass: changes were +0, +0, +1 matches out of 60. Three passes do not establish a reliable future effect."
+      ]
     },
     {
       "schema": "repeat-findings-v1",
@@ -30952,35 +33336,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 4,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat2",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat2",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P0",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "incomplete_or_not_started"
-        },
-        {
-          "pass": "repeat3",
-          "condition": "P2",
-          "status": "incomplete_or_not_started"
-        }
-      ],
+      "missingPasses": [],
       "passes": {
         "original": {
           "P0": {
@@ -31153,6 +33511,194 @@
           }
         },
         "repeat2": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                79.95431424997514,
+                76.55713529200875,
+                72.48782825001399,
+                34.0634673750028,
+                84.12184183302452,
+                38.56866124999942
+              ],
+              "requestSecondsTotal": 385.7532482500246,
+              "tokens": {
+                "input_tokens": 65381,
+                "cached_input_tokens": 7168,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4577,
+                "reasoning_output_tokens": 2537
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.records.jsonl",
+                "sha256": "0298bc1de55b2ef5d4b7a48adbe177786f66edf50e5a98a624befea84b9f92c4"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.attempts.jsonl",
+                "sha256": "6919d8a2acfac3e6dc098ec9c8962cf5686e2568a4d5df8e74e5ac54c6d9e761"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.journal.jsonl",
+                "sha256": "c7ccae01ef965a4dac7d3deb2c4b3aa808f474262386542daf20d8813497214b"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.claim.json",
+                "sha256": "818655bf4cd5435109e8eca8f416e8324d9d8929b12ab14d5112763588750062"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.claim.json",
+                  "sha256": "ce2974a47831b5a1aa085b5a2d7dba1570fe39353db39931a7ef3f48cafa5f50"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "fb1ae55eeabe2258f3a6280382088ef7b71a8c7a5e6868f9ba83ef549ec7e0c0"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.attempts.jsonl",
+                  "sha256": "8a1ac883eb9af9dc657517ba955292cb60318d681aff625b075a1c5bc90c0c98"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "bac3673df55da37bf3aa6dc764d8238bf2c0cb9f35ae3641ea88a19876a79bc7"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.admission-6e3928a45eef8bf4f9100272456eea6d51c0bffcbf31bf81f366eeb2bb2d48b6.json",
+                  "sha256": "4d412fd04c321dca8c23ab5a9dfb839320d74406b029171a80b829fcf89da8fa"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke-inspection.json",
+                "sha256": "d579c947059de11dcba319ae305a6e243ce3b53c16a88103540c59f900cc85c5"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.admission-5bf6a069600c0bdbadfd464c955861e4eeae526f33fd022639df8b420d80ac77.json",
+                "sha256": "e8020de112f0c24d297bbf4935ba1b011b9662b1694d5098b39b1590340b5b02"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                152.1898297080188,
+                113.90901308399043,
+                105.07439787499607,
+                81.90129558401532,
+                96.80183908401523,
+                137.27643024999998
+              ],
+              "requestSecondsTotal": 687.1528055850358,
+              "tokens": {
+                "input_tokens": 66421,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4494,
+                "reasoning_output_tokens": 2454
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.records.jsonl",
+                "sha256": "7a13c31c4dcbcc4ab10278413ed487f81b429aaad08a31d5d5b28de22d5c03fc"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.attempts.jsonl",
+                "sha256": "dc2b7237c1a4f3a13e3b8a3153c8f721c4fb775f75f45f32f473935db0bf2aae"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.journal.jsonl",
+                "sha256": "b855e981b4b1781f2f3754ab4b9939e2719cb9f2983293559980eb1975ba928f"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.claim.json",
+                "sha256": "27040b3727c251c4cfcaa0d5efd26dbd97c219be27addd42d1332eb1344fef50"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.claim.json",
+                  "sha256": "f4d8535071a447a88040e0cafa2287e86e8d115f2e93d854d39202a78c8e63d8"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.journal.jsonl",
+                  "sha256": "e2dc3c2c8fba75b6d0c2ed4043a2d65321518ccdcc5bfee17d7c288c11445caa"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.attempts.jsonl",
+                  "sha256": "c56aa96767a46e7beb5444f82fe9f36a9f029312f663efb84d642ddafee46c5e"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.records.jsonl",
+                  "sha256": "0b5f4b16cb708945383cf29998f414f585f39818bc952c4d28137bf93654b15f"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.admission-6f371d15d025825f8bba9e7fb1d6209670435c02cbaab049b374a3c65688a978.json",
+                  "sha256": "5ac6a2078edf17fd9f2a28bca8a0d3acbe2c5141b9539e3dd59825cc1c4b9ef9"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke-inspection.json",
+                "sha256": "49a59be302ce1f96246dccb8d89507b5997cc87137067103eb048e2607a69d7c"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.admission-1a4fb632d505e7295d5c690baf4f9c6d7978295fec4f297645ae8ac00f7d1c81.json",
+                "sha256": "4fda828d89fed474769b5ca492d06f03d73e649f79a0b9f86df5c69c2118a2dc"
+              }
+            }
+          },
           "P2": {
             "score": {
               "denominator": 60,
@@ -31248,148 +33794,722 @@
             }
           }
         },
-        "repeat3": {}
+        "repeat3": {
+          "P0": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                153.1829949579842,
+                392.52174695802387,
+                572.5417117080069,
+                87.30752349999966,
+                58.87962725001853,
+                65.4014128750132
+              ],
+              "requestSecondsTotal": 1329.8350172490464,
+              "tokens": {
+                "input_tokens": 65379,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4510,
+                "reasoning_output_tokens": 2468
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.records.jsonl",
+                "sha256": "499a52bc5c41f728665e41482edac498b2c34559fc082e91db85ad0673aebdc3"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.attempts.jsonl",
+                "sha256": "4b63c98b9c17a7cd5eb28e268b707365cf57cbc7b4bd6c039faf11595a99db14"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.journal.jsonl",
+                "sha256": "5715b63e62b87b335b5b3eae7b78184c916e47b9d381eef64738bdca96452421"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.claim.json",
+                "sha256": "31351ebc32b340b54d61cd22ba5017b4d66cbcd9e74ba5c3b21a6ca103c5e05a"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.claim.json",
+                  "sha256": "758a403aa32c69d375119244cb96232ad33fe150753d4902364ccbec0e5e922c"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "361de3da40d324dc9efb675c08e255fdf10aac6cfb7d710731ec51bcf40f1153"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.attempts.jsonl",
+                  "sha256": "a56cea186f1e1a657bf8a4bfdd73790e3977a40802076c950bf65f8b73921fb5"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "1ee9fbc1a8916e149547ebc96261f16ed62367a81c96ef6dfb2c98dadc230687"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.admission-bb3e02a89c81eb35c33d263e0aef4a15141adf4136ce4aab67d6ca44419224a9.json",
+                  "sha256": "9dc17bcccb9a8e44ce7468780e5dcf1ca56c63fbe6713b6ebfcc6ab302286b99"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke-inspection.json",
+                "sha256": "3355e71050c0a876bb2c8f7745027400e8d054b43208e06ec20a1f006f336a61"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.admission-9c6988fd60b112374c676212568124f40c369e6e11e08b33a218005c934c8c8d.json",
+                "sha256": "d56126f8dfc3b8858c5f35a3835f70cfa7e04f68e59ab731ba2953c8a79c2c20"
+              }
+            }
+          },
+          "P1": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                70.27191387498169,
+                77.94461320899427,
+                93.80279654200422,
+                31.01792216699687,
+                31.244806209026137,
+                32.978210166009376
+              ],
+              "requestSecondsTotal": 337.26026216801256,
+              "tokens": {
+                "input_tokens": 66403,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4333,
+                "reasoning_output_tokens": 2293
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.records.jsonl",
+                "sha256": "07be58ddd959576576d25a38e7af47000c22d6c98dc715a82ce550dc1e6b90b5"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.attempts.jsonl",
+                "sha256": "9d585222493fd0570a4e0e3787f81d3bb8f4a885c13b38740d48d590d1bbe0d2"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.journal.jsonl",
+                "sha256": "4fcb10113532b3da48f8cf3f9abc503b0ea529ea67ce639c93c3fb092be57ed9"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.claim.json",
+                "sha256": "1992a199ec8c4b33f1ee7d63aeb0a6a2ea0a489854618fc655c0cb77b723eaa9"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.claim.json",
+                  "sha256": "366c918d0187337067552907464a670d3dda3a11fd014e6ff9cd3eb7c08ce728"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.journal.jsonl",
+                  "sha256": "754a4c6931ac517a93f8d183468454694b0360378798189c4d0055d0760040f8"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.attempts.jsonl",
+                  "sha256": "6796bc66ce8974824d088f4eb91acefcf4368bd998dad3e2507762d8b485123a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.records.jsonl",
+                  "sha256": "65fb7e4e8784b25f037a3613f5f39957d3c28d9bd4521549eb02d2f3d4bd59ba"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.admission-4816b02574fbc9abc187d573d1b1d54702e0e0b4240c90840a668c9c6d567a58.json",
+                  "sha256": "383058b6bc9c303e8b15974c306599a858baf63c7208b9e4e8db1da928d85639"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke-inspection.json",
+                "sha256": "80e1e510dbe0ed692ca8b400456afdd76d681051ead91c10ffe3587ac8403ee0"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.admission-c4ad7af5c5234d9c5a478f219838746fd172e87b0a7930522b2e53a37cd8ccf8.json",
+                "sha256": "c31c5eddd1b01f37621c595b33a7ffd768ff4bbd47c34191d9e379058abe4494"
+              }
+            }
+          },
+          "P2": {
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                53.813317917025415,
+                61.721344457997475,
+                151.6467319999938,
+                180.75500666699372,
+                72.38010791697889,
+                78.60392033300013
+              ],
+              "requestSecondsTotal": 598.9204292919894,
+              "tokens": {
+                "input_tokens": 71825,
+                "cached_input_tokens": 14336,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4754,
+                "reasoning_output_tokens": 2712
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable request cost unavailable."
+            },
+            "evidence": {
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.records.jsonl",
+                "sha256": "cd2d6eeb3ef1497690e91a78b3d2c3b7cdeded3b6e77d3028345bc2836849262"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.attempts.jsonl",
+                "sha256": "9e832fe230aacaae4185ca575035357711cb4baeb52f8ecbd28a2a9cd2cd2b9b"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.journal.jsonl",
+                "sha256": "a31d97c346fea6526e6bac9261093dabca1a536f1a00e49d30e83be127379295"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.claim.json",
+                "sha256": "61e44d5db607509d0f2a706c416315c7b2a06c5345f86539d0780c2668b54ba9"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.claim.json",
+                  "sha256": "de956551314a4eec7f5f1b3e9c2ed487217706113dc9c87a40704577990c518f"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.journal.jsonl",
+                  "sha256": "63457c885e2dfb1665c97550ed58033712d78db567f60c7b78f5fc27a9727812"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.attempts.jsonl",
+                  "sha256": "55a66dcce03d051c265d9a5a38da33f8970a22b9649d28937656bbf71f6bb842"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.records.jsonl",
+                  "sha256": "7c1292bfb1a19bf0436735b5eabb31b0cee3c42b4f03f55fd6bbb1a8c3b58824"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.admission-6ade91caf0e6801dd7aecb0bc547c6c9848ac851819bbdbff890124acc51fe0d.json",
+                  "sha256": "b5353df1f0fe8fe6d16d3ad71ceb823dd64d94c16f5abf021af006d07a7769bf"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke-inspection.json",
+                "sha256": "5f691cbd74eddc37e5925a6362c2637367b787342bd19e9cb32cf355394dc0b3"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.admission-2df8e409ec4b9c5d5d8a548f6a695da93a59a6f2d537a4391d740bbd89d878b8.json",
+                "sha256": "a104aff84594f1b83ec85295dcaa8333d2e0300d76ae30c81950a767b74a732e"
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
+              57,
+              57,
               57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.0,
+            "range": [
+              57,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                58,
+                58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                60
-              ],
-              "mean": null,
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 1,
-              "values": [
+                60,
+                60,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.666666666666664,
+              "range": [
+                59,
+                60
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                59,
+                59,
+                59
+              ],
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              58
+              58,
+              57,
+              57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.333333333333336,
+            "range": [
+              57,
+              58
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                59
+                59,
+                58,
+                58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.333333333333336,
+              "range": [
+                58,
+                59
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 1,
-              "values": [
-                59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "testimonial_potential": {
-              "completedPasses": 1,
-              "values": [
+                59,
+                59,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.333333333333336,
+              "range": [
+                59,
+                60
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                59,
+                58,
+                59
+              ],
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                59
+              ]
+            },
+            "testimonial_potential": {
+              "completedPasses": 3,
+              "values": [
+                60,
+                60,
+                60
+              ],
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              57,
               57,
               57
             ],
-            "mean": null,
-            "range": null
+            "mean": 57.0,
+            "range": [
+              57,
+              57
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
                 58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                59,
                 59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 59,
-                58
+                58,
+                59
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                59
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             }
           }
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-013"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-013"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-006"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-006",
+              "DEV-030"
+            ]
+          }
+        },
         {
           "condition": "P2",
           "from": "original",
@@ -31425,9 +34545,129 @@
               "DEV-030"
             ]
           }
+        },
+        {
+          "condition": "P2",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-013"
+            ],
+            "follow_up_needed": [
+              "DEV-006"
+            ],
+            "serious_concern_reported": [
+              "DEV-030"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-006",
+            "DEV-013",
+            "DEV-030"
+          ]
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [
+              "DEV-030"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-030"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "original",
@@ -31454,33 +34694,119 @@
             "serious_concern_reported": 0,
             "testimonial_potential": 0
           }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": -1,
+            "serious_concern_reported": -1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": -1,
+            "serious_concern_reported": -1,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
         }
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            1,
+            0,
+            0
+          ],
+          "allFourRange": [
+            0,
             1
           ],
-          "allFourRange": null,
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              0,
+              1
+            ],
+            "follow_up_needed": [
+              -1,
+              1
+            ],
+            "serious_concern_reported": [
+              -1,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         },
         "P2": {
-          "completedPairs": 1,
+          "completedPairs": 3,
           "allFourValues": [
+            0,
+            0,
             0
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            0,
+            0
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              0,
+              0
+            ],
+            "follow_up_needed": [
+              -1,
+              0
+            ],
+            "serious_concern_reported": [
+              -1,
+              0
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         }
       },
@@ -31522,6 +34848,38 @@
           "sha256": "27996f498f6f64035c9996c4505697f90f5a49259db2a7bc35638136f738d5f2"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.records.jsonl",
+          "sha256": "0298bc1de55b2ef5d4b7a48adbe177786f66edf50e5a98a624befea84b9f92c4"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.attempts.jsonl",
+          "sha256": "6919d8a2acfac3e6dc098ec9c8962cf5686e2568a4d5df8e74e5ac54c6d9e761"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.journal.jsonl",
+          "sha256": "c7ccae01ef965a4dac7d3deb2c4b3aa808f474262386542daf20d8813497214b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.claim.json",
+          "sha256": "818655bf4cd5435109e8eca8f416e8324d9d8929b12ab14d5112763588750062"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.records.jsonl",
+          "sha256": "7a13c31c4dcbcc4ab10278413ed487f81b429aaad08a31d5d5b28de22d5c03fc"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.attempts.jsonl",
+          "sha256": "dc2b7237c1a4f3a13e3b8a3153c8f721c4fb775f75f45f32f473935db0bf2aae"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.journal.jsonl",
+          "sha256": "b855e981b4b1781f2f3754ab4b9939e2719cb9f2983293559980eb1975ba928f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.claim.json",
+          "sha256": "27040b3727c251c4cfcaa0d5efd26dbd97c219be27addd42d1332eb1344fef50"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P2/development.records.jsonl",
           "sha256": "089041dda9175d4a3ddcfd5bcc782d0c217cfd1ba8df5794d27fcab782bd4bc9"
         },
@@ -31540,6 +34898,54 @@
         {
           "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/manifest.json",
           "sha256": "96afa147935e292e56321a3b4253ff2de86e5ea796ba8752afe14dab87f33011"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.records.jsonl",
+          "sha256": "499a52bc5c41f728665e41482edac498b2c34559fc082e91db85ad0673aebdc3"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.attempts.jsonl",
+          "sha256": "4b63c98b9c17a7cd5eb28e268b707365cf57cbc7b4bd6c039faf11595a99db14"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.journal.jsonl",
+          "sha256": "5715b63e62b87b335b5b3eae7b78184c916e47b9d381eef64738bdca96452421"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.claim.json",
+          "sha256": "31351ebc32b340b54d61cd22ba5017b4d66cbcd9e74ba5c3b21a6ca103c5e05a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.records.jsonl",
+          "sha256": "07be58ddd959576576d25a38e7af47000c22d6c98dc715a82ce550dc1e6b90b5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.attempts.jsonl",
+          "sha256": "9d585222493fd0570a4e0e3787f81d3bb8f4a885c13b38740d48d590d1bbe0d2"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.journal.jsonl",
+          "sha256": "4fcb10113532b3da48f8cf3f9abc503b0ea529ea67ce639c93c3fb092be57ed9"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.claim.json",
+          "sha256": "1992a199ec8c4b33f1ee7d63aeb0a6a2ea0a489854618fc655c0cb77b723eaa9"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.records.jsonl",
+          "sha256": "cd2d6eeb3ef1497690e91a78b3d2c3b7cdeded3b6e77d3028345bc2836849262"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.attempts.jsonl",
+          "sha256": "9e832fe230aacaae4185ca575035357711cb4baeb52f8ecbd28a2a9cd2cd2b9b"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.journal.jsonl",
+          "sha256": "a31d97c346fea6526e6bac9261093dabca1a536f1a00e49d30e83be127379295"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.claim.json",
+          "sha256": "61e44d5db607509d0f2a706c416315c7b2a06c5345f86539d0780c2668b54ba9"
         },
         {
           "path": "scripts/codex_repeat_roster.py",
@@ -31594,6 +35000,62 @@
           "sha256": "354675145fcf4dee21b765789a6b1102838867718ef279890193ca0c5f03d332"
         },
         {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.claim.json",
+          "sha256": "ce2974a47831b5a1aa085b5a2d7dba1570fe39353db39931a7ef3f48cafa5f50"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "fb1ae55eeabe2258f3a6280382088ef7b71a8c7a5e6868f9ba83ef549ec7e0c0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.attempts.jsonl",
+          "sha256": "8a1ac883eb9af9dc657517ba955292cb60318d681aff625b075a1c5bc90c0c98"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.records.jsonl",
+          "sha256": "bac3673df55da37bf3aa6dc764d8238bf2c0cb9f35ae3641ea88a19876a79bc7"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke.admission-6e3928a45eef8bf4f9100272456eea6d51c0bffcbf31bf81f366eeb2bb2d48b6.json",
+          "sha256": "4d412fd04c321dca8c23ab5a9dfb839320d74406b029171a80b829fcf89da8fa"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/smoke-inspection.json",
+          "sha256": "d579c947059de11dcba319ae305a6e243ce3b53c16a88103540c59f900cc85c5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P0/development.admission-5bf6a069600c0bdbadfd464c955861e4eeae526f33fd022639df8b420d80ac77.json",
+          "sha256": "e8020de112f0c24d297bbf4935ba1b011b9662b1694d5098b39b1590340b5b02"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.claim.json",
+          "sha256": "f4d8535071a447a88040e0cafa2287e86e8d115f2e93d854d39202a78c8e63d8"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.journal.jsonl",
+          "sha256": "e2dc3c2c8fba75b6d0c2ed4043a2d65321518ccdcc5bfee17d7c288c11445caa"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.attempts.jsonl",
+          "sha256": "c56aa96767a46e7beb5444f82fe9f36a9f029312f663efb84d642ddafee46c5e"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.records.jsonl",
+          "sha256": "0b5f4b16cb708945383cf29998f414f585f39818bc952c4d28137bf93654b15f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke.admission-6f371d15d025825f8bba9e7fb1d6209670435c02cbaab049b374a3c65688a978.json",
+          "sha256": "5ac6a2078edf17fd9f2a28bca8a0d3acbe2c5141b9539e3dd59825cc1c4b9ef9"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/smoke-inspection.json",
+          "sha256": "49a59be302ce1f96246dccb8d89507b5997cc87137067103eb048e2607a69d7c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P1/development.admission-1a4fb632d505e7295d5c690baf4f9c6d7978295fec4f297645ae8ac00f7d1c81.json",
+          "sha256": "4fda828d89fed474769b5ca492d06f03d73e649f79a0b9f86df5c69c2118a2dc"
+        },
+        {
           "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P2/smoke.claim.json",
           "sha256": "86633824214a62737cf4ff381bad0474145f56ac813195901c6abb10ac50e605"
         },
@@ -31620,6 +35082,90 @@
         {
           "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat2/P2/development.admission-78d31161831ef45df3bc24032fac1cf6526c0776a365b7f3c194ebea7c6208ed.json",
           "sha256": "25c7b07a646283cdfeb7c35f7ad41426f32babe6d4670aab9d68802ab35e4e75"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.claim.json",
+          "sha256": "758a403aa32c69d375119244cb96232ad33fe150753d4902364ccbec0e5e922c"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "361de3da40d324dc9efb675c08e255fdf10aac6cfb7d710731ec51bcf40f1153"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.attempts.jsonl",
+          "sha256": "a56cea186f1e1a657bf8a4bfdd73790e3977a40802076c950bf65f8b73921fb5"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.records.jsonl",
+          "sha256": "1ee9fbc1a8916e149547ebc96261f16ed62367a81c96ef6dfb2c98dadc230687"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke.admission-bb3e02a89c81eb35c33d263e0aef4a15141adf4136ce4aab67d6ca44419224a9.json",
+          "sha256": "9dc17bcccb9a8e44ce7468780e5dcf1ca56c63fbe6713b6ebfcc6ab302286b99"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/smoke-inspection.json",
+          "sha256": "3355e71050c0a876bb2c8f7745027400e8d054b43208e06ec20a1f006f336a61"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P0/development.admission-9c6988fd60b112374c676212568124f40c369e6e11e08b33a218005c934c8c8d.json",
+          "sha256": "d56126f8dfc3b8858c5f35a3835f70cfa7e04f68e59ab731ba2953c8a79c2c20"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.claim.json",
+          "sha256": "366c918d0187337067552907464a670d3dda3a11fd014e6ff9cd3eb7c08ce728"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "754a4c6931ac517a93f8d183468454694b0360378798189c4d0055d0760040f8"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "6796bc66ce8974824d088f4eb91acefcf4368bd998dad3e2507762d8b485123a"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.records.jsonl",
+          "sha256": "65fb7e4e8784b25f037a3613f5f39957d3c28d9bd4521549eb02d2f3d4bd59ba"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke.admission-4816b02574fbc9abc187d573d1b1d54702e0e0b4240c90840a668c9c6d567a58.json",
+          "sha256": "383058b6bc9c303e8b15974c306599a858baf63c7208b9e4e8db1da928d85639"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/smoke-inspection.json",
+          "sha256": "80e1e510dbe0ed692ca8b400456afdd76d681051ead91c10ffe3587ac8403ee0"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P1/development.admission-c4ad7af5c5234d9c5a478f219838746fd172e87b0a7930522b2e53a37cd8ccf8.json",
+          "sha256": "c31c5eddd1b01f37621c595b33a7ffd768ff4bbd47c34191d9e379058abe4494"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.claim.json",
+          "sha256": "de956551314a4eec7f5f1b3e9c2ed487217706113dc9c87a40704577990c518f"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.journal.jsonl",
+          "sha256": "63457c885e2dfb1665c97550ed58033712d78db567f60c7b78f5fc27a9727812"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.attempts.jsonl",
+          "sha256": "55a66dcce03d051c265d9a5a38da33f8970a22b9649d28937656bbf71f6bb842"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.records.jsonl",
+          "sha256": "7c1292bfb1a19bf0436735b5eabb31b0cee3c42b4f03f55fd6bbb1a8c3b58824"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke.admission-6ade91caf0e6801dd7aecb0bc547c6c9848ac851819bbdbff890124acc51fe0d.json",
+          "sha256": "b5353df1f0fe8fe6d16d3ad71ceb823dd64d94c16f5abf021af006d07a7769bf"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/smoke-inspection.json",
+          "sha256": "5f691cbd74eddc37e5925a6362c2637367b787342bd19e9cb32cf355394dc0b3"
+        },
+        {
+          "path": "results/repeatability-v1/codex-gpt-6-sol-xhigh-batch10/repeat3/P2/development.admission-2df8e409ec4b9c5d5d8a548f6a695da93a59a6f2d537a4391d740bbd89d878b8.json",
+          "sha256": "a104aff84594f1b83ec85295dcaa8333d2e0300d76ae30c81950a767b74a732e"
         }
       ],
       "limitations": [
@@ -31629,7 +35175,13 @@
         "Batch timing is request timing; per-record shares are not independent latency.",
         "Subscription request cost is unknown, not zero."
       ],
-      "interpretation": []
+      "interpretation": [
+        "P0 matched all four references on 57 to 57 of 60 comments per pass; 1 comments changed at least one decision across the three passes.",
+        "P1 matched all four references on 57 to 58 of 60 comments per pass; 3 comments changed at least one decision across the three passes.",
+        "P2 matched all four references on 57 to 57 of 60 comments per pass; 1 comments changed at least one decision across the three passes.",
+        "P1 versus P0 did not improve agreement in every pass: changes were +1, +0, +0 matches out of 60. Three passes do not establish a reliable future effect.",
+        "P2 versus P0 did not improve agreement in every pass: changes were +0, +0, +0 matches out of 60. Three passes do not establish a reliable future effect."
+      ]
     }
   ],
   "availableConfigurations": [

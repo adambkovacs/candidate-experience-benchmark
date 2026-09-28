@@ -1324,47 +1324,51 @@ P1 versus P0 changed direction across passes: changes were -1, +1, +0 matches ou
 P2 versus P0 did not improve agreement in every pass: changes were -1, +0, +0 matches out of 60. Three passes do not establish a reliable future effect.
 ## GPT-6 Luna · high effort
 
-Completed conditions: 4/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
+Completed conditions: 9/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
 
 | Pass | Condition | Valid | All four | Sentiment | Follow-up | Serious concern | Testimonial | Request seconds | Input tokens | Output tokens |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | original | P0 | 60/60 | 56/60 | 58/60 | 59/60 | 58/60 | 60/60 | 496.2 | 61449 | 4213 |
 | original | P1 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 157.4 | 62485 | 4486 |
 | original | P2 | 60/60 | 56/60 | 57/60 | 59/60 | 59/60 | 60/60 | 189.6 | 67901 | 4542 |
-| repeat2 | P0 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
+| repeat2 | P0 | 60/60 | 59/60 | 60/60 | 60/60 | 59/60 | 60/60 | 395.8 | 64307 | 4500 |
 | repeat2 | P1 | 60/60 | 58/60 | 59/60 | 59/60 | 58/60 | 60/60 | 832.7 | 65339 | 4248 |
-| repeat2 | P2 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat3 | P0 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat3 | P1 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat3 | P2 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
+| repeat2 | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 685.2 | 70749 | 4365 |
+| repeat3 | P0 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 1330.6 | 64313 | 4358 |
+| repeat3 | P1 | 60/60 | 59/60 | 59/60 | 60/60 | 59/60 | 60/60 | 643.0 | 65333 | 4261 |
+| repeat3 | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 349.5 | 70747 | 4409 |
 
 Prompt changes within each completed pass (P1/P2 minus P0, points out of 60):
 
 - original P1: all four +1; sentiment +0, follow_up_needed +0, serious_concern_reported +1, testimonial_potential +0.
 - original P2: all four +0; sentiment -1, follow_up_needed +0, serious_concern_reported +1, testimonial_potential +0.
+- repeat2 P1: all four -1; sentiment -1, follow_up_needed -1, serious_concern_reported -1, testimonial_potential +0.
+- repeat2 P2: all four -2; sentiment -2, follow_up_needed -1, serious_concern_reported -1, testimonial_potential +0.
+- repeat3 P1: all four +2; sentiment +1, follow_up_needed +1, serious_concern_reported +1, testimonial_potential +0.
+- repeat3 P2: all four +0; sentiment +0, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
 
 Three-pass scores (mean and range appear when all three passes are complete):
 
-- P0 all four: 56 of 60; mean pending; range pending.
-- P0 sentiment: 58 of 60; mean pending; range pending.
-- P0 follow_up_needed: 59 of 60; mean pending; range pending.
-- P0 serious_concern_reported: 58 of 60; mean pending; range pending.
-- P0 testimonial_potential: 60 of 60; mean pending; range pending.
-- P1 all four: 57, 58 of 60; mean pending; range pending.
-- P1 sentiment: 58, 59 of 60; mean pending; range pending.
-- P1 follow_up_needed: 59, 59 of 60; mean pending; range pending.
-- P1 serious_concern_reported: 59, 58 of 60; mean pending; range pending.
-- P1 testimonial_potential: 60, 60 of 60; mean pending; range pending.
-- P2 all four: 56 of 60; mean pending; range pending.
-- P2 sentiment: 57 of 60; mean pending; range pending.
-- P2 follow_up_needed: 59 of 60; mean pending; range pending.
-- P2 serious_concern_reported: 59 of 60; mean pending; range pending.
-- P2 testimonial_potential: 60 of 60; mean pending; range pending.
+- P0 all four: 56, 59, 57 of 60; mean 57.33; range 56 to 59.
+- P0 sentiment: 58, 60, 58 of 60; mean 58.67; range 58 to 60.
+- P0 follow_up_needed: 59, 60, 59 of 60; mean 59.33; range 59 to 60.
+- P0 serious_concern_reported: 58, 59, 58 of 60; mean 58.33; range 58 to 59.
+- P0 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
+- P1 all four: 57, 58, 59 of 60; mean 58.00; range 57 to 59.
+- P1 sentiment: 58, 59, 59 of 60; mean 58.67; range 58 to 59.
+- P1 follow_up_needed: 59, 59, 60 of 60; mean 59.33; range 59 to 60.
+- P1 serious_concern_reported: 59, 58, 59 of 60; mean 58.67; range 58 to 59.
+- P1 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
+- P2 all four: 56, 57, 57 of 60; mean 56.67; range 56 to 57.
+- P2 sentiment: 57, 58, 58 of 60; mean 57.67; range 57 to 58.
+- P2 follow_up_needed: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
+- P2 serious_concern_reported: 59, 58, 58 of 60; mean 58.33; range 58 to 59.
+- P2 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
 
 Paired P1/P2 minus P0 all-four spread:
 
-- P1: +1; three-pair range pending.
-- P2: +0; three-pair range pending.
+- P1: +1, -1, +2; three-pair range -1 to +2.
+- P2: +0, -2, +0; three-pair range -2 to +0.
 
 Reference class counts (60 records):
 
@@ -1377,7 +1381,15 @@ Completed pass comparisons, changed labels among records valid in both passes:
 
 | Condition | Passes | Comparable | Four-field vector | Sentiment | Follow-up | Serious concern | Testimonial |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| P0 | original to repeat2 | 60/60 | 3/60 | 2/60 | 1/60 | 1/60 | 0/60 |
+| P0 | original to repeat3 | 60/60 | 2/60 | 2/60 | 0/60 | 0/60 | 0/60 |
+| P0 | repeat2 to repeat3 | 60/60 | 3/60 | 2/60 | 1/60 | 1/60 | 0/60 |
 | P1 | original to repeat2 | 60/60 | 2/60 | 1/60 | 0/60 | 1/60 | 0/60 |
+| P1 | original to repeat3 | 60/60 | 3/60 | 1/60 | 1/60 | 2/60 | 0/60 |
+| P1 | repeat2 to repeat3 | 60/60 | 1/60 | 0/60 | 1/60 | 1/60 | 0/60 |
+| P2 | original to repeat2 | 60/60 | 4/60 | 3/60 | 0/60 | 1/60 | 0/60 |
+| P2 | original to repeat3 | 60/60 | 2/60 | 1/60 | 0/60 | 1/60 | 0/60 |
+| P2 | repeat2 to repeat3 | 60/60 | 2/60 | 2/60 | 0/60 | 0/60 | 0/60 |
 
 The JSON gives excluded IDs and changed record IDs for each comparison, plus changes across all three passes.
 
@@ -1387,49 +1399,64 @@ The accepted Codex CLI patch amendment does not establish runtime equivalence. H
 
 Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts, journals and completion claims are in [repeats.json](../public-site/repeats.json).
 
+Observed patterns:
+
+P0 matched all four references on 56 to 59 of 60 comments per pass; 4 comments changed at least one decision across the three passes.
+
+P1 matched all four references on 57 to 59 of 60 comments per pass; 3 comments changed at least one decision across the three passes.
+
+P2 matched all four references on 56 to 57 of 60 comments per pass; 4 comments changed at least one decision across the three passes.
+
+P1 versus P0 changed direction across passes: changes were +1, -1, +2 matches out of 60. Three passes do not establish a reliable future effect.
+
+P2 versus P0 did not improve agreement in every pass: changes were +0, -2, +0 matches out of 60. Three passes do not establish a reliable future effect.
 ## GPT-6 Luna · xhigh effort
 
-Completed conditions: 4/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
+Completed conditions: 9/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
 
 | Pass | Condition | Valid | All four | Sentiment | Follow-up | Serious concern | Testimonial | Request seconds | Input tokens | Output tokens |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | original | P0 | 60/60 | 57/60 | 59/60 | 60/60 | 58/60 | 60/60 | 291.9 | 61455 | 6059 |
 | original | P1 | 60/60 | 58/60 | 60/60 | 59/60 | 58/60 | 60/60 | 188.8 | 62483 | 5472 |
 | original | P2 | 60/60 | 57/60 | 59/60 | 59/60 | 58/60 | 60/60 | 189.7 | 67897 | 5874 |
-| repeat2 | P0 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat2 | P1 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
+| repeat2 | P0 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 414.6 | 64311 | 6266 |
+| repeat2 | P1 | 60/60 | 58/60 | 60/60 | 59/60 | 58/60 | 60/60 | 702.2 | 65343 | 5842 |
 | repeat2 | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 870.9 | 70753 | 7021 |
-| repeat3 | P0 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat3 | P1 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat3 | P2 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
+| repeat3 | P0 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 1363.3 | 64305 | 6324 |
+| repeat3 | P1 | 60/60 | 58/60 | 60/60 | 59/60 | 58/60 | 60/60 | 365.3 | 65335 | 5827 |
+| repeat3 | P2 | 60/60 | 58/60 | 59/60 | 60/60 | 58/60 | 60/60 | 638.6 | 70755 | 5985 |
 
 Prompt changes within each completed pass (P1/P2 minus P0, points out of 60):
 
 - original P1: all four +1; sentiment +1, follow_up_needed -1, serious_concern_reported +0, testimonial_potential +0.
 - original P2: all four +0; sentiment +0, follow_up_needed -1, serious_concern_reported +0, testimonial_potential +0.
+- repeat2 P1: all four +1; sentiment +2, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
+- repeat2 P2: all four +0; sentiment +0, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
+- repeat3 P1: all four +1; sentiment +2, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
+- repeat3 P2: all four +1; sentiment +1, follow_up_needed +1, serious_concern_reported +0, testimonial_potential +0.
 
 Three-pass scores (mean and range appear when all three passes are complete):
 
-- P0 all four: 57 of 60; mean pending; range pending.
-- P0 sentiment: 59 of 60; mean pending; range pending.
-- P0 follow_up_needed: 60 of 60; mean pending; range pending.
-- P0 serious_concern_reported: 58 of 60; mean pending; range pending.
-- P0 testimonial_potential: 60 of 60; mean pending; range pending.
-- P1 all four: 58 of 60; mean pending; range pending.
-- P1 sentiment: 60 of 60; mean pending; range pending.
-- P1 follow_up_needed: 59 of 60; mean pending; range pending.
-- P1 serious_concern_reported: 58 of 60; mean pending; range pending.
-- P1 testimonial_potential: 60 of 60; mean pending; range pending.
-- P2 all four: 57, 57 of 60; mean pending; range pending.
-- P2 sentiment: 59, 58 of 60; mean pending; range pending.
-- P2 follow_up_needed: 59, 59 of 60; mean pending; range pending.
-- P2 serious_concern_reported: 58, 58 of 60; mean pending; range pending.
-- P2 testimonial_potential: 60, 60 of 60; mean pending; range pending.
+- P0 all four: 57, 57, 57 of 60; mean 57.00; range 57 to 57.
+- P0 sentiment: 59, 58, 58 of 60; mean 58.33; range 58 to 59.
+- P0 follow_up_needed: 60, 59, 59 of 60; mean 59.33; range 59 to 60.
+- P0 serious_concern_reported: 58, 58, 58 of 60; mean 58.00; range 58 to 58.
+- P0 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
+- P1 all four: 58, 58, 58 of 60; mean 58.00; range 58 to 58.
+- P1 sentiment: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
+- P1 follow_up_needed: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
+- P1 serious_concern_reported: 58, 58, 58 of 60; mean 58.00; range 58 to 58.
+- P1 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
+- P2 all four: 57, 57, 58 of 60; mean 57.33; range 57 to 58.
+- P2 sentiment: 59, 58, 59 of 60; mean 58.67; range 58 to 59.
+- P2 follow_up_needed: 59, 59, 60 of 60; mean 59.33; range 59 to 60.
+- P2 serious_concern_reported: 58, 58, 58 of 60; mean 58.00; range 58 to 58.
+- P2 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
 
 Paired P1/P2 minus P0 all-four spread:
 
-- P1: +1; three-pair range pending.
-- P2: +0; three-pair range pending.
+- P1: +1, +1, +1; three-pair range +1 to +1.
+- P2: +0, +0, +1; three-pair range +0 to +1.
 
 Reference class counts (60 records):
 
@@ -1442,7 +1469,15 @@ Completed pass comparisons, changed labels among records valid in both passes:
 
 | Condition | Passes | Comparable | Four-field vector | Sentiment | Follow-up | Serious concern | Testimonial |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| P0 | original to repeat2 | 60/60 | 2/60 | 1/60 | 1/60 | 0/60 | 0/60 |
+| P0 | original to repeat3 | 60/60 | 2/60 | 1/60 | 1/60 | 0/60 | 0/60 |
+| P0 | repeat2 to repeat3 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
+| P1 | original to repeat2 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
+| P1 | original to repeat3 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
+| P1 | repeat2 to repeat3 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
 | P2 | original to repeat2 | 60/60 | 1/60 | 1/60 | 0/60 | 0/60 | 0/60 |
+| P2 | original to repeat3 | 60/60 | 3/60 | 2/60 | 1/60 | 0/60 | 0/60 |
+| P2 | repeat2 to repeat3 | 60/60 | 2/60 | 1/60 | 1/60 | 0/60 | 0/60 |
 
 The JSON gives excluded IDs and changed record IDs for each comparison, plus changes across all three passes.
 
@@ -1452,49 +1487,64 @@ The accepted Codex CLI patch amendment does not establish runtime equivalence. H
 
 Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts, journals and completion claims are in [repeats.json](../public-site/repeats.json).
 
+Observed patterns:
+
+P0 matched all four references on 57 to 57 of 60 comments per pass; 2 comments changed at least one decision across the three passes.
+
+P1 matched all four references on 58 to 58 of 60 comments per pass; 0 comments changed at least one decision across the three passes.
+
+P2 matched all four references on 57 to 58 of 60 comments per pass; 3 comments changed at least one decision across the three passes.
+
+P1 versus P0 improved agreement in all three observed passes: changes were +1, +1, +1 matches out of 60. Three passes do not establish a reliable future effect.
+
+P2 versus P0 did not improve agreement in every pass: changes were +0, +0, +1 matches out of 60. Three passes do not establish a reliable future effect.
 ## GPT-6 Sol · xhigh effort
 
-Completed conditions: 4/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
+Completed conditions: 9/9. Reference: provisional v0.2 labels on the same 60 synthetic development records.
 
 | Pass | Condition | Valid | All four | Sentiment | Follow-up | Serious concern | Testimonial | Request seconds | Input tokens | Output tokens |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | original | P0 | 60/60 | 57/60 | 58/60 | 60/60 | 59/60 | 60/60 | 231.1 | 62527 | 4165 |
 | original | P1 | 60/60 | 58/60 | 59/60 | 59/60 | 59/60 | 60/60 | 166.7 | 63555 | 4469 |
 | original | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 200.6 | 68967 | 4992 |
-| repeat2 | P0 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat2 | P1 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
+| repeat2 | P0 | 60/60 | 57/60 | 58/60 | 60/60 | 59/60 | 60/60 | 385.8 | 65381 | 4577 |
+| repeat2 | P1 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 687.2 | 66421 | 4494 |
 | repeat2 | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 58/60 | 60/60 | 827.5 | 71827 | 4377 |
-| repeat3 | P0 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat3 | P1 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
-| repeat3 | P2 | missing | missing | missing | missing | missing | missing | missing | missing | missing |
+| repeat3 | P0 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 1329.8 | 65379 | 4510 |
+| repeat3 | P1 | 60/60 | 57/60 | 58/60 | 60/60 | 59/60 | 60/60 | 337.3 | 66403 | 4333 |
+| repeat3 | P2 | 60/60 | 57/60 | 58/60 | 59/60 | 59/60 | 60/60 | 598.9 | 71825 | 4754 |
 
 Prompt changes within each completed pass (P1/P2 minus P0, points out of 60):
 
 - original P1: all four +1; sentiment +1, follow_up_needed -1, serious_concern_reported +0, testimonial_potential +0.
 - original P2: all four +0; sentiment +0, follow_up_needed -1, serious_concern_reported +0, testimonial_potential +0.
+- repeat2 P1: all four +0; sentiment +0, follow_up_needed -1, serious_concern_reported -1, testimonial_potential +0.
+- repeat2 P2: all four +0; sentiment +0, follow_up_needed -1, serious_concern_reported -1, testimonial_potential +0.
+- repeat3 P1: all four +0; sentiment +0, follow_up_needed +1, serious_concern_reported +0, testimonial_potential +0.
+- repeat3 P2: all four +0; sentiment +0, follow_up_needed +0, serious_concern_reported +0, testimonial_potential +0.
 
 Three-pass scores (mean and range appear when all three passes are complete):
 
-- P0 all four: 57 of 60; mean pending; range pending.
-- P0 sentiment: 58 of 60; mean pending; range pending.
-- P0 follow_up_needed: 60 of 60; mean pending; range pending.
-- P0 serious_concern_reported: 59 of 60; mean pending; range pending.
-- P0 testimonial_potential: 60 of 60; mean pending; range pending.
-- P1 all four: 58 of 60; mean pending; range pending.
-- P1 sentiment: 59 of 60; mean pending; range pending.
-- P1 follow_up_needed: 59 of 60; mean pending; range pending.
-- P1 serious_concern_reported: 59 of 60; mean pending; range pending.
-- P1 testimonial_potential: 60 of 60; mean pending; range pending.
-- P2 all four: 57, 57 of 60; mean pending; range pending.
-- P2 sentiment: 58, 58 of 60; mean pending; range pending.
-- P2 follow_up_needed: 59, 59 of 60; mean pending; range pending.
-- P2 serious_concern_reported: 59, 58 of 60; mean pending; range pending.
-- P2 testimonial_potential: 60, 60 of 60; mean pending; range pending.
+- P0 all four: 57, 57, 57 of 60; mean 57.00; range 57 to 57.
+- P0 sentiment: 58, 58, 58 of 60; mean 58.00; range 58 to 58.
+- P0 follow_up_needed: 60, 60, 59 of 60; mean 59.67; range 59 to 60.
+- P0 serious_concern_reported: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
+- P0 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
+- P1 all four: 58, 57, 57 of 60; mean 57.33; range 57 to 58.
+- P1 sentiment: 59, 58, 58 of 60; mean 58.33; range 58 to 59.
+- P1 follow_up_needed: 59, 59, 60 of 60; mean 59.33; range 59 to 60.
+- P1 serious_concern_reported: 59, 58, 59 of 60; mean 58.67; range 58 to 59.
+- P1 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
+- P2 all four: 57, 57, 57 of 60; mean 57.00; range 57 to 57.
+- P2 sentiment: 58, 58, 58 of 60; mean 58.00; range 58 to 58.
+- P2 follow_up_needed: 59, 59, 59 of 60; mean 59.00; range 59 to 59.
+- P2 serious_concern_reported: 59, 58, 59 of 60; mean 58.67; range 58 to 59.
+- P2 testimonial_potential: 60, 60, 60 of 60; mean 60.00; range 60 to 60.
 
 Paired P1/P2 minus P0 all-four spread:
 
-- P1: +1; three-pair range pending.
-- P2: +0; three-pair range pending.
+- P1: +1, +0, +0; three-pair range +0 to +1.
+- P2: +0, +0, +0; three-pair range +0 to +0.
 
 Reference class counts (60 records):
 
@@ -1507,7 +1557,15 @@ Completed pass comparisons, changed labels among records valid in both passes:
 
 | Condition | Passes | Comparable | Four-field vector | Sentiment | Follow-up | Serious concern | Testimonial |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| P0 | original to repeat2 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
+| P0 | original to repeat3 | 60/60 | 1/60 | 0/60 | 1/60 | 0/60 | 0/60 |
+| P0 | repeat2 to repeat3 | 60/60 | 1/60 | 0/60 | 1/60 | 0/60 | 0/60 |
+| P1 | original to repeat2 | 60/60 | 2/60 | 1/60 | 0/60 | 1/60 | 0/60 |
+| P1 | original to repeat3 | 60/60 | 2/60 | 1/60 | 1/60 | 0/60 | 0/60 |
+| P1 | repeat2 to repeat3 | 60/60 | 2/60 | 0/60 | 1/60 | 1/60 | 0/60 |
 | P2 | original to repeat2 | 60/60 | 1/60 | 0/60 | 0/60 | 1/60 | 0/60 |
+| P2 | original to repeat3 | 60/60 | 0/60 | 0/60 | 0/60 | 0/60 | 0/60 |
+| P2 | repeat2 to repeat3 | 60/60 | 1/60 | 0/60 | 0/60 | 1/60 | 0/60 |
 
 The JSON gives excluded IDs and changed record IDs for each comparison, plus changes across all three passes.
 
@@ -1516,3 +1574,15 @@ Actual per-request subscription cost is unknown. Request durations are six batch
 The accepted Codex CLI patch amendment does not establish runtime equivalence. Hidden serving revision and effective seed are unavailable. The reference labels are provisional, and these 60 repeated records are not 180 independent cases.
 
 Source paths and SHA-256 hashes for the labels, historical manifest, completed records, attempts, journals and completion claims are in [repeats.json](../public-site/repeats.json).
+
+Observed patterns:
+
+P0 matched all four references on 57 to 57 of 60 comments per pass; 1 comments changed at least one decision across the three passes.
+
+P1 matched all four references on 57 to 58 of 60 comments per pass; 3 comments changed at least one decision across the three passes.
+
+P2 matched all four references on 57 to 57 of 60 comments per pass; 1 comments changed at least one decision across the three passes.
+
+P1 versus P0 did not improve agreement in every pass: changes were +1, +0, +0 matches out of 60. Three passes do not establish a reliable future effect.
+
+P2 versus P0 did not improve agreement in every pass: changes were +0, +0, +0 matches out of 60. Three passes do not establish a reliable future effect.
