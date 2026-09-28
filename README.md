@@ -32,6 +32,8 @@ The [repeat comparison](https://adambkovacs.github.io/candidate-experience-bench
 
 [Haiku's fresh three-pass comparison](docs/HAIKU_MATCHED3_FINDINGS_2026-09-28.md) ranges from 53 to 59 classifier-instruction matches out of 60. [Sonnet 5 medium](docs/SONNET5_REPEAT_FINDINGS_2026-09-28.md) gained two and one matches from those instructions in its first two passes, then lost four in the third.
 
+The [Gemini 3.8 Flash low repeats](docs/GEMINI38_LOW_REPEAT_FINDINGS_2026-09-28.md) kept a 57/60 base-prompt score in all three passes while changing one review’s classification. The [fresh Gemma E2B local study](docs/GEMMA_E2B_FRESH_REPEAT_FINDINGS_2026-09-28.md) kept a 35/60 base score while changing nine reviews. Neither model gained all-field matches from either added-instruction prompt in these series. Local timing is reported separately from hosted timing.
+
 Across the [17 completed Claude configurations](docs/CLAUDE_REPEAT_SYNTHESIS_2026-09-28.md), neither added-instruction prompt beat the base task in all three observed passes. The full requested repeat matrix remains unfinished; see the [full repeat execution inventory](docs/REPEAT_EXECUTION_STATUS_2026-09-28.md) and [current objectives](docs/CURRENT_GOALS.md).
 
 ## What the models decide
