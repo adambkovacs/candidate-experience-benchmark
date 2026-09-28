@@ -284,3 +284,10 @@ The second fresh pass has a separate admitted smoke test; its full development p
 Native L1 reporting passed nine offline tests, independent review and a clean-export test run. L2 reporting passed seven offline tests, independent review and a real saved-evidence build/check. These tools add no inference results: L1 remains 0/3 complete, while L2 has its historical first pass only. L2 third-pass reporting will require an update after its successor plan is frozen. The current L1 report leaves interrupted partial stages unscored without exporting their partial record details.
 
 The published L0 selector was checked in a browser: three 4/60 scores and zero changed classifications are visible. The local `.env` is ignored, untracked and mode 0600; a bounded current tracked-file scan found no confirmed live credential. This is not a claim about arbitrary credential formats or all Git history. Spending caps and remaining scope are unchanged.
+
+
+## Alex first-pass publication verified, 2026-09-28
+
+Commit `74115d8` publishes the [Alex first-pass findings](ALEX_NATIVE_REPEAT_FINDINGS_2026-09-28.md), README summary and native repeat chart. Pages deployment `36476372868` succeeded. Live `alex-native-repeats.json`, `repeats.js` and `index.html` match the committed bytes; the report SHA-256 is `6160834a1c11625e2b2c612f16d9fc7dd11524960195220eda506158201a2f03`. Browser selection verifies one 3/60 bar, two uncompleted passes and no premature three-pass range. Sixteen focused UI tests and seven reporter tests passed; a clean export reproduced the report and tests. A CLI fixture-root bug was fixed without changing the frozen inference controller.
+
+Alex fresh-two smoke subsequently exited successfully; root inspected its 42 normalized distributions and three projected decisions. Commit `55af739` preserves the smoke, inspection and full-pass admission. Its development pass is running and remains unscored until closed. The 4B fresh series and other remaining native/generated/calibration work remain pending; this publication does not complete the benchmark.
