@@ -23,16 +23,11 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 3,
+      "completedConditions": 4,
       "missingPasses": [
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
           "status": "not_completed"
         },
         {
@@ -560,7 +555,174 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 59,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "negative": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 5,
+                    "no": 1
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 11,
+                  "negative": 32,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "insufficient_information": 5,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 50,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                55.349597708991496,
+                34.66464537498541,
+                42.32721550000133,
+                57.25614250000217,
+                63.099575959000504,
+                54.69201666599838
+              ],
+              "requestSecondsTotal": 307.3891937089793,
+              "timingKind": "client_batch_duration_not_pure_inference",
+              "tokens": {
+                "input_tokens": 53289,
+                "cached_input_tokens": 4864,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 6236,
+                "reasoning_output_tokens": 4196
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable monetary cost unavailable."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.claim.json",
+                "sha256": "67bffa47bbb25c5272e5ddd25eeedf75bb34e26a4a2732cb191c9cd00afa4cfb"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.journal.jsonl",
+                "sha256": "8650d6e9ec372492bce984c3d05f87076dd7ef99ce8abb5428dd824111bd16a5"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+                "sha256": "371334a7f8d75ce0b16f77c3a252c96e5430483d0858177de2624f58f6c6f05c"
+              },
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.records.jsonl",
+                "sha256": "2a3dd2bfc7888ac6c56eb3303c5342e00ea629217f623bef0605b1f32c313454"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.admission.json",
+                "sha256": "f5496ed8db09bda2d6e7537d3b2880f440dc8cf5a1ce61f1eb44b3c15ac60dc9"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.claim.json",
+                  "sha256": "2a48634a064913bd3375172e4ef7edc41f665174ca05c11c44dd2bcba3f9c192"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "5d461eb1b5c832b4d056bb5472b04a671043ee1086f94bffd3a2e799fa072414"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+                  "sha256": "7a7da08041842e3f3734b30f4050d5929cf80b543f3fede992399d6a99640794"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "d6390c6d3ec7b744f65c53ba480af468cb3de46a794a507850375a9edfadc8cc"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.admission.json",
+                  "sha256": "ec964e6dda1a6be658caa517679512839345043c7f87c9fada36d80b58d43bb8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke-inspection.json",
+                "sha256": "d4cc0db5ce10a985ba7dfbf10c660ed87e7f46ccc4a97f9e7ce7fa113a24966e"
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "referenceVersion": "0.2",
@@ -636,41 +798,46 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
-              57
+              57,
+              59
             ],
             "mean": null,
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                59,
                 59
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                58
+                58,
+                59
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
@@ -723,7 +890,49 @@
           }
         }
       },
-      "pairwiseFlips": [],
+      "pairwiseFlips": [
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-013",
+              "DEV-030"
+            ],
+            "rate": 0.03333333333333333
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-006"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-030"
+            ],
+            "rate": 0.05
+          }
+        }
+      ],
       "changesAcrossThreePasses": {},
       "withinPassPromptDeltas": [
         {
@@ -902,16 +1111,11 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 3,
+      "completedConditions": 4,
       "missingPasses": [
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
           "status": "not_completed"
         },
         {
@@ -1440,7 +1644,175 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "positive": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 34,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "no": 1,
+                    "insufficient_information": 5
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 31,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 34,
+                  "insufficient_information": 2
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "yes": 25,
+                  "insufficient_information": 5
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 50,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                51.527253625012236,
+                28.84354025000357,
+                35.28069712498109,
+                54.59659383300459,
+                59.211144458997296,
+                41.30397104201256
+              ],
+              "requestSecondsTotal": 270.76320033401134,
+              "timingKind": "client_batch_duration_not_pure_inference",
+              "tokens": {
+                "input_tokens": 69011,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 2277,
+                "reasoning_output_tokens": 239
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable monetary cost unavailable."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.claim.json",
+                "sha256": "5f3689225119f4c4eccbe38de03095afda7430f69a677892b4ae8afb8d420c38"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.journal.jsonl",
+                "sha256": "425d8e944447c70a049a52d2e3bec96e0ed001598d7bf8baf6225a96b45123a6"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+                "sha256": "3486fe65fe0725fd72a40a62924f765408972d202e47d2eba944ae7afabfceeb"
+              },
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.records.jsonl",
+                "sha256": "0512a40a336c2542f625c8c72dc12fdaeb88d3ae5cca2cec30dbd27694ab0f71"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.admission.json",
+                "sha256": "bc2a6ea83f8a181a4fefc0359c34a66c3b139b92ef604c3c96643708b1e89815"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.claim.json",
+                  "sha256": "ad479b84e534d2b37d3f26456db63d4baa82034da71fefefa250822d10a0c3cb"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "483c7713a1d957f074574f659e26cfd2d801fbd8e747e69416202f7fc19d23a6"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+                  "sha256": "14fc7b53859c69452af2951d74f0393c5df48ebc94e50755b48dcf1b537bad50"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "a9310d7c17621df6c4911a9d576dca589d75ba3965ebfc4171d0b6dd4ae8d447"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.admission.json",
+                  "sha256": "7f56a8ff80e1c038f3beb034d00ec3dc6f5ee9d894038e72b25d0ef7c189204e"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke-inspection.json",
+                "sha256": "e40838ef3ea62456b65916ea612c4a6bb22056de488b33862e77b43277b8177d"
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "referenceVersion": "0.2",
@@ -1516,8 +1888,9 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
+              58,
               58
             ],
             "mean": null,
@@ -1525,32 +1898,36 @@
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                59,
                 59
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                59,
                 59
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                59,
                 59
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
@@ -1603,7 +1980,40 @@
           }
         }
       },
-      "pairwiseFlips": [],
+      "pairwiseFlips": [
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          }
+        }
+      ],
       "changesAcrossThreePasses": {},
       "withinPassPromptDeltas": [
         {
@@ -1766,16 +2176,11 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 3,
+      "completedConditions": 4,
       "missingPasses": [
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
           "status": "not_completed"
         },
         {
@@ -2302,7 +2707,174 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "positive": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "no": 2,
+                    "insufficient_information": 4
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 31,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 31,
+                  "yes": 25,
+                  "insufficient_information": 4
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 50,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                114.12881162500707,
+                36.520083625015104,
+                42.13887399999658,
+                25.676603958010674,
+                24.300479708996136,
+                32.90205929201329
+              ],
+              "requestSecondsTotal": 275.66691220903886,
+              "timingKind": "client_batch_duration_not_pure_inference",
+              "tokens": {
+                "input_tokens": 62213,
+                "cached_input_tokens": 17664,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3250,
+                "reasoning_output_tokens": 1212
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable monetary cost unavailable."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.claim.json",
+                "sha256": "fab398aca5292c82bdde87b022d5cc6527bb87a3bb9fec3f77b6b49c6bb2cfda"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.journal.jsonl",
+                "sha256": "c01e895b92b4b607637523e4d0cd1862c6ce3306a30e10048740d2fdc552d088"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+                "sha256": "f418ae41f9722e5c97d9820ccfc70af4e1b1599edf74f9651ef74ff59b7f6acb"
+              },
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.records.jsonl",
+                "sha256": "237252a3dbc542aca205de1f860f1beeb16656dc7561a6f1d0912027fadc379b"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.admission.json",
+                "sha256": "bf3ab52eb9c6d739fbcddf4e3036f5dd7843043bd8f23ebc0fcba60259403dcf"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.claim.json",
+                  "sha256": "1e610676174c5df374bd7e53091684c4bdff40612b1c5b8649bab066a5e082e3"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "616a8f14ec7f17aea34933b0dc6c20ee7261063a821570dbcc4034e43ec215ef"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+                  "sha256": "1cadcdc39adbfe625e679e78c1ecfef49327b34bf6326737008cc21af8ea5505"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "6b47965e9311c0f48b376413790323c9d92e9140ba54484d7b6f7c2f628d2624"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.admission.json",
+                  "sha256": "179ec64b004c6622333f589502144e7fdf803f8467f7ba14b92ac879575ef15a"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke-inspection.json",
+                "sha256": "d994b94de5b2e03528fa9f54328ae7908c485aee658b563bfaf87934dcc117a1"
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "referenceVersion": "0.2",
@@ -2378,41 +2950,46 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
-              58
+              58,
+              57
             ],
             "mean": null,
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                59,
                 59
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                59
+                59,
+                58
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
@@ -2465,7 +3042,44 @@
           }
         }
       },
-      "pairwiseFlips": [],
+      "pairwiseFlips": [
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-030"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-030"
+            ],
+            "rate": 0.016666666666666666
+          }
+        }
+      ],
       "changesAcrossThreePasses": {},
       "withinPassPromptDeltas": [
         {
@@ -2634,16 +3248,11 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 3,
+      "completedConditions": 4,
       "missingPasses": [
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
           "status": "not_completed"
         },
         {
@@ -3170,7 +3779,174 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "positive": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "no": 2,
+                    "insufficient_information": 4
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 31,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 31,
+                  "yes": 25,
+                  "insufficient_information": 4
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 50,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                48.958865958004026,
+                28.379248791985447,
+                32.17092758399667,
+                36.14033137500519,
+                59.83987375002471,
+                44.62564787501469
+              ],
+              "requestSecondsTotal": 250.11489533403073,
+              "timingKind": "client_batch_duration_not_pure_inference",
+              "tokens": {
+                "input_tokens": 62213,
+                "cached_input_tokens": 5888,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 3442,
+                "reasoning_output_tokens": 1404
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable monetary cost unavailable."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.claim.json",
+                "sha256": "a70f501635ec4291c4398bd82b7f3a7e6c713669da1ee02b47dd32773dc943b5"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.journal.jsonl",
+                "sha256": "b0186abb93717e2260e8c28005c695da65689d90592e50539fb1a8877b230ae7"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+                "sha256": "531e7f618aaf005c694364c1d45ef15d54f19795ea4fa3e5d20adcbcf1dbd8c8"
+              },
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.records.jsonl",
+                "sha256": "99d3219fecac97b95bac6d65e6734cbc247e03c9c4d45a54e6ddb58cbcf45b6a"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.admission.json",
+                "sha256": "34272cea9085d0cb6ef20e84c20452de5726e54a6bb5b535a41abe9ee7f40a96"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.claim.json",
+                  "sha256": "0ff64b766d83fe4329e7ac55263bc2691aec946ed14d9dcff6a63f1d4471e989"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "34fe9e22ebd9a937ed817cef09f82bda9ce69718cf0322665872ed88080a44e6"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+                  "sha256": "fb477f993093690f3e70995b3099232aad65f32442f488e2575f75782f8b4517"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "f1bf76de681686db4dd356afb93c270bc0bf0f2373dabec500e2501dcc78bafa"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.admission.json",
+                  "sha256": "8e2b8ccc6f3e5e0ef3557b206281acc0a8805d3a0c2ce33cbf8047c8315779bf"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke-inspection.json",
+                "sha256": "6832c15a308e8c7f85491f419b099fc5ff64547fe915a1032c3ae890b5d57fa0"
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "referenceVersion": "0.2",
@@ -3246,8 +4022,9 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
+              57,
               57
             ],
             "mean": null,
@@ -3255,32 +4032,36 @@
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                58
+                58,
+                59
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                59
+                59,
+                58
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
@@ -3333,7 +4114,46 @@
           }
         }
       },
-      "pairwiseFlips": [],
+      "pairwiseFlips": [
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-030"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-030"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-030"
+            ],
+            "rate": 0.016666666666666666
+          }
+        }
+      ],
       "changesAcrossThreePasses": {},
       "withinPassPromptDeltas": [
         {
@@ -3499,16 +4319,11 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 3,
+      "completedConditions": 4,
       "missingPasses": [
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
           "status": "not_completed"
         },
         {
@@ -4037,7 +4852,176 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 56,
+              "fields": {
+                "sentiment": 57,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 30,
+                    "mixed": 1
+                  },
+                  "neutral": {
+                    "neutral": 6,
+                    "positive": 1,
+                    "negative": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "no": 1,
+                    "insufficient_information": 5
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 31,
+                  "neutral": 6,
+                  "insufficient_information": 2,
+                  "mixed": 9
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "yes": 25,
+                  "insufficient_information": 5
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 50,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                24.052579625014914,
+                24.1326478330011,
+                63.580660417006584,
+                77.00298658301472,
+                27.947934042022098,
+                37.27997058301116
+              ],
+              "requestSecondsTotal": 253.99677908307058,
+              "timingKind": "client_batch_duration_not_pure_inference",
+              "tokens": {
+                "input_tokens": 66285,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 2463,
+                "reasoning_output_tokens": 423
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable monetary cost unavailable."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.claim.json",
+                "sha256": "11d82eb811cc35bb1b5c2725740ddd99e43636797a9d8e1c216a363918a9acf5"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.journal.jsonl",
+                "sha256": "22634d8ed8fa50d5b0266875d82c3b51ffafd47b52a189bd554638eab29aee29"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+                "sha256": "d59ea954444ecca65ae4bd39dc5adb28bfda8cd7556cb6d154c5f7895f314ef7"
+              },
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.records.jsonl",
+                "sha256": "6bf83aaf17739c726eed0dd8167e10c53c23521fffea2f8bbe2cbecb70822a8b"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.admission.json",
+                "sha256": "2a7f5bad0cd34fe2f6dc123e4dcc94a73b9566fabc7933158564f1d5d3a09294"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.claim.json",
+                  "sha256": "55a7589834fc6edb761a79a44318251f2715085968645869712fa458d5b6fe64"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "a825761e822e44aa8957bd9023a078cae8bc1eaf101c208b7b7bd84c6242b72f"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+                  "sha256": "a46d6bbfaf62efbb257b531297af19e53108c2b81fe10baab4c0440455321cf4"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "054cad360b60d24c47a8cf90546fa67a57a60d2cb1b3e14012668727cf9c75b6"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.admission.json",
+                  "sha256": "e7f35f4a50b2e07b87a04ed9d69ae331f292488096207104e53af95aa5c3771a"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke-inspection.json",
+                "sha256": "cf9e80127adbde9d59f2d55d14c71618eb7808bbb6392b6859f72d968e9110e6"
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "referenceVersion": "0.2",
@@ -4113,41 +5097,46 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
-              58
+              58,
+              56
             ],
             "mean": null,
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                59
+                59,
+                57
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                59
+                59,
+                60
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                59,
                 59
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "mean": null,
@@ -4200,7 +5189,49 @@
           }
         }
       },
-      "pairwiseFlips": [],
+      "pairwiseFlips": [
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-013",
+              "DEV-018"
+            ],
+            "rate": 0.03333333333333333
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-006"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-018"
+            ],
+            "rate": 0.05
+          }
+        }
+      ],
       "changesAcrossThreePasses": {},
       "withinPassPromptDeltas": [
         {
@@ -4366,16 +5397,11 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 3,
+      "completedConditions": 4,
       "missingPasses": [
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
           "status": "not_completed"
         },
         {
@@ -4913,7 +5939,179 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 53,
+              "fields": {
+                "sentiment": 56,
+                "follow_up_needed": 58,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 5,
+                    "positive": 2,
+                    "negative": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 7,
+                    "negative": 1
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 22,
+                    "insufficient_information": 1,
+                    "yes": 1
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 4,
+                    "no": 2
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 8,
+                    "no": 1
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 13,
+                  "negative": 33,
+                  "neutral": 5,
+                  "insufficient_information": 2,
+                  "mixed": 7
+                },
+                "follow_up_needed": {
+                  "no": 22,
+                  "yes": 36,
+                  "insufficient_information": 2
+                },
+                "serious_concern_reported": {
+                  "no": 31,
+                  "insufficient_information": 4,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 8,
+                  "no": 51,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 6,
+              "requestSeconds": [
+                52.0718542500108,
+                35.0467137079977,
+                22.88611341698561,
+                21.560243125015404,
+                28.83665937499609,
+                61.73247270900174
+              ],
+              "requestSecondsTotal": 222.13405658400734,
+              "timingKind": "client_batch_duration_not_pure_inference",
+              "tokens": {
+                "input_tokens": 65201,
+                "cached_input_tokens": 2816,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 2028,
+                "reasoning_output_tokens": 0
+              },
+              "actualCostUsd": null,
+              "costNote": "ChatGPT subscription; attributable monetary cost unavailable."
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.claim.json",
+                "sha256": "d09d9d397726c1cae1aa2d256e39fca96471ad3783b75032509087af0ede0a6a"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.journal.jsonl",
+                "sha256": "55bb7d86d7bad1e3c771f64d23815898a07fce079013252fd65e344614eb9f03"
+              },
+              "attempts": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+                "sha256": "07c0417f4300bbafc62582ddeed5c4e0f499357b0088276cfed15c0d53d09f8f"
+              },
+              "records": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.records.jsonl",
+                "sha256": "b10a56907416c3246342a6b413ae3983be8877cbae0e50f1bfcd8ca5181c5c60"
+              },
+              "admission": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.admission.json",
+                "sha256": "c5a3cd39af8fa82249bff7376d46afebd97a63f9cae679900f6fd8edc406298d"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.claim.json",
+                  "sha256": "4a43a2114f45d4187aabeda5380be9f2930f9618b724e83e15d309913629bafa"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "5006e1d3940772a25015726b12735ba6497c61d4a8153a53bb4ad9f0e26c3b56"
+                },
+                "attempts": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+                  "sha256": "ff5639feddb5a81a8f1649543ad73abfd7334f98c1c0fee659226be79ba5ea3b"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "03b2010fc6f810e6c000270c37151453ddc0b9232cc12625b5b5227330b3486f"
+                },
+                "admission": {
+                  "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.admission.json",
+                  "sha256": "f2402cd81c5a3f27b60593efdeba980a61eae5af020e6bdcd597e18b8d7469ed"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke-inspection.json",
+                "sha256": "6c963ad0a974fed01051e7600ec116a66f3c3b8f9e0274aff93643afc198ee6d"
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "referenceVersion": "0.2",
@@ -4989,42 +6187,47 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
-              51
+              51,
+              53
             ],
             "mean": null,
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                57
+                57,
+                56
               ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                58,
                 58
               ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                59
+                59,
+                58
               ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                57
+                57,
+                59
               ],
               "mean": null,
               "range": null
@@ -5076,7 +6279,61 @@
           }
         }
       },
-      "pairwiseFlips": [],
+      "pairwiseFlips": [
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 4,
+            "caseIds": [
+              "DEV-030",
+              "DEV-055",
+              "DEV-057",
+              "DEV-059"
+            ],
+            "rate": 0.06666666666666667
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 3,
+            "caseIds": [
+              "DEV-006",
+              "DEV-029",
+              "DEV-030"
+            ],
+            "rate": 0.05
+          },
+          "testimonial_potential": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-010",
+              "DEV-014"
+            ],
+            "rate": 0.03333333333333333
+          },
+          "fourFieldVector": {
+            "changed": 8,
+            "caseIds": [
+              "DEV-006",
+              "DEV-010",
+              "DEV-014",
+              "DEV-029",
+              "DEV-030",
+              "DEV-055",
+              "DEV-057",
+              "DEV-059"
+            ],
+            "rate": 0.13333333333333333
+          }
+        }
+      ],
       "changesAcrossThreePasses": {},
       "withinPassPromptDeltas": [
         {
@@ -5631,6 +6888,78 @@
       "sha256": "e73b357b8c6f586b7a1206943615e874d25f98bbc2219058666a630e9d0015c8"
     },
     {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.claim.json",
+      "sha256": "2a48634a064913bd3375172e4ef7edc41f665174ca05c11c44dd2bcba3f9c192"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "5d461eb1b5c832b4d056bb5472b04a671043ee1086f94bffd3a2e799fa072414"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "7a7da08041842e3f3734b30f4050d5929cf80b543f3fede992399d6a99640794"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+      "sha256": "d6390c6d3ec7b744f65c53ba480af468cb3de46a794a507850375a9edfadc8cc"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.admission.json",
+      "sha256": "ec964e6dda1a6be658caa517679512839345043c7f87c9fada36d80b58d43bb8"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke.raw-0.json",
+      "sha256": "4a31f09088c70c7e7abba8c149c52594eb09367e7f5874d1aa0898d2459cf382"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/smoke-inspection.json",
+      "sha256": "d4cc0db5ce10a985ba7dfbf10c660ed87e7f46ccc4a97f9e7ce7fa113a24966e"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.claim.json",
+      "sha256": "67bffa47bbb25c5272e5ddd25eeedf75bb34e26a4a2732cb191c9cd00afa4cfb"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.journal.jsonl",
+      "sha256": "8650d6e9ec372492bce984c3d05f87076dd7ef99ce8abb5428dd824111bd16a5"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+      "sha256": "371334a7f8d75ce0b16f77c3a252c96e5430483d0858177de2624f58f6c6f05c"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.records.jsonl",
+      "sha256": "2a3dd2bfc7888ac6c56eb3303c5342e00ea629217f623bef0605b1f32c313454"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.admission.json",
+      "sha256": "f5496ed8db09bda2d6e7537d3b2880f440dc8cf5a1ce61f1eb44b3c15ac60dc9"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.raw-1.json",
+      "sha256": "c9afb9091b56948b5d9bac1a6b72dba9e6323d13a41ab144f4b91c036735b828"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.raw-2.json",
+      "sha256": "a9dd7d35819178521d943cf20e4449a6198f7e1554ce96e85d7052c7d5635d53"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.raw-3.json",
+      "sha256": "cb9ff870c781054bd30f8a54815873072ad6d69f552d8b3189421901bc738862"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.raw-4.json",
+      "sha256": "1ac708db700b12433e1a6009c2f85e8c3a8d7dc658bee6b3b2155cae53aa9186"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.raw-5.json",
+      "sha256": "aad8a1aae0f1938e4eb415326cedaa718dcc9c438e9cb1ebcf96a17e5d00c4ba"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-luna-xhigh-fresh-matched3/fresh2/P1/development.raw-6.json",
+      "sha256": "8c157693ce9dd49cd873b5ad3e1f81d0c1ec5d19a9e582203f161c5ba82a4e7e"
+    },
+    {
       "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh1/P0/smoke.claim.json",
       "sha256": "009214bc78c29eb2ec735dd533c685c9f2b8ce2ea1c71cd123d3274eb8f76625"
     },
@@ -5845,6 +7174,78 @@
     {
       "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh1/P2/development.raw-6.json",
       "sha256": "801fa1c2e58eadd03abf7309c967758e0515a110a0ead4874682e1cce9cc6b6a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.claim.json",
+      "sha256": "ad479b84e534d2b37d3f26456db63d4baa82034da71fefefa250822d10a0c3cb"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "483c7713a1d957f074574f659e26cfd2d801fbd8e747e69416202f7fc19d23a6"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "14fc7b53859c69452af2951d74f0393c5df48ebc94e50755b48dcf1b537bad50"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+      "sha256": "a9310d7c17621df6c4911a9d576dca589d75ba3965ebfc4171d0b6dd4ae8d447"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.admission.json",
+      "sha256": "7f56a8ff80e1c038f3beb034d00ec3dc6f5ee9d894038e72b25d0ef7c189204e"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke.raw-0.json",
+      "sha256": "bf0520d366fcb6a27c3e9f52f6ac7b6cce11b80299524511e4ab4999952c0a81"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/smoke-inspection.json",
+      "sha256": "e40838ef3ea62456b65916ea612c4a6bb22056de488b33862e77b43277b8177d"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.claim.json",
+      "sha256": "5f3689225119f4c4eccbe38de03095afda7430f69a677892b4ae8afb8d420c38"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.journal.jsonl",
+      "sha256": "425d8e944447c70a049a52d2e3bec96e0ed001598d7bf8baf6225a96b45123a6"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+      "sha256": "3486fe65fe0725fd72a40a62924f765408972d202e47d2eba944ae7afabfceeb"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.records.jsonl",
+      "sha256": "0512a40a336c2542f625c8c72dc12fdaeb88d3ae5cca2cec30dbd27694ab0f71"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.admission.json",
+      "sha256": "bc2a6ea83f8a181a4fefc0359c34a66c3b139b92ef604c3c96643708b1e89815"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.raw-1.json",
+      "sha256": "8a707aa7b91839a42583ddb5043d475a1b4f89ef3a387d671237a986befc79de"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.raw-2.json",
+      "sha256": "87774d9b8cf348aa41a30f959124c57619487bd341b2f289ee51cfba69c1c7ad"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.raw-3.json",
+      "sha256": "f506dc3a254d2c41ce9666199f46e1f1618e91661137e5652f777ce4952ad4cb"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.raw-4.json",
+      "sha256": "08fa956511159f18d5c6faf1976003fed774001b13a21ab1a5c235ecf35880eb"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.raw-5.json",
+      "sha256": "ca34dbcb65b0a2fdd8e2f3420a4784d7b777962eefb04cbce11280e7f9e3a657"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-astra-medium-fresh-matched3/fresh2/P1/development.raw-6.json",
+      "sha256": "cc295e29b9731e46ccfb49de0bbe9589c1390c76a78d296c88955abb91cb9a3e"
     },
     {
       "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh1/P0/smoke.claim.json",
@@ -6063,6 +7464,78 @@
       "sha256": "bbf8ef8f0a4bea3b7f761a9aab66382834144ff53982cbfe201aa1ca36b13a1e"
     },
     {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.claim.json",
+      "sha256": "1e610676174c5df374bd7e53091684c4bdff40612b1c5b8649bab066a5e082e3"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "616a8f14ec7f17aea34933b0dc6c20ee7261063a821570dbcc4034e43ec215ef"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "1cadcdc39adbfe625e679e78c1ecfef49327b34bf6326737008cc21af8ea5505"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+      "sha256": "6b47965e9311c0f48b376413790323c9d92e9140ba54484d7b6f7c2f628d2624"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.admission.json",
+      "sha256": "179ec64b004c6622333f589502144e7fdf803f8467f7ba14b92ac879575ef15a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke.raw-0.json",
+      "sha256": "c98e211ae99d7721e0511e9a36f7714682cff4f4a9a6b1ac34378123913a7f27"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/smoke-inspection.json",
+      "sha256": "d994b94de5b2e03528fa9f54328ae7908c485aee658b563bfaf87934dcc117a1"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.claim.json",
+      "sha256": "fab398aca5292c82bdde87b022d5cc6527bb87a3bb9fec3f77b6b49c6bb2cfda"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.journal.jsonl",
+      "sha256": "c01e895b92b4b607637523e4d0cd1862c6ce3306a30e10048740d2fdc552d088"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+      "sha256": "f418ae41f9722e5c97d9820ccfc70af4e1b1599edf74f9651ef74ff59b7f6acb"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.records.jsonl",
+      "sha256": "237252a3dbc542aca205de1f860f1beeb16656dc7561a6f1d0912027fadc379b"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.admission.json",
+      "sha256": "bf3ab52eb9c6d739fbcddf4e3036f5dd7843043bd8f23ebc0fcba60259403dcf"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.raw-1.json",
+      "sha256": "f50199a48b6737a978782827fb21c7f259f1bcbc483ff066e4e9c2fbd86610e9"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.raw-2.json",
+      "sha256": "a411e033e8740eb9935c107cd11ed4780c0520e8184a1313671596e7fb77c51b"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.raw-3.json",
+      "sha256": "7be8dcd3fce7235184f5d774ee09a27f08ebd23d860334d5b92f5bd1aa86b5e4"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.raw-4.json",
+      "sha256": "1b52c4ef10578a7e2c2b85ac1692ffdcebe81cd81a3c21d5798f6da4edad00ef"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.raw-5.json",
+      "sha256": "4e7b1633d5dc61c2ae01daf125107d0c3093f1e813721d67bd0c50e2d0f611f7"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-low-fresh-matched3/fresh2/P1/development.raw-6.json",
+      "sha256": "07397318cfd117befe257b79c9ccc12f9d4b09ea4783a9e1a9caccff7a1817ab"
+    },
+    {
       "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh1/P0/smoke.claim.json",
       "sha256": "bdbff4a81c1ab3ed6098c9e70745ca1dbc06357ac980040e49fa9b98b1ee9d99"
     },
@@ -6277,6 +7750,78 @@
     {
       "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh1/P2/development.raw-6.json",
       "sha256": "38f9a8e204e213b526f7df01f782043695f287af5a158b58c51bdcb426f4b2c1"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.claim.json",
+      "sha256": "0ff64b766d83fe4329e7ac55263bc2691aec946ed14d9dcff6a63f1d4471e989"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "34fe9e22ebd9a937ed817cef09f82bda9ce69718cf0322665872ed88080a44e6"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "fb477f993093690f3e70995b3099232aad65f32442f488e2575f75782f8b4517"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+      "sha256": "f1bf76de681686db4dd356afb93c270bc0bf0f2373dabec500e2501dcc78bafa"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.admission.json",
+      "sha256": "8e2b8ccc6f3e5e0ef3557b206281acc0a8805d3a0c2ce33cbf8047c8315779bf"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke.raw-0.json",
+      "sha256": "77806af7ea649826064de640e26e6bf46d63d198046d33b29a7a22e7a7acfd21"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/smoke-inspection.json",
+      "sha256": "6832c15a308e8c7f85491f419b099fc5ff64547fe915a1032c3ae890b5d57fa0"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.claim.json",
+      "sha256": "a70f501635ec4291c4398bd82b7f3a7e6c713669da1ee02b47dd32773dc943b5"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.journal.jsonl",
+      "sha256": "b0186abb93717e2260e8c28005c695da65689d90592e50539fb1a8877b230ae7"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+      "sha256": "531e7f618aaf005c694364c1d45ef15d54f19795ea4fa3e5d20adcbcf1dbd8c8"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.records.jsonl",
+      "sha256": "99d3219fecac97b95bac6d65e6734cbc247e03c9c4d45a54e6ddb58cbcf45b6a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.admission.json",
+      "sha256": "34272cea9085d0cb6ef20e84c20452de5726e54a6bb5b535a41abe9ee7f40a96"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.raw-1.json",
+      "sha256": "7f976ec76dabd20292b12826ab419bac92a8d61dd2fdfd6bb447d063aaf94b9f"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.raw-2.json",
+      "sha256": "8e82dcc42cb8c170bb5897b70456f4928f40e3bbadea897ccefd4bfa0db20f4a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.raw-3.json",
+      "sha256": "8f2e45d1058be09a4913cef6348ae1b21ba1c54e01182574826d792e4c68fece"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.raw-4.json",
+      "sha256": "95c23ce745ce5a70fd5395ba00af80e8d0193a88d6d8a5ef35b061f9776e1a99"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.raw-5.json",
+      "sha256": "ca323c7e753388baf7b4fc9bd6e5411eee0292ec185dcaa68accd7cb7021dfae"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-5.6-terra-medium-fresh-matched3/fresh2/P1/development.raw-6.json",
+      "sha256": "2100d4c04cb681192d6e58326e9d40ca8da77c32d7ad1acaa6f848897377dccc"
     },
     {
       "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh1/P0/smoke.claim.json",
@@ -6495,6 +8040,78 @@
       "sha256": "4049797137265034628dd37f29b917e9048473e1ac34dd73e550bb0c57afcfeb"
     },
     {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.claim.json",
+      "sha256": "55a7589834fc6edb761a79a44318251f2715085968645869712fa458d5b6fe64"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "a825761e822e44aa8957bd9023a078cae8bc1eaf101c208b7b7bd84c6242b72f"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "a46d6bbfaf62efbb257b531297af19e53108c2b81fe10baab4c0440455321cf4"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+      "sha256": "054cad360b60d24c47a8cf90546fa67a57a60d2cb1b3e14012668727cf9c75b6"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.admission.json",
+      "sha256": "e7f35f4a50b2e07b87a04ed9d69ae331f292488096207104e53af95aa5c3771a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke.raw-0.json",
+      "sha256": "497c8c5a298ea6ce2f1935c500d115e3c604eba5134e4b48b19bf1907c4c7e1e"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/smoke-inspection.json",
+      "sha256": "cf9e80127adbde9d59f2d55d14c71618eb7808bbb6392b6859f72d968e9110e6"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.claim.json",
+      "sha256": "11d82eb811cc35bb1b5c2725740ddd99e43636797a9d8e1c216a363918a9acf5"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.journal.jsonl",
+      "sha256": "22634d8ed8fa50d5b0266875d82c3b51ffafd47b52a189bd554638eab29aee29"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+      "sha256": "d59ea954444ecca65ae4bd39dc5adb28bfda8cd7556cb6d154c5f7895f314ef7"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.records.jsonl",
+      "sha256": "6bf83aaf17739c726eed0dd8167e10c53c23521fffea2f8bbe2cbecb70822a8b"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.admission.json",
+      "sha256": "2a7f5bad0cd34fe2f6dc123e4dcc94a73b9566fabc7933158564f1d5d3a09294"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.raw-1.json",
+      "sha256": "2a620eff0d6e1a671dd9f6900488b813b91b0488ffa7841aa1387dbba95456a2"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.raw-2.json",
+      "sha256": "93021b595e991b9507cba9afb75911df0dd446d3d2779ccb38ce03314976a54d"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.raw-3.json",
+      "sha256": "a9bd2df6599bf676f2bb66a6a013b1597d1d8aa313b00c2299205cb940173288"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.raw-4.json",
+      "sha256": "59718223b549a3cddb65511391d9e5d9edf69cf5ae87bcd6ce19f77ddc5e1410"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.raw-5.json",
+      "sha256": "10ea4b3773e8e1b5558f5eb09e20f2536b659e5185d4c48553dbea70dcd4a697"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-sol-low-batch10-fresh-matched3/fresh2/P1/development.raw-6.json",
+      "sha256": "a81cb0b5335e0b2afbae58093ae392a0567ffe6471c08b1af0b22ea49241e0e3"
+    },
+    {
       "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh1/P0/smoke.claim.json",
       "sha256": "de9cce99f547c86287373876508ecad24f8d981d304bf01299e7337274a6d342"
     },
@@ -6709,6 +8326,78 @@
     {
       "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh1/P2/development.raw-6.json",
       "sha256": "d43d7c4707a5fa439c3e46278a49e08efb7791a59c486881ba60dda36fb058d9"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.claim.json",
+      "sha256": "4a43a2114f45d4187aabeda5380be9f2930f9618b724e83e15d309913629bafa"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "5006e1d3940772a25015726b12735ba6497c61d4a8153a53bb4ad9f0e26c3b56"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "ff5639feddb5a81a8f1649543ad73abfd7334f98c1c0fee659226be79ba5ea3b"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.records.jsonl",
+      "sha256": "03b2010fc6f810e6c000270c37151453ddc0b9232cc12625b5b5227330b3486f"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.admission.json",
+      "sha256": "f2402cd81c5a3f27b60593efdeba980a61eae5af020e6bdcd597e18b8d7469ed"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke.raw-0.json",
+      "sha256": "b85fd8607028ef393864baf2fafe8ca5c1668fced50161ec52d4b1c31ca787f2"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/smoke-inspection.json",
+      "sha256": "6c963ad0a974fed01051e7600ec116a66f3c3b8f9e0274aff93643afc198ee6d"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.claim.json",
+      "sha256": "d09d9d397726c1cae1aa2d256e39fca96471ad3783b75032509087af0ede0a6a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.journal.jsonl",
+      "sha256": "55bb7d86d7bad1e3c771f64d23815898a07fce079013252fd65e344614eb9f03"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.attempts.jsonl",
+      "sha256": "07c0417f4300bbafc62582ddeed5c4e0f499357b0088276cfed15c0d53d09f8f"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.records.jsonl",
+      "sha256": "b10a56907416c3246342a6b413ae3983be8877cbae0e50f1bfcd8ca5181c5c60"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.admission.json",
+      "sha256": "c5a3cd39af8fa82249bff7376d46afebd97a63f9cae679900f6fd8edc406298d"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.raw-1.json",
+      "sha256": "1c90a69c8f3675fce3d59ce8fdf3984d1760d27fecb68b765635c76c269eb28a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.raw-2.json",
+      "sha256": "c1334087c6750c72aa7eb243d07cbe561f10235698e4bf47b081ef81406a246f"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.raw-3.json",
+      "sha256": "5735c7da0d38ad1264d3014b6e8d44db650db4ef22ca0d20a94a76ce725b944d"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.raw-4.json",
+      "sha256": "327bd81b88198a5761ff1420c9cc6f405395d685f6147af302611fec1891d52a"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.raw-5.json",
+      "sha256": "f47eb2941682f68ec06a4546ecf6dc4413edc7b8052bfd2ad9158d3e83ba728b"
+    },
+    {
+      "path": "results/repeatability-v1/codex-gpt-6-luna-low-batch10-fresh-matched3/fresh2/P1/development.raw-6.json",
+      "sha256": "2de82133b0560d72274b11634a7ff9f4502b3ea58397c17debba088c334c5758"
     }
   ]
 }
