@@ -59,6 +59,21 @@ class GeminiRepeatFindingsTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'frozen request'):
             report._historical(ROOT,bad,'P1',ids,labels,bind)
 
+    def test_high_roster_keeps_exact_effort_and_historical_denominator(self):
+        for config in report.high_roster.CONFIGS:
+            controller=report._controller(config)
+            plan=controller.expected_plan(config,'repeat2')
+            ids=[f'DEV-{i:03d}' for i in range(1,61)]
+            labels={r['id']:r['proposed_labels'] for r in report._rows(ROOT,report.LABELS)}
+            bind,_=report._binder(ROOT)
+            entry,records=report._historical(ROOT,plan,'P1',ids,labels,bind)
+            self.assertEqual(entry['score']['denominator'],60)
+            self.assertEqual(set(records),set(ids))
+            self.assertEqual(plan['effort'],'high')
+            bad=copy.deepcopy(plan);bad['effort']='medium'
+            with self.assertRaisesRegex(ValueError,'frozen request'):
+                report._historical(ROOT,bad,'P1',ids,labels,bind)
+
     def test_open_journal_excluded_and_source_hash_enforced(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder)

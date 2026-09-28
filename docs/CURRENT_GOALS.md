@@ -85,6 +85,14 @@ Haiku's separate matched three-pass study is frozen and admitted through the Cla
 
 Gemini 3.7 Flash high is also admitted on OpenRouter, with its first smoke passed and development running. A $1 child allocation raises master accounted/encumbered capacity to $9.65582248150, leaving $0.34417751850 unallocated under $10. This includes the full active allocation and is not actual spending. Reconcile it after closure. Gemini 3.1 Pro high is prepared in the reviewed controller but not allocated or dispatched; the requested $15 total cap remains pending. See the [high-effort wave](GEMINI_HIGH_REPEAT_WAVE.md).
 
+## Subscription and high-effort progress, 2026-09-28
+
+All four Fable 5.1 efforts (low, medium, high and xhigh) have closed both additional P0/P1/P2 passes: 24 development phases, 1,440 responses, all valid. Their report integration is in progress. Haiku has closed fresh pass-one P0 and P1 with 60 valid outputs each; the rest of its matched three-pass study remains in progress.
+
+Gemini 3.7 Flash high has closed repeat two P0/P1/P2 and started repeat three. Its active allocation is unchanged; final spending will be reconciled after closure. GPT-5.6 Sol low/medium/xhigh and Terra high continue under their phase-specific subscription checks.
+
+Opus 5 low, medium, high and xhigh have eight verified frozen repeat manifests. Their first smokes are admitted through the pinned Claude subscription runtime. Development requires inspection of each saved smoke before dispatch. No paid overage or new OpenRouter allocation is authorized by this update.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.

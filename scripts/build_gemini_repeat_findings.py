@@ -13,6 +13,7 @@ from pathlib import Path
 import build_repeat_findings as shared
 import gemini_repeat_study as study
 import gemini_repeat_roster as roster
+from gemini_repeat_high import runner as high_roster
 from development_benchmark import valid
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +29,8 @@ def _controller(config):
         return study
     if config in roster.CONFIGS:
         return roster
+    if config in high_roster.CONFIGS:
+        return high_roster
     raise ValueError('Configuration outside frozen Gemini controllers')
 
 
@@ -500,7 +503,7 @@ def build_series(config,root=ROOT):
 
 def build(root=ROOT):
     return {'schema':'gemini-repeat-series-v1',
-            'series':[build_series(config,root) for config in (*study.CONFIGS, *roster.CONFIGS)
+            'series':[build_series(config,root) for config in (*study.CONFIGS, *roster.CONFIGS, *high_roster.CONFIGS)
                       if config in study.CONFIGS or all((Path(root)/BASE/config/r/'manifest.json').exists() for r in ('repeat2','repeat3'))]}
 
 
