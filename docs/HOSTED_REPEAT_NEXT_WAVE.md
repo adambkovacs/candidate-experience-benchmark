@@ -1,4 +1,12 @@
-# Next hosted Gemini repeat wave: offline admission inventory
+# Hosted Gemini repeat waves: admission inventory
+
+## Execution update, 28 September 2026
+
+The four configurations proposed below have now completed and their allocations are closed. Their added repeats and smokes cost $1.928587 in returned charges. The master ledger accounts for $8.62592168150, leaving $1.37407831850 under $10. See the [verified Gemini findings](GEMINI_REPEAT_FINDINGS_2026-09-28.md). Gemini 3.8 medium retains its token-truncated batches; completion does not mean all outputs were valid.
+
+The two remaining intact high-effort triples have a combined historical two-pass proxy of $2.305357, exceeding that headroom by $0.93127868150 before Qwen's never-sent suffix or Gemini 3.8 low. The Qwen suffix has a separate conservative bound of $0.5382144 and remains under controller review. An aggregate cap increase to $15 has been requested but is not yet authorized. The current cap remains $10.
+
+The proposal and balance below are retained as the pre-wave planning snapshot. They are not the current dispatch status or balance.
 
 This is a proposal, not an allocation or a dispatch receipt. The [current goals](CURRENT_GOALS.md) and [coverage matrix](REPEAT_COVERAGE_MATRIX.md) leave seven paid OpenRouter Gemini configurations unfinished: six intact first-pass triples and Gemini 3.8 Flash low, whose historical P0 needs review. The shared [paid ledger](../results/openrouter-paid-budget.jsonl) currently accounts for **$6.69733468150** under $10, leaving **$3.30266531850** with no active repeat partition. Re-read that ledger before any allocation.
 

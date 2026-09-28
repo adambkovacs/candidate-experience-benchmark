@@ -63,7 +63,7 @@ All four configurations in the latest Gemini wave now have nine closed condition
 
 The four allocations are reconciled. Their six new passes and smoke calls cost $1.928587 according to returned provider charges. The master ledger accounts for $8.62592168150, including prior unknown-charge bounds, leaving $1.37407831850 under $10. No additional spending cap has been authorized. The Qwen suffix still requires controller review before allocation.
 
-The public deployment for commit 0755b39 succeeded, including the two completed Luna repeat series and the Jev report. The new Gemini report is verified offline and awaiting its own publication checkpoint. Fable low and medium have completed their six new development phases; report integration remains pending. Codex Luna medium/Sol high and Fable high/xhigh continue in their subscription lanes.
+The public deployment for commit 0755b39 succeeded, including the two completed Luna repeat series and the Jev report. The new Gemini report and findings are published in d8f7786; GitHub Pages deployment 36401659783 succeeded, and the public JSON and findings paragraph were fetched and verified. Fable low and medium have completed their six new development phases; report integration remains pending. Codex Luna medium/Sol high and Fable high/xhigh continue in their subscription lanes.
 
 ## Next delivery checkpoints
 
