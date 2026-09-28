@@ -140,6 +140,26 @@ class RepeatFindingsTest(unittest.TestCase):
                                                                'claim', 'admission'})
             self.assertNotIn('/private/tmp/codex-repeat-root-review/', json.dumps(report))
 
+    def test_new_roster_series_are_complete_and_bound(self):
+        expected = {'codex-gpt-5.6-sol-low', 'codex-gpt-5.6-sol-medium',
+                    'codex-gpt-5.6-sol-xhigh', 'codex-gpt-5.6-terra-high'}
+        self.assertEqual({config for config, _ in repeat.ROSTER_SERIES[-4:]}, expected)
+        for config, display in repeat.ROSTER_SERIES[-4:]:
+            series = repeat.build_roster_series(config, display)
+            self.assertEqual(series['completedConditions'], 9)
+            self.assertEqual(series['missingPasses'], [])
+            for pass_name in ('repeat2', 'repeat3'):
+                manifest_path = repeat.REPEAT_ROOT / config / pass_name / 'manifest.json'
+                self.assertEqual(repeat.sha(repeat.ROOT / manifest_path),
+                                 repeat.PINNED_SHA[str(manifest_path)])
+                for condition in repeat.CONDITIONS:
+                    entry = series['passes'][pass_name][condition]
+                    self.assertEqual(entry['score']['valid'], 60)
+                    self.assertEqual(set(entry['evidence']),
+                                     {'records', 'attempts', 'journal', 'claim', 'smoke',
+                                      'smokeInspection', 'admission'})
+            self.assertNotIn('/private/tmp/codex-repeat-root-review/', json.dumps(series))
+
     def test_roster_raw_output_disagreement_rejected(self):
         config = repeat.ROSTER_SERIES[0][0]
         manifest_path = repeat.REPEAT_ROOT / config / 'repeat2/manifest.json'

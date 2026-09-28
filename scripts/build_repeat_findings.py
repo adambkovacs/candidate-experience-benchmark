@@ -20,6 +20,10 @@ ROSTER_SERIES = (
     ('codex-gpt-5.6-luna-low-phase2-batch10-p0', 'GPT-5.6 Luna · low effort'),
     ('codex-gpt-5.6-luna-medium', 'GPT-5.6 Luna · medium effort'),
     ('codex-gpt-5.6-sol-high', 'GPT-5.6 Sol · high effort'),
+    ('codex-gpt-5.6-sol-low', 'GPT-5.6 Sol · low effort'),
+    ('codex-gpt-5.6-sol-medium', 'GPT-5.6 Sol · medium effort'),
+    ('codex-gpt-5.6-sol-xhigh', 'GPT-5.6 Sol · xhigh effort'),
+    ('codex-gpt-5.6-terra-high', 'GPT-5.6 Terra · high effort'),
 )
 LABELS = Path('data/pilot/proposed_labels.jsonl')
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
@@ -41,6 +45,14 @@ PINNED_SHA = {
     str(REPEAT_ROOT / 'codex-gpt-5.6-luna-medium/repeat3/manifest.json'): '19e8a057dfb9e7fe1d38c55d92003047ca372d009548f22dd0a20ed2c857b23e',
     str(REPEAT_ROOT / 'codex-gpt-5.6-sol-high/repeat2/manifest.json'): '01e2100721ab9bc140cb8fb1b440bf7c9e040aa509ef9bd6ba9e42ab50622fe6',
     str(REPEAT_ROOT / 'codex-gpt-5.6-sol-high/repeat3/manifest.json'): '8fe9ffed84d41a7351858d5bf2f6595c23a99d1afa72942326b09d403f83f72c',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-low/repeat2/manifest.json'): 'ec275317b0eabee4a02aac0ca5b7cb46b25cab38361bc00bae23fb30a3a52f50',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-low/repeat3/manifest.json'): 'c7b55718274765ff88119bb2570403959bb35e23a2e7535a92355ac844b3a1e8',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-medium/repeat2/manifest.json'): '902bdae8cfc00b54dc2bdeba66bdc12a5bb867393879422e2f9b93cb71085a3b',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-medium/repeat3/manifest.json'): '5a85dcc055b60c273322a054f530fc4a3d8d432a75c9e20397ace82b634390a0',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-xhigh/repeat2/manifest.json'): '1402075dafb4059464af9527f1045d2576f9dc240bce7f94a0b9d5d395c9bd8a',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-sol-xhigh/repeat3/manifest.json'): '662a25e10da4552bb303281693de1512a6abf13837f1bb227581d3dfeee93813',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-terra-high/repeat2/manifest.json'): '084b1b5cbd852338647e713865d577dfed146791c00ee4e1ce85f3572ecbc270',
+    str(REPEAT_ROOT / 'codex-gpt-5.6-terra-high/repeat3/manifest.json'): 'e2895a8f1413b8f7287f7db2fbfd8a1ad8f4ad072ef7bc2442e9f943eed7ebbc',
 }
 
 

@@ -47,3 +47,16 @@ Luna medium's P0 score ranges from 54 to 57, with seven reviews changing at leas
 Sol high scores 58 in every P1 pass and 57 in every P2 pass, but two reviews change decisions within each condition. Its stable totals therefore do not imply identical outputs. The [Codex report](../public-site/repeats.json) lists the changed review IDs and field-level comparisons; all 12 report tests passed in a clean export of the committed sources. The accepted CLI patch difference and unobserved serving changes remain limits on attributing variation purely to sampling.
 
 The [new Gemini analysis](GEMINI_REPEAT_FINDINGS_2026-09-28.md) adds four more completed series and separates token-truncated batches from classification changes.
+
+## Further Sol and Terra repeats
+
+GPT-5.6 Sol low, medium and extra-high, plus Terra high, now have all nine condition/pass combinations complete. Every combination produced 60 valid outputs. Scores below count agreement on all four fields against the provisional v0.2 references, out of 60.
+
+| Configuration | P0 scores | P1 scores | P2 scores | Reviews changing at least one field: P0 / P1 / P2 |
+| --- | --- | --- | --- | --- |
+| Sol low | 58, 57, 57 | 57, 57, 58 | 57, 57, 56 | 1 / 1 / 1 |
+| Sol medium | 57, 57, 58 | 57, 57, 57 | 57, 57, 57 | 3 / 3 / 2 |
+| Sol extra-high | 57, 57, 57 | 57, 57, 57 | 56, 57, 56 | 0 / 1 / 3 |
+| Terra high | 57, 57, 57 | 59, 56, 58 | 57, 56, 58 | 3 / 4 / 3 |
+
+Sol extra-high P0 is the only condition in this four-configuration group with no observed classification changes across all three passes. Its identical P1 scores still conceal one changed review. Terra high also kept the same P0 score while changing three reviews, and its P1 score ranged from 56 to 59. Small differences between prompt conditions should be read alongside that repeat variation. These results describe the same 60 synthetic reviews, not independent samples or a general model ranking. See the [source-bound repeat report](../public-site/repeats.json).
