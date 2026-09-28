@@ -14,6 +14,7 @@ import build_repeat_findings as shared
 import gemini_repeat_study as study
 import gemini_repeat_roster as roster
 from gemini_repeat_high import runner as high_roster
+import gemini38_low_repeat as recovered_low
 from development_benchmark import valid
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +32,8 @@ def _controller(config):
         return roster
     if config in high_roster.CONFIGS:
         return high_roster
+    if config in recovered_low.CONFIGS:
+        return recovered_low
     raise ValueError('Configuration outside frozen Gemini controllers')
 
 
@@ -169,6 +172,8 @@ def _saved_prediction(attempt,rid):
 
 
 def _historical(root,plan,condition,ids,labels,bind):
+    if config_is_recovered_low(plan) and condition=='P0':
+        return _recovered_p0(root,plan,ids,labels,bind)
     history=plan['conditions'][condition]['historical']
     attempts=_rows(root,history['development_attempts']['path'])
     records=_rows(root,history['development_records']['path'])
@@ -194,6 +199,61 @@ def _historical(root,plan,condition,ids,labels,bind):
     return {'completionStatus':'complete','score':shared.score(indexed,labels,ids),
             'usage':_usage(attempts),'evidence':{key:history[key] for key in (
                 'development_records','development_attempts','development_journal','manifest')}},indexed
+
+
+def config_is_recovered_low(plan):
+    return plan.get('configuration_id') in recovered_low.CONFIGS
+
+
+def _recovered_p0(root,plan,ids,labels,bind):
+    history=plan['conditions']['P0']['historical']
+    admission=history['recovered_admission']
+    proof=recovered_low.recovered.validate_admission(_path(root,admission['path']))
+    if (_sha(_path(root,admission['path']))!=admission['sha256']
+            or proof['reconciled_attempts']!=history['development_attempts']
+            or proof['reconciled_records']!=history['development_records']
+            or proof['reconciled_journal']!=history['development_journal']
+            or proof['baseline_id']!=plan['original_p0_baseline_id']):
+        raise ValueError('Recovered Gemini P0 admission differs from frozen history')
+    attempts=_rows(root,history['development_attempts']['path'])
+    records=_rows(root,history['development_records']['path'])
+    journal=_rows(root,history['development_journal']['path'])
+    if len(attempts)!=6 or len(records)!=60 or [row.get('id') for row in records]!=ids:
+        raise ValueError('Recovered Gemini P0 membership differs')
+    if (len(journal)!=19 or journal[-1]!={'event':'terminal','phase':'development',
+            'expected_batches':6,'started_batches':6,'finished_batches':6,
+            'completed':True,'reason':'completed'}):
+        raise ValueError('Recovered Gemini P0 terminal differs')
+    catalog=json.loads(_path(root,plan['conditions']['P0']['catalog']['path']).read_text())
+    endpoints=json.loads(_path(root,plan['conditions']['P0']['endpoints']['path']).read_text())
+    _,endpoint=study.v3.check_catalog(plan['model'],plan['effort'],catalog,endpoints)
+    indexed={}
+    for index,attempt in enumerate(attempts):
+        request={**plan['conditions']['P0']['requests'][index+1],'_index':index+1}
+        _check_attempt(attempt,request,plan,'P0','development')
+        raw=attempt.get('raw_response')
+        if (attempt.get('status') not in ('ok','invalid_output') or attempt['billing_ok'] is not True
+                or attempt['cost_unknown'] is not False or not isinstance(raw,dict)
+                or attempt.get('generation_id')!=raw.get('id')
+                or attempt.get('returned_model')!=raw.get('model')
+                or attempt.get('returned_provider')!=raw.get('provider')
+                or attempt.get('requested_endpoint')!=endpoint):
+            raise ValueError('Recovered Gemini P0 provider or billing identity differs')
+        parsed=study.classify(plan,request,raw,endpoint)
+        if (parsed.get('status'),parsed.get('predictions'))!=(attempt['status'],attempt.get('predictions')):
+            raise ValueError('Recovered Gemini P0 prediction differs from raw response')
+        members=request['record_ids']
+        for position,rid in enumerate(members):
+            record=records[index*10+position]
+            expected={'id':rid,'status':attempt['status'],
+                'prediction':_saved_prediction(attempt,rid),'batch_index':index+1,
+                'original_status':attempt.get('admission_original_status',attempt['status']),
+                'generation_id':attempt['generation_id'],'batch_position':position}
+            if record!=expected:raise ValueError('Recovered Gemini P0 record differs from admitted raw batch')
+            indexed[rid]=record
+    return {'completionStatus':'complete','score':shared.score(indexed,labels,ids),
+            'usage':_usage(attempts),'evidence':{key:history[key] for key in (
+                'development_records','development_attempts','development_journal','manifest','recovered_admission')}},indexed
 
 
 def _terminal(root,relative):
@@ -414,6 +474,57 @@ def _stats(values):
             'range':[min(values),max(values)] if len(values)==3 else None}
 
 
+def _recovered_budget(root,config,plans,bind):
+    folder=BASE/config
+    reconciliation_path=folder/'budget-reconciliation-v1.json'
+    reconciliation=json.loads(_path(root,reconciliation_path).read_text())
+    child_path=folder/'budget-partition-v1-g38-low-recovered-repeat-v1.jsonl'
+    expected_child_suffix='/' + str(child_path)
+    if (reconciliation.get('event')!='partition_reconciled'
+            or reconciliation.get('partition_id')!=plans['repeat2'][0]['partition_id']
+            or not isinstance(reconciliation.get('child_ledger'),str)
+            or not reconciliation['child_ledger'].endswith(expected_child_suffix)):
+        raise ValueError('Recovered Gemini budget reconciliation identity differs')
+    bind(reconciliation_path)
+    child_binding=bind(child_path,reconciliation.get('child_sha256'))
+    events=_rows(root,child_path)
+    cap=_money(plans['repeat2'][0]['proposed_partition_cap_usd'])
+    if (len(events)!=86 or events[0]!={'event':'budget','cap_usd':str(cap)}
+            or events[-1]!={'event':'partition_closed',
+                    'reason':'Explicit terminal reconciliation; no further requests permitted'}):
+        raise ValueError('Recovered Gemini budget ledger is not closed as planned')
+    attempts=[]
+    for repeat in ('repeat2','repeat3'):
+        plan=plans[repeat][0]
+        if (plan['partition_id']!=reconciliation['partition_id'] or
+                _money(plan['proposed_partition_cap_usd'])!=cap):
+            raise ValueError('Recovered Gemini repeat budgets differ')
+        for condition in plan['condition_order']:
+            for phase in ('smoke','development'):
+                attempts.extend(_rows(root,folder/repeat/condition/f'{phase}.attempts.jsonl'))
+    if len(attempts)!=42 or len({a.get('attempt_id') for a in attempts})!=42:
+        raise ValueError('Recovered Gemini budget attempt count differs')
+    actual=Decimal(0)
+    for index,attempt in enumerate(attempts):
+        reserve,settle=events[1+index*2:3+index*2]
+        observed=_money(attempt.get('observed_cost_usd'))
+        if (attempt.get('cost_unknown') is not False or observed is None
+                or reserve!={'event':'reserve','attempt_id':attempt['attempt_id'],
+                              'record_id':','.join(attempt['ids']),
+                              'usd':attempt['reserved_cost_usd']}
+                or settle!={'event':'settle','attempt_id':attempt['attempt_id'],
+                             'usd':attempt['observed_cost_usd']}):
+            raise ValueError('Recovered Gemini budget ledger differs from requests')
+        actual+=observed
+    if (_money(reconciliation.get('known_actual_usd'))!=actual
+            or _money(reconciliation.get('unknown_upper_bound_usd'))!=0
+            or _money(reconciliation.get('unused_allocation_released_usd'))!=cap-actual):
+        raise ValueError('Recovered Gemini budget totals differ')
+    return {'partitionId':reconciliation['partition_id'],'capUsd':str(cap),
+            'knownActualUsd':str(actual),'unknownUpperBoundUsd':'0',
+            'unusedAllocationReleasedUsd':str(cap-actual),'childLedger':child_binding}
+
+
 def build_series(config,root=ROOT):
     root=Path(root)
     ids,labels,plans,bind,sources=_source_context(root,config)
@@ -482,9 +593,14 @@ def build_series(config,root=ROOT):
             across[condition]={'denominator':len(eligible),'excludedIds':[rid for rid in ids if rid not in eligible],
                                'fields':{f:[rid for rid in eligible if len({indexed[name][condition][rid]['prediction'][f] for name in PASSES})>1] for f in FIELDS},
                                'fourFieldVector':[rid for rid in eligible if len({tuple(indexed[name][condition][rid]['prediction'][f] for f in FIELDS) for name in PASSES})>1]}
+    budget=None
+    if config in recovered_low.CONFIGS:
+        if not all(full(name,condition) for name in PASSES for condition in CONDITIONS):
+            raise ValueError('Recovered Gemini repeat lane is not fully closed')
+        budget=_recovered_budget(root,config,plans,bind)
     model=plans['repeat2'][0]['model']
     effort=plans['repeat2'][0]['effort']
-    return {'schema':'gemini-repeat-findings-v1','configuration':config,
+    result={'schema':'gemini-repeat-findings-v1','configuration':config,
             'displayName':model+' · '+effort+' effort · OpenRouter batch 10',
             'model':model,'effort':effort,'provider':'google-ai-studio',
             'referenceVersion':'0.2','referenceStatus':'AI reviewed provisional, not independent adjudication',
@@ -499,11 +615,15 @@ def build_series(config,root=ROOT):
                            'Serving revision and effective seed are unavailable.',
                            'Request duration is unavailable where the runner did not record it; it is not inference time.',
                            'Unknown request charges and token fields are unavailable, not zero.']}
+    if budget is not None:result['budgetReconciliation']=budget
+    return result
 
 
-def build(root=ROOT):
+def build(root=ROOT,include_recovered_low=False):
+    configs=(*study.CONFIGS,*roster.CONFIGS,*high_roster.CONFIGS)
+    if include_recovered_low:configs+=tuple(recovered_low.CONFIGS)
     return {'schema':'gemini-repeat-series-v1',
-            'series':[build_series(config,root) for config in (*study.CONFIGS, *roster.CONFIGS, *high_roster.CONFIGS)
+            'series':[build_series(config,root) for config in configs
                       if config in study.CONFIGS or all((Path(root)/BASE/config/r/'manifest.json').exists() for r in ('repeat2','repeat3'))]}
 
 
@@ -511,8 +631,9 @@ def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',required=True,type=Path)
     parser.add_argument('--check',action='store_true')
+    parser.add_argument('--include-recovered-low',action='store_true')
     args=parser.parse_args(argv)
-    report=build(ROOT)
+    report=build(ROOT,include_recovered_low=True) if args.include_recovered_low else build(ROOT)
     value=json.dumps(report,indent=2,ensure_ascii=False)+'\n'
     if args.check:
         if not args.output.exists() or args.output.read_text()!=value:
