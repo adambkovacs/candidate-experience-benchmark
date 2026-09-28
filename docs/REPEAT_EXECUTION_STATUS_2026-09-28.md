@@ -2,7 +2,7 @@
 
 Snapshot reconciled 2026-09-28T15:56:27.185249+00:00 from closed saved reports and the current checkpoint.
 
-This reconciles every one of the 53 groups in the frozen pre-execution coverage matrix and the two subsequently declared subscription series. It does not replace the broader 163-configuration baseline/prompt roster or the separate native-specialist P0 audit. A missing report means repeat execution is not established by these report sources; it is not an accepted exclusion.
+This reconciles every one of the 53 groups in the frozen pre-execution coverage matrix and the two subsequently declared subscription series. It does not replace the broader 163-configuration baseline/prompt roster or the separate native-specialist P0 audit. A missing report means repeat execution is not established by these report sources; it is not an accepted exclusion. The [full-scope reconciliation](REPEAT_SCOPE_GAPS_2026-09-28.md) identifies 32 scheduled roster IDs outside the table below, including 20 that still need explicit repeat eligibility and route decisions. The 49/55 figure is not an overall completion percentage.
 
 Of these 55 series, 49 have nine full condition/pass entries, one Mistral series retains a terminal interrupted combination, four exact small-local series await execution, and Gemini Pro high remains budget-blocked. Haiku fresh matched-three and Codex Sol medium are the two added series. Invalid responses can remain in a fully recorded pass; full coverage does not mean 60 correct or valid answers.
 
