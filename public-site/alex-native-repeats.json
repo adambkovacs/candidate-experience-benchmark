@@ -1,0 +1,998 @@
+{
+  "schema": "alex-native-repeat-report-v1",
+  "series": [
+    {
+      "schema": "alex-native-repeat-findings-v1",
+      "configuration": "alex-openjev08-native-p0-v1",
+      "displayName": "Alex OpenJev 0.8B · native NLI",
+      "model": "alex-openjev08-native-p0-v1",
+      "provider": "Local native MPS",
+      "method": "native-output-stability",
+      "conditionOrder": [
+        "P0"
+      ],
+      "referenceVersion": "0.2",
+      "referenceStatus": "AI reviewed provisional, not independent adjudication",
+      "denominator": 60,
+      "completedConditions": 1,
+      "plannedConditions": 3,
+      "passOrder": [
+        "fresh1",
+        "fresh2",
+        "fresh3"
+      ],
+      "passes": {
+        "fresh1": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 3,
+              "fields": {
+                "sentiment": 39,
+                "follow_up_needed": 37,
+                "serious_concern_reported": 20,
+                "testimonial_potential": 9
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 2,
+                "negative": 33,
+                "neutral": 5,
+                "positive": 20
+              },
+              "follow_up_needed": {
+                "insufficient_information": 9,
+                "no": 19,
+                "yes": 32
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 39,
+                "no": 17,
+                "yes": 4
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "yes": 59
+              }
+            },
+            "confusionCounts": {
+              "sentiment": {
+                "positive": {
+                  "positive": 8,
+                  "negative": 2,
+                  "mixed": 0,
+                  "neutral": 1,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "negative": {
+                  "positive": 2,
+                  "negative": 27,
+                  "mixed": 1,
+                  "neutral": 1,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "mixed": {
+                  "positive": 6,
+                  "negative": 1,
+                  "mixed": 1,
+                  "neutral": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "neutral": {
+                  "positive": 2,
+                  "negative": 3,
+                  "mixed": 0,
+                  "neutral": 3,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "positive": 2,
+                  "negative": 0,
+                  "mixed": 0,
+                  "neutral": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                }
+              },
+              "follow_up_needed": {
+                "yes": {
+                  "yes": 25,
+                  "no": 6,
+                  "insufficient_information": 4,
+                  "__invalid_or_missing__": 0
+                },
+                "no": {
+                  "yes": 7,
+                  "no": 12,
+                  "insufficient_information": 5,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "yes": 0,
+                  "no": 1,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                }
+              },
+              "serious_concern_reported": {
+                "yes": {
+                  "yes": 3,
+                  "no": 2,
+                  "insufficient_information": 20,
+                  "__invalid_or_missing__": 0
+                },
+                "no": {
+                  "yes": 1,
+                  "no": 13,
+                  "insufficient_information": 15,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "yes": 0,
+                  "no": 2,
+                  "insufficient_information": 4,
+                  "__invalid_or_missing__": 0
+                }
+              },
+              "testimonial_potential": {
+                "yes": {
+                  "yes": 9,
+                  "no": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "no": {
+                  "yes": 49,
+                  "no": 0,
+                  "insufficient_information": 1,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "yes": 1,
+                  "no": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                }
+              }
+            },
+            "usage": {
+              "clientPredictionSeconds": 1321.626425502007,
+              "clientPredictionMeanSeconds": 22.027107091700113,
+              "nativeNliInputTokenPositions": 1251194,
+              "generatedOutputTokens": null,
+              "isolatedInferenceSeconds": null,
+              "actualCostUsd": null,
+              "costKnown": false
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.root-review.json",
+                  "sha256": "cc95bb2be07e50499c8d48e21aa0e02523053cb64ff5391c1f783222ce022509"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.claim.json",
+                  "sha256": "a8a67d0c58324fe47a7143040d1b386af2ecb20d2804ea9c2b93574bcc2c483f"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.journal.jsonl",
+                  "sha256": "882c40cc89848dae5ad295812f56f55e4e18e776c9344a497172a8136ec4b121"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.raw.jsonl",
+                  "sha256": "06df0ab8199d08a61fe55a49266ecc2121b75b1a271e2d9767c48d46d3d392da"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.records.jsonl",
+                  "sha256": "308e5a751e2f266ed1066a463922144b179c4ba68a4e142ddfc3bdd621cc75ff"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.completion.json",
+                  "sha256": "136704ada029360fa6baf4bffa7d0d55bd5ba0d3edc0fd10bb3e4a418d06b3bf"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke-inspection.json",
+                "sha256": "09dddab4844eebc7ee2df8a72d00d2c809085245457230655e87d13a8a6c5017"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.root-review.json",
+                  "sha256": "b9d6b922f36b897cf45abf1b0b420f52f1ed05dcb1876bb0b63109abf11f9477"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.claim.json",
+                  "sha256": "4a9d20bb886b1efc7cc8cd140d4cc17dd2c1d8f49986f75913c5de71924f1539"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.journal.jsonl",
+                  "sha256": "9253d22295d58a7bc8900f8d7a3b7194850bc4e6fbececf9f06ab334457db842"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.raw.jsonl",
+                  "sha256": "54e3c5123e0cce01eae6753d0e50cd7d5bdb3496cd76d548913c9cf6236fc341"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.records.jsonl",
+                  "sha256": "f4f5323876adc7f18bbe42b30a64179423af7600505dbba41f8bffcc527314f2"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.completion.json",
+                  "sha256": "e0cccc4bb4d36ce0cb285ee38da3782f049db3ba044dd94caf38844f03a0dbbf"
+                }
+              }
+            }
+          }
+        },
+        "fresh2": {},
+        "fresh3": {}
+      },
+      "missingPasses": [
+        {
+          "pass": "fresh2",
+          "condition": "P0",
+          "status": "claimed_in_progress_or_interrupted"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P0",
+          "status": "not_started"
+        }
+      ],
+      "partialPasses": [],
+      "historicalObservation": {
+        "status": "observational_only",
+        "freshPassEligible": false,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 3,
+          "fields": {
+            "sentiment": 39,
+            "follow_up_needed": 37,
+            "serious_concern_reported": 20,
+            "testimonial_potential": 9
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "confusionCounts": {
+          "sentiment": {
+            "positive": {
+              "positive": 8,
+              "negative": 2,
+              "mixed": 0,
+              "neutral": 1,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "negative": {
+              "positive": 2,
+              "negative": 27,
+              "mixed": 1,
+              "neutral": 1,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "mixed": {
+              "positive": 6,
+              "negative": 1,
+              "mixed": 1,
+              "neutral": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "neutral": {
+              "positive": 2,
+              "negative": 3,
+              "mixed": 0,
+              "neutral": 3,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "positive": 2,
+              "negative": 0,
+              "mixed": 0,
+              "neutral": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            }
+          },
+          "follow_up_needed": {
+            "yes": {
+              "yes": 25,
+              "no": 6,
+              "insufficient_information": 4,
+              "__invalid_or_missing__": 0
+            },
+            "no": {
+              "yes": 7,
+              "no": 12,
+              "insufficient_information": 5,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "yes": 0,
+              "no": 1,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            }
+          },
+          "serious_concern_reported": {
+            "yes": {
+              "yes": 3,
+              "no": 2,
+              "insufficient_information": 20,
+              "__invalid_or_missing__": 0
+            },
+            "no": {
+              "yes": 1,
+              "no": 13,
+              "insufficient_information": 15,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "yes": 0,
+              "no": 2,
+              "insufficient_information": 4,
+              "__invalid_or_missing__": 0
+            }
+          },
+          "testimonial_potential": {
+            "yes": {
+              "yes": 9,
+              "no": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "no": {
+              "yes": 49,
+              "no": 0,
+              "insufficient_information": 1,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "yes": 1,
+              "no": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            }
+          }
+        },
+        "savedPositions": 60,
+        "unknownPriorAttempt": null,
+        "reason": "Exact executing historical runner revision was not recorded; native input/output parity is reconstructable, but source-byte provenance is not.",
+        "evidence": {
+          "smoke.jsonl": {
+            "path": "results/alex-openjev08-mps-2026-09-23/smoke.jsonl",
+            "sha256": "ae414f569206e338af5c5d2e2466d5c692a7fb9106af88c24341d77bd90c27e8"
+          },
+          "development.jsonl": {
+            "path": "results/alex-openjev08-mps-2026-09-23/development.jsonl",
+            "sha256": "8a85a1070e073dbea00c165ca7995de93949bcd01d2e8f2da4cb615d0302d14a"
+          }
+        }
+      },
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 1,
+            "values": [
+              3
+            ],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 1,
+              "values": [
+                39
+              ],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 1,
+              "values": [
+                37
+              ],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 1,
+              "values": [
+                20
+              ],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 1,
+              "values": [
+                9
+              ],
+              "mean": null,
+              "range": null
+            }
+          }
+        }
+      },
+      "pairwiseFlips": [],
+      "changesAcrossThreePasses": {},
+      "withinPassPromptDeltas": [],
+      "referenceClassCounts": {
+        "sentiment": {
+          "insufficient_information": 2,
+          "mixed": 8,
+          "negative": 31,
+          "neutral": 8,
+          "positive": 11
+        },
+        "follow_up_needed": {
+          "insufficient_information": 1,
+          "no": 24,
+          "yes": 35
+        },
+        "serious_concern_reported": {
+          "insufficient_information": 6,
+          "no": 29,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "insufficient_information": 1,
+          "no": 50,
+          "yes": 9
+        }
+      },
+      "predictedClassCounts": {
+        "fresh1": {
+          "sentiment": {
+            "mixed": 2,
+            "negative": 33,
+            "neutral": 5,
+            "positive": 20
+          },
+          "follow_up_needed": {
+            "insufficient_information": 9,
+            "no": 19,
+            "yes": 32
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 39,
+            "no": 17,
+            "yes": 4
+          },
+          "testimonial_potential": {
+            "insufficient_information": 1,
+            "yes": 59
+          }
+        }
+      },
+      "sourceBindings": [
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/manifest.json",
+          "sha256": "6a4821b492030360535a4218302cbd82f4e04d4677eab92afa742d317c6627cf"
+        },
+        {
+          "path": "data/pilot/inputs.jsonl",
+          "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+        },
+        {
+          "path": "docs/LABELING_GUIDE.md",
+          "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+        },
+        {
+          "path": "scripts/alex_openjev08_repeat_admission.py",
+          "sha256": "0869d0e0d8a34e536b05a665d8dc16adafcac9b8701c276f018d44f8c2a0817e"
+        },
+        {
+          "path": "scripts/anyjev_raw_repeat_admission.py",
+          "sha256": "20558bac210a981a28cf4b5911b1089611a24eaf76fc7a8ee3b7836a4ed753f7"
+        },
+        {
+          "path": "scripts/development_benchmark.py",
+          "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+        },
+        {
+          "path": "scripts/jev_benchmark.py",
+          "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+        },
+        {
+          "path": "scripts/specialist_benchmark.py",
+          "sha256": "ec35418937cef5eb2e3b317737abd4354fa869c00c1605efb5c01eb9eb668c1b"
+        },
+        {
+          "path": "data/pilot/proposed_labels.jsonl",
+          "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+        },
+        {
+          "path": "results/alex-openjev08-mps-2026-09-23/smoke.jsonl",
+          "sha256": "ae414f569206e338af5c5d2e2466d5c692a7fb9106af88c24341d77bd90c27e8"
+        },
+        {
+          "path": "results/alex-openjev08-mps-2026-09-23/development.jsonl",
+          "sha256": "8a85a1070e073dbea00c165ca7995de93949bcd01d2e8f2da4cb615d0302d14a"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.root-review.json",
+          "sha256": "cc95bb2be07e50499c8d48e21aa0e02523053cb64ff5391c1f783222ce022509"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.claim.json",
+          "sha256": "a8a67d0c58324fe47a7143040d1b386af2ecb20d2804ea9c2b93574bcc2c483f"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.journal.jsonl",
+          "sha256": "882c40cc89848dae5ad295812f56f55e4e18e776c9344a497172a8136ec4b121"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.raw.jsonl",
+          "sha256": "06df0ab8199d08a61fe55a49266ecc2121b75b1a271e2d9767c48d46d3d392da"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.records.jsonl",
+          "sha256": "308e5a751e2f266ed1066a463922144b179c4ba68a4e142ddfc3bdd621cc75ff"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke.completion.json",
+          "sha256": "136704ada029360fa6baf4bffa7d0d55bd5ba0d3edc0fd10bb3e4a418d06b3bf"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.root-review.json",
+          "sha256": "b9d6b922f36b897cf45abf1b0b420f52f1ed05dcb1876bb0b63109abf11f9477"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.claim.json",
+          "sha256": "4a9d20bb886b1efc7cc8cd140d4cc17dd2c1d8f49986f75913c5de71924f1539"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.journal.jsonl",
+          "sha256": "9253d22295d58a7bc8900f8d7a3b7194850bc4e6fbececf9f06ab334457db842"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.raw.jsonl",
+          "sha256": "54e3c5123e0cce01eae6753d0e50cd7d5bdb3496cd76d548913c9cf6236fc341"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.records.jsonl",
+          "sha256": "f4f5323876adc7f18bbe42b30a64179423af7600505dbba41f8bffcc527314f2"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/development.completion.json",
+          "sha256": "e0cccc4bb4d36ce0cb285ee38da3782f049db3ba044dd94caf38844f03a0dbbf"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev08-native-p0-v1/fresh1/P0/smoke-inspection.json",
+          "sha256": "09dddab4844eebc7ee2df8a72d00d2c809085245457230655e87d13a8a6c5017"
+        }
+      ],
+      "declaredExternalSourceHashes": {},
+      "declaredModelAssetHashes": {
+        "README.md": "f44faf386675944004d0018632e0f1b9656bc804717ffbfc4ac7d0124dd50ab0",
+        "modeling_openjev.py": "071670d0879963ee69600ed31f0f3d5a37bee314461709477e8ac0e25f33fd97",
+        "qwen3.5-0.8b-nli-v2s-long/chat_template.jinja": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+        "qwen3.5-0.8b-nli-v2s-long/config.json": "3b914561e53dad38981a498af0b0bf430300be9d3e5fa3cd7b10c2049c073e52",
+        "qwen3.5-0.8b-nli-v2s-long/model.safetensors": "cf6d62a341c0c804f9a926eec71aefc9859adb28978736e757b49bce35d9b8f8",
+        "qwen3.5-0.8b-nli-v2s-long/preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "qwen3.5-0.8b-nli-v2s-long/tokenizer.json": "d73c2c5f7aa0ed522c8d96ef3524739eb61e3c78e74839a2ce4a1c56ea340a20",
+        "qwen3.5-0.8b-nli-v2s-long/tokenizer_config.json": "289d88d849f89fcf0f9c145773122f6718095cd4aee05435afbd0293569c7085",
+        "qwen3.5-0.8b-nli-v2s-long/train_result.json": "f33dd7d10957ab60760414ee3a96a03c11bec525e8bf30c490ec8121ea7eb8c7",
+        "qwen3.5-0.8b-nli-v2s-long/video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+      },
+      "declaredModelArtifactManifestSha256": "ce376d036039ab3d49118d35dc111b0586bb53817a3cc3240a60390d23a56214",
+      "hardware": {
+        "chip_type": "Apple M4 Max",
+        "machine_model": "Mac16,5",
+        "number_processors": "proc 16:12:4:0",
+        "physical_memory": "128 GB"
+      },
+      "limitations": [
+        "Historical Alex outputs are observational and excluded from fresh-pass scores and flips.",
+        "Only native P0 output stability is measured; generative P1/P2 prompts do not apply.",
+        "The same 60 fictional reviews are repeated, not new independent cases.",
+        "Open or in-flight phases are omitted before reading partial records.",
+        "Client prediction time includes local overhead and is not isolated inference time.",
+        "Native NLI input-token positions are not billed API tokens; generated output tokens are unavailable.",
+        "Local hardware and electricity costs were not measured; cost is unknown, not zero.",
+        "Model assets outside the repository are declared by the frozen manifest; this portable report does not rehash them."
+      ]
+    },
+    {
+      "schema": "alex-native-repeat-findings-v1",
+      "configuration": "alex-openjev4b-native-p0-v1",
+      "displayName": "Alex OpenJev 4B · native NLI",
+      "model": "alex-openjev4b-native-p0-v1",
+      "provider": "Local native MPS",
+      "method": "native-output-stability",
+      "conditionOrder": [
+        "P0"
+      ],
+      "referenceVersion": "0.2",
+      "referenceStatus": "AI reviewed provisional, not independent adjudication",
+      "denominator": 60,
+      "completedConditions": 0,
+      "plannedConditions": 3,
+      "passOrder": [
+        "fresh1",
+        "fresh2",
+        "fresh3"
+      ],
+      "passes": {
+        "fresh1": {},
+        "fresh2": {},
+        "fresh3": {}
+      },
+      "missingPasses": [
+        {
+          "pass": "fresh1",
+          "condition": "P0",
+          "status": "not_started"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P0",
+          "status": "not_started"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P0",
+          "status": "not_started"
+        }
+      ],
+      "partialPasses": [],
+      "historicalObservation": {
+        "status": "observational_only",
+        "freshPassEligible": false,
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 39,
+          "fields": {
+            "sentiment": 49,
+            "follow_up_needed": 57,
+            "serious_concern_reported": 47,
+            "testimonial_potential": 57
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "confusionCounts": {
+          "sentiment": {
+            "positive": {
+              "positive": 11,
+              "negative": 0,
+              "mixed": 0,
+              "neutral": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "negative": {
+              "positive": 0,
+              "negative": 26,
+              "mixed": 4,
+              "neutral": 1,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "mixed": {
+              "positive": 1,
+              "negative": 0,
+              "mixed": 7,
+              "neutral": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "neutral": {
+              "positive": 0,
+              "negative": 1,
+              "mixed": 1,
+              "neutral": 5,
+              "insufficient_information": 1,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "positive": 2,
+              "negative": 0,
+              "mixed": 0,
+              "neutral": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            }
+          },
+          "follow_up_needed": {
+            "yes": {
+              "yes": 35,
+              "no": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "no": {
+              "yes": 2,
+              "no": 22,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "yes": 0,
+              "no": 1,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            }
+          },
+          "serious_concern_reported": {
+            "yes": {
+              "yes": 17,
+              "no": 8,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "no": {
+              "yes": 1,
+              "no": 28,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "yes": 1,
+              "no": 3,
+              "insufficient_information": 2,
+              "__invalid_or_missing__": 0
+            }
+          },
+          "testimonial_potential": {
+            "yes": {
+              "yes": 8,
+              "no": 1,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "no": {
+              "yes": 1,
+              "no": 49,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            },
+            "insufficient_information": {
+              "yes": 1,
+              "no": 0,
+              "insufficient_information": 0,
+              "__invalid_or_missing__": 0
+            }
+          }
+        },
+        "savedPositions": 60,
+        "unknownPriorAttempt": {
+          "id": "DEV-046",
+          "status": "possibly_started_outcome_unknown"
+        },
+        "reason": "The old 45 plus resumed 15 output composite crossed a possible in-flight DEV-046 attempt; its outcome and elapsed time remain unknown. It is not a clean matched pass.",
+        "evidence": {
+          "development-complete.jsonl": {
+            "path": "results/alex-openjev4b-mps-2026-09-23/development-complete.jsonl",
+            "sha256": "1fb4ef119e0e5d8ac19c0aaa77aec6b1f5e3e472ae2a9288aadc6a709d13dc82"
+          },
+          "development-resume-2026-09-24.jsonl": {
+            "path": "results/alex-openjev4b-mps-2026-09-23/development-resume-2026-09-24.jsonl",
+            "sha256": "4c0088d27ac651351b4e86906b85a90ad397d63a57bf66e82ca0c39656484d90"
+          },
+          "development.jsonl": {
+            "path": "results/alex-openjev4b-mps-2026-09-23/development.jsonl",
+            "sha256": "4150c1b8985fd1d06fb251d7473fb682e366d3622257b0429adf8563926ea373"
+          },
+          "interruption-2026-09-24.json": {
+            "path": "results/alex-openjev4b-mps-2026-09-23/interruption-2026-09-24.json",
+            "sha256": "1929d7fe0d71f5d8c74f53c074ce2b9b3fb9eb6fd33ba7bfcef4e9050319514d"
+          },
+          "reconciliation.json": {
+            "path": "results/alex-openjev4b-mps-2026-09-23/reconciliation.json",
+            "sha256": "db59a5cd1075223cbcd4a331d749f6fe105dbb1ea8147b6a043b4b12a4b2a614"
+          },
+          "smoke.jsonl": {
+            "path": "results/alex-openjev4b-mps-2026-09-23/smoke.jsonl",
+            "sha256": "80993140ab2263c23609896196e25acd8e3f6afebc8490131dd3cfdc65bddab2"
+          }
+        }
+      },
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 0,
+            "values": [],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            }
+          }
+        }
+      },
+      "pairwiseFlips": [],
+      "changesAcrossThreePasses": {},
+      "withinPassPromptDeltas": [],
+      "referenceClassCounts": {
+        "sentiment": {
+          "insufficient_information": 2,
+          "mixed": 8,
+          "negative": 31,
+          "neutral": 8,
+          "positive": 11
+        },
+        "follow_up_needed": {
+          "insufficient_information": 1,
+          "no": 24,
+          "yes": 35
+        },
+        "serious_concern_reported": {
+          "insufficient_information": 6,
+          "no": 29,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "insufficient_information": 1,
+          "no": 50,
+          "yes": 9
+        }
+      },
+      "predictedClassCounts": {},
+      "sourceBindings": [
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/manifest.json",
+          "sha256": "2fd72a67d00bddb1ced94c71b7c585ab9481081cc927ed08fa1fe58c83303e1a"
+        },
+        {
+          "path": "data/pilot/inputs.jsonl",
+          "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+        },
+        {
+          "path": "docs/LABELING_GUIDE.md",
+          "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+        },
+        {
+          "path": "scripts/alex_openjev4b_repeat_admission.py",
+          "sha256": "ffec978797b8da93f1a21e9df2df906e4837630672f410d353031c84152d5057"
+        },
+        {
+          "path": "scripts/anyjev_raw_repeat_admission.py",
+          "sha256": "20558bac210a981a28cf4b5911b1089611a24eaf76fc7a8ee3b7836a4ed753f7"
+        },
+        {
+          "path": "scripts/development_benchmark.py",
+          "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+        },
+        {
+          "path": "scripts/jev_benchmark.py",
+          "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+        },
+        {
+          "path": "scripts/specialist_benchmark.py",
+          "sha256": "ec35418937cef5eb2e3b317737abd4354fa869c00c1605efb5c01eb9eb668c1b"
+        },
+        {
+          "path": "data/pilot/proposed_labels.jsonl",
+          "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+        },
+        {
+          "path": "results/alex-openjev4b-mps-2026-09-23/development-complete.jsonl",
+          "sha256": "1fb4ef119e0e5d8ac19c0aaa77aec6b1f5e3e472ae2a9288aadc6a709d13dc82"
+        },
+        {
+          "path": "results/alex-openjev4b-mps-2026-09-23/development-resume-2026-09-24.jsonl",
+          "sha256": "4c0088d27ac651351b4e86906b85a90ad397d63a57bf66e82ca0c39656484d90"
+        },
+        {
+          "path": "results/alex-openjev4b-mps-2026-09-23/development.jsonl",
+          "sha256": "4150c1b8985fd1d06fb251d7473fb682e366d3622257b0429adf8563926ea373"
+        },
+        {
+          "path": "results/alex-openjev4b-mps-2026-09-23/interruption-2026-09-24.json",
+          "sha256": "1929d7fe0d71f5d8c74f53c074ce2b9b3fb9eb6fd33ba7bfcef4e9050319514d"
+        },
+        {
+          "path": "results/alex-openjev4b-mps-2026-09-23/reconciliation.json",
+          "sha256": "db59a5cd1075223cbcd4a331d749f6fe105dbb1ea8147b6a043b4b12a4b2a614"
+        },
+        {
+          "path": "results/alex-openjev4b-mps-2026-09-23/smoke.jsonl",
+          "sha256": "80993140ab2263c23609896196e25acd8e3f6afebc8490131dd3cfdc65bddab2"
+        }
+      ],
+      "declaredExternalSourceHashes": {},
+      "declaredModelAssetHashes": {
+        "modeling_openjev.py": "071670d0879963ee69600ed31f0f3d5a37bee314461709477e8ac0e25f33fd97",
+        "qwen3.5-4b-nli-v2/chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "qwen3.5-4b-nli-v2/config.json": "477bed7614828c875db38b952835af9ca2fb5fa024af56cda8a708181db76a07",
+        "qwen3.5-4b-nli-v2/model.safetensors": "f625c42c6bac1fbc03935f584d0126d096b6681bdc62d11f4a7c7f3b94bc35b3",
+        "qwen3.5-4b-nli-v2/tokenizer.json": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+        "qwen3.5-4b-nli-v2/tokenizer_config.json": "9cf04fffe3d8c3b85e439fb35c7acad0761ab51c422a8c4256d9f887c3a0be7d",
+        "qwen3.5-4b-nli-v2/train_result.json": "3cac1cf94a4d2c04ecba26f297fa0875c88c34a9301b6300037d79c1271f6826"
+      },
+      "declaredModelArtifactManifestSha256": "d2bd290cde79e95d6c1eefc4e46e89de513d1b9627c3e212824e8bf7125bce7f",
+      "hardware": {
+        "chip_type": "Apple M4 Max",
+        "machine_model": "Mac16,5",
+        "number_processors": "proc 16:12:4:0",
+        "physical_memory": "128 GB"
+      },
+      "limitations": [
+        "Historical Alex outputs are observational and excluded from fresh-pass scores and flips.",
+        "The 4B historical composite includes an unknown prior DEV-046 attempt; its first outcome and duration are not reconstructed.",
+        "Only native P0 output stability is measured; generative P1/P2 prompts do not apply.",
+        "The same 60 fictional reviews are repeated, not new independent cases.",
+        "Open or in-flight phases are omitted before reading partial records.",
+        "Client prediction time includes local overhead and is not isolated inference time.",
+        "Native NLI input-token positions are not billed API tokens; generated output tokens are unavailable.",
+        "Local hardware and electricity costs were not measured; cost is unknown, not zero.",
+        "Model assets outside the repository are declared by the frozen manifest; this portable report does not rehash them."
+      ]
+    }
+  ],
+  "availableConfigurations": [
+    "alex-openjev08-native-p0-v1",
+    "alex-openjev4b-native-p0-v1"
+  ]
+}

@@ -385,7 +385,7 @@ def main(argv=None):
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args(argv)
-    report = build()
+    report = build(ROOT)
     content = json.dumps(report, indent=2, ensure_ascii=False) + '\n'
     if args.check:
         if not args.output.exists() or args.output.read_text() != content:
