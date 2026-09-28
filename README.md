@@ -19,6 +19,7 @@ The [visual findings](https://adambkovacs.github.io/candidate-experience-benchma
 
 - Adding a decision tree after classifier framing reduced agreement in 21 of 39 audited hosted/subscription setups, improved it in 4, and left 14 unchanged. Extra instructions did not consistently help.
 - All 18 Codex configurations completed their three-pass studies. Classifier instructions improved agreement in every pass for two configurations; decision-tree instructions did so for none. [See the repeat analysis](docs/CODEX_REPEAT_SYNTHESIS_2026-09-28.md).
+- SemIf matches 54/60 testimonial labels in its completed native passes, but identifies only four of nine reference-positive testimonials. [Class-level findings explain the difference](docs/SEMIF_REPEAT_FINDINGS_2026-09-28.md).
 - Three native Laya configurations produced unchanged answers across three passes, but each matched all four reference decisions on 0 of 60 reviews. [Repeatability did not imply agreement with the rubric](docs/LAYA_REPEAT_FINDINGS_2026-09-28.md).
 - Jev matched all 25 reviews whose reference reported a serious concern. Its six all-four disagreements included an off-topic review, a misread positive review and cases whose provisional labels need independent review.
 - Returning no for every testimonial judgment already matches 50 of 60 references. Read field scores alongside their class balance.

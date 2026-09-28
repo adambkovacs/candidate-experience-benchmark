@@ -1,0 +1,2149 @@
+{
+  "schema": "semif-native-repeat-report-v1",
+  "series": [
+    {
+      "schema": "semif-native-repeat-findings-v1",
+      "configuration": "semif-direct",
+      "displayName": "SemIf · direct native MLX",
+      "model": "semif-direct",
+      "provider": "Local native MLX",
+      "method": "native-output-stability",
+      "conditionOrder": [
+        "P0"
+      ],
+      "referenceVersion": "0.2",
+      "referenceStatus": "AI reviewed provisional, not independent adjudication",
+      "referenceClassCounts": {
+        "sentiment": {
+          "insufficient_information": 2,
+          "mixed": 8,
+          "negative": 31,
+          "neutral": 8,
+          "positive": 11
+        },
+        "follow_up_needed": {
+          "insufficient_information": 1,
+          "no": 24,
+          "yes": 35
+        },
+        "serious_concern_reported": {
+          "insufficient_information": 6,
+          "no": 29,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "insufficient_information": 1,
+          "no": 50,
+          "yes": 9
+        }
+      },
+      "denominator": 60,
+      "completedConditions": 3,
+      "plannedConditions": 3,
+      "missingPasses": [],
+      "partialPasses": [],
+      "passes": {
+        "original": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 36,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 50,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 38,
+                "yes": 20
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                12.017691125161946,
+                12.307288584066555,
+                12.78849554201588,
+                12.171635000035167,
+                12.567664291942492,
+                11.858060790924355,
+                11.808114416897297,
+                10.573467417154461,
+                11.099748458014801,
+                11.577067459002137,
+                11.838359707966447,
+                10.325056625064462,
+                12.117598041892052,
+                10.087910166941583,
+                10.24403987498954,
+                11.380919249961153,
+                9.737205583136529,
+                11.895115583902225,
+                14.832990875001997,
+                12.070508874952793,
+                11.164605249883607,
+                11.474480625009164,
+                10.968206625198945,
+                12.236881083110347,
+                11.006091749994084,
+                12.097108417190611,
+                14.89610091689974,
+                15.223881917074323,
+                11.870056041982025,
+                12.965065707918257,
+                15.380576625000685,
+                14.771938083926216,
+                14.30721400002949,
+                10.950660709058866,
+                11.27968595805578,
+                14.2687612909358,
+                14.189486041897908,
+                11.691080249845982,
+                12.934908957919106,
+                11.885303540853783,
+                14.777478707954288,
+                14.979219208005816,
+                15.10258416691795,
+                13.87832983280532,
+                13.76421241601929,
+                11.056473500095308,
+                10.631422667065635,
+                11.305759791983292,
+                10.666944666998461,
+                10.978507540887222,
+                14.419173124944791,
+                14.579702540999278,
+                14.695480207912624,
+                14.148471667198464,
+                14.27526191691868,
+                14.520938040921465,
+                12.092812708113343,
+                11.242007584078237,
+                14.7561087498907,
+                14.418617750052363
+              ],
+              "requestSecondsTotal": 755.1505382505711,
+              "modelLoadSeconds": 7.871862458996475,
+              "clientRunSecondsLowerBound": 763.0224007095676,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "path": "results/semif-direct-bf16-2026-09-23/smoke.jsonl",
+                "sha256": "51924488ca36bcd1a1e749e8b4ebd446423f2abdbc6f405e8dc4bbe8212f6b31"
+              },
+              "records": {
+                "path": "results/semif-direct-bf16-2026-09-23/development.jsonl",
+                "sha256": "beca52b5c0380b32a118cbf8fb1ae65c7e59324d15eb025ded36331d403fbe20"
+              },
+              "runnerGitCommit": "724efe57cdfb3fdbfedc161f24912a25450791b2",
+              "runnerSourceSha256": "341ee5ecb3dfe5f8c739037c423899dd8a1091d83b1c6d20abf217ebb1c6b5fd"
+            }
+          }
+        },
+        "repeat2": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 36,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 50,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 38,
+                "yes": 20
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                16.383666291978443,
+                11.839398082986008,
+                12.061719916993752,
+                11.392779458023142,
+                10.710687708022306,
+                10.276332250010455,
+                10.780203832982806,
+                11.084933417005232,
+                11.306261042016558,
+                10.663557875028346,
+                11.573758624988841,
+                12.725274416006869,
+                11.092261542013148,
+                11.480493749986636,
+                11.761052332993131,
+                11.41917325000395,
+                11.598360250005499,
+                11.783021750015905,
+                12.00272866699379,
+                11.5621514589875,
+                11.680049375019735,
+                11.760668792005163,
+                11.772949125006562,
+                12.114545999997063,
+                11.884987333003664,
+                12.822666166001,
+                11.49926941600279,
+                11.565375459002098,
+                12.168552125018323,
+                11.579688750003697,
+                11.188307624979643,
+                11.26597920799395,
+                11.203462541976478,
+                11.839397250005277,
+                11.459201041987399,
+                11.355192957998952,
+                11.754269541997928,
+                11.365863000013633,
+                11.597337291983422,
+                11.240916832990479,
+                11.148083541978849,
+                11.174501625006087,
+                12.321415625017835,
+                11.880012457986595,
+                12.602055333991302,
+                11.751905249984702,
+                11.659423457982484,
+                11.611296874994878,
+                11.368105208995985,
+                13.011459208006272,
+                11.414763667009538,
+                11.559727457992267,
+                11.149283290986205,
+                11.093579041975318,
+                11.46980329201324,
+                12.69022099999711,
+                13.93623675001436,
+                15.896873874997254,
+                16.865623874997254,
+                15.72203224999248
+              ],
+              "requestSecondsTotal": 716.9428988339496,
+              "modelLoadSeconds": null,
+              "clientRunSecondsLowerBound": null,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.root-review.json",
+                  "sha256": "06e796cfde06756ea0719fcadaffe4fc140dde461048953d9fdf0341597d1fd0"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.claim.json",
+                  "sha256": "41beb1f566a075abdef54f824437c80bec17b91fa9a1a281230385e7b3290f60"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "ae5c182befb2e0d6dd8b02f5c8f9c825fe98dcbecc4501a4523d1cf1229c8595"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.raw.jsonl",
+                  "sha256": "b37adca3b694a95156fb4f35489394a25176fa841a0b1c9ede9f373802746b8a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "fa1f4bdded6765bdf2057ca92b9c30fa8469990a195f2ec189be7e0f44399f9c"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.completion.json",
+                  "sha256": "15ac78ce314dfc0fbc9ca413fbe670b331bf357f03611698ee648fc9fb6ccace"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke-inspection.json",
+                "sha256": "30e426a037cba531110838f20c0e3a6bc137c62a8e72f44d9dc4abbca015b722"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.root-review.json",
+                  "sha256": "dd8d2b69b7f9c3d15441ce99b5cb965c90590c4a19624aba8f4e0121ed9f9e90"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.claim.json",
+                  "sha256": "97b42b7ae7dbc217cca6eb9638e2c794162a2a37d9460ae88c10df573cea35bb"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.journal.jsonl",
+                  "sha256": "41a355088d6147e0eb7467d01a9f1d31a6393f4e225bdde1680023105be655a6"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.raw.jsonl",
+                  "sha256": "b6791e7a55e3655c4f47a88d3c858c5f266a76f8d9bc1b33828eb82e0ae3a942"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.records.jsonl",
+                  "sha256": "3591c26f857d563a8c1777b3a8b809c155cba76010defc3206c4ca2200f77de4"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.completion.json",
+                  "sha256": "b4fc101b4a65d3424bb3956f721ebfaf828322be228da6292a6d3cdcf8613583"
+                }
+              }
+            }
+          }
+        },
+        "repeat3": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 36,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 50,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 38,
+                "yes": 20
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                13.73828799999319,
+                14.533152417017845,
+                12.540799624985084,
+                13.609683916991344,
+                13.685876083007315,
+                13.400416874996154,
+                13.378414749982767,
+                12.929513041017344,
+                11.838653874990996,
+                13.637442541017663,
+                14.633648500021081,
+                15.78830729200854,
+                14.247991792013636,
+                12.936622666020412,
+                13.150391959003173,
+                12.40091041699634,
+                12.6230877499911,
+                12.539160625019576,
+                12.495377457991708,
+                13.182245999982115,
+                13.75287512500654,
+                12.769421250006417,
+                13.213692791003268,
+                14.312849125009961,
+                16.12049833399942,
+                14.424338041018927,
+                17.74407504199189,
+                18.66011520801112,
+                17.906076000013854,
+                17.361979666980915,
+                17.84715979199973,
+                16.016745417000493,
+                16.990682915988145,
+                15.316028375003953,
+                14.32109662500443,
+                14.801194375002524,
+                15.947335042001214,
+                23.516076916013844,
+                27.470656083984068,
+                28.516269042011118,
+                26.912200666003628,
+                21.72170887500397,
+                21.61861350000254,
+                18.60255862501799,
+                20.845684375002747,
+                20.37727458399604,
+                21.20485149999149,
+                20.822833209007513,
+                22.74186166698928,
+                25.64082608401077,
+                24.35135512499255,
+                23.45536579200416,
+                21.529049625009065,
+                22.569386082992423,
+                21.566133999993326,
+                19.331705083022825,
+                19.965972917008912,
+                20.452112708007917,
+                20.96894991598674,
+                19.28619150002487
+              ],
+              "requestSecondsTotal": 1048.263786584168,
+              "modelLoadSeconds": null,
+              "clientRunSecondsLowerBound": null,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.root-review.json",
+                  "sha256": "0c44bee9a63ee70f3293345308518b35c00f92ca480680d3e79baf7b79f034e5"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.claim.json",
+                  "sha256": "4a11c01467c4f06a09316474f6dab6686d2e013566c1f9a13c5c024e6807d644"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.journal.jsonl",
+                  "sha256": "c8635bd8f2d06f5d58a9be1fa64a091c8b219f9467eb6f9f650fe4dc844e2dd0"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.raw.jsonl",
+                  "sha256": "5bcb5190a662d27a7c6ea05e2a29cd16478e712663d01718fa5174531a004a5c"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.records.jsonl",
+                  "sha256": "dc0330143414a8d4b90f86c33c426ad0f49108f00f454d45018113144133a533"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.completion.json",
+                  "sha256": "782fb1f949b95d9a2b364390d74762d7c3ddd03d5c2dd7c7053d3f85a9f5d94c"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke-inspection.json",
+                "sha256": "3b6a0f4c381e7c971c3c9895c5ca1f419c610e96604e2aed522e730d1442e9c5"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.root-review.json",
+                  "sha256": "1fe058dc15087589da756f137a2f60baf9ce2e79011ba890f981e9625fc9464b"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.claim.json",
+                  "sha256": "45178ca8be03c8fdd2c93ec08f66116e22de3db648f6b2ea5b1a6c8a773707b6"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.journal.jsonl",
+                  "sha256": "7c6eee7274725eef98ad6fe66e36103ad255a3e24e004f119d634e337e9cbe21"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.raw.jsonl",
+                  "sha256": "978eee0bdbbf564a281eaeff0bc4462332e1e89b8bf7fac07ef781c9adfda26c"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.records.jsonl",
+                  "sha256": "0cf09cb74b392c11b2f7bd45d91d14df37110437e85b5c814680b31c7c2e7016"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.completion.json",
+                  "sha256": "a8e7be51ebcebacee6fcccf9cd46d088aad913410f139027a577836da931b4e3"
+                }
+              }
+            }
+          }
+        }
+      },
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 3,
+            "values": [
+              36,
+              36,
+              36
+            ],
+            "mean": 36.0,
+            "range": [
+              36,
+              36
+            ]
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 3,
+              "values": [
+                50,
+                50,
+                50
+              ],
+              "mean": 50.0,
+              "range": [
+                50,
+                50
+              ]
+            },
+            "follow_up_needed": {
+              "completedPasses": 3,
+              "values": [
+                56,
+                56,
+                56
+              ],
+              "mean": 56.0,
+              "range": [
+                56,
+                56
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                50,
+                50,
+                50
+              ],
+              "mean": 50.0,
+              "range": [
+                50,
+                50
+              ]
+            },
+            "testimonial_potential": {
+              "completedPasses": 3,
+              "values": [
+                54,
+                54,
+                54
+              ],
+              "mean": 54.0,
+              "range": [
+                54,
+                54
+              ]
+            }
+          }
+        }
+      },
+      "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        }
+      ],
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        }
+      },
+      "withinPassPromptDeltas": [],
+      "sourceBindings": [
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/manifest.json",
+          "sha256": "26cc75f1676ddf72bd9730e43b0e49cf5256427c4e1ec4549fc9ea513b7372c5"
+        },
+        {
+          "path": "results/repeatability-v1/laya-expanded-cpu-v1/manifest.json",
+          "sha256": "1a5a1eea3c18db98c81297bb1f775b9de59936cb06fc486f9b4c5f0d00094261"
+        },
+        {
+          "path": "data/pilot/inputs.jsonl",
+          "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+        },
+        {
+          "path": "docs/LABELING_GUIDE.md",
+          "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+        },
+        {
+          "path": "scripts/development_benchmark.py",
+          "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+        },
+        {
+          "path": "scripts/jev_benchmark.py",
+          "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+        },
+        {
+          "path": "scripts/laya_repeat_admission.py",
+          "sha256": "560e69eff7bdd960c74a23a5483f5ba28822174f1008395e6000df30de5fea06"
+        },
+        {
+          "path": "scripts/semif_repeat_admission.py",
+          "sha256": "e81805d1ac4730181795a80a32a12c6f03004136624faaf36f9e05ca80f3be9d"
+        },
+        {
+          "path": "scripts/specialist_benchmark.py",
+          "sha256": "ec35418937cef5eb2e3b317737abd4354fa869c00c1605efb5c01eb9eb668c1b"
+        },
+        {
+          "path": "data/pilot/proposed_labels.jsonl",
+          "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+        },
+        {
+          "path": "results/semif-direct-bf16-2026-09-23/smoke.jsonl",
+          "sha256": "51924488ca36bcd1a1e749e8b4ebd446423f2abdbc6f405e8dc4bbe8212f6b31"
+        },
+        {
+          "path": "results/semif-direct-bf16-2026-09-23/development.jsonl",
+          "sha256": "beca52b5c0380b32a118cbf8fb1ae65c7e59324d15eb025ded36331d403fbe20"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.root-review.json",
+          "sha256": "06e796cfde06756ea0719fcadaffe4fc140dde461048953d9fdf0341597d1fd0"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.claim.json",
+          "sha256": "41beb1f566a075abdef54f824437c80bec17b91fa9a1a281230385e7b3290f60"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "ae5c182befb2e0d6dd8b02f5c8f9c825fe98dcbecc4501a4523d1cf1229c8595"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.raw.jsonl",
+          "sha256": "b37adca3b694a95156fb4f35489394a25176fa841a0b1c9ede9f373802746b8a"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.records.jsonl",
+          "sha256": "fa1f4bdded6765bdf2057ca92b9c30fa8469990a195f2ec189be7e0f44399f9c"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke.completion.json",
+          "sha256": "15ac78ce314dfc0fbc9ca413fbe670b331bf357f03611698ee648fc9fb6ccace"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.root-review.json",
+          "sha256": "dd8d2b69b7f9c3d15441ce99b5cb965c90590c4a19624aba8f4e0121ed9f9e90"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.claim.json",
+          "sha256": "97b42b7ae7dbc217cca6eb9638e2c794162a2a37d9460ae88c10df573cea35bb"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.journal.jsonl",
+          "sha256": "41a355088d6147e0eb7467d01a9f1d31a6393f4e225bdde1680023105be655a6"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.raw.jsonl",
+          "sha256": "b6791e7a55e3655c4f47a88d3c858c5f266a76f8d9bc1b33828eb82e0ae3a942"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.records.jsonl",
+          "sha256": "3591c26f857d563a8c1777b3a8b809c155cba76010defc3206c4ca2200f77de4"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/development.completion.json",
+          "sha256": "b4fc101b4a65d3424bb3956f721ebfaf828322be228da6292a6d3cdcf8613583"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat2/P0/smoke-inspection.json",
+          "sha256": "30e426a037cba531110838f20c0e3a6bc137c62a8e72f44d9dc4abbca015b722"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.root-review.json",
+          "sha256": "0c44bee9a63ee70f3293345308518b35c00f92ca480680d3e79baf7b79f034e5"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.claim.json",
+          "sha256": "4a11c01467c4f06a09316474f6dab6686d2e013566c1f9a13c5c024e6807d644"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.journal.jsonl",
+          "sha256": "c8635bd8f2d06f5d58a9be1fa64a091c8b219f9467eb6f9f650fe4dc844e2dd0"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.raw.jsonl",
+          "sha256": "5bcb5190a662d27a7c6ea05e2a29cd16478e712663d01718fa5174531a004a5c"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.records.jsonl",
+          "sha256": "dc0330143414a8d4b90f86c33c426ad0f49108f00f454d45018113144133a533"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke.completion.json",
+          "sha256": "782fb1f949b95d9a2b364390d74762d7c3ddd03d5c2dd7c7053d3f85a9f5d94c"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.root-review.json",
+          "sha256": "1fe058dc15087589da756f137a2f60baf9ce2e79011ba890f981e9625fc9464b"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.claim.json",
+          "sha256": "45178ca8be03c8fdd2c93ec08f66116e22de3db648f6b2ea5b1a6c8a773707b6"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.journal.jsonl",
+          "sha256": "7c6eee7274725eef98ad6fe66e36103ad255a3e24e004f119d634e337e9cbe21"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.raw.jsonl",
+          "sha256": "978eee0bdbbf564a281eaeff0bc4462332e1e89b8bf7fac07ef781c9adfda26c"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.records.jsonl",
+          "sha256": "0cf09cb74b392c11b2f7bd45d91d14df37110437e85b5c814680b31c7c2e7016"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/development.completion.json",
+          "sha256": "a8e7be51ebcebacee6fcccf9cd46d088aad913410f139027a577836da931b4e3"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-direct/repeat3/P0/smoke-inspection.json",
+          "sha256": "3b6a0f4c381e7c971c3c9895c5ca1f419c610e96604e2aed522e730d1442e9c5"
+        }
+      ],
+      "declaredExternalSourceHashes": {
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/__init__.py": "5f6ed0e26bfb415745ca3a53a79130e65d1e9a98247b2d594137f7d80479c5f8",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/cli.py": "1f19990ade187a79a5f4f57d06c206f2ca466a034d93f4830ac2696556e20603",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/core.py": "c33dc41a789c39c095c85c1d23d09690dee3726d737bc3dbd051a4f97115e486",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/direct.py": "2c89209787b1b51e5f8f8062b4f602da4c82ba7efad50a4df0863b04aef70c9f",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/mlx_backend.py": "f9260b46e1fed00bf6dd8b0c37d2f94c62a87604ab56687794c63d097857f1d3",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/reranker.py": "ef9f0a944e85de464ee36d340d423907296c4d052a9332b7707be265bef6dac7",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/serial.py": "889aeed699f877c9eb8a4efc5cff8537bf4b9f4071db6894c328a9dab4fe16a0",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/shared.py": "0e37e5afa50be8d54ca5c477d9f48d16d1b512e7bc03963fa5a3965620be420e"
+      },
+      "checkpointAssetHashes": {
+        "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "config.json": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670",
+        "download-manifest.json": "2cb66eaad3beb97ac567ec5d4b5d852865932a2acc9ce4246800a5189c4ab7e9",
+        "model.safetensors-00001-of-00002.safetensors": "26a93f066e1916adb13453dae5a0c707c0fbc71299ed98779571a907b8e74c61",
+        "model.safetensors-00002-of-00002.safetensors": "cb544bd9bfae93dc59b0f22b292f5933573854a7f9b97835c67060d7d910e188",
+        "model.safetensors.index.json": "cf3f798ee02ba45f9622aa8892a47369ab667d0afbf154ee7c2212de42e6302d",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+        "tokenizer_config.json": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8",
+        "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "hardware": {
+        "chip_type": "Apple M4 Max",
+        "machine_model": "Mac16,5",
+        "number_processors": "proc 16:12:4:0",
+        "physical_memory": "128 GB"
+      },
+      "limitations": [
+        "Only native P0 output stability is measured; generative P1/P2 prompts do not apply.",
+        "The same 60 fictional development records are repeated, not new independent cases.",
+        "Reference labels are provisional and were not used in inference.",
+        "Open or in-flight phases are omitted before reading any partial records.",
+        "Model and source files outside this repository are declared by the frozen plan; this public report does not rehash private workstation assets.",
+        "Per-record elapsed time is client observed, not controlled model-only inference time; new-phase model load is not measured.",
+        "Local hardware and electricity cost are not measured; actual cost is unknown, not zero."
+      ]
+    },
+    {
+      "schema": "semif-native-repeat-findings-v1",
+      "configuration": "semif-serial",
+      "displayName": "SemIf · serial native MLX",
+      "model": "semif-serial",
+      "provider": "Local native MLX",
+      "method": "native-output-stability",
+      "conditionOrder": [
+        "P0"
+      ],
+      "referenceVersion": "0.2",
+      "referenceStatus": "AI reviewed provisional, not independent adjudication",
+      "referenceClassCounts": {
+        "sentiment": {
+          "insufficient_information": 2,
+          "mixed": 8,
+          "negative": 31,
+          "neutral": 8,
+          "positive": 11
+        },
+        "follow_up_needed": {
+          "insufficient_information": 1,
+          "no": 24,
+          "yes": 35
+        },
+        "serious_concern_reported": {
+          "insufficient_information": 6,
+          "no": 29,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "insufficient_information": 1,
+          "no": 50,
+          "yes": 9
+        }
+      },
+      "denominator": 60,
+      "completedConditions": 2,
+      "plannedConditions": 3,
+      "missingPasses": [
+        {
+          "pass": "repeat3",
+          "condition": "P0",
+          "status": "open_or_not_started"
+        }
+      ],
+      "partialPasses": [],
+      "passes": {
+        "original": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 49,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 37,
+                "yes": 21
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                3.2942735000979155,
+                4.660156042082235,
+                5.220395999960601,
+                4.609672874910757,
+                4.872758541954681,
+                4.634005999891087,
+                4.714099916862324,
+                4.714524375041947,
+                4.677021082956344,
+                4.6835585839580745,
+                4.4424476670101285,
+                4.532558458857238,
+                4.577030125074089,
+                4.769785000011325,
+                4.782033249968663,
+                4.539477500133216,
+                4.641532958019525,
+                5.304950417019427,
+                4.462056874996051,
+                4.494887917069718,
+                4.628120958106592,
+                4.604363417020068,
+                4.534494832856581,
+                4.592880625044927,
+                4.808552334085107,
+                4.647230125032365,
+                4.667637250153348,
+                4.65191154088825,
+                5.055554833961651,
+                4.739874833030626,
+                4.534849458141252,
+                4.543061333941296,
+                4.520542208105326,
+                4.614333332981914,
+                4.512410334078595,
+                4.58991783298552,
+                4.645813042065129,
+                4.508216499816626,
+                4.589039333164692,
+                4.617724874988198,
+                4.598764084046707,
+                4.528803708031774,
+                5.199358667014167,
+                4.50435583293438,
+                4.612459458177909,
+                4.58818450011313,
+                4.561758875148371,
+                4.5337564998771995,
+                3.7128247499931604,
+                3.111473999917507,
+                3.266339167021215,
+                3.8137006249744445,
+                4.537648707861081,
+                4.955050582997501,
+                3.7284232501406223,
+                3.526636291993782,
+                3.0928107919171453,
+                3.0682833751197904,
+                3.419981291051954,
+                3.3694090000353754
+              ],
+              "requestSecondsTotal": 265.9637795446906,
+              "modelLoadSeconds": 7.827920250128955,
+              "clientRunSecondsLowerBound": 273.7916997948196,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "path": "results/semif-serial-bf16-2026-09-23/smoke.jsonl",
+                "sha256": "b1ef11c91bfd44259ff7e2dbeca4cbad8c9438c47e64bd70faa72934387a164c"
+              },
+              "records": {
+                "path": "results/semif-serial-bf16-2026-09-23/development.jsonl",
+                "sha256": "e8c6d4d3486de2083d3168a2b1001c9876996b5e8a3450252ea01493d02f1e51"
+              },
+              "runnerGitCommit": "724efe57cdfb3fdbfedc161f24912a25450791b2",
+              "runnerSourceSha256": "341ee5ecb3dfe5f8c739037c423899dd8a1091d83b1c6d20abf217ebb1c6b5fd"
+            }
+          }
+        },
+        "repeat2": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 49,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 37,
+                "yes": 21
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                4.296413625008427,
+                3.7040858329855837,
+                4.170895582996309,
+                4.7999262920056935,
+                4.48079804101144,
+                4.285044916992774,
+                4.647453500016127,
+                5.582201832992723,
+                3.8847640409949236,
+                6.490194167010486,
+                6.779663833003724,
+                7.806345541990595,
+                7.183183957997244,
+                4.514347916992847,
+                4.70946220800397,
+                3.7251019590185024,
+                3.8132444160000887,
+                4.35619029199006,
+                3.909114417008823,
+                3.5534207499877084,
+                3.8883473750029225,
+                3.5573035829875153,
+                3.387242833006894,
+                3.536330834002001,
+                3.7074194999877363,
+                4.324705667007947,
+                3.6205754159891512,
+                3.7260322920046747,
+                3.5204658749862574,
+                3.761895875009941,
+                3.8998313340125605,
+                3.4110286250070203,
+                3.490437959000701,
+                3.5581658750015777,
+                4.02171320799971,
+                4.0103285829827655,
+                3.6746937909920234,
+                3.7715853750123642,
+                3.628541000012774,
+                3.5049210419820156,
+                3.861622750002425,
+                3.6939202919893432,
+                3.8954222920001484,
+                4.02138483300223,
+                3.7793127080076374,
+                3.6417305000068154,
+                3.6526979169866536,
+                3.425800833996618,
+                3.6611730000004172,
+                3.775089582981309,
+                4.340556624985766,
+                3.8422075000125915,
+                4.529336332983803,
+                4.32552625000244,
+                4.865463916998124,
+                3.609881249984028,
+                3.6874616660061292,
+                3.7940840419905726,
+                3.961146124987863,
+                4.285442916996544
+              ],
+              "requestSecondsTotal": 249.34268049991806,
+              "modelLoadSeconds": null,
+              "clientRunSecondsLowerBound": null,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.root-review.json",
+                  "sha256": "c10b055650a856f23f3a0ff29770e4515d8890df17d0359201ae7e1fafbfe87b"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.claim.json",
+                  "sha256": "dd7e3dc8511bd350136728a122571c2448b0d6d1cdca95f6c736377c67e2070c"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "32c78bd2cedc1e39363819b5dc7969bd942e49185c8164ed64d548ea4ddb6474"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.raw.jsonl",
+                  "sha256": "c4fac9562c3490c94c9e0d90da55588ceaf4f6f71e12ead4aa6d897889c8fe04"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "e42ec96aa8612f0af9077e927f0242dffb6c1db5fb027b6073890853e1d06a6d"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.completion.json",
+                  "sha256": "a87ebb8af7147778940266fa69827e0e3440c202f22240049e45826884f855d2"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke-inspection.json",
+                "sha256": "1df4749883cee7ef5a3bf0b359fcedc5826c29ea355f4d766e3073e6b3993a91"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.root-review.json",
+                  "sha256": "021f01459690787ba0c3a73eb5ca4a73d7211482e6f2dd36536317c537a78599"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.claim.json",
+                  "sha256": "ffd5de602052f6db712dbe01d423b7b8b16892089ad1d0cd93942429ad989ea7"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.journal.jsonl",
+                  "sha256": "5564f0de3a0a2df34e3cad33f02a1d0d39cd7c70091d6d095608d4b6b13f85c2"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.raw.jsonl",
+                  "sha256": "cb914460b6cfdb50038fbf33db02d0104e3416f9ca74b81947e4d42143efd1d7"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.records.jsonl",
+                  "sha256": "8e6d384cf736b80a14fa411d496d5d339a2b26e4d4f006b17d19da6377551c94"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.completion.json",
+                  "sha256": "b867913c8843cb7b7f030d5d4f46422c791f78deb59bc9d8c4098a5d370dcc61"
+                }
+              }
+            }
+          }
+        },
+        "repeat3": {}
+      },
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 2,
+            "values": [
+              35,
+              35
+            ],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 2,
+              "values": [
+                50,
+                50
+              ],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 2,
+              "values": [
+                56,
+                56
+              ],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 2,
+              "values": [
+                49,
+                49
+              ],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 2,
+              "values": [
+                54,
+                54
+              ],
+              "mean": null,
+              "range": null
+            }
+          }
+        }
+      },
+      "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        }
+      ],
+      "changesAcrossThreePasses": {},
+      "withinPassPromptDeltas": [],
+      "sourceBindings": [
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/manifest.json",
+          "sha256": "26cc75f1676ddf72bd9730e43b0e49cf5256427c4e1ec4549fc9ea513b7372c5"
+        },
+        {
+          "path": "results/repeatability-v1/laya-expanded-cpu-v1/manifest.json",
+          "sha256": "1a5a1eea3c18db98c81297bb1f775b9de59936cb06fc486f9b4c5f0d00094261"
+        },
+        {
+          "path": "data/pilot/inputs.jsonl",
+          "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+        },
+        {
+          "path": "docs/LABELING_GUIDE.md",
+          "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+        },
+        {
+          "path": "scripts/development_benchmark.py",
+          "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+        },
+        {
+          "path": "scripts/jev_benchmark.py",
+          "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+        },
+        {
+          "path": "scripts/laya_repeat_admission.py",
+          "sha256": "560e69eff7bdd960c74a23a5483f5ba28822174f1008395e6000df30de5fea06"
+        },
+        {
+          "path": "scripts/semif_repeat_admission.py",
+          "sha256": "e81805d1ac4730181795a80a32a12c6f03004136624faaf36f9e05ca80f3be9d"
+        },
+        {
+          "path": "scripts/specialist_benchmark.py",
+          "sha256": "ec35418937cef5eb2e3b317737abd4354fa869c00c1605efb5c01eb9eb668c1b"
+        },
+        {
+          "path": "data/pilot/proposed_labels.jsonl",
+          "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+        },
+        {
+          "path": "results/semif-serial-bf16-2026-09-23/smoke.jsonl",
+          "sha256": "b1ef11c91bfd44259ff7e2dbeca4cbad8c9438c47e64bd70faa72934387a164c"
+        },
+        {
+          "path": "results/semif-serial-bf16-2026-09-23/development.jsonl",
+          "sha256": "e8c6d4d3486de2083d3168a2b1001c9876996b5e8a3450252ea01493d02f1e51"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.root-review.json",
+          "sha256": "c10b055650a856f23f3a0ff29770e4515d8890df17d0359201ae7e1fafbfe87b"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.claim.json",
+          "sha256": "dd7e3dc8511bd350136728a122571c2448b0d6d1cdca95f6c736377c67e2070c"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "32c78bd2cedc1e39363819b5dc7969bd942e49185c8164ed64d548ea4ddb6474"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.raw.jsonl",
+          "sha256": "c4fac9562c3490c94c9e0d90da55588ceaf4f6f71e12ead4aa6d897889c8fe04"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.records.jsonl",
+          "sha256": "e42ec96aa8612f0af9077e927f0242dffb6c1db5fb027b6073890853e1d06a6d"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke.completion.json",
+          "sha256": "a87ebb8af7147778940266fa69827e0e3440c202f22240049e45826884f855d2"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.root-review.json",
+          "sha256": "021f01459690787ba0c3a73eb5ca4a73d7211482e6f2dd36536317c537a78599"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.claim.json",
+          "sha256": "ffd5de602052f6db712dbe01d423b7b8b16892089ad1d0cd93942429ad989ea7"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.journal.jsonl",
+          "sha256": "5564f0de3a0a2df34e3cad33f02a1d0d39cd7c70091d6d095608d4b6b13f85c2"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.raw.jsonl",
+          "sha256": "cb914460b6cfdb50038fbf33db02d0104e3416f9ca74b81947e4d42143efd1d7"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.records.jsonl",
+          "sha256": "8e6d384cf736b80a14fa411d496d5d339a2b26e4d4f006b17d19da6377551c94"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/development.completion.json",
+          "sha256": "b867913c8843cb7b7f030d5d4f46422c791f78deb59bc9d8c4098a5d370dcc61"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-serial/repeat2/P0/smoke-inspection.json",
+          "sha256": "1df4749883cee7ef5a3bf0b359fcedc5826c29ea355f4d766e3073e6b3993a91"
+        }
+      ],
+      "declaredExternalSourceHashes": {
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/__init__.py": "5f6ed0e26bfb415745ca3a53a79130e65d1e9a98247b2d594137f7d80479c5f8",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/cli.py": "1f19990ade187a79a5f4f57d06c206f2ca466a034d93f4830ac2696556e20603",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/core.py": "c33dc41a789c39c095c85c1d23d09690dee3726d737bc3dbd051a4f97115e486",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/direct.py": "2c89209787b1b51e5f8f8062b4f602da4c82ba7efad50a4df0863b04aef70c9f",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/mlx_backend.py": "f9260b46e1fed00bf6dd8b0c37d2f94c62a87604ab56687794c63d097857f1d3",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/reranker.py": "ef9f0a944e85de464ee36d340d423907296c4d052a9332b7707be265bef6dac7",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/serial.py": "889aeed699f877c9eb8a4efc5cff8537bf4b9f4071db6894c328a9dab4fe16a0",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/shared.py": "0e37e5afa50be8d54ca5c477d9f48d16d1b512e7bc03963fa5a3965620be420e"
+      },
+      "checkpointAssetHashes": {
+        "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "config.json": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670",
+        "download-manifest.json": "2cb66eaad3beb97ac567ec5d4b5d852865932a2acc9ce4246800a5189c4ab7e9",
+        "model.safetensors-00001-of-00002.safetensors": "26a93f066e1916adb13453dae5a0c707c0fbc71299ed98779571a907b8e74c61",
+        "model.safetensors-00002-of-00002.safetensors": "cb544bd9bfae93dc59b0f22b292f5933573854a7f9b97835c67060d7d910e188",
+        "model.safetensors.index.json": "cf3f798ee02ba45f9622aa8892a47369ab667d0afbf154ee7c2212de42e6302d",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+        "tokenizer_config.json": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8",
+        "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "hardware": {
+        "chip_type": "Apple M4 Max",
+        "machine_model": "Mac16,5",
+        "number_processors": "proc 16:12:4:0",
+        "physical_memory": "128 GB"
+      },
+      "limitations": [
+        "Only native P0 output stability is measured; generative P1/P2 prompts do not apply.",
+        "The same 60 fictional development records are repeated, not new independent cases.",
+        "Reference labels are provisional and were not used in inference.",
+        "Open or in-flight phases are omitted before reading any partial records.",
+        "Model and source files outside this repository are declared by the frozen plan; this public report does not rehash private workstation assets.",
+        "Per-record elapsed time is client observed, not controlled model-only inference time; new-phase model load is not measured.",
+        "Local hardware and electricity cost are not measured; actual cost is unknown, not zero."
+      ]
+    },
+    {
+      "schema": "semif-native-repeat-findings-v1",
+      "configuration": "semif-shared",
+      "displayName": "SemIf · shared native MLX",
+      "model": "semif-shared",
+      "provider": "Local native MLX",
+      "method": "native-output-stability",
+      "conditionOrder": [
+        "P0"
+      ],
+      "referenceVersion": "0.2",
+      "referenceStatus": "AI reviewed provisional, not independent adjudication",
+      "referenceClassCounts": {
+        "sentiment": {
+          "insufficient_information": 2,
+          "mixed": 8,
+          "negative": 31,
+          "neutral": 8,
+          "positive": 11
+        },
+        "follow_up_needed": {
+          "insufficient_information": 1,
+          "no": 24,
+          "yes": 35
+        },
+        "serious_concern_reported": {
+          "insufficient_information": 6,
+          "no": 29,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "insufficient_information": 1,
+          "no": 50,
+          "yes": 9
+        }
+      },
+      "denominator": 60,
+      "completedConditions": 2,
+      "plannedConditions": 3,
+      "missingPasses": [
+        {
+          "pass": "repeat3",
+          "condition": "P0",
+          "status": "open_or_not_started"
+        }
+      ],
+      "partialPasses": [],
+      "passes": {
+        "original": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 49,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 37,
+                "yes": 21
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                4.348532374948263,
+                3.236451332923025,
+                2.9574603750370443,
+                4.515341375023127,
+                4.491394458105788,
+                4.493595834122971,
+                4.544695999938995,
+                4.611486041918397,
+                4.590017958078533,
+                4.453240166883916,
+                3.9928987079765648,
+                4.223127790959552,
+                4.489245750010014,
+                4.507149709155783,
+                4.5309792081825435,
+                4.4828188749961555,
+                4.388721874915063,
+                4.669719042023644,
+                6.543227334041148,
+                4.640876290854067,
+                4.517894083168358,
+                4.450188499875367,
+                4.597392333904281,
+                4.609197832876816,
+                4.558162749977782,
+                4.513390250038356,
+                4.502555915853009,
+                4.492120207985863,
+                4.580031583085656,
+                4.649095917120576,
+                4.5540720000863075,
+                4.560125415911898,
+                4.538143082987517,
+                4.559357249876484,
+                4.517891875002533,
+                4.605366292176768,
+                4.412302250042558,
+                4.528858792036772,
+                4.45853333408013,
+                4.616349499905482,
+                4.554144958034158,
+                4.585135792149231,
+                4.537177707999945,
+                4.611338542075828,
+                4.56905758404173,
+                4.50301891611889,
+                4.524556457996368,
+                4.483826499897987,
+                4.2900457920040935,
+                4.456083541037515,
+                4.586072083096951,
+                4.459279458038509,
+                4.5631031659431756,
+                4.566254625096917,
+                4.592764334054664,
+                4.4481339999474585,
+                4.485560915898532,
+                4.291375834029168,
+                4.4276128329802305,
+                4.235987499821931
+              ],
+              "requestSecondsTotal": 269.3025402063504,
+              "modelLoadSeconds": 7.701091667171568,
+              "clientRunSecondsLowerBound": 277.00363187352195,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "path": "results/semif-shared-bf16-2026-09-23/smoke.jsonl",
+                "sha256": "a01321f0adf644504b46ef039a23242bcf0a690b634e154814b3640d17d0696a"
+              },
+              "records": {
+                "path": "results/semif-shared-bf16-2026-09-23/development.jsonl",
+                "sha256": "923b36ba111cba7b5eeaa8243b5ac3d70154955969b9f7b367820155da8f96b1"
+              },
+              "runnerGitCommit": "724efe57cdfb3fdbfedc161f24912a25450791b2",
+              "runnerSourceSha256": "341ee5ecb3dfe5f8c739037c423899dd8a1091d83b1c6d20abf217ebb1c6b5fd"
+            }
+          }
+        },
+        "repeat2": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 50,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 49,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 34,
+                "neutral": 2,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 37,
+                "yes": 21
+              },
+              "testimonial_potential": {
+                "no": 56,
+                "yes": 4
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                3.8992079999879934,
+                3.4425269999774173,
+                4.515031666989671,
+                4.723294374998659,
+                4.327187582995975,
+                5.434348084003432,
+                5.529516959009925,
+                6.048483082995517,
+                4.767277375009144,
+                4.753166249982314,
+                3.471493958000792,
+                3.4520717080158647,
+                4.101866749988403,
+                3.8233856669976376,
+                4.118110790994251,
+                3.434409042005427,
+                3.2712422080221586,
+                3.6268360409885645,
+                4.095504833996529,
+                3.2028227919945493,
+                3.5437677910085768,
+                3.523754125024425,
+                3.6188632910198066,
+                3.3102812920114957,
+                3.4888659169955645,
+                3.0784982499899343,
+                3.940871458995389,
+                4.240103417017963,
+                4.327640500006964,
+                4.629069750022609,
+                4.705425790976733,
+                4.821078875014791,
+                4.851867082994431,
+                4.813236499991035,
+                3.806161374988733,
+                3.5107775000215042,
+                3.368723082996439,
+                3.470545707998099,
+                4.197180625022156,
+                3.3571145839814562,
+                3.988871042005485,
+                3.783098624990089,
+                4.086638000007952,
+                4.696604249998927,
+                4.4978181250044145,
+                4.011628374981228,
+                3.4985801249858923,
+                4.164547667023726,
+                4.0425763329840265,
+                3.1948324169788975,
+                3.620035249972716,
+                4.281981791980797,
+                4.250242040987359,
+                4.426692749984795,
+                3.163856334023876,
+                3.8466731249936856,
+                3.4933992499718443,
+                3.9789367909834255,
+                4.346413042017957,
+                3.793782958004158
+              ],
+              "requestSecondsTotal": 241.80881937491358,
+              "modelLoadSeconds": null,
+              "clientRunSecondsLowerBound": null,
+              "tokens": {
+                "input_tokens": 389584,
+                "output_tokens": null,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured.",
+              "inferenceSeconds": null
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.root-review.json",
+                  "sha256": "ff9b2795f58b1e5a9a216972b7f6fce9e02b3e80d3942137a9c9e3ae37e7f315"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.claim.json",
+                  "sha256": "bc24b8a530857756a24d1dbbef357335afbf599ce6f554a54b3574dc8975acaf"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.journal.jsonl",
+                  "sha256": "9d40f973b27536983f02f3b96ea04306630d9fa1889430de85e1d60393b5188a"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.raw.jsonl",
+                  "sha256": "4f0d84f5d1beb222906973a5349333ac4f05f176803e7a6512fbc270fdbe0f9e"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.records.jsonl",
+                  "sha256": "3936fbc50cb8c409ded25b4e0ce47a42ea75b6308d4eeb7ac0e4724e7e1c32de"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.completion.json",
+                  "sha256": "49d8d1fe2096b8b3d4ca2c52240e234572ab7f40e06a24fe40849ac3a73494a8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke-inspection.json",
+                "sha256": "f97a2bbe143f170940eaeeeba1c9f2cac6493bc3b46c377f9617ad39cee756d0"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.root-review.json",
+                  "sha256": "56a51619e1c0fb3e2136609cefc994d36da6952c223ef85d02a8507410e644b6"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.claim.json",
+                  "sha256": "86656fe78a7c71ccd99dd1dcf00095fb5504dc2323391504fa02cd4b51532a19"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.journal.jsonl",
+                  "sha256": "a3a94a9f7fb817cdcc20f21f0331f0ff7a4afe69e448858ad03aebbe30ff4dee"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.raw.jsonl",
+                  "sha256": "8fb01dd30a48df9604cf9c513a0f260f6e757304dd6d89f2374c6becb7ff021d"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.records.jsonl",
+                  "sha256": "18dec0dbc0b5e7984319ad4930799bde3f3f22a1be67f505b94d495797b04157"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.completion.json",
+                  "sha256": "5abdb8b875d746c52c8edafb9d1d4a031aba9945af2fb9401149b9912ad64be8"
+                }
+              }
+            }
+          }
+        },
+        "repeat3": {}
+      },
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 2,
+            "values": [
+              35,
+              35
+            ],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 2,
+              "values": [
+                50,
+                50
+              ],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 2,
+              "values": [
+                56,
+                56
+              ],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 2,
+              "values": [
+                49,
+                49
+              ],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 2,
+              "values": [
+                54,
+                54
+              ],
+              "mean": null,
+              "range": null
+            }
+          }
+        }
+      },
+      "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "original",
+          "to": "repeat2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        }
+      ],
+      "changesAcrossThreePasses": {},
+      "withinPassPromptDeltas": [],
+      "sourceBindings": [
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/manifest.json",
+          "sha256": "26cc75f1676ddf72bd9730e43b0e49cf5256427c4e1ec4549fc9ea513b7372c5"
+        },
+        {
+          "path": "results/repeatability-v1/laya-expanded-cpu-v1/manifest.json",
+          "sha256": "1a5a1eea3c18db98c81297bb1f775b9de59936cb06fc486f9b4c5f0d00094261"
+        },
+        {
+          "path": "data/pilot/inputs.jsonl",
+          "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+        },
+        {
+          "path": "docs/LABELING_GUIDE.md",
+          "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+        },
+        {
+          "path": "scripts/development_benchmark.py",
+          "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+        },
+        {
+          "path": "scripts/jev_benchmark.py",
+          "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+        },
+        {
+          "path": "scripts/laya_repeat_admission.py",
+          "sha256": "560e69eff7bdd960c74a23a5483f5ba28822174f1008395e6000df30de5fea06"
+        },
+        {
+          "path": "scripts/semif_repeat_admission.py",
+          "sha256": "e81805d1ac4730181795a80a32a12c6f03004136624faaf36f9e05ca80f3be9d"
+        },
+        {
+          "path": "scripts/specialist_benchmark.py",
+          "sha256": "ec35418937cef5eb2e3b317737abd4354fa869c00c1605efb5c01eb9eb668c1b"
+        },
+        {
+          "path": "data/pilot/proposed_labels.jsonl",
+          "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+        },
+        {
+          "path": "results/semif-shared-bf16-2026-09-23/smoke.jsonl",
+          "sha256": "a01321f0adf644504b46ef039a23242bcf0a690b634e154814b3640d17d0696a"
+        },
+        {
+          "path": "results/semif-shared-bf16-2026-09-23/development.jsonl",
+          "sha256": "923b36ba111cba7b5eeaa8243b5ac3d70154955969b9f7b367820155da8f96b1"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.root-review.json",
+          "sha256": "ff9b2795f58b1e5a9a216972b7f6fce9e02b3e80d3942137a9c9e3ae37e7f315"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.claim.json",
+          "sha256": "bc24b8a530857756a24d1dbbef357335afbf599ce6f554a54b3574dc8975acaf"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.journal.jsonl",
+          "sha256": "9d40f973b27536983f02f3b96ea04306630d9fa1889430de85e1d60393b5188a"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.raw.jsonl",
+          "sha256": "4f0d84f5d1beb222906973a5349333ac4f05f176803e7a6512fbc270fdbe0f9e"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.records.jsonl",
+          "sha256": "3936fbc50cb8c409ded25b4e0ce47a42ea75b6308d4eeb7ac0e4724e7e1c32de"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke.completion.json",
+          "sha256": "49d8d1fe2096b8b3d4ca2c52240e234572ab7f40e06a24fe40849ac3a73494a8"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.root-review.json",
+          "sha256": "56a51619e1c0fb3e2136609cefc994d36da6952c223ef85d02a8507410e644b6"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.claim.json",
+          "sha256": "86656fe78a7c71ccd99dd1dcf00095fb5504dc2323391504fa02cd4b51532a19"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.journal.jsonl",
+          "sha256": "a3a94a9f7fb817cdcc20f21f0331f0ff7a4afe69e448858ad03aebbe30ff4dee"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.raw.jsonl",
+          "sha256": "8fb01dd30a48df9604cf9c513a0f260f6e757304dd6d89f2374c6becb7ff021d"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.records.jsonl",
+          "sha256": "18dec0dbc0b5e7984319ad4930799bde3f3f22a1be67f505b94d495797b04157"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/development.completion.json",
+          "sha256": "5abdb8b875d746c52c8edafb9d1d4a031aba9945af2fb9401149b9912ad64be8"
+        },
+        {
+          "path": "results/repeatability-v1/semif-native-mlx-v1/semif-shared/repeat2/P0/smoke-inspection.json",
+          "sha256": "f97a2bbe143f170940eaeeeba1c9f2cac6493bc3b46c377f9617ad39cee756d0"
+        }
+      ],
+      "declaredExternalSourceHashes": {
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/__init__.py": "5f6ed0e26bfb415745ca3a53a79130e65d1e9a98247b2d594137f7d80479c5f8",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/cli.py": "1f19990ade187a79a5f4f57d06c206f2ca466a034d93f4830ac2696556e20603",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/core.py": "c33dc41a789c39c095c85c1d23d09690dee3726d737bc3dbd051a4f97115e486",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/direct.py": "2c89209787b1b51e5f8f8062b4f602da4c82ba7efad50a4df0863b04aef70c9f",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/mlx_backend.py": "f9260b46e1fed00bf6dd8b0c37d2f94c62a87604ab56687794c63d097857f1d3",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/reranker.py": "ef9f0a944e85de464ee36d340d423907296c4d052a9332b7707be265bef6dac7",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/serial.py": "889aeed699f877c9eb8a4efc5cff8537bf4b9f4071db6894c328a9dab4fe16a0",
+        "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/semif-source/src/semif_phase1/shared.py": "0e37e5afa50be8d54ca5c477d9f48d16d1b512e7bc03963fa5a3965620be420e"
+      },
+      "checkpointAssetHashes": {
+        "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "config.json": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670",
+        "download-manifest.json": "2cb66eaad3beb97ac567ec5d4b5d852865932a2acc9ce4246800a5189c4ab7e9",
+        "model.safetensors-00001-of-00002.safetensors": "26a93f066e1916adb13453dae5a0c707c0fbc71299ed98779571a907b8e74c61",
+        "model.safetensors-00002-of-00002.safetensors": "cb544bd9bfae93dc59b0f22b292f5933573854a7f9b97835c67060d7d910e188",
+        "model.safetensors.index.json": "cf3f798ee02ba45f9622aa8892a47369ab667d0afbf154ee7c2212de42e6302d",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+        "tokenizer_config.json": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8",
+        "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "hardware": {
+        "chip_type": "Apple M4 Max",
+        "machine_model": "Mac16,5",
+        "number_processors": "proc 16:12:4:0",
+        "physical_memory": "128 GB"
+      },
+      "limitations": [
+        "Only native P0 output stability is measured; generative P1/P2 prompts do not apply.",
+        "The same 60 fictional development records are repeated, not new independent cases.",
+        "Reference labels are provisional and were not used in inference.",
+        "Open or in-flight phases are omitted before reading any partial records.",
+        "Model and source files outside this repository are declared by the frozen plan; this public report does not rehash private workstation assets.",
+        "Per-record elapsed time is client observed, not controlled model-only inference time; new-phase model load is not measured.",
+        "Local hardware and electricity cost are not measured; actual cost is unknown, not zero."
+      ]
+    }
+  ],
+  "availableConfigurations": [
+    "semif-direct",
+    "semif-serial",
+    "semif-shared"
+  ]
+}
