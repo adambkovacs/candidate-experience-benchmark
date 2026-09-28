@@ -115,6 +115,16 @@ All four Opus 5 efforts now have nine closed condition/pass combinations, each w
 
 Sonnet 5 low/medium/high/extra-high are admitted and running their frozen repeats through the Claude subscription. Opus 5.5 low/high/extra-high remain prepared but not dispatched. Haiku's third fresh pass, the next Terra/Astra Codex wave, and expanded Laya CPU admission preparation continue. OpenRouter accounted spending remains $9.36508848150, with $0.63491151850 remaining; no additional paid wave has been admitted.
 
+## Execution and publication checkpoint, 2026-09-28 10:50 UTC
+
+Haiku's fresh matched-three study has closed all nine condition/pass combinations with 60 valid development responses each. Its new source-bound report and four focused tests pass. P1 agreement ranges from 53 to 59 out of 60 across passes; its difference from P0 changes from -2 to +2. Historical Haiku transport failures remain separate. The report and site integration are prepared locally, not yet published.
+
+All four Sonnet 5 efforts have closed repeat two and their first repeat-three condition. Opus 5.5 low/high/extra-high have closed their first two repeat-two conditions. Their next seven admitted P0 development phases are running under the pinned Claude 2.1.282 subscription runtime. The remaining Codex wave has completed additional phases, but new admissions are held because the app quota-check tool is failing. Already admitted requests may finish; no quota or overage guard is bypassed.
+
+The native Laya admission plan and eight passing guard tests are committed and pushed in `78818f4`. It fixes the three expanded CPU variants, serial phase order, hardware/runtime, model assets and full-input checks. English repeat-two P0 passed its smoke and is running development. The six native development phases are not yet complete. No model download or new OpenRouter allocation was made.
+
+Publication of the new Claude raw evidence is held for a privacy audit: CLI captures contain account-wide quota metadata that does not belong in the public report. Preserve immutable originals and their hashes; verify a redacted publication boundary before pushing new captures. This hold does not change inference evidence or stop admitted model runs. The current public site still contains the last verified published checkpoint.
+
 ## Next delivery checkpoints
 
 1. Verify the Jev deployment; finish and publish active Gemini, Codex and Claude waves from closed evidence. Keep invalid responses and original first-attempt failures visible.
