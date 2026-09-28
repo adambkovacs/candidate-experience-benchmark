@@ -1,0 +1,11 @@
+# High-effort Gemini repeat wave
+
+Two eligible historical triples still need their second and third P0/P1/P2 passes: Gemini 3.1 Pro high and Gemini 3.7 Flash high. The [wrapper](../scripts/gemini_repeat_high.py) loads an isolated instance of the existing frozen Gemini controller, declares these exact configurations, and binds its own bytes in each plan. It does not change the earlier low/medium controllers, prompts or results.
+
+Each configuration retains Google AI Studio routing, the historical high-effort payload, 8,192 maximum completion tokens, temperature zero, three-record smoke and six ten-record development batches per condition. Repeat2 order is P1/P2/P0; repeat3 is P2/P0/P1. The inherited gates reconstruct saved requests, verify live prices and capabilities, require separate reviewed smoke/development admission, reserve spending before dispatch and preserve raw responses before parsing. No reference labels or prior predictions enter requests. Invalid outputs remain outcomes; failed or ambiguous requests stop the affected phase without automatic replay.
+
+The proposed child ceilings are $1 for Gemini 3.7 Flash high and $2 for Gemini 3.1 Pro high. These are not allocations or observed costs. At the post-Qwen checkpoint the shared ledger has $1.34417751850 available under $10, enough to admit the Flash wave alone. Its historical two-pass cost proxy is $0.703341, excluding unpredictable usage changes. The Pro wave remains pending additional budget admission; its historical proxy is $1.602016. Request reservations and actual returned charges, rather than these proxies, control dispatch.
+
+Independent review and frozen manifests are required before a child partition is allocated. A complete paid roster need not fit simultaneously to run an affordable wave. The proposed $15 aggregate cap increase is still awaiting user authorization, and this wrapper does not increase the $10 cap.
+
+The [earlier admission inventory](HOSTED_REPEAT_NEXT_WAVE.md) preserves the source-cost calculation. The [current goals](CURRENT_GOALS.md) track the wider unfinished roster. Report integration must retain each exact model/effort as a separate series and distinguish completed execution from valid predictions.
