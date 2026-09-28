@@ -44,7 +44,14 @@ def _binder(root):
 
     def bind(relative, expected=None):
         relative = Path(relative)
-        actual = _sha(_file(root, relative))
+        source = _file(root, relative)
+        if not source.is_file():
+            raise FileNotFoundError(
+                f'Private archival source unavailable: {relative}. '
+                'Use the immutable public-evidence bundle for public checks; '
+                'rebuilds require the separately retained private originals.'
+            )
+        actual = _sha(source)
         if expected is not None and actual != expected:
             raise ValueError(f'Source hash changed: {relative}')
         result = {'path': str(relative), 'sha256': actual}

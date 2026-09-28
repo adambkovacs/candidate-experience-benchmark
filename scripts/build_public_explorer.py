@@ -8,11 +8,19 @@ from functools import lru_cache
 from datetime import datetime, timezone
 from decimal import Decimal
 from pathlib import Path
+from export_historical_claude_links import SOURCES as HISTORICAL_CLAUDE_LINKS, public_path_map
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
 GITHUB = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/'
 PHASE = Path('results/prompt-comparison-v1-2026-09-24')
+
+
+def public_evidence_url(relative, root=ROOT):
+    relative = str(relative)
+    if relative in HISTORICAL_CLAUDE_LINKS:
+        return GITHUB + public_path_map(str(root.resolve()))[relative]
+    return GITHUB + relative
 
 
 def rows(path):
@@ -733,7 +741,7 @@ def export(root=ROOT):
                        'complete': bool(timing_complete), 'comparableHosted': surface(config) != 'Local / specialist' and not batch,
                        'note': ('Batch wall time is for the batch, never individual-record latency. ' if batch else 'Local timing is diagnostic and not hosted-comparable. ' if surface(config) == 'Local / specialist' else '') + timing.get('note', 'Timing unavailable.')},
             'tokens': tokens(config, root), 'cost': cost_fields(cost),
-            'evidenceUrl': GITHUB + config['predictions_file'],
+            'evidenceUrl': public_evidence_url(config['predictions_file'], root),
         }
         if ident == 'typesafe-jev113-v2':
             attempts = [row for path in config['attempt_files'] for row in rows(root / path)]

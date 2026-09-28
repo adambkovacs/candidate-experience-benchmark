@@ -40,7 +40,9 @@ jobs:
           python3 scripts/export_claude_public_evidence.py --output-dir public-evidence/claude-20260928/opus-medium --check
           cmp public-evidence/claude-20260928/opus-medium/report.json public-site/claude-repeats.json
           python3 -m unittest tests.test_export_claude_public_evidence -q
-          python3 -m unittest tests.test_build_claude_repeat_findings tests.test_build_claude_roster_findings tests.test_build_haiku_matched3_findings -q
+          python3 -m unittest tests.test_public_claude_bundle_release -q
+          python3 scripts/export_historical_claude_links.py --check
+          python3 -m unittest tests.test_historical_claude_links -q
           python3 scripts/build_gemini_repeat_findings.py --output public-site/gemini-repeats.json --check
           python3 -m unittest tests.test_build_gemini_repeat_findings -q
           python3 -m unittest discover -s tests -p test_repeat_findings.py -q
