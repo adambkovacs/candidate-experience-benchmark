@@ -1,0 +1,1451 @@
+{
+  "contract": "hosted-continuation-pairs-v1",
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-off",
+  "denominator": 60,
+  "request_controls_verified": true,
+  "raw_source_hashes_verified": true,
+  "protocol_source_hashes_verified": true,
+  "protocol_controls_verified": false,
+  "smoke_inspection_gates_semantically_verified": false,
+  "continuation_lifecycle_verified": true,
+  "offline_pairing_supported": true,
+  "eligible_paired_comparison": false,
+  "full_protocol_eligibility": "blocked_by_observed_schedule_change",
+  "protocol_gaps": [
+    {
+      "condition": "P2",
+      "source": "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix.jsonl",
+      "control": "counterbalanced_execution_schedule",
+      "finding": "Later never-sent suffix; original condition timing/order not preserved."
+    }
+  ],
+  "helper_source_bindings": [
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "file": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    {
+      "file": "scripts/openrouter_benchmark.py",
+      "sha256": "d754c2b20a1cfd18bcf55c76a357df42d7be0f5506707e996f172a03f3d90d94"
+    },
+    {
+      "file": "scripts/build_development_report.py",
+      "sha256": "9beea44d9f609c2b0dbbb1671498e3548dd76ff64f029cee76c50326f3dfd1f9"
+    }
+  ],
+  "adapter_source_sha256": "20cbd0d4c6bbc739146652e9b473a9dffc4a0ad18e4664d7ac90e783fbf6749b",
+  "audit_index_sha256": "1f6797ae9ab1ebc3231e13c81f13a626dd1fd3b705ca26c41919955a2e84cadf",
+  "discovery_binding_excluded_from_runtime_verification": "public-site/data.json",
+  "reference_labels_read_offline": true,
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "audit": {
+    "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/hosted-remaining-audit-v1/openrouter-paid-qwen36-35b-a3b-off.json",
+    "sha256": "c494637d8e8955ef85d1bb59c13f4af50eb172af7287128f339c323523464aa0"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "additional_evidence": [
+    [
+      "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix-plan.json",
+      "398c8e36035b90dc0fe2146196dccb6723793857d9d082f9519a810d51ddac52"
+    ],
+    [
+      "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix.jsonl.attempts.jsonl",
+      "28e22f5c0ad12c18cd14a5d7a5460e7cfde396aad0b5526c7c808d306abc7099"
+    ]
+  ],
+  "conditions": {
+    "P0": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 56,
+            "denominator": 60,
+            "accuracy": 0.9333333333333333,
+            "macro_f1": 0.7401587301587302,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.8461538461538461,
+                "recall": 1.0,
+                "f1": 0.9166666666666666
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 6,
+                "fp": 1,
+                "fn": 2,
+                "precision": 0.8571428571428571,
+                "recall": 0.75,
+                "f1": 0.8
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 2,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.6598639455782312,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96,
+                "recall": 1.0,
+                "f1": 0.9795918367346939
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.8712418300653595,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9615384615384616,
+                "recall": 1.0,
+                "f1": 0.9803921568627451
+              },
+              "no": {
+                "tp": 29,
+                "fp": 2,
+                "fn": 0,
+                "precision": 0.9354838709677419,
+                "recall": 1.0,
+                "f1": 0.9666666666666667
+              },
+              "insufficient_information": {
+                "tp": 3,
+                "fp": 0,
+                "fn": 3,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6666666666666666
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 56,
+            "denominator": 60,
+            "accuracy": 0.9333333333333333,
+            "macro_f1": 0.5871794871794872,
+            "per_label": {
+              "yes": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 3,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              },
+              "no": {
+                "tp": 50,
+                "fp": 4,
+                "fn": 0,
+                "precision": 0.9259259259259259,
+                "recall": 1.0,
+                "f1": 0.9615384615384616
+              },
+              "insufficient_information": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 1,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "valid_count": 60,
+      "status_counts": {
+        "ok": 60
+      },
+      "all_four_correct": 51,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 85950,
+        "output_tokens": 2706,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 115.48675395874307,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.0072576",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.0072576",
+        "total_actual_usd": "0.0072576",
+        "source_paths": [
+          "results/openrouter-qwen35-off-2026-09-23/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "sources": [
+        {
+          "file": "results/openrouter-qwen35-off-2026-09-23/development.jsonl",
+          "sha256": "456c9dca63122c62fce0a9daf9cf7abb2f4b8fa42560fa16fcdc73d446bd876b"
+        }
+      ]
+    },
+    "P1": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.8831297446514839,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.875,
+                "recall": 0.875,
+                "f1": 0.875
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6666666666666666
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9211476681067907,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9615384615384616,
+                "recall": 1.0,
+                "f1": 0.9803921568627451
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 56,
+            "denominator": 60,
+            "accuracy": 0.9333333333333333,
+            "macro_f1": 0.9035947712418301,
+            "per_label": {
+              "yes": {
+                "tp": 6,
+                "fp": 1,
+                "fn": 3,
+                "precision": 0.8571428571428571,
+                "recall": 0.6666666666666666,
+                "f1": 0.75
+              },
+              "no": {
+                "tp": 49,
+                "fp": 3,
+                "fn": 1,
+                "precision": 0.9423076923076923,
+                "recall": 0.98,
+                "f1": 0.9607843137254902
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "valid_count": 60,
+      "status_counts": {
+        "ok": 60
+      },
+      "all_four_correct": 51,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 96570,
+        "output_tokens": 2714,
+        "reasoning_tokens": 0,
+        "attempt_seconds": 66.20995887798927,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.0076452",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.0076452",
+        "total_actual_usd": "0.0076452",
+        "source_paths": [
+          "results/qwen36-prompt-recovery-v1/off-p1-development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "sources": [
+        {
+          "file": "results/qwen36-prompt-recovery-v1/off-p1-development.jsonl",
+          "sha256": "dd48013a069592489844970259135f80cc12b41aff818a4624085d2c91241c9d"
+        }
+      ]
+    },
+    "P2": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 59,
+        "missing_or_failed": [
+          "DEV-053"
+        ],
+        "metrics": {
+          "sentiment": {
+            "correct": 56,
+            "denominator": 60,
+            "accuracy": 0.9333333333333333,
+            "macro_f1": 0.9288336783988959,
+            "per_label": {
+              "positive": {
+                "tp": 10,
+                "fp": 2,
+                "fn": 1,
+                "precision": 0.8333333333333334,
+                "recall": 0.9090909090909091,
+                "f1": 0.8695652173913043
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "neutral": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.75,
+                "f1": 0.8571428571428571
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9929078014184397,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 23,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.9583333333333334,
+                "f1": 0.9787234042553191
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 56,
+            "denominator": 60,
+            "accuracy": 0.9333333333333333,
+            "macro_f1": 0.8850111017293679,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9615384615384616,
+                "recall": 1.0,
+                "f1": 0.9803921568627451
+              },
+              "no": {
+                "tp": 27,
+                "fp": 1,
+                "fn": 2,
+                "precision": 0.9642857142857143,
+                "recall": 0.9310344827586207,
+                "f1": 0.9473684210526315
+              },
+              "insufficient_information": {
+                "tp": 4,
+                "fp": 1,
+                "fn": 2,
+                "precision": 0.8,
+                "recall": 0.6666666666666666,
+                "f1": 0.7272727272727273
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.95503300330033,
+            "per_label": {
+              "yes": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.7777777777777778,
+                "f1": 0.875
+              },
+              "no": {
+                "tp": 50,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9803921568627451,
+                "recall": 1.0,
+                "f1": 0.9900990099009901
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "valid_count": 59,
+      "status_counts": {
+        "ok": 59,
+        "service_error": 1
+      },
+      "all_four_correct": 52,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null,
+        "attempt_seconds": 74.24365487301111,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 59,
+        "unknown_cost_attempts": 1,
+        "unknown_bounded_attempts": 1,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.0110312",
+        "unknown_reserved_upper_bound_usd": "0.0299008",
+        "known_plus_unknown_upper_bound_usd": "0.0409320",
+        "total_actual_usd": null,
+        "source_paths": [
+          "results/qwen36-prompt-recovery-v1/off-p2-development.jsonl",
+          "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "sources": [
+        {
+          "file": "results/qwen36-prompt-recovery-v1/off-p2-development.jsonl",
+          "sha256": "301bcdfe3c65952c3996d39eafd02b14a8971790fc4455976f1c710276fd452e"
+        },
+        {
+          "file": "results/qwen36-prompt-recovery-v1/off-p2-dev054-060-suffix.jsonl",
+          "sha256": "2fe207ec7edb5d1c7804218cb536303543f90fba51b825d973e91e6f7b099362"
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "P0_to_P1": {
+      "denominator": 60,
+      "both_valid": 60,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 31,
+            "neutral -> neutral": 7,
+            "mixed -> mixed": 7,
+            "negative -> insufficient_information": 1,
+            "positive -> neutral": 1,
+            "mixed -> negative": 1
+          },
+          "changed_ids": [
+            "DEV-029",
+            "DEV-057",
+            "DEV-059"
+          ],
+          "wrong_to_correct": [
+            "DEV-029",
+            "DEV-057"
+          ],
+          "correct_to_wrong": [
+            "DEV-059"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 35,
+            "no -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-029"
+          ],
+          "wrong_to_correct": [
+            "DEV-029"
+          ],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "insufficient_information -> insufficient_information": 3,
+            "yes -> yes": 26,
+            "no -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-029"
+          ],
+          "wrong_to_correct": [
+            "DEV-029"
+          ],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 6,
+            "no -> no": 52,
+            "no -> yes": 1,
+            "no -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-028",
+            "DEV-029"
+          ],
+          "wrong_to_correct": [
+            "DEV-029"
+          ],
+          "correct_to_wrong": [
+            "DEV-028"
+          ]
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {},
+      "all_four_wrong_to_correct": [
+        "DEV-029",
+        "DEV-057"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-028",
+        "DEV-059"
+      ],
+      "cases": [
+        {
+          "id": "DEV-028",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-029",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "insufficient_information",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "insufficient_information"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "insufficient_information",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "insufficient_information"
+          }
+        },
+        {
+          "id": "DEV-057",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 4
+    },
+    "P0_to_P2": {
+      "denominator": 60,
+      "both_valid": 59,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 31,
+            "neutral -> neutral": 6,
+            "neutral -> insufficient_information": 1,
+            "mixed -> mixed": 7,
+            "negative -> insufficient_information": 1,
+            "mixed -> negative": 1
+          },
+          "changed_ids": [
+            "DEV-005",
+            "DEV-029",
+            "DEV-059"
+          ],
+          "wrong_to_correct": [
+            "DEV-005",
+            "DEV-029"
+          ],
+          "correct_to_wrong": [
+            "DEV-059"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 23,
+            "yes -> yes": 35,
+            "no -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-029"
+          ],
+          "wrong_to_correct": [
+            "DEV-029"
+          ],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 28,
+            "insufficient_information -> insufficient_information": 3,
+            "yes -> yes": 26,
+            "no -> insufficient_information": 2
+          },
+          "changed_ids": [
+            "DEV-018",
+            "DEV-029"
+          ],
+          "wrong_to_correct": [
+            "DEV-029"
+          ],
+          "correct_to_wrong": [
+            "DEV-018"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 6,
+            "no -> no": 51,
+            "no -> yes": 1,
+            "no -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-010",
+            "DEV-029"
+          ],
+          "wrong_to_correct": [
+            "DEV-010",
+            "DEV-029"
+          ],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [
+        "DEV-053"
+      ],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {
+        "valid -> service_error": [
+          "DEV-053"
+        ]
+      },
+      "all_four_wrong_to_correct": [
+        "DEV-005",
+        "DEV-010",
+        "DEV-029"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-018",
+        "DEV-059"
+      ],
+      "cases": [
+        {
+          "id": "DEV-005",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-010",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-018",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-029",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "insufficient_information",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "insufficient_information"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "insufficient_information",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "insufficient_information"
+          }
+        },
+        {
+          "id": "DEV-053",
+          "from_state": "valid",
+          "to_state": "service_error",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": null,
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 6
+    },
+    "P1_to_P2": {
+      "denominator": 60,
+      "both_valid": 59,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 11,
+            "negative -> negative": 32,
+            "neutral -> neutral": 6,
+            "neutral -> insufficient_information": 1,
+            "mixed -> mixed": 7,
+            "insufficient_information -> insufficient_information": 1,
+            "neutral -> positive": 1
+          },
+          "changed_ids": [
+            "DEV-005",
+            "DEV-057"
+          ],
+          "wrong_to_correct": [
+            "DEV-005"
+          ],
+          "correct_to_wrong": [
+            "DEV-057"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 23,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 28,
+            "insufficient_information -> insufficient_information": 4,
+            "yes -> yes": 26,
+            "no -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-018"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-018"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 6,
+            "no -> no": 50,
+            "no -> yes": 1,
+            "yes -> no": 1,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-010",
+            "DEV-028"
+          ],
+          "wrong_to_correct": [
+            "DEV-010",
+            "DEV-028"
+          ],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [
+        "DEV-053"
+      ],
+      "failed_to_valid": [],
+      "both_failed": [],
+      "failure_transitions": {
+        "valid -> service_error": [
+          "DEV-053"
+        ]
+      },
+      "all_four_wrong_to_correct": [
+        "DEV-005",
+        "DEV-010",
+        "DEV-028"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-018",
+        "DEV-057"
+      ],
+      "cases": [
+        {
+          "id": "DEV-005",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "insufficient_information",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-010",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-018",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-028",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-053",
+          "from_state": "valid",
+          "to_state": "service_error",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": null,
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-057",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 6
+    }
+  },
+  "limitations": [
+    "Client request duration is observational and suffix timing differs from the original schedule; it is not pure model inference latency.",
+    "Qwen P2 development_suffix phase is source-bound never-sent continuation; original timing not preserved."
+  ]
+}

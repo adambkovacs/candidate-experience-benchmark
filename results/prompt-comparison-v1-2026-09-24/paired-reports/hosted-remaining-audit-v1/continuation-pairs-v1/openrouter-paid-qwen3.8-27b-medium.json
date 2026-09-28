@@ -1,0 +1,1571 @@
+{
+  "contract": "hosted-continuation-pairs-v1",
+  "configuration_id": "openrouter-paid-qwen3.8-27b-medium",
+  "denominator": 60,
+  "request_controls_verified": true,
+  "raw_source_hashes_verified": true,
+  "protocol_source_hashes_verified": true,
+  "protocol_controls_verified": false,
+  "smoke_inspection_gates_semantically_verified": false,
+  "continuation_lifecycle_verified": true,
+  "offline_pairing_supported": true,
+  "eligible_paired_comparison": false,
+  "full_protocol_eligibility": "blocked_by_observed_schedule_change",
+  "protocol_gaps": [
+    {
+      "condition": "P1",
+      "source": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/development.jsonl",
+      "control": "counterbalanced_execution_schedule",
+      "finding": "Later continuation; original condition timing/order not preserved."
+    }
+  ],
+  "helper_source_bindings": [
+    {
+      "file": "scripts/evaluate_prompt_variants.py",
+      "sha256": "d37b811ad4b3071ce8664f036d6ae2c4489bd8bbb72f7caa218e371334218c69"
+    },
+    {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "file": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    {
+      "file": "scripts/openrouter_benchmark.py",
+      "sha256": "d754c2b20a1cfd18bcf55c76a357df42d7be0f5506707e996f172a03f3d90d94"
+    },
+    {
+      "file": "scripts/build_development_report.py",
+      "sha256": "9beea44d9f609c2b0dbbb1671498e3548dd76ff64f029cee76c50326f3dfd1f9"
+    }
+  ],
+  "adapter_source_sha256": "20cbd0d4c6bbc739146652e9b473a9dffc4a0ad18e4664d7ac90e783fbf6749b",
+  "audit_index_sha256": "1f6797ae9ab1ebc3231e13c81f13a626dd1fd3b705ca26c41919955a2e84cadf",
+  "discovery_binding_excluded_from_runtime_verification": "public-site/data.json",
+  "reference_labels_read_offline": true,
+  "reference_status": "Provisional AI-reviewed development references; not held-out human truth",
+  "audit": {
+    "file": "results/prompt-comparison-v1-2026-09-24/paired-reports/hosted-remaining-audit-v1/openrouter-paid-qwen3.8-27b-medium.json",
+    "sha256": "747f5a4aefbdcff477da7cb572203577d4af1da5fea9544f1194488f0cc90412"
+  },
+  "references": {
+    "file": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "pairs": {
+    "file": "data/pilot/pairs.json",
+    "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+  },
+  "additional_evidence": [
+    [
+      "data/pilot/inputs.jsonl",
+      "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/instruction.txt",
+      "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/observational-evidence.json",
+      "d5a99f318c58bf5722583d7e515b87725406539ea5e13e64ba5fa898c2a75896"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-07.json",
+      "f06519f61c9b014f0fb4587f1f0ab957e3e011e27912a66e38e66abaa9a664a1"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-08.json",
+      "b61a306f54a45d6a2a7ad483069e1b29071d528717d4a1c8ebe726104f591710"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-09.json",
+      "5f47eca36c8d67d26cba392b64bc5ce2660072d8d0d8548c9db5428bba35e225"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-10.json",
+      "4473a3beda54186a04a73b51d4e1d1ad6688c19de27edc69b4db499d5dced490"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-11.json",
+      "302b77523045bd5df85b16182f70fa1b07668431a244476bf376fc037c2e8e4e"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-12.json",
+      "d55d082b29c9847fd3bd01b7687d2cdad9bc6a9920a4d484d22189c57c709f8a"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-13.json",
+      "a028a1df4ce44e0e1a5d4c3cd13c88c0d0086cb1421ed67aacb9af4d4ee5ec69"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-14.json",
+      "a248fd3145049c2d17c4f770fdd79766354624517ceb7d9cfdbb27abc5cf05fd"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-15.json",
+      "48333efcf4b537dba4dd884b811c48624561b91bf8a8bd3a9e7169142ac2a088"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-16.json",
+      "697616c5ec70fab28257373dff1b1d8da7b08196c84879b800b230993585b691"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-17.json",
+      "43c2e5fa1d6678432198da0280a9ccfab340b04936099ea4896a94cc24f591dc"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-18.json",
+      "5f17a004bdbe1e859e94c3d1fac3151e4d8e56cffebb1fa53be3df97c38d493b"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-19.json",
+      "0a92e9dcb378477cd4c137260dcee5e2f83be8b39e889c9dafe1fc8687e42d08"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-20.json",
+      "04059b7f8ae82b46fb62bdc18f23b23675f9ec293d5f76e8a1894efbe50d3c76"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-21.json",
+      "8a8e692d9415761c9001a10300047493e4bfd37bf03a049ce13a53dd23e8df47"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-22.json",
+      "7c8b448f8d3200a4ea62362eaaaaf855ae4a94909de57f093d88f468dd385025"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-23.json",
+      "6759ae23dbecdf6cd1ffa7983f96414875dd9ad2c79e97122d1727359607f938"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-24.json",
+      "19e5ca8435ddd8c2169988488d4844e4db33bef82503888c4f73835308f0d1a4"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-25.json",
+      "6d87ac50b5f996675d1378624e2c82b7cfe2dca7d38302cc93437de38b91aaae"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-26.json",
+      "476585adf331ca48c5cfbaa7290edec84c922657dc783c88051a236e4adace1a"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-27.json",
+      "750754915c6e68481f72a95fcbd75a6ac094b6b3bf8885e0667be6bae425a95f"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-28.json",
+      "fc465f96f2f39a88ddb2c93b74b77dc39c0c7bf6f869b79bd165587c7b566e6e"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-29.json",
+      "0391993e89dfad85a2fe64aae13340f0eacb7c683f17452fd46635bcdad52bc0"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-30.json",
+      "f5ba7e2639ae8ea96797568d08519eac4fb8f29168565b2eebbca1107e3d8ea0"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-31.json",
+      "4a8306350ed4ca5abc1811d853b60d6b6c8270f0b64595d0bfbef1d890e651ab"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-32.json",
+      "19f2062d784ba7af8bbe841c11ab3943a4576ba8d76963448443facc23f9d735"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-33.json",
+      "bf9b40c73eb4088effa8f1b721e39418fe9c8aff46df0fc9b5028fb693b5a0c0"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-34.json",
+      "9746ff7145b37c890575ef5f405c85dd97e8c4cdc9c0fd98e9af7051720756d2"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-35.json",
+      "874c8446eef469f2b3fa0d7abe6adde16af68a4d293ead80f3d66b8e91ea451f"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-36.json",
+      "c6b71772c198e467ccd1f560582161e216c3477d40eaefb574110ee0481b4c02"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-37.json",
+      "7a14ed16b963493af4e3ddbb62a30a0f498a38eb536ef1ddb303b12fd0d2ccc0"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-38.json",
+      "964c09012ffda24bd6a2b26bc2f6ff5adc9307aa07713ab7ffd174f32ad5f9ff"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-39.json",
+      "e6de51d967c4e2fffa65ac906c07a1251ec22000cfca942c2290b4d6035f8864"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-40.json",
+      "421f8bcfcea899db89c0fe9fa785f51068f8cdf8c6a50c5e7e4b3390fdd9429f"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-41.json",
+      "9b7ac4ae06537bc5e7381726e4769e3e6314a297f19917caa2491bfb176da475"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-42.json",
+      "6f7f6b9eaa487a26eccf23aa9af369ec389d54aef021c11b12dc7b9581acb313"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-43.json",
+      "01ef3d5b1f7d69dcdf3b4fa0f5b6c004ac636bce024c5d698b327d16d97cc13d"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-44.json",
+      "b120b5cf43d88140723695d74a8afab65540e3f5e7bcdebbd6f8616e79407ae0"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-45.json",
+      "fee4acf0a3ca3610fd7ee048ce5c57cb8652cfeeabf2482ebe787cc92fca13a4"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-46.json",
+      "3c50824e9489137f6f4bf74502db79d0094dfa78aa264090ced32ba8ef7b8c30"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-47.json",
+      "8d765dd3f2ce5d717affe90ccf1ad280a794814611c9185798a3148bdcee9c4b"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-48.json",
+      "75ebd5219c30e623b02a60b9fff72da01b0ee176701aa80526ed1e499f3b9c7a"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-49.json",
+      "b5b0db4fcbe505179f29ea2d9c07d49789f4adca4197db66df13d427b13224ea"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-50.json",
+      "01a238ddabbfa91ee27c48c6ba3c54854bb8617ab20681d7ec3d8e1fd9b4f9ed"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-51.json",
+      "d3fec9c3a35fe12d4625f6d8a137fe4c078bc3f7be97ffd2d60367fe28aa7869"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-52.json",
+      "50f479ffeb65bdb7dae4377baefd5b557004adfa5769dd61d3ed3495a5d07b54"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-53.json",
+      "515d1dc70ad878948ee5c25dcac56c5c3199c750d48e0e9e7b15c29e8b4b5a9f"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-54.json",
+      "a4f60431cd2a2eae73b5e01743da0637d6e0db249f91a5d8b8d3b21384822ccf"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-55.json",
+      "b31da4fd48c0ccb6cfe4d0c5de2c62b066c8f3068fdfe6b2db2e753791693209"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-56.json",
+      "cd4dd9769bcd2f4d18081a021faac20b9b83aa7bd18bb134b70a24442726aa8e"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-57.json",
+      "39be1ee7b620caf28bde15034146954e180f9f2bd50e358057d2f1460b73149d"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-58.json",
+      "e49174bec0d210965aff2fe4e3674d9f8febe3c4369818d5159107ab2d662259"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-59.json",
+      "5734986752bb8373215e57a919246d8a8dcb6f3108471e649bfc48d2f5967e03"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-60.json",
+      "e8bf6d92c70328bf70a52c660c230f28a98ca2f7cd3f3b3a6dca0e3ae9a08def"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-61.json",
+      "57e8be8c12af29771d7d31aa299cf6565913cd872c33339ab238fd01c959d748"
+    ],
+    [
+      "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen3.8-27b-medium/P1/request-62.json",
+      "2db620157ce21897b18d8f85a7309ceb25800eaeea497836048291ecdaec1636"
+    ],
+    [
+      "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/attempts.jsonl",
+      "43d8563fc36b4772c96983e9b214e53868363a645ca67073e89d44ffc9ae7ab4"
+    ],
+    [
+      "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/frozen-manifest.json",
+      "35a176a3e4df93b43994085a816e5095c5504825366cf2dd87aa740a15a4fbaf"
+    ],
+    [
+      "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/reconciliation-v1.json",
+      "e4e05d1eb32e2989da2cfc614b31eafc6c93e13e9ecfa2750d36fcde4bdd3347"
+    ],
+    [
+      "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/root-review.json",
+      "5fa04735c304149efa00104b54185de9329039b85dfab588d39c259973dee02c"
+    ],
+    [
+      "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+      "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+    ],
+    [
+      "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/development.jsonl",
+      "2077ef425815654a617ed1c159c1b5fb872b4c9060ae8cb3cd5fbe79e1be9845"
+    ],
+    [
+      "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/smoke-supplement.json",
+      "c3c425e5a46c4d0b48743743233afe853dc4fa3beb05f578a883cb7497b8fe22"
+    ],
+    [
+      "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/smoke.jsonl",
+      "c1521615e9687d8f7532d484396fba7cababd1251ea70175bb3f2a5687f49a0c"
+    ],
+    [
+      "schemas/judgments.schema.json",
+      "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+    ]
+  ],
+  "conditions": {
+    "P0": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 59,
+        "missing_or_failed": [
+          "DEV-048"
+        ],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9746923259681635,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 30,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.967741935483871,
+                "f1": 0.9836065573770492
+              },
+              "mixed": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9951690821256038,
+            "per_label": {
+              "yes": {
+                "tp": 34,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.9714285714285714,
+                "f1": 0.9855072463768116
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.927683615819209,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9666666666666667,
+                "recall": 1.0,
+                "f1": 0.9830508474576272
+              },
+              "insufficient_information": {
+                "tp": 4,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.6666666666666666,
+                "f1": 0.8
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9737254901960783,
+            "per_label": {
+              "yes": {
+                "tp": 8,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8888888888888888,
+                "f1": 0.9411764705882353
+              },
+              "no": {
+                "tp": 49,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.98,
+                "recall": 0.98,
+                "f1": 0.98
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "missing_or_failed"
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "valid_count": 59,
+      "status_counts": {
+        "ok": 59,
+        "service_error": 1
+      },
+      "all_four_correct": 56,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null,
+        "attempt_seconds": 1765.5458339150064,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 59,
+        "unknown_cost_attempts": 1,
+        "unknown_bounded_attempts": 1,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.065762400",
+        "unknown_reserved_upper_bound_usd": "0.047001600",
+        "known_plus_unknown_upper_bound_usd": "0.112764000",
+        "total_actual_usd": null,
+        "source_paths": [
+          "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "sources": [
+        {
+          "file": "results/openrouter-partition-qwen27-medium-2026-09-23/development-reconciled.jsonl",
+          "sha256": "5704234c79b3952e5545cb27fd08426da390068c01e645e99392bf918a3a9a14"
+        }
+      ]
+    },
+    "P1": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 59,
+        "missing_or_failed": [
+          "DEV-004"
+        ],
+        "metrics": {
+          "sentiment": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.9462249827467218,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "neutral": {
+                "tp": 6,
+                "fp": 0,
+                "fn": 2,
+                "precision": 1.0,
+                "recall": 0.75,
+                "f1": 0.8571428571428571
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9929078014184397,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 23,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.9583333333333334,
+                "f1": 0.9787234042553191
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9582027168234065,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 28,
+                "fp": 1,
+                "fn": 1,
+                "precision": 0.9655172413793104,
+                "recall": 0.9655172413793104,
+                "f1": 0.9655172413793104
+              },
+              "insufficient_information": {
+                "tp": 5,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.8333333333333334,
+                "f1": 0.9090909090909091
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 59,
+            "denominator": 60,
+            "accuracy": 0.9833333333333333,
+            "macro_f1": 0.9966329966329966,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 49,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.98,
+                "f1": 0.98989898989899
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "valid_count": 59,
+      "status_counts": {
+        "ok": 59,
+        "service_error": 1
+      },
+      "all_four_correct": 56,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null,
+        "attempt_seconds": 1111.4966478760034,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 59,
+        "unknown_cost_attempts": 1,
+        "unknown_bounded_attempts": 1,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.057421275",
+        "unknown_reserved_upper_bound_usd": "0.047001600",
+        "known_plus_unknown_upper_bound_usd": "0.104422875",
+        "total_actual_usd": null,
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/development.jsonl",
+          "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P1/development.jsonl",
+          "sha256": "2077ef425815654a617ed1c159c1b5fb872b4c9060ae8cb3cd5fbe79e1be9845"
+        },
+        {
+          "file": "results/hosted-unattempted-continuation-v2/openrouter-paid-qwen3.8-27b-medium-p1/development.jsonl",
+          "sha256": "90f919ec2ea9a82ac39e362ce6a93efcdd1633bf85239cc4cf7fd7f49732c647"
+        }
+      ]
+    },
+    "P2": {
+      "evaluation": {
+        "reference_status": "AI-reviewed provisional; development only",
+        "records": 60,
+        "valid_outputs": 60,
+        "missing_or_failed": [],
+        "metrics": {
+          "sentiment": {
+            "correct": 58,
+            "denominator": 60,
+            "accuracy": 0.9666666666666667,
+            "macro_f1": 0.9614630779848172,
+            "per_label": {
+              "positive": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.9166666666666666,
+                "recall": 1.0,
+                "f1": 0.9565217391304348
+              },
+              "negative": {
+                "tp": 31,
+                "fp": 1,
+                "fn": 0,
+                "precision": 0.96875,
+                "recall": 1.0,
+                "f1": 0.9841269841269841
+              },
+              "mixed": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "neutral": {
+                "tp": 7,
+                "fp": 0,
+                "fn": 1,
+                "precision": 1.0,
+                "recall": 0.875,
+                "f1": 0.9333333333333333
+              },
+              "insufficient_information": {
+                "tp": 2,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "follow_up_needed": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 35,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 24,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          },
+          "serious_concern_reported": {
+            "correct": 57,
+            "denominator": 60,
+            "accuracy": 0.95,
+            "macro_f1": 0.8724954462659381,
+            "per_label": {
+              "yes": {
+                "tp": 25,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 29,
+                "fp": 3,
+                "fn": 0,
+                "precision": 0.90625,
+                "recall": 1.0,
+                "f1": 0.9508196721311475
+              },
+              "insufficient_information": {
+                "tp": 3,
+                "fp": 0,
+                "fn": 3,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6666666666666666
+              }
+            }
+          },
+          "testimonial_potential": {
+            "correct": 60,
+            "denominator": 60,
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "per_label": {
+              "yes": {
+                "tp": 9,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "no": {
+                "tp": 50,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "insufficient_information": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 0,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            }
+          }
+        },
+        "serious_concerns": {
+          "reference_yes": 25,
+          "predicted_no": [],
+          "predicted_insufficient": [],
+          "output_failed_or_missing": [],
+          "false_escalations": []
+        },
+        "pair_checks": [
+          {
+            "id": "resolution",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "irrelevant_religion",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "sex_stereotype_symmetry",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "identity_evidence",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          },
+          {
+            "id": "complaint_style",
+            "status": "scored",
+            "invariants_preserved": true,
+            "expected_changes_correct": true,
+            "both_fully_correct": true
+          }
+        ]
+      },
+      "valid_count": 60,
+      "status_counts": {
+        "ok": 60
+      },
+      "all_four_correct": 55,
+      "telemetry": {
+        "attempts": 60,
+        "input_tokens": 151830,
+        "output_tokens": 29085,
+        "reasoning_tokens": 33901,
+        "attempt_seconds": 1591.9976359630018,
+        "note": "All audited attempts where available, including superseded retries. Any missing value makes its aggregate unknown; no missing-to-zero substitution."
+      },
+      "cost": {
+        "scope": "declared development attempts only",
+        "availability": "reported",
+        "attempt_count": 60,
+        "known_actual_attempts": 60,
+        "unknown_cost_attempts": 0,
+        "unknown_bounded_attempts": 0,
+        "missing_financial_attempts": 0,
+        "known_actual_usd": "0.067783275",
+        "unknown_reserved_upper_bound_usd": "0",
+        "known_plus_unknown_upper_bound_usd": "0.067783275",
+        "total_actual_usd": "0.067783275",
+        "source_paths": [
+          "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P2/development.jsonl"
+        ],
+        "note": "Includes every declared development attempt, including superseded retries; excludes smoke. Unknown reserves are accounting bounds, not observed charges. Missing billing evidence is unavailable, not zero. This is not the shared budget ledger balance, which also covers smoke and failed/incomplete configurations; the ledger is not read."
+      },
+      "sources": [
+        {
+          "file": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-qwen3.8-27b-medium/P2/development.jsonl",
+          "sha256": "1be7b8d32ca50471541d4284328845808cc79c38cef1c45439de0000df4df735"
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "P0_to_P1": {
+      "denominator": 60,
+      "both_valid": 58,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 30,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 7,
+            "neutral -> neutral": 6,
+            "mixed -> negative": 1
+          },
+          "changed_ids": [
+            "DEV-059"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-059"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 23,
+            "yes -> yes": 34,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 29,
+            "yes -> yes": 25,
+            "insufficient_information -> insufficient_information": 4
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 8,
+            "no -> no": 48,
+            "no -> yes": 1,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-010"
+          ],
+          "wrong_to_correct": [
+            "DEV-010"
+          ],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [
+        "DEV-004"
+      ],
+      "failed_to_valid": [
+        "DEV-048"
+      ],
+      "both_failed": [],
+      "failure_transitions": {
+        "valid -> service_error": [
+          "DEV-004"
+        ],
+        "service_error -> valid": [
+          "DEV-048"
+        ]
+      },
+      "all_four_wrong_to_correct": [
+        "DEV-010"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-059"
+      ],
+      "cases": [
+        {
+          "id": "DEV-004",
+          "from_state": "valid",
+          "to_state": "service_error",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": null,
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-010",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-048",
+          "from_state": "service_error",
+          "to_state": "valid",
+          "from_prediction": null,
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 4
+    },
+    "P0_to_P2": {
+      "denominator": 60,
+      "both_valid": 59,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 30,
+            "neutral -> neutral": 7,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 7,
+            "mixed -> negative": 1
+          },
+          "changed_ids": [
+            "DEV-059"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-059"
+          ]
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 24,
+            "yes -> yes": 34,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 30,
+            "yes -> yes": 25,
+            "insufficient_information -> no": 2,
+            "insufficient_information -> insufficient_information": 2
+          },
+          "changed_ids": [
+            "DEV-022",
+            "DEV-030"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-022",
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 8,
+            "no -> no": 49,
+            "no -> yes": 1,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [
+            "DEV-010"
+          ],
+          "wrong_to_correct": [
+            "DEV-010"
+          ],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [
+        "DEV-048"
+      ],
+      "both_failed": [],
+      "failure_transitions": {
+        "service_error -> valid": [
+          "DEV-048"
+        ]
+      },
+      "all_four_wrong_to_correct": [
+        "DEV-010"
+      ],
+      "all_four_correct_to_wrong": [
+        "DEV-022",
+        "DEV-030",
+        "DEV-059"
+      ],
+      "cases": [
+        {
+          "id": "DEV-010",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          },
+          "reference": {
+            "sentiment": "positive",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "yes"
+          }
+        },
+        {
+          "id": "DEV-022",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-048",
+          "from_state": "service_error",
+          "to_state": "valid",
+          "from_prediction": null,
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-059",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "mixed",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "yes",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 5
+    },
+    "P1_to_P2": {
+      "denominator": 60,
+      "both_valid": 59,
+      "fields": {
+        "sentiment": {
+          "valid_label_transitions": {
+            "positive -> positive": 12,
+            "negative -> negative": 32,
+            "insufficient_information -> insufficient_information": 2,
+            "mixed -> mixed": 7,
+            "neutral -> neutral": 6
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "follow_up_needed": {
+          "valid_label_transitions": {
+            "no -> no": 23,
+            "yes -> yes": 35,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        },
+        "serious_concern_reported": {
+          "valid_label_transitions": {
+            "no -> no": 29,
+            "yes -> yes": 25,
+            "insufficient_information -> no": 2,
+            "insufficient_information -> insufficient_information": 3
+          },
+          "changed_ids": [
+            "DEV-022",
+            "DEV-030"
+          ],
+          "wrong_to_correct": [],
+          "correct_to_wrong": [
+            "DEV-022",
+            "DEV-030"
+          ]
+        },
+        "testimonial_potential": {
+          "valid_label_transitions": {
+            "yes -> yes": 9,
+            "no -> no": 49,
+            "insufficient_information -> insufficient_information": 1
+          },
+          "changed_ids": [],
+          "wrong_to_correct": [],
+          "correct_to_wrong": []
+        }
+      },
+      "valid_to_failed": [],
+      "failed_to_valid": [
+        "DEV-004"
+      ],
+      "both_failed": [],
+      "failure_transitions": {
+        "service_error -> valid": [
+          "DEV-004"
+        ]
+      },
+      "all_four_wrong_to_correct": [],
+      "all_four_correct_to_wrong": [
+        "DEV-022",
+        "DEV-030"
+      ],
+      "cases": [
+        {
+          "id": "DEV-004",
+          "from_state": "service_error",
+          "to_state": "valid",
+          "from_prediction": null,
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "no",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-022",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "negative",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        },
+        {
+          "id": "DEV-030",
+          "from_state": "valid",
+          "to_state": "valid",
+          "from_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          },
+          "to_prediction": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "no",
+            "testimonial_potential": "no"
+          },
+          "reference": {
+            "sentiment": "neutral",
+            "follow_up_needed": "yes",
+            "serious_concern_reported": "insufficient_information",
+            "testimonial_potential": "no"
+          }
+        }
+      ],
+      "changed_record_count": 3
+    }
+  },
+  "limitations": [
+    "Client request duration is observational and suffix timing differs from the original schedule; it is not pure model inference latency.",
+    "Continuation per-request timestamps unavailable; verified append-only journal order used, without synthesized timestamps."
+  ]
+}
