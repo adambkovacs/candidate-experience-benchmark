@@ -23,7 +23,9 @@ The [visual findings](https://adambkovacs.github.io/candidate-experience-benchma
 
 Use [model comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#models), [prompt versions](https://adambkovacs.github.io/candidate-experience-benchmark/#explore), and [usage details](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) to investigate a specific result. These are single-pass development observations on the same 60 synthetic reviews, not a held-out leaderboard.
 
-The [follow-up reference review](docs/REFERENCE_REVIEW_V1.md) proposes one correction, which would change Jev from 54 to 55 all-four matches. Original labels and published scores remain preserved. The first [three-pass repeat study](docs/REPEAT_FINDINGS.md) is complete for GPT-6 Luna medium across P0, P1 and P2. All-four agreement ranged from 50–54, 52–53 and 51–53 out of 60, respectively. The apparent prompt advantage changed between passes; repeats for the remaining configurations are unfinished.
+The [follow-up reference review](docs/REFERENCE_REVIEW_V1.md) proposes one correction, which would change Jev from 54 to 55 all-four matches. Original labels and published scores remain preserved.
+
+The [repeat comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#repeat-analysis) now covers multiple GPT, Claude, Gemini and other hosted configurations, plus native Jev instructions. Three separately dispatched passes often change the apparent prompt advantage. For example, [Opus 5 high](docs/OPUS5_REPEAT_FINDINGS_2026-09-28.md) gained two matches from decision-tree instructions in its first two passes and lost two in its third. [Fable 5.1 low](docs/FABLE_REPEAT_FINDINGS_2026-09-28.md) returned the same 57/60 classifier-instruction score in all three passes while changing three reviews' classifications. A stable total does not imply stable answers. The full requested repeat matrix remains unfinished; see [current objectives and checkpoints](docs/CURRENT_GOALS.md).
 
 ## What the models decide
 
