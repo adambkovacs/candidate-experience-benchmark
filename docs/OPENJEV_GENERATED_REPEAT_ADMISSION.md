@@ -1,5 +1,14 @@
 # OpenJev generated repeat admission
 
+**Dispatch blocked, 2026-09-28:** subsequent offline review found that the v1
+manifest serializes payload keys in sorted order, while the execution check
+expects the original insertion-order wire hash. Reloading the saved manifest
+therefore fails the request-byte check before HTTP dispatch. Do not execute
+this v1 controller. No generated stage has run. A separately versioned
+correction and persisted-manifest regression are being prepared; original
+controller and manifest bytes remain preserved. This finding supersedes the
+earlier approval recorded below.
+
 The generated-off and generated-on comparisons use a fresh matched three-pass
 series. The historical P0/P1/P2 records remain observational: the original P0
 wire body and rendered token IDs were not saved, so they cannot serve as a
