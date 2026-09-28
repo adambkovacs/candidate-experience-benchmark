@@ -36,6 +36,8 @@ The [Gemini 3.8 Flash low repeats](docs/GEMINI38_LOW_REPEAT_FINDINGS_2026-09-28.
 
 [AnyJev's raw native readout](docs/ANYJEV_RAW_REPEAT_FINDINGS_2026-09-28.md) returned unchanged classifications across three passes but matched all four fields on 0/60 reviews. It predicted neutral sentiment, follow-up needed and serious concern for every review. Stable output alone does not establish useful classification.
 
+[AnyJev L0](docs/ANYJEV_L0_REPEAT_FINDINGS_2026-09-28.md) also returned unchanged classifications in all three passes, with 60 valid outputs each, but only 4/60 reviews matched all four provisional reference fields. It answered "insufficient information" for follow-up 44 times against one such reference. The raw and L0 methods differ in several ways, so the score gap does not tell us which change caused it.
+
 Across the [17 completed Claude configurations](docs/CLAUDE_REPEAT_SYNTHESIS_2026-09-28.md), neither added-instruction prompt beat the base task in all three observed passes. The full requested repeat matrix remains unfinished; see the [full repeat execution inventory](docs/REPEAT_EXECUTION_STATUS_2026-09-28.md) and [current objectives](docs/CURRENT_GOALS.md).
 
 ## What the models decide

@@ -66,7 +66,7 @@ Of these 55 series, 49 have nine full condition/pass entries, one Mistral series
 
 ## Work outside these 55 series
 
-- [Native specialists](NATIVE_SPECIALIST_REPEAT_AUDIT_2026-09-28.md): native P0 eligibility, repeated calls and generated controls are separate requirements. Laya expanded CPU and SemIf native repeat studies are complete and published. AnyJev raw has three closed passes and is published; L0 has two closed passes and repeat-three development is open after an inspected smoke. Other specialist series remain pending. Original Laya length failures, AnyJev calibration and unknown interrupted attempts keep their distinct dispositions.
+- [Native specialists](NATIVE_SPECIALIST_REPEAT_AUDIT_2026-09-28.md): native P0 eligibility, repeated calls and generated controls are separate requirements. Laya expanded CPU and SemIf native repeat studies are complete and published. AnyJev raw is published; L0 now has three source-bound closed passes and a reviewed public feed awaiting deployment verification. Other specialist series remain pending. Original Laya length failures, AnyJev calibration and unknown interrupted attempts keep their distinct dispositions.
 - [Baseline/prompt roster](MVP_ROSTER_ACCOUNTING.md): retains configurations without a complete historical prompt triple. The AkashML Qwen thinking-on P2 suffix now has all 60 attempted positions accounted for: 54 valid outputs and six retained service failures; it is not one of the 53 completed historical triples.
 - [Reference review](REFERENCE_REVIEW_V1.md): proposed DEV-006 correction and DEV-013/030 human adjudication remain unresolved. No inference label is silently changed.
 - [Publication privacy](PUBLIC_EVIDENCE_PRIVACY.md): new Claude exports are verified and published; 648 quota-bearing captures were removed from the current Git tree with private originals preserved; historical Git exposure remains unresolved.
@@ -75,17 +75,17 @@ Funding and route failures explain unfinished work. They do not remove it from s
 
 ## Separate native and generated specialist work
 
-This table records experiment families outside the 55-series table above. Its AnyJev L0 and calibration rows were checked again on 2026-09-28 at 18:24 UTC; the 55-series snapshot above retains its earlier timestamp. Counts refer to development passes, not smoke tests, and do not imply that a valid answer matches a reference.
+This table records experiment families outside the 55-series table above. Its AnyJev L0 row reflects the saved repeat-three completion and source-bound offline report; the 55-series snapshot above retains its earlier timestamp. Counts refer to development passes, not smoke tests, and do not imply that a valid answer matches a reference.
 
 | Family | Closed passes | Remaining work |
 | --- | ---: | --- |
 | Laya expanded CPU, three configurations | 9/9 native P0 | Repeat findings published; original length-limited failures remain separate. |
 | SemIf native, three modes | 9/9 native P0 | Repeat findings published. |
 | AnyJev raw | 3/3 native P0 | Findings published and live bytes verified. |
-| AnyJev L0 | 2/3 native P0 | Original and repeat two each have 60 valid development outputs and 4/60 all-field agreement. Repeat-three smoke closed with three valid outputs and a bound inspection; development has an exclusive claim and started journal, but no terminal completion. It remains unscored. |
-| Alex OpenJev 0.8B and 4B | 0/6 fresh native P0 | Reviewed manifests frozen; historical observations do not count as fresh passes. |
+| AnyJev L0 | 3/3 native P0 | All three development passes have 60 valid outputs and 4/60 all-field agreement with provisional references. Per-field agreement is 37/60 sentiment, 13/60 follow-up, 34/60 serious concern and 44/60 testimonial potential. No case changes classification across passes. Public report publication remains pending. |
+| Alex OpenJev 0.8B and 4B | 0/6 fresh native P0 | Reviewed manifests frozen; historical observations do not count as fresh passes. The 0.8B fresh-one smoke closed with three valid outputs and an inspected 42-distribution NLI check; its development pass is running and remains unscored. The 4B passes have not begun. |
 | OpenJev fixed, adaptive and thinking | 0/9 fresh native P0 | Reviewed manifest frozen; all development passes pending. |
-| Generated OpenJev off/on, SemIf and AnyJev | 0/36 fresh prompt/pass combinations | AnyJev and SemIf controllers are reviewed and frozen. OpenJev v1 remains blocked; the separately reviewed v2 amendment preserves intended request bytes and is ready for stage admission. No development phases dispatched. Historical invalid and unknown outcomes remain separate. |
+| Generated OpenJev off/on, SemIf and AnyJev | 0/36 fresh prompt/pass combinations | AnyJev (`8d5bbf7`), SemIf (`08a667a`) and OpenJev v2 (`de88662`, reporter `85e81e6`) have reviewed offline admission/report paths. OpenJev v1 remains blocked; v2 preserves intended request bytes. No development phases dispatched. Historical invalid and unknown outcomes remain separate. |
 | AnyJev L1/L2 calibration | 0 fresh passes | Direct-native L1's three-pass manifest and reviewed controller are frozen in `b96b420`. L2's reviewed controller is in `ed62fc5`, with repeat-two offline manifests frozen in `2ab6396`. Neither study has a stage receipt or repeat inference. Cached L1 refits remain observational. |
 
 Sources: [native audit](ANYJEV_ALEX_OPENJEV_NATIVE_P0_NEXT_ADMISSION_2026-09-28.md), [generated-control audit](GENERATED_SPECIALIST_REPEAT_NEXT_ADMISSION_2026-09-28.md), [calibration audit](ANYJEV_CALIBRATION_NEXT_ADMISSION_2026-09-28.md), and [current verified checkpoints](CURRENT_GOALS.md). None of these pending requirements is excluded from scope.

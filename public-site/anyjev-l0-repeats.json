@@ -1,0 +1,1189 @@
+{
+  "schema": "anyjev-l0-native-repeat-findings-v1",
+  "configuration": "anyjev-qwen06-l0",
+  "displayName": "AnyJev Qwen3 0.6B · L0 content-free prior",
+  "model": "Qwen/Qwen3-0.6B",
+  "provider": "Local native MPS",
+  "method": "native-output-stability",
+  "conditionOrder": [
+    "P0"
+  ],
+  "referenceVersion": "0.2",
+  "referenceStatus": "AI reviewed provisional, not independent adjudication",
+  "referenceClassCounts": {
+    "sentiment": {
+      "insufficient_information": 2,
+      "mixed": 8,
+      "negative": 31,
+      "neutral": 8,
+      "positive": 11
+    },
+    "follow_up_needed": {
+      "insufficient_information": 1,
+      "no": 24,
+      "yes": 35
+    },
+    "serious_concern_reported": {
+      "insufficient_information": 6,
+      "no": 29,
+      "yes": 25
+    },
+    "testimonial_potential": {
+      "insufficient_information": 1,
+      "no": 50,
+      "yes": 9
+    }
+  },
+  "confusionCounts": {
+    "original": {
+      "sentiment": {
+        "insufficient_information": {
+          "mixed": 1,
+          "positive": 1
+        },
+        "mixed": {
+          "mixed": 2,
+          "positive": 6
+        },
+        "negative": {
+          "mixed": 5,
+          "negative": 23,
+          "neutral": 2,
+          "positive": 1
+        },
+        "neutral": {
+          "mixed": 3,
+          "negative": 1,
+          "neutral": 2,
+          "positive": 2
+        },
+        "positive": {
+          "mixed": 1,
+          "positive": 10
+        }
+      },
+      "follow_up_needed": {
+        "insufficient_information": {
+          "insufficient_information": 1
+        },
+        "no": {
+          "insufficient_information": 19,
+          "no": 1,
+          "yes": 4
+        },
+        "yes": {
+          "insufficient_information": 24,
+          "yes": 11
+        }
+      },
+      "serious_concern_reported": {
+        "insufficient_information": {
+          "no": 6
+        },
+        "no": {
+          "no": 25,
+          "yes": 4
+        },
+        "yes": {
+          "no": 16,
+          "yes": 9
+        }
+      },
+      "testimonial_potential": {
+        "insufficient_information": {
+          "yes": 1
+        },
+        "no": {
+          "no": 35,
+          "yes": 15
+        },
+        "yes": {
+          "yes": 9
+        }
+      }
+    },
+    "repeat2": {
+      "sentiment": {
+        "insufficient_information": {
+          "mixed": 1,
+          "positive": 1
+        },
+        "mixed": {
+          "mixed": 2,
+          "positive": 6
+        },
+        "negative": {
+          "mixed": 5,
+          "negative": 23,
+          "neutral": 2,
+          "positive": 1
+        },
+        "neutral": {
+          "mixed": 3,
+          "negative": 1,
+          "neutral": 2,
+          "positive": 2
+        },
+        "positive": {
+          "mixed": 1,
+          "positive": 10
+        }
+      },
+      "follow_up_needed": {
+        "insufficient_information": {
+          "insufficient_information": 1
+        },
+        "no": {
+          "insufficient_information": 19,
+          "no": 1,
+          "yes": 4
+        },
+        "yes": {
+          "insufficient_information": 24,
+          "yes": 11
+        }
+      },
+      "serious_concern_reported": {
+        "insufficient_information": {
+          "no": 6
+        },
+        "no": {
+          "no": 25,
+          "yes": 4
+        },
+        "yes": {
+          "no": 16,
+          "yes": 9
+        }
+      },
+      "testimonial_potential": {
+        "insufficient_information": {
+          "yes": 1
+        },
+        "no": {
+          "no": 35,
+          "yes": 15
+        },
+        "yes": {
+          "yes": 9
+        }
+      }
+    },
+    "repeat3": {
+      "sentiment": {
+        "insufficient_information": {
+          "mixed": 1,
+          "positive": 1
+        },
+        "mixed": {
+          "mixed": 2,
+          "positive": 6
+        },
+        "negative": {
+          "mixed": 5,
+          "negative": 23,
+          "neutral": 2,
+          "positive": 1
+        },
+        "neutral": {
+          "mixed": 3,
+          "negative": 1,
+          "neutral": 2,
+          "positive": 2
+        },
+        "positive": {
+          "mixed": 1,
+          "positive": 10
+        }
+      },
+      "follow_up_needed": {
+        "insufficient_information": {
+          "insufficient_information": 1
+        },
+        "no": {
+          "insufficient_information": 19,
+          "no": 1,
+          "yes": 4
+        },
+        "yes": {
+          "insufficient_information": 24,
+          "yes": 11
+        }
+      },
+      "serious_concern_reported": {
+        "insufficient_information": {
+          "no": 6
+        },
+        "no": {
+          "no": 25,
+          "yes": 4
+        },
+        "yes": {
+          "no": 16,
+          "yes": 9
+        }
+      },
+      "testimonial_potential": {
+        "insufficient_information": {
+          "yes": 1
+        },
+        "no": {
+          "no": 35,
+          "yes": 15
+        },
+        "yes": {
+          "yes": 9
+        }
+      }
+    }
+  },
+  "confusionOrientation": "rows: provisional reference; columns: observed prediction",
+  "denominator": 60,
+  "completedConditions": 3,
+  "plannedConditions": 3,
+  "passOrder": [
+    "original",
+    "repeat2",
+    "repeat3"
+  ],
+  "passes": {
+    "original": {
+      "P0": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 4,
+          "fields": {
+            "sentiment": 37,
+            "follow_up_needed": 13,
+            "serious_concern_reported": 34,
+            "testimonial_potential": 44
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "predictedClassCounts": {
+          "sentiment": {
+            "mixed": 12,
+            "negative": 24,
+            "neutral": 4,
+            "positive": 20
+          },
+          "follow_up_needed": {
+            "insufficient_information": 44,
+            "no": 1,
+            "yes": 15
+          },
+          "serious_concern_reported": {
+            "no": 47,
+            "yes": 13
+          },
+          "testimonial_potential": {
+            "no": 35,
+            "yes": 25
+          }
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSeconds": [
+            51.671348417177796,
+            48.71371449995786,
+            52.02261087507941,
+            58.913280334090814,
+            65.19534245808609,
+            66.05258087487891,
+            52.06638350011781,
+            52.014463500119746,
+            48.10923804086633,
+            47.271739959018305,
+            53.01843166700564,
+            52.72618658305146,
+            49.66468954202719,
+            52.553662499878556,
+            49.89477312495001,
+            50.513963791076094,
+            52.30065062502399,
+            56.76787304086611,
+            47.471160707995296,
+            44.95566808292642,
+            44.86433808412403,
+            48.72949262498878,
+            56.04260070808232,
+            52.97704804199748,
+            49.22879141615704,
+            46.18080387497321,
+            46.98979762499221,
+            44.85414916602895,
+            46.50294391694479,
+            46.598660374991596,
+            45.64589845901355,
+            45.32686899998225,
+            45.15722225001082,
+            45.71798158297315,
+            45.12234608386643,
+            44.54595541697927,
+            45.66796545893885,
+            45.089083916042,
+            45.019939250079915,
+            45.07912733312696,
+            45.42779991705902,
+            45.35151079087518,
+            45.15630537481047,
+            45.94790650019422,
+            45.52321616606787,
+            45.717595000052825,
+            45.481106457998976,
+            45.97657129098661,
+            46.02221120893955,
+            44.899242707993835,
+            45.57351783406921,
+            45.00212495820597,
+            45.32895308290608,
+            45.44932895805687,
+            44.99382600001991,
+            45.12746583414264,
+            47.85249879187904,
+            47.74518954195082,
+            46.59876891691238,
+            46.49140099994838
+          ],
+          "requestSecondsTotal": 2902.9053170415573,
+          "modelLoadSeconds": 3.28088020789437,
+          "clientRunSecondsLowerBound": 2906.1861972494517,
+          "tokens": {
+            "input_tokens": 5070194,
+            "output_tokens": null,
+            "cached_input_tokens": null,
+            "cache_write_input_tokens": null,
+            "reasoning_output_tokens": null
+          },
+          "actualCostUsd": null,
+          "costNote": "Local hardware and electricity cost not measured.",
+          "inferenceSeconds": null
+        },
+        "evidence": {
+          "smoke": {
+            "path": "results/anyjev-qwen06-l0-mps-2026-09-23/smoke.jsonl",
+            "sha256": "9b83ea62fe9945d998a7b05f1cb58441c921743da6e4052d3cce89b1264a5c03"
+          },
+          "records": {
+            "path": "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl",
+            "sha256": "fba96b08c10f8d85b2ab7e510902689dee302369f33e4f91baf152102cb524a1"
+          },
+          "runnerGitCommit": "9f0dda66b633c9d185fccf459b45c65234354ceb",
+          "runnerSourceSha256": "77504663c860d43c0348fcfbe92edb46642837ef2d076a134bba4c22ba73a395"
+        }
+      }
+    },
+    "repeat2": {
+      "P0": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 4,
+          "fields": {
+            "sentiment": 37,
+            "follow_up_needed": 13,
+            "serious_concern_reported": 34,
+            "testimonial_potential": 44
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "predictedClassCounts": {
+          "sentiment": {
+            "mixed": 12,
+            "negative": 24,
+            "neutral": 4,
+            "positive": 20
+          },
+          "follow_up_needed": {
+            "insufficient_information": 44,
+            "no": 1,
+            "yes": 15
+          },
+          "serious_concern_reported": {
+            "no": 47,
+            "yes": 13
+          },
+          "testimonial_potential": {
+            "no": 35,
+            "yes": 25
+          }
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSeconds": [
+            112.69497045798926,
+            116.25899379202747,
+            155.40396958298516,
+            154.75682829201105,
+            124.50795758300228,
+            110.26645124997594,
+            105.09108662500512,
+            118.26914733400918,
+            107.68458483400173,
+            121.1606853340054,
+            102.31780462499592,
+            101.70881679200102,
+            122.81218162502046,
+            106.18749483299325,
+            117.79772179201245,
+            106.2439843339962,
+            103.23098858300364,
+            100.07349066701136,
+            105.83768070800579,
+            94.1746266669943,
+            62.1437936250004,
+            61.61840033298358,
+            61.342052416992374,
+            270.38133370899595,
+            95.29577691701706,
+            94.84255324999685,
+            94.97380416601663,
+            96.56230974997743,
+            98.7757947909995,
+            101.37356154201552,
+            126.62139341700822,
+            123.96645166701637,
+            121.7473932080029,
+            113.88525549997576,
+            109.60882804199355,
+            93.16237395801,
+            48.80650166698615,
+            47.24473658300121,
+            56.2002489999868,
+            55.35372958300286,
+            45.298450208007125,
+            45.39220895798644,
+            51.35187629098073,
+            53.04785904099117,
+            53.09899916598806,
+            55.52052391698817,
+            56.38766224999563,
+            55.73433979199035,
+            53.961149999988265,
+            55.174672916997224,
+            55.33151641700533,
+            54.08684337500017,
+            50.1537558750133,
+            54.4017415419803,
+            55.04973120900104,
+            49.99933837499702,
+            54.77606529099285,
+            55.44721675000619,
+            57.46598437501234,
+            57.311515499983216
+          ],
+          "requestSecondsTotal": 5289.377210084931,
+          "modelLoadSeconds": null,
+          "clientRunSecondsLowerBound": null,
+          "tokens": {
+            "input_tokens": 5070194,
+            "output_tokens": null,
+            "cached_input_tokens": null,
+            "cache_write_input_tokens": null,
+            "reasoning_output_tokens": null
+          },
+          "actualCostUsd": null,
+          "costNote": "Local hardware and electricity cost not measured.",
+          "inferenceSeconds": null
+        },
+        "evidence": {
+          "smoke": {
+            "receipt": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.root-review.json",
+              "sha256": "c7b1973bcbd08562c953079e876b43ca62fe8aaf91302ea47c4da791273de589"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.claim.json",
+              "sha256": "1fbac44a426310bce4033874b85f2aaf23fb2511f401986234ee827611155f23"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.journal.jsonl",
+              "sha256": "62001485e64ae7f7b11dcc32338c353283c4de19acc8b2c5461e13f148c4757c"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.raw.jsonl",
+              "sha256": "595100ca7a8f387301e03bec9ebdd46c94f728022d15a06b3778717a96f23f56"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.records.jsonl",
+              "sha256": "9daea44a807bee731d1eb87e702dc8908aa336c435a93fe1eb8ebdb8442424fb"
+            },
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.completion.json",
+              "sha256": "576658af365674fe7c003dad701577e72bb6951e0060af203468b957fd812f05"
+            }
+          },
+          "smokeInspection": {
+            "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke-inspection.json",
+            "sha256": "01b9d451035030c700310c052ec706612e03912b7e7196600a9c1f673189f047"
+          },
+          "development": {
+            "receipt": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.root-review.json",
+              "sha256": "9ec29b9d5b6853915ea0c25723fe1d887b60299f69224ab3f67aed65b8595845"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.claim.json",
+              "sha256": "f8bd8d796fb2c7d9917c73b62cf5a59ecfe926ec9031ac8db97fe7ab8a8e882f"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.journal.jsonl",
+              "sha256": "0c3692249750d908101fcf591781447ff2e38cc2cfc71882a53aac7b6b516689"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.raw.jsonl",
+              "sha256": "e4facda7731820efe618a567d5168a8b62547610d4e421af6b46f2a5fc6efdd0"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.records.jsonl",
+              "sha256": "d7e0151e86d7dc4570679af91b903308830827ff52b31f27d93c452641c2b3ae"
+            },
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.completion.json",
+              "sha256": "70d723e3c405d458db19854bdea9d53eadbb5ff60215bdf4323ecb7559162ee5"
+            }
+          }
+        }
+      }
+    },
+    "repeat3": {
+      "P0": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 4,
+          "fields": {
+            "sentiment": 37,
+            "follow_up_needed": 13,
+            "serious_concern_reported": 34,
+            "testimonial_potential": 44
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "predictedClassCounts": {
+          "sentiment": {
+            "mixed": 12,
+            "negative": 24,
+            "neutral": 4,
+            "positive": 20
+          },
+          "follow_up_needed": {
+            "insufficient_information": 44,
+            "no": 1,
+            "yes": 15
+          },
+          "serious_concern_reported": {
+            "no": 47,
+            "yes": 13
+          },
+          "testimonial_potential": {
+            "no": 35,
+            "yes": 25
+          }
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSeconds": [
+            52.376944375020685,
+            49.5738811250194,
+            44.33907679098775,
+            51.01938116599922,
+            49.893756542005576,
+            51.37308541699895,
+            45.11405079200631,
+            47.46661541698268,
+            52.78403150002123,
+            51.24750966698048,
+            50.33990633301437,
+            50.77352129097562,
+            48.53306675000931,
+            49.805921000021044,
+            51.49219520899351,
+            46.902788707986474,
+            49.799388874991564,
+            49.251187792018754,
+            47.22471754200524,
+            50.61696758400649,
+            48.29927162500098,
+            49.34067624999443,
+            48.902875084022526,
+            51.26926183301839,
+            50.48329320800258,
+            50.377433874993585,
+            50.23788612498902,
+            50.0635327079799,
+            50.74351016699802,
+            121.46897716700914,
+            91.90822912499425,
+            103.08807437500218,
+            100.93919354199897,
+            97.06415291599114,
+            94.83180095799617,
+            104.37389233399881,
+            93.31145387497963,
+            90.10242779101827,
+            81.8823285830149,
+            62.07019683299586,
+            51.90087937499629,
+            51.25800429098308,
+            52.45522291699308,
+            52.26334770800895,
+            58.89381604199298,
+            64.46280258300249,
+            63.862509207974654,
+            55.509230167022906,
+            56.63296837499365,
+            61.0295171669859,
+            59.37091304201749,
+            60.92664470800082,
+            65.04220079199877,
+            66.00062704097945,
+            66.2225781249872,
+            63.554100625013234,
+            69.2341285830189,
+            65.94609958300134,
+            64.28171145901433,
+            71.87321470800089
+          ],
+          "requestSecondsTotal": 3701.40697874903,
+          "modelLoadSeconds": null,
+          "clientRunSecondsLowerBound": null,
+          "tokens": {
+            "input_tokens": 5070194,
+            "output_tokens": null,
+            "cached_input_tokens": null,
+            "cache_write_input_tokens": null,
+            "reasoning_output_tokens": null
+          },
+          "actualCostUsd": null,
+          "costNote": "Local hardware and electricity cost not measured.",
+          "inferenceSeconds": null
+        },
+        "evidence": {
+          "smoke": {
+            "receipt": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.root-review.json",
+              "sha256": "854eb4dd92a792cc91da683430d5a211763181d4b14d32902d2bb3c445ec3761"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.claim.json",
+              "sha256": "7ec4aeba6556be62c0f8fc0b0b0d55ed47051625e8f9d3070abf297f517901be"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.journal.jsonl",
+              "sha256": "86a31eccad442b8fb5fb70a32fff35448fe3895b99ff23d66adebf589ca03952"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.raw.jsonl",
+              "sha256": "595100ca7a8f387301e03bec9ebdd46c94f728022d15a06b3778717a96f23f56"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.records.jsonl",
+              "sha256": "d69dc17ee375b68f90b23f22dea003c44444577885529c9dc59693bbf1a3fcd1"
+            },
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.completion.json",
+              "sha256": "ab0f01898e57a18250b714a2b8dbcf3061210c006585a5c4d79ec35135300e82"
+            }
+          },
+          "smokeInspection": {
+            "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke-inspection.json",
+            "sha256": "82feefe687563cb73ebeaf827ca0d127599a86e1469dc67a759f7d6bee10bebf"
+          },
+          "development": {
+            "receipt": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.root-review.json",
+              "sha256": "57d5bdcd47dcefe9a64495fad5de8ea7d069635611c7c4475822bac866b2f8d2"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.claim.json",
+              "sha256": "941258c3f3091efcc6883b2400925acf33a2cfd1eb1ef402394a1e677f897e4a"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.journal.jsonl",
+              "sha256": "97b4dfb7955c3c803ea213417ee0defb627ea9c7185bcc8bd42c1d86f206fbee"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.raw.jsonl",
+              "sha256": "e4facda7731820efe618a567d5168a8b62547610d4e421af6b46f2a5fc6efdd0"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.records.jsonl",
+              "sha256": "893af81312366d1efdbe248c117aa0bed13c617f9b7648e5ee3486f8ab3df4f5"
+            },
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.completion.json",
+              "sha256": "fea87fe94b84f01a646effcd56a3588107d9bba87c6815e9db19a92c711714f8"
+            }
+          }
+        }
+      }
+    }
+  },
+  "missingPasses": [],
+  "partialPasses": [],
+  "threePassSummary": {
+    "P0": {
+      "allFour": {
+        "completedPasses": 3,
+        "values": [
+          4,
+          4,
+          4
+        ],
+        "mean": 4.0,
+        "range": [
+          4,
+          4
+        ]
+      },
+      "fields": {
+        "sentiment": {
+          "completedPasses": 3,
+          "values": [
+            37,
+            37,
+            37
+          ],
+          "mean": 37.0,
+          "range": [
+            37,
+            37
+          ]
+        },
+        "follow_up_needed": {
+          "completedPasses": 3,
+          "values": [
+            13,
+            13,
+            13
+          ],
+          "mean": 13.0,
+          "range": [
+            13,
+            13
+          ]
+        },
+        "serious_concern_reported": {
+          "completedPasses": 3,
+          "values": [
+            34,
+            34,
+            34
+          ],
+          "mean": 34.0,
+          "range": [
+            34,
+            34
+          ]
+        },
+        "testimonial_potential": {
+          "completedPasses": 3,
+          "values": [
+            44,
+            44,
+            44
+          ],
+          "mean": 44.0,
+          "range": [
+            44,
+            44
+          ]
+        }
+      }
+    }
+  },
+  "pairwiseFlips": [
+    {
+      "condition": "P0",
+      "from": "original",
+      "to": "repeat2",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      }
+    },
+    {
+      "condition": "P0",
+      "from": "original",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      }
+    },
+    {
+      "condition": "P0",
+      "from": "repeat2",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      }
+    }
+  ],
+  "changesAcrossThreePasses": {
+    "P0": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": []
+    }
+  },
+  "withinPassPromptDeltas": [],
+  "predictedClassCounts": {
+    "original": {
+      "sentiment": {
+        "mixed": 12,
+        "negative": 24,
+        "neutral": 4,
+        "positive": 20
+      },
+      "follow_up_needed": {
+        "insufficient_information": 44,
+        "no": 1,
+        "yes": 15
+      },
+      "serious_concern_reported": {
+        "no": 47,
+        "yes": 13
+      },
+      "testimonial_potential": {
+        "no": 35,
+        "yes": 25
+      }
+    },
+    "repeat2": {
+      "sentiment": {
+        "mixed": 12,
+        "negative": 24,
+        "neutral": 4,
+        "positive": 20
+      },
+      "follow_up_needed": {
+        "insufficient_information": 44,
+        "no": 1,
+        "yes": 15
+      },
+      "serious_concern_reported": {
+        "no": 47,
+        "yes": 13
+      },
+      "testimonial_potential": {
+        "no": 35,
+        "yes": 25
+      }
+    },
+    "repeat3": {
+      "sentiment": {
+        "mixed": 12,
+        "negative": 24,
+        "neutral": 4,
+        "positive": 20
+      },
+      "follow_up_needed": {
+        "insufficient_information": 44,
+        "no": 1,
+        "yes": 15
+      },
+      "serious_concern_reported": {
+        "no": 47,
+        "yes": 13
+      },
+      "testimonial_potential": {
+        "no": 35,
+        "yes": 25
+      }
+    }
+  },
+  "sourceBindings": [
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/manifest.json",
+      "sha256": "29095d4a527cefaac3e4169a1dfc94879a7571f909d7f8fb4b2213e32f1a3049"
+    },
+    {
+      "path": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "path": "docs/LABELING_GUIDE.md",
+      "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+    },
+    {
+      "path": "scripts/anyjev_benchmark.py",
+      "sha256": "77504663c860d43c0348fcfbe92edb46642837ef2d076a134bba4c22ba73a395"
+    },
+    {
+      "path": "scripts/anyjev_l0_repeat_admission.py",
+      "sha256": "ffd22ca2849d611743d4e8da672d86031e2a323bee7eaaa28e3afe7fd02b4afc"
+    },
+    {
+      "path": "scripts/anyjev_raw_repeat_admission.py",
+      "sha256": "20558bac210a981a28cf4b5911b1089611a24eaf76fc7a8ee3b7836a4ed753f7"
+    },
+    {
+      "path": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "path": "scripts/jev_benchmark.py",
+      "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+    },
+    {
+      "path": "scripts/specialist_benchmark.py",
+      "sha256": "ec35418937cef5eb2e3b317737abd4354fa869c00c1605efb5c01eb9eb668c1b"
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/anyjev-qwen06-l0-mps-2026-09-23/smoke.jsonl",
+      "sha256": "9b83ea62fe9945d998a7b05f1cb58441c921743da6e4052d3cce89b1264a5c03"
+    },
+    {
+      "path": "results/anyjev-qwen06-l0-mps-2026-09-23/development.jsonl",
+      "sha256": "fba96b08c10f8d85b2ab7e510902689dee302369f33e4f91baf152102cb524a1"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.root-review.json",
+      "sha256": "c7b1973bcbd08562c953079e876b43ca62fe8aaf91302ea47c4da791273de589"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.claim.json",
+      "sha256": "1fbac44a426310bce4033874b85f2aaf23fb2511f401986234ee827611155f23"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.journal.jsonl",
+      "sha256": "62001485e64ae7f7b11dcc32338c353283c4de19acc8b2c5461e13f148c4757c"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.raw.jsonl",
+      "sha256": "595100ca7a8f387301e03bec9ebdd46c94f728022d15a06b3778717a96f23f56"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.records.jsonl",
+      "sha256": "9daea44a807bee731d1eb87e702dc8908aa336c435a93fe1eb8ebdb8442424fb"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke.completion.json",
+      "sha256": "576658af365674fe7c003dad701577e72bb6951e0060af203468b957fd812f05"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.root-review.json",
+      "sha256": "9ec29b9d5b6853915ea0c25723fe1d887b60299f69224ab3f67aed65b8595845"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.claim.json",
+      "sha256": "f8bd8d796fb2c7d9917c73b62cf5a59ecfe926ec9031ac8db97fe7ab8a8e882f"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.journal.jsonl",
+      "sha256": "0c3692249750d908101fcf591781447ff2e38cc2cfc71882a53aac7b6b516689"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.raw.jsonl",
+      "sha256": "e4facda7731820efe618a567d5168a8b62547610d4e421af6b46f2a5fc6efdd0"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.records.jsonl",
+      "sha256": "d7e0151e86d7dc4570679af91b903308830827ff52b31f27d93c452641c2b3ae"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/development.completion.json",
+      "sha256": "70d723e3c405d458db19854bdea9d53eadbb5ff60215bdf4323ecb7559162ee5"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat2/P0/smoke-inspection.json",
+      "sha256": "01b9d451035030c700310c052ec706612e03912b7e7196600a9c1f673189f047"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.root-review.json",
+      "sha256": "854eb4dd92a792cc91da683430d5a211763181d4b14d32902d2bb3c445ec3761"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.claim.json",
+      "sha256": "7ec4aeba6556be62c0f8fc0b0b0d55ed47051625e8f9d3070abf297f517901be"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.journal.jsonl",
+      "sha256": "86a31eccad442b8fb5fb70a32fff35448fe3895b99ff23d66adebf589ca03952"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.raw.jsonl",
+      "sha256": "595100ca7a8f387301e03bec9ebdd46c94f728022d15a06b3778717a96f23f56"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.records.jsonl",
+      "sha256": "d69dc17ee375b68f90b23f22dea003c44444577885529c9dc59693bbf1a3fcd1"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke.completion.json",
+      "sha256": "ab0f01898e57a18250b714a2b8dbcf3061210c006585a5c4d79ec35135300e82"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.root-review.json",
+      "sha256": "57d5bdcd47dcefe9a64495fad5de8ea7d069635611c7c4475822bac866b2f8d2"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.claim.json",
+      "sha256": "941258c3f3091efcc6883b2400925acf33a2cfd1eb1ef402394a1e677f897e4a"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.journal.jsonl",
+      "sha256": "97b4dfb7955c3c803ea213417ee0defb627ea9c7185bcc8bd42c1d86f206fbee"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.raw.jsonl",
+      "sha256": "e4facda7731820efe618a567d5168a8b62547610d4e421af6b46f2a5fc6efdd0"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.records.jsonl",
+      "sha256": "893af81312366d1efdbe248c117aa0bed13c617f9b7648e5ee3486f8ab3df4f5"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/development.completion.json",
+      "sha256": "fea87fe94b84f01a646effcd56a3588107d9bba87c6815e9db19a92c711714f8"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/repeat3/P0/smoke-inspection.json",
+      "sha256": "82feefe687563cb73ebeaf827ca0d127599a86e1469dc67a759f7d6bee10bebf"
+    }
+  ],
+  "declaredExternalSourceHashes": {},
+  "declaredModelAssetHashes": {
+    "config.json": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "model.safetensors": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "declaredModelArtifactManifestSha256": "886c4a02c83ecda6b5b096b9ee29f7324d75d77429904db2522fe11e8e60ba3a",
+  "declaredAnyJevSourceRevision": "3cd8c6fcd9e90fc04214575ade6779da1e3f3704",
+  "interpretation": [
+    "This native L0 readout uses full cyclic option shifts and a content-free prior with one P0 condition. Matching predictions across passes show observed stability on these comments, not correctness.",
+    "The historical run saved prompt lengths but not prompt hashes. Its prompt identity was reconstructed from pinned source and tokenizer.",
+    "Client request time includes runtime overhead; isolated inference time and local hardware cost are unavailable."
+  ],
+  "limitations": [
+    "Historical prompts were reconstructed from pinned source and tokenizer; saved rows contain lengths, not prompt hashes.",
+    "Native L0 P0 has no generative P1/P2 condition.",
+    "Client wall-clock request time is not isolated inference time.",
+    "Local hardware and electricity costs were not measured.",
+    "Local model assets are declared by the frozen admission manifest; this portable report does not rehash private model files.",
+    "Provisional v0.2 references are not independent adjudication."
+  ]
+}
