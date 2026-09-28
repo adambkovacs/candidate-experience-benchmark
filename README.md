@@ -34,6 +34,8 @@ The [repeat comparison](https://adambkovacs.github.io/candidate-experience-bench
 
 The [Gemini 3.8 Flash low repeats](docs/GEMINI38_LOW_REPEAT_FINDINGS_2026-09-28.md) kept a 57/60 base-prompt score in all three passes while changing one review’s classification. The [fresh Gemma E2B local study](docs/GEMMA_E2B_FRESH_REPEAT_FINDINGS_2026-09-28.md) kept a 35/60 base score while changing nine reviews. Neither model gained all-field matches from either added-instruction prompt in these series. Local timing is reported separately from hosted timing.
 
+[AnyJev's raw native readout](docs/ANYJEV_RAW_REPEAT_FINDINGS_2026-09-28.md) returned unchanged classifications across three passes but matched all four fields on 0/60 reviews. It predicted neutral sentiment, follow-up needed and serious concern for every review. Stable output alone does not establish useful classification.
+
 Across the [17 completed Claude configurations](docs/CLAUDE_REPEAT_SYNTHESIS_2026-09-28.md), neither added-instruction prompt beat the base task in all three observed passes. The full requested repeat matrix remains unfinished; see the [full repeat execution inventory](docs/REPEAT_EXECUTION_STATUS_2026-09-28.md) and [current objectives](docs/CURRENT_GOALS.md).
 
 ## What the models decide
