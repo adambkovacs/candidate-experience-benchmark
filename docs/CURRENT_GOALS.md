@@ -340,3 +340,12 @@ First-pass development exited successfully and passed frozen controller verifica
 Pages run [36516409907](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36516409907) succeeded at `e6e33ea4`. The live L1 report and index match committed bytes. Browser selection shows one completed native pass at 6/60, two incomplete passes, and no premature repeat range. Eleven reporter tests, three UI tests and an independent clean-export check passed. Shared Ruflo retrieval and save-back were verified from fresh launcher connections and both canonical stores. Fresh2 smoke/calibration remains live; no second full pass is complete.
 
 DeepSeek low became reachable again, but the exact endpoint input price changed from $0.10 to $0.03 per million tokens. The frozen price check rejected it before any inference or reservation. A price-only successor admission is being assessed; the original series and controls remain intact.
+
+
+## Funded DeepSeek continuation and second L1 development, 2026-09-29
+
+Commit `0119258a` preserves the independently reviewed price-only DeepSeek successor. Nine tests passed, including the original request loop with simulated transport and a real temporary budget ledger. The separate phase-02 development amendment receipt binds the new wrapper while retaining the original runner, manifest, request hashes, route and $0.1069056 reservation. The funded P1 development stage is running; it is not a completed result. Commit `ca7dc155` adds offline publication verification for the supplemental evidence, with six tests and independent review passing.
+
+AnyJev L1 fresh2 smoke completed with three valid outputs and twelve normalized choice distributions. Its verified completion hash is `ddd630057c98a98b55924cf1ed9af2f85d4988064f34f001c6dc60370920486e`. Root inspection retained near-tied and insufficient-information choices without repair. Commit `dd795598` preserves the closed smoke and separate development receipt; the remaining 57 held-out records are now running. L1 remains at one completed full pass out of three.
+
+The Qwen reasoning-on admission plans are independently reviewed and committed in `5d0a1c44`. They remain unexecuted and unfunded; a future controller must bind the planner and test hashes before dispatch. The aggregate cap remains $10.
