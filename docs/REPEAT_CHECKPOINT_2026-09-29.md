@@ -104,3 +104,12 @@ AnyJev L1 fresh1/P0 smoke exited successfully, and the frozen stage verifier pas
 The second Qwen P1 suffix completed all29 never-sent requests and passed strict reconciliation. Its composite fresh3/P1 result has59 valid outputs and one preserved DEV-031 service error. New suffix observed cost is $0.0039264; prior unknown bounds remain separate. Sanitized reconciliation SHA-256 is `f659750f71e4b612eba1ded11b3e008d14f250ec5aef73f89c2d6e46ea960e53`. The final P2/P0 phases are separately admitted under the frozen second-interruption controller.
 
 DeepSeek low fresh1/P0 is closed with59 valid outputs and one invalid output, all60 positions retained. Its fresh1/P1 smoke is closed, but development stopped before claim or reservation because exact endpoint discovery failed. No development request or charge was created by that admission failure; live route availability is being checked.
+
+
+## Published Qwen closure and hosted admission boundary
+
+All nine Qwen 3.6 reasoning-off condition/pass combinations are now closed and published: 538 valid outputs and two retained service failures across 540 development positions. Scores are P0 48/51/50, P1 51/50/50 and P2 51/52/52. Shared-valid comparisons give P2 two, one and two additional all-field matches over P0; these are descriptive findings after interrupted dispatch. See [the final analysis](QWEN36_OFF_REPEAT_FINDINGS_2026-09-29.md). Known charges across development and smoke calls total $0.0803883, with separate unresolved upper bounds totaling $0.0598016. Neither failed request was replayed.
+
+Pages run 36513456196 succeeded at `4084a388`; live asset hashes and the rendered nine-score chart were verified. Active data links now use sanitized provider-error evidence. Private originals remain locally preserved and untracked; historical Git exposure is not erased.
+
+DeepSeek low remains at one full pass and a second-condition smoke: a fresh unauthenticated catalog check at 02:48 UTC still found its exact endpoint unavailable. The master ledger has $0.04151065850 unallocated under the unchanged $10 cap, plus the separate active $0.25 DeepSeek-low child. Gemma 26B on has a reviewed, tested fresh-three candidate with proposed $0.40 allocation, but no allocation or dispatch. Further hosted work remains pending funding and exact route admission. AnyJev L1 first-pass development is still running.
