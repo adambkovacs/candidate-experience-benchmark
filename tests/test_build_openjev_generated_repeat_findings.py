@@ -189,12 +189,15 @@ class GeneratedReportTest(unittest.TestCase):
             report.build(self.root)
 
     def test_claimed_and_partial_are_unscored(self):
+        before = report.build(self.root)
         phase = 'generated-off/fresh1/P0'
         folder = self.root / report.BASE / phase
         write_json(folder / 'smoke.claim.json', {'synthetic': True})
         write_rows(folder / 'smoke.journal.jsonl', [{'event': 'started', 'id': 'DEV-001'}])
-        output = report.build(self.root)['configurations']['generated-off']
-        self.assertEqual(output['missingPhases'][0]['status'], 'claimed_in_progress_or_interrupted')
+        after = report.build(self.root)
+        self.assertEqual(after, before)
+        output = after['configurations']['generated-off']
+        self.assertEqual(output['missingPhases'][0]['status'], 'not_completed')
         self.assertEqual(output['freshPasses']['fresh1'], {})
 
     def test_stopped_unknown_has_identity_and_no_score(self):

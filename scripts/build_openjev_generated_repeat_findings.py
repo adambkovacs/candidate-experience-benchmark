@@ -401,10 +401,10 @@ def build(root=ROOT):
                     'status': 'smoke_complete_development_pending',
                     'evidence': {'smoke': smoke['evidence']}})
         else:
-            claimed = any(path(root, folder / f'{name}.claim.json').exists()
-                          for name in ('smoke', 'development'))
+            # Live claims are not published evidence. Keep nonterminal phases
+            # identical in the working tree and a clean public checkout.
             group['missingPhases'].append({'pass': repeat, 'condition': condition,
-                'status': 'claimed_in_progress_or_interrupted' if claimed else 'not_started'})
+                'status': 'not_completed'})
         opened = True
     for mode, group in result['configurations'].items():
         for condition in CONDITIONS:

@@ -1,0 +1,36 @@
+{
+  "approved": true,
+  "inspection": "Root inspected all three decoded intact responses. One valid and two intrinsic invalid outputs; no transport/control failure. Proceed unchanged to measure declared P1 validity, preserving all failures.",
+  "kind": "openjev-generated-smoke-inspection-v1",
+  "phase": "generated-off/fresh1/P1",
+  "plan_sha256": "1f0ac6d4ed4ccc31ed1b2fa4b9c570f716e202075512f78e5f212427efaa7216",
+  "raw_sha256": "2ab6cf674a8ee691950b1df5212961f6904e4209ea217856fe89017755c825db",
+  "records": [
+    {
+      "accepted_unchanged": true,
+      "id": "DEV-001",
+      "inspection_reason": "Intact HTTP200 stop response contains malformed JSON with an extra quote after the opening brace. Intrinsic generation failure retained without repair.",
+      "prediction": null,
+      "status": "invalid_output"
+    },
+    {
+      "id": "DEV-002",
+      "prediction": {
+        "follow_up_needed": "no",
+        "sentiment": "positive",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      },
+      "status": "ok"
+    },
+    {
+      "accepted_unchanged": true,
+      "id": "DEV-003",
+      "inspection_reason": "Intact HTTP200 stop response uses sentiment_sentiment instead of required sentiment key. Intrinsic schema failure retained without repair.",
+      "prediction": null,
+      "status": "invalid_output"
+    }
+  ],
+  "records_sha256": "ead304a6d125568ffc75a3843f8f7011b4b68c11e06b116b6c5fb0d9af6fab99",
+  "reference_labels_read": false
+}

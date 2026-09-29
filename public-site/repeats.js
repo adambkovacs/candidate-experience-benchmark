@@ -11,7 +11,7 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './openjev-native-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './deepseek-low-continuation-repeats.json'];
+  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './deepseek-low-continuation-repeats.json'];
   const qwenContinuationSchema = 'qwen36-off-v2-second-interruption-findings-v1';
   const qwenContinuationId = 'openrouter-paid-qwen36-35b-a3b-off-descriptive-two-interruptions-v1';
   const deepseekLowContinuationSchema = 'deepseek-low-descriptive-interruption-findings-v1';
@@ -23,7 +23,7 @@
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './openjev-native-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === './deepseek-low-continuation-repeats.json') && r.status === 404) return {series: []};
+    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === './deepseek-low-continuation-repeats.json') && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
       if (url === './anyjev-l2-repeats.json') {
@@ -80,6 +80,70 @@
             threePassSummary: item.threePassSummary,
             changesAcrossThreePasses: item.changesAcrossThreePasses
               ? {P0: item.changesAcrossThreePasses} : {},
+            interpretation: payload.limitations};
+        })};
+      }
+      if (url === './openjev-generated-repeats.json') {
+        if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
+        const modes = ['generated-off', 'generated-on'];
+        const passes = ['fresh1', 'fresh2', 'fresh3'];
+        const prompts = ['P0', 'P1', 'P2'];
+        const slots = passes.flatMap(pass => prompts.map(condition => `${pass}/${condition}`));
+        if (payload?.schema !== 'openjev-generated-fresh-three-report-v2' ||
+            !payload.configurations ||
+            JSON.stringify(Object.keys(payload.configurations).sort()) !== JSON.stringify(modes.slice().sort()) ||
+            modes.some(mode => {
+              const item = payload.configurations[mode];
+              const completed = passes.flatMap(pass => prompts.filter(condition =>
+                item?.freshPasses?.[pass]?.[condition]).map(condition => `${pass}/${condition}`));
+              const missing = item?.missingPhases;
+              return item?.historicalObservation?.status !== 'historical_observation_excluded_from_fresh_triplet' ||
+                !Array.isArray(missing) || !passes.every(pass => item?.freshPasses?.[pass] &&
+                  typeof item.freshPasses[pass] === 'object') ||
+                completed.some(slot => {
+                  const [pass, condition] = slot.split('/');
+                  const phase = item.freshPasses[pass][condition];
+                  return phase.completionStatus !== 'complete' || phase.score?.denominator !== 60 ||
+                    !Number.isInteger(phase.score?.valid) || phase.score.valid < 0 || phase.score.valid > 60;
+                }) ||
+                missing.some(entry => !slots.includes(`${entry?.pass}/${entry?.condition}`) ||
+                  !['not_started', 'claimed_in_progress_or_interrupted', 'smoke_complete_development_pending',
+                    'stopped_unknown', 'not_completed'].includes(entry?.status) ||
+                  completed.includes(`${entry.pass}/${entry.condition}`)) ||
+                completed.length + missing.length !== 9 ||
+                new Set([...completed, ...missing.map(entry => `${entry.pass}/${entry.condition}`)]).size !== 9;
+            })) throw Error('Invalid OpenJev generated repeat results');
+        return {series: modes.map(mode => {
+          const item = payload.configurations[mode];
+          const passesByName = item.freshPasses;
+          const completeCount = passes.reduce((sum, pass) => sum + Object.keys(passesByName[pass]).length, 0);
+          const summary = {};
+          for (const condition of prompts) {
+            if (passes.every(pass => passesByName[pass][condition])) {
+              const scores = passes.map(pass => passesByName[pass][condition].score);
+              summary[condition] = {allFour: {range: [Math.min(...scores.map(s => s.allFour)),
+                Math.max(...scores.map(s => s.allFour))]}, fields: Object.fromEntries(
+                Object.keys(fields).filter(field => field !== 'allFour').map(field => [field, {range: [
+                  Math.min(...scores.map(s => s.fields[field])), Math.max(...scores.map(s => s.fields[field]))]}]))};
+            }
+          }
+          return {schema: payload.schema, configuration: `openjev-${mode}`,
+            seriesId: `openjev-${mode}-fresh-generated-p0p1p2`,
+            displayName: `OpenJev ${mode === 'generated-on' ? 'generated requested-on' : 'generated off'} · fresh prompts`,
+            method: 'fresh-generated-output-stability', passOrder: passes, conditionOrder: prompts,
+            denominator: 60, plannedConditions: 9, completedConditions: completeCount,
+            passes: passesByName, missingPasses: item.missingPhases,
+            pairwiseFlips: prompts.flatMap(condition => (item.pairwiseFlips?.[condition] || []).map(flip =>
+              ({condition, ...flip}))),
+            withinPassPromptDeltas: passes.flatMap(pass => (item.withinPassPromptDifferences?.[pass] || []).map(change =>
+              ({pass, from: change.from, to: change.to, allFour: change.netScoreDelta.allFour,
+                fields: change.netScoreDelta.fields}))),
+            withinPassPromptFlips: passes.flatMap(pass => (item.withinPassPromptDifferences?.[pass] || []).map(change =>
+              ({pass, from: change.from, to: change.to, denominator: change.denominator,
+                excludedIds: change.excludedIds, fourFieldVector: change.fourFieldVector,
+                ...Object.fromEntries(Object.keys(fields).filter(field => field !== 'allFour')
+                  .map(field => [field, change[field]]))}))),
+            threePassSummary: summary, changesAcrossThreePasses: item.changesAcrossThreePasses || {},
             interpretation: payload.limitations};
         })};
       }
@@ -230,7 +294,9 @@
       s.method === 'descriptive-continuation-after-service-error';
     const isNativeOpenJev = s => s.schema === 'openjev-native-fresh-three-report-v1' &&
       s.method === 'native-output-stability';
-    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isNativeOpenJev(s) ? s.seriesId : s.configuration;
+    const isGeneratedOpenJev = s => s.schema === 'openjev-generated-fresh-three-report-v2' &&
+      s.method === 'fresh-generated-output-stability';
+    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
     root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · fresh matched three' : ''}</option>`).join('')}</select></label>
       <p class="repeat-lead" id="repeat-lead"></p><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
@@ -250,6 +316,7 @@
       const qwenContinuation = isQwenContinuation(data);
       const deepseekLowContinuation = isDeepseekLowContinuation(data);
       const nativeOpenJev = isNativeOpenJev(data);
+      const generatedOpenJev = isGeneratedOpenJev(data);
       const localFresh = data.method === 'fresh-matched-local-output-stability';
       const passes = data.passOrder || (localFresh ? ['fresh1', 'fresh2', 'fresh3'] : ['original', 'repeat2', 'repeat3']);
       const conditionOrder = data.conditionOrder || ['P0', 'P1', 'P2'];
@@ -261,9 +328,10 @@
       const displayPass = pass => nativeL2 ? ({original: 'Historical pass', repeat2: 'Repeat 2', repeat3: 'Repeat 3'}[pass] || pass) : passName[pass];
       const closed = phase => qwenContinuation || deepseekLowContinuation ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error'
         : freshCodex || freshHosted ? phase?.status === 'completed'
+        : generatedOpenJev ? phase?.completionStatus === 'complete'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
-      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || nativeOpenJev;
+      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || nativeOpenJev || generatedOpenJev;
       const qwenUnknownFor = (pass, condition) => qwenContinuation
         ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
         : null;
@@ -303,6 +371,11 @@
         for (const missing of data.missingPasses.filter(item => item.status === 'stopped'))
           document.getElementById('repeat-lead').textContent += ` ${displayPass(missing.pass)} stopped during ${missing.stage} after ${missing.attempted} attempts and ${missing.saved} saved responses. ${missing.unknownStartedIds.length} started requests have unknown outcomes; this pass has no score.`;
       }
+      if (generatedOpenJev) {
+        document.getElementById('repeat-lead').textContent += ' Generated off and requested-on are separate fresh studies. Earlier generated observations are excluded. Requested-on effective reasoning is not measured. Scores retain invalid responses in the 60-comment denominator. Client HTTP time includes server and transport overhead; local cost and isolated inference time are unavailable.';
+        for (const missing of data.missingPasses.filter(item => item.status === 'stopped_unknown'))
+          document.getElementById('repeat-lead').textContent += ` ${displayPass(missing.pass)} ${missing.condition} stopped during ${missing.stage}: ${missing.startedIds.length} started, ${missing.savedIds.length} saved, ${missing.unknownStartedIds.length} unknown, ${missing.neverSentIds.length} not sent. This condition has no score.`;
+      }
       if (nativeAlex) document.getElementById('repeat-lead').textContent += ' Alex uses one native NLI procedure. Earlier results are observational and excluded from the fresh-pass comparison. Client prediction time includes local overhead; isolated inference time and local cost are unavailable. Native NLI input positions are not billed API tokens.';
       const validity = Object.entries(data.passes).flatMap(([pass, entries]) => Object.entries(entries).filter(([, phase]) => closed(phase) && phase.score.valid < data.denominator).map(([condition, phase]) => `${condition} ${displayPass(pass)}: ${phase.score.valid}/${data.denominator} valid responses`));
       if (validity.length) document.getElementById('repeat-lead').textContent += ' Failed or invalid answers remain in the score denominator. ' + validity.join('; ') + '.';
@@ -320,7 +393,8 @@
           const n = score ? valueOf(score,field) : null;
           const stopped = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
           const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
-          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : nativeStop ? '<span>Stopped; unscored</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
+          const generatedStop = generatedOpenJev && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'stopped_unknown');
+          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
         }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
       }).join('')}</div><p class="analysis-caveat">Bars start at zero. Agreement is measured against provisional references, separately from valid response format. Repeated comments are not independent cases.</p>`;
       document.getElementById('repeat-delta-title').textContent = nativeP0 ? 'One native decision procedure' : 'Does the prompt advantage persist?';
@@ -331,7 +405,7 @@
         const localDelta = localFresh && data.passes[p]?.[c]?.completionStatus === 'complete' && data.passes[p]?.P0?.completionStatus === 'complete'
           ? valueOf(data.passes[p][c].score, field) - valueOf(data.passes[p].P0.score, field) : null;
         return `<td>${d ? signed(valueOf(d,field)) : localDelta == null ? 'Not completed' : signed(localDelta)}</td>`;
-      }).join('')}</tr>`).join('')}</tbody></table></div>${qwenContinuation ? `<p class="analysis-caveat">Prompt flip comparisons use only comments valid in both conditions: ${(data.withinPassPromptFlips || []).filter(x => closedSlot(x.pass, 'P0') && closedSlot(x.pass, x.to)).map(x => `${esc(passName[x.pass])} P0 to ${esc(x.to)}: ${x.denominator} shared valid of 60; ${x.excludedIds.length} excluded`).join('; ') || 'no paired conditions completed yet'}.</p>` : ''}`;
+      }).join('')}</tr>`).join('')}</tbody></table></div>${qwenContinuation || generatedOpenJev ? `<p class="analysis-caveat">Prompt flip comparisons use only comments valid in both conditions: ${(data.withinPassPromptFlips || []).filter(x => closedSlot(x.pass, 'P0') && closedSlot(x.pass, x.to)).map(x => `${esc(passName[x.pass])} P0 to ${esc(x.to)}: ${generatedOpenJev ? `${(field === 'allFour' ? x.fourFieldVector : x[field]).changed} / ${x.denominator} changed; ` : ''}${x.denominator} shared valid of 60; ${x.excludedIds.length} excluded`).join('; ') || 'no paired conditions completed yet'}.</p>` : ''}`;
       const c = conditionControl.value;
       const changes = (!freshSeries || passes.every(p => closedSlot(p, c)))
         ? data.changesAcrossThreePasses?.[c] : null;
@@ -342,10 +416,11 @@
       document.getElementById('repeat-usage-body').innerHTML = conditionOrder.flatMap(c => passes.map(p => {
         const interrupted = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
         const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
+        const generatedStop = generatedOpenJev && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'stopped_unknown');
         const u = (localFresh || nativeP0 || freshCodex || freshHosted || qwenContinuation || deepseekLowContinuation) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
         const elapsed = u?.requestSecondsTotal ?? u?.clientHttpCallSecondsTotal ?? u?.clientRequestSecondsTotal ?? u?.clientPredictionSeconds;
         const nativePositions = nativeL1 && u?.tokens?.input_token_positions != null ? `<br><small>Native input positions: ${number(u.tokens.input_token_positions)} (not billed tokens)</small>` : nativeAlex && u?.nativeNliInputTokenPositions != null ? `<br><small>Native NLI input positions: ${number(u.nativeNliInputTokenPositions)}</small>` : '';
-        return `<tr><th scope="row">${c}</th><td>${displayPass(p)}${interrupted || nativeStop ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
+        return `<tr><th scope="row">${c}</th><td>${displayPass(p)}${interrupted || nativeStop || generatedStop ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
       })).join('');
     }
     configControl.addEventListener('change', render);

@@ -20,7 +20,10 @@ async function renderWith(payloads) {
     'repeat-delta-intro', 'repeat-deltas', 'repeat-flips', 'repeat-usage-body',
   ]) elements.set(id, {innerHTML: '', textContent: '', value: '', addEventListener(type, fn) { this[type] = fn; }});
   const document = {getElementById(id) { return elements.get(id); }};
-  const fetch = async url => ({ok: true, json: async () => payloads[feeds.indexOf(url.slice(2))]});
+  const fetch = async url => {
+    const index = feeds.indexOf(url.slice(2));
+    return index < 0 ? {ok: false, status: 404} : {ok: true, status: 200, json: async () => payloads[index]};
+  };
   elements.get('repeat-config').value = (payloads[0].series || [payloads[0]])[0].configuration;
   elements.get('repeat-field').value = 'allFour';
   elements.get('repeat-condition').value = 'P0';
