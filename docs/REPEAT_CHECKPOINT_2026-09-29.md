@@ -96,3 +96,11 @@ The next phase, fresh3/P1, stopped at DEV-031 with HTTP 429 after 30 successful 
 The old Qwen child is now terminally reconciled and sealed: known charges $0.0575207, two retained unknown-charge bounds totaling $0.0598016, and $0.0326777 released. Its sealed SHA-256 is `6113a30b7e73b354e229845f9553d54d657dddae51d2b2c36aed4c370f71771e`. Master unallocated capacity is $0.06437825850 under the unchanged $10 cap. A proposed new $0.06 continuation child fits that capacity, but has not been allocated or launched.
 
 The new exact-route continuation child has since been allocated $0.06 at `qwen36-off-fresh3-v2/second-interruption-v1/budget.json`, SHA-256 `76f1745a4316065bafb42f2dc1fee9ae14cbb84cd803f96386e6161ec37ad902`. This is reserved capacity, not observed spending. Master unallocated capacity is now $0.00437825850. No new inference has been launched; controller review and immutable execution freeze remain required.
+
+## Native L1 smoke and second Qwen suffix closed
+
+AnyJev L1 fresh1/P0 smoke exited successfully, and the frozen stage verifier passed. All three outputs are schema-valid; uncertain and insufficient-information classifications remain unchanged. Its completion SHA-256 is `83fbbf7f9840cd6f36924498fb2bdb83f17898da6d636ecd5230a5b492113cd4`. After inspecting native decisions and distributions, development was admitted using the saved fold1/4/5 calibration artifacts and the remaining57 held-out predictions. The full pass is running, not complete.
+
+The second Qwen P1 suffix completed all29 never-sent requests and passed strict reconciliation. Its composite fresh3/P1 result has59 valid outputs and one preserved DEV-031 service error. New suffix observed cost is $0.0039264; prior unknown bounds remain separate. Sanitized reconciliation SHA-256 is `f659750f71e4b612eba1ded11b3e008d14f250ec5aef73f89c2d6e46ea960e53`. The final P2/P0 phases are separately admitted under the frozen second-interruption controller.
+
+DeepSeek low fresh1/P0 is closed with59 valid outputs and one invalid output, all60 positions retained. Its fresh1/P1 smoke is closed, but development stopped before claim or reservation because exact endpoint discovery failed. No development request or charge was created by that admission failure; live route availability is being checked.
