@@ -11,9 +11,11 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json'];
+  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './deepseek-low-continuation-repeats.json'];
   const qwenContinuationSchema = 'qwen36-off-v2-second-interruption-findings-v1';
   const qwenContinuationId = 'openrouter-paid-qwen36-35b-a3b-off-descriptive-two-interruptions-v1';
+  const deepseekLowContinuationSchema = 'deepseek-low-descriptive-interruption-findings-v1';
+  const deepseekLowContinuationId = 'openrouter-paid-deepseek-v41-flash-low-descriptive-continuation-v1';
   const qwenDispatchOrder = [['fresh1','P0'], ['fresh1','P1'], ['fresh1','P2'],
     ['fresh2','P2'], ['fresh2','P0'], ['fresh2','P1'], ['fresh3','P1'], ['fresh3','P2'], ['fresh3','P0']];
   const additionalHostedIds = {
@@ -21,7 +23,7 @@
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json') && r.status === 404) return {series: []};
+    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === './deepseek-low-continuation-repeats.json') && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
       if (url === './additional-hosted-fresh-repeats.json' && payload === undefined) return {series: []};
@@ -91,17 +93,85 @@
                 && !flip.excludedIds.includes('DEV-031')))
           throw Error('Invalid Qwen two-interruption continuation results');
       }
+      if (url === './deepseek-low-continuation-repeats.json') {
+        if (payload === undefined) return {series: []};
+        if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return {series: []};
+        const only = payload?.series?.[0];
+        const first = only?.originalInterruptionCheckpoint;
+        const second = only?.secondInterruptionCheckpoint;
+        const accounting = only?.budgetAccountingCumulative;
+        const moneyValue = value => typeof value === 'string' && /^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(value) && Number.isFinite(Number(value));
+        const hash = value => typeof value === 'string' && /^[0-9a-f]{64}$/.test(value);
+        const missing = [['fresh1','P2'], ['fresh2','P2'], ['fresh2','P0'], ['fresh2','P1'],
+          ['fresh3','P1'], ['fresh3','P2'], ['fresh3','P0']];
+        const p0 = only?.passes?.fresh1?.P0;
+        const p1 = only?.passes?.fresh1?.P1;
+        const snapshot = second?.publicSnapshot;
+        if (payload?.schema !== deepseekLowContinuationSchema || !Array.isArray(payload.series) || payload.series.length !== 1 ||
+            only?.schema !== deepseekLowContinuationSchema || only?.seriesId !== deepseekLowContinuationId ||
+            only?.configuration !== 'openrouter-paid-deepseek-v41-flash-low' ||
+            only?.method !== 'descriptive-continuation-after-service-error' ||
+            only?.cleanMatchedThreeEligible !== false || only?.denominator !== 60 ||
+            only?.plannedConditions !== 9 || only?.completedConditions !== 2 ||
+            only?.continuationStatus !== 'suffix_stopped_at_DEV-049_unscored' ||
+            JSON.stringify(only?.passOrder) !== JSON.stringify(['fresh1','fresh2','fresh3']) ||
+            JSON.stringify(only?.conditionOrder) !== JSON.stringify(['P0','P1','P2']) ||
+            JSON.stringify(Object.keys(only?.passes?.fresh1 || {}).sort()) !== JSON.stringify(['P0','P1']) ||
+            Object.keys(only?.passes?.fresh2 || {}).length !== 0 || Object.keys(only?.passes?.fresh3 || {}).length !== 0 ||
+            !Array.isArray(only?.missingPasses) || only.missingPasses.length !== 7 ||
+            only.missingPasses.some((item, index) => item.pass !== missing[index][0] ||
+              item.condition !== missing[index][1] ||
+              item.status !== (index === 0 ? 'stopped_at_DEV-049_unscored' : 'terminal_public_snapshot_pending')) ||
+            p0?.status !== 'completed' || p0?.score?.denominator !== 60 || p0?.score?.valid !== 59 ||
+            p0?.score?.outcomes?.ok !== 59 || p0?.score?.outcomes?.invalid_output !== 1 ||
+            JSON.stringify(p0?.score?.invalidIds) !== JSON.stringify(['DEV-030']) ||
+            p1?.status !== 'completed' || p1?.score?.denominator !== 60 || p1?.score?.valid !== 60 ||
+            p1?.score?.outcomes?.ok !== 60 ||
+            first?.phase !== 'fresh1/P2' || first?.status !== 'interrupted_at_DEV-040' ||
+            first?.attemptedAtInterruption !== 40 || first?.neverSentAtInterruption !== 20 ||
+            first?.invalidId !== 'DEV-039' || first?.serviceErrorId !== 'DEV-040' ||
+            JSON.stringify(first?.outcomesAtInterruption) !== JSON.stringify({ok:38, invalid_output:1, service_error:1, never_sent:20}) ||
+            first?.unknownChargeUpperBoundUsd !== '0.1069056' || !moneyValue(first?.knownAllAttemptCostUsd) ||
+            second?.phase !== 'fresh1/P2' || second?.status !== 'terminal_stopped_at_DEV-049' ||
+            second?.attemptedAtSecondInterruption !== 49 || second?.neverSentAtSecondInterruption !== 11 ||
+            JSON.stringify(second?.invalidIds) !== JSON.stringify(['DEV-039']) ||
+            JSON.stringify(second?.serviceErrorIds) !== JSON.stringify(['DEV-040','DEV-049']) ||
+            JSON.stringify(second?.outcomes) !== JSON.stringify({ok:46, invalid_output:1, service_error:2, never_sent:11}) ||
+            second?.score !== null || second?.newUnknownChargeUpperBoundUsd !== '0.1069056' ||
+            !moneyValue(second?.newKnownAllAttemptCostUsd) ||
+            second?.sealedChild?.unknown_upper_bound_usd !== '0.1069056' ||
+            second?.sealedChild?.known_actual_usd !== second.newKnownAllAttemptCostUsd ||
+            !hash(second?.sealedChild?.child_sha256) || !hash(second?.sealedChild?.reconciliation_sha256) ||
+            snapshot?.path !== 'results/repeatability-v1/deepseek-low-fresh3-v2/interruption-continuation-v1/phase-03-suffix.public.json' ||
+            !hash(snapshot?.sha256) || !Array.isArray(payload.sourceBindings) ||
+            !payload.sourceBindings.some(item => item.path === snapshot.path && item.sha256 === snapshot.sha256) ||
+            accounting?.oldKnownAllAttemptCostUsd !== first.knownAllAttemptCostUsd ||
+            accounting?.oldUnknownChargeUpperBoundUsd !== '0.1069056' ||
+            accounting?.newKnownAllAttemptCostUsd !== second.newKnownAllAttemptCostUsd ||
+            accounting?.newUnknownChargeUpperBoundUsd !== '0.1069056' ||
+            !moneyValue(accounting?.combinedKnownAllAttemptCostUsd) ||
+            Number(accounting.combinedKnownAllAttemptCostUsd) !==
+              Number(first.knownAllAttemptCostUsd) + Number(second.newKnownAllAttemptCostUsd) ||
+            accounting?.combinedUnknownChargeUpperBoundUsd !== '0.2138112')
+          throw Error('Invalid DeepSeek-low descriptive continuation results');
+      }
       return payload;
     });
   }))).then(payloads => {
-    const series = payloads.flatMap(payload => payload?.series || (payload ? [payload] : []));
+    const loadedSeries = payloads.flatMap(payload => payload?.series || (payload ? [payload] : []));
+    const hasDeepseekLowContinuation = loadedSeries.some(s => s?.seriesId === deepseekLowContinuationId);
+    const series = loadedSeries.filter(s => !(hasDeepseekLowContinuation &&
+      s?.schema === 'additional-hosted-fresh-repeat-findings-v1' &&
+      s?.configuration === 'openrouter-paid-deepseek-v41-flash-low'));
     if (!series.length) throw Error('No repeat series');
     const isFreshCodex = s => s.schema === 'codex-fresh-repeat-findings-v1' && s.method === 'fresh-matched-three';
     const isFreshHosted = s => (s.schema === 'deepseek-fresh-repeat-findings-v1' ||
       s.schema === 'additional-hosted-fresh-repeat-findings-v1') && s.method === 'fresh-matched-three';
     const isQwenContinuation = s => s.schema === qwenContinuationSchema &&
       s.method === 'descriptive-continuation-after-two-service-errors';
-    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) ? s.seriesId : s.configuration;
+    const isDeepseekLowContinuation = s => s.schema === deepseekLowContinuationSchema &&
+      s.method === 'descriptive-continuation-after-service-error';
+    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) ? s.seriesId : s.configuration;
     root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · fresh matched three' : ''}</option>`).join('')}</select></label>
       <p class="repeat-lead" id="repeat-lead"></p><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
@@ -119,6 +189,7 @@
       const freshCodex = isFreshCodex(data);
       const freshHosted = isFreshHosted(data);
       const qwenContinuation = isQwenContinuation(data);
+      const deepseekLowContinuation = isDeepseekLowContinuation(data);
       const localFresh = data.method === 'fresh-matched-local-output-stability';
       const passes = data.passOrder || (localFresh ? ['fresh1', 'fresh2', 'fresh3'] : ['original', 'repeat2', 'repeat3']);
       const conditionOrder = data.conditionOrder || ['P0', 'P1', 'P2'];
@@ -126,11 +197,11 @@
       const nativeL0 = data.schema === 'anyjev-l0-native-repeat-findings-v1';
       const nativeL1 = data.schema === 'anyjev-l1-direct-native-repeat-findings-v1';
       const nativeAlex = data.schema === 'alex-native-repeat-findings-v1';
-      const closed = phase => qwenContinuation ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error'
+      const closed = phase => qwenContinuation || deepseekLowContinuation ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error'
         : freshCodex || freshHosted ? phase?.status === 'completed'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
-      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation;
+      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation;
       const qwenUnknownFor = (pass, condition) => qwenContinuation
         ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
         : null;
@@ -142,6 +213,8 @@
       const field = fieldControl.value;
       document.getElementById('repeat-interpretation').innerHTML = (qwenContinuation
         ? '<p class="analysis-caveat"><strong>Descriptive continuation after two service errors:</strong> Fresh pass 1 P0 retains DEV-006 and fresh pass 3 P1 retains DEV-031. Each phase has 59 valid outputs and one HTTP 429 service error among 60 comments. The unsent requests ran later without replaying either failed request. This is not a clean matched-three series. Scores keep all 60 comments; flip rates use only comments valid in both passes.</p>'
+        : deepseekLowContinuation
+        ? '<p class="analysis-caveat"><strong>Interrupted descriptive continuation:</strong> Fresh pass 1 P2 stopped at DEV-049 after an earlier stop at DEV-040. DEV-039 was billed but invalid; DEV-040 and DEV-049 were service errors. P2 has no score because 11 of its 60 comments remain unsent. The later passes have not run. This is not a clean matched-three series.</p>'
         : '') + (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
       document.getElementById('repeat-lead').textContent = `${data.displayName || data.configuration}. ${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt/pass combinations'} have complete evidence on the same ${data.denominator} development comments. Incomplete passes are not zero scores.` + Object.entries(data.passes).flatMap(([pass, conditions]) => Object.entries(conditions).filter(([, phase]) => phase.completionStatus === 'partial').map(([condition, phase]) => { const o = phase.score.outcomes; return ` ${condition} ${passName[pass]} stopped with ${o.valid} valid responses, ${o.service_error || 0} service errors and ${o.never_sent || 0} reviews not sent.`; })).join('');
       if (localFresh) document.getElementById('repeat-lead').textContent += ` These are three fresh local passes. Earlier local results are observational and are not counted here. Only terminal phases have scores. Reference labels are provisional and were used only for offline scoring. Client request time includes runtime overhead; loaded engine version, model load time and local cost are unknown.`;
@@ -154,6 +227,11 @@
         const unknown = accounting?.combinedUnknownChargeUpperBoundUsd;
         const bounds = data.secondInterruption.retainedOldUnknownBounds;
         document.getElementById('repeat-lead').textContent += ` Known provider charges through the latest reported phase: ${money(known)}. DEV-006 and DEV-031 each retain a separate unknown-charge upper bound of ${money(bounds[0].upperBoundUsd)}; together they are ${money(unknown)}. These bounds are not invoice charges. Request durations include transport and service overhead, not pure inference time.`;
+      }
+      if (deepseekLowContinuation) {
+        const second = data.secondInterruptionCheckpoint;
+        const accounting = data.budgetAccountingCumulative;
+        document.getElementById('repeat-lead').textContent += ` Fresh pass 1 P2 has ${second.outcomes.ok} valid, ${second.outcomes.invalid_output} invalid and ${second.outcomes.service_error} service-error outcomes; ${second.outcomes.never_sent} comments were not sent. It is unscored. Known charges across the two children total ${money(accounting.combinedKnownAllAttemptCostUsd)}. DEV-040 and DEV-049 each retain a separate unknown-charge upper bound of ${money(accounting.oldUnknownChargeUpperBoundUsd)}; together they are ${money(accounting.combinedUnknownChargeUpperBoundUsd)}. These bounds are not invoice charges. Public evidence contains hashes and an allowlisted projection; private provider bytes cannot be rechecked here.`;
       }
       if (nativeL0) document.getElementById('repeat-lead').textContent += ' AnyJev L0 combines cyclic option shifts with a content-free prior. It has one native P0 procedure, not P1/P2 chat prompts. Agreement uses all 60 comments and provisional references; valid output is counted separately. Only completed passes are scored. Client request time includes overhead; pure inference time and local cost are unavailable.';
       if (nativeL1) document.getElementById('repeat-lead').textContent += ' AnyJev L1 fits calibration separately in five folds. Each review is classified with a fit trained on the other 48 reviews; its own reference labels are excluded. Training uses provisional labels, so this is supervised calibration. Historical cached-score results remain separate. Client and pure inference times were not recorded; local cost is unavailable.';
@@ -172,7 +250,8 @@
           const partial = phase?.completionStatus === 'partial';
           const score = partial || !closed(phase) ? null : phase.score;
           const n = score ? valueOf(score,field) : null;
-          return `<div class="repeat-bar-row"><span>${passName[p]}</span>${n == null ? (partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${passName[p]} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
+          const stopped = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
+          return `<div class="repeat-bar-row"><span>${passName[p]}</span>${n == null ? (stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${passName[p]} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
         }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
       }).join('')}</div><p class="analysis-caveat">Bars start at zero. Agreement is measured against provisional references, separately from valid response format. Repeated comments are not independent cases.</p>`;
       document.getElementById('repeat-delta-title').textContent = nativeP0 ? 'One native decision procedure' : 'Does the prompt advantage persist?';
@@ -192,10 +271,11 @@
         (!freshSeries || (closedSlot(x.from, c) && closedSlot(x.to, c))));
       document.getElementById('repeat-flips').innerHTML = `${ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>${changes.excludedIds.length} comments excluded because not all passes had valid answers.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {const f = field === 'allFour' ? x.fourFieldVector : nativeL1 ? x.fields[field] : x[field]; const changed = Array.isArray(f) ? f.length : f.changed; return `<li>${passName[x.from]} to ${passName[x.to]}: ${changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
       document.getElementById('repeat-usage-body').innerHTML = conditionOrder.flatMap(c => passes.map(p => {
-        const u = (localFresh || nativeP0 || freshCodex || freshHosted || qwenContinuation) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
+        const interrupted = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
+        const u = (localFresh || nativeP0 || freshCodex || freshHosted || qwenContinuation || deepseekLowContinuation) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
         const elapsed = u?.requestSecondsTotal ?? u?.clientHttpCallSecondsTotal ?? u?.clientRequestSecondsTotal ?? u?.clientPredictionSeconds;
         const nativePositions = nativeL1 && u?.tokens?.input_token_positions != null ? `<br><small>Native input positions: ${number(u.tokens.input_token_positions)} (not billed tokens)</small>` : nativeAlex && u?.nativeNliInputTokenPositions != null ? `<br><small>Native NLI input positions: ${number(u.nativeNliInputTokenPositions)}</small>` : '';
-        return `<tr><th scope="row">${c}</th><td>${passName[p]}${data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
+        return `<tr><th scope="row">${c}</th><td>${passName[p]}${interrupted ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
       })).join('');
     }
     configControl.addEventListener('change', render);
