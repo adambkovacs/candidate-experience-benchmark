@@ -1,0 +1,58 @@
+{
+  "kind": "allowlisted-private-attempt-summary-v1",
+  "configurations": [
+    {
+      "configuration": "openrouter-free-qwen3.8-27b-medium-modelrun",
+      "phase": "fresh1/P0/smoke",
+      "status": "stopped",
+      "attempted_ids": [
+        "DEV-001"
+      ],
+      "never_sent_smoke_ids": [
+        "DEV-002",
+        "DEV-003"
+      ],
+      "http_status": 429,
+      "provider_name": "ModelRun",
+      "provider_error_message": "Provider returned error",
+      "observed_cost_usd": null,
+      "completed_development_phases": 0,
+      "private_source_sha256": {
+        "smoke.wire.jsonl": "c12d3370329800a46835aac5a5266a7c8870f70ed16d3161e1e9707946412a71",
+        "smoke.journal.jsonl": "c1d4eee8b9d4d4fb849584acf62079bf5dc5f5bf3afd4093c9c7e94a0089b464",
+        "smoke.attempts.jsonl": "6ed79868b1f5b31e432eb268119825537f31565dab896ae928528e6016850a01",
+        "smoke.claim.json": "32c5039e9d7a54512a88d1bf3bd60659c207d2a7512999e2c9fd45c73fa52a17",
+        "smoke.responses.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "provider_error_code": "429",
+      "limit_source": "upstream_provider_shared_pool"
+    },
+    {
+      "configuration": "openrouter-free-qwen3.8-27b-xhigh-modelrun",
+      "phase": "fresh1/P0/smoke",
+      "status": "stopped",
+      "attempted_ids": [
+        "DEV-001"
+      ],
+      "never_sent_smoke_ids": [
+        "DEV-002",
+        "DEV-003"
+      ],
+      "http_status": 429,
+      "provider_name": "ModelRun",
+      "provider_error_message": "Provider returned error",
+      "observed_cost_usd": null,
+      "completed_development_phases": 0,
+      "private_source_sha256": {
+        "smoke.wire.jsonl": "844b3165ae8651a33976fd7e4174daabb0392f6539e09227dcc87b752a2ef1dc",
+        "smoke.journal.jsonl": "6214f995d96e991f0b9a5e10d0271f49acd9de16fa5a770addcb57e9850c862e",
+        "smoke.attempts.jsonl": "ad49f6b5f3c6489a39f1803b024b3324f27bbe2be6ac3bf923a5ebb3aebfb545",
+        "smoke.claim.json": "a1f02452afb198ff25283ce8da57bfb20e2e6d8c165c954c22198829b4f6c38d",
+        "smoke.responses.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "provider_error_code": "429",
+      "limit_source": "upstream_provider_shared_pool"
+    }
+  ],
+  "interpretation": "Both first smoke requests stopped on HTTP429. Failed attempts preserved; no automatic retry or paid fallback."
+}
