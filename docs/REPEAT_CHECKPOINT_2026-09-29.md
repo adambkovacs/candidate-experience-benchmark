@@ -82,3 +82,7 @@ The separately admitted suffix completed all 54 never-sent positions. Strict rec
 ## Qwen successor phases admitted
 
 The successor controller in `32cee551` passed five offline tests, including persisted-manifest smoke/development/predecessor verification, and root checks against the actual closed suffix. Manifest SHA-256 `efc025c5d185835aff6734030c5613cac402909fe10ec4b34a6ae09d32bf045f` freezes the remaining eight phases, their original request settings, the closed 59/60 first pass and the same $0.15 child. The series is explicitly descriptive after a service interruption, not a clean matched-three comparison. A single execution agent owns the Qwen and DeepSeek-low lanes with separate process handles and budgets; each lane retains its own phase order and smoke inspections. No additional spending authority was granted.
+
+## Alex 4B three-pass closure and native L1 admission
+
+Alex 4B exited successfully and passed all six smoke/development output checks, completion hashes and frozen runtime/model verification. All three development passes have 60 valid outputs, 39/60 all-field agreement and zero changed labels; see the [class-level findings](ALEX4B_NATIVE_REPEAT_FINDINGS_2026-09-29.md). The third-pass record SHA-256 is `735d57d41427f43ff4a0befa0608e3e3cffe16858d8a7881fbc9570bcefdee50`. After the process released the host, AnyJev direct-native L1 plan `19d1b8cc078a11fde4209c0cb286be8f4c171c7b10ee3d28f4385c59ca98c7ca` was reverified in its pinned offline runtime and its fresh-one smoke was admitted. No L1 full pass is complete at this checkpoint.

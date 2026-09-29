@@ -1353,7 +1353,7 @@
       "referenceVersion": "0.2",
       "referenceStatus": "AI reviewed provisional, not independent adjudication",
       "denominator": 60,
-      "completedConditions": 2,
+      "completedConditions": 3,
       "plannedConditions": 3,
       "passOrder": [
         "fresh1",
@@ -1803,15 +1803,229 @@
             }
           }
         },
-        "fresh3": {}
-      },
-      "missingPasses": [
-        {
-          "pass": "fresh3",
-          "condition": "P0",
-          "status": "not_completed"
+        "fresh3": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 39,
+              "fields": {
+                "sentiment": 49,
+                "follow_up_needed": 57,
+                "serious_concern_reported": 47,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 12,
+                "negative": 27,
+                "neutral": 6,
+                "positive": 14
+              },
+              "follow_up_needed": {
+                "no": 23,
+                "yes": 37
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 39,
+                "yes": 19
+              },
+              "testimonial_potential": {
+                "no": 50,
+                "yes": 10
+              }
+            },
+            "confusionCounts": {
+              "sentiment": {
+                "positive": {
+                  "positive": 11,
+                  "negative": 0,
+                  "mixed": 0,
+                  "neutral": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "negative": {
+                  "positive": 0,
+                  "negative": 26,
+                  "mixed": 4,
+                  "neutral": 1,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "mixed": {
+                  "positive": 1,
+                  "negative": 0,
+                  "mixed": 7,
+                  "neutral": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "neutral": {
+                  "positive": 0,
+                  "negative": 1,
+                  "mixed": 1,
+                  "neutral": 5,
+                  "insufficient_information": 1,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "positive": 2,
+                  "negative": 0,
+                  "mixed": 0,
+                  "neutral": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                }
+              },
+              "follow_up_needed": {
+                "yes": {
+                  "yes": 35,
+                  "no": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "no": {
+                  "yes": 2,
+                  "no": 22,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "yes": 0,
+                  "no": 1,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                }
+              },
+              "serious_concern_reported": {
+                "yes": {
+                  "yes": 17,
+                  "no": 8,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "no": {
+                  "yes": 1,
+                  "no": 28,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "yes": 1,
+                  "no": 3,
+                  "insufficient_information": 2,
+                  "__invalid_or_missing__": 0
+                }
+              },
+              "testimonial_potential": {
+                "yes": {
+                  "yes": 8,
+                  "no": 1,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "no": {
+                  "yes": 1,
+                  "no": 49,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                },
+                "insufficient_information": {
+                  "yes": 1,
+                  "no": 0,
+                  "insufficient_information": 0,
+                  "__invalid_or_missing__": 0
+                }
+              }
+            },
+            "usage": {
+              "clientPredictionSeconds": 4465.059089246031,
+              "clientPredictionMeanSeconds": 74.41765148743386,
+              "nativeNliInputTokenPositions": 1251194,
+              "generatedOutputTokens": null,
+              "isolatedInferenceSeconds": null,
+              "actualCostUsd": null,
+              "costKnown": false
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.root-review.json",
+                  "sha256": "dbe1392fb73874d2cfbfe35fe1ccd96e682641852eb4766b7bee3630ea9426ab"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.claim.json",
+                  "sha256": "b1476a6335c85db809a272a8fc24bd0be218ad82a4f635c246a719f362ef42b9"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.journal.jsonl",
+                  "sha256": "e5dbce4c18f5245aaa114bc38e94ac7fe536c49dc85b8c4c2e9aacdf551bf123"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.raw.jsonl",
+                  "sha256": "cf8fcfd72c6eb147f1122f149aac6de54084ae079dea0200228763991c3d6bfb"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.records.jsonl",
+                  "sha256": "819cad7baa1a702266529871ebab1708cadd41456f10196ac096872aa4537696"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.completion.json",
+                  "sha256": "80c0e717e0333f41ef56b933dc52276da7e1421ba4203b6d6bab2e7eb9cbf10e"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke-inspection.json",
+                "sha256": "b38ace12057e99c52259f3ff0dda1745d1c3e57e589c657bcc78aaccced19724"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.root-review.json",
+                  "sha256": "a1ea1e476b82673156ad8e4af63b2a33e24472888323fd2cba3b3a5ab091bf11"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.claim.json",
+                  "sha256": "35ccaea112fd2f72131e4453be101ec4f797de8205ee24cf441fd31f5c643a47"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.journal.jsonl",
+                  "sha256": "af772c62b883153135b75781ae8afa6d1e3c701282233f935579698d293be774"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.raw.jsonl",
+                  "sha256": "173755aec3cd8ca131831b98f6ea676a86fc6230b559614737831df28ca96331"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.records.jsonl",
+                  "sha256": "735d57d41427f43ff4a0befa0608e3e3cffe16858d8a7881fbc9570bcefdee50"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.completion.json",
+                  "sha256": "9ec0249beac30b9b1c30f807c9c6aa40263609db92b8cf9b910026f3fd044447"
+                }
+              }
+            }
+          }
         }
-      ],
+      },
+      "missingPasses": [],
       "partialPasses": [],
       "historicalObservation": {
         "status": "observational_only",
@@ -1979,50 +2193,70 @@
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              39,
               39,
               39
             ],
-            "mean": null,
-            "range": null
+            "mean": 39.0,
+            "range": [
+              39,
+              39
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                49,
                 49,
                 49
               ],
-              "mean": null,
-              "range": null
+              "mean": 49.0,
+              "range": [
+                49,
+                49
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                57,
                 57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                47,
                 47,
                 47
               ],
-              "mean": null,
-              "range": null
+              "mean": 47.0,
+              "range": [
+                47,
+                47
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                57,
                 57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ]
             }
           }
         }
@@ -2059,9 +2293,85 @@
             "rate": 0.0,
             "caseIds": []
           }
+        },
+        {
+          "condition": "P0",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        }
+      },
       "withinPassPromptDeltas": [],
       "referenceClassCounts": {
         "sentiment": {
@@ -2111,6 +2421,28 @@
           }
         },
         "fresh2": {
+          "sentiment": {
+            "insufficient_information": 1,
+            "mixed": 12,
+            "negative": 27,
+            "neutral": 6,
+            "positive": 14
+          },
+          "follow_up_needed": {
+            "no": 23,
+            "yes": 37
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 2,
+            "no": 39,
+            "yes": 19
+          },
+          "testimonial_potential": {
+            "no": 50,
+            "yes": 10
+          }
+        },
+        "fresh3": {
           "sentiment": {
             "insufficient_information": 1,
             "mixed": 12,
@@ -2297,6 +2629,58 @@
         {
           "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh2/P0/smoke-inspection.json",
           "sha256": "c09424aa98328d4f9edbc8e5513a78dedf04d8825bb97506558c0a4e0f9552bf"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.root-review.json",
+          "sha256": "dbe1392fb73874d2cfbfe35fe1ccd96e682641852eb4766b7bee3630ea9426ab"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.claim.json",
+          "sha256": "b1476a6335c85db809a272a8fc24bd0be218ad82a4f635c246a719f362ef42b9"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.journal.jsonl",
+          "sha256": "e5dbce4c18f5245aaa114bc38e94ac7fe536c49dc85b8c4c2e9aacdf551bf123"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.raw.jsonl",
+          "sha256": "cf8fcfd72c6eb147f1122f149aac6de54084ae079dea0200228763991c3d6bfb"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.records.jsonl",
+          "sha256": "819cad7baa1a702266529871ebab1708cadd41456f10196ac096872aa4537696"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke.completion.json",
+          "sha256": "80c0e717e0333f41ef56b933dc52276da7e1421ba4203b6d6bab2e7eb9cbf10e"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.root-review.json",
+          "sha256": "a1ea1e476b82673156ad8e4af63b2a33e24472888323fd2cba3b3a5ab091bf11"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.claim.json",
+          "sha256": "35ccaea112fd2f72131e4453be101ec4f797de8205ee24cf441fd31f5c643a47"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.journal.jsonl",
+          "sha256": "af772c62b883153135b75781ae8afa6d1e3c701282233f935579698d293be774"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.raw.jsonl",
+          "sha256": "173755aec3cd8ca131831b98f6ea676a86fc6230b559614737831df28ca96331"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.records.jsonl",
+          "sha256": "735d57d41427f43ff4a0befa0608e3e3cffe16858d8a7881fbc9570bcefdee50"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/development.completion.json",
+          "sha256": "9ec0249beac30b9b1c30f807c9c6aa40263609db92b8cf9b910026f3fd044447"
+        },
+        {
+          "path": "results/repeatability-v1/alex-openjev4b-native-p0-v1/fresh3/P0/smoke-inspection.json",
+          "sha256": "b38ace12057e99c52259f3ff0dda1745d1c3e57e589c657bcc78aaccced19724"
         }
       ],
       "declaredExternalSourceHashes": {},
