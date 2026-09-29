@@ -2,16 +2,16 @@
 
 ## Current preparation and execution status
 
-Updated after commit `9288d268` on 29 September. The historical 02:25 UTC snapshot below is retained for provenance; its preparation and endpoint statuses are superseded by this section.
+Updated after publication commit `cc7bc217` on 29 September. The historical 02:25 UTC snapshot below is retained for provenance; its preparation and endpoint statuses are superseded by this section.
 
 | Remaining configuration | Verified progress | What prevents the next dispatch |
 | --- | --- | --- |
-| DeepSeek low | The reviewed price-only continuation is running P1 development within its existing $0.25 child. P0 is closed. | Each later stage still needs predecessor verification, smoke inspection where applicable, and a fresh exact-route check. The full nine-run series is unfinished. |
+| DeepSeek low | P0 and P1 are closed and published. P2 development is running after an inspected smoke, within the existing $0.25 child. | Each later stage still needs predecessor verification, smoke inspection where applicable, and a fresh exact-route check. The full nine-run series is unfinished. |
 | Qwen27 medium and xhigh | Six fresh-pass plans and the execution controller are committed. Fourteen combined tests and independent review pass. | Proposed children of $1.00 and $0.80 are unfunded. Stage-specific review and live route checks remain required. |
 | Gemma 26B reasoning-on | Three fresh-pass plans and the corrected controller are committed. Eleven combined tests and independent review pass. Raw response files are ignored. | Proposed $0.40 child is unfunded; no fresh inference has run. |
-| Qwen 35B reasoning-on | Three fresh-pass plans are reviewed and committed in `5d0a1c44`. | The execution controller is being prepared; proposed $1.50 child is unfunded. |
-| DeepSeek high | Three fresh-pass plans are reviewed and committed in `ed98ff27`, including the dated lower-price route evidence. | Needs a reviewed controller, fresh live route checks and funding for the proposed $0.90 child. |
-| Mistral 119B none and high | Historical failed smokes remain preserved. | Matched-series planning, provider capacity evidence and funding remain outstanding. A catalog entry alone does not prove capacity. |
+| Qwen 35B reasoning-on | Three fresh-pass plans and the reviewed executor are committed through `75595754`. | Proposed $1.50 child is unfunded; stage review and fresh route checks remain required. |
+| DeepSeek high | Three fresh-pass plans and the reviewed executor are committed through `24d3e3e5`, with 26 combined tests passing. | Needs fresh live route checks, stage review and funding for the proposed $0.90 child. |
+| Mistral 119B none and high | Historical failed smokes remain preserved; six offline plans are reviewed and committed in `9ba898d7`. | Execution admission, provider capacity evidence and funding remain outstanding. No observed whole-series cost proxy exists. |
 | Gemini 3.1 Pro high | Reviewed wrapper and frozen plans exist. | Proposed $2 child is unfunded. |
 
 No new allocation is made by this checkpoint. The aggregate cap remains $10. The [budget reconciliation](BUDGET_RECONCILIATION_CHECK_2026-09-29.md) leaves $0.04151065850 unallocated, separately from the already funded DeepSeek child. Unknown-charge bounds remain reserved. The requested increase to $17 total has not been approved.

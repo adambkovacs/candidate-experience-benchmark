@@ -356,3 +356,10 @@ The Qwen reasoning-on admission plans are independently reviewed and committed i
 Commit `9288d268` adds the reviewed Qwen27 executor and corrects Gemma response capture. Bounded raw response bytes are durably saved before JSON parsing; malformed responses retain their unknown-charge reservation and cannot be replayed. All 25 combined tests pass. Both independent reviews approve after the Gemma raw-wire ignore rule was verified across all 18 stage paths. These are offline preparations, not new benchmark results or funding approvals.
 
 The [hosted work matrix](HOSTED_PENDING_MATRIX_2026-09-29.md) now puts the latest verified preparation status before the preserved historical snapshot. DeepSeek low P1 and AnyJev L1 second-pass development remain active at this checkpoint. The remaining hosted allocations are unfunded. Shared Ruflo retrieval and exact save-back were verified through a fresh second launcher and both canonical databases for this commit.
+
+
+## DeepSeek P1 publication verified, 2026-09-29
+
+DeepSeek low P1 closed with 60 valid outputs, 57/60 all-field agreement and 59/60 agreement on each field. The original verifier and immutable settlement-prefix check passed; closed evidence is committed in `37c21495`. Publication commit `cc7bc217` passed a public-only report check, six reporter tests and three UI tests. Pages run [36521916906](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36521916906) succeeded, and the live report matches committed bytes. Its seven unclosed combinations remain unscored.
+
+P2 smoke subsequently closed with three inspected valid responses and known billing; P2 development is running within the existing funded child. AnyJev L1 fresh2 remains active, with fresh3 still required before L2 is next. Qwen reasoning-on and DeepSeek high executors are reviewed and committed; the Mistral none/high offline plans are also reviewed and committed. Their new hosted allocations remain unfunded. See the updated [hosted matrix](HOSTED_PENDING_MATRIX_2026-09-29.md).
