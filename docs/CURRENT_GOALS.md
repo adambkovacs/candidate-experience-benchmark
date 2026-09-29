@@ -20,6 +20,8 @@ Use deterministic code for bookkeeping and cheaper agents for suitable bounded w
 
 The latest user instructions control scope and authorization. This document records the standing direction; frozen manifests and saved attempt evidence establish what actually ran. Attached goal snapshots and older plans are historical context when their checkpoints conflict with newer verified evidence. Update this document as milestones change, without rewriting frozen experimental inputs. The standing objective continues under the latest user instructions; a stale attached checkpoint is not a reason to restart completed work or restore superseded routing. Keep the app goal limited to the standing objective and a link to this document. Run counts, implementation progress and budget balances belong in dated checkpoints, so that a fixed attachment cannot become a competing status source.
 
+For the 29 September execution queue, including exact hosted, generic local and specialist IDs, use [the dated remaining-roster audit](REMAINING_ROSTER_2026-09-29.md). Its closed-phase counts and blockers supersede older progress prose below; frozen evidence and the current budget ledger still govern any new dispatch.
+
 ## Work order and separate completion milestones
 
 1. Finish the case study with its existing adapters. Reconcile the full requested roster, finish available authorized runs, and record exact blockers for the rest. The 53 complete comparison groups are a subset of the roster, not permission to omit unfinished configurations.
