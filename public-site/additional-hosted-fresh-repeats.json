@@ -38,13 +38,8 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 1,
+      "completedConditions": 2,
       "missingPasses": [
-        {
-          "pass": "fresh1",
-          "condition": "P1",
-          "status": "not_completed"
-        },
         {
           "pass": "fresh1",
           "condition": "P2",
@@ -339,6 +334,282 @@
                 "selectedEventsSha256": "02438859a31ae898482f7cfb8d05a22f766c2560842c7a5eb32a06199163d760"
               }
             }
+          },
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "ok": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "negative": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 34,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "no": 1,
+                    "insufficient_information": 5
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 8,
+                    "no": 1
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 11,
+                  "negative": 32,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 34,
+                  "insufficient_information": 2
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "yes": 25,
+                  "insufficient_information": 5
+                },
+                "testimonial_potential": {
+                  "yes": 8,
+                  "no": 51,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                34.82891008298611,
+                34.53105133399367,
+                22.626021917007165,
+                25.935498834005557,
+                45.06081883399747,
+                82.98860920901643,
+                22.97487195802387,
+                35.803670124994824,
+                42.55394499999238,
+                56.382358041999396,
+                28.850551665993407,
+                32.01066329199239,
+                102.10719366700505,
+                69.80400445801206,
+                44.8899916659866,
+                26.247800165991066,
+                28.56345529097598,
+                54.72101529201609,
+                30.07967212499352,
+                43.34732449997682,
+                20.15039608400548,
+                57.94197874999372,
+                19.828650958981598,
+                25.366045667004073,
+                39.28070904198103,
+                36.19817475002492,
+                24.89756425001542,
+                46.22864295900217,
+                23.482263707992388,
+                323.1652286250028,
+                27.005694791994756,
+                34.49368849999155,
+                60.25360187498154,
+                56.52036624998436,
+                37.06177312499494,
+                70.34060754202073,
+                38.54305533299339,
+                23.004008042014902,
+                42.799833500001114,
+                32.78463329098304,
+                35.8513439160015,
+                39.64242300001206,
+                135.98370266598067,
+                51.127286957984325,
+                27.51532845798647,
+                44.33479104100843,
+                35.360313874989515,
+                75.15267441698234,
+                45.82834029200603,
+                71.10215041699121,
+                38.10930995797389,
+                33.19278358400334,
+                34.37144816701766,
+                43.64229254197562,
+                33.99183683301089,
+                67.22141008399194,
+                46.36006783301127,
+                50.70459924999159,
+                47.75461933299084,
+                85.87528704100987
+              ],
+              "requestSecondsTotal": 2946.7763541678432,
+              "timingKind": "client_http_duration_not_provider_inference",
+              "tokens": {
+                "prompt_tokens": 96337,
+                "completion_tokens": 21134,
+                "total_tokens": 117471
+              },
+              "knownCostUsd": "0.01165805",
+              "actualCostUsd": "0.01165805",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts are observed provider usage charges; missing usage fields remain null."
+            },
+            "servedRoute": {
+              "requestedModel": "deepseek/deepseek-v4.1-flash",
+              "providerTag": "open-inference/fp4",
+              "returnedModels": {
+                "deepseek/deepseek-v4.1-flash": 60
+              },
+              "returnedProviders": {
+                "OpenInference": 60
+              },
+              "providerEndpoint": {
+                "model": "deepseek/deepseek-v4.1-flash",
+                "provider": "open-inference/fp4",
+                "provider_name": "OpenInference",
+                "quantization": "fp4",
+                "reasoning_effort": "low",
+                "temperature": 0,
+                "max_tokens": 4096,
+                "seed_policy": "No explicit seed",
+                "context_length": 1048576,
+                "timeout_seconds": 300.0,
+                "continue_on_invalid_output": true,
+                "fallbacks": false
+              },
+              "historicalPromptPriceUsdPerToken": "0.0000001",
+              "observedPromptPriceUsdPerToken": "0.00000003"
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.claim.json",
+                "sha256": "bca1347ed4976da23241a821d254cf65887e8704f0871585dcbe4a0b5783d746"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.journal.jsonl",
+                "sha256": "5c36bdb25090b60533d72a415915f5a81dec0f48f62cfe63c20155b7eb7faa28"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.raw.jsonl",
+                "sha256": "a3e8532bb8d736ebac999bb7e3bb8a1b2a2bb1f8df93a37f3bc4a74fe2f19b33"
+              },
+              "records": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.records.jsonl",
+                "sha256": "4ef72edf721212048136e67c0fc0e1b61f08a61403cb13f6312bcea616772ab0"
+              },
+              "review": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.root-review.json",
+                "sha256": "a2512188346af060560bd9275b60fc946d5433bc00b2427c1d949cb01b107103"
+              },
+              "amendmentReview": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.price-amendment.root-review.json",
+                "sha256": "26bbd2842c6aaffd9bcb44d9aa27159b25becffe82c2d04ce0e20bbe1e356d6d"
+              },
+              "successorController": {
+                "path": "scripts/deepseek_low_price_successor_v1.py",
+                "sha256": "4ceca10419521b6ce312b61a45027f131b6b944efc3c1fe55e45f01cf9117e6f"
+              },
+              "successorTests": {
+                "path": "tests/test_deepseek_low_price_successor_v1.py",
+                "sha256": "18363d58e6d3ffb47e8c45a5824f184033a9fa80d5c2e71196da58f04e9dad71"
+              },
+              "routeAudit": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/lower-price-endpoint-audit-v1.json",
+                "sha256": "d73fc5b310b551331f44eaf135f86c072218b14e9657cf919293a2392e1c7f03"
+              },
+              "historicalPromptPriceUsdPerToken": "0.0000001",
+              "observedPromptPriceUsdPerToken": "0.00000003",
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.claim.json",
+                  "sha256": "5312899fe9e768c83a09d375658ae9b2f9adf81773c5df43f833b15dce46a1df"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.journal.jsonl",
+                  "sha256": "3b68a6a22da58d4e7109d9437515808b7741f9309c08fa0f9ebae0801b7e1ce4"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.raw.jsonl",
+                  "sha256": "15c07c30576cde2fdfc97f7a9431644339c9674f25fef8f627ed5ba952f38c6d"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.records.jsonl",
+                  "sha256": "4b32b88672fe313045993f5278f73ceb4aef36fc85bd36f54f4daa50a53a5777"
+                },
+                "review": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.root-review.json",
+                  "sha256": "45ed6a13c3d03d39b8584cb382496b4e8a7da2ce204e72f098cb5e2174d227a8"
+                }
+              },
+              "budgetPrefix": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-budget-prefix.jsonl",
+                "sha256": "896b2dcdecd407b245bfac6ba938301266f65d7c2bd294a0c5cef4779b6fff5a"
+              },
+              "budgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-budget-prefix.jsonl",
+                "settledAttempts": 60,
+                "selectedEventsSha256": "426a5665f85be4591601851f39aeb65bdfc7bc8cb65660a427c182be530f9933"
+              },
+              "smokeBudgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-budget-prefix.jsonl",
+                "settledAttempts": 3,
+                "selectedEventsSha256": "0052cf0c34b1be60a5b056faf27deb14aafb62508a18bc4be1af11c90f2f794f"
+              }
+            }
           }
         },
         "fresh2": {},
@@ -417,33 +688,43 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              57
+            ],
             "mean": null,
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                59
+              ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                59
+              ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                59
+              ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                59
+              ],
               "mean": null,
               "range": null
             }
@@ -486,12 +767,67 @@
       },
       "pairwiseFlips": [],
       "changesAcrossThreePasses": {},
-      "withinPassPromptDeltas": [],
-      "withinPassPromptFlips": [],
+      "withinPassPromptDeltas": [
+        {
+          "pass": "fresh1",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": -1,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 0
+          }
+        }
+      ],
+      "withinPassPromptFlips": [
+        {
+          "pass": "fresh1",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 59,
+          "excludedIds": [
+            "DEV-030"
+          ],
+          "sentiment": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-014"
+            ],
+            "rate": 0.01694915254237288
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-014"
+            ],
+            "rate": 0.01694915254237288
+          }
+        }
+      ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 0,
-          "allFourValues": [],
+          "completedPairs": 1,
+          "allFourValues": [
+            -1
+          ],
           "allFourRange": null,
           "fieldRanges": {
             "sentiment": null,
@@ -682,6 +1018,66 @@
     {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.records.jsonl",
       "sha256": "9fe7eb8063ed991392b607ace8b4d75f7ee041285246341d0906bc8f2542edd3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-budget-prefix.jsonl",
+      "sha256": "896b2dcdecd407b245bfac6ba938301266f65d7c2bd294a0c5cef4779b6fff5a"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.root-review.json",
+      "sha256": "45ed6a13c3d03d39b8584cb382496b4e8a7da2ce204e72f098cb5e2174d227a8"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.claim.json",
+      "sha256": "5312899fe9e768c83a09d375658ae9b2f9adf81773c5df43f833b15dce46a1df"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.journal.jsonl",
+      "sha256": "3b68a6a22da58d4e7109d9437515808b7741f9309c08fa0f9ebae0801b7e1ce4"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.raw.jsonl",
+      "sha256": "15c07c30576cde2fdfc97f7a9431644339c9674f25fef8f627ed5ba952f38c6d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.records.jsonl",
+      "sha256": "4b32b88672fe313045993f5278f73ceb4aef36fc85bd36f54f4daa50a53a5777"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.root-review.json",
+      "sha256": "a2512188346af060560bd9275b60fc946d5433bc00b2427c1d949cb01b107103"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.claim.json",
+      "sha256": "bca1347ed4976da23241a821d254cf65887e8704f0871585dcbe4a0b5783d746"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.journal.jsonl",
+      "sha256": "5c36bdb25090b60533d72a415915f5a81dec0f48f62cfe63c20155b7eb7faa28"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.raw.jsonl",
+      "sha256": "a3e8532bb8d736ebac999bb7e3bb8a1b2a2bb1f8df93a37f3bc4a74fe2f19b33"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.records.jsonl",
+      "sha256": "4ef72edf721212048136e67c0fc0e1b61f08a61403cb13f6312bcea616772ab0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.price-amendment.root-review.json",
+      "sha256": "26bbd2842c6aaffd9bcb44d9aa27159b25becffe82c2d04ce0e20bbe1e356d6d"
+    },
+    {
+      "path": "scripts/deepseek_low_price_successor_v1.py",
+      "sha256": "4ceca10419521b6ce312b61a45027f131b6b944efc3c1fe55e45f01cf9117e6f"
+    },
+    {
+      "path": "tests/test_deepseek_low_price_successor_v1.py",
+      "sha256": "18363d58e6d3ffb47e8c45a5824f184033a9fa80d5c2e71196da58f04e9dad71"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/lower-price-endpoint-audit-v1.json",
+      "sha256": "d73fc5b310b551331f44eaf135f86c072218b14e9657cf919293a2392e1c7f03"
     }
   ]
 }
