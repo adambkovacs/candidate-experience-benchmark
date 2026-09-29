@@ -1,5 +1,21 @@
 # Repeat execution inventory, 28 September 2026
 
+## Later checkpoint, 29 September 2026
+
+This checkpoint updates the rows below from closed, source-checked public reports. The 28 September tables remain a dated record. These families have different pass designs, so their counts should not be combined into a global completion percentage.
+
+| Family | Verified report status | Source |
+| --- | --- | --- |
+| Alex OpenJev 0.8B and 4B native P0 | Each size has 3/3 closed fresh passes. | [Alex native report](../public-site/alex-native-repeats.json) |
+| AnyJev direct-native L1 calibration | 2/3 closed P0 passes, each 60 valid. Fresh3 is unscored in this checkpoint. The first two passes have zero pairwise prediction flips; that does not prove determinism. | [AnyJev L1 report](../public-site/anyjev-l1-repeats.json) |
+| DeepSeek V4.1 Flash low, hosted fresh series | 2/9 closed combinations: fresh1 P0 and P1. Seven combinations remain unscored. | [Additional hosted fresh report](../public-site/additional-hosted-fresh-repeats.json) |
+| Qwen3.6 35B A3B reasoning off, hosted continuation | All 9/9 scheduled positions are accounted for. Fresh1/P0 and fresh3/P1 each retain one service error and its unknown-charge bound. `cleanMatchedThreeEligible` is false because of the interrupted continuation history. | [Second-interruption report](../public-site/qwen36-off-second-interruption-findings.json) |
+| DeepSeek V4.1 Flash reasoning off, hosted fresh series | 9/9 combinations closed. | [DeepSeek fresh report](../public-site/deepseek-fresh-repeats.json) |
+
+The [29 September budget reconciliation](BUDGET_RECONCILIATION_CHECK_2026-09-29.md) records the unchanged $10 OpenRouter cap, $0.04151065850 unallocated at its audit time, and a separate $0.25 allocation for the DeepSeek-low child. Allocations are reserved capacity, not observed charges. That audit does not establish current headroom; refresh the ledger before any new allocation. The [hosted pending matrix](HOSTED_PENDING_MATRIX_2026-09-29.md) retains the exact unfunded and unfinished configurations, including the proposed cap increase that remains unapproved.
+
+The five linked report builders each passed their `--check` command against the files above at this checkpoint. Those checks verify closed evidence and report bytes; they do not establish the status of an active process.
+
 Snapshot reconciled 2026-09-28T15:56:27.185249+00:00 from closed saved reports and the current checkpoint.
 
 This reconciles every one of the 53 groups in the frozen pre-execution coverage matrix and the two subsequently declared subscription series. It does not replace the broader 163-configuration baseline/prompt roster or the separate native-specialist P0 audit. A missing report means repeat execution is not established by these report sources; it is not an accepted exclusion. The [full-scope reconciliation](REPEAT_SCOPE_GAPS_2026-09-28.md) identifies 32 scheduled roster IDs outside the table below, including 20 that still need explicit repeat eligibility and route decisions. The 49/55 figure is not an overall completion percentage.
