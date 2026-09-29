@@ -56,3 +56,9 @@ The second pass recorded 4,422.31 seconds of client prediction time and 1,251,19
 ## DeepSeek five-condition checkpoint
 
 Five of nine fresh DeepSeek conditions are closed. Pass one scored 48/60, 47/60 and 43/60 all-four agreement for P0, P1 and P2. Pass two has P0 at 49/60 and P2 at 45/60; P1 is still running at this checkpoint. P2 changed two reviews between passes: sentiment on DEV-009 and testimonial potential on DEV-020. The two-review score increase between identical prompts is another reason to wait for all three passes before interpreting small prompt differences. These are the same 60 reviews, with unchanged provisional references.
+
+## DeepSeek eight-condition checkpoint
+
+Eight of nine fresh DeepSeek Flash off conditions are closed, each with 60 valid outputs. P1 now has all three passes: 47/60, 47/60 and 45/60 all-four agreement, with three reviews changing at least one label across passes. P2 scores 43/60, 45/60 and 46/60, with four reviews changing. The three-review P2 range occurred with unchanged prompts and controls; it is observed repeat variation, not an improvement caused by a prompt change. The final P0 pass remains outstanding. The [source-bound report](../public-site/deepseek-fresh-repeats.json) preserves per-field counts and changed review IDs.
+
+The independently reviewed [smaller hosted allocations](SMALLER_HOSTED_CHILD_ADMISSION.md) are committed in `def54761`; their focused admission tests pass. Separate Qwen off and DeepSeek low v2 plans and manifests are frozen without inference or allocation. Their proposed $0.15 and $0.25 children may start only after terminal reconciliation releases enough actual capacity under the existing $10 cap. The original v1 plans remain preserved and unexecuted.

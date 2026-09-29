@@ -38,23 +38,8 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 5,
+      "completedConditions": 8,
       "missingPasses": [
-        {
-          "pass": "fresh2",
-          "condition": "P1",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh3",
-          "condition": "P1",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh3",
-          "condition": "P2",
-          "status": "not_completed"
-        },
         {
           "pass": "fresh3",
           "condition": "P0",
@@ -1359,9 +1344,787 @@
                 "selectedEventsSha256": "37fac3eb40613f9388277d98dbd33e0634602babcdaf8ce9688662eb294621fd"
               }
             }
+          },
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 47,
+              "fields": {
+                "sentiment": 49,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 56
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 23,
+                    "insufficient_information": 4,
+                    "mixed": 4
+                  },
+                  "neutral": {
+                    "neutral": 6,
+                    "positive": 1,
+                    "mixed": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1,
+                    "mixed": 1
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "no": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 27,
+                    "insufficient_information": 2
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 6
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "yes": 3,
+                    "no": 47
+                  },
+                  "insufficient_information": {
+                    "no": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 23,
+                  "neutral": 6,
+                  "insufficient_information": 5,
+                  "mixed": 14
+                },
+                "follow_up_needed": {
+                  "no": 25,
+                  "yes": 35
+                },
+                "serious_concern_reported": {
+                  "no": 27,
+                  "insufficient_information": 8,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 12,
+                  "no": 48
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                5.354592292016605,
+                5.111604667006759,
+                5.274808083981043,
+                4.754541583999526,
+                6.839240166998934,
+                5.535424792004051,
+                6.064043165999465,
+                5.390529083000729,
+                6.672206124989316,
+                5.109027291997336,
+                6.776957541995216,
+                6.520760332990903,
+                6.2709348750067875,
+                4.834717374993488,
+                4.82911316701211,
+                5.552131250005914,
+                5.431932459003292,
+                6.137157040997408,
+                5.38925254199421,
+                5.0780585420143325,
+                6.432236000022385,
+                6.778348624997307,
+                5.028119875001721,
+                5.51995662500849,
+                6.683677583001554,
+                6.620139250007924,
+                6.281864834018052,
+                6.144793000014033,
+                7.6556171660195105,
+                7.545234042016091,
+                6.356462333002128,
+                7.170897333999164,
+                5.85917799998424,
+                7.615800041996408,
+                7.553539042011835,
+                7.370337375003146,
+                8.58292612497462,
+                9.61456741701113,
+                20.065361499990104,
+                5.341154499998083,
+                7.0737715830036905,
+                6.261687084013829,
+                7.151591750007356,
+                7.5316069580148906,
+                6.485951959009981,
+                6.095348041999387,
+                6.5850424169912,
+                7.752984791004565,
+                6.377695792005397,
+                8.659676750015933,
+                5.3450950839906,
+                6.9089491670019925,
+                6.568036000011489,
+                6.866815959016094,
+                6.481635500007542,
+                9.171431833005045,
+                6.813243541982956,
+                7.470316124992678,
+                7.272153083991725,
+                8.271344916982343
+              ],
+              "requestSecondsTotal": 404.29162138313404,
+              "timingKind": "client_http_duration_not_provider_inference",
+              "tokens": {
+                "prompt_tokens": 94837,
+                "completion_tokens": 2461,
+                "total_tokens": 97298
+              },
+              "knownCostUsd": "0.00277323",
+              "actualCostUsd": "0.00277323",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts are observed provider usage charges; missing usage fields remain null."
+            },
+            "servedRoute": {
+              "requestedModel": "deepseek/deepseek-v4.1-flash",
+              "providerTag": "open-inference/fp4",
+              "returnedModels": {
+                "deepseek/deepseek-v4.1-flash": 60
+              },
+              "returnedProviders": {
+                "OpenInference": 60
+              },
+              "providerEndpoint": {
+                "model": "deepseek/deepseek-v4.1-flash",
+                "provider": "open-inference/fp4",
+                "provider_name": "OpenInference",
+                "quantization": "fp4",
+                "reasoning_effort": "off",
+                "temperature": 0,
+                "max_tokens": 4096,
+                "seed_policy": "No explicit seed",
+                "context_length": 1048576,
+                "timeout_seconds": 300.0,
+                "continue_on_invalid_output": false,
+                "fallbacks": false
+              }
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.claim.json",
+                "sha256": "ee9021670f8ad539dc3dadd6a24d1c80d1729516828cae64ef7103d843aa033a"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.journal.jsonl",
+                "sha256": "38270b2abe72b20ced3404074180e1166a9f66c3d5c4aee3a57f0d8f5a595170"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.raw.jsonl",
+                "sha256": "2d7bcb6e3f12b64f3154881fe1e68223868d48473a9026133b06bc72cb8f31e4"
+              },
+              "records": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.records.jsonl",
+                "sha256": "6fbeb3e405fc92a26d7e7d429eaa926453a5f3fdc42b74f8baaecc0f2460765d"
+              },
+              "review": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.root-review.json",
+                "sha256": "93442ae102dd77eac341b9a2eb833f81d657746430ab175b6a7d80d48c5edd6c"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.claim.json",
+                  "sha256": "80fd500599eff406479696eb92422d5e31cd35840f13c66b76817981524fb72f"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.journal.jsonl",
+                  "sha256": "3a3d2f228bc5417c0666f12bebc948e7ca96f16f9724ef440c1c776c50b78817"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.raw.jsonl",
+                  "sha256": "864511c8961957ed903d5372929bfd7b4c274662dbfa11b85926bd85dae3137a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.records.jsonl",
+                  "sha256": "a3f9b29255448e09669048e139633a733bd41b5091443b3a0902648ff81aeda4"
+                },
+                "review": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.root-review.json",
+                  "sha256": "6cf7b88c2197e83a82fd4b05288fef8ad7fe1f1539a8cb2e8c9f957e4933dc36"
+                }
+              },
+              "budgetPrefix": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-budget-prefix.jsonl",
+                "sha256": "ea4e1b465c3742b979469baa36f015eef384dcf3dd563e6f6c503bd73c9cff3e"
+              },
+              "budgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-budget-prefix.jsonl",
+                "settledAttempts": 60,
+                "selectedEventsSha256": "546bc41f8b69735a6b1bbfd6e8f8cbd0b8e13c100fd764b656ded3eb9d2e112d"
+              },
+              "smokeBudgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-budget-prefix.jsonl",
+                "settledAttempts": 3,
+                "selectedEventsSha256": "e5da858783979bba3f23fa2129d05fb8213b681c06c27627cf5a159a4b8fe005"
+              }
+            }
           }
         },
-        "fresh3": {}
+        "fresh3": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 45,
+              "fields": {
+                "sentiment": 49,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 57,
+                "testimonial_potential": 56
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 22,
+                    "insufficient_information": 4,
+                    "mixed": 5
+                  },
+                  "neutral": {
+                    "neutral": 6,
+                    "positive": 1,
+                    "mixed": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 27,
+                    "insufficient_information": 2
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 5,
+                    "no": 1
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "yes": 4,
+                    "no": 46
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 22,
+                  "neutral": 6,
+                  "insufficient_information": 6,
+                  "mixed": 14
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 28,
+                  "insufficient_information": 7,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 13,
+                  "no": 46,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                8.149400958005572,
+                6.101076958002523,
+                8.057993249996798,
+                6.227287291985704,
+                9.669660333020147,
+                8.30857329099672,
+                6.327381207986036,
+                7.3858284590241965,
+                7.648174415982794,
+                5.928115874994546,
+                8.015880332997767,
+                6.7935524999920744,
+                6.41087824999704,
+                7.003263082995545,
+                8.096855000010692,
+                8.418713167018723,
+                7.797336250019725,
+                8.8531414999743,
+                7.231984167010523,
+                7.846839874982834,
+                6.466802500013728,
+                10.442324250005186,
+                7.154052625002805,
+                6.333823249995476,
+                8.396985625004163,
+                9.469292416993994,
+                13.027910583012272,
+                14.315998832986224,
+                17.583637499978067,
+                12.738023334008176,
+                13.980001375020947,
+                13.840842375007924,
+                11.625704083009623,
+                9.185891083994647,
+                5.607254250004189,
+                7.871574999997392,
+                7.09334041600232,
+                5.123034792020917,
+                7.0265744579955935,
+                4.261267791996943,
+                7.404872791987145,
+                4.063186374987708,
+                7.328749207983492,
+                6.281401250016643,
+                8.537140708009247,
+                7.859118499996839,
+                7.649854291026713,
+                7.451293374993838,
+                5.625097624986665,
+                8.015134082990699,
+                8.867975750006735,
+                6.1800844999961555,
+                7.591708000021754,
+                8.726865125005133,
+                8.155500207998557,
+                5.897937332978472,
+                7.492691624996951,
+                5.833304790983675,
+                5.5227030829992145,
+                8.064326333987992
+              ],
+              "requestSecondsTotal": 484.3652176629985,
+              "timingKind": "client_http_duration_not_provider_inference",
+              "tokens": {
+                "prompt_tokens": 94837,
+                "completion_tokens": 2545,
+                "total_tokens": 97382
+              },
+              "knownCostUsd": "0.00271965",
+              "actualCostUsd": "0.00271965",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts are observed provider usage charges; missing usage fields remain null."
+            },
+            "servedRoute": {
+              "requestedModel": "deepseek/deepseek-v4.1-flash",
+              "providerTag": "open-inference/fp4",
+              "returnedModels": {
+                "deepseek/deepseek-v4.1-flash": 60
+              },
+              "returnedProviders": {
+                "OpenInference": 60
+              },
+              "providerEndpoint": {
+                "model": "deepseek/deepseek-v4.1-flash",
+                "provider": "open-inference/fp4",
+                "provider_name": "OpenInference",
+                "quantization": "fp4",
+                "reasoning_effort": "off",
+                "temperature": 0,
+                "max_tokens": 4096,
+                "seed_policy": "No explicit seed",
+                "context_length": 1048576,
+                "timeout_seconds": 300.0,
+                "continue_on_invalid_output": false,
+                "fallbacks": false
+              }
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.claim.json",
+                "sha256": "cc70a92ef048e868dded10a660d85cefa6e08e2477c69673d286013b86d597e5"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.journal.jsonl",
+                "sha256": "d8ed25e839a9843092f9bd7686a9184ad516c807661ce8fd1e24085e235454cd"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.raw.jsonl",
+                "sha256": "a29502135775106a052155fe2da80fc3f114acd568276f4fb02760380aaf489f"
+              },
+              "records": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.records.jsonl",
+                "sha256": "dab37367692d23f2f187365b81bbb99915f455171178da88244c6e48c14e69ba"
+              },
+              "review": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.root-review.json",
+                "sha256": "bf7237da1c4165adee2b16cc9d5ac3e4ec5251ab6938011d6935c528c603150b"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.claim.json",
+                  "sha256": "85d698a42b8c90bd489e7e768cf0d7bba86d394969bddb5407201cbb179fa0a3"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.journal.jsonl",
+                  "sha256": "9a979a2487dd1587e0e96dfe02c655eb7de156f59e18c7f3bf3b648ec54e2da5"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.raw.jsonl",
+                  "sha256": "e0d9f29cb2aa6c2a2c181fba00140d6e1a2150598b4c6330ff81845a8feb10a2"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.records.jsonl",
+                  "sha256": "f0a97a79a9689545e3798447473edb1a0e408f9d97d2255f8824c067e4aee85e"
+                },
+                "review": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.root-review.json",
+                  "sha256": "7100bcdc9cb048aade7f6dc8232836956cea58f711bea75a8b2006bc1c66c08f"
+                }
+              },
+              "budgetPrefix": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-budget-prefix.jsonl",
+                "sha256": "14cf2a9204d3d0427500bff055c6fc94b8ab4a2bfea4774606bf0bdd435c8584"
+              },
+              "budgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-budget-prefix.jsonl",
+                "settledAttempts": 60,
+                "selectedEventsSha256": "0dae0fa680c0c73c0afc1864b2909eee2f4da9237c740fd6152a975c50f56e0e"
+              },
+              "smokeBudgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-budget-prefix.jsonl",
+                "settledAttempts": 3,
+                "selectedEventsSha256": "72f5b0a729d97d93c9188fecea29cbba93de3a475e96651e31846ece3fd3df62"
+              }
+            }
+          },
+          "P2": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 46,
+              "fields": {
+                "sentiment": 49,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 55,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 22,
+                    "insufficient_information": 6,
+                    "mixed": 3
+                  },
+                  "neutral": {
+                    "neutral": 6,
+                    "positive": 1,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 28,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "no": 2,
+                    "insufficient_information": 4
+                  },
+                  "yes": {
+                    "yes": 23,
+                    "insufficient_information": 2
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "yes": 2,
+                    "no": 47,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 22,
+                  "neutral": 6,
+                  "insufficient_information": 9,
+                  "mixed": 11
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "yes": 23,
+                  "insufficient_information": 7
+                },
+                "testimonial_potential": {
+                  "yes": 11,
+                  "no": 47,
+                  "insufficient_information": 2
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                9.130186291004065,
+                6.4185306660074275,
+                4.690838124981383,
+                5.064548333000857,
+                6.278703166986816,
+                7.39147070798208,
+                6.378279958007624,
+                6.320658499986166,
+                4.511073959001806,
+                5.9699827499862295,
+                7.525170000008075,
+                5.255242875020485,
+                6.479475375002949,
+                9.72724170901347,
+                6.518770541995764,
+                6.47141699999338,
+                6.022612291999394,
+                6.606255624996265,
+                7.785774374991888,
+                6.052161083993269,
+                7.356174166983692,
+                8.690004915988538,
+                6.045589707995532,
+                9.175683874986134,
+                9.055960707977647,
+                8.12595037498977,
+                8.995839542010799,
+                6.827562916994793,
+                9.220318874984514,
+                8.598295709001832,
+                9.993612459016731,
+                10.107012541993754,
+                8.688036374980584,
+                7.996066416992107,
+                10.219739167019725,
+                8.12392600000021,
+                8.107659333007177,
+                7.885296416003257,
+                7.5018154160061385,
+                6.150996999989729,
+                8.898804291995475,
+                7.272456374979811,
+                8.81578937501763,
+                7.9619990839855745,
+                8.255024249985581,
+                8.171736999996938,
+                15.02449245902244,
+                14.20615304200328,
+                13.386272250005277,
+                9.739298625005176,
+                11.809302209003363,
+                10.043546083004912,
+                8.959070541983237,
+                8.227202874986688,
+                7.145532334019663,
+                7.4076071250019595,
+                10.276855625008466,
+                8.530302958009997,
+                9.044435791991418,
+                7.833100707997801
+              ],
+              "requestSecondsTotal": 488.47291825388675,
+              "timingKind": "client_http_duration_not_provider_inference",
+              "tokens": {
+                "prompt_tokens": 149617,
+                "completion_tokens": 2564,
+                "total_tokens": 152181
+              },
+              "knownCostUsd": "0.00378149",
+              "actualCostUsd": "0.00378149",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts are observed provider usage charges; missing usage fields remain null."
+            },
+            "servedRoute": {
+              "requestedModel": "deepseek/deepseek-v4.1-flash",
+              "providerTag": "open-inference/fp4",
+              "returnedModels": {
+                "deepseek/deepseek-v4.1-flash": 60
+              },
+              "returnedProviders": {
+                "OpenInference": 60
+              },
+              "providerEndpoint": {
+                "model": "deepseek/deepseek-v4.1-flash",
+                "provider": "open-inference/fp4",
+                "provider_name": "OpenInference",
+                "quantization": "fp4",
+                "reasoning_effort": "off",
+                "temperature": 0,
+                "max_tokens": 4096,
+                "seed_policy": "No explicit seed",
+                "context_length": 1048576,
+                "timeout_seconds": 300.0,
+                "continue_on_invalid_output": false,
+                "fallbacks": false
+              }
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.claim.json",
+                "sha256": "343bde52c7d94acb0b96f4ca2ab6516d18b308e8b222dedf5564c84c90f4e78c"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.journal.jsonl",
+                "sha256": "8de25905c57bbfbc789fb3412d4e88471ce87b42aa450baee23b4ac067c175a9"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.raw.jsonl",
+                "sha256": "7ffdba0703bf1b7183a750feb33439b8ccf75e11429b29fdb316e3d2043e9590"
+              },
+              "records": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.records.jsonl",
+                "sha256": "a2abeb85e8a3f58284c014ca7245e36fadb307b82dc08d85be119cd63591c715"
+              },
+              "review": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.root-review.json",
+                "sha256": "a8af5cdd12447c4049b8e6c2088ee7f6200817a5f01667bb7333a3a493853a4b"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.claim.json",
+                  "sha256": "0542934a4ba393a8b7aa629370f97e4b66e997a3938e72da837534b937507ece"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.journal.jsonl",
+                  "sha256": "91db2882529b647dc3f599a5a0a13ebc037326cef7455555d4bb9edc611cf8a1"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.raw.jsonl",
+                  "sha256": "ae9963b6efeaeb3950f5eaf5365761e6063d9bfa4d2caf29be2c4f6f3a93492a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.records.jsonl",
+                  "sha256": "d5a34bcbaac0c20533dc81fe77653fefedcdf03c15013370f0975e68f8274ba8"
+                },
+                "review": {
+                  "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.root-review.json",
+                  "sha256": "40069d2e46c7e815bc3cd1dd7b64ace2294ce0d313b5f99f6c31e5e7341be4fa"
+                }
+              },
+              "budgetPrefix": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-budget-prefix.jsonl",
+                "sha256": "21fb981fa8dabe29c2cdd61c1103bdebce1fab4a04bbf3899f4cfef6403053a2"
+              },
+              "budgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-budget-prefix.jsonl",
+                "settledAttempts": 60,
+                "selectedEventsSha256": "5a327ea42627a9b64174e23215c125536733c080ca38246a6bcbb68a44781c05"
+              },
+              "smokeBudgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-budget-prefix.jsonl",
+                "settledAttempts": 3,
+                "selectedEventsSha256": "15e39099060197efb13b644707d219b7e08cf4ad8a0228635957d97363e138ef"
+              }
+            }
+          }
+        }
       },
       "referenceVersion": "0.2",
       "referenceStatus": "AI-reviewed provisional; not independent adjudication",
@@ -1441,94 +2204,139 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 3,
             "values": [
-              47
+              47,
+              47,
+              45
             ],
-            "mean": null,
-            "range": null
+            "mean": 46.333333333333336,
+            "range": [
+              45,
+              47
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                50
+                50,
+                49,
+                49
               ],
-              "mean": null,
-              "range": null
+              "mean": 49.333333333333336,
+              "range": [
+                49,
+                50
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                60,
+                59,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 59.666666666666664,
+              "range": [
+                59,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
+                57,
+                58,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 57.333333333333336,
+              "range": [
+                57,
+                58
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 3,
               "values": [
-                57
+                57,
+                56,
+                56
               ],
-              "mean": null,
-              "range": null
+              "mean": 56.333333333333336,
+              "range": [
+                56,
+                57
+              ]
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               43,
-              45
+              45,
+              46
             ],
-            "mean": null,
-            "range": null
+            "mean": 44.666666666666664,
+            "range": [
+              43,
+              46
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 47,
-                48
+                48,
+                49
               ],
-              "mean": null,
-              "range": null
+              "mean": 48.0,
+              "range": [
+                47,
+                49
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 54,
-                54
+                54,
+                55
               ],
-              "mean": null,
-              "range": null
+              "mean": 54.333333333333336,
+              "range": [
+                54,
+                55
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 56,
+                57,
                 57
               ],
-              "mean": null,
-              "range": null
+              "mean": 56.666666666666664,
+              "range": [
+                56,
+                57
+              ]
             }
           }
         }
@@ -1574,6 +2382,133 @@
           }
         },
         {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-029"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-029"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-029"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-029"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-029"
+            ],
+            "rate": 0.016666666666666666
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-033"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-020"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-020",
+              "DEV-033"
+            ],
+            "rate": 0.03333333333333333
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-029",
+              "DEV-033"
+            ],
+            "rate": 0.03333333333333333
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-029"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-029"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-020",
+              "DEV-029"
+            ],
+            "rate": 0.03333333333333333
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "caseIds": [
+              "DEV-020",
+              "DEV-029",
+              "DEV-033"
+            ],
+            "rate": 0.05
+          }
+        },
+        {
           "condition": "P2",
           "from": "fresh1",
           "to": "fresh2",
@@ -1611,9 +2546,144 @@
             ],
             "rate": 0.03333333333333333
           }
+        },
+        {
+          "condition": "P2",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 3,
+            "caseIds": [
+              "DEV-009",
+              "DEV-018",
+              "DEV-054"
+            ],
+            "rate": 0.05
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-018"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-020"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "fourFieldVector": {
+            "changed": 4,
+            "caseIds": [
+              "DEV-009",
+              "DEV-018",
+              "DEV-020",
+              "DEV-054"
+            ],
+            "rate": 0.06666666666666667
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-018",
+              "DEV-054"
+            ],
+            "rate": 0.03333333333333333
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-018"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-018",
+              "DEV-054"
+            ],
+            "rate": 0.03333333333333333
+          }
         }
       ],
-      "changesAcrossThreePasses": {},
+      "changesAcrossThreePasses": {
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-029",
+              "DEV-033"
+            ],
+            "follow_up_needed": [
+              "DEV-029"
+            ],
+            "serious_concern_reported": [
+              "DEV-029"
+            ],
+            "testimonial_potential": [
+              "DEV-020",
+              "DEV-029"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-020",
+            "DEV-029",
+            "DEV-033"
+          ]
+        },
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-009",
+              "DEV-018",
+              "DEV-054"
+            ],
+            "follow_up_needed": [],
+            "serious_concern_reported": [
+              "DEV-018"
+            ],
+            "testimonial_potential": [
+              "DEV-020"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-009",
+            "DEV-018",
+            "DEV-020",
+            "DEV-054"
+          ]
+        }
+      },
       "withinPassPromptDeltas": [
         {
           "pass": "fresh1",
@@ -1638,6 +2708,19 @@
             "sentiment": -5,
             "follow_up_needed": 1,
             "serious_concern_reported": -3,
+            "testimonial_potential": 1
+          }
+        },
+        {
+          "pass": "fresh2",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": -2,
+          "fields": {
+            "sentiment": -4,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
             "testimonial_potential": 1
           }
         },
@@ -1771,6 +2854,55 @@
         {
           "pass": "fresh2",
           "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 4,
+            "caseIds": [
+              "DEV-009",
+              "DEV-025",
+              "DEV-029",
+              "DEV-049"
+            ],
+            "rate": 0.06666666666666667
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "caseIds": [
+              "DEV-018",
+              "DEV-029"
+            ],
+            "rate": 0.03333333333333333
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-020"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "fourFieldVector": {
+            "changed": 6,
+            "caseIds": [
+              "DEV-009",
+              "DEV-018",
+              "DEV-020",
+              "DEV-025",
+              "DEV-029",
+              "DEV-049"
+            ],
+            "rate": 0.1
+          }
+        },
+        {
+          "pass": "fresh2",
+          "from": "P0",
           "to": "P2",
           "denominator": 60,
           "excludedIds": [],
@@ -1837,9 +2969,10 @@
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 1,
+          "completedPairs": 2,
           "allFourValues": [
-            -1
+            -1,
+            -2
           ],
           "allFourRange": null,
           "fieldRanges": {
@@ -2188,6 +3321,138 @@
     {
       "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-05-development.records.jsonl",
       "sha256": "48d083ea290e46c0c3ee5292428b9e9a8048b8f785ae615f80877730ec2b7588"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-budget-prefix.jsonl",
+      "sha256": "ea4e1b465c3742b979469baa36f015eef384dcf3dd563e6f6c503bd73c9cff3e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.root-review.json",
+      "sha256": "6cf7b88c2197e83a82fd4b05288fef8ad7fe1f1539a8cb2e8c9f957e4933dc36"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.claim.json",
+      "sha256": "80fd500599eff406479696eb92422d5e31cd35840f13c66b76817981524fb72f"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.journal.jsonl",
+      "sha256": "3a3d2f228bc5417c0666f12bebc948e7ca96f16f9724ef440c1c776c50b78817"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.raw.jsonl",
+      "sha256": "864511c8961957ed903d5372929bfd7b4c274662dbfa11b85926bd85dae3137a"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-smoke.records.jsonl",
+      "sha256": "a3f9b29255448e09669048e139633a733bd41b5091443b3a0902648ff81aeda4"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.root-review.json",
+      "sha256": "93442ae102dd77eac341b9a2eb833f81d657746430ab175b6a7d80d48c5edd6c"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.claim.json",
+      "sha256": "ee9021670f8ad539dc3dadd6a24d1c80d1729516828cae64ef7103d843aa033a"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.journal.jsonl",
+      "sha256": "38270b2abe72b20ced3404074180e1166a9f66c3d5c4aee3a57f0d8f5a595170"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.raw.jsonl",
+      "sha256": "2d7bcb6e3f12b64f3154881fe1e68223868d48473a9026133b06bc72cb8f31e4"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-06-development.records.jsonl",
+      "sha256": "6fbeb3e405fc92a26d7e7d429eaa926453a5f3fdc42b74f8baaecc0f2460765d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-budget-prefix.jsonl",
+      "sha256": "14cf2a9204d3d0427500bff055c6fc94b8ab4a2bfea4774606bf0bdd435c8584"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.root-review.json",
+      "sha256": "7100bcdc9cb048aade7f6dc8232836956cea58f711bea75a8b2006bc1c66c08f"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.claim.json",
+      "sha256": "85d698a42b8c90bd489e7e768cf0d7bba86d394969bddb5407201cbb179fa0a3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.journal.jsonl",
+      "sha256": "9a979a2487dd1587e0e96dfe02c655eb7de156f59e18c7f3bf3b648ec54e2da5"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.raw.jsonl",
+      "sha256": "e0d9f29cb2aa6c2a2c181fba00140d6e1a2150598b4c6330ff81845a8feb10a2"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-smoke.records.jsonl",
+      "sha256": "f0a97a79a9689545e3798447473edb1a0e408f9d97d2255f8824c067e4aee85e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.root-review.json",
+      "sha256": "bf7237da1c4165adee2b16cc9d5ac3e4ec5251ab6938011d6935c528c603150b"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.claim.json",
+      "sha256": "cc70a92ef048e868dded10a660d85cefa6e08e2477c69673d286013b86d597e5"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.journal.jsonl",
+      "sha256": "d8ed25e839a9843092f9bd7686a9184ad516c807661ce8fd1e24085e235454cd"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.raw.jsonl",
+      "sha256": "a29502135775106a052155fe2da80fc3f114acd568276f4fb02760380aaf489f"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-07-development.records.jsonl",
+      "sha256": "dab37367692d23f2f187365b81bbb99915f455171178da88244c6e48c14e69ba"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-budget-prefix.jsonl",
+      "sha256": "21fb981fa8dabe29c2cdd61c1103bdebce1fab4a04bbf3899f4cfef6403053a2"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.root-review.json",
+      "sha256": "40069d2e46c7e815bc3cd1dd7b64ace2294ce0d313b5f99f6c31e5e7341be4fa"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.claim.json",
+      "sha256": "0542934a4ba393a8b7aa629370f97e4b66e997a3938e72da837534b937507ece"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.journal.jsonl",
+      "sha256": "91db2882529b647dc3f599a5a0a13ebc037326cef7455555d4bb9edc611cf8a1"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.raw.jsonl",
+      "sha256": "ae9963b6efeaeb3950f5eaf5365761e6063d9bfa4d2caf29be2c4f6f3a93492a"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-smoke.records.jsonl",
+      "sha256": "d5a34bcbaac0c20533dc81fe77653fefedcdf03c15013370f0975e68f8274ba8"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.root-review.json",
+      "sha256": "a8af5cdd12447c4049b8e6c2088ee7f6200817a5f01667bb7333a3a493853a4b"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.claim.json",
+      "sha256": "343bde52c7d94acb0b96f4ca2ab6516d18b308e8b222dedf5564c84c90f4e78c"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.journal.jsonl",
+      "sha256": "8de25905c57bbfbc789fb3412d4e88471ce87b42aa450baee23b4ac067c175a9"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.raw.jsonl",
+      "sha256": "7ffdba0703bf1b7183a750feb33439b8ccf75e11429b29fdb316e3d2043e9590"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-flash-off-fresh3-v1/phase-08-development.records.jsonl",
+      "sha256": "a2abeb85e8a3f58284c014ca7245e36fadb307b82dc08d85be119cd63591c715"
     }
   ]
 }
