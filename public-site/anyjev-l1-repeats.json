@@ -1,0 +1,460 @@
+{
+  "schema": "anyjev-l1-direct-native-repeat-findings-v1",
+  "configuration": "anyjev-qwen06-l1-direct-native-cv5",
+  "displayName": "AnyJev Qwen3 0.6B · direct-native L1 CV5",
+  "model": "Qwen/Qwen3-0.6B",
+  "provider": "Local native MPS",
+  "method": "native-output-stability",
+  "conditionOrder": [
+    "P0"
+  ],
+  "passOrder": [
+    "fresh1",
+    "fresh2",
+    "fresh3"
+  ],
+  "denominator": 60,
+  "plannedConditions": 3,
+  "completedConditions": 1,
+  "referenceVersion": "0.2",
+  "referenceStatus": "AI-reviewed provisional, not independent adjudication",
+  "referenceClassCounts": {
+    "sentiment": {
+      "insufficient_information": 2,
+      "mixed": 8,
+      "negative": 31,
+      "neutral": 8,
+      "positive": 11
+    },
+    "follow_up_needed": {
+      "insufficient_information": 1,
+      "no": 24,
+      "yes": 35
+    },
+    "serious_concern_reported": {
+      "insufficient_information": 6,
+      "no": 29,
+      "yes": 25
+    },
+    "testimonial_potential": {
+      "insufficient_information": 1,
+      "no": 50,
+      "yes": 9
+    }
+  },
+  "passes": {
+    "fresh1": {
+      "P0": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "outcomes": {
+            "valid": 60
+          },
+          "fields": {
+            "sentiment": 38,
+            "follow_up_needed": 16,
+            "serious_concern_reported": 31,
+            "testimonial_potential": 49
+          },
+          "allFour": 6
+        },
+        "confusionCounts": {
+          "sentiment": {
+            "insufficient_information": {
+              "mixed": 1,
+              "positive": 1
+            },
+            "mixed": {
+              "mixed": 2,
+              "positive": 6
+            },
+            "negative": {
+              "mixed": 4,
+              "negative": 24,
+              "neutral": 2,
+              "positive": 1
+            },
+            "neutral": {
+              "mixed": 3,
+              "negative": 1,
+              "neutral": 2,
+              "positive": 2
+            },
+            "positive": {
+              "mixed": 1,
+              "positive": 10
+            }
+          },
+          "follow_up_needed": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "insufficient_information": 19,
+              "no": 1,
+              "yes": 4
+            },
+            "yes": {
+              "insufficient_information": 21,
+              "yes": 14
+            }
+          },
+          "serious_concern_reported": {
+            "insufficient_information": {
+              "no": 6
+            },
+            "no": {
+              "insufficient_information": 1,
+              "no": 22,
+              "yes": 6
+            },
+            "yes": {
+              "no": 16,
+              "yes": 9
+            }
+          },
+          "testimonial_potential": {
+            "insufficient_information": {
+              "no": 1
+            },
+            "no": {
+              "no": 41,
+              "yes": 9
+            },
+            "yes": {
+              "no": 1,
+              "yes": 8
+            }
+          }
+        },
+        "predictedClassCounts": {
+          "sentiment": {
+            "mixed": 11,
+            "negative": 25,
+            "neutral": 4,
+            "positive": 20
+          },
+          "follow_up_needed": {
+            "insufficient_information": 41,
+            "no": 1,
+            "yes": 18
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 1,
+            "no": 44,
+            "yes": 15
+          },
+          "testimonial_potential": {
+            "no": 43,
+            "yes": 17
+          }
+        },
+        "usage": {
+          "requestCount": 60,
+          "clientSeconds": null,
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_token_positions": 10540800,
+            "output_tokens": null,
+            "billed_input_tokens": null
+          },
+          "actualCostUsd": null,
+          "costNote": "Local hardware and electricity cost not measured."
+        },
+        "evidence": {
+          "smoke": {
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.completion.json",
+              "sha256": "83fbbf7f9840cd6f36924498fb2bdb83f17898da6d636ecd5230a5b492113cd4"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.claim.json",
+              "sha256": "e76435329c739fbbded641e8251c36e1aa7470df845278472ccc2bc9c7071e48"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.journal.jsonl",
+              "sha256": "ecda484fe5eb85642568335621e888dee7f3ffada5811e7046fa6bf5c8b8d619"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.raw.jsonl",
+              "sha256": "8e38d299c0c13d9f4c3600179a67b145fad43106221875d2d6737c28f7745cff"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.records.jsonl",
+              "sha256": "30e5901451d4b2320c8cfa5e8f707cf574362ecc933b3e058d7b89ee3ffba921"
+            },
+            "fold1": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-1-artifacts.json",
+              "sha256": "8f7a9159125cb3a293660be472cdd78e1e74b6820f3088a75a712c7dc32cafe1"
+            },
+            "fold4": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-4-artifacts.json",
+              "sha256": "fb9b7d3fa605cf401a8da7b6df5163aa75afa9826237177b25f11e264a2bab13"
+            },
+            "fold5": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-5-artifacts.json",
+              "sha256": "c898f1b61d79b2504b89b7144b9c790be87c02910c2c5825df23151a1487ec47"
+            }
+          },
+          "development": {
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.completion.json",
+              "sha256": "776c1e513f017a125fe05fb547f852986ba3074c033d18d748232ee34f062f4a"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.claim.json",
+              "sha256": "d24099926dad064e449c777726e6cd1aa6d1711cf231bb380afc0dafcf68962b"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.journal.jsonl",
+              "sha256": "10afdeb2abb437e70d4aed6c031d1e109a6aab44dfa4d87d22e94fc7980f5999"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.raw.jsonl",
+              "sha256": "97790f4f455706700ab1eb89846f662c8bba314987c23a9d3e1309d3df71fa7e"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.records.jsonl",
+              "sha256": "5429b088ce84d165486ac945491c03c5c5a2704e6537434772b1badd8f2868c3"
+            },
+            "smokeInspection": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke-inspection.json",
+              "sha256": "13aec4fb6333f2dd7868ca085f958abcc5893211256b96b91ad4a22764293b78"
+            },
+            "fold1": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-1-artifacts.json",
+              "sha256": "8f7a9159125cb3a293660be472cdd78e1e74b6820f3088a75a712c7dc32cafe1"
+            },
+            "fold2": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-2-artifacts.json",
+              "sha256": "23dec05c1e01407000b01d57bfe5e1414a94ad7c470ae05a79313a3199ff71b4"
+            },
+            "fold3": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-3-artifacts.json",
+              "sha256": "6f6acb5675c119528fd0dca0309db326afe861f7b115ecf1f0605f141677bc84"
+            },
+            "fold4": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-4-artifacts.json",
+              "sha256": "fb9b7d3fa605cf401a8da7b6df5163aa75afa9826237177b25f11e264a2bab13"
+            },
+            "fold5": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-5-artifacts.json",
+              "sha256": "c898f1b61d79b2504b89b7144b9c790be87c02910c2c5825df23151a1487ec47"
+            }
+          }
+        }
+      }
+    }
+  },
+  "missingPasses": [
+    {
+      "pass": "fresh2",
+      "condition": "P0",
+      "status": "claimed_in_progress_or_interrupted"
+    },
+    {
+      "pass": "fresh3",
+      "condition": "P0",
+      "status": "not_started"
+    }
+  ],
+  "partialPasses": [],
+  "threePassSummary": {
+    "P0": {
+      "allFour": {
+        "completedPasses": 1,
+        "values": [
+          6
+        ],
+        "mean": null,
+        "range": null
+      },
+      "fields": {
+        "sentiment": {
+          "completedPasses": 1,
+          "values": [
+            38
+          ],
+          "mean": null,
+          "range": null
+        },
+        "follow_up_needed": {
+          "completedPasses": 1,
+          "values": [
+            16
+          ],
+          "mean": null,
+          "range": null
+        },
+        "serious_concern_reported": {
+          "completedPasses": 1,
+          "values": [
+            31
+          ],
+          "mean": null,
+          "range": null
+        },
+        "testimonial_potential": {
+          "completedPasses": 1,
+          "values": [
+            49
+          ],
+          "mean": null,
+          "range": null
+        }
+      }
+    }
+  },
+  "pairwiseFlips": [],
+  "changesAcrossThreePasses": {},
+  "withinPassPromptDeltas": [],
+  "sourceBindings": [
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/manifest.json",
+      "sha256": "19d1b8cc078a11fde4209c0cb286be8f4c171c7b10ee3d28f4385c59ca98c7ca"
+    },
+    {
+      "path": "scripts/anyjev_benchmark.py",
+      "sha256": "77504663c860d43c0348fcfbe92edb46642837ef2d076a134bba4c22ba73a395"
+    },
+    {
+      "path": "scripts/anyjev_cached_l1.py",
+      "sha256": "fa72e69a4c31110970ab9a88604439ca1da2636e63b05fde218668617d011278"
+    },
+    {
+      "path": "scripts/anyjev_l0_repeat_admission.py",
+      "sha256": "ffd22ca2849d611743d4e8da672d86031e2a323bee7eaaa28e3afe7fd02b4afc"
+    },
+    {
+      "path": "scripts/anyjev_l1_repeat_admission.py",
+      "sha256": "d0ba0e8908e910ea1a2df8fe6d6ce9f591de4d5d49ca35c2e56be97df4ef1816"
+    },
+    {
+      "path": "scripts/anyjev_raw_repeat_admission.py",
+      "sha256": "20558bac210a981a28cf4b5911b1089611a24eaf76fc7a8ee3b7836a4ed753f7"
+    },
+    {
+      "path": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l0-p0-v1/manifest.json",
+      "sha256": "29095d4a527cefaac3e4169a1dfc94879a7571f909d7f8fb4b2213e32f1a3049"
+    },
+    {
+      "path": "results/anyjev-cached-l1-cv5-2026-09-24/folds-v1.json",
+      "sha256": "7be25f9bcd9dfbde383bccefe4ad9e4c5a8d6a664b4964789c532dac299dff0c"
+    },
+    {
+      "path": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.completion.json",
+      "sha256": "83fbbf7f9840cd6f36924498fb2bdb83f17898da6d636ecd5230a5b492113cd4"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.claim.json",
+      "sha256": "e76435329c739fbbded641e8251c36e1aa7470df845278472ccc2bc9c7071e48"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.journal.jsonl",
+      "sha256": "ecda484fe5eb85642568335621e888dee7f3ffada5811e7046fa6bf5c8b8d619"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.raw.jsonl",
+      "sha256": "8e38d299c0c13d9f4c3600179a67b145fad43106221875d2d6737c28f7745cff"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.records.jsonl",
+      "sha256": "30e5901451d4b2320c8cfa5e8f707cf574362ecc933b3e058d7b89ee3ffba921"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke.root-review.json",
+      "sha256": "0f0d49b414165aba14947a0671167bab15e7033dabd3d12b502e5c9c317480fb"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-1-artifacts.json",
+      "sha256": "8f7a9159125cb3a293660be472cdd78e1e74b6820f3088a75a712c7dc32cafe1"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-4-artifacts.json",
+      "sha256": "fb9b7d3fa605cf401a8da7b6df5163aa75afa9826237177b25f11e264a2bab13"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-5-artifacts.json",
+      "sha256": "c898f1b61d79b2504b89b7144b9c790be87c02910c2c5825df23151a1487ec47"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.completion.json",
+      "sha256": "776c1e513f017a125fe05fb547f852986ba3074c033d18d748232ee34f062f4a"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.claim.json",
+      "sha256": "d24099926dad064e449c777726e6cd1aa6d1711cf231bb380afc0dafcf68962b"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.journal.jsonl",
+      "sha256": "10afdeb2abb437e70d4aed6c031d1e109a6aab44dfa4d87d22e94fc7980f5999"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.raw.jsonl",
+      "sha256": "97790f4f455706700ab1eb89846f662c8bba314987c23a9d3e1309d3df71fa7e"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.records.jsonl",
+      "sha256": "5429b088ce84d165486ac945491c03c5c5a2704e6537434772b1badd8f2868c3"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/development.root-review.json",
+      "sha256": "026d6fcd2ef7364b0eefb98f3fe929a8a6f9697051cf67174ab318c7f642ebf6"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/smoke-inspection.json",
+      "sha256": "13aec4fb6333f2dd7868ca085f958abcc5893211256b96b91ad4a22764293b78"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-2-artifacts.json",
+      "sha256": "23dec05c1e01407000b01d57bfe5e1414a94ad7c470ae05a79313a3199ff71b4"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh1/P0/fold-3-artifacts.json",
+      "sha256": "6f6acb5675c119528fd0dca0309db326afe861f7b115ecf1f0605f141677bc84"
+    }
+  ],
+  "declaredExternalSourceHashes": {
+    "anyjev/backends/hf.py": "9b115e63eb66c0d0dd24812158e5dd927d7a76ed32c4adf4601c1553891f50c4",
+    "anyjev/calibrate/contextual.py": "be6abc2a91e8ce4728e443f073649fb2e339f10571db992e596cf5dd33dd9e33",
+    "anyjev/calibrate/permute.py": "8c396193399832c04d677dfeeefbfba9a824305e466b9087a68f8b7c02f436f2",
+    "anyjev/calibrate/posthoc.py": "c9db419a4273c91c4bb8259a0de5b10475d34e98dba2614b2ddc27242f8df267",
+    "anyjev/decider.py": "dac3a43ae7ed884072f3d4b6c1117627e13596f02c6db019a83f7332073381f9",
+    "anyjev/question.py": "72e61e3b846e9efa76cbe5b1f5c8fdc5ffa5e5f9eb86de17bcbae5ffdd4ac368",
+    "anyjev/readout.py": "cb13450f4a54b892bc0be1145d3da00bf89013b4fd321df89927c37bd945d973",
+    "anyjev/result.py": "46622fe262e1b685c776a8d1dd73c9201b82f1ff3336a63cd81d472c9f7f3746",
+    "anyjev/state.py": "8e4ee3fd1bfb3c46feb1dca4c1e4fa5111335d1ffe73e673872666f21ae8229f"
+  },
+  "declaredModelAssetHashes": {
+    "config.json": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "model.safetensors": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "limitations": [
+    "The historical cached-score L1 run is observational and is not one of these fresh passes.",
+    "Fold isolation is enforced by code and receipts, not by an operating-system boundary; the worker can read all 60 provisional labels.",
+    "Client request and isolated inference time were not saved by this native controller.",
+    "Input token positions are from native prompt signatures, not billed token usage.",
+    "Local hardware and electricity costs were not measured.",
+    "Private model assets and upstream source hashes are declared from the frozen plan; this portable report does not rehash them.",
+    "Provisional v0.2 references are not independent adjudication."
+  ]
+}

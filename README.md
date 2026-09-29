@@ -135,6 +135,8 @@ The broader plan describes 400 records. **Only the 60 development records are in
 
 The repository was previously named `recruitment-feedback-demo`. Historical evidence retains original paths and identifiers so its hashes and provenance remain intact.
 
+AnyJev L1's first calibrated pass has 60 valid outputs and 6/60 all-field matches. [The findings](docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md) explain its follow-up uncertainty, missed serious concerns and held-out calibration protocol. Repeat stability is not yet established.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE). Third-party dependencies and model weights retain their respective licenses.

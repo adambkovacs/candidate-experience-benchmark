@@ -41,7 +41,7 @@ class L1ReportTests(unittest.TestCase):
 
     def tearDown(self):self.tmp.cleanup()
 
-    def _stage(self,phase,stage,smoke_sha=None):
+    def _stage(self,phase,stage,smoke_sha=None,wrong_artifact=None):
         folder=report.BASE/phase
         wanted=[rid for fold in self.plan['folds'] for rid in fold['test_ids']
                 if (rid in report.SMOKE_IDS)==(stage=='smoke')]
@@ -67,9 +67,12 @@ class L1ReportTests(unittest.TestCase):
                 raw.append({'kind':'backend_return','operation_id':op,'signatures':signatures,
                             'logprobs':[[0.0]*len(x['answer_token_ids']) for x in signatures]})
                 k=len(self.specs[field]['options'])
-                fitted[field]={'model':self.plan['model_id'],'question':field,'method':'temperature',
+                fitted[field]={'model':self.plan['model_path'],
+                               'question':report.question_key(self.specs[field]),'method':'temperature',
                                'n_calib':48,'prior_method':'content_free','prior_strength':1.0,
                                'temperature':1.0,'prior':[[0.0]*k for _ in range(k)]}
+                if wrong_artifact and n == 1 and field == 'sentiment':
+                    fitted[field][wrong_artifact] = 'wrong-' + wrong_artifact
                 raw.append({'kind':'calibration','operation_id':op,'response':fitted[field]})
                 journal.append({'event':'operation_returned','kind':'calibration','operation_id':op})
             artifact={'phase':phase,'fold':n,'train_ids':fold['train_ids'],'test_ids':fold['test_ids'],
@@ -123,8 +126,8 @@ class L1ReportTests(unittest.TestCase):
         completion_path=report.BASE/phase/f'{stage}.completion.json';write_json(self.root/completion_path,completion)
         return report.sha(self.root/completion_path)
 
-    def _closed_first(self):
-        phase='fresh1/P0';smoke=self._stage(phase,'smoke')
+    def _closed_first(self,wrong_artifact=None):
+        phase='fresh1/P0';smoke=self._stage(phase,'smoke',wrong_artifact=wrong_artifact)
         inspection={'approved':True,'phase':phase,'plan_sha256':report.MANIFEST_SHA,
                     'smoke_completion_sha256':smoke,'inspected_ids':list(report.SMOKE_IDS)}
         write_json(self.root/report.BASE/phase/'smoke-inspection.json',inspection)
@@ -160,6 +163,16 @@ class L1ReportTests(unittest.TestCase):
         artifact=json.loads(target.read_text());artifact['artifacts']['sentiment']['temperature']=2.0
         write_json(target,artifact)
         with self.assertRaisesRegex(ValueError,'Hash differs'):
+            report.build(self.root)
+
+    def test_wrong_frozen_backend_model_rejected(self):
+        self._closed_first(wrong_artifact='model')
+        with self.assertRaisesRegex(ValueError,'L1 calibration artifact invalid'):
+            report.build(self.root)
+
+    def test_wrong_frozen_question_key_rejected(self):
+        self._closed_first(wrong_artifact='question')
+        with self.assertRaisesRegex(ValueError,'L1 calibration artifact invalid'):
             report.build(self.root)
 
     def test_synthetic_raw_tamper_fails(self):

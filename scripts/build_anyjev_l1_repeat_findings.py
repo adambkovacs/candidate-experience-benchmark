@@ -134,6 +134,14 @@ def signature(item):
     return item['prompt_sha256'], tuple(item['answer_token_ids']), item['input_tokens']
 
 
+def question_key(spec):
+    """Reproduce the pinned AnyJev Question.choice artifact identity offline."""
+    payload = json.dumps({'kind':'choice','text':spec['text'],
+        'options':list(spec['options']),'scale':[0.0,1.0],'centers':None},
+        sort_keys=True,ensure_ascii=False)
+    return hashlib.sha256(payload.encode('utf-8')).hexdigest()[:16]
+
+
 def expected_signatures(l0, ids, field):
     requests = {x['id']: x for x in l0['requests']}
     first = requests[ids[0]]
@@ -283,8 +291,8 @@ def verify_stage(root, plan, l0, specs, phase, stage, bind, smoke_sha=None):
             fitted = artifact['artifacts'][field]
             prior = fitted.get('prior') if isinstance(fitted,dict) else None
             size = len(specs[field]['options'])
-            if (not isinstance(fitted,dict) or fitted.get('model') != plan['model_id']
-                    or fitted.get('question') != field or fitted.get('method') != 'temperature'
+            if (not isinstance(fitted,dict) or fitted.get('model') != plan['model_path']
+                    or fitted.get('question') != question_key(specs[field]) or fitted.get('method') != 'temperature'
                     or fitted.get('n_calib') != 48 or fitted.get('prior_method') != 'content_free'
                     or fitted.get('prior_strength') != 1.0
                     or type(fitted.get('temperature')) not in (int,float)
