@@ -221,6 +221,7 @@ def effort_comparisons(runs, cases, ids):
 
 
 def build(source=SOURCE, labels_path=ROOT/'data/pilot/proposed_labels.jsonl'):
+    source = Path(source)
     raw=source.read_bytes(); data=json.loads(raw)
     labels_rows=[json.loads(line) for line in labels_path.read_text().splitlines() if line.strip()]
     labels={row['id']:row for row in labels_rows}
@@ -238,7 +239,11 @@ def build(source=SOURCE, labels_path=ROOT/'data/pilot/proposed_labels.jsonl'):
             if cases[(run['id'],ident)]['reference'] != labels[ident]['proposed_labels']:
                 raise ValueError(f'reference mismatch: {run["id"]} {ident}')
     prompt=prompt_deltas(data['promptComparisons'],runs,cases,ids)
-    return {'meta':{'sourcePath':'public-site/data.json','sourceSha256':hashlib.sha256(raw).hexdigest(),
+    try:
+        source_name = str(source.resolve().relative_to(ROOT.resolve()))
+    except ValueError:
+        source_name = str(source)
+    return {'meta':{'sourcePath':source_name,'sourceSha256':hashlib.sha256(raw).hexdigest(),
                     'labelsPath':'data/pilot/proposed_labels.jsonl','labelsSha256':hashlib.sha256(labels_path.read_bytes()).hexdigest(),
                     'runCount':len(runs),'caseCount':len(cases),'recordCount':len(ids),
                     'referenceCaveat':data['referenceNote'],
@@ -253,15 +258,17 @@ def build(source=SOURCE, labels_path=ROOT/'data/pilot/proposed_labels.jsonl'):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check',action='store_true',help='fail when findings.json differs from frozen sources')
+    parser.add_argument('--source',type=Path,default=SOURCE)
+    parser.add_argument('--output',type=Path,default=OUTPUT)
     args=parser.parse_args()
-    output=build()
+    output=build(args.source)
     expected=json.dumps(output,ensure_ascii=False,indent=2)+'\n'
     if args.check:
-        if not OUTPUT.is_file() or OUTPUT.read_text()!=expected:
+        if not args.output.is_file() or args.output.read_text()!=expected:
             raise SystemExit('findings.json is missing or stale; run python3 scripts/build_findings.py')
         print('findings.json matches frozen sources')
     else:
-        OUTPUT.write_text(expected)
-        print(f'Wrote {OUTPUT}: {len(output["charts"]["jev"]["comparators"])} Jev comparators')
+        args.output.write_text(expected)
+        print(f'Wrote {args.output}: {len(output["charts"]["jev"]["comparators"])} Jev comparators')
 
 if __name__=='__main__': main()

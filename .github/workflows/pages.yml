@@ -65,10 +65,16 @@ jobs:
           python3 scripts/build_additional_hosted_fresh_repeat_findings.py --configuration openrouter-paid-deepseek-v41-flash-low --output public-site/additional-hosted-fresh-repeats.json --check
           python3 scripts/build_qwen36_off_continuation_findings.py --output public-site/qwen36-off-continuation-findings.json --check
           python3 -m unittest tests.test_build_qwen36_off_continuation_findings -q
+          python3 scripts/build_qwen36_off_second_interruption_findings.py --output public-site/qwen36-off-second-interruption-findings.json --check
+          python3 -m unittest tests.test_build_qwen36_off_second_interruption_findings -q
           python3 scripts/build_small_local_repeat_findings.py --output public-site/small-local-repeats.json --check
           python3 -m unittest tests.test_build_small_local_repeat_findings -q
           python3 scripts/build_findings.py --check
           python3 -m unittest discover -s tests -p test_findings.py -q
+          python3 scripts/export_provider_error_public_evidence.py --check-public
+          python3 scripts/build_public_explorer.py --provider-error-projection --check
+          python3 scripts/build_findings.py --source public-site/data-provider-errors-v1.json --output public-site/findings-provider-errors-v1.json --check
+          python3 -m unittest tests.test_export_provider_error_public_evidence tests.test_project_provider_error_public_bindings tests.test_resolve_provider_error_public_source -q
           python3 -m json.tool public-site/data.json > /dev/null
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

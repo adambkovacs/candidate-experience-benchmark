@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Export public, development-only evidence without exposing request payloads or credentials."""
+import argparse
 import hashlib
 import json
 import math
@@ -1414,6 +1415,18 @@ def export(root=ROOT):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--provider-error-projection', action='store_true',
+                        help='map saved public evidence links without private raw inputs')
+    parser.add_argument('--check', action='store_true')
+    parser.add_argument('--root', type=Path, default=ROOT)
+    args = parser.parse_args()
+    if args.provider_error_projection:
+        from project_provider_error_public_bindings import run
+        run(args.root, check=args.check)
+        return
+    if args.check or args.root != ROOT:
+        parser.error('--check/--root require --provider-error-projection')
     value = export()
     destination = ROOT / 'public-site/data.json'
     destination.parent.mkdir(exist_ok=True)

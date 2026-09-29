@@ -12,6 +12,7 @@ sys.path.insert(0, str(REPO / 'tests'))
 import build_qwen36_off_continuation_findings as report
 import qwen36_off_v2_successors as successors
 import qwen36_off_v2_continuation as suffix
+from export_provider_error_public_evidence import INVENTORY as ACCOUNT_ID_SOURCES
 from test_additional_hosted_fresh_repeat_findings import write_json, write_rows
 from test_qwen36_off_v2_continuation import ContinuationFixture
 
@@ -81,6 +82,8 @@ class PublicContinuationTests(unittest.TestCase):
         self.fx = PublicFixture(self)
 
     def test_relocated_public_checkout_reports_first_failed_pass_without_private_bytes(self):
+        for relative, _, _ in ACCOUNT_ID_SOURCES:
+            (self.fx.root / relative).unlink(missing_ok=True)
         result = report.build(self.fx.root)
         series = result['series'][0]
         self.assertEqual(report.SERIES, series['seriesId'])
@@ -108,6 +111,8 @@ class PublicContinuationTests(unittest.TestCase):
         self.assertTrue(prefix.exists())
         self.assertNotIn(self.fx.fixture.secret, prefix.read_text())
         self.assertNotIn('evidence_path', prefix.read_text())
+        for relative, _, _ in ACCOUNT_ID_SOURCES:
+            (self.fx.root / relative).unlink(missing_ok=True)
         series = report.build(self.fx.root)['series'][0]
         self.assertEqual(2, series['completedConditions'])
         self.assertEqual(60, series['passes']['fresh1']['P1']['score']['valid'])

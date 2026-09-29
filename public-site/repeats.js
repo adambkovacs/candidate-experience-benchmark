@@ -11,9 +11,9 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-continuation-findings.json'];
-  const qwenContinuationSchema = 'qwen36-off-v2-descriptive-continuation-findings-v1';
-  const qwenContinuationId = 'openrouter-paid-qwen36-35b-a3b-off-descriptive-continuation-v1';
+  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json'];
+  const qwenContinuationSchema = 'qwen36-off-v2-second-interruption-findings-v1';
+  const qwenContinuationId = 'openrouter-paid-qwen36-35b-a3b-off-descriptive-two-interruptions-v1';
   const qwenDispatchOrder = [['fresh1','P0'], ['fresh1','P1'], ['fresh1','P2'],
     ['fresh2','P2'], ['fresh2','P0'], ['fresh2','P1'], ['fresh3','P1'], ['fresh3','P2'], ['fresh3','P0']];
   const additionalHostedIds = {
@@ -21,7 +21,7 @@
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-continuation-findings.json') && r.status === 404) return {series: []};
+    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json') && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
       if (url === './additional-hosted-fresh-repeats.json' && payload === undefined) return {series: []};
@@ -40,46 +40,56 @@
              s.method !== 'fresh-matched-three' || additionalHostedIds[s.configuration] !== s.seriesId) ||
            new Set(payload.series.map(s => s.seriesId)).size !== payload.series.length))
         throw Error('Invalid additional hosted fresh repeat results');
-      if (url === './qwen36-off-continuation-findings.json') {
+      if (url === './qwen36-off-second-interruption-findings.json') {
         if (payload === undefined) return {series: []};
         if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return {series: []};
         const only = payload?.series?.[0];
         const first = only?.passes?.fresh1?.P0;
-        const score = first?.score;
-        const later = Object.entries(only?.passes || {}).flatMap(([pass, conditions]) =>
-          Object.entries(conditions || {}).filter(([condition]) => !(pass === 'fresh1' && condition === 'P0'))
-            .map(([, phase]) => phase));
-        const closed = Object.values(only?.passes || {}).flatMap(pass => Object.values(pass || {}))
-          .filter(phase => phase?.status === 'completed' || phase?.status === 'closed_with_service_error');
+        const second = only?.passes?.fresh3?.P1;
+        const phases = qwenDispatchOrder.map(([pass, condition]) => only?.passes?.[pass]?.[condition]);
+        const expectedBounds = [
+          {phase: 'fresh1/P0', id: 'DEV-006', status: 'service_error', upperBoundUsd: '0.0299008'},
+          {phase: 'fresh3/P1', id: 'DEV-031', status: 'service_error', upperBoundUsd: '0.0299008'}
+        ];
         const flips = [...(only?.pairwiseFlips || []), ...(only?.withinPassPromptFlips || [])];
         if (payload?.schema !== qwenContinuationSchema || !Array.isArray(payload.series) || payload.series.length !== 1 ||
             only?.schema !== qwenContinuationSchema || only?.seriesId !== qwenContinuationId ||
             only?.configuration !== 'openrouter-paid-qwen36-35b-a3b-off' ||
-            only?.method !== 'descriptive-continuation-after-service-error' ||
+            only?.method !== 'descriptive-continuation-after-two-service-errors' ||
             only?.cleanMatchedThreeEligible !== false || only?.denominator !== 60 ||
-            only?.plannedConditions !== 9 || only?.completedConditions !== closed.length ||
+            only?.plannedConditions !== 9 || only?.completedConditions !== 9 ||
             JSON.stringify(only?.passOrder) !== JSON.stringify(['fresh1', 'fresh2', 'fresh3']) ||
             JSON.stringify(only?.conditionOrder) !== JSON.stringify(['P0', 'P1', 'P2']) ||
-            first?.status !== 'closed_with_service_error' || score?.denominator !== 60 ||
-            score?.valid !== 59 || score?.outcomes?.ok !== 59 || score?.outcomes?.service_error !== 1 ||
-            JSON.stringify(score?.invalidIds) !== JSON.stringify(['DEV-006']) ||
+            only?.missingPasses?.length !== 0 || phases.length !== 9 ||
+            phases.some((phase, index) => !phase ||
+              phase.status !== (index === 0 || index === 6 ? 'closed_with_service_error' : 'completed') ||
+              phase.score?.denominator !== 60 ||
+              phase.score?.valid !== (index === 0 || index === 6 ? 59 : 60) ||
+              phase.score?.outcomes?.ok !== (index === 0 || index === 6 ? 59 : 60) ||
+              (phase.score?.outcomes?.service_error || 0) !== (index === 0 || index === 6 ? 1 : 0) ||
+              JSON.stringify(phase.score?.invalidIds) !== JSON.stringify(index === 0 ? ['DEV-006'] : index === 6 ? ['DEV-031'] : [])) ||
             first?.usage?.unknownChargeUpperBoundUsd !== '0.0299008' ||
             typeof first?.usage?.knownCostUsd !== 'string' ||
             !Number.isFinite(Number(first.usage.knownCostUsd)) ||
             Number(first.usage.knownCostUsd) < 0 ||
-            later.some(phase => phase?.status === 'closed_with_service_error') ||
-            closed.some(phase => phase?.score?.denominator !== 60 ||
-              !Number.isInteger(phase?.score?.valid) || phase.score.valid < 0 || phase.score.valid > 60 ||
-              (phase !== first && (phase?.status !== 'completed' ||
-                phase?.budgetAccountingCumulative?.unknownChargeUpperBoundUsd !== '0.0299008' ||
-                !Number.isFinite(Number(phase?.budgetAccountingCumulative?.knownAllAttemptCostUsd))))) ||
+            second?.budgetAccountingCumulative?.oldUnknownChargeUpperBoundUsd !== '0.0598016' ||
+            second?.budgetAccountingCumulative?.combinedUnknownChargeUpperBoundUsd !== '0.0598016' ||
+            only?.passes?.fresh3?.P0?.budgetAccountingCumulative?.combinedUnknownChargeUpperBoundUsd !== '0.0598016' ||
+            !Number.isFinite(Number(only?.passes?.fresh3?.P0?.budgetAccountingCumulative?.combinedKnownAllAttemptCostUsd)) ||
+            Number(only.passes.fresh3.P0.budgetAccountingCumulative.combinedKnownAllAttemptCostUsd) < 0 ||
+            JSON.stringify(only?.secondInterruption?.oldFailedIds) !== JSON.stringify(['DEV-006', 'DEV-031']) ||
+            JSON.stringify(only?.secondInterruption?.retainedOldUnknownBounds) !== JSON.stringify(expectedBounds) ||
+            only?.secondInterruption?.oldUnknownChargeUpperBoundUsd !== '0.0598016' ||
             flips.some(flip => !Number.isInteger(flip?.denominator) || flip.denominator < 0 ||
               flip.denominator > 60 || !Array.isArray(flip?.excludedIds) ||
               flip.excludedIds.length !== 60 - flip.denominator ||
               ((flip.pass === 'fresh1' && flip.from === 'P0') ||
                (flip.condition === 'P0' && (flip.from === 'fresh1' || flip.to === 'fresh1')))
-                && !flip.excludedIds.includes('DEV-006')))
-          throw Error('Invalid Qwen descriptive continuation results');
+                && !flip.excludedIds.includes('DEV-006') ||
+              ((flip.pass === 'fresh3' && flip.to === 'P1') ||
+               (flip.condition === 'P1' && (flip.from === 'fresh3' || flip.to === 'fresh3')))
+                && !flip.excludedIds.includes('DEV-031')))
+          throw Error('Invalid Qwen two-interruption continuation results');
       }
       return payload;
     });
@@ -90,7 +100,7 @@
     const isFreshHosted = s => (s.schema === 'deepseek-fresh-repeat-findings-v1' ||
       s.schema === 'additional-hosted-fresh-repeat-findings-v1') && s.method === 'fresh-matched-three';
     const isQwenContinuation = s => s.schema === qwenContinuationSchema &&
-      s.method === 'descriptive-continuation-after-service-error';
+      s.method === 'descriptive-continuation-after-two-service-errors';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) ? s.seriesId : s.configuration;
     root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · fresh matched three' : ''}</option>`).join('')}</select></label>
       <p class="repeat-lead" id="repeat-lead"></p><div id="repeat-interpretation"></div>
@@ -121,6 +131,9 @@
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
       const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation;
+      const qwenUnknownFor = (pass, condition) => qwenContinuation
+        ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
+        : null;
       const closedSlot = (pass, condition) => closed(data.passes[pass]?.[condition]);
       const nativeLabel = nativeL0 ? 'Native L0 readout' : nativeL1 ? 'Native L1 calibration' : nativeAlex ? 'Native NLI output' : 'Native output';
       document.getElementById('repeat-condition-label').textContent = nativeP0 ? 'Native condition' : 'Prompt condition';
@@ -128,7 +141,7 @@
       conditionControl.innerHTML = conditionOrder.map(c => `<option value="${esc(c)}"${c === conditionControl.value ? ' selected' : ''}>${c}: ${esc(nativeP0 && c === 'P0' ? nativeLabel : conditions[c] || c)}</option>`).join('');
       const field = fieldControl.value;
       document.getElementById('repeat-interpretation').innerHTML = (qwenContinuation
-        ? '<p class="analysis-caveat"><strong>Descriptive continuation:</strong> First-pass P0 includes 59 valid outputs and one DEV-006 HTTP 429 service error out of 60. The remaining P0 requests ran later. This is not a clean matched-three series. Scores retain all 60 comments; flip rates use only comments valid in both passes.</p>'
+        ? '<p class="analysis-caveat"><strong>Descriptive continuation after two service errors:</strong> Fresh pass 1 P0 retains DEV-006 and fresh pass 3 P1 retains DEV-031. Each phase has 59 valid outputs and one HTTP 429 service error among 60 comments. The unsent requests ran later without replaying either failed request. This is not a clean matched-three series. Scores keep all 60 comments; flip rates use only comments valid in both passes.</p>'
         : '') + (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
       document.getElementById('repeat-lead').textContent = `${data.displayName || data.configuration}. ${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt/pass combinations'} have complete evidence on the same ${data.denominator} development comments. Incomplete passes are not zero scores.` + Object.entries(data.passes).flatMap(([pass, conditions]) => Object.entries(conditions).filter(([, phase]) => phase.completionStatus === 'partial').map(([condition, phase]) => { const o = phase.score.outcomes; return ` ${condition} ${passName[pass]} stopped with ${o.valid} valid responses, ${o.service_error || 0} service errors and ${o.never_sent || 0} reviews not sent.`; })).join('');
       if (localFresh) document.getElementById('repeat-lead').textContent += ` These are three fresh local passes. Earlier local results are observational and are not counted here. Only terminal phases have scores. Reference labels are provisional and were used only for offline scoring. Client request time includes runtime overhead; loaded engine version, model load time and local cost are unknown.`;
@@ -137,9 +150,10 @@
       if (qwenContinuation) {
         const accounting = qwenDispatchOrder.map(([pass, condition]) => data.passes[pass]?.[condition])
           .filter(phase => closed(phase) && phase.budgetAccountingCumulative).pop()?.budgetAccountingCumulative;
-        const known = accounting?.knownAllAttemptCostUsd ?? data.passes.fresh1.P0.usage.knownAllAttemptCostUsd;
-        const unknown = accounting?.unknownChargeUpperBoundUsd ?? data.passes.fresh1.P0.usage.unknownChargeUpperBoundUsd;
-        document.getElementById('repeat-lead').textContent += ` Known provider charges through the latest reported phase: ${money(known)}. The separate ${money(unknown)} unknown-charge upper bound for DEV-006 is not an invoice charge. Request durations include transport and service overhead, not pure inference time.`;
+        const known = accounting?.combinedKnownAllAttemptCostUsd;
+        const unknown = accounting?.combinedUnknownChargeUpperBoundUsd;
+        const bounds = data.secondInterruption.retainedOldUnknownBounds;
+        document.getElementById('repeat-lead').textContent += ` Known provider charges through the latest reported phase: ${money(known)}. DEV-006 and DEV-031 each retain a separate unknown-charge upper bound of ${money(bounds[0].upperBoundUsd)}; together they are ${money(unknown)}. These bounds are not invoice charges. Request durations include transport and service overhead, not pure inference time.`;
       }
       if (nativeL0) document.getElementById('repeat-lead').textContent += ' AnyJev L0 combines cyclic option shifts with a content-free prior. It has one native P0 procedure, not P1/P2 chat prompts. Agreement uses all 60 comments and provisional references; valid output is counted separately. Only completed passes are scored. Client request time includes overhead; pure inference time and local cost are unavailable.';
       if (nativeL1) document.getElementById('repeat-lead').textContent += ' AnyJev L1 fits calibration separately in five folds. Each review is classified with a fit trained on the other 48 reviews; its own reference labels are excluded. Training uses provisional labels, so this is supervised calibration. Historical cached-score results remain separate. Client and pure inference times were not recorded; local cost is unavailable.';
@@ -181,7 +195,7 @@
         const u = (localFresh || nativeP0 || freshCodex || freshHosted || qwenContinuation) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
         const elapsed = u?.requestSecondsTotal ?? u?.clientHttpCallSecondsTotal ?? u?.clientRequestSecondsTotal ?? u?.clientPredictionSeconds;
         const nativePositions = nativeL1 && u?.tokens?.input_token_positions != null ? `<br><small>Native input positions: ${number(u.tokens.input_token_positions)} (not billed tokens)</small>` : nativeAlex && u?.nativeNliInputTokenPositions != null ? `<br><small>Native NLI input positions: ${number(u.nativeNliInputTokenPositions)}</small>` : '';
-        return `<tr><th scope="row">${c}</th><td>${passName[p]}${data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenContinuation && u?.unknownChargeUpperBoundUsd && Number(u.unknownChargeUpperBoundUsd) > 0 ? `<br><small>Unknown charge up to ${money(u.unknownChargeUpperBoundUsd)}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
+        return `<tr><th scope="row">${c}</th><td>${passName[p]}${data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}</small></td><td>${money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
       })).join('');
     }
     configControl.addEventListener('change', render);

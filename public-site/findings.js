@@ -79,7 +79,7 @@
 
   async function boot() {
     try {
-      const response=await fetch('./findings.json');
+      const response=await fetch('./findings-provider-errors-v1.json');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data=await response.json();
       renderPrompt(data.charts?.promptDeltas?.groups);

@@ -270,7 +270,7 @@
   }
   async function init() {
     try {
-      const response=await fetch('./data.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      const response=await fetch('./data-provider-errors-v1.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
       const data=await response.json();if(!Array.isArray(data.runs)||n(data.denominator)!==60)throw new Error('Invalid public data');
       state.data={...data,runs:data.runs.filter(r => r?.id && ['P0','P1','P2'].includes(r.condition)),cases:Array.isArray(data.cases)?data.cases:[],roster:Array.isArray(data.roster)?data.roster:[]};
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;

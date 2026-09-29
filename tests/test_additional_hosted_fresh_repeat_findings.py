@@ -6,10 +6,13 @@ import shutil
 import sys
 import tempfile
 import unittest
+from contextlib import nullcontext
+from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / 'scripts'))
 import build_additional_hosted_fresh_repeat_findings as report
+import export_provider_error_public_evidence as provider_export
 import openrouter_paid_benchmark as paid
 from development_benchmark import read_rows
 
@@ -24,18 +27,55 @@ def write_rows(path, values):
     path.write_text(''.join(json.dumps(value) + '\n' for value in values))
 
 
+def copy_public_provider_error_bundle(root):
+    source = REPO / 'public-evidence/provider-errors-v1'
+    target = root / 'public-evidence/provider-errors-v1'
+    shutil.copytree(source, target, dirs_exist_ok=True)
+
+
+def saved_qwen_context(case):
+    """Use frozen public controls when the private historical P2 raw is absent."""
+    saved_manifest = json.loads((REPO / case.base / 'manifest.json').read_text())
+    plan_path = REPO / saved_manifest['admission_plan']
+    plan = json.loads(plan_path.read_text())
+    if report.sha(plan_path) != saved_manifest['admission_plan_sha256']:
+        raise ValueError('Saved Qwen plan hash differs')
+    bound = {item['path']: item['sha256'] for item in plan['source_bindings']}
+    for source in (case.admission.HOSTED, case.admission.P0):
+        relative = str(source.relative_to(case.admission.ROOT))
+        if bound.get(relative) != report.sha(source):
+            raise ValueError('Saved Qwen public control source differs')
+    matches = [item for item in json.loads(case.admission.HOSTED.read_text())['configurations']
+               if item['id'] == case.admission.CONFIG]
+    if len(matches) != 1:
+        raise ValueError('Saved Qwen historical configuration differs')
+    history = matches[0]
+    controls = history['controls']['adapter_controls']['request_controls']
+    original_p0 = json.loads(case.admission.P0.read_text().splitlines()[0])
+    return history, controls, original_p0['provider_endpoint'], original_p0['model_catalog_entry'], plan
+
+
 class SeriesFixture:
     def __init__(self, case, root, cap):
         self.spec, self.root, self.cap = case, root, cap
         self.base = root / case.base
         self.base.mkdir(parents=True, exist_ok=True)
+        copy_public_provider_error_bundle(root)
         self.inputs = read_rows(case.admission.INPUTS)
-        self.history, self.controls, self.endpoint, self.model = case.admission.source_state()
-        plan = case.admission.plan_data()
+        public_only_qwen = (case.admission.CONFIG == 'openrouter-paid-qwen36-35b-a3b-off'
+                            and not case.admission.P2.is_file())
+        if public_only_qwen:
+            self.history, self.controls, self.endpoint, self.model, plan = saved_qwen_context(case)
+        else:
+            self.history, self.controls, self.endpoint, self.model = case.admission.source_state()
+            plan = case.admission.plan_data()
         with tempfile.TemporaryDirectory(dir=REPO) as temp:
             plan_path, manifest_path = Path(temp) / 'plan.json', Path(temp) / 'manifest.json'
             plan_path.write_text(json.dumps(plan))
-            manifest = case.execution.freeze(plan_path, manifest_path)
+            context = (patch.object(case.admission, 'plan_data', return_value=plan)
+                       if public_only_qwen else nullcontext())
+            with context:
+                manifest = case.execution.freeze(plan_path, manifest_path)
             relative = Path(manifest['admission_plan'])
             target = root / relative
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -60,6 +100,9 @@ class SeriesFixture:
     def copy(self, relative):
         target = self.root / relative
         target.parent.mkdir(parents=True, exist_ok=True)
+        if not (REPO / relative).exists() and str(relative) in {
+                path for path, _, _ in provider_export.INVENTORY}:
+            return  # Public bundle is copied and the report binds its actual bytes.
         shutil.copy2(REPO / relative, target)
 
     def stage(self, index, name, invalid_id=None, changed_id=None):

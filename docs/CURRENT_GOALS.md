@@ -307,3 +307,17 @@ The seven hosted continuation audits passed independent review and are committed
 ## Fresh-series checkpoint, 2026-09-29
 
 See [the dated checkpoint](REPEAT_CHECKPOINT_2026-09-29.md): all six additional Codex first-pass prompt triples are closed (18/54 full runs), and Alex 4B has its first closed native pass. Second passes are underway. Earlier counts above are historical snapshots, not the current completion total.
+
+
+## Verified execution checkpoint, 2026-09-29: final Qwen evidence
+
+Commit `19d58b8f` preserves the final Qwen 3.6 reasoning-off phases and terminal spending reconciliation. All nine condition/pass combinations now account for their 540 development positions: 538 valid outputs and two retained HTTP 429 failures. The separately admitted continuations sent only never-sent positions; this remains a descriptive series after interruptions, not a clean matched-three experiment. The [final analysis](QWEN36_OFF_REPEAT_FINDINGS_2026-09-29.md) and public report passed their local checks; deployment of this final report is still pending the public-evidence migration.
+
+DeepSeek low has one closed full pass (59 valid outputs, 58/60 all-field matches) and a closed P1 smoke. Its selected endpoint became unavailable before P1 development dispatch; eight full combinations remain unfinished. See the [DeepSeek low findings](DEEPSEEK_LOW_FRESH_REPEAT_FINDINGS_2026-09-29.md). AnyJev L1 first-pass development is running through its native calibration interface; no full L1 pass is yet claimed complete. The remaining native and hosted roster remains in scope.
+
+The privacy migration has hash-verified private backups of all 28 audited provider-error originals. They remain locally intact and tracked until the clean-export Pages checks pass. Sanitized public copies and their explicit private-hash attestations are prepared; historical Git exposure is not removed by current-tree cleanup. See the [privacy audit](PUBLIC_EVIDENCE_PRIVACY_AUDIT_2026-09-29.md). No new spending authority or scope exclusion is implied by this checkpoint.
+
+
+## Public evidence release prepared, 2026-09-29
+
+All 53 Pages static checks passed against a public-only checkout, including the corrected fixture tests. The 28 audited originals are now untracked and ignored, with local bytes and private backups hash-verified. Active explorer/findings feeds use sanitized evidence links; final Qwen results and analysis are included. Historical Git exposure remains outside this current-tree cleanup. Deployment verification is pending. The remaining hosted matrix is in [the dated audit](HOSTED_PENDING_MATRIX_2026-09-29.md); the $10 aggregate cap is unchanged and the requested increase is unanswered.

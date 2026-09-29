@@ -13,6 +13,7 @@ from unittest.mock import patch
 
 import affordable_hosted_repeat_execution as execution
 import affordable_hosted_repeat_admission as admission
+import resolve_provider_error_public_source as public_source
 from development_benchmark import KEYS, valid
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +31,8 @@ def sha(path):
 
 def file(root, relative):
     root = Path(root).resolve()
+    if public_source.is_audited(relative):
+        return public_source.resolve(root, relative)[0]
     path = (root / relative).resolve()
     path.relative_to(root)
     return path
@@ -43,6 +46,11 @@ def rows(path):
 
 
 def bind(root, relative, bindings, expected=None):
+    if public_source.is_audited(relative):
+        _, value = public_source.resolve(root, relative, expected)
+        if value not in bindings:
+            bindings.append(value)
+        return value
     actual = sha(file(root, relative))
     if expected is not None and actual != expected:
         raise ValueError(f'Source hash changed: {relative}')

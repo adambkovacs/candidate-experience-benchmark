@@ -15,6 +15,21 @@ import qwen36_off_fresh_repeat_execution_v2 as original
 import qwen36_off_fresh_repeat_admission as admission
 import build_additional_hosted_fresh_repeat_findings as report
 from test_additional_hosted_fresh_repeat_findings import SeriesFixture, write_json, write_rows
+from resolve_provider_error_public_source import is_audited, resolve as resolve_public_source
+
+
+def verify_synthetic_public_sources(manifest):
+    """Check frozen fixture sources through their audited public copies."""
+    for source in manifest['source_bindings']:
+        if source['path'] in original.MUTABLE:
+            continue
+        if is_audited(source['path']):
+            resolve_public_source(original.ROOT, source['path'], source['sha256'])
+        elif original.sha(original.checked_path(original.ROOT / source['path'])) != source['sha256']:
+            raise ValueError('Synthetic source drift: ' + source['path'])
+    for source in manifest['code_bindings']:
+        if original.sha(original.checked_path(original.ROOT / source['path'])) != source['sha256']:
+            raise ValueError('Synthetic code drift: ' + source['path'])
 
 
 class ContinuationFixture:
@@ -103,6 +118,15 @@ class ContinuationFixture:
         # SeriesFixture copies the source path recorded by the original plan.
         self.patches[-1] = patch.object(admission, 'INPUTS', self.root /
             admission.INPUTS.relative_to(REPO))
+        if not admission.P2.is_file():
+            # Public CI lacks the private provider-error body. The synthetic
+            # fixture still checks its frozen hash against the public mapping.
+            self.patches.extend((
+                patch.object(original, 'verify_sources', verify_synthetic_public_sources),
+                patch.object(admission, 'source_state', return_value=(
+                    self.series.history, self.series.controls,
+                    self.series.endpoint, self.series.model)),
+            ))
         for item in self.patches:
             item.start()
             case.addCleanup(item.stop)
