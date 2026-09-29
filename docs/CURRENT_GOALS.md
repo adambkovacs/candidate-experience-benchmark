@@ -321,3 +321,10 @@ The privacy migration has hash-verified private backups of all 28 audited provid
 ## Public evidence release prepared, 2026-09-29
 
 All 53 Pages static checks passed against a public-only checkout, including the corrected fixture tests. The 28 audited originals are now untracked and ignored, with local bytes and private backups hash-verified. Active explorer/findings feeds use sanitized evidence links; final Qwen results and analysis are included. Historical Git exposure remains outside this current-tree cleanup. Deployment verification is pending. The remaining hosted matrix is in [the dated audit](HOSTED_PENDING_MATRIX_2026-09-29.md); the $10 aggregate cap is unchanged and the requested increase is unanswered.
+
+
+## Public release verified, 2026-09-29
+
+Pages run [36513456196](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36513456196) succeeded at commit `4084a388`. Seven live assets matched committed bytes by SHA-256: `app.js`, `findings.js`, `repeats.js`, `index.html`, the sanitized explorer and findings data, and the final Qwen second-interruption report. This supersedes the pending-deployment status above. All nine Qwen combinations and their limitations are now public.
+
+Gemma 26B reasoning-on has a distinct fresh-three offline candidate under review, with a proposed $0.40 child allocation and no inference or allocation performed. Historical known-charge proxy is $0.19825584 for the full new series; a sensitivity including historical unknown-charge bounds is $0.31671216. These are estimates, not guarantees. Its raw provider attempts/responses are ignored; publication will require a sanitized projection. Execution lifecycle tests and stricter predecessor checks are being completed before dispatch. The requested aggregate cap increase remains unanswered; the $10 cap still applies. AnyJev L1 development remains in progress.

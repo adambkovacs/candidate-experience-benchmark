@@ -105,3 +105,8 @@ All 53 Pages static commands now pass in a public-only snapshot with the 28 priv
 The release removes the 28 originals from Git tracking while preserving their exact bytes locally and in a separately hash-verified private backup. Exact ignore rules prevent accidental re-addition. The site now selects the sanitized data and findings projections, and both Qwen reports bind the sanitized public file hash separately from the private original attestation. All nine Qwen condition/pass results are included in the new report. Earlier sections above describe the migration checkpoints; their statements that active feeds were unchanged or originals still tracked are superseded by this release.
 
 Historical commits may still contain the provider account identifier. This release does not rewrite Git history or claim historical erasure. Deployment and live-file verification remain pending until the release workflow succeeds.
+
+
+## Deployment verified
+
+Pages [run 36513456196](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36513456196) succeeded for `4084a388`. The live application scripts, index, sanitized data/findings projections and final Qwen report all returned HTTP 200 and matched the committed SHA-256 values. All 28 audited originals are absent from tracking and remain locally present. This confirms current-tree and active-site publication; historical Git exposure remains a residual limitation. The milestone was saved to shared Ruflo memory and verified in both canonical stores and a fresh launcher.
