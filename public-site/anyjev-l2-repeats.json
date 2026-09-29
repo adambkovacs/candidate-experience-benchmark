@@ -192,11 +192,88 @@
           "yes": 4
         }
       }
+    },
+    "repeat3": {
+      "sentiment": {
+        "insufficient_information": {
+          "insufficient_information": 1,
+          "positive": 1
+        },
+        "mixed": {
+          "negative": 3,
+          "neutral": 3,
+          "positive": 2
+        },
+        "negative": {
+          "insufficient_information": 1,
+          "mixed": 1,
+          "negative": 22,
+          "neutral": 6,
+          "positive": 1
+        },
+        "neutral": {
+          "mixed": 2,
+          "neutral": 4,
+          "positive": 2
+        },
+        "positive": {
+          "insufficient_information": 1,
+          "mixed": 1,
+          "negative": 1,
+          "neutral": 2,
+          "positive": 6
+        }
+      },
+      "follow_up_needed": {
+        "insufficient_information": {
+          "yes": 1
+        },
+        "no": {
+          "insufficient_information": 1,
+          "no": 14,
+          "yes": 9
+        },
+        "yes": {
+          "no": 6,
+          "yes": 29
+        }
+      },
+      "serious_concern_reported": {
+        "insufficient_information": {
+          "insufficient_information": 1,
+          "no": 1,
+          "yes": 4
+        },
+        "no": {
+          "insufficient_information": 5,
+          "no": 16,
+          "yes": 8
+        },
+        "yes": {
+          "insufficient_information": 3,
+          "no": 3,
+          "yes": 19
+        }
+      },
+      "testimonial_potential": {
+        "insufficient_information": {
+          "no": 1
+        },
+        "no": {
+          "insufficient_information": 2,
+          "no": 43,
+          "yes": 5
+        },
+        "yes": {
+          "no": 5,
+          "yes": 4
+        }
+      }
     }
   },
   "confusionOrientation": "rows: provisional reference; columns: observed prediction",
   "denominator": 60,
-  "completedConditions": 2,
+  "completedConditions": 3,
   "plannedConditions": 3,
   "passes": {
     "original": {
@@ -593,63 +670,327 @@
         "instrumentation": "wrapper raw-before-projection and terminal native journals"
       }
     },
-    "repeat3": {}
-  },
-  "missingPasses": [
-    {
-      "pass": "repeat3",
-      "condition": "P0",
-      "status": "not_completed"
+    "repeat3": {
+      "P0": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 13,
+          "fields": {
+            "sentiment": 33,
+            "follow_up_needed": 43,
+            "serious_concern_reported": 36,
+            "testimonial_potential": 47
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "refusal": 0,
+            "timeout": 0,
+            "service_error": 0,
+            "isolation_violation": 0,
+            "other_error": 0,
+            "unknown_started": 0,
+            "never_sent": 0
+          },
+          "invalidIds": []
+        },
+        "predictedClassCounts": {
+          "sentiment": {
+            "insufficient_information": 3,
+            "mixed": 4,
+            "negative": 26,
+            "neutral": 15,
+            "positive": 12
+          },
+          "follow_up_needed": {
+            "insufficient_information": 1,
+            "no": 20,
+            "yes": 39
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 9,
+            "no": 20,
+            "yes": 31
+          },
+          "testimonial_potential": {
+            "insufficient_information": 2,
+            "no": 49,
+            "yes": 9
+          }
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSeconds": [
+            2.34412016699207,
+            3.0715418749896344,
+            2.5206794159894343,
+            2.3208944580110256,
+            2.548246084013954,
+            2.3593278330226894,
+            2.706803958019009,
+            2.305232040991541,
+            2.229455708002206,
+            2.279851041996153,
+            2.3097468329942785,
+            2.360576958017191,
+            2.267688249994535,
+            2.684751166991191,
+            2.392496041022241,
+            2.186611790995812,
+            2.1492832500080112,
+            2.816257458005566,
+            2.179167624999536,
+            2.313635916012572,
+            3.0683624160010368,
+            3.259892999980366,
+            2.2998910000023898,
+            2.421984332991997,
+            2.1441982079995796,
+            3.274436292005703,
+            3.5511034169758204,
+            2.477107457991224,
+            2.195910834008828,
+            3.24527358301566,
+            2.2673522499972023,
+            2.180495750013506,
+            2.125811166013591,
+            2.0500716250098776,
+            2.32826954202028,
+            2.1852024580002762,
+            2.468578375002835,
+            2.1626610000093933,
+            2.3399375830194913,
+            2.4362646670197137,
+            2.4318713329848833,
+            2.4045161250105593,
+            2.5507782499771565,
+            2.379547457996523,
+            2.3438879169989377,
+            2.20176995798829,
+            2.39345004101051,
+            3.445690041000489,
+            3.4651339580013882,
+            2.2951888750249054,
+            2.33793587499531,
+            2.081070832995465,
+            2.269313124998007,
+            3.3344868749845773,
+            3.3324881669832394,
+            3.3337112500157673,
+            2.0720060829771683,
+            2.3127932080242317,
+            2.156626165990019,
+            2.4498896660225
+          ],
+          "requestSecondsTotal": 150.42132803212735,
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cached_input_tokens": null,
+            "cache_write_input_tokens": null,
+            "reasoning_output_tokens": null
+          },
+          "actualCostUsd": null,
+          "costNote": "Local hardware and electricity cost not measured; no token totals recorded."
+        },
+        "evidence": {
+          "smoke": {
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.repeat-completion.json",
+              "sha256": "40108d423941673b58672c12bdc1e07a05fff7c05fb8bab4f600346c228c26b2"
+            },
+            "smoke.raw.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.raw.jsonl",
+              "sha256": "ae9579f9e0bcb0a47f390f0a1ef216ca61ed5d291cd44640f6f70d1d0ccabe2b"
+            },
+            "smoke.operations.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.operations.jsonl",
+              "sha256": "33296ac8e13920753ea5c2122d003c164f9237ea628caa258b6fa3d88561c9f2"
+            },
+            "smoke.attempts.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.attempts.jsonl",
+              "sha256": "b7fde74c1112096ade68ce502293b388a033157cd8cf252d6646600e4f42f165"
+            },
+            "smoke.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.jsonl",
+              "sha256": "6c60fda71e5d6cffd10f37ffba9550b38101aa5597403dd81e499e86adf0df2e"
+            },
+            "fold-1-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-1-artifacts.json",
+              "sha256": "d0417739aec43a8485b004fd581d406d4cf979d553df38dea8a8d162170eb7d9"
+            },
+            "fold-4-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-4-artifacts.json",
+              "sha256": "4e2e36e68c0088a5dc7e1b6d6677063a50ea3c17a0f8a41541739cbe7c49759d"
+            },
+            "fold-5-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-5-artifacts.json",
+              "sha256": "a28fe097b84137e170f8994ca6321c3b362feae15dc05d328a86d595f3bde092"
+            },
+            "plan": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-plan.json",
+              "sha256": "f2fa8365a2c7466be66d478d7649b9924b5f4117e36bdee1da368b2da7ed3fdf"
+            },
+            "review": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-smoke.root-review.json",
+              "sha256": "e3c3a96e2e48d7829a536c6fca883c377a11eeca7623c594b9803e5033da2244"
+            },
+            "run_manifest": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-run-manifest.json",
+              "sha256": "e49e1b76286e4585533214d10270ff4bb312a0053ad0f091126b696f73eb1663"
+            },
+            "base_runner": {
+              "path": "scripts/anyjev_l2_cv.py",
+              "sha256": "9728eee04146f4a9ad3cdd073e02dcf83e77accb9710f584870b5bf49d1d8622"
+            }
+          },
+          "full": {
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.repeat-completion.json",
+              "sha256": "cfab19a5c2c8a26fa597479fcbe3f28ce778a6189251cfb22b4f2d44997da1c9"
+            },
+            "full.raw.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.raw.jsonl",
+              "sha256": "72c660870dc0bc7e441b85e42e4a10bbea16984e57ff828f0ac7f7a7f04e7033"
+            },
+            "full.operations.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.operations.jsonl",
+              "sha256": "59433a1bccd71d34f8fd978f0892e0667fe352ba6d8ee117c1685422baf323eb"
+            },
+            "full.attempts.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.attempts.jsonl",
+              "sha256": "197a7b253475aa856ee7366ba2108ab6579878179451cc0f046ac36b4720fc9f"
+            },
+            "full.jsonl": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.jsonl",
+              "sha256": "71f882475fe472629eacd70bd6add192a832e7cf98deb436d0b1894b3c977a83"
+            },
+            "collection-manifest.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/collection-manifest.json",
+              "sha256": "32731f64f6d50239f31afe06315b243e985ad56bd9809e17712221016511af2b"
+            },
+            "smoke.repeat-completion.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.repeat-completion.json",
+              "sha256": "40108d423941673b58672c12bdc1e07a05fff7c05fb8bab4f600346c228c26b2"
+            },
+            "fold-1-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-1-artifacts.json",
+              "sha256": "d0417739aec43a8485b004fd581d406d4cf979d553df38dea8a8d162170eb7d9"
+            },
+            "fold-2-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-2-artifacts.json",
+              "sha256": "452e486598e4c0249989c33928ed9fc972924cd1d838a907fd90b8d0290f23c5"
+            },
+            "fold-3-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-3-artifacts.json",
+              "sha256": "f8528800f8a49abcf6ae23a1b563512b95e5d78d75d11880d4cd3760948b9f3f"
+            },
+            "fold-4-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-4-artifacts.json",
+              "sha256": "4e2e36e68c0088a5dc7e1b6d6677063a50ea3c17a0f8a41541739cbe7c49759d"
+            },
+            "fold-5-artifacts.json": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-5-artifacts.json",
+              "sha256": "a28fe097b84137e170f8994ca6321c3b362feae15dc05d328a86d595f3bde092"
+            },
+            "plan": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-plan.json",
+              "sha256": "f2fa8365a2c7466be66d478d7649b9924b5f4117e36bdee1da368b2da7ed3fdf"
+            },
+            "review": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-full.root-review.json",
+              "sha256": "09573b16d59558ed48f77ac4ab97421282369c70c3bbfddf3b353eb463134803"
+            },
+            "run_manifest": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-run-manifest.json",
+              "sha256": "e49e1b76286e4585533214d10270ff4bb312a0053ad0f091126b696f73eb1663"
+            },
+            "base_runner": {
+              "path": "scripts/anyjev_l2_cv.py",
+              "sha256": "9728eee04146f4a9ad3cdd073e02dcf83e77accb9710f584870b5bf49d1d8622"
+            },
+            "baseSmokeReview": {
+              "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-smoke-inspection.json",
+              "sha256": "dee9010d04af9e7f25e9989483c310c0423c79b48f1a65f1c9e3adeedd2f5329"
+            }
+          }
+        },
+        "instrumentation": "wrapper raw-before-projection and terminal native journals"
+      }
     }
-  ],
+  },
+  "missingPasses": [],
   "partialPasses": [],
   "threePassSummary": {
     "P0": {
       "allFour": {
-        "completedPasses": 2,
+        "completedPasses": 3,
         "values": [
+          13,
           13,
           13
         ],
-        "mean": null,
-        "range": null
+        "mean": 13.0,
+        "range": [
+          13,
+          13
+        ]
       },
       "fields": {
         "sentiment": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            33,
             33,
             33
           ],
-          "mean": null,
-          "range": null
+          "mean": 33.0,
+          "range": [
+            33,
+            33
+          ]
         },
         "follow_up_needed": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            43,
             43,
             43
           ],
-          "mean": null,
-          "range": null
+          "mean": 43.0,
+          "range": [
+            43,
+            43
+          ]
         },
         "serious_concern_reported": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            36,
             36,
             36
           ],
-          "mean": null,
-          "range": null
+          "mean": 36.0,
+          "range": [
+            36,
+            36
+          ]
         },
         "testimonial_potential": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            47,
             47,
             47
           ],
-          "mean": null,
-          "range": null
+          "mean": 47.0,
+          "range": [
+            47,
+            47
+          ]
         }
       }
     }
@@ -686,9 +1027,85 @@
         "rate": 0.0,
         "caseIds": []
       }
+    },
+    {
+      "condition": "P0",
+      "from": "original",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      }
+    },
+    {
+      "condition": "P0",
+      "from": "repeat2",
+      "to": "repeat3",
+      "denominator": 60,
+      "excludedIds": [],
+      "sentiment": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "follow_up_needed": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "serious_concern_reported": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "testimonial_potential": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      },
+      "fourFieldVector": {
+        "changed": 0,
+        "rate": 0.0,
+        "caseIds": []
+      }
     }
   ],
-  "changesAcrossThreePasses": {},
+  "changesAcrossThreePasses": {
+    "P0": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": []
+    }
+  },
   "withinPassPromptDeltas": [],
   "predictedClassCounts": {
     "original": {
@@ -716,6 +1133,30 @@
       }
     },
     "repeat2": {
+      "sentiment": {
+        "insufficient_information": 3,
+        "mixed": 4,
+        "negative": 26,
+        "neutral": 15,
+        "positive": 12
+      },
+      "follow_up_needed": {
+        "insufficient_information": 1,
+        "no": 20,
+        "yes": 39
+      },
+      "serious_concern_reported": {
+        "insufficient_information": 9,
+        "no": 20,
+        "yes": 31
+      },
+      "testimonial_potential": {
+        "insufficient_information": 2,
+        "no": 49,
+        "yes": 9
+      }
+    },
+    "repeat3": {
       "sentiment": {
         "insufficient_information": 3,
         "mixed": 4,
@@ -920,6 +1361,82 @@
     {
       "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-run-manifest.json",
       "sha256": "e49e1b76286e4585533214d10270ff4bb312a0053ad0f091126b696f73eb1663"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.repeat-completion.json",
+      "sha256": "40108d423941673b58672c12bdc1e07a05fff7c05fb8bab4f600346c228c26b2"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.raw.jsonl",
+      "sha256": "ae9579f9e0bcb0a47f390f0a1ef216ca61ed5d291cd44640f6f70d1d0ccabe2b"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.operations.jsonl",
+      "sha256": "33296ac8e13920753ea5c2122d003c164f9237ea628caa258b6fa3d88561c9f2"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.attempts.jsonl",
+      "sha256": "b7fde74c1112096ade68ce502293b388a033157cd8cf252d6646600e4f42f165"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/smoke.jsonl",
+      "sha256": "6c60fda71e5d6cffd10f37ffba9550b38101aa5597403dd81e499e86adf0df2e"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-1-artifacts.json",
+      "sha256": "d0417739aec43a8485b004fd581d406d4cf979d553df38dea8a8d162170eb7d9"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-4-artifacts.json",
+      "sha256": "4e2e36e68c0088a5dc7e1b6d6677063a50ea3c17a0f8a41541739cbe7c49759d"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-5-artifacts.json",
+      "sha256": "a28fe097b84137e170f8994ca6321c3b362feae15dc05d328a86d595f3bde092"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-smoke.root-review.json",
+      "sha256": "e3c3a96e2e48d7829a536c6fca883c377a11eeca7623c594b9803e5033da2244"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.repeat-completion.json",
+      "sha256": "cfab19a5c2c8a26fa597479fcbe3f28ce778a6189251cfb22b4f2d44997da1c9"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.raw.jsonl",
+      "sha256": "72c660870dc0bc7e441b85e42e4a10bbea16984e57ff828f0ac7f7a7f04e7033"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.operations.jsonl",
+      "sha256": "59433a1bccd71d34f8fd978f0892e0667fe352ba6d8ee117c1685422baf323eb"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.attempts.jsonl",
+      "sha256": "197a7b253475aa856ee7366ba2108ab6579878179451cc0f046ac36b4720fc9f"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/full.jsonl",
+      "sha256": "71f882475fe472629eacd70bd6add192a832e7cf98deb436d0b1894b3c977a83"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/collection-manifest.json",
+      "sha256": "32731f64f6d50239f31afe06315b243e985ad56bd9809e17712221016511af2b"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-2-artifacts.json",
+      "sha256": "452e486598e4c0249989c33928ed9fc972924cd1d838a907fd90b8d0290f23c5"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3/fold-3-artifacts.json",
+      "sha256": "f8528800f8a49abcf6ae23a1b563512b95e5d78d75d11880d4cd3760948b9f3f"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-full.root-review.json",
+      "sha256": "09573b16d59558ed48f77ac4ab97421282369c70c3bbfddf3b353eb463134803"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l2-cv5-v1/repeat3-smoke-inspection.json",
+      "sha256": "dee9010d04af9e7f25e9989483c310c0423c79b48f1a65f1c9e3adeedd2f5329"
     }
   ],
   "declaredModelAssetHashes": {
