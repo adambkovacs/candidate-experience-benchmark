@@ -44,6 +44,8 @@ Across the [17 completed Claude configurations](docs/CLAUDE_REPEAT_SYNTHESIS_202
 
 The [six additional fresh Codex comparisons](docs/CODEX_FRESH_REPEAT_FINDINGS_2026-09-29.md) are complete: three passes for each of three prompt versions. Neither added-instruction prompt improved all-four agreement in every pass for any of the six configurations. Classifier instructions switched between a gain and a loss in four configurations. These 3,240 responses still describe the same 60 reviews, not 3,240 independent cases.
 
+The [DeepSeek Flash reasoning-off repeats](docs/DEEPSEEK_FRESH_REPEAT_FINDINGS_2026-09-29.md) completed all nine runs. The original prompt scored 48–49/60, classifier guidance 45–47/60, and the decision-tree prompt 43–46/60. Both added-instruction prompts scored lower in every matched pass, although testimonial agreement improved. The complete series including smoke tests cost $0.02913576 in observed provider charges.
+
 ## What the models decide
 
 | Judgment | Question |

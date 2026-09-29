@@ -11,11 +11,16 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json'];
+  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json'];
+  const additionalHostedIds = {
+    'openrouter-paid-qwen36-35b-a3b-off': 'openrouter-paid-qwen36-35b-a3b-off-fresh-matched3-v2',
+    'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
+  };
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json') && r.status === 404) return {series: []};
+    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json') && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
+      if (url === './additional-hosted-fresh-repeats.json' && payload === undefined) return {series: []};
       if (url === './codex-fresh-repeats.json' && (payload?.schema || payload?.series?.length) &&
           (payload?.schema !== 'codex-fresh-repeat-findings-v1' || !Array.isArray(payload.series) ||
            payload.series.some(s => s?.schema !== 'codex-fresh-repeat-findings-v1' || s.method !== 'fresh-matched-three' ||
@@ -24,13 +29,21 @@
           (payload?.schema !== 'deepseek-fresh-repeat-findings-v1' || !Array.isArray(payload.series) ||
            payload.series.some(s => s?.schema !== 'deepseek-fresh-repeat-findings-v1' || s.method !== 'fresh-matched-three' ||
              s.seriesId !== `${s.configuration}-fresh-matched3`))) throw Error('Invalid DeepSeek fresh repeat results');
+      if (url === './additional-hosted-fresh-repeats.json' &&
+          !(payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) &&
+          (payload?.schema !== 'additional-hosted-fresh-repeat-findings-v1' || !Array.isArray(payload.series) ||
+           payload.series.some(s => s?.schema !== 'additional-hosted-fresh-repeat-findings-v1' ||
+             s.method !== 'fresh-matched-three' || additionalHostedIds[s.configuration] !== s.seriesId) ||
+           new Set(payload.series.map(s => s.seriesId)).size !== payload.series.length))
+        throw Error('Invalid additional hosted fresh repeat results');
       return payload;
     });
   }))).then(payloads => {
     const series = payloads.flatMap(payload => payload?.series || (payload ? [payload] : []));
     if (!series.length) throw Error('No repeat series');
     const isFreshCodex = s => s.schema === 'codex-fresh-repeat-findings-v1' && s.method === 'fresh-matched-three';
-    const isFreshHosted = s => s.schema === 'deepseek-fresh-repeat-findings-v1' && s.method === 'fresh-matched-three';
+    const isFreshHosted = s => (s.schema === 'deepseek-fresh-repeat-findings-v1' ||
+      s.schema === 'additional-hosted-fresh-repeat-findings-v1') && s.method === 'fresh-matched-three';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) ? s.seriesId : s.configuration;
     root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · fresh matched three' : ''}</option>`).join('')}</select></label>
       <p class="repeat-lead" id="repeat-lead"></p><div id="repeat-interpretation"></div>
@@ -57,6 +70,8 @@
       const closed = phase => freshCodex || freshHosted ? phase?.status === 'completed'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
+      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1';
+      const closedSlot = (pass, condition) => closed(data.passes[pass]?.[condition]);
       const nativeLabel = nativeL0 ? 'Native L0 readout' : nativeAlex ? 'Native NLI output' : 'Native output';
       document.getElementById('repeat-condition-label').textContent = nativeP0 ? 'Native condition' : 'Prompt condition';
       if (!conditionOrder.includes(conditionControl.value)) conditionControl.value = conditionOrder[0];
@@ -76,7 +91,8 @@
       document.getElementById('repeat-chart').innerHTML = `<div class="repeat-score-grid">${conditionOrder.map(c => {
         const label = nativeP0 && c === 'P0' ? nativeLabel : conditions[c] || c;
         const summary = data.threePassSummary?.[c];
-        const stats = field === 'allFour' ? summary?.allFour : summary?.fields?.[field];
+        const completeThree = !freshSeries || passes.every(p => closedSlot(p, c));
+        const stats = completeThree ? (field === 'allFour' ? summary?.allFour : summary?.fields?.[field]) : null;
         return `<article><h3>${c} <span>${esc(label)}</span></h3>${passes.map(p => {
           const phase = data.passes[p]?.[c];
           const partial = phase?.completionStatus === 'partial';
@@ -88,15 +104,18 @@
       document.getElementById('repeat-delta-title').textContent = nativeP0 ? 'One native decision procedure' : 'Does the prompt advantage persist?';
       document.getElementById('repeat-delta-intro').textContent = nativeL0 ? 'This native L0 readout has only P0. P1 and P2 chat prompt variants do not apply.' : nativeP0 ? 'This native option-scoring setup has only P0. P1 and P2 chat prompt variants do not apply.' : 'Change in answers matching the provisional reference compared with P0 in the same pass. Positive means more matches; negative means fewer.';
       document.getElementById('repeat-deltas').innerHTML = nativeP0 ? '' : `<div class="table-wrap"><table><caption>${esc(fields[field])}: change from P0, out of ${data.denominator}</caption><thead><tr><th>Prompt</th>${passes.map(p => `<th>${passName[p]}</th>`).join('')}</tr></thead><tbody>${conditionOrder.filter(c => c !== 'P0').map(c => `<tr><th scope="row">${esc(c)}</th>${passes.map(p => {
-        const d = data.withinPassPromptDeltas?.find(x => x.pass === p && x.to === c);
+        const d = (!freshSeries || (closedSlot(p, 'P0') && closedSlot(p, c)))
+          ? data.withinPassPromptDeltas?.find(x => x.pass === p && x.to === c) : null;
         const localDelta = localFresh && data.passes[p]?.[c]?.completionStatus === 'complete' && data.passes[p]?.P0?.completionStatus === 'complete'
           ? valueOf(data.passes[p][c].score, field) - valueOf(data.passes[p].P0.score, field) : null;
         return `<td>${d ? signed(valueOf(d,field)) : localDelta == null ? 'Not completed' : signed(localDelta)}</td>`;
       }).join('')}</tr>`).join('')}</tbody></table></div>`;
       const c = conditionControl.value;
-      const changes = data.changesAcrossThreePasses?.[c];
+      const changes = (!freshSeries || passes.every(p => closedSlot(p, c)))
+        ? data.changesAcrossThreePasses?.[c] : null;
       const ids = changes ? (field === 'allFour' ? changes.fourFieldVector : changes.fields[field]) : null;
-      const pairs = (data.pairwiseFlips || []).filter(x => x.condition === c);
+      const pairs = (data.pairwiseFlips || []).filter(x => x.condition === c &&
+        (!freshSeries || (closedSlot(x.from, c) && closedSlot(x.to, c))));
       document.getElementById('repeat-flips').innerHTML = `${ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>${changes.excludedIds.length} comments excluded because not all passes had valid answers.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {const f = field === 'allFour' ? x.fourFieldVector : x[field]; return `<li>${passName[x.from]} to ${passName[x.to]}: ${f.changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
       document.getElementById('repeat-usage-body').innerHTML = conditionOrder.flatMap(c => passes.map(p => {
         const u = (localFresh || nativeP0 || freshCodex || freshHosted) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
