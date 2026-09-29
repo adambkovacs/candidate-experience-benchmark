@@ -2,19 +2,19 @@
 
 ## Current preparation and execution status
 
-Updated after publication commit `cc7bc217` on 29 September. The historical 02:25 UTC snapshot below is retained for provenance; its preparation and endpoint statuses are superseded by this section.
+Updated after publication commit `200b37da` on 29 September. Pages deployment `36530507440` succeeded and the live repeat explorer script matches the committed file. The historical snapshots below are retained for provenance; their preparation, endpoint and budget statuses are superseded by this section.
 
 | Remaining configuration | Verified progress | What prevents the next dispatch |
 | --- | --- | --- |
-| DeepSeek low | P0 and P1 are closed and published. P2 development is running after an inspected smoke, within the existing $0.25 child. | Each later stage still needs predecessor verification, smoke inspection where applicable, and a fresh exact-route check. The full nine-run series is unfinished. |
+| DeepSeek low | P0 and P1 are closed and published. P2 stopped after DEV-040 and DEV-049 returned HTTP 429: 46 valid, one invalid, two service failures and 11 unsent. Both child allocations are sealed. | Additional authorized budget and a separately reviewed continuation are required. P2 remains unscored; six later full runs also remain unsent. No failed or completed request is replayed. |
 | Qwen27 medium and xhigh | Six fresh-pass plans and the execution controller are committed. Fourteen combined tests and independent review pass. | Proposed children of $1.00 and $0.80 are unfunded. Stage-specific review and live route checks remain required. |
 | Gemma 26B reasoning-on | Three fresh-pass plans and the corrected controller are committed. Eleven combined tests and independent review pass. Raw response files are ignored. | Proposed $0.40 child is unfunded; no fresh inference has run. |
 | Qwen 35B reasoning-on | Three fresh-pass plans and the reviewed executor are committed through `75595754`. | Proposed $1.50 child is unfunded; stage review and fresh route checks remain required. |
 | DeepSeek high | Three fresh-pass plans and the reviewed executor are committed through `24d3e3e5`, with 26 combined tests passing. | Needs fresh live route checks, stage review and funding for the proposed $0.90 child. |
-| Mistral 119B none and high | Historical failed smokes remain preserved; six offline plans are reviewed and committed in `9ba898d7`. | Execution admission, provider capacity evidence and funding remain outstanding. No observed whole-series cost proxy exists. |
+| Mistral 119B none and high | Historical failed smokes remain preserved; six offline plans are reviewed and committed in `9ba898d7`. | The executor is reviewed and committed in `9c417ca2`. Fresh provider checks, stage admission and funding remain outstanding. No observed whole-series cost proxy exists. |
 | Gemini 3.1 Pro high | Reviewed wrapper and frozen plans exist. | Proposed $2 child is unfunded. |
 
-No new allocation is made by this checkpoint. The aggregate cap remains $10. The [budget reconciliation](BUDGET_RECONCILIATION_CHECK_2026-09-29.md) leaves $0.04151065850 unallocated, separately from the already funded DeepSeek child. Unknown-charge bounds remain reserved. The requested increase to $17 total has not been approved.
+No new allocation is made by this checkpoint. The aggregate cap remains $10. The latest [DeepSeek interruption reconciliation](DEEPSEEK_LOW_INTERRUPTION_CONTINUATION_2026-09-29.md#second-interruption-dev-049) leaves $0.03458035850 unallocated after both children were sealed. The two $0.1069056 unknown-charge bounds remain reserved separately; they are not observed charges. No hosted inference is running at this checkpoint. The requested increase to $17 total has not been approved.
 
 For exact plan and cost evidence, see the admissions for [Qwen27](QWEN27_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Gemma](GEMMA26_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Qwen reasoning-on](QWEN36_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), and [DeepSeek high](DEEPSEEK_HIGH_FRESH_REPEAT_ADMISSION_2026-09-29.md). Completed Qwen reasoning-off work remains preserved with its interruption limitations; it is not queued for a cleaner rerun.
 
