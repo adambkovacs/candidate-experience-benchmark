@@ -1,0 +1,687 @@
+{
+  "schema": "additional-hosted-fresh-repeat-findings-v1",
+  "series": [
+    {
+      "schema": "additional-hosted-fresh-repeat-findings-v1",
+      "configuration": "openrouter-paid-deepseek-v41-flash-low",
+      "seriesId": "openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2",
+      "displayName": "DeepSeek V4.1 Flash · OpenInference fp4 · reasoning low · fresh matched three",
+      "method": "fresh-matched-three",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "effort": "low",
+      "provider": "open-inference/fp4",
+      "route": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "provider": "open-inference/fp4",
+        "provider_name": "OpenInference",
+        "quantization": "fp4",
+        "reasoning_effort": "low",
+        "temperature": 0,
+        "max_tokens": 4096,
+        "seed_policy": "No explicit seed",
+        "context_length": 1048576,
+        "timeout_seconds": 300.0,
+        "continue_on_invalid_output": true,
+        "fallbacks": false
+      },
+      "servedModel": null,
+      "servedModelNote": "Per-request returned model and provider are saved in sealed records.",
+      "conditionOrder": [
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "passOrder": [
+        "fresh1",
+        "fresh2",
+        "fresh3"
+      ],
+      "denominator": 60,
+      "plannedConditions": 9,
+      "completedConditions": 1,
+      "missingPasses": [
+        {
+          "pass": "fresh1",
+          "condition": "P1",
+          "status": "not_completed"
+        },
+        {
+          "pass": "fresh1",
+          "condition": "P2",
+          "status": "not_completed"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P2",
+          "status": "not_completed"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P0",
+          "status": "not_completed"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P1",
+          "status": "not_completed"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P1",
+          "status": "not_completed"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P2",
+          "status": "not_completed"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P0",
+          "status": "not_completed"
+        }
+      ],
+      "passes": {
+        "fresh1": {
+          "P0": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 59,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 58,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "ok": 59,
+                "invalid_output": 1
+              },
+              "invalidIds": [
+                "DEV-030"
+              ],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 33,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "no": 1,
+                    "insufficient_information": 4
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 49
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 11,
+                  "negative": 31,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 33,
+                  "insufficient_information": 2
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "yes": 25,
+                  "insufficient_information": 4
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 49,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                46.87188612500904,
+                42.8886179169931,
+                26.58547858300153,
+                35.9675008750055,
+                61.90254524999182,
+                236.36839808299555,
+                25.421730458998354,
+                50.39663887498318,
+                33.51839275000384,
+                145.63989470899105,
+                44.45297491698875,
+                40.807540249981685,
+                156.2828198329953,
+                77.35737291601254,
+                95.98997637501452,
+                16.118394207995152,
+                25.45614791600383,
+                75.78797883400694,
+                31.781520792021183,
+                42.291585416998714,
+                40.31989979199716,
+                100.99915049999254,
+                24.635905083996477,
+                43.00258374999976,
+                19.114959041005932,
+                23.314696749992436,
+                33.35218854199047,
+                62.805872833007015,
+                25.94673250001506,
+                513.5341019579791,
+                33.559787500009406,
+                29.902643250010442,
+                80.80284608399961,
+                48.00463204199332,
+                64.36872554197907,
+                229.2494785420131,
+                56.68487679102691,
+                32.74567824997939,
+                42.81908787501743,
+                66.04396320800879,
+                36.10589279199485,
+                74.84329900000012,
+                121.04156758298632,
+                83.80022274999646,
+                23.987066041998332,
+                49.216110125009436,
+                20.15939575000084,
+                64.88235062500462,
+                47.71000875000027,
+                66.35182545799762,
+                58.15808979200665,
+                54.74390949998633,
+                106.34594433300663,
+                44.50107395899249,
+                25.743560167000396,
+                58.284287917020265,
+                65.47528924999642,
+                32.75274458297645,
+                98.12842141700094,
+                80.0285147500108
+              ],
+              "requestSecondsTotal": 4095.3547794609913,
+              "timingKind": "client_http_duration_not_provider_inference",
+              "tokens": {
+                "prompt_tokens": 85717,
+                "completion_tokens": 32176,
+                "total_tokens": 117893
+              },
+              "knownCostUsd": "0.01743459",
+              "actualCostUsd": "0.01743459",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts are observed provider usage charges; missing usage fields remain null."
+            },
+            "servedRoute": {
+              "requestedModel": "deepseek/deepseek-v4.1-flash",
+              "providerTag": "open-inference/fp4",
+              "returnedModels": {
+                "deepseek/deepseek-v4.1-flash": 60
+              },
+              "returnedProviders": {
+                "OpenInference": 60
+              },
+              "providerEndpoint": {
+                "model": "deepseek/deepseek-v4.1-flash",
+                "provider": "open-inference/fp4",
+                "provider_name": "OpenInference",
+                "quantization": "fp4",
+                "reasoning_effort": "low",
+                "temperature": 0,
+                "max_tokens": 4096,
+                "seed_policy": "No explicit seed",
+                "context_length": 1048576,
+                "timeout_seconds": 300.0,
+                "continue_on_invalid_output": true,
+                "fallbacks": false
+              }
+            },
+            "evidence": {
+              "claim": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.claim.json",
+                "sha256": "592956f1ce612142707c6b33e84f4a5ac9b18dd77835c6615d625a89c79b73ac"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.journal.jsonl",
+                "sha256": "40ca31d5b36a9767c0b9ea1d767508633334b0f252536da1a0c716b52c5ebfef"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.raw.jsonl",
+                "sha256": "cd926a6cd309398a7c7607fce6d0b1962bb74ab5a77a644d353b5ffc06128e56"
+              },
+              "records": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.records.jsonl",
+                "sha256": "9fe7eb8063ed991392b607ace8b4d75f7ee041285246341d0906bc8f2542edd3"
+              },
+              "review": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.root-review.json",
+                "sha256": "c4cd06563cb5235dd92c272219399dae99f2598717f162081cb5c81528f14746"
+              },
+              "smoke": {
+                "claim": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.claim.json",
+                  "sha256": "45985e87fd341fee1ccef3812c502431833b172970acb74114c79cadc26af5f7"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.journal.jsonl",
+                  "sha256": "442b352655ecc2ea87ad214421dfecbd3412cf4a27233acb1f2a41368d092938"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.raw.jsonl",
+                  "sha256": "c2fc219ccf6343bb21fe9f4ee65fb7ff34f4b0dd607b0fa671792d70ece8bde0"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.records.jsonl",
+                  "sha256": "277a8998616df19dbcd76c7a5b6734f8b13442af2c46dee85e43a2d65ee3b162"
+                },
+                "review": {
+                  "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.root-review.json",
+                  "sha256": "a6a3cb19e0192b5086a8e19689434bfc1638884f572de087b21e00bc72ff7c63"
+                }
+              },
+              "budgetPrefix": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-budget-prefix.jsonl",
+                "sha256": "76706c7f4550599ada9b18725e892bc480e11cb4e4a33956694f95d03473899f"
+              },
+              "budgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-budget-prefix.jsonl",
+                "settledAttempts": 60,
+                "selectedEventsSha256": "c47fe0e5f28997bdbad4931923eb6df10e0421176a447a65787af9aa527afefe"
+              },
+              "smokeBudgetSettlement": {
+                "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-budget-prefix.jsonl",
+                "settledAttempts": 3,
+                "selectedEventsSha256": "02438859a31ae898482f7cfb8d05a22f766c2560842c7a5eb32a06199163d760"
+              }
+            }
+          }
+        },
+        "fresh2": {},
+        "fresh3": {}
+      },
+      "referenceVersion": "0.2",
+      "referenceStatus": "AI-reviewed provisional; not independent adjudication",
+      "referenceClassCounts": {
+        "sentiment": {
+          "insufficient_information": 2,
+          "mixed": 8,
+          "negative": 31,
+          "neutral": 8,
+          "positive": 11
+        },
+        "follow_up_needed": {
+          "insufficient_information": 1,
+          "no": 24,
+          "yes": 35
+        },
+        "serious_concern_reported": {
+          "insufficient_information": 6,
+          "no": 29,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "insufficient_information": 1,
+          "no": 50,
+          "yes": 9
+        }
+      },
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 1,
+            "values": [
+              58
+            ],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 1,
+              "values": [
+                59
+              ],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 1,
+              "values": [
+                58
+              ],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 1,
+              "values": [
+                58
+              ],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 1,
+              "values": [
+                59
+              ],
+              "mean": null,
+              "range": null
+            }
+          }
+        },
+        "P1": {
+          "allFour": {
+            "completedPasses": 0,
+            "values": [],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            }
+          }
+        },
+        "P2": {
+          "allFour": {
+            "completedPasses": 0,
+            "values": [],
+            "mean": null,
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 0,
+              "values": [],
+              "mean": null,
+              "range": null
+            }
+          }
+        }
+      },
+      "pairwiseFlips": [],
+      "changesAcrossThreePasses": {},
+      "withinPassPromptDeltas": [],
+      "withinPassPromptFlips": [],
+      "pairedDeltaSpread": {
+        "P1": {
+          "completedPairs": 0,
+          "allFourValues": [],
+          "allFourRange": null,
+          "fieldRanges": {
+            "sentiment": null,
+            "follow_up_needed": null,
+            "serious_concern_reported": null,
+            "testimonial_potential": null
+          }
+        },
+        "P2": {
+          "completedPairs": 0,
+          "allFourValues": [],
+          "allFourRange": null,
+          "fieldRanges": {
+            "sentiment": null,
+            "follow_up_needed": null,
+            "serious_concern_reported": null,
+            "testimonial_potential": null
+          }
+        }
+      },
+      "historicalPassUsed": false,
+      "limitations": [
+        "The same 60 synthetic development records recur in every pass.",
+        "Provisional v0.2 references are not independent adjudication.",
+        "Client HTTP duration includes transport, not pure provider inference.",
+        "Serving revision and effective seed are unavailable.",
+        "Flip denominators include only records valid in both compared passes."
+      ]
+    }
+  ],
+  "availableConfigurations": [
+    "openrouter-paid-deepseek-v41-flash-low"
+  ],
+  "missingSeries": [],
+  "sourceBindings": [
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/manifest.json",
+      "sha256": "c1c685db6a4e6a9c4b8376d1d11adc98942fcf9f66eb137daed867b1dc2c5004"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/admission-plan.json",
+      "sha256": "98c4b32319fc2e933c40c59583eb1f9ac1bd8c037c3453c11c0196cfc758dc21"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+      "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+    },
+    {
+      "path": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl",
+      "sha256": "aee3f15a4ed678d1b9b2d8a8afe5684eba0ec009d1d8481b4abd00345a4f41db"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl",
+      "sha256": "785f98cce757512a8d675f46f22df4ea83c26d70fe771002ce472451c348a812"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl",
+      "sha256": "011ad9843d174bcefab8f35fa4c3322d3c38e0012c13ca0d58959e9807725d84"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P1/development.jsonl",
+      "sha256": "86c9f8a4787101920aa8fdc4b36a16d462ede1562e95e63de1b2491097c0cd7d"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p1/development.jsonl",
+      "sha256": "89427cde5304acfdfa17ce1187170631d35fb65b8e188167f049cbec5a7db429"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/development.jsonl",
+      "sha256": "da61be15f5d9f2cec9f4c9603bda625c5a49ab5e0802c231538120b22e56e5fd"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/development.jsonl",
+      "sha256": "16c9fa4691f924526546a4032c996a5bdcdf7d9f0587f02c4388a7610c1ffc6c"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p2/development.jsonl",
+      "sha256": "41e693093f84b7164a04c4f0a91f5b2fd4ff3a184f052af20a636b754315cf70"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/smoke.jsonl",
+      "sha256": "597a38302123c7d8dfd3a2a427f07ea2089f238b58891cb30425a9da1d51dfdd"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P1/smoke.jsonl",
+      "sha256": "feff1e3e70f6d92578aaba0ec00a55a29cd62c25c1d951f14fdea83a8c9e355c"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/smoke.jsonl",
+      "sha256": "6b35a54dec935b778a7a3bec2f9f87f7a548d42c92b111d9485bd550bf27bc1d"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/hosted-remaining-audit-v1/continuation-pairs-v1/openrouter-paid-deepseek-v41-flash-low.json",
+      "sha256": "badc5741a0ddcecec64a63d5b41a3155576d2d38c4046b77cfee1501150d63da"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/baseline.txt",
+      "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P1/instruction.txt",
+      "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/instruction.txt",
+      "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+    },
+    {
+      "path": "scripts/deepseek_low_fresh_repeat_admission.py",
+      "sha256": "95ffd2d9985787d039f12b5ef32c97b99b35d60c121824d5255993fbbdee3152"
+    },
+    {
+      "path": "scripts/deepseek_low_fresh_repeat_execution_v2.py",
+      "sha256": "8d64f7e1d277eedc27f2edc5273681bfce34355dbc9ff262d9a9ed1c965494a9"
+    },
+    {
+      "path": "scripts/openrouter_paid_benchmark.py",
+      "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+    },
+    {
+      "path": "scripts/openrouter_benchmark.py",
+      "sha256": "d754c2b20a1cfd18bcf55c76a357df42d7be0f5506707e996f172a03f3d90d94"
+    },
+    {
+      "path": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    },
+    {
+      "path": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    {
+      "path": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/budget.json",
+      "sha256": "d412cab9771482b0d03cf082895cc629ca3239e428a3195febb4b9e19d0d0afc"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-budget-prefix.jsonl",
+      "sha256": "76706c7f4550599ada9b18725e892bc480e11cb4e4a33956694f95d03473899f"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.root-review.json",
+      "sha256": "a6a3cb19e0192b5086a8e19689434bfc1638884f572de087b21e00bc72ff7c63"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.claim.json",
+      "sha256": "45985e87fd341fee1ccef3812c502431833b172970acb74114c79cadc26af5f7"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.journal.jsonl",
+      "sha256": "442b352655ecc2ea87ad214421dfecbd3412cf4a27233acb1f2a41368d092938"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.raw.jsonl",
+      "sha256": "c2fc219ccf6343bb21fe9f4ee65fb7ff34f4b0dd607b0fa671792d70ece8bde0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.records.jsonl",
+      "sha256": "277a8998616df19dbcd76c7a5b6734f8b13442af2c46dee85e43a2d65ee3b162"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.root-review.json",
+      "sha256": "c4cd06563cb5235dd92c272219399dae99f2598717f162081cb5c81528f14746"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.claim.json",
+      "sha256": "592956f1ce612142707c6b33e84f4a5ac9b18dd77835c6615d625a89c79b73ac"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.journal.jsonl",
+      "sha256": "40ca31d5b36a9767c0b9ea1d767508633334b0f252536da1a0c716b52c5ebfef"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.raw.jsonl",
+      "sha256": "cd926a6cd309398a7c7607fce6d0b1962bb74ab5a77a644d353b5ffc06128e56"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.records.jsonl",
+      "sha256": "9fe7eb8063ed991392b607ace8b4d75f7ee041285246341d0906bc8f2542edd3"
+    }
+  ]
+}

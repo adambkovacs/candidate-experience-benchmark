@@ -345,10 +345,12 @@ def build_series(root, spec):
     return series, bindings
 
 
-def build(root=ROOT):
+def build(root=ROOT, configuration=None):
     root = Path(root).resolve()
     series, bindings, missing_series = [], [], []
     for spec in SPECS:
+        if configuration is not None and spec.admission.CONFIG != configuration:
+            continue
         if not path(root, spec.base / 'manifest.json').exists():
             if any(path(root, spec.base).glob('phase-*')):
                 raise ValueError('Stage evidence exists without a v2 manifest')
@@ -431,8 +433,9 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--configuration', choices=[spec.admission.CONFIG for spec in SPECS])
     args = parser.parse_args(argv)
-    content = json.dumps(build(), indent=2, ensure_ascii=False) + '\n'
+    content = json.dumps(build(configuration=args.configuration), indent=2, ensure_ascii=False) + '\n'
     if args.check:
         if not args.output.exists() or args.output.read_text() != content:
             raise ValueError(f'Stale additional hosted fresh report: {args.output}')
