@@ -52,3 +52,7 @@ The [six-series findings](CODEX_FRESH_REPEAT_FINDINGS_2026-09-29.md) give per-fi
 Alex OpenJev 4B has two closed 60-review native passes. Both match all four provisional reference fields on 39/60 reviews, with field agreement of 49/60 sentiment, 57/60 follow-up, 47/60 serious concern and 57/60 testimonial potential. No review changed any classification between these two passes. The third pass is still required; two unchanged passes are not a completed three-pass study.
 
 The second pass recorded 4,422.31 seconds of client prediction time and 1,251,194 native NLI input token positions across the 14 hypotheses per review. Those positions are not billed API tokens, and the duration includes local runtime overhead. Isolated inference time and attributable local cost remain unavailable.
+
+## DeepSeek five-condition checkpoint
+
+Five of nine fresh DeepSeek conditions are closed. Pass one scored 48/60, 47/60 and 43/60 all-four agreement for P0, P1 and P2. Pass two has P0 at 49/60 and P2 at 45/60; P1 is still running at this checkpoint. P2 changed two reviews between passes: sentiment on DEV-009 and testimonial potential on DEV-020. The two-review score increase between identical prompts is another reason to wait for all three passes before interpreting small prompt differences. These are the same 60 reviews, with unchanged provisional references.
