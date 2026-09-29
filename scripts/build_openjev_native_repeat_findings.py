@@ -406,10 +406,8 @@ def build(root=ROOT):
                 continue
             entry, records = closed_repeat(root, plan, mode, repeat, labels, bind)
             if entry is None:
-                claimed = any(path(root, folder / f'{name}.claim.json').exists()
-                              for name in ('smoke', 'development'))
                 missing.append({'pass': repeat, 'condition': 'P0',
-                                'status': 'claimed_in_progress_or_interrupted' if claimed else 'not_started'})
+                                'status': 'not_completed'})
                 open_before = True
                 global_open = True
             else:

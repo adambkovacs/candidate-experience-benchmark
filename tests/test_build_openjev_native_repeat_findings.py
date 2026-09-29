@@ -188,18 +188,20 @@ class NativeOpenJevReportTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'saved projection differs'):
                 report.build(root)
 
-    def test_claimed_phase_stays_unscored_without_terminal(self):
+    def test_claimed_phase_does_not_change_public_report_before_terminal(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary); self.copy_sources(root)
+            before = report.build(root)
             folder = root / report.BASE / 'openjev-fixed/fresh1/P0'
             folder.mkdir(parents=True)
             self.write_json(folder, 'smoke.claim.json', {'claimed': True})
             (folder / 'smoke.raw.jsonl').write_bytes(b'{partial')
+            (folder / 'smoke.journal.jsonl').write_text('{"event":"started"}\n')
             result = report.build(root)
+            self.assertEqual(result, before)
             config = result['configurations']['fixed']
             self.assertEqual(config['freshPasses'], {})
-            self.assertEqual(config['missingPasses'][0]['status'],
-                             'claimed_in_progress_or_interrupted')
+            self.assertEqual(config['missingPasses'][0]['status'], 'not_completed')
 
     def test_stopped_smoke_preserves_unknown_id_without_scoring(self):
         with tempfile.TemporaryDirectory() as temporary:
