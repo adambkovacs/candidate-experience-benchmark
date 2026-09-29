@@ -363,3 +363,12 @@ The [hosted work matrix](HOSTED_PENDING_MATRIX_2026-09-29.md) now puts the lates
 DeepSeek low P1 closed with 60 valid outputs, 57/60 all-field agreement and 59/60 agreement on each field. The original verifier and immutable settlement-prefix check passed; closed evidence is committed in `37c21495`. Publication commit `cc7bc217` passed a public-only report check, six reporter tests and three UI tests. Pages run [36521916906](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36521916906) succeeded, and the live report matches committed bytes. Its seven unclosed combinations remain unscored.
 
 P2 smoke subsequently closed with three inspected valid responses and known billing; P2 development is running within the existing funded child. AnyJev L1 fresh2 remains active, with fresh3 still required before L2 is next. Qwen reasoning-on and DeepSeek high executors are reviewed and committed; the Mistral none/high offline plans are also reviewed and committed. Their new hosted allocations remain unfunded. See the updated [hosted matrix](HOSTED_PENDING_MATRIX_2026-09-29.md).
+
+
+## AnyJev L1 second pass published, 2026-09-29
+
+Fresh2 development exited successfully and passed the pinned stage verifier with completion hash `4193f1f322d190cc5ad14f45e783467e9f4a046d18b3ef303c10a038f7dcbd91`. Both completed passes have 60 valid outputs, 6/60 all-field agreement and field agreement counts of 38, 16, 31 and 49. No label vectors changed across the 60 paired reviews. This observed two-run consistency does not prove determinism or accuracy.
+
+Closed evidence and the separate fresh3 smoke admission are committed in `49ab5ba2`. The third pass is calibrating; no third full pass is complete. Publication commit `a6248dd6` passed a public-only report check, eleven reporter tests and three UI tests. Pages run [36523880485](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36523880485) succeeded; the live report exactly matches SHA-256 `21af925625968960a6e3e7f070e95f175630f147f19dde89b5ff7f32ef85edc8`.
+
+Mistral's executor is also reviewed and committed in `9c417ca2`, with eleven planner/executor tests passing. No new Mistral request or allocation has occurred. Its historical 429 capacity failures and unfunded status remain unresolved. The requested budget increase has not been approved; the $10 aggregate cap remains in force.
