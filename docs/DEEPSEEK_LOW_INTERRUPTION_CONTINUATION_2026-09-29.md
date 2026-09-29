@@ -17,3 +17,11 @@ The [14 offline tests](../tests/test_deepseek_low_interruption_continuation.py) 
 After the offline candidate above passed independent review and all 14 tests, root allocated a distinct $0.14 child within the existing $10 cap. The master had $0.00350943850 unallocated immediately afterward. This is an allocation, not an observed charge or a guarantee that all later phases fit. The old $0.1069056 unknown bound remains retained.
 
 The continuation manifest SHA-256 is `358a4667f372aafcfd146f4b9c9aec5fe219e2d4359cf1d0844aed41d0315e63`; its budget manifest is `c8778844353e66a9367347bfb9588d5881d1d78850be91f1f1885cf4ef28f0b4`. The root suffix receipt binds only DEV-041 through DEV-060. Live model/endpoint checks passed, the suffix was claimed, and its process was observed running. It is not complete at this checkpoint. Raw provider captures remain ignored and private.
+
+## Second interruption, DEV-049
+
+The admitted suffix stopped after eight valid responses for DEV-041 through DEV-048 and an HTTP 429 service failure at DEV-049. The combined P2 record therefore contains 46 valid outputs, DEV-039 invalid, DEV-040 and DEV-049 failed, and 11 never-sent positions (DEV-050 through DEV-060). P2 remains incomplete and unscored. Neither failed request was replayed.
+
+After independent money review, the new child was sealed with $0.00202348 known charges and the full $0.1069056 DEV-049 unknown-charge bound. Its [terminal reconciliation](../results/repeatability-v1/deepseek-low-fresh3-v2/interruption-continuation-v1/terminal-reconciliation-after-dev049.json) released only $0.03107092 unused allocation. The master then had $0.03458035850 unallocated under the unchanged $10 cap, below a single $0.1069056 DeepSeek reservation. The earlier DEV-040 bound remains retained separately. These bounds are not observed charges. Further DeepSeek work requires additional authorized capacity and a separately reviewed continuation; all unsent work remains in scope.
+
+The nine suffix records are private, with SHA-256 `74576ce61c4a55dc44eb3b29529fe4570310221d7344238207fc1ac94e7e69ee`. Their raw sidecar and records have verified private mode-0600 backups. A public projection of the terminal partial evidence is being prepared; no score is inferred from 49 attempted positions.
