@@ -4,6 +4,16 @@ The OpenRouter ledger was read at 02:25 UTC. Its $10 cap accounts for $9.9584893
 
 No new full hosted series is currently ready to dispatch within free capacity. DeepSeek low is already prepared and funded, but its exact `open-inference/fp4` endpoint was previously returned with status -2. Keep it stopped until a fresh read returns status 0 and all frozen route fields match. The other live routes below do not have fresh matched-series manifests/controllers in this inventory. Catalog presence is not admission.
 
+## Later admission checkpoint
+
+The table below is the 02:25 UTC snapshot. Subsequent work has changed preparation status:
+
+- Gemma 26B reasoning-on now has reviewed fresh-three manifests and an execution controller, with ten offline tests passing. Its proposed $0.40 allocation remains unfunded. See [the admission](GEMMA26_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md).
+- Qwen27 medium and xhigh now have six reviewed fresh-pass manifests. Four tests and independent reconstruction checks pass. They still need execution controllers, fresh route checks and funded allocations; proposed allocations are $1.00 and $0.80. See [the admission](QWEN27_FRESH_REPEAT_ADMISSION_2026-09-29.md).
+- DeepSeek low became reachable, but its endpoint input price dropped from $0.10 to $0.03 per million tokens. The unchanged runner rejected this metadata difference before dispatch. A versioned price-only admission is being prepared; no requests have been sent under changed pricing. See [the exact check](../results/repeatability-v1/deepseek-low-fresh3-v2/live-endpoint-check-2026-09-29.md).
+
+These updates make no new budget allocation and do not change the $10 cap.
+
 ## Pending exact configurations
 
 | Exact configuration | Current exact route | Prior evidence and cost bound | Current disposition |
