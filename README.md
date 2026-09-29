@@ -139,7 +139,7 @@ AnyJev L1's three calibrated passes each have 60 valid outputs and 6/60 all-fiel
 
 AnyJev L2 completed three native passes, each with 60 valid outputs and 13/60 all-field matches. Their classifications were identical across all 60 reviews, with zero pairwise flips and a three-pass all-field range of 13–13/60. These fitted-head results use held-out folds within the development set; stable answers do not establish accuracy beyond it. [Read the class-level findings and measurement limits](docs/ANYJEV_L2_REPEAT_FINDINGS_2026-09-29.md).
 
-OpenJev completed separate fixed and adaptive fresh triplets. Each pass had 60 valid outputs; fixed scored 53/60 and adaptive 52/60 all-field matches, with no within-mode classification flips. Thinking's first two fresh passes scored 53/60 and 54/60; nine reviews changed at least one decision between them. A third thinking pass remains, so its planned repeat comparison is incomplete. Cross-mode score differences are descriptive. [Read the class-level findings and measurement limits](docs/OPENJEV_NATIVE_REPEAT_FINDINGS_2026-09-29.md).
+OpenJev completed all three native P0 triplets with 60 valid outputs per pass. Fixed scored 53/60 and adaptive 52/60 all-field matches in each pass, with no within-mode classification flips. Thinking scored 53/60, 54/60 and 54/60; its pairwise comparisons changed at least one decision on 9, 9 and 4 reviews. Cross-mode score differences are descriptive. [Read the class-level findings and measurement limits](docs/OPENJEV_NATIVE_REPEAT_FINDINGS_2026-09-29.md).
 
 ## License
 

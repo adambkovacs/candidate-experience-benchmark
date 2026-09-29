@@ -2233,7 +2233,44 @@
       }
     },
     "thinking": {
-      "changesAcrossThreePasses": null,
+      "changesAcrossThreePasses": {
+        "denominator": 60,
+        "excludedIds": [],
+        "fields": {
+          "follow_up_needed": [
+            "DEV-006",
+            "DEV-007",
+            "DEV-012",
+            "DEV-039"
+          ],
+          "sentiment": [
+            "DEV-002",
+            "DEV-004",
+            "DEV-005",
+            "DEV-030"
+          ],
+          "serious_concern_reported": [
+            "DEV-006",
+            "DEV-008",
+            "DEV-013",
+            "DEV-029"
+          ],
+          "testimonial_potential": []
+        },
+        "fourFieldVector": [
+          "DEV-002",
+          "DEV-004",
+          "DEV-005",
+          "DEV-006",
+          "DEV-007",
+          "DEV-008",
+          "DEV-012",
+          "DEV-013",
+          "DEV-029",
+          "DEV-030",
+          "DEV-039"
+        ]
+      },
       "configuration": "openjev-thinking",
       "freshPasses": {
         "fresh1": {
@@ -2725,6 +2762,250 @@
               "reasoning_output_tokens": null
             }
           }
+        },
+        "fresh3": {
+          "completionStatus": "complete",
+          "confusionCounts": {
+            "follow_up_needed": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 23,
+                "yes": 1
+              },
+              "yes": {
+                "no": 1,
+                "yes": 34
+              }
+            },
+            "sentiment": {
+              "insufficient_information": {
+                "insufficient_information": 1,
+                "neutral": 1
+              },
+              "mixed": {
+                "mixed": 8
+              },
+              "negative": {
+                "negative": 30,
+                "neutral": 1
+              },
+              "neutral": {
+                "negative": 1,
+                "neutral": 7
+              },
+              "positive": {
+                "positive": 11
+              }
+            },
+            "serious_concern_reported": {
+              "insufficient_information": {
+                "insufficient_information": 4,
+                "no": 2
+              },
+              "no": {
+                "no": 29
+              },
+              "yes": {
+                "yes": 25
+              }
+            },
+            "testimonial_potential": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 50
+              },
+              "yes": {
+                "yes": 9
+              }
+            }
+          },
+          "evidence": {
+            "development": {
+              "claim": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.claim.json",
+                "sha256": "a96a2d6b12176f1b7e1c13f3394ef5b36caee056faa8801646889a8518ad8d59"
+              },
+              "completion": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.completion.json",
+                "sha256": "64f38d437b1ec9b8c2f7c8217072617507a3d3c676b89ea11b98e6785b99af5e"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.journal.jsonl",
+                "sha256": "aa423639ed803e5d93bc5f7e62ff5d179ddd3a0ebcaa44d37926936978b3b201"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.raw.jsonl",
+                "sha256": "3a6baa8ca4ea271fa5dbbd933c42daf491aeb4da18f00d573986cf445a08a163"
+              },
+              "records": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.records.jsonl",
+                "sha256": "31d0dc7e52394d11c54d565cdc8decdc35e848b12a867df79f5d2c0e79a9d320"
+              },
+              "review": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.root-review.json",
+                "sha256": "c5fbb208be9a1d55efa76d010d04a0812cb35e21eb79d0b83610ded9be98c35a"
+              }
+            },
+            "smoke": {
+              "claim": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.claim.json",
+                "sha256": "fa7d7a7282f5f4a2b6b90ef0f9335e810962f1f329a1a0a2b773d9e0eeeba703"
+              },
+              "completion": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.completion.json",
+                "sha256": "95250f213cfc7b6e4b4e1356dfbecf22c0bff1e7413940269cd6c7797b4d3039"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.journal.jsonl",
+                "sha256": "cabf401e9aa3ad55a5b58c56bca9de6792dc5fb27952dfc27a18c18606e662d8"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.raw.jsonl",
+                "sha256": "c1e3e8818a48ff5a1d4e8531078157fbb36559bb3cc806e78294af4ebf64e7e3"
+              },
+              "records": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.records.jsonl",
+                "sha256": "4a86ea510b0a9c41b425d779990fb886e7044a2e9c4835a74b7be51bf96ab8e1"
+              },
+              "review": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.root-review.json",
+                "sha256": "98c39f9b5d0a5dcacf728262eb3d321e3d4ee61846174ecd8ab668e1ca2f8127"
+              }
+            },
+            "smokeInspection": {
+              "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke-inspection.json",
+              "sha256": "c5cefd4f04d31cf789d6c7e95cce6c07e37f1cee3cee7b74cf96423b7b934f94"
+            }
+          },
+          "predictedClassCounts": {
+            "follow_up_needed": {
+              "insufficient_information": 1,
+              "no": 24,
+              "yes": 35
+            },
+            "sentiment": {
+              "insufficient_information": 1,
+              "mixed": 8,
+              "negative": 31,
+              "neutral": 9,
+              "positive": 11
+            },
+            "serious_concern_reported": {
+              "insufficient_information": 4,
+              "no": 31,
+              "yes": 25
+            },
+            "testimonial_potential": {
+              "insufficient_information": 1,
+              "no": 50,
+              "yes": 9
+            }
+          },
+          "score": {
+            "allFour": 54,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 58,
+              "sentiment": 57,
+              "serious_concern_reported": 58,
+              "testimonial_potential": 60
+            },
+            "invalidIds": [],
+            "outcomes": {
+              "invalid_output": 0,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 60
+            },
+            "valid": 60
+          },
+          "usage": {
+            "actualCostUsd": null,
+            "clientRequestSeconds": [
+              32.14739666698733,
+              30.954770207987167,
+              34.14096566598164,
+              42.9575205000001,
+              60.90705141698709,
+              33.67744333302835,
+              29.757899791991804,
+              28.58620795799652,
+              27.86438070901204,
+              29.129164000041783,
+              30.70575895800721,
+              27.344824209052604,
+              39.1825083749718,
+              38.10713887499878,
+              37.45022362499731,
+              43.59717025002465,
+              33.01785491697956,
+              35.38584866700694,
+              35.53349941596389,
+              31.029920541972388,
+              36.13202545896638,
+              32.43758445803542,
+              28.529040957975667,
+              34.468252292019315,
+              30.148801041999832,
+              30.972944999986794,
+              32.97380170802353,
+              45.05650662496919,
+              38.05719925003359,
+              37.31672616698779,
+              36.11492083303165,
+              29.299534292018507,
+              37.2835934170289,
+              33.922496291052084,
+              34.456432458013296,
+              25.189038084005006,
+              31.603553249966353,
+              41.404686042049434,
+              43.828594249964226,
+              35.705249959020875,
+              32.55660537502263,
+              50.27624375000596,
+              41.04040316701867,
+              35.14761712501058,
+              38.08717004099162,
+              37.038357500045095,
+              29.233012499986216,
+              39.37195562501438,
+              31.93753266701242,
+              28.920183249982074,
+              36.99988441698952,
+              33.56996200000867,
+              34.86535941698821,
+              34.84803862503031,
+              34.44548254198162,
+              43.730270833999384,
+              47.153696583001874,
+              36.10905729199294,
+              39.128886084014084,
+              46.75893187499605
+            ],
+            "clientRequestSecondsTotal": 2147.597180588229,
+            "costNote": "Local hardware and electricity cost not measured; HTTP usage is not a bill.",
+            "inferenceSeconds": null,
+            "modelLoadSeconds": null,
+            "requestCount": 60,
+            "timeBasis": "client_observed_http_wall_clock",
+            "tokenBasis": "reported_response_usage_when_available",
+            "tokens": {
+              "cached_input_tokens": null,
+              "input_tokens": 273598,
+              "output_tokens": 24960,
+              "reasoning_output_tokens": null
+            }
+          }
         }
       },
       "historicalObservation": {
@@ -2922,13 +3203,7 @@
           }
         }
       },
-      "missingPasses": [
-        {
-          "condition": "P0",
-          "pass": "fresh3",
-          "status": "not_completed"
-        }
-      ],
+      "missingPasses": [],
       "pairwiseFlips": [
         {
           "denominator": 60,
@@ -2983,52 +3258,168 @@
             "rate": 0.0
           },
           "to": "fresh2"
+        },
+        {
+          "denominator": 60,
+          "excludedIds": [],
+          "follow_up_needed": {
+            "caseIds": [
+              "DEV-007",
+              "DEV-012",
+              "DEV-039"
+            ],
+            "changed": 3,
+            "rate": 0.05
+          },
+          "fourFieldVector": {
+            "caseIds": [
+              "DEV-002",
+              "DEV-004",
+              "DEV-005",
+              "DEV-007",
+              "DEV-008",
+              "DEV-012",
+              "DEV-029",
+              "DEV-030",
+              "DEV-039"
+            ],
+            "changed": 9,
+            "rate": 0.15
+          },
+          "from": "fresh1",
+          "sentiment": {
+            "caseIds": [
+              "DEV-002",
+              "DEV-004",
+              "DEV-005",
+              "DEV-030"
+            ],
+            "changed": 4,
+            "rate": 0.06666666666666667
+          },
+          "serious_concern_reported": {
+            "caseIds": [
+              "DEV-008",
+              "DEV-029"
+            ],
+            "changed": 2,
+            "rate": 0.03333333333333333
+          },
+          "testimonial_potential": {
+            "caseIds": [],
+            "changed": 0,
+            "rate": 0.0
+          },
+          "to": "fresh3"
+        },
+        {
+          "denominator": 60,
+          "excludedIds": [],
+          "follow_up_needed": {
+            "caseIds": [
+              "DEV-006",
+              "DEV-039"
+            ],
+            "changed": 2,
+            "rate": 0.03333333333333333
+          },
+          "fourFieldVector": {
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-029",
+              "DEV-039"
+            ],
+            "changed": 4,
+            "rate": 0.06666666666666667
+          },
+          "from": "fresh2",
+          "sentiment": {
+            "caseIds": [],
+            "changed": 0,
+            "rate": 0.0
+          },
+          "serious_concern_reported": {
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-029"
+            ],
+            "changed": 3,
+            "rate": 0.05
+          },
+          "testimonial_potential": {
+            "caseIds": [],
+            "changed": 0,
+            "rate": 0.0
+          },
+          "to": "fresh3"
         }
       ],
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 2,
-            "mean": null,
-            "range": null,
+            "completedPasses": 3,
+            "mean": 53.666666666666664,
+            "range": [
+              53,
+              54
+            ],
             "values": [
               53,
+              54,
               54
             ]
           },
           "fields": {
             "follow_up_needed": {
-              "completedPasses": 2,
-              "mean": null,
-              "range": null,
+              "completedPasses": 3,
+              "mean": 57.666666666666664,
+              "range": [
+                57,
+                58
+              ],
               "values": [
                 57,
+                58,
                 58
               ]
             },
             "sentiment": {
-              "completedPasses": 2,
-              "mean": null,
-              "range": null,
+              "completedPasses": 3,
+              "mean": 57.0,
+              "range": [
+                57,
+                57
+              ],
               "values": [
+                57,
                 57,
                 57
               ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
-              "mean": null,
-              "range": null,
+              "completedPasses": 3,
+              "mean": 57.666666666666664,
+              "range": [
+                57,
+                58
+              ],
               "values": [
                 58,
-                57
+                57,
+                58
               ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
-              "mean": null,
-              "range": null,
+              "completedPasses": 3,
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ],
               "values": [
+                60,
                 60,
                 60
               ]
@@ -3562,6 +3953,58 @@
     {
       "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh2/P0/development.completion.json",
       "sha256": "a6b3226428349c8ae9eca2c8e76e5341697c966b1d11564a703e7f700029924d"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.root-review.json",
+      "sha256": "98c39f9b5d0a5dcacf728262eb3d321e3d4ee61846174ecd8ab668e1ca2f8127"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.claim.json",
+      "sha256": "fa7d7a7282f5f4a2b6b90ef0f9335e810962f1f329a1a0a2b773d9e0eeeba703"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.journal.jsonl",
+      "sha256": "cabf401e9aa3ad55a5b58c56bca9de6792dc5fb27952dfc27a18c18606e662d8"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.raw.jsonl",
+      "sha256": "c1e3e8818a48ff5a1d4e8531078157fbb36559bb3cc806e78294af4ebf64e7e3"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.records.jsonl",
+      "sha256": "4a86ea510b0a9c41b425d779990fb886e7044a2e9c4835a74b7be51bf96ab8e1"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke.completion.json",
+      "sha256": "95250f213cfc7b6e4b4e1356dfbecf22c0bff1e7413940269cd6c7797b4d3039"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/smoke-inspection.json",
+      "sha256": "c5cefd4f04d31cf789d6c7e95cce6c07e37f1cee3cee7b74cf96423b7b934f94"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.root-review.json",
+      "sha256": "c5fbb208be9a1d55efa76d010d04a0812cb35e21eb79d0b83610ded9be98c35a"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.claim.json",
+      "sha256": "a96a2d6b12176f1b7e1c13f3394ef5b36caee056faa8801646889a8518ad8d59"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.journal.jsonl",
+      "sha256": "aa423639ed803e5d93bc5f7e62ff5d179ddd3a0ebcaa44d37926936978b3b201"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.raw.jsonl",
+      "sha256": "3a6baa8ca4ea271fa5dbbd933c42daf491aeb4da18f00d573986cf445a08a163"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.records.jsonl",
+      "sha256": "31d0dc7e52394d11c54d565cdc8decdc35e848b12a867df79f5d2c0e79a9d320"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-thinking/fresh3/P0/development.completion.json",
+      "sha256": "64f38d437b1ec9b8c2f7c8217072617507a3d3c676b89ea11b98e6785b99af5e"
     }
   ]
 }
