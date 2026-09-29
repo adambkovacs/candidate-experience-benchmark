@@ -26,7 +26,7 @@ The [visual findings](https://adambkovacs.github.io/candidate-experience-benchma
 
 Use [model comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#models), [prompt versions](https://adambkovacs.github.io/candidate-experience-benchmark/#explore), and [usage details](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) to investigate a specific result. These are single-pass development observations on the same 60 synthetic reviews, not a held-out leaderboard.
 
-[Qwen's nine completed combinations](docs/QWEN36_OFF_REPEAT_FINDINGS_2026-09-29.md) retain two provider failures. Its decision-tree prompt gained one or two all-field matches over the base prompt on shared-valid reviews in each pass, with interrupted dispatch limiting the comparison. [DeepSeek low's first pass](docs/DEEPSEEK_LOW_FRESH_REPEAT_FINDINGS_2026-09-29.md) matched 58/60 reviews on all four fields, while one response exhausted its reasoning-token allowance without producing a valid classification.
+[Qwen's nine completed combinations](docs/QWEN36_OFF_REPEAT_FINDINGS_2026-09-29.md) retain two provider failures. Its decision-tree prompt gained one or two all-field matches over the base prompt on shared-valid reviews in each pass, with interrupted dispatch limiting the comparison. [DeepSeek low's first fresh pass](docs/DEEPSEEK_LOW_FRESH_REPEAT_FINDINGS_2026-09-29.md) matched all four fields on 58/60 reviews for P0 and 57/60 for P1. P0 had 59 valid outputs; P1 had 60. Seven planned condition/pass combinations remain unclosed.
 
 The [follow-up reference review](docs/REFERENCE_REVIEW_V1.md) proposes one correction, which would change Jev from 54 to 55 all-four matches. Original labels and published scores remain preserved.
 
@@ -135,7 +135,7 @@ The broader plan describes 400 records. **Only the 60 development records are in
 
 The repository was previously named `recruitment-feedback-demo`. Historical evidence retains original paths and identifiers so its hashes and provenance remain intact.
 
-AnyJev L1's first calibrated pass has 60 valid outputs and 6/60 all-field matches. [The findings](docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md) explain its follow-up uncertainty, missed serious concerns and held-out calibration protocol. Repeat stability is not yet established.
+AnyJev L1's first two calibrated passes each have 60 valid outputs and 6/60 all-field matches. Their classifications were identical across the 60 reviews; the third pass remains unscored, and two matching passes do not prove deterministic behavior. [The findings](docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md) explain its follow-up uncertainty, missed serious concerns and held-out calibration protocol.
 
 ## License
 
