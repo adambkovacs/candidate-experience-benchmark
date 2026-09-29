@@ -65,6 +65,8 @@ jobs:
           python3 scripts/build_deepseek_fresh_repeat_findings.py --output public-site/deepseek-fresh-repeats.json --check
           python3 -m unittest tests.test_build_deepseek_fresh_repeat_findings tests.test_additional_hosted_fresh_repeat_findings -q
           python3 scripts/build_additional_hosted_fresh_repeat_findings.py --configuration openrouter-paid-deepseek-v41-flash-low --output public-site/additional-hosted-fresh-repeats.json --check
+          python3 scripts/build_deepseek_low_interruption_findings.py --check
+          python3 -m unittest tests.test_build_deepseek_low_interruption_findings -q
           python3 scripts/build_qwen36_off_continuation_findings.py --output public-site/qwen36-off-continuation-findings.json --check
           python3 -m unittest tests.test_build_qwen36_off_continuation_findings -q
           python3 scripts/build_qwen36_off_second_interruption_findings.py --output public-site/qwen36-off-second-interruption-findings.json --check
