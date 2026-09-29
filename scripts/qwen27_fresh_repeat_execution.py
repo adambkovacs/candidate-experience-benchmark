@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reviewed-entrypoint candidate for the distinct Gemma 26 on fresh matched-three plans."""
+"""Reviewed-entrypoint candidate for the distinct Qwen3.8 27B medium/xhigh fresh matched-three plans."""
 import argparse
 import base64
 from decimal import Decimal
@@ -13,29 +13,22 @@ import urllib.error
 import urllib.request
 from urllib.parse import quote
 
-import gemma26_on_fresh_repeat_study as study
+import qwen27_fresh_repeat_study as study
 import openrouter_paid_benchmark as paid
-import paid_budget_partitions_v2 as partitions
 import openrouter_benchmark as transport
+import paid_budget_partitions_v2 as partitions
 from prompt_admission import audit_response
 
 ROOT = study.ROOT
 MASTER = ROOT / 'results/openrouter-paid-budget.jsonl'
 HOSTED_EXECUTION = ROOT / 'results/prompt-comparison-v1-2026-09-24/hosted-execution.json'
-RECEIPT_SCHEMA = 'gemma26-on-fresh-matched3-root-review-v1'
-# The saved Gemma 26 configuration has continue_on_invalid_output=false.
-# Every intrinsic invalid remains recorded, and this lane stops before the
-# next record. Other lanes may need a different explicitly frozen policy.
+RECEIPT_SCHEMA = 'qwen27-fresh-matched3-root-review-v1'
+EXECUTION_SCHEMA = 'qwen27-fresh-matched3-execution-v1'
+EXECUTION_MANIFEST = study.BASE / 'execution-manifest.json'
+# The new fresh plans stop after any invalid result. Historical medium had a
+# different invalid-output policy; no old attempt is reused in this series.
 CONTINUE_INTRINSIC_INVALID = False
 MAX_RESPONSE_BYTES = 16 * 1024 * 1024
-
-
-class CapturedHTTPError(Exception):
-    def __init__(self, status, body, headers):
-        super().__init__('HTTP status ' + str(status))
-        self.status = status
-        self.body = body
-        self.headers = headers
 
 
 def utc():
@@ -46,59 +39,6 @@ def durable(file, value):
     paid.durable(file, value)
 
 
-def fetch_captured(payload, token, wire_output, rid, attempt_id, request_sha):
-    """Persist bounded HTTP bytes before parsing or classifying the response."""
-    request = urllib.request.Request(
-        transport.BASE + '/chat/completions',
-        headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
-        data=json.dumps(payload).encode())
-    try:
-        response = transport.OPENER.open(request, timeout=300)
-    except urllib.error.HTTPError as exc:
-        response = exc
-    try:
-        status = getattr(response, 'status', None) or getattr(response, 'code', None)
-        headers = {key: str(response.headers[key]).replace(token, '[REDACTED]')
-                   for key in ('content-type', 'content-length', 'x-request-id',
-                               'request-id', 'retry-after', 'cf-ray')
-                   if response.headers is not None and response.headers.get(key) is not None}
-        read_error = None
-        try:
-            body = response.read(MAX_RESPONSE_BYTES + 1)
-        except http.client.IncompleteRead as exc:
-            body = exc.partial
-            read_error = 'IncompleteRead'
-        oversized = len(body) > MAX_RESPONSE_BYTES
-        body = body[:MAX_RESPONSE_BYTES]
-        captured_length = len(body)
-        declared = headers.get('content-length')
-        if declared is not None and not oversized and read_error is None:
-            try:
-                if int(declared) != captured_length:
-                    read_error = 'ContentLengthMismatch'
-            except ValueError:
-                read_error = 'InvalidContentLength'
-        secret = token.encode()
-        redacted = bool(secret and secret in body)
-        if redacted:
-            body = body.replace(secret, b'[REDACTED]')
-        durable(wire_output, {'id': rid, 'attempt_id': attempt_id,
-                              'request_sha256': request_sha, 'http_status': status,
-                              'response_headers': headers,
-                              'body_base64': base64.b64encode(body).decode('ascii'),
-                              'body_bytes_captured': captured_length,
-                              'body_truncated_at_limit': oversized,
-                              'body_token_redacted': redacted,
-                              'read_error': read_error, 'received_utc': utc()})
-        if status != 200:
-            raise CapturedHTTPError(status, body.decode('utf-8', errors='replace'), headers)
-        if oversized or read_error:
-            raise ValueError('HTTP response body failed bounded capture controls')
-        return json.loads(body)
-    finally:
-        response.close()
-
-
 def bound_file(spec):
     path = (ROOT / spec['path']).resolve()
     path.relative_to(ROOT.resolve())
@@ -107,11 +47,51 @@ def bound_file(spec):
     return path
 
 
-def review_receipt(path, repeat, condition, phase, manifest_sha):
+def execution_plan():
+    plans = {}
+    for config in study.CONFIGS:
+        plans[config] = {}
+        for repeat in study.ORDERS:
+            target = study.BASE / config / repeat / 'manifest.json'
+            digest = study.sha(target)
+            study.verify(config, repeat, digest)
+            plans[config][repeat] = digest
+    return {'schema': EXECUTION_SCHEMA, 'status': 'offline_frozen_not_approved',
+            'controller_sha256': study.sha(__file__),
+            'planner_sha256': study.sha(study.__file__),
+            'plans_sha256': plans,
+            'source_code_sha256': {name: study.sha(ROOT / 'scripts' / name)
+                                   for name in ('openrouter_benchmark.py',
+                                                'openrouter_paid_benchmark.py',
+                                                'paid_budget_partitions_v2.py',
+                                                'openrouter_budget_v2.py', 'prompt_admission.py')}}
+
+
+def freeze():
+    value = execution_plan()
+    EXECUTION_MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    with EXECUTION_MANIFEST.open('x') as out:
+        json.dump(value, out, indent=2)
+        out.write('\n')
+        out.flush(); os.fsync(out.fileno())
+    return study.sha(EXECUTION_MANIFEST)
+
+
+def verify_execution_manifest(expected_sha):
+    if study.sha(EXECUTION_MANIFEST) != expected_sha:
+        raise ValueError('Execution manifest hash differs')
+    value = json.loads(EXECUTION_MANIFEST.read_text())
+    if value != execution_plan():
+        raise ValueError('Execution manifest source or code differs')
+    return value
+
+
+def review_receipt(path, config, repeat, condition, phase, manifest_sha):
     receipt = json.loads(Path(path).read_text())
     if receipt.get('schema') != RECEIPT_SCHEMA or receipt.get('approved') is not True:
         raise ValueError('Root review receipt missing approval')
-    if receipt.get('configuration_id') != study.CONFIG or receipt.get('partition_cap_usd') != str(study.PROPOSED_CHILD_USD):
+    if (receipt.get('configuration_id') != config or
+            receipt.get('partition_cap_usd') != str(study.CONFIGS[config]['proposed_child_budget'])):
         raise ValueError('Root review configuration or cap differs')
     if receipt.get('stage') != f'{repeat}/{condition}/{phase}':
         raise ValueError('Root review stage differs')
@@ -120,15 +100,12 @@ def review_receipt(path, repeat, condition, phase, manifest_sha):
     if receipt.get('hosted_execution_sha256') != study.sha(HOSTED_EXECUTION):
         raise ValueError('Root review historical execution policy hash differs')
     historical = json.loads(HOSTED_EXECUTION.read_text())
-    policies = [x for x in historical['configurations'] if x['id'] == study.CONFIG]
-    if len(policies) != 1 or policies[0]['continue_on_invalid_output'] is not CONTINUE_INTRINSIC_INVALID:
+    policies = [x for x in historical['configurations'] if x['id'] == config]
+    if (len(policies) != 1 or policies[0]['continue_on_invalid_output'] is not
+            study.CONFIGS[config]['historical_continue_on_invalid']):
         raise ValueError('Frozen invalid-output continuation policy changed')
-    expected = {}
-    for fresh_pass in study.ORDERS:
-        manifest_path = study.BASE / fresh_pass / 'manifest.json'
-        digest = study.sha(manifest_path)
-        study.verify(fresh_pass, digest)
-        expected[fresh_pass] = digest
+    execution = verify_execution_manifest(receipt.get('execution_manifest_sha256'))
+    expected = execution['plans_sha256'][config]
     if receipt.get('plan_sha256') != expected or expected[repeat] != manifest_sha:
         raise ValueError('Root review plan hashes differ')
     if receipt.get('master_ledger') != str(MASTER):
@@ -142,8 +119,8 @@ def review_receipt(path, repeat, condition, phase, manifest_sha):
     return receipt, path
 
 
-def phase_paths(repeat, condition, phase):
-    folder = study.BASE / repeat / condition
+def phase_paths(config, repeat, condition, phase):
+    folder = study.BASE / config / repeat / condition
     return folder, folder / (phase + '.claim.json'), folder / (phase + '.journal.jsonl'), folder / (phase + '.attempts.jsonl')
 
 
@@ -151,63 +128,142 @@ def jsonl(path):
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
+def response_bytes(response, token):
+    """Read at most the evidence cap plus one byte, preserving a truncated-read signal."""
+    read_error = None
+    try:
+        body = response.read(MAX_RESPONSE_BYTES + 1)
+    except http.client.IncompleteRead as exc:
+        body = exc.partial
+        read_error = 'IncompleteRead'
+    oversized = len(body) > MAX_RESPONSE_BYTES
+    body = body[:MAX_RESPONSE_BYTES]
+    captured_length = len(body)
+    secret = token.encode()
+    redacted = bool(secret and secret in body)
+    if redacted:
+        body = body.replace(secret, b'[REDACTED]')
+    return body, captured_length, oversized, redacted, read_error
+
+
+def safe_headers(response, token):
+    headers = response.headers
+    return {key: str(headers[key]).replace(token, '[REDACTED]')
+            for key in ('content-type', 'content-length', 'x-request-id',
+                        'request-id', 'retry-after', 'cf-ray')
+            if headers is not None and headers.get(key) is not None}
+
+
+def fetch_recorded(payload, token, timeout, raw_output, rid, attempt_id, request_sha):
+    """Durably capture bounded HTTP bytes and status before parsing a 2xx response."""
+    request = urllib.request.Request(
+        transport.BASE + '/chat/completions',
+        headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
+        data=json.dumps(payload).encode())
+    with transport.OPENER.open(request, timeout=timeout) as response:
+        status = response.status
+        headers = safe_headers(response, token)
+        body, length, oversized, redacted, read_error = response_bytes(response, token)
+        declared_length = headers.get('content-length')
+        if declared_length is not None and not oversized and read_error is None:
+            try:
+                if int(declared_length) != length:
+                    read_error = 'ContentLengthMismatch'
+            except ValueError:
+                read_error = 'InvalidContentLength'
+        durable(raw_output, {'id': rid, 'attempt_id': attempt_id,
+                             'request_sha256': request_sha, 'http_status': status,
+                             'response_headers': headers,
+                             'body_base64': base64.b64encode(body).decode('ascii'),
+                             'body_bytes_captured': length,
+                             'body_truncated_at_limit': oversized,
+                             'body_token_redacted': redacted,
+                             'read_error': read_error, 'received_utc': utc()})
+        if status != 200 or oversized or read_error:
+            raise ValueError('HTTP response status or body failed capture controls')
+        return json.loads(body)
+
+
 def verify_phase_closure(plan, condition, phase):
+    config = plan['configuration_id']
     fresh_pass = plan['fresh_pass']
-    manifest_path = study.BASE / fresh_pass / 'manifest.json'
+    manifest_path = study.BASE / config / fresh_pass / 'manifest.json'
     manifest_sha = study.sha(manifest_path)
-    study.verify(fresh_pass, manifest_sha)
+    study.verify(config, fresh_pass, manifest_sha)
     requests = plan['conditions'][condition][phase]
-    folder, claim, journal_path, attempts_path = phase_paths(fresh_pass, condition, phase)
+    folder, claim, journal_path, attempts_path = phase_paths(config, fresh_pass, condition, phase)
     raw_path = folder / (phase + '.responses.jsonl')
-    wire_path = folder / (phase + '.wire.jsonl')
-    for path in (claim, journal_path, attempts_path, raw_path, wire_path):
+    for path in (claim, journal_path, attempts_path, raw_path):
         if not path.is_file():
             raise ValueError('Phase closure evidence missing: ' + path.name)
     claim_data = json.loads(claim.read_text())
-    if (claim_data.get('fresh_pass'), claim_data.get('condition'), claim_data.get('phase'),
-            claim_data.get('manifest_sha256')) != (fresh_pass, condition, phase, manifest_sha):
+    if (claim_data.get('configuration_id'), claim_data.get('fresh_pass'),
+            claim_data.get('condition'), claim_data.get('phase'),
+            claim_data.get('manifest_sha256')) != (config, fresh_pass, condition, phase, manifest_sha):
         raise ValueError('Phase claim does not bind frozen predecessor manifest')
-    attempts, raw, wire, events = (jsonl(attempts_path), jsonl(raw_path),
-                                   jsonl(wire_path), jsonl(journal_path))
+    attempts, raw, events = jsonl(attempts_path), jsonl(raw_path), jsonl(journal_path)
     expected_ids = [r['record_id'] for r in requests]
     if [r.get('id') for r in attempts] != expected_ids or len(attempts) != len(requests):
         raise ValueError('Attempt rows do not match exact ordered frozen request list')
     if [r.get('id') for r in raw] != expected_ids or len(raw) != len(requests):
         raise ValueError('Raw response rows do not match exact ordered frozen request list')
-    if [r.get('id') for r in wire] != expected_ids or len(wire) != len(requests):
-        raise ValueError('Wire captures do not match exact ordered frozen request list')
     attempt_ids = [r.get('attempt_id') for r in attempts]
     if any(not isinstance(x, str) or not x for x in attempt_ids) or len(set(attempt_ids)) != len(attempt_ids):
         raise ValueError('Attempt IDs are missing or duplicated')
-    for request, record, raw_record, wire_record in zip(requests, attempts, raw, wire):
-        if (record.get('fresh_pass'), record.get('condition'), record.get('phase'),
-                record.get('manifest_sha256'), record.get('request_sha256')) != (
-                fresh_pass, condition, phase, manifest_sha, request['request_sha256']):
+    for request, record, raw_record in zip(requests, attempts, raw):
+        if (record.get('configuration_id'), record.get('fresh_pass'), record.get('condition'),
+                record.get('phase'), record.get('manifest_sha256'), record.get('request_sha256')) != (
+                config, fresh_pass, condition, phase, manifest_sha, request['request_sha256']):
             raise ValueError('Attempt row differs from frozen request or manifest')
         if (study.digest(json.dumps(record.get('request'), sort_keys=True)) != request['request_sha256'] or
+                record.get('request') != request['payload'] or
+                record.get('input_sha256') != request['input_sha256'] or
+                record.get('instruction_sha256') != request['instruction_sha256'] or
                 record.get('status') != 'ok' or record.get('billing_ok') is not True or
-                record.get('cost_unknown') is not False or record.get('observed_cost_usd') is None):
+                record.get('cost_unknown') is not False or record.get('observed_cost_usd') is None or
+                record.get('response_diagnostic', {}).get('passed') is not True):
             raise ValueError('Attempt is not a known-billed valid outcome')
-        if not isinstance(record.get('raw_response'), dict):
-            raise ValueError('Successful attempt is missing its raw response object')
         if not isinstance(record.get('raw_response'), dict):
             raise ValueError('Successful attempt is missing its raw response object')
         actual_cost = paid.number(record['observed_cost_usd'])
         reserved_cost = paid.number(record.get('reserved_cost_usd'))
         if actual_cost < 0 or actual_cost > reserved_cost:
             raise ValueError('Observed charge exceeds or violates its recorded reservation')
-        if (raw_record.get('attempt_id'), raw_record.get('request_sha256'), raw_record.get('raw_response')) != (
-                record['attempt_id'], request['request_sha256'], record.get('raw_response')):
+        body = record['raw_response']
+        choices = body.get('choices')
+        if not isinstance(choices, list) or len(choices) != 1:
+            raise ValueError('Successful response has wrong choice count')
+        choice = choices[0]
+        message = choice.get('message') or {}
+        try:
+            prediction = json.loads(message.get('content'))
+        except (ValueError, TypeError):
+            raise ValueError('Successful response prediction is invalid') from None
+        if (not paid.valid(prediction) or choice.get('finish_reason') != 'stop' or
+                any(message.get(key) for key in ('refusal', 'tool_calls', 'function_call')) or
+                choice.get('error') or record.get('prediction') != prediction or
+                record.get('usage') != body.get('usage') or
+                paid.number((body.get('usage') or {}).get('cost')) != actual_cost or
+                record.get('returned_model') != body.get('model') or
+                record.get('returned_provider') != body.get('provider') or
+                body.get('provider') != study.PROVIDER_NAME or
+                body.get('model') not in paid.allowed_returned_models(study.MODEL, record['provider_endpoint']) or
+                record['provider_endpoint'].get('tag') != study.PROVIDER or
+                record.get('reasoning_effort') != study.CONFIGS[config]['effort']):
+            raise ValueError('Successful response, route or usage differs from raw body')
+        try:
+            captured = base64.b64decode(raw_record.get('body_base64', ''), validate=True)
+            captured_response = json.loads(captured)
+        except (ValueError, TypeError):
+            raise ValueError('Captured raw response cannot be verified') from None
+        if (raw_record.get('attempt_id'), raw_record.get('request_sha256'),
+                raw_record.get('http_status'), raw_record.get('body_truncated_at_limit'),
+                raw_record.get('read_error'), captured_response) != (
+                record['attempt_id'], request['request_sha256'], 200, False, None,
+                record.get('raw_response')):
             raise ValueError('Raw response evidence differs from attempt row')
-        if (wire_record.get('attempt_id') != record['attempt_id'] or
-                wire_record.get('request_sha256') != request['request_sha256'] or
-                wire_record.get('http_status') != 200 or
-                wire_record.get('body_truncated_at_limit') is not False or
-                wire_record.get('read_error') is not None or
-                json.loads(base64.b64decode(wire_record['body_base64'])) != record['raw_response']):
-            raise ValueError('Wire body differs from saved parsed response')
-    expected_events = [{'event': 'phase_started', 'fresh_pass': fresh_pass,
-                        'condition': condition, 'phase': phase}]
+    expected_events = [{'event': 'phase_started', 'configuration_id': config,
+                        'fresh_pass': fresh_pass, 'condition': condition, 'phase': phase}]
     for request, record in zip(requests, attempts):
         expected_events.extend([
             {'event': 'request_intent', 'id': request['record_id'],
@@ -219,8 +275,8 @@ def verify_phase_closure(plan, condition, phase):
              'billing_ok': True, 'cost_unknown': False,
              'observed_cost_usd': record['observed_cost_usd']},
         ])
-    expected_events.append({'event': 'phase_completed', 'fresh_pass': fresh_pass,
-                            'condition': condition, 'phase': phase,
+    expected_events.append({'event': 'phase_completed', 'configuration_id': config,
+                            'fresh_pass': fresh_pass, 'condition': condition, 'phase': phase,
                             'request_count': len(requests), 'attempt_ids': attempt_ids})
     if len(events) != len(expected_events):
         raise ValueError('Journal event count differs from exact phase lifecycle')
@@ -228,19 +284,19 @@ def verify_phase_closure(plan, condition, phase):
         if any(actual.get(key) != value for key, value in expected.items()):
             raise ValueError('Journal order, attempt binding, or terminal receipt differs')
     return {'manifest_sha256': manifest_sha, 'journal_sha256': study.sha(journal_path),
-            'attempts_sha256': study.sha(attempts_path), 'responses_sha256': study.sha(raw_path),
-            'wire_sha256': study.sha(wire_path)}
+            'attempts_sha256': study.sha(attempts_path), 'responses_sha256': study.sha(raw_path)}
 
 
 def require_order(plan, condition, phase):
     if condition not in plan['condition_order']:
         raise ValueError('Condition outside frozen order')
+    config = plan['configuration_id']
     pass_index = list(study.ORDERS).index(plan['fresh_pass'])
     for earlier in list(study.ORDERS)[:pass_index]:
-        earlier_path = study.BASE / earlier / 'manifest.json'
+        earlier_path = study.BASE / config / earlier / 'manifest.json'
         try:
             earlier_sha = study.sha(earlier_path)
-            earlier_plan = study.verify(earlier, earlier_sha)
+            earlier_plan = study.verify(config, earlier, earlier_sha)
             for prior_condition in study.ORDERS[earlier]:
                 verify_phase_closure(earlier_plan, prior_condition, 'development')
         except (OSError, ValueError) as exc:
@@ -248,36 +304,40 @@ def require_order(plan, condition, phase):
     for prior in plan['condition_order'][:plan['condition_order'].index(condition)]:
         verify_phase_closure(plan, prior, 'development')
     if phase == 'development':
-        folder, _, _, _ = phase_paths(plan['fresh_pass'], condition, 'smoke')
+        folder, _, _, _ = phase_paths(config, plan['fresh_pass'], condition, 'smoke')
         receipt = folder / 'smoke-inspection.json'
         if not receipt.exists():
             raise ValueError('Inspected smoke required')
         inspection = json.loads(receipt.read_text())
-        _, _, journal, attempts = phase_paths(plan['fresh_pass'], condition, 'smoke')
+        _, _, journal, attempts = phase_paths(config, plan['fresh_pass'], condition, 'smoke')
         bindings = verify_phase_closure(plan, condition, 'smoke')
         if (inspection.get('decision') != 'accepted_unchanged' or
+                inspection.get('configuration_id') != config or
                 inspection.get('manifest_sha256') != bindings['manifest_sha256'] or
                 inspection.get('journal_sha256') != study.sha(journal) or
                 inspection.get('attempts_sha256') != study.sha(attempts) or
-                inspection.get('responses_sha256') != study.sha(folder / 'smoke.responses.jsonl') or
-                inspection.get('wire_sha256') != study.sha(folder / 'smoke.wire.jsonl')):
+                inspection.get('responses_sha256') != study.sha(folder / 'smoke.responses.jsonl')):
             raise ValueError('Smoke inspection binding changed')
 
 
 def live_controls(plan, condition):
+    config = plan['configuration_id']
+    effort = study.CONFIGS[config]['effort']
+    historical_audit, _ = study.historical_data(config)
+    _, historical_rows, _ = study.source_rows(historical_audit, 'P0')
+    frozen_endpoint = historical_rows['DEV-001']['provider_endpoint']
     catalog = paid.fetch('/models', timeout=120)
     endpoints = paid.fetch('/models/' + quote(study.MODEL, safe='/') + '/endpoints', timeout=120)
     model, endpoint = paid.select_endpoint(study.MODEL, study.PROVIDER, catalog, endpoints,
                                            study.INPUT_PRICE, study.OUTPUT_PRICE)
-    if endpoint.get('quantization') != 'fp8' or endpoint.get('provider_name') != 'DeepInfra':
-        raise ValueError('Live endpoint identity differs')
-    if endpoint['context_length'] != study.CONTEXT:
-        raise ValueError('Live endpoint context differs from reviewed reserve')
-    for key, rate in (('prompt', study.INPUT_PRICE), ('completion', study.OUTPUT_PRICE)):
-        if paid.number(endpoint['pricing'][key]) != rate / paid.MILLION:
-            raise ValueError('Live endpoint price differs from reviewed rate')
-    reserve = paid.reservation(endpoint, 4096, study.INPUT_PRICE, study.OUTPUT_PRICE)
-    if reserve != Decimal('0.01974272') or reserve > study.PROPOSED_CHILD_USD:
+    critical = ('tag', 'provider_name', 'quantization', 'model_id', 'context_length',
+                'max_prompt_tokens', 'max_completion_tokens', 'supported_parameters', 'pricing')
+    if any(endpoint.get(key) != frozen_endpoint.get(key) for key in critical):
+        raise ValueError('Live endpoint route, limits or price differs')
+    if paid.reasoning(model, endpoint, effort) != {'enabled': True, 'effort': effort}:
+        raise ValueError('Live reasoning support differs')
+    reserve = paid.reservation(endpoint, study.MAX_TOKENS, study.INPUT_PRICE, study.OUTPUT_PRICE)
+    if reserve != Decimal('0.047001600') or reserve > study.CONFIGS[config]['proposed_child_budget']:
         raise ValueError('Live reserve differs from reviewed amount')
     inputs = {x['id']: x['feedback'] for x in paid.read_rows(ROOT / 'data/pilot/inputs.jsonl')}
     for request in plan['conditions'][condition]['development']:
@@ -285,16 +345,16 @@ def live_controls(plan, condition):
         rebuilt = paid.make_payload(study.MODEL, endpoint, inputs[request['record_id']],
                                     payload['messages'][0]['content'],
                                     payload['response_format']['json_schema']['schema'],
-                                    study.EFFORT, 4096, study.INPUT_PRICE, study.OUTPUT_PRICE, model)
+                                    effort, study.MAX_TOKENS, study.INPUT_PRICE, study.OUTPUT_PRICE, model)
         if rebuilt != payload:
             raise ValueError('Live adapter would change frozen payload')
     return model, endpoint, reserve
 
 
-def budget_gate(receipt, budget_path):
+def budget_gate(receipt, budget_path, config):
     ledger = partitions.open_partition(MASTER, budget_path, receipt['partition_id'],
-                                       study.MODEL, study.PROVIDER, study.EFFORT)
-    if ledger.cap != paid.number(str(study.PROPOSED_CHILD_USD)):
+                                       study.MODEL, study.PROVIDER, study.CONFIGS[config]['effort'])
+    if ledger.cap != study.CONFIGS[config]['proposed_child_budget']:
         ledger.close()
         raise ValueError('Child partition cap differs')
     return ledger
@@ -344,12 +404,11 @@ def continue_record(record, phase):
             and blockers <= {'truncation:length'})
 
 
-def inspect(repeat, condition, manifest_sha, note):
-    plan = study.verify(repeat, manifest_sha)
+def inspect(config, repeat, condition, manifest_sha, note):
+    plan = study.verify(config, repeat, manifest_sha)
     require_order(plan, condition, 'smoke')
-    folder, _, journal, attempts = phase_paths(repeat, condition, 'smoke')
+    folder, _, journal, attempts = phase_paths(config, repeat, condition, 'smoke')
     raw_path = folder / 'smoke.responses.jsonl'
-    wire_path = folder / 'smoke.wire.jsonl'
     receipt = folder / 'smoke-inspection.json'
     if receipt.exists():
         raise ValueError('Fresh completed smoke required')
@@ -364,12 +423,12 @@ def inspect(repeat, condition, manifest_sha, note):
         raise ValueError('Smoke raw responses do not bind three distinct attempts')
     if not note.strip():
         raise ValueError('Inspection note required')
-    value = {'schema': 'openrouter-repeat-smoke-inspection-v1', 'fresh_pass': repeat,
+    value = {'schema': 'openrouter-repeat-smoke-inspection-v1', 'configuration_id': config,
+             'fresh_pass': repeat,
              'condition': condition, 'decision': 'accepted_unchanged', 'note': note,
              'manifest_sha256': bindings['manifest_sha256'],
              'journal_sha256': study.sha(journal), 'attempts_sha256': study.sha(attempts),
-             'responses_sha256': study.sha(raw_path),
-             'wire_sha256': study.sha(wire_path)}
+             'responses_sha256': study.sha(raw_path)}
     with receipt.open('x') as out:
         json.dump(value, out, indent=2)
         out.write('\n')
@@ -377,31 +436,30 @@ def inspect(repeat, condition, manifest_sha, note):
     return value
 
 
-def execute(repeat, condition, phase, manifest_sha, review_path, env_file=None):
+def execute(config, repeat, condition, phase, manifest_sha, review_path, env_file=None):
     if phase not in ('smoke', 'development'):
         raise ValueError('Unknown phase')
-    plan = study.verify(repeat, manifest_sha)
+    plan = study.verify(config, repeat, manifest_sha)
     require_order(plan, condition, phase)
-    folder, claim, journal, attempts = phase_paths(repeat, condition, phase)
+    folder, claim, journal, attempts = phase_paths(config, repeat, condition, phase)
     responses = folder / (phase + '.responses.jsonl')
-    wire = folder / (phase + '.wire.jsonl')
-    if any(p.exists() for p in (claim, journal, attempts, responses, wire)):
+    if any(p.exists() for p in (claim, journal, attempts, responses)):
         raise FileExistsError('Phase already claimed; no implicit retry')
-    receipt, budget_path = review_receipt(review_path, repeat, condition, phase, manifest_sha)
+    receipt, budget_path = review_receipt(review_path, config, repeat, condition, phase, manifest_sha)
     model, endpoint, reserve = live_controls(plan, condition)
-    ledger = budget_gate(receipt, budget_path)
+    ledger = budget_gate(receipt, budget_path, config)
     try:
         token = paid.load_key(env_file)
         folder.mkdir(parents=True, exist_ok=True)
         with claim.open('x') as out:
-            durable(out, {'fresh_pass': repeat, 'condition': condition, 'phase': phase,
+            durable(out, {'configuration_id': config, 'fresh_pass': repeat,
+                          'condition': condition, 'phase': phase,
                           'manifest_sha256': manifest_sha, 'root_review_sha256': study.sha(review_path),
                           'claimed_utc': utc()})
         requests = plan['conditions'][condition][phase]
         complete = True
-        with journal.open('x') as audit, attempts.open('x') as output, \
-             responses.open('x') as raw_output, wire.open('x') as wire_output:
-            durable(audit, {'event': 'phase_started', 'fresh_pass': repeat,
+        with journal.open('x') as audit, attempts.open('x') as output, responses.open('x') as raw_output:
+            durable(audit, {'event': 'phase_started', 'configuration_id': config, 'fresh_pass': repeat,
                             'condition': condition, 'phase': phase, 'utc': utc()})
             for request in requests:
                 rid = request['record_id']
@@ -410,43 +468,49 @@ def execute(repeat, condition, phase, manifest_sha, review_path, env_file=None):
                                 'request_sha256': request['request_sha256'], 'utc': utc()})
                 attempt_id = ledger.reserve(reserve, rid)
                 start = time.perf_counter()
-                record = {'id': rid, 'fresh_pass': repeat, 'condition': condition, 'phase': phase,
+                record = {'id': rid, 'configuration_id': config,
+                          'fresh_pass': repeat, 'condition': condition, 'phase': phase,
                           'attempt_id': attempt_id, 'request': payload,
                           'request_sha256': request['request_sha256'],
+                          'input_sha256': request['input_sha256'],
+                          'instruction_sha256': request['instruction_sha256'],
                           'manifest_sha256': manifest_sha, 'requested_model': study.MODEL,
-                          'reasoning_effort': study.EFFORT, 'provider_endpoint': endpoint,
+                          'reasoning_effort': study.CONFIGS[config]['effort'], 'provider_endpoint': endpoint,
                           'model_catalog_entry': model, 'reference_labels_read': False,
                           'reserved_cost_usd': str(reserve), 'started_utc': utc()}
                 durable(audit, {'event': 'request_started', 'id': rid, 'attempt_id': attempt_id,
                                 'request_sha256': request['request_sha256'], 'utc': utc()})
                 actual = None
-                wire_before = wire_output.tell()
                 try:
-                    body = fetch_captured(payload, token, wire_output, rid, attempt_id,
-                                          request['request_sha256'])
+                    body = fetch_recorded(payload, token, study.TIMEOUT, raw_output,
+                                          rid, attempt_id, request['request_sha256'])
+                    body = json.loads(json.dumps(body).replace(token, '[REDACTED]'))
                     record['raw_response'] = body
-                    durable(raw_output, {'id': rid, 'attempt_id': attempt_id,
-                                         'request_sha256': request['request_sha256'],
-                                         'raw_response': body, 'received_utc': utc()})
                     if isinstance(body, dict):
                         usage = body.get('usage') or {}
                         if usage.get('cost') is not None:
                             actual = paid.number(usage['cost'])
-                    record.update(classify(body, model, endpoint))
+                        record.update(classify(body, model, endpoint))
+                    else:
+                        record.update(status='control_violation')
                 except Exception as exc:
                     record.update(status='service_error', error_type=type(exc).__name__)
-                    if isinstance(exc, CapturedHTTPError):
-                        record['http_status'] = exc.status
-                        record['error_body'] = exc.body
-                        record['error_headers'] = exc.headers
+                    if isinstance(exc, urllib.error.HTTPError):
+                        record['http_status'] = exc.code
+                        error_bytes, length, oversized, redacted, read_error = response_bytes(exc, token)
+                        record['error_body'] = error_bytes.decode('utf-8', errors='replace')
+                        record['error_headers'] = safe_headers(exc, token)
+                        record['error_body_truncated_at_limit'] = oversized
+                        record['error_read_error'] = read_error
                         durable(raw_output, {'id': rid, 'attempt_id': attempt_id,
                                              'request_sha256': request['request_sha256'],
-                                             'http_status': exc.status, 'error_body': record['error_body'],
-                                             'error_headers': record['error_headers'], 'received_utc': utc()})
-                    elif wire_output.tell() > wire_before:
-                        durable(raw_output, {'id': rid, 'attempt_id': attempt_id,
-                                             'request_sha256': request['request_sha256'],
-                                             'capture_error': type(exc).__name__, 'received_utc': utc()})
+                                             'http_status': exc.code,
+                                             'response_headers': record['error_headers'],
+                                             'body_base64': base64.b64encode(error_bytes).decode('ascii'),
+                                             'body_bytes_captured': length,
+                                             'body_truncated_at_limit': oversized,
+                                             'body_token_redacted': redacted,
+                                             'read_error': read_error, 'received_utc': utc()})
                 billing_ok = ledger.settle(attempt_id, actual)
                 record.update(elapsed_seconds=time.perf_counter() - start,
                               timing_boundary='Request-to-record duration includes request-start journal fsync, provider call, raw-response fsync, billing settlement and response audit; it ends before attempt-row and request-finished journal fsync.',
@@ -469,7 +533,8 @@ def execute(repeat, condition, phase, manifest_sha, review_path, env_file=None):
                                     'reason': record['status'], 'utc': utc()})
                     break
             if complete:
-                durable(audit, {'event': 'phase_completed', 'fresh_pass': repeat,
+                durable(audit, {'event': 'phase_completed', 'configuration_id': config,
+                                'fresh_pass': repeat,
                                 'condition': condition, 'phase': phase,
                                 'request_count': len(requests),
                                 'attempt_ids': [json.loads(line)['attempt_id'] for line in attempts.read_text().splitlines()],
@@ -489,8 +554,10 @@ def execute(repeat, condition, phase, manifest_sha, review_path, env_file=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='action', required=True)
+    sub.add_parser('freeze')
     for action in ('smoke', 'development', 'inspect'):
         p = sub.add_parser(action)
+        p.add_argument('--configuration-id', required=True, choices=tuple(study.CONFIGS))
         p.add_argument('--fresh-pass', required=True, choices=tuple(study.ORDERS))
         p.add_argument('--condition', required=True, choices=('P0', 'P1', 'P2'))
         p.add_argument('--manifest-sha256', required=True)
@@ -500,11 +567,14 @@ def main():
             p.add_argument('--root-review-receipt', required=True)
             p.add_argument('--env-file')
     args = parser.parse_args()
-    if args.action == 'inspect':
-        inspect(args.fresh_pass, args.condition, args.manifest_sha256, args.note)
+    if args.action == 'freeze':
+        print(freeze())
+    elif args.action == 'inspect':
+        inspect(args.configuration_id, args.fresh_pass, args.condition,
+                args.manifest_sha256, args.note)
     else:
-        execute(args.fresh_pass, args.condition, args.action, args.manifest_sha256,
-                args.root_review_receipt, args.env_file)
+        execute(args.configuration_id, args.fresh_pass, args.condition, args.action,
+                args.manifest_sha256, args.root_review_receipt, args.env_file)
 
 
 if __name__ == '__main__':

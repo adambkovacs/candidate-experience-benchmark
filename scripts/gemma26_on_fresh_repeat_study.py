@@ -203,6 +203,7 @@ def plan_data(repeat):
                     'docs/REPEATABILITY_PLAN.md', 'scripts/gemma26_on_fresh_repeat_study.py',
                       'scripts/gemma26_on_fresh_repeat_execution.py',
                       'scripts/openrouter_paid_benchmark.py', 'scripts/paid_budget_partitions_v2.py',
+                      'scripts/openrouter_benchmark.py',
                       'scripts/openrouter_budget_v2.py', 'scripts/prompt_admission.py']
     for condition in CONDITIONS:
         evidence_paths.extend(b['file'] for b in audit['conditions'][condition]['source_bindings'])

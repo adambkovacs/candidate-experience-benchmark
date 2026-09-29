@@ -1,5 +1,6 @@
 """Offline lifecycle, money and predecessor checks for the Gemma fresh runner."""
 import io
+import base64
 import json
 import shutil
 import sys
@@ -45,12 +46,17 @@ class Gemma26OnExecutionTests(unittest.TestCase):
         review_file.write_text('{"offline_test_receipt":true}\n')
         plan = json.loads(plan_file.read_text())
         items = iter(fetch_items)
-        def fetch(_path, token, _payload, _timeout):
-            self.assertEqual(token, 'fake-token')
+        def open_response(request, timeout):
+            self.assertEqual(timeout, 300)
+            self.assertEqual(request.get_header('Authorization'), 'Bearer fake-token')
             item = next(items)
             if isinstance(item, BaseException):
                 raise item
-            return item
+            body = item if isinstance(item, bytes) else json.dumps(item).encode()
+            response = io.BytesIO(body)
+            response.status = 200
+            response.headers = {'content-type': 'application/json'}
+            return response
         def gate(_receipt, _budget_path):
             return budgets.BudgetLedger(ledger_path, cap_limit=study.PROPOSED_CHILD_USD)
         with patch.object(study, 'BASE', base), patch.object(study, 'verify', return_value=plan), \
@@ -58,7 +64,7 @@ class Gemma26OnExecutionTests(unittest.TestCase):
              patch.object(execution, 'live_controls', return_value=({'id': study.MODEL}, ENDPOINT, Decimal('0.01974272'))), \
              patch.object(execution, 'budget_gate', side_effect=gate), \
              patch.object(execution.paid, 'load_key', return_value='fake-token'), \
-             patch.object(execution.paid, 'fetch', side_effect=fetch), \
+             patch.object(execution.transport.OPENER, 'open', side_effect=open_response), \
              patch.object(execution, 'audit_response', return_value={'passed': True, 'blockers': []}):
             result = execution.execute('fresh1', 'P0', phase, self.manifest_sha, str(review_file))
         return result, phase_dir
@@ -96,7 +102,9 @@ class Gemma26OnExecutionTests(unittest.TestCase):
             ledger_path = Path(temp) / 'child.jsonl'
             error = urllib.error.HTTPError('https://example.invalid', 429, 'Limited',
                                            {'retry-after': '60'}, io.BytesIO(b'{"error":"busy"}'))
-            result, folder = self._run_stage(base, ledger_path, 'smoke', [error])
+            with patch.object(error, 'read', wraps=error.read) as read_error:
+                result, folder = self._run_stage(base, ledger_path, 'smoke', [error])
+                read_error.assert_called_once_with(execution.MAX_RESPONSE_BYTES + 1)
             self.assertFalse(result)
             row = json.loads((folder / 'smoke.attempts.jsonl').read_text().splitlines()[0])
             self.assertEqual(row['http_status'], 429)
@@ -115,6 +123,30 @@ class Gemma26OnExecutionTests(unittest.TestCase):
                 ledger.close()
             with self.assertRaisesRegex(ValueError, 'exact ordered frozen request list'):
                 self._verify_temp_closure(base, 'P0', 'smoke')
+
+    def test_malformed_http_200_is_captured_before_parse_and_holds_unknown(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp) / 'runs'
+            ledger_path = Path(temp) / 'child.jsonl'
+            malformed = b'{"choices": [{"message": '
+            result, folder = self._run_stage(base, ledger_path, 'smoke', [malformed])
+            self.assertFalse(result)
+            wire = json.loads((folder / 'smoke.wire.jsonl').read_text().splitlines()[0])
+            self.assertEqual(base64.b64decode(wire['body_base64']), malformed)
+            self.assertEqual(wire['http_status'], 200)
+            self.assertFalse(wire['body_truncated_at_limit'])
+            response = json.loads((folder / 'smoke.responses.jsonl').read_text().splitlines()[0])
+            self.assertEqual(response['capture_error'], 'JSONDecodeError')
+            record = json.loads((folder / 'smoke.attempts.jsonl').read_text().splitlines()[0])
+            self.assertEqual(record['status'], 'service_error')
+            self.assertIsNone(record['observed_cost_usd'])
+            self.assertTrue(record['cost_unknown'])
+            ledger = budgets.BudgetLedger(ledger_path, cap_limit=study.PROPOSED_CHILD_USD)
+            try:
+                self.assertEqual(len(ledger.state()[1]), 1)
+                self.assertEqual(ledger.accounted(), Decimal('0.01974272'))
+            finally:
+                ledger.close()
 
     def test_inspected_smoke_is_required_and_binds_development_predecessor(self):
         with tempfile.TemporaryDirectory() as temp:
