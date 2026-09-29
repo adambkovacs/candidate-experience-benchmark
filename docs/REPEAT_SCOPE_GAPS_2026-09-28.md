@@ -30,3 +30,12 @@ The 55-series inventory itself also retains unfinished work: four small-local se
 The four ambiguous-outcome Codex configurations and two low Codex configurations listed above now each have a closed fresh-matched-three series: all 9 of 9 P0/P1/P2 conditions across fresh1/fresh2/fresh3 are complete, with no missing passes. Together these six exact configurations close 54 of 54 planned conditions. The [findings report](CODEX_FRESH_REPEAT_FINDINGS_2026-09-29.md) summarizes the evidence; its source-bound [public feed](../public-site/codex-fresh-repeats.json) has SHA-256 `335d7676d2d81e2a9eb258d34acdc808a428a3faff2adaedde904ccdcf5631dd`. This resolves only those six IDs. The other scheduled, native, hosted and specialist rows above retain their stated dispositions; the broader roster is not complete.
 
 The separate fresh-matched-three DeepSeek Flash off series is in progress. It is distinct from the seven historical descriptive hosted pairs above, which remain ineligible for strict pairing. No historical pair is counted as a pass in the new series.
+
+
+## Hosted closure update, 2026-09-29
+
+The fresh DeepSeek reasoning-off series now has all nine full condition/pass combinations closed, with 540 valid development outputs; see [the findings](DEEPSEEK_FRESH_REPEAT_FINDINGS_2026-09-29.md). Its earlier historical descriptive pairs remain separate.
+
+The new Qwen 3.6 reasoning-off series accounts for all nine scheduled condition/pass combinations: 538 valid outputs and two retained service failures across 540 positions. Separately admitted continuations sent only previously unsent positions. The [published findings](QWEN36_OFF_REPEAT_FINDINGS_2026-09-29.md) retain the interrupted-schedule limitation. Do not automatically rerun this completed schedule to remove its failures or obtain a cleaner comparison.
+
+DeepSeek low has one full pass and the next prompt smoke closed; its selected endpoint remains unavailable, so eight full passes remain unfinished. Gemma 26B on has a distinct fresh-three candidate undergoing offline execution review, with no allocation or model requests. Other pending hosted entries retain their scope in the [29 September audit](HOSTED_PENDING_MATRIX_2026-09-29.md). These updates supersede the earlier in-progress status only for the explicitly named configurations.
