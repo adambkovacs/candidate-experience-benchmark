@@ -44,7 +44,7 @@ class NativeOpenJevReportTests(unittest.TestCase):
         folder = target / report.BASE / phase
         folder.mkdir(parents=True)
         old = report.rows(target, Path(plan['historical']['fixed']['directory']) / 'development-reconciled.jsonl')
-        controller_sha = plan['source_sha256'][str(REPO / 'scripts/openjev_native_repeat_admission.py')]
+        controller_sha = report.controller_sha(plan)
         for name, count in (('smoke', 3), ('development', 60)):
             raw = []; records = []; journal = []
             for historic, request in zip(old[:count], plan['requests']['fixed'][:count]):
@@ -110,7 +110,10 @@ class NativeOpenJevReportTests(unittest.TestCase):
         return folder
 
     def test_historical_is_observational_and_no_fresh_stages_are_scored(self):
-        result = report.build()
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.copy_sources(root)
+            result = report.build(root)
         self.assertEqual(set(result['configurations']), set(report.MODES))
         self.assertEqual({mode: result['configurations'][mode]['historicalObservation']['score']['allFour']
                           for mode in report.MODES}, {'fixed': 52, 'adaptive': 51, 'thinking': 57})

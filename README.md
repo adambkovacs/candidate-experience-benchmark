@@ -139,6 +139,8 @@ AnyJev L1's three calibrated passes each have 60 valid outputs and 6/60 all-fiel
 
 AnyJev L2 completed three native passes, each with 60 valid outputs and 13/60 all-field matches. Their classifications were identical across all 60 reviews, with zero pairwise flips and a three-pass all-field range of 13–13/60. These fitted-head results use held-out folds within the development set; stable answers do not establish accuracy beyond it. [Read the class-level findings and measurement limits](docs/ANYJEV_L2_REPEAT_FINDINGS_2026-09-29.md).
 
+OpenJev’s first fresh fixed-mode pass produced 60 valid outputs and 53/60 all-field matches. Follow-up and testimonial decisions matched on all 60 reviews; repeat stability is not established from one pass. [Read the findings and the separate fixed, adaptive and thinking repeat plan](docs/OPENJEV_NATIVE_REPEAT_FINDINGS_2026-09-29.md).
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE). Third-party dependencies and model weights retain their respective licenses.

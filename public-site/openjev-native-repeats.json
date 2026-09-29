@@ -1,0 +1,1202 @@
+{
+  "configurations": {
+    "adaptive": {
+      "changesAcrossThreePasses": null,
+      "configuration": "openjev-adaptive",
+      "freshPasses": {},
+      "historicalObservation": {
+        "confusionCounts": {
+          "follow_up_needed": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 24
+            },
+            "yes": {
+              "no": 1,
+              "yes": 34
+            }
+          },
+          "sentiment": {
+            "insufficient_information": {
+              "insufficient_information": 1,
+              "neutral": 1
+            },
+            "mixed": {
+              "mixed": 8
+            },
+            "negative": {
+              "negative": 31
+            },
+            "neutral": {
+              "negative": 1,
+              "neutral": 6,
+              "positive": 1
+            },
+            "positive": {
+              "mixed": 1,
+              "positive": 10
+            }
+          },
+          "serious_concern_reported": {
+            "insufficient_information": {
+              "insufficient_information": 3,
+              "no": 3
+            },
+            "no": {
+              "insufficient_information": 1,
+              "no": 28
+            },
+            "yes": {
+              "yes": 25
+            }
+          },
+          "testimonial_potential": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 50
+            },
+            "yes": {
+              "no": 2,
+              "yes": 7
+            }
+          }
+        },
+        "evidence": {
+          "development.jsonl": {
+            "path": "results/openjev-local-adaptive-2026-09-23/development.jsonl",
+            "sha256": "b0ac1655ca76f617926147487ad67525208848e3590297e274493c2a8cb17bba"
+          },
+          "reconciliation.json": {
+            "path": "results/openjev-local-adaptive-2026-09-23/reconciliation.json",
+            "sha256": "0b9efc54d16b6cf1dfd3ead1c3e52db8abe4bce96d7f6550ce3a95cf6db46980"
+          }
+        },
+        "interruption": null,
+        "predictedClassCounts": {
+          "follow_up_needed": {
+            "insufficient_information": 1,
+            "no": 25,
+            "yes": 34
+          },
+          "sentiment": {
+            "insufficient_information": 1,
+            "mixed": 9,
+            "negative": 32,
+            "neutral": 7,
+            "positive": 11
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 4,
+            "no": 31,
+            "yes": 25
+          },
+          "testimonial_potential": {
+            "insufficient_information": 1,
+            "no": 52,
+            "yes": 7
+          }
+        },
+        "reason": "fixed interruption or adaptive/thinking unobserved prior warm cache state",
+        "score": {
+          "allFour": 51,
+          "denominator": 60,
+          "fields": {
+            "follow_up_needed": 59,
+            "sentiment": 56,
+            "serious_concern_reported": 56,
+            "testimonial_potential": 58
+          },
+          "invalidIds": [],
+          "outcomes": {
+            "invalid_output": 0,
+            "isolation_violation": 0,
+            "never_sent": 0,
+            "other_error": 0,
+            "refusal": 0,
+            "service_error": 0,
+            "timeout": 0,
+            "unknown_started": 0,
+            "valid": 60
+          },
+          "valid": 60
+        },
+        "status": "historical_observation_excluded_from_fresh_triplet",
+        "usage": {
+          "actualCostUsd": null,
+          "clientRequestSeconds": [
+            3.2847967920824885,
+            0.919681458035484,
+            0.8775889589451253,
+            6.47627666592598,
+            7.420603041071445,
+            7.526587374974042,
+            7.245961542008445,
+            6.846156582934782,
+            7.582659167004749,
+            6.939699749927968,
+            6.305235499981791,
+            6.391883125063032,
+            6.461555958958343,
+            8.249336584005505,
+            7.15447329194285,
+            6.129281459143385,
+            7.907893625088036,
+            8.809570458950475,
+            8.102207750082016,
+            8.001758084166795,
+            7.540704041020945,
+            9.682596249971539,
+            8.924092666944489,
+            7.231976958923042,
+            17.483683957951143,
+            8.13208262482658,
+            7.455950415926054,
+            8.392065959051251,
+            7.1079387499485165,
+            7.611034499946982,
+            7.104599500074983,
+            7.342927874997258,
+            6.747894499916583,
+            7.198114375118166,
+            7.335372957866639,
+            7.7792064170353115,
+            8.58204145799391,
+            7.403358333045617,
+            19.018672333098948,
+            7.377558541949838,
+            6.6939448330085725,
+            7.179493749979883,
+            7.149480500025675,
+            7.374350167112425,
+            7.462616833858192,
+            8.094812707975507,
+            7.904330083169043,
+            17.36077008303255,
+            7.5288247091230005,
+            7.328883375041187,
+            8.05591645813547,
+            8.983942499849945,
+            8.205277332803234,
+            7.608215041924268,
+            7.505805999971926,
+            7.608202749863267,
+            7.231722415890545,
+            7.149210582952946,
+            7.173794749891385,
+            7.319980666041374
+          ],
+          "clientRequestSecondsTotal": 465.0046551255509,
+          "costNote": "Local hardware and electricity cost not measured; HTTP usage is not a bill.",
+          "inferenceSeconds": null,
+          "modelLoadSeconds": null,
+          "requestCount": 60,
+          "timeBasis": "client_observed_http_wall_clock",
+          "tokenBasis": "reported_response_usage_when_available",
+          "tokens": {
+            "cached_input_tokens": null,
+            "input_tokens": 123989,
+            "output_tokens": 0,
+            "reasoning_output_tokens": null
+          }
+        }
+      },
+      "missingPasses": [
+        {
+          "condition": "P0",
+          "pass": "fresh1",
+          "status": "not_completed"
+        },
+        {
+          "condition": "P0",
+          "pass": "fresh2",
+          "status": "not_completed"
+        },
+        {
+          "condition": "P0",
+          "pass": "fresh3",
+          "status": "not_completed"
+        }
+      ],
+      "pairwiseFlips": [],
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 0,
+            "mean": null,
+            "range": null,
+            "values": []
+          },
+          "fields": {
+            "follow_up_needed": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            },
+            "sentiment": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            },
+            "serious_concern_reported": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            },
+            "testimonial_potential": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            }
+          }
+        }
+      }
+    },
+    "fixed": {
+      "changesAcrossThreePasses": null,
+      "configuration": "openjev-fixed",
+      "freshPasses": {
+        "fresh1": {
+          "completionStatus": "complete",
+          "confusionCounts": {
+            "follow_up_needed": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 24
+              },
+              "yes": {
+                "yes": 35
+              }
+            },
+            "sentiment": {
+              "insufficient_information": {
+                "insufficient_information": 1,
+                "neutral": 1
+              },
+              "mixed": {
+                "mixed": 5,
+                "negative": 3
+              },
+              "negative": {
+                "negative": 31
+              },
+              "neutral": {
+                "neutral": 8
+              },
+              "positive": {
+                "positive": 11
+              }
+            },
+            "serious_concern_reported": {
+              "insufficient_information": {
+                "insufficient_information": 3,
+                "no": 3
+              },
+              "no": {
+                "no": 29
+              },
+              "yes": {
+                "yes": 25
+              }
+            },
+            "testimonial_potential": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 50
+              },
+              "yes": {
+                "yes": 9
+              }
+            }
+          },
+          "evidence": {
+            "development": {
+              "claim": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.claim.json",
+                "sha256": "400fe873f23d0afbe9e6544b4a1d448d3dd14b567d7a81a4856efbdd5bc268ed"
+              },
+              "completion": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.completion.json",
+                "sha256": "b14c238946440fb89e9ea030223b08ec0f4d241a3efc84eec50db140abf43755"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.journal.jsonl",
+                "sha256": "909e3b6c4215dcdf3998fda5a53e5bae95209c36668ae61208d4ad9f936b0c49"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.raw.jsonl",
+                "sha256": "611293c9fc1d4f3df217ef3337410eab80ce4fa302dc52eb1f0bf3e5cb3c0ff0"
+              },
+              "records": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.records.jsonl",
+                "sha256": "931d804584035edcc9c37cbfebcbe4b62543100036e8da5e721105a7ae23e419"
+              },
+              "review": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.root-review.json",
+                "sha256": "42d9aa968fc9673b1da10dbd205a2c0ac2d85901d081ea0c6c2073dac1806c0e"
+              }
+            },
+            "smoke": {
+              "claim": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.claim.json",
+                "sha256": "4bef7dfc71bac4db11d126a67806f8163bd4431d9ef53caf13e7aa827346f250"
+              },
+              "completion": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.completion.json",
+                "sha256": "84c6689cf2876803acc34e7dcee2e8a86d856d1ea7394bb393f33f1d287b2579"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.journal.jsonl",
+                "sha256": "1df37e32b0f05ef211f95dec53e97c121eec2db8367c82805ada712f56796f40"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.raw.jsonl",
+                "sha256": "b03c8d52d8d2e6b9d8e382c884e57c213a85166eaad71fd115ed4d7ce761de19"
+              },
+              "records": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.records.jsonl",
+                "sha256": "7dbbfab641a4b34e5ee7c2fa7075265ab5198920d5429f681232020cc893bbfd"
+              },
+              "review": {
+                "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.root-review.json",
+                "sha256": "b76998c619964ebe1ce4ac3d935f096764bcec687efc97b20408b9ab4eee507d"
+              }
+            },
+            "smokeInspection": {
+              "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke-inspection.json",
+              "sha256": "c1114f144db74814c48e9b2e9bec441977b4095733369d22d8eeba6913154ad0"
+            }
+          },
+          "predictedClassCounts": {
+            "follow_up_needed": {
+              "insufficient_information": 1,
+              "no": 24,
+              "yes": 35
+            },
+            "sentiment": {
+              "insufficient_information": 1,
+              "mixed": 5,
+              "negative": 34,
+              "neutral": 9,
+              "positive": 11
+            },
+            "serious_concern_reported": {
+              "insufficient_information": 3,
+              "no": 32,
+              "yes": 25
+            },
+            "testimonial_potential": {
+              "insufficient_information": 1,
+              "no": 50,
+              "yes": 9
+            }
+          },
+          "score": {
+            "allFour": 53,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 60,
+              "sentiment": 56,
+              "serious_concern_reported": 57,
+              "testimonial_potential": 60
+            },
+            "invalidIds": [],
+            "outcomes": {
+              "invalid_output": 0,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 60
+            },
+            "valid": 60
+          },
+          "usage": {
+            "actualCostUsd": null,
+            "clientRequestSeconds": [
+              5.18820783297997,
+              5.385965166002279,
+              4.659445540979505,
+              3.6671555830107536,
+              3.455935791018419,
+              3.4393753750191536,
+              3.4489724170125555,
+              3.5720902500033844,
+              3.5023677080171183,
+              3.890277917002095,
+              3.5238586670020595,
+              3.452745499991579,
+              3.475870416004909,
+              3.461057125008665,
+              3.53121095901588,
+              3.4631789999839384,
+              3.899788749986328,
+              3.478149000002304,
+              3.4724695420009084,
+              3.495414333010558,
+              3.523111374990549,
+              3.4927759999991395,
+              3.4522504170017783,
+              3.7712406250066124,
+              3.7257160829904024,
+              4.412549000000581,
+              4.013654582988238,
+              4.940599666006165,
+              4.768804082996212,
+              4.764883249998093,
+              4.383770542015554,
+              4.320131125015905,
+              4.401730125013273,
+              3.5426563330111094,
+              3.4277119589969516,
+              3.4090542920166627,
+              4.506930584000656,
+              4.627092625014484,
+              3.486105417017825,
+              3.448937790992204,
+              3.5842406669980846,
+              3.4781718330050353,
+              3.954292042006273,
+              3.824915957986377,
+              4.375647417007713,
+              4.461344832991017,
+              4.300055458996212,
+              4.142550415999722,
+              4.355767166998703,
+              4.353126708010677,
+              4.394939958001487,
+              4.48227241699351,
+              3.681807332992321,
+              4.503880083007971,
+              4.114119125006255,
+              4.526635207992513,
+              4.4772521250124555,
+              4.209251499996753,
+              4.427374667022377,
+              4.237194290995831
+            ],
+            "clientRequestSecondsTotal": 239.76808195514604,
+            "costNote": "Local hardware and electricity cost not measured; HTTP usage is not a bill.",
+            "inferenceSeconds": null,
+            "modelLoadSeconds": null,
+            "requestCount": 60,
+            "timeBasis": "client_observed_http_wall_clock",
+            "tokenBasis": "reported_response_usage_when_available",
+            "tokens": {
+              "cached_input_tokens": null,
+              "input_tokens": 123989,
+              "output_tokens": 0,
+              "reasoning_output_tokens": null
+            }
+          }
+        }
+      },
+      "historicalObservation": {
+        "confusionCounts": {
+          "follow_up_needed": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 24
+            },
+            "yes": {
+              "no": 1,
+              "yes": 34
+            }
+          },
+          "sentiment": {
+            "insufficient_information": {
+              "insufficient_information": 1,
+              "neutral": 1
+            },
+            "mixed": {
+              "mixed": 8
+            },
+            "negative": {
+              "negative": 31
+            },
+            "neutral": {
+              "negative": 1,
+              "neutral": 6,
+              "positive": 1
+            },
+            "positive": {
+              "positive": 11
+            }
+          },
+          "serious_concern_reported": {
+            "insufficient_information": {
+              "insufficient_information": 3,
+              "no": 3
+            },
+            "no": {
+              "insufficient_information": 1,
+              "no": 28
+            },
+            "yes": {
+              "yes": 25
+            }
+          },
+          "testimonial_potential": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 50
+            },
+            "yes": {
+              "no": 2,
+              "yes": 7
+            }
+          }
+        },
+        "evidence": {
+          "development-continuation.jsonl": {
+            "path": "results/openjev-local-fixed-2026-09-23/development-continuation.jsonl",
+            "sha256": "4559c239433394999e915c7b4574618f0de106e836ee7851d429346a8317623d"
+          },
+          "development-reconciled.jsonl": {
+            "path": "results/openjev-local-fixed-2026-09-23/development-reconciled.jsonl",
+            "sha256": "60ff59a5933fd9a926f921eafe5209cedfa0f13b05d3422f8a6bfb8a2962b396"
+          },
+          "development.jsonl": {
+            "path": "results/openjev-local-fixed-2026-09-23/development.jsonl",
+            "sha256": "c6a2fbe1952afb6cdd2af0ca1cf17206ea1c1e1ecd63803d5772920a03b8170f"
+          },
+          "interruption.json": {
+            "path": "results/openjev-local-fixed-2026-09-23/interruption.json",
+            "sha256": "6d6c3ef64db7d8f1e4ee0f01c8cc5dff5bdbfc32e5ca8eb9d41e972a15279f9c"
+          },
+          "reconciliation.json": {
+            "path": "results/openjev-local-fixed-2026-09-23/reconciliation.json",
+            "sha256": "d45e8638443d26b5824df5ba7790fbe9c2abaa8dcf4549a550aa6aec741acf53"
+          }
+        },
+        "interruption": {
+          "completedBeforeInterruption": 7,
+          "knownClientSecondsExcludeUnrecordedAttempt": true,
+          "nextRecord": "DEV-008",
+          "unrecordedAttemptPossible": true,
+          "unrecordedAttemptSeconds": null
+        },
+        "predictedClassCounts": {
+          "follow_up_needed": {
+            "insufficient_information": 1,
+            "no": 25,
+            "yes": 34
+          },
+          "sentiment": {
+            "insufficient_information": 1,
+            "mixed": 8,
+            "negative": 32,
+            "neutral": 7,
+            "positive": 12
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 4,
+            "no": 31,
+            "yes": 25
+          },
+          "testimonial_potential": {
+            "insufficient_information": 1,
+            "no": 52,
+            "yes": 7
+          }
+        },
+        "reason": "fixed interruption or adaptive/thinking unobserved prior warm cache state",
+        "score": {
+          "allFour": 52,
+          "denominator": 60,
+          "fields": {
+            "follow_up_needed": 59,
+            "sentiment": 57,
+            "serious_concern_reported": 56,
+            "testimonial_potential": 58
+          },
+          "invalidIds": [],
+          "outcomes": {
+            "invalid_output": 0,
+            "isolation_violation": 0,
+            "never_sent": 0,
+            "other_error": 0,
+            "refusal": 0,
+            "service_error": 0,
+            "timeout": 0,
+            "unknown_started": 0,
+            "valid": 60
+          },
+          "valid": 60
+        },
+        "status": "historical_observation_excluded_from_fresh_triplet",
+        "usage": {
+          "actualCostUsd": null,
+          "clientRequestSeconds": [
+            0.3893290830310434,
+            0.14503720798529685,
+            0.09024941711686552,
+            6.848892207955942,
+            8.278345874976367,
+            9.84655937505886,
+            15.156623249873519,
+            9.42525262502022,
+            6.643560917116702,
+            5.964167249854654,
+            10.333853333024308,
+            8.685137040913105,
+            6.368801624979824,
+            5.447335083037615,
+            5.4642402089666575,
+            5.533577250083908,
+            8.612266458105296,
+            8.579204250127077,
+            6.353747999994084,
+            5.564506625058129,
+            5.435048332903534,
+            5.270288790808991,
+            5.541968958219513,
+            5.8836944999638945,
+            5.475424417061731,
+            6.121427624952048,
+            9.13005729089491,
+            5.615055167116225,
+            5.794239083072171,
+            5.879759707953781,
+            5.225727499928325,
+            5.5397260000463575,
+            5.674918708857149,
+            5.354263874934986,
+            5.756752625107765,
+            5.947717332979664,
+            5.073093208950013,
+            4.174730916041881,
+            4.176371957873926,
+            4.939173917053267,
+            4.280589124886319,
+            4.072525457944721,
+            5.37673791591078,
+            5.826551333069801,
+            6.948681334033608,
+            6.418372040847316,
+            4.670887624844909,
+            8.49372591683641,
+            7.455046084010974,
+            6.200244458159432,
+            6.4153140829876065,
+            6.014176290947944,
+            5.957400165963918,
+            13.713939166162163,
+            6.638546084053814,
+            8.158892042003572,
+            6.517536957981065,
+            7.868375375168398,
+            8.571794165996835,
+            7.024692291161045
+          ],
+          "clientRequestSecondsTotal": 382.36415490997024,
+          "costNote": "Local hardware and electricity cost not measured; HTTP usage is not a bill.",
+          "inferenceSeconds": null,
+          "modelLoadSeconds": null,
+          "requestCount": 60,
+          "timeBasis": "client_observed_http_wall_clock",
+          "tokenBasis": "reported_response_usage_when_available",
+          "tokens": {
+            "cached_input_tokens": null,
+            "input_tokens": 123989,
+            "output_tokens": 0,
+            "reasoning_output_tokens": null
+          }
+        }
+      },
+      "missingPasses": [
+        {
+          "condition": "P0",
+          "pass": "fresh2",
+          "status": "not_completed"
+        },
+        {
+          "condition": "P0",
+          "pass": "fresh3",
+          "status": "not_completed"
+        }
+      ],
+      "pairwiseFlips": [],
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 1,
+            "mean": null,
+            "range": null,
+            "values": [
+              53
+            ]
+          },
+          "fields": {
+            "follow_up_needed": {
+              "completedPasses": 1,
+              "mean": null,
+              "range": null,
+              "values": [
+                60
+              ]
+            },
+            "sentiment": {
+              "completedPasses": 1,
+              "mean": null,
+              "range": null,
+              "values": [
+                56
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 1,
+              "mean": null,
+              "range": null,
+              "values": [
+                57
+              ]
+            },
+            "testimonial_potential": {
+              "completedPasses": 1,
+              "mean": null,
+              "range": null,
+              "values": [
+                60
+              ]
+            }
+          }
+        }
+      }
+    },
+    "thinking": {
+      "changesAcrossThreePasses": null,
+      "configuration": "openjev-thinking",
+      "freshPasses": {},
+      "historicalObservation": {
+        "confusionCounts": {
+          "follow_up_needed": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 24
+            },
+            "yes": {
+              "yes": 35
+            }
+          },
+          "sentiment": {
+            "insufficient_information": {
+              "insufficient_information": 1,
+              "neutral": 1
+            },
+            "mixed": {
+              "mixed": 8
+            },
+            "negative": {
+              "negative": 31
+            },
+            "neutral": {
+              "negative": 1,
+              "neutral": 6,
+              "positive": 1
+            },
+            "positive": {
+              "positive": 11
+            }
+          },
+          "serious_concern_reported": {
+            "insufficient_information": {
+              "insufficient_information": 6
+            },
+            "no": {
+              "no": 29
+            },
+            "yes": {
+              "yes": 25
+            }
+          },
+          "testimonial_potential": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 50
+            },
+            "yes": {
+              "yes": 9
+            }
+          }
+        },
+        "evidence": {
+          "development.jsonl": {
+            "path": "results/openjev-local-thinking-2026-09-23/development.jsonl",
+            "sha256": "65b8d36c2931e40098ca63955409b04ca8d7eb323408bc146eb2b7b8210f0e58"
+          },
+          "reconciliation.json": {
+            "path": "results/openjev-local-thinking-2026-09-23/reconciliation.json",
+            "sha256": "f8f5b876f7f53b332bf55c37c880f3c9a6ea74c61e2a0cbdeb4e8e3fef53ec43"
+          }
+        },
+        "interruption": null,
+        "predictedClassCounts": {
+          "follow_up_needed": {
+            "insufficient_information": 1,
+            "no": 24,
+            "yes": 35
+          },
+          "sentiment": {
+            "insufficient_information": 1,
+            "mixed": 8,
+            "negative": 32,
+            "neutral": 7,
+            "positive": 12
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 6,
+            "no": 29,
+            "yes": 25
+          },
+          "testimonial_potential": {
+            "insufficient_information": 1,
+            "no": 50,
+            "yes": 9
+          }
+        },
+        "reason": "fixed interruption or adaptive/thinking unobserved prior warm cache state",
+        "score": {
+          "allFour": 57,
+          "denominator": 60,
+          "fields": {
+            "follow_up_needed": 60,
+            "sentiment": 57,
+            "serious_concern_reported": 60,
+            "testimonial_potential": 60
+          },
+          "invalidIds": [],
+          "outcomes": {
+            "invalid_output": 0,
+            "isolation_violation": 0,
+            "never_sent": 0,
+            "other_error": 0,
+            "refusal": 0,
+            "service_error": 0,
+            "timeout": 0,
+            "unknown_started": 0,
+            "valid": 60
+          },
+          "valid": 60
+        },
+        "status": "historical_observation_excluded_from_fresh_triplet",
+        "usage": {
+          "actualCostUsd": null,
+          "clientRequestSeconds": [
+            38.56426633405499,
+            34.6733522079885,
+            33.17106066690758,
+            41.47044083313085,
+            60.7009094171226,
+            32.12068304186687,
+            29.70939908293076,
+            29.377600542036816,
+            29.72112416708842,
+            32.31198679096997,
+            27.41911141714081,
+            34.65313670807518,
+            39.44334995886311,
+            35.87447050004266,
+            40.269260624889284,
+            23.869564875029027,
+            35.89153070887551,
+            63.44282254204154,
+            46.15691383299418,
+            36.990346583072096,
+            36.27213341696188,
+            38.75509108300321,
+            56.27692008391023,
+            57.905551166972145,
+            52.437650833046064,
+            48.714530082885176,
+            63.21903225011192,
+            58.968287917086855,
+            34.916816875105724,
+            39.525968374917284,
+            49.73763154097833,
+            39.73730575013906,
+            60.191088292049244,
+            56.55341541697271,
+            57.48746329196729,
+            68.49186041695066,
+            55.47052504098974,
+            53.67511970899068,
+            41.241317625157535,
+            35.68704850017093,
+            49.67136575002223,
+            52.248774958075956,
+            59.12290312512778,
+            54.60563987493515,
+            54.3239018751774,
+            63.22719558281824,
+            68.02823233418167,
+            67.76079033385031,
+            60.278166875010356,
+            57.66419216687791,
+            47.26905058301054,
+            54.517777000088245,
+            66.79146008286625,
+            52.04095866694115,
+            59.48425112501718,
+            66.76506837503985,
+            60.92695245798677,
+            27.702194540994242,
+            30.584414082812145,
+            64.10765945911407
+          ],
+          "clientRequestSecondsTotal": 2868.217037753435,
+          "costNote": "Local hardware and electricity cost not measured; HTTP usage is not a bill.",
+          "inferenceSeconds": null,
+          "modelLoadSeconds": null,
+          "requestCount": 60,
+          "timeBasis": "client_observed_http_wall_clock",
+          "tokenBasis": "reported_response_usage_when_available",
+          "tokens": {
+            "cached_input_tokens": null,
+            "input_tokens": 274869,
+            "output_tokens": 26231,
+            "reasoning_output_tokens": null
+          }
+        }
+      },
+      "missingPasses": [
+        {
+          "condition": "P0",
+          "pass": "fresh1",
+          "status": "not_completed"
+        },
+        {
+          "condition": "P0",
+          "pass": "fresh2",
+          "status": "not_completed"
+        },
+        {
+          "condition": "P0",
+          "pass": "fresh3",
+          "status": "not_completed"
+        }
+      ],
+      "pairwiseFlips": [],
+      "threePassSummary": {
+        "P0": {
+          "allFour": {
+            "completedPasses": 0,
+            "mean": null,
+            "range": null,
+            "values": []
+          },
+          "fields": {
+            "follow_up_needed": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            },
+            "sentiment": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            },
+            "serious_concern_reported": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            },
+            "testimonial_potential": {
+              "completedPasses": 0,
+              "mean": null,
+              "range": null,
+              "values": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "externalSourceBindingsRecordedInManifest": {
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/__main__.py": "e055ef7f71104532d3aa3be3dfd5e0a945be49617f0ff1828e76b7accfadc636",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/api.py": "28c5c29264d830c80f71568208ec584cc640bce6551741b49b4845e92601e35a",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/config.py": "26224de1e3c7659465ef6021cb60fd5989d8ea5561a8c384f83c2f44116c3d54",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/engine.py": "4615880c869dc549fd27f57d1eecc20d2637f538b5337bfc61c620764fb5ed83",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/mlx_backend.py": "8ba4e9617f86d4eb9570121fcbee6fc9a878058fba2f41bb5d61e1c47c114fab",
+    "/Users/adamkovacs/Documents/Codex/2026-09-21/continue-the-recruitment-feedback-benchmark-from/work/openjev-source/openjev/warmup.py": "d00685eb3dc29f5f4923403d5d4a06fbb34907c9dc77fb06caab5dc71f5ff123"
+  },
+  "limitations": [
+    "Historical observations are excluded from fresh triplets.",
+    "Client HTTP wall time is not model-only inference time.",
+    "Local attributable dollar cost and actual adaptive rereads are unavailable."
+  ],
+  "manifestSha256": "ebbc3ba4caceda68478eaa2e101be9a039e9eb441201d50c7610a8719fe585c7",
+  "referenceBasis": "provisional assistant-reviewed v0.2 labels",
+  "referenceClassCounts": {
+    "follow_up_needed": {
+      "insufficient_information": 1,
+      "no": 24,
+      "yes": 35
+    },
+    "sentiment": {
+      "insufficient_information": 2,
+      "mixed": 8,
+      "negative": 31,
+      "neutral": 8,
+      "positive": 11
+    },
+    "serious_concern_reported": {
+      "insufficient_information": 6,
+      "no": 29,
+      "yes": 25
+    },
+    "testimonial_potential": {
+      "insufficient_information": 1,
+      "no": 50,
+      "yes": 9
+    }
+  },
+  "schema": "openjev-native-fresh-three-report-v1",
+  "sourceBindings": [
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/manifest.json",
+      "sha256": "ebbc3ba4caceda68478eaa2e101be9a039e9eb441201d50c7610a8719fe585c7"
+    },
+    {
+      "path": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "path": "docs/LABELING_GUIDE.md",
+      "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+    },
+    {
+      "path": "results/openjev/setup-audit.json",
+      "sha256": "c3c747a2cb21b2326a48a4923b0bac67313958b1b66437fb5cf5582883bdd57e"
+    },
+    {
+      "path": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "path": "scripts/jev_benchmark.py",
+      "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+    },
+    {
+      "path": "scripts/openjev_native_repeat_admission.py",
+      "sha256": "d09afa5f896ed098bc10abe21fc63c88539bc31471b4bc52337f523f5f739795"
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/development-continuation.jsonl",
+      "sha256": "4559c239433394999e915c7b4574618f0de106e836ee7851d429346a8317623d"
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/development-reconciled.jsonl",
+      "sha256": "60ff59a5933fd9a926f921eafe5209cedfa0f13b05d3422f8a6bfb8a2962b396"
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/development.jsonl",
+      "sha256": "c6a2fbe1952afb6cdd2af0ca1cf17206ea1c1e1ecd63803d5772920a03b8170f"
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/interruption.json",
+      "sha256": "6d6c3ef64db7d8f1e4ee0f01c8cc5dff5bdbfc32e5ca8eb9d41e972a15279f9c"
+    },
+    {
+      "path": "results/openjev-local-fixed-2026-09-23/reconciliation.json",
+      "sha256": "d45e8638443d26b5824df5ba7790fbe9c2abaa8dcf4549a550aa6aec741acf53"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.root-review.json",
+      "sha256": "b76998c619964ebe1ce4ac3d935f096764bcec687efc97b20408b9ab4eee507d"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.claim.json",
+      "sha256": "4bef7dfc71bac4db11d126a67806f8163bd4431d9ef53caf13e7aa827346f250"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.journal.jsonl",
+      "sha256": "1df37e32b0f05ef211f95dec53e97c121eec2db8367c82805ada712f56796f40"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.raw.jsonl",
+      "sha256": "b03c8d52d8d2e6b9d8e382c884e57c213a85166eaad71fd115ed4d7ce761de19"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.records.jsonl",
+      "sha256": "7dbbfab641a4b34e5ee7c2fa7075265ab5198920d5429f681232020cc893bbfd"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke.completion.json",
+      "sha256": "84c6689cf2876803acc34e7dcee2e8a86d856d1ea7394bb393f33f1d287b2579"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/smoke-inspection.json",
+      "sha256": "c1114f144db74814c48e9b2e9bec441977b4095733369d22d8eeba6913154ad0"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.root-review.json",
+      "sha256": "42d9aa968fc9673b1da10dbd205a2c0ac2d85901d081ea0c6c2073dac1806c0e"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.claim.json",
+      "sha256": "400fe873f23d0afbe9e6544b4a1d448d3dd14b567d7a81a4856efbdd5bc268ed"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.journal.jsonl",
+      "sha256": "909e3b6c4215dcdf3998fda5a53e5bae95209c36668ae61208d4ad9f936b0c49"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.raw.jsonl",
+      "sha256": "611293c9fc1d4f3df217ef3337410eab80ce4fa302dc52eb1f0bf3e5cb3c0ff0"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.records.jsonl",
+      "sha256": "931d804584035edcc9c37cbfebcbe4b62543100036e8da5e721105a7ae23e419"
+    },
+    {
+      "path": "results/repeatability-v1/openjev-native-fresh-v1/openjev-fixed/fresh1/P0/development.completion.json",
+      "sha256": "b14c238946440fb89e9ea030223b08ec0f4d241a3efc84eec50db140abf43755"
+    },
+    {
+      "path": "results/openjev-local-adaptive-2026-09-23/development.jsonl",
+      "sha256": "b0ac1655ca76f617926147487ad67525208848e3590297e274493c2a8cb17bba"
+    },
+    {
+      "path": "results/openjev-local-adaptive-2026-09-23/reconciliation.json",
+      "sha256": "0b9efc54d16b6cf1dfd3ead1c3e52db8abe4bce96d7f6550ce3a95cf6db46980"
+    },
+    {
+      "path": "results/openjev-local-thinking-2026-09-23/development.jsonl",
+      "sha256": "65b8d36c2931e40098ca63955409b04ca8d7eb323408bc146eb2b7b8210f0e58"
+    },
+    {
+      "path": "results/openjev-local-thinking-2026-09-23/reconciliation.json",
+      "sha256": "f8f5b876f7f53b332bf55c37c880f3c9a6ea74c61e2a0cbdeb4e8e3fef53ec43"
+    }
+  ]
+}
