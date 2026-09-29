@@ -4,7 +4,7 @@ All nine runs finished with 60 valid responses each. This series uses DeepSeek V
 
 **The more detailed prompts scored lower on all-four agreement in each matched pass.** P1 was 1–3 reviews below P0; P2 was 2–5 below P0. This was not a uniform decline across fields: both variants improved testimonial agreement by 1–2 reviews, while sentiment agreement fell. P2 also lost 3–4 serious-concern matches.
 
-| Prompt | All four correct, passes 1 / 2 / 3 | Reviews changing at least one label |
+| Prompt | All four labels match, passes 1 / 2 / 3 | Reviews changing at least one label |
 | --- | --- | --- |
 | P0 | 48 / 49 / 48 out of 60 | 2 of 60 |
 | P1 | 47 / 47 / 45 out of 60 | 3 of 60 |
