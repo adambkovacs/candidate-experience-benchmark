@@ -141,7 +141,7 @@ AnyJev L2 completed three native passes, each with 60 valid outputs and 13/60 al
 
 OpenJev completed all three native P0 triplets with 60 valid outputs per pass. Fixed scored 53/60 and adaptive 52/60 all-field matches in each pass, with no within-mode classification flips. Thinking scored 53/60, 54/60 and 54/60; its pairwise comparisons changed at least one decision on 9, 9 and 4 reviews. Cross-mode score differences are descriptive. [Read the class-level findings and measurement limits](docs/OPENJEV_NATIVE_REPEAT_FINDINGS_2026-09-29.md).
 
-The separate OpenJev generated-off series has one closed fresh P0 pass: 53 valid and seven invalid outputs among 60 saved responses, with 48/60 all-field agreement against provisional references. P1/P2 and both modes' remaining repeats are unscored. [See the generated findings](docs/OPENJEV_GENERATED_REPEAT_FINDINGS_2026-09-29.md).
+The separate OpenJev generated-off series has closed its first P0 and P1 phases. Each saved 60 responses, with 53 valid and seven invalid, and scored 48/60 all-field agreement against provisional references. Their invalid IDs differ, and three of 46 shared-valid reviews changed a decision. P2 and later repeats remain unscored. [See the generated findings](docs/OPENJEV_GENERATED_REPEAT_FINDINGS_2026-09-29.md).
 
 ## License
 
