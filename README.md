@@ -137,6 +137,8 @@ The repository was previously named `recruitment-feedback-demo`. Historical evid
 
 AnyJev L1's three calibrated passes each have 60 valid outputs and 6/60 all-field matches. Their classifications match across all 60 reviews, with zero pairwise flips and a three-pass all-field range of 6–6/60. Repeated agreement on this fixed set does not prove deterministic behavior elsewhere. [The findings](docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md) explain its follow-up uncertainty, missed serious concerns and held-out calibration protocol.
 
+AnyJev L2 has two verified native passes, each with 60 valid outputs and 13/60 all-field matches. Their classifications were identical; the third pass is still running. These fitted-head results use held-out folds within the development set. [Read the class-level findings and measurement limits](docs/ANYJEV_L2_REPEAT_FINDINGS_2026-09-29.md).
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE). Third-party dependencies and model weights retain their respective licenses.

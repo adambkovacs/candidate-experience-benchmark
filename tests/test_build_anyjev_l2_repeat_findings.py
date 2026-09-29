@@ -55,6 +55,9 @@ class SyntheticL2Report(unittest.TestCase):
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(src, dst)
         self.plan = json.loads((self.root / report.PLAN).read_text())
+        self.phase = 'repeat2'
+        self.plan_name = report.PLAN
+        self.run_manifest_name = report.RUN_MANIFEST
         self.original_root = Path(self.plan['output_dir']).parents[3]
         self.hist = self.root / report.HISTORY
         self.folder = self.root / report.BASE / 'repeat2'
@@ -69,7 +72,7 @@ class SyntheticL2Report(unittest.TestCase):
         self.assertEqual(result['passes']['original']['P0']['score']['denominator'], 60)
         self.assertEqual(result['passes']['original']['P0']['score']['allFour'], 13)
         self.assertEqual([x['status'] for x in result['missingPasses']],
-                         ['not_started', 'plan_not_frozen'])
+                         ['not_completed', 'plan_not_frozen'])
         self.assertIsNone(result['threePassSummary']['P0']['allFour']['range'])
         for field, matrix in result['confusionCounts']['original'].items():
             self.assertEqual(sum(sum(columns.values()) for columns in matrix.values()), 60, field)
@@ -83,15 +86,34 @@ class SyntheticL2Report(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Source hash differs'):
             self.build()
 
-    def test_claimed_or_unknown_stage_remains_unscored(self):
+    def test_private_partial_stage_does_not_change_public_report(self):
+        before = self.build()
         (self.folder / 'smoke.operations.jsonl').write_text('{"event":"started"}\n')
         (self.folder / 'smoke.raw.jsonl').write_text('{"partial":')
         result = self.build()
+        self.assertEqual(result, before)
         self.assertEqual(result['completedConditions'], 1)
-        self.assertEqual(result['missingPasses'][0]['status'], 'claimed_in_progress_or_interrupted')
+        self.assertEqual(result['missingPasses'][0]['status'], 'not_completed')
         self.assertEqual(result['passes']['repeat2'], {})
 
-    def make_closed(self):
+    def make_closed(self, phase='repeat2'):
+        self.phase = phase
+        if phase == 'repeat3':
+            previous = json.loads((self.root / report.PLAN).read_text())
+            self.run_manifest_name = report.BASE / 'repeat3-run-manifest.json'
+            run = json.loads((self.root / report.RUN_MANIFEST).read_text())
+            run['repeat_phase'] = phase
+            run['output_dir'] = str(self.original_root / report.BASE / phase)
+            write_json(self.root / self.run_manifest_name, run)
+            self.plan_name = report.BASE / 'repeat3-plan.json'
+            self.plan = dict(previous, phase=phase,
+                output_dir=str(self.original_root / report.BASE / phase),
+                run_manifest=str(self.original_root / self.run_manifest_name),
+                run_manifest_sha256=digest(self.root / self.run_manifest_name),
+                prior_completion_sha256=digest(self.root / report.BASE / 'repeat2/full.repeat-completion.json'))
+            write_json(self.root / self.plan_name, self.plan)
+            self.folder = self.root / report.BASE / phase
+            self.folder.mkdir()
         full = [json.loads(x) for x in (self.hist / 'full.jsonl').read_text().splitlines()]
         smoke = full[:3]
         attempts_full = [json.loads(x) for x in (self.hist / 'full.attempts.jsonl').read_text().splitlines()]
@@ -105,12 +127,13 @@ class SyntheticL2Report(unittest.TestCase):
             record['run_manifest_sha256'] = self.plan['run_manifest_sha256']
             record['artifact_sha256'] = digest(self.folder / f'fold-{record["fold"]}-artifacts.json')
         smoke = full[:3]
+        smoke_attempts = [smoke[1], smoke[2], smoke[0]]  # outer-fold execution order
         attempts_full = [next(x for x in full if x['id'] == a['id']) for a in attempts_full]
         write_lines(self.folder / 'smoke.jsonl', smoke)
-        write_lines(self.folder / 'smoke.attempts.jsonl', smoke)
+        write_lines(self.folder / 'smoke.attempts.jsonl', smoke_attempts)
         write_lines(self.folder / 'full.jsonl', full)
         write_lines(self.folder / 'full.attempts.jsonl', attempts_full)
-        for stage, records, fit_folds in [('smoke', smoke, (1, 4, 5)),
+        for stage, records, fit_folds in [('smoke', smoke_attempts, (1, 4, 5)),
                                           ('full', attempts_full, (2, 3))]:
             captures = []
             for number in fit_folds:
@@ -147,34 +170,35 @@ class SyntheticL2Report(unittest.TestCase):
             for n in range(1, 6)]
         write_json(self.folder / 'collection-manifest.json', collection)
         for stage in ('smoke', 'full'):
-            review = {'decision': 'approved', 'phase': 'repeat2', 'stage': stage,
-                      'plan_sha256': digest(self.root / report.PLAN),
+            review = {'decision': 'approved', 'phase': phase, 'stage': stage,
+                      'plan_sha256': digest(self.root / self.plan_name),
                       'controller_sha256': self.plan['controller_sha256'],
                       'scope': 'one native L2 stage only'}
             if stage == 'full':
                 review.update(smoke_raw_sha256=digest(self.folder / 'smoke.raw.jsonl'),
                               smoke_rows_sha256=digest(self.folder / 'smoke.jsonl'),
                               smoke_completion_sha256=digest(self.folder / 'smoke.repeat-completion.json'))
-            write_json(self.folder / f'{stage}.root-review.json', review)
+            review_path = self.root / report.BASE / f'{phase}-{stage}.root-review.json'
+            write_json(review_path, review)
             names = [f'{stage}.raw.jsonl', f'{stage}.operations.jsonl',
                      f'{stage}.attempts.jsonl', f'{stage}.jsonl']
             names += ([f'fold-{n}-artifacts.json' for n in (1, 4, 5)] if stage == 'smoke'
                       else ['collection-manifest.json', 'smoke.repeat-completion.json'] +
                       [f'fold-{n}-artifacts.json' for n in range(1, 6)])
             completion = {'contract': 'anyjev-l2-repeat-completion-v1',
-                          'phase': 'repeat2', 'stage': stage, 'status': 'completed',
+                          'phase': phase, 'stage': stage, 'status': 'completed',
                           'controller_sha256': self.plan['controller_sha256'],
                           'raw_sha256': digest(self.folder / f'{stage}.raw.jsonl'),
                           'stage_bindings': {name: digest(self.folder / name) for name in names},
                           'external_bindings': {
                               key: {'path': str(target), 'sha256': digest(local)}
                               for key, target, local in (
-                                  ('plan', self.original_root / report.PLAN,
-                                   self.root / report.PLAN),
-                                  ('review', self.original_root / report.BASE / 'repeat2' /
-                                   f'{stage}.root-review.json', self.folder / f'{stage}.root-review.json'),
+                                  ('plan', self.original_root / self.plan_name,
+                                   self.root / self.plan_name),
+                                  ('review', self.original_root / report.BASE /
+                                   f'{phase}-{stage}.root-review.json', review_path),
                                   ('run_manifest', Path(self.plan['run_manifest']),
-                                   self.root / report.RUN_MANIFEST),
+                                   self.root / self.run_manifest_name),
                                   ('base_runner', self.original_root / report.BASE_RUNNER,
                                    self.root / report.BASE_RUNNER))}}
             if stage == 'full':
@@ -183,11 +207,12 @@ class SyntheticL2Report(unittest.TestCase):
                     'smoke_sha256': digest(self.folder / 'smoke.jsonl'),
                     'runner_sha256': self.plan['base_runner_sha256'],
                     'run_manifest_sha256': self.plan['run_manifest_sha256']}
-                write_json(self.folder / 'base-smoke-review.json', base_review)
+                base_review_path = self.root / report.BASE / f'{phase}-smoke-inspection.json'
+                write_json(base_review_path, base_review)
                 completion.update(smoke_completion_sha256=digest(self.folder / 'smoke.repeat-completion.json'),
-                                  base_smoke_review_path=str(self.original_root / report.BASE / 'repeat2' /
-                                                             'base-smoke-review.json'),
-                                  base_smoke_review_sha256=digest(self.folder / 'base-smoke-review.json'))
+                                  base_smoke_review_path=str(self.original_root / report.BASE /
+                                                             f'{phase}-smoke-inspection.json'),
+                                  base_smoke_review_sha256=digest(base_review_path))
             write_json(self.folder / f'{stage}.repeat-completion.json', completion)
         return full
 
@@ -201,6 +226,57 @@ class SyntheticL2Report(unittest.TestCase):
         self.assertIsNone(result['threePassSummary']['P0']['allFour']['range'])
         self.assertEqual(sum(sum(cols.values()) for cols in
                              result['confusionCounts']['repeat2']['sentiment'].values()), 60)
+        real_smoke = json.loads((SOURCE / report.BASE / 'repeat2' /
+                                 'smoke.repeat-completion.json').read_text())
+        expected_review = (self.original_root / report.BASE /
+                           'repeat2-smoke.root-review.json')
+        self.assertEqual(real_smoke['external_bindings']['review']['path'],
+                         str(expected_review))
+        self.assertIn(str(report.BASE / 'repeat2-smoke.root-review.json'),
+                      [item['path'] for item in result['sourceBindings']])
+
+    def test_review_outside_exact_root_receipt_path_rejected(self):
+        self.make_closed()
+        completion = self.folder / 'smoke.repeat-completion.json'
+        value = json.loads(completion.read_text())
+        value['external_bindings']['review']['path'] = str(
+            self.original_root / report.BASE / 'repeat2' / 'smoke.root-review.json')
+        write_json(completion, value)
+        with self.assertRaisesRegex(ValueError, 'external path differs'):
+            self.build()
+
+    def test_third_pass_closed_is_scored_with_three_pass_summary(self):
+        self.make_closed()
+        self.make_closed('repeat3')
+        result = self.build()
+        self.assertEqual(result['completedConditions'], 3)
+        self.assertEqual(result['passes']['repeat3']['P0']['score']['denominator'], 60)
+        self.assertEqual(len(result['pairwiseFlips']), 3)
+        self.assertEqual(len(result['threePassSummary']['P0']['allFour']['values']), 3)
+        self.assertEqual(result['missingPasses'], [])
+        paths = {item['path'] for item in result['sourceBindings']}
+        self.assertIn(str(report.BASE / 'repeat3-plan.json'), paths)
+        self.assertIn(str(report.BASE / 'repeat3-run-manifest.json'), paths)
+        self.assertIn(str(report.BASE / 'repeat3-full.root-review.json'), paths)
+
+    def test_third_pass_claimed_but_unclosed_remains_unscored(self):
+        self.make_closed()
+        self.make_closed('repeat3')
+        (self.folder / 'full.repeat-completion.json').unlink()
+        result = self.build()
+        self.assertEqual(result['completedConditions'], 2)
+        self.assertEqual(result['passes']['repeat3'], {})
+        self.assertEqual(result['missingPasses'][0]['status'], 'not_completed')
+
+    def test_third_pass_changed_predecessor_rejected(self):
+        self.make_closed()
+        self.make_closed('repeat3')
+        plan_path = self.root / self.plan_name
+        plan = json.loads(plan_path.read_text())
+        plan['prior_completion_sha256'] = '0' * 64
+        write_json(plan_path, plan)
+        with self.assertRaisesRegex(ValueError, 'predecessor differs'):
+            self.build()
 
     def test_synthetic_raw_tamper_fails_closed(self):
         self.make_closed()
@@ -214,7 +290,7 @@ class SyntheticL2Report(unittest.TestCase):
         (self.folder / 'full.repeat-completion.json').unlink()
         result = self.build()
         self.assertEqual(result['completedConditions'], 1)
-        self.assertEqual(result['missingPasses'][0]['status'], 'claimed_in_progress_or_interrupted')
+        self.assertEqual(result['missingPasses'][0]['status'], 'not_completed')
 
     def test_confusion_retains_invalid_in_sixty_denominator(self):
         indexed = {rid: {'status': 'ok', 'prediction': self.build()['passes']['original']['P0']['score']}

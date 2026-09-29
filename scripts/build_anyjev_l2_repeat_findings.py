@@ -290,17 +290,17 @@ def completed_stage(root, phase, stage, plan_name, plan, original_root, bind):
     if not isinstance(external, dict) or set(external) != {'plan', 'review', 'run_manifest', 'base_runner'}:
         raise ValueError('L2 wrapper external bindings differ')
     expected = {'plan': original_root / plan_name,
-                'review': None,
+                'review': original_root / BASE / f'{phase}-{stage}.root-review.json',
                 'run_manifest': Path(plan['run_manifest']),
                 'base_runner': original_root / BASE_RUNNER}
     for key, absolute in expected.items():
         relative = _external_relative(root, original_root, external[key], absolute,
-                                      folder if key == 'review' else None)
+                                      BASE if key == 'review' else None)
         evidence[key] = bind(relative, external[key]['sha256'])
     if external['plan']['sha256'] != bind(plan_name)['sha256'] or external['base_runner']['sha256'] != plan['base_runner_sha256'] or external['run_manifest']['sha256'] != plan['run_manifest_sha256']:
         raise ValueError('L2 wrapper source bindings differ')
     review = load_json(root, _external_relative(root, original_root, external['review'],
-                            required_parent=folder))
+                            expected=expected['review'], required_parent=BASE))
     if any(review.get(k) != v for k, v in {'decision': 'approved', 'phase': phase,
             'stage': stage, 'plan_sha256': external['plan']['sha256'],
             'controller_sha256': plan['controller_sha256'],
@@ -312,7 +312,8 @@ def completed_stage(root, phase, stage, plan_name, plan, original_root, bind):
                 or completion.get('base_smoke_review_sha256') is None):
             raise ValueError('L2 smoke dependency changed')
         smoke_review_absolute = Path(completion.get('base_smoke_review_path', ''))
-        if smoke_review_absolute.parent != original_root / folder:
+        expected_smoke_review = original_root / BASE / f'{phase}-smoke-inspection.json'
+        if smoke_review_absolute != expected_smoke_review:
             raise ValueError('L2 base smoke review path differs')
         evidence['baseSmokeReview'] = bind(smoke_review_absolute.relative_to(original_root),
                                            completion['base_smoke_review_sha256'])
@@ -359,11 +360,8 @@ def completed_stage(root, phase, stage, plan_name, plan, original_root, bind):
 def repeat(root, phase, plan_name, plan, labels, inputs, fold_of, original_root, bind):
     folder = BASE / phase
     if not path(root, folder / 'full.repeat-completion.json').exists():
-        claimed = any(path(root, folder / name).exists() for name in
-                      ('smoke.operations.jsonl', 'full.operations.jsonl',
-                       'smoke.raw.jsonl', 'full.raw.jsonl', 'smoke.repeat-completion.json'))
         return None, {'pass': phase, 'condition': 'P0',
-                      'status': 'claimed_in_progress_or_interrupted' if claimed else 'not_started'}
+                      'status': 'not_completed'}
     smoke_evidence, smoke_raw = completed_stage(root, phase, 'smoke', plan_name, plan, original_root, bind)
     full_evidence, full_raw = completed_stage(root, phase, 'full', plan_name, plan, original_root, bind)
     smoke = rows(root, folder / 'smoke.jsonl')
@@ -371,7 +369,7 @@ def repeat(root, phase, plan_name, plan, labels, inputs, fold_of, original_root,
     smoke_attempts = rows(root, folder / 'smoke.attempts.jsonl')
     full_attempts = rows(root, folder / 'full.attempts.jsonl')
     if ([x.get('id') for x in smoke] != SMOKE_IDS
-            or [x.get('id') for x in smoke_attempts] != SMOKE_IDS
+            or sorted(x.get('id') for x in smoke_attempts) != SMOKE_IDS
             or [x.get('id') for x in full] != IDS
             or sorted(x.get('id') for x in full_attempts) != IDS[3:]
             or {json.dumps(x, sort_keys=True) for x in smoke_attempts} !=
@@ -442,6 +440,38 @@ def stats(values):
             'range': [min(values), max(values)] if len(values) == 3 else None}
 
 
+def repeat3_sources(root, repeat2_plan, original_root, bind):
+    """Bind the separately frozen third pass and its completed predecessor."""
+    name = BASE / 'repeat3-plan.json'
+    run_name = BASE / 'repeat3-run-manifest.json'
+    bind(name)
+    plan = load_json(root, name)
+    allowed_changes = {'phase', 'output_dir', 'run_manifest', 'run_manifest_sha256',
+                       'prior_completion_sha256'}
+    if (set(plan) != set(repeat2_plan) | {'prior_completion_sha256'}
+            or any(plan[key] != value for key, value in repeat2_plan.items()
+                   if key not in allowed_changes)
+            or plan.get('phase') != 'repeat3'
+            or plan.get('output_dir') != str(original_root / BASE / 'repeat3')
+            or plan.get('run_manifest') != str(original_root / run_name)
+            or plan.get('prior_completion_sha256') !=
+               bind(BASE / 'repeat2/full.repeat-completion.json')['sha256']):
+        raise ValueError('Repeat3 frozen plan or predecessor differs')
+    bind(run_name, plan['run_manifest_sha256'])
+    run = load_json(root, run_name)
+    previous_run = load_json(root, RUN_MANIFEST)
+    stable = ('contract', 'protocol_sha256', 'fold_sha256', 'runner_sha256',
+              'helper_sha256', 'source_revision', 'model_revision', 'model_path',
+              'device', 'dtype', 'quantization', 'batch_size', 'max_context',
+              'gpu_lock', 'smoke_ids', 'full_collection', 'compatibility',
+              'historical_collection_sha256')
+    if (any(run.get(key) != previous_run.get(key) for key in stable)
+            or run.get('repeat_phase') != 'repeat3'
+            or run.get('output_dir') != plan['output_dir']):
+        raise ValueError('Repeat3 run controls differ')
+    return plan, name
+
+
 def build(root=ROOT):
     root = Path(root)
     plan, labels, inputs, fold_of, original_root, bind, bindings = source_context(root)
@@ -469,9 +499,20 @@ def build(root=ROOT):
             raise ValueError('Repeat3 evidence exists without frozen plan')
         missing.append({'pass': 'repeat3', 'condition': 'P0', 'status': 'plan_not_frozen'})
     else:
-        # Repeat3 is admitted only once its separate manifest and predecessor
-        # completion are frozen. A new reporter version must bind that plan.
-        raise ValueError('Repeat3 plan exists; reporter source binding requires reviewed update')
+        if repeat2 is None:
+            raise ValueError('Repeat3 plan exists before verified repeat2 completion')
+        plan3, name3 = repeat3_sources(root, plan, original_root, bind)
+        repeat3, state = repeat(root, 'repeat3', name3, plan3, labels, inputs,
+                                fold_of, original_root, bind)
+        if repeat3 is None:
+            missing.append(state)
+        else:
+            records, detail = repeat3
+            indexed['repeat3'] = {x['id']: x for x in records}
+            data['repeat3']['P0'] = {'completionStatus': 'complete',
+                'score': shared.score(indexed['repeat3'], labels, IDS),
+                'predictedClassCounts': class_counts(indexed['repeat3']),
+                'usage': usage(records), **detail}
     complete = [name for name in PASSES if 'P0' in data[name]]
     scores = [data[name]['P0']['score'] for name in complete]
     flips = [{'condition': 'P0', 'from': left, 'to': right,
