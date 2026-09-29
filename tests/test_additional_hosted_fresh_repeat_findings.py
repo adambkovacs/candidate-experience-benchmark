@@ -285,6 +285,56 @@ class AdditionalHostedReporterTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'incomplete predecessor'):
             report.build(self.root)
 
+    def test_lower_price_stage_requires_exact_successor_receipt_and_sources(self):
+        low = SeriesFixture(report.SPECS[1], self.root, '0.25')
+        low.stage(0, 'smoke')
+        low.stage(0, 'development')
+        report.capture_prefix(self.root, low.spec, 0)
+        low.stage(1, 'smoke')
+        development = low.stage(1, 'development')
+        records = read_rows(development['records'])
+        for row in records:
+            row['provider_endpoint']['pricing']['prompt'] = (
+                report.low_price_successor.NEW_PROMPT_PRICE)
+        write_rows(development['records'], records)
+        for relative in (
+            'scripts/deepseek_low_price_successor_v1.py',
+            'tests/test_deepseek_low_price_successor_v1.py',
+            str(low.spec.base / 'lower-price-endpoint-audit-v1.json'),
+        ):
+            low.copy(relative)
+        with self.assertRaisesRegex(ValueError, 'supplemental root review'):
+            report.capture_prefix(self.root, low.spec, 1)
+        supplement = low.base / 'phase-02-development.price-amendment.root-review.json'
+        successor = report.low_price_successor
+        with patch.object(successor, 'ROOT', self.root), \
+             patch.object(successor, 'BASE', low.base), \
+             patch.object(successor, 'ROUTE_AUDIT', low.base / 'lower-price-endpoint-audit-v1.json'), \
+             patch.object(successor, '__file__', str(self.root / 'scripts/deepseek_low_price_successor_v1.py')), \
+             patch.object(report.low_execution, 'ROOT', self.root), \
+             patch.object(report.low_execution, '__file__', str(self.root / 'scripts/deepseek_low_fresh_repeat_execution_v2.py')):
+            expected = successor.amendment_fields(1, 'development',
+                report.sha(low.base / 'manifest.json'), development['review'])
+        write_json(supplement, expected)
+        report.capture_prefix(self.root, low.spec, 1)
+        series = report.build(self.root)['series'][0]
+        phase = series['passes']['fresh1']['P1']
+        self.assertEqual(successor.OLD_PROMPT_PRICE,
+            phase['servedRoute']['historicalPromptPriceUsdPerToken'])
+        self.assertEqual(successor.NEW_PROMPT_PRICE,
+            phase['servedRoute']['observedPromptPriceUsdPerToken'])
+        self.assertEqual(0.1, records[0]['request']['provider']['max_price']['prompt'])
+        self.assertIn('amendmentReview', phase['evidence'])
+        self.assertIn('successorController', phase['evidence'])
+        self.assertIn('successorTests', phase['evidence'])
+        self.assertIn('routeAudit', phase['evidence'])
+        self.assertNotIn('observedPromptPriceUsdPerToken',
+                         series['passes']['fresh1']['P0']['servedRoute'])
+        supplement.write_text(supplement.read_text().replace(
+            successor.NEW_PROMPT_PRICE, '0.00000002'))
+        with self.assertRaisesRegex(ValueError, 'supplemental root review'):
+            report.build(self.root)
+
 
 if __name__ == '__main__':
     unittest.main()

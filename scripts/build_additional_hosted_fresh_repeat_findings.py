@@ -15,6 +15,7 @@ import qwen36_off_fresh_repeat_admission as qwen_admission
 import qwen36_off_fresh_repeat_execution_v2 as qwen_execution
 import deepseek_low_fresh_repeat_admission as low_admission
 import deepseek_low_fresh_repeat_execution_v2 as low_execution
+import deepseek_low_price_successor_v1 as low_price_successor
 from development_benchmark import KEYS, valid
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -156,6 +157,49 @@ def source_context(root, spec):
     return manifest, labels, ids, partition, budget_binding, bindings
 
 
+def price_amendment(root, spec, manifest_sha, index, name, review_path, records, bindings):
+    """Require the versioned price receipt when a closed stage used lower metadata."""
+    if spec.admission is not low_admission:
+        return None
+    prices = {row['provider_endpoint']['pricing']['prompt'] for row in records}
+    if prices == {low_price_successor.OLD_PROMPT_PRICE}:
+        return None
+    if prices != {low_price_successor.NEW_PROMPT_PRICE}:
+        raise ValueError('Closed DeepSeek stage has unreviewed or mixed prompt prices')
+    stem = spec.base / f'phase-{index + 1:02d}-{name}'
+    supplement = Path(str(stem) + '.price-amendment.root-review.json')
+    controller = Path('scripts/deepseek_low_price_successor_v1.py')
+    tests = Path('tests/test_deepseek_low_price_successor_v1.py')
+    audit = spec.base / 'lower-price-endpoint-audit-v1.json'
+    for source in (controller, tests, audit):
+        if not path(root, source).is_file():
+            raise ValueError('Amended stage lacks bound successor source or route audit')
+    if not path(root, supplement).is_file():
+        raise ValueError('Amended stage lacks supplemental root review')
+    audited_endpoint = json.loads(path(root, audit).read_text())['selected_endpoint']
+    critical = ('tag', 'provider_name', 'quantization', 'model_id',
+                'context_length', 'max_prompt_tokens', 'max_completion_tokens',
+                'supported_parameters', 'pricing')
+    if any(any(row['provider_endpoint'].get(key) != audited_endpoint.get(key)
+               for key in critical) for row in records):
+        raise ValueError('Amended stage endpoint differs from reviewed route controls')
+    with patch.object(low_price_successor, 'ROOT', Path(root).resolve()), \
+         patch.object(low_price_successor, 'BASE', path(root, spec.base)), \
+         patch.object(low_price_successor, 'ROUTE_AUDIT', path(root, audit)), \
+         patch.object(low_price_successor, '__file__', str(path(root, controller))), \
+         patch.object(low_execution, 'ROOT', Path(root).resolve()), \
+         patch.object(low_execution, '__file__', str(path(root, 'scripts/deepseek_low_fresh_repeat_execution_v2.py'))):
+        low_price_successor.verify_amendment(
+            index, name, manifest_sha, path(root, review_path), path(root, supplement))
+    evidence = {'amendmentReview': bind(root, supplement, bindings),
+                'successorController': bind(root, controller, bindings),
+                'successorTests': bind(root, tests, bindings),
+                'routeAudit': bind(root, audit, bindings)}
+    return {'historicalPromptPriceUsdPerToken': low_price_successor.OLD_PROMPT_PRICE,
+            'observedPromptPriceUsdPerToken': low_price_successor.NEW_PROMPT_PRICE,
+            'evidence': evidence}
+
+
 def stage(root, spec, manifest, partition, budget_binding, index, name, bindings, snapshot):
     stem = spec.base / f'phase-{index + 1:02d}-{name}'
     review_path = Path(str(stem) + '.root-review.json')
@@ -190,9 +234,16 @@ def stage(root, spec, manifest, partition, budget_binding, index, name, bindings
                 for part, item in paths.items()}
     evidence['review'] = review_binding
     records = read_rows(path(root, paths['records']))
+    amendment = price_amendment(root, spec, manifest_sha, index, name,
+                                review_path, records, bindings)
     proof = common.settlement_proof(partition, records, snapshot, phase_prefix(spec, index),
                                     records[-1] if name == 'development' else None)
-    return records, evidence, proof
+    if amendment is not None:
+        evidence.update(amendment['evidence'])
+        evidence.update({key: amendment[key] for key in
+                         ('historicalPromptPriceUsdPerToken',
+                          'observedPromptPriceUsdPerToken')})
+    return records, evidence, proof, amendment
 
 
 def score(records, labels, ids):
@@ -251,22 +302,27 @@ def build_series(root, spec):
         snapshot_path = phase_prefix(spec, index)
         snapshot_binding = bind(root, snapshot_path, bindings)
         snapshot = path(root, snapshot_path)
-        smoke, smoke_evidence, smoke_budget = stage(
+        smoke, smoke_evidence, smoke_budget, smoke_amendment = stage(
             root, spec, manifest, partition, budget_binding, index, 'smoke', bindings, snapshot)
-        development, evidence, budget = stage(
+        development, evidence, budget, development_amendment = stage(
             root, spec, manifest, partition, budget_binding, index, 'development', bindings, snapshot)
         expected_budget.extend(common.settlement_events(smoke))
         expected_budget.extend(common.settlement_events(development))
         if read_rows(snapshot) != expected_budget:
             raise ValueError('Budget prefix has missing, extra, or reordered events')
         maps[(fresh, condition)] = development
+        served_route = {'requestedModel': spec.admission.MODEL,
+                        'providerTag': spec.admission.PROVIDER,
+                        'returnedModels': dict(Counter(row['returned_model'] for row in development)),
+                        'returnedProviders': dict(Counter(row['returned_provider'] for row in development)),
+                        'providerEndpoint': manifest['route']}
+        if development_amendment is not None:
+            served_route.update({key: development_amendment[key] for key in
+                                 ('historicalPromptPriceUsdPerToken',
+                                  'observedPromptPriceUsdPerToken')})
         data[fresh][condition] = {'status': 'completed', 'score': score(development, labels, ids),
                                   'usage': common.usage(development),
-                                  'servedRoute': {'requestedModel': spec.admission.MODEL,
-                                                  'providerTag': spec.admission.PROVIDER,
-                                                  'returnedModels': dict(Counter(row['returned_model'] for row in development)),
-                                                  'returnedProviders': dict(Counter(row['returned_provider'] for row in development)),
-                                                  'providerEndpoint': manifest['route']},
+                                  'servedRoute': served_route,
                                   'evidence': {**evidence, 'smoke': smoke_evidence,
                                                'budgetPrefix': snapshot_binding,
                                                'budgetSettlement': budget,
@@ -408,7 +464,7 @@ def capture_prefix(root, spec, index):
         for phase in range(index + 1):
             snapshot = path(root, phase_prefix(spec, phase)) if phase < index else candidate
             for name in ('smoke', 'development'):
-                selected, _, _ = stage(root, spec, manifest, partition, budget_binding,
+                selected, _, _, _ = stage(root, spec, manifest, partition, budget_binding,
                                        phase, name, bindings, snapshot)
                 expected.extend(common.settlement_events(selected))
         if read_rows(candidate) != expected:
