@@ -15,3 +15,7 @@ The [runner](../scripts/deepseek_low_fresh_repeat_execution.py) fixes the order 
 The historical `continue_on_invalid_output: true` control is preserved for development. A billed invalid development output stays in the 60-review denominator and the stage continues. Smoke must be clean to admit development. Service errors, model/provider mismatches, unknown charges and child-cap failures stop without retry. An interrupted reservation remains unresolved and blocks replay. The runner only uses the 60 development reviews and does not read reference labels.
 
 Offline verification: 16 focused tests pass, including all-record reconstruction and later-row drift, schedule and source binding, a mocked successful smoke, invalid-development continuation, invalid-smoke stop, exact predecessor and inspection checks, duplicate-claim rejection, crash persistence after reserve, child-cap stop and client timing. This is review preparation, not dispatch authority or a completed repeat series.
+
+## Offline freeze, 2026-09-29
+
+After review, the child proposal was reduced to $0.30 so it can fit within the existing aggregate cap after reconciliation, subject to actual remaining capacity. The [execution manifest](../results/repeatability-v1/deepseek-low-fresh3-v1/manifest.json) is frozen at SHA-256 `600129e9054967bb684aa2e52bb45ae463ff3454201ce9e4197415223a3b49a3`. All 16 tests pass and the manifest re-verifies. No child allocation or inference request has been made; live budget and route checks remain mandatory before dispatch.
