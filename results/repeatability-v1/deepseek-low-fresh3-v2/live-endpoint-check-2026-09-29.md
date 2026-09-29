@@ -13,3 +13,26 @@ Live-response SHA-256 values: model catalog `292ea48a24c0e3c6f3717b2054b00af75ee
 ## Follow-up check
 
 At 2026-09-29T02:48:55.876489+00:00, a second unauthenticated model/endpoint catalog check found one exact provider entry, still with status `-2`. The frozen selector returned `Endpoint unavailable or identity mismatch`. No inference, key access, reservation or dispatch occurred. This check confirms continued unavailability; it does not reassert every earlier price observation.
+
+## Endpoint reachable, frozen controls differ
+
+At 2026-09-29T03:19:34.110783+00:00, unauthenticated discovery returned an endpoint accepted by the availability selector, but the subsequent exact frozen-control check rejected metadata drift. No inference, claim, reservation or key access occurred. The existing series remains blocked; availability alone does not authorize changed controls.
+
+```json
+{
+  "pricing": {
+    "frozen": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "input_cache_read": "0.00000001",
+      "discount": 0
+    },
+    "live": {
+      "prompt": "0.00000003",
+      "completion": "0.0000005",
+      "input_cache_read": "0.00000001",
+      "discount": 0
+    }
+  }
+}
+```

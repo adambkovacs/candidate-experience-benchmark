@@ -333,3 +333,10 @@ Gemma 26B reasoning-on has a distinct fresh-three offline candidate under review
 ## AnyJev L1 first full pass verified, 2026-09-29
 
 First-pass development exited successfully and passed frozen controller verification, with completion SHA-256 `776c1e513f017a125fe05fb547f852986ba3074c033d18d748232ee34f062f4a`. All 60 held-out outputs are valid; all-field agreement is 6/60 and field counts are sentiment 38, follow-up 16, serious concern 31 and testimonial 49. Closed evidence was pushed in `ce2913e4`. A narrow reporter artifact-identity fix passed eleven tests and independent review; the [first-pass findings](ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md) are prepared for publication. Fresh2 smoke/calibration is separately admitted and running. No full second pass is yet complete, and no inference protocol or result was changed by the reporter correction.
+
+
+## AnyJev L1 publication verified, 2026-09-29
+
+Pages run [36516409907](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36516409907) succeeded at `e6e33ea4`. The live L1 report and index match committed bytes. Browser selection shows one completed native pass at 6/60, two incomplete passes, and no premature repeat range. Eleven reporter tests, three UI tests and an independent clean-export check passed. Shared Ruflo retrieval and save-back were verified from fresh launcher connections and both canonical stores. Fresh2 smoke/calibration remains live; no second full pass is complete.
+
+DeepSeek low became reachable again, but the exact endpoint input price changed from $0.10 to $0.03 per million tokens. The frozen price check rejected it before any inference or reservation. A price-only successor admission is being assessed; the original series and controls remain intact.
