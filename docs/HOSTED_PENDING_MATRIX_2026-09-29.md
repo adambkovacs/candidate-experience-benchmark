@@ -1,5 +1,25 @@
 # Hosted repeat work pending review, 29 September 2026
 
+## Current preparation and execution status
+
+Updated after commit `9288d268` on 29 September. The historical 02:25 UTC snapshot below is retained for provenance; its preparation and endpoint statuses are superseded by this section.
+
+| Remaining configuration | Verified progress | What prevents the next dispatch |
+| --- | --- | --- |
+| DeepSeek low | The reviewed price-only continuation is running P1 development within its existing $0.25 child. P0 is closed. | Each later stage still needs predecessor verification, smoke inspection where applicable, and a fresh exact-route check. The full nine-run series is unfinished. |
+| Qwen27 medium and xhigh | Six fresh-pass plans and the execution controller are committed. Fourteen combined tests and independent review pass. | Proposed children of $1.00 and $0.80 are unfunded. Stage-specific review and live route checks remain required. |
+| Gemma 26B reasoning-on | Three fresh-pass plans and the corrected controller are committed. Eleven combined tests and independent review pass. Raw response files are ignored. | Proposed $0.40 child is unfunded; no fresh inference has run. |
+| Qwen 35B reasoning-on | Three fresh-pass plans are reviewed and committed in `5d0a1c44`. | The execution controller is being prepared; proposed $1.50 child is unfunded. |
+| DeepSeek high | Three fresh-pass plans are reviewed and committed in `ed98ff27`, including the dated lower-price route evidence. | Needs a reviewed controller, fresh live route checks and funding for the proposed $0.90 child. |
+| Mistral 119B none and high | Historical failed smokes remain preserved. | Matched-series planning, provider capacity evidence and funding remain outstanding. A catalog entry alone does not prove capacity. |
+| Gemini 3.1 Pro high | Reviewed wrapper and frozen plans exist. | Proposed $2 child is unfunded. |
+
+No new allocation is made by this checkpoint. The aggregate cap remains $10. The [budget reconciliation](BUDGET_RECONCILIATION_CHECK_2026-09-29.md) leaves $0.04151065850 unallocated, separately from the already funded DeepSeek child. Unknown-charge bounds remain reserved. The requested increase to $17 total has not been approved.
+
+For exact plan and cost evidence, see the admissions for [Qwen27](QWEN27_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Gemma](GEMMA26_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Qwen reasoning-on](QWEN36_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), and [DeepSeek high](DEEPSEEK_HIGH_FRESH_REPEAT_ADMISSION_2026-09-29.md). Completed Qwen reasoning-off work remains preserved with its interruption limitations; it is not queued for a cleaner rerun.
+
+## Historical snapshot at 02:25 UTC
+
 The OpenRouter ledger was read at 02:25 UTC. Its $10 cap accounts for $9.95848934150, leaving $0.04151065850 unallocated. It has no pending attempt reservations or blocked flag. The only active partition is the existing $0.25 `deepseek-low-fresh3-20260929` child. This inventory makes no allocation and assumes no release from that child.
 
 No new full hosted series is currently ready to dispatch within free capacity. DeepSeek low is already prepared and funded, but its exact `open-inference/fp4` endpoint was previously returned with status -2. Keep it stopped until a fresh read returns status 0 and all frozen route fields match. The other live routes below do not have fresh matched-series manifests/controllers in this inventory. Catalog presence is not admission.

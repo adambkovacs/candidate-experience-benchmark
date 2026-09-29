@@ -349,3 +349,10 @@ Commit `0119258a` preserves the independently reviewed price-only DeepSeek succe
 AnyJev L1 fresh2 smoke completed with three valid outputs and twelve normalized choice distributions. Its verified completion hash is `ddd630057c98a98b55924cf1ed9af2f85d4988064f34f001c6dc60370920486e`. Root inspection retained near-tied and insufficient-information choices without repair. Commit `dd795598` preserves the closed smoke and separate development receipt; the remaining 57 held-out records are now running. L1 remains at one completed full pass out of three.
 
 The Qwen reasoning-on admission plans are independently reviewed and committed in `5d0a1c44`. They remain unexecuted and unfunded; a future controller must bind the planner and test hashes before dispatch. The aggregate cap remains $10.
+
+
+## Hosted execution preparation verified, 2026-09-29
+
+Commit `9288d268` adds the reviewed Qwen27 executor and corrects Gemma response capture. Bounded raw response bytes are durably saved before JSON parsing; malformed responses retain their unknown-charge reservation and cannot be replayed. All 25 combined tests pass. Both independent reviews approve after the Gemma raw-wire ignore rule was verified across all 18 stage paths. These are offline preparations, not new benchmark results or funding approvals.
+
+The [hosted work matrix](HOSTED_PENDING_MATRIX_2026-09-29.md) now puts the latest verified preparation status before the preserved historical snapshot. DeepSeek low P1 and AnyJev L1 second-pass development remain active at this checkpoint. The remaining hosted allocations are unfunded. Shared Ruflo retrieval and exact save-back were verified through a fresh second launcher and both canonical databases for this commit.
