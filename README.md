@@ -135,7 +135,7 @@ The broader plan describes 400 records. **Only the 60 development records are in
 
 The repository was previously named `recruitment-feedback-demo`. Historical evidence retains original paths and identifiers so its hashes and provenance remain intact.
 
-AnyJev L1's first two calibrated passes each have 60 valid outputs and 6/60 all-field matches. Their classifications were identical across the 60 reviews; the third pass remains unscored, and two matching passes do not prove deterministic behavior. [The findings](docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md) explain its follow-up uncertainty, missed serious concerns and held-out calibration protocol.
+AnyJev L1's three calibrated passes each have 60 valid outputs and 6/60 all-field matches. Their classifications match across all 60 reviews, with zero pairwise flips and a three-pass all-field range of 6–6/60. Repeated agreement on this fixed set does not prove deterministic behavior elsewhere. [The findings](docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md) explain its follow-up uncertainty, missed serious concerns and held-out calibration protocol.
 
 ## License
 

@@ -15,7 +15,7 @@
   ],
   "denominator": 60,
   "plannedConditions": 3,
-  "completedConditions": 2,
+  "completedConditions": 3,
   "referenceVersion": "0.2",
   "referenceStatus": "AI-reviewed provisional, not independent adjudication",
   "referenceClassCounts": {
@@ -450,63 +450,281 @@
           }
         }
       }
+    },
+    "fresh3": {
+      "P0": {
+        "completionStatus": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "outcomes": {
+            "valid": 60
+          },
+          "fields": {
+            "sentiment": 38,
+            "follow_up_needed": 16,
+            "serious_concern_reported": 31,
+            "testimonial_potential": 49
+          },
+          "allFour": 6
+        },
+        "confusionCounts": {
+          "sentiment": {
+            "insufficient_information": {
+              "mixed": 1,
+              "positive": 1
+            },
+            "mixed": {
+              "mixed": 2,
+              "positive": 6
+            },
+            "negative": {
+              "mixed": 4,
+              "negative": 24,
+              "neutral": 2,
+              "positive": 1
+            },
+            "neutral": {
+              "mixed": 3,
+              "negative": 1,
+              "neutral": 2,
+              "positive": 2
+            },
+            "positive": {
+              "mixed": 1,
+              "positive": 10
+            }
+          },
+          "follow_up_needed": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "insufficient_information": 19,
+              "no": 1,
+              "yes": 4
+            },
+            "yes": {
+              "insufficient_information": 21,
+              "yes": 14
+            }
+          },
+          "serious_concern_reported": {
+            "insufficient_information": {
+              "no": 6
+            },
+            "no": {
+              "insufficient_information": 1,
+              "no": 22,
+              "yes": 6
+            },
+            "yes": {
+              "no": 16,
+              "yes": 9
+            }
+          },
+          "testimonial_potential": {
+            "insufficient_information": {
+              "no": 1
+            },
+            "no": {
+              "no": 41,
+              "yes": 9
+            },
+            "yes": {
+              "no": 1,
+              "yes": 8
+            }
+          }
+        },
+        "predictedClassCounts": {
+          "sentiment": {
+            "mixed": 11,
+            "negative": 25,
+            "neutral": 4,
+            "positive": 20
+          },
+          "follow_up_needed": {
+            "insufficient_information": 41,
+            "no": 1,
+            "yes": 18
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 1,
+            "no": 44,
+            "yes": 15
+          },
+          "testimonial_potential": {
+            "no": 43,
+            "yes": 17
+          }
+        },
+        "usage": {
+          "requestCount": 60,
+          "clientSeconds": null,
+          "inferenceSeconds": null,
+          "tokens": {
+            "input_token_positions": 10540800,
+            "output_tokens": null,
+            "billed_input_tokens": null
+          },
+          "actualCostUsd": null,
+          "costNote": "Local hardware and electricity cost not measured."
+        },
+        "evidence": {
+          "smoke": {
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.completion.json",
+              "sha256": "1d035fdb5c743933f807cc229ede6de2257647a0e1fb3d05f2f090cccda9a1d4"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.claim.json",
+              "sha256": "8829020be057f3a7f84024a4bf602d2ba93c0b1f8a81884842faec456e04e0a9"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.journal.jsonl",
+              "sha256": "e3543056c84f14bb9e582899ec100733e0ae3ef34a125237fe409c75cf610b9e"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.raw.jsonl",
+              "sha256": "a80a4151fddac2dd9fdef7e173d6e2f07f59452c46bc9f9bf6791195d44952d3"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.records.jsonl",
+              "sha256": "59b61046fd97f7bfbe23b2e65598375e3fe66dfe34d8072030a57aa4b549abe4"
+            },
+            "fold1": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-1-artifacts.json",
+              "sha256": "46a5965f7689de6588f00f9fcff9a2ce88036c4ec74b37df85abd1be2ab5c73a"
+            },
+            "fold4": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-4-artifacts.json",
+              "sha256": "dbc6962b0ce8b1f2939fdf65aa2035d2d81d926dcae207ad7c933489769fd587"
+            },
+            "fold5": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-5-artifacts.json",
+              "sha256": "20e6abd4f51e34d4823284a101f9eb1394aeaeabf1137677eb9df6b9adebc73c"
+            }
+          },
+          "development": {
+            "completion": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.completion.json",
+              "sha256": "ffce7f008c31015f1c240054808b47f035946fd65c2f540274706f62d32de2c9"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.claim.json",
+              "sha256": "eea0595880ee2dd36d73590dad0332c4c19f1293e3f5375a5b596f440381156f"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.journal.jsonl",
+              "sha256": "48ccfa108b1c2db325e141e22a07fa943668cfa133ccd3ead80223abc4952afb"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.raw.jsonl",
+              "sha256": "bfadaea4f3aaa27f37680ac26bc398c2f69ee8ce14fa86bd703b569e6dde1294"
+            },
+            "records": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.records.jsonl",
+              "sha256": "33a6848085801361f60e1b2be9d4c43012ef3e7a3ae33e9260634c253b0dd1c4"
+            },
+            "smokeInspection": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke-inspection.json",
+              "sha256": "fe9964250101303bdc74d0157dd03d76edd9339b824083f8e1b2643b2e6e1c79"
+            },
+            "fold1": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-1-artifacts.json",
+              "sha256": "46a5965f7689de6588f00f9fcff9a2ce88036c4ec74b37df85abd1be2ab5c73a"
+            },
+            "fold2": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-2-artifacts.json",
+              "sha256": "17ee0cb2b9412ccb24878f53d491a8771d05b980cd32d7fd10b2b065a96e989b"
+            },
+            "fold3": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-3-artifacts.json",
+              "sha256": "e410ff269eefea39262bc0c461c9747fa9d65e5842ab67a32b524daa24cc9b22"
+            },
+            "fold4": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-4-artifacts.json",
+              "sha256": "dbc6962b0ce8b1f2939fdf65aa2035d2d81d926dcae207ad7c933489769fd587"
+            },
+            "fold5": {
+              "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-5-artifacts.json",
+              "sha256": "20e6abd4f51e34d4823284a101f9eb1394aeaeabf1137677eb9df6b9adebc73c"
+            }
+          }
+        }
+      }
     }
   },
-  "missingPasses": [
-    {
-      "pass": "fresh3",
-      "condition": "P0",
-      "status": "claimed_in_progress_or_interrupted"
-    }
-  ],
+  "missingPasses": [],
   "partialPasses": [],
   "threePassSummary": {
     "P0": {
       "allFour": {
-        "completedPasses": 2,
+        "completedPasses": 3,
         "values": [
+          6,
           6,
           6
         ],
-        "mean": null,
-        "range": null
+        "mean": 6.0,
+        "range": [
+          6,
+          6
+        ]
       },
       "fields": {
         "sentiment": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            38,
             38,
             38
           ],
-          "mean": null,
-          "range": null
+          "mean": 38.0,
+          "range": [
+            38,
+            38
+          ]
         },
         "follow_up_needed": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            16,
             16,
             16
           ],
-          "mean": null,
-          "range": null
+          "mean": 16.0,
+          "range": [
+            16,
+            16
+          ]
         },
         "serious_concern_reported": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            31,
             31,
             31
           ],
-          "mean": null,
-          "range": null
+          "mean": 31.0,
+          "range": [
+            31,
+            31
+          ]
         },
         "testimonial_potential": {
-          "completedPasses": 2,
+          "completedPasses": 3,
           "values": [
+            49,
             49,
             49
           ],
-          "mean": null,
-          "range": null
+          "mean": 49.0,
+          "range": [
+            49,
+            49
+          ]
         }
       }
     }
@@ -525,9 +743,49 @@
         "testimonial_potential": []
       },
       "fourFieldVector": []
+    },
+    {
+      "condition": "P0",
+      "from": "fresh1",
+      "to": "fresh3",
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": []
+    },
+    {
+      "condition": "P0",
+      "from": "fresh2",
+      "to": "fresh3",
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": []
     }
   ],
-  "changesAcrossThreePasses": {},
+  "changesAcrossThreePasses": {
+    "P0": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fields": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "fourFieldVector": []
+    }
+  },
   "withinPassPromptDeltas": [],
   "sourceBindings": [
     {
@@ -717,6 +975,78 @@
     {
       "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh2/P0/fold-3-artifacts.json",
       "sha256": "70c53a4d19967dd508507fbf6119088158d226164809e3ad79ceb2078d9a5c20"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.completion.json",
+      "sha256": "1d035fdb5c743933f807cc229ede6de2257647a0e1fb3d05f2f090cccda9a1d4"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.claim.json",
+      "sha256": "8829020be057f3a7f84024a4bf602d2ba93c0b1f8a81884842faec456e04e0a9"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.journal.jsonl",
+      "sha256": "e3543056c84f14bb9e582899ec100733e0ae3ef34a125237fe409c75cf610b9e"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.raw.jsonl",
+      "sha256": "a80a4151fddac2dd9fdef7e173d6e2f07f59452c46bc9f9bf6791195d44952d3"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.records.jsonl",
+      "sha256": "59b61046fd97f7bfbe23b2e65598375e3fe66dfe34d8072030a57aa4b549abe4"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke.root-review.json",
+      "sha256": "c7decc26fa46babe7d05c08e95ad83a9a7d1e4f161d14ddc19e0355630fbf932"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-1-artifacts.json",
+      "sha256": "46a5965f7689de6588f00f9fcff9a2ce88036c4ec74b37df85abd1be2ab5c73a"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-4-artifacts.json",
+      "sha256": "dbc6962b0ce8b1f2939fdf65aa2035d2d81d926dcae207ad7c933489769fd587"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-5-artifacts.json",
+      "sha256": "20e6abd4f51e34d4823284a101f9eb1394aeaeabf1137677eb9df6b9adebc73c"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.completion.json",
+      "sha256": "ffce7f008c31015f1c240054808b47f035946fd65c2f540274706f62d32de2c9"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.claim.json",
+      "sha256": "eea0595880ee2dd36d73590dad0332c4c19f1293e3f5375a5b596f440381156f"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.journal.jsonl",
+      "sha256": "48ccfa108b1c2db325e141e22a07fa943668cfa133ccd3ead80223abc4952afb"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.raw.jsonl",
+      "sha256": "bfadaea4f3aaa27f37680ac26bc398c2f69ee8ce14fa86bd703b569e6dde1294"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.records.jsonl",
+      "sha256": "33a6848085801361f60e1b2be9d4c43012ef3e7a3ae33e9260634c253b0dd1c4"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/development.root-review.json",
+      "sha256": "d9078ca30d8101c1c78ead7e8a19e45f7b385d3021ef58400d5cf7927debd034"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/smoke-inspection.json",
+      "sha256": "fe9964250101303bdc74d0157dd03d76edd9339b824083f8e1b2643b2e6e1c79"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-2-artifacts.json",
+      "sha256": "17ee0cb2b9412ccb24878f53d491a8771d05b980cd32d7fd10b2b065a96e989b"
+    },
+    {
+      "path": "results/repeatability-v1/anyjev-l1-direct-native-cv5-v1/fresh3/P0/fold-3-artifacts.json",
+      "sha256": "e410ff269eefea39262bc0c461c9747fa9d65e5842ab67a32b524daa24cc9b22"
     }
   ],
   "declaredExternalSourceHashes": {

@@ -1,10 +1,10 @@
-# AnyJev L1: two calibrated passes
+# AnyJev L1: three calibrated passes
 
-The first two direct-native L1 passes each produced 60 valid outputs and matched all four provisional reference labels on **6/60 reviews**. Each pass matched sentiment on 38/60, follow-up on 16/60, serious concern on 31/60 and testimonial potential on 49/60. Their 60 four-label prediction vectors are identical, with zero pairwise flips. The third pass remains unscored, so the planned three-pass range is unavailable. Agreement across two or three runs does not prove deterministic behavior.
+All three direct-native L1 passes produced 60 valid outputs and matched all four provisional reference labels on **6/60 reviews** per pass. Each matched sentiment on 38/60, follow-up on 16/60, serious concern on 31/60 and testimonial potential on 49/60. Their 60 four-label prediction vectors are identical: every pair has zero flips across all 60 shared valid reviews. The three-pass all-field range is 6–6/60. Three matching runs on the same comments and frozen setup do not prove deterministic behavior on other inputs or environments.
 
-Both passes have the same follow-up errors. The model chose "insufficient information" for 41 reviews, compared with one such reference label. This included 21 of the 35 reference-positive follow-up cases and 19 of the 24 reference-negative cases. It identified 14 of 35 reference-positive follow-up cases. For serious concerns, it identified nine of the 25 reference-positive cases and labeled the other 16 "no."
+All three passes have the same follow-up errors. The model chose "insufficient information" for 41 reviews, compared with one such reference label. This included 21 of the 35 reference-positive follow-up cases and 19 of the 24 reference-negative cases. It identified 14 of 35 reference-positive follow-up cases. For serious concerns, it identified nine of the 25 reference-positive cases and labeled the other 16 "no."
 
-The testimonial count also needs context. In both passes the model identified eight of nine reference-positive testimonials but marked nine reference-negative reviews as positive. Its 49/60 agreement count includes those false positives. These labels are provisional AI-reviewed references, not human ground truth.
+The testimonial count also needs context. In all three passes the model identified eight of nine reference-positive testimonials but marked nine reference-negative reviews as positive. Those false positives count as disagreements; the 49/60 agreement score does not show which classes were missed. These labels are provisional AI-reviewed references, not human ground truth.
 
 ## Calibration and comparison limits
 
@@ -14,4 +14,4 @@ The model is Qwen3-0.6B with the frozen local MPS bfloat16 runtime, batch size f
 
 Each pass accounts for 10,540,800 input-token positions across calibration and prediction operations. These are local processing counts, not billed API tokens. Client and isolated inference timing, output-token billing and local hardware/electricity cost are unavailable in this evidence and remain null. No hosted charge is inferred as zero.
 
-The [public report](../public-site/anyjev-l1-repeats.json) binds the two completed passes' source files and includes confusion counts, class distributions, a paired comparison over all 60 valid IDs and measurement limits. It shows the fresh3 stage as claimed and unscored. The reporter verifies the native artifact's frozen backend path and hashed question key; that reporting correction changed no fitted artifact or prediction. A third completed pass is still required for the planned repeat summary.
+The [public report](../public-site/anyjev-l1-repeats.json) binds all three completed passes' source files and includes confusion counts, class distributions, three pairwise comparisons over all 60 valid IDs, the three-pass range and measurement limits. The reporter verifies the native artifact's frozen backend path and hashed question key; that reporting correction changed no fitted artifact or prediction.
