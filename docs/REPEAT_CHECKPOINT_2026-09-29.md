@@ -113,3 +113,14 @@ All nine Qwen 3.6 reasoning-off condition/pass combinations are now closed and p
 Pages run 36513456196 succeeded at `4084a388`; live asset hashes and the rendered nine-score chart were verified. Active data links now use sanitized provider-error evidence. Private originals remain locally preserved and untracked; historical Git exposure is not erased.
 
 DeepSeek low remains at one full pass and a second-condition smoke: a fresh unauthenticated catalog check at 02:48 UTC still found its exact endpoint unavailable. The master ledger has $0.04151065850 unallocated under the unchanged $10 cap, plus the separate active $0.25 DeepSeek-low child. Gemma 26B on has a reviewed, tested fresh-three candidate with proposed $0.40 allocation, but no allocation or dispatch. Further hosted work remains pending funding and exact route admission. AnyJev L1 first-pass development is still running.
+
+
+## AnyJev L1 three-pass publication and L2 smoke admission
+
+All three direct-native L1 passes are now complete and verified. Each contains 60 valid held-out predictions, 6/60 all-field reference matches, and field counts of 38/16/31/49. Every pair has zero changed four-label prediction vectors across the same 60 reviews. The fixed-input agreement does not establish determinism elsewhere; the findings retain calibration and provisional-reference limits.
+
+The third development completion SHA-256 is `ffce7f008c31015f1c240054808b47f035946fd65c2f540274706f62d32de2c9`. Its closed evidence is committed in `48413411`; the three-pass findings, README and public page are committed in `38068dd2`. Pages deployment `36532862379` succeeded. The live report matches SHA-256 `fed283e8e94f5cf1d7712bf48dfa7b3e9b5b2c03833a61df41265ce96d6ea94b`, and the live index matches `65dc7e48ebe215cd33016589411d7ef6b5644618ce7cbcbbe8f0f06770a56a70`.
+
+After the L1 process exited and the common host lock was verified free, the reviewed AnyJev L2 repeat-two smoke was launched. Its receipt is committed in `b63a4428`; preparation passed the pinned protocol/model checks and nine offline tests. The smoke remains active at this checkpoint. Candidate-head fitting emitted numerical warnings also recorded in the historical L2 evaluation. A full pass is not admitted until the completed smoke, output probabilities and selected artifacts are inspected. No prediction or artifact is repaired.
+
+Hosted inference remains stopped under the unchanged $10 cap. The latest DeepSeek interruption reconciliation leaves $0.03458035850 unallocated, retaining both unknown-charge bounds. The requested $17 aggregate cap has not been approved. All remaining hosted and native scope remains open; completion of L1 is not completion of the full repeat study.
