@@ -4,6 +4,8 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 ## Active assignments
 
+- [ ] **Gemma thinking-on fresh2/P2 — native_variants_prepare / root:** three-record smoke closed on original handle `34856`; root read every raw response and verified terminal hashes, ordered IDs and strict parsed labels. Full development receipt is approved under the unchanged frozen protocol; execution agent owns the next full stage only. Closed smoke evidence is archived separately from the live full run. The published report remains the verified first-pass 3/9 snapshot.
+
 - [x] **Gemma thinking-on first prompt comparison publication — root / publish_on_triple:** `8f897ec2` pushed the closed first P0/P1/P2 comparison (38/36/36 all-four matches, 60 valid each), direct comparison links, prompt definitions and ranking validity counts. Independent five-file review: APPROVE, no confirmed findings. Root verified 427 source-hash occurrences against `ef3c2578`; desktop, 390px mobile, keyboard links and reduced-motion behavior passed. Pages run `36778487699` succeeded; live HTML, app script and small-local feed returned HTTP 200 and matched `8f897ec2` byte for byte. Fresh2/P1 subsequently closed with 60 valid responses on original handle `60878`; root verified ordered IDs and terminal hashes, bringing execution to 4/9. Fresh2/P2 smoke is admitted separately; neither phase is included in the 3/9 publication cutoff.
 
 - [x] **OpenJev publication — root / publish_on_triple:** All nine generated-off and nine generated-on phases are published in bf5777ac. Pages run 36749343379 succeeded; live HTML and feed SHA-256 values exactly match the commit.
