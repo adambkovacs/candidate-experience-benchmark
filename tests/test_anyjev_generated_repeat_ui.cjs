@@ -54,7 +54,7 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
       ? feed.passes[pass][condition].score.valid : 'pending');
     assert.ok(lead.includes(`${condition} ${counts.join(' / ')}`));
   }
-  assert.match(lead, /pending means no full score/);
+  assert.doesNotMatch(lead, /pending/);
   assert.match(lead, /separate from native AnyJev/);
   assert.match(lead, /Counts and scores use all 60 reviews, including invalid outputs/);
   assert.doesNotMatch(lead, /parser|inference time|private tokenizer/);
@@ -71,17 +71,19 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
   assert.match(chart, /value="1"[^>]*aria-label="P2 Fresh pass 1 All four decisions: 1 out of 60"/);
   assert.match(chart, /<strong>0<small> \/ 60<\/small><\/strong>/);
   assert.equal((chart.match(/<meter/g) || []).length, feed.completedConditions);
-  assert.match(chart, /Three-pass range unavailable until all passes finish/);
+  assert.match(chart, /Three-pass range: <strong>0–0<\/strong> out of 60/);
+  assert.match(chart, /Three-pass range: <strong>1–1<\/strong> out of 60/);
+  assert.doesNotMatch(chart, /Three-pass range unavailable/);
   assert.match(ui.get('repeat-deltas').innerHTML, /<td>0<\/td>/);
   assert.match(ui.get('repeat-deltas').innerHTML, /<td>\+1<\/td>/);
   assert.match(ui.get('repeat-deltas').innerHTML, /unavailable; no shared-valid reviews; 0 shared valid of 60; 60 excluded/);
-  assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
+  assert.match(ui.get('repeat-flips').innerHTML, /No reviews had valid answers in all three passes/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /0 \/ 0 changed/);
   ui.condition('P1');
   assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 shared-valid reviews\)/);
   ui.condition('P2');
   assert.match(ui.get('repeat-flips').innerHTML, /0 \/ 30 changed/);
-  assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>/);
+  assert.match(ui.get('repeat-flips').innerHTML, /<strong>0 \/ 30<\/strong> comparable comments changed/);
   const usage = ui.get('repeat-usage-body').innerHTML;
   assert.match(usage, /94,350/);
   assert.match(usage, /2,726/);
@@ -98,24 +100,16 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
   assert.match(ui.get('repeat-chart').innerHTML, /value="0"[^>]*aria-label="P0 Fresh pass 1 Sentiment: 0 out of 60"/);
 });
 
-test('zero shared-valid denominator remains unavailable when more invalid passes close', async () => {
-  const phase = feed.passes.fresh1.P0;
+test('an incomplete phase remains pending without a three-pass result', async () => {
   const payload = structuredClone(feed);
-  payload.passes.fresh2.P0 = phase;
-  payload.passes.fresh3.P0 = phase;
-  payload.missingPasses = payload.missingPasses.filter(item => item.condition !== 'P0');
-  payload.completedConditions = 9 - payload.missingPasses.length;
-  payload.threePassSummary.P0.allFour = {completedPasses: 3, values: [0, 0, 0], mean: 0, range: [0, 0]};
-  payload.changesAcrossThreePasses.P0 = {denominator: 0, excludedIds: phase.score.invalidIds,
-    fourFieldVector: [], fields: {sentiment: [], follow_up_needed: [],
-      serious_concern_reported: [], testimonial_potential: []}};
-  payload.pairwiseFlips = [['fresh1', 'fresh2'], ['fresh1', 'fresh3'], ['fresh2', 'fresh3']]
-    .map(([from, to]) => ({condition: 'P0', from, to, denominator: 0, excludedIds: phase.score.invalidIds,
-      fourFieldVector: {changed: 0}, sentiment: {changed: 0}, follow_up_needed: {changed: 0},
-      serious_concern_reported: {changed: 0}, testimonial_potential: {changed: 0}}));
+  delete payload.passes.fresh3.P0;
+  payload.missingPasses.push({pass: 'fresh3', condition: 'P0', status: 'claimed_in_progress_or_interrupted'});
+  payload.completedConditions -= 1;
   const ui = await render(payload);
-  assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>0–0<\/strong> out of 60/);
-  assert.match(ui.get('repeat-flips').innerHTML, /No reviews had valid answers in all three passes/);
+  assert.match(ui.get('repeat-lead').textContent, /P0 0 \/ 0 \/ pending/);
+  assert.match(ui.get('repeat-lead').textContent, /pending means no full score/);
+  assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range unavailable until all passes finish/);
+  assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable until all passes finish/);
   assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 shared-valid reviews\)/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /0 \/ 0 changed/);
 });
