@@ -103,7 +103,7 @@ test('L2 paired flips use shared-valid fields and native IDs remain plain text',
   const flips = ui.get('repeat-flips').innerHTML;
   assert.match(flips, /Historical pass to Repeat 2: 1 \/ 59 changed/);
   assert.match(flips, /1 \/ 59<\/strong> comparable comments changed/);
-  assert.match(flips, /1 comments excluded/);
+  assert.match(flips, /1 comment was excluded/);
   assert.match(flips, /DEV-001/);
   assert.doesNotMatch(flips, /undefined|#inspect|<a\s/);
 });

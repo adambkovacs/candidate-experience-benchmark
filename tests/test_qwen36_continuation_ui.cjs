@@ -72,7 +72,7 @@ test('final descriptive continuation replaces active six-phase feed and retains 
   assert.equal(series.completedConditions, 9);
   assert.match(ui.get('repeat-lead').textContent, /P0 Fresh pass 1: 59\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P1 Fresh pass 3: 59\/60 valid responses/);
-  assert.match(ui.get('repeat-deltas').innerHTML, /Fresh pass 3 P0 to P1: 59 shared valid of 60; 1 excluded/);
+  assert.match(ui.get('repeat-deltas').innerHTML, /Fresh pass 3 P0 to P1: 59 of 60 comparable; 1 excluded/);
   ui.select(configuration);
   assert.match(ui.get('repeat-lead').textContent, /Historical Qwen result/);
   assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /two service errors/);

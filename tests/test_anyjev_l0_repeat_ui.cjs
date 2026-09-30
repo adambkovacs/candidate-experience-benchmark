@@ -102,7 +102,7 @@ test('closed L0 three-pass range and comparable flips keep native IDs unlinked',
   const ui = await render(fixture(true));
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>3–5<\/strong> out of 60/);
   assert.match(ui.get('repeat-flips').innerHTML, /1 \/ 59/);
-  assert.match(ui.get('repeat-flips').innerHTML, /1 comments excluded/);
+  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was excluded/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-001/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /#inspect|<a\s/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /not correctness/);

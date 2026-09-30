@@ -64,8 +64,8 @@ test('SemIf generated nine closed phases show all three-pass scores, flips and u
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>43–43<\/strong> out of 60/);
   assert.match(ui.get('repeat-deltas').innerHTML, /\+8/);
   assert.match(ui.get('repeat-deltas').innerHTML, /-9/);
-  assert.match(ui.get('repeat-deltas').innerHTML, /2 \/ 37 changed; 37 shared valid of 60; 23 excluded/);
-  assert.match(ui.get('repeat-deltas').innerHTML, /6 \/ 52 changed; 52 shared valid of 60; 8 excluded/);
+  assert.match(ui.get('repeat-deltas').innerHTML, /2 \/ 37 changed; 37 of 60 comparable; 23 excluded/);
+  assert.match(ui.get('repeat-deltas').innerHTML, /6 \/ 52 changed; 52 of 60 comparable; 8 excluded/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
   for (const [condition, denominator] of [['P0', 52], ['P1', 38], ['P2', 58]]) {
     ui.condition(condition);

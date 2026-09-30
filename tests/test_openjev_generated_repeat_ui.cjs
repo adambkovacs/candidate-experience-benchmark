@@ -127,7 +127,7 @@ test('invalid output remains scored out of 60 and field flips use shared-valid d
   const ui = await render(fixture(9));
   assert.match(ui.get('repeat-lead').textContent, /P1 Fresh pass 1: 59\/60 valid responses/);
   assert.match(ui.get('repeat-deltas').innerHTML, /\+1/);
-  assert.match(ui.get('repeat-deltas').innerHTML, /59 shared valid of 60; 1 excluded/);
+  assert.match(ui.get('repeat-deltas').innerHTML, /59 of 60 comparable; 1 excluded/);
   ui.field('sentiment');
   const flips = ui.get('repeat-flips').innerHTML;
   assert.match(flips, /Fresh pass 1 to Fresh pass 2: 1 \/ 59 changed/);

@@ -2,6 +2,22 @@
   'use strict';
   const chapters = [...document.querySelectorAll('.story-chapter')];
   const links = [...document.querySelectorAll('.story-nav a')];
+  const header = document.querySelector('.site-header');
+  if (header) {
+    const syncHeader = () => document.documentElement.style.setProperty('--reader-header-height', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+    syncHeader();
+    window.addEventListener('resize', syncHeader);
+    if ('ResizeObserver' in window) new ResizeObserver(syncHeader).observe(header);
+  }
+  const example = document.querySelector('.hero-example-details');
+  if (example) {
+    const compact = window.matchMedia('(max-width: 760px)');
+    let mobileOpen = false;
+    example.querySelector('summary').addEventListener('click', () => { mobileOpen = !example.open; });
+    const syncExample = () => { example.open = compact.matches ? mobileOpen : true; };
+    syncExample();
+    compact.addEventListener('change', syncExample);
+  }
   const mark = id => links.forEach(link => {
     if (link.hash === '#' + id) link.setAttribute('aria-current', 'step');
     else link.removeAttribute('aria-current');
@@ -52,13 +68,33 @@
     }
   }
   loadChangedExamples();
+  const story = document.getElementById('story');
+  let pending = false;
+  function updateReadingPosition() {
+    pending = false;
+    if (!story || !chapters.length) return;
+    const readingLine = Math.min(window.innerHeight * .42, 330);
+    const current = [...chapters].reverse().find(chapter => chapter.getBoundingClientRect().top <= readingLine) || chapters[0];
+    mark(current.id);
+    const start = chapters[0].offsetTop;
+    const end = chapters[chapters.length - 1].offsetTop + chapters[chapters.length - 1].offsetHeight - window.innerHeight * .6;
+    const progress = end > start ? Math.max(0, Math.min(1, (window.scrollY + readingLine - start) / (end - start))) : 0;
+    story.style.setProperty('--story-progress', progress.toFixed(3));
+  }
+  function scheduleReadingPosition() {
+    if (pending) return;
+    pending = true;
+    window.requestAnimationFrame(updateReadingPosition);
+  }
   links.forEach(link => link.addEventListener('click', () => mark(link.hash.slice(1))));
+  window.addEventListener('scroll', scheduleReadingPosition, {passive:true});
+  window.addEventListener('resize', scheduleReadingPosition);
+  window.addEventListener('hashchange', scheduleReadingPosition);
+  scheduleReadingPosition();
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
-      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio-a.intersectionRatio);
-      for (const entry of visible) entry.target.classList.add('is-visible');
-      if (visible.length) mark(visible[0].target.id);
-    }, {threshold:[.15,.4,.7], rootMargin:'-100px 0px -15% 0px'});
+      for (const entry of entries) if (entry.isIntersecting) entry.target.classList.add('is-visible');
+    }, {threshold:.08});
     chapters.forEach(chapter => observer.observe(chapter));
   } else chapters.forEach(chapter => chapter.classList.add('is-visible'));
 })();

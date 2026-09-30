@@ -62,7 +62,7 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
   assert.match(limits, /^<details><summary>Protocol and measurement limits<\/summary>/);
   assert.doesNotMatch(limits, /^<details open/);
   assert.match(limits, /strict parser does not repair fenced JSON/);
-  assert.match(limits, /zero shared-valid reviews cannot show stability/);
+  assert.match(limits, /When none qualify, stability cannot be assessed/);
   assert.match(limits, /historical generated observations are ineligible/);
   assert.match(limits, /private tokenizer/);
   assert.match(limits, /local hardware and electricity cost are unknown/);
@@ -76,11 +76,11 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
   assert.doesNotMatch(chart, /Three-pass range unavailable/);
   assert.match(ui.get('repeat-deltas').innerHTML, /<td>0<\/td>/);
   assert.match(ui.get('repeat-deltas').innerHTML, /<td>\+1<\/td>/);
-  assert.match(ui.get('repeat-deltas').innerHTML, /unavailable; no shared-valid reviews; 0 shared valid of 60; 60 excluded/);
-  assert.match(ui.get('repeat-flips').innerHTML, /No reviews had valid answers in all three passes/);
+  assert.match(ui.get('repeat-deltas').innerHTML, /unavailable; none had answers in the required format in both conditions; 0 of 60 comparable; 60 excluded/);
+  assert.match(ui.get('repeat-flips').innerHTML, /No comments had answers in the required format in all three passes/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /0 \/ 0 changed/);
   ui.condition('P1');
-  assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 shared-valid reviews\)/);
+  assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 comments with answers in the required format in both passes\)/);
   ui.condition('P2');
   assert.match(ui.get('repeat-flips').innerHTML, /0 \/ 30 changed/);
   assert.match(ui.get('repeat-flips').innerHTML, /<strong>0 \/ 30<\/strong> comparable comments changed/);
@@ -110,7 +110,7 @@ test('an incomplete phase remains pending without a three-pass result', async ()
   assert.match(ui.get('repeat-lead').textContent, /pending means no full score/);
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range unavailable until all passes finish/);
   assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable until all passes finish/);
-  assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 shared-valid reviews\)/);
+  assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 comments with answers in the required format in both passes\)/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /0 \/ 0 changed/);
 });
 

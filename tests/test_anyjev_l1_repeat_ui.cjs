@@ -106,7 +106,7 @@ test('closed L1 three-pass range and comparable flips keep native IDs unlinked',
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /undefined/);
   ui.get('repeat-field').value = 'sentiment'; ui.get('repeat-field').change();
   assert.match(ui.get('repeat-flips').innerHTML, /1 \/ 59 changed/);
-  assert.match(ui.get('repeat-flips').innerHTML, /1 comments excluded/);
+  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was excluded/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-001/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /#inspect|<a\s/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /not correctness/);
