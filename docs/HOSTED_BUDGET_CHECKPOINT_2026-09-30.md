@@ -1,5 +1,11 @@
 # Hosted budget checkpoint, 30 September 2026
 
+## Update at 22:04 UTC
+
+The approved **$12.38** ceiling is now implemented through the reviewed versioned [budget module](../scripts/openrouter_budget_v3.py) and [partition module](../scripts/paid_budget_partitions_v3.py), committed in `b12c80ae`. The master ledger amendment preserved $9.98032451750 of accounted charges and unknown bounds. Root then allocated **$0.40** to `gemma26-on-v2`, leaving **$1.99967548250** unallocated. The child allocation is reserved capacity, not a provider charge. Its separately reviewed three-record P0 smoke is dispatched; no full phase is yet admitted. Frozen older budget modules remain unchanged.
+
+The following sections preserve the earlier pre-amendment calculation; their $10 enforcement statements describe that earlier checkpoint.
+
 The user has authorized **$2.38 of additional OpenRouter spending capacity**, raising the intended aggregate ceiling from **$10 to $12.38**. The [master ledger](../results/openrouter-paid-budget.jsonl) still enforces **$10** at this checkpoint: the approved increase has not yet been implemented or recorded. This document makes no allocation, inference request or ledger change. It records project accounting, not an OpenRouter invoice or account balance. The [remaining roster](REMAINING_ROSTER_2026-09-29.md#hosted-configurations-still-requiring-execution) and [hosted matrix](HOSTED_PENDING_MATRIX_2026-09-29.md#current-preparation-and-execution-status) identify the unfinished configurations; each future stage still needs a fresh route, budget and admission check.
 
 ## Ledger calculation
