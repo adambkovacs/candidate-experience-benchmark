@@ -378,3 +378,10 @@ Fresh2 development exited successfully and passed the pinned stage verifier with
 Closed evidence and the separate fresh3 smoke admission are committed in `49ab5ba2`. The third pass is calibrating; no third full pass is complete. Publication commit `a6248dd6` passed a public-only report check, eleven reporter tests and three UI tests. Pages run [36523880485](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36523880485) succeeded; the live report exactly matches SHA-256 `21af925625968960a6e3e7f070e95f175630f147f19dde89b5ff7f32ef85edc8`.
 
 Mistral's executor is also reviewed and committed in `9c417ca2`, with eleven planner/executor tests passing. No new Mistral request or allocation has occurred. Its historical 429 capacity failures and unfunded status remain unresolved. The requested budget increase has not been approved; the $10 aggregate cap remains in force.
+
+
+## Generated specialist completion and next local pass, 30 September 2026
+
+AnyJev generated P0/P1/P2 has nine independently verified full phases. P0 and P1 each returned 60 invalid fenced responses in every pass. P2 returned the same 30 valid classifications in all three passes, with 1/60 all-field agreement and 0/30 shared-valid classification changes. Final findings are live in [Pages run 36774662260](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36774662260), commit `a6900d3b`; live assets match committed bytes. Native AnyJev results remain separate.
+
+Gemma E2B thinking-on first P0 closed with 60 valid responses. Its P1 smoke passed root inspection and P1 development is running; evidence commit `d0c76e1a` contains only the closed P0 full pass and P1 smoke. Publication of this new local result is pending. Ten exact generic-local configurations remain unfinished, including this one. Hosted funding, direct-provider access and reference adjudication remain unresolved; no spending cap or scope exclusion changed.
