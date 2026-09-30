@@ -35,7 +35,7 @@ async function render(payload = feed, status = 200, selected = 'semif-generated-
     condition(value) { elements.get('repeat-condition').value = value; elements.get('repeat-condition').change(); }};
 }
 
-test('SemIf generated seven closed phases show P2 three-pass and P0/P1 two-pass results', async () => {
+test('SemIf generated eight closed phases show P1/P2 three-pass and P0 two-pass results', async () => {
   const ui = await render();
   assert.equal(ui.requested.filter(name => name === url).length, 1);
   assert.match(ui.get('repeat-results').innerHTML, /<option value="jev-fixture">Jev<\/option>/);
@@ -49,14 +49,16 @@ test('SemIf generated seven closed phases show P2 three-pass and P0/P1 two-pass 
   assert.match(ui.get('repeat-lead').textContent, /P0 Fresh pass 2: 52\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P1 Fresh pass 2: 38\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P2 Fresh pass 2: 58\/60 valid responses/);
+  assert.match(ui.get('repeat-lead').textContent, /P1 Fresh pass 3: 38\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P2 Fresh pass 3: 58\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /client-observed elapsed time, not isolated inference time/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length,
     feed.series[0].completedConditions);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/value="35"[^>]*>35<\/meter>/g) || []).length, 2);
-  assert.equal((ui.get('repeat-chart').innerHTML.match(/value="26"[^>]*>26<\/meter>/g) || []).length, 2);
+  assert.equal((ui.get('repeat-chart').innerHTML.match(/value="26"[^>]*>26<\/meter>/g) || []).length, 3);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/value="43"[^>]*>43<\/meter>/g) || []).length, 3);
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range unavailable until all passes finish/);
+  assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>26–26<\/strong> out of 60/);
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>43–43<\/strong> out of 60/);
   assert.match(ui.get('repeat-deltas').innerHTML, /\+8/);
   assert.match(ui.get('repeat-deltas').innerHTML, /-9/);
@@ -67,12 +69,15 @@ test('SemIf generated seven closed phases show P2 three-pass and P0/P1 two-pass 
     ui.condition(condition);
     assert.match(ui.get('repeat-flips').innerHTML,
       new RegExp(`Fresh pass 1 to Fresh pass 2: 0 / ${denominator} changed`));
-    if (condition === 'P2') {
-      assert.match(ui.get('repeat-flips').innerHTML, /0 \/ 58<\/strong> comparable comments changed/);
-      assert.match(ui.get('repeat-flips').innerHTML, /Fresh pass 1 to Fresh pass 3: 0 \/ 58 changed/);
-      assert.match(ui.get('repeat-flips').innerHTML, /Fresh pass 2 to Fresh pass 3: 0 \/ 58 changed/);
-    } else {
+    if (condition === 'P0') {
       assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
+    } else {
+      assert.match(ui.get('repeat-flips').innerHTML,
+        new RegExp(`0 / ${denominator}</strong> comparable comments changed`));
+      assert.match(ui.get('repeat-flips').innerHTML,
+        new RegExp(`Fresh pass 1 to Fresh pass 3: 0 / ${denominator} changed`));
+      assert.match(ui.get('repeat-flips').innerHTML,
+        new RegExp(`Fresh pass 2 to Fresh pass 3: 0 / ${denominator} changed`));
     }
   }
   const usage = ui.get('repeat-usage-body').innerHTML;
@@ -84,6 +89,7 @@ test('SemIf generated seven closed phases show P2 three-pass and P0/P1 two-pass 
   assert.match(usage, /8,070/);
   assert.match(usage, /742\.8/);
   assert.match(usage, /876\.3/);
+  assert.match(usage, /547\.9/);
   assert.match(usage, /162,930/);
   assert.match(usage, /3,204/);
   assert.match(usage, /506\.2/);
