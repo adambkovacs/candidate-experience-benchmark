@@ -5,11 +5,14 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 ## Active assignments
 
 - [ ] **Website and findings — root:** maintain published snapshot be554f15 (generated-off 9/9, generated-on 2/9), now live with results-first navigation and expandable findings. Publish subsequent closed phases after verification.
-- [ ] **OpenJev generated-on — resume_generated:** fresh1/P0 and P1 are closed; fresh1/P2 full is running under the frozen plan. Inspect subsequent smokes before full passes.
+- [ ] **OpenJev generated-on — resume_generated:** All three fresh1 conditions are closed. Fresh2/P1 full is running after root inspection of its smoke; DEV-001 malformed JSON remains an invalid output without repair. Inspect subsequent smokes before full passes.
 - [ ] **Hosted decision smoke adapter — decision_route_audit:** Jev and Kev smokes each closed with three valid responses and observed charges. Prepare Kev’s first 60-record native pass and the explicit repeat plan; review before dispatch.
 - [ ] **Integration — root:** review closed evidence and new adapter, stage only completed artifacts, run checks, commit and push, then verify the deployed website.
 
 ## Verified progress
+
+- [x] OpenJev generated-on fresh1/P2: 60 saved responses, 52 valid and eight retained invalid outputs. Root verified completion hashes. Closed evidence and the fresh2/P1 smoke are saved in `69be3266`; these results are not yet in the public charts.
+- [x] Ruflo checkpoint save-back verified in both canonical databases; identical content SHA-256 `709cc8aa9a0b320e6af37b834774e6f4088208fce3b79e6884ba3e3fe638c83c`.
 
 - [x] Website deployment 36731918630 succeeded for be554f15; live HTML, navigation, stylesheet and generated report hashes match the commit.
 - [x] OpenRouter native smokes: Jev 3/3 valid, $0.000294294; Kev 3/3 valid, $0.000234864. These are protocol checks, not full benchmark scores.
