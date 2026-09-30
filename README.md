@@ -141,7 +141,7 @@ AnyJev L2 completed three native passes, each with 60 valid outputs and 13/60 al
 
 OpenJev completed all three native P0 triplets with 60 valid outputs per pass. Fixed scored 53/60 and adaptive 52/60 all-field matches in each pass, with no within-mode classification flips. Thinking scored 53/60, 54/60 and 54/60; its pairwise comparisons changed at least one decision on 9, 9 and 4 reviews. Cross-mode score differences are descriptive. [Read the class-level findings and measurement limits](docs/OPENJEV_NATIVE_REPEAT_FINDINGS_2026-09-29.md).
 
-The separate OpenJev generated-off series has closed two full P0/P1/P2 passes: six of nine scheduled development phases. First-pass all-field scores were 48/60, 48/60 and 51/60; second-pass scores were 51/60, 50/60 and 54/60. Across reviews valid in both passes, P0 changed one classification among 49 reviews, P1 four among 47, and P2 two among 53. Validity also changed between passes. Third passes remain unscored. [See the generated findings](docs/OPENJEV_GENERATED_REPEAT_FINDINGS_2026-09-29.md).
+The separate OpenJev generated-off series has closed all nine development phases. P0 scored 48/60, 51/60 and 49/60 across three fresh passes; P1 scored 48/60, 50/60 and 49/60; P2 scored 51/60, 54/60 and 51/60. Among reviews valid in all three passes, two P0 reviews and six each for P1 and P2 changed a classification. Generated-on has closed fresh1/P0 at 54/60 all-field matches (59 valid, one invalid) and fresh1/P1 at 50/60 (55 valid, five invalid). Its fresh1/P2 smoke is closed, but development remains unscored; seven development phases are open. Invalid outputs stay in the fixed 60-review denominator. [See the source-bound generated findings](docs/OPENJEV_GENERATED_REPEAT_FINDINGS_2026-09-29.md).
 
 ## License
 
