@@ -2,6 +2,10 @@
 
 Updated 2026-09-28 after classification-bench implementation moved to a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
 
+## Scope update, 30 September 2026
+
+The user-approved [app goal](APP_GOAL.md) now includes the newly requested decision models and Jev hosted-route comparisons from the [route audit](DECISION_MODEL_ROUTE_AUDIT_2026-09-30.md). Admit each exact configuration separately after interface, context, account and cost checks; these additions do not authorize spending above the existing caps. Website work must put useful comparisons first and keep detailed evidence accessible. Use [the current checklist](TODO.md) for ownership and next steps. Existing frozen runs and historical failures remain intact.
+
 ## Standing objective
 
 Complete and document the Candidate Experience Feedback Benchmark on the existing 60 synthetic development reviews. Do not generate the remaining 340 case-study records. The private classification-bench repository is now owned by a separate user-started task. Do not implement it or launch agents for it here. Its handoff is complete at private commit aff6f02. See [APP_GOAL.md](APP_GOAL.md) for the stable replacement goal text.
