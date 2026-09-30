@@ -11,7 +11,7 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  const feedUrls = ['./typesafe-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './deepseek-low-continuation-repeats.json'];
+  const feedUrls = ['./typesafe-repeats.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './deepseek-low-continuation-repeats.json'];
   const qwenContinuationSchema = 'qwen36-off-v2-second-interruption-findings-v1';
   const qwenContinuationId = 'openrouter-paid-qwen36-35b-a3b-off-descriptive-two-interruptions-v1';
   const deepseekLowContinuationSchema = 'deepseek-low-descriptive-interruption-findings-v1';
@@ -23,9 +23,38 @@
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === './deepseek-low-continuation-repeats.json') && r.status === 404) return {series: []};
+    if (!r.ok && (url === './kev-native-repeats.json' || url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === './deepseek-low-continuation-repeats.json') && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
+      if (url === './kev-native-repeats.json') {
+        if (payload && !payload.schema && Array.isArray(payload.series) && !payload.series.length) return payload;
+        const order = ['fresh1', 'fresh2', 'fresh3'];
+        const complete = order.filter(p => payload?.passes?.[p]?.completionStatus === 'complete');
+        if (payload?.schema !== 'kev-native-repeat-findings-v1' ||
+            payload.configuration !== 'kev-openrouter-native-p0' || payload.denominator !== 60 ||
+            payload.plannedPasses !== 3 || payload.completedPasses !== complete.length ||
+            JSON.stringify(payload.passOrder) !== JSON.stringify(order) ||
+            order.some(p => !['complete', 'interrupted', 'running', 'pending'].includes(payload.passes?.[p]?.completionStatus)) ||
+            complete.some(p => payload.passes[p].score?.denominator !== 60 || payload.passes[p].score?.valid !== 60))
+          throw Error('Invalid Kev native repeat results');
+        return {series: [{...payload, plannedConditions: 3, completedConditions: complete.length,
+          interpretation: [], kevSource: payload,
+          passes: Object.fromEntries(order.map(p => {
+            const phase = payload.passes[p];
+            const u = phase.usage;
+            return [p, {P0: {...phase, usage: phase.completionStatus === 'complete' ? {
+              requestCount: 60, tokens: {input_tokens: u.inputTokens, output_tokens: u.outputTokens},
+              actualCostUsd: u.actualProviderCostUsd, clientRequestSecondsTotal: u.clientRequestSeconds.total
+            } : null}}];
+          })),
+          pairwiseFlips: Object.entries(payload.repeatComparisons || {}).map(([pair, comparison]) => {
+            const [from, to] = pair.split('_to_');
+            return {condition: 'P0', from, to, denominator: comparison.denominator,
+              fourFieldVector: {changed: comparison.denominator - comparison.recordsWithIdenticalFourFields},
+              ...Object.fromEntries(Object.entries(comparison.fieldAgreement).map(([field, count]) =>
+                [field, {changed: comparison.denominator - count}]))};
+          })}]};
+      }
       if (url === './anyjev-l2-repeats.json') {
         if (payload === undefined) return {series: []};
         if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
@@ -324,6 +353,7 @@
       const nativeL0 = data.schema === 'anyjev-l0-native-repeat-findings-v1';
       const nativeL1 = data.schema === 'anyjev-l1-direct-native-repeat-findings-v1';
       const nativeL2 = data.schema === 'anyjev-l2-native-repeat-findings-v1';
+      const nativeKev = data.schema === 'kev-native-repeat-findings-v1';
       const nativeAlex = data.schema === 'alex-native-repeat-findings-v1';
       const displayPass = pass => nativeL2 ? ({original: 'Historical pass', repeat2: 'Repeat 2', repeat3: 'Repeat 3'}[pass] || pass) : passName[pass];
       const closed = phase => qwenContinuation || deepseekLowContinuation ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error'
@@ -331,12 +361,12 @@
         : generatedOpenJev ? phase?.completionStatus === 'complete'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
-      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || nativeOpenJev || generatedOpenJev;
+      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || nativeOpenJev || generatedOpenJev || nativeKev;
       const qwenUnknownFor = (pass, condition) => qwenContinuation
         ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
         : null;
       const closedSlot = (pass, condition) => closed(data.passes[pass]?.[condition]);
-      const nativeLabel = nativeL0 ? 'Native L0 readout' : nativeL1 ? 'Native L1 calibration' : nativeL2 ? 'Native L2 calibration' : nativeOpenJev ? 'Native OpenJev P0' : nativeAlex ? 'Native NLI output' : 'Native output';
+      const nativeLabel = nativeL0 ? 'Native L0 readout' : nativeL1 ? 'Native L1 calibration' : nativeL2 ? 'Native L2 calibration' : nativeOpenJev ? 'Native OpenJev P0' : nativeKev ? 'Native Choice' : nativeAlex ? 'Native NLI output' : 'Native output';
       document.getElementById('repeat-condition-label').textContent = nativeP0 ? 'Native condition' : 'Prompt condition';
       if (!conditionOrder.includes(conditionControl.value)) conditionControl.value = conditionOrder[0];
       conditionControl.innerHTML = conditionOrder.map(c => `<option value="${esc(c)}"${c === conditionControl.value ? ' selected' : ''}>${c}: ${esc(nativeP0 && c === 'P0' ? nativeLabel : conditions[c] || c)}</option>`).join('');
@@ -376,6 +406,16 @@
         for (const missing of data.missingPasses.filter(item => item.status === 'stopped_unknown'))
           document.getElementById('repeat-lead').textContent += ` ${displayPass(missing.pass)} ${missing.condition} stopped during ${missing.stage}: ${missing.startedIds.length} started, ${missing.savedIds.length} saved, ${missing.unknownStartedIds.length} unknown, ${missing.neverSentIds.length} not sent. This condition has no score.`;
       }
+      if (nativeKev) {
+        const interrupted = data.kevSource.passes.fresh3;
+        if (interrupted.completionStatus === 'interrupted') {
+          const o = interrupted.outcomes;
+          document.getElementById('repeat-lead').textContent += ` Third pass: ${o.valid} valid responses, ${o.transportErrorUnknownOutcome} unknown outcome and ${o.neverSent} comments not sent. DEV-026 timed out. This interrupted series is separate from the two complete passes.`;
+        }
+        document.getElementById('repeat-lead').textContent += ' Native P1 and P2 variants remain pending. Request time includes network and service overhead; pure inference time is unavailable.';
+        const first = data.kevSource.passes.fresh1;
+        document.getElementById('repeat-interpretation').innerHTML = `<details><summary>Reported confidence: coverage and mistakes</summary><p>First pass only. These confidence values are not calibrated probabilities of correctness. The table counts field decisions meeting a 0.7 threshold; no abstention was performed.</p><div class="table-wrap"><table><caption>First-pass confidence threshold of 0.7</caption><thead><tr><th>Decision</th><th>Covered out of 60</th><th>Matching references</th><th>Mismatches</th></tr></thead><tbody>${Object.entries(first.reportedConfidenceThresholds).map(([key, thresholds]) => {const t=thresholds['0.7'];return `<tr><th scope="row">${esc(fields[key])}</th><td>${t.covered} / 60</td><td>${t.correct}</td><td>${t.wrong}</td></tr>`;}).join('')}</tbody></table></div><p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/KEV_NATIVE_FINDINGS_2026-09-30.md">Read the Kev findings and evidence</a></p></details>`;
+      }
       if (nativeAlex) document.getElementById('repeat-lead').textContent += ' Alex uses one native NLI procedure. Earlier results are observational and excluded from the fresh-pass comparison. Client prediction time includes local overhead; isolated inference time and local cost are unavailable. Native NLI input positions are not billed API tokens.';
       const validity = Object.entries(data.passes).flatMap(([pass, entries]) => Object.entries(entries).filter(([, phase]) => closed(phase) && phase.score.valid < data.denominator).map(([condition, phase]) => `${condition} ${displayPass(pass)}: ${phase.score.valid}/${data.denominator} valid responses`));
       if (validity.length) document.getElementById('repeat-lead').textContent += ' Failed or invalid answers remain in the score denominator. ' + validity.join('; ') + '.';
@@ -392,13 +432,14 @@
           const score = partial || !closed(phase) ? null : phase.score;
           const n = score ? valueOf(score,field) : null;
           const stopped = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
+          const kevStop = nativeKev && phase?.completionStatus === 'interrupted';
           const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
           const generatedStop = generatedOpenJev && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'stopped_unknown');
-          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
+          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (kevStop ? '<span>Interrupted; unscored</span>' : stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
         }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
       }).join('')}</div><p class="analysis-caveat">Bars start at zero. Agreement is measured against provisional references, separately from valid response format. Repeated comments are not independent cases.</p>`;
       document.getElementById('repeat-delta-title').textContent = nativeP0 ? 'One native decision procedure' : 'Does the prompt advantage persist?';
-      document.getElementById('repeat-delta-intro').textContent = nativeL0 ? 'This native L0 readout has only P0. P1 and P2 chat prompt variants do not apply.' : nativeL2 ? 'This native L2 calibration has only P0. P1 and P2 chat prompt variants do not apply.' : nativeP0 ? 'This native option-scoring setup has only P0. P1 and P2 chat prompt variants do not apply.' : 'Change in answers matching the provisional reference compared with P0 in the same pass. Positive means more matches; negative means fewer.';
+      document.getElementById('repeat-delta-intro').textContent = nativeKev ? 'Native P1 and P2 variants remain pending. This comparison covers the P0 Choice procedure only.' : nativeL0 ? 'This native L0 readout has only P0. P1 and P2 chat prompt variants do not apply.' : nativeL2 ? 'This native L2 calibration has only P0. P1 and P2 chat prompt variants do not apply.' : nativeP0 ? 'This native option-scoring setup has only P0. P1 and P2 chat prompt variants do not apply.' : 'Change in answers matching the provisional reference compared with P0 in the same pass. Positive means more matches; negative means fewer.';
       document.getElementById('repeat-deltas').innerHTML = nativeP0 ? '' : `<div class="table-wrap"><table><caption>${esc(fields[field])}: change from P0, out of ${data.denominator}</caption><thead><tr><th>Prompt</th>${passes.map(p => `<th>${passName[p]}</th>`).join('')}</tr></thead><tbody>${conditionOrder.filter(c => c !== 'P0').map(c => `<tr><th scope="row">${esc(c)}</th>${passes.map(p => {
         const d = (!freshSeries || (closedSlot(p, 'P0') && closedSlot(p, c)))
           ? data.withinPassPromptDeltas?.find(x => x.pass === p && x.to === c) : null;
@@ -414,6 +455,10 @@
         (!freshSeries || (closedSlot(x.from, c) && closedSlot(x.to, c))));
       document.getElementById('repeat-flips').innerHTML = `${ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>${changes.excludedIds.length} comments excluded because not all passes had valid answers.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {const f = field === 'allFour' ? x.fourFieldVector : nativeL1 ? x.fields[field] : x[field]; const changed = Array.isArray(f) ? f.length : f.changed; return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: ${changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
       document.getElementById('repeat-usage-body').innerHTML = conditionOrder.flatMap(c => passes.map(p => {
+        if (nativeKev && data.kevSource.passes[p]?.completionStatus === 'interrupted') {
+          const phase = data.kevSource.passes[p], u = phase.usage;
+          return `<tr><th scope="row">P0</th><td>${displayPass(p)} (interrupted, unscored)</td><td>${phase.outcomes.valid + phase.outcomes.transportErrorUnknownOutcome} attempted<br><small>${phase.outcomes.valid} known responses</small></td><td>${number(u?.inputTokens)}<br><small>Known responses only</small></td><td>${number(u?.outputTokens)}<br><small>Known responses only</small></td><td>${money(phase.knownActualProviderCostUsd)} known<br><small>Unknown charge up to ${money(phase.unknownCostReservationUsd)}; not an observed charge</small></td><td>Unavailable</td><td>${u?.clientRequestSeconds?.total == null ? 'Unavailable' : u.clientRequestSeconds.total.toFixed(1) + ' known responses'}<br><small>${u?.clientRequestSeconds?.unknownAttempt == null ? 'Timeout duration unavailable' : u.clientRequestSeconds.unknownAttempt.toFixed(1) + ' timeout; outcome unknown'}</small></td></tr>`;
+        }
         const interrupted = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
         const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
         const generatedStop = generatedOpenJev && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'stopped_unknown');

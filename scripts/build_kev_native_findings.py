@@ -4,6 +4,7 @@ import argparse
 import base64
 from collections import Counter
 from decimal import Decimal
+from datetime import datetime
 import json
 from pathlib import Path
 import statistics
@@ -13,9 +14,11 @@ from openrouter_paid_benchmark import LEDGER_PATH
 import openrouter_decision_development as first
 import openrouter_decision_repeats as repeats
 import openrouter_decision_smoke as smoke
+import openrouter_kev_interrupted_continuation as continuation
 
 FIRST = first.BASE
 REPEATS = repeats.BASE
+TAIL = continuation.BASE
 OUTPUT = ROOT / 'public-site/kev-native-repeats.json'
 GITHUB = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/'
 THRESHOLDS = (0.5, 0.7, 0.9)
@@ -23,9 +26,10 @@ THRESHOLDS = (0.5, 0.7, 0.9)
 REFERENCE_SHA256 = '440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464'
 
 
-def binding(path):
+def binding(path, relative_path=None):
     path = Path(path)
-    return {'path': str(path.relative_to(ROOT)), 'sha256': smoke.sha(path.read_bytes())}
+    return {'path': str(relative_path if relative_path is not None else path.relative_to(ROOT)),
+            'sha256': smoke.sha(path.read_bytes())}
 
 
 def percentile(values, fraction):
@@ -118,6 +122,7 @@ def interrupted(manifest, directory, ledger_path):
         raise ValueError('Interrupted Kev journal shape differs')
     ledger = [json.loads(line) for line in Path(ledger_path).read_text().splitlines() if line.strip()]
     known = Decimal(0)
+    input_tokens = output_tokens = elapsed_ns = 0
     bound = smoke.bound(first.ROUTE)
     for index in range(completed):
         reserved, response, checked = rows[index*3:index*3+3]
@@ -134,7 +139,8 @@ def interrupted(manifest, directory, ledger_path):
         raw = base64.b64decode(response['raw_response_base64'], validate=True)
         body = json.loads(raw)
         cost = smoke.response_cost(body)
-        if (smoke.sha(raw) != response.get('raw_response_sha256') or body != response.get('body') or
+        if (smoke.sha(raw) != response.get('raw_response_sha256') or
+            len(raw) != response.get('raw_response_size_bytes') or body != response.get('body') or
             smoke.validate_response(body, first.ROUTE) != checked.get('prediction') or
             cost is None or cost != Decimal(response['actual_cost_usd']) or cost > bound):
             raise ValueError('Interrupted Kev raw response or cost differs')
@@ -145,6 +151,11 @@ def interrupted(manifest, directory, ledger_path):
             Decimal(str(reserves[0]['usd'])) != bound or Decimal(str(settles[0]['usd'])) != cost):
             raise ValueError('Interrupted Kev known settlement differs')
         known += cost
+        input_tokens += body['usage']['input_tokens']
+        output_tokens += body['usage']['output_tokens']
+        if type(response.get('client_request_elapsed_ns')) is not int or response['client_request_elapsed_ns'] < 0:
+            raise ValueError('Interrupted Kev known request timing differs')
+        elapsed_ns += response['client_request_elapsed_ns']
     reserved, error = rows[-2:]
     item = manifest['requests'][completed]
     attempt_id = reserved.get('ledger_attempt_id')
@@ -155,6 +166,7 @@ def interrupted(manifest, directory, ledger_path):
         error.get('id') != item['id'] or error.get('attempt_id') != attempt_id or
         error.get('cost_unknown') is not True or
         error.get('error_type') != 'TimeoutError' or
+        type(error.get('client_request_elapsed_ns')) is not int or error['client_request_elapsed_ns'] < 0 or
         len(reserves) != 1 or settles or
         reserves[0].get('record_id') != manifest['pass_id'] + ':' + item['id'] or
         Decimal(str(reserves[0]['usd'])) != bound):
@@ -179,17 +191,151 @@ def interrupted(manifest, directory, ledger_path):
     return {'passId': manifest['pass_id'], 'completionStatus': 'interrupted',
             'outcomes': {'valid': completed, 'transportErrorUnknownOutcome': 1,
                          'neverSent': 60 - completed - 1},
+            'outcomesAsOf': 'original-interruption',
             'stoppedAt': item['id'], 'errorType': 'TimeoutError',
             'knownActualProviderCostUsd': str(known),
             'unknownCostReservationUsd': str(bound),
             'unknownCostAccounting': 'full reservation retained as unknown-cost upper bound; actual charge unknown',
+            'usage': {'inputTokens': input_tokens, 'outputTokens': output_tokens,
+                      'actualProviderCostUsd': str(known),
+                      'clientRequestSeconds': {'total': elapsed_ns / 1e9,
+                                               'unknownAttempt': error['client_request_elapsed_ns'] / 1e9,
+                                               'kind': 'client_observed_request'}},
             'score': None,
-            'sourceBindings': [binding(directory / name) for name in
+            'sourceBindings': [binding(directory / name,
+                Path('results/route-audits/decision-kev-repeats-20260930/fresh3') / name) for name in
                                ('manifest.json', 'root-review.json', 'attempts.jsonl', 'interruption-audit.json')],
-            'evidenceUrl': GITHUB + str(attempts_path.relative_to(ROOT))}
+            'evidenceUrl': GITHUB + 'results/route-audits/decision-kev-repeats-20260930/fresh3/attempts.jsonl'}
+
+
+def closed_continuation(original_manifest, original_dir, tail_dir, ledger_path, third):
+    """Add the separately admitted never-sent tail without claiming a clean repeat."""
+    original_dir, tail_dir = Path(original_dir), Path(tail_dir)
+    proof = continuation.inspect_prefix(original_manifest, original_dir, ledger_path)
+    manifest = json.loads((tail_dir / 'manifest.json').read_text())
+    if manifest != continuation.build_manifest(original_manifest, proof):
+        raise ValueError('Kev tail manifest or immutable prefix differs')
+    continuation.validate_receipt(json.loads((tail_dir / 'root-review.json').read_text()), manifest)
+    attempts_path = tail_dir / 'attempts.jsonl'
+    raw_attempts = attempts_path.read_bytes()
+    rows = [json.loads(line) for line in raw_attempts.decode().splitlines() if line.strip()]
+    if len(rows) != 3 * continuation.COUNT:
+        raise ValueError('Kev tail must contain exactly 34 validated triplets')
+    ledger = [json.loads(line) for line in Path(ledger_path).read_text().splitlines() if line.strip()]
+    reservations = [event for event in ledger if event.get('event') == 'reserve' and
+                    str(event.get('record_id', '')).startswith(continuation.PASS_ID + ':')]
+    expected_record_ids = [continuation.PASS_ID + ':' + item['id'] for item in manifest['requests']]
+    if len(reservations) != continuation.COUNT or [event['record_id'] for event in reservations] != expected_record_ids:
+        raise ValueError('Kev tail ledger membership differs')
+    known = Decimal(0)
+    input_tokens = output_tokens = elapsed_ns = 0
+    seen_attempts = set()
+    for index, item in enumerate(manifest['requests']):
+        reserved, response, validated = rows[3*index:3*index+3]
+        attempt_id = reserved.get('ledger_attempt_id')
+        if (not isinstance(attempt_id, str) or not attempt_id or attempt_id in seen_attempts or
+            [row.get('stage') for row in (reserved, response, validated)] != ['reserved', 'response', 'validated'] or
+            any(row.get('id') != item['id'] for row in (reserved, response, validated)) or
+            response.get('attempt_id') != attempt_id or validated.get('attempt_id') != attempt_id or
+            reserved.get('payload_sha256') != item['payload_sha256'] or
+            item['payload_sha256'] != smoke.sha(smoke.canonical(item['payload'])) or
+            Decimal(str(reserved.get('reserved_cost_usd', '-1'))) != smoke.bound(first.ROUTE) or
+            Decimal(str(response.get('reserved_cost_usd', '-1'))) != smoke.bound(first.ROUTE) or
+            reserved.get('cost_unknown') is not True or response.get('cost_unknown') is not False or
+            validated.get('cost_unknown') is not False or response.get('http_status') != 200 or
+            response.get('parse_error_type') is not None or
+            type(response.get('client_request_elapsed_ns')) is not int or
+            response['client_request_elapsed_ns'] < 0 or
+            not isinstance(response.get('request_start_utc'), str) or
+            not isinstance(response.get('request_end_utc'), str)):
+            raise ValueError('Kev tail order, payload or timing differs')
+        seen_attempts.add(attempt_id)
+        started = datetime.fromisoformat(response['request_start_utc'].replace('Z', '+00:00'))
+        ended = datetime.fromisoformat(response['request_end_utc'].replace('Z', '+00:00'))
+        if ended < started:
+            raise ValueError('Kev tail end precedes start')
+        raw = base64.b64decode(response['raw_response_base64'], validate=True)
+        body = json.loads(raw)
+        if (smoke.sha(raw) != response.get('raw_response_sha256') or
+            len(raw) != response.get('raw_response_size_bytes') or body != response.get('body') or
+            body.get('model') != first.ROUTE['version'] or body.get('provider') != first.ROUTE['provider'] or
+            smoke.validate_response(body, first.ROUTE) != validated.get('prediction')):
+            raise ValueError('Kev tail native raw response differs')
+        cost = smoke.response_cost(body)
+        if (cost is None or cost != Decimal(str(response.get('actual_cost_usd', '-1'))) or
+            cost > smoke.bound(first.ROUTE)):
+            raise ValueError('Kev tail provider cost differs')
+        events = [event for event in ledger if event.get('attempt_id') == attempt_id]
+        if ([event.get('event') for event in events] != ['reserve', 'settle'] or
+            events[0] != reservations[index] or
+            Decimal(str(events[0].get('usd', '-1'))) != smoke.bound(first.ROUTE) or
+            Decimal(str(events[1].get('usd', '-1'))) != cost):
+            raise ValueError('Kev tail ledger settlement differs')
+        known += cost
+        input_tokens += body['usage']['input_tokens']
+        output_tokens += body['usage']['output_tokens']
+        elapsed_ns += response['client_request_elapsed_ns']
+    completion = json.loads((tail_dir / 'completion.json').read_text())
+    if (completion.get('pass_id') != continuation.PASS_ID or
+        completion.get('status') != 'interrupted_series_tail_closed_not_clean_third_pass' or
+        completion.get('record_count') != continuation.COUNT or
+        completion.get('tail_valid_count') != continuation.COUNT or
+        completion.get('original_prefix_valid_count') != 25 or
+        completion.get('original_unknown_record_id') != 'DEV-026' or
+        completion.get('original_unknown_attempt_id') != proof['unknown_attempt_id'] or
+        completion.get('original_unknown_actual_cost_usd', 'non-null') is not None or
+        Decimal(str(completion.get('original_unknown_upper_bound_usd', '-1'))) != smoke.bound(first.ROUTE) or
+        completion.get('combined_observed_valid_count') != 59 or
+        completion.get('clean_full_third_pass_complete') is not False or
+        completion.get('manifest_sha256') != smoke.sha(smoke.canonical(manifest)) or
+        completion.get('attempts_sha256') != smoke.sha(raw_attempts) or
+        Decimal(str(completion.get('tail_known_actual_cost_usd', '-1'))) != known or
+        completion.get('inference_performed') is not True or
+        completion.get('reference_labels_read') is not False):
+        raise ValueError('Kev tail completion differs from raw and ledger evidence')
+    combined_cost = Decimal(third['knownActualProviderCostUsd']) + known
+    combined_input = third['usage']['inputTokens'] + input_tokens
+    combined_output = third['usage']['outputTokens'] + output_tokens
+    prefix_rows = [json.loads(line) for line in (original_dir / 'attempts.jsonl').read_text().splitlines() if line.strip()]
+    combined_elapsed_ns = sum(row['client_request_elapsed_ns'] for row in prefix_rows
+                              if row.get('stage') == 'response') + elapsed_ns
+    reconciliation = json.loads((tail_dir / 'terminal-reconciliation.json').read_text())
+    if (reconciliation.get('manifest_sha256') != smoke.sha(smoke.canonical(manifest)) or
+        reconciliation.get('attempts_sha256') != smoke.sha(raw_attempts) or
+        reconciliation.get('completion_sha256') != smoke.sha((tail_dir / 'completion.json').read_bytes()) or
+        reconciliation.get('unknown_accounting_event_sha256') != proof['unknown_accounting_event_sha256'] or
+        reconciliation.get('combined_observed_valid_count') != 59 or
+        reconciliation.get('original_unknown_actual_cost_usd', 'non-null') is not None or
+        reconciliation.get('clean_full_third_pass_complete') is not False or
+        Decimal(str(reconciliation.get('tail_known_actual_cost_usd', '-1'))) != known or
+        Decimal(str(reconciliation.get('combined_known_actual_cost_usd', '-1'))) != combined_cost or
+        reconciliation.get('combined_known_input_tokens') != combined_input or
+        reconciliation.get('combined_known_output_tokens') != combined_output or
+        reconciliation.get('combined_known_client_request_elapsed_ns') != combined_elapsed_ns):
+        raise ValueError('Kev tail terminal reconciliation differs')
+    third['outcomes'] = {'valid': 59, 'transportErrorUnknownOutcome': 1, 'neverSent': 0}
+    third['outcomesAsOf'] = 'continuation-closure'
+    third['continuationStatus'] = 'closed'
+    third['knownActualProviderCostUsd'] = str(combined_cost)
+    third['usage'] = {'inputTokens': combined_input, 'outputTokens': combined_output,
+                      'actualProviderCostUsd': str(combined_cost),
+                      'clientRequestSeconds': {'total': combined_elapsed_ns / 1e9,
+                                               'unknownAttempt': third['usage']['clientRequestSeconds']['unknownAttempt'],
+                                               'kind': 'client_observed_request'}}
+    third['tail'] = {'passId': continuation.PASS_ID, 'valid': continuation.COUNT,
+                     'usage': {'inputTokens': input_tokens, 'outputTokens': output_tokens,
+                               'actualProviderCostUsd': str(known),
+                               'clientRequestSeconds': {'total': elapsed_ns / 1e9,
+                                                        'kind': 'client_observed_request'}}}
+    names = ('manifest.json', 'root-review.json', 'attempts.jsonl', 'completion.json',
+             'terminal-reconciliation.json')
+    third['sourceBindings'] += [binding(tail_dir / name,
+        Path('results/route-audits/kev-fresh3-continuation-20260930') / name) for name in names]
+    third['evidenceUrl'] = GITHUB + 'results/route-audits/kev-fresh3-continuation-20260930/completion.json'
+    return third
 
 def build(first_base=FIRST, repeat_base=REPEATS, ledger_path=LEDGER_PATH,
-          refs_path=ROOT / 'data/pilot/proposed_labels.jsonl'):
+          refs_path=ROOT / 'data/pilot/proposed_labels.jsonl', tail_base=TAIL):
     first_base, repeat_base = Path(first_base), Path(repeat_base)
     first_manifest = repeats.load_first_static(first_base)
     refs_path = Path(refs_path)
@@ -212,6 +358,15 @@ def build(first_base=FIRST, repeat_base=REPEATS, ledger_path=LEDGER_PATH,
             if audit.exists():
                 manifest = repeats.load_frozen(ordinal, repeat_base, first_base, ledger_path)
                 passes['fresh' + str(ordinal)] = interrupted(manifest, directory, ledger_path)
+                if ordinal == 3:
+                    tail_base = Path(tail_base)
+                    if (tail_base / 'completion.json').exists():
+                        passes['fresh3'] = closed_continuation(
+                            manifest, directory, tail_base, ledger_path, passes['fresh3'])
+                    elif (tail_base / 'attempts.jsonl').exists():
+                        passes['fresh3']['continuationStatus'] = 'running_unscored'
+                    else:
+                        passes['fresh3']['continuationStatus'] = 'not_started'
             elif attempts.exists():
                 passes['fresh' + str(ordinal)] = {'passId': repeats.PASSES[ordinal],
                                                    'completionStatus': 'running', 'score': None}

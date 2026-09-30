@@ -590,15 +590,26 @@
       "passId": "kev-openrouter-native-p0-fresh3",
       "completionStatus": "interrupted",
       "outcomes": {
-        "valid": 25,
+        "valid": 59,
         "transportErrorUnknownOutcome": 1,
-        "neverSent": 34
+        "neverSent": 0
       },
+      "outcomesAsOf": "continuation-closure",
       "stoppedAt": "DEV-026",
       "errorType": "TimeoutError",
-      "knownActualProviderCostUsd": "0.001959258",
+      "knownActualProviderCostUsd": "0.004624830",
       "unknownCostReservationUsd": "0.000344064",
       "unknownCostAccounting": "full reservation retained as unknown-cost upper bound; actual charge unknown",
+      "usage": {
+        "inputTokens": 110115,
+        "outputTokens": 17062,
+        "actualProviderCostUsd": "0.004624830",
+        "clientRequestSeconds": {
+          "total": 118.75626029,
+          "unknownAttempt": 60.435302333,
+          "kind": "client_observed_request"
+        }
+      },
       "score": null,
       "sourceBindings": [
         {
@@ -616,9 +627,43 @@
         {
           "path": "results/route-audits/decision-kev-repeats-20260930/fresh3/interruption-audit.json",
           "sha256": "4176073c4f7a75eecf17fc206fe39783b9477a1962917b6ae6fa14e7c00e5fda"
+        },
+        {
+          "path": "results/route-audits/kev-fresh3-continuation-20260930/manifest.json",
+          "sha256": "44c6e6138fd900a7402212e91374020a3a7aecbd4422b5d8b58bdf5692dfbc3a"
+        },
+        {
+          "path": "results/route-audits/kev-fresh3-continuation-20260930/root-review.json",
+          "sha256": "b18b2bf216331f61f9f92ff11e1a57a6cd81d237d92fd89ac2ab3135d70aaf52"
+        },
+        {
+          "path": "results/route-audits/kev-fresh3-continuation-20260930/attempts.jsonl",
+          "sha256": "15a8869b1d2d6dcc3eed5f00ebf2dc88916fa348d811e9fa2aded53959b3bf08"
+        },
+        {
+          "path": "results/route-audits/kev-fresh3-continuation-20260930/completion.json",
+          "sha256": "077115d62edaf99e8754cad495e7d074232b606c6ff724a3fe427520c225a5ca"
+        },
+        {
+          "path": "results/route-audits/kev-fresh3-continuation-20260930/terminal-reconciliation.json",
+          "sha256": "b7f22736d6e7f9dc2e0d31220b96e2b564389b0d79f941ed07d262815ea83744"
         }
       ],
-      "evidenceUrl": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/route-audits/decision-kev-repeats-20260930/fresh3/attempts.jsonl"
+      "evidenceUrl": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/route-audits/kev-fresh3-continuation-20260930/completion.json",
+      "continuationStatus": "closed",
+      "tail": {
+        "passId": "kev-openrouter-native-p0-fresh3-tail-DEV027-060",
+        "valid": 34,
+        "usage": {
+          "inputTokens": 63466,
+          "outputTokens": 9841,
+          "actualProviderCostUsd": "0.002665572",
+          "clientRequestSeconds": {
+            "total": 78.973880418,
+            "kind": "client_observed_request"
+          }
+        }
+      }
     }
   },
   "repeatComparisons": {
