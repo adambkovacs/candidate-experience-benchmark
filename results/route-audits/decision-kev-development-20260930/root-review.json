@@ -1,0 +1,19 @@
+{
+  "approved": true,
+  "reviewer": "root independent source and 20-test review",
+  "pass_id": "kev-openrouter-native-p0-fresh1",
+  "manifest_sha256": "4f3eb3a98fba9b95510c8e169ac0586ca41922c5e09a0f90ef16a7b482915f5a",
+  "max_reservation_usd": "0.020643840",
+  "record_count": 60,
+  "verdict": "APPROVE",
+  "blocking_findings": [],
+  "residual_findings": [
+    {
+      "label": "RESIDUAL",
+      "finding": "Reused transport reads response body without a size cap.",
+      "reason": "Native four-question replies are small in observed operation; an exceptionally large reply could exhaust memory, with reservation retained."
+    }
+  ],
+  "scope": "First60 native P0 only; separate repeat admission required",
+  "smoke_inspection": "Root reviewed all three saved native Kev responses, returned identity and observed costs in preceding checkpoint."
+}
