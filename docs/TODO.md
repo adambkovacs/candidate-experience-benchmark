@@ -4,6 +4,16 @@ Updated 1 October 2026. This is the current coordination list. Frozen manifests 
 
 ## Active assignments
 
+### Latest checkpoint, 1 October 2026
+
+- Gemma E2B thinking-on: eight of nine full phases are closed. Fresh3/P1, the ninth phase, is running under its inspected smoke and separate root receipt. Seven phases are published; the newer closed P0 evidence awaits the next publication cutoff.
+- Qwen 27 xhigh v2: fresh1/P0 closed with 60 valid outputs and $0.055403775 in reported development charges. Root independently verified terminal journal, ordered attempts and raw-response hashes. P1 smoke is admitted; P1 development still needs inspection and admission.
+- Qwen 27 medium v2: fresh1/P0 also closed with 60 valid outputs and $0.066327075 in reported development charges. Root verified closure and admitted P1 smoke. Hosted Gemma 26 on v2 fresh1/P1 remains running under its original handle. Do not duplicate dispatch.
+- Hosted-v2 findings: publish_on_triple owns the new offline reporter and tests. Root owns review and website integration. These new series are not yet in the public repeat explorer.
+- Budget: the $12.38 aggregate ceiling includes active child allocations of $0.40 (Gemma), $1.00 (Qwen medium) and $0.80 (Qwen xhigh), leaving $0.19967548250 unallocated. Allocations are not observed charges. Reconcile each child only after closure.
+- Website: the reader redesign is live. Root fetched the HTML, reader stylesheet, script and evidence feed and verified byte equality with the repository; all three reader-story tests passed. Earlier dated items below describe their own historical cutoffs.
+
+
 - [x] **Approved OpenRouter budget extension — root / publish_on_triple / resume_generated:** the [master ledger](../results/openrouter-paid-budget.jsonl) records the explicit $10 to $12.38 amendment and a separate $0.40 Gemma26 v2 child, leaving $1.99967548250 unallocated at allocation. Frozen v2 sources remain unchanged; the [v3 budget modules](../scripts/openrouter_budget_v3.py) and [v2 Gemma26 plan](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/manifest.json) bind the new series. Fresh1/P0 smoke closed under its own receipt and inspection. Full development was separately admitted and running at this checkpoint; no full score is claimed.
 
 - [x] **Gemma E2B thinking-on fresh2/P0 and P2 — native_variants_prepare / root / publish_on_triple:** P2 development and P0 smoke plus development are closed in local evidence commit `a93f4ffc`. P2 and P0 full stages each saved 60 ordered valid decisions; P0 smoke saved three. Terminal hashes, raw parsing, root receipts, inspected smoke and reference-isolation markers passed reporter verification. The six-of-nine feed and findings use that committed cutoff; publication remains pending. The third full pass under each prompt remains outside it.
