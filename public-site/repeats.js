@@ -11,7 +11,7 @@
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
-  const feedUrls = ['./typesafe-repeats.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './deepseek-low-continuation-repeats.json'];
+  const feedUrls = ['./typesafe-repeats.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './deepseek-low-continuation-repeats.json'];
   const qwenContinuationSchema = 'qwen36-off-v2-second-interruption-findings-v1';
   const qwenContinuationId = 'openrouter-paid-qwen36-35b-a3b-off-descriptive-two-interruptions-v1';
   const deepseekLowContinuationSchema = 'deepseek-low-descriptive-interruption-findings-v1';
@@ -23,7 +23,7 @@
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './kev-native-repeats.json' || url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === './deepseek-low-continuation-repeats.json') && r.status === 404) return {series: []};
+    if (!r.ok && (url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === './deepseek-low-continuation-repeats.json') && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
       if (url === './kev-native-repeats.json') {
@@ -176,6 +176,43 @@
             interpretation: payload.limitations};
         })};
       }
+      if (url === './semif-generated-repeats.json') {
+        if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
+        const item = payload?.series?.[0];
+        const passes = ['fresh1', 'fresh2', 'fresh3'];
+        const prompts = ['P0', 'P1', 'P2'];
+        const slots = passes.flatMap(pass => prompts.map(condition => `${pass}/${condition}`));
+        const completed = passes.flatMap(pass => prompts.filter(condition =>
+          item?.passes?.[pass]?.[condition]).map(condition => `${pass}/${condition}`));
+        const missing = item?.missingPasses;
+        const scoreFields = Object.keys(fields).filter(field => field !== 'allFour');
+        if (payload?.schema !== 'semif-generated-fresh-repeat-report-v1' ||
+            !Array.isArray(payload.series) || payload.series.length !== 1 ||
+            item?.schema !== 'semif-generated-fresh-repeat-findings-v1' ||
+            item?.configuration !== 'semif-generated-fresh-v1' ||
+            item?.method !== 'fresh-native-generated-repeat' ||
+            item?.denominator !== 60 || item?.plannedConditions !== 9 ||
+            item?.completedConditions !== completed.length ||
+            item?.historicalObservationalOnly?.eligibleAsFirstPass !== false ||
+            JSON.stringify(item?.passOrder) !== JSON.stringify(passes) ||
+            JSON.stringify(item?.conditionOrder) !== JSON.stringify(prompts) ||
+            !passes.every(pass => item?.passes?.[pass] && typeof item.passes[pass] === 'object') ||
+            !Array.isArray(missing) || completed.length + missing.length !== 9 ||
+            new Set([...completed, ...missing.map(entry => `${entry.pass}/${entry.condition}`)]).size !== 9 ||
+            missing.some(entry => !slots.includes(`${entry?.pass}/${entry?.condition}`) ||
+              !['not_started', 'claimed_in_progress_or_interrupted'].includes(entry?.status)) ||
+            completed.some(slot => {
+              const [pass, condition] = slot.split('/');
+              const phase = item.passes[pass][condition];
+              const score = phase.score;
+              return phase.completionStatus !== 'complete' || score?.denominator !== 60 ||
+                !Number.isInteger(score.valid) || score.valid < 0 || score.valid > 60 ||
+                !Number.isInteger(score.allFour) || score.allFour < 0 || score.allFour > score.valid ||
+                scoreFields.some(field => !Number.isInteger(score.fields?.[field]) ||
+                  score.fields[field] < 0 || score.fields[field] > score.valid) ||
+                phase.usage?.requestCount !== 60 || phase.usage?.actualCostUsd !== null;
+            })) throw Error('Invalid SemIf generated repeat results');
+      }
       if (url === './additional-hosted-fresh-repeats.json' && payload === undefined) return {series: []};
       if (url === './codex-fresh-repeats.json' && (payload?.schema || payload?.series?.length) &&
           (payload?.schema !== 'codex-fresh-repeat-findings-v1' || !Array.isArray(payload.series) ||
@@ -325,6 +362,8 @@
       s.method === 'native-output-stability';
     const isGeneratedOpenJev = s => s.schema === 'openjev-generated-fresh-three-report-v2' &&
       s.method === 'fresh-generated-output-stability';
+    const isGeneratedSemIf = s => s.schema === 'semif-generated-fresh-repeat-findings-v1' &&
+      s.method === 'fresh-native-generated-repeat';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
     root.innerHTML = `<label class="repeat-control">Configuration <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · fresh matched three' : ''}</option>`).join('')}</select></label>
       <p class="repeat-lead" id="repeat-lead"></p><div id="repeat-interpretation"></div>
@@ -346,6 +385,7 @@
       const deepseekLowContinuation = isDeepseekLowContinuation(data);
       const nativeOpenJev = isNativeOpenJev(data);
       const generatedOpenJev = isGeneratedOpenJev(data);
+      const generatedSemIf = isGeneratedSemIf(data);
       const localFresh = data.method === 'fresh-matched-local-output-stability';
       const passes = data.passOrder || (localFresh ? ['fresh1', 'fresh2', 'fresh3'] : ['original', 'repeat2', 'repeat3']);
       const conditionOrder = data.conditionOrder || ['P0', 'P1', 'P2'];
@@ -358,10 +398,10 @@
       const displayPass = pass => nativeL2 ? ({original: 'Historical pass', repeat2: 'Repeat 2', repeat3: 'Repeat 3'}[pass] || pass) : passName[pass];
       const closed = phase => qwenContinuation || deepseekLowContinuation ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error'
         : freshCodex || freshHosted ? phase?.status === 'completed'
-        : generatedOpenJev ? phase?.completionStatus === 'complete'
+        : generatedOpenJev || generatedSemIf ? phase?.completionStatus === 'complete'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
-      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || nativeOpenJev || generatedOpenJev || nativeKev;
+      const freshSeries = data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || nativeOpenJev || generatedOpenJev || generatedSemIf || nativeKev;
       const qwenUnknownFor = (pass, condition) => qwenContinuation
         ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
         : null;
@@ -406,6 +446,7 @@
         for (const missing of data.missingPasses.filter(item => item.status === 'stopped_unknown'))
           document.getElementById('repeat-lead').textContent += ` ${displayPass(missing.pass)} ${missing.condition} stopped during ${missing.stage}: ${missing.startedIds.length} started, ${missing.savedIds.length} saved, ${missing.unknownStartedIds.length} unknown, ${missing.neverSentIds.length} not sent. This condition has no score.`;
       }
+      if (generatedSemIf) document.getElementById('repeat-lead').textContent += ' This local MLX generated series plans three fresh P0/P1/P2 passes. Historical generated outputs and native option-scoring passes are separate. Invalid responses stay in each 60-comment score. Request seconds are summed client-observed elapsed time, not isolated inference time; local cost is unmeasured.';
       if (nativeKev) {
         const interrupted = data.kevSource.passes.fresh3;
         if (interrupted.completionStatus === 'interrupted') {
@@ -446,7 +487,7 @@
         const localDelta = localFresh && data.passes[p]?.[c]?.completionStatus === 'complete' && data.passes[p]?.P0?.completionStatus === 'complete'
           ? valueOf(data.passes[p][c].score, field) - valueOf(data.passes[p].P0.score, field) : null;
         return `<td>${d ? signed(valueOf(d,field)) : localDelta == null ? 'Not completed' : signed(localDelta)}</td>`;
-      }).join('')}</tr>`).join('')}</tbody></table></div>${qwenContinuation || generatedOpenJev ? `<p class="analysis-caveat">Prompt flip comparisons use only comments valid in both conditions: ${(data.withinPassPromptFlips || []).filter(x => closedSlot(x.pass, 'P0') && closedSlot(x.pass, x.to)).map(x => `${esc(passName[x.pass])} P0 to ${esc(x.to)}: ${generatedOpenJev ? `${(field === 'allFour' ? x.fourFieldVector : x[field]).changed} / ${x.denominator} changed; ` : ''}${x.denominator} shared valid of 60; ${x.excludedIds.length} excluded`).join('; ') || 'no paired conditions completed yet'}.</p>` : ''}`;
+      }).join('')}</tr>`).join('')}</tbody></table></div>${qwenContinuation || generatedOpenJev || generatedSemIf ? `<p class="analysis-caveat">Prompt flip comparisons use only comments valid in both conditions: ${(data.withinPassPromptFlips || []).filter(x => closedSlot(x.pass, 'P0') && closedSlot(x.pass, x.to)).map(x => `${esc(passName[x.pass])} P0 to ${esc(x.to)}: ${generatedOpenJev || generatedSemIf ? `${(field === 'allFour' ? x.fourFieldVector : x[field]).changed} / ${x.denominator} changed; ` : ''}${x.denominator} shared valid of 60; ${x.excludedIds.length} excluded`).join('; ') || 'no paired conditions completed yet'}.</p>` : ''}`;
       const c = conditionControl.value;
       const changes = (!freshSeries || passes.every(p => closedSlot(p, c)))
         ? data.changesAcrossThreePasses?.[c] : null;

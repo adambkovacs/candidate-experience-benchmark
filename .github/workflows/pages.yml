@@ -29,7 +29,7 @@ jobs:
           node --check public-site/app.js
           node --check public-site/findings.js
           node --check public-site/repeats.js
-          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs tests/test_anyjev_l1_repeat_ui.cjs tests/test_anyjev_l2_repeat_ui.cjs tests/test_openjev_native_repeat_ui.cjs tests/test_openjev_generated_repeat_ui.cjs tests/test_alex_native_repeat_ui.cjs tests/test_codex_fresh_repeat_ui.cjs tests/test_deepseek_fresh_repeat_ui.cjs tests/test_additional_hosted_fresh_repeat_ui.cjs tests/test_qwen36_continuation_ui.cjs tests/test_deepseek_low_interruption_ui.cjs
+          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs tests/test_anyjev_l1_repeat_ui.cjs tests/test_anyjev_l2_repeat_ui.cjs tests/test_openjev_native_repeat_ui.cjs tests/test_openjev_generated_repeat_ui.cjs tests/test_semif_generated_repeat_ui.cjs tests/test_alex_native_repeat_ui.cjs tests/test_codex_fresh_repeat_ui.cjs tests/test_deepseek_fresh_repeat_ui.cjs tests/test_additional_hosted_fresh_repeat_ui.cjs tests/test_qwen36_continuation_ui.cjs tests/test_deepseek_low_interruption_ui.cjs
           node --test tests/test_kev_repeat_ui.cjs
           python3 scripts/build_kev_native_findings.py --check
           python3 -m unittest tests.test_build_kev_native_findings -q
@@ -55,6 +55,8 @@ jobs:
           python3 -m unittest tests.test_build_laya_repeat_findings -q
           python3 scripts/build_semif_repeat_findings.py --output public-site/semif-repeats.json --check
           python3 -m unittest tests.test_build_semif_repeat_findings -q
+          if test -f public-site/semif-generated-repeats.json; then python3 scripts/build_semif_generated_repeat_findings.py --output public-site/semif-generated-repeats.json --check; fi
+          python3 -m unittest tests.test_build_semif_generated_repeat_findings -q
           python3 scripts/build_anyjev_raw_repeat_findings.py --output public-site/anyjev-raw-repeats.json --check
           python3 -m unittest tests.test_build_anyjev_raw_repeat_findings -q
           python3 scripts/build_anyjev_l0_repeat_findings.py --output public-site/anyjev-l0-repeats.json --check
