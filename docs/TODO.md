@@ -18,6 +18,8 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [x] **Solar Decide offline preparation — native_variants_prepare / root:** plan builder and five passing tests cover separate Upstage and Upstage ZDR route candidates, P0/P1/P2, and three planned full passes per condition. Root review: APPROVE for offline preparation. RESIDUAL: live access, response wrapper, context accounting and billing require smoke verification. Saved full-context bounds are $0.0786432 per three-record smoke and $1.572864 per full pass; these are conservative admission bounds, not observed costs. No requests or reservations were made.
 
+- [ ] **SemIf four-phase publication — root:** `e2834ef8` pushed the second P1 result, source-bound feed and updated explanations. Root checked all 81 committed source hashes and 13 reporter/UI tests. Pages run `36758886171` is checking the bundle; live verification remains pending.
+
 ## Verified progress
 
 - [x] SemIf generated first P0/P1/P2 pass published in `0184bb6d`. Pages run `36756829330` succeeded; public HTML and 3/9 feed match committed bytes. All-field agreement is 35/60, 26/60 and 43/60 respectively, with 8, 22 and 2 invalid outputs retained. Desktop/mobile field selection and keyboard focus were checked on the preceding UI version; the latest data changes passed UI tests. Fresh2/P1 execution continues separately.
