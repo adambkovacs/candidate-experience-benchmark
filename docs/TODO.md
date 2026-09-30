@@ -4,6 +4,8 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 ## Active assignments
 
+- [ ] **Gemma thinking-on first prompt comparison publication — root / publish_on_triple:** `8f897ec2` pushed the closed first P0/P1/P2 comparison (38/36/36 all-four matches, 60 valid each), direct comparison links, prompt definitions and ranking validity counts. Independent five-file review: APPROVE, no confirmed findings. Root verified 427 source-hash occurrences against `ef3c2578`; desktop, 390px mobile, keyboard links and reduced-motion behavior passed. Pages run `36778487699` is in progress; live verification is pending. Fresh2/P1 remains a separate running stage under original handle `60878`; its evidence is excluded from this publication cutoff.
+
 - [x] **OpenJev publication — root / publish_on_triple:** All nine generated-off and nine generated-on phases are published in bf5777ac. Pages run 36749343379 succeeded; live HTML and feed SHA-256 values exactly match the commit.
 - [x] **OpenJev generated-on — resume_generated:** All nine full phases closed; final session 22425 exited 0. The nine phases contain 540 saved attempts, 482 valid and 58 retained invalid outputs. Completion and record hashes passed pinned verification.
 - [x] **SemIf generated — resume_generated / root:** All nine full phases closed and independently verified against the frozen plan, runtime, request bindings and predecessor evidence. Each P0 pass has 52 valid and eight invalid responses; P1 has 38 and 22; P2 has 58 and two. Raw outputs repeat within each condition across all three passes. Historical unknown outcomes remain separate. The final nine-phase report is published and verified below.
