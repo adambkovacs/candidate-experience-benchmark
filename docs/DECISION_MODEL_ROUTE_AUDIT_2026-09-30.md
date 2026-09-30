@@ -1,5 +1,7 @@
 # Decision-model route audit, 30 September 2026
 
+> Scope update, 30 September: the active goal explicitly includes the listed new decision-model work. Historical statements below about future roster approval do not defer that requested work. Exact route, protocol and budget admission are still required; unavailable candidates remain unfinished with concrete blockers. Solar now has separate [offline plan preparation](../scripts/solar_decide_offline_plan.py), while [the current checklist](TODO.md) records the later budget and execution checkpoints.
+
 ## Later update: Solar Decide has an OpenRouter route
 
 A subsequent public [endpoint lookup](https://openrouter.ai/api/v1/models/upstage/solar-decide/endpoints) returned HTTP 200 for `upstage/solar-decide`, with native `text->decisions` output, version `upstage/solar-decide-20260928`, and Upstage endpoints tagged `upstage` and `upstage/zdr`. Both list 524,288 context tokens, unknown quantization, input price `$0.00000005` per token and zero output price. The [saved endpoint snapshot](../results/route-audits/solar-openrouter-endpoint-20260930.json) also includes a 0.5 discount and an input-cache price. Discount semantics have not been validated, so no admission bound assumes the discount.

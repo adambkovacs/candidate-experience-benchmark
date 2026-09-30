@@ -18,7 +18,9 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [x] **Solar Decide offline preparation — native_variants_prepare / root:** plan builder and five passing tests cover separate Upstage and Upstage ZDR route candidates, P0/P1/P2, and three planned full passes per condition. Root review: APPROVE for offline preparation. RESIDUAL: live access, response wrapper, context accounting and billing require smoke verification. Saved full-context bounds are $0.0786432 per three-record smoke and $1.572864 per full pass; these are conservative admission bounds, not observed costs. No requests or reservations were made.
 
-- [ ] **SemIf four-phase publication — root:** `e2834ef8` pushed the second P1 result, source-bound feed and updated explanations. Root checked all 81 committed source hashes and 13 reporter/UI tests. Pages run `36758886171` is checking the bundle; live verification remains pending.
+- [x] **SemIf four-phase publication — root:** `e2834ef8` pushed the second P1 result, source-bound feed and updated explanations. Root checked all 81 committed source hashes and 13 reporter/UI tests. Pages run `36758886171` succeeded. Live HTML and feed match `e2834ef8` byte for byte (SHA-256 `007d6bc8b106697207dfad84c8367e2afb6f7bf89bc993d34c5ea5737ce39c62` and `ef71abd9ced03e87a3799a0de7a5fc46b1dce1b7eed8613a6e6d8bd85d706536`).
+
+- [ ] **GLiNER decision-model admission research — native_variants_prepare:** resolve the exact Decide versus multi-v1 checkpoint, hosted interface, context, access and cost using primary sources. No download, inference or spending is admitted by this research.
 
 ## Verified progress
 
