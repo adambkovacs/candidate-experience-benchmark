@@ -4,12 +4,15 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 ## Active assignments
 
-- [ ] **Website and findings — publish_closed_findings:** publish the closed OpenJev generated-off nine-pass series, then improve results navigation and progressively disclose detailed findings. Preserve comparisons, deep links, denominators, missing measurements and accessibility. Verify tests and rendered pages before publication.
-- [ ] **OpenJev generated-on — resume_generated:** verify the frozen plan and run fresh1/P0's three-record smoke. Inspect raw responses before its full pass. Subsequent phases remain pending.
-- [ ] **Hosted decision smoke adapter — decision_route_audit:** prepare separately identified OpenRouter Jev and Kev native Decisions smokes, shared budget reservations and offline tests. Root reviews before inference. Preparation is not execution.
+- [ ] **Website and findings — root:** maintain published snapshot be554f15 (generated-off 9/9, generated-on 2/9), now live with results-first navigation and expandable findings. Publish subsequent closed phases after verification.
+- [ ] **OpenJev generated-on — resume_generated:** fresh1/P0 and P1 are closed; fresh1/P2 full is running under the frozen plan. Inspect subsequent smokes before full passes.
+- [ ] **Hosted decision smoke adapter — decision_route_audit:** Jev and Kev smokes each closed with three valid responses and observed charges. Prepare Kev’s first 60-record native pass and the explicit repeat plan; review before dispatch.
 - [ ] **Integration — root:** review closed evidence and new adapter, stage only completed artifacts, run checks, commit and push, then verify the deployed website.
 
 ## Verified progress
+
+- [x] Website deployment 36731918630 succeeded for be554f15; live HTML, navigation, stylesheet and generated report hashes match the commit.
+- [x] OpenRouter native smokes: Jev 3/3 valid, $0.000294294; Kev 3/3 valid, $0.000234864. These are protocol checks, not full benchmark scores.
 
 - [x] OpenJev generated-off: all nine full phases closed; 540 attempts saved, 491 valid and 49 retained invalid outputs. The execution agent verified the pinned plan and completion hashes. Publication is a separate task above.
 - [x] Primary-source decision-model route audit written: [report](DECISION_MODEL_ROUTE_AUDIT_2026-09-30.md). No inference was performed by that audit.
@@ -20,7 +23,7 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [ ] Complete generated-on, SemIf generated and AnyJev generated P0/P1/P2 repeat series under their own frozen protocols and the shared native host lock.
 - [ ] Refresh hosted availability before any of the ten remaining exact generic local configurations. Do not resume the cancelled DeepSeek download.
-- [ ] Finish the remaining hosted Qwen, Gemma, DeepSeek, Mistral and Gemini configurations listed in the detailed roster. Last reconciled OpenRouter capacity: $0.03458035850 unallocated under the $10 total cap. The proposed $17 total is not yet explicitly confirmed; willingness to add funds is recorded separately from a numeric cap increase. TypeSafe retains its separate $1 cap.
+- [ ] Finish the remaining hosted Qwen, Gemma, DeepSeek, Mistral and Gemini configurations listed in the detailed roster. Last reconciled OpenRouter capacity: $0.03405120050 unallocated under the $10 total cap. The proposed $17 total is not yet explicitly confirmed; willingness to add funds is recorded separately from a numeric cap increase. TypeSafe retains its separate $1 cap.
 - [ ] Admit new decision models individually after exact route, interface, account access, price and context checks. A vendor's free preview listing does not establish account access. Preserve native probabilities separately from generated-letter logprobs.
 - [ ] Resolve reference-review items with human adjudication where required. Preserve frozen labels and original scores.
 - [ ] Finish full roster reconciliation and publish completed, failed, unsupported and blocked dispositions. The overall MVP is not complete merely because one repeat series is finished.
