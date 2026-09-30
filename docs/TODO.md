@@ -22,7 +22,7 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [x] **GLiNER decision-model admission research — native_variants_prepare:** [Primary-source brief](GLINER_DECISION_ADMISSION_2026-09-30.md) identifies the exact Fastino hosted Decide model and public tariff separately from Multi and the open-weight checkpoint. Root independently verified the public catalog bodies and preserved them. Account access, spending authority and request/context verification remain; no GLiNER inference is admitted.
 
-- [ ] **GLiNER offline protocol — native_variants_prepare:** prepare a concrete four-head hosted request schema and separately declared P0/P1/P2 equivalents from primary API documentation. No credentials, inference, downloads or spending.
+- [x] **GLiNER offline protocol — native_variants_prepare / root:** [proposal](GLINER_HOSTED_PROTOCOL_PROPOSAL_2026-09-30.md) defines four ordered heads and P0/P1/P2 request construction. Root review: APPROVE as a proposal. RESIDUAL: the encoder may classify policy text rather than honor it as instructions; four-head response shape and full-request context accounting still need verification. Valid labels remain valid regardless of confidence. No execution admission, credentials, inference, downloads or spending.
 
 ## Verified progress
 
