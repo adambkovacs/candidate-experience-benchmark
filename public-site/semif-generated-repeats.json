@@ -46,18 +46,13 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 2,
+      "completedConditions": 3,
       "plannedConditions": 9,
       "missingPasses": [
         {
-          "pass": "fresh1",
-          "condition": "P1",
-          "status": "claimed_in_progress_or_interrupted"
-        },
-        {
           "pass": "fresh2",
           "condition": "P1",
-          "status": "not_started"
+          "status": "claimed_in_progress_or_interrupted"
         },
         {
           "pass": "fresh2",
@@ -618,6 +613,286 @@
                 }
               }
             }
+          },
+          "P1": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 38,
+              "allFour": 26,
+              "fields": {
+                "sentiment": 33,
+                "follow_up_needed": 38,
+                "serious_concern_reported": 36,
+                "testimonial_potential": 32
+              },
+              "outcomes": {
+                "valid": 38,
+                "invalid_output": 22,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": [
+                "DEV-003",
+                "DEV-004",
+                "DEV-005",
+                "DEV-006",
+                "DEV-009",
+                "DEV-016",
+                "DEV-017",
+                "DEV-020",
+                "DEV-026",
+                "DEV-029",
+                "DEV-030",
+                "DEV-031",
+                "DEV-036",
+                "DEV-040",
+                "DEV-042",
+                "DEV-043",
+                "DEV-044",
+                "DEV-050",
+                "DEV-051",
+                "DEV-053",
+                "DEV-055",
+                "DEV-060"
+              ]
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 7,
+                "negative": 17,
+                "neutral": 4,
+                "positive": 10
+              },
+              "follow_up_needed": {
+                "no": 15,
+                "yes": 23
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 1,
+                "no": 19,
+                "yes": 18
+              },
+              "testimonial_potential": {
+                "no": 38
+              }
+            },
+            "confusionCounts": {
+              "sentiment": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 2
+                },
+                "mixed": {
+                  "__invalid_or_missing__": 1,
+                  "mixed": 5,
+                  "positive": 2
+                },
+                "negative": {
+                  "__invalid_or_missing__": 11,
+                  "mixed": 2,
+                  "negative": 17,
+                  "neutral": 1
+                },
+                "neutral": {
+                  "__invalid_or_missing__": 5,
+                  "neutral": 3
+                },
+                "positive": {
+                  "__invalid_or_missing__": 3,
+                  "positive": 8
+                }
+              },
+              "follow_up_needed": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 1
+                },
+                "no": {
+                  "__invalid_or_missing__": 9,
+                  "no": 15
+                },
+                "yes": {
+                  "__invalid_or_missing__": 12,
+                  "yes": 23
+                }
+              },
+              "serious_concern_reported": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 4,
+                  "insufficient_information": 1,
+                  "yes": 1
+                },
+                "no": {
+                  "__invalid_or_missing__": 11,
+                  "no": 18
+                },
+                "yes": {
+                  "__invalid_or_missing__": 7,
+                  "no": 1,
+                  "yes": 17
+                }
+              },
+              "testimonial_potential": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 1
+                },
+                "no": {
+                  "__invalid_or_missing__": 18,
+                  "no": 32
+                },
+                "yes": {
+                  "__invalid_or_missing__": 3,
+                  "no": 6
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                4.4830405410029925,
+                4.125847375020385,
+                17.67844695894746,
+                19.952130208956078,
+                19.080033542006277,
+                17.965797166049015,
+                5.173696167010348,
+                4.957466666994151,
+                19.23209829197731,
+                4.090562290977687,
+                4.5781729579903185,
+                5.395916458975989,
+                4.56186895899009,
+                4.416607082996052,
+                4.8410037500434555,
+                19.268905790988356,
+                18.376966750016436,
+                4.6475672500091605,
+                4.829557541990653,
+                20.380892000044696,
+                5.211909875040874,
+                5.348955333989579,
+                5.227971374988556,
+                5.018588999984786,
+                6.721811417024583,
+                23.25633825000841,
+                6.404115375014953,
+                5.569439416984096,
+                20.20613649999723,
+                18.943017833982594,
+                18.268180083017796,
+                5.207203208003193,
+                5.123539791966323,
+                4.93111125001451,
+                5.292943792010192,
+                19.250940540980082,
+                5.1214760830043815,
+                3.9865070420200936,
+                4.340153290948365,
+                23.96586770802969,
+                6.3142944580176845,
+                25.536114541988354,
+                35.31590991601115,
+                33.2045738750021,
+                7.500727957987692,
+                7.760864666954149,
+                8.36913879198255,
+                8.447003000008408,
+                7.86198724998394,
+                28.365916208014823,
+                35.284950333007146,
+                9.597845333977602,
+                30.398348917020485,
+                6.861844083992764,
+                28.02547474997118,
+                7.526952874963172,
+                7.306648375000805,
+                7.525330124946777,
+                7.592684999981429,
+                28.60230450000381
+              ],
+              "requestSecondsTotal": 742.8316998768132,
+              "clientRunSecondsLowerBound": 742.8316998768132,
+              "inferenceSeconds": null,
+              "tokens": {
+                "input_tokens": 107550,
+                "output_tokens": 8070,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured."
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.root-review.json",
+                  "sha256": "f24b16923811054498af0b1049620199c6eafab557c2680d85e061f3b014cf22"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.claim.json",
+                  "sha256": "46d77da219f8febb8d8c64c821f3f773f1ea985b3bdb545dc61a30e2fd9648f1"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.journal.jsonl",
+                  "sha256": "4a2e01c13f6de6096b13f05199d0a3f0716a77bb40528cd30767323ad337abb4"
+                },
+                "events": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.events.jsonl",
+                  "sha256": "a45ecd6f96de069c983471e6f360e71611c0d7306e1d80deb8dd1692de06800b"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.raw.jsonl",
+                  "sha256": "40b0a8aa506bf55fdb019617cf1e6709d79f0d6ab4421c925fbf2a4a80052b27"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.records.jsonl",
+                  "sha256": "154897cd246f9631416af5a632883501f699c22447229f8c949463595509af8f"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.completion.json",
+                  "sha256": "b498e398d465512b03e52ccd7dd123c2f22a1e6a52f845d8fc581cfc409c9328"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke-inspection.json",
+                "sha256": "0948df8c327d898bf01ec82bea0d5e452154f0873db20b4dabf45471cae8d308"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.root-review.json",
+                  "sha256": "53d7d7ecd7acd80c89b0ad5eacc6c04c1fed698791b448c20a459e31506999bb"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.claim.json",
+                  "sha256": "2514e9b6c3a6a72f324d0e5cdf03fb1077d4ccf7a1ec1c95b72ac5aad96bfa37"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.journal.jsonl",
+                  "sha256": "7d92be201e81d744ddf238da5778e06de2b9d616d58c7bfab9bc3d67e1d7970f"
+                },
+                "events": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.events.jsonl",
+                  "sha256": "edd920a3af9b04ab4471c755f4fc36a3ec7a1858927dd1794bc8113b099b6379"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.raw.jsonl",
+                  "sha256": "8ae17f491fc319697247efa2bbe367df2afc4721cfcd37f10c279bf261e24499"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.records.jsonl",
+                  "sha256": "9716978a95d136de256e4fc27423aba250e85eb6f24a2c025f94c186b4b95b94"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.completion.json",
+                  "sha256": "616699d7b39e2a5a0f4d460ce41c53d7f4d7f1e5a58c0b7dccb94ba5318812e0"
+                }
+              }
+            }
           }
         },
         "fresh2": {},
@@ -670,33 +945,43 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              26
+            ],
             "mean": null,
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                33
+              ],
               "mean": null,
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                38
+              ],
               "mean": null,
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                36
+              ],
               "mean": null,
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                32
+              ],
               "mean": null,
               "range": null
             }
@@ -753,6 +1038,19 @@
         {
           "pass": "fresh1",
           "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": -9,
+          "fields": {
+            "sentiment": -13,
+            "follow_up_needed": -13,
+            "serious_concern_reported": -11,
+            "testimonial_potential": -14
+          }
+        },
+        {
+          "pass": "fresh1",
+          "from": "P0",
           "to": "P2",
           "denominator": 60,
           "allFour": 8,
@@ -765,6 +1063,69 @@
         }
       ],
       "withinPassPromptFlips": [
+        {
+          "pass": "fresh1",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 37,
+          "excludedIds": [
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-009",
+            "DEV-016",
+            "DEV-017",
+            "DEV-020",
+            "DEV-026",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-036",
+            "DEV-040",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-050",
+            "DEV-051",
+            "DEV-053",
+            "DEV-055",
+            "DEV-060"
+          ],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.02702702702702703,
+            "caseIds": [
+              "DEV-013"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.02702702702702703,
+            "caseIds": [
+              "DEV-024"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.05405405405405406,
+            "caseIds": [
+              "DEV-013",
+              "DEV-024"
+            ]
+          }
+        },
         {
           "pass": "fresh1",
           "from": "P0",
@@ -1027,6 +1388,66 @@
         {
           "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P2/smoke-inspection.json",
           "sha256": "817a0967be79cff3b34c906fb3197de176354de34c50c785e2075631e44ff720"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.root-review.json",
+          "sha256": "f24b16923811054498af0b1049620199c6eafab557c2680d85e061f3b014cf22"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.claim.json",
+          "sha256": "46d77da219f8febb8d8c64c821f3f773f1ea985b3bdb545dc61a30e2fd9648f1"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.journal.jsonl",
+          "sha256": "4a2e01c13f6de6096b13f05199d0a3f0716a77bb40528cd30767323ad337abb4"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.events.jsonl",
+          "sha256": "a45ecd6f96de069c983471e6f360e71611c0d7306e1d80deb8dd1692de06800b"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.raw.jsonl",
+          "sha256": "40b0a8aa506bf55fdb019617cf1e6709d79f0d6ab4421c925fbf2a4a80052b27"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.records.jsonl",
+          "sha256": "154897cd246f9631416af5a632883501f699c22447229f8c949463595509af8f"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke.completion.json",
+          "sha256": "b498e398d465512b03e52ccd7dd123c2f22a1e6a52f845d8fc581cfc409c9328"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.root-review.json",
+          "sha256": "53d7d7ecd7acd80c89b0ad5eacc6c04c1fed698791b448c20a459e31506999bb"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.claim.json",
+          "sha256": "2514e9b6c3a6a72f324d0e5cdf03fb1077d4ccf7a1ec1c95b72ac5aad96bfa37"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.journal.jsonl",
+          "sha256": "7d92be201e81d744ddf238da5778e06de2b9d616d58c7bfab9bc3d67e1d7970f"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.events.jsonl",
+          "sha256": "edd920a3af9b04ab4471c755f4fc36a3ec7a1858927dd1794bc8113b099b6379"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.raw.jsonl",
+          "sha256": "8ae17f491fc319697247efa2bbe367df2afc4721cfcd37f10c279bf261e24499"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.records.jsonl",
+          "sha256": "9716978a95d136de256e4fc27423aba250e85eb6f24a2c025f94c186b4b95b94"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/development.completion.json",
+          "sha256": "616699d7b39e2a5a0f4d460ce41c53d7f4d7f1e5a58c0b7dccb94ba5318812e0"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh1/P1/smoke-inspection.json",
+          "sha256": "0948df8c327d898bf01ec82bea0d5e452154f0873db20b4dabf45471cae8d308"
         }
       ],
       "declaredExternalSourceHashes": {
