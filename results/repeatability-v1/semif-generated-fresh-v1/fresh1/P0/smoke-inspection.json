@@ -1,0 +1,36 @@
+{
+  "accepted_unchanged_invalids": true,
+  "approved": true,
+  "failure_class": "intrinsic_schema",
+  "inspected_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "inspection_reason": "Root read all three saved raw responses. Each has stop finish. DEV-001 and DEV-003 match the four-field schema under the frozen parser; DEV-002 echoes the JSON schema instead of judgments and is retained invalid. Exact request/token/runtime bindings verify; no output repair or prompt/control change.",
+  "inspector": "root",
+  "phase": "fresh1/P0",
+  "plan_sha256": "b5b13e48cd92979404aeb35beb2f17adf738f8358b22a5f5f5a4a90e7c66ed38",
+  "raw_sha256": "96129660fea2fe7973c354eda7a41e740e68ac4e1cbef3e4b24e26919b496f23",
+  "smoke_sha256": "853bc8a8309a8c45c2702d5c424dd2c381bd89fe6969eefb02815e0f5a8680c2",
+  "tokens": [
+    {
+      "id": "DEV-001",
+      "input": 1623,
+      "output": 45,
+      "status": "ok"
+    },
+    {
+      "id": "DEV-002",
+      "input": 1597,
+      "output": 292,
+      "status": "invalid_output"
+    },
+    {
+      "id": "DEV-003",
+      "input": 1620,
+      "output": 45,
+      "status": "ok"
+    }
+  ]
+}
