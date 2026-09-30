@@ -1,0 +1,21 @@
+{
+  "approved": true,
+  "reviewer": "root independent source and eight-test review",
+  "pass_id": "kev-openrouter-native-p0-fresh2",
+  "manifest_sha256": "3f6b283bd6a70aadd662e7f0eba73d6cc2f19f0a0a94f9c31f3cfc48ab2bd759",
+  "max_reservation_usd": "0.020643840",
+  "record_count": 60,
+  "verdict": "APPROVE",
+  "blocking_findings": [],
+  "resolved_findings": [
+    "Added all first-pass bound source checks, including parser and ledger sources, before repeat admission."
+  ],
+  "residual_findings": [
+    {
+      "label": "RESIDUAL",
+      "finding": "Inherited native response body read has no size cap.",
+      "reason": "Observed replies are small; exceptional oversized responses could exhaust memory while retaining reservation."
+    }
+  ],
+  "scope": "Second native P0 full pass only; identical request bytes; no references or prior predictions sent."
+}
