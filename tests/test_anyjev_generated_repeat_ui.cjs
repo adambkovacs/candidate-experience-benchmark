@@ -35,10 +35,11 @@ async function render(payload = feed, status = 200, selected = feed.configuratio
   vm.runInNewContext(source, {document, fetch, console}, {filename: 'repeats.js'});
   await new Promise(resolve => setImmediate(resolve));
   return {get: id => elements.get(id), requested,
-    field(value) { elements.get('repeat-field').value = value; elements.get('repeat-field').change(); }};
+    field(value) { elements.get('repeat-field').value = value; elements.get('repeat-field').change(); },
+    condition(value) { elements.get('repeat-condition').value = value; elements.get('repeat-condition').change(); }};
 }
 
-test('first generated P0/P1/P2 pass preserves invalid outcomes and fixed-60 scores', async () => {
+test('closed generated phases preserve invalid outcomes and fixed-60 scores', async () => {
   const ui = await render();
   assert.equal(ui.requested.filter(name => name === url).length, 1);
   const options = ui.get('repeat-results').innerHTML;
@@ -46,13 +47,25 @@ test('first generated P0/P1/P2 pass preserves invalid outcomes and fixed-60 scor
   assert.match(options, /anyjev-native-fixture/);
   assert.match(options, /anyjev-qwen06-generated-fresh-three/);
   const lead = ui.get('repeat-lead').textContent;
-  assert.match(lead, new RegExp(`${feed.completedConditions} of 9 planned prompt/pass combinations`));
-  assert.match(lead, /P0 Fresh pass 1: 0\/60 valid responses/);
-  assert.match(lead, /P1 Fresh pass 1: 0\/60 valid responses/);
-  assert.match(lead, /P2 Fresh pass 1: 30\/60 valid responses/);
-  assert.match(lead, /generated JSON control is separate from AnyJev native readouts/);
-  assert.match(lead, /strict parser does not repair fenced JSON/);
-  assert.match(lead, /zero shared-valid reviews cannot show stability/);
+  assert.match(lead, new RegExp(`${feed.completedConditions} of 9 full phases closed`));
+  assert.match(lead, /Valid responses by pass 1\/2\/3/);
+  for (const condition of feed.conditionOrder) {
+    const counts = feed.passOrder.map(pass => feed.passes[pass][condition]?.completionStatus === 'complete'
+      ? feed.passes[pass][condition].score.valid : 'pending');
+    assert.ok(lead.includes(`${condition} ${counts.join(' / ')}`));
+  }
+  assert.match(lead, /pending means no full score/);
+  assert.match(lead, /separate from native AnyJev/);
+  assert.match(lead, /Counts and scores use all 60 reviews, including invalid outputs/);
+  assert.doesNotMatch(lead, /parser|inference time|private tokenizer/);
+  const limits = ui.get('repeat-interpretation').innerHTML;
+  assert.match(limits, /^<details><summary>Protocol and measurement limits<\/summary>/);
+  assert.doesNotMatch(limits, /^<details open/);
+  assert.match(limits, /strict parser does not repair fenced JSON/);
+  assert.match(limits, /zero shared-valid reviews cannot show stability/);
+  assert.match(limits, /historical generated observations are ineligible/);
+  assert.match(limits, /private tokenizer/);
+  assert.match(limits, /local hardware and electricity cost are unknown/);
   const chart = ui.get('repeat-chart').innerHTML;
   assert.match(chart, /value="0"[^>]*aria-label="P0 Fresh pass 1 All four decisions: 0 out of 60"/);
   assert.match(chart, /value="1"[^>]*aria-label="P2 Fresh pass 1 All four decisions: 1 out of 60"/);
@@ -64,6 +77,11 @@ test('first generated P0/P1/P2 pass preserves invalid outcomes and fixed-60 scor
   assert.match(ui.get('repeat-deltas').innerHTML, /unavailable; no shared-valid reviews; 0 shared valid of 60; 60 excluded/);
   assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /0 \/ 0 changed/);
+  ui.condition('P1');
+  assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 shared-valid reviews\)/);
+  ui.condition('P2');
+  assert.match(ui.get('repeat-flips').innerHTML, /0 \/ 30 changed/);
+  assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>/);
   const usage = ui.get('repeat-usage-body').innerHTML;
   assert.match(usage, /94,350/);
   assert.match(usage, /2,726/);
@@ -76,7 +94,6 @@ test('first generated P0/P1/P2 pass preserves invalid outcomes and fixed-60 scor
   assert.match(usage, /263\.6/);
   assert.match(usage, /Unavailable/);
   assert.doesNotMatch(usage, /\$0\.00/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /historical generated observations are ineligible/);
   ui.field('sentiment');
   assert.match(ui.get('repeat-chart').innerHTML, /value="0"[^>]*aria-label="P0 Fresh pass 1 Sentiment: 0 out of 60"/);
 });
