@@ -24,7 +24,7 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [x] **GLiNER offline protocol — native_variants_prepare / root:** [proposal](GLINER_HOSTED_PROTOCOL_PROPOSAL_2026-09-30.md) defines four ordered heads and P0/P1/P2 request construction. Root review: APPROVE as a proposal. RESIDUAL: the encoder may classify policy text rather than honor it as instructions; four-head response shape and full-request context accounting still need verification. Valid labels remain valid regardless of confidence. No execution admission, credentials, inference, downloads or spending.
 
-- [ ] **SemIf six-phase publication — root:** `e4383b83` pushed two-pass findings for P0/P1/P2; all 111 source bindings match committed evidence and 13 reporter/UI tests pass. Pages run `36761407351` is in progress. Fresh3/P2 full execution is separate and unscored in this snapshot.
+- [x] **SemIf six-phase publication — root:** `e4383b83` pushed two-pass findings for P0/P1/P2; all 111 source bindings match committed evidence and 13 reporter/UI tests pass. Pages run `36761407351` succeeded; root fetched public HTML and feed and verified byte equality with `e4383b83`. SHA-256: HTML `a636045440ab83fcafbed15f7a11f8f835467a12e9c12d7e913aea3ebf2e2da5`, feed `df56b6b58a497ed5b6a429c04ffcc3812ce0e94f41ab0cc87f28de15e9396b52`. Fresh3/P2 full execution is separate and unscored in this snapshot.
 
 ## Verified progress
 
