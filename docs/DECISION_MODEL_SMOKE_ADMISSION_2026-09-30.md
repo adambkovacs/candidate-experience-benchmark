@@ -1,6 +1,6 @@
 # OpenRouter native Decisions smoke admission — 2026-09-30
 
-**Status: both reviewed three-record smokes closed; Kev's first full 60-record pass prepared offline, not dispatched.** The frozen [smoke manifest](../results/route-audits/decision-smoke-20260930/manifest.json) has canonical SHA-256 `4f6b31e3a213b8d67c3f947de4b152eb29c5e42ff5b094f16e54547a6964a4f5`. Its earlier unexecuted [pre-timing version](../results/route-audits/decision-smoke-20260930/manifest-pre-timing.json), SHA-256 `674547b0b0c1f78d8b216f6c462c903fec345ab74472378a267ac2c0c8e48cd9`, remains for traceability.
+**Status: both three-record smokes and Kev's first full 60-record pass are closed.** The frozen [smoke manifest](../results/route-audits/decision-smoke-20260930/manifest.json) has canonical SHA-256 `4f6b31e3a213b8d67c3f947de4b152eb29c5e42ff5b094f16e54547a6964a4f5`. Its earlier unexecuted [pre-timing version](../results/route-audits/decision-smoke-20260930/manifest-pre-timing.json), SHA-256 `674547b0b0c1f78d8b216f6c462c903fec345ab74472378a267ac2c0c8e48cd9`, remains for traceability.
 
 ## Why these two configurations
 
@@ -33,3 +33,11 @@ The intended native P0 repeat series has three independent 60-record passes over
 The Decisions API accepts `questions` and `state` rather than chat role messages, so chat-system-message P1/P2 transformations cannot be copied literally. Native **criteria or policy variants** may still serve as declared P1/P2 equivalents, as in the existing Jev native variant work. Their exact request transforms and comparability need a separate design and review; both are marked **design pending**, not excluded or completed. This first-pass manifest contains only native P0.
 
 `python3 -m unittest tests.test_openrouter_decision_development -v` passed ten offline tests, including the closed-smoke prerequisite, 60 exact input-only requests, plan and evidence tamper rejection, a mocked complete pass, no dispatch on insufficient headroom, unknown-cost and transport stops, provider-mismatch settlement, and duplicate-dispatch refusal. No Kev development inference or budget reservation has occurred.
+
+## First Kev full pass verified
+
+The separately reviewed native P0 fresh1 pass completed all 60 ordered requests with 60 valid outputs. Root reconciled every raw response hash, returned model/provider, parsed prediction and reserve/settle pair against the immutable manifest and shared ledger. The [completion receipt](../results/route-audits/decision-kev-development-20260930/completion.json) binds the [attempt evidence](../results/route-audits/decision-kev-development-20260930/attempts.jsonl). No request was retried or repaired.
+
+Observed request charges total **$0.004703412**, with **111,986 input tokens** and **17,350 reported output tokens**; the pinned output-token tariff is zero. Summed client request time is **94.52 seconds**, not pure inference time. Offline agreement with the unchanged provisional references is **48/60 across all four fields**, with sentiment **52/60**, follow-up **58/60**, serious concern **55/60** and testimonial potential **59/60**. One full pass does not establish repeatability or calibrated confidence.
+
+After settlement, the shared ledger accounts for $9.97065221150 with $0.02934778850 headroom and no pending reservations. This can cover the $0.020643840 bound for a separately reviewed second pass; no second pass is claimed complete or admitted by this checkpoint. Native P1/P2-equivalent designs remain pending.

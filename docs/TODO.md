@@ -5,8 +5,8 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 ## Active assignments
 
 - [ ] **Website and findings — root:** maintain published snapshot be554f15 (generated-off 9/9, generated-on 2/9), now live with results-first navigation and expandable findings. Publish subsequent closed phases after verification.
-- [ ] **OpenJev generated-on — resume_generated:** All three fresh1 conditions are closed. Fresh2/P1 full is running after root inspection of its smoke; DEV-001 malformed JSON remains an invalid output without repair. Inspect subsequent smokes before full passes.
-- [ ] **Hosted decision smoke adapter — decision_route_audit:** Jev and Kev smokes each closed with three valid responses and observed charges. Prepare Kev’s first 60-record native pass and the explicit repeat plan; review before dispatch.
+- [ ] **OpenJev generated-on — resume_generated:** All three fresh1 conditions and fresh2/P1 are closed. Fresh2/P2 full is approved after inspection of three valid smoke responses. Inspect subsequent smokes before full passes.
+- [ ] **Hosted decision smoke adapter — decision_route_audit:** Jev and Kev smokes each closed with three valid responses and observed charges. Kev’s first 60-record native pass is closed with 60 valid outputs and $0.004703412 observed cost. Prepare and review separate second/third pass controllers; native P1/P2 equivalents remain pending design.
 - [ ] **Integration — root:** review closed evidence and new adapter, stage only completed artifacts, run checks, commit and push, then verify the deployed website.
 
 ## Verified progress
@@ -26,7 +26,7 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [ ] Complete generated-on, SemIf generated and AnyJev generated P0/P1/P2 repeat series under their own frozen protocols and the shared native host lock.
 - [ ] Refresh hosted availability before any of the ten remaining exact generic local configurations. Do not resume the cancelled DeepSeek download.
-- [ ] Finish the remaining hosted Qwen, Gemma, DeepSeek, Mistral and Gemini configurations listed in the detailed roster. Last reconciled OpenRouter capacity: $0.03405120050 unallocated under the $10 total cap. The proposed $17 total is not yet explicitly confirmed; willingness to add funds is recorded separately from a numeric cap increase. TypeSafe retains its separate $1 cap.
+- [ ] Finish the remaining hosted Qwen, Gemma, DeepSeek, Mistral and Gemini configurations listed in the detailed roster. Last reconciled OpenRouter capacity: $0.02934778850 unallocated under the $10 total cap. The proposed $17 total is not yet explicitly confirmed; willingness to add funds is recorded separately from a numeric cap increase. TypeSafe retains its separate $1 cap.
 - [ ] Admit new decision models individually after exact route, interface, account access, price and context checks. A vendor's free preview listing does not establish account access. Preserve native probabilities separately from generated-letter logprobs. The 30 September check found no conventional Liquid, Upstage, Alibaba/DashScope, Together, Nace/Drex, Fastino or Cloudflare credential variables in this project's `.env` or the current process environment. This does not establish whether credentials exist elsewhere; direct-provider access remains unverified. OpenRouter Jev/Kev access is verified by their saved smokes.
 - [ ] Resolve reference-review items with human adjudication where required. Preserve frozen labels and original scores.
 - [ ] Finish full roster reconciliation and publish completed, failed, unsupported and blocked dispositions. The overall MVP is not complete merely because one repeat series is finished.
