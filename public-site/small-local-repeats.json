@@ -6469,26 +6469,8 @@
       "referenceStatus": "AI reviewed provisional, not independent adjudication",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 0,
+      "completedConditions": 3,
       "missingPasses": [
-        {
-          "pass": "fresh1",
-          "condition": "P0",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
-        {
-          "pass": "fresh1",
-          "condition": "P2",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
-        {
-          "pass": "fresh1",
-          "condition": "P1",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
         {
           "pass": "fresh2",
           "condition": "P2",
@@ -6528,94 +6510,702 @@
       ],
       "partialPasses": [],
       "passes": {
-        "fresh1": {},
+        "fresh1": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 38,
+              "fields": {
+                "sentiment": 46,
+                "follow_up_needed": 58,
+                "serious_concern_reported": 52,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 20,
+                "negative": 23,
+                "neutral": 7,
+                "positive": 10
+              },
+              "follow_up_needed": {
+                "no": 24,
+                "yes": 36
+              },
+              "serious_concern_reported": {
+                "no": 35,
+                "yes": 25
+              },
+              "testimonial_potential": {
+                "no": 49,
+                "yes": 11
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                1.112492333,
+                1.4617965,
+                1.862527375,
+                1.415607917,
+                1.459229875,
+                1.581792917,
+                1.680864417,
+                1.917768875,
+                1.805036125,
+                1.56166025,
+                1.572287375,
+                1.536725042,
+                1.494576875,
+                1.799566584,
+                1.760480709,
+                1.715417042,
+                1.805050666,
+                2.55436025,
+                1.702020416,
+                1.97274575,
+                2.358041542,
+                2.040592583,
+                1.374993667,
+                1.482063708,
+                1.531558,
+                1.978153,
+                1.534725708,
+                1.506331625,
+                1.44827225,
+                1.409679917,
+                1.478417917,
+                1.367526875,
+                1.533597083,
+                1.601853667,
+                1.668353583,
+                1.444356292,
+                1.755724,
+                1.332139375,
+                1.42151025,
+                1.332532875,
+                1.377190083,
+                1.426008375,
+                1.511538208,
+                1.486939458,
+                1.6130865,
+                1.463298666,
+                1.329418,
+                1.386757375,
+                1.342174459,
+                1.415361583,
+                1.403270416,
+                1.387943166,
+                1.352712,
+                1.361664375,
+                1.435264917,
+                1.410285625,
+                1.426516042,
+                1.482453375,
+                1.475994,
+                1.435591166
+              ],
+              "clientRequestSecondsTotal": 93.895898999,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 97768,
+                "output_tokens": 2100,
+                "total_tokens": 99868,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.root-review.json",
+                  "sha256": "29b336e01da2f646b6669ef83756e2221d19eb47b28344b453ad1e68c6987a33"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.claim.json",
+                  "sha256": "3ed0a4e8ebf9d70f20b1bb78d04f7649fa790d901d3676c82937737565e216e9"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.raw.jsonl",
+                  "sha256": "8dbe80accb551ccb462ee29ddef4a348214dc9f8ca4c4f051ecbfaaf353da17a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.records.jsonl",
+                  "sha256": "d7838b027941cd2b3b7f680e743e19f0737a723e2f09186ea915edd2f0742bd5"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.journal.jsonl",
+                  "sha256": "c456995a214be57ce2a514177f0dc8920dc159181ae9207bb2dc25bf10ac133b"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.completion.json",
+                  "sha256": "ccd6c821b83763faf1883e933e4d1e2e64823c2519562ccf52d9ad291194103f"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke-inspection.json",
+                "sha256": "952b2137104188c75a39d2ece816acdc33d1e7540d27887f5c5a2cf93889ae8b"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.root-review.json",
+                  "sha256": "2552a7255200d3eab65d7dd23ec4f8e6ddc107c8cabc0f17a0758c019e858484"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.claim.json",
+                  "sha256": "0905b8c045e95ad8894de8041ce80732167293f1ecc680e1e0a3315e380e8fdb"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.raw.jsonl",
+                  "sha256": "9884a8305a8fcc8c8556ffa30b1d8b4e01847bea977698f0af98146fe300010d"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.records.jsonl",
+                  "sha256": "137d8319137d2b93bd8a2b9396ad45f93d76ab6d2b95107309c059258a58f97d"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.journal.jsonl",
+                  "sha256": "4798c7cbbb3c95d96301d33b453c48fbc7a4bec19a6935d42d443c736f72c734"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.completion.json",
+                  "sha256": "4126ffe5d7443f73edb8c7a18b47d25a3e9633e6eb62f4b7852d3dab15a8c037"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
+          },
+          "P2": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 42,
+              "fields": {
+                "sentiment": 48,
+                "follow_up_needed": 58,
+                "serious_concern_reported": 54,
+                "testimonial_potential": 58
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 18,
+                "negative": 23,
+                "neutral": 9,
+                "positive": 10
+              },
+              "follow_up_needed": {
+                "no": 24,
+                "yes": 36
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 34,
+                "yes": 24
+              },
+              "testimonial_potential": {
+                "no": 50,
+                "yes": 10
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                1.741047208,
+                1.686444708,
+                2.372558875,
+                2.643637792,
+                2.242163208,
+                1.881662708,
+                1.902409083,
+                1.777104583,
+                1.617308,
+                2.212095167,
+                1.831542458,
+                1.515664667,
+                1.576149541,
+                1.702862458,
+                1.675527583,
+                1.924684958,
+                2.016359541,
+                2.18187775,
+                2.04233125,
+                2.181375166,
+                1.825133375,
+                1.704379625,
+                1.509391,
+                1.550827292,
+                1.543756333,
+                1.504727083,
+                1.398204708,
+                1.552434542,
+                1.624202042,
+                1.534997292,
+                1.545389625,
+                1.382853,
+                1.275882834,
+                1.406470791,
+                1.437635167,
+                1.440045708,
+                2.007363334,
+                2.005924167,
+                1.899509125,
+                1.568578792,
+                1.409956209,
+                1.600487208,
+                1.751037041,
+                1.780235584,
+                2.108194291,
+                1.928361625,
+                1.778533459,
+                2.20148975,
+                1.7971925,
+                1.760186333,
+                1.615771041,
+                1.627073709,
+                1.846899167,
+                1.645684083,
+                1.514534125,
+                1.633057667,
+                1.456780708,
+                1.90954175,
+                1.840506958,
+                1.660223667
+              ],
+              "clientRequestSecondsTotal": 105.308259414,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 164428,
+                "output_tokens": 2106,
+                "total_tokens": 166534,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.root-review.json",
+                  "sha256": "34486b2d686ec8374b193cc8023ccf4229ecbcd5d4e0783ac738942a9fe90996"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.claim.json",
+                  "sha256": "187cdf99abc8d5959ae33c8f3ecafda5ab2c79d8efe3e179d09a44314ecc5717"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.raw.jsonl",
+                  "sha256": "e481728d6ea89c1c71e4a00a9c8a7ac624b818643b8b472f40298ad68636b9df"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.records.jsonl",
+                  "sha256": "65c5450595bbc2ec149572b208aa6f4cc802f8f9744abeebf83153613cadde2e"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.journal.jsonl",
+                  "sha256": "6ba7eee2667a271165ec66db8313379684cd947e1e1b7337482cd4ac1252da20"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.completion.json",
+                  "sha256": "821530ad06eec20d5d86dc83c8db6a19ddb7735a498922d4e24c69ad45cc9870"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke-inspection.json",
+                "sha256": "4fe8f25b860d2e0790dc23336a58a668336a5f0bb4e9962d9eceeb6a50a6cafe"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.root-review.json",
+                  "sha256": "19063d8e765460a72aa2f781c3271d725af850238c0323d9345fdf3780b15b74"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.claim.json",
+                  "sha256": "6b8c3d34e1b6633653c19ed2c8fa6fcf2ee1fec6844e43d66da9cc90ae3bdf3d"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.raw.jsonl",
+                  "sha256": "7d61ce8d9e73656cd1371713e21d2f905f158e590bd8a425767c140b6d00dc9a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.records.jsonl",
+                  "sha256": "fdba11be480c05a83b1aa9e8300a53bd6ed8b882d5e78084f60a059f438ff37f"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.journal.jsonl",
+                  "sha256": "faf287f5dc9e4dcfab3470ea2b3ffc11e5fdcc1bf2a26ef1a0d0c331a13948e8"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.completion.json",
+                  "sha256": "1cd74c6eb8ccef8da624b14b4e355343f494f921da00d598ccc46235323ea2be"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
+          },
+          "P1": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 41,
+              "fields": {
+                "sentiment": 48,
+                "follow_up_needed": 58,
+                "serious_concern_reported": 52,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 18,
+                "negative": 24,
+                "neutral": 9,
+                "positive": 9
+              },
+              "follow_up_needed": {
+                "no": 24,
+                "yes": 36
+              },
+              "serious_concern_reported": {
+                "no": 36,
+                "yes": 24
+              },
+              "testimonial_potential": {
+                "no": 51,
+                "yes": 9
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                1.57342025,
+                1.608917791,
+                1.46673175,
+                1.474783791,
+                1.669624125,
+                1.577476833,
+                1.684242083,
+                1.652791333,
+                1.481252375,
+                1.482724958,
+                1.529624625,
+                1.613490625,
+                1.370246417,
+                1.621941959,
+                1.683092542,
+                1.427841334,
+                1.357878958,
+                1.337655458,
+                1.287491291,
+                1.475094584,
+                1.540101583,
+                1.58567475,
+                1.749320708,
+                2.01860375,
+                1.926928833,
+                1.940576958,
+                1.928442375,
+                1.68635725,
+                1.601866209,
+                1.861535125,
+                1.719708292,
+                1.535504167,
+                1.685388,
+                1.494449625,
+                1.557557083,
+                1.562153959,
+                1.38267875,
+                1.373366042,
+                1.467746042,
+                1.453395875,
+                1.336924834,
+                1.48581475,
+                1.444164791,
+                1.41312,
+                1.326635541,
+                1.363172875,
+                1.512462709,
+                1.746947833,
+                1.625411458,
+                1.4684315,
+                2.282056709,
+                1.9851075,
+                1.984883917,
+                2.022087375,
+                1.86389775,
+                1.779463959,
+                1.675743417,
+                1.615320542,
+                1.566562125,
+                1.534243959
+              ],
+              "clientRequestSecondsTotal": 96.480132002,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 108568,
+                "output_tokens": 2100,
+                "total_tokens": 110668,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.root-review.json",
+                  "sha256": "222896402c6ca51612c946270b9429b5b5605536f7a428062f1bbb87188a95ce"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.claim.json",
+                  "sha256": "cab25f4798cc18e5de00a032ad137adfac86bcd1786a4cbe0a9eb37418156b66"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.raw.jsonl",
+                  "sha256": "3634ad7555dd897ab19f4179507b2c8c472c6c510bdc8d6ca71a842f9e9adabc"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.records.jsonl",
+                  "sha256": "70cfbf48ef46e70da80e30eb26bdad32df34d71b375db79df846deef7266cc22"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.journal.jsonl",
+                  "sha256": "c4c91da2bc232ec01b6282a0e6737a092273deb43e08a6579aa177cae1702d03"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.completion.json",
+                  "sha256": "feea786c7fe944f9a14032d7f8db625083a16e1fa8b1983771e133a91af89920"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke-inspection.json",
+                "sha256": "a42bf0fec112c9b72b9011327c110ae912067005bc69e32e5219f915bad9176e"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.root-review.json",
+                  "sha256": "06da469ad85c53f5c4ad068983e7be42fd4fa6d3ca5f873a12959166c263c767"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.claim.json",
+                  "sha256": "8d17821378d247766a5f09d4e2a6cefd50a0a6bd74adc0e6b9c4f824a020d463"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.raw.jsonl",
+                  "sha256": "483a085cbf751dd55650d460c7ddc516bbdafd3b9fe979dc6b216b9d738aaa3a"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.records.jsonl",
+                  "sha256": "29845136624b0358df40b1586ee74d0fb93aca9c3f1c0e8a6e98ca00e257c312"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.journal.jsonl",
+                  "sha256": "dca8b85feab0f6ed5025e48045d265c20322b46d5c9cbe1f82906a3b0e61b9bc"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.completion.json",
+                  "sha256": "50fffac5046f81a2dcdf79d154790484890832307f5b90001e13a2c3abae2642"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
+          }
+        },
         "fresh2": {},
         "fresh3": {}
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              38
+            ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                46
+              ],
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                58
+              ],
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                52
+              ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                57
+              ],
               "range": null
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              41
+            ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                48
+              ],
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                58
+              ],
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                52
+              ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                57
+              ],
               "range": null
             }
           }
         },
         "P2": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              42
+            ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                48
+              ],
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                58
+              ],
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                54
+              ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                58
+              ],
               "range": null
             }
           }
@@ -6692,6 +7282,166 @@
         {
           "path": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-off/P2/development.jsonl",
           "sha256": "e91d2ab123c246db826af8b127265fd4bc7f759ba724cf6f8e792ae347a4ee15"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.root-review.json",
+          "sha256": "29b336e01da2f646b6669ef83756e2221d19eb47b28344b453ad1e68c6987a33"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.claim.json",
+          "sha256": "3ed0a4e8ebf9d70f20b1bb78d04f7649fa790d901d3676c82937737565e216e9"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.raw.jsonl",
+          "sha256": "8dbe80accb551ccb462ee29ddef4a348214dc9f8ca4c4f051ecbfaaf353da17a"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.records.jsonl",
+          "sha256": "d7838b027941cd2b3b7f680e743e19f0737a723e2f09186ea915edd2f0742bd5"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.journal.jsonl",
+          "sha256": "c456995a214be57ce2a514177f0dc8920dc159181ae9207bb2dc25bf10ac133b"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke.completion.json",
+          "sha256": "ccd6c821b83763faf1883e933e4d1e2e64823c2519562ccf52d9ad291194103f"
+        },
+        {
+          "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+          "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.root-review.json",
+          "sha256": "2552a7255200d3eab65d7dd23ec4f8e6ddc107c8cabc0f17a0758c019e858484"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.claim.json",
+          "sha256": "0905b8c045e95ad8894de8041ce80732167293f1ecc680e1e0a3315e380e8fdb"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.raw.jsonl",
+          "sha256": "9884a8305a8fcc8c8556ffa30b1d8b4e01847bea977698f0af98146fe300010d"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.records.jsonl",
+          "sha256": "137d8319137d2b93bd8a2b9396ad45f93d76ab6d2b95107309c059258a58f97d"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.journal.jsonl",
+          "sha256": "4798c7cbbb3c95d96301d33b453c48fbc7a4bec19a6935d42d443c736f72c734"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/development.completion.json",
+          "sha256": "4126ffe5d7443f73edb8c7a18b47d25a3e9633e6eb62f4b7852d3dab15a8c037"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P0/smoke-inspection.json",
+          "sha256": "952b2137104188c75a39d2ece816acdc33d1e7540d27887f5c5a2cf93889ae8b"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.root-review.json",
+          "sha256": "34486b2d686ec8374b193cc8023ccf4229ecbcd5d4e0783ac738942a9fe90996"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.claim.json",
+          "sha256": "187cdf99abc8d5959ae33c8f3ecafda5ab2c79d8efe3e179d09a44314ecc5717"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.raw.jsonl",
+          "sha256": "e481728d6ea89c1c71e4a00a9c8a7ac624b818643b8b472f40298ad68636b9df"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.records.jsonl",
+          "sha256": "65c5450595bbc2ec149572b208aa6f4cc802f8f9744abeebf83153613cadde2e"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.journal.jsonl",
+          "sha256": "6ba7eee2667a271165ec66db8313379684cd947e1e1b7337482cd4ac1252da20"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke.completion.json",
+          "sha256": "821530ad06eec20d5d86dc83c8db6a19ddb7735a498922d4e24c69ad45cc9870"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.root-review.json",
+          "sha256": "19063d8e765460a72aa2f781c3271d725af850238c0323d9345fdf3780b15b74"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.claim.json",
+          "sha256": "6b8c3d34e1b6633653c19ed2c8fa6fcf2ee1fec6844e43d66da9cc90ae3bdf3d"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.raw.jsonl",
+          "sha256": "7d61ce8d9e73656cd1371713e21d2f905f158e590bd8a425767c140b6d00dc9a"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.records.jsonl",
+          "sha256": "fdba11be480c05a83b1aa9e8300a53bd6ed8b882d5e78084f60a059f438ff37f"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.journal.jsonl",
+          "sha256": "faf287f5dc9e4dcfab3470ea2b3ffc11e5fdcc1bf2a26ef1a0d0c331a13948e8"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/development.completion.json",
+          "sha256": "1cd74c6eb8ccef8da624b14b4e355343f494f921da00d598ccc46235323ea2be"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P2/smoke-inspection.json",
+          "sha256": "4fe8f25b860d2e0790dc23336a58a668336a5f0bb4e9962d9eceeb6a50a6cafe"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.root-review.json",
+          "sha256": "222896402c6ca51612c946270b9429b5b5605536f7a428062f1bbb87188a95ce"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.claim.json",
+          "sha256": "cab25f4798cc18e5de00a032ad137adfac86bcd1786a4cbe0a9eb37418156b66"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.raw.jsonl",
+          "sha256": "3634ad7555dd897ab19f4179507b2c8c472c6c510bdc8d6ca71a842f9e9adabc"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.records.jsonl",
+          "sha256": "70cfbf48ef46e70da80e30eb26bdad32df34d71b375db79df846deef7266cc22"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.journal.jsonl",
+          "sha256": "c4c91da2bc232ec01b6282a0e6737a092273deb43e08a6579aa177cae1702d03"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke.completion.json",
+          "sha256": "feea786c7fe944f9a14032d7f8db625083a16e1fa8b1983771e133a91af89920"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.root-review.json",
+          "sha256": "06da469ad85c53f5c4ad068983e7be42fd4fa6d3ca5f873a12959166c263c767"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.claim.json",
+          "sha256": "8d17821378d247766a5f09d4e2a6cefd50a0a6bd74adc0e6b9c4f824a020d463"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.raw.jsonl",
+          "sha256": "483a085cbf751dd55650d460c7ddc516bbdafd3b9fe979dc6b216b9d738aaa3a"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.records.jsonl",
+          "sha256": "29845136624b0358df40b1586ee74d0fb93aca9c3f1c0e8a6e98ca00e257c312"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.journal.jsonl",
+          "sha256": "dca8b85feab0f6ed5025e48045d265c20322b46d5c9cbe1f82906a3b0e61b9bc"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/development.completion.json",
+          "sha256": "50fffac5046f81a2dcdf79d154790484890832307f5b90001e13a2c3abae2642"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-off/fresh1/P1/smoke-inspection.json",
+          "sha256": "a42bf0fec112c9b72b9011327c110ae912067005bc69e32e5219f915bad9176e"
         }
       ],
       "artifactSha256": "0ffb122c8b6921f13cbc34186e052524d0b5803b17f4867b7197a561400b3770",

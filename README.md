@@ -37,6 +37,8 @@ The [repeat comparison](https://adambkovacs.github.io/candidate-experience-bench
 
 The [Gemini 3.8 Flash low repeats](docs/GEMINI38_LOW_REPEAT_FINDINGS_2026-09-28.md) kept a 57/60 base-prompt score in all three passes while changing one review’s classification. The [fresh Gemma E2B local study](docs/GEMMA_E2B_FRESH_REPEAT_FINDINGS_2026-09-28.md) kept a 35/60 base score while changing nine reviews. Neither model gained all-field matches from either added-instruction prompt in these series. Local timing is reported separately from hosted timing.
 
+The [Gemma E4B thinking-off first pass](docs/GEMMA_E4B_FIRST_PASS_FINDINGS_2026-10-01.md) scored 38/60 for P0, 41/60 for P1 and 42/60 for P2, with 60 valid responses each. Repeats are underway; these first results do not establish a reliable prompt improvement.
+
 The separate [Gemma E2B thinking-on control](docs/GEMMA_E2B_THINKING_ON_FIRST_PASS_FINDINGS_2026-09-30.md) completed all nine phases, each with 60 valid answers. Across three passes, P0 scored 38, 37 and 39; P1 scored 36, 39 and 39; P2 scored 36, 36 and 35 out of 60. Answers changed on 24, 18 and 24 of the same 60 comments respectively. A narrow score range can hide changed decisions. These observations do not establish the effect of enabling thinking.
 
 [AnyJev's raw native readout](docs/ANYJEV_RAW_REPEAT_FINDINGS_2026-09-28.md) returned unchanged classifications across three passes but matched all four fields on 0/60 reviews. It predicted neutral sentiment, follow-up needed and serious concern for every review. Stable output alone does not establish useful classification.
