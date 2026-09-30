@@ -3071,14 +3071,8 @@
       "referenceStatus": "AI reviewed provisional, not independent adjudication",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 6,
+      "completedConditions": 7,
       "missingPasses": [
-        {
-          "pass": "fresh3",
-          "condition": "P2",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
         {
           "pass": "fresh3",
           "condition": "P0",
@@ -4270,7 +4264,201 @@
             }
           }
         },
-        "fresh3": {}
+        "fresh3": {
+          "P2": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 48,
+                "follow_up_needed": 56,
+                "serious_concern_reported": 48,
+                "testimonial_potential": 55
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 15,
+                "negative": 26,
+                "neutral": 8,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 22,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 5,
+                "no": 31,
+                "yes": 24
+              },
+              "testimonial_potential": {
+                "no": 47,
+                "yes": 13
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                9.549842,
+                8.827265875,
+                8.225045292,
+                7.91176275,
+                7.117282709,
+                9.495827959,
+                8.694152458,
+                17.628352208,
+                9.971918084,
+                6.047544083,
+                9.904017209,
+                8.086491167,
+                12.08484075,
+                10.202823333,
+                9.710661959,
+                7.990569208,
+                11.49086175,
+                12.922796792,
+                10.7242085,
+                13.778977833,
+                10.752061125,
+                13.141639459,
+                8.461291,
+                7.66001,
+                11.268002625,
+                8.846571333,
+                7.290684625,
+                11.385107417,
+                11.080844458,
+                13.990172667,
+                12.476312208,
+                10.479830958,
+                11.202823875,
+                10.886952125,
+                10.925253084,
+                9.476119417,
+                10.568334875,
+                7.730128416,
+                8.137197209,
+                8.209181083,
+                14.48675475,
+                10.814350042,
+                11.93577475,
+                11.573030167,
+                8.597564417,
+                7.059656584,
+                10.480508875,
+                9.688329417,
+                10.065949291,
+                12.924139792,
+                11.463847291,
+                10.903586833,
+                7.015070792,
+                10.954485583,
+                11.462369458,
+                7.691615375,
+                14.062724334,
+                13.677925083,
+                13.734420375,
+                16.778111166
+              ],
+              "clientRequestSecondsTotal": 629.703974253,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 164548,
+                "output_tokens": 30450,
+                "total_tokens": 194998,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.root-review.json",
+                  "sha256": "31a604feceef4002fc177bca5b933ef7dcda23c216af95d2fb682880dc19b460"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.claim.json",
+                  "sha256": "a789af8731434e3e2828db8f23f2f297d822165ab31b3f3c499a6516e8da38a3"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.raw.jsonl",
+                  "sha256": "f3d6595a69dc5c39d138f2d5a44e93f180ee1ff40c7985c817addb4a01b0499c"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.records.jsonl",
+                  "sha256": "09b1428f970f0a485cd5503b3967d9aba9f9ec17651496c3bf51636df05fe05e"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.journal.jsonl",
+                  "sha256": "e7a0508686a5fc828c3b0779c67b1f0051c0b4d43208a231e182c73d121a4dfc"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.completion.json",
+                  "sha256": "d8e68a1975f3b819d78b26229b7b66788bad347a2f2732810fa548a4ab15ea3f"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke-inspection.json",
+                "sha256": "4f4cceaf30168d9a02ca8664745626bf37acbd259b7cfe9efbc265e8ecf92a3d"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.root-review.json",
+                  "sha256": "e688dc3afc6ee194133bcf23ab4a0f028ce21e5dc8a99f5f494365ff4211c8bd"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.claim.json",
+                  "sha256": "9f110246476c5e9386229deabecba316ecf6705579ff253accf09d1afe2bcf02"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.raw.jsonl",
+                  "sha256": "4cb4eb1ea9c92127cb1b5cc8f574f5f047126fe57a671692d76540683a362256"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.records.jsonl",
+                  "sha256": "8cb3167f4cd2afd41b1b520bf0c02d8f22b704f327b90a6eca656ff093ccde82"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.journal.jsonl",
+                  "sha256": "1b8e7707d939215d3f7c9e9e8084d8a9f5009794ddf66335ab7a48dae5dd4322"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.completion.json",
+                  "sha256": "623a8b8b90605186916ac85eb2d807e76c0b7ebdf6ab84f9814d130eddb0dbaf"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
+          }
+        }
       },
       "threePassSummary": {
         "P0": {
@@ -4363,51 +4551,383 @@
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               36,
-              36
+              36,
+              35
             ],
-            "range": null
+            "range": [
+              35,
+              36
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 46,
-                46
-              ],
-              "range": null
-            },
-            "follow_up_needed": {
-              "completedPasses": 2,
-              "values": [
-                56,
-                58
-              ],
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 2,
-              "values": [
-                50,
+                46,
                 48
               ],
-              "range": null
+              "range": [
+                46,
+                48
+              ]
+            },
+            "follow_up_needed": {
+              "completedPasses": 3,
+              "values": [
+                56,
+                58,
+                56
+              ],
+              "range": [
+                56,
+                58
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "values": [
+                50,
+                48,
+                48
+              ],
+              "range": [
+                48,
+                50
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 57,
-                53
+                53,
+                55
               ],
-              "range": null
+              "range": [
+                53,
+                57
+              ]
             }
           }
         }
       },
-      "pairwiseFlips": [],
-      "changesAcrossThreePasses": {},
+      "pairwiseFlips": [
+        {
+          "condition": "P2",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 8,
+            "rate": 0.13333333333333333,
+            "caseIds": [
+              "DEV-001",
+              "DEV-021",
+              "DEV-031",
+              "DEV-041",
+              "DEV-045",
+              "DEV-049",
+              "DEV-054",
+              "DEV-057"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-015",
+              "DEV-059"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 6,
+            "rate": 0.1,
+            "caseIds": [
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-022",
+              "DEV-055",
+              "DEV-057"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-014",
+              "DEV-028",
+              "DEV-050",
+              "DEV-052"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 19,
+            "rate": 0.31666666666666665,
+            "caseIds": [
+              "DEV-001",
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-021",
+              "DEV-022",
+              "DEV-028",
+              "DEV-031",
+              "DEV-041",
+              "DEV-045",
+              "DEV-049",
+              "DEV-050",
+              "DEV-052",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-059"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 12,
+            "rate": 0.2,
+            "caseIds": [
+              "DEV-001",
+              "DEV-008",
+              "DEV-009",
+              "DEV-014",
+              "DEV-029",
+              "DEV-031",
+              "DEV-032",
+              "DEV-041",
+              "DEV-049",
+              "DEV-054",
+              "DEV-057",
+              "DEV-060"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-029",
+              "DEV-059"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-029",
+              "DEV-050",
+              "DEV-054",
+              "DEV-060"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-002",
+              "DEV-008",
+              "DEV-029",
+              "DEV-037"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 16,
+            "rate": 0.26666666666666666,
+            "caseIds": [
+              "DEV-001",
+              "DEV-002",
+              "DEV-008",
+              "DEV-009",
+              "DEV-014",
+              "DEV-029",
+              "DEV-031",
+              "DEV-032",
+              "DEV-037",
+              "DEV-041",
+              "DEV-049",
+              "DEV-050",
+              "DEV-054",
+              "DEV-057",
+              "DEV-059",
+              "DEV-060"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 8,
+            "rate": 0.13333333333333333,
+            "caseIds": [
+              "DEV-008",
+              "DEV-009",
+              "DEV-014",
+              "DEV-021",
+              "DEV-029",
+              "DEV-032",
+              "DEV-045",
+              "DEV-060"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-015",
+              "DEV-029"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 10,
+            "rate": 0.16666666666666666,
+            "caseIds": [
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-022",
+              "DEV-029",
+              "DEV-050",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-060"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 8,
+            "rate": 0.13333333333333333,
+            "caseIds": [
+              "DEV-002",
+              "DEV-008",
+              "DEV-014",
+              "DEV-028",
+              "DEV-029",
+              "DEV-037",
+              "DEV-050",
+              "DEV-052"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 19,
+            "rate": 0.31666666666666665,
+            "caseIds": [
+              "DEV-002",
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-021",
+              "DEV-022",
+              "DEV-028",
+              "DEV-029",
+              "DEV-032",
+              "DEV-037",
+              "DEV-045",
+              "DEV-050",
+              "DEV-052",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-060"
+            ]
+          }
+        }
+      ],
+      "changesAcrossThreePasses": {
+        "P2": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-001",
+              "DEV-008",
+              "DEV-009",
+              "DEV-014",
+              "DEV-021",
+              "DEV-029",
+              "DEV-031",
+              "DEV-032",
+              "DEV-041",
+              "DEV-045",
+              "DEV-049",
+              "DEV-054",
+              "DEV-057",
+              "DEV-060"
+            ],
+            "follow_up_needed": [
+              "DEV-015",
+              "DEV-029",
+              "DEV-059"
+            ],
+            "serious_concern_reported": [
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-022",
+              "DEV-029",
+              "DEV-050",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-060"
+            ],
+            "testimonial_potential": [
+              "DEV-002",
+              "DEV-008",
+              "DEV-014",
+              "DEV-028",
+              "DEV-029",
+              "DEV-037",
+              "DEV-050",
+              "DEV-052"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-008",
+            "DEV-009",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-021",
+            "DEV-022",
+            "DEV-028",
+            "DEV-029",
+            "DEV-031",
+            "DEV-032",
+            "DEV-037",
+            "DEV-041",
+            "DEV-045",
+            "DEV-049",
+            "DEV-050",
+            "DEV-052",
+            "DEV-054",
+            "DEV-055",
+            "DEV-057",
+            "DEV-059",
+            "DEV-060"
+          ]
+        }
+      },
       "historicalStatus": "observational_not_part_of_fresh_matched_three",
       "sourceBindings": [
         {
@@ -4801,6 +5321,58 @@
         {
           "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P0/smoke-inspection.json",
           "sha256": "2868a773ce0af12d9f21dc0ed736cc6bc3b36c1515bca395d4d0d4aa1eed8b1c"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.root-review.json",
+          "sha256": "31a604feceef4002fc177bca5b933ef7dcda23c216af95d2fb682880dc19b460"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.claim.json",
+          "sha256": "a789af8731434e3e2828db8f23f2f297d822165ab31b3f3c499a6516e8da38a3"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.raw.jsonl",
+          "sha256": "f3d6595a69dc5c39d138f2d5a44e93f180ee1ff40c7985c817addb4a01b0499c"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.records.jsonl",
+          "sha256": "09b1428f970f0a485cd5503b3967d9aba9f9ec17651496c3bf51636df05fe05e"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.journal.jsonl",
+          "sha256": "e7a0508686a5fc828c3b0779c67b1f0051c0b4d43208a231e182c73d121a4dfc"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke.completion.json",
+          "sha256": "d8e68a1975f3b819d78b26229b7b66788bad347a2f2732810fa548a4ab15ea3f"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.root-review.json",
+          "sha256": "e688dc3afc6ee194133bcf23ab4a0f028ce21e5dc8a99f5f494365ff4211c8bd"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.claim.json",
+          "sha256": "9f110246476c5e9386229deabecba316ecf6705579ff253accf09d1afe2bcf02"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.raw.jsonl",
+          "sha256": "4cb4eb1ea9c92127cb1b5cc8f574f5f047126fe57a671692d76540683a362256"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.records.jsonl",
+          "sha256": "8cb3167f4cd2afd41b1b520bf0c02d8f22b704f327b90a6eca656ff093ccde82"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.journal.jsonl",
+          "sha256": "1b8e7707d939215d3f7c9e9e8084d8a9f5009794ddf66335ab7a48dae5dd4322"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.completion.json",
+          "sha256": "623a8b8b90605186916ac85eb2d807e76c0b7ebdf6ab84f9814d130eddb0dbaf"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke-inspection.json",
+          "sha256": "4f4cceaf30168d9a02ca8664745626bf37acbd259b7cfe9efbc265e8ecf92a3d"
         }
       ],
       "artifactSha256": "71e6e8cb64a76da1a734fb8f6ba389d2784950d9902f5e87244fca0a15190c94",
