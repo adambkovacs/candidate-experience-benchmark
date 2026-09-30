@@ -3071,21 +3071,8 @@
       "referenceStatus": "AI reviewed provisional, not independent adjudication",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 7,
-      "missingPasses": [
-        {
-          "pass": "fresh3",
-          "condition": "P0",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
-        {
-          "pass": "fresh3",
-          "condition": "P1",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        }
-      ],
+      "completedConditions": 9,
+      "missingPasses": [],
       "partialPasses": [],
       "passes": {
         "fresh1": {
@@ -4457,95 +4444,521 @@
                 }
               }
             }
+          },
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 39,
+              "fields": {
+                "sentiment": 51,
+                "follow_up_needed": 58,
+                "serious_concern_reported": 48,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 14,
+                "negative": 27,
+                "neutral": 8,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 24,
+                "yes": 36
+              },
+              "serious_concern_reported": {
+                "no": 33,
+                "yes": 27
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 46,
+                "yes": 13
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                10.026113042,
+                7.804814834,
+                8.894306084,
+                10.736255208,
+                11.899311,
+                9.612917041,
+                9.95974375,
+                11.194560292,
+                12.22014525,
+                7.753856041,
+                8.555029083,
+                10.108133625,
+                17.171003417,
+                17.563233917,
+                13.337200916,
+                8.875902791,
+                10.732600208,
+                12.690485,
+                12.256364417,
+                9.321836125,
+                9.508065917,
+                12.33784375,
+                7.920576416,
+                8.279483083,
+                10.081526834,
+                9.641797875,
+                10.939986041,
+                14.136541208,
+                11.716283542,
+                10.977179417,
+                12.976311625,
+                11.625760459,
+                13.764130958,
+                8.77691275,
+                10.301794042,
+                10.464072833,
+                9.970848834,
+                14.038963333,
+                9.676492375,
+                11.866836125,
+                8.858704459,
+                10.400384042,
+                9.83624325,
+                15.665470708,
+                11.517496333,
+                9.529750833,
+                11.073528,
+                8.794285417,
+                11.023381459,
+                9.794768208,
+                9.30601025,
+                11.014758792,
+                9.880507958,
+                11.832680916,
+                12.79886,
+                9.297579667,
+                14.067268542,
+                11.334809958,
+                10.825563292,
+                9.164497834
+              ],
+              "clientRequestSecondsTotal": 655.731769376,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 97888,
+                "output_tokens": 30605,
+                "total_tokens": 128493,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.root-review.json",
+                  "sha256": "e5a8ea92f4a2747ee06567e38f8e3ceac3a85328edebe6ec2210ada94bf9efcc"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.claim.json",
+                  "sha256": "784d0c072c6c21bf856460624394e20db511d7054f30189b2cdee8dbac9dd7e8"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.raw.jsonl",
+                  "sha256": "2505f362557405d02d69b5a6f28adecb12a0954b26f7cad72c8678f9e730f041"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.records.jsonl",
+                  "sha256": "3cde56d207cfc382d6dc75abba99eb96d5314464b7d2051b82810ca26ecffb49"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.journal.jsonl",
+                  "sha256": "1068d2ae9d4a90ce252ebec74b63843559058c2963e51bd4e6b54aa19c380660"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.completion.json",
+                  "sha256": "9f25b27bd5b6f419f7ce78d345431fbf1d7c179602c0c170f855d6261d9bcf2c"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke-inspection.json",
+                "sha256": "3d1aeebe9f97e1ec18f8161f61bfe05880638c9d94c3a55818d5b18d760bfe2d"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.root-review.json",
+                  "sha256": "f75e8690372e5ff85ef9f3d101317585b7457b347da6bd43bce9a7ef338f625c"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.claim.json",
+                  "sha256": "c99eb325cad47429dbccd7432d3f28ba47d433257d582d9f48143fe9cb8e43b1"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.raw.jsonl",
+                  "sha256": "ff13263d01728053ff7d325f6bc621df25a472fee73b3b4089c383f480f25f2c"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.records.jsonl",
+                  "sha256": "4d0cdbe4e59aa2c86de0da177d3ce04d033e02d443176f2558b466b0fa8ab93e"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.journal.jsonl",
+                  "sha256": "83ea6ecb2f080dcd156c2a1343d9dd604abf47efb31f026dff1a66e80e4ef155"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.completion.json",
+                  "sha256": "f96b5708039ab24e65d44e64a5a27b4bd7dfef384cee00828540745dbdd864b2"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
+          },
+          "P1": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 39,
+              "fields": {
+                "sentiment": 51,
+                "follow_up_needed": 57,
+                "serious_concern_reported": 48,
+                "testimonial_potential": 58
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 14,
+                "negative": 27,
+                "neutral": 8,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 23,
+                "yes": 37
+              },
+              "serious_concern_reported": {
+                "no": 33,
+                "yes": 27
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 48,
+                "yes": 11
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                10.684475792,
+                8.429605959,
+                7.241785375,
+                12.296219,
+                11.09478725,
+                11.88879025,
+                11.856164916,
+                15.1577195,
+                12.20496575,
+                7.586767083,
+                10.052955125,
+                10.964035083,
+                15.648206208,
+                19.307051,
+                15.996145167,
+                9.562818458,
+                10.076895834,
+                9.492125458,
+                14.118652416,
+                9.503111958,
+                14.348204917,
+                9.634694208,
+                8.1299755,
+                8.598116417,
+                11.804148042,
+                9.374687166,
+                9.485735542,
+                12.268587459,
+                13.523260417,
+                11.032992125,
+                12.324434333,
+                14.433589625,
+                12.7278625,
+                10.344891792,
+                10.117867083,
+                7.563686834,
+                12.274162375,
+                8.163278625,
+                8.25470025,
+                9.472971875,
+                12.016243875,
+                11.6039775,
+                12.937865333,
+                13.513483917,
+                9.830269958,
+                11.165411,
+                10.291989333,
+                8.705956125,
+                13.227388084,
+                12.46936225,
+                11.728278542,
+                9.57353875,
+                10.157503583,
+                10.752769041,
+                15.55553875,
+                11.166191,
+                15.268101958,
+                15.1353425,
+                13.492142042,
+                11.27617775
+              ],
+              "clientRequestSecondsTotal": 686.908655958,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 108688,
+                "output_tokens": 29425,
+                "total_tokens": 138113,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.root-review.json",
+                  "sha256": "a68869504a99c8986407d110913d9b2470ce22c3697ab6cb47df98402215dcac"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.claim.json",
+                  "sha256": "7bb82ff840fb280966ab2f0401b4b76babb3c37fe9e92756a3b0a6e6f03ac1e1"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.raw.jsonl",
+                  "sha256": "1a89e4bf8f4aab49dc896a1e8dcacfb74193d7d6985c88d26a23c9d3db8bbe8d"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.records.jsonl",
+                  "sha256": "abc392f30b2aa8105ae04071ec98c7396dc5ca3369e47f64869bac3cf91e5133"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.journal.jsonl",
+                  "sha256": "340b3ee6fe29a75dbeb3375eeb7e48f007089c0981117a9df5a3864dadad747d"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.completion.json",
+                  "sha256": "8cf9c9d3123c6cae79eb8be09bf31cd4efa79837854feaead2c708a78aa5df19"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke-inspection.json",
+                "sha256": "4567a251890d622fa078b671f7fcbcccd2735cf60996de114474cc7d81fbcdcc"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.root-review.json",
+                  "sha256": "9c2cc07590b1a4c56628cd31e18f0f5d3565794fe25ca8c822568bae1fabcd09"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.claim.json",
+                  "sha256": "6a3b50ce8dc2a0eef7d0c9af8f7fe6192daa483639e0fdd42e09c3e4544daeb9"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.raw.jsonl",
+                  "sha256": "0e08a654b9b8ef9afcbbb6b9fae716f87bf3f2c5b89807bdfd996f28523b6614"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.records.jsonl",
+                  "sha256": "90a22d9a2bb7cb55403848186b333b0695f42254d8fb04300b08df3185266f03"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.journal.jsonl",
+                  "sha256": "a1367940e3b15c724f3d9cbd891edf35a04968955b35298c6ab785c67b2fddea"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.completion.json",
+                  "sha256": "e0116398ca4472f2bdaab140aa1b388d7a974ef325dc73e633af72cd416356ee"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
           }
         }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               38,
-              37
+              37,
+              39
             ],
-            "range": null
+            "range": [
+              37,
+              39
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 51,
-                52
+                52,
+                51
               ],
-              "range": null
+              "range": [
+                51,
+                52
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 57,
+                58,
                 58
               ],
-              "range": null
+              "range": [
+                57,
+                58
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 47,
+                48,
                 48
               ],
-              "range": null
+              "range": [
+                47,
+                48
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 55,
-                52
+                52,
+                54
               ],
-              "range": null
+              "range": [
+                52,
+                55
+              ]
             }
           }
         },
         "P1": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               36,
+              39,
               39
             ],
-            "range": null
+            "range": [
+              36,
+              39
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 48,
-                54
+                54,
+                51
               ],
-              "range": null
+              "range": [
+                48,
+                54
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 56,
+                57,
                 57
               ],
-              "range": null
+              "range": [
+                56,
+                57
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 47,
+                48,
                 48
               ],
-              "range": null
+              "range": [
+                47,
+                48
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 54,
-                54
+                54,
+                58
               ],
-              "range": null
+              "range": [
+                54,
+                58
+              ]
             }
           }
         },
@@ -4615,6 +5028,434 @@
         }
       },
       "pairwiseFlips": [
+        {
+          "condition": "P0",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 5,
+            "rate": 0.08333333333333333,
+            "caseIds": [
+              "DEV-009",
+              "DEV-014",
+              "DEV-017",
+              "DEV-031",
+              "DEV-050"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-052"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 8,
+            "rate": 0.13333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-014",
+              "DEV-022",
+              "DEV-033",
+              "DEV-050",
+              "DEV-053",
+              "DEV-055",
+              "DEV-057"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 7,
+            "rate": 0.11666666666666667,
+            "caseIds": [
+              "DEV-008",
+              "DEV-014",
+              "DEV-015",
+              "DEV-031",
+              "DEV-044",
+              "DEV-046",
+              "DEV-059"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 17,
+            "rate": 0.2833333333333333,
+            "caseIds": [
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-017",
+              "DEV-022",
+              "DEV-031",
+              "DEV-033",
+              "DEV-044",
+              "DEV-046",
+              "DEV-050",
+              "DEV-052",
+              "DEV-053",
+              "DEV-055",
+              "DEV-057",
+              "DEV-059"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-013",
+              "DEV-044",
+              "DEV-050",
+              "DEV-054"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-004"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 7,
+            "rate": 0.11666666666666667,
+            "caseIds": [
+              "DEV-013",
+              "DEV-044",
+              "DEV-050",
+              "DEV-053",
+              "DEV-055",
+              "DEV-057",
+              "DEV-058"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 7,
+            "rate": 0.11666666666666667,
+            "caseIds": [
+              "DEV-002",
+              "DEV-005",
+              "DEV-008",
+              "DEV-032",
+              "DEV-044",
+              "DEV-051",
+              "DEV-058"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 14,
+            "rate": 0.23333333333333334,
+            "caseIds": [
+              "DEV-002",
+              "DEV-004",
+              "DEV-005",
+              "DEV-008",
+              "DEV-013",
+              "DEV-032",
+              "DEV-044",
+              "DEV-050",
+              "DEV-051",
+              "DEV-053",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-058"
+            ]
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 7,
+            "rate": 0.11666666666666667,
+            "caseIds": [
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-017",
+              "DEV-031",
+              "DEV-044",
+              "DEV-054"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-004",
+              "DEV-052"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 5,
+            "rate": 0.08333333333333333,
+            "caseIds": [
+              "DEV-014",
+              "DEV-022",
+              "DEV-033",
+              "DEV-044",
+              "DEV-058"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 10,
+            "rate": 0.16666666666666666,
+            "caseIds": [
+              "DEV-002",
+              "DEV-005",
+              "DEV-014",
+              "DEV-015",
+              "DEV-031",
+              "DEV-032",
+              "DEV-046",
+              "DEV-051",
+              "DEV-058",
+              "DEV-059"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 19,
+            "rate": 0.31666666666666665,
+            "caseIds": [
+              "DEV-002",
+              "DEV-004",
+              "DEV-005",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-017",
+              "DEV-022",
+              "DEV-031",
+              "DEV-032",
+              "DEV-033",
+              "DEV-044",
+              "DEV-046",
+              "DEV-051",
+              "DEV-052",
+              "DEV-054",
+              "DEV-058",
+              "DEV-059"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 6,
+            "rate": 0.1,
+            "caseIds": [
+              "DEV-001",
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-027"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-015"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 5,
+            "rate": 0.08333333333333333,
+            "caseIds": [
+              "DEV-013",
+              "DEV-014",
+              "DEV-054",
+              "DEV-055",
+              "DEV-058"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-002",
+              "DEV-009",
+              "DEV-014",
+              "DEV-015"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 11,
+            "rate": 0.18333333333333332,
+            "caseIds": [
+              "DEV-001",
+              "DEV-002",
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-027",
+              "DEV-054",
+              "DEV-055",
+              "DEV-058"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 9,
+            "rate": 0.15,
+            "caseIds": [
+              "DEV-001",
+              "DEV-009",
+              "DEV-014",
+              "DEV-017",
+              "DEV-020",
+              "DEV-021",
+              "DEV-027",
+              "DEV-044",
+              "DEV-050"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-015"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 6,
+            "rate": 0.1,
+            "caseIds": [
+              "DEV-013",
+              "DEV-014",
+              "DEV-033",
+              "DEV-054",
+              "DEV-055",
+              "DEV-058"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 4,
+            "rate": 0.06666666666666667,
+            "caseIds": [
+              "DEV-008",
+              "DEV-014",
+              "DEV-029",
+              "DEV-058"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 17,
+            "rate": 0.2833333333333333,
+            "caseIds": [
+              "DEV-001",
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-017",
+              "DEV-020",
+              "DEV-021",
+              "DEV-027",
+              "DEV-029",
+              "DEV-033",
+              "DEV-044",
+              "DEV-050",
+              "DEV-054",
+              "DEV-055",
+              "DEV-058"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 7,
+            "rate": 0.11666666666666667,
+            "caseIds": [
+              "DEV-008",
+              "DEV-013",
+              "DEV-017",
+              "DEV-020",
+              "DEV-021",
+              "DEV-044",
+              "DEV-050"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "rate": 0.03333333333333333,
+            "caseIds": [
+              "DEV-033",
+              "DEV-055"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 6,
+            "rate": 0.1,
+            "caseIds": [
+              "DEV-002",
+              "DEV-008",
+              "DEV-009",
+              "DEV-015",
+              "DEV-029",
+              "DEV-058"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 14,
+            "rate": 0.23333333333333334,
+            "caseIds": [
+              "DEV-002",
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-015",
+              "DEV-017",
+              "DEV-020",
+              "DEV-021",
+              "DEV-029",
+              "DEV-033",
+              "DEV-044",
+              "DEV-050",
+              "DEV-055",
+              "DEV-058"
+            ]
+          }
+        },
         {
           "condition": "P2",
           "from": "fresh1",
@@ -4852,6 +5693,137 @@
         }
       ],
       "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-017",
+              "DEV-031",
+              "DEV-044",
+              "DEV-050",
+              "DEV-054"
+            ],
+            "follow_up_needed": [
+              "DEV-004",
+              "DEV-052"
+            ],
+            "serious_concern_reported": [
+              "DEV-013",
+              "DEV-014",
+              "DEV-022",
+              "DEV-033",
+              "DEV-044",
+              "DEV-050",
+              "DEV-053",
+              "DEV-055",
+              "DEV-057",
+              "DEV-058"
+            ],
+            "testimonial_potential": [
+              "DEV-002",
+              "DEV-005",
+              "DEV-008",
+              "DEV-014",
+              "DEV-015",
+              "DEV-031",
+              "DEV-032",
+              "DEV-044",
+              "DEV-046",
+              "DEV-051",
+              "DEV-058",
+              "DEV-059"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-002",
+            "DEV-004",
+            "DEV-005",
+            "DEV-008",
+            "DEV-009",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-017",
+            "DEV-022",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-044",
+            "DEV-046",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059"
+          ]
+        },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [
+              "DEV-001",
+              "DEV-008",
+              "DEV-009",
+              "DEV-013",
+              "DEV-014",
+              "DEV-017",
+              "DEV-020",
+              "DEV-021",
+              "DEV-027",
+              "DEV-044",
+              "DEV-050"
+            ],
+            "follow_up_needed": [
+              "DEV-015"
+            ],
+            "serious_concern_reported": [
+              "DEV-013",
+              "DEV-014",
+              "DEV-033",
+              "DEV-054",
+              "DEV-055",
+              "DEV-058"
+            ],
+            "testimonial_potential": [
+              "DEV-002",
+              "DEV-008",
+              "DEV-009",
+              "DEV-014",
+              "DEV-015",
+              "DEV-029",
+              "DEV-058"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-008",
+            "DEV-009",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-017",
+            "DEV-020",
+            "DEV-021",
+            "DEV-027",
+            "DEV-029",
+            "DEV-033",
+            "DEV-044",
+            "DEV-050",
+            "DEV-054",
+            "DEV-055",
+            "DEV-058"
+          ]
+        },
         "P2": {
           "denominator": 60,
           "excludedIds": [],
@@ -5373,6 +6345,110 @@
         {
           "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/smoke-inspection.json",
           "sha256": "4f4cceaf30168d9a02ca8664745626bf37acbd259b7cfe9efbc265e8ecf92a3d"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.root-review.json",
+          "sha256": "e5a8ea92f4a2747ee06567e38f8e3ceac3a85328edebe6ec2210ada94bf9efcc"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.claim.json",
+          "sha256": "784d0c072c6c21bf856460624394e20db511d7054f30189b2cdee8dbac9dd7e8"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.raw.jsonl",
+          "sha256": "2505f362557405d02d69b5a6f28adecb12a0954b26f7cad72c8678f9e730f041"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.records.jsonl",
+          "sha256": "3cde56d207cfc382d6dc75abba99eb96d5314464b7d2051b82810ca26ecffb49"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.journal.jsonl",
+          "sha256": "1068d2ae9d4a90ce252ebec74b63843559058c2963e51bd4e6b54aa19c380660"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke.completion.json",
+          "sha256": "9f25b27bd5b6f419f7ce78d345431fbf1d7c179602c0c170f855d6261d9bcf2c"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.root-review.json",
+          "sha256": "f75e8690372e5ff85ef9f3d101317585b7457b347da6bd43bce9a7ef338f625c"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.claim.json",
+          "sha256": "c99eb325cad47429dbccd7432d3f28ba47d433257d582d9f48143fe9cb8e43b1"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.raw.jsonl",
+          "sha256": "ff13263d01728053ff7d325f6bc621df25a472fee73b3b4089c383f480f25f2c"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.records.jsonl",
+          "sha256": "4d0cdbe4e59aa2c86de0da177d3ce04d033e02d443176f2558b466b0fa8ab93e"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.journal.jsonl",
+          "sha256": "83ea6ecb2f080dcd156c2a1343d9dd604abf47efb31f026dff1a66e80e4ef155"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.completion.json",
+          "sha256": "f96b5708039ab24e65d44e64a5a27b4bd7dfef384cee00828540745dbdd864b2"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/smoke-inspection.json",
+          "sha256": "3d1aeebe9f97e1ec18f8161f61bfe05880638c9d94c3a55818d5b18d760bfe2d"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.root-review.json",
+          "sha256": "a68869504a99c8986407d110913d9b2470ce22c3697ab6cb47df98402215dcac"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.claim.json",
+          "sha256": "7bb82ff840fb280966ab2f0401b4b76babb3c37fe9e92756a3b0a6e6f03ac1e1"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.raw.jsonl",
+          "sha256": "1a89e4bf8f4aab49dc896a1e8dcacfb74193d7d6985c88d26a23c9d3db8bbe8d"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.records.jsonl",
+          "sha256": "abc392f30b2aa8105ae04071ec98c7396dc5ca3369e47f64869bac3cf91e5133"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.journal.jsonl",
+          "sha256": "340b3ee6fe29a75dbeb3375eeb7e48f007089c0981117a9df5a3864dadad747d"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke.completion.json",
+          "sha256": "8cf9c9d3123c6cae79eb8be09bf31cd4efa79837854feaead2c708a78aa5df19"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.root-review.json",
+          "sha256": "9c2cc07590b1a4c56628cd31e18f0f5d3565794fe25ca8c822568bae1fabcd09"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.claim.json",
+          "sha256": "6a3b50ce8dc2a0eef7d0c9af8f7fe6192daa483639e0fdd42e09c3e4544daeb9"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.raw.jsonl",
+          "sha256": "0e08a654b9b8ef9afcbbb6b9fae716f87bf3f2c5b89807bdfd996f28523b6614"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.records.jsonl",
+          "sha256": "90a22d9a2bb7cb55403848186b333b0695f42254d8fb04300b08df3185266f03"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.journal.jsonl",
+          "sha256": "a1367940e3b15c724f3d9cbd891edf35a04968955b35298c6ab785c67b2fddea"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.completion.json",
+          "sha256": "e0116398ca4472f2bdaab140aa1b388d7a974ef325dc73e633af72cd416356ee"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/smoke-inspection.json",
+          "sha256": "4567a251890d622fa078b671f7fcbcccd2735cf60996de114474cc7d81fbcdcc"
         }
       ],
       "artifactSha256": "71e6e8cb64a76da1a734fb8f6ba389d2784950d9902f5e87244fca0a15190c94",

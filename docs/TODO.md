@@ -6,7 +6,7 @@ Updated 1 October 2026. This is the current coordination list. Frozen manifests 
 
 ### Latest checkpoint, 1 October 2026
 
-- Gemma E2B thinking-on: eight of nine full phases are closed. Fresh3/P1, the ninth phase, is running under its inspected smoke and separate root receipt. Seven phases are published; the newer closed P0 evidence awaits the next publication cutoff.
+- Gemma E2B thinking-on: all nine full phases are closed and independently verified, with 60 valid outputs each. Final evidence is archived in 50144d6c. The nine-phase report and findings are prepared; deployment verification remains pending.
 - Qwen 27 xhigh v2: fresh1/P0 closed with 60 valid outputs and $0.055403775 in reported development charges. Root independently verified terminal journal, ordered attempts and raw-response hashes. P1 smoke is admitted; P1 development still needs inspection and admission.
 - Qwen 27 medium v2: fresh1/P0 also closed with 60 valid outputs and $0.066327075 in reported development charges. Root verified closure and admitted P1 smoke. Hosted Gemma 26 on v2 fresh1/P1 remains running under its original handle. Do not duplicate dispatch.
 - Hosted-v2 findings: publish_on_triple owns the new offline reporter and tests. Root owns review and website integration. These new series are not yet in the public repeat explorer.

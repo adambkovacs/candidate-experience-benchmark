@@ -1,6 +1,6 @@
-# Gemma 4 E2B thinking-on: three P2 passes and two P0/P1 passes
+# Gemma 4 E2B thinking-on: three passes under every prompt
 
-The [frozen small-local plan](../results/repeatability-v1/small-local-v1/manifest.json) schedules three separately dispatched development passes under each P0, P1 and P2 prompt. The [source-bound report](../public-site/small-local-repeats.json) contains seven of nine planned full phases: two passes under P0 and P1, and all three under P2. The third P0 and P1 passes remain outside this snapshot.
+The [frozen small-local plan](../results/repeatability-v1/small-local-v1/manifest.json) schedules three separately dispatched development passes under each P0, P1 and P2 prompt. The [source-bound report](../public-site/small-local-repeats.json) contains all nine planned full phases, each with 60 valid responses.
 
 | Closed phase | Valid / 60 | All four fields / 60 | Sentiment | Follow-up | Serious concern | Testimonial | Summed client seconds | Input / output tokens |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -11,6 +11,8 @@ The [frozen small-local plan](../results/repeatability-v1/small-local-v1/manifes
 | [Fresh2/P2](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/development.completion.json) | 60 | 36 | 46 | 58 | 48 | 53 | 709.57 | 164,548 / 30,093 |
 | [Fresh2/P0](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P0/development.completion.json) | 60 | 37 | 52 | 58 | 48 | 52 | 616.92 | 97,888 / 30,393 |
 | [Fresh3/P2](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P2/development.completion.json) | 60 | 35 | 48 | 56 | 48 | 55 | 629.70 | 164,548 / 30,450 |
+| [Fresh3/P0](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P0/development.completion.json) | 60 | 39 | 51 | 58 | 48 | 54 | 655.73 | 97,888 / 30,605 |
+| [Fresh3/P1](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh3/P1/development.completion.json) | 60 | 39 | 51 | 57 | 48 | 58 | 686.91 | 108,688 / 29,425 |
 
 The three first-pass phases returned valid decisions for the same 60 synthetic reviews. Against the [provisional version 0.2 references](../data/pilot/proposed_labels.jsonl), all-four agreement was 38/60 under P0 and 36/60 under both P1 and P2. Equal P1 and P2 totals conceal different answers. The saved [P0](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P0/development.records.jsonl), [P1](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P1/development.records.jsonl) and [P2](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P2/development.records.jsonl) records support these paired comparisons:
 
@@ -30,14 +32,26 @@ The second pass changed answers under every prompt, even where the score stayed 
 | P1 | 36 to 39 | 11 | 4 / 1 | 6 / 1 / 5 / 4 |
 | P2 | 36 to 36 | 19 | 6 / 6 | 8 / 2 / 6 / 4 |
 
-P2's unchanged 36/60 total hides 19 reviews with a changed classification. The four field counts can exceed the number of changed reviews because one review may change in several fields. Gains and losses count reviews that crossed the all-four agreement threshold, not every answer change. These two-pass observations do not estimate how often a future run will change; P0 and P1 still lack their third pass in this snapshot.
+P2's unchanged 36/60 total hides 19 reviews with a changed classification. The four field counts can exceed the number of changed reviews because one review may change in several fields. Gains and losses count reviews that crossed the all-four agreement threshold, not every answer change. These two-pass observations do not estimate how often a future run will change. The three-pass results follow below.
 
 The table keeps every score on the fixed 60-review denominator. Its seconds sum client-observed request durations and include local workflow overhead; isolated inference duration and model load time are unavailable. The saved local token counts are not hosted billing records. Hardware and electricity cost were not measured, so dollar cost is unavailable. The frozen plan and [reporter](../scripts/build_small_local_repeat_findings.py) preserve one attempt per review and use the provisional references only for offline scoring.
 
-The original fresh1/P0 and fresh1/P1 smoke inspections omitted an explicit statement that reference labels were withheld. [Post-run P0](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P0/smoke-inspection-reference-attestation.json) and [P1](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P1/smoke-inspection-reference-attestation.json) attestations bind the original inspection, plan and smoke hashes without changing the original evidence. The [review note](SMALL_LOCAL_REPEAT_REVIEW_2026-09-28.md) explains this supplement and its limits. The report binds all seven closed full phases and lists SHA-256 paths for its sources.
+The original fresh1/P0 and fresh1/P1 smoke inspections omitted an explicit statement that reference labels were withheld. [Post-run P0](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P0/smoke-inspection-reference-attestation.json) and [P1](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P1/smoke-inspection-reference-attestation.json) attestations bind the original inspection, plan and smoke hashes without changing the original evidence. The [review note](SMALL_LOCAL_REPEAT_REVIEW_2026-09-28.md) explains this supplement and its limits. The report binds all nine closed full phases and lists SHA-256 paths for its sources.
 
-The completed [Gemma E2B thinking-off study](GEMMA_E2B_FRESH_REPEAT_FINDINGS_2026-09-28.md) is a separate configuration. Only P2 has a complete three-pass thinking-on condition in this snapshot. These observations do not establish the effect of enabling thinking.
+The completed [Gemma E2B thinking-off study](GEMMA_E2B_FRESH_REPEAT_FINDINGS_2026-09-28.md) is a separate configuration. These observations do not establish the effect of enabling thinking.
 
 ## What all three P2 passes show
 
 All three P2 passes returned 60 valid responses. All-four reference agreement was **36, 36 and 35 out of 60**, a range of 35–36. Yet **24 of the same 60 comments** received at least one different answer across those passes. Sentiment changed on 14 comments, follow-up on three, serious concern on ten and testimonial potential on eight; these counts overlap. A narrow range of total scores therefore does not mean the model made the same decisions. These are repeated observations on 60 fictional comments, not 180 independent cases. The [source-bound report](../public-site/small-local-repeats.json) lists the changed IDs and saved outputs.
+
+## Completed three-pass comparison
+
+| Prompt | All-four matches / 60, passes 1 / 2 / 3 | Score range / 60 | Comments with any changed answer across three passes / 60 |
+| --- | --- | --- | ---: |
+| P0: base task | 38 / 37 / 39 | 37–39 | 24 |
+| P1: classifier instructions | 36 / 39 / 39 | 36–39 | 18 |
+| P2: decision procedure | 36 / 36 / 35 | 35–36 | 24 |
+
+P2 scored below P0 in each of the three matched passes. P1 scored lower, higher and then the same as P0. These observations give no consistent P1 improvement in this small set. The changed-answer counts include any of the four decisions changing at least once; they do not count only changes from a match to a mismatch. All 60 reviews were valid in every pass, so none were excluded from these comparisons.
+
+The third P0 and P1 phases are archived in [50144d6c](https://github.com/adambkovacs/candidate-experience-benchmark/commit/50144d6c). The public report contains their per-field counts, recorded tokens and client durations. References remain provisional, and three passes do not establish the probability of a future error.
