@@ -2,7 +2,7 @@
 
 ## Current preparation and execution status
 
-Updated after publication commit `200b37da` on 29 September. Pages deployment `36530507440` succeeded and the live repeat explorer script matches the committed file. The historical snapshots below are retained for provenance; their preparation, endpoint and budget statuses are superseded by this section.
+Preparation statuses below remain the 29 September checkpoint. Budget refreshed on 30 September after the decision-model smokes and Kev runs; the master ledger was read under its exclusive lock without changing its bytes. The historical snapshots below are retained for provenance; their preparation, endpoint and budget statuses are superseded by this section.
 
 | Remaining configuration | Verified progress | What prevents the next dispatch |
 | --- | --- | --- |
@@ -14,7 +14,7 @@ Updated after publication commit `200b37da` on 29 September. Pages deployment `3
 | Mistral 119B none and high | Historical failed smokes remain preserved; six offline plans are reviewed and committed in `9ba898d7`. | The executor is reviewed and committed in `9c417ca2`. Fresh provider checks, stage admission and funding remain outstanding. No observed whole-series cost proxy exists. |
 | Gemini 3.1 Pro high | Reviewed wrapper and frozen plans exist. | Proposed $2 child is unfunded. |
 
-No new allocation is made by this checkpoint. The aggregate cap remains $10. The latest [DeepSeek interruption reconciliation](DEEPSEEK_LOW_INTERRUPTION_CONTINUATION_2026-09-29.md#second-interruption-dev-049) leaves $0.03458035850 unallocated after both children were sealed. The two $0.1069056 unknown-charge bounds remain reserved separately; they are not observed charges. No hosted inference is running at this checkpoint. The requested increase to $17 total has not been approved.
+No new allocation is made by this checkpoint. The aggregate cap remains $10. The current ledger accounts for $9.98032451750, leaving $0.01967548250 unallocated. This includes later decision-model work; the older [DeepSeek interruption reconciliation](DEEPSEEK_LOW_INTERRUPTION_CONTINUATION_2026-09-29.md#second-interruption-dev-049) remains valid historical evidence. No attempt reservation is pending and the ledger blocked flag is false. The two $0.1069056 unknown-charge bounds remain reserved separately; they are not observed charges. No hosted inference is running at this checkpoint. The requested increase to $17 total has not been approved.
 
 For exact plan and cost evidence, see the admissions for [Qwen27](QWEN27_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Gemma](GEMMA26_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Qwen reasoning-on](QWEN36_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), and [DeepSeek high](DEEPSEEK_HIGH_FRESH_REPEAT_ADMISSION_2026-09-29.md). Completed Qwen reasoning-off work remains preserved with its interruption limitations; it is not queued for a cleaner rerun.
 

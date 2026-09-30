@@ -1,5 +1,7 @@
 # Decision model hosted-route refresh
 
+> Later 30 September update: the [GLiNER admission brief](GLINER_DECISION_ADMISSION_2026-09-30.md) supersedes the Fastino identity, price and context gaps in this earlier snapshot. It preserves the exact public catalogs and distinguishes the hosted Decide ID from open-weight checkpoints. No inference is admitted by either document.
+
 Checked 2026-09-30, with public OpenRouter GET responses captured at 15:38:34–15:38:48 UTC. This read-only check sent no inference requests, used no API keys, and made no account or billing changes. The raw OpenRouter responses are in [the route audit snapshot](../results/route-audits/decision-hosted-refresh-20260930/responses.json).
 
 ## OpenRouter result
