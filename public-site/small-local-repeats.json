@@ -3071,19 +3071,43 @@
       "referenceStatus": "AI reviewed provisional, not independent adjudication",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 3,
+      "completedConditions": 4,
       "missingPasses": [
         {
           "pass": "fresh2",
-          "condition": "P1",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
-        {
-          "pass": "fresh2",
           "condition": "P2",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
+          "stage": "development",
+          "status": "unclaimed_never_started",
+          "smokeEvidence": {
+            "review": {
+              "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.root-review.json",
+              "sha256": "69ecd278056f1f6bf46cdf8f3e9c794a45f108809ef2b8dcbde9908d4d71fe2f"
+            },
+            "claim": {
+              "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.claim.json",
+              "sha256": "e91311f07061ef49517d3d8c2a4254eed31ecfa78abdc5bbf32751a530b69644"
+            },
+            "raw": {
+              "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.raw.jsonl",
+              "sha256": "86a3d585f594bf444b079ceb2658bf7b2006fa1a1cb237cb84473a2dc4b6f026"
+            },
+            "records": {
+              "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.records.jsonl",
+              "sha256": "c3f6ee633dee5bbba6724567d33d231b54901f160c3073c73f51fee72dc10add"
+            },
+            "journal": {
+              "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.journal.jsonl",
+              "sha256": "f416dfa987f598662f24aab4ac6cdb0e7460e369b93ae0e1a6ed02b0024c7119"
+            },
+            "completion": {
+              "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.completion.json",
+              "sha256": "0c2139913529932561af62e429cd505b967b5f383a4e76871ef40880c282283f"
+            },
+            "routeAudit": {
+              "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+              "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+            }
+          }
         },
         {
           "pass": "fresh2",
@@ -3704,7 +3728,201 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 39,
+              "fields": {
+                "sentiment": 54,
+                "follow_up_needed": 57,
+                "serious_concern_reported": 48,
+                "testimonial_potential": 54
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 11,
+                "negative": 29,
+                "neutral": 9,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "no": 23,
+                "yes": 37
+              },
+              "serious_concern_reported": {
+                "no": 33,
+                "yes": 27
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 46,
+                "yes": 13
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                6.774029042,
+                9.300596792,
+                7.433683541,
+                6.904565167,
+                7.71629625,
+                11.221674583,
+                9.571503875,
+                10.447849959,
+                9.188123708,
+                7.26631225,
+                10.04331975,
+                8.794316042,
+                11.737427375,
+                9.592015208,
+                10.791465875,
+                9.513492542,
+                6.680406958,
+                9.538236791,
+                10.085397041,
+                9.137649583,
+                10.305027667,
+                8.966094208,
+                6.258664291,
+                7.104134667,
+                6.980663375,
+                8.24604225,
+                8.465045625,
+                12.542538917,
+                6.737470084,
+                9.759482291,
+                10.42304525,
+                10.394067083,
+                13.025525333,
+                8.799097167,
+                9.06446825,
+                8.062718042,
+                11.592548958,
+                8.001936916,
+                6.721077666,
+                11.475165625,
+                9.402972125,
+                8.416958917,
+                8.018335291,
+                10.44839175,
+                7.887039209,
+                8.2057605,
+                7.493985083,
+                8.1735045,
+                6.809532,
+                13.187608667,
+                7.301883292,
+                9.624989666,
+                8.395852291,
+                8.026324416,
+                12.119881167,
+                9.242388875,
+                11.185312792,
+                13.050342875,
+                8.904071875,
+                8.604534958
+              ],
+              "clientRequestSecondsTotal": 549.162846246,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 108688,
+                "output_tokens": 29627,
+                "total_tokens": 138315,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.root-review.json",
+                  "sha256": "6c2813f9302b02faa2cba1db1a091cc92462da2ae86f11533c653d12166eba3f"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.claim.json",
+                  "sha256": "2df098407358d9e0646354cd2d46473f4e1f15bbd792c907efc32994f9b9d735"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.raw.jsonl",
+                  "sha256": "cd8bf69eff1f1f9542e62527fa220acf398add48acef9410ce51d09d20158bf9"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "0cd8373fc2a00e7cb124d178d03ff358c022468d8e746974fb2e2e4216747dd9"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "65cd40382f6ec61aa7e12b6d42e1a736a9ff2d9f89956e6cfb6b3e40d3b13edb"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.completion.json",
+                  "sha256": "95b14a5d80a6f5dcc74fc83471666d7d438c52acd32e406eaf981080b84c5aad"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke-inspection.json",
+                "sha256": "e24244d4eb1601a8c77ad3cabc339dfd060dc1271ebfffbec4dd39ad5e8d5504"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.root-review.json",
+                  "sha256": "6f05a6191efbb32359c5b9cdf6e59ff7ffffdfdb46242f384eaa36df3524017f"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.claim.json",
+                  "sha256": "68911a4cf0ad947b81fbc0e53a9c88e045178ca043eee48150641af24ff28dfe"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.raw.jsonl",
+                  "sha256": "0bb7fe41dc539ed0b7a08f7e2c794890f9b477b6f36c4e48df46b4ae77404db8"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.records.jsonl",
+                  "sha256": "a9e091acf403fe2a63887ff397e9bcc39a15b82d6296862323c071e6a6a3c96a"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.journal.jsonl",
+                  "sha256": "36efa5fc37d22ae6bd2744c110990a35c3c9a785d97e6266566a90dfa782af58"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.completion.json",
+                  "sha256": "943e8a395e66b56aefc19e6c9229f9275889210f99ec02f00465ca5542c5b9e3"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "threePassSummary": {
@@ -3749,37 +3967,42 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
-              36
+              36,
+              39
             ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                48
+                48,
+                54
               ],
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                56
+                56,
+                57
               ],
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                47
+                47,
+                48
               ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                54,
                 54
               ],
               "range": null
@@ -4065,6 +4288,82 @@
         {
           "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P2/smoke-inspection.json",
           "sha256": "17f18574debca9d4dda1bb6928ef117ace990c658311532b38fb24533a577230"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.root-review.json",
+          "sha256": "6c2813f9302b02faa2cba1db1a091cc92462da2ae86f11533c653d12166eba3f"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.claim.json",
+          "sha256": "2df098407358d9e0646354cd2d46473f4e1f15bbd792c907efc32994f9b9d735"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.raw.jsonl",
+          "sha256": "cd8bf69eff1f1f9542e62527fa220acf398add48acef9410ce51d09d20158bf9"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.records.jsonl",
+          "sha256": "0cd8373fc2a00e7cb124d178d03ff358c022468d8e746974fb2e2e4216747dd9"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.journal.jsonl",
+          "sha256": "65cd40382f6ec61aa7e12b6d42e1a736a9ff2d9f89956e6cfb6b3e40d3b13edb"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke.completion.json",
+          "sha256": "95b14a5d80a6f5dcc74fc83471666d7d438c52acd32e406eaf981080b84c5aad"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.root-review.json",
+          "sha256": "6f05a6191efbb32359c5b9cdf6e59ff7ffffdfdb46242f384eaa36df3524017f"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.claim.json",
+          "sha256": "68911a4cf0ad947b81fbc0e53a9c88e045178ca043eee48150641af24ff28dfe"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.raw.jsonl",
+          "sha256": "0bb7fe41dc539ed0b7a08f7e2c794890f9b477b6f36c4e48df46b4ae77404db8"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.records.jsonl",
+          "sha256": "a9e091acf403fe2a63887ff397e9bcc39a15b82d6296862323c071e6a6a3c96a"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.journal.jsonl",
+          "sha256": "36efa5fc37d22ae6bd2744c110990a35c3c9a785d97e6266566a90dfa782af58"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/development.completion.json",
+          "sha256": "943e8a395e66b56aefc19e6c9229f9275889210f99ec02f00465ca5542c5b9e3"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P1/smoke-inspection.json",
+          "sha256": "e24244d4eb1601a8c77ad3cabc339dfd060dc1271ebfffbec4dd39ad5e8d5504"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.root-review.json",
+          "sha256": "69ecd278056f1f6bf46cdf8f3e9c794a45f108809ef2b8dcbde9908d4d71fe2f"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.claim.json",
+          "sha256": "e91311f07061ef49517d3d8c2a4254eed31ecfa78abdc5bbf32751a530b69644"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.raw.jsonl",
+          "sha256": "86a3d585f594bf444b079ceb2658bf7b2006fa1a1cb237cb84473a2dc4b6f026"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.records.jsonl",
+          "sha256": "c3f6ee633dee5bbba6724567d33d231b54901f160c3073c73f51fee72dc10add"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.journal.jsonl",
+          "sha256": "f416dfa987f598662f24aab4ac6cdb0e7460e369b93ae0e1a6ed02b0024c7119"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh2/P2/smoke.completion.json",
+          "sha256": "0c2139913529932561af62e429cd505b967b5f383a4e76871ef40880c282283f"
         }
       ],
       "artifactSha256": "71e6e8cb64a76da1a734fb8f6ba389d2784950d9902f5e87244fca0a15190c94",
