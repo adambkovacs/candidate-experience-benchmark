@@ -35,7 +35,7 @@ async function render(payload = feed, status = 200, selected = 'semif-generated-
     condition(value) { elements.get('repeat-condition').value = value; elements.get('repeat-condition').change(); }};
 }
 
-test('SemIf generated eight closed phases show P1/P2 three-pass and P0 two-pass results', async () => {
+test('SemIf generated nine closed phases show all three-pass scores, flips and usage', async () => {
   const ui = await render();
   assert.equal(ui.requested.filter(name => name === url).length, 1);
   assert.match(ui.get('repeat-results').innerHTML, /<option value="jev-fixture">Jev<\/option>/);
@@ -49,42 +49,41 @@ test('SemIf generated eight closed phases show P1/P2 three-pass and P0 two-pass 
   assert.match(ui.get('repeat-lead').textContent, /P0 Fresh pass 2: 52\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P1 Fresh pass 2: 38\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P2 Fresh pass 2: 58\/60 valid responses/);
+  assert.match(ui.get('repeat-lead').textContent, /P0 Fresh pass 3: 52\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P1 Fresh pass 3: 38\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P2 Fresh pass 3: 58\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /client-observed elapsed time, not isolated inference time/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length,
     feed.series[0].completedConditions);
-  assert.equal((ui.get('repeat-chart').innerHTML.match(/value="35"[^>]*>35<\/meter>/g) || []).length, 2);
+  assert.equal((ui.get('repeat-chart').innerHTML.match(/value="35"[^>]*>35<\/meter>/g) || []).length, 3);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/value="26"[^>]*>26<\/meter>/g) || []).length, 3);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/value="43"[^>]*>43<\/meter>/g) || []).length, 3);
-  assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range unavailable until all passes finish/);
+  assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /Three-pass range unavailable until all passes finish/);
+  assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>35–35<\/strong> out of 60/);
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>26–26<\/strong> out of 60/);
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>43–43<\/strong> out of 60/);
   assert.match(ui.get('repeat-deltas').innerHTML, /\+8/);
   assert.match(ui.get('repeat-deltas').innerHTML, /-9/);
   assert.match(ui.get('repeat-deltas').innerHTML, /2 \/ 37 changed; 37 shared valid of 60; 23 excluded/);
   assert.match(ui.get('repeat-deltas').innerHTML, /6 \/ 52 changed; 52 shared valid of 60; 8 excluded/);
-  assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
+  assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
   for (const [condition, denominator] of [['P0', 52], ['P1', 38], ['P2', 58]]) {
     ui.condition(condition);
     assert.match(ui.get('repeat-flips').innerHTML,
       new RegExp(`Fresh pass 1 to Fresh pass 2: 0 / ${denominator} changed`));
-    if (condition === 'P0') {
-      assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
-    } else {
-      assert.match(ui.get('repeat-flips').innerHTML,
-        new RegExp(`0 / ${denominator}</strong> comparable comments changed`));
-      assert.match(ui.get('repeat-flips').innerHTML,
-        new RegExp(`Fresh pass 1 to Fresh pass 3: 0 / ${denominator} changed`));
-      assert.match(ui.get('repeat-flips').innerHTML,
-        new RegExp(`Fresh pass 2 to Fresh pass 3: 0 / ${denominator} changed`));
-    }
+    assert.match(ui.get('repeat-flips').innerHTML,
+      new RegExp(`0 / ${denominator}</strong> comparable comments changed`));
+    assert.match(ui.get('repeat-flips').innerHTML,
+      new RegExp(`Fresh pass 1 to Fresh pass 3: 0 / ${denominator} changed`));
+    assert.match(ui.get('repeat-flips').innerHTML,
+      new RegExp(`Fresh pass 2 to Fresh pass 3: 0 / ${denominator} changed`));
   }
   const usage = ui.get('repeat-usage-body').innerHTML;
   assert.match(usage, /96,930/);
   assert.match(usage, /4,680/);
   assert.match(usage, /616\.3/);
   assert.match(usage, /427\.3/);
+  assert.match(usage, /377\.6/);
   assert.match(usage, /107,550/);
   assert.match(usage, /8,070/);
   assert.match(usage, /742\.8/);

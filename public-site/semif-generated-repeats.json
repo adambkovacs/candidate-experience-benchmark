@@ -46,15 +46,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 8,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "fresh3",
-          "condition": "P0",
-          "status": "not_started"
-        }
-      ],
+      "missingPasses": [],
       "partialPasses": [],
       "passes": {
         "fresh1": {
@@ -2223,56 +2217,347 @@
                 }
               }
             }
+          },
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 52,
+              "allFour": 35,
+              "fields": {
+                "sentiment": 46,
+                "follow_up_needed": 51,
+                "serious_concern_reported": 47,
+                "testimonial_potential": 46
+              },
+              "outcomes": {
+                "valid": 52,
+                "invalid_output": 8,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": [
+                "DEV-002",
+                "DEV-020",
+                "DEV-029",
+                "DEV-040",
+                "DEV-044",
+                "DEV-051",
+                "DEV-055",
+                "DEV-060"
+              ]
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 7,
+                "negative": 25,
+                "neutral": 7,
+                "positive": 13
+              },
+              "follow_up_needed": {
+                "no": 19,
+                "yes": 33
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 27,
+                "yes": 23
+              },
+              "testimonial_potential": {
+                "no": 49,
+                "yes": 3
+              }
+            },
+            "confusionCounts": {
+              "sentiment": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 1,
+                  "positive": 1
+                },
+                "mixed": {
+                  "__invalid_or_missing__": 1,
+                  "mixed": 5,
+                  "positive": 2
+                },
+                "negative": {
+                  "__invalid_or_missing__": 3,
+                  "mixed": 2,
+                  "negative": 25,
+                  "neutral": 1
+                },
+                "neutral": {
+                  "__invalid_or_missing__": 2,
+                  "neutral": 6
+                },
+                "positive": {
+                  "__invalid_or_missing__": 1,
+                  "positive": 10
+                }
+              },
+              "follow_up_needed": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 1
+                },
+                "no": {
+                  "__invalid_or_missing__": 4,
+                  "no": 19,
+                  "yes": 1
+                },
+                "yes": {
+                  "__invalid_or_missing__": 3,
+                  "yes": 32
+                }
+              },
+              "serious_concern_reported": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 2,
+                  "insufficient_information": 1,
+                  "no": 2,
+                  "yes": 1
+                },
+                "no": {
+                  "__invalid_or_missing__": 4,
+                  "insufficient_information": 1,
+                  "no": 24
+                },
+                "yes": {
+                  "__invalid_or_missing__": 2,
+                  "no": 1,
+                  "yes": 22
+                }
+              },
+              "testimonial_potential": {
+                "insufficient_information": {
+                  "__invalid_or_missing__": 1
+                },
+                "no": {
+                  "__invalid_or_missing__": 7,
+                  "no": 43
+                },
+                "yes": {
+                  "no": 6,
+                  "yes": 3
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSeconds": [
+                4.123953166999854,
+                17.54838416603161,
+                5.138331833004486,
+                4.37850916601019,
+                4.6972362080123276,
+                3.877777292043902,
+                4.103466417000163,
+                4.22584187501343,
+                4.245789083011914,
+                4.771963417006191,
+                4.588604332995601,
+                4.703350082971156,
+                4.631106833985541,
+                4.506537333014421,
+                4.998394666006789,
+                4.168539083038922,
+                4.127004750014748,
+                4.869116290996317,
+                4.038050708011724,
+                19.2241201249999,
+                4.581723332987167,
+                4.205040416971315,
+                4.418909709027503,
+                4.767704416997731,
+                4.997751166985836,
+                4.465956749976613,
+                4.214321375009604,
+                4.3912038750131615,
+                18.23795183299808,
+                4.102712541993242,
+                4.217529250017833,
+                4.273245499993209,
+                4.372026333003305,
+                4.4083985420293175,
+                4.438087459013332,
+                4.984970874967985,
+                4.532888791989535,
+                4.996767750009894,
+                3.7901111249811947,
+                17.592472042015288,
+                4.497529792017303,
+                4.351894291990902,
+                4.03010216599796,
+                18.29718395799864,
+                4.266251332999673,
+                4.863439041015226,
+                4.2311909580021165,
+                4.598471665987745,
+                5.488400249974802,
+                4.2610559580498375,
+                19.942326250020415,
+                5.064222749962937,
+                4.56078612501733,
+                5.175914000021294,
+                17.5926558340434,
+                4.594049790990539,
+                4.082281292008702,
+                4.949820499983616,
+                4.035127000010107,
+                15.728269250015728
+              ],
+              "requestSecondsTotal": 377.5668221222586,
+              "clientRunSecondsLowerBound": 377.5668221222586,
+              "inferenceSeconds": null,
+              "tokens": {
+                "input_tokens": 96930,
+                "output_tokens": 4680,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null,
+              "costNote": "Local hardware and electricity cost not measured."
+            },
+            "evidence": {
+              "smoke": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.root-review.json",
+                  "sha256": "505de37cf47f7f48cd952bbb5c5e4a2e901e8301b31624801aa4af42e3d16cdd"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.claim.json",
+                  "sha256": "1d8c15e68bab67202900fedf81902bd7e5e1f10cbfa615da70cc179005631525"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.journal.jsonl",
+                  "sha256": "e8f95545732cad24d2340e1a6949f198d858d6953ea26ff1388ee26a6c7002d9"
+                },
+                "events": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.events.jsonl",
+                  "sha256": "9fa69d74e6e271136cb5aae7a1e49d488d8361925982700631fe45bc82e67750"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.raw.jsonl",
+                  "sha256": "96129660fea2fe7973c354eda7a41e740e68ac4e1cbef3e4b24e26919b496f23"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.records.jsonl",
+                  "sha256": "5c276b699ece514e2cee8c3927a3435190fe24ba649012deab4e043f620990d6"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.completion.json",
+                  "sha256": "4a161b8540da643011ddad7a0b0c0621c25479d8b4e382c53e5f09d9e3081669"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke-inspection.json",
+                "sha256": "fd7defd7b458c2efb5233df1ad22b1012e4b4c40d6f769c056755e3e3c7a66ca"
+              },
+              "development": {
+                "receipt": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.root-review.json",
+                  "sha256": "2a7add592120724b8bc999bbb138d60fb3eef578957926b5fa3ae5fa32a530b2"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.claim.json",
+                  "sha256": "bbb6d172d8f4c599e3754d2ef99de5e05bf8aeecf4d01ed42aa552ddb2678fd8"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.journal.jsonl",
+                  "sha256": "bddffb5ff9eb378f95c2fccecc80762fcc19d6f11025f164c0201f5597e22e4a"
+                },
+                "events": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.events.jsonl",
+                  "sha256": "b268366781e4391cb9860d623653c8721b898ab284bf2472746f3a7b3289e501"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.raw.jsonl",
+                  "sha256": "1c3a84ba7e017ba5991436229678a34a7551b0980376799e50155d1ca28d24ad"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.records.jsonl",
+                  "sha256": "1ea0b43e54644a4ad7a9aeb5ccb59f000310feef82c07b3a8e6e1bd7216031e8"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.completion.json",
+                  "sha256": "2c5d891ac49eeaf1a744ac4551d4218c591c451c0f828580da83c805a5026753"
+                }
+              }
+            }
           }
         }
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              35,
               35,
               35
             ],
-            "mean": null,
-            "range": null
+            "mean": 35.0,
+            "range": [
+              35,
+              35
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                46,
                 46,
                 46
               ],
-              "mean": null,
-              "range": null
+              "mean": 46.0,
+              "range": [
+                46,
+                46
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                51,
                 51,
                 51
               ],
-              "mean": null,
-              "range": null
+              "mean": 51.0,
+              "range": [
+                51,
+                51
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                47,
                 47,
                 47
               ],
-              "mean": null,
-              "range": null
+              "mean": 47.0,
+              "range": [
+                47,
+                47
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                46,
                 46,
                 46
               ],
-              "mean": null,
-              "range": null
+              "mean": 46.0,
+              "range": [
+                46,
+                46
+              ]
             }
           }
         },
@@ -2420,6 +2705,88 @@
           "condition": "P0",
           "from": "fresh1",
           "to": "fresh2",
+          "denominator": 52,
+          "excludedIds": [
+            "DEV-002",
+            "DEV-020",
+            "DEV-029",
+            "DEV-040",
+            "DEV-044",
+            "DEV-051",
+            "DEV-055",
+            "DEV-060"
+          ],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 52,
+          "excludedIds": [
+            "DEV-002",
+            "DEV-020",
+            "DEV-029",
+            "DEV-040",
+            "DEV-044",
+            "DEV-051",
+            "DEV-055",
+            "DEV-060"
+          ],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
+          "condition": "P0",
+          "from": "fresh2",
+          "to": "fresh3",
           "denominator": 52,
           "excludedIds": [
             "DEV-002",
@@ -2729,6 +3096,26 @@
         }
       ],
       "changesAcrossThreePasses": {
+        "P0": {
+          "denominator": 52,
+          "excludedIds": [
+            "DEV-002",
+            "DEV-020",
+            "DEV-029",
+            "DEV-040",
+            "DEV-044",
+            "DEV-051",
+            "DEV-055",
+            "DEV-060"
+          ],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": []
+        },
         "P1": {
           "denominator": 38,
           "excludedIds": [
@@ -2820,6 +3207,32 @@
         },
         {
           "pass": "fresh2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 8,
+          "fields": {
+            "sentiment": 5,
+            "follow_up_needed": 6,
+            "serious_concern_reported": 6,
+            "testimonial_potential": 7
+          }
+        },
+        {
+          "pass": "fresh3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": -9,
+          "fields": {
+            "sentiment": -13,
+            "follow_up_needed": -13,
+            "serious_concern_reported": -11,
+            "testimonial_potential": -14
+          }
+        },
+        {
+          "pass": "fresh3",
           "from": "P0",
           "to": "P2",
           "denominator": 60,
@@ -3018,6 +3431,126 @@
         },
         {
           "pass": "fresh2",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 52,
+          "excludedIds": [
+            "DEV-002",
+            "DEV-020",
+            "DEV-029",
+            "DEV-040",
+            "DEV-044",
+            "DEV-051",
+            "DEV-055",
+            "DEV-060"
+          ],
+          "sentiment": {
+            "changed": 3,
+            "rate": 0.057692307692307696,
+            "caseIds": [
+              "DEV-013",
+              "DEV-049",
+              "DEV-054"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 2,
+            "rate": 0.038461538461538464,
+            "caseIds": [
+              "DEV-006",
+              "DEV-018"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.019230769230769232,
+            "caseIds": [
+              "DEV-001"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 6,
+            "rate": 0.11538461538461539,
+            "caseIds": [
+              "DEV-001",
+              "DEV-006",
+              "DEV-013",
+              "DEV-018",
+              "DEV-049",
+              "DEV-054"
+            ]
+          }
+        },
+        {
+          "pass": "fresh3",
+          "from": "P0",
+          "to": "P1",
+          "denominator": 37,
+          "excludedIds": [
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-009",
+            "DEV-016",
+            "DEV-017",
+            "DEV-020",
+            "DEV-026",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-036",
+            "DEV-040",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-050",
+            "DEV-051",
+            "DEV-053",
+            "DEV-055",
+            "DEV-060"
+          ],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.02702702702702703,
+            "caseIds": [
+              "DEV-013"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 1,
+            "rate": 0.02702702702702703,
+            "caseIds": [
+              "DEV-024"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 2,
+            "rate": 0.05405405405405406,
+            "caseIds": [
+              "DEV-013",
+              "DEV-024"
+            ]
+          }
+        },
+        {
+          "pass": "fresh3",
           "from": "P0",
           "to": "P2",
           "denominator": 52,
@@ -3638,6 +4171,66 @@
         {
           "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P1/smoke-inspection.json",
           "sha256": "8ae14df55cab71d94fc5bdb8361cdd4b88b56969e1eb78ed7bb63989c49d51ba"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.root-review.json",
+          "sha256": "505de37cf47f7f48cd952bbb5c5e4a2e901e8301b31624801aa4af42e3d16cdd"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.claim.json",
+          "sha256": "1d8c15e68bab67202900fedf81902bd7e5e1f10cbfa615da70cc179005631525"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.journal.jsonl",
+          "sha256": "e8f95545732cad24d2340e1a6949f198d858d6953ea26ff1388ee26a6c7002d9"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.events.jsonl",
+          "sha256": "9fa69d74e6e271136cb5aae7a1e49d488d8361925982700631fe45bc82e67750"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.raw.jsonl",
+          "sha256": "96129660fea2fe7973c354eda7a41e740e68ac4e1cbef3e4b24e26919b496f23"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.records.jsonl",
+          "sha256": "5c276b699ece514e2cee8c3927a3435190fe24ba649012deab4e043f620990d6"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke.completion.json",
+          "sha256": "4a161b8540da643011ddad7a0b0c0621c25479d8b4e382c53e5f09d9e3081669"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.root-review.json",
+          "sha256": "2a7add592120724b8bc999bbb138d60fb3eef578957926b5fa3ae5fa32a530b2"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.claim.json",
+          "sha256": "bbb6d172d8f4c599e3754d2ef99de5e05bf8aeecf4d01ed42aa552ddb2678fd8"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.journal.jsonl",
+          "sha256": "bddffb5ff9eb378f95c2fccecc80762fcc19d6f11025f164c0201f5597e22e4a"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.events.jsonl",
+          "sha256": "b268366781e4391cb9860d623653c8721b898ab284bf2472746f3a7b3289e501"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.raw.jsonl",
+          "sha256": "1c3a84ba7e017ba5991436229678a34a7551b0980376799e50155d1ca28d24ad"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.records.jsonl",
+          "sha256": "1ea0b43e54644a4ad7a9aeb5ccb59f000310feef82c07b3a8e6e1bd7216031e8"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/development.completion.json",
+          "sha256": "2c5d891ac49eeaf1a744ac4551d4218c591c451c0f828580da83c805a5026753"
+        },
+        {
+          "path": "results/repeatability-v1/semif-generated-fresh-v1/fresh3/P0/smoke-inspection.json",
+          "sha256": "fd7defd7b458c2efb5233df1ad22b1012e4b4c40d6f769c056755e3e3c7a66ca"
         }
       ],
       "declaredExternalSourceHashes": {
