@@ -473,20 +473,41 @@ def build_one(root, config_id, ctx):
                     or inspection.get('approved') is not True
                     or inspection.get('raw_sha256') != smoke_evidence['raw']['sha256']
                     or inspection.get('records_sha256') != smoke_evidence['records']['sha256']
-                    or inspection.get('reference_labels_sent') is not False
                     or review.get('smoke_inspection_sha256') != inspection_binding['sha256']
                     or review.get('smoke_all_three_valid') is not True
                     or any(r['decision']['status'] != 'ok' for r in smoke)):
                 raise ValueError('Development does not bind valid inspected smoke')
+            reference_attestation = None
+            if 'reference_labels_sent' in inspection:
+                if inspection['reference_labels_sent'] is not False:
+                    raise ValueError('Smoke inspection does not attest references were withheld')
+            else:
+                attestation_file = folder / 'smoke-inspection-reference-attestation.json'
+                if not path(root, attestation_file).exists():
+                    raise ValueError('Missing supplemental smoke reference attestation')
+                attestation = json.loads(path(root, attestation_file).read_text())
+                if (attestation.get('kind') != 'small-local-smoke-reference-attestation-v1'
+                        or attestation.get('phase') != phase
+                        or attestation.get('attestation_timing') != 'post_run_supplemental'
+                        or attestation.get('reference_labels_sent') is not False
+                        or attestation.get('inspection_sha256') != inspection_binding['sha256']
+                        or attestation.get('plan_sha256') != MANIFEST_SHA
+                        or attestation.get('smoke_raw_sha256') != smoke_evidence['raw']['sha256']
+                        or attestation.get('smoke_records_sha256') != smoke_evidence['records']['sha256']):
+                    raise ValueError('Supplemental smoke reference attestation differs')
+                reference_attestation = bind(attestation_file)
             parsed = {r['id']: {'status': r['decision']['status'],
                                 'prediction': r['decision'].get('prediction')} for r in development}
+            evidence = {'smoke': smoke_evidence, 'smokeInspection': inspection_binding,
+                        'development': dev_evidence}
+            if reference_attestation is not None:
+                evidence['smokeReferenceAttestation'] = reference_attestation
             entry = {'completionStatus': 'complete', 'score': shared.score(parsed, labels, ids),
                      'predictedClassCounts': {field: dict(sorted(Counter(
                          parsed[rid]['prediction'][field] for rid in ids
                          if shared.outcome(parsed[rid]) == 'valid').items())) for field in FIELDS},
                      'usage': usage(raw),
-                     'evidence': {'smoke': smoke_evidence, 'smokeInspection': inspection_binding,
-                                  'development': dev_evidence}}
+                     'evidence': evidence}
             passes[name][condition] = entry
             indexed[name, condition] = parsed
     summaries = {}

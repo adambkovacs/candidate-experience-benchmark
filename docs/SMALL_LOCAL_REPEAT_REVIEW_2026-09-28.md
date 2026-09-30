@@ -17,3 +17,14 @@ See the [eligibility audit](SMALL_LOCAL_REPEAT_ELIGIBILITY_2026-09-28.md), [cont
 The first live preflight found a BLOCKING implementation defect before a request or phase claim: Node could not read the 3.43 GB GGUF into a single buffer. The helper now computes SHA-256 in 1 MiB chunks and closes its descriptor reliably. All thirteen tests passed, including hashing the actual installed 3,427,880,384-byte artifact to its pinned digest and comparing a multi-chunk fixture against direct hashing.
 
 The corrected controller SHA-256 is `3076927fda41ca9922f2a56b401d55ffee2e67462d06af70c7cfecaf8c21a7e8`; the refrozen, still-unexecuted manifest is `48ff89983f1acb5b8450c0ed8698cae127ec6d533f324be904a3f01a0bdd3619`. The prior manifest is retained as `manifest.before-streaming-hash-review.json`. Verdict: **APPROVE** for this correction; inference still requires the existing stage gates. No model, prompt, sampling or scoring control changed.
+
+
+## Supplemental reference-isolation attestation, 30 September 2026
+
+The first Gemma E2B thinking-on P0 and P1 smoke inspections omitted the explicit `reference_labels_sent: false` field. The frozen execution controller accepted those inspections, but the public reporter requires that field. This was an incomplete review record, not evidence of a changed request. Original inspections, their bound development receipts, requests and model outputs remain unchanged.
+
+Root reverified the frozen plan and all 60 request hashes for each condition. Each user message contains only the `feedback` key, each condition uses one common system policy, and the saved request evidence declares `reference_labels_read: false`. Separate post-run attestations bind the original inspection, plan, raw smoke and parsed smoke hashes: [P0](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P0/smoke-inspection-reference-attestation.json) and [P1](../results/repeatability-v1/small-local-v1/gemma4-e2b-sdk-thinking-on/fresh1/P1/smoke-inspection-reference-attestation.json). These supplement the audit record; they are not retroactive pre-run checks.
+
+The reporter may accept a missing field only with a matching supplemental attestation. It must still reject an original explicit true value, missing or stale bindings, and any existing request or reference-isolation failure. New smoke inspections must include the explicit false field before admission. No inference was repeated and no output parser or frozen model configuration changed.
+
+Review verdict: APPROVE; no confirmed blocking findings. Residual: the reporter permits the same strictly bound supplement for a later omitted field; the instruction to include the field in all new preflight inspections is an operational rule, not an exact-phase allowlist. This does not change the frozen controller or admit a run automatically. Eighteen reporter tests passed.

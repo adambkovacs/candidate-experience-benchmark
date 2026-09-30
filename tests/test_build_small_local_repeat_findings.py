@@ -46,6 +46,42 @@ class SmallLocalReportTests(unittest.TestCase):
     def build_one(self, root):
         return report.build(root, (self.config,))['series'][0]
 
+    def rewrite_inspection(self, root, reference_field):
+        folder = root / report.BASE / self.config / 'fresh1/P0'
+        inspection_path = folder / 'smoke-inspection.json'
+        inspection = json.loads(inspection_path.read_text())
+        if reference_field == 'absent':
+            inspection.pop('reference_labels_sent')
+        else:
+            inspection['reference_labels_sent'] = reference_field
+        inspection_path.write_text(json.dumps(inspection) + '\n')
+        inspection_sha = hashlib.sha256(inspection_path.read_bytes()).hexdigest()
+        review_path = folder / 'development.root-review.json'
+        review = json.loads(review_path.read_text())
+        review['smoke_inspection_sha256'] = inspection_sha
+        review_path.write_text(json.dumps(review) + '\n')
+        claim_path = folder / 'development.claim.json'
+        claim = json.loads(claim_path.read_text())
+        claim['receipt_sha256'] = hashlib.sha256(review_path.read_bytes()).hexdigest()
+        claim_path.write_text(json.dumps(claim) + '\n')
+        return folder, inspection_sha
+
+    def write_reference_attestation(self, root, folder, inspection_sha, **changes):
+        attestation = {
+            'kind': 'small-local-smoke-reference-attestation-v1',
+            'phase': f'{self.config}/fresh1/P0',
+            'attestation_timing': 'post_run_supplemental',
+            'reference_labels_sent': False,
+            'inspection_sha256': inspection_sha,
+            'plan_sha256': report.MANIFEST_SHA,
+            'smoke_raw_sha256': hashlib.sha256((folder / 'smoke.raw.jsonl').read_bytes()).hexdigest(),
+            'smoke_records_sha256': hashlib.sha256((folder / 'smoke.records.jsonl').read_bytes()).hexdigest(),
+        }
+        attestation.update(changes)
+        target = folder / 'smoke-inspection-reference-attestation.json'
+        target.write_text(json.dumps(attestation) + '\n')
+        return target
+
     def test_real_closed_phase_reports_reference_and_observed_usage(self):
         root = self.fixture()
         result = self.build_one(root)
@@ -72,6 +108,53 @@ class SmallLocalReportTests(unittest.TestCase):
         for suffix in ('raw.jsonl', 'records.jsonl', 'journal.jsonl', 'completion.json'):
             self.assertIn(str(report.BASE / self.config / 'fresh1/P0' /
                               f'development.{suffix}'), names)
+
+    def test_missing_inspection_field_accepts_bound_post_run_attestation(self):
+        root = self.fixture()
+        folder, inspection_sha = self.rewrite_inspection(root, 'absent')
+        supplement = self.write_reference_attestation(root, folder, inspection_sha)
+        result = self.build_one(root)
+        evidence = result['passes']['fresh1']['P0']['evidence']
+        binding = {'path': str(supplement.relative_to(root)),
+                   'sha256': hashlib.sha256(supplement.read_bytes()).hexdigest()}
+        self.assertEqual(evidence['smokeReferenceAttestation'], binding)
+        self.assertIn(binding, result['sourceBindings'])
+        self.assertEqual(result['passes']['fresh1']['P0']['score']['allFour'], 35)
+
+    def test_missing_inspection_field_without_attestation_is_rejected(self):
+        root = self.fixture()
+        self.rewrite_inspection(root, 'absent')
+        with self.assertRaisesRegex(ValueError, 'Missing supplemental smoke reference attestation'):
+            self.build_one(root)
+
+    def test_stale_or_mismatched_reference_attestation_is_rejected(self):
+        for changes in ({'inspection_sha256': '0' * 64},
+                        {'plan_sha256': '0' * 64},
+                        {'smoke_raw_sha256': '0' * 64},
+                        {'smoke_records_sha256': '0' * 64},
+                        {'reference_labels_sent': True},
+                        {'attestation_timing': 'preflight'}):
+            with self.subTest(changes=changes):
+                root = self.fixture()
+                folder, inspection_sha = self.rewrite_inspection(root, 'absent')
+                self.write_reference_attestation(root, folder, inspection_sha, **changes)
+                with self.assertRaisesRegex(ValueError, 'Supplemental smoke reference attestation differs'):
+                    self.build_one(root)
+
+    def test_explicit_true_inspection_rejected_even_with_attestation(self):
+        root = self.fixture()
+        folder, inspection_sha = self.rewrite_inspection(root, True)
+        self.write_reference_attestation(root, folder, inspection_sha)
+        with self.assertRaisesRegex(ValueError, 'Smoke inspection does not attest references were withheld'):
+            self.build_one(root)
+
+    def test_explicit_false_inspection_needs_no_attestation(self):
+        root = self.fixture()
+        result = self.build_one(root)
+        evidence = result['passes']['fresh1']['P0']['evidence']
+        self.assertNotIn('smokeReferenceAttestation', evidence)
+        self.assertFalse(any(binding['path'].endswith('smoke-inspection-reference-attestation.json')
+                             for binding in result['sourceBindings']))
 
     def test_unclaimed_mutable_evidence_is_rejected(self):
         root = self.fixture()
