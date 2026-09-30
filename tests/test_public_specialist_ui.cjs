@@ -33,7 +33,7 @@ function fixture() {
 test('ranking defaults to all routes and points to saved specialist outcomes', () => {
   assert.match(html, /<select id="overview-surface"><option value="all">All routes<\/option>/);
   assert.match(html, /id="overview-specialists"[^>]*>See local specialists/);
-  assert.match(html, /Complete means a result was saved for all 60 comments; some outputs may be invalid/);
+  assert.match(html, /A complete run saved a result for all 60 comments/);
   assert.doesNotMatch(html, /id="overview-hosted"/);
   const {ui, elements} = fixture();
   ui.renderOverview();

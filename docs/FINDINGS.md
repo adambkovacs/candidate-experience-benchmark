@@ -10,8 +10,8 @@ Across **39 audited hosted and subscription prompt setups**, classifier framing 
 
 | Comparison | More matches | Same score | Fewer matches |
 | --- | ---: | ---: | ---: |
-| Original rubric → classifier framing | 15 | 15 | 8 |
-| Original rubric → decision tree | 7 | 16 | 15 |
+| Original rubric → classifier framing | 15 | 15 | 9 |
+| Original rubric → decision tree | 7 | 16 | 16 |
 | Classifier framing → decision tree | 4 | 13 | 21 |
 
 Five additional eligible comparisons use local SDK models with historical baselines: Gemma E2B and E4B with thinking off/on, and Qwen 3.5 4B with thinking off. Including them gives 43 setups and a P1→P2 tally of 8 improvements, 13 ties and 22 declines. We show those five separately so that local execution and historical-baseline evidence remain visible.

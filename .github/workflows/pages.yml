@@ -26,6 +26,9 @@ jobs:
           test -f public-site/index.html
           test -f public-site/data.json
           test -z "$(find public-site -type l -print)"
+          node --check public-site/reader.js
+          python3 scripts/build_reader_story.py --check
+          python3 -m unittest tests.test_reader_story -q
           node --check public-site/app.js
           node --check public-site/findings.js
           node --check public-site/repeats.js
