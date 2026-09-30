@@ -25,3 +25,20 @@ Presence and byte size are **not** content-hash verification. The controllers re
 5. **Admit one stage at a time.** Select the first frozen `fresh1/P0` phase for a configuration, create a root-reviewed smoke receipt with the exact plan/controller/artifact/catalog/cache identities, and use the controller's `preview` command to inspect its DEV-001–003 membership. The `run` command is a separate, state-changing step and was not invoked here. Review all three raw smoke outputs and save the controller's root inspection record before a distinct development receipt; the controllers prevent duplicate claims and retain invalid or unknown outcomes without retry. Proceed in each configuration's frozen order, keeping the HTTP Qwen0.6 path and all thinking-on/off controls separate. No historical P0 or ambiguous Qwen3.5 P2 DEV-019 result fills a fresh phase.
 
 The [six-Qwen admission note](LEGACY_QWEN_FRESH3_ADMISSION.md) and [remaining roster](REMAINING_ROSTER_2026-09-29.md) remain the scope references. This checkpoint did not access reference labels, credentials, budget ledgers, or model outputs.
+
+## Read-only content-hash follow-up, 19:26 UTC
+
+Each existing GGUF was streamed through SHA-256 without loading a model. All five content hashes and byte sizes matched the frozen small-local or six-Qwen manifest. The SDK, LM Studio CLI, and app plist also matched the pinned parent-runtime hashes. This resolves the **disk artifact and installed-file drift check at this time**; the controllers must repeat their own checks at stage admission because files can change later.
+
+| File | Verified SHA-256 | Frozen match |
+| --- | --- | --- |
+| Gemma 4 E2B `Q4_K_M` GGUF | `71e6e8cb64a76da1a734fb8f6ba389d2784950d9902f5e87244fca0a15190c94` | Yes; 3,427,880,384 bytes. |
+| Gemma 4 E4B `Q4_K_M` GGUF | `0ffb122c8b6921f13cbc34186e052524d0b5803b17f4867b7197a561400b3770` | Yes; 5,335,291,936 bytes. |
+| Qwen3.5 4B `Q4_K_M` GGUF | `25082a7dd3776cc3c741c6347d3bd04523f05796607b3fbc32fa3a25dfa1418c` | Yes; 2,707,513,696 bytes. |
+| Qwen3 0.6B `Q4_K_M` GGUF | `cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548` | Yes; 484,219,808 bytes. |
+| Qwen3 1.7B `Q4_K_M` GGUF | `e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e` | Yes; 1,282,439,328 bytes. |
+| Pinned LM Studio SDK bundle | `9657d3c5f4e1e17316b810b8d0a99c93bf1bef75706390552d167db06913957c` | Yes. |
+| Pinned LM Studio CLI | `8c5e3c497cf0705c7229d4b43c275a6622ea0d492156c7e499d9ffdd09399291` | Yes. |
+| Pinned LM Studio app plist | `9eb7fb32dfdabc59e1bc39ab9dc7ecfafe62a35651ea8c7de60fd0714d2ae6bd` | Yes. |
+
+No server call, render, tokenize, model load/unload, inference, or download was part of this hash check. Loaded-instance identity, cache and thinking initialization, current GPU capacity, and live context parity remain separate stage gates above.
