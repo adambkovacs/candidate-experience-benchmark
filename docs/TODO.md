@@ -20,7 +20,7 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [x] **SemIf four-phase publication — root:** `e2834ef8` pushed the second P1 result, source-bound feed and updated explanations. Root checked all 81 committed source hashes and 13 reporter/UI tests. Pages run `36758886171` succeeded. Live HTML and feed match `e2834ef8` byte for byte (SHA-256 `007d6bc8b106697207dfad84c8367e2afb6f7bf89bc993d34c5ea5737ce39c62` and `ef71abd9ced03e87a3799a0de7a5fc46b1dce1b7eed8613a6e6d8bd85d706536`).
 
-- [ ] **GLiNER decision-model admission research — native_variants_prepare:** primary-source brief now identifies the exact Fastino hosted Decide model and public tariff separately from Multi and the open-weight checkpoint. Root independently verified the public catalog bodies and preserved them. Account access, spending authority and request/context verification remain; no GLiNER inference is admitted.
+- [x] **GLiNER decision-model admission research — native_variants_prepare:** [Primary-source brief](GLINER_DECISION_ADMISSION_2026-09-30.md) identifies the exact Fastino hosted Decide model and public tariff separately from Multi and the open-weight checkpoint. Root independently verified the public catalog bodies and preserved them. Account access, spending authority and request/context verification remain; no GLiNER inference is admitted.
 
 ## Verified progress
 
