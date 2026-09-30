@@ -13,7 +13,7 @@ Updated 30 September 2026. This is the current coordination list. Frozen manifes
 
 - [x] **Native hosted P1/P2 preparation:** four offline Kev/Jev manifests with 60 input-only requests and three planned pass identities each are prepared and verified in `results/route-audits/native-variants-offline-20260930`. Seven tests pass, including leakage, drift and immutable-output checks. Review verdict: APPROVE for offline preparation. RESIDUAL: live endpoint refresh, provider context accounting, smoke inspection and spending admission remain required; no execution is authorized by these manifests.
 
-- [ ] **Native P1/P2 execution adapter — native_variants_prepare:** implement and test a separate offline-reviewed runner; no live calls, receipts or ledger changes until root review and budget admission.
+- [ ] **Native P1/P2 execution adapter — root:** implementation reviewed; 12 offline tests pass, including whole-pass budget gating, exact receipts, no replay, raw/ledger reconciliation, and endpoint-snapshot tampering. Review verdict APPROVE for implementation. RESIDUAL: no provider pre-dispatch tokenizer for all inputs; future context errors stop the pass. The runner holds the shared ledger lock for a stage, so it serializes this lane. No live stage is admitted; exact receipt, current route and available budget remain required.
 - [ ] **AnyJev generated readiness — publish_on_triple:** read-only frozen-plan/runtime audit passed; 15 combined controller/reporter tests pass. No fresh execution exists. Exact hosted Qwen 0.6B endpoint unavailable in current API check. First smoke needs root receipt and free native host; SemIf retains the host.
 
 ## Verified progress
