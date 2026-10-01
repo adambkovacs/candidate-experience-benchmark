@@ -184,7 +184,7 @@ test('incomplete run keeps its fixed-denominator count as an explicit partial ta
   ui.state.data = {runs: [partial], promptComparisons: [], roster: []};
   ui.state.experiments = new Map([['model-a', [partial]]]);
   ui.renderExperiment();
-  assert.match(conditionGrid(), /PARTIAL TALLY · 59 \/ 60 SAVED · 1 MISSING/);
+  assert.match(conditionGrid(), /PARTIAL TALLY · 59 \/ 60 SAVED · 1 WITHOUT A SAVED RESPONSE/);
   assert.match(conditionGrid(), /42<small> \/ 60<\/small>/);
   assert.match(conditionGrid(), /All four match · NOT A FINAL SCORE/);
   ui.renderLedger();
