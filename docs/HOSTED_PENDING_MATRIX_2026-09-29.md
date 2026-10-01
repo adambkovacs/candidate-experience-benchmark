@@ -2,21 +2,21 @@
 
 ## Current preparation and execution status
 
-Preparation statuses below remain the 29 September checkpoint. Budget refreshed on 30 September after the decision-model smokes and Kev runs; the master ledger was read under its exclusive lock without changing its bytes. The historical snapshots below are retained for provenance; their preparation, endpoint and budget statuses are superseded by this section.
+Updated 1 October 2026 from the locked master ledger and closed source evidence. The older snapshots below are retained for provenance and do not authorize dispatch or describe current funding. [TODO](TODO.md) lists active process owners; the [remaining roster](REMAINING_ROSTER_2026-09-29.md) retains every unfinished configuration.
 
-| Remaining configuration | Verified progress | What prevents the next dispatch |
+| Configuration | Verified progress | Next boundary |
 | --- | --- | --- |
-| DeepSeek low | P0 and P1 are closed and published. P2 stopped after DEV-040 and DEV-049 returned HTTP 429: 46 valid, one invalid, two service failures and 11 unsent. Both child allocations are sealed. | Additional authorized budget and a separately reviewed continuation are required. P2 remains unscored; six later full runs also remain unsent. No failed or completed request is replayed. |
-| Qwen27 medium and xhigh | Six fresh-pass plans and the execution controller are committed. Fourteen combined tests and independent review pass. | Proposed children of $1.00 and $0.80 are unfunded. Stage-specific review and live route checks remain required. |
-| Gemma 26B reasoning-on | Three fresh-pass plans and the corrected controller are committed. Eleven combined tests and independent review pass. Raw response files are ignored. | Proposed $0.40 child is unfunded; no fresh inference has run. |
-| Qwen 35B reasoning-on | Three fresh-pass plans and the reviewed executor are committed through `75595754`. | Proposed $1.50 child is unfunded; stage review and fresh route checks remain required. |
-| DeepSeek high | Three fresh-pass plans and the reviewed executor are committed through `24d3e3e5`, with 26 combined tests passing. | Needs fresh live route checks, stage review and funding for the proposed $0.90 child. |
-| Mistral 119B none and high | Historical failed smokes remain preserved; six offline plans are reviewed and committed in `9ba898d7`. | The executor is reviewed and committed in `9c417ca2`. Fresh provider checks, stage admission and funding remain outstanding. No observed whole-series cost proxy exists. |
-| Gemini 3.1 Pro high | Reviewed wrapper and frozen plans exist. | Proposed $2 child is unfunded. |
+| Qwen27 medium and xhigh | Each has four closed full phases: fresh1 P0/P1/P2 and fresh2/P1. Both fresh2/P2 phases are running. | Existing $1.00 and $0.80 children are allocated. Preserve phase identities; later stages need fresh gates and raw smoke inspection. [Report](../public-site/hosted-v2-repeats.json). |
+| Gemma 26B reasoning-on | Original P0/P1 closed. P2 has a stopped seven-attempt prefix and a separately closed 53-record suffix. Combined inventory: 59 valid answers, one provider failure. | The versioned continuation is descriptive rather than clean matched-three evidence. Fresh2/P1 runs under a new $0.30 child. [Findings and limitations](GEMMA26_INTERRUPTED_P2_FINDINGS_2026-10-01.md). |
+| DeepSeek low | P0/P1 closed. P2 retains two HTTP429 failures and 11 never-sent records; old children sealed. | Another reviewed continuation and budget admission are needed; do not retry failed requests. |
+| Qwen35B reasoning-on | Reviewed fresh plans and executor exist. | Proposed $1.50 child is not allocated. Fresh route checks and stage admission remain. |
+| DeepSeek high | Reviewed plans and executor exist. | Proposed $0.90 child is not allocated. Fresh exact endpoint check and stage admission remain. |
+| Mistral119B none/high | Historical failed smokes retained; separate plans and executor prepared. | Fresh provider checks, budget allocation and stage admission remain. |
+| Gemini3.1 Pro high | Reviewed wrapper and frozen plans exist. | Proposed $2 child is not allocated. |
 
-No new allocation is made by this checkpoint. The aggregate cap remains $10. The current ledger accounts for $9.98032451750, leaving $0.01967548250 unallocated. This includes later decision-model work; the older [DeepSeek interruption reconciliation](DEEPSEEK_LOW_INTERRUPTION_CONTINUATION_2026-09-29.md#second-interruption-dev-049) remains valid historical evidence. No attempt reservation is pending and the ledger blocked flag is false. The two $0.1069056 unknown-charge bounds remain reserved separately; they are not observed charges. No hosted inference is running at this checkpoint. The requested increase to $17 total has not been approved.
+The approved aggregate cap is $12.38. The locked master-ledger read accounts for $12.14536785750, including active allocations, leaving **$0.23463214250 unallocated**. Allocation amounts are not observed charges. The old Gemma child retained $0.01974272 as an unknown-charge upper bound and released $0.33495666 of unused capacity; its new $0.30 child is already included above. Do not count released capacity twice or assume the unused portion of an active child is available elsewhere. No larger cap has been approved.
 
-For exact plan and cost evidence, see the admissions for [Qwen27](QWEN27_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Gemma](GEMMA26_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), [Qwen reasoning-on](QWEN36_ON_FRESH_REPEAT_ADMISSION_2026-09-29.md), and [DeepSeek high](DEEPSEEK_HIGH_FRESH_REPEAT_ADMISSION_2026-09-29.md). Completed Qwen reasoning-off work remains preserved with its interruption limitations; it is not queued for a cleaner rerun.
+The allocations proposed for remaining whole series exceed current unallocated capacity. Smaller admissions need their own cost and reserve checks; a proposed allocation is not a bill or a guarantee that the full experiment fits. Reconcile active children only after terminal closure. Keep the exact-route plans and dated observations below as historical evidence.
 
 ## Historical snapshot at 02:25 UTC
 
