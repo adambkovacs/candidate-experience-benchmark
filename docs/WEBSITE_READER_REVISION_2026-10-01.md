@@ -19,3 +19,7 @@ The reading layout uses larger body text, shorter lines, quieter surfaces and a 
 - Academy anti-slop script checked the extracted static page copy. Its only flagged punctuation was the pre-existing em-dash score-loading placeholder, not a prose sentence. Manual review covered the new explanations and chart wording.
 
 Sources: [published findings data](../public-site/findings-provider-errors-v1.json), [reader evidence](../public-site/reader-evidence.json), [reference review](REFERENCE_REVIEW_V1.md), [reader tests](../tests/test_reader_story.py). Publication verified: commit `7882b755`, GitHub Pages run `36819083251` succeeded. The four changed public assets match the checkout byte for byte. The live instruction explainer was operated successfully after deployment.
+
+## Final clarity review
+
+A second independent read found no blocking issues. Two remaining headline ambiguities were corrected: the 21-of-39 result now identifies adding decision rules to classifier instructions, and the 11-of-60 example names Gemma and its limited scope. Prompt menus spell out the instruction sets alongside P0/P1/P2. These changes preserve the underlying measurements.

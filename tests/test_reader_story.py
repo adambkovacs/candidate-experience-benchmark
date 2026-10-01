@@ -53,7 +53,7 @@ class ReaderStoryTests(unittest.TestCase):
 
         page = (ROOT / "public-site/index.html").read_text()
         repeat = chapter(page, "story-repeat")
-        assert "Eleven comments got different answers" in repeat
+        assert "In one repeated Gemma test, 11 of 60 comments got different answers" in repeat
         assert "36 to 39 out of 60" in repeat
         assert "Four comments gained" in repeat and "one lost" in repeat
         assert 'aria-label="11 of 60 comments changed at least one answer' in page
@@ -88,7 +88,7 @@ class ReaderStoryTests(unittest.TestCase):
         prompts = chapter(page, "story-prompts")
         assert "Jev matched 54 of the 60 comments" in specialist
         assert "every response could be scored" in specialist.lower()
-        assert "lower in 21 of 39 comparisons" in prompts
+        assert "lowered scores in 21 of 39 saved setups" in prompts
         assert "improved four setups, left 14 unchanged and lowered 21" in prompts
 
         reader_js = (ROOT / "public-site/reader.js").read_text()
