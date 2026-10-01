@@ -23,3 +23,5 @@ Sources: [published findings data](../public-site/findings-provider-errors-v1.js
 ## Final clarity review
 
 A second independent read found no blocking issues. Two remaining headline ambiguities were corrected: the 21-of-39 result now identifies adding decision rules to classifier instructions, and the 11-of-60 example names Gemma and its limited scope. Prompt menus spell out the instruction sets alongside P0/P1/P2. These changes preserve the underlying measurements.
+
+The clarity follow-up is published in `8c6f85cd`. Pages run `36825937756` succeeded; live HTML matches the checkout (SHA-256 `8808eb59e4ba1c78c7ca98353e0d4f5941480e36813a3945767ac2c21ba533c0`). The rendered local page also showed the expanded prompt choices and both corrected headlines.
