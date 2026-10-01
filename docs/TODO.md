@@ -19,6 +19,9 @@ Checkpoint: 1 October 2026, 06:23 UTC. Earlier statuses are retained in [coordin
 
 - **Jev confidence analysis, native_variants_prepare:** offline source-bound analysis of saved native P0/P1/P2 confidence is committed and pushed in `8b5a590b`. Independent review approved all counts and 25 source bindings; five stdlib tests and clean-archive parity pass. Pages `36827483195` succeeded; root byte-verified the live HTML and confidence feed. No inference or new spending; invalid responses stay excluded with fixed-60 counts, and hypothetical withholding is not an executed policy.
 
+- **Mistral next admission, root:** the exact DEV-049–060 suffix manifest is frozen and verified in `5b56c2c0`. Proposed child $0.25 fits current $0.77166965250 unallocated capacity (leaving $0.52166965250 while allocated). No top-up is required for this next stage. No child or execution receipt exists. Current maintenance DarkWake with lid closed remains an execution blocker; existing idle assertions did not prevent the preceding Sleep Service interruption.
+- **GLiNER hosted contract, gliner_hosted_prepare:** checking the official hosted request/response contract, full-policy fit and exact model identity. Owns a new adapter-contract note only. No model calls, downloads, credentials or billing authority are implied.
+
 ## Verified progress
 
 - [x] SemIf generated first P0/P1/P2 pass published in `0184bb6d`. Pages run `36756829330` succeeded; public HTML and 3/9 feed match committed bytes. All-field agreement is 35/60, 26/60 and 43/60 respectively, with 8, 22 and 2 invalid outputs retained. Desktop/mobile field selection and keyboard focus were checked on the preceding UI version; the latest data changes passed UI tests. Fresh2/P1 execution continues separately.
