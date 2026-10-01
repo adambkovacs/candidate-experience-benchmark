@@ -30,3 +30,9 @@ The story's numbers remain tied to [saved findings](../public-site/findings-prov
 Checks before publication: 87 UI tests and four story evidence tests passed. Root inspected 390px mobile and 1440px desktop layouts, fixed heading spacing, and checked keyboard chapter navigation, reduced-motion behavior, Jev repeat selection, overflow and browser errors. Independent review found no remaining blocking issue.
 
 This is a presentation checkpoint. Required benchmark runs and recovery work remain tracked in [TODO](TODO.md).
+
+## Publication
+
+[Pages run 36813208631](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36813208631) published commit `eb20ed7532d588e0e55ec9246f5593fa3b9bd2e6`. The live HTML, reader stylesheet, app/findings/repeats scripts and the three updated repeat feeds match that commit byte for byte. The live page was also inspected in the browser.
+
+Two earlier deployment attempts failed verification. The first exposed a synthetic test fixture that read the changing real budget; it now uses a fixed synthetic ledger while retaining request reconstruction checks. The second exposed feeds generated from an incomplete selection of archived files. Both feeds were rebuilt from the full committed archive, including stopped-stage evidence. Scored results did not change.
