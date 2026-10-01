@@ -21,7 +21,7 @@
   <script defer src="./findings.js?v=20261001-reader-v2"></script>
   <link rel="stylesheet" href="./reader.css?v=20261001-reader-v2">
   <script defer src="./reader.js?v=20261001-reader-v2"></script>
-  <script defer src="./repeats.js?v=20261001-qwen-final"></script>
+  <script defer src="./repeats.js?v=20261001-qwen-three-passes"></script>
   <link rel="stylesheet" href="./presentation.css?v=20261001-reader-v2">
 </head>
 <body id="top">
@@ -78,6 +78,7 @@
       <div class="analysis-intro"><div><p class="eyebrow">Repeatability / Compare repeated answers</p><h2 id="repeat-title">Did the answers change when we asked again?</h2><p>A similar score can hide different decisions. Choose a model and setup below to compare its saved passes.</p></div><p class="analysis-question">Which comments changed, and were all responses usable?</p></div>
       <p class="repeat-howto"><strong>Read a repeat result:</strong> check which full passes finished, compare matches out of the same 60 comments, then open the changed answers. An unfinished pass is not a zero.</p>
       <div id="repeat-results" class="analysis-body"><p>Loading repeat comparisons…</p></div>
+      <p class="analysis-caveat"><strong>Qwen 27B at medium effort scored lower with classifier instructions in all three passes.</strong> Those scores ranged from 54 to 58 matches out of 60, while four comments changed at least one answer across passes. Some requests ran later after interruptions, so this is a descriptive comparison. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN27_V2_FINAL_DESCRIPTIVE_FINDINGS_2026-10-01.md">Compare both effort settings, all three prompts and the changed answers</a>.</p>
       <section class="evidence-notes" id="repeat-notes" aria-labelledby="repeat-notes-title"><div class="evidence-notes-head"><div><p class="eyebrow">Source notes / 25 examples</p><h3 id="repeat-notes-title">More findings, by model and question</h3></div><p>Search for a model to read what it got right, what it missed, and which tests support that finding.</p></div><div class="evidence-notes-body">
       <div class="note-library-intro"><p>Scores, changed answers and failed outputs tell different stories. Choose a topic, or search for a model or issue.</p><div class="note-search"><label for="evidence-note-search">Find a model or issue</label><input id="evidence-note-search" type="search" autocomplete="off" placeholder="Try AnyJev or provider failure"></div><p id="evidence-note-status" class="note-search-status" role="status" aria-live="polite">25 notes across four topics.</p></div>
       <div class="note-groups">
