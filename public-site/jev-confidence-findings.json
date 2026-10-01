@@ -1,0 +1,879 @@
+{
+  "kind": "jev-native-confidence-findings-v1",
+  "model": "jev-1.13.0",
+  "protocol": "historical TypeSafe Jev native Choice P0/P1/P2 instruction comparison",
+  "manifestSha256": "7de7d486982f9fb804ff61f413b318d79345f2f5951594496d65fa754f76f53e",
+  "referenceStatus": "AI-reviewed provisional development labels; read offline only",
+  "confidenceMeaning": "Provider-reported Choice confidence; distinct from selected-choice probability. Neither is calibrated correctness probability.",
+  "thresholdMeaning": "Counterfactual withholding of valid field decisions below threshold; no abstention was executed. Invalid output is unavailable, not a wrong judgment.",
+  "comparisonLimit": "P0 is historical and P1/P2 are one pass each. Thresholds compare descriptions within this native interface, not causal prompt effects or other model interfaces.",
+  "sourceBindings": [
+    {
+      "file": "results/jev-native-prompt-variants-v1/input-only-manifest.json",
+      "sha256": "7de7d486982f9fb804ff61f413b318d79345f2f5951594496d65fa754f76f53e"
+    },
+    {
+      "file": "results/openjev/typesafe-development-v2-reconciled.jsonl",
+      "sha256": "5bb3186a23e884fddeeccd9051ec77cc2e3079b6698148b9cdb44c40b602bab4"
+    },
+    {
+      "file": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
+      "file": "docs/LABELING_GUIDE.md",
+      "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+    },
+    {
+      "file": "scripts/jev_native_prompt_variants_v1.py",
+      "sha256": "48ba1ad98ac7c085de87e1ddfb1b15f8083bb3d6a57786d708915c6d4981ccd7"
+    },
+    {
+      "file": "scripts/jev_benchmark.py",
+      "sha256": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22"
+    },
+    {
+      "file": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    },
+    {
+      "file": "scripts/build_jev_native_prompt_report_v1.py",
+      "sha256": "a2d1c923683d77b9bf564786bc0b4306c5011492caf543535ec0ef812c529f66"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P1-plan-review.json",
+      "sha256": "e808291e865fd34481b823c46f5a14c5e1e3b44070edaea03b81600cf49125e4"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P1-smoke.jsonl",
+      "sha256": "7bc711e7e618d9bd918dc4433b33de55da8a6e2ce5c0c3f2598cd71bae90e315"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P1-smoke.attempts.jsonl",
+      "sha256": "ec4d25d2ea289205ad41decf729dd396bed7fecd3d4e43f51f0e7cc1e19894d4"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P1-smoke-inspection.json",
+      "sha256": "3ed36a56adb9fe608abf102bbaae6f8427196704c282ee00b87b8ef798180714"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P1-development.jsonl",
+      "sha256": "5a4a92409e364900e6cbd389e838d7f07fe506dc1ab12748c71ee731cdf44bd8"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P1-development.attempts.jsonl",
+      "sha256": "3fce635bcd1baa6ab714ba7b2d7e664848a6b7bcd0e7804d9398ef34cc85f5bb"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P2-plan-review.json",
+      "sha256": "6fcb1dfab308c6fe2df69f384224fccdeeaf090c2d0779a43153eebfe0694907"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P2-smoke.jsonl",
+      "sha256": "b386c8f33c312fe059ab7edcfec15b10fc8fd5e8429bd41e4368675619b60ec0"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P2-smoke.attempts.jsonl",
+      "sha256": "df70716abaa4193031b860793cc535aa4dadfbf4e3e239e3096fef87cfafc44c"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P2-smoke-inspection.json",
+      "sha256": "7a2d68a80a437d4f67f2b928fda85ea8ff7eb5cc84e98ae29d9dcdbc847ba8ae"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P2-development.jsonl",
+      "sha256": "c42545cc31ff993dd592a4b0275aa42bc550b914128f8a7b485d40b9f9b88eeb"
+    },
+    {
+      "file": "results/jev-native-prompt-variants-v1/P2-development.attempts.jsonl",
+      "sha256": "0b00a69f183b1dd68b1e839a598ee953504e31adb134e0cf16ab61fca27ff98f"
+    },
+    {
+      "file": "results/openjev/typesafe-development-v2.jsonl",
+      "sha256": "c6228e8f7ebcfc769d1a66121fe9c84c4550526cdb1e15617b220767d2bcfd69"
+    },
+    {
+      "file": "results/openjev/typesafe-development-v2-continuation.jsonl",
+      "sha256": "a30454fa1ba104f85c216b68f43355c8895fca517a17dc2689d2371f5cb16e99"
+    },
+    {
+      "file": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "file": "data/pilot/pairs.json",
+      "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+    },
+    {
+      "file": "scripts/build_jev_confidence_findings.py",
+      "sha256": "d9ced9d4309bef8a1ecb70c53e896c2b13d93fbb6c33fc88cb2487ef2c562d39"
+    }
+  ],
+  "conditions": {
+    "P0": {
+      "records": 60,
+      "valid": 60,
+      "invalid": 0,
+      "invalidIds": [],
+      "fields": {
+        "sentiment": {
+          "valid": 60,
+          "correct": 56,
+          "wrong": 4,
+          "thresholds": {
+            "0.5": {
+              "retained": 57,
+              "retainedCorrect": 55,
+              "retainedWrong": 2,
+              "withheldValid": 3,
+              "withheldCorrect": 1,
+              "withheldWrong": 2,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-030"
+              ]
+            },
+            "0.7": {
+              "retained": 55,
+              "retainedCorrect": 54,
+              "retainedWrong": 1,
+              "withheldValid": 5,
+              "withheldCorrect": 2,
+              "withheldWrong": 3,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027"
+              ]
+            },
+            "0.9": {
+              "retained": 47,
+              "retainedCorrect": 47,
+              "retainedWrong": 0,
+              "withheldValid": 13,
+              "withheldCorrect": 9,
+              "withheldWrong": 4,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-013",
+              "confidence": 0.33,
+              "selectedChoiceProbability": 0.47
+            },
+            {
+              "id": "DEV-027",
+              "confidence": 0.71,
+              "selectedChoiceProbability": 0.78
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.46,
+              "selectedChoiceProbability": 0.57
+            },
+            {
+              "id": "DEV-030",
+              "confidence": 0.53,
+              "selectedChoiceProbability": 0.63
+            }
+          ]
+        },
+        "follow_up_needed": {
+          "valid": 60,
+          "correct": 58,
+          "wrong": 2,
+          "thresholds": {
+            "0.5": {
+              "retained": 58,
+              "retainedCorrect": 57,
+              "retainedWrong": 1,
+              "withheldValid": 2,
+              "withheldCorrect": 1,
+              "withheldWrong": 1,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-029"
+              ]
+            },
+            "0.7": {
+              "retained": 58,
+              "retainedCorrect": 57,
+              "retainedWrong": 1,
+              "withheldValid": 2,
+              "withheldCorrect": 1,
+              "withheldWrong": 1,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-029"
+              ]
+            },
+            "0.9": {
+              "retained": 52,
+              "retainedCorrect": 52,
+              "retainedWrong": 0,
+              "withheldValid": 8,
+              "withheldCorrect": 6,
+              "withheldWrong": 2,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-029",
+              "confidence": 0.84,
+              "selectedChoiceProbability": 0.89
+            },
+            {
+              "id": "DEV-059",
+              "confidence": 0.49,
+              "selectedChoiceProbability": 0.65
+            }
+          ]
+        },
+        "serious_concern_reported": {
+          "valid": 60,
+          "correct": 57,
+          "wrong": 3,
+          "thresholds": {
+            "0.5": {
+              "retained": 59,
+              "retainedCorrect": 56,
+              "retainedWrong": 3,
+              "withheldValid": 1,
+              "withheldCorrect": 1,
+              "withheldWrong": 0,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-006",
+                "DEV-029",
+                "DEV-030"
+              ]
+            },
+            "0.7": {
+              "retained": 57,
+              "retainedCorrect": 55,
+              "retainedWrong": 2,
+              "withheldValid": 3,
+              "withheldCorrect": 2,
+              "withheldWrong": 1,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-006",
+                "DEV-029"
+              ]
+            },
+            "0.9": {
+              "retained": 53,
+              "retainedCorrect": 52,
+              "retainedWrong": 1,
+              "withheldValid": 7,
+              "withheldCorrect": 5,
+              "withheldWrong": 2,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-029"
+              ]
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-006",
+              "confidence": 0.71,
+              "selectedChoiceProbability": 0.81
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.91,
+              "selectedChoiceProbability": 0.94
+            },
+            {
+              "id": "DEV-030",
+              "confidence": 0.59,
+              "selectedChoiceProbability": 0.73
+            }
+          ]
+        },
+        "testimonial_potential": {
+          "valid": 60,
+          "correct": 58,
+          "wrong": 2,
+          "thresholds": {
+            "0.5": {
+              "retained": 58,
+              "retainedCorrect": 56,
+              "retainedWrong": 2,
+              "withheldValid": 2,
+              "withheldCorrect": 2,
+              "withheldWrong": 0,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-029"
+              ]
+            },
+            "0.7": {
+              "retained": 58,
+              "retainedCorrect": 56,
+              "retainedWrong": 2,
+              "withheldValid": 2,
+              "withheldCorrect": 2,
+              "withheldWrong": 0,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-029"
+              ]
+            },
+            "0.9": {
+              "retained": 54,
+              "retainedCorrect": 53,
+              "retainedWrong": 1,
+              "withheldValid": 6,
+              "withheldCorrect": 5,
+              "withheldWrong": 1,
+              "unavailableInvalid": 0,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027"
+              ]
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-027",
+              "confidence": 0.96,
+              "selectedChoiceProbability": 0.97
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.88,
+              "selectedChoiceProbability": 0.92
+            }
+          ]
+        }
+      }
+    },
+    "P1": {
+      "records": 60,
+      "valid": 59,
+      "invalid": 1,
+      "invalidIds": [
+        "DEV-053"
+      ],
+      "fields": {
+        "sentiment": {
+          "valid": 59,
+          "correct": 55,
+          "wrong": 4,
+          "thresholds": {
+            "0.5": {
+              "retained": 56,
+              "retainedCorrect": 54,
+              "retainedWrong": 2,
+              "withheldValid": 3,
+              "withheldCorrect": 1,
+              "withheldWrong": 2,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-030"
+              ]
+            },
+            "0.7": {
+              "retained": 55,
+              "retainedCorrect": 54,
+              "retainedWrong": 1,
+              "withheldValid": 4,
+              "withheldCorrect": 1,
+              "withheldWrong": 3,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027"
+              ]
+            },
+            "0.9": {
+              "retained": 46,
+              "retainedCorrect": 46,
+              "retainedWrong": 0,
+              "withheldValid": 13,
+              "withheldCorrect": 9,
+              "withheldWrong": 4,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-013",
+              "confidence": 0.41,
+              "selectedChoiceProbability": 0.53
+            },
+            {
+              "id": "DEV-027",
+              "confidence": 0.73,
+              "selectedChoiceProbability": 0.78
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.41,
+              "selectedChoiceProbability": 0.53
+            },
+            {
+              "id": "DEV-030",
+              "confidence": 0.55,
+              "selectedChoiceProbability": 0.64
+            }
+          ]
+        },
+        "follow_up_needed": {
+          "valid": 59,
+          "correct": 57,
+          "wrong": 2,
+          "thresholds": {
+            "0.5": {
+              "retained": 57,
+              "retainedCorrect": 56,
+              "retainedWrong": 1,
+              "withheldValid": 2,
+              "withheldCorrect": 1,
+              "withheldWrong": 1,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-029"
+              ]
+            },
+            "0.7": {
+              "retained": 56,
+              "retainedCorrect": 56,
+              "retainedWrong": 0,
+              "withheldValid": 3,
+              "withheldCorrect": 1,
+              "withheldWrong": 2,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            },
+            "0.9": {
+              "retained": 51,
+              "retainedCorrect": 51,
+              "retainedWrong": 0,
+              "withheldValid": 8,
+              "withheldCorrect": 6,
+              "withheldWrong": 2,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-029",
+              "confidence": 0.67,
+              "selectedChoiceProbability": 0.78
+            },
+            {
+              "id": "DEV-059",
+              "confidence": 0.49,
+              "selectedChoiceProbability": 0.67
+            }
+          ]
+        },
+        "serious_concern_reported": {
+          "valid": 59,
+          "correct": 56,
+          "wrong": 3,
+          "thresholds": {
+            "0.5": {
+              "retained": 58,
+              "retainedCorrect": 55,
+              "retainedWrong": 3,
+              "withheldValid": 1,
+              "withheldCorrect": 1,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-006",
+                "DEV-029",
+                "DEV-030"
+              ]
+            },
+            "0.7": {
+              "retained": 57,
+              "retainedCorrect": 55,
+              "retainedWrong": 2,
+              "withheldValid": 2,
+              "withheldCorrect": 1,
+              "withheldWrong": 1,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-006",
+                "DEV-029"
+              ]
+            },
+            "0.9": {
+              "retained": 53,
+              "retainedCorrect": 52,
+              "retainedWrong": 1,
+              "withheldValid": 6,
+              "withheldCorrect": 4,
+              "withheldWrong": 2,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-029"
+              ]
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-006",
+              "confidence": 0.78,
+              "selectedChoiceProbability": 0.85
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.9,
+              "selectedChoiceProbability": 0.9400000000000001
+            },
+            {
+              "id": "DEV-030",
+              "confidence": 0.56,
+              "selectedChoiceProbability": 0.71
+            }
+          ]
+        },
+        "testimonial_potential": {
+          "valid": 59,
+          "correct": 57,
+          "wrong": 2,
+          "thresholds": {
+            "0.5": {
+              "retained": 58,
+              "retainedCorrect": 56,
+              "retainedWrong": 2,
+              "withheldValid": 1,
+              "withheldCorrect": 1,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-029"
+              ]
+            },
+            "0.7": {
+              "retained": 57,
+              "retainedCorrect": 55,
+              "retainedWrong": 2,
+              "withheldValid": 2,
+              "withheldCorrect": 2,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-029"
+              ]
+            },
+            "0.9": {
+              "retained": 54,
+              "retainedCorrect": 53,
+              "retainedWrong": 1,
+              "withheldValid": 5,
+              "withheldCorrect": 4,
+              "withheldWrong": 1,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027"
+              ]
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-027",
+              "confidence": 0.97,
+              "selectedChoiceProbability": 0.98
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.78,
+              "selectedChoiceProbability": 0.86
+            }
+          ]
+        }
+      }
+    },
+    "P2": {
+      "records": 60,
+      "valid": 59,
+      "invalid": 1,
+      "invalidIds": [
+        "DEV-040"
+      ],
+      "fields": {
+        "sentiment": {
+          "valid": 59,
+          "correct": 56,
+          "wrong": 3,
+          "thresholds": {
+            "0.5": {
+              "retained": 56,
+              "retainedCorrect": 55,
+              "retainedWrong": 1,
+              "withheldValid": 3,
+              "withheldCorrect": 1,
+              "withheldWrong": 2,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027"
+              ]
+            },
+            "0.7": {
+              "retained": 53,
+              "retainedCorrect": 53,
+              "retainedWrong": 0,
+              "withheldValid": 6,
+              "withheldCorrect": 3,
+              "withheldWrong": 3,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            },
+            "0.9": {
+              "retained": 47,
+              "retainedCorrect": 47,
+              "retainedWrong": 0,
+              "withheldValid": 12,
+              "withheldCorrect": 9,
+              "withheldWrong": 3,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-013",
+              "confidence": 0.32,
+              "selectedChoiceProbability": 0.45
+            },
+            {
+              "id": "DEV-027",
+              "confidence": 0.63,
+              "selectedChoiceProbability": 0.7
+            },
+            {
+              "id": "DEV-030",
+              "confidence": 0.37,
+              "selectedChoiceProbability": 0.5
+            }
+          ]
+        },
+        "follow_up_needed": {
+          "valid": 59,
+          "correct": 57,
+          "wrong": 2,
+          "thresholds": {
+            "0.5": {
+              "retained": 58,
+              "retainedCorrect": 56,
+              "retainedWrong": 2,
+              "withheldValid": 1,
+              "withheldCorrect": 1,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-029",
+                "DEV-059"
+              ]
+            },
+            "0.7": {
+              "retained": 57,
+              "retainedCorrect": 55,
+              "retainedWrong": 2,
+              "withheldValid": 2,
+              "withheldCorrect": 2,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-029",
+                "DEV-059"
+              ]
+            },
+            "0.9": {
+              "retained": 53,
+              "retainedCorrect": 53,
+              "retainedWrong": 0,
+              "withheldValid": 6,
+              "withheldCorrect": 4,
+              "withheldWrong": 2,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-029",
+              "confidence": 0.71,
+              "selectedChoiceProbability": 0.81
+            },
+            {
+              "id": "DEV-059",
+              "confidence": 0.79,
+              "selectedChoiceProbability": 0.86
+            }
+          ]
+        },
+        "serious_concern_reported": {
+          "valid": 59,
+          "correct": 56,
+          "wrong": 3,
+          "thresholds": {
+            "0.5": {
+              "retained": 58,
+              "retainedCorrect": 55,
+              "retainedWrong": 3,
+              "withheldValid": 1,
+              "withheldCorrect": 1,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-006",
+                "DEV-029",
+                "DEV-030"
+              ]
+            },
+            "0.7": {
+              "retained": 55,
+              "retainedCorrect": 53,
+              "retainedWrong": 2,
+              "withheldValid": 4,
+              "withheldCorrect": 3,
+              "withheldWrong": 1,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-006",
+                "DEV-029"
+              ]
+            },
+            "0.9": {
+              "retained": 50,
+              "retainedCorrect": 50,
+              "retainedWrong": 0,
+              "withheldValid": 9,
+              "withheldCorrect": 6,
+              "withheldWrong": 3,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": []
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-006",
+              "confidence": 0.78,
+              "selectedChoiceProbability": 0.85
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.88,
+              "selectedChoiceProbability": 0.92
+            },
+            {
+              "id": "DEV-030",
+              "confidence": 0.58,
+              "selectedChoiceProbability": 0.72
+            }
+          ]
+        },
+        "testimonial_potential": {
+          "valid": 59,
+          "correct": 57,
+          "wrong": 2,
+          "thresholds": {
+            "0.5": {
+              "retained": 57,
+              "retainedCorrect": 55,
+              "retainedWrong": 2,
+              "withheldValid": 2,
+              "withheldCorrect": 2,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-029"
+              ]
+            },
+            "0.7": {
+              "retained": 56,
+              "retainedCorrect": 54,
+              "retainedWrong": 2,
+              "withheldValid": 3,
+              "withheldCorrect": 3,
+              "withheldWrong": 0,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027",
+                "DEV-029"
+              ]
+            },
+            "0.9": {
+              "retained": 54,
+              "retainedCorrect": 53,
+              "retainedWrong": 1,
+              "withheldValid": 5,
+              "withheldCorrect": 4,
+              "withheldWrong": 1,
+              "unavailableInvalid": 1,
+              "fixedDenominator": 60,
+              "confidentlyWrongIds": [
+                "DEV-027"
+              ]
+            }
+          },
+          "wrongCases": [
+            {
+              "id": "DEV-027",
+              "confidence": 0.96,
+              "selectedChoiceProbability": 0.97
+            },
+            {
+              "id": "DEV-029",
+              "confidence": 0.72,
+              "selectedChoiceProbability": 0.8200000000000001
+            }
+          ]
+        }
+      }
+    }
+  }
+}

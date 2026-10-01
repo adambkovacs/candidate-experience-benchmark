@@ -54,6 +54,8 @@ jobs:
           python3 scripts/build_gemini_repeat_findings.py --output public-site/gemini-repeats.json --include-recovered-low --check
           python3 -m unittest tests.test_build_gemini_repeat_findings tests.test_build_gemini38_low_repeat_findings -q
           python3 -m unittest discover -s tests -p test_repeat_findings.py -q
+          python3 scripts/build_jev_confidence_findings.py --check
+          python3 -m unittest tests.test_build_jev_confidence_findings -q
           python3 scripts/build_typesafe_repeat_findings.py --output public-site/typesafe-repeats.json --check
           python3 -m unittest tests.test_build_typesafe_repeat_findings -q
           python3 scripts/build_laya_repeat_findings.py --output public-site/laya-repeats.json --check
