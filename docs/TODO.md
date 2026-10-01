@@ -4,6 +4,8 @@ Updated 1 October 2026. This is the current coordination list. Frozen manifests 
 
 ## Active assignments
 
+Execution checkpoint, 1 October 2026, 07:48 UTC: website editorial revision is published and verified in `c313c2b2` / Pages `36831802703`. Fresh host evidence shows additional Maintenance Sleep intervals at 07:16:03 UTC (238 seconds) and 07:20:46 UTC (174 seconds), followed by maintenance DarkWake at 07:23:40 UTC; the lid remains closed. The repeated host-sleep barrier still prevents admitting the prepared Mistral suffix. Locked ledger replay: cap $12.38, accounted $11.60833034750, unallocated $0.77166965250, zero pending reservations and zero active children. The next $0.25 stage fits; no top-up is needed for it. Execution remains unfinished. Resume after a full host wake, with fresh route, process and budget checks; do not replay DEV-048.
+
 Checkpoint: 1 October 2026, 06:23 UTC. Earlier statuses are retained in [coordination history](COORDINATION_HISTORY_2026-10-01.md). Counts below are observations, not permission to replay a request.
 
 - **Qwen medium, publish_on_triple / root:** original P1 handle `9766` exited successfully with all 60 valid responses. Root independently verified its frozen manifest and strict closure hashes. Child sealed: $0.089620125 known charges, no new unknowns, $0.210379875 released. Closed evidence is committed in `a2b2d08a`. All nine scheduled conditions now have accounted positions, retaining the original DEV-022 P0 timeout. A separate final interrupted-composite reporter is in preparation; this is not clean matched-three evidence.
