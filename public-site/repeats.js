@@ -12,7 +12,7 @@
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
   const hostedV2Ids = {'openrouter-paid-gemma4-26b-a4b-on': 'gemma26-on-fresh-matched3-v2', 'openrouter-paid-qwen3.8-27b-medium': 'qwen27-fresh-matched3-v2-medium', 'openrouter-paid-qwen3.8-27b-xhigh': 'qwen27-fresh-matched3-v2-xhigh'};
-  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json'];
+  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json'];
   const e4bInterruptionUrl = './e4b-interruption-findings.json';
   const e4bInterruptionId = 'gemma4-e4b-sdk-thinking-on';
   const gemmaContinuationSchema = 'gemma26-on-v2-interrupted-continuation-findings-v1';
@@ -23,6 +23,8 @@
   const deepseekLowContinuationId = 'openrouter-paid-deepseek-v41-flash-low-descriptive-continuation-v1';
   const qwen27CutoffUrl = './qwen27-interrupted-continuation-findings.json';
   const qwen27CutoffSchema = 'qwen27-v2-interrupted-continuation-findings-v1';
+  const qwen27SecondUrl = './qwen27-second-continuation-findings.json';
+  const qwen27SecondSchema = 'qwen27-v2-second-continuation-findings-v1';
   const gemmaSecondUrl = './gemma26-second-continuation-findings.json';
   const gemmaSecondSchema = 'gemma26-on-v2-second-interruption-findings-v1';
   const deepseekThirdUrl = './deepseek-low-third-interruption-findings.json';
@@ -39,7 +41,7 @@
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
   Promise.all(feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl) && r.status === 404) return {series: []};
+    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl) && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
       if (url === './kev-native-repeats.json') {
@@ -552,6 +554,57 @@
             passOrder: ['fresh3'], conditionOrder: ['P0','P1'],
             passes: {fresh3: item.score ? {P0: {status: 'closed_with_service_error', score: item.score}} : {}},
             cutoffDetail: item, sourceBindings: payload.sourceBindings,
+            interpretation: []};
+        })};
+      }
+      if (url === qwen27SecondUrl) {
+        if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
+        const expected = {medium: {P0: 57, P1: 56}, xhigh: {P0: 58, P1: 58}};
+        const validScore = (score, allFour, failures) => score?.denominator === 60 &&
+          score?.allFour === allFour && score?.valid === 60 - failures &&
+          score?.serviceErrors === failures && score?.invalidOutputs === 0 &&
+          score?.neverSent === 0 && Object.keys(fields).filter(key => key !== 'allFour')
+            .every(key => Number.isInteger(score?.fields?.[key]) &&
+              score.fields[key] >= 0 && score.fields[key] <= score.valid);
+        const validMode = mode => {
+          const item = payload?.series?.[mode];
+          const p0 = item?.conditions?.P0, p1 = item?.conditions?.P1;
+          return item?.configurationId === `openrouter-paid-qwen3.8-27b-${mode}` &&
+            item?.cleanMatchedThreeEligible === false &&
+            item?.originalP0FailedId === (mode === 'medium' ? 'DEV-022' : 'DEV-037') &&
+            item?.originalP0UnknownCostUpperBoundUsd === '0.047001600' &&
+            item?.secondChildUnknownCostUpperBoundUsd === '0' &&
+            p0?.status === 'completed_interrupted_composite' &&
+            p1?.status === 'completed_interrupted_composite' &&
+            validScore(p0.score, expected[mode].P0, 1) &&
+            validScore(p1.score, expected[mode].P1, 0) &&
+            p0.usage?.unknownCostCount === 1 && p1.usage?.unknownCostCount === 0 &&
+            Number.isFinite(p0.usage?.clientRequestToRecordSeconds) &&
+            Number.isFinite(p1.usage?.clientRequestToRecordSeconds);
+        };
+        if (payload?.schema !== qwen27SecondSchema ||
+            payload?.method !== 'descriptive_interrupted_composites' ||
+            payload?.denominator !== 60 || payload?.cleanMatchedThreeEligible !== false ||
+            !validBindings(payload?.sourceBindings) || payload.sourceBindings.length !== 45 ||
+            !payload.sourceBindings.some(item => item.path ===
+              'results/repeatability-v1/qwen27-fresh-matched3-v2/interruption-continuation-v2/medium/terminal-reconciliation-after-completion.json') ||
+            !payload.sourceBindings.some(item => item.path ===
+              'results/repeatability-v1/qwen27-fresh-matched3-v2/interruption-continuation-v2/xhigh/terminal-reconciliation-after-completion.json') ||
+            !validMode('medium') || !validMode('xhigh'))
+          throw Error('Invalid Qwen27 second continuation results');
+        return {series: ['medium', 'xhigh'].map(mode => {
+          const item = payload.series[mode];
+          return {schema: qwen27SecondSchema,
+            seriesId: `${item.configurationId}-interrupted-composite-v2`,
+            configuration: item.configurationId,
+            displayName: `Qwen 27B ${mode} · completed interrupted pass 3`,
+            method: payload.method, cleanMatchedThreeEligible: false,
+            denominator: 60, plannedConditions: 2, completedConditions: 2,
+            passOrder: ['fresh3'], conditionOrder: ['P0', 'P1'],
+            passes: {fresh3: {
+              P0: {status: 'closed_with_service_error', score: item.conditions.P0.score},
+              P1: {status: 'completed', score: item.conditions.P1.score}}},
+            cutoffDetail: item, sourceBindings: payload.sourceBindings,
             interpretation: payload.limits};
         })};
       }
@@ -653,6 +706,8 @@
       s.method === 'descriptive-interrupted-series-continuation';
     const isQwen27Cutoff = s => s.schema === qwen27CutoffSchema &&
       s.method === 'descriptive-interrupted-series-continuation';
+    const isQwen27Second = s => s.schema === qwen27SecondSchema &&
+      s.method === 'descriptive_interrupted_composites';
     const isGemmaSecond = s => s.schema === gemmaSecondSchema &&
       s.method === 'descriptive-second-interruption-continuation';
     const isDeepseekThird = s => s.schema === deepseekThirdSchema &&
@@ -665,7 +720,7 @@
       s.method === 'fresh-native-generated-repeat';
     const isGeneratedAnyJev = s => s.schema === 'anyjev-generated-repeat-findings-v1' &&
       s.method === 'generated-json-control';
-    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isGemmaSecond(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
+    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isGemmaSecond(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
     root.innerHTML = `<label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
       <p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
@@ -686,6 +741,7 @@
       const deepseekLowContinuation = isDeepseekLowContinuation(data);
       const gemmaContinuation = isGemmaContinuation(data);
       const qwen27Cutoff = isQwen27Cutoff(data);
+      const qwen27Second = isQwen27Second(data);
       const gemmaSecond = isGemmaSecond(data);
       const deepseekThird = isDeepseekThird(data);
       const nativeOpenJev = isNativeOpenJev(data);
@@ -704,12 +760,12 @@
       const nativeAlex = data.schema === 'alex-native-repeat-findings-v1';
       const displayPass = pass => nativeL2 ? ({original: 'Historical pass', repeat2: 'Repeat 2', repeat3: 'Repeat 3'}[pass] || pass) : passName[pass];
       const closed = phase => gemmaContinuation || gemmaSecond ? phase?.status === 'completed' || phase?.status === 'completed_interrupted'
-        : qwenContinuation || deepseekLowContinuation || qwen27Cutoff || deepseekThird ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error'
+        : qwenContinuation || deepseekLowContinuation || qwen27Cutoff || qwen27Second || deepseekThird ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error'
         : freshCodex || freshHosted ? phase?.status === 'completed'
         : generatedOpenJev || generatedSemIf || generatedAnyJev ? phase?.completionStatus === 'complete'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
-      const freshSeries = data.schema === 'hosted-v2-fresh-repeat-findings-v1' || data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || gemmaContinuation || qwen27Cutoff || gemmaSecond || deepseekThird || nativeOpenJev || generatedOpenJev || generatedSemIf || generatedAnyJev || nativeKev;
+      const freshSeries = data.schema === 'hosted-v2-fresh-repeat-findings-v1' || data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || gemmaContinuation || qwen27Cutoff || qwen27Second || gemmaSecond || deepseekThird || nativeOpenJev || generatedOpenJev || generatedSemIf || generatedAnyJev || nativeKev;
       const qwenUnknownFor = (pass, condition) => qwenContinuation
         ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
         : null;
@@ -729,6 +785,8 @@
         ? '<p class="analysis-caveat"><strong>Interrupted descriptive continuation:</strong> Fresh pass 1 P2 stopped at DEV-049 after an earlier stop at DEV-040. DEV-039 was billed but invalid; DEV-040 and DEV-049 were service errors. P2 has no score because 11 of its 60 comments remain unsent. The later passes have not run. This is not a clean matched-three series.</p>'
         : qwen27Cutoff
         ? `<p class="analysis-caveat">This cutoff covers fresh pass 3 only. P0 preserves the original service error at ${esc(data.cutoffDetail.originalFailedId)}; the failed request was not replayed. P1 remains unscored. The earlier hosted matched-run evidence is a separate selectable entry.</p><p><a href="${qwen27CutoffUrl}">Read this public cutoff and its source hashes</a></p>`
+        : qwen27Second
+        ? `<p class="analysis-caveat">Fresh pass 3 P0 and P1 now have fixed-60 scores. P0 still includes one failed request; the later requests were sent separately. These combined results describe interrupted runs, not two new uninterrupted passes.</p><p><a href="${qwen27SecondUrl}">Read the source-bound results</a> · <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN27_V2_SECOND_CONTINUATION_FINDINGS_2026-10-01.md">Read what changed</a></p><details><summary>How these runs were completed</summary><p>The original P0 failure at ${esc(data.cutoffDetail.originalP0FailedId)} was not retried. The P1 result combines separate sends only for xhigh; medium P1 ran as its own full stage. Each original failure retains a ${money(data.cutoffDetail.originalP0UnknownCostUpperBoundUsd)} possible charge, which is not a reported charge. Request times include transport and service overhead.</p></details>`
         : deepseekThird
         ? `<p class="analysis-caveat">Fresh pass 1 P2 stopped at DEV-050. It has 46 valid responses, one invalid response, three service errors and ten comments not sent. No P2 score exists. Earlier interruption cutoffs remain separate entries; this is not a clean matched-three series.</p><p><a href="${deepseekThirdUrl}">Read this public cutoff and its source hashes</a></p>`
         : '') + (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
@@ -753,6 +811,8 @@
       const readerSummary = document.getElementById('repeat-summary');
       if (readerSummary) readerSummary.textContent = gemmaSecond
         ? 'Gemma 26B thinking-on: 6 of 9 phases have final scores at the second continuation cutoff. Fresh pass 2 P0 has a fixed-60 composite score. Fresh pass 3 P2 has 4 valid responses, one service error and 55 unsent comments; it has no score.'
+        : qwen27Second
+        ? `Qwen 27B ${data.cutoffDetail.configurationId.endsWith('medium') ? 'medium' : 'xhigh'}: fresh pass 3 P0 matched all four reference decisions for ${data.cutoffDetail.conditions.P0.score.allFour} of 60 comments, and P1 for ${data.cutoffDetail.conditions.P1.score.allFour} of 60. P0 has one preserved service error. These are completed interrupted runs; the earlier matched-run results remain separate.`
         : qwen27Cutoff
         ? `Qwen 27B ${data.cutoffDetail.configurationId.endsWith('medium') ? 'medium' : 'xhigh'}: ${data.completedConditions} of 2 fresh pass 3 phases have final scores at this cutoff. P0 has ${data.cutoffDetail.validSaved} valid saved responses and ${data.cutoffDetail.neverSentAfterContinuation.length} unsent comments. P1 has ${data.cutoffDetail.laterP1.saved} saved responses and ${data.cutoffDetail.laterP1.neverSent} unsent comments; it has no score.`
         : deepseekThird
@@ -764,6 +824,8 @@
         ' Fresh pass 2 P2 has 50 valid saved responses, two unknown timeouts and eight unsent comments; it has no final score.';
       document.getElementById('repeat-lead').textContent = gemmaSecond
         ? 'This is the second Gemma 26B interruption cutoff. Fresh pass 2 P0 combines DEV-001, the preserved DEV-002 service error and a separately dispatched suffix of 58 saved responses. Its fixed-60 score includes the failed request. Fresh pass 3 P2 stopped after DEV-005: four valid, one service error and 55 not sent. That phase has no score. The first cutoff and historical hosted evidence remain separate.'
+        : qwen27Second
+        ? `This entry covers only fresh pass 3 P0 and P1. P0 preserves the original service error at ${data.cutoffDetail.originalP0FailedId}. The other P0 responses and P1 responses fill all planned comment positions across separate dispatches. No failed request was replayed. The earlier clean hosted phases and the first interruption cutoff remain separate. Scores compare with provisional references. Request durations include client and service overhead.`
         : qwen27Cutoff
         ? `Fresh pass 3 P0: ${data.cutoffDetail.validSaved} valid saved responses, one preserved service error at ${data.cutoffDetail.originalFailedId}, and ${data.cutoffDetail.neverSentAfterContinuation.length} not sent. Fresh pass 3 P1: ${data.cutoffDetail.laterP1.saved} saved and ${data.cutoffDetail.laterP1.neverSent} not sent; no score. This is an interrupted cutoff, separate from earlier hosted repeat evidence.`
         : deepseekThird
@@ -798,6 +860,8 @@
         ` The suffix saved 58 responses with ${money(data.cutoffDetail.closedStageUsage['fresh2/P0/suffix'].knownCostUsd)} known provider charges. The original DEV-002 unknown charge remains bounded at ${money(data.cutoffDetail.secondInterruption.unknownCostUpperBoundUsd)}; this is not an observed charge. The fresh pass 3 P2 cost cannot be fully reconciled from this public cutoff.`;
       if (qwen27Cutoff) document.getElementById('repeat-lead').textContent +=
         ` Known P0 charges across saved attempts: ${money(data.cutoffDetail.knownObservedDevelopmentCostUsd)}. The preserved service error has a separate unknown-charge upper bound of ${money(data.cutoffDetail.unknownCostUpperBoundUsd)}. It is not an observed charge. Request time includes transport and recording.`;
+      if (qwen27Second) document.getElementById('repeat-lead').textContent +=
+        ` Known provider charges in the second child were ${money(data.cutoffDetail.secondChildKnownCostUsd)}. The earlier failed P0 request has a separate unknown-charge upper bound of ${money(data.cutoffDetail.originalP0UnknownCostUpperBoundUsd)}. This bound is not observed spending. Provider-reported reasoning tokens are kept separate from completion tokens.`;
       if (nativeL0) document.getElementById('repeat-lead').textContent += ' AnyJev L0 combines cyclic option shifts with a content-free prior. It has one native P0 procedure, not P1/P2 chat prompts. Agreement uses all 60 comments and provisional references; valid output is counted separately. Only completed passes are scored. Client request time includes overhead; pure inference time and local cost are unavailable.';
       if (nativeL1) document.getElementById('repeat-lead').textContent += ' AnyJev L1 fits calibration separately in five folds. Each review is classified with a fit trained on the other 48 reviews; its own reference labels are excluded. Training uses provisional labels, so this is supervised calibration. Historical cached-score results remain separate. Client and pure inference times were not recorded; local cost is unavailable.';
       if (nativeL2) document.getElementById('repeat-lead').textContent += ' AnyJev L2 fits a native decision head on 48 training reviews in each of five folds. Each held-out review is scored once. The historical pass used the staged procedure; repeats add raw capture and completion records. Training uses provisional labels. Client time includes local overhead; isolated inference time, token totals and local cost were not measured.';
@@ -850,7 +914,7 @@
           const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
           const generatedStop = generatedOpenJev && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'stopped_unknown');
           return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (kevStop ? '<span>Interrupted; unscored</span>' : stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : thirdStop ? '<span>Stopped: 46 valid, 1 invalid, 3 service errors, 10 unsent; no score</span>' : qwen27P0Stop ? '<span>Stopped: 37 valid, 1 service error, 22 unsent; no score</span>' : qwen27P1Stop ? `<span>${data.cutoffDetail.laterP1.saved} saved, ${data.cutoffDetail.laterP1.neverSent} unsent; no score</span>` : gemmaStop ? '<span>Stopped: 1 valid, 1 service error, 58 unsent; no score</span>' : gemmaSecondStop ? '<span>Stopped: 4 valid, 1 service error, 55 unsent; no score</span>' : e4bStop ? '<span>Stopped: 50 valid, 2 unknown, 8 unsent; no score</span>' : gemmaUnsent ? '<span>Not sent</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
-        }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : qwen27Cutoff ? 'This cutoff covers fresh pass 3 only; see the earlier hosted series for the other passes.' : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
+        }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : qwen27Cutoff || qwen27Second ? 'This entry covers fresh pass 3 only; select the hosted series for earlier passes.' : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
       }).join('')}</div><p class="analysis-caveat">Bars start at zero. Agreement is measured against provisional references, separately from valid response format. Repeated comments are not independent cases.</p>`;
       document.getElementById('repeat-delta-title').textContent = nativeP0 ? 'One native decision procedure' : 'How did prompt scores change across passes?';
       document.getElementById('repeat-delta-intro').textContent = nativeKev ? 'Native P1 and P2 variants remain pending. This comparison covers the P0 Choice procedure only.' : nativeL0 ? 'This native L0 readout has only P0. P1 and P2 chat prompt variants do not apply.' : nativeL2 ? 'This native L2 calibration has only P0. P1 and P2 chat prompt variants do not apply.' : nativeP0 ? 'This native option-scoring setup has only P0. P1 and P2 chat prompt variants do not apply.' : 'Change in answers matching the provisional reference compared with P0 in the same pass. Positive means more matches; negative means fewer.';
@@ -858,7 +922,7 @@
         const d = (!freshSeries || (closedSlot(p, 'P0') && closedSlot(p, c)))
           ? data.withinPassPromptDeltas?.find(x => x.pass === p && x.to === c) : null;
         const localDelta = ((localFresh && data.passes[p]?.[c]?.completionStatus === 'complete' && data.passes[p]?.P0?.completionStatus === 'complete') ||
-          ((gemmaContinuation || gemmaSecond) && closedSlot(p, c) && closedSlot(p, 'P0')))
+          ((gemmaContinuation || gemmaSecond || qwen27Second) && closedSlot(p, c) && closedSlot(p, 'P0')))
           ? valueOf(data.passes[p][c].score, field) - valueOf(data.passes[p].P0.score, field) : null;
         return `<td>${d ? signed(valueOf(d,field)) : localDelta == null ? 'Not completed' : signed(localDelta)}</td>`;
       }).join('')}</tr>`).join('')}</tbody></table></div>${qwenContinuation || generatedOpenJev || generatedSemIf || generatedAnyJev ? `<p class="analysis-caveat">Answer-change comparisons use only comments with answers in the required format in both conditions: ${(data.withinPassPromptFlips || []).filter(x => closedSlot(x.pass, 'P0') && closedSlot(x.pass, x.to)).map(x => `${esc(passName[x.pass])} P0 to ${esc(x.to)}: ${generatedAnyJev && x.denominator === 0 ? 'unavailable; none had answers in the required format in both conditions; ' : generatedOpenJev || generatedSemIf || generatedAnyJev ? `${(field === 'allFour' ? x.fourFieldVector : x[field]).changed} / ${x.denominator} changed; ` : ''}${x.denominator} of 60 comparable; ${x.excludedIds.length} excluded`).join('; ') || 'no paired conditions completed yet'}.</p>` : ''}`;
@@ -871,7 +935,19 @@
       document.getElementById('repeat-flips').innerHTML = `${generatedAnyJev && changes?.denominator === 0 ? '<p>No comments had answers in the required format in all three passes; change comparisons are unavailable.</p>' : ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>Comparable means answers met the required format in all three passes. ${changes.excludedIds.length} ${changes.excludedIds.length === 1 ? 'comment was' : 'comments were'} excluded because at least one pass did not.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {if (generatedAnyJev && x.denominator === 0) return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: unavailable (0 comments with answers in the required format in both passes)</li>`; const f = field === 'allFour' ? x.fourFieldVector : nativeL1 ? x.fields[field] : x[field]; const changed = Array.isArray(f) ? f.length : f.changed; return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: ${changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
       if (qwen27Cutoff) document.getElementById('repeat-flips').innerHTML =
         '<p>Cross-pass answer changes are outside this fresh pass 3 cutoff. Select the earlier hosted series for its completed comparisons.</p>';
+      if (qwen27Second) document.getElementById('repeat-flips').innerHTML =
+        '<p>Cross-pass answer changes for these completed interrupted runs have not yet been calculated. Earlier hosted passes are available separately. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN27_V2_SECOND_CONTINUATION_FINDINGS_2026-10-01.md">See the fresh pass 3 P0 to P1 changes on comments with valid answers in both.</a></p>';
       document.getElementById('repeat-usage-body').innerHTML = conditionOrder.flatMap(c => passes.map(p => {
+        if (qwen27Second) {
+          const phase = data.cutoffDetail.conditions[c];
+          const u = phase.usage;
+          const tokens = key => {
+            const metric = u.tokens[key];
+            return metric.sum == null ? `Unavailable overall<br><small>${metric.reportedCount} of 60 reported</small>`
+              : number(metric.sum);
+          };
+          return `<tr><th scope="row">${c}</th><td>Fresh pass 3 (closed interrupted composite)</td><td>60 attempted<br><small>${phase.score.valid} valid${phase.score.serviceErrors ? ', 1 preserved service error' : ''}</small></td><td>${tokens('prompt_tokens')}</td><td>${tokens('completion_tokens')}<br><small>Provider-reported reasoning: ${tokens('provider_reported_reasoning_tokens')}</small></td><td>${money(u.knownObservedCostUsd)} known${u.unknownCostCount ? `<br><small>Unknown original charge up to ${money(data.cutoffDetail.originalP0UnknownCostUpperBoundUsd)}; not observed</small>` : ''}</td><td>Unavailable</td><td>${u.clientRequestToRecordSeconds.toFixed(1)}<br><small>Client request-to-record</small></td></tr>`;
+        }
         if (qwen27Cutoff) {
           const item = data.cutoffDetail;
           if (c === 'P0') return `<tr><th scope="row">P0</th><td>Fresh pass 3${item.score ? ' (closed composite)' : ' (stopped, unscored)'}</td><td>${item.validSaved + 1} attempted<br><small>${item.validSaved} valid, 1 service error, ${item.neverSentAfterContinuation.length} unsent</small></td><td>${number(item.tokens.prompt_tokens.sum)}<br><small>${item.tokens.prompt_tokens.reportedCount} saved responses</small></td><td>${number(item.tokens.completion_tokens.sum)}<br><small>${item.tokens.completion_tokens.reportedCount} saved responses</small></td><td>${money(item.knownObservedDevelopmentCostUsd)} known<br><small>Unknown charge up to ${money(item.unknownCostUpperBoundUsd)}; not observed</small></td><td>Unavailable</td><td>${item.clientRequestToRecordSeconds.toFixed(1)}<br><small>Client request-to-record</small></td></tr>`;

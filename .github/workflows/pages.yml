@@ -34,7 +34,7 @@ jobs:
           node --check public-site/app.js
           node --check public-site/findings.js
           node --check public-site/repeats.js
-          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs tests/test_anyjev_l1_repeat_ui.cjs tests/test_anyjev_l2_repeat_ui.cjs tests/test_anyjev_generated_repeat_ui.cjs tests/test_openjev_native_repeat_ui.cjs tests/test_openjev_generated_repeat_ui.cjs tests/test_semif_generated_repeat_ui.cjs tests/test_alex_native_repeat_ui.cjs tests/test_codex_fresh_repeat_ui.cjs tests/test_deepseek_fresh_repeat_ui.cjs tests/test_additional_hosted_fresh_repeat_ui.cjs tests/test_qwen36_continuation_ui.cjs tests/test_deepseek_low_interruption_ui.cjs tests/test_latest_continuation_cutoffs_ui.cjs
+          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs tests/test_anyjev_l1_repeat_ui.cjs tests/test_anyjev_l2_repeat_ui.cjs tests/test_anyjev_generated_repeat_ui.cjs tests/test_openjev_native_repeat_ui.cjs tests/test_openjev_generated_repeat_ui.cjs tests/test_semif_generated_repeat_ui.cjs tests/test_alex_native_repeat_ui.cjs tests/test_codex_fresh_repeat_ui.cjs tests/test_deepseek_fresh_repeat_ui.cjs tests/test_additional_hosted_fresh_repeat_ui.cjs tests/test_qwen36_continuation_ui.cjs tests/test_deepseek_low_interruption_ui.cjs tests/test_latest_continuation_cutoffs_ui.cjs tests/test_qwen27_second_continuation_ui.cjs
           node --test tests/test_kev_repeat_ui.cjs
           python3 scripts/build_kev_native_findings.py --check
           python3 -m unittest tests.test_build_kev_native_findings -q
@@ -93,6 +93,7 @@ jobs:
           python3 -m unittest tests.test_build_gemma26_continuation_findings -q
           node --test tests/test_gemma26_continuation_ui.cjs
           python3 -m unittest tests.test_build_qwen27_interrupted_continuation_findings tests.test_build_deepseek_low_third_interruption_findings -q
+          python3 -m unittest tests.test_build_qwen27_second_continuation_findings -q
           # Three Gemma fixture tests read private, untracked suffix attempts; run the seven archive-safe tests here.
           # The full tracked archive rebuild and projection-tamper check below cover the published cutoff.
           python3 -m unittest \
@@ -132,6 +133,11 @@ jobs:
             exit 1
           fi
           grep -q 'frozen request' "$cutoff_root/tamper.stderr"
+          second_root=$(mktemp -d)
+          git archive 61840a642c5ea31b6670869089c5aa087439ba76 | tar -x -C "$second_root"
+          python3 "$second_root/scripts/build_qwen27_second_continuation_findings.py" --root "$second_root" --output "$second_root/qwen27-second.json"
+          cmp "$second_root/qwen27-second.json" public-site/qwen27-second-continuation-findings.json
+          rm -rf "$second_root"
           python3 scripts/build_e4b_interruption_findings.py --output public-site/e4b-interruption-findings.json --check
           python3 -m unittest tests.test_build_e4b_interruption_findings -q
           node --test tests/test_e4b_interruption_ui.cjs
