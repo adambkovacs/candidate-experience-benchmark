@@ -6,7 +6,6 @@ import shutil
 import sys
 import tempfile
 import unittest
-from contextlib import nullcontext
 from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[1]
@@ -55,6 +54,14 @@ def saved_qwen_context(case):
     return history, controls, original_p0['provider_endpoint'], original_p0['model_catalog_entry'], plan
 
 
+def synthetic_ledger_snapshot(case):
+    """Keep fixture admission independent of the evolving paid ledger state."""
+    return {'cap_usd': '10', 'accounted_usd': '0', 'headroom_usd': '10',
+            'pending_attempts': 0, 'active_partitions': [], 'blocked': False,
+            'closed': False, 'admission_capacity_now': True,
+            'ledger_sha256': report.sha(case.admission.MASTER)}
+
+
 class SeriesFixture:
     def __init__(self, case, root, cap):
         self.spec, self.root, self.cap = case, root, cap
@@ -68,12 +75,15 @@ class SeriesFixture:
             self.history, self.controls, self.endpoint, self.model, plan = saved_qwen_context(case)
         else:
             self.history, self.controls, self.endpoint, self.model = case.admission.source_state()
-            plan = case.admission.plan_data()
+            snapshot = synthetic_ledger_snapshot(case)
+            with patch.object(case.admission, 'ledger_snapshot', return_value=snapshot):
+                plan = case.admission.plan_data()
         with tempfile.TemporaryDirectory(dir=REPO) as temp:
             plan_path, manifest_path = Path(temp) / 'plan.json', Path(temp) / 'manifest.json'
             plan_path.write_text(json.dumps(plan))
             context = (patch.object(case.admission, 'plan_data', return_value=plan)
-                       if public_only_qwen else nullcontext())
+                       if public_only_qwen else
+                       patch.object(case.admission, 'ledger_snapshot', return_value=snapshot))
             with context:
                 manifest = case.execution.freeze(plan_path, manifest_path)
             relative = Path(manifest['admission_plan'])
