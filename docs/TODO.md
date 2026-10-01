@@ -67,6 +67,6 @@ Use Ruflo decision entries for approvals and verified checkpoints, and Reasoning
 
 ### 2026-10-01 reader presentation follow-up
 
-- Root: revised public copy and layout using Academy voice/anti-slop, moved results ahead of the long narrative, added clickable method explanations and source-bound prompt comparison controls. Independent review approved; desktop/mobile/keyboard/reduced-motion checks passed. Publication verification pending.
+- Root: revised public copy and layout using Academy voice/anti-slop, moved results ahead of the long narrative, added clickable method explanations and source-bound prompt comparison controls. Independent review approved; desktop/mobile/keyboard/reduced-motion checks passed. Published in 7882b755; GitHub Pages run 36819083251 succeeded, all four changed public assets match local SHA-256, and the live explainer was operated successfully.
 - Qwen successor: independently reviewed controller committed as 2c3744d8; medium and xhigh never-sent suffixes running under distinct $0.30 children. Execution owner: publish_on_triple. No completed requests replayed.
-- Gemma third successor: native_variants_prepare has prepared the offline candidate; qwen_report_review owns independent review. No new Gemma allocation or inference yet.
+- Gemma third successor: independent review approved six offline tests. Controller 0f1dcb96 and immutable admission f5fa893e; $0.40 child, exact DEV006–060 suffix now running on original session86569 under native_variants_prepare. No prior attempt replayed.
