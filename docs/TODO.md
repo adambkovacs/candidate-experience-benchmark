@@ -17,7 +17,7 @@ Checkpoint: 1 October 2026, 06:23 UTC. Earlier statuses are retained in [coordin
 - **Local execution, root:** held after sleep and thermal interruptions. Fresh read-only check still reports the Mac lid closed and AC power connected. No power safeguards changed. E4B P2 keeps 50 valid positions, timeouts at DEV-039/052 and eight unsent positions. Qwen3.5-4B's earlier smoke retains its load-config failure; the offline SDK diagnosis is preserved. Neither has a newly admitted request.
 - **DeepSeek low, root:** the saved third interruption remains an upstream shared-pool 429 at DEV-050, with 46 valid, one invalid, three failed and ten never-sent positions. Its portable reporter is committed; no new recovery request has been sent.
 
-- **Jev confidence analysis, native_variants_prepare:** offline source-bound analysis of saved native P0/P1/P2 confidence at declared thresholds is in progress. Owns new reporter, tests, findings JSON and dated note only. No inference or new spending; invalid responses stay excluded with fixed-60 counts, and hypothetical withholding is not an executed policy.
+- **Jev confidence analysis, native_variants_prepare:** offline source-bound analysis of saved native P0/P1/P2 confidence is committed and pushed in `8b5a590b`. Independent review approved all counts and 25 source bindings; five stdlib tests and clean-archive parity pass. Pages `36827483195` is running. No inference or new spending; invalid responses stay excluded with fixed-60 counts, and hypothetical withholding is not an executed policy.
 
 ## Verified progress
 
