@@ -207,6 +207,31 @@ def terminal_status(path):
             'phase_aborted': 'aborted_unscored'}.get(event, 'claimed_in_progress_or_interrupted')
 
 
+def stopped_evidence(root, folder, config, series_id, fresh, condition, plan_sha, bindings):
+    """Bind the terminal journal and claim used to report an unscored stop."""
+    journal_path = folder / 'development.journal.jsonl'
+    journal = read_jsonl(journal_path)
+    terminal = journal[-1] if journal else {}
+    if (terminal.get('event') != 'phase_stopped' or
+            not isinstance(terminal.get('id'), str) or
+            terminal['id'] not in {f'DEV-{i:03d}' for i in range(1, 61)} or
+            not isinstance(terminal.get('reason'), str) or not terminal['reason'] or
+            not isinstance(terminal.get('utc'), str) or not terminal['utc']):
+        raise ValueError('Stopped phase has invalid terminal journal')
+    claim_path = folder / 'development.claim.json'
+    claim = json.loads(claim_path.read_text())
+    review_path = folder / 'development.root-review.json'
+    if (claim.get('configuration_id') not in (None, config) or
+            claim.get('series_id') != series_id or claim.get('fresh_pass') != fresh or
+            claim.get('condition') != condition or claim.get('phase') != 'development' or
+            claim.get('manifest_sha256') != plan_sha or
+            claim.get('root_review_sha256') != sha(review_path)):
+        raise ValueError('Stopped phase claim differs')
+    return {'journal': bind(root, journal_path.relative_to(root), bindings),
+            'claim': bind(root, claim_path.relative_to(root), bindings),
+            'review': bind(root, review_path.relative_to(root), bindings)}
+
+
 def plan_path(base, config, fresh, qwen):
     return base / config / fresh / 'manifest.json' if qwen else base / fresh / 'manifest.json'
 
@@ -252,7 +277,12 @@ def build_series(root, name, study, execution, config, labels, ids, bindings):
                 folder = phase_path(base, config, fresh, condition, qwen)
                 state = terminal_status(folder / 'development.journal.jsonl')
                 if state != 'completed':
-                    missing.append({'pass': fresh, 'condition': condition, 'status': state})
+                    entry = {'pass': fresh, 'condition': condition, 'status': state}
+                    if state == 'stopped_unscored':
+                        entry['evidence'] = stopped_evidence(root, folder, config,
+                                                             verified[fresh]['series_id'], fresh,
+                                                             condition, sha(plan_path(base, config, fresh, qwen)), bindings)
+                    missing.append(entry)
                     continue
                 plan = verified[fresh]
                 execution.require_order(plan, condition, 'development')

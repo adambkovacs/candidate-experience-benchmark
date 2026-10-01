@@ -25,6 +25,43 @@ class HostedV2ReportTests(unittest.TestCase):
             path.write_text(json.dumps({'event': 'phase_completed'}) + '\n')
             self.assertEqual(report.terminal_status(path), 'completed')
 
+    def test_stopped_status_binds_terminal_journal_and_claim(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            folder = root / 'stopped'
+            folder.mkdir()
+            config = 'openrouter-paid-qwen3.8-27b-medium'
+            (folder / 'development.journal.jsonl').write_text(
+                json.dumps({'event': 'phase_stopped', 'id': 'DEV-022',
+                            'reason': 'service_error', 'utc': '2026-10-01T02:35:47Z'}) + '\n')
+            review = folder / 'development.root-review.json'
+            review.write_text('{}\n')
+            claim = folder / 'development.claim.json'
+            claim.write_text(json.dumps({'configuration_id': config, 'series_id': 'qwen27-medium',
+                                         'fresh_pass': 'fresh3',
+                                         'condition': 'P0', 'phase': 'development',
+                                         'manifest_sha256': 'frozen-plan',
+                                         'root_review_sha256': report.sha(review)}) + '\n')
+            bindings = []
+            evidence = report.stopped_evidence(root, folder, config, 'qwen27-medium', 'fresh3', 'P0',
+                                               'frozen-plan', bindings)
+            self.assertEqual({item['path'] for item in bindings},
+                             {'stopped/development.journal.jsonl', 'stopped/development.claim.json',
+                              'stopped/development.root-review.json'})
+            self.assertEqual(evidence['journal']['sha256'],
+                             report.sha(folder / 'development.journal.jsonl'))
+            claim.write_text(claim.read_text().replace('frozen-plan', 'wrong-plan'))
+            with self.assertRaisesRegex(ValueError, 'claim differs'):
+                report.stopped_evidence(root, folder, config, 'qwen27-medium', 'fresh3', 'P0',
+                                        'frozen-plan', [])
+            claim.write_text(claim.read_text().replace('wrong-plan', 'frozen-plan'))
+            (folder / 'development.journal.jsonl').write_text(
+                json.dumps({'event': 'phase_stopped', 'id': 'DEV-061',
+                            'reason': 'service_error', 'utc': '2026-10-01T02:35:47Z'}) + '\n')
+            with self.assertRaisesRegex(ValueError, 'invalid terminal journal'):
+                report.stopped_evidence(root, folder, config, 'qwen27-medium', 'fresh3', 'P0',
+                                        'frozen-plan', [])
+
     def test_source_binding_rejects_drift_and_moving_ledgers(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -97,6 +134,11 @@ class HostedV2ReportTests(unittest.TestCase):
                 self.assertFalse(scored & missing)
                 self.assertEqual(series['completedConditions'], len(scored))
                 self.assertEqual(series['plannedConditions'], 9)
+                for entry in series['missingPasses']:
+                    if entry['status'] == 'stopped_unscored':
+                        self.assertEqual(set(entry['evidence']), {'journal', 'claim', 'review'})
+                        for binding in entry['evidence'].values():
+                            self.assertIn(binding, feed['sourceBindings'])
 
     def test_usage_keeps_reasoning_detail_separate_and_missing_values_unknown(self):
         records = [
