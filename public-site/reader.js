@@ -18,6 +18,30 @@
     syncExample();
     compact.addEventListener('change', syncExample);
   }
+  const noteSearch = document.getElementById('evidence-note-search');
+  if (noteSearch) {
+    const groups = [...document.querySelectorAll('.note-group')];
+    const notes = groups.flatMap(group => [...group.querySelectorAll('.note-items .analysis-caveat')]);
+    const status = document.getElementById('evidence-note-status');
+    const empty = document.getElementById('evidence-note-empty');
+    noteSearch.addEventListener('input', () => {
+      const query = noteSearch.value.trim().toLocaleLowerCase();
+      let matches = 0;
+      groups.forEach(group => {
+        let groupMatches = 0;
+        group.querySelectorAll('.note-items .analysis-caveat').forEach(note => {
+          const visible = !query || note.textContent.toLocaleLowerCase().includes(query);
+          note.hidden = !visible;
+          if (visible) groupMatches++;
+        });
+        group.hidden = Boolean(query) && groupMatches === 0;
+        group.open = Boolean(query) && groupMatches > 0;
+        matches += groupMatches;
+      });
+      empty.hidden = matches > 0;
+      status.textContent = query ? `${matches} of ${notes.length} notes match.` : `${notes.length} notes across four topics.`;
+    });
+  }
   const mark = id => links.forEach(link => {
     if (link.hash === '#' + id) link.setAttribute('aria-current', 'step');
     else link.removeAttribute('aria-current');
@@ -34,8 +58,25 @@
     }
     grid.replaceChildren(fragment);
   };
-  // A totals diagram for the published Jev baseline, not a review-order chart.
-  draw('story-jev-grid', new Set([55,56,57,58,59,60]));
+  // The published Jev disagreement IDs are checked against the source-bound feed in tests.
+  const jevDisagreements = new Set(['DEV-006','DEV-013','DEV-027','DEV-029','DEV-030','DEV-059']);
+  const jevGrid = document.getElementById('story-jev-grid');
+  if (jevGrid) {
+    const fragment = document.createDocumentFragment();
+    for (let n = 1; n <= 60; n++) {
+      const id = `DEV-${String(n).padStart(3, '0')}`;
+      const changed = jevDisagreements.has(id);
+      const cell = document.createElement(changed ? 'a' : 'i');
+      if (changed) {
+        cell.className = 'changed';
+        cell.href = `?run=typesafe-jev113-v2&case=${id}#inspect`;
+        cell.setAttribute('aria-label', `Inspect Jev disagreement on ${id}`);
+        cell.title = `Inspect ${id}`;
+      } else cell.setAttribute('aria-hidden', 'true');
+      fragment.appendChild(cell);
+    }
+    jevGrid.replaceChildren(fragment);
+  }
   async function loadChangedExamples() {
     const select = document.getElementById('story-change-select');
     try {

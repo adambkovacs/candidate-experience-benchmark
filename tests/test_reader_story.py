@@ -91,6 +91,29 @@ class ReaderStoryTests(unittest.TestCase):
         assert "lower in 21 of 39 comparisons" in prompts
         assert "improved four setups, left 14 unchanged and lowered 21" in prompts
 
+        reader_js = (ROOT / "public-site/reader.js").read_text()
+        jev_ids = re.search(r"const jevDisagreements = new Set\(\[(.*?)\]\)", reader_js)
+        assert jev_ids
+        linked_ids = re.findall(r"'DEV-\d{3}'", jev_ids.group(1))
+        assert {item.strip("'") for item in linked_ids} == set(jev["disagreementCaseIds"])
+        assert len(linked_ids) == len(jev["disagreementCaseIds"]) == 6
+        assert 'aria-label="60 comments in record order; six links open Jev disagreements"' in page
+        assert "case=${id}#inspect" in reader_js
+
+    def test_repeat_source_notes_remain_complete_and_findable(self):
+        page = (ROOT / "public-site/index.html").read_text()
+        start = page.index('<section class="evidence-notes"')
+        end = page.index('</div></div></section>', start) + len('</div></div></section>')
+        library = page[start:end]
+        assert 'id="evidence-note-search"' in library
+        assert 'role="status"' in library
+        groups = re.findall(r'<details class="note-group" id="([^"]+)">', library)
+        assert groups == ["repeat-note-prompts", "repeat-note-changes", "repeat-note-stable", "repeat-note-invalid"]
+        assert len(re.findall(r'<p class="analysis-caveat">', library)) == 25
+        sources = re.findall(r'href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/([^"]+)"', library)
+        assert len(sources) == 26
+        assert all((ROOT / source).is_file() for source in sources)
+
 
     def test_hero_example_is_exact_input_with_provisional_reference_answers(self):
         page = (ROOT / "public-site/index.html").read_text()

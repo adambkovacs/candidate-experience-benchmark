@@ -14,6 +14,13 @@ function fixture() {
   const contextLabel = {textContent: ''};
   const conditionGrid = {innerHTML: '', querySelectorAll() { return []; }};
   const metric = {value: 'all_four'};
+  const ledger = {innerHTML: '', querySelectorAll() { return []; }};
+  const ledgerControls = {
+    '#search': {value: ''}, '#condition-filter': {value: ''},
+    '#surface-filter': {value: ''}, '#include-incomplete': {checked: true},
+    '#sort': {value: 'score-desc'}, '#result-count': {textContent: ''},
+    '#score-heading': {textContent: ''}, '#comparison-list': ledger,
+  };
   let focused = null;
   const document = {
     querySelector(selector) {
@@ -24,6 +31,7 @@ function fixture() {
       if (selector === '#experiment-context') return contextLabel;
       if (selector === '#condition-grid') return conditionGrid;
       if (selector === '#metric') return metric;
+      if (Object.prototype.hasOwnProperty.call(ledgerControls, selector)) return ledgerControls[selector];
       return null;
     },
     createElement() {
@@ -35,11 +43,13 @@ function fixture() {
       };
     },
   };
-  const instrumented = source.replace('  init();\n})();', '  globalThis.__pairUi = {state,renderAuditedComparison,renderExperiment,comparisonNote};\n})();');
+  const instrumented = source.replace('  init();\n})();', '  globalThis.__pairUi = {state,renderAuditedComparison,renderExperiment,renderLedger,comparisonNote};\n})();');
   assert.notEqual(instrumented, source, 'test hook must replace only the init call');
   const context = {document, URL};
   vm.runInNewContext(instrumented, context, {filename: 'app.js'});
-  return {ui: context.__pairUi, panel: () => panel, note: () => note.textContent, focused: () => focused};
+  return {ui: context.__pairUi, panel: () => panel, note: () => note.textContent,
+    conditionGrid: () => conditionGrid.innerHTML, ledger: () => ledger.innerHTML,
+    focused: () => focused};
 }
 
 function report() {
@@ -165,4 +175,19 @@ test('unmarked ineligible pairs stay hidden and native Jev detail copy stays nat
   const jev = {id: 'typesafe-jev113-v2', nativeInstructionComparison: true, pairedEligible: false};
   assert.match(ui.comparisonNote(jev), /Native Jev instruction comparison/);
   assert.doesNotMatch(ui.comparisonNote(jev), /hosted prompt comparison/);
+});
+
+test('incomplete run keeps its fixed-denominator count as an explicit partial tally', () => {
+  const {ui, conditionGrid, ledger} = fixture();
+  const partial = {id: 'model-a', condition: 'P0', model: 'SemIf', surface: 'Local / specialist',
+    complete: false, records: 59, valid: 57, metrics: {all_four: 42}};
+  ui.state.data = {runs: [partial], promptComparisons: [], roster: []};
+  ui.state.experiments = new Map([['model-a', [partial]]]);
+  ui.renderExperiment();
+  assert.match(conditionGrid(), /PARTIAL TALLY · 59 \/ 60 SAVED · 1 MISSING/);
+  assert.match(conditionGrid(), /42<small> \/ 60<\/small>/);
+  assert.match(conditionGrid(), /All four match · NOT A FINAL SCORE/);
+  ui.renderLedger();
+  assert.match(ledger(), /42<\/strong><small> \/ 60 · partial tally, not final<\/small>/);
+  assert.match(ledger(), /59 \/ 60 saved · 1 missing/);
 });

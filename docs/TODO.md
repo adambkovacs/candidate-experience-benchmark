@@ -6,6 +6,11 @@ Updated 1 October 2026. This is the current coordination list. Frozen manifests 
 
 ### Latest checkpoint, 1 October 2026
 
+- Current website work: `publish_on_triple` owns the reader layout, chapter navigation and plain-language HTML. `resume_generated` owns a separate language review of the dynamic comparison tools. Root owns integration and desktop/mobile/keyboard/reduced-motion verification. The earlier published design remains live until this review is complete.
+- New closed evidence awaiting archival/publication: Qwen medium fresh2/P2 (60 valid, $0.074403900), Qwen xhigh fresh2/P0 (60 valid, $0.054453225), Gemma26 continuation fresh2/P1 (60 valid, $0.02068840), and E4B thinking-on fresh1/P2 (60 valid, completion hashes independently checked).
+- Running after separate smoke inspection: Gemma26 continuation fresh2/P2 development, root handle `49755`; Qwen medium fresh2/P0 development, `native_variants_prepare` handle `38618`. E4B thinking-on fresh2/P1 smoke closed with three valid answers and passed root raw inspection. Its full phase is running on root handle `6201`. These entries supersede older process statuses below.
+- DeepSeek second-interruption implementation and 12 offline tests are ready for independent review. No new allocation, freeze or inference has been performed for it.
+
 - Publication794232f4 verified: Pages36797511693 succeeded and both live feeds match committed bytes (local13d565b8d75cfd39837028b2e97dae03cccc985d5bbeedf66b61ecadcf8cc569; hosted7c030f7903821784e4ff4d6d7297c372c8a0a31424dde2a29392756423802944).
 
 - Publication a7475f6c is verified live: Pages run 36796567167 succeeded. Root fetched HTML and both updated feeds and matched them to the commit. Hosted feed SHA-256 d47c803c4ec012a512b95c510cdb54256d4aa455a9528226a059a1dbfa39cb86; local feed 8277c63244ad61b2ba4f443c27f233134d3bed5507e15e3951ea9570a17b2032. The interrupted Gemma findings are linked from the site.

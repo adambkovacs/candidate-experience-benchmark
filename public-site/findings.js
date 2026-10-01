@@ -15,7 +15,7 @@
   function renderPrompt(groups) {
     const target = $('finding-prompts');
     if (!groups?.length) { target.innerHTML = '<p class="finding-empty">No paired prompt analysis is available.</p>'; return; }
-    const names = {strict:'Audited hosted and subscription pairs',hosted_observational:'Gemini hosted observations',local_historical_baseline:'Local historical-baseline pairs'};
+    const names = {strict:'Prompt comparisons checked against saved records',hosted_observational:'Earlier Gemini prompt comparisons',local_historical_baseline:'Earlier local prompt comparisons'};
     function groupBody(group) {
       const comparisons = Object.entries(group.comparisons || {}).map(([key,c]) => ({...c,from:key.slice(0,2),to:key.slice(-2)}));
       const rows = comparisons.map(c => {
@@ -31,8 +31,8 @@
     const p2=strict?.comparisons?.P1_to_P2;
     if (p2) {
       const net=(p2.rows || []).reduce((sum,r)=>sum+count(r.delta),0);
-      text('prompt-headline', `Decision-tree instructions produced lower scores in ${count(p2.worsened)} of ${count(strict.configurations)} setups`);
-      text('prompt-deck', `Adding the decision tree in P2, compared with P1, improved ${count(p2.improved)}, tied ${count(p2.tied)} and worsened ${count(p2.worsened)} audited comparisons. The net change was ${net>0?'+':''}${net} all-four matches across those runs. These comparisons use the first recorded pass; repeat results below assess variation.`);
+      text('prompt-headline', `The decision-tree version had fewer matches than the classifier-instruction version in ${count(p2.worsened)} of ${count(strict.configurations)} audited setups`);
+      text('prompt-deck', `In the first recorded pass, P2 had more matches in ${count(p2.improved)} setups, the same count in ${count(p2.tied)}, and fewer in ${count(p2.worsened)}. ${net === 0 ? 'The combined number of all-four matches was unchanged.' : `The combined difference was ${Math.abs(net)} ${net < 0 ? 'fewer' : 'more'} all-four matches.`} Repeat results below show how these outcomes varied.`);
     }
   }
 
