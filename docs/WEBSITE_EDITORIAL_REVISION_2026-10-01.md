@@ -21,7 +21,7 @@ The copy now identifies the 21-of-39 finding as a first-pass comparison. The Jev
 ## Verification
 
 - Four source-bound reader tests passed. Numerical checks still use saved input, reference and response files.
-- The 95 UI cases were checked. Two old text assertions needed the new repeat wording; both passed after that update. No measurement assertions were removed.
+- All 95 UI tests passed in the final run. Two old text assertions were updated for the new repeat wording. No measurement assertions were removed.
 - Desktop rendering at 1440 by 1000 and mobile at 390 by 844 were inspected. The mobile document fits the viewport without horizontal overflow. Before and after screenshots are local verification artifacts, not benchmark evidence.
 - In the desktop check, the main story moved from approximately 3,125px to 1,513px down the page. The default page height fell from 23,862px to 15,200px with the detailed analysis closed. These are layout observations at that viewport, not performance measurements.
 - Browser checks covered opening the detailed prompt comparison, a direct repeat-analysis link, history navigation, chart selections and keyboard activation. The chart showed 15/15/9 for P0 to P1 and 4/14/21 for P1 to P2. A local browser video records the interactions.
@@ -29,3 +29,7 @@ The copy now identifies the 21-of-39 finding as a first-pass comparison. The Jev
 - The Academy anti-slop script found zero markers in 3,939 words of extracted static headings, paragraphs and summaries. This is a phrase scan, not proof of editorial quality. A separate manual review covered dynamic findings copy.
 
 Sources: [public findings data](../public-site/findings-provider-errors-v1.json), [reader example data](../public-site/reader-evidence.json), [reader tests](../tests/test_reader_story.py), [reference review](REFERENCE_REVIEW_V1.md). The earlier [reader revision](WEBSITE_READER_REVISION_2026-10-01.md) remains a historical checkpoint.
+
+## Publication
+
+Independent review: APPROVE, with no confirmed BLOCKING or RESIDUAL findings in the scoped code and copy diff. Commit `c313c2b2` is pushed. [GitHub Pages run 36831802703](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36831802703) succeeded. All six changed public assets match the checkout byte for byte. The live mobile prompt-analysis deep link opens the disclosure and renders the revised first-pass finding without horizontal overflow. Published HTML SHA-256: `6e08bba262532043c4eabda5a021c2bb092181f1c019bae9c22efc9757d9f1e3`.

@@ -24,7 +24,7 @@ Checkpoint: 1 October 2026, 06:23 UTC. Earlier statuses are retained in [coordin
 
 ## Verified progress
 
-- [x] Website editorial revision: Academy voice, findings before rankings, audience-specific guidance and expandable detailed analysis implemented and checked locally. See [the revision and verification notes](WEBSITE_EDITORIAL_REVISION_2026-10-01.md). Publication verification follows this checkpoint. No inference was dispatched for this presentation work.
+- [x] Website editorial revision: Academy voice, findings before rankings, audience-specific guidance and expandable detailed analysis implemented and checked locally. See [the revision and verification notes](WEBSITE_EDITORIAL_REVISION_2026-10-01.md). Published in `c313c2b2`; Pages run `36831802703` succeeded. All six changed live assets match the checkout, and the live mobile deep link was checked. No inference was dispatched for this presentation work.
 
 - [x] SemIf generated first P0/P1/P2 pass published in `0184bb6d`. Pages run `36756829330` succeeded; public HTML and 3/9 feed match committed bytes. All-field agreement is 35/60, 26/60 and 43/60 respectively, with 8, 22 and 2 invalid outputs retained. Desktop/mobile field selection and keyboard focus were checked on the preceding UI version; the latest data changes passed UI tests. Fresh2/P1 execution continues separately.
 
