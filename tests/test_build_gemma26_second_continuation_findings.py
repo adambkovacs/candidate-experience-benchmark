@@ -217,6 +217,26 @@ class SecondContinuationFindingsTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'frozen request'):
                 report.build(root)
 
+    def test_closed_suffix_remains_reportable_with_later_stopped_p2(self):
+        temp, root, _ = self.closed_public_archive()
+        with temp:
+            for phase in ('smoke', 'development'):
+                relative = report.SECOND / 'fresh3/P2' / (phase + '.journal.jsonl')
+                target = root / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / relative, target)
+            result = report.build(root)
+            self.assertTrue(result['publicCompositeP0Available'])
+            self.assertEqual(result['completedConditions'], self.prior['completedConditions'] + 1)
+            self.assertEqual(result['laterPassScores']['fresh3'], {})
+            self.assertEqual(result['stageStatus'][1]['status'], 'awaiting_public_review')
+            stopped = result['stageStatus'][2]
+            self.assertEqual(stopped['status'], 'stopped_unscored')
+            self.assertEqual((stopped['stoppedAtId'], stopped['attempted'],
+                              stopped['neverSent'], stopped['score']),
+                             ('DEV-005', 5, 55, None))
+            self.assertEqual(result['stageStatus'][3]['status'], 'not_started_in_cutoff')
+
 
 if __name__ == '__main__':
     unittest.main()
