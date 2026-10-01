@@ -9527,20 +9527,8 @@
       "referenceStatus": "AI reviewed provisional, not independent adjudication",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 2,
+      "completedConditions": 4,
       "missingPasses": [
-        {
-          "pass": "fresh1",
-          "condition": "P2",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
         {
           "pass": "fresh2",
           "condition": "P2",
@@ -9964,9 +9952,402 @@
                 }
               }
             }
+          },
+          "P2": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 49,
+              "fields": {
+                "sentiment": 55,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 57,
+                "testimonial_potential": 55
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 9,
+                "negative": 29,
+                "neutral": 8,
+                "positive": 13
+              },
+              "follow_up_needed": {
+                "insufficient_information": 1,
+                "no": 23,
+                "yes": 36
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 4,
+                "no": 31,
+                "yes": 25
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 45,
+                "yes": 14
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                23.22230775,
+                21.609967583,
+                22.898432125,
+                27.626868375,
+                1.920531458,
+                21.631582458,
+                22.329200208,
+                19.877783625,
+                21.150821625,
+                16.936687417,
+                17.965359291,
+                23.2430625,
+                31.582415,
+                1.973017917,
+                25.751441166,
+                17.143876542,
+                16.9846465,
+                31.657488542,
+                23.875106042,
+                22.76188675,
+                19.533214583,
+                26.660622,
+                13.57744025,
+                14.957229583,
+                12.83487775,
+                19.405766125,
+                19.033733583,
+                17.44042175,
+                14.415454417,
+                30.695607541,
+                25.452088834,
+                28.300399083,
+                33.335690833,
+                25.611485791,
+                15.894275584,
+                19.612756041,
+                18.425370167,
+                1.55657325,
+                17.327614833,
+                28.225236,
+                14.054672667,
+                24.253700916,
+                20.450185959,
+                1.888788917,
+                20.879889667,
+                1.370375166,
+                18.420948125,
+                12.727308583,
+                20.577268042,
+                11.689567417,
+                17.919152666,
+                19.832941125,
+                16.653640417,
+                18.191217542,
+                24.494229292,
+                20.609533333,
+                17.755526041,
+                19.131045292,
+                18.498697875,
+                23.118401333
+              ],
+              "clientRequestSecondsTotal": 1156.955431247,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 164548,
+                "output_tokens": 26490,
+                "total_tokens": 191038,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.root-review.json",
+                  "sha256": "8164ad4dffa6fcb752fa7cbc5042ebc8bb6d0a4a2821398e3a1dc2006cef1ac0"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.claim.json",
+                  "sha256": "8520e5ed737b4c85dbd540015ad03da35b973c39851796ae85ce889fc9ce011b"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.raw.jsonl",
+                  "sha256": "79606b5b368788a48daa57fb9bcad9f61209bef89ff9da40d5f1d56014b9fa02"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.records.jsonl",
+                  "sha256": "2f143b83642d386d89048a0d38f63a9def2470a721f72d2fe19da9662a0fca18"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.journal.jsonl",
+                  "sha256": "501a9498be6fd5d4ab41da19c165496dbfd0a690c2d218519ef4b464ee07505e"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.completion.json",
+                  "sha256": "ba95166803788397e02c1beb220c1188c517f3790245a59ae3f47dfecb5db41b"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke-inspection.json",
+                "sha256": "4b5d265caf183f276aa37b6118ddaf97e6e485c68d856f29fa245589e9a6e728"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.root-review.json",
+                  "sha256": "c4601f0a1d9abe298baa7a0fbc4e7027cd12d94b97a76899e4fe461fac841871"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.claim.json",
+                  "sha256": "9357950db52deebdc27d34f511306f966cc8d5c0dee53bb7b88b4c60f83f4441"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.raw.jsonl",
+                  "sha256": "39bf955ba2be696778639ed421f932a2920379a2b4d1e8380ef1b74e8ce05560"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.records.jsonl",
+                  "sha256": "f29bbb2262636773c1e493bcc381467f3328d62c496d7ee4b0b9348868f34e54"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.journal.jsonl",
+                  "sha256": "8fae7e25ae9de828e1cf6ace49124b56861f8971cc9b74cac0597d1caedccda7"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.completion.json",
+                  "sha256": "36006d3238a251d93f9f205edcf7d17915adbbcbd9218e7f65745859449aecab"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 44,
+              "fields": {
+                "sentiment": 52,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 54,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 2,
+                "mixed": 15,
+                "negative": 24,
+                "neutral": 9,
+                "positive": 10
+              },
+              "follow_up_needed": {
+                "insufficient_information": 1,
+                "no": 23,
+                "yes": 36
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 2,
+                "no": 34,
+                "yes": 24
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 47,
+                "yes": 12
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                0.7097935,
+                1.115262375,
+                1.425892625,
+                1.286677709,
+                20.37894625,
+                16.862880333,
+                1.399599083,
+                1.512495333,
+                1.469645083,
+                1.360239084,
+                1.709742125,
+                13.910984291,
+                23.726776292,
+                1.296949375,
+                1.794143334,
+                1.884477083,
+                1.575540167,
+                19.36404675,
+                16.532271292,
+                21.293923083,
+                1.41748275,
+                1.74884025,
+                14.357326334,
+                1.666966125,
+                12.191799083,
+                1.599978334,
+                1.431998541,
+                18.351217583,
+                11.446726208,
+                15.823037417,
+                15.585896417,
+                16.128735459,
+                1.61456,
+                1.6493,
+                15.109256791,
+                1.372467125,
+                1.236199625,
+                1.4217115,
+                1.359555875,
+                1.386973209,
+                1.585210459,
+                1.548228541,
+                14.1763485,
+                1.2798685,
+                1.629978208,
+                10.807757208,
+                1.914879625,
+                17.265770083,
+                14.111222541,
+                1.314345958,
+                1.278082375,
+                1.39846,
+                1.337944291,
+                1.437999417,
+                16.687626166,
+                20.802287583,
+                16.929350625,
+                22.081276667,
+                15.906938917,
+                1.6370095
+              ],
+              "clientRequestSecondsTotal": 452.640898957,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 108688,
+                "output_tokens": 12271,
+                "total_tokens": 120959,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.root-review.json",
+                  "sha256": "f9ca51a20ef82fe6b94138b7ddea610ec3251773765c414a7165782afda085a0"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.claim.json",
+                  "sha256": "3fa4bf3b292bd645bbc3eac6052048a8ad7c0fb027d324968d6cda542c5c0896"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.raw.jsonl",
+                  "sha256": "7b99e53f2cbaebfa19718a26db566274b4571debb1c1a316ad1567ef36a1ba24"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.records.jsonl",
+                  "sha256": "bc9f1b47166d22a6ae59faadca64863b6b990dc4c82c25c88fd7d5ea0eeb0398"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.journal.jsonl",
+                  "sha256": "a500989d9b58d3d5ffdfe15ab087e156e8c2bc6f261dbd07f7427c572b54ae4a"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.completion.json",
+                  "sha256": "0e28dfefc6bacdcb94904cfe79ecdbf55d383f1c05c7c2e55114c116e1f917c2"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke-inspection.json",
+                "sha256": "b6dd5dc325bc674960f1048bfa8ef1ce3487e2ef281c63f484605dc3c27f8c04"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.root-review.json",
+                  "sha256": "e57183a09540e38debd3f203c9ca44e760f864e3e37c64b6732a7d6e38c0d241"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.claim.json",
+                  "sha256": "0beee86ea9feca249b2e99bd799ce470220ef8545d4ad1af0fd06cd5fc34586e"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.raw.jsonl",
+                  "sha256": "2761e7a61fcd5e52b8104ebddd9b94909131391a738461c64062c1f3d4ba61df"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.records.jsonl",
+                  "sha256": "d3c3fb3f3d4afe3fc6a6c0e9a5a0ee72866b8f7ab1392c391cc7ed27dbf5bcc0"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.journal.jsonl",
+                  "sha256": "ccdbb76b9e1a606228e6be5da2f3241c6334a04711260a3415c2e0b228671d01"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.completion.json",
+                  "sha256": "329f53e48779ef1f917374d1665d5ade4a38551d00b59cd33e611b65725ed1e2"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
+          }
+        },
         "fresh3": {}
       },
       "threePassSummary": {
@@ -10011,9 +10392,53 @@
         },
         "P1": {
           "allFour": {
+            "completedPasses": 2,
+            "values": [
+              43,
+              44
+            ],
+            "range": null
+          },
+          "fields": {
+            "sentiment": {
+              "completedPasses": 2,
+              "values": [
+                52,
+                52
+              ],
+              "range": null
+            },
+            "follow_up_needed": {
+              "completedPasses": 2,
+              "values": [
+                59,
+                59
+              ],
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 2,
+              "values": [
+                53,
+                54
+              ],
+              "range": null
+            },
+            "testimonial_potential": {
+              "completedPasses": 2,
+              "values": [
+                57,
+                57
+              ],
+              "range": null
+            }
+          }
+        },
+        "P2": {
+          "allFour": {
             "completedPasses": 1,
             "values": [
-              43
+              49
             ],
             "range": null
           },
@@ -10021,7 +10446,7 @@
             "sentiment": {
               "completedPasses": 1,
               "values": [
-                52
+                55
               ],
               "range": null
             },
@@ -10035,44 +10460,15 @@
             "serious_concern_reported": {
               "completedPasses": 1,
               "values": [
-                53
+                57
               ],
               "range": null
             },
             "testimonial_potential": {
               "completedPasses": 1,
               "values": [
-                57
+                55
               ],
-              "range": null
-            }
-          }
-        },
-        "P2": {
-          "allFour": {
-            "completedPasses": 0,
-            "values": [],
-            "range": null
-          },
-          "fields": {
-            "sentiment": {
-              "completedPasses": 0,
-              "values": [],
-              "range": null
-            },
-            "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
-              "range": null
-            },
-            "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
-              "range": null
-            },
-            "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
               "range": null
             }
           }
@@ -10257,6 +10653,110 @@
         {
           "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke-inspection.json",
           "sha256": "6991da924b6ff126a4b1bf97da24858325c43137681faaf2f83e9694c043922a"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.root-review.json",
+          "sha256": "8164ad4dffa6fcb752fa7cbc5042ebc8bb6d0a4a2821398e3a1dc2006cef1ac0"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.claim.json",
+          "sha256": "8520e5ed737b4c85dbd540015ad03da35b973c39851796ae85ce889fc9ce011b"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.raw.jsonl",
+          "sha256": "79606b5b368788a48daa57fb9bcad9f61209bef89ff9da40d5f1d56014b9fa02"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.records.jsonl",
+          "sha256": "2f143b83642d386d89048a0d38f63a9def2470a721f72d2fe19da9662a0fca18"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.journal.jsonl",
+          "sha256": "501a9498be6fd5d4ab41da19c165496dbfd0a690c2d218519ef4b464ee07505e"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke.completion.json",
+          "sha256": "ba95166803788397e02c1beb220c1188c517f3790245a59ae3f47dfecb5db41b"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.root-review.json",
+          "sha256": "c4601f0a1d9abe298baa7a0fbc4e7027cd12d94b97a76899e4fe461fac841871"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.claim.json",
+          "sha256": "9357950db52deebdc27d34f511306f966cc8d5c0dee53bb7b88b4c60f83f4441"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.raw.jsonl",
+          "sha256": "39bf955ba2be696778639ed421f932a2920379a2b4d1e8380ef1b74e8ce05560"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.records.jsonl",
+          "sha256": "f29bbb2262636773c1e493bcc381467f3328d62c496d7ee4b0b9348868f34e54"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.journal.jsonl",
+          "sha256": "8fae7e25ae9de828e1cf6ace49124b56861f8971cc9b74cac0597d1caedccda7"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/development.completion.json",
+          "sha256": "36006d3238a251d93f9f205edcf7d17915adbbcbd9218e7f65745859449aecab"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P2/smoke-inspection.json",
+          "sha256": "4b5d265caf183f276aa37b6118ddaf97e6e485c68d856f29fa245589e9a6e728"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.root-review.json",
+          "sha256": "f9ca51a20ef82fe6b94138b7ddea610ec3251773765c414a7165782afda085a0"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.claim.json",
+          "sha256": "3fa4bf3b292bd645bbc3eac6052048a8ad7c0fb027d324968d6cda542c5c0896"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.raw.jsonl",
+          "sha256": "7b99e53f2cbaebfa19718a26db566274b4571debb1c1a316ad1567ef36a1ba24"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.records.jsonl",
+          "sha256": "bc9f1b47166d22a6ae59faadca64863b6b990dc4c82c25c88fd7d5ea0eeb0398"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.journal.jsonl",
+          "sha256": "a500989d9b58d3d5ffdfe15ab087e156e8c2bc6f261dbd07f7427c572b54ae4a"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke.completion.json",
+          "sha256": "0e28dfefc6bacdcb94904cfe79ecdbf55d383f1c05c7c2e55114c116e1f917c2"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.root-review.json",
+          "sha256": "e57183a09540e38debd3f203c9ca44e760f864e3e37c64b6732a7d6e38c0d241"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.claim.json",
+          "sha256": "0beee86ea9feca249b2e99bd799ce470220ef8545d4ad1af0fd06cd5fc34586e"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.raw.jsonl",
+          "sha256": "2761e7a61fcd5e52b8104ebddd9b94909131391a738461c64062c1f3d4ba61df"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.records.jsonl",
+          "sha256": "d3c3fb3f3d4afe3fc6a6c0e9a5a0ee72866b8f7ab1392c391cc7ed27dbf5bcc0"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.journal.jsonl",
+          "sha256": "ccdbb76b9e1a606228e6be5da2f3241c6334a04711260a3415c2e0b228671d01"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/development.completion.json",
+          "sha256": "329f53e48779ef1f917374d1665d5ade4a38551d00b59cd33e611b65725ed1e2"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh2/P1/smoke-inspection.json",
+          "sha256": "b6dd5dc325bc674960f1048bfa8ef1ce3487e2ef281c63f484605dc3c27f8c04"
         }
       ],
       "artifactSha256": "0ffb122c8b6921f13cbc34186e052524d0b5803b17f4867b7197a561400b3770",
