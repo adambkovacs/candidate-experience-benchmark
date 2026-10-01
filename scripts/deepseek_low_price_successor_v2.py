@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Exact public price exception for the second DeepSeek low continuation.
+"""Bounded public price exception for the second DeepSeek low continuation.
 
 The frozen requests and conservative reserve do not change. This module only
-admits the three selected endpoint rates captured in the dated public audit.
+admits nonnegative selected-endpoint rates no higher than the reviewed bounds.
+The dated exact-rate public audit remains historical evidence.
 """
 from copy import deepcopy
 import hashlib
@@ -22,6 +23,9 @@ RAW_ENDPOINTS = ROUTE_DIR / 'endpoints.json'
 PRICES = {'prompt': '0.000000017523', 'completion': '0.000000396',
           'input_cache_read': '0.00000000291'}
 NEW_PROMPT_PRICE = PRICES['prompt']
+PRICE_BOUNDS = {'prompt': prior.NEW_PROMPT_PRICE,
+                'completion': '0.0000005',
+                'input_cache_read': '0.00000001'}
 SCHEMA = 'deepseek-low-second-price-public-route-audit-v1'
 
 
@@ -30,9 +34,29 @@ def sha(path):
 
 
 def expected_pricing(historical_endpoint):
+    """Reconstruct only the dated audit, not the price of a later live call."""
     pricing = deepcopy(historical_endpoint['pricing'])
     pricing.update(PRICES)
     return pricing
+
+
+def checked_bounded_pricing(live, historical):
+    """Allow only the reviewed rate fields to fall within fixed ceilings."""
+    if not isinstance(live, dict) or not isinstance(historical, dict):
+        raise ValueError('Live endpoint pricing is missing')
+    if set(live) != set(historical) or not set(PRICE_BOUNDS) <= set(live):
+        raise ValueError('Live endpoint pricing fields differ')
+    if any(historical[key] != ceiling for key, ceiling in PRICE_BOUNDS.items()
+           if key != 'prompt'):
+        raise ValueError('Frozen endpoint price bounds differ')
+    if historical['prompt'] != prior.OLD_PROMPT_PRICE:
+        raise ValueError('Frozen endpoint prompt price differs')
+    for key, ceiling in PRICE_BOUNDS.items():
+        if paid.number(live[key]) > paid.number(ceiling):
+            raise ValueError('Live endpoint price exceeds reviewed bound: ' + key)
+    if any(live[key] != historical[key] for key in historical
+           if key not in PRICE_BOUNDS):
+        raise ValueError('Other live endpoint pricing fields differ')
 
 
 def verify_route_audit():
@@ -74,11 +98,9 @@ def verify_route_audit():
 
 
 def checked_live_context(manifest, phase, stage, catalog, endpoints):
-    """Reject all route drift except the three reviewed lower rates."""
+    """Reject route drift and any rate outside the reviewed price ceilings."""
     verify_route_audit()
     history, controls, historical_endpoint, historical_model = admission.source_state()
-    if historical_endpoint.get('pricing', {}).get('prompt') != prior.OLD_PROMPT_PRICE:
-        raise ValueError('Frozen endpoint prompt price differs')
     model, endpoint = paid.select_endpoint(admission.MODEL, admission.PROVIDER,
         catalog, endpoints, paid.number('0.1'), paid.number('0.5'))
     critical = ('tag', 'provider_name', 'quantization', 'model_id',
@@ -86,8 +108,7 @@ def checked_live_context(manifest, phase, stage, catalog, endpoints):
                 'supported_parameters')
     if any(endpoint.get(key) != historical_endpoint.get(key) for key in critical):
         raise ValueError('Live endpoint control or identity differs')
-    if endpoint.get('pricing') != expected_pricing(historical_endpoint):
-        raise ValueError('Live endpoint prices differ from reviewed second exception')
+    checked_bounded_pricing(endpoint.get('pricing'), historical_endpoint.get('pricing'))
     if paid.reasoning(model, endpoint, 'low') != {'enabled': True, 'effort': 'low'}:
         raise ValueError('Live low-reasoning support differs')
     if paid.reservation(endpoint, 4096, paid.number('0.1'), paid.number('0.5')) != admission.RESERVE:

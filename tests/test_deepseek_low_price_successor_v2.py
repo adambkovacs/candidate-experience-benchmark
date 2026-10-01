@@ -1,4 +1,4 @@
-"""Offline tests for the exact second DeepSeek low price exception."""
+"""Offline tests for bounded second DeepSeek low price admission."""
 from copy import deepcopy
 import json
 from pathlib import Path
@@ -47,7 +47,7 @@ class SecondPriceSuccessorTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'public route source changed'):
                     successor.verify_route_audit()
 
-    def test_three_exact_lower_prices_preserve_frozen_requests_and_reserve(self):
+    def test_dated_audit_prices_preserve_frozen_requests_and_reserve(self):
         catalog, endpoints, endpoint = self.catalogs()
         context = successor.checked_live_context(self.manifest, self.phase,
                                                   'development', catalog, endpoints)
@@ -61,19 +61,56 @@ class SecondPriceSuccessorTests(unittest.TestCase):
                          [item['request_sha256'] for item in
                           run.selected_items(self.manifest, 2, 'suffix')])
 
-    def test_any_price_or_identity_drift_is_rejected(self):
+    def test_different_lower_live_prices_preserve_frozen_payload_and_reserve(self):
+        catalog, endpoints, endpoint = self.catalogs()
+        endpoint['pricing'].update({'prompt': '0.000000015543',
+                                    'completion': '0.000000395',
+                                    'input_cache_read': '0.00000000290'})
+        context = successor.checked_live_context(self.manifest, self.phase,
+                                                  'development', catalog, endpoints)
+        self.assertEqual(context[2], endpoint)
+        rebuilt = run._rebuild_requests(self.manifest, 2, 'suffix', endpoint, self.old_model)
+        self.assertEqual([item['id'] for _, item, _ in rebuilt], run.IDS[49:])
+        self.assertEqual(successor.paid.reservation(endpoint, 4096,
+            successor.paid.number('0.1'), successor.paid.number('0.5')),
+            successor.admission.RESERVE)
+
+    def test_above_bound_or_identity_drift_is_rejected(self):
         cases = []
-        for key in successor.PRICES:
+        for key, ceiling in successor.PRICE_BOUNDS.items():
             catalog, endpoints, endpoint = self.catalogs()
-            endpoint['pricing'][key] = str(successor.paid.number(endpoint['pricing'][key])
+            endpoint['pricing'][key] = str(successor.paid.number(ceiling)
                                            + successor.paid.number('0.000000000001'))
             cases.append((catalog, endpoints))
         cases.append(self.catalogs(context_length=self.old_endpoint['context_length'] - 1)[:2])
         cases.append(self.catalogs(provider_name='DifferentProvider')[:2])
         cases.append(self.catalogs(supported_parameters=['structured_outputs',
                                                           'max_tokens', 'temperature'])[:2])
+        catalog, endpoints, endpoint = self.catalogs()
+        endpoint['pricing']['discount'] = 1
+        cases.append((catalog, endpoints))
+        catalog, endpoints, endpoint = self.catalogs()
+        endpoint['pricing']['input_cache_write'] = '0'
+        cases.append((catalog, endpoints))
         for catalog, endpoints in cases:
             with self.subTest(endpoint=endpoints['data']['endpoints'][0]):
+                with self.assertRaises(ValueError):
+                    successor.checked_live_context(self.manifest, self.phase,
+                                                   'development', catalog, endpoints)
+
+    def test_negative_nonfinite_boolean_and_missing_rates_are_rejected(self):
+        for value in ('-0.000000001', 'NaN', 'Infinity', True, None):
+            for key in successor.PRICE_BOUNDS:
+                catalog, endpoints, endpoint = self.catalogs()
+                endpoint['pricing'][key] = value
+                with self.subTest(key=key, value=value):
+                    with self.assertRaises(ValueError):
+                        successor.checked_live_context(self.manifest, self.phase,
+                                                       'development', catalog, endpoints)
+        for key in successor.PRICE_BOUNDS:
+            catalog, endpoints, endpoint = self.catalogs()
+            del endpoint['pricing'][key]
+            with self.subTest(missing=key):
                 with self.assertRaises(ValueError):
                     successor.checked_live_context(self.manifest, self.phase,
                                                    'development', catalog, endpoints)
@@ -88,14 +125,14 @@ class SecondPriceSuccessorTests(unittest.TestCase):
 
     def test_route_drift_fails_before_key_child_lock_or_claim(self):
         catalog, endpoints, endpoint = self.catalogs()
-        endpoint['pricing']['completion'] = '0.000000397'
+        endpoint['pricing']['prompt'] = '0.000000030001'
         with patch.object(run, 'prepare', return_value=(self.manifest, {})), \
              patch.object(run.original, 'verify_sources'), \
              patch.object(run.paid, 'fetch', side_effect=(catalog, endpoints)), \
              patch.object(run.partitions, 'open_partition') as child, \
              patch.object(run.paid, 'load_key') as key, \
              patch.object(run.original, 'atomic_json') as claim:
-            with self.assertRaisesRegex(ValueError, 'prices differ'):
+            with self.assertRaisesRegex(ValueError, 'price exceeds reviewed bound'):
                 run.execute('manifest', 'sha', 'budget', 2, 'suffix', 'review')
             child.assert_not_called()
             key.assert_not_called()
