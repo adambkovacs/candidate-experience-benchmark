@@ -1,3 +1,47 @@
+// Keep the full evidence available without JavaScript; collapse it only after
+// enhancing fragment links so every source and section still opens directly.
+(() => {
+  'use strict';
+  const library = document.getElementById('analysis-library');
+  if (!library) return;
+  const targetFromHash = () => {
+    if (!location.hash) return null;
+    try { return document.getElementById(decodeURIComponent(location.hash.slice(1))); }
+    catch { return null; }
+  };
+  const openAncestors = target => {
+    let detail = target.closest('details');
+    while (detail) {
+      detail.open = true;
+      detail = detail.parentElement.closest('details');
+    }
+  };
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const revealHash = (scroll, initial = false) => {
+    const target = targetFromHash();
+    if (!target) return;
+    openAncestors(target);
+    if (scroll) requestAnimationFrame(() => target.scrollIntoView({
+      block: 'start',
+      behavior: initial || reducedMotion.matches ? 'instant' : 'smooth'
+    }));
+  };
+  const initialTarget = targetFromHash();
+  if (!initialTarget || (!library.contains(initialTarget) && initialTarget !== library)) library.open = false;
+  revealHash(Boolean(initialTarget), true);
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return;
+    let target;
+    try { target = document.getElementById(decodeURIComponent(url.hash.slice(1))); }
+    catch { return; }
+    if (target) openAncestors(target);
+  });
+  window.addEventListener('hashchange', () => revealHash(true));
+})();
+
 (() => {
   'use strict';
   const chapters = [...document.querySelectorAll('.story-chapter')];

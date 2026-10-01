@@ -874,7 +874,7 @@
         ? 'DeepSeek low: 2 of 9 phases have final scores at the third interruption cutoff. Fresh pass 1 P2 has 46 valid responses, one invalid response, three service errors and ten unsent comments; it has no score.'
         : gemmaContinuation
         ? `Gemma 26B thinking-on: 5 of 9 phases have final scores. Fresh pass 2 P0 stopped without a score; three later phases were not sent. Scores use all 60 fictional comments, including failed answers.`
-        : `${data.completedConditions} of ${data.plannedConditions} planned tests have final results for the same ${data.denominator} fictional comments. Finished tests can include failed or unusable answers. ${data.displayName || data.configuration}. Open study details for costs and measurement limits.`;
+        : `${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt-and-pass runs'} have final results for the same ${data.denominator} fictional comments. Finished runs can include failed or unusable answers. ${data.displayName || data.configuration}. Open study details for costs and measurement limits.`;
       if (readerSummary && interruptedE4b) readerSummary.textContent +=
         ' Fresh pass 2 P2 has 50 valid saved responses, two unknown timeouts and eight unsent comments; it has no final score.';
       document.getElementById('repeat-lead').textContent = gemmaSecond

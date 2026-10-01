@@ -40,7 +40,7 @@ async function render(payload = interrupted, status = 200, selected = config) {
 test('E4B interruption explains the unscored P2 without changing clean scores', async () => {
   const ui = await render();
   assert.equal(ui.requested.filter(item => item === url).length, 1);
-  assert.match(ui.get('repeat-summary').textContent, /4 of 9 planned tests have final results/);
+  assert.match(ui.get('repeat-summary').textContent, /4 of 9 planned prompt-and-pass runs have final results/);
   assert.match(ui.get('repeat-summary').textContent, /50 valid saved responses, two unknown timeouts and eight unsent/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 4);
   assert.match(ui.get('repeat-chart').innerHTML, /Stopped: 50 valid, 2 unknown, 8 unsent; no score/);
@@ -61,7 +61,7 @@ test('E4B interruption explains the unscored P2 without changing clean scores', 
 
 test('optional missing feed leaves local series usable; malformed evidence fails visibly', async () => {
   const missing = await render(null, 404);
-  assert.match(missing.get('repeat-summary').textContent, /4 of 9 planned tests/);
+  assert.match(missing.get('repeat-summary').textContent, /4 of 9 planned prompt-and-pass runs/);
   assert.doesNotMatch(missing.get('repeat-interpretation').innerHTML, /What happened to this pass/);
   const failed = await render(null, 500);
   assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);

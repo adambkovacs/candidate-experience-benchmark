@@ -88,7 +88,7 @@ class ReaderStoryTests(unittest.TestCase):
         prompts = chapter(page, "story-prompts")
         assert "Jev matched 54 of the 60 comments" in specialist
         assert "every response could be scored" in specialist.lower()
-        assert "lowered scores in 21 of 39 saved setups" in prompts
+        assert "21 of 39 setups scored lower with decision rules" in prompts
         assert "improved four setups, left 14 unchanged and lowered 21" in prompts
 
         reader_js = (ROOT / "public-site/reader.js").read_text()
