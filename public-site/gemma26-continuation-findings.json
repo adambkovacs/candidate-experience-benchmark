@@ -1,0 +1,1182 @@
+{
+  "schema": "gemma26-on-v2-interrupted-continuation-findings-v1",
+  "seriesId": "gemma26-on-v2-interruption-continuation-v1",
+  "configuration": "openrouter-paid-gemma4-26b-a4b-on",
+  "method": "descriptive-interrupted-series-continuation",
+  "cleanMatchedThreeEligible": false,
+  "denominator": 60,
+  "plannedConditions": 9,
+  "completedConditions": 5,
+  "originalFailedId": "DEV-007",
+  "originalFailureStatus": "service_error",
+  "originalNeverSentBeforeContinuation": [
+    "DEV-008",
+    "DEV-009",
+    "DEV-010",
+    "DEV-011",
+    "DEV-012",
+    "DEV-013",
+    "DEV-014",
+    "DEV-015",
+    "DEV-016",
+    "DEV-017",
+    "DEV-018",
+    "DEV-019",
+    "DEV-020",
+    "DEV-021",
+    "DEV-022",
+    "DEV-023",
+    "DEV-024",
+    "DEV-025",
+    "DEV-026",
+    "DEV-027",
+    "DEV-028",
+    "DEV-029",
+    "DEV-030",
+    "DEV-031",
+    "DEV-032",
+    "DEV-033",
+    "DEV-034",
+    "DEV-035",
+    "DEV-036",
+    "DEV-037",
+    "DEV-038",
+    "DEV-039",
+    "DEV-040",
+    "DEV-041",
+    "DEV-042",
+    "DEV-043",
+    "DEV-044",
+    "DEV-045",
+    "DEV-046",
+    "DEV-047",
+    "DEV-048",
+    "DEV-049",
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "missingPasses": [
+    {
+      "pass": "fresh2",
+      "condition": "P0",
+      "status": "stopped_unscored"
+    },
+    {
+      "pass": "fresh3",
+      "condition": "P0",
+      "status": "not_completed_in_public_cutoff"
+    },
+    {
+      "pass": "fresh3",
+      "condition": "P1",
+      "status": "not_completed_in_public_cutoff"
+    },
+    {
+      "pass": "fresh3",
+      "condition": "P2",
+      "status": "not_completed_in_public_cutoff"
+    }
+  ],
+  "stoppedPhases": [
+    {
+      "pass": "fresh2",
+      "condition": "P0",
+      "status": "stopped_unscored",
+      "score": null,
+      "attempted": 2,
+      "validOutputCount": 1,
+      "serviceErrorCount": 1,
+      "failedId": "DEV-002",
+      "neverSentCount": 58,
+      "neverSentIds": [
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "usage": {
+        "requestCount": 2,
+        "requestSecondsTotal": 252.85576125001535,
+        "timingKind": "client_request_to_record_not_provider_inference",
+        "tokenAvailability": {
+          "prompt_tokens": {
+            "sum": null,
+            "reportedCount": 1,
+            "missingCount": 1
+          },
+          "completion_tokens": {
+            "sum": null,
+            "reportedCount": 1,
+            "missingCount": 1
+          },
+          "total_tokens": {
+            "sum": null,
+            "reportedCount": 1,
+            "missingCount": 1
+          },
+          "providerReportedReasoningTokens": {
+            "sum": null,
+            "reportedCount": 1,
+            "missingCount": 1
+          }
+        },
+        "knownCostUsd": "0.00028017",
+        "actualCostUsd": null,
+        "unknownCostCount": 1,
+        "unknownCostUpperBoundUsd": "0.01974272"
+      }
+    }
+  ],
+  "passes": {
+    "fresh1": {
+      "P0": {
+        "status": "completed",
+        "score": {
+          "denominator": 60,
+          "saved": 60,
+          "valid": 60,
+          "allFour": 59,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 60,
+            "serious_concern_reported": 60,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "service_error": 0,
+            "never_sent": 0
+          },
+          "validIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "scoreKind": "fixed_60"
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSecondsTotal": 1110.180834415136,
+          "timingKind": "client_request_to_record_not_provider_inference",
+          "tokenAvailability": {
+            "prompt_tokens": {
+              "sum": 87568,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "completion_tokens": {
+              "sum": 38773,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "total_tokens": {
+              "sum": 126341,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "providerReportedReasoningTokens": {
+              "sum": 39273,
+              "reportedCount": 60,
+              "missingCount": 0
+            }
+          },
+          "knownCostUsd": "0.01931258",
+          "actualCostUsd": "0.01931258",
+          "unknownCostCount": 0,
+          "unknownCostUpperBoundUsd": "0"
+        },
+        "servedRoute": {
+          "returnedModels": {
+            "google/gemma-4-26b-a4b-it": 60
+          },
+          "returnedProviders": {
+            "DeepInfra": 60
+          }
+        }
+      },
+      "P1": {
+        "status": "completed",
+        "score": {
+          "denominator": 60,
+          "saved": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 58,
+            "follow_up_needed": 60,
+            "serious_concern_reported": 60,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "service_error": 0,
+            "never_sent": 0
+          },
+          "validIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "scoreKind": "fixed_60"
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSecondsTotal": 1162.1422725440934,
+          "timingKind": "client_request_to_record_not_provider_inference",
+          "tokenAvailability": {
+            "prompt_tokens": {
+              "sum": 98368,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "completion_tokens": {
+              "sum": 39977,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "total_tokens": {
+              "sum": 138345,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "providerReportedReasoningTokens": {
+              "sum": 40426,
+              "reportedCount": 60,
+              "missingCount": 0
+            }
+          },
+          "knownCostUsd": "0.02047794",
+          "actualCostUsd": "0.02047794",
+          "unknownCostCount": 0,
+          "unknownCostUpperBoundUsd": "0"
+        },
+        "servedRoute": {
+          "returnedModels": {
+            "google/gemma-4-26b-a4b-it": 60
+          },
+          "returnedProviders": {
+            "DeepInfra": 60
+          }
+        }
+      },
+      "P2": {
+        "status": "completed_interrupted",
+        "score": {
+          "denominator": 60,
+          "saved": 60,
+          "valid": 59,
+          "allFour": 57,
+          "fields": {
+            "sentiment": 58,
+            "follow_up_needed": 58,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 59
+          },
+          "outcomes": {
+            "valid": 59,
+            "invalid_output": 0,
+            "service_error": 1,
+            "never_sent": 0
+          },
+          "validIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "scoreKind": "fixed_60"
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSecondsTotal": 855.6874257888412,
+          "timingKind": "client_request_to_record_not_provider_inference",
+          "tokenAvailability": {
+            "prompt_tokens": {
+              "sum": null,
+              "reportedCount": 59,
+              "missingCount": 1
+            },
+            "completion_tokens": {
+              "sum": null,
+              "reportedCount": 59,
+              "missingCount": 1
+            },
+            "total_tokens": {
+              "sum": null,
+              "reportedCount": 59,
+              "missingCount": 1
+            },
+            "providerReportedReasoningTokens": {
+              "sum": null,
+              "reportedCount": 59,
+              "missingCount": 1
+            }
+          },
+          "knownCostUsd": "0.02346166",
+          "actualCostUsd": null,
+          "unknownCostCount": 1,
+          "unknownCostUpperBoundUsd": "0.01974272"
+        },
+        "servedRoute": {
+          "returnedModels": {
+            "google/gemma-4-26b-a4b-it": 59
+          },
+          "returnedProviders": {
+            "DeepInfra": 59
+          }
+        }
+      }
+    },
+    "fresh2": {
+      "P1": {
+        "status": "completed",
+        "score": {
+          "denominator": 60,
+          "saved": 60,
+          "valid": 60,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 58,
+            "follow_up_needed": 60,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "service_error": 0,
+            "never_sent": 0
+          },
+          "validIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "scoreKind": "fixed_60"
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSecondsTotal": 1119.2660323308664,
+          "timingKind": "client_request_to_record_not_provider_inference",
+          "tokenAvailability": {
+            "prompt_tokens": {
+              "sum": 98368,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "completion_tokens": {
+              "sum": 40596,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "total_tokens": {
+              "sum": 138964,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "providerReportedReasoningTokens": {
+              "sum": 41264,
+              "reportedCount": 60,
+              "missingCount": 0
+            }
+          },
+          "knownCostUsd": "0.02068840",
+          "actualCostUsd": "0.02068840",
+          "unknownCostCount": 0,
+          "unknownCostUpperBoundUsd": "0"
+        },
+        "servedRoute": {
+          "returnedModels": {
+            "google/gemma-4-26b-a4b-it": 60
+          },
+          "returnedProviders": {
+            "DeepInfra": 60
+          }
+        }
+      },
+      "P2": {
+        "status": "completed",
+        "score": {
+          "denominator": 60,
+          "saved": 60,
+          "valid": 60,
+          "allFour": 56,
+          "fields": {
+            "sentiment": 58,
+            "follow_up_needed": 58,
+            "serious_concern_reported": 60,
+            "testimonial_potential": 60
+          },
+          "outcomes": {
+            "valid": 60,
+            "invalid_output": 0,
+            "service_error": 0,
+            "never_sent": 0
+          },
+          "validIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "scoreKind": "fixed_60"
+        },
+        "usage": {
+          "requestCount": 60,
+          "requestSecondsTotal": 960.4090177450562,
+          "timingKind": "client_request_to_record_not_provider_inference",
+          "tokenAvailability": {
+            "prompt_tokens": {
+              "sum": 154228,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "completion_tokens": {
+              "sum": 37897,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "total_tokens": {
+              "sum": 192125,
+              "reportedCount": 60,
+              "missingCount": 0
+            },
+            "providerReportedReasoningTokens": {
+              "sum": 38302,
+              "reportedCount": 60,
+              "missingCount": 0
+            }
+          },
+          "knownCostUsd": "0.02368094",
+          "actualCostUsd": "0.02368094",
+          "unknownCostCount": 0,
+          "unknownCostUpperBoundUsd": "0"
+        },
+        "servedRoute": {
+          "returnedModels": {
+            "google/gemma-4-26b-a4b-it": 60
+          },
+          "returnedProviders": {
+            "DeepInfra": 60
+          }
+        }
+      }
+    },
+    "fresh3": {}
+  },
+  "referenceStatus": "AI-reviewed provisional; not independently adjudicated",
+  "limitations": [
+    "The same 60 synthetic development comments recur in each completed phase.",
+    "DEV-007 failed in the original P2 attempt; the continuation did not replay it.",
+    "The first P2 pass combines a stopped original prefix and a separately dispatched suffix.",
+    "A sanitized public copy attests the original prefix; private provider error bytes are not a publication source.",
+    "The unknown original charge is bounded, not an observed cost.",
+    "Token fields are provider reported and may be missing; client duration is not pure inference time.",
+    "This interrupted series is not a clean matched-three repeat."
+  ],
+  "sourceBindings": [
+    {
+      "path": "scripts/build_gemma26_continuation_findings.py",
+      "sha256": "655674485990c8cb7eea19231eb046b963a5a56959ca7d2bf5215df4b831e657"
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/manifest.json",
+      "sha256": "1e6d02c83306eb8e61de8d71048c974b98aedc08c07ffa69cb8a26c21c98e1e3"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/public-prefix-v1/export-manifest.json",
+      "sha256": "c560a484a4b94f5646c69270fb4ee05088cb0f7ec118c4e6da803f252ae09167"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/public-prefix-v1/development.attempts.jsonl",
+      "sha256": "d296b438ac1420b5fccb0eeb49ee8373139eba68f4027059f69dd3e129650569"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/public-prefix-v1/development.responses.jsonl",
+      "sha256": "fedbcab0447408c9a17521c904be87501688160202e003a1a00a39e660bbe295"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/public-prefix-v1/development.wire.jsonl",
+      "sha256": "c698671a9a004e17060a8e71dbdd4a6ae27d58d3857e9153ef78ceb4501279dd"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/development.claim.json",
+      "sha256": "ff0fdeebb99affb68ca13816544ea1b14402db0069964b23af7ba7ce6ce043ff"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/development.journal.jsonl",
+      "sha256": "b99211c175e21c7206c40b8ea84464efcdd92957a68bfe3039a84923e68faedd"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/development.root-review.json",
+      "sha256": "29ba17f71180a51c8608a40fb7922eeb313d444185fcd49b2522c8d479ec2054"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/manifest.json",
+      "sha256": "fba7273c9691deff399e38e34970c642f268b761659132734962a8273aadca29"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/smoke.claim.json",
+      "sha256": "4968edd90f691c3d5a57b1c0308daa47c2a521d39d8905b9b9d7dc575f2686d1"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/smoke.root-review.json",
+      "sha256": "0c17ae9339892b3238178f524a1043286958a40f347cc248b3e05156bbc9e294"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/smoke.journal.jsonl",
+      "sha256": "bd302dad08764e146c9f5355b43249cc498d2f5fc64cbc98408665fccb8e94e7"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/smoke.attempts.jsonl",
+      "sha256": "6f76c74b252c3ff399ecca685d65ab036021698f1c7b8a9aca93c5fff8b6fa34"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/smoke.responses.jsonl",
+      "sha256": "4c8281559201bf2a622c9b07abf6f49f6fdab0a34a6f6b6b1b7de81f94482541"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/smoke.wire.jsonl",
+      "sha256": "193851cc0bfb212a6a4bf570e2b54987911f5ee0c78bfa05b4c5b026e14b63ed"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/smoke-inspection.json",
+      "sha256": "b52bc87876cb72911d44643fc4db4245dd24665f394db8c9c0a456415d4f3967"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/smoke.claim.json",
+      "sha256": "4c5bece45fcf17e0f7048dfa33a609215fb214989b1efc877dc25b56727a6729"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/smoke.root-review.json",
+      "sha256": "08dccd22860e2604f6a0c2dd6a6f9689ad191f1b0efc6d61ede52ceb228148d0"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/smoke.journal.jsonl",
+      "sha256": "aaca625b5f2fca0945150fdb6dfc56403012d4b3b5d27a6c59be3097a92ba25e"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/smoke.attempts.jsonl",
+      "sha256": "a613852ca3533587066bd46c0d1d4e4bf82429946511ca9e2f5903ffff2b3cbf"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/smoke.responses.jsonl",
+      "sha256": "302e0ca5b0f3c590231b495880da14caf7566313706a8bf97e34a3971fefda3c"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/smoke.wire.jsonl",
+      "sha256": "35c1eaf1d7a81f95bef5f1c20916301471e4c980ba3c718c5c94ed5d1a43abe7"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/smoke-inspection.json",
+      "sha256": "0c4af7731f92690a56afe705afd3da7f73ebc0b2d59488054138288a410ef66b"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/smoke.claim.json",
+      "sha256": "5771c673b57e89b504773a3b94261268cc59e3c310378cef7d7e9151693dc78b"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/smoke.root-review.json",
+      "sha256": "636e8b990927c60b1c7acb52d22b9fa533f7e212ac5f6d64e84283930b796438"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/smoke.journal.jsonl",
+      "sha256": "1baf0ae0d949ba56c0e07546aade0159a4959e4911009af06f35f18cc69b818d"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/smoke.attempts.jsonl",
+      "sha256": "eec857fb0af338a5a2162c4572f51435901f41241a942cad55f20a99fa5de257"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/smoke.responses.jsonl",
+      "sha256": "1bab52835a77f01ec952ab2f3e44051d3db4e4644179c8a70c8c403449e15a79"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/smoke.wire.jsonl",
+      "sha256": "048a2b8a2a323f9b7ccffad13ca2f6c00cfe5934891af0aec16660c75b1e5b1b"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P2/smoke-inspection.json",
+      "sha256": "21e20d19358655d2447a8e83ccd366f45fe55f9ab8bce7a99235c0e4bf887f27"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.claim.json",
+      "sha256": "0b6bf1b0c200ffbb3f39444df3409f9130da049acca957e28d0e03981cd66a26"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.root-review.json",
+      "sha256": "582d0467ab33c41e902ac6331069d0126fca47ce29ddc2150077b9463154f4fd"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.journal.jsonl",
+      "sha256": "02f11844906c24c46c4c6ee0edbad8d5ab6ecf47fe6e98d99707a748d7aa3f21"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.attempts.jsonl",
+      "sha256": "93dc506308f6a7d4534a781931b7808d1aded7945c944875b29e0edbb6f58bcd"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.responses.jsonl",
+      "sha256": "55630fef90f112d1888ec51f69f3f9e16f636e691423b02d23557f0844396c11"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.wire.jsonl",
+      "sha256": "df8e7dcb424b0c2c9a91448ee479e516a6905c7e7e0471887cad63d280c97f7a"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/smoke.claim.json",
+      "sha256": "5d70e251a6db2e77b24d3d086c51feb6b4dc42e41a65b03031bb5cb1efc0aa5c"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/smoke.root-review.json",
+      "sha256": "777257bfa13d012fa6dbd13e2488ccc37a9493325411147e92a89d5c063437c2"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "3779e4c903ae332e22cd1a24c63a2960454b8c6dc218c59d84ab46c66dc87528"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "d214c1054cdba5a88b6e9441cb76ec02ca26c40fba60174aae6f95d1abf69cd4"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/smoke.responses.jsonl",
+      "sha256": "7a4f746d22afeb0c7bbb5673dad60b57cc76185f8dec3f1ff80396b1c3928b4b"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/smoke.wire.jsonl",
+      "sha256": "91a33523d5528ff93ddbe02a214d8c1901782f7346f2667e543019904aa8216e"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh2/manifest.json",
+      "sha256": "b1b89af36ac6137c7c085a4d51747038cbcc81d1a3ebf05b8b209adb2f9924d2"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/development.claim.json",
+      "sha256": "476585ce25eee80f905e9900d44b542b6b619d94f37b84ea255fe499ecbf332d"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/development.root-review.json",
+      "sha256": "c7bd8da37dc5dd9decc70c90c236dfe02117c6fa312101e01bd53f621c63d884"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/development.journal.jsonl",
+      "sha256": "73584dfd46dfaf36051d55b6636e45160c422092577f6c79af90863b3f53f25e"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/development.attempts.jsonl",
+      "sha256": "c8e06f4ecf6fd5679e98a879b64a187475572dafa4604d78c94da7edb90d1870"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/development.responses.jsonl",
+      "sha256": "cdc656739d6f484780084087fac1bbef64e1971743257bf4ed3d49eabdf403bf"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/development.wire.jsonl",
+      "sha256": "2b095cb61abf9162da92760ac020b7e5dbc4ae6dd362fc68788334b8c38e6af9"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/smoke-inspection.json",
+      "sha256": "cdef10b36cc809ce1a68548218d9b336c3d49a1419d99b1f208972ad3ef7bbba"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/smoke.claim.json",
+      "sha256": "cb74d50626fb2b7c90a3493d0a655886565d10f01e9cb3185fe990d40bfaea45"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/smoke.root-review.json",
+      "sha256": "4421439cc480f0e2e183cb9be19c1e008e9b1741f46c4504a7f31eedf3c77eaa"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/smoke.journal.jsonl",
+      "sha256": "181171fb3fd6025e950f70260d4e1bfa776e75b49a48a2769a67afc928806ef5"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/smoke.attempts.jsonl",
+      "sha256": "56ea43f471231d761426cf84d7991df2d959c8130b8891f04bcb4603a296c5f5"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/smoke.responses.jsonl",
+      "sha256": "5575ca13bf9319eeab7ae3d8f1ed565e564d20cffafb8e0d910b57b33ec21273"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/smoke.wire.jsonl",
+      "sha256": "26b94382b2a0c236b296f5b81e6a690c72d106d315e6867946b53a401d5d583d"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.claim.json",
+      "sha256": "4200a0e2a97c67d29bfedc64022a458fb992e2cca473d81d937b2a6e348b1e0a"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.root-review.json",
+      "sha256": "8afd3029b4d8ded9d8f1fa61529eaf858659e6b5f1378751ffeafc0d635243d7"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.journal.jsonl",
+      "sha256": "61f79fb0e4d24d831418bb4071cf74a99ba809e22c69c4d4b336749763c369fc"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.attempts.jsonl",
+      "sha256": "85fb5333db2a2fc28039f0b9d6e26d65416f5f8e745e77cd4097170e179616b2"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.responses.jsonl",
+      "sha256": "8dcc7dfb66865644036de6a79ec7e81c275e5e63a8c4b581ac7ec5ed96d2d79c"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.wire.jsonl",
+      "sha256": "549a31be237057fc834777a0c07e7d9d21395bdc442dfaa4289b32046ef8671e"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/smoke-inspection.json",
+      "sha256": "24aa78ce3a7a4af7b0bbdc1773d20153b7dbee2bc762e4eb29332dc3e10fc645"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/smoke.claim.json",
+      "sha256": "d6cbbab51fc0b2ce281fca287e4576126c0520291b1b5c6f43b887f4ef024614"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/smoke.root-review.json",
+      "sha256": "76191e59e58c7fad9f16bb84ee565d856b88952a6bdfa3f7c3e96d961112df35"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/smoke.journal.jsonl",
+      "sha256": "c740b4924c5f2e921a738aed56255f3f9c5f308270a4f6d024ed2fffa4afecb2"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/smoke.attempts.jsonl",
+      "sha256": "5bb50f776efa8c2f961c9f1f169f06358e852838182fff31c53f129c3be7e059"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/smoke.responses.jsonl",
+      "sha256": "c7ed08625003fe7ba933a6f352193b332c1e3ee79a19dcc1b21561805909bb20"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/smoke.wire.jsonl",
+      "sha256": "f33601d69761cf5d4bbf7004c87b84db265a0cca9318847fd3fc571657efc964"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.claim.json",
+      "sha256": "805c0346cc1e5186eba96e93a66f446d44cc85e5e56414f77a5512b40c0f257e"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.root-review.json",
+      "sha256": "ec9a548ceb6ac490979d1c1c2d8e389d4a4bcee5a24b82d572c73f43ce423da4"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.journal.jsonl",
+      "sha256": "dfacabfe0e2c72975772ca84547736e01b57b0125c3ad9b0ecda02b9278ddd00"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.attempts.jsonl",
+      "sha256": "97ab8826f07400cedc7e686ba453fd4006a0a3d45e4a7e0a9c031d0646995780"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.responses.jsonl",
+      "sha256": "181a7f63c2e89c43316348ec928ffd02fdefa9fd2f88dbe54a69fed32d57343d"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.wire.jsonl",
+      "sha256": "46e0b76409866acb304df1fb0b89de8ba9b56b7a7455b58544dd933ca34b95a7"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.claim.json",
+      "sha256": "10032a1bdd195aaad30c77069316dd368983d230f722d2e3d8e333b8a9d62aa0"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.root-review.json",
+      "sha256": "c5f8a495a97b66ab97754654a3757f7377084c7008eb6fe76cd26624422d9c4f"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.journal.jsonl",
+      "sha256": "8595ae477be27af9aeaad743e1322594328e40a8dede1b03df20207666d85fd5"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.attempts.jsonl",
+      "sha256": "a5e9a5472eba60f5742955875dcdb51b6aec45cd96aabe992493d6cb54b81d1c"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.responses.jsonl",
+      "sha256": "215faf569eb25854c2b22a7eb17399794aaef3e7463144328e7e7ccc042e944d"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.wire.jsonl",
+      "sha256": "e58087ff4ef9ee0258442c77483ace63a0125630e55e1a753f0813a0268027f9"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/development.claim.json",
+      "sha256": "75f1576d2262cd792cb76ecaaaf3286fed4c38b678363355b597b56c807d8ef0"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/development.root-review.json",
+      "sha256": "a173a9ddba1d419c109d06e8da068003f7902940fa68d94fbb6d11e56e477120"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/development.journal.jsonl",
+      "sha256": "a69df80300127cf11c6783483d4181711226064bb545b6cd3dde8259ed583db8"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/development.attempts.jsonl",
+      "sha256": "31d7d57bc75c33188161973182f7cedffc09c8b3e2514a5e7ebab1a17535df81"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/development.responses.jsonl",
+      "sha256": "ca70cb0cfe197dd39ee57f2ba2e5da9604d97b0cfb7fc27f3891160a38a75bb3"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/development.wire.jsonl",
+      "sha256": "a4676d80eb5aa3f4fcd1dc183c5fd1b7dd029b14cb25cd825d0a87336ca9e6e4"
+    }
+  ]
+}
