@@ -1058,16 +1058,11 @@
       ],
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 4,
+      "completedConditions": 5,
       "missingPasses": [
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_completed"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P2",
           "status": "not_completed"
         },
         {
@@ -1381,6 +1376,79 @@
                 "DeepInfra": 60
               }
             }
+          },
+          "P2": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "service_error": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 60,
+              "requestSecondsTotal": 1299.0684105427936,
+              "timingKind": "client_request_to_record_not_provider_inference",
+              "tokens": {
+                "prompt_tokens": 154110,
+                "completion_tokens": 26254,
+                "total_tokens": 180364,
+                "reasoning_output_tokens": 29878
+              },
+              "tokenAvailability": {
+                "prompt_tokens": {
+                  "sum": 154110,
+                  "reportedCount": 60,
+                  "missingCount": 0
+                },
+                "completion_tokens": {
+                  "sum": 26254,
+                  "reportedCount": 60,
+                  "missingCount": 0
+                },
+                "total_tokens": {
+                  "sum": 180364,
+                  "reportedCount": 60,
+                  "missingCount": 0
+                },
+                "providerReportedReasoningTokens": {
+                  "sum": 29878,
+                  "reportedCount": 60,
+                  "missingCount": 0
+                }
+              },
+              "providerReasoningTokensAboveCompletionCount": 42,
+              "reasoningTokenNote": "Provider-reported reasoning tokens are retained as a separate diagnostic and are not added to completion tokens.",
+              "knownCostUsd": "0.069432150",
+              "actualCostUsd": "0.069432150",
+              "unknownCostCount": 0
+            },
+            "evidence": {
+              "manifest_sha256": "5a203eb1848ea509e5e2a6f077e6e3f7247cf189e3611ce94223f8a7c5924083",
+              "journal_sha256": "2f78ad09f31ba6379b13be1d373f86866f10a9c318d1157314f2ec1d5cc26f51",
+              "attempts_sha256": "bc5490d078070e6f3ad2edc2b84d7305d074e58be1868631791d9e771f6a395f",
+              "responses_sha256": "c7c4758068859162aaed4adb55d460d38554537db1a1f9cfdc72bf7d572ae8e2"
+            },
+            "servedRoute": {
+              "returnedModels": {
+                "qwen/qwen3.8-27b": 60
+              },
+              "returnedProviders": {
+                "DeepInfra": 60
+              }
+            }
           }
         },
         "fresh3": {}
@@ -1473,37 +1541,42 @@
         },
         "P2": {
           "allFour": {
-            "completedPasses": 1,
+            "completedPasses": 2,
             "values": [
-              57
+              57,
+              58
             ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
-                58
-              ],
-              "range": null
-            },
-            "follow_up_needed": {
-              "completedPasses": 1,
-              "values": [
+                58,
                 59
               ],
               "range": null
             },
-            "serious_concern_reported": {
-              "completedPasses": 1,
+            "follow_up_needed": {
+              "completedPasses": 2,
               "values": [
-                58
+                59,
+                60
+              ],
+              "range": null
+            },
+            "serious_concern_reported": {
+              "completedPasses": 2,
+              "values": [
+                58,
+                59
               ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 1,
+              "completedPasses": 2,
               "values": [
+                60,
                 60
               ],
               "range": null
@@ -1546,6 +1619,48 @@
               "DEV-022"
             ],
             "rate": 0.016666666666666666
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-030"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "follow_up_needed": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-006"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "caseIds": [
+              "DEV-013"
+            ],
+            "rate": 0.016666666666666666
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "caseIds": [],
+            "rate": 0.0
+          },
+          "fourFieldVector": {
+            "changed": 3,
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-030"
+            ],
+            "rate": 0.05
           }
         }
       ],
@@ -2505,6 +2620,50 @@
     {
       "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P1/smoke-inspection.json",
       "sha256": "ca7c4645171ff14ddf0b1ef62c2115282fb47d660d398b5c2650c3686f616954"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/smoke.claim.json",
+      "sha256": "7772a2e22d18463dcca9d41d673dce3a7d51af043d3ad6d0e84265388925b615"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/smoke.journal.jsonl",
+      "sha256": "1214ab33e95f32365ce65e60005dcb348764e86a35ac84176abb58c573898ff9"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/smoke.attempts.jsonl",
+      "sha256": "3e97e6f23df2b469494e76e69c208f6dbe91038f886fd22fa299c34a12ad78be"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/smoke.responses.jsonl",
+      "sha256": "b3615903d479bce81f585672d6254b8ae2e1c6cb75846e0a1f76cf8bd7b6f73f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/smoke.root-review.json",
+      "sha256": "7e0337e2155c1f90b24453f8f77032d47d1fd742d0e8bfe0c3a761a4732fe70f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/development.claim.json",
+      "sha256": "c314447106f15d1520753d9716ec85c020ea03a953eea27f0d02ef77152ef6b4"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/development.journal.jsonl",
+      "sha256": "2f78ad09f31ba6379b13be1d373f86866f10a9c318d1157314f2ec1d5cc26f51"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/development.attempts.jsonl",
+      "sha256": "bc5490d078070e6f3ad2edc2b84d7305d074e58be1868631791d9e771f6a395f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/development.responses.jsonl",
+      "sha256": "c7c4758068859162aaed4adb55d460d38554537db1a1f9cfdc72bf7d572ae8e2"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/development.root-review.json",
+      "sha256": "ab1c492990fe39a3cb3a76759f6847e657ca53507b2eb0fa2bd6c985a164c017"
+    },
+    {
+      "path": "results/repeatability-v1/qwen27-fresh-matched3-v2/openrouter-paid-qwen3.8-27b-xhigh/fresh2/P2/smoke-inspection.json",
+      "sha256": "b8d32a9de64c2e43b849fb3a4eeb53b0e33d14652ecf343b4d438aea83dc4ffa"
     }
   ]
 }

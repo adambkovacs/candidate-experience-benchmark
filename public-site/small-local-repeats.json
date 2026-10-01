@@ -9527,14 +9527,8 @@
       "referenceStatus": "AI reviewed provisional, not independent adjudication",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 1,
+      "completedConditions": 2,
       "missingPasses": [
-        {
-          "pass": "fresh1",
-          "condition": "P1",
-          "stage": "smoke",
-          "status": "unclaimed_never_started"
-        },
         {
           "pass": "fresh1",
           "condition": "P2",
@@ -9774,6 +9768,202 @@
                 }
               }
             }
+          },
+          "P1": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 43,
+              "fields": {
+                "sentiment": 52,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 53,
+                "testimonial_potential": 57
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 2,
+                "mixed": 15,
+                "negative": 24,
+                "neutral": 9,
+                "positive": 10
+              },
+              "follow_up_needed": {
+                "insufficient_information": 1,
+                "no": 23,
+                "yes": 36
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 1,
+                "no": 35,
+                "yes": 24
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 49,
+                "yes": 10
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSeconds": [
+                0.885138958,
+                10.524367125,
+                1.054799584,
+                1.198531125,
+                12.984748916,
+                12.976507541,
+                1.224029541,
+                13.852645209,
+                1.224291458,
+                1.028307042,
+                11.938226792,
+                10.784763375,
+                13.445468333,
+                10.932906542,
+                17.192608958,
+                1.097252708,
+                1.267732291,
+                1.212336958,
+                12.309437333,
+                1.133631542,
+                1.208332708,
+                14.921799458,
+                13.681629625,
+                11.995844,
+                1.409396792,
+                1.219870666,
+                1.180298875,
+                13.62582525,
+                6.583193583,
+                14.103649917,
+                9.9025965,
+                1.173842667,
+                14.535169583,
+                1.027339292,
+                9.642584958,
+                1.36642225,
+                1.212073834,
+                13.143025542,
+                1.015662125,
+                1.113673208,
+                1.115954416,
+                1.239043417,
+                1.108325708,
+                11.723171917,
+                1.318313541,
+                9.276509792,
+                10.623103292,
+                1.285332791,
+                13.977569125,
+                1.097722375,
+                1.248507208,
+                14.755999791,
+                14.5750405,
+                1.845838958,
+                18.438458125,
+                21.559726084,
+                1.5619795,
+                1.63679675,
+                16.282695959,
+                1.923818625
+              ],
+              "clientRequestSecondsTotal": 418.923870038,
+              "timeBasis": "client_observed_wall_clock",
+              "modelLoadSeconds": null,
+              "inferenceSeconds": null,
+              "loadedEngineVersion": null,
+              "loadedEngineVersionStatus": "unavailable_from_read_only_instance_surfaces",
+              "tokens": {
+                "input_tokens": 108688,
+                "output_tokens": 13186,
+                "total_tokens": 121874,
+                "cached_input_tokens": null,
+                "cache_write_input_tokens": null,
+                "reasoning_output_tokens": null
+              },
+              "actualCostUsd": null
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.root-review.json",
+                  "sha256": "cd3417df25d497dc36f1d7c8d8489600f5c22ba3925033a2eb1d21288a9f12ae"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.claim.json",
+                  "sha256": "9dbd5f2b84118316f78d7cdb96843c927945ffd40e3b62466a68f181463c2221"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.raw.jsonl",
+                  "sha256": "c7e2419bef5f4898e461f306703d951a67323fdeca1517de8c653484ca2de479"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.records.jsonl",
+                  "sha256": "74966e0bc92464c4ff78787674df63f3dcadc72396e369ac5b930c080e36fc29"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.journal.jsonl",
+                  "sha256": "b85887e9bcf89aa741f4bb5cbc3339040762a73f30359d437b053b340329b3fe"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.completion.json",
+                  "sha256": "7949d03cd579e0e85cc803bdafcfd2221a4f53562a89d9f6d192c7e48ab4eca3"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke-inspection.json",
+                "sha256": "6991da924b6ff126a4b1bf97da24858325c43137681faaf2f83e9694c043922a"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.root-review.json",
+                  "sha256": "b496f125dc8f8354aaea8d13cd1acd4bbab5c416757a82da98f465e8d5e2cb9c"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.claim.json",
+                  "sha256": "9b44d5b9a1d8c5632e67d83e7d4db00607c672df5d5fd3e383f29cc2b3334409"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.raw.jsonl",
+                  "sha256": "01afe9ac180c4b15dbb8e812feeae5de963faccc40339dcdafba9f7e6cab83d6"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.records.jsonl",
+                  "sha256": "7d680128e74f230cab82c19bf3604f10cde202ebd73dc39c78b4c56408e74122"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.journal.jsonl",
+                  "sha256": "0d40e71616c384a5eb3f07fa0d1647339a9cd27ab279eb3274a031c51153697a"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.completion.json",
+                  "sha256": "a6e0288831a708d18d26b03a86577531e881c36fac0975bb7e48048eb1e9c0f6"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/small-local-admission-20260930T200956Z/catalog-audit.json",
+                  "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
+                }
+              }
+            }
           }
         },
         "fresh2": {},
@@ -9821,29 +10011,39 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              43
+            ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                52
+              ],
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                59
+              ],
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                53
+              ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                57
+              ],
               "range": null
             }
           }
@@ -10005,6 +10205,58 @@
         {
           "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P0/smoke-inspection.json",
           "sha256": "efc8fc6b20a30752bbee6ea8a0a676719b0109e7c815eccbdc4589fbf22f0c41"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.root-review.json",
+          "sha256": "cd3417df25d497dc36f1d7c8d8489600f5c22ba3925033a2eb1d21288a9f12ae"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.claim.json",
+          "sha256": "9dbd5f2b84118316f78d7cdb96843c927945ffd40e3b62466a68f181463c2221"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.raw.jsonl",
+          "sha256": "c7e2419bef5f4898e461f306703d951a67323fdeca1517de8c653484ca2de479"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.records.jsonl",
+          "sha256": "74966e0bc92464c4ff78787674df63f3dcadc72396e369ac5b930c080e36fc29"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.journal.jsonl",
+          "sha256": "b85887e9bcf89aa741f4bb5cbc3339040762a73f30359d437b053b340329b3fe"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke.completion.json",
+          "sha256": "7949d03cd579e0e85cc803bdafcfd2221a4f53562a89d9f6d192c7e48ab4eca3"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.root-review.json",
+          "sha256": "b496f125dc8f8354aaea8d13cd1acd4bbab5c416757a82da98f465e8d5e2cb9c"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.claim.json",
+          "sha256": "9b44d5b9a1d8c5632e67d83e7d4db00607c672df5d5fd3e383f29cc2b3334409"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.raw.jsonl",
+          "sha256": "01afe9ac180c4b15dbb8e812feeae5de963faccc40339dcdafba9f7e6cab83d6"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.records.jsonl",
+          "sha256": "7d680128e74f230cab82c19bf3604f10cde202ebd73dc39c78b4c56408e74122"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.journal.jsonl",
+          "sha256": "0d40e71616c384a5eb3f07fa0d1647339a9cd27ab279eb3274a031c51153697a"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/development.completion.json",
+          "sha256": "a6e0288831a708d18d26b03a86577531e881c36fac0975bb7e48048eb1e9c0f6"
+        },
+        {
+          "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P1/smoke-inspection.json",
+          "sha256": "6991da924b6ff126a4b1bf97da24858325c43137681faaf2f83e9694c043922a"
         }
       ],
       "artifactSha256": "0ffb122c8b6921f13cbc34186e052524d0b5803b17f4867b7197a561400b3770",
