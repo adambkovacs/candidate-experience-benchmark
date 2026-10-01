@@ -20,7 +20,7 @@ Checkpoint: 1 October 2026, 06:23 UTC. Earlier statuses are retained in [coordin
 - **Jev confidence analysis, native_variants_prepare:** offline source-bound analysis of saved native P0/P1/P2 confidence is committed and pushed in `8b5a590b`. Independent review approved all counts and 25 source bindings; five stdlib tests and clean-archive parity pass. Pages `36827483195` succeeded; root byte-verified the live HTML and confidence feed. No inference or new spending; invalid responses stay excluded with fixed-60 counts, and hypothetical withholding is not an executed policy.
 
 - **Mistral next admission, root:** the exact DEV-049–060 suffix manifest is frozen and verified in `5b56c2c0`. Proposed child $0.25 fits current $0.77166965250 unallocated capacity (leaving $0.52166965250 while allocated). No top-up is required for this next stage. No child or execution receipt exists. Current maintenance DarkWake with lid closed remains an execution blocker; existing idle assertions did not prevent the preceding Sleep Service interruption.
-- **GLiNER hosted contract, gliner_hosted_prepare:** checking the official hosted request/response contract, full-policy fit and exact model identity. Owns a new adapter-contract note only. No model calls, downloads, credentials or billing authority are implied.
+- **GLiNER hosted contract, gliner_hosted_prepare:** the [hosted adapter contract](GLINER_HOSTED_ADAPTER_CONTRACT_2026-10-01.md) is complete. Official request syntax is documented, but the inner four-head response shape, policy behavior, full-token fit, account entitlement, bounded bill and hosted revision remain unverified. Root confirmed the current catalog/OpenAPI entry and DEV-001 sample. No model call or download occurred.
 
 ## Verified progress
 
@@ -76,3 +76,9 @@ Use Ruflo decision entries for approvals and verified checkpoints, and Reasoning
 - Root: revised public copy and layout using Academy voice/anti-slop, moved results ahead of the long narrative, added clickable method explanations and source-bound prompt comparison controls. Independent review approved; desktop/mobile/keyboard/reduced-motion checks passed. Published in 7882b755; GitHub Pages run 36819083251 succeeded, all four changed public assets match local SHA-256, and the live explainer was operated successfully.
 - Qwen successor: independently reviewed controller committed as 2c3744d8; medium and xhigh never-sent suffixes running under distinct $0.30 children. Execution owner: publish_on_triple. No completed requests replayed.
 - Gemma third successor: independent review approved six offline tests. Controller 0f1dcb96 and immutable admission f5fa893e; $0.40 child, exact DEV006–060 suffix now running on original session86569 under native_variants_prepare. No prior attempt replayed.
+
+## Execution boundary, 1 October 2026
+
+The host remained lid-closed in maintenance DarkWake on successive checks after the Mistral timeout. Its existing idle assertions did not prevent the earlier Sleep Service Back to Sleep interruption. Model execution requires a fully awake host; no power safeguards have been changed. The exact next action is the reviewed, separately funded DEV-049–060 Mistral suffix. Its proposed $0.25 child fits the available ledger capacity. No inference process or child allocation is active.
+
+Qwen three-pass descriptive findings and Jev confidence findings are published and byte-verified. Mistral preparation and GLiNER contract work are saved. The requested roster remains unfinished as detailed above and in the roster audit. This is a blocked execution checkpoint, not completion, accepted exclusions or a reduction in scope. Resume with a fresh host, ledger and active-process check once the host is fully awake.
