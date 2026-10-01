@@ -12,7 +12,7 @@ All 17 eligible Claude configurations have 9/9 closed phases: 15 in the [roster 
 
 ## Hosted configurations still requiring execution
 
-The [current hosted matrix](HOSTED_PENDING_MATRIX_2026-09-29.md#current-preparation-and-execution-status) supersedes its own older cost and route snapshots. The user-approved aggregate cap is now $12.38, recorded in the [master ledger](../results/openrouter-paid-budget.jsonl). The 1 October 05:43 UTC reconciliation leaves $0.60714414750 unallocated, with one active $0.30 Qwen medium child. This accounts for reservations and retained unknown-charge bounds as well as known charges. The proposed $17 total remains unapproved. Every future stage needs a fresh exact-route and ledger check. No row below is admitted by this document.
+The [current hosted matrix](HOSTED_PENDING_MATRIX_2026-09-29.md#current-preparation-and-execution-status) supersedes its own older cost and route snapshots. The user-approved aggregate cap is now $12.38, recorded in the [master ledger](../results/openrouter-paid-budget.jsonl). The 1 October 05:39 UTC reconciliation leaves $0.60714414750 unallocated, with one active $0.30 Qwen medium child. This accounts for reservations and retained unknown-charge bounds as well as known charges. The proposed $17 total remains unapproved. Every future stage needs a fresh exact-route and ledger check. No row below is admitted by this document.
 
 | Exact configuration | Closed full phases | Prepared route and present blocker |
 | --- | ---: | --- |

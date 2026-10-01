@@ -4,7 +4,7 @@ Updated 1 October 2026. This is the current coordination list. Frozen manifests 
 
 ## Active assignments
 
-Checkpoint: 1 October 2026, 05:43 UTC. Earlier statuses are retained in [coordination history](COORDINATION_HISTORY_2026-10-01.md). Counts below are observations, not permission to replay a request.
+Checkpoint: 1 October 2026, 05:39 UTC. Earlier statuses are retained in [coordination history](COORDINATION_HISTORY_2026-10-01.md). Counts below are observations, not permission to replay a request.
 
 - **Qwen medium, publish_on_triple:** the second continuation completed all 22 remaining fresh3/P0 positions (DEV-039–060). Its three-record P1 smoke passed raw-response inspection; P1 development is active on original handle `9766`. Latest owner poll: 43 finished, DEV-044 in flight. Closed suffix and smoke evidence is committed in `26c7d22f`. The original DEV-022 P0 timeout remains a failed position.
 - **Qwen xhigh, publish_on_triple:** second-continuation fresh3/P1 suffix is terminal: all 52 responses are valid, joining the earlier eight valid P1 responses. Its child is sealed with $0.047987850 known charges and $0.252012150 released. Closed evidence is committed in `861c9084`. All nine scheduled conditions now have accounted positions, but the P0 composite retains DEV-037’s original timeout and is not a clean matched-three series.
