@@ -64,3 +64,9 @@ Use Ruflo decision entries for approvals and verified checkpoints, and Reasoning
 - [x] **Seven-phase E2B publication — root:** `07df7c9d` passed [Pages run 36785448885](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36785448885). Live feed equals committed bytes, SHA-256 `8694edef4396f8ad4552a0157b1fa821802b25712cd5eeb49151cdfd0da7568d`. P2 is complete at three passes; third P0/P1 remain outside this publication.
 - [x] **Hosted Gemma26 v2 first P0 pass — resume_generated / root:** 60 valid, billed outputs, 59/60 all-four matches. Closed evidence is in `77984cb0`; [checkpoint](HOSTED_RESUME_CHECKPOINT_2026-10-01.md) explains the sole disagreement and provider token inconsistency. P1 smoke is running separately.
 - [ ] **Qwen27 v2 full P0 runs — publish_on_triple:** medium and xhigh smokes inspected and accepted unchanged; original full execution handles 70171 and 44114 respectively. No later phase is admitted.
+
+### 2026-10-01 reader presentation follow-up
+
+- Root: revised public copy and layout using Academy voice/anti-slop, moved results ahead of the long narrative, added clickable method explanations and source-bound prompt comparison controls. Independent review approved; desktop/mobile/keyboard/reduced-motion checks passed. Publication verification pending.
+- Qwen successor: independently reviewed controller committed as 2c3744d8; medium and xhigh never-sent suffixes running under distinct $0.30 children. Execution owner: publish_on_triple. No completed requests replayed.
+- Gemma third successor: native_variants_prepare has prepared the offline candidate; qwen_report_review owns independent review. No new Gemma allocation or inference yet.

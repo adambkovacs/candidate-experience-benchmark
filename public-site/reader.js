@@ -53,6 +53,7 @@
     for (let n = 1; n <= 60; n++) {
       const cell = document.createElement('i');
       cell.setAttribute('aria-hidden', 'true');
+      cell.style.setProperty('--cell-order', n - 1);
       if (changed.has(n)) cell.className = 'changed';
       fragment.appendChild(cell);
     }
@@ -67,6 +68,7 @@
       const id = `DEV-${String(n).padStart(3, '0')}`;
       const changed = jevDisagreements.has(id);
       const cell = document.createElement(changed ? 'a' : 'i');
+      cell.style.setProperty('--cell-order', n - 1);
       if (changed) {
         cell.className = 'changed';
         cell.href = `?run=typesafe-jev113-v2&case=${id}#inspect`;
@@ -138,4 +140,58 @@
     }, {threshold:.08});
     chapters.forEach(chapter => observer.observe(chapter));
   } else chapters.forEach(chapter => chapter.classList.add('is-visible'));
+})();
+
+// Reader controls change explanations and visual comparisons, never the saved evidence.
+(() => {
+  'use strict';
+  const explanations = {
+    inputs: ['Fictional feedback, including difficult cases', "The 60 comments include praise, complaints, mixed experiences and unclear or off-topic text. They describe the candidate's experience of recruitment. They are not interviewers' assessments of candidates.", '#method', 'Read how the examples and reference answers were prepared'],
+    decisions: ['Four questions, because each answer leads to a different action', 'Sentiment describes the experience. Follow-up asks whether someone needs to respond. Serious concern covers issues such as harassment, discrimination or privacy breaches. Testimonial potential asks whether the comment could support a positive quote; it is not permission to publish it.', '#inspect', 'Read a comment and all four answers'],
+    prompts: ['We changed the instructions, not the comments', 'P0 supplies the task, label definitions and response format. P1 adds a classifier role and explicit instructions. P2 adds step-by-step decision rules. Jev uses versions of its choice questions; chat models receive chat instructions.', '#explore', 'Compare the three instruction sets'],
+    repeats: ['We asked again to check whether the answers changed', 'The repeat study plans three separate passes for each eligible setup and instruction set. Some are still unfinished. Compare individual answers as well as totals: the same score can hide different decisions. Repeating 60 comments does not create new independent examples.', '#repeat-analysis', 'See completed passes and changed answers']
+  };
+  const explanation = document.getElementById('study-explanation');
+  const steps = [...document.querySelectorAll('[data-study-step]')];
+  steps.forEach(button => button.addEventListener('click', () => {
+    const content = explanations[button.dataset.studyStep];
+    steps.forEach(step => step.setAttribute('aria-pressed', String(step === button)));
+    explanation.querySelector('h3').textContent = content[0];
+    explanation.querySelector('p').textContent = content[1];
+    const link = explanation.querySelector('a'); link.href = content[2]; link.textContent = content[3] + ' →';
+  }));
+  const controls = [...document.querySelectorAll('[data-story-pair]')];
+  const figure = document.querySelector('.prompt-figure');
+  if (!figure || !controls.length) return;
+  const titles = {P0_to_P1:'Adding classifier instructions: P0 → P1',P1_to_P2:'Adding a decision tree: P1 → P2',P0_to_P2:'Base task to decision tree: P0 → P2'};
+  controls.forEach(button => { button.disabled = true; });
+  fetch('./findings-provider-errors-v1.json').then(response => {
+    if (!response.ok) throw new Error('Comparison data unavailable');
+    return response.json();
+  }).then(data => {
+    const group = data.charts.promptDeltas.groups.find(item => item.id === 'strict');
+    if (!group || group.configurations !== 39) throw new Error('Comparison set needs editorial review');
+    for (const key of Object.keys(titles)) {
+      const pair = group.comparisons[key];
+      if (!pair || ![pair.improved,pair.tied,pair.worsened].every(Number.isInteger) || pair.improved + pair.tied + pair.worsened !== group.configurations)
+        throw new Error('Comparison counts do not match');
+    }
+    controls.forEach(button => {
+      button.disabled = false;
+      button.addEventListener('click', () => {
+        const key = button.dataset.storyPair;
+        const pair = group.comparisons[key];
+        const counts = [pair.improved,pair.tied,pair.worsened];
+        controls.forEach(control => control.setAttribute('aria-pressed', String(control === button)));
+        document.getElementById('story-prompt-chart-title').textContent = titles[key];
+        figure.querySelectorAll('.story-bar-row').forEach((row,index) => {
+          row.querySelector('strong').textContent = counts[index];
+          row.querySelector('i').style.setProperty('--bar', counts[index] / 21);
+        });
+        document.getElementById('story-prompt-change').textContent = `${counts[0]} higher scores, ${counts[1]} unchanged, ${counts[2]} lower scores.`;
+      });
+    });
+  }).catch(() => {
+    document.getElementById('story-prompt-change').textContent = 'The comparison controls could not load. The chart above shows the published P1 to P2 result. Follow the comparison link for source records.';
+  });
 })();
