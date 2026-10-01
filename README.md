@@ -25,9 +25,11 @@ The [visual findings](https://adambkovacs.github.io/candidate-experience-benchma
 - Jev matched all 25 reviews whose reference reported a serious concern. Its six all-four disagreements included an off-topic review, a misread positive review and cases whose provisional labels need independent review.
 - Returning no for every testimonial judgment already matches 50 of 60 references. Read field scores alongside their class balance.
 
-Use [model comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#models), [prompt versions](https://adambkovacs.github.io/candidate-experience-benchmark/#explore), and [usage details](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) to investigate a specific result. These are single-pass development observations on the same 60 synthetic reviews, not a held-out leaderboard.
+Use [model comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#models), [prompt versions](https://adambkovacs.github.io/candidate-experience-benchmark/#explore), and [usage details](https://adambkovacs.github.io/candidate-experience-benchmark/#usage) to investigate a specific result. The results include first passes and repeat studies of the same 60 synthetic reviews. They are not a held-out leaderboard.
 
 [Qwen's nine completed combinations](docs/QWEN36_OFF_REPEAT_FINDINGS_2026-09-29.md) retain two provider failures. Its decision-tree prompt gained one or two all-field matches over the base prompt on shared-valid reviews in each pass, with interrupted dispatch limiting the comparison. [DeepSeek low's first fresh pass](docs/DEEPSEEK_LOW_FRESH_REPEAT_FINDINGS_2026-09-29.md) matched all four fields on 58/60 reviews for P0 and 57/60 for P1. P0 had 59 valid outputs; P1 had 60. Seven planned condition/pass combinations remain unclosed.
+
+[Qwen 27B's completed third-pass comparison](docs/QWEN27_V2_SECOND_CONTINUATION_FINDINGS_2026-10-01.md) shows why failed requests need to stay visible. Medium scored 57/60 with the base prompt and 56/60 with classifier instructions; xhigh scored 58/60 with either. Each base-prompt run retains one service error. Among the 59 reviews answered in both conditions, medium changed two four-field answers and xhigh changed one. These interrupted runs do not establish that the prompt caused the changes; the full three-pass analysis is still pending.
 
 The [follow-up reference review](docs/REFERENCE_REVIEW_V1.md) proposes one correction, which would change Jev from 54 to 55 all-four matches. Original labels and published scores remain preserved.
 
