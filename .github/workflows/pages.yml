@@ -90,6 +90,9 @@ jobs:
           python3 scripts/build_gemma26_continuation_findings.py --output public-site/gemma26-continuation-findings.json --check
           python3 -m unittest tests.test_build_gemma26_continuation_findings -q
           node --test tests/test_gemma26_continuation_ui.cjs
+          python3 scripts/build_e4b_interruption_findings.py --output public-site/e4b-interruption-findings.json --check
+          python3 -m unittest tests.test_build_e4b_interruption_findings -q
+          node --test tests/test_e4b_interruption_ui.cjs
           python3 scripts/build_small_local_repeat_findings.py --output public-site/small-local-repeats.json --check
           python3 -m unittest tests.test_build_small_local_repeat_findings -q
           python3 scripts/build_findings.py --check
