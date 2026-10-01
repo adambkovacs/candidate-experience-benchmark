@@ -21,6 +21,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Check static public bundle
         run: |
           test -f public-site/index.html
@@ -32,7 +34,7 @@ jobs:
           node --check public-site/app.js
           node --check public-site/findings.js
           node --check public-site/repeats.js
-          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs tests/test_anyjev_l1_repeat_ui.cjs tests/test_anyjev_l2_repeat_ui.cjs tests/test_anyjev_generated_repeat_ui.cjs tests/test_openjev_native_repeat_ui.cjs tests/test_openjev_generated_repeat_ui.cjs tests/test_semif_generated_repeat_ui.cjs tests/test_alex_native_repeat_ui.cjs tests/test_codex_fresh_repeat_ui.cjs tests/test_deepseek_fresh_repeat_ui.cjs tests/test_additional_hosted_fresh_repeat_ui.cjs tests/test_qwen36_continuation_ui.cjs tests/test_deepseek_low_interruption_ui.cjs
+          node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs tests/test_anyjev_l1_repeat_ui.cjs tests/test_anyjev_l2_repeat_ui.cjs tests/test_anyjev_generated_repeat_ui.cjs tests/test_openjev_native_repeat_ui.cjs tests/test_openjev_generated_repeat_ui.cjs tests/test_semif_generated_repeat_ui.cjs tests/test_alex_native_repeat_ui.cjs tests/test_codex_fresh_repeat_ui.cjs tests/test_deepseek_fresh_repeat_ui.cjs tests/test_additional_hosted_fresh_repeat_ui.cjs tests/test_qwen36_continuation_ui.cjs tests/test_deepseek_low_interruption_ui.cjs tests/test_latest_continuation_cutoffs_ui.cjs
           node --test tests/test_kev_repeat_ui.cjs
           python3 scripts/build_kev_native_findings.py --check
           python3 -m unittest tests.test_build_kev_native_findings -q
@@ -90,6 +92,16 @@ jobs:
           python3 scripts/build_gemma26_continuation_findings.py --output public-site/gemma26-continuation-findings.json --check
           python3 -m unittest tests.test_build_gemma26_continuation_findings -q
           node --test tests/test_gemma26_continuation_ui.cjs
+          python3 -m unittest tests.test_build_qwen27_interrupted_continuation_findings tests.test_build_gemma26_second_continuation_findings tests.test_build_deepseek_low_third_interruption_findings -q
+          cutoff_root=$(mktemp -d)
+          trap 'rm -rf "$cutoff_root"' EXIT
+          git archive 6bdf6cc2c4a0a24dd4088c96460e750563fc2af4 | tar -x -C "$cutoff_root"
+          python3 "$cutoff_root/scripts/build_qwen27_interrupted_continuation_findings.py" --root "$cutoff_root" --output "$cutoff_root/qwen27.json"
+          cmp "$cutoff_root/qwen27.json" public-site/qwen27-interrupted-continuation-findings.json
+          python3 "$cutoff_root/scripts/build_gemma26_second_continuation_findings.py" --root "$cutoff_root" --output "$cutoff_root/gemma26.json"
+          cmp "$cutoff_root/gemma26.json" public-site/gemma26-second-continuation-findings.json
+          python3 "$cutoff_root/scripts/build_deepseek_low_third_interruption_findings.py" --root "$cutoff_root" --output "$cutoff_root/deepseek.json"
+          cmp "$cutoff_root/deepseek.json" public-site/deepseek-low-third-interruption-findings.json
           python3 scripts/build_e4b_interruption_findings.py --output public-site/e4b-interruption-findings.json --check
           python3 -m unittest tests.test_build_e4b_interruption_findings -q
           node --test tests/test_e4b_interruption_ui.cjs
