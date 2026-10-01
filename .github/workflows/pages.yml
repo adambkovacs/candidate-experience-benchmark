@@ -92,7 +92,17 @@ jobs:
           python3 scripts/build_gemma26_continuation_findings.py --output public-site/gemma26-continuation-findings.json --check
           python3 -m unittest tests.test_build_gemma26_continuation_findings -q
           node --test tests/test_gemma26_continuation_ui.cjs
-          python3 -m unittest tests.test_build_qwen27_interrupted_continuation_findings tests.test_build_gemma26_second_continuation_findings tests.test_build_deepseek_low_third_interruption_findings -q
+          python3 -m unittest tests.test_build_qwen27_interrupted_continuation_findings tests.test_build_deepseek_low_third_interruption_findings -q
+          # Three Gemma fixture tests read private, untracked suffix attempts; run the seven archive-safe tests here.
+          # The full tracked archive rebuild and projection-tamper check below cover the published cutoff.
+          python3 -m unittest \
+            tests.test_build_gemma26_second_continuation_findings.SecondContinuationFindingsTests.test_clean_inputs_show_incomplete_without_public_final \
+            tests.test_build_gemma26_second_continuation_findings.SecondContinuationFindingsTests.test_manifest_or_bound_source_tamper_rejected \
+            tests.test_build_gemma26_second_continuation_findings.SecondContinuationFindingsTests.test_closed_journal_without_public_attestation_stays_unscored \
+            tests.test_build_gemma26_second_continuation_findings.SecondContinuationFindingsTests.test_public_projection_excludes_provider_and_account_details \
+            tests.test_build_gemma26_second_continuation_findings.SecondContinuationFindingsTests.test_composite_requires_exact_58_unsent_positions \
+            tests.test_build_gemma26_second_continuation_findings.SecondContinuationFindingsTests.test_export_requires_controller_verified_closed_stage \
+            tests.test_build_gemma26_second_continuation_findings.SecondContinuationFindingsTests.test_public_attestation_rejects_changed_private_hash -q
           cutoff_root=$(mktemp -d)
           trap 'rm -rf "$cutoff_root"' EXIT
           git archive 6bdf6cc2c4a0a24dd4088c96460e750563fc2af4 | tar -x -C "$cutoff_root"
@@ -102,6 +112,26 @@ jobs:
           cmp "$cutoff_root/gemma26.json" public-site/gemma26-second-continuation-findings.json
           python3 "$cutoff_root/scripts/build_deepseek_low_third_interruption_findings.py" --root "$cutoff_root" --output "$cutoff_root/deepseek.json"
           cmp "$cutoff_root/deepseek.json" public-site/deepseek-low-third-interruption-findings.json
+          python3 - "$cutoff_root" <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          import sys
+          stage = Path(sys.argv[1]) / 'results/repeatability-v1/gemma26-on-fresh-matched3-v2/second-interruption-continuation-v1/fresh2/P0'
+          summary_path = stage / 'suffix.public-summary.json'
+          review_path = stage / 'suffix.public-review.json'
+          summary = json.loads(summary_path.read_text())
+          summary['responses'][0]['requestSha256'] = '0' * 64
+          summary_path.write_text(json.dumps(summary) + '\n')
+          review = json.loads(review_path.read_text())
+          review['summarySha256'] = hashlib.sha256(summary_path.read_bytes()).hexdigest()
+          review_path.write_text(json.dumps(review) + '\n')
+          PY
+          if python3 "$cutoff_root/scripts/build_gemma26_second_continuation_findings.py" --root "$cutoff_root" > "$cutoff_root/tamper.stdout" 2> "$cutoff_root/tamper.stderr"; then
+            echo "Gemma public projection tamper was accepted" >&2
+            exit 1
+          fi
+          grep -q 'frozen request' "$cutoff_root/tamper.stderr"
           python3 scripts/build_e4b_interruption_findings.py --output public-site/e4b-interruption-findings.json --check
           python3 -m unittest tests.test_build_e4b_interruption_findings -q
           node --test tests/test_e4b_interruption_ui.cjs
