@@ -13,3 +13,9 @@ Each request reserves the $0.04177920 full-context bound atomically. The control
 Offline preparation for the suffix is `python3 scripts/mistral119_v3_remaining_phases.py prepare fresh1 P0`, followed by `verify fresh1 P0`. Other phase manifests use the same two commands with their declared pass and condition. `run` also requires `--phase`, `--root-review-receipt`, `--budget-manifest` and any needed `--env-file`; no `run` command belongs to this preparation. The [fake-transport tests](../tests/test_mistral119_v3_remaining_phases.py) cover suffix membership, frozen request identity, predecessor and receipt gates, duplicate refusal, unknown-charge retention, known over-bound settlement and exact three-request smoke dispatch. They do not establish future provider access or safe host readiness.
 
 Independent review: APPROVE after fixing the shared smoke/development manifest path. Eight controller tests passed, including separate phase allocation against a temporary real budget ledger. No live allocation or inference was part of this review.
+
+## Prepared suffix, 1 October 2026
+
+The [12-record suffix manifest](../results/repeatability-v1/mistral119-fresh-matched3-v1/v3-remaining-none-v1/fresh1/P0-suffix-049-060/manifest.json) is frozen at canonical SHA-256 `5a46ec7d4e468b0dbccca875e65875ea97e2c925caef2d84ad3b90e0c9d8f93b`. Preparation and verification agree, and the interruption gate revalidated the original closure. Membership is exactly DEV-049 through DEV-060. This is preparation only: no child allocation, root execution receipt or request was created.
+
+A fresh host check at 07:01 UTC showed the lid closed, AC power, and the last transition at 06:15:40 UTC as maintenance DarkWake. Existing idle-sleep assertions had also been present before the earlier Sleep Service Back to Sleep interruption. Idle prevention alone therefore does not establish a stable host for this run. No power setting or safeguard was changed.
