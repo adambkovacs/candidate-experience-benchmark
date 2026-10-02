@@ -1,0 +1,24 @@
+.clef-first-pass { background:#fff; border-bottom:1px solid #c4d2e0; }
+.clef-first-pass .section-intro p:last-child { max-width:76ch; }
+.clef-comparison { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:30px; }
+.clef-model-card { min-width:0; padding:clamp(20px,2.6vw,34px); border:1px solid #b8cbdd; border-top:5px solid #245e9e; background:#f7f9fc; }
+.clef-model-card + .clef-model-card { border-top-color:#14796e; }
+.clef-model-card .eyebrow { margin:0 0 12px; color:#405673; }
+.clef-major { display:flex; flex-wrap:wrap; align-items:end; gap:8px 22px; margin:0 0 8px; color:#1a2332; }
+.clef-major strong { font:700 clamp(48px,6vw,78px)/.9 var(--display,sans-serif); letter-spacing:-.055em; }
+.clef-major small { font-size:.35em; letter-spacing:0; }
+.clef-major span { max-width:22ch; font-size:14px; line-height:1.4; }
+.clef-model-card > p:not(.eyebrow):not(.clef-major) { color:#405673; font-size:13px; line-height:1.55; }
+.clef-model-card dl { display:grid; gap:10px; margin:22px 0; }
+.clef-model-card dl div { display:grid; grid-template-columns:minmax(135px,.8fr) minmax(160px,1.2fr); align-items:center; gap:10px; }
+.clef-model-card dt { color:#273c55; font-size:13px; font-weight:700; }
+.clef-model-card dd { display:flex; align-items:center; gap:11px; margin:0; }
+.clef-model-card meter { flex:1 1 auto; min-width:75px; height:14px; accent-color:#245e9e; }
+.clef-model-card + .clef-model-card meter { accent-color:#14796e; }
+.clef-model-card dd strong { min-width:38px; color:#1a2332; font-size:12px; white-space:nowrap; }
+.clef-model-card a, .clef-sources a { color:#155391; font-size:13px; font-weight:700; }
+.clef-paired { margin:18px 0 0; padding:15px 19px; border-left:4px solid #245e9e; background:#eaf2fb; color:#273c55; font-size:14px; line-height:1.55; }
+.clef-limit { max-width:82ch; margin:20px 0 0; color:#405673; font-size:13px; line-height:1.65; }
+.clef-sources { max-width:84ch; margin:16px 0 0; line-height:1.8; }
+@media (max-width:760px) { .clef-comparison { grid-template-columns:1fr; } }
+@media (max-width:480px) { .clef-model-card dl div { grid-template-columns:1fr; gap:3px; }.clef-model-card dd { max-width:290px; } }

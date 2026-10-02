@@ -18,6 +18,14 @@
     const timeout=new Promise(resolve => {timer=setTimeout(() => resolve(null),3000);});
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
   };
+  const optionalClef = () => {
+    const load=Promise.resolve().then(() => fetch('./clef-findings.json',{cache:'no-store'}))
+      .then(response => response.status===404 ? null : response.ok ? response.json() : {invalidSource:true}).catch(() => ({invalidSource:true}));
+    if (typeof setTimeout !== 'function') return load;
+    let timer;
+    const timeout=new Promise(resolve => {timer=setTimeout(() => resolve({invalidSource:true}),3000);});
+    return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
+  };
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const n = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
   const count = value => n(value) === null ? 'Unavailable' : Math.round(n(value)).toLocaleString();
@@ -33,6 +41,7 @@
   const inferenceTime = timing => n(timing?.inferenceSeconds) !== null && n(timing?.inferenceReportedRequests) > 0 ? duration(timing.inferenceSeconds) : 'Unavailable';
   const observedCost = cost => n(cost?.actualUsd) !== null ? money(cost.actualUsd) : n(cost?.knownUsd) !== null ? money(cost.knownUsd) : 'Unavailable';
   const priceEntry = run => {
+    if (run.cost?.estimateKind === 'published_input_rate') return null;
     const entry=state.pricing?.runs?.[run.id];
     return entry?.model === run.model ? entry : null;
   };
@@ -47,7 +56,7 @@
   const costSummary = run => {
     const cost=runCost(run),price=priceEntry(run);
     const charge=n(cost?.actualUsd) !== null ? 'Observed charge ' + money(cost.actualUsd) : n(cost?.knownUsd) !== null ? 'Known charge ' + money(cost.knownUsd) : 'Observed charge unavailable';
-    return charge+(price ? ` · API-equivalent estimate ${money(price.estimateUsd)}` : n(cost?.estimatedUsd) !== null ? ` · ${cost.estimateKind === 'known_usage_only' ? 'Known-usage API-equivalent estimate' : cost.estimateKind === 'calculated_api_equivalent' ? 'API-equivalent estimate' : cost.estimateKind === 'cli_list_price' ? 'CLI list-price estimate' : 'Estimate'} ${money(cost.estimatedUsd)}` : '');
+    return charge+(price ? ` · API-equivalent estimate ${money(price.estimateUsd)}` : n(cost?.estimatedUsd) !== null ? ` · ${cost.estimateKind === 'known_usage_only' ? 'Known-usage API-equivalent estimate' : cost.estimateKind === 'calculated_api_equivalent' ? 'API-equivalent estimate' : cost.estimateKind === 'cli_list_price' ? 'CLI list-price estimate' : cost.estimateKind === 'published_input_rate' ? 'Published input-price estimate' : 'Estimate'} ${money(cost.estimatedUsd)}` : '');
   };
   const providerGenerationTime = timing => n(timing?.providerGenerationSeconds) !== null && n(timing?.providerGenerationReportedRequests) > 0 ? duration(timing.providerGenerationSeconds) : null;
   const experimentId = run => run.parentBaselineId || run.id.replace(/--p[12]$/i,'');
@@ -91,6 +100,46 @@
           note:partialUsage ? `${pricedRequests} of ${totalRequests} requests have priced usage. The full API-equivalent estimate is unavailable because usage is missing. Actual subscription charge and quota use are unknown.` : 'API-equivalent estimate based on saved usage. Actual subscription charge and quota use are unknown.'},
         sourceOnlyDetails:true,sourceRecordsUrl,evidenceUrl}];
     }));
+  }
+  function clefFirstPassRuns(report) {
+    const names=['clef','clef-flash'],fields=['sentiment','follow_up_needed','serious_concern_reported','testimonial_potential'];
+    const paired=report?.paired?.allFour;
+    if (report?.schema!=='clef-native-p0-findings-v1' || report.cohort?.records!==60 || report.cohort?.pass!=='fresh1' || report.cohort?.condition!=='P0' ||
+        report.cohort?.configurationCount!==2 || report.cohort?.fullPassesPerModelCompleted!==1 || !report.models || !report.sourceSha256 ||
+        names.some(name=>!report.models[name]) || !Number.isInteger(report.paired?.predictionVectorDisagreementCount) ||
+        report.paired.predictionVectorDisagreementCount<0 || report.paired.predictionVectorDisagreementCount>60 ||
+        !paired || Object.values(paired).length!==4 || Object.values(paired).some(value=>!Number.isInteger(value) || value<0) ||
+        Object.values(paired).reduce((sum,value)=>sum+value,0)!==60 ||
+        report.models.clef.allFourCorrect!==paired.correct_correct+paired.correct_incorrect ||
+        report.models['clef-flash'].allFourCorrect!==paired.correct_correct+paired.incorrect_correct) return [];
+    const source='https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/';
+    const runs=[];
+    for (const name of names) {
+      const item=report.models[name],path=`results/clef-native-v1/${name}/fresh1/P0/development/records.jsonl`;
+      const completion=`results/clef-native-v1/${name}/fresh1/P0/development/completion.json`;
+      const price=item.publishedInputPriceEstimateUsd,hold=item.unknownCostReservedUsd;
+      if (item.stage!=='fresh1/P0/development' || item.records!==60 || item.valid!==60 || item.failed!==0 || item.neverSent!==0 ||
+          !Number.isInteger(item.allFourCorrect) || item.allFourCorrect<0 || item.allFourCorrect>60 ||
+          fields.some(field=>!Number.isInteger(item.fields?.[field]?.correct) || item.fields[field].correct<0 || item.fields[field].correct>60) ||
+          !Number.isInteger(item.observedInputTokens) || item.observedInputTokens<0 || !Number.isInteger(item.observedOutputTokens) || item.observedOutputTokens<0 ||
+          !/^\d+(?:\.\d+)?$/.test(price) || !/^\d+(?:\.\d+)?$/.test(hold) || item.providerBilledUsd!==null ||
+          !/^[0-9a-f]{64}$/.test(report.sourceSha256[path] || '') || !/^[0-9a-f]{64}$/.test(report.sourceSha256[completion] || '')) return [];
+      runs.push({id:`${name}-native-fresh1-p0`,model:name==='clef'?'Cloudflare Clef':'Cloudflare Clef Flash',effort:'not applicable',surface:'Cloudflare Workers AI',condition:'P0',
+        complete:true,records:60,valid:item.valid,metrics:{all_four:item.allFourCorrect,...Object.fromEntries(fields.map(field=>[field,item.fields[field].correct]))},
+        pairedEligible:false,resultStatus:'One closed native P0 pass; repeat passes and P1/P2 have not been completed.',
+        timing:{kind:'connected-app',requests:60,inferenceSeconds:null,inferenceReportedRequests:0,note:'Saved client elapsed time includes connected-app operator handoff; pure model inference time is unavailable.'},
+        tokens:{input:item.observedInputTokens,output:item.observedOutputTokens,reportedRequests:60,totalRequests:60,complete:true},
+        cost:{actualUsd:null,knownUsd:null,estimatedUsd:Number(price),estimateKind:'published_input_rate',unknownUpperBoundUsd:Number(hold),
+          sourceUrl:`https://developers.cloudflare.com/workers-ai/models/${name}/`,note:'Published input-price estimate, not an observed provider charge. Unknown-charge budget hold remains separate.'},
+        sourceOnlyDetails:true,sourceRecordsUrl:source+path,evidenceUrl:source+'public-site/clef-findings.json',sourceRecordSha256:report.sourceSha256[path]});
+    }
+    return runs;
+  }
+  function renderClefFirstPass(runs,report) {
+    const target=$('#clef-first-pass-results');if(!target)return;
+    if (runs.length!==2) {target.innerHTML='<p class="empty-state">Clef first-pass results are unavailable from the saved evidence.</p>';return;}
+    const fields=[['Sentiment','sentiment'],['Follow-up','follow_up_needed'],['Serious concern','serious_concern_reported'],['Testimonial','testimonial_potential']];
+    target.innerHTML=`<div class="clef-comparison">${runs.map(run=>`<article class="clef-model-card"><p class="eyebrow">${esc(run.model)} · native choices</p><p class="clef-major"><strong>${run.metrics.all_four}<small>/60</small></strong><span>all four decisions match the provisional reference</span></p><p>${run.valid}/60 answers could be scored · ${count(run.tokens.input)} input tokens · ${count(run.tokens.output)} output tokens</p><dl>${fields.map(([label,key])=>`<div><dt>${label}</dt><dd><meter min="0" max="60" value="${run.metrics[key]}" aria-label="${esc(run.model)} ${label}: ${run.metrics[key]} of 60 match">${run.metrics[key]} of 60</meter><strong>${run.metrics[key]}/60</strong></dd></div>`).join('')}</dl><p class="clef-cost">Published input-price estimate: <strong>${money(run.cost.estimatedUsd)}</strong>. Observed charge unavailable.</p><a href="${esc(run.sourceRecordsUrl)}" target="_blank" rel="noopener noreferrer">Open exact saved run ↗</a></article>`).join('')}</div><p class="clef-paired">At least one label differed between the models on <strong>${esc(report.paired.predictionVectorDisagreementCount)}</strong> of the same 60 comments. This is one pass per model, not a repeatability result.</p>`;
   }
   function groups() {
     state.experiments = new Map();
@@ -428,14 +477,12 @@
       const response=await fetch('./data-provider-errors-v1.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
       const data=await response.json();if(!Array.isArray(data.runs)||n(data.denominator)!==60)throw new Error('Invalid public data');
       state.data={...data,runs:data.runs.filter(r => r?.id && ['P0','P1','P2'].includes(r.condition)),cases:Array.isArray(data.cases)?data.cases:[],roster:Array.isArray(data.roster)?data.roster:[]};
-      const [pricing,sonnet55]=await Promise.all([optionalPricing(),optionalSonnet55()]);
+      const [pricing,sonnet55,clef]=await Promise.all([optionalPricing(),optionalSonnet55(),optionalClef()]);
       if (pricing?.schema === 'subscription-price-estimates-v1' && pricing.runs && typeof pricing.runs === 'object') state.pricing=pricing;
       state.data.runs.push(...sonnet55FirstPassRuns(sonnet55).filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
-      // Other views can use the same merged runs without receiving mutable explorer state.
-      if (typeof globalThis.dispatchEvent === 'function' && typeof globalThis.CustomEvent === 'function') {
-        const snapshot=JSON.parse(JSON.stringify({denominator:state.data.denominator,runs:state.data.runs}));
-        globalThis.dispatchEvent(new CustomEvent('benchmark:saved-runs-ready',{detail:snapshot}));
-      }
+      const clefRuns=clefFirstPassRuns(clef);
+      state.data.runs.push(...clefRuns.filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
+      renderClefFirstPass(clefRuns,clef);
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;
       groups();renderExperimentSelect();renderModelSelect();renderSectionRunPickers();
       ['#overview-condition','#overview-surface'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));
@@ -472,6 +519,11 @@
       const jev=state.data.runs.find(r => r.id === 'typesafe-jev113-v2');
       const queryRun=new URL(location.href).searchParams.get('run');
       const initial=state.data.runs.find(r => r.id===queryRun) || (state.experiments.get($('#experiment-select').value)||[]).find(r => r.condition==='P0') || jev || state.data.runs.find(complete) || state.data.runs[0];if(initial)selectRun(initial.id,false);
+      // Other views can use the final merged runs without receiving mutable explorer state.
+      if (typeof globalThis.dispatchEvent === 'function' && typeof globalThis.CustomEvent === 'function') {
+        const snapshot=JSON.parse(JSON.stringify({denominator:state.data.denominator,runs:state.data.runs}));
+        globalThis.dispatchEvent(new CustomEvent('benchmark:saved-runs-ready',{detail:snapshot}));
+      }
     } catch(error) {
       if (typeof globalThis.dispatchEvent === 'function' && typeof globalThis.Event === 'function') globalThis.dispatchEvent(new Event('benchmark:saved-runs-error'));
       const message='Results could not be loaded. Please reload the page.';
