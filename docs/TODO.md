@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Repeat view verified offline, 2 October 2026, 17:22 UTC
+
+- Root reviewed the Gemma P0 repeat-view integration: APPROVE after fixing the inherited source list and labeling the older P2 link accurately. No remaining confirmed BLOCKING or RESIDUAL finding. All 136 UI checks passed; the two focused tests also pass after those final metadata edits.
+- The new selectable checkpoint shows eight scored runs, P0 scores 59/56/58, fixed-60 validity and 59-review shared-valid changes, plus usage and dated source links. Historical entries remain available.
+- Live desktop/mobile/keyboard browser verification is pending: the UI agent's IAB and Chrome connections failed. No CSS or motion behavior changed. Offline interaction checks are not a substitute for visual verification.
+- Pages run `37039744218` for analysis commit `e6d211f6` was still executing its static bundle checks. Verify the final deployment and live asset hashes before claiming publication.
+- Gemma P1 remains on original handle `31625`; the latest owner poll recorded 27 valid responses, no invalid or unknown outcomes. No budget release or new Mistral allocation occurred.
+
 ## Gemma P0 report integration, 2 October 2026, 17:16 UTC
 
 - Root reviewed the new P0 checkpoint builder and privacy projection; its seven tests and exact feed rebuild pass. P0 fixed-60 all-four scores are 59/56/58 with validity 60/59/60. Shared-valid comparisons explicitly use 59 records; fresh2 DEV-002 remains failed.
