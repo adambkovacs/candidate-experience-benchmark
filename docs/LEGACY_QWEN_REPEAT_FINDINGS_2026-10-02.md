@@ -1,0 +1,19 @@
+# Legacy Qwen repeat findings, 2 October 2026
+
+The [source-bound report](../public-site/legacy-qwen-repeats.json) covers the six exact configurations in the [frozen fresh-three plan](../results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json). All nine full development phases are closed for **Qwen3 0.6B · local HTTP · thinking off**. Each phase saved 60 of 60 responses and passed the report's raw-response, request-identity, runtime-control and completion-hash checks. The other five configurations have no closed full phases in this report. This does not complete the legacy Qwen roster.
+
+Against the frozen, provisional [v0.2 reference key](../data/pilot/proposed_labels.jsonl), every closed phase has 60 schema-valid classifications but **0/60 four-field matches**. Field agreement is identical across the three fresh passes within each prompt condition:
+
+| Prompt | Sentiment | Follow-up | Serious concern | Testimonial potential | Four fields |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| P0 | 37/60 | 54/60 | 13/60 | 9/60 | 0/60 |
+| P1 | 43/60 | 43/60 | 11/60 | 11/60 | 0/60 |
+| P2 | 19/60 | 38/60 | 15/60 | 15/60 | 0/60 |
+
+The [per-phase class counts and confusion tables](../public-site/legacy-qwen-repeats.json) show a marked testimonial-potential “yes” concentration in this exact configuration. The reference key has 9 “yes,” 50 “no” and 1 “insufficient information” labels. In each pass, P0 predicts “yes” for all 60 records, including all 50 reference “no” records. P1 predicts “yes” for 58, including 48 reference “no” records. P2 predicts “yes” for 54, including 44 reference “no” records. Valid JSON and schema compliance therefore did not translate into agreement with this reference key. These counts describe this Qwen3 0.6B artifact through the local HTTP nonthinking route; they are not findings about every Qwen model or a measure of hiring accuracy.
+
+The three fresh passes produce the same four-field prediction for every record within each prompt condition: all nine pairwise comparisons have 0/60 changed answer vectors, and no field changes across all three passes. That is output stability on the *same* 60 synthetic reviews, not independent-case performance. The fixed denominator for scores is 60; change comparisons use shared valid records, which are all 60 here. The [phase completions and bound raw evidence](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-q4km-nonthinking/) retain the separate pass and prompt identities. Historical Qwen predictions remain separate observations and do not fill these fresh cells.
+
+The [plan](../results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json) fixes the model artifact, 8,192-token context, 512-token output reserve, temperature zero, no controlled seed and an 8 GiB cache policy; each stage binds its runtime attestation. Across the nine development phases, reported usage totals 996,960 tokens and 204.09 seconds of client-observed request time. That time includes runtime and transport overhead, so pure inference and model-load times are unavailable. The local run has no measured per-request API charge; hardware and electricity costs were not measured. The five SDK configurations remain unscored until their own full phases close.
+
+The snapshot can be rebuilt offline with `python3 scripts/build_legacy_qwen_repeat_findings.py --check` and checked with `python3 -m unittest tests.test_build_legacy_qwen_repeat_findings -v`.
