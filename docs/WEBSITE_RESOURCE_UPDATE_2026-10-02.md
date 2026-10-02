@@ -17,3 +17,5 @@ Final Sonnet checks: all 36 development closures and 12 manifests verified. The 
 The final reporter passed all three focused tests, including a public-only checkout. The 11 pricing/reader tests passed. Export validation confirms all 688 evidence mappings; no private raw captures outside the sanitized bundle are staged. The staged secret scan passed, and the active OpenRouter ledger and ignored `.env` remain outside the commit.
 
 The final expanded UI suite passed 114 tests, including synthetic closed runs with missing usage and distinct stopped/running/unstarted phases.
+
+The first Sonnet deployment (`6e563a98`, Pages `36993406287`) stopped before publication: its three unit tests loaded private local captures in the CI checkout. Both public-bundle validators passed. The release tests now read the sanitized evidence bundle. Three public tests pass in a fresh Git archive; the extra private-original stopped-phase mutation test is explicitly skipped there and passed locally. No inference or evidence repair was involved.

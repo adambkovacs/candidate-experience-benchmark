@@ -14,14 +14,25 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 
 import build_sonnet55_matched3_findings as report
 import build_claude_repeat_findings as opus
-from export_claude_public_evidence import export
+
+BUNDLE = ROOT / 'public-site/sonnet55-fresh-matched3-evidence'
+
+
+def public_attempt(effort, pass_name, condition, phase):
+    projection = json.loads((BUNDLE / 'report.json').read_text())
+    path = ROOT / projection['cells'][effort][pass_name][condition][phase]['evidence']['attempts']['path']
+    return json.loads(path.read_text().splitlines()[0])
 
 
 class Sonnet55ReportTests(unittest.TestCase):
     def test_terminal_service_errors_remain_visible_without_a_score(self):
+        origin = ROOT / report.BASE / 'low/pass1/P1'
+        required = ('smoke.claim.json', 'smoke.root-review.json', 'smoke.journal.jsonl',
+                    'smoke.attempts.jsonl', 'smoke.records.jsonl', 'smoke.batch-000.raw.jsonl')
+        if not all((origin / name).is_file() for name in required):
+            self.skipTest('Private original smoke fixture is absent; public projection checks run separately')
         report.lane.configure('low')
         plan = report.lane.plan_data('pass1')
-        origin = ROOT / report.BASE / 'low/pass1/P1'
         with tempfile.TemporaryDirectory() as temporary:
             scratch = Path(temporary)
             target = scratch / report.BASE / 'low/pass1/P1'
@@ -81,8 +92,7 @@ class Sonnet55ReportTests(unittest.TestCase):
                                           plan, {'sha256': claim['manifest_sha256']}, bind)
 
     def test_exact_price_and_identity_validation(self):
-        path = (report.BASE / 'low/pass1/P0/development.attempts.jsonl')
-        first = json.loads((ROOT / path).read_text().splitlines()[0])
+        first = public_attempt('low', 'pass1', 'P0', 'development')
         counts, total = report._price(first)
         self.assertEqual(counts['cache1hWrite'], first['usage']['cache_creation_input_tokens'])
         self.assertEqual(str(total), '0.023556')
@@ -96,8 +106,9 @@ class Sonnet55ReportTests(unittest.TestCase):
             report._price(changed)
 
     def test_closed_snapshot_and_clean_checkout_projection(self):
-        snapshot = report.build(ROOT)
-        self.assertEqual(snapshot['plannedCells'], 36)
+        snapshot = report.check_public(BUNDLE)
+        self.assertEqual(snapshot['plannedCells'], snapshot['completedCells'])
+        self.assertEqual(snapshot['completedCells'], 36)
         self.assertEqual(sum(
             cell['development']['state'] == 'complete'
             for effort in snapshot['cells'].values()
@@ -108,27 +119,26 @@ class Sonnet55ReportTests(unittest.TestCase):
                 for cell in by_condition.values():
                     if cell['development']['state'] != 'complete':
                         self.assertIsNone(cell['development']['score'])
-        with tempfile.TemporaryDirectory(dir=ROOT / 'public-site',
-                                         prefix='.sonnet55-test-') as temporary:
-            source = Path(temporary)
-            private_report = source / 'private-report.json'
-            private_report.write_text(json.dumps(snapshot) + '\n')
-            bundle = source / 'bundle'
-            export(private_report, bundle, ROOT)
-            with tempfile.TemporaryDirectory() as clean:
-                clean_root = Path(clean)
-                relative = bundle.relative_to(ROOT)
-                destination = clean_root / relative
-                destination.parent.mkdir(parents=True)
-                shutil.copytree(bundle, destination)
-                verified = report.check_public(destination, clean_root)
-                self.assertEqual(verified['completedCells'], snapshot['completedCells'])
-                self.assertFalse((clean_root / report.BASE).exists())
-                self.assertFalse((clean_root / 'data').exists())
-                bound = destination / 'report.json'
-                bound.write_bytes(bound.read_bytes() + b' ')
-                with self.assertRaises(ValueError):
-                    report.check_public(destination, clean_root)
+        with tempfile.TemporaryDirectory() as clean:
+            clean_root = Path(clean)
+            destination = clean_root / BUNDLE.relative_to(ROOT)
+            destination.parent.mkdir(parents=True)
+            shutil.copytree(BUNDLE, destination)
+            verified = report.check_public(destination, clean_root)
+            self.assertEqual(verified['completedCells'], snapshot['completedCells'])
+            self.assertFalse((clean_root / report.BASE).exists())
+            self.assertFalse((clean_root / 'data').exists())
+            bound = destination / 'report.json'
+            bound.write_bytes(bound.read_bytes() + b' ')
+            with self.assertRaises(ValueError):
+                report.check_public(destination, clean_root)
+
+    def test_missing_usage_is_unknown_not_zero(self):
+        usage = report._usage([{'elapsed_seconds': 1.5, 'cli_api_duration_ms': None}])
+        self.assertEqual(usage['unpricedRequests'], 1)
+        self.assertIsNone(usage['calculatedApiEquivalentUsd'])
+        self.assertIsNone(usage['cliListPriceEstimateUsd'])
+        self.assertIsNone(usage['tokensByPriceCategory']['output'])
 
 
 if __name__ == '__main__':
