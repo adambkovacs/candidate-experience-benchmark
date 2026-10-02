@@ -17,6 +17,7 @@ async function render(feed = saved) {
 }
 test('Kev shows two scored passes and preserves interrupted status', async () => {
   const el = await render();
+  assert.match(el('repeat-filter-count').textContent, /1 of 1 studies match/);
   assert.match(el('repeat-lead').textContent, /2 of 3/);
   assert.equal((el('repeat-chart').innerHTML.match(/<meter /g)||[]).length, 2);
   assert.match(el('repeat-chart').innerHTML, /Interrupted; unscored/);

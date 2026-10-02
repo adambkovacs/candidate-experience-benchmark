@@ -1197,6 +1197,10 @@
     configControl.addEventListener('change', render);
     fieldControl.addEventListener('change', render);
     conditionControl.addEventListener('change', render);
-    filterStudies();
+    // Initial controls start unfiltered. Render the saved selection before reading
+    // control values; some non-browser readers do not implement HTML defaults.
+    render();
+    const initialCount=document.getElementById('repeat-filter-count');
+    if(initialCount) initialCount.textContent=`${series.length} of ${series.length} studies match. Recorded runs can include failed answers.`;
   }).catch(() => {root.innerHTML = '<p>Repeat results could not be loaded. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPEAT_FINDINGS.md">Read the saved repeat report</a>.</p>';});
 })();
