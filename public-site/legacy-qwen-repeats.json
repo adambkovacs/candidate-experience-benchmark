@@ -11898,13 +11898,8 @@
       },
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 0,
+      "completedConditions": 1,
       "missingPasses": [
-        {
-          "pass": "fresh1",
-          "condition": "P0",
-          "status": "not_in_closed_snapshot"
-        },
         {
           "pass": "fresh1",
           "condition": "P2",
@@ -11948,36 +11943,244 @@
       ],
       "partialPasses": [],
       "passes": {
-        "fresh1": {},
+        "fresh1": {
+          "P0": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 24,
+              "fields": {
+                "sentiment": 49,
+                "follow_up_needed": 55,
+                "serious_concern_reported": 45,
+                "testimonial_potential": 38
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 7,
+                "negative": 31,
+                "neutral": 11,
+                "positive": 11
+              },
+              "follow_up_needed": {
+                "insufficient_information": 1,
+                "no": 21,
+                "yes": 38
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 6,
+                "no": 22,
+                "yes": 32
+              },
+              "testimonial_potential": {
+                "insufficient_information": 3,
+                "no": 30,
+                "yes": 27
+              }
+            },
+            "classConfusion": {
+              "sentiment": {
+                "insufficient_information": {
+                  "negative": 1,
+                  "positive": 1
+                },
+                "mixed": {
+                  "mixed": 4,
+                  "negative": 1,
+                  "neutral": 1,
+                  "positive": 2
+                },
+                "negative": {
+                  "mixed": 1,
+                  "negative": 29,
+                  "neutral": 1
+                },
+                "neutral": {
+                  "neutral": 8
+                },
+                "positive": {
+                  "mixed": 2,
+                  "neutral": 1,
+                  "positive": 8
+                }
+              },
+              "follow_up_needed": {
+                "insufficient_information": {
+                  "yes": 1
+                },
+                "no": {
+                  "no": 21,
+                  "yes": 3
+                },
+                "yes": {
+                  "insufficient_information": 1,
+                  "yes": 34
+                }
+              },
+              "serious_concern_reported": {
+                "insufficient_information": {
+                  "insufficient_information": 2,
+                  "yes": 4
+                },
+                "no": {
+                  "insufficient_information": 4,
+                  "no": 20,
+                  "yes": 5
+                },
+                "yes": {
+                  "no": 2,
+                  "yes": 23
+                }
+              },
+              "testimonial_potential": {
+                "insufficient_information": {
+                  "no": 1
+                },
+                "no": {
+                  "insufficient_information": 3,
+                  "no": 29,
+                  "yes": 18
+                },
+                "yes": {
+                  "yes": 9
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSecondsTotal": 62.581037208,
+              "timeBasis": "client_observed_wall_clock",
+              "inferenceSeconds": null,
+              "modelLoadSeconds": null,
+              "actualCostUsd": null,
+              "tokens": {
+                "input_tokens": 92970,
+                "output_tokens": 5165,
+                "total_tokens": 98135,
+                "reasoning_output_tokens": null
+              }
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.root-review.json",
+                  "sha256": "b97f0c9f7978abe9abadc39cd8f975be05119be43f61862333dc0f92168ffcd0"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.claim.json",
+                  "sha256": "b01028b41b136429b1e4f08b0f67037d271b45635659a114454b1b0d613864b6"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.raw.jsonl",
+                  "sha256": "f40c610d489e8406c5a6398e50105b703a33fc5a0caf4fda7a34905cf202d1f0"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.records.jsonl",
+                  "sha256": "532d0ab686906d6930d76a78846ff31a8c0700b1afeb8199b74e45ce14a3bad7"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.journal.jsonl",
+                  "sha256": "cf27f5d10b660c95246351d65e99909c0c3a861968a2fec1c50389aadf4ae7b6"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.completion.json",
+                  "sha256": "6179f099ae4c9627222a1a0c2473bfd0eaef5ec28ef4e266c11c5384cc9b1807"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/qwen17-sdk-on-fresh1-P0-smoke-20261002T151603Z/catalog-audit.json",
+                  "sha256": "7c68b6ad55918039915f3024cf200eda39792d5d8f8bf2ab555ae5430ef27bcf"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke-inspection.json",
+                "sha256": "26a2f952c15d18b28501bc6e22936b010bef5c450ba6fee4109fce71a04fa0d5"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.root-review.json",
+                  "sha256": "318ca6d9df5525af123c190be7a5e8fcc632888e10710f2cd099035a04fd2107"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.claim.json",
+                  "sha256": "27854950924d39fd1f0032993106b67984573b20a8a820c99945f3503d23c8c1"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.raw.jsonl",
+                  "sha256": "f31bdc5dba8f069fd8f7066da2f0eef0bd2cc1df1fdfd11b1059042edb170330"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.records.jsonl",
+                  "sha256": "e503680a4d1b263c167a34b844045d650ef457eb931feb212789152932a03b95"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.journal.jsonl",
+                  "sha256": "13434e1dc9aa76e767d86a2bdd4f3e529149539861fc7056e76454e51f8c69b2"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.completion.json",
+                  "sha256": "f6361c7671dd5420b2105b04d13895f79ed3a045f08ade000976da3f7d580a3b"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/qwen17-sdk-on-fresh1-P0-development-20261002T152203Z/catalog-audit.json",
+                  "sha256": "098431314439b92158022c96638e9b3b8a13f15d94508b548ef4d5e4ba88fdc4"
+                }
+              }
+            }
+          }
+        },
         "fresh2": {},
         "fresh3": {}
       },
       "threePassSummary": {
         "P0": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              24
+            ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                49
+              ],
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                55
+              ],
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                45
+              ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                38
+              ],
               "range": null
             }
           }
@@ -12162,8 +12365,68 @@
           "sha256": "7ef8c42a5fd66308e46c0dd885d92373bdbe3ba0e4aa7bdecf58298b82dd80c0"
         },
         {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.claim.json",
+          "sha256": "27854950924d39fd1f0032993106b67984573b20a8a820c99945f3503d23c8c1"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.completion.json",
+          "sha256": "f6361c7671dd5420b2105b04d13895f79ed3a045f08ade000976da3f7d580a3b"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.journal.jsonl",
+          "sha256": "13434e1dc9aa76e767d86a2bdd4f3e529149539861fc7056e76454e51f8c69b2"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.raw.jsonl",
+          "sha256": "f31bdc5dba8f069fd8f7066da2f0eef0bd2cc1df1fdfd11b1059042edb170330"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.records.jsonl",
+          "sha256": "e503680a4d1b263c167a34b844045d650ef457eb931feb212789152932a03b95"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.root-review.json",
+          "sha256": "318ca6d9df5525af123c190be7a5e8fcc632888e10710f2cd099035a04fd2107"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke-inspection.json",
+          "sha256": "26a2f952c15d18b28501bc6e22936b010bef5c450ba6fee4109fce71a04fa0d5"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.claim.json",
+          "sha256": "b01028b41b136429b1e4f08b0f67037d271b45635659a114454b1b0d613864b6"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.completion.json",
+          "sha256": "6179f099ae4c9627222a1a0c2473bfd0eaef5ec28ef4e266c11c5384cc9b1807"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.journal.jsonl",
+          "sha256": "cf27f5d10b660c95246351d65e99909c0c3a861968a2fec1c50389aadf4ae7b6"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.raw.jsonl",
+          "sha256": "f40c610d489e8406c5a6398e50105b703a33fc5a0caf4fda7a34905cf202d1f0"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.records.jsonl",
+          "sha256": "532d0ab686906d6930d76a78846ff31a8c0700b1afeb8199b74e45ce14a3bad7"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/smoke.root-review.json",
+          "sha256": "b97f0c9f7978abe9abadc39cd8f975be05119be43f61862333dc0f92168ffcd0"
+        },
+        {
           "path": "results/route-audits/legacy-six-local-20260929/catalog-audit.json",
           "sha256": "5391059a6f834153be3e7bcb406b4cc363781f53004a7bda6524fd78b2951100"
+        },
+        {
+          "path": "results/route-audits/qwen17-sdk-on-fresh1-P0-development-20261002T152203Z/catalog-audit.json",
+          "sha256": "098431314439b92158022c96638e9b3b8a13f15d94508b548ef4d5e4ba88fdc4"
+        },
+        {
+          "path": "results/route-audits/qwen17-sdk-on-fresh1-P0-smoke-20261002T151603Z/catalog-audit.json",
+          "sha256": "7c68b6ad55918039915f3024cf200eda39792d5d8f8bf2ab555ae5430ef27bcf"
         },
         {
           "path": "schemas/judgments.schema.json",
