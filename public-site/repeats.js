@@ -1,6 +1,7 @@
 /* Each configuration is one separate 60-record repeat series. */
 (() => {
   const root = document.getElementById('repeat-results');
+  const modelType = item => globalThis.BenchmarkCategories?.classify(item) || {category:'unknown',categoryLabel:'Classification pending source',interfaceKind:'unknown',interfaceLabel:'Interface pending source'};
   if (!root) return;
   const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const passName = {original:'Pass 1', repeat2:'Pass 2', repeat3:'Pass 3', pass1:'Pass 1', pass2:'Pass 2', pass3:'Pass 3', fresh1:'Fresh pass 1', fresh2:'Fresh pass 2', fresh3:'Fresh pass 3'};
@@ -839,8 +840,8 @@
     const isGeneratedAnyJev = s => s.schema === 'anyjev-generated-repeat-findings-v1' &&
       s.method === 'generated-json-control';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isQwen27Final(s) || isGemmaSecond(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
-    root.innerHTML = `<div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label></div><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
-      <div id="repeat-selected-results"><p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
+    root.innerHTML = `<div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Model category describes what the model was trained to do. Output interface describes how it returns an answer: generated text, direct choices, or scores. A general LLM can also return choice scores. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
+      <div id="repeat-selected-results"><p class="category-selected" id="repeat-category-note"></p><p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
       <div id="repeat-chart" aria-live="polite"></div>
       <div class="repeat-detail-grid"><div><h3 id="repeat-delta-title">How did prompt scores change across passes?</h3><p id="repeat-delta-intro">Change in matching answers compared with P0 in the same pass. Positive means more matches; negative means fewer.</p><div id="repeat-deltas"></div></div>
@@ -853,6 +854,8 @@
     function render() {
       const data = series.find(s => seriesKey(s) === configControl.value);
       if (!data) throw Error('Unknown repeat configuration');
+      const categoryNote=document.getElementById('repeat-category-note');
+      if (categoryNote) {const type=modelType(data);categoryNote.textContent=`${type.categoryLabel} · ${type.interfaceLabel}${type.interfaceKind==='adapted' ? ' · fitted head on general model weights' : ''}`;}
       const freshCodex = isFreshCodex(data);
       const freshSonnet = isFreshSonnet(data);
       const freshHosted = isFreshHosted(data);
@@ -1166,27 +1169,34 @@
     }
     const searchControl = document.getElementById('repeat-search');
     const coverageControl = document.getElementById('repeat-coverage');
+    const categoryControl = document.getElementById('repeat-category');
+    const interfaceControl = document.getElementById('repeat-interface');
     function filterStudies() {
       const query = (searchControl?.value || '').trim().toLowerCase();
       const coverage = coverageControl?.value || '';
+      const category = categoryControl?.value || '';
+      const interfaceKind = interfaceControl?.value || '';
       const matches = series.filter(s => {
         const recorded = isQwen27Final(s) ? s.scoredConditions : s.completedConditions;
         const allRecorded = Number.isFinite(s.plannedConditions) && s.plannedConditions > 0 && recorded === s.plannedConditions;
         return (!query || `${s.displayName || ''} ${s.configuration || ''} ${s.method || ''}`.toLowerCase().includes(query)) &&
-          (!coverage || (coverage === 'complete' ? allRecorded : !allRecorded));
+          (!coverage || (coverage === 'complete' ? allRecorded : !allRecorded)) &&
+          (!category || modelType(s).category === category) && (!interfaceKind || modelType(s).interfaceKind === interfaceKind);
       });
       const previous = configControl.value;
       configControl.innerHTML = matches.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}</option>`).join('');
       configControl.disabled = !matches.length;
       const panel=document.getElementById('repeat-selected-results'); if(panel) panel.hidden=!matches.length;
-      const count=document.getElementById('repeat-filter-count'); if(count) count.textContent=matches.length ? `${matches.length} of ${series.length} studies match. Recorded runs can include failed answers.` : 'No studies match. Clear the search or choose all studies.';
+      const count=document.getElementById('repeat-filter-count'); if(count) count.textContent=matches.length ? `${matches.length} of ${series.length} studies match. Recorded runs can include failed answers.` : 'No studies match. Clear the filters to see all studies.';
       if(matches.length) {configControl.value=matches.some(s=>seriesKey(s)===previous)?previous:seriesKey(matches[0]);render();}
     }
     searchControl?.addEventListener('input', filterStudies);
     coverageControl?.addEventListener('change', filterStudies);
+    categoryControl?.addEventListener('change', filterStudies);
+    interfaceControl?.addEventListener('change', filterStudies);
     configControl.addEventListener('change', render);
     fieldControl.addEventListener('change', render);
     conditionControl.addEventListener('change', render);
-    render();
+    filterStudies();
   }).catch(() => {root.innerHTML = '<p>Repeat results could not be loaded. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPEAT_FINDINGS.md">Read the saved repeat report</a>.</p>';});
 })();

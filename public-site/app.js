@@ -52,6 +52,7 @@
   const providerGenerationTime = timing => n(timing?.providerGenerationSeconds) !== null && n(timing?.providerGenerationReportedRequests) > 0 ? duration(timing.providerGenerationSeconds) : null;
   const experimentId = run => run.parentBaselineId || run.id.replace(/--p[12]$/i,'');
   const label = run => [run.model,run.effort && run.effort !== 'not applicable' ? run.effort : null,run.surface].filter(Boolean).join(' · ');
+  const modelType = item => globalThis.BenchmarkCategories?.classify(item) || {category:'unknown',categoryLabel:'Classification pending source',interfaceKind:'unknown',interfaceLabel:'Interface pending source'};
   const hostedPair = id => (state.data.promptComparisons || []).find(item => item.id === id && item.kind === 'hosted-observational' && item.eligible === false);
   const comparisonNote = run => run.nativeInstructionComparison ? '<p class="note">Native Jev instruction comparison; P0 was run earlier in a single pass.</p>' : hostedPair(experimentId(run)) ? '<p class="note">Part of the hosted prompt comparison. The same comments were used once per prompt version; changes do not establish a prompt effect.</p>' : run.pairedEligible === false ? '<p class="note">This result is not part of the record-by-record prompt comparison.</p>' : '';
   const dataRow = (name,value) => `<div><dt>${esc(name)}</dt><dd>${esc(value === null || value === undefined || value === '' ? 'Unavailable' : value)}</dd></div>`;
@@ -281,7 +282,9 @@
     const include = $('#include-incomplete').checked;
     const family = $('#family-filter')?.value || '';
     const effort = $('#effort-filter')?.value || '';
-    const runs = state.data.runs.filter(r => (include || complete(r)) && (!family || modelFamily(r) === family) && (!effort || r.effort === effort) && (!condition || r.condition === condition) && (!surface || r.surface === surface) && (!query || `${r.id} ${r.model} ${r.effort} ${r.surface} ${experimentId(r)}`.toLowerCase().includes(query)));
+    const category = $('#category-filter')?.value || '';
+    const interfaceKind = $('#interface-filter')?.value || '';
+    const runs = state.data.runs.filter(r => (include || complete(r)) && (!family || modelFamily(r) === family) && (!effort || r.effort === effort) && (!category || modelType(r).category === category) && (!interfaceKind || modelType(r).interfaceKind === interfaceKind) && (!condition || r.condition === condition) && (!surface || r.surface === surface) && (!query || `${r.id} ${r.model} ${r.effort} ${r.surface} ${experimentId(r)}`.toLowerCase().includes(query)));
     if ($('#sort').value === 'model-asc') runs.sort((a,b) => label(a).localeCompare(label(b)) || a.condition.localeCompare(b.condition));
     else runs.sort((a,b) => (n(score(b)) ?? -1)-(n(score(a)) ?? -1) || label(a).localeCompare(label(b)));
     return runs;
@@ -290,7 +293,7 @@
     const runs = visibleRuns();
     $('#result-count').textContent = `${runs.length} shown / ${state.data.runs.length} saved runs`;
     $('#score-heading').textContent = `${metricName[$('#metric').value].toUpperCase()} / 60`;
-    $('#comparison-list').innerHTML = runs.length ? runs.map(r => `<button type="button" class="comparison-row${r.id === state.selectedId ? ' selected' : ''}" data-run="${esc(r.id)}" aria-label="Inspect ${esc(label(r))}, ${esc(r.condition)}"><span class="run-name">${esc(r.model)}<span class="run-meta">${esc([r.effort,r.surface,complete(r)?null:`partial tally · ${count(r.records)} / 60 saved · ${missing(r)} missing`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(r.id)}</span></span><span>${esc(r.condition)}</span><span class="metric-value"><strong>${has(r.valid) ? esc(r.valid) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally'}</small></span><span class="metric-value"><strong>${has(score(r)) ? esc(score(r)) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally, not final'}</small></span><span class="run-runtime"><span>In ${esc(count(runTokens(r).input))} · Out ${esc(count(runTokens(r).output))}</span><small>Reasoning ${esc(count(runTokens(r).reasoning))} · ${esc(costSummary(r))}</small>${n(r.cost?.unknownUpperBoundUsd) > 0 ? `<small>Possible extra charge ≤ ${esc(money(r.cost.unknownUpperBoundUsd))}</small>` : ''}<small>Inference ${esc(inferenceTime(r.timing))}${providerGenerationTime(r.timing) ? ` · Provider generation ${esc(providerGenerationTime(r.timing))}` : ''}</small></span></button>`).join('') : '<p class="empty-state">No runs match these filters. Clear the search or show runs with missing records.</p>';
+    $('#comparison-list').innerHTML = runs.length ? runs.map(r => `<button type="button" class="comparison-row${r.id === state.selectedId ? ' selected' : ''}" data-run="${esc(r.id)}" aria-label="Inspect ${esc(label(r))}, ${esc(r.condition)}"><span class="run-name">${esc(r.model)}<span class="run-meta">${esc([modelType(r).categoryLabel,modelType(r).interfaceLabel,r.effort,r.surface,complete(r)?null:`partial tally · ${count(r.records)} / 60 saved · ${missing(r)} missing`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(r.id)}</span></span><span>${esc(r.condition)}</span><span class="metric-value"><strong>${has(r.valid) ? esc(r.valid) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally'}</small></span><span class="metric-value"><strong>${has(score(r)) ? esc(score(r)) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally, not final'}</small></span><span class="run-runtime"><span>In ${esc(count(runTokens(r).input))} · Out ${esc(count(runTokens(r).output))}</span><small>Reasoning ${esc(count(runTokens(r).reasoning))} · ${esc(costSummary(r))}</small>${n(r.cost?.unknownUpperBoundUsd) > 0 ? `<small>Possible extra charge ≤ ${esc(money(r.cost.unknownUpperBoundUsd))}</small>` : ''}<small>Inference ${esc(inferenceTime(r.timing))}${providerGenerationTime(r.timing) ? ` · Provider generation ${esc(providerGenerationTime(r.timing))}` : ''}</small></span></button>`).join('') : '<p class="empty-state">No runs match these filters. Clear the search or show runs with missing records.</p>';
     $('#comparison-list').querySelectorAll('[data-run]').forEach(button => button.addEventListener('click',() => selectRun(button.dataset.run,true)));
   }
   const decisionLabels = {sentiment:'Sentiment',follow_up_needed:'Follow-up needed',serious_concern_reported:'Serious concern reported',testimonial_potential:'Testimonial potential'};
@@ -444,8 +447,15 @@
         const control = $(selector);
         if (control) { control.innerHTML = `<option value="">${all}</option>` + [...new Set(values)].sort().map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join(''); control.addEventListener('change', renderLedger); }
       }
+      for (const [selector, entries, all] of [
+        ['#category-filter', globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}, 'All model categories'],
+        ['#interface-filter', globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}, 'All output interfaces']
+      ]) {
+        const control=$(selector);
+        if (control) {control.innerHTML=`<option value="">${all}</option>`+Object.entries(entries).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('');control.addEventListener('change',renderLedger);}
+      }
       $('#clear-run-filters')?.addEventListener('click', () => {
-        for (const id of ['#search','#condition-filter','#surface-filter','#family-filter','#effort-filter']) { const control=$(id); if(control) control.value=''; }
+        for (const id of ['#search','#condition-filter','#surface-filter','#family-filter','#effort-filter','#category-filter','#interface-filter']) { const control=$(id); if(control) control.value=''; }
         $('#include-incomplete').checked=false; renderLedger();
       });
       $('#experiment-select').addEventListener('change',() => {const group=state.experiments.get($('#experiment-select').value)||[];const lead=group.find(r=>r.condition==='P0')||group[0];if(lead)selectRun(lead.id,false);else renderExperiment();});
