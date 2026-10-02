@@ -36,7 +36,9 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
     elements.get('repeat-config').change();
     const series = payload.series.find(row => row.configuration === configuration);
     assert.equal((elements.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, series.completedConditions);
-    assert.match(elements.get('repeat-chart').innerHTML, /Three-pass range unavailable/);
+    assert.equal(series.completedConditions, 9);
+    assert.doesNotMatch(elements.get('repeat-chart').innerHTML, /Three-pass range unavailable/);
+    assert.equal((elements.get('repeat-chart').innerHTML.match(/Three-pass range:/g) || []).length, 3);
     assert.equal(series.passes.fresh1.P0.score.denominator, 60);
     assert.ok(series.passes.fresh1.P0.score.outcomes.invalid_output > 0);
   }
@@ -48,9 +50,9 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   elements.get('repeat-search').value = '';
   elements.get('repeat-coverage').value = 'complete';
   elements.get('repeat-coverage').change();
-  assert.equal(elements.get('repeat-config').value, target.configuration);
+  assert.equal(elements.get('repeat-config').value, 'qwen3-0.6b-sdk-thinking-off');
   assert.equal(elements.get('repeat-selected-results').hidden, false);
   assert.equal(elements.get('repeat-config').disabled, false);
-  assert.match(elements.get('repeat-filter-count').textContent, /1 of 6/);
+  assert.match(elements.get('repeat-filter-count').textContent, /3 of 6/);
 
 });
