@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Gemma DEV-060 closed; Mistral gate pending, 2 October 2026
+
+The separately admitted [Gemma DEV-060 suffix](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/fresh3/P1/suffix.attempts.jsonl) closed with one valid response and $0.00041054 observed cost. Its [child reconciliation](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/reconciliation.json) retained no unknown charge and released $0.01958946 of the new $0.02 allocation. Commit `eed797b1` archives the closed suffix evidence. All 60 fresh3/P1 development positions are now accounted for: 59 valid, DEV-059 timed out with its $0.01974272 unknown-charge bound retained, and DEV-060 valid. The combined score is pending the source-bound report; this is not a clean 60-valid phase, and DEV-059 remains ineligible for replay.
+
+Mistral's separate $0.30 child is allocated, but its DEV-054–060 suffix sent no requests. The first launch stopped at a nested predecessor source-drift gate before a phase claim. A versioned gate fix is pending independent review; do not treat the allocation as inference or retry the failed launch. The seven positions remain unsent.
+
 ## Mistral launch gate, 2 October 2026, 17:49 UTC
 
 Root allocated a new $0.30 child and the controller retained its matching shared-authority hold. Launch handle `71186` exited with a source-drift validation error in the nested predecessor gate before creating any phase claim or sending a request. The child contains only its initial budget event. The native/preflight agent owns a versioned controller fix and regression test; no retry, release or further dispatch has occurred. The seven DEV-054–060 positions remain unsent.
