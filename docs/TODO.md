@@ -1,5 +1,14 @@
 # Current work checklist
 
+## Mistral continuation reviewed, 2 October 2026, 16:59 UTC
+
+This checkpoint supersedes earlier running-state and admission statements below.
+
+- Root independently reviewed the Mistral DEV-054–060 controller and inherited request lifecycle: APPROVE, with no confirmed BLOCKING or RESIDUAL finding. Six offline tests passed and the frozen manifest verified as `b0155804970144d421dfd9f633a5b26c232fda3b060c0fee0aef1975756c8aab`.
+- No Mistral dispatch is admitted yet. The locked OpenRouter audit found $0.26649059250 unallocated against a proposed $0.30 child. Gemma's $0.40 child is still active. Reconcile its terminal evidence before deciding whether unused funds can cover Mistral; do not raise the cap or release unknown charges.
+- Gemma's fresh3/P0 stage remains owned by the roster execution agent on handle `22047`; the latest live poll reached 43/60 saved valid responses. P1 is not admitted.
+- DeepSeek's exact `open-inference/fp4` route was absent at fresh admission. No successor allocation or request occurred; the public endpoint snapshot and failure receipt are archived in `f4e750ab`.
+
 ## Third-P0 reporting and hosted continuation, 2 October 2026, 16:35 UTC
 
 This checkpoint supersedes earlier assignment and running-state statements below.
