@@ -38,7 +38,7 @@ class ClefFresh2P0Tests(unittest.TestCase):
         self.folder = Path(self.temp.name)
         self.base = self.folder / 'clef'
         self.authority = self.folder / 'authority.jsonl'
-        self.authority.write_bytes(next_p0.AUTHORITY.read_bytes())
+        self.authority.write_bytes(next_p0.AUTHORITY_SNAPSHOT.read_bytes())
         self.manifest = self.folder / 'manifest.json'
         self.manifest.write_bytes(prep.canonical(next_p0.manifest_value()) + b'\n')
 
@@ -145,7 +145,7 @@ class ClefFresh2P0Tests(unittest.TestCase):
         self.assertEqual(result['never_sent'], list(prep.SMOKE_IDS[1:]))
         self.assertEqual(result['unknown_cost_reserved_usd'], '0.005899')
         self.assertEqual(len(self.authority.read_bytes().splitlines()),
-                         len(next_p0.AUTHORITY.read_bytes().splitlines()) + 1)
+                         len(next_p0.AUTHORITY_SNAPSHOT.read_bytes().splitlines()) + 1)
 
     def test_connected_app_handoff_keeps_outer_and_inner_evidence(self):
         grant = self.grant(model='clef-flash')
@@ -186,7 +186,7 @@ class ClefFresh2P0Tests(unittest.TestCase):
         grant = self.grant()
         with self.authority.open('ab') as handle:
             handle.write(prep.canonical({'event': 'hold', 'id': 'other-reviewed-work',
-                'usd': '7.72', 'source_sha256': 'a' * 64}) + b'\n')
+                'usd': '8.00', 'source_sha256': 'a' * 64}) + b'\n')
         with self.assertRaisesRegex(ValueError, 'ledger changed'):
             self.execute_stage('clef', 'smoke', grant, lambda *_: self.fail('must not dispatch'))
         self.assertFalse(next_p0.stage_dir(self.base, 'clef', 'smoke').exists())
