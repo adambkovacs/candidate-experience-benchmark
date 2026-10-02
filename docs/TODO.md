@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Closed Clef and second-pass checkpoint — 2 October 2026
+
+- Clef and Clef Flash each finished 60/60 valid native P0 responses. Evidence is archived in `11c50cfe`; the [analysis](CLEF_FINDINGS_2026-10-02.md), builder and tests are pushed in `7701eedb`. All-four agreement is 53/60 and 45/60. All 625 report source hashes resolve to committed files. Input-price estimates total $0.04378902; provider charges and pure inference latency remain unavailable. Only one P0 pass per model has run; native instruction variants and repeats remain pending.
+- The interactive validity/agreement chart is pushed in `6b90b3b5`, with all 125 UI tests passing and desktop/mobile/keyboard checks. It uses the same merged saved-run collection as the explorer, including Sonnet 5.5. Clef's public explorer integration is assigned to the report agent. The earlier category deployment `37014648466` succeeded and its four live assets matched committed bytes.
+- Both small Qwen SDK setups have two complete P0/P1/P2 passes, six of nine full phases each. The feed and analysis are pushed in `404f027f`. Third-pass P1 smokes were independently reviewed by root; full runs are assigned serially to the native execution agent. Format failures stay in the results.
+- Gemma DEV-017–046 finished with 30 valid outputs and $0.01109214 known charge, no unknown charge. The sealed evidence is archived in `8bb5c035`. The hosted agent is preparing the remaining DEV-047–060 admission; no final-suffix request has been sent. The global postapproval ledger keeps the old $0.60 carry conservatively, alongside Cloudflare holds; it is not released from token-price estimates.
+
 ## Category and repeat-analysis checkpoint — 2 October 2026
 
 Model-category and output-interface filters are committed in `54ff76e0`, with the initial-selection fix in `4b2ede7e`. All 121 UI tests pass. Pages publication is being verified. The [category review](REPORT_CATEGORY_REVIEW_2026-10-02.md) records Cloudflare design references and source-backed model assignments.
