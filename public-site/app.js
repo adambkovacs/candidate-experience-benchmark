@@ -431,6 +431,11 @@
       const [pricing,sonnet55]=await Promise.all([optionalPricing(),optionalSonnet55()]);
       if (pricing?.schema === 'subscription-price-estimates-v1' && pricing.runs && typeof pricing.runs === 'object') state.pricing=pricing;
       state.data.runs.push(...sonnet55FirstPassRuns(sonnet55).filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
+      // Other views can use the same merged runs without receiving mutable explorer state.
+      if (typeof globalThis.dispatchEvent === 'function' && typeof globalThis.CustomEvent === 'function') {
+        const snapshot=JSON.parse(JSON.stringify({denominator:state.data.denominator,runs:state.data.runs}));
+        globalThis.dispatchEvent(new CustomEvent('benchmark:saved-runs-ready',{detail:snapshot}));
+      }
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;
       groups();renderExperimentSelect();renderModelSelect();renderSectionRunPickers();
       ['#overview-condition','#overview-surface'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));
@@ -468,6 +473,7 @@
       const queryRun=new URL(location.href).searchParams.get('run');
       const initial=state.data.runs.find(r => r.id===queryRun) || (state.experiments.get($('#experiment-select').value)||[]).find(r => r.condition==='P0') || jev || state.data.runs.find(complete) || state.data.runs[0];if(initial)selectRun(initial.id,false);
     } catch(error) {
+      if (typeof globalThis.dispatchEvent === 'function' && typeof globalThis.Event === 'function') globalThis.dispatchEvent(new Event('benchmark:saved-runs-error'));
       const message='Results could not be loaded. Please reload the page.';
       for (const selector of ['#comparison-list','#condition-grid','#run-detail']) $(selector).innerHTML=`<p class="empty-state">${message}</p>`;
       $('#experiment-title').textContent=message;$('#jev-note').textContent=message;
