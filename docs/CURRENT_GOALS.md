@@ -2,6 +2,12 @@
 
 Updated 2026-09-28 after classification-bench implementation moved to a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
 
+## Clef and report filtering, 2 October 2026
+
+The user requested testing Cloudflare Clef following [Cloudflare's announcement](https://blog.cloudflare.com/clef-decision-models/), and better report sections, categories and filters. Prepare both Clef and Clef-Flash through their native typed-choice interface on the same 60 reviews. Preserve native prompt variants and three-pass identities, with references used only offline. Cloudflare credentials and spending authority are separate from OpenRouter and TypeSafe; the prepared initial six-request smoke has a conservative $0.064884 reservation, with a proposed $0.10 Cloudflare cap awaiting user approval. This request does not transfer private classification-bench credentials or live-run authority.
+
+Improve saved-run filtering by model family, reasoning setting, prompt and execution route; add repeat-study search and coverage filtering. Keep interrupted descriptive studies distinct from clean matched series, and preserve deep links and no-match states. Implementation, execution and published results must be reported separately.
+
 ## Resumed goal, 2 October 2026
 
 The user resumed the full objective after the forced restart. [APP_GOAL.md](APP_GOAL.md) contains the active text. After each completed run or later interruption, refresh the combined analysis, website, README and coverage inventory against saved evidence. Keep historical and fresh cohorts separate and check whether earlier conclusions still hold. The restart does not authorize replaying completed requests.
