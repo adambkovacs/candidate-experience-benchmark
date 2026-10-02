@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 88)
+        self.assertEqual(len(rebuilt["sources"]), 100)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -39,9 +39,19 @@ class AnalysisRefreshTest(unittest.TestCase):
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
         self.assertEqual(cohorts["gemma26"]["source"],
+                         "public-site/gemma26-fresh3-p1-interrupted-checkpoint.json")
+        self.assertEqual(cohorts["gemma26"]["priorP0Source"],
                          "public-site/gemma26-fresh3-p0-checkpoint.json")
         self.assertEqual(cohorts["gemma26"]["completedConditionsAtSecondContinuation"], 6)
-        self.assertEqual(cohorts["gemma26"]["completedConditions"], 8)
+        self.assertEqual(cohorts["gemma26"]["completedConditions"], 9)
+        self.assertEqual(cohorts["gemma26"]["p1Checkpoint"], {
+            "fixed60AllFourByPass": {"fresh1": 58, "fresh2": 58, "fresh3": 57},
+            "validByPass": {"fresh1": 60, "fresh2": 60, "fresh3": 59},
+            "failedIds": ["DEV-059"], "sharedValidDenominator": 59,
+            "sharedValidAllFourByPass": {"fresh1": 57, "fresh2": 57, "fresh3": 57},
+            "thirdPassKnownCostUsd": "0.01941923",
+            "thirdPassMissingCostCount": 1,
+            "cleanMatchedThreeEligible": False})
         self.assertEqual(cohorts["gemma26"]["fresh3P2"], {
             "status": "completed_composite_interrupted", "valid": 58,
             "failedIds": ["DEV-005", "DEV-006"], "allFour": 56,
@@ -55,7 +65,7 @@ class AnalysisRefreshTest(unittest.TestCase):
             "changedFourFieldVectorIds": ["DEV-013", "DEV-059"],
             "cleanMatchedThreeEligible": False})
         self.assertEqual(cohorts["gemma26"]["unscoredConditionsAtCutoff"],
-                         ["fresh3/P1"])
+                         [])
         self.assertEqual(cohorts["clefNativeP0"]["models"], {
             "clef": {"valid": 60, "allFour": 53, "denominator": 60},
             "clef-flash": {"valid": 60, "allFour": 45, "denominator": 60}})

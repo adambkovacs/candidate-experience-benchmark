@@ -34,6 +34,7 @@ SOURCES = (
     "public-site/gemma26-postabort-findings.json",
     "public-site/gemma26-p2-repeat-findings.json",
     "public-site/gemma26-fresh3-p0-checkpoint.json",
+    "public-site/gemma26-fresh3-p1-interrupted-checkpoint.json",
     "public-site/clef-findings.json",
     "public-site/clef-p0-repeat-findings.json",
     "public-site/clef-p0-third-checkpoint.json",
@@ -236,6 +237,7 @@ def build(root=ROOT):
     gemma_postabort = data["public-site/gemma26-postabort-findings.json"]
     gemma_p2_repeat = data["public-site/gemma26-p2-repeat-findings.json"]
     gemma_p0 = data["public-site/gemma26-fresh3-p0-checkpoint.json"]
+    gemma_p1 = data["public-site/gemma26-fresh3-p1-interrupted-checkpoint.json"]
     if (gemma_p0.get("schema") != "gemma26-on-v2-fresh3-checkpoint-v1" or
             gemma_p0.get("cutoff") != "P0" or gemma_p0.get("scoredSeriesConditions") != 8 or
             gemma_p0.get("denominator") != 60 or gemma_p0.get("cleanMatchedThreeEligible") is not False):
@@ -244,6 +246,44 @@ def build(root=ROOT):
         path = Path(item["path"])
         if path.is_absolute() or ".." in path.parts or sha(root / path) != item["sha256"]:
             raise ValueError("Gemma P0 checkpoint source hash differs")
+        bindings[item["path"]] = item["sha256"]
+    p1_scores = gemma_p1.get("conditions", {}).get("P1", {}).get("fixed60Scores", {})
+    p1_shared = gemma_p1.get("conditions", {}).get("P1", {}).get("allThreeSharedValid", {})
+    p1_usage = gemma_p1.get("conditions", {}).get("P1", {}).get("thirdPassUsage", {})
+    if (gemma_p1.get("schema") != "gemma26-fresh3-p1-interrupted-checkpoint-v1" or
+            gemma_p1.get("cutoff") != "P1_interrupted_after_DEV060" or
+            gemma_p1.get("denominator") != 60 or
+            gemma_p1.get("scoredSeriesConditions") != 9 or
+            gemma_p1.get("plannedConditions") != 9 or
+            gemma_p1.get("cleanMatchedThreeEligible") is not False or
+            gemma_p1.get("conditions", {}).get("P0") != gemma_p0["conditions"]["P0"] or
+            [p1_scores.get(name, {}).get("allFour") for name in ("fresh1", "fresh2", "fresh3")]
+                != [58, 58, 57] or
+            [p1_scores.get(name, {}).get("valid") for name in ("fresh1", "fresh2", "fresh3")]
+                != [60, 60, 59] or
+            any(p1_scores.get(name, {}).get("denominator") != 60 or
+                p1_scores[name].get("scoreKind") != "fixed_60"
+                for name in ("fresh1", "fresh2", "fresh3")) or
+            gemma_p1["conditions"]["P1"].get("failureIdsByPass") !=
+                {"fresh1": [], "fresh2": [], "fresh3": ["DEV-059"]} or
+            p1_shared.get("denominator") != 59 or
+            p1_shared.get("excludedIds") != ["DEV-059"] or
+            p1_shared.get("allFourMatches") !=
+                {"fresh1": 57, "fresh2": 57, "fresh3": 57} or
+            p1_usage.get("reportedKnownCostUsd") != "0.01941923" or
+            p1_usage.get("reportedCostCount") != 59 or
+            p1_usage.get("missingCostCount") != 1 or
+            p1_usage.get("providerBilledUsd") is not None or
+            p1_usage.get("pureInferenceSeconds") is not None or
+            p1_usage.get("reportedReasoningExceedsCompletion") is not True or
+            "categories conflict" not in p1_usage.get("tokenCategoryCaveat", "") or
+            len(gemma_p1.get("sourceBindings", [])) != 17):
+        raise ValueError("Gemma P1 interrupted checkpoint differs from reviewed source")
+    for item in gemma_p1["sourceBindings"]:
+        path = Path(item["path"])
+        if (path.is_absolute() or ".." in path.parts or
+                sha(root / path) != item["sha256"]):
+            raise ValueError("Gemma P1 checkpoint source hash differs")
         bindings[item["path"]] = item["sha256"]
     clef = data["public-site/clef-findings.json"]
     clef_repeat = data["public-site/clef-p0-repeat-findings.json"]
@@ -523,8 +563,19 @@ def build(root=ROOT):
                             "latestInterruptedPhase": deepseek["series"][0]["thirdInterruptionCheckpoint"]["phase"],
                             "latestInterruptedOutcomes": deepseek["series"][0]["thirdInterruptionCheckpoint"]["outcomes"],
                             "latestInterruptedScore": deepseek["series"][0]["thirdInterruptionCheckpoint"]["score"]},
-            "gemma26": {"source": "public-site/gemma26-fresh3-p0-checkpoint.json",
+            "gemma26": {"source": "public-site/gemma26-fresh3-p1-interrupted-checkpoint.json",
+                        "priorP0Source": "public-site/gemma26-fresh3-p0-checkpoint.json",
                         "p0Checkpoint": gemma_p0["conditions"]["P0"],
+                        "p1Checkpoint": {"fixed60AllFourByPass": {
+                            name: p1_scores[name]["allFour"] for name in ("fresh1", "fresh2", "fresh3")},
+                            "validByPass": {name: p1_scores[name]["valid"]
+                                for name in ("fresh1", "fresh2", "fresh3")},
+                            "failedIds": ["DEV-059"],
+                            "sharedValidDenominator": p1_shared["denominator"],
+                            "sharedValidAllFourByPass": p1_shared["allFourMatches"],
+                            "thirdPassKnownCostUsd": p1_usage["reportedKnownCostUsd"],
+                            "thirdPassMissingCostCount": p1_usage["missingCostCount"],
+                            "cleanMatchedThreeEligible": False},
                         "p2RepeatSource": "public-site/gemma26-p2-repeat-findings.json",
                         "p2Repeat": {"fixed60AllFourByPass": {name: gemma_repeat_scores[name]["allFour"]
                             for name in ("fresh1", "fresh2", "fresh3")},
@@ -535,7 +586,7 @@ def build(root=ROOT):
                             "cleanMatchedThreeEligible": False},
                         "priorCutoffSource": "public-site/gemma26-second-continuation-findings.json",
                         "completedConditionsAtSecondContinuation": gemma["completedConditions"],
-                        "completedConditions": gemma_p0["scoredSeriesConditions"],
+                        "completedConditions": gemma_p1["scoredSeriesConditions"],
                         "plannedConditions": gemma_postabort["plannedConditions"],
                         "cleanMatchedThreeEligible": False,
                         "fresh3P2": {"status": new_gemma["status"],
@@ -551,7 +602,7 @@ def build(root=ROOT):
                             "tokenAvailability": gemma_usage["tokenAvailability"],
                             "reportedReasoningExceedsCompletion": True,
                             "tokenCategoryCaveat": gemma_usage["tokenCategoryCaveat"]},
-                        "unscoredConditionsAtCutoff": ["fresh3/P1"],
+                        "unscoredConditionsAtCutoff": [],
                         "priorThirdContinuation": {"status": gemma_terminal["status"],
                             "failedId": gemma_terminal["new_failed_id"],
                             "neverSentCount": len(gemma_terminal["new_stage_never_sent_ids"]),

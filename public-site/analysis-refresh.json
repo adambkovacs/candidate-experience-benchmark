@@ -1033,7 +1033,7 @@
     },
     "gemma26": {
       "cleanMatchedThreeEligible": false,
-      "completedConditions": 8,
+      "completedConditions": 9,
       "completedConditionsAtSecondContinuation": 6,
       "fresh3P2": {
         "allFour": 56,
@@ -2155,6 +2155,30 @@
           "tokenCategoryCaveat": "Provider-reported reasoning tokens exceed completion tokens here; the categories conflict and must not be added or treated as a reliable subset."
         }
       },
+      "p1Checkpoint": {
+        "cleanMatchedThreeEligible": false,
+        "failedIds": [
+          "DEV-059"
+        ],
+        "fixed60AllFourByPass": {
+          "fresh1": 58,
+          "fresh2": 58,
+          "fresh3": 57
+        },
+        "sharedValidAllFourByPass": {
+          "fresh1": 57,
+          "fresh2": 57,
+          "fresh3": 57
+        },
+        "sharedValidDenominator": 59,
+        "thirdPassKnownCostUsd": "0.01941923",
+        "thirdPassMissingCostCount": 1,
+        "validByPass": {
+          "fresh1": 60,
+          "fresh2": 60,
+          "fresh3": 59
+        }
+      },
       "p2Repeat": {
         "changedFourFieldVectorIds": [
           "DEV-013",
@@ -2176,16 +2200,15 @@
       "p2RepeatSource": "public-site/gemma26-p2-repeat-findings.json",
       "plannedConditions": 9,
       "priorCutoffSource": "public-site/gemma26-second-continuation-findings.json",
+      "priorP0Source": "public-site/gemma26-fresh3-p0-checkpoint.json",
       "priorThirdContinuation": {
         "failedId": "DEV-006",
         "neverSentCount": 54,
         "score": null,
         "status": "stopped_unscored"
       },
-      "source": "public-site/gemma26-fresh3-p0-checkpoint.json",
-      "unscoredConditionsAtCutoff": [
-        "fresh3/P1"
-      ],
+      "source": "public-site/gemma26-fresh3-p1-interrupted-checkpoint.json",
+      "unscoredConditionsAtCutoff": [],
       "usage": {
         "clientRequestSecondsTotal": 1609.5669084999645,
         "missingCostCount": 2,
@@ -3976,6 +3999,10 @@
       "sha256": "89cdf0bb3dcc82c4aa90662b4994067c8faa99b7c16b9244ef07d14394bdd8bf"
     },
     {
+      "path": "public-site/gemma26-fresh3-p1-interrupted-checkpoint.json",
+      "sha256": "2dab60820ffde5c4e31b871bf95a31d975ca28663ec2a6ad0cc22eca4b770176"
+    },
+    {
       "path": "public-site/gemma26-p2-repeat-findings.json",
       "sha256": "f595203141acf14ab9994e39d329ad177fdd79a429fa17844af553728c448fd9"
     },
@@ -4208,6 +4235,10 @@
       "sha256": "a5e9a5472eba60f5742955875dcdb51b6aec45cd96aabe992493d6cb54b81d1c"
     },
     {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P1/development.attempts.jsonl",
+      "sha256": "31d7d57bc75c33188161973182f7cedffc09c8b3e2514a5e7ebab1a17535df81"
+    },
+    {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/manifest.json",
       "sha256": "fba7273c9691deff399e38e34970c642f268b761659132734962a8273aadca29"
     },
@@ -4224,8 +4255,36 @@
       "sha256": "2b146729c6924d4a9b32af243670f1fe08fdcc4e454195ece3426657015c984a"
     },
     {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-interrupted-reconciliation.json",
+      "sha256": "55b85c6f7baac4d2c1a0121c2aec8b299268162bf01eca7716392d659bb92c54"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-interrupted.root-review.json",
+      "sha256": "490031bb42d883176e8e4a95c661d029226b736764f00fcdd3cb2a3dfd26aeba"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-terminal-pending-review.json",
+      "sha256": "f8498590b50fd3dfabd251f8e96fa5f96f9114983b1be839a7e28f8ddc2b0c19"
+    },
+    {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/manifest.json",
       "sha256": "591c228bdc3f5a70dbc97b82bd6d7f83879abd82b67acefc02cdb3234ef06f72"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/manifest.json",
+      "sha256": "e9cab67e6c235cf0ba99b345fd424cd7f36e54b460c9465e5e983097beedab3a"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/reconciliation.json",
+      "sha256": "de56faf4aa1c73f73ec5863100c8cb61d9e15b209f58b02f5636595603b8de0a"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-interrupted-checkpoint-v1/public-projection.json",
+      "sha256": "dabd6464e01ef30043e322bd036a0973e331a66ad038758fabbda15f9499d031"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-interrupted-checkpoint-v1/terminal-public-review.json",
+      "sha256": "53db09c6a97272b21663ca12aa3f145a4312e7a0a99a7281e74358a8664da862"
     },
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3/manifest.json",
@@ -4238,6 +4297,10 @@
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.attempts.jsonl",
       "sha256": "97ab8826f07400cedc7e686ba453fd4006a0a3d45e4a7e0a9c031d0646995780"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P1/development.attempts.jsonl",
+      "sha256": "c8e06f4ecf6fd5679e98a879b64a187475572dafa4604d78c94da7edb90d1870"
     },
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.attempts.jsonl",
@@ -4284,8 +4347,16 @@
       "sha256": "53a002f0b3fa937e95ecdca26fcf41de893d52ed3e1ba1538029a0c5e77028ef"
     },
     {
+      "path": "scripts/build_gemma26_fresh3_p1_interrupted.py",
+      "sha256": "67a4a001f9ac6bd7e7f85d9c9be45c7731851f3c837b18f23c00a26914c048c4"
+    },
+    {
       "path": "scripts/build_gemma26_p2_repeat_findings.py",
       "sha256": "252487d1cf2d9c59175969114a0e2e10617f1843797aa7a3cdf3cfd0ed6b6186"
+    },
+    {
+      "path": "scripts/gemma26_fresh3_p1_dev060_suffix_v1.py",
+      "sha256": "210ee09ded1837f8d381d8323c97d61ede1ba606be6fcfd76aa91771dffb72aa"
     }
   ]
 }
