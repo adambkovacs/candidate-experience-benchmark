@@ -12,6 +12,15 @@
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
 
   const hostedV2Ids = {'openrouter-paid-gemma4-26b-a4b-on': 'gemma26-on-fresh-matched3-v2', 'openrouter-paid-qwen3.8-27b-medium': 'qwen27-fresh-matched3-v2-medium', 'openrouter-paid-qwen3.8-27b-xhigh': 'qwen27-fresh-matched3-v2-xhigh'};
+  const priceUrl = './subscription-price-estimates.json';
+  const optionalPricing = () => {
+    const load=Promise.resolve().then(() => fetch(priceUrl))
+      .then(response => response.ok ? response.json() : null).catch(() => null);
+    if (typeof setTimeout !== 'function') return load;
+    let timer;
+    const timeout=new Promise(resolve => {timer=setTimeout(() => resolve(null),3000);});
+    return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
+  };
   const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json'];
   const e4bInterruptionUrl = './e4b-interruption-findings.json';
   const e4bInterruptionId = 'gemma4-e4b-sdk-thinking-on';
@@ -42,7 +51,7 @@
     'openrouter-paid-qwen36-35b-a3b-off': 'openrouter-paid-qwen36-35b-a3b-off-fresh-matched3-v2',
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
-  Promise.all(feedUrls.map(url => fetch(url).then(r => {
+  Promise.all([...feedUrls.map(url => fetch(url).then(r => {
     if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl) && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
@@ -715,7 +724,10 @@
       }
       return payload;
     });
-  }))).then(payloads => {
+  })), optionalPricing()]).then(results => {
+    const candidate=results.pop();
+    const subscriptionPricing=candidate?.schema === 'subscription-price-estimates-v1' ? candidate : null;
+    const payloads=results;
     const e4bInterruption = payloads.find(payload => payload?.interruption)?.interruption || null;
     const loadedSeries = payloads.flatMap(payload => payload?.series || (payload ? [payload] : []));
     const gemmaSecondReport = payloads.find(payload => payload?.gemmaSecond)?.gemmaSecond || null;
@@ -743,6 +755,12 @@
       s?.schema === 'additional-hosted-fresh-repeat-findings-v1' &&
       s?.configuration === 'openrouter-paid-deepseek-v41-flash-low'));
     if (!series.length) throw Error('No repeat series');
+    const subscriptionPrice = (item, pass, condition) => {
+      const entry=subscriptionPricing?.repeatPhases?.[`${item.configuration}:${pass}:${condition}`];
+      return entry?.model === item.model && entry?.scope === 'repeat_development_phase' ? entry : null;
+    };
+    const priceSource = entry => /^https:\/\/(platform\.claude\.com|developers\.openai\.com)\//.test(entry?.rate?.sourceUrl || '')
+      ? `<a href="${esc(entry.rate.sourceUrl)}" target="_blank" rel="noopener noreferrer">Public rate ↗</a>` : '';
     const isFreshCodex = s => s.schema === 'codex-fresh-repeat-findings-v1' && s.method === 'fresh-matched-three';
     const isFreshHosted = s => (s.schema === 'deepseek-fresh-repeat-findings-v1' ||
       s.schema === 'additional-hosted-fresh-repeat-findings-v1' || s.schema === 'hosted-v2-fresh-repeat-findings-v1') && s.method === 'fresh-matched-three';
@@ -777,7 +795,7 @@
       <div id="repeat-chart" aria-live="polite"></div>
       <div class="repeat-detail-grid"><div><h3 id="repeat-delta-title">How did prompt scores change across passes?</h3><p id="repeat-delta-intro">Change in matching answers compared with P0 in the same pass. Positive means more matches; negative means fewer.</p><div id="repeat-deltas"></div></div>
       <div><h3>Which answers changed?</h3><label class="repeat-control"><span id="repeat-condition-label">Prompt condition</span> <select id="repeat-condition">${Object.entries(conditions).map(([k,v]) => `<option value="${k}">${k}: ${v}</option>`).join('')}</select></label><div id="repeat-flips" aria-live="polite"></div></div></div>
-      <details class="repeat-usage"><summary>Requests, tokens and reported costs</summary><p>Each completed row covers 60 comments. Request counts depend on whether the configuration uses individual comments or batches. Smoke tests are separate. Input and cache counts follow each provider's definitions and must not be added without checking them. Some providers report a charge. Estimates from published token or CLI prices appear separately; these estimates are not bills. Subscription costs per run and model-only inference time remain unavailable. Request durations include client and service overhead.</p><div class="table-wrap"><table><caption>Recorded development usage</caption><thead><tr><th>Condition</th><th>Pass</th><th>Requests</th><th>Input tokens</th><th>Output tokens</th><th>Reported cost (USD)</th><th>Price-based estimate (USD)</th><th>Sum of request seconds</th></tr></thead><tbody id="repeat-usage-body"></tbody></table></div></details>`;
+      <details class="repeat-usage"><summary>Requests, tokens and reported costs</summary><p>Each completed row covers 60 comments. Request counts depend on whether the configuration uses individual comments or batches. Smoke tests are separate. Claude input excludes cache reads and writes; Codex input includes cached tokens. Reasoning tokens are already in output and are not counted twice. Some providers report a charge. API-equivalent estimates use public rates and are not subscription bills. Subscription charge and quota use per run remain unknown. Request durations include client and service overhead.</p><div class="table-wrap"><table><caption>Recorded development usage</caption><thead><tr><th>Condition</th><th>Pass</th><th>Requests</th><th>Input tokens</th><th>Output tokens</th><th>Reported cost (USD)</th><th>Price-based estimate (USD)</th><th>Sum of request seconds</th></tr></thead><tbody id="repeat-usage-body"></tbody></table></div></details>`;
     const configControl = document.getElementById('repeat-config');
     const fieldControl = document.getElementById('repeat-field');
     const conditionControl = document.getElementById('repeat-condition');
@@ -877,6 +895,10 @@
         : `${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt-and-pass runs'} have final results for the same ${data.denominator} fictional comments. Finished runs can include failed or unusable answers. ${data.displayName || data.configuration}. Open study details for costs and measurement limits.`;
       if (readerSummary && interruptedE4b) readerSummary.textContent +=
         ' Fresh pass 2 P2 has 50 valid saved responses, two unknown timeouts and eight unsent comments; it has no final score.';
+      const seriesPrice=subscriptionPricing?.repeatSeries?.[data.configuration];
+      if (readerSummary && seriesPrice && seriesPrice.model === data.model && seriesPrice.fullSeriesEstimateUsd !== null) {
+        readerSummary.textContent += ` API-equivalent estimate across ${seriesPrice.totalPhases} phases: ${money(seriesPrice.fullSeriesEstimateUsd)}. Subscription charge and quota use are unknown.`;
+      }
       document.getElementById('repeat-lead').textContent = gemmaSecond
         ? 'This is the second Gemma 26B interruption cutoff. Fresh pass 2 P0 combines DEV-001, the preserved DEV-002 service error and a separately dispatched suffix of 58 saved responses. Its fixed-60 score includes the failed request. Fresh pass 3 P2 stopped after DEV-005: four valid, one service error and 55 not sent. That phase has no score. The first cutoff and historical hosted evidence remain separate.'
         : qwen27Final
@@ -1058,7 +1080,11 @@
         const u = (localFresh || nativeP0 || freshCodex || freshHosted || qwenContinuation || deepseekLowContinuation || deepseekThird) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
         const elapsed = u?.requestSecondsTotal ?? u?.clientHttpCallSecondsTotal ?? u?.clientRequestSecondsTotal ?? u?.clientPredictionSeconds;
         const nativePositions = nativeL1 && u?.tokens?.input_token_positions != null ? `<br><small>Native input positions: ${number(u.tokens.input_token_positions)} (not billed tokens)</small>` : nativeAlex && u?.nativeNliInputTokenPositions != null ? `<br><small>Native NLI input positions: ${number(u.nativeNliInputTokenPositions)}</small>` : '';
-        return `<tr><th scope="row">${c}</th><td>${displayPass(p)}${interrupted || nativeStop || generatedStop ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}${u?.providerReasoningTokensAboveCompletionCount ? `<br>Provider reasoning count exceeds output count in ${number(u.providerReasoningTokensAboveCompletionCount)} responses; retained as reported.` : ''}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
+        const subscription=subscriptionPrice(data,p,c);
+        const priceCell=subscription
+          ? `${money(subscription.estimateUsd)}<br><small>Current public-rate estimate, ${esc(subscription.rate.checkedDate)} · ${priceSource(subscription)}${subscription.estimateUsd === null ? ` · ${esc(subscription.estimateStatus.replace(/_/g,' '))}` : subscription.estimateStatus === 'known_usage_only' ? ' · known usage only' : ''}</small>${subscription.estimateUsd === null && u?.cliListPriceEstimateUsd != null ? `<br><small>Saved CLI API-equivalent estimate: ${money(u.cliListPriceEstimateUsd)}. Cache lifetime was not resolved for the current-rate calculation.</small>` : ''}`
+          : `${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}`;
+        return `<tr><th scope="row">${c}</th><td>${displayPass(p)}${interrupted || nativeStop || generatedStop ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}${u?.providerReasoningTokensAboveCompletionCount ? `<br>Provider reasoning count exceeds output count in ${number(u.providerReasoningTokensAboveCompletionCount)} responses; retained as reported.` : ''}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${priceCell}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
       })).join('');
     }
     configControl.addEventListener('change', render);

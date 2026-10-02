@@ -15,6 +15,8 @@ function fixture() {
   const conditionGrid = {innerHTML: '', querySelectorAll() { return []; }};
   const metric = {value: 'all_four'};
   const ledger = {innerHTML: '', querySelectorAll() { return []; }};
+  const usagePicker = {innerHTML: '', value: ''};
+  const inspectPicker = {innerHTML: '', value: ''};
   const ledgerControls = {
     '#search': {value: ''}, '#condition-filter': {value: ''},
     '#surface-filter': {value: ''}, '#include-incomplete': {checked: true},
@@ -31,6 +33,8 @@ function fixture() {
       if (selector === '#experiment-context') return contextLabel;
       if (selector === '#condition-grid') return conditionGrid;
       if (selector === '#metric') return metric;
+      if (selector === '#usage-run-select') return usagePicker;
+      if (selector === '#inspect-run-select') return inspectPicker;
       if (Object.prototype.hasOwnProperty.call(ledgerControls, selector)) return ledgerControls[selector];
       return null;
     },
@@ -43,13 +47,13 @@ function fixture() {
       };
     },
   };
-  const instrumented = source.replace('  init();\n})();', '  globalThis.__pairUi = {state,renderAuditedComparison,renderExperiment,renderLedger,comparisonNote};\n})();');
+  const instrumented = source.replace('  init();\n})();', '  globalThis.__pairUi = {state,renderAuditedComparison,renderExperiment,renderLedger,renderSectionRunPickers,comparisonNote};\n})();');
   assert.notEqual(instrumented, source, 'test hook must replace only the init call');
   const context = {document, URL};
   vm.runInNewContext(instrumented, context, {filename: 'app.js'});
-  return {ui: context.__pairUi, panel: () => panel, note: () => note.textContent,
+  return {ui: context.__pairUi, experiment, panel: () => panel, note: () => note.textContent,
     conditionGrid: () => conditionGrid.innerHTML, ledger: () => ledger.innerHTML,
-    focused: () => focused};
+    usagePicker, inspectPicker, focused: () => focused};
 }
 
 function report() {
@@ -190,4 +194,33 @@ test('incomplete run keeps its fixed-denominator count as an explicit partial ta
   ui.renderLedger();
   assert.match(ledger(), /42<\/strong><small> \/ 60 · partial tally, not final<\/small>/);
   assert.match(ledger(), /59 \/ 60 saved · 1 missing/);
+});
+
+test('resource and individual-run pickers contain the same saved runs and selection', () => {
+  const {ui, usagePicker, inspectPicker} = fixture();
+  ui.state.data = {runs: [
+    {id: 'model-a', condition: 'P0', model: 'Fable', effort: 'high', surface: 'Claude subscription', complete: true, records: 60},
+    {id: 'model-b', condition: 'P1', model: 'Gemma', effort: 'low', surface: 'Local / specialist', complete: false, records: 42},
+  ]};
+  ui.state.selectedId = 'model-b';
+  ui.renderSectionRunPickers();
+  assert.equal(usagePicker.innerHTML, inspectPicker.innerHTML);
+  assert.match(usagePicker.innerHTML, /model-a/);
+  assert.match(usagePicker.innerHTML, /model-b · partial/);
+  assert.equal(usagePicker.value, 'model-b');
+  assert.equal(inspectPicker.value, 'model-b');
+});
+
+test('historical Fable card links its separate matched batch series', () => {
+  const {ui, experiment, conditionGrid} = fixture();
+  const historical = {id: 'fable51-high', condition: 'P0', model: 'Fable', effort: 'high', surface: 'Claude subscription', complete: true, records: 60, metrics: {all_four: 57}};
+  ui.state.data = {runs: [historical], promptComparisons: [], roster: []};
+  ui.state.experiments = new Map([['fable51-high', [historical]]]);
+  experiment.value = 'fable51-high';
+  ui.renderExperiment();
+  assert.match(conditionGrid(), /NO MATCHED RUN/);
+  assert.match(conditionGrid(), /one comment per request/);
+  assert.match(conditionGrid(), /batch-of-10 prompt series/);
+  assert.match(conditionGrid(), /fable51-high-phase2-batch10-p0/);
+  assert.doesNotMatch(conditionGrid(), /NOT APPLICABLE/);
 });

@@ -47,7 +47,7 @@ function fresh(configuration, completed = {}) {
     withinPassPromptDeltas: [], pairwiseFlips: [], changesAcrossThreePasses: {}};
 }
 
-async function render(freshFeed, status = 200, selected = names[0] + '-fresh-matched3') {
+async function render(freshFeed, status = 200, selected = names[0] + '-fresh-matched3', pricing = {series: []}, cliEstimate = null, pendingPrice = false) {
   const elements = new Map(ids.map(id => [id, {innerHTML: '', textContent: '', value: '',
     addEventListener(type, fn) { this[type] = fn; }}]));
   const requested = [];
@@ -55,23 +55,72 @@ async function render(freshFeed, status = 200, selected = names[0] + '-fresh-mat
   const historical = {...fresh(names[0], {fresh1: {P0: 5}}),
     schema: 'repeat-findings-v1', method: undefined, seriesId: undefined,
     displayName: 'Historical same configuration', passOrder: ['original', 'repeat2', 'repeat3'],
-    passes: {original: {P0: {score: score(5), usage: {requestCount: 6}}}, repeat2: {}, repeat3: {}}};
+    passes: {original: {P0: {score: score(5), usage: {requestCount: 6,
+      cliListPriceEstimateUsd: cliEstimate}}}, repeat2: {}, repeat3: {}}};
   const fetch = async url => {
     requested.push(url);
     if (url === feedUrl) return {ok: status === 200, status, json: async () => freshFeed};
+    if (url === './subscription-price-estimates.json') return pendingPrice
+      ? new Promise(() => {}) : {ok: true, status: 200, json: async () => pricing};
     return {ok: true, status: 200, json: async () => url === './typesafe-repeats.json'
       ? {series: [historical]} : {series: []}};
   };
   elements.get('repeat-config').value = selected;
   elements.get('repeat-field').value = 'allFour';
   elements.get('repeat-condition').value = 'P0';
-  vm.runInNewContext(source, {document, fetch, console}, {filename: 'repeats.js'});
+  vm.runInNewContext(source, {document, fetch, console,
+    ...(pendingPrice ? {setTimeout: callback => {setImmediate(callback); return 1;},
+      clearTimeout() {}} : {})}, {filename: 'repeats.js'});
   await new Promise(resolve => setImmediate(resolve));
+  if (pendingPrice) await new Promise(resolve => setImmediate(resolve));
   return {get: id => elements.get(id), requested, select(value) {
     elements.get('repeat-config').value = value;
     elements.get('repeat-config').change();
   }};
 }
+
+test('fresh Codex usage shows API-equivalent public-rate estimate and unknown charge', async () => {
+  const config = 'codex-gpt-6-sol-low-batch10';
+  const key = config + ':fresh1:P0';
+  const payload = {schema: 'codex-fresh-repeat-findings-v1',
+    series: names.map(name => fresh(name, name === config ? {fresh1: {P0: 55}} : {}))};
+  const pricing = {schema: 'subscription-price-estimates-v1',
+    repeatPhases: {[key]: {model: 'gpt-6-sol', scope: 'repeat_development_phase',
+      estimateUsd: '0.0074333', estimateStatus: 'complete',
+      rate: {checkedDate: '2026-10-02',
+        sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-6-sol'}}},
+    repeatSeries: {[config]: {model: 'gpt-6-sol', totalPhases: 9,
+      fullSeriesEstimateUsd: null}}};
+  const ui = await render(payload, 200, config + '-fresh-matched3', pricing);
+  const html = ui.get('repeat-usage-body').innerHTML;
+  assert.match(html, /\$0\.0074333/);
+  assert.match(html, /Current public-rate estimate, 2026-10-02/);
+  assert.match(html, /Public rate ↗/);
+  assert.match(ui.get('repeat-results').innerHTML, /Reasoning tokens are already in output/);
+  assert.match(html, /Cache read: Unavailable/);
+  assert.match(html, /Unavailable<\/td><td>\$0\.0074333/);
+});
+
+test('unpriced current rate retains the saved CLI estimate as a separate figure', async () => {
+  const config = names[0];
+  const pricing = {schema: 'subscription-price-estimates-v1',
+    repeatPhases: {[`${config}:original:P0`]: {model: 'gpt-6-sol',
+      scope: 'repeat_development_phase', estimateUsd: null,
+      estimateStatus: 'cache_write_duration_unknown',
+      rate: {checkedDate: '2026-10-02',
+        sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-6-sol'}}}};
+  const ui = await render({series: []}, 200, config, pricing, '0.042984');
+  const html = ui.get('repeat-usage-body').innerHTML;
+  assert.match(html, /Current public-rate estimate.*cache write duration unknown/);
+  assert.match(html, /Saved CLI API-equivalent estimate: \$0\.042984/);
+});
+
+test('a pending optional price fetch does not hold required repeat results', async () => {
+  const ui = await render({schema: 'codex-fresh-repeat-findings-v1',
+    series: names.map(name => fresh(name, name === names[0] ? {fresh1: {P0: 35}} : {}))},
+  200, names[0] + '-fresh-matched3', {series: []}, null, true);
+  assert.match(ui.get('repeat-results').innerHTML, /Model and test setup/);
+});
 
 test('six fresh Codex series remain separate from same-ID historical result', async () => {
   const payload = {schema: 'codex-fresh-repeat-findings-v1',

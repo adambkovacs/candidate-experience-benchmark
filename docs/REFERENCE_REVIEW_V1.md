@@ -57,3 +57,7 @@ The [calculation file](../results/reference-review-v1.json) changes only DEV-006
 | 38 strict P0 configurations, 2,280 configuration-review outcomes | 2,143/2,280 | 2,139/2,280 (-4) | 2,233/2,280 | 2,239/2,280 (+6) |
 
 On DEV-006, 22 of the 38 strict predictions say `no` and 16 say `insufficient_information` for serious concern. The full-record matches move from 13 to 9 because several `no` predictions disagree on another field. This is why the field-level improvement and all-four decline can coexist. These 38 configurations are correlated runs on the same synthetic cases, not independent adjudicators. The changed score would describe agreement with a revised AI reference, not measured real-world accuracy.
+
+## Human review status, 2 October 2026
+
+The project owner confirmed in this task that the answers have been checked by people and requested removal of the website statement that no independent person had checked them. The public copy now reflects that confirmation. This updates review status; the message did not supply replacement labels or authorize overwriting frozen scoring keys. The original review above remains a dated record, and published historical scores retain their versioned references.

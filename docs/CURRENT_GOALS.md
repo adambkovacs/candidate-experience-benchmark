@@ -2,6 +2,12 @@
 
 Updated 2026-09-28 after classification-bench implementation moved to a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
 
+## Scope and review update, 2 October 2026
+
+Add Claude Sonnet 5.5 through the subscription CLI at low, medium, high and xhigh, with P0/P1/P2 and three declared full passes. Preserve its first stopped smoke and admit any changed guard as a separately versioned configuration. Max and ultra remain excluded. The user confirmed human checking of all 60 reference answers; keep original labels and scores versioned rather than silently changing them. Lower-page model selection, historical-to-matched-series links and cache-aware API-equivalent subscription price estimates are required website improvements. See [the latest checklist](TODO.md) and [prompt coverage audit](PROMPT_COVERAGE_AUDIT_2026-10-02.md).
+
+The reported remaining OpenRouter account balance is available for this work within the existing authorization. It is not a new aggregate cap or permission to discard unresolved charge bounds. Ask for a numeric increase when the remaining authorized capacity prevents required execution.
+
 ## Scope update, 30 September 2026
 
 The user-approved [app goal](APP_GOAL.md) now includes the newly requested decision models and Jev hosted-route comparisons from the [route audit](DECISION_MODEL_ROUTE_AUDIT_2026-09-30.md). Admit each exact configuration separately after interface, context, account and cost checks; these additions do not authorize spending above the existing caps. Website work must put useful comparisons first and keep detailed evidence accessible. Use [the current checklist](TODO.md) for ownership and next steps. Existing frozen runs and historical failures remain intact.

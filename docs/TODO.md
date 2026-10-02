@@ -1,5 +1,14 @@
 # Current work checklist
 
+## Latest checkpoint — 2 October 2026
+
+The host is awake again. The separately admitted Mistral DEV-049–060 continuation is closed and preserved in `48c8d62a`: DEV-049 returned a valid response; DEV-050 hit the provider's shared-pool HTTP 429 limit; DEV-051–060 were never sent. This was not an account-balance rejection. The child is sealed with $0.00023835 known cost and $0.04177920 retained unknown-charge bound. The original DEV-048 timeout is unchanged. No failed request was replayed.
+
+Sonnet 5.5 low/medium/high/xhigh is being admitted as a new matched P0/P1/P2 three-pass series. Independent review approved the repaired parser binding and post-smoke admission gate. The first low/P0 smoke returned three structured predictions from the exact model, then stopped on the old built-in-plugin allowlist. Original `service_error` evidence is retained; no full phase was admitted. The separately versioned guard passed independent review; low P0 has completed 60 records, medium/high/xhigh P0 development and low P1 development are underway. No original smoke replay occurred. Website work adds selectors beside lower-page results, links historical Fable to its completed batch-of-ten P0/P1/P2 repeat series, and adds cache-aware API-equivalent subscription price estimates. These changes are not yet published. The user confirmed human checking of the references; frozen labels and historical scores remain unchanged.
+
+The older checkpoints below are historical, including their host-sleep blocker and balances.
+
+
 Updated 1 October 2026. This is the current coordination list. Frozen manifests and saved responses establish execution status; this checklist does not authorize spending or change the experiment protocol. See [current goals](CURRENT_GOALS.md) and the [detailed roster](REMAINING_ROSTER_2026-09-29.md).
 
 ## Active assignments
