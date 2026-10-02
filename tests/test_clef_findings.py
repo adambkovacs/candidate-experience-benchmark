@@ -43,6 +43,12 @@ class ClefFindingsTests(unittest.TestCase):
         self.assertEqual(len(result['chosenProbabilityHighErrors']), 10)
         self.assertEqual(result['vendorConfidenceHighErrors'], [])
         self.assertEqual(result['nativeDistribution']['zeroTrueClassProbabilityCount'], 0)
+        curve = result['postHocThresholdSelection']
+        at_nine = next(row for row in curve if row['thresholdInclusive'] == 0.9)
+        self.assertEqual((at_nine['retained'], at_nine['matchingRetained']), (60, 50))
+        at_ninety_five = curve[-1]
+        self.assertEqual(at_ninety_five['sentForReview'], 60)
+        self.assertIsNone(at_ninety_five['agreementAmongRetained'])
 
     def test_non_distribution_rejected(self):
         field = 'follow_up_needed'

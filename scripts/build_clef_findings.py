@@ -119,6 +119,17 @@ def field_metrics(entries, field):
                             if avg_probability is not None else None,
                             'observedAccuracy': round(observed_accuracy, 6)
                             if observed_accuracy is not None else None})
+    threshold_selection = []
+    for threshold in (0.0, 0.5, 0.7, 0.8, 0.9, 0.95):
+        retained = [item for item in entries if
+                    item['probabilities'][field][item['prediction'][field]] >= threshold]
+        matches = sum(item['prediction'][field] == item['reference'][field]
+                      for item in retained)
+        threshold_selection.append({'thresholdInclusive': threshold,
+            'retained': len(retained), 'sentForReview': n - len(retained),
+            'matchingRetained': matches, 'nonmatchingRetained': len(retained) - matches,
+            'coverageOf60': round(len(retained) / n, 6),
+            'agreementAmongRetained': round(matches / len(retained), 6) if retained else None})
     hits = sum(confusion[value][value] for value in choices)
     return {'valid': n, 'correct': hits, 'accuracy': round(hits / n, 6),
             'confusion': confusion,
@@ -130,7 +141,8 @@ def field_metrics(entries, field):
                 'chosenLabelReliability': reliability,
                 'chosenLabelEceFiveBins': round(ece, 6)},
             'vendorConfidenceHighErrors': vendor_errors,
-            'chosenProbabilityHighErrors': chosen_probability_errors}
+            'chosenProbabilityHighErrors': chosen_probability_errors,
+            'postHocThresholdSelection': threshold_selection}
 
 
 def terminal_model(sources, model, manifest, labels, development_ledger):
