@@ -109,9 +109,10 @@ class ReaderStoryTests(unittest.TestCase):
         assert 'role="status"' in library
         groups = re.findall(r'<details class="note-group" id="([^"]+)">', library)
         assert groups == ["repeat-note-prompts", "repeat-note-changes", "repeat-note-stable", "repeat-note-invalid"]
-        assert len(re.findall(r'<p class="analysis-caveat">', library)) == 25
+        assert len(re.findall(r'<p class="analysis-caveat">', library)) == 26
         sources = re.findall(r'href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/([^"]+)"', library)
-        assert len(sources) == 26
+        assert len(sources) == 28
+        assert "docs/SONNET55_FRESH_MATCHED3_FINDINGS_2026-10-02.md" in sources
         assert all((ROOT / source).is_file() for source in sources)
 
 

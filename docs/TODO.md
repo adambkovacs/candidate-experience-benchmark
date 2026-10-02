@@ -1,6 +1,10 @@
 # Current work checklist
 
-## Latest checkpoint — 2 October 2026
+## Restart recovery and analysis refresh — 2 October 2026
+
+The forced restart interrupted the analysis/publication work, not a running model request. The completed Sonnet study remains published. The offline analysis refresh, website section and tests survived locally; its 62 source bindings and focused tests pass. Final review and publication are being resumed. The app goal remains blocked and points to an older attachment; the updated replacement text is [APP_GOAL.md](APP_GOAL.md). The approved cap is $12.38, not the attachment’s older $10. No completed inference is to be replayed.
+
+## Latest execution checkpoint — 2 October 2026
 
 The host is awake again. The separately admitted Mistral DEV-049–060 continuation is closed and preserved in `48c8d62a`: DEV-049 returned a valid response; DEV-050 hit the provider's shared-pool HTTP 429 limit; DEV-051–060 were never sent. This was not an account-balance rejection. The child is sealed with $0.00023835 known cost and $0.04177920 retained unknown-charge bound. The original DEV-048 timeout is unchanged. No failed request was replayed.
 

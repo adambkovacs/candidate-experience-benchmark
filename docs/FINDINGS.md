@@ -4,6 +4,10 @@ This analysis asks what the saved responses reveal about classification, instruc
 
 [Open the visual findings](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) · [Download the calculations](../public-site/findings.json) · [Read the labeling guide](LABELING_GUIDE.md)
 
+## Review updated 2 October 2026
+
+The [latest synthesis](ANALYSIS_REFRESH_2026-10-02.md) checks the newer completed and interrupted studies, including all 36 Sonnet 5.5 runs. The 39-setup charts below describe the original first-pass cohort; they do not include every later repeat. Cohort counts are kept separate to avoid counting historical baselines and their fresh replacements twice. The expanded Claude review includes 17 earlier configurations and four new Sonnet settings: no configuration gained all-four matches from P1 or P2 over P0 in every pass. Sonnet xhigh kept 58/60 throughout while changing individual answers under P1 and P2. See the synthesis for the field-level differences, changed-review IDs, tokens and cache-sensitive costs.
+
 ## More instructions did not consistently improve agreement
 
 Across **39 audited hosted and subscription prompt setups**, classifier framing (P1) improved all-four agreement over the original rubric (P0) in 15 setups, tied in 15, and worsened it in 9. Adding the SOP and decision tree (P2) to P1 improved 4, tied 14, and worsened 21.
@@ -12,9 +16,9 @@ Across **39 audited hosted and subscription prompt setups**, classifier framing 
 | --- | ---: | ---: | ---: |
 | Original rubric → classifier framing | 15 | 15 | 9 |
 | Original rubric → decision tree | 7 | 16 | 16 |
-| Classifier framing → decision tree | 4 | 13 | 21 |
+| Classifier framing → decision tree | 4 | 14 | 21 |
 
-Five additional eligible comparisons use local SDK models with historical baselines: Gemma E2B and E4B with thinking off/on, and Qwen 3.5 4B with thinking off. Including them gives 43 setups and a P1→P2 tally of 8 improvements, 13 ties and 22 declines. We show those five separately so that local execution and historical-baseline evidence remain visible.
+Five additional eligible comparisons use local SDK models with historical baselines: Gemma E2B and E4B with thinking off/on, and Qwen 3.5 4B with thinking off. Including them gives 44 setups and a P1→P2 tally of 8 improvements, 14 ties and 22 declines. We show those five separately so that local execution and historical-baseline evidence remain visible.
 
 Each setup uses the same 60 reviews. A tied score can conceal changed answers, so the explorer also exposes record-by-record transitions. P0 already contains the rubric and output schema: this compares additional instructions with an already instructed classifier.
 
@@ -28,7 +32,7 @@ TypeSafe Jev 1.13 P0 returned 60 valid responses and matched all four judgments 
 
 | Review | Difference from the saved reference | Interpretation |
 | --- | --- | --- |
-| DEV-006 | Serious concern: no instead of insufficient information | The text mentions an unresolved "thing" without saying what happened. The reference boundary needs adjudication. |
+| DEV-006 | Serious concern: no instead of insufficient information | The text mentions an unresolved "thing" without saying what happened. A versioned review proposes changing the reference to no; published scores retain the original key. |
 | DEV-013 | Sentiment: positive instead of neutral | "Straightforward" and "no complaint" sit near the neutral/positive boundary. |
 | DEV-027 | Sentiment: negative instead of positive; testimonial: no instead of yes | The review explicitly praises a switch to video after a cancelled train. This is a clear disagreement with the stated rubric. |
 | DEV-029 | All four fields | A restaurant review should be treated as off-topic. Jev classified the food experience instead. |
@@ -65,19 +69,19 @@ These named examples illustrate methods and overlapping errors; they are not a r
 
 In the P0 runs of the 39 audited hosted/subscription configurations, DEV-013 drew 30 valid disagreements, DEV-030 drew 28, and DEV-006 drew 26. Each denominator is 39 configurations answering the same review, not 39 independently sampled reviews. The website shows all 60 reviews, separates invalid responses, and links to the wording and labels.
 
-All three cases involve interpretation rather than a simple explicit category: mild praise versus neutrality, uncertain resolution, and an unspecified recurring problem. They should be early targets for independent reference review. Frequent disagreement can identify a weak reference as well as a weak classifier.
+All three cases involve interpretation rather than a simple explicit category: mild praise versus neutrality, uncertain resolution, and an unspecified recurring problem. They were targets for the follow-up reference review. Frequent disagreement can identify a weak reference as well as a weak classifier; consensus alone cannot settle the label.
 
 ## Follow-up review of the disputed references
 
-The [versioned review](REFERENCE_REVIEW_V1.md), completed after this analysis, proposes one correction: DEV-006 serious concern should be no under the existing guide. Its wording does not allege a serious category. DEV-013 and DEV-030 sentiment remain unchanged pending human adjudication. This follow-up is another AI review, not an independent human reference standard.
+The [versioned review](REFERENCE_REVIEW_V1.md), completed after this analysis, proposes one correction: DEV-006 serious concern should be no under the existing guide. Its wording does not allege a serious category. DEV-013 and DEV-030 sentiment remain unchanged. The project owner confirmed human checking of all 60 reviews on 2 October 2026. That confirmation does not silently apply the proposed patch or change historical scores.
 
 The earlier 38-configuration [separate rescore](../results/reference-review-v1.json) changes Jev from 54 to 55 all-four matches and the 38 audited P0 configurations from 2,143 to 2,139 matches across 2,280 configuration-review outcomes. No inference was repeated. The published charts retain their original v0.2 reference; the [proposed v0.3 patch](../data/pilot/reference-revisions/v0.3.json) is not silently substituted.
 
-## Some reference labels need independent review
+## Keep proposed reference changes separate from published scores
 
-DEV-006 is the clearest adjudication priority. The [guide](LABELING_GUIDE.md) requires a specifically alleged but underspecified serious issue for insufficient information; generic unease or an unreported qualifying concern gives no. "That thing happened again" establishes an unresolved issue, but does not establish its seriousness. The saved reference may be too strong on this field.
+DEV-006 has a proposed correction. The [guide](LABELING_GUIDE.md) requires a specifically alleged but underspecified serious issue for insufficient information; generic unease or an unreported qualifying concern gives no. "That thing happened again" establishes an unresolved issue, but does not establish its seriousness. The saved reference may be too strong on this field.
 
-DEV-013 needs a clearer neutral/positive boundary for "straightforward" and "no complaint." DEV-030 needs review of whether its unresolved uncertainty expresses negative sentiment. Keep the current labels unchanged for this experiment, then document any independent adjudication before interpreting future scores. Model agreement with one another cannot settle these questions.
+DEV-013 needs a clearer neutral/positive boundary for "straightforward" and "no complaint." DEV-030 needs review of whether its unresolved uncertainty expresses negative sentiment. Keep the current labels unchanged for this experiment and document any adopted revision before using it to score future results. Model agreement with one another cannot settle these questions.
 
 ## Higher effort can cost more without adding matches
 
@@ -92,7 +96,7 @@ The hosted Gemini P0 runs provide a concrete comparison with the same input-toke
 
 In these two comparisons, higher effort produced more output tokens and a larger charge, with one fewer all-four match. These are illustrative saved observations, not proof that lower effort is generally better. The full cost plot includes the other qualifying P0 runs, and the exact-value table preserves settings and sources. [Gemini report](../results/gemini-openrouter-prep-v3/report-v2.json).
 
-Jev's P0 estimate is $0.00589092 for reported usage, with 54 matches. Its provider-confirmed charge is unavailable, so it is shown separately from the observed-cost plot. Subscription access and local execution also lack comparable per-run bills. Do not count either as free inference or substitute API list-price estimates for observed charges.
+Jev's P0 estimate is $0.00589092 for reported usage, with 54 matches. Its provider-confirmed charge is unavailable, so it is shown separately from the observed-cost plot. Subscription access and local execution also lack comparable per-run bills. The updated [subscription price analysis](SUBSCRIPTION_PRICE_ESTIMATES.md) adds cache-aware API-equivalent estimates where exact rates and usage are available. These are comparisons, not subscription bills. Do not count missing costs as free inference.
 
 ## The four fields have different class balances
 
@@ -107,8 +111,8 @@ A classifier that always says no to testimonial potential already matches 50 of 
 
 ## Scope and interpretation
 
-The reference labels were drafted and reviewed by the same AI assistant, without independent human adjudication. The archive contains repeated conditions, effort settings, routes and historical continuations of the same models. Neither its run count nor its response count represents independent models or independent reviews.
+The reference labels were drafted and reviewed with AI assistance; the project owner confirmed human checking of all 60 reviews on 2 October 2026. The original v0.2 labels remain frozen and provisional. The archive contains repeated conditions, effort settings, routes and historical continuations of the same models. Neither its run count nor its response count represents independent models or independent reviews.
 
-Prompt comparisons hold visible settings constant where the saved audit permits it, but each condition was run once. Time, sampling and hidden provider behavior can still explain differences. Findings describe these saved runs; they do not establish causal prompt effects, statistical significance or a stable leaderboard.
+The original first-pass charts hold visible settings constant where the saved audit permits it. Later repeat studies add three separately dispatched passes per condition and are analyzed within their own configurations. Time, sampling and hidden provider behavior can still explain differences. Findings describe these saved runs; they do not establish causal prompt effects, statistical significance or a stable leaderboard.
 
 Observed API charges, token-price estimates and subscription access are different accounting categories. Missing cost is unknown. Pure server inference time is unavailable in the current public export; client request duration and provider generation duration cannot supply that measurement. No inference-speed ranking is warranted.

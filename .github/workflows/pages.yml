@@ -31,6 +31,9 @@ jobs:
           node --check public-site/reader.js
           python3 scripts/build_reader_story.py --check
           python3 -m unittest tests.test_reader_story -q
+          python3 scripts/build_analysis_refresh.py --check
+          python3 -m unittest tests.test_analysis_refresh -q
+          node --test tests/test_analysis_refresh_ui.cjs
           node --check public-site/app.js
           python3 -m unittest tests.test_subscription_price_estimates -q
           node --test tests/test_subscription_price_ui.cjs tests/test_public_pairing_ui.cjs
