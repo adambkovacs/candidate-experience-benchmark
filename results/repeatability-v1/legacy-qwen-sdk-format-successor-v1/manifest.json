@@ -1,0 +1,240 @@
+{
+  "schema": "legacy-qwen-sdk-format-successor-v1",
+  "status": "approved",
+  "approval": {
+    "independent_review": true,
+    "authorized_by_root": true,
+    "reviewer": "/root",
+    "reviewed_utc": "2026-10-02T12:39:36.295627+00:00",
+    "scope": "successor controller and retained smoke bindings approved for candidate inspection preparation; inference still requires independent smoke reviews and fresh stage receipts"
+  },
+  "purpose": "Admit controlled SDK Qwen 0.6B development after retained intrinsic invalid-output smoke, without repairing or replaying smoke",
+  "frozen_plan": {
+    "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json",
+    "sha256": "7ef8c42a5fd66308e46c0dd885d92373bdbe3ba0e4aa7bdecf58298b82dd80c0"
+  },
+  "frozen_controller": {
+    "file": "scripts/legacy_qwen_repeat_admission.cjs",
+    "sha256": "427846fc36df3dccf87ab834e1bc99673794b2cf4554c60d55ea971a1f13c989"
+  },
+  "frozen_classifier": {
+    "file": "scripts/local_prompt_execution_v1.cjs",
+    "sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
+  },
+  "configurations": {
+    "qwen3-0.6b-sdk-thinking-on": {
+      "schedule": [
+        {
+          "name": "fresh1",
+          "conditions": [
+            "P0",
+            "P2",
+            "P1"
+          ]
+        },
+        {
+          "name": "fresh2",
+          "conditions": [
+            "P2",
+            "P1",
+            "P0"
+          ]
+        },
+        {
+          "name": "fresh3",
+          "conditions": [
+            "P1",
+            "P0",
+            "P2"
+          ]
+        }
+      ],
+      "artifact_sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+      "load_config": {
+        "fields": [
+          {
+            "key": "llm.load.llama.cpuThreadPoolSize",
+            "value": 12
+          },
+          {
+            "key": "llm.load.contextLength",
+            "value": 8192
+          },
+          {
+            "key": "llm.load.llama.flashAttention",
+            "value": true
+          },
+          {
+            "key": "llm.load.llama.tryDirectIO",
+            "value": false
+          },
+          {
+            "key": "llm.load.llama.acceleration.offloadRatio",
+            "value": 1
+          },
+          {
+            "key": "load.gpuSplitConfig",
+            "value": {
+              "strategy": "evenly",
+              "disabledGpus": [],
+              "priority": [],
+              "customRatio": []
+            }
+          },
+          {
+            "key": "llm.load.numParallelSessions",
+            "value": 1
+          }
+        ]
+      },
+      "prediction_config_sha256": "d63090b475db11ae3335877e2d30e3d47889e2d3d101d3d07ff1099ce6b8797f"
+    },
+    "qwen3-0.6b-sdk-thinking-off": {
+      "schedule": [
+        {
+          "name": "fresh1",
+          "conditions": [
+            "P0",
+            "P2",
+            "P1"
+          ]
+        },
+        {
+          "name": "fresh2",
+          "conditions": [
+            "P2",
+            "P1",
+            "P0"
+          ]
+        },
+        {
+          "name": "fresh3",
+          "conditions": [
+            "P1",
+            "P0",
+            "P2"
+          ]
+        }
+      ],
+      "artifact_sha256": "cd47557a67d7e8f2891d98b5e1dbf2988544569fdf4f1bdb30e92b71aa61b548",
+      "load_config": {
+        "fields": [
+          {
+            "key": "llm.load.llama.cpuThreadPoolSize",
+            "value": 12
+          },
+          {
+            "key": "llm.load.contextLength",
+            "value": 8192
+          },
+          {
+            "key": "llm.load.llama.flashAttention",
+            "value": true
+          },
+          {
+            "key": "llm.load.llama.tryDirectIO",
+            "value": false
+          },
+          {
+            "key": "llm.load.llama.acceleration.offloadRatio",
+            "value": 1
+          },
+          {
+            "key": "load.gpuSplitConfig",
+            "value": {
+              "strategy": "evenly",
+              "disabledGpus": [],
+              "priority": [],
+              "customRatio": []
+            }
+          },
+          {
+            "key": "llm.load.numParallelSessions",
+            "value": 1
+          }
+        ]
+      },
+      "prediction_config_sha256": "2a194d414f3bae242dc9125a3bc6de8e360951c5d46b1540bf5068e6c99e3c2e"
+    }
+  },
+  "initial_smoke_bindings": {
+    "qwen3-0.6b-sdk-thinking-on": {
+      "smoke.claim.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P0/smoke.claim.json",
+        "sha256": "186d6383ee2bae07dd232a96bc2637ee91852bd0a23236b428a9ce474fd664af"
+      },
+      "smoke.journal.jsonl": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P0/smoke.journal.jsonl",
+        "sha256": "1655e6e58b7859bb5ae5a7a15e5d3015d452ebd9edb9231c8e101af8b535b1b2"
+      },
+      "smoke.raw.jsonl": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P0/smoke.raw.jsonl",
+        "sha256": "c4e9f6bcbde76b2ae7f50c943499136412ee3aed9e317def31859ebf96232638"
+      },
+      "smoke.records.jsonl": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P0/smoke.records.jsonl",
+        "sha256": "47396bcb794bfd63872070478e81638ca321f3bfd8b364db238b82199ff11fa8"
+      },
+      "smoke.completion.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P0/smoke.completion.json",
+        "sha256": "a1221a1bdce2c3098f2fd4e41cf95c4db93efce149fb52be7f92f1e31d6e4156"
+      },
+      "smoke-inspection.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P0/smoke-inspection.json",
+        "sha256": "03d12db0ada640687e621375ee96f303d8e92a63b6981285b2d03c3307588d4d"
+      },
+      "smoke.root-review.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P0/smoke.root-review.json",
+        "sha256": "9d8d4f2242676ef1c291469ff76b2a8be36673906c1a05a3b430aebc14f5d95a"
+      }
+    },
+    "qwen3-0.6b-sdk-thinking-off": {
+      "smoke.claim.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P0/smoke.claim.json",
+        "sha256": "ab5798ccb9f69909a4f45f7b3f19d930f0e111467fa5293accb028687ef04fbc"
+      },
+      "smoke.journal.jsonl": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P0/smoke.journal.jsonl",
+        "sha256": "52bf97e492ae1a9bba3f2d9e71a1d9ec4d9548d906cabe439df839f5c6abe184"
+      },
+      "smoke.raw.jsonl": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P0/smoke.raw.jsonl",
+        "sha256": "222ca1e3c7e8d56251de4b5fb54b1e66a3255a7f881d0d6afbd10d06fd603f3f"
+      },
+      "smoke.records.jsonl": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P0/smoke.records.jsonl",
+        "sha256": "f393bd0a98ff31d15550c5e2ae6b4a3b52703abcd3990e82a89919044487d563"
+      },
+      "smoke.completion.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P0/smoke.completion.json",
+        "sha256": "d981d8b724199fdc94b410540450c5920eb5037d48c9bb81d746e9a79d54404e"
+      },
+      "smoke-inspection.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P0/smoke-inspection.json",
+        "sha256": "1b21d55f6155e67f341562789542d363710f5d8a06ff7e1b6d48d75fd975b9d9"
+      },
+      "smoke.root-review.json": {
+        "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P0/smoke.root-review.json",
+        "sha256": "0b6bd3b50f5f731d7c69a88164135775edd392ee85570f263ec303a445e82927"
+      }
+    }
+  },
+  "policy": {
+    "smoke_denominator": 3,
+    "development_denominator": 60,
+    "accepted_smoke_decisions": [
+      "ok",
+      "invalid_output"
+    ],
+    "accepted_invalid_reasons": [
+      "non_json",
+      "schema"
+    ],
+    "other_failures": "stop_without_retry",
+    "references_in_requests": false,
+    "output_repair": false,
+    "smoke_replay": false,
+    "review": "separate successor inspection and fresh stage receipt required",
+    "native_lock": "results/repeatability-v1/laya-expanded-cpu-v1/execution.lock"
+  }
+}
