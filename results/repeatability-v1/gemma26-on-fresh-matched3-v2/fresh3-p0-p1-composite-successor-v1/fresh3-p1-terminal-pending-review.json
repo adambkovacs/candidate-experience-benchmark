@@ -1,0 +1,145 @@
+{
+  "schema": "gemma26-fresh3-p1-interrupted-terminal-v1",
+  "status": "stopped_pending_reconciliation",
+  "approved": false,
+  "score": null,
+  "reference_labels_read": false,
+  "expected_attempts": 126,
+  "attempted": 125,
+  "valid": 124,
+  "failed": 1,
+  "never_sent": 1,
+  "stages": {
+    "P0/smoke": {
+      "expected": 3,
+      "attempted": 3,
+      "valid": 3,
+      "failed": 0,
+      "never_sent": 0,
+      "terminal_event": "phase_completed",
+      "sourceSha256": {
+        "claim": "7eef089bac4a85ea3c189b0458b7eb6aeafac7bfdf41f5e89b54b8c9a4f8f93d",
+        "journal": "257708eb9d44d2794b486cf8e68f3d114cc97433d2842e8422c747a4262eb5a6",
+        "attempts": "3fc6078e45cb75491d589af00332540c4f0b767031ff42656bc4f7159d352bc8",
+        "responses": "780af9115d185ea1aab15ae506b0145ca5047893bf48c9a4ecbaba5e663590bb",
+        "wire": "0402054de2ffe1f966ba007dbd8bb6bf9e9de08b69e4d04a462ff14bf099e132"
+      }
+    },
+    "P0/development": {
+      "expected": 60,
+      "attempted": 60,
+      "valid": 60,
+      "failed": 0,
+      "never_sent": 0,
+      "terminal_event": "phase_completed",
+      "sourceSha256": {
+        "claim": "589076cd9ad611a372d751547b71638084fc131c052d172a915c82c0bfb683b2",
+        "journal": "ef72351eacee3ecb0383231ccdbdf60eeb38e2e83c2fba3a75e9b4b3b642010a",
+        "attempts": "875d5cb811f253a9c8c075631b50bb768b76fdebe5e37a202a6df5345b206fbb",
+        "responses": "bc4cd1cc4f214d3295a60706579dbebeb425157303974d5013c36212750c8943",
+        "wire": "3c3597d66fcc94ad06b205f30d74875ee5eaef67cfb65f72a39d02bc20369ddf"
+      }
+    },
+    "P1/smoke": {
+      "expected": 3,
+      "attempted": 3,
+      "valid": 3,
+      "failed": 0,
+      "never_sent": 0,
+      "terminal_event": "phase_completed",
+      "sourceSha256": {
+        "claim": "12f705b7bf2057c98b0f31bf8234a55f44212353d959e5d0aa48809a6f4fd58d",
+        "journal": "1c01d18307d724fd2126cb01eafd8e8cba48d7d47b7b37645928ff25deee476f",
+        "attempts": "dd75e6fc8d77cda2588ad3b30756ac5b007c4d907649c21513929f498a8ec1b4",
+        "responses": "d5b91e523af2f629cf96b94ea49fbfbf0deca9b5551ac3ed7b8d9ba28ae629fd",
+        "wire": "f42944d11588852eea1c2e4063a10b45087ee86d4bbfbe4c970ea843f73230be"
+      }
+    },
+    "P1/development": {
+      "expected": 60,
+      "attempted": 59,
+      "valid": 58,
+      "failed": 1,
+      "never_sent": 1,
+      "terminal_event": "phase_stopped",
+      "sourceSha256": {
+        "claim": "e6653f1038a03aa6c5e6b94812acebfd5b4b9e363174d47fbc477313e2024ecb",
+        "journal": "223c5929bfa9f76a55893f3406258737a00b1d9582a129163c850ecbde495bbc",
+        "attempts": "82ce0f829c89dbbe52dfff326f0cf8a478c145b9e160894a4658c63ccbf18a69",
+        "responses": "46ee97c857329a8afcf311778aa59ab65fccec0d6ae235de1198d17c1b32e6bd",
+        "wire": "70f75109dd51e4abba0e9e3e9db04b90b6ad9755a949d9ccd0157d7023edb5cc"
+      }
+    }
+  },
+  "failure": {
+    "stage": "P1/development",
+    "id": "DEV-059",
+    "attempt_id": "84558e99-3982-449f-ba47-4f2f3176f2dc",
+    "request_sha256": "9acd9b964000d91ad40e2ee0604bbb905c0c1e8a2d628aaebcec3c74eac0fd91",
+    "status": "service_error",
+    "error_type": "TimeoutError",
+    "elapsed_seconds": 325.33408741699895,
+    "http_status": null,
+    "captured_response": false,
+    "provider_execution": "unknown",
+    "provider_charge": "unknown",
+    "reserved_cost_usd": "0.01974272",
+    "observed_cost_usd": null,
+    "billing_ok": false
+  },
+  "never_sent_ids": [
+    "DEV-060"
+  ],
+  "child": {
+    "partition_id": "gemma26-fresh3-p0-p1-v1",
+    "cap_usd": "0.40",
+    "known_actual_usd": "0.03995497",
+    "pending_unknown_reserve_usd": "0.01974272",
+    "accounted_including_pending_usd": "0.05969769",
+    "potential_unused_after_unknown_bound_usd": "0.34030231",
+    "pending_attempt_ids": [
+      "84558e99-3982-449f-ba47-4f2f3176f2dc"
+    ],
+    "closed": false,
+    "reconciled": false
+  },
+  "sourceSha256": {
+    "successor_manifest": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/manifest.json",
+      "sha256": "591c228bdc3f5a70dbc97b82bd6d7f83879abd82b67acefc02cdb3234ef06f72"
+    },
+    "budget_manifest": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/budget.json",
+      "sha256": "e9b38e5bbb265f50cab190b93b23380fb366b42a37f70f05475857fe2abf2d45"
+    },
+    "child_ledger_pending": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/budget-gemma26-fresh3-p0-p1-v1.jsonl",
+      "sha256": "87752b31fe307364116c6d3d0130b39de8cc628f6b00f1393b0cb2b724a8dd1d"
+    },
+    "p0_smoke_inspection": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3/P0/smoke-inspection.json",
+      "sha256": "36ef722e6b1907dab0bc72dd8cce7af6ed9fb160a2e7cdfee5146cac7a296502"
+    },
+    "p1_smoke_inspection": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3/P1/smoke-inspection.json",
+      "sha256": "d754288a8d48c1b8d102b657a990652b0e06815b270c516431dcc981d9ea7557"
+    },
+    "p0_smoke_review": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p0-smoke.root-review.json",
+      "sha256": "7809074f9b3deecae47f3d907350e016740b48782747674b2618040069b96c68"
+    },
+    "p0_development_review": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p0-development.root-review.json",
+      "sha256": "dadbd303092f28ee1249ed5275d5e9b45fd1fce8903521ad8111e49f0750e58f"
+    },
+    "p1_smoke_review": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-smoke.root-review.json",
+      "sha256": "4c65fec848810d9eeab659448672bc8dedb27b5c76ace03378b74133604586eb"
+    },
+    "p1_development_review": {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-development.root-review.json",
+      "sha256": "8cdddb64fd194193af8dfe64bd4ff69d4c1dfa31894de5fb5e9fa50353a8a089"
+    }
+  },
+  "reconciliation_recommendation": "After independent root review, retain the full DEV-059 reservation as an unknown-cost upper bound tied to the saved attempt evidence. Then reconcile the child and release only the unused allocation. Keep the fixed $0.40 global hold until separately reviewed. Do not replay DEV-059; DEV-060 needs a separately versioned, reviewed unsent-only stage."
+}
