@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Analysis publication confirmed, 2 October 2026, 17:25 UTC
+
+- Pages `37039744218` succeeded for `e6d211f6`. Root fetched the live analysis script, analysis feed and Gemma P0 checkpoint; all three matched committed bytes. The newer repeat UI commit `b0776561` is in Pages run `37040279641`, still in progress at the latest check.
+- The UI agent recovered desktop verification through Helium: the selected checkpoint showed eight scored runs, P0 59/56/58 and range 56–59, the 59-review shared-valid comparison, source links and P1's missing full result. Four focused UI tests pass after the final link assertion. Mobile layout remains unverified; earlier IAB/Chrome failures did not stop terminal work.
+- Gemma P1 original handle `31625` remains live; latest owner poll reported 37/60 valid outcomes, no invalid or unknown charges. No partition is sealed while the process is running.
+- The hosted agent is checking whether the exact DeepSeek provider endpoint has returned and confirming Mistral's route read-only. No allocation or inference is authorized by that check.
+
 ## Repeat view verified offline, 2 October 2026, 17:22 UTC
 
 - Root reviewed the Gemma P0 repeat-view integration: APPROVE after fixing the inherited source list and labeling the older P2 link accurately. No remaining confirmed BLOCKING or RESIDUAL finding. All 136 UI checks passed; the two focused tests also pass after those final metadata edits.
