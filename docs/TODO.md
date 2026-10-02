@@ -2,7 +2,7 @@
 
 ## Restart recovery and analysis refresh — 2 October 2026
 
-The forced restart interrupted the analysis/publication work, not a running model request. The completed Sonnet study remains published. The offline analysis refresh, website section and tests survived locally and are committed/pushed in `19dc646e`. Its 62 source bindings, 12 focused Python tests and 116 UI tests pass; independent review approved the corrected report. Pages publication is being verified. The app goal remains blocked and points to an older attachment; the updated replacement text is [APP_GOAL.md](APP_GOAL.md). The approved cap is $12.38, not the attachment’s older $10. No completed inference is to be replayed.
+The forced restart interrupted the analysis/publication work, not a running model request. The completed Sonnet study remains published. The offline analysis refresh, website section and tests survived locally and are committed/pushed in `19dc646e`. Its 62 source bindings, 12 focused Python tests and 116 UI tests pass; independent review approved the corrected report. [Pages publication 36998863739](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36998863739) succeeded. Root verified all six changed live assets against committed bytes. The user resumed the updated app goal; its active attachment matches [APP_GOAL.md](APP_GOAL.md). The approved cap is $12.38. No completed inference is to be replayed.
 
 ## Latest execution checkpoint — 2 October 2026
 

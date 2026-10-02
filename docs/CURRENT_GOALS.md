@@ -2,6 +2,10 @@
 
 Updated 2026-09-28 after classification-bench implementation moved to a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
 
+## Resumed goal, 2 October 2026
+
+The user resumed the full objective after the forced restart. [APP_GOAL.md](APP_GOAL.md) contains the active text. After each completed run or later interruption, refresh the combined analysis, website, README and coverage inventory against saved evidence. Keep historical and fresh cohorts separate and check whether earlier conclusions still hold. The restart does not authorize replaying completed requests.
+
 ## Scope and review update, 2 October 2026
 
 Add Claude Sonnet 5.5 through the subscription CLI at low, medium, high and xhigh, with P0/P1/P2 and three declared full passes. Preserve its first stopped smoke and admit any changed guard as a separately versioned configuration. Max and ultra remain excluded. The user confirmed human checking of all 60 reference answers; keep original labels and scores versioned rather than silently changing them. Lower-page model selection, historical-to-matched-series links and cache-aware API-equivalent subscription price estimates are required website improvements. See [the latest checklist](TODO.md) and [prompt coverage audit](PROMPT_COVERAGE_AUDIT_2026-10-02.md).
