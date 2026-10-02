@@ -1,7 +1,9 @@
 import importlib.util
+import json
 import unittest
 from decimal import Decimal
 from pathlib import Path
+from unittest import mock
 
 
 PATH = Path(__file__).resolve().parents[1] / "scripts/build_subscription_price_estimates.py"
@@ -55,6 +57,29 @@ class SubscriptionPriceTests(unittest.TestCase):
         self.assertEqual(phase["estimateUsd"], "0.1379228")
         self.assertEqual(data["repeatSeries"]["codex-gpt-6-sol-high-batch10"]["totalPhases"], 9)
         self.assertIsNotNone(data["repeatSeries"]["codex-gpt-6-sol-high-batch10"]["fullSeriesEstimateUsd"])
+
+    def test_public_projection_rebuilds_saved_feed_without_private_ledgers(self):
+        with (mock.patch.object(MOD, "claude_sidecar", return_value=None),
+              mock.patch.object(MOD, "codex_sidecar", return_value=None),
+              mock.patch.object(MOD, "repeat_claude_buckets", side_effect=lambda *args: (args[-1], None))):
+            rebuilt = MOD.build()
+        published = json.loads((MOD.PUBLIC / "subscription-price-estimates.json").read_text())
+        self.assertEqual(rebuilt, published)
+
+    def test_public_projection_requires_exact_model_and_public_report_hash(self):
+        projection = MOD.load_projection()
+        key = "fable51-high-phase2-batch10-p0"
+        reported = {"input": 12, "cacheRead": 19680, "cacheWrite": 6451,
+                    "output": 9454}
+        valid = MOD.projected_usage(projection, "runs", key, "claude-fable-5-1",
+                                    reported, "public-site/data.json", True)
+        self.assertEqual(valid[0]["cacheWrite1h"], 6451)
+        with self.assertRaisesRegex(ValueError, "Invalid public usage projection"):
+            MOD.projected_usage(projection, "runs", key, "claude-opus-5",
+                                reported, "public-site/data.json", True)
+        with self.assertRaisesRegex(ValueError, "Invalid public usage projection"):
+            MOD.projected_usage(projection, "runs", key, "claude-fable-5-1",
+                                reported, "public-site/repeats.json", True)
 
 
 if __name__ == "__main__":

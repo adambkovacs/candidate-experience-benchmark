@@ -8,8 +8,8 @@ import argparse
 import hashlib
 import json
 from decimal import Decimal
+from functools import lru_cache
 from pathlib import Path
-from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public-site"
@@ -35,6 +35,63 @@ RATES = {
 
 def read_json(path):
     return json.loads(path.read_text())
+
+
+@lru_cache(maxsize=None)
+def source_hash(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def load_projection():
+    path = ROOT / PROJECTION
+    if not path.is_file():
+        return None
+    data = read_json(path)
+    if (data.get("schema") != "subscription-usage-aggregates-v1" or
+            data.get("generatedAt") != CHECKED or
+            not isinstance(data.get("runs"), dict) or
+            not isinstance(data.get("repeatPhases"), dict)):
+        raise ValueError("Invalid public subscription usage projection")
+    return data
+
+
+def projected_usage(projection, section, key, model, reported, public_report,
+                    claude_historical=False):
+    if projection is None or key not in projection[section]:
+        return None
+    entry = projection[section][key]
+    tokens = entry.get("tokens")
+    bindings = entry.get("sourceBindings")
+    required = ("input", "cacheRead", "cacheWrite", "cacheWrite5m",
+                "cacheWrite1h", "output", "reasoningOutput")
+    if (entry.get("model") != model or
+            entry.get("usageStatus") not in ("complete", "partial_or_unverified") or
+            (tokens is not None and (not isinstance(tokens, dict) or any(k not in tokens or
+                (tokens[k] is not None and integer(tokens[k]) is None) for k in required))) or
+            not isinstance(bindings, list) or not bindings or
+            any(not isinstance(b, dict) or
+                b.get("sourceKind") not in ("public_aggregate_report", "saved_attempt_ledger") or
+                not isinstance(b.get("sha256"), str) or len(b["sha256"]) != 64 or
+                any(c not in "0123456789abcdef" for c in b["sha256"]) for b in bindings) or
+            not any(b["sourceKind"] == "public_aggregate_report" and
+                    b["sha256"] == source_hash(ROOT / public_report) for b in bindings)):
+        raise ValueError(f"Invalid public usage projection for {section}:{key}")
+    for field, value in reported.items() if tokens is not None else ():
+        if value is None:
+            continue
+        projected = tokens.get(field) if tokens is not None else None
+        if (field == "input" and claude_historical and
+                projected is not None and
+                value in (projected, projected + (tokens.get("cacheRead") or 0) +
+                          (tokens.get("cacheWrite") or 0))):
+            continue
+        if projected != value:
+            raise ValueError(f"Public usage projection disagrees with report for {section}:{key}:{field}")
+    five, hour, write = (tokens.get(k) if tokens is not None else None
+                         for k in ("cacheWrite5m", "cacheWrite1h", "cacheWrite"))
+    if five is not None and hour is not None and write is not None and five + hour != write:
+        raise ValueError(f"Invalid projected cache-write partition for {section}:{key}")
+    return tokens, bindings, entry["usageStatus"]
 
 
 def integer(value):
@@ -178,14 +235,16 @@ def estimate(model, tokens, complete):
     return str(amount), "complete" if complete else "known_usage_only", {k: str(v / Decimal(1_000_000)) for k, v in parts.items()}
 
 
-def row_entry(run_id, model, tokens, complete, evidence, scope):
+def row_entry(run_id, model, tokens, complete, evidence, scope, source_bindings=None):
     amount, status, parts = estimate(model, tokens, complete)
     bindings = []
-    for source in evidence:
-        candidate = ROOT / source.split(";", 1)[0]
+    for source in dict.fromkeys(source.split(";", 1)[0] for source in evidence):
+        candidate = ROOT / source
         if candidate.is_file():
             bindings.append(dict(sourceKind="saved_attempt_ledger" if candidate.suffix == ".jsonl" else "public_aggregate_report",
-                                 sha256=hashlib.sha256(candidate.read_bytes()).hexdigest()))
+                                 sha256=source_hash(candidate)))
+    if source_bindings is not None:
+        bindings = source_bindings
     return dict(runId=run_id, model=model, scope=scope, tokens=tokens,
                 usageStatus="complete" if complete else "partial_or_unverified",
                 estimateStatus=status, estimateUsd=amount, estimatedComponentsUsd=parts,
@@ -262,15 +321,30 @@ def repeat_claude_buckets(name, series, pass_name, condition, summary):
     return summary, None
 
 
-def build():
+def build(use_projection=True):
+    projection = load_projection() if use_projection else None
     runs = {}
     for row in read_json(PUBLIC / "data.json")["runs"]:
         if row.get("surface") not in ("Claude subscription", "Codex subscription"):
             continue
         tokens, source = run_tokens(row)
+        bindings = None
+        if source.startswith("public-site/"):
+            reported = row.get("tokens") or {}
+            public_fields = {"input": reported.get("input"),
+                             "cacheRead": reported.get("cachedInput"),
+                             "cacheWrite": reported.get("cacheWrite"),
+                             "output": reported.get("output"),
+                             "reasoningOutput": reported.get("reasoning")}
+            projected = projected_usage(projection, "runs", row["id"], row.get("model"),
+                                        public_fields, "public-site/data.json",
+                                        row["surface"] == "Claude subscription")
+            if projected:
+                tokens, bindings, _ = projected
         runs[row["id"]] = row_entry(row["id"], row.get("model"), tokens,
                                      row.get("tokens", {}).get("complete") is True,
-                                     [source], "historical_development")
+                                     ["public-site/data.json", source], "historical_development",
+                                     bindings)
     phases, series_totals = {}, {}
     names = ("claude-repeats.json", "claude-roster-repeats.json", "haiku-fresh-matched3.json",
              "repeats.json", "codex-fresh-repeats.json")
@@ -288,6 +362,12 @@ def build():
                     raw_source = None
                     if model.startswith("claude-"):
                         summary, raw_source = repeat_claude_buckets(name, series, pass_name, condition, summary)
+                    bindings = None
+                    if raw_source is None:
+                        projected = projected_usage(projection, "repeatPhases", key, model,
+                                                    summary, "public-site/" + name)
+                        if projected:
+                            summary, bindings, _ = projected
                     state = phase.get("status", phase.get("completionStatus"))
                     report_complete = (name == "repeats.json" and series.get("completedConditions") == 9 and
                                        not series.get("missingPasses") and phase.get("score", {}).get("denominator") == 60)
@@ -295,7 +375,7 @@ def build():
                         integer(summary.get(k)) is not None for k in ("input", "cacheRead", "cacheWrite", "output"))
                     phases[key] = row_entry(key, model, summary, complete,
                                             ["public-site/" + name] + ([raw_source] if raw_source else []),
-                                            "repeat_development_phase")
+                                            "repeat_development_phase", bindings)
                     phases[key]["configuration"] = config
                     phases[key]["pass"] = pass_name
                     phases[key]["condition"] = condition
@@ -319,8 +399,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=PUBLIC / "subscription-price-estimates.json")
     parser.add_argument("--provenance-output", type=Path, default=ROOT / PROJECTION)
+    parser.add_argument("--refresh-provenance-from-local", action="store_true",
+                        help="Rebuild saved usage bindings from local ledgers; use only with the complete saved evidence set")
     args = parser.parse_args()
-    data = build()
+    data = build(use_projection=not args.refresh_provenance_from_local)
     provenance = dict(schema="subscription-usage-aggregates-v1", generatedAt=CHECKED,
                       note="Usage-only projection. Source SHA-256 values bind saved input bytes; private raw attempts are not published here.",
                       runs={key: {field: entry[field] for field in ("model", "tokens", "usageStatus", "sourceBindings")}
