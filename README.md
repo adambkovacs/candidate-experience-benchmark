@@ -15,7 +15,9 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
-Cloudflare Clef and Clef Flash each completed a first native P0 pass with 60 valid answers. Clef matched all four reference labels on 53/60 reviews; Clef Flash matched 45/60. They disagreed on 12 reviews. These are single-pass results, with repeats still pending. The [saved Cloudflare evidence](results/clef-native-v1/) includes native choice probabilities and token usage.
+Cloudflare Clef and Clef Flash each completed a first native P0 pass with 60 valid answers. Clef matched all four reference labels on 53/60 reviews; Clef Flash matched 45/60. They disagreed on 12 reviews. These scores describe the first pass. Second P0 passes have now closed with 60 valid responses per model; their answer-change analysis is in preparation. Third passes and the other prompt conditions remain pending. The [saved Cloudflare evidence](results/clef-native-v1/) includes native choice probabilities and token usage.
+
+Gemma 26B thinking-on now has a score for its interrupted third decision-tree run: **56/60 all-four matches**, with 58 valid answers and two preserved request failures. The three decision-tree scores are 57, 56 and 56. Seven of nine planned runs are scored; the remaining base-task and classifier-instruction runs are unsent. [Findings and partial usage totals](docs/GEMMA26_POSTABORT_FINDINGS_2026-10-02.md).
 
 The [2 October analysis update](docs/ANALYSIS_REFRESH_2026-10-02.md) reconciles the latest completed and interrupted runs. It checks prompt effects across repeats, effort and token use, changing answers, class balance, specialist interfaces and remaining measurement gaps. [See the updated comparison](https://adambkovacs.github.io/candidate-experience-benchmark/#analysis-update). Earlier cohort counts below are retained with their scope. Across the earlier 17 Claude configurations and four new Sonnet settings, neither added-instruction prompt beat the base task in all three passes for any configuration. That result describes within-configuration repeats, not a controlled comparison between models.
 

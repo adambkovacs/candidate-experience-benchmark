@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Report integration and second Clef passes, 2 October 2026
+
+Both Clef fresh2/P0 stages are archived and pushed in `dd1220aa`, each with 60 valid outputs. Root independently checked completion hashes, ID order and reference exclusion; the archive scan found no credential or account-ID values. The hosted agent owns a separate two-pass findings report. The roster agent owns a reusable remaining-stage controller and deterministic budget fixtures; no new Cloudflare stage is admitted yet.
+
+Gemma's seven-of-nine snapshot, costs and token missingness are integrated with the combined analysis and repeat view in `46a4b91e`. All 132 UI tests and 10 focused Python tests pass; 66 analysis and 108 Gemma source hashes match the staged archive. Desktop and 390px mobile checks show the 56–57 P2 range, two unsent conditions and partial cost coverage. The native agent owns offline three-pass P2 answer-change analysis. Publication verification is pending for this integration. The earlier Qwen report deployment `37027936864` succeeded and its live feed matches committed bytes.
+
+Next local 1.7B thinking-on phase is fresh1/P2. Its preflight stopped before a claim or inference when the Mac switched to battery power. AC power and fresh route/host checks are required before resuming that smoke. No local process is left running by that stop.
+
 ## Clef second pass and larger Qwen checkpoint, 2 October 2026
 
 - The three model-category filters and validity/agreement chart are published. Category provenance and the Cloudflare visual reference are documented in [the category review](REPORT_CATEGORY_REVIEW_2026-10-02.md). General models, task-fine-tuned checkpoints, and dedicated decision models stay separate from interface and hosting route.
