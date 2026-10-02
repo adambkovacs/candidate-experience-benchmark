@@ -10,6 +10,14 @@
     const timeout=new Promise(resolve => {timer=setTimeout(() => resolve(null),3000);});
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
   };
+  const optionalSonnet55 = () => {
+    const load=Promise.resolve().then(() => fetch('./sonnet55-fresh-matched3.json',{cache:'no-store'}))
+      .then(response => response.ok ? response.json() : null).catch(() => null);
+    if (typeof setTimeout !== 'function') return load;
+    let timer;
+    const timeout=new Promise(resolve => {timer=setTimeout(() => resolve(null),3000);});
+    return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
+  };
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const n = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
   const count = value => n(value) === null ? 'Unavailable' : Math.round(n(value)).toLocaleString();
@@ -39,7 +47,7 @@
   const costSummary = run => {
     const cost=runCost(run),price=priceEntry(run);
     const charge=n(cost?.actualUsd) !== null ? 'Observed charge ' + money(cost.actualUsd) : n(cost?.knownUsd) !== null ? 'Known charge ' + money(cost.knownUsd) : 'Observed charge unavailable';
-    return charge+(price ? ` · API-equivalent estimate ${money(price.estimateUsd)}` : n(cost?.estimatedUsd) !== null ? ' · Estimate ' + money(cost.estimatedUsd) : '');
+    return charge+(price ? ` · API-equivalent estimate ${money(price.estimateUsd)}` : n(cost?.estimatedUsd) !== null ? ` · ${cost.estimateKind === 'known_usage_only' ? 'Known-usage API-equivalent estimate' : cost.estimateKind === 'calculated_api_equivalent' ? 'API-equivalent estimate' : cost.estimateKind === 'cli_list_price' ? 'CLI list-price estimate' : 'Estimate'} ${money(cost.estimatedUsd)}` : '');
   };
   const providerGenerationTime = timing => n(timing?.providerGenerationSeconds) !== null && n(timing?.providerGenerationReportedRequests) > 0 ? duration(timing.providerGenerationSeconds) : null;
   const experimentId = run => run.parentBaselineId || run.id.replace(/--p[12]$/i,'');
@@ -47,6 +55,42 @@
   const hostedPair = id => (state.data.promptComparisons || []).find(item => item.id === id && item.kind === 'hosted-observational' && item.eligible === false);
   const comparisonNote = run => run.nativeInstructionComparison ? '<p class="note">Native Jev instruction comparison; P0 was run earlier in a single pass.</p>' : hostedPair(experimentId(run)) ? '<p class="note">Part of the hosted prompt comparison. The same comments were used once per prompt version; changes do not establish a prompt effect.</p>' : run.pairedEligible === false ? '<p class="note">This result is not part of the record-by-record prompt comparison.</p>' : '';
   const dataRow = (name,value) => `<div><dt>${esc(name)}</dt><dd>${esc(value === null || value === undefined || value === '' ? 'Unavailable' : value)}</dd></div>`;
+  function sonnet55FirstPassRuns(report) {
+    const efforts=['low','medium','high','xhigh'],conditions=['P0','P1','P2'];
+    if (report?.schema !== 'claude-sonnet55-fresh-matched3-findings-v1' || report.model !== 'claude-sonnet-5-5' || report.plannedCells !== 36 || report.denominatorPerCell !== 60 ||
+        JSON.stringify(report.efforts) !== JSON.stringify(efforts) || JSON.stringify(report.passOrder) !== JSON.stringify(['pass1','pass2','pass3']) || JSON.stringify(report.conditionOrder) !== JSON.stringify(conditions)) return [];
+    const evidenceUrl='https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/public-site/sonnet55-fresh-matched3.json';
+    return efforts.flatMap(effort => conditions.flatMap(condition => {
+      const dev=report.cells?.[effort]?.pass1?.[condition]?.development;
+      const score=dev?.score,usage=dev?.usage;
+      if (dev?.state !== 'complete' || dev.recordCount !== 60 || score?.denominator !== 60 || !Number.isInteger(score.valid) || score.valid < 0 || score.valid > 60 || score.outcomes?.valid !== score.valid ||
+          Object.values(score.outcomes).reduce((total,value)=>total+value,0) !== 60 ||
+          !usage || !dev.evidence?.records?.path || !/^[0-9a-f]{64}$/.test(dev.evidence.records.sha256 || '')) return [];
+      const times=Array.isArray(usage.requestSeconds) ? usage.requestSeconds.filter(value=>typeof value==='number' && Number.isFinite(value)).sort((a,b)=>a-b) : [];
+      const median=times.length ? (times[Math.floor((times.length-1)/2)]+times[Math.ceil((times.length-1)/2)])/2 : null;
+      const p95=times.length ? times[Math.ceil(times.length*.95)-1] : null;
+      const totalRequests=Number.isInteger(usage.requestCount) && usage.requestCount >= 0 ? usage.requestCount : null;
+      const unpricedRequests=Number.isInteger(usage.unpricedRequests) && usage.unpricedRequests >= 0 && usage.unpricedRequests <= totalRequests ? usage.unpricedRequests : null;
+      const pricedRequests=totalRequests === null || unpricedRequests === null ? null : totalRequests-unpricedRequests;
+      const partialUsage=pricedRequests !== null && pricedRequests < totalRequests;
+      const estimate=partialUsage || pricedRequests === null ? null : usage.calculatedApiEquivalentUsd ?? usage.cliListPriceEstimateUsd ?? null;
+      const configuration=`sonnet55-${effort}-fresh-matched3-batch10-v2`;
+      const id=`${configuration}--pass1-${condition.toLowerCase()}`;
+      const recordPath=`results/repeatability-v1/claude-sonnet55-fresh-matched3-v2/${effort}/pass1/${condition}/development.records.jsonl`;
+      const exportedPath=`public-site/sonnet55-fresh-matched3-evidence/evidence/${recordPath}`;
+      const sourceRecordsUrl=[recordPath,exportedPath,exportedPath.slice('public-site/'.length)].includes(dev.evidence.records.path)
+        ? `https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/${exportedPath}` : null;
+      return [{id,parentBaselineId:condition==='P0' ? null : `${configuration}--pass1-p0`,model:'claude-sonnet-5-5',effort,surface:'Claude subscription',condition,
+        complete:true,records:60,valid:score.valid,metrics:{all_four:score.allFour,...score.fields},pairedEligible:true,
+        resultStatus:'Fresh pass 1 of a separate matched-three study. Open Repeatability to inspect all planned passes.',
+        timing:{kind:'batch',requests:usage.requestCount,medianSeconds:median,p95Seconds:p95,totalSeconds:usage.requestSecondsTotal,inferenceSeconds:null,note:'Client request duration includes transport and service time; server inference time is unavailable.'},
+        tokens:{input:pricedRequests > 0 ? usage.tokens?.input_tokens ?? null : null,cachedInput:pricedRequests > 0 ? usage.tokens?.cache_read_input_tokens ?? null : null,cacheWrite:pricedRequests > 0 ? usage.tokens?.cache_creation_input_tokens ?? null : null,output:pricedRequests > 0 ? usage.tokens?.output_tokens ?? null : null,reasoning:pricedRequests > 0 ? usage.tokens?.thinking_tokens ?? null : null,reportedRequests:pricedRequests,totalRequests,complete:pricedRequests !== null && pricedRequests === totalRequests},
+        cost:{actualUsd:null,estimatedUsd:estimate,
+          estimateKind:partialUsage || pricedRequests === null ? 'usage_unavailable' : usage.calculatedApiEquivalentUsd != null ? 'calculated_api_equivalent' : 'cli_list_price',sourceUrl:usage.priceSource || report.pricing?.source || null,
+          note:partialUsage ? `${pricedRequests} of ${totalRequests} requests have priced usage. The full API-equivalent estimate is unavailable because usage is missing. Actual subscription charge and quota use are unknown.` : 'API-equivalent estimate based on saved usage. Actual subscription charge and quota use are unknown.'},
+        sourceOnlyDetails:true,sourceRecordsUrl,evidenceUrl}];
+    }));
+  }
   function groups() {
     state.experiments = new Map();
     for (const run of state.data.runs) {
@@ -85,6 +129,47 @@
   }
   function missingCondition(id,condition) {
     if (id === 'typesafe-jev113-v2') return {label:'NO SAVED RESULT',reason:'No public saved result for this native Jev instruction version yet.'};
+    const historicalPairs={
+      'sonnet5-low-first-pass':'sonnet5-low-first-pass-phase2-batch10-p0',
+      'sonnet5-low-with-retry':'sonnet5-low-first-pass-phase2-batch10-p0',
+      'sonnet5-medium':'sonnet5-medium-phase2-batch10-p0',
+      'sonnet5-high':'sonnet5-high-phase2-batch10-p0',
+      'sonnet5-xhigh':'sonnet5-xhigh-phase2-batch10-p0',
+      'opus5-low':'opus5-low-phase2-batch10-p0',
+      'opus5-medium':'opus5-medium-phase2-batch10-p0',
+      'opus5-high':'opus5-high-phase2-batch10-p0',
+      'opus5-xhigh':'opus5-xhigh-phase2-batch10-p0',
+      'fable51-low':'fable51-low-phase2-batch10-p0',
+      'fable51-medium':'fable51-medium-phase2-batch10-p0',
+      'fable51-high':'fable51-high-phase2-batch10-p0',
+      'fable51-xhigh':'fable51-xhigh-phase2-batch10-p0',
+      'codex-gpt-5.6-luna-low':'codex-gpt-5.6-luna-low-phase2-batch10-p0',
+      'codex-gpt-6-astra-low':'codex-gpt-6-astra-low-phase2-batch10-p0'
+    };
+    const pairedId=historicalPairs[id];
+    if (pairedId && state.data.runs.some(run=>run.id===pairedId && run.condition==='P0')) {
+      const repeatDoc=id.startsWith('codex-') ? 'CODEX_REPEAT_SYNTHESIS_2026-09-28.md' : id.startsWith('fable51-') ? 'FABLE_REPEAT_FINDINGS_2026-09-28.md' : id.startsWith('opus5-') ? 'OPUS5_REPEAT_FINDINGS_2026-09-28.md' : 'SONNET5_REPEAT_FINDINGS_2026-09-28.md';
+      return {label:'NO MATCHED RUN',reason:`This historical P0 classified one comment per request. It has no ${condition} run with the same controls. A later batch-of-10 setup has separate P0, P1 and P2 runs, with three passes per version.`,links:[
+        {href:`?experiment=${encodeURIComponent(pairedId)}&run=${encodeURIComponent(pairedId)}#explore`,text:'Open the separate batch-of-10 prompt series →'},
+        {href:`https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/${repeatDoc}`,text:'Read its repeat findings ↗'}
+      ]};
+    }
+    if (id === 'haiku45-not_applicable') return {label:'NO MATCHED RUN',reason:`This historical P0 classified one comment per request. It has no ${condition} run with the same controls. The later batch attempt retained ten P1 transport failures; a separate fresh matched-three P0/P1/P2 series is complete.`,links:[
+      {href:'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/CLAUDE_HAIKU_MATCHED3.md',text:'Read the separate Haiku study ↗'},
+      {href:'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/public-site/haiku-fresh-matched3.json',text:'Open its nine completed condition passes ↗'}
+    ]};
+    const blockedAfterP0=new Set([
+      'antigravity-gemini-3.1-pro-low-native-observed-batch10',
+      'antigravity-gemini-3.1-pro-high-native-observed-batch10',
+      'antigravity-gemini-3.6-flash-low-native-observed-batch10',
+      'antigravity-gemini-3.6-flash-medium-native-observed-batch10',
+      'antigravity-gemini-3.7-flash-low-native-observed-batch10',
+      'antigravity-gemini-3.7-flash-medium-native-observed-batch10',
+      'antigravity-gemini-3.7-flash-high-native-observed-batch10'
+    ]);
+    if (blockedAfterP0.has(id)) return {label:'BLOCKED AFTER P0',reason:id.includes('3.1-pro-low') && condition==='P1' ? 'P1 has a separate partial attempt: 40 valid responses, 10 service errors and 10 unattempted comments. There is no complete public P1 run.' : `No complete public ${condition} run followed this Antigravity P0. The native route was blocked; OpenRouter results are separate configurations.`,links:[
+      {href:'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/PROMPT_COVERAGE_AUDIT_2026-10-02.md',text:'Read the coverage audit ↗'}
+    ]};
     const roster=state.data.roster || [];
     const item=roster.find(r => r.id===id || r.parentBaselineId===id);
     if (item) return {label:item.disposition==='excluded' ? 'NOT APPLICABLE' : String(item.disposition || 'NO SAVED OUTCOME').toUpperCase(),reason:item.reason || 'No public saved outcome is available.'};
@@ -129,9 +214,9 @@
       const candidates = runs.filter(r => r.condition === condition);
       const run = candidates.find(complete) || candidates[0];
       if (!run) {
-        if(id === 'fable51-high') return `<div class="condition-card empty"><div class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">NO MATCHED RUN</span></div><p class="condition-meta">This historical P0 classified one comment per request. It has no ${condition} run with the same controls. The later batch-of-10 setup has its own P0, P1 and P2 runs and three passes per version.</p><a class="condition-related-link" href="?experiment=fable51-high-phase2-batch10-p0&run=fable51-high-phase2-batch10-p0#explore">Open the batch-of-10 prompt series →</a><a class="condition-related-link" href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/FABLE_REPEAT_FINDINGS_2026-09-28.md" target="_blank" rel="noopener noreferrer">Read its repeat findings ↗</a></div>`;
         const disposition=missingCondition(id,condition);
-        return `<div class="condition-card empty"><div class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">${esc(disposition.label)}</span></div><p class="condition-meta">${esc(disposition.reason)}</p></div>`;
+        const links=(disposition.links || []).map(link=>`<a class="condition-related-link" href="${esc(link.href)}"${link.href.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''}>${esc(link.text)}</a>`).join('');
+        return `<div class="condition-card empty"><div class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">${esc(disposition.label)}</span></div><p class="condition-meta">${esc(disposition.reason)}</p>${links}</div>`;
       }
       const value = score(run);
       const status = complete(run) ? 'COMPLETE' : 'PARTIAL TALLY';
@@ -212,7 +297,13 @@
   function renderCases(run) {
     const all = state.data.cases.filter(item => item.configuration === run.id);
     const panel = $('#case-panel');
-    if (!all.length) {panel.innerHTML = '<p class="empty-state">No individual comments are available for this run.</p>';return;}
+    if (!all.length) {
+      const source=url(run.sourceRecordsUrl);
+      panel.innerHTML=run.sourceOnlyDetails
+        ? `<p class="empty-state">This explorer has not loaded individual predictions for this run. The 60 recorded outputs are available in the source file; the linked report records its SHA-256 hash.</p>${source ? `<a class="detail-evidence" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Read the individual source records ↗</a>` : '<p class="note">The public record link is unavailable for this run.</p>'}`
+        : '<p class="empty-state">No individual comments are available for this run.</p>';
+      return;
+    }
     panel.innerHTML = `<div class="case-controls"><label><span>Find a comment</span><input type="search" id="case-search" placeholder="Search ID or comment"></label><label><span>Comment</span><select id="case-select"></select></label><label class="case-check"><input type="checkbox" id="case-disagreements"> Show disagreements only</label></div><p class="case-counter" id="case-counter"></p><div id="case-current"></div>`;
     let matches=[];
     const update = () => {
@@ -257,9 +348,9 @@
     else if (n(cost.knownUsd) !== null) rows.push(dataRow('Known API charges',money(cost.knownUsd)));
     else rows.push(dataRow('Observed API charges','Unavailable'));
     if (price) rows.push(dataRow('API-equivalent estimate, not billed',money(price.estimateUsd)));
-    else if (n(cost.estimatedUsd) !== null) rows.push(dataRow('API price estimate, not billed',money(cost.estimatedUsd)));
+    else if (n(cost.estimatedUsd) !== null) rows.push(dataRow(cost.estimateKind === 'known_usage_only' ? 'Known-usage API-equivalent estimate, not billed' : cost.estimateKind === 'calculated_api_equivalent' ? 'API-equivalent estimate, not billed' : cost.estimateKind === 'cli_list_price' ? 'CLI list-price estimate, not billed' : 'API price estimate, not billed',money(cost.estimatedUsd)));
     if (n(cost.unknownUpperBoundUsd) > 0) rows.push(dataRow('Possible additional charge, upper bound',money(cost.unknownUpperBoundUsd)));
-    const source=price && url(price.rate?.sourceUrl) ? `<p class="note">Public rate checked ${esc(price.rate.checkedDate)} · <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>. ${price.estimateUsd === null ? 'Estimate unavailable: '+esc(price.estimateStatus.replace(/_/g,' '))+'.' : ''} Actual subscription charge and quota use are unknown.</p>` : '';
+    const source=price && url(price.rate?.sourceUrl) ? `<p class="note">Public rate checked ${esc(price.rate.checkedDate)} · <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>. ${price.estimateUsd === null ? 'Estimate unavailable: '+esc(price.estimateStatus.replace(/_/g,' '))+'.' : ''} Actual subscription charge and quota use are unknown.</p>` : url(cost.sourceUrl) ? `<p class="note"><a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>. Actual subscription charge and quota use are unknown.</p>` : '';
     return resourceSection('Cost in USD',rows,cost.note || 'Subscription fees are not allocated per run.')+source;
   }
   function renderUsage(run) {
@@ -270,7 +361,7 @@
     const generation=providerGenerationTime(timing);
     const inferenceNote=inferred === 'Unavailable' ? 'No server inference duration was reported for this run. Client request timing appears in the technical details below.' : `${count(timing.inferenceReportedRequests)} requests reported server inference time. ${timing.inferenceBasis || ''}`;
     const evidence=url(run.evidenceUrl);
-    $('#usage-summary').innerHTML=`<div class="usage-heading"><h3>${esc(run.model)} <small>${esc(run.condition)} · ${esc(run.id)}</small></h3>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div class="usage-grid"><article><span class="usage-label">Server inference time</span><strong>${esc(inferred)}</strong><p>${esc(inferenceNote)}</p>${generation ? `<dl><div><dt>Provider generation median</dt><dd>${esc(generation)}</dd></div><div><dt>Requests with generation time</dt><dd>${esc(count(timing.providerGenerationReportedRequests))} / ${esc(count(timing.providerGenerationTotalRequests))}</dd></div></dl><p>${esc(timing.providerGenerationBasis || 'Provider generation duration is not pure inference time.')}</p>` : ''}</article><article><span class="usage-label">Token use</span><dl><div><dt>Input</dt><dd>${esc(count(tokens.input))}</dd></div><div><dt>Cache read</dt><dd>${esc(count(tokens.cachedInput))}</dd></div><div><dt>Cache write</dt><dd>${esc(count(tokens.cacheWrite))}</dd></div><div><dt>Output</dt><dd>${esc(count(tokens.output))}</dd></div><div><dt>Reasoning</dt><dd>${esc(count(tokens.reasoning))}</dd></div></dl><p>${esc(coverage)}. ${tokens.complete === false ? 'Totals cover only requests with usage data.' : ''}</p></article><article><span class="usage-label">API cost</span><dl><div><dt>${esc(actualLabel)}</dt><dd>${esc(observedCost(cost))}</dd></div><div><dt>${price ? 'API-equivalent estimate' : 'Price estimate'}</dt><dd>${esc(money(cost.estimatedUsd))}</dd></div>${n(cost.unknownUpperBoundUsd) > 0 ? `<div><dt>Possible extra charge, upper bound</dt><dd>${esc(money(cost.unknownUpperBoundUsd))}</dd></div>` : ''}</dl><p>Estimates and upper bounds are not provider bills.${price ? ' Actual subscription charge and quota use are unknown. Reasoning is included in output.' : ''}${price && url(price.rate?.sourceUrl) ? ` <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a> (${esc(price.rate.checkedDate)}).` : ''}${price?.estimateUsd === null ? ` Estimate unavailable: ${esc(price.estimateStatus.replace(/_/g,' '))}.` : ''}${run.id === 'typesafe-jev113-v2' ? ' The extra amount is a reservation ceiling for one failed request.' : ''}</p></article></div>`;
+    $('#usage-summary').innerHTML=`<div class="usage-heading"><h3>${esc(run.model)} <small>${esc(run.condition)} · ${esc(run.id)}</small></h3>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div class="usage-grid"><article><span class="usage-label">Server inference time</span><strong>${esc(inferred)}</strong><p>${esc(inferenceNote)}</p>${generation ? `<dl><div><dt>Provider generation median</dt><dd>${esc(generation)}</dd></div><div><dt>Requests with generation time</dt><dd>${esc(count(timing.providerGenerationReportedRequests))} / ${esc(count(timing.providerGenerationTotalRequests))}</dd></div></dl><p>${esc(timing.providerGenerationBasis || 'Provider generation duration is not pure inference time.')}</p>` : ''}</article><article><span class="usage-label">Token use</span><dl><div><dt>Input</dt><dd>${esc(count(tokens.input))}</dd></div><div><dt>Cache read</dt><dd>${esc(count(tokens.cachedInput))}</dd></div><div><dt>Cache write</dt><dd>${esc(count(tokens.cacheWrite))}</dd></div><div><dt>Output</dt><dd>${esc(count(tokens.output))}</dd></div><div><dt>Reasoning</dt><dd>${esc(count(tokens.reasoning))}</dd></div></dl><p>${esc(coverage)}. ${tokens.complete === false ? 'Totals cover only requests with usage data.' : ''}</p></article><article><span class="usage-label">API cost</span><dl><div><dt>${esc(actualLabel)}</dt><dd>${esc(observedCost(cost))}</dd></div><div><dt>${cost.estimateKind === 'known_usage_only' ? 'Known-usage API-equivalent estimate' : price || cost.estimateKind === 'calculated_api_equivalent' ? 'API-equivalent estimate' : cost.estimateKind === 'cli_list_price' ? 'CLI list-price estimate' : 'Price estimate'}</dt><dd>${esc(money(cost.estimatedUsd))}</dd></div>${n(cost.unknownUpperBoundUsd) > 0 ? `<div><dt>Possible extra charge, upper bound</dt><dd>${esc(money(cost.unknownUpperBoundUsd))}</dd></div>` : ''}</dl><p>Estimates and upper bounds are not provider bills.${price || cost.estimateKind ? ' Actual subscription charge and quota use are unknown.' : ''}${cost.estimateKind === 'known_usage_only' ? ' Any estimate covers only requests with priced usage.' : ''}${price ? ' Reasoning is included in output.' : ''}${price && url(price.rate?.sourceUrl) ? ` <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a> (${esc(price.rate.checkedDate)}).` : url(cost.sourceUrl) ? ` <a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a>.` : ''}${price?.estimateUsd === null ? ` Estimate unavailable: ${esc(price.estimateStatus.replace(/_/g,' '))}.` : ''}${run.id === 'typesafe-jev113-v2' ? ' The extra amount is a reservation ceiling for one failed request.' : ''}</p></article></div>`;
   }
   function selectRun(id,scroll) {
     const run=state.data.runs.find(r => r.id === id);if (!run)return;
@@ -297,9 +388,13 @@
     const roster=state.data.roster;
     if(!roster.length){$('.availability').hidden=true;return;}
     const query=$('#roster-search').value.toLowerCase().trim();
-    const entries=roster.filter(item => {const base=state.data.runs.find(r=>r.id===item.parentBaselineId);return !query || `${item.id} ${base?.model||''} ${item.disposition}`.toLowerCase().includes(query);});
+    const display=item => {
+      const missing=missingCondition(item.id,'P1');
+      return missing.label==='BLOCKED AFTER P0' ? {status:'blocked after P0',reason:'The native Antigravity route stopped after P0. P1 and P2 have no complete public run.',audit:missing.links?.[0]?.href} : {status:item.disposition,reason:item.reason};
+    };
+    const entries=roster.filter(item => {const base=state.data.runs.find(r=>r.id===item.parentBaselineId);return !query || `${item.id} ${base?.model||''} ${display(item).status}`.toLowerCase().includes(query);});
     $('#roster-count').textContent=`${entries.length} of ${roster.length} setups`;
-    $('#roster-list').innerHTML=entries.length ? entries.map(item => `<div class="roster-row"><strong>${esc(item.id)}</strong><span>${esc(item.disposition)}</span><p>${esc(item.reason)}</p></div>`).join('') : '<p class="empty-state">No model or setup matches this search.</p>';
+    $('#roster-list').innerHTML=entries.length ? entries.map(item => {const shown=display(item);return `<div class="roster-row"><strong>${esc(item.id)}</strong><span>${esc(shown.status)}</span><p>${esc(shown.reason)}${shown.audit ? ` <a href="${esc(shown.audit)}" target="_blank" rel="noopener noreferrer">Coverage audit ↗</a>` : ''}</p></div>`;}).join('') : '<p class="empty-state">No model or setup matches this search.</p>';
   }
   function initSources() {
     $('#reference-note').textContent='AI wrote these fictional comments and drafted the reference answers. A person checked all 60 answers; some remain disputed. Historical scores retain the original reference version. The results describe this test set, not performance with real candidates.';
@@ -321,8 +416,9 @@
       const response=await fetch('./data-provider-errors-v1.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
       const data=await response.json();if(!Array.isArray(data.runs)||n(data.denominator)!==60)throw new Error('Invalid public data');
       state.data={...data,runs:data.runs.filter(r => r?.id && ['P0','P1','P2'].includes(r.condition)),cases:Array.isArray(data.cases)?data.cases:[],roster:Array.isArray(data.roster)?data.roster:[]};
-      const pricing=await optionalPricing();
+      const [pricing,sonnet55]=await Promise.all([optionalPricing(),optionalSonnet55()]);
       if (pricing?.schema === 'subscription-price-estimates-v1' && pricing.runs && typeof pricing.runs === 'object') state.pricing=pricing;
+      state.data.runs.push(...sonnet55FirstPassRuns(sonnet55).filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;
       groups();renderExperimentSelect();renderModelSelect();renderSectionRunPickers();
       ['#overview-condition','#overview-surface'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));

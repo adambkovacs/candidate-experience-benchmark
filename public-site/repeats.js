@@ -10,6 +10,13 @@
   const signed = n => n > 0 ? `+${n}` : String(n);
   const number = n => n == null ? 'Unavailable' : n.toLocaleString('en-US');
   const money = n => n == null || !Number.isFinite(Number(n)) ? 'Unavailable' : '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 8});
+  const sonnetMissingLabel = item => {
+    if (!item || item.status === 'not_started') return 'Not started';
+    if (item.status === 'running_or_ambiguous') return 'In progress or outcome unknown; no score';
+    if (item.status === 'stopped' || item.status === 'stopped_unknown') return 'Stopped; unscored';
+    return `Unscored (${item.status})`;
+  };
+  const sonnetSavedLabel = item => item?.savedRecords == null ? '' : `; ${item.savedRecords} saved of 60`;
 
   const hostedV2Ids = {'openrouter-paid-gemma4-26b-a4b-on': 'gemma26-on-fresh-matched3-v2', 'openrouter-paid-qwen3.8-27b-medium': 'qwen27-fresh-matched3-v2-medium', 'openrouter-paid-qwen3.8-27b-xhigh': 'qwen27-fresh-matched3-v2-xhigh'};
   const priceUrl = './subscription-price-estimates.json';
@@ -21,7 +28,42 @@
     const timeout=new Promise(resolve => {timer=setTimeout(() => resolve(null),3000);});
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
   };
-  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json'];
+  const sonnet55Url = './sonnet55-fresh-matched3.json';
+  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json', sonnet55Url];
+  const sonnet55Series = report => {
+    const efforts=['low','medium','high','xhigh'],passes=['pass1','pass2','pass3'],conditions=['P0','P1','P2'];
+    if (report?.schema !== 'claude-sonnet55-fresh-matched3-findings-v1' || report.model !== 'claude-sonnet-5-5' || report.plannedCells !== 36 || report.denominatorPerCell !== 60 ||
+        JSON.stringify(report.efforts) !== JSON.stringify(efforts) || JSON.stringify(report.passOrder) !== JSON.stringify(passes) || JSON.stringify(report.conditionOrder) !== JSON.stringify(conditions)) return [];
+    const closed=(effort,pass,condition) => {
+      const dev=report.cells?.[effort]?.[pass]?.[condition]?.development;
+      return dev?.state === 'complete' && dev.recordCount === 60 && dev.score?.denominator === 60 && Number.isInteger(dev.score?.valid) && dev.score.valid >= 0 && dev.score.valid <= 60 &&
+        dev.score.outcomes?.valid === dev.score.valid && Object.values(dev.score.outcomes).reduce((total,value)=>total+value,0) === 60 &&
+        dev.evidence?.records?.path && /^[0-9a-f]{64}$/.test(dev.evidence.records.sha256 || '');
+    };
+    return efforts.map(effort => {
+      const completed=passes.flatMap(pass=>conditions.filter(condition=>closed(effort,pass,condition)).map(condition=>[pass,condition]));
+      const missing=passes.flatMap(pass=>conditions.filter(condition=>!closed(effort,pass,condition)).map(condition=>{
+        const dev=report.cells?.[effort]?.[pass]?.[condition]?.development || {};
+        return {pass,condition,status:dev.state || 'not_started',
+          savedRecords:Number.isInteger(dev.recordCount) && dev.recordCount >= 0 ? dev.recordCount : null,
+          attemptedRequests:Number.isInteger(dev.requestCount) && dev.requestCount >= 0 ? dev.requestCount :
+            Number.isInteger(dev.usage?.startedRequestCount) && dev.usage.startedRequestCount >= 0 ? dev.usage.startedRequestCount : null,
+          usage:dev.usage || null};
+      }));
+      return {schema:'claude-sonnet55-fresh-matched3-series-v1',method:'fresh-matched-three',configuration:`sonnet55-${effort}-fresh-matched3-batch10-v2`,
+        displayName:`Claude Sonnet 5.5 · ${effort} effort · fresh matched three`,model:report.model,effort,
+        passOrder:passes,conditionOrder:conditions,denominator:60,plannedConditions:9,completedConditions:completed.length,missingPasses:missing,
+        passes:Object.fromEntries(passes.map(pass=>[pass,Object.fromEntries(conditions.filter(condition=>closed(effort,pass,condition)).map(condition=>{
+          const dev=report.cells[effort][pass][condition].development;
+          return [condition,{completionStatus:'complete',score:dev.score,usage:dev.usage,evidence:dev.evidence}];
+        }))])),
+        threePassSummary:report.threePassSummary?.[effort] || {},
+        pairwiseFlips:(report.pairwiseFlips || []).filter(item=>item.effort===effort),
+        withinPassPromptDeltas:(report.withinPassPromptDeltas || []).filter(item=>item.effort===effort),
+        pairedDeltaSpread:report.pairedDeltaSpread?.[effort] || {},
+        interpretation:[`Across four efforts, ${report.completedCells} of 36 planned development phases have complete 60-comment results in this report. This effort has ${completed.length} of 9. Smoke phases and unclosed attempts are not scores.`,...(report.limitations || [])]};
+    });
+  };
   const e4bInterruptionUrl = './e4b-interruption-findings.json';
   const e4bInterruptionId = 'gemma4-e4b-sdk-thinking-on';
   const gemmaContinuationSchema = 'gemma26-on-v2-interrupted-continuation-findings-v1';
@@ -51,10 +93,12 @@
     'openrouter-paid-qwen36-35b-a3b-off': 'openrouter-paid-qwen36-35b-a3b-off-fresh-matched3-v2',
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
-  Promise.all([...feedUrls.map(url => fetch(url).then(r => {
-    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl) && r.status === 404) return {series: []};
+  Promise.all([...feedUrls.map(url => {
+    const load=Promise.resolve().then(() => fetch(url)).then(r => {
+    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl || url === sonnet55Url) && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
+      if (url === sonnet55Url) return {series:sonnet55Series(payload)};
       if (url === './kev-native-repeats.json') {
         if (payload && !payload.schema && Array.isArray(payload.series) && !payload.series.length) return payload;
         const order = ['fresh1', 'fresh2', 'fresh3'];
@@ -724,7 +768,12 @@
       }
       return payload;
     });
-  })), optionalPricing()]).then(results => {
+    }).catch(error => url === sonnet55Url ? {series: []} : Promise.reject(error));
+    if (url !== sonnet55Url || typeof setTimeout !== 'function') return load;
+    let timer;
+    const timeout=new Promise(resolve => {timer=setTimeout(() => resolve({series: []}),3000);});
+    return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
+  }), optionalPricing()]).then(results => {
     const candidate=results.pop();
     const subscriptionPricing=candidate?.schema === 'subscription-price-estimates-v1' ? candidate : null;
     const payloads=results;
@@ -762,6 +811,7 @@
     const priceSource = entry => /^https:\/\/(platform\.claude\.com|developers\.openai\.com)\//.test(entry?.rate?.sourceUrl || '')
       ? `<a href="${esc(entry.rate.sourceUrl)}" target="_blank" rel="noopener noreferrer">Public rate ↗</a>` : '';
     const isFreshCodex = s => s.schema === 'codex-fresh-repeat-findings-v1' && s.method === 'fresh-matched-three';
+    const isFreshSonnet = s => s.schema === 'claude-sonnet55-fresh-matched3-series-v1' && s.method === 'fresh-matched-three';
     const isFreshHosted = s => (s.schema === 'deepseek-fresh-repeat-findings-v1' ||
       s.schema === 'additional-hosted-fresh-repeat-findings-v1' || s.schema === 'hosted-v2-fresh-repeat-findings-v1') && s.method === 'fresh-matched-three';
     const isQwenContinuation = s => s.schema === qwenContinuationSchema &&
@@ -804,6 +854,7 @@
       const data = series.find(s => seriesKey(s) === configControl.value);
       if (!data) throw Error('Unknown repeat configuration');
       const freshCodex = isFreshCodex(data);
+      const freshSonnet = isFreshSonnet(data);
       const freshHosted = isFreshHosted(data);
       const qwenContinuation = isQwenContinuation(data);
       const deepseekLowContinuation = isDeepseekLowContinuation(data);
@@ -831,10 +882,11 @@
       const closed = phase => gemmaContinuation || gemmaSecond ? phase?.status === 'completed' || phase?.status === 'completed_interrupted'
         : qwenContinuation || deepseekLowContinuation || qwen27Cutoff || qwen27Second || qwen27Final || deepseekThird ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error' || phase?.status === 'completed_interrupted_composite'
         : freshCodex || freshHosted ? phase?.status === 'completed'
+        : freshSonnet ? phase?.completionStatus === 'complete'
         : generatedOpenJev || generatedSemIf || generatedAnyJev ? phase?.completionStatus === 'complete'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
-      const freshSeries = data.schema === 'hosted-v2-fresh-repeat-findings-v1' || data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || gemmaContinuation || qwen27Cutoff || qwen27Second || qwen27Final || gemmaSecond || deepseekThird || nativeOpenJev || generatedOpenJev || generatedSemIf || generatedAnyJev || nativeKev;
+      const freshSeries = freshSonnet || data.schema === 'hosted-v2-fresh-repeat-findings-v1' || data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || gemmaContinuation || qwen27Cutoff || qwen27Second || qwen27Final || gemmaSecond || deepseekThird || nativeOpenJev || generatedOpenJev || generatedSemIf || generatedAnyJev || nativeKev;
       const qwenUnknownFor = (pass, condition) => qwenContinuation
         ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
         : null;
@@ -863,6 +915,8 @@
         : '') + (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
       if (gemmaSecond) document.getElementById('repeat-interpretation').innerHTML +=
         `<p><a href="${gemmaSecondUrl}">Read this public cutoff and its source hashes</a></p>`;
+      if (freshSonnet) document.getElementById('repeat-interpretation').innerHTML +=
+        `<p><a href="${sonnet55Url}">Read the Sonnet 5.5 source report and evidence hashes</a></p>`;
       if (interruptedE4b) {
         const u = interruptedE4b.usage;
         const sourceBase = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/';
@@ -916,6 +970,7 @@
         : `${data.displayName || data.configuration}. ${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt/pass combinations'} have complete evidence on the same ${data.denominator} development comments. Incomplete passes are not zero scores.` + Object.entries(data.passes).flatMap(([pass, conditions]) => Object.entries(conditions).filter(([, phase]) => phase.completionStatus === 'partial').map(([condition, phase]) => { const o = phase.score.outcomes; return ` ${condition} ${displayPass(pass)} stopped with ${o.valid} valid responses, ${o.service_error || 0} service errors and ${o.never_sent || 0} reviews not sent.`; })).join('');
       if (localFresh) document.getElementById('repeat-lead').textContent += ` This study plans three fresh local passes. Only completed phases have scores. Earlier local results are observational and are not counted here. Only terminal phases have scores. Reference labels are provisional and were used only for offline scoring. Client request time includes runtime overhead; loaded engine version, model load time and local cost are unknown.`;
       if (freshCodex) document.getElementById('repeat-lead').textContent += ' Each series schedules three fresh Codex subscription passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. The requested model and CLI version are recorded; the served model identity and revision, effective seed and attributable subscription cost are unavailable. Request time includes client overhead.';
+      if (freshSonnet) document.getElementById('repeat-lead').textContent += ' This separate Sonnet 5.5 study plans three passes per prompt version. Only closed 60-comment development phases have scores; smoke results and unfinished attempts are excluded. The original low-effort pass 1 P0 guard failure was retained and admitted offline, not replayed. Client request duration includes overhead; pure inference time and actual subscription cost are unavailable.';
       if (freshHosted) document.getElementById('repeat-lead').textContent += ' This series schedules three fresh hosted passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. Costs are provider-reported charges; request durations include network and service overhead, not pure inference time. Smoke usage is separate.';
       if (qwenContinuation) {
         const accounting = qwenDispatchOrder.map(([pass, condition]) => data.passes[pass]?.[condition])
@@ -994,7 +1049,8 @@
           const kevStop = nativeKev && phase?.completionStatus === 'interrupted';
           const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
           const generatedStop = generatedOpenJev && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'stopped_unknown');
-          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (kevStop ? '<span>Interrupted; unscored</span>' : stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : thirdStop ? '<span>Stopped: 46 valid, 1 invalid, 3 service errors, 10 unsent; no score</span>' : qwen27P0Stop ? '<span>Stopped: 37 valid, 1 service error, 22 unsent; no score</span>' : qwen27P1Stop ? `<span>${data.cutoffDetail.laterP1.saved} saved, ${data.cutoffDetail.laterP1.neverSent} unsent; no score</span>` : gemmaStop ? '<span>Stopped: 1 valid, 1 service error, 58 unsent; no score</span>' : gemmaSecondStop ? '<span>Stopped: 4 valid, 1 service error, 55 unsent; no score</span>' : e4bStop ? '<span>Stopped: 50 valid, 2 unknown, 8 unsent; no score</span>' : gemmaUnsent ? '<span>Not sent</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
+          const sonnetMissing = freshSonnet ? data.missingPasses.find(item => item.pass === p && item.condition === c) : null;
+          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (kevStop ? '<span>Interrupted; unscored</span>' : stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : thirdStop ? '<span>Stopped: 46 valid, 1 invalid, 3 service errors, 10 unsent; no score</span>' : qwen27P0Stop ? '<span>Stopped: 37 valid, 1 service error, 22 unsent; no score</span>' : qwen27P1Stop ? `<span>${data.cutoffDetail.laterP1.saved} saved, ${data.cutoffDetail.laterP1.neverSent} unsent; no score</span>` : gemmaStop ? '<span>Stopped: 1 valid, 1 service error, 58 unsent; no score</span>' : gemmaSecondStop ? '<span>Stopped: 4 valid, 1 service error, 55 unsent; no score</span>' : e4bStop ? '<span>Stopped: 50 valid, 2 unknown, 8 unsent; no score</span>' : gemmaUnsent ? '<span>Not sent</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : freshSonnet ? `<span>${esc(sonnetMissingLabel(sonnetMissing) + sonnetSavedLabel(sonnetMissing))}</span>` : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
         }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : qwen27Cutoff || qwen27Second ? 'This entry covers fresh pass 3 only; select the hosted series for earlier passes.' : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
       }).join('')}</div><p class="analysis-caveat">Bars start at zero. Agreement is measured against provisional references, separately from valid response format. Repeated comments are not independent cases.</p>`;
       document.getElementById('repeat-delta-title').textContent = nativeP0 ? 'One native decision procedure' : 'How did prompt scores change across passes?';
@@ -1013,12 +1069,25 @@
       const ids = changes ? (field === 'allFour' ? changes.fourFieldVector : changes.fields[field]) : null;
       const pairs = (data.pairwiseFlips || []).filter(x => x.condition === c &&
         (!freshSeries || (closedSlot(x.from, c) && closedSlot(x.to, c))));
-      document.getElementById('repeat-flips').innerHTML = `${generatedAnyJev && changes?.denominator === 0 ? '<p>No comments had answers in the required format in all three passes; change comparisons are unavailable.</p>' : ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>Comparable means answers met the required format in all three passes. ${changes.excludedIds.length} ${changes.excludedIds.length === 1 ? 'comment was' : 'comments were'} excluded because at least one pass did not.</p>` : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {if (generatedAnyJev && x.denominator === 0) return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: unavailable (0 comments with answers in the required format in both passes)</li>`; const f = field === 'allFour' ? x.fourFieldVector : nativeL1 ? x.fields[field] : x[field]; const changed = Array.isArray(f) ? f.length : f.changed; return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: ${changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
+      document.getElementById('repeat-flips').innerHTML = `${generatedAnyJev && changes?.denominator === 0 ? '<p>No comments had answers in the required format in all three passes; change comparisons are unavailable.</p>' : ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>Comparable means answers met the required format in all three passes. ${changes.excludedIds.length} ${changes.excludedIds.length === 1 ? 'comment was' : 'comments were'} excluded because at least one pass did not.</p>` : freshSonnet && passes.every(p => closedSlot(p,c)) ? '<p>Pairwise changes between completed passes are listed below.</p>' : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {if (generatedAnyJev && x.denominator === 0) return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: unavailable (0 comments with answers in the required format in both passes)</li>`; const f = field === 'allFour' ? x.fourFieldVector : nativeL1 ? x.fields[field] : x[field]; const changed = Array.isArray(f) ? f.length : f.changed; return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: ${changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
       if (qwen27Cutoff) document.getElementById('repeat-flips').innerHTML =
         '<p>Cross-pass answer changes are outside this fresh pass 3 cutoff. Select the earlier hosted series for its completed comparisons.</p>';
       if (qwen27Second) document.getElementById('repeat-flips').innerHTML =
         '<p>Cross-pass answer changes for these completed interrupted runs have not yet been calculated. Earlier hosted passes are available separately. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN27_V2_SECOND_CONTINUATION_FINDINGS_2026-10-01.md">See the fresh pass 3 P0 to P1 changes on comments with valid answers in both.</a></p>';
       document.getElementById('repeat-usage-body').innerHTML = conditionOrder.flatMap(c => passes.map(p => {
+        if (freshSonnet && !closed(data.passes[p]?.[c])) {
+          const item=data.missingPasses.find(entry => entry.pass === p && entry.condition === c);
+          const u=item?.usage;
+          const saved=item?.savedRecords == null ? '' : `<br><small>${item.savedRecords} saved records of 60</small>`;
+          const elapsed=u?.requestSecondsTotal;
+          const requests=u?.requestCount ?? item?.attemptedRequests;
+          const pricedRequests=Number.isInteger(requests) && requests > 0 && Number.isInteger(u?.unpricedRequests) && u.unpricedRequests >= 0 && u.unpricedRequests <= requests
+            ? requests - u.unpricedRequests : null;
+          const partialPrice=pricedRequests > 0 && u?.calculatedApiEquivalentUsd != null
+            ? `${money(u.calculatedApiEquivalentUsd)}<br><small>Known partial usage for ${pricedRequests} priced ${pricedRequests === 1 ? 'request' : 'requests'}${u.unpricedRequests ? `; ${u.unpricedRequests} unpriced` : ''}; not a subscription charge</small>`
+            : `Unavailable${pricedRequests === 0 ? '<br><small>No priced request usage; attempted cost unknown</small>' : ''}`;
+          return `<tr><th scope="row">${c}</th><td>${displayPass(p)} (${esc(sonnetMissingLabel(item).toLowerCase())})</td><td>${number(item?.attemptedRequests)}${saved}</td><td>${number(u?.tokens?.input_tokens)}${u?.tokens?.input_tokens != null ? '<br><small>Saved partial usage</small>' : ''}</td><td>${number(u?.tokens?.output_tokens)}${u?.tokens?.output_tokens != null ? '<br><small>Saved partial usage</small>' : ''}</td><td>Unavailable</td><td>${partialPrice}</td><td>${elapsed == null ? 'Unavailable' : `${Number(elapsed).toFixed(1)}<br><small>Saved partial usage</small>`}</td></tr>`;
+        }
         if (qwen27Final && p === 'fresh3' && (c === 'P0' || c === 'P1')) {
           const phase = data.passes[p][c], u = phase.usage;
           const tokens = key => {
@@ -1077,14 +1146,21 @@
         const interrupted = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
         const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
         const generatedStop = generatedOpenJev && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'stopped_unknown');
-        const u = (localFresh || nativeP0 || freshCodex || freshHosted || qwenContinuation || deepseekLowContinuation || deepseekThird) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
+        const u = (localFresh || nativeP0 || freshCodex || freshSonnet || freshHosted || qwenContinuation || deepseekLowContinuation || deepseekThird) && !closed(data.passes[p]?.[c]) ? null : data.passes[p]?.[c]?.usage;
         const elapsed = u?.requestSecondsTotal ?? u?.clientHttpCallSecondsTotal ?? u?.clientRequestSecondsTotal ?? u?.clientPredictionSeconds;
+        const sonnetCoverage=freshSonnet && Number.isInteger(u?.requestCount) && Number.isInteger(u?.unpricedRequests) && u.unpricedRequests >= 0 && u.unpricedRequests <= u.requestCount
+          ? u.requestCount-u.unpricedRequests : null;
+        const sonnetTokenNote=freshSonnet && sonnetCoverage !== null && u.unpricedRequests > 0 ? `<br><small>Known usage for ${sonnetCoverage} of ${u.requestCount} requests</small>` : '';
         const nativePositions = nativeL1 && u?.tokens?.input_token_positions != null ? `<br><small>Native input positions: ${number(u.tokens.input_token_positions)} (not billed tokens)</small>` : nativeAlex && u?.nativeNliInputTokenPositions != null ? `<br><small>Native NLI input positions: ${number(u.nativeNliInputTokenPositions)}</small>` : '';
         const subscription=subscriptionPrice(data,p,c);
         const priceCell=subscription
           ? `${money(subscription.estimateUsd)}<br><small>Current public-rate estimate, ${esc(subscription.rate.checkedDate)} · ${priceSource(subscription)}${subscription.estimateUsd === null ? ` · ${esc(subscription.estimateStatus.replace(/_/g,' '))}` : subscription.estimateStatus === 'known_usage_only' ? ' · known usage only' : ''}</small>${subscription.estimateUsd === null && u?.cliListPriceEstimateUsd != null ? `<br><small>Saved CLI API-equivalent estimate: ${money(u.cliListPriceEstimateUsd)}. Cache lifetime was not resolved for the current-rate calculation.</small>` : ''}`
+          : freshSonnet
+          ? sonnetCoverage === u?.requestCount && u?.calculatedApiEquivalentUsd != null
+            ? `${money(u.calculatedApiEquivalentUsd)}<br><small>API-equivalent calculation from saved usage${/^https:\/\//.test(u.priceSource || '') ? ` · <a href="${esc(u.priceSource)}" target="_blank" rel="noopener noreferrer">Public rate ↗</a>` : ''}; not a subscription charge</small>`
+            : `Unavailable${sonnetCoverage !== null && u.unpricedRequests > 0 ? `<br><small>${u.unpricedRequests} ${u.unpricedRequests === 1 ? 'request' : 'requests'} without priced usage; full estimate unknown</small>` : ''}`
           : `${money(u?.estimatedTokenPriceCostUsd ?? u?.cliListPriceEstimateUsd)}${u?.estimatedTokenPriceCostUsd != null ? '<br><small>Reported input tokens × published price</small>' : u?.cliListPriceEstimateUsd != null ? '<br><small>CLI list-price estimate</small>' : ''}`;
-        return `<tr><th scope="row">${c}</th><td>${displayPass(p)}${interrupted || nativeStop || generatedStop ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${nativePositions}<br><small>Cache read: ${number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}<br><small>Reasoning: ${number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}${u?.providerReasoningTokensAboveCompletionCount ? `<br>Provider reasoning count exceeds output count in ${number(u.providerReasoningTokensAboveCompletionCount)} responses; retained as reported.` : ''}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${priceCell}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
+        return `<tr><th scope="row">${c}</th><td>${displayPass(p)}${interrupted || nativeStop || generatedStop ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${sonnetTokenNote}${nativePositions}<br><small>Cache read: ${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}${sonnetTokenNote}<br><small>Reasoning: ${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}${u?.providerReasoningTokensAboveCompletionCount ? `<br>Provider reasoning count exceeds output count in ${number(u.providerReasoningTokensAboveCompletionCount)} responses; retained as reported.` : ''}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${priceCell}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
       })).join('');
     }
     configControl.addEventListener('change', render);

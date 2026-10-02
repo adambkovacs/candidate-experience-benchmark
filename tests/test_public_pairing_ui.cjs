@@ -214,7 +214,8 @@ test('resource and individual-run pickers contain the same saved runs and select
 test('historical Fable card links its separate matched batch series', () => {
   const {ui, experiment, conditionGrid} = fixture();
   const historical = {id: 'fable51-high', condition: 'P0', model: 'Fable', effort: 'high', surface: 'Claude subscription', complete: true, records: 60, metrics: {all_four: 57}};
-  ui.state.data = {runs: [historical], promptComparisons: [], roster: []};
+  const related = {...historical, id: 'fable51-high-phase2-batch10-p0', metrics: {all_four: 58}};
+  ui.state.data = {runs: [historical, related], promptComparisons: [], roster: []};
   ui.state.experiments = new Map([['fable51-high', [historical]]]);
   experiment.value = 'fable51-high';
   ui.renderExperiment();
@@ -223,4 +224,64 @@ test('historical Fable card links its separate matched batch series', () => {
   assert.match(conditionGrid(), /batch-of-10 prompt series/);
   assert.match(conditionGrid(), /fable51-high-phase2-batch10-p0/);
   assert.doesNotMatch(conditionGrid(), /NOT APPLICABLE/);
+});
+
+test('each verified historical Claude and Codex counterpart links its own later series', () => {
+  const pairs = {
+    'sonnet5-low-first-pass':'sonnet5-low-first-pass-phase2-batch10-p0',
+    'sonnet5-low-with-retry':'sonnet5-low-first-pass-phase2-batch10-p0',
+    'sonnet5-medium':'sonnet5-medium-phase2-batch10-p0',
+    'sonnet5-high':'sonnet5-high-phase2-batch10-p0',
+    'sonnet5-xhigh':'sonnet5-xhigh-phase2-batch10-p0',
+    'opus5-low':'opus5-low-phase2-batch10-p0',
+    'opus5-medium':'opus5-medium-phase2-batch10-p0',
+    'opus5-high':'opus5-high-phase2-batch10-p0',
+    'opus5-xhigh':'opus5-xhigh-phase2-batch10-p0',
+    'fable51-low':'fable51-low-phase2-batch10-p0',
+    'fable51-medium':'fable51-medium-phase2-batch10-p0',
+    'fable51-high':'fable51-high-phase2-batch10-p0',
+    'fable51-xhigh':'fable51-xhigh-phase2-batch10-p0',
+    'codex-gpt-5.6-luna-low':'codex-gpt-5.6-luna-low-phase2-batch10-p0',
+    'codex-gpt-6-astra-low':'codex-gpt-6-astra-low-phase2-batch10-p0',
+  };
+  for (const [id, relatedId] of Object.entries(pairs)) {
+    const {ui, experiment, conditionGrid} = fixture();
+    const historical = {id, condition:'P0', model:'Historical', effort:'low', surface:'Subscription', complete:true, records:60, metrics:{all_four:55}};
+    const related = {...historical, id:relatedId};
+    ui.state.data = {runs:[historical,related], promptComparisons:[], roster:[]};
+    ui.state.experiments = new Map([[id,[historical]]]);
+    experiment.value = id;
+    ui.renderExperiment();
+    assert.match(conditionGrid(), new RegExp(relatedId), id);
+    assert.match(conditionGrid(), /NO MATCHED RUN/, id);
+    assert.match(conditionGrid(), /separate P0, P1 and P2 runs/, id);
+  }
+});
+
+test('Haiku points to the fresh series without counting the old failed batch P1 as complete', () => {
+  const {ui, experiment, conditionGrid} = fixture();
+  const historical = {id:'haiku45-not_applicable', condition:'P0', model:'Haiku', effort:'not_applicable', surface:'Claude subscription', complete:true, records:60, metrics:{all_four:55}};
+  ui.state.data = {runs:[historical], promptComparisons:[], roster:[]};
+  ui.state.experiments = new Map([[historical.id,[historical]]]);
+  experiment.value = historical.id;
+  ui.renderExperiment();
+  assert.match(conditionGrid(), /ten P1 transport failures/);
+  assert.match(conditionGrid(), /separate fresh matched-three/);
+  assert.match(conditionGrid(), /haiku-fresh-matched3\.json/);
+  assert.doesNotMatch(conditionGrid(), /later batch-of-10 setup has separate P0, P1 and P2 runs/);
+});
+
+test('scheduled Antigravity P0-only rows display their blocked state and partial P1 limit', () => {
+  const {ui, experiment, conditionGrid} = fixture();
+  const id='antigravity-gemini-3.1-pro-low-native-observed-batch10';
+  const historical = {id, condition:'P0', model:'Gemini', effort:'low', surface:'Antigravity', complete:true, records:60, metrics:{all_four:55}};
+  ui.state.data = {runs:[historical], promptComparisons:[], roster:[{id,disposition:'scheduled',reason:'Selected for prompt evaluation.'}]};
+  ui.state.experiments = new Map([[id,[historical]]]);
+  experiment.value = id;
+  ui.renderExperiment();
+  assert.match(conditionGrid(), /BLOCKED AFTER P0/);
+  assert.match(conditionGrid(), /40 valid responses, 10 service errors and 10 unattempted comments/);
+  assert.match(conditionGrid(), /There is no complete public P1 run/);
+  assert.match(conditionGrid(), /No complete public P2 run/);
+  assert.match(conditionGrid(), /PROMPT_COVERAGE_AUDIT_2026-10-02\.md/);
 });
