@@ -1,0 +1,74 @@
+{
+  "kind": "root-reviewed-legacy-qwen-stage-v1",
+  "approved": true,
+  "reviewer": "/root/resume_local_preflight",
+  "authorized_by_root": true,
+  "review_scope": "root-delegated original-controller 60-record development after independent all-valid smoke inspection; preserve all intrinsic invalid outputs",
+  "reviewed_utc": "2026-10-02T15:22:03.040Z",
+  "plan_sha256": "7ef8c42a5fd66308e46c0dd885d92373bdbe3ba0e4aa7bdecf58298b82dd80c0",
+  "controller_sha256": "427846fc36df3dccf87ab834e1bc99673794b2cf4554c60d55ea971a1f13c989",
+  "phase": "qwen3-1.7b-sdk-thinking-on/fresh1/P0",
+  "stage": "development",
+  "model_identifier": "recruitment-qwen3-1.7b-q4km",
+  "artifact_sha256": "e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e",
+  "smoke_inspection_sha256": "26a2f952c15d18b28501bc6e22936b010bef5c450ba6fee4109fce71a04fa0d5",
+  "cache_policy": {
+    "enabled": true,
+    "size_limit_mib": 8192
+  },
+  "reference_labels_read": false,
+  "exact_openrouter_route_absent": true,
+  "route_catalog_file": "results/route-audits/qwen17-sdk-on-fresh1-P0-development-20261002T152203Z/catalog-audit.json",
+  "route_catalog_sha256": "098431314439b92158022c96638e9b3b8a13f15d94508b548ef4d5e4ba88fdc4",
+  "route_checked_utc": "2026-10-02T15:22:03.036Z",
+  "gpu_available": true,
+  "capacity_reviewed": true,
+  "capacity_evidence": {
+    "boot": "2026-10-02 12:48:09 +0200",
+    "sleep_wakes": 1,
+    "ac_power": true,
+    "lid_open": true,
+    "memory_free_percent": 88,
+    "battery_percent": 48,
+    "last_wake": "2026-10-02 16:43:20 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVA] : due to HID Activity Using AC (Charge:2%)",
+    "sleep_wake_events": [
+      "2026-10-02 16:37:45 +0200 Sleep               \tEntering Sleep state due to 'Clamshell Sleep':TCPKeepAlive=active Using Batt (Charge:2%) 314 secs",
+      "2026-10-02 16:42:59 +0200 DarkWake            \tDarkWake from Deep Idle [CDNP] : due to smc.sysState.Wake(0x70070000) USB-C_plug SMC.OutboxNotEmpty nub-spmi-a1.0x0B/ Using AC (Charge:3%) 0 secs",
+      "2026-10-02 16:42:59 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVAP] : due to Notification Using AC (Charge:3%) 5 secs",
+      "2026-10-02 16:43:04 +0200 Sleep               \tEntering DarkWake state due to 'Notification Wake Back to Sleep':TCPKeepAlive=active Using AC (Charge:3%) 5 secs",
+      "2026-10-02 16:43:09 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVAPB] : due to Notification Using BATT (Charge:2%) 1 secs",
+      "2026-10-02 16:43:10 +0200 Sleep               \tEntering DarkWake state due to 'Clamshell Sleep':TCPKeepAlive=active Using Batt (Charge:2%) 10 secs",
+      "2026-10-02 16:43:20 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVA] : due to HID Activity Using AC (Charge:2%)"
+    ]
+  },
+  "loaded_config_verified": true,
+  "loaded_config_fields": {
+    "llm.load.contextLength": 8192,
+    "llm.load.llama.acceleration.offloadRatio": 1,
+    "llm.load.llama.cpuThreadPoolSize": 12,
+    "llm.load.llama.flashAttention": true,
+    "llm.load.llama.tryDirectIO": false,
+    "llm.load.numParallelSessions": 1,
+    "load.gpuSplitConfig": {
+      "strategy": "evenly",
+      "disabledGpus": [],
+      "priority": [],
+      "customRatio": []
+    }
+  },
+  "preflight_file": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen17-sdk-on-development-preflight-20261002T152203Z.json",
+  "preflight_sha256": "f0c903ad67ecad2ff262e36aba0c1ec9823726386ee47aaa57feddf101205d9d",
+  "runtime_token_preflight": {
+    "phase": "qwen3-1.7b-sdk-thinking-on/fresh1/P0",
+    "model_identifier": "recruitment-qwen3-1.7b-q4km",
+    "artifact_sha256": "e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e",
+    "context": 8192,
+    "output_reserve": 4096,
+    "request_count": 60,
+    "requests_sha256": "a4fd02e2d531836fbcac64e41f4dc887ea4f67480ae4a918dedf46ebafd3fc01",
+    "observed_preflight_sha256": "0e91405622c775f4a6825eca7d554be250d9b9830b13dfb2340c570078e81b7e",
+    "observed_instance_reference": "YxEgYBf7iVIdiWFR8vqQdlGf",
+    "observed_prompt_tokens_min": 1531,
+    "observed_prompt_tokens_max": 1563
+  }
+}
