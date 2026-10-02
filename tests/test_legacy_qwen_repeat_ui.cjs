@@ -31,4 +31,10 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   assert.match(elements.get('repeat-lead').textContent, new RegExp(`${target.completedConditions} of 9`));
   assert.equal((elements.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, target.completedConditions);
   assert.doesNotMatch(elements.get('repeat-usage-body').innerHTML, /\$0\.00/);
+  for (const configuration of ['qwen3-0.6b-sdk-thinking-on','qwen3-0.6b-sdk-thinking-off']) {
+    elements.get('repeat-config').value = configuration;
+    elements.get('repeat-config').change();
+    assert.match(elements.get('repeat-chart').innerHTML, /Smoke returned invalid format; full run not started/);
+    assert.doesNotMatch(elements.get('repeat-chart').innerHTML, /<meter/);
+  }
 });

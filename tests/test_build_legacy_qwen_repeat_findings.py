@@ -1,4 +1,5 @@
 import importlib.util
+import copy
 import json
 from pathlib import Path
 import shutil
@@ -15,7 +16,7 @@ SPEC.loader.exec_module(findings)
 
 
 class LegacyQwenFindingsTests(unittest.TestCase):
-    def test_report_rebuilds_from_closed_source_and_keeps_other_five_pending(self):
+    def test_report_rebuilds_from_closed_source_and_tracks_all_configurations(self):
         report = findings.build(ROOT)
         saved = json.loads((ROOT / findings.OUTPUT).read_text())
         self.assertEqual(report, saved)
@@ -35,9 +36,26 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         self.assertEqual(len(target['missingPasses']) + target['completedConditions'], 9)
         self.assertEqual(target['passes']['fresh1']['P0']['usage']['actualCostUsd'], None)
         for other in report['series'][1:]:
-            self.assertEqual(other['completedConditions'], 0)
-            self.assertEqual(len(other['missingPasses']), 9)
-            self.assertEqual(other['pairwiseFlips'], [])
+            self.assertEqual(other['completedConditions'] + len(other['missingPasses']), 9)
+
+    def test_inspected_stopped_sdk_smoke_is_bound_but_unscored(self):
+        report = findings.build(ROOT)
+        for config_id, expected in [('qwen3-0.6b-sdk-thinking-on', (1, 2)),
+                                    ('qwen3-0.6b-sdk-thinking-off', (0, 3))]:
+            with self.subTest(config_id=config_id):
+                series = next(row for row in report['series']
+                              if row['configuration'] == config_id)
+                item = next(row for row in series['missingPasses']
+                            if row['pass'] == 'fresh1' and row['condition'] == 'P0')
+                self.assertEqual(item['status'], 'smoke_blocked')
+                self.assertEqual((item['stage'], item['attempted'], item['saved'],
+                                  item['valid'], item['invalid']), ('smoke', 3, 3, *expected))
+                self.assertNotIn('P0', series['passes']['fresh1'])
+                self.assertEqual(series['completedConditions'], 0)
+                bound = {source['path'] for source in series['sourceBindings']}
+                self.assertTrue({item['evidence']['inspection']['path'],
+                                 item['evidence']['raw']['path'],
+                                 item['evidence']['completion']['path']} <= bound)
 
     def test_closed_phase_rejects_mutated_saved_record(self):
         phase = findings.BASE / findings.TARGET / 'fresh1' / 'P0'
@@ -94,6 +112,45 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         self.assertEqual(counts['testimonial_potential'], {'no': 58, 'yes': 1})
         self.assertEqual(confusion['testimonial_potential'], {'no': {'no': 58, 'yes': 1},
                                                              'yes': {}})
+
+    def test_sdk_frozen_adapter_fixture_classification_and_usage(self):
+        plan = json.loads((ROOT / findings.MANIFEST).read_text())
+        config = plan['configurations']['qwen3-0.6b-sdk-thinking-on']
+        request = config['conditions']['P0']['requests'][0]
+        historical = json.loads((ROOT / 'results/qwen3-0.6b-sdk-thinking-2026-09-21/'
+                                 'development.jsonl').read_text().splitlines()[0])
+        prediction = {'sentiment': 'positive', 'follow_up_needed': 'no',
+                      'serious_concern_reported': 'no', 'testimonial_potential': 'no'}
+        result = {'modelInfo': historical['model_info'],
+                  'loadConfig': historical['load_config'],
+                  'predictionConfig': historical['prediction_config'],
+                  'stats': historical['stats'], 'content': historical['raw_response'],
+                  'nonReasoningContent': json.dumps(prediction)}
+        raw = {'result': result, 'elapsed_seconds': 1.5}
+        self.assertEqual(findings.classify_sdk(raw, config, request),
+                         {'status': 'ok', 'prediction': prediction})
+        tokens = findings.usage([raw], 'lmstudio_sdk')['tokens']
+        self.assertEqual(tokens['input_tokens'], result['stats']['promptTokensCount'])
+        self.assertEqual(tokens['output_tokens'], result['stats']['predictedTokensCount'])
+        self.assertEqual(tokens['total_tokens'], result['stats']['totalTokensCount'])
+        self.assertIsNone(tokens['reasoning_output_tokens'])
+
+        altered = copy.deepcopy(raw)
+        altered['result']['stats']['promptTokensCount'] += 1
+        self.assertEqual(findings.classify_sdk(altered, config, request),
+                         {'status': 'control_failure', 'reason': 'prompt_token_count'})
+        altered = copy.deepcopy(raw)
+        altered['result']['predictionConfig']['fields'][0]['value'] = 'changed'
+        self.assertEqual(findings.classify_sdk(altered, config, request),
+                         {'status': 'control_failure', 'reason': 'prediction_config'})
+        altered = copy.deepcopy(raw)
+        altered['result']['nonReasoningContent'] = '```json\n{}\n```'
+        self.assertEqual(findings.classify_sdk(altered, config, request),
+                         {'status': 'invalid_output', 'reason': 'non_json'})
+        altered = copy.deepcopy(raw)
+        altered['result']['stats']['stopReason'] = 'maxPredictedTokensReached'
+        self.assertEqual(findings.classify_sdk(altered, config, request),
+                         {'status': 'invalid_output', 'reason': 'stop_reason'})
 
 
 if __name__ == '__main__':

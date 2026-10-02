@@ -135,6 +135,49 @@ def classify_http(raw, config, request):
     return {'status': 'ok', 'prediction': prediction}
 
 
+def normalized_fields(value):
+    if not isinstance(value, dict) or not isinstance(value.get('fields'), list):
+        raise ValueError('Malformed SDK control fields')
+    fields = value['fields']
+    if any(not isinstance(field, dict) or not isinstance(field.get('key'), str)
+           or 'value' not in field for field in fields):
+        raise ValueError('Malformed SDK control field')
+    return {field['key']: field['value'] for field in fields}
+
+
+def classify_sdk(raw, config, request):
+    """Mirror the frozen local_prompt_execution_v1 classifySdk contract."""
+    result = raw.get('result')
+    info = result.get('modelInfo') if isinstance(result, dict) else None
+    if (not isinstance(info, dict) or
+            info.get('identifier') != config['model_identifier'] or
+            info.get('path') != config['artifact_path'] or
+            info.get('sizeBytes') != config['artifact_bytes'] or
+            info.get('contextLength') != 8192 or
+            not isinstance(info.get('quantization'), dict) or
+            info['quantization'].get('name') != 'Q4_K_M'):
+        return {'status': 'control_failure', 'reason': 'model_identity'}
+    controls = config['controls']
+    if normalized_fields(result.get('predictionConfig')) != normalized_fields(controls['prediction_config']):
+        return {'status': 'control_failure', 'reason': 'prediction_config'}
+    if normalized_fields(result.get('loadConfig')) != normalized_fields(controls['load_config']):
+        return {'status': 'control_failure', 'reason': 'load_config'}
+    stats = result.get('stats')
+    if not isinstance(stats, dict) or stats.get('promptTokensCount') != request['prompt_tokens']:
+        return {'status': 'control_failure', 'reason': 'prompt_token_count'}
+    if not isinstance(result.get('content'), str) or not isinstance(result.get('nonReasoningContent'), str):
+        return {'status': 'service_failure', 'reason': 'malformed_sdk_result'}
+    try:
+        prediction = json.loads(result['nonReasoningContent'])
+    except json.JSONDecodeError:
+        return {'status': 'invalid_output', 'reason': 'non_json'}
+    if not valid(prediction):
+        return {'status': 'invalid_output', 'reason': 'schema'}
+    if stats.get('stopReason') not in ('eosFound', 'stopStringFound'):
+        return {'status': 'invalid_output', 'reason': 'stop_reason'}
+    return {'status': 'ok', 'prediction': prediction}
+
+
 def closed_stage(root, plan, config_id, repeat, condition, name, bind):
     phase = f'{config_id}/{repeat}/{condition}'
     folder = BASE / phase
@@ -195,7 +238,8 @@ def closed_stage(root, plan, config_id, repeat, condition, name, bind):
                 saved.get('reference_labels_read') is not False or
                 type(elapsed) not in (int, float) or not math.isfinite(elapsed) or elapsed < 0):
             raise ValueError(f'Raw/record/journal identity differs: {phase}/{rid}')
-        decision = classify_http(wire, config, request)
+        decision = (classify_http(wire, config, request) if config['surface'] == 'local_http'
+                    else classify_sdk(wire, config, request))
         if saved.get('decision') != decision or finished.get('status') != decision['status']:
             raise ValueError(f'Parsed decision differs from raw: {phase}/{rid}')
         if decision['status'] == 'invalid_output':
@@ -207,26 +251,123 @@ def closed_stage(root, plan, config_id, repeat, condition, name, bind):
     return records, raw, evidence
 
 
-def usage(raw):
+def stopped_smoke(root, plan, config_id, repeat, condition, bind):
+    """Bind a terminal smoke rejection without creating a development score."""
+    phase = f'{config_id}/{repeat}/{condition}'
+    folder = BASE / phase
+    files = {key: folder / f'smoke.{suffix}' for key, suffix in
+             (('review', 'root-review.json'), ('claim', 'claim.json'),
+              ('raw', 'raw.jsonl'), ('records', 'records.jsonl'),
+              ('journal', 'journal.jsonl'), ('completion', 'completion.json'))}
+    inspection_file = folder / 'smoke-inspection.json'
+    evidence = {key: {'path': str(path), 'sha256': bind(path)} for key, path in files.items()}
+    evidence['inspection'] = {'path': str(inspection_file), 'sha256': bind(inspection_file)}
+    review = json.loads(file_at(root, files['review']).read_text())
+    claim = json.loads(file_at(root, files['claim']).read_text())
+    terminal = json.loads(file_at(root, files['completion']).read_text())
+    inspection = json.loads(file_at(root, inspection_file).read_text())
+    route = review.get('route_catalog_file')
+    evidence['routeAudit'] = {'path': route, 'sha256': bind(route, review.get('route_catalog_sha256'))}
+    config = plan['configurations'][config_id]
+    if (review.get('kind') != 'root-reviewed-legacy-qwen-stage-v1' or
+            review.get('approved') is not True or review.get('phase') != phase or
+            review.get('stage') != 'smoke' or review.get('plan_sha256') != MANIFEST_SHA or
+            review.get('controller_sha256') != plan['controller_sha256'] or
+            review.get('model_identifier') != config['model_identifier'] or
+            review.get('artifact_sha256') != config['artifact_sha256'] or
+            review.get('reference_labels_read') is not False or
+            claim.get('phase') != phase or claim.get('stage') != 'smoke' or
+            claim.get('plan_sha256') != MANIFEST_SHA or
+            claim.get('controller_sha256') != plan['controller_sha256'] or
+            claim.get('receipt_sha256') != evidence['review']['sha256'] or
+            claim.get('runtime_attestation', {}).get('artifact_sha256') != config['artifact_sha256'] or
+            claim['runtime_attestation'].get('load_evidence', {}).get('cache') != plan['policy']['cache_policy'] or
+            terminal.get('phase') != phase or terminal.get('stage') != 'smoke' or
+            terminal.get('status') != 'stopped' or
+            terminal.get('reason') != 'Smoke has invalid output; development admission refused' or
+            terminal.get('attempted') != 3 or terminal.get('saved') != 3 or
+            terminal.get('raw_sha256') != evidence['raw']['sha256'] or
+            terminal.get('records_sha256') != evidence['records']['sha256'] or
+            terminal.get('journal_sha256') != evidence['journal']['sha256'] or
+            inspection.get('kind') != 'legacy-qwen-three-record-smoke-inspection-v1' or
+            inspection.get('approved') is not False or
+            inspection.get('phase') != phase or inspection.get('stage') != 'smoke' or
+            inspection.get('reference_labels_sent') is not False or
+            inspection.get('completion_sha256') != evidence['completion']['sha256'] or
+            inspection.get('claim_sha256') != evidence['claim']['sha256'] or
+            inspection.get('review_sha256') != evidence['review']['sha256'] or
+            inspection.get('raw_sha256') != evidence['raw']['sha256'] or
+            inspection.get('records_sha256') != evidence['records']['sha256'] or
+            inspection.get('journal_sha256') != evidence['journal']['sha256']):
+        raise ValueError(f'Stopped smoke evidence differs: {phase}')
+    raw = read_rows(root, files['raw'])
+    records = read_rows(root, files['records'])
+    journal = read_rows(root, files['journal'])
+    details = inspection.get('details')
+    if len(raw) != 3 or len(records) != 3 or len(journal) != 6 or not isinstance(details, list) or len(details) != 3:
+        raise ValueError(f'Stopped smoke membership differs: {phase}')
+    counts = Counter()
+    planned = config['conditions'][condition]['requests']
+    for index, rid in enumerate(IDS[:3]):
+        wire, saved, detail = raw[index], records[index], details[index]
+        started, finished = journal[2 * index:2 * index + 2]
+        request = planned[index]
+        elapsed = wire.get('elapsed_seconds')
+        if (wire.get('id') != rid or saved.get('id') != rid or detail.get('id') != rid or
+                not isinstance(wire.get('attempt_id'), str) or not wire['attempt_id'] or
+                saved.get('attempt_id') != wire['attempt_id'] or
+                started.get('event') != 'started' or finished.get('event') != 'finished' or
+                started.get('id') != rid or finished.get('id') != rid or
+                started.get('attempt_id') != wire['attempt_id'] or
+                finished.get('attempt_id') != wire['attempt_id'] or
+                started.get('request_sha256') != request['sha256'] or
+                saved.get('request_sha256') != request['sha256'] or
+                saved.get('reference_labels_read') is not False or
+                type(elapsed) not in (int, float) or not math.isfinite(elapsed) or elapsed < 0):
+            raise ValueError(f'Stopped smoke identity differs: {phase}/{rid}')
+        decision = (classify_http(wire, config, request) if config['surface'] == 'local_http'
+                    else classify_sdk(wire, config, request))
+        if (saved.get('decision') != decision or finished.get('status') != decision['status'] or
+                detail.get('decision') != decision['status'] or
+                detail.get('reason') != decision.get('reason') or
+                decision['status'] not in ('ok', 'invalid_output')):
+            raise ValueError(f'Stopped smoke decision differs: {phase}/{rid}')
+        counts[decision['status']] += 1
+    if terminal.get('invalid') != counts['invalid_output'] or not counts['invalid_output']:
+        raise ValueError(f'Stopped smoke invalid count differs: {phase}')
+    return {'pass': repeat, 'condition': condition, 'status': 'smoke_blocked',
+            'stage': 'smoke', 'attempted': 3, 'saved': 3,
+            'valid': counts['ok'], 'invalid': counts['invalid_output'],
+            'reason': terminal['reason'], 'evidence': evidence}
+
+
+def usage(raw, surface='local_http'):
     elapsed = [row['elapsed_seconds'] for row in raw]
-    bodies = [row['result']['body'] for row in raw]
+    bodies = ([row['result']['body'] for row in raw] if surface == 'local_http'
+              else [row['result']['stats'] for row in raw])
     def total(*keys):
         values = []
         for body in bodies:
-            value = body['usage']
+            value = body['usage'] if surface == 'local_http' else body
             for key in keys:
                 value = value.get(key) if isinstance(value, dict) else None
             if type(value) is not int or value < 0:
                 return None
             values.append(value)
         return sum(values)
+    if surface == 'local_http':
+        tokens = {'input_tokens': total('prompt_tokens'),
+                  'output_tokens': total('completion_tokens'),
+                  'total_tokens': total('total_tokens'),
+                  'reasoning_output_tokens': total('completion_tokens_details', 'reasoning_tokens')}
+    else:
+        tokens = {'input_tokens': total('promptTokensCount'),
+                  'output_tokens': total('predictedTokensCount'),
+                  'total_tokens': total('totalTokensCount'),
+                  'reasoning_output_tokens': total('reasoningPredictedTokensCount')}
     return {'requestCount': len(raw), 'clientRequestSecondsTotal': sum(elapsed),
             'timeBasis': 'client_observed_wall_clock', 'inferenceSeconds': None,
-            'modelLoadSeconds': None, 'actualCostUsd': None,
-            'tokens': {'input_tokens': total('prompt_tokens'),
-                       'output_tokens': total('completion_tokens'),
-                       'total_tokens': total('total_tokens'),
-                       'reasoning_output_tokens': total('completion_tokens_details', 'reasoning_tokens')}}
+            'modelLoadSeconds': None, 'actualCostUsd': None, 'tokens': tokens}
 
 
 def class_counts(predictions, labels):
@@ -280,6 +421,7 @@ def build(root=ROOT):
     context_bindings = dict(bindings)
     series = []
     for config_id in CONFIGS:
+        prior_bindings = set(bindings)
         config = plan['configurations'][config_id]
         passes = {repeat: {} for repeat in PASSES}
         parsed = {}
@@ -289,7 +431,14 @@ def build(root=ROOT):
             for condition in scheduled['conditions']:
                 folder = BASE / config_id / repeat / condition
                 completion_file = folder / 'development.completion.json'
-                if config_id != TARGET or not file_at(root, completion_file).exists():
+                if not file_at(root, completion_file).exists():
+                    smoke_terminal_file = folder / 'smoke.completion.json'
+                    if file_at(root, smoke_terminal_file).exists():
+                        smoke_terminal = json.loads(file_at(root, smoke_terminal_file).read_text())
+                        if (smoke_terminal.get('status') == 'stopped' and
+                                file_at(root, folder / 'smoke-inspection.json').exists()):
+                            missing.append(stopped_smoke(root, plan, config_id, repeat, condition, bind))
+                            continue
                     missing.append({'pass': repeat, 'condition': condition,
                                     'status': 'not_in_closed_snapshot'})
                     continue
@@ -322,13 +471,16 @@ def build(root=ROOT):
                          'score': shared.score(predictions, labels, IDS),
                          'predictedClassCounts': predicted_counts,
                          'classConfusion': confusion,
-                         'usage': usage(raw),
+                         'usage': usage(raw, config['surface']),
                          'evidence': {'smoke': smoke_evidence,
                                       'smokeInspection': {'path': str(inspection_file), 'sha256': inspection_sha},
                                       'development': dev_evidence}}
                 passes[repeat][condition] = entry
                 parsed[repeat, condition] = predictions
         by_condition, flips, across = summary(passes, parsed)
+        config_bindings = dict(context_bindings)
+        config_bindings.update({name: digest for name, digest in bindings.items()
+                                if name not in prior_bindings})
         series.append({'schema': 'legacy-qwen-closed-phase-findings-v1',
                        'configuration': config_id, 'displayName': DISPLAY_NAMES[config_id],
                        'method': 'fresh-matched-local-output-stability',
@@ -342,8 +494,7 @@ def build(root=ROOT):
                        'changesAcrossThreePasses': across,
                        'historicalStatus': 'observational_not_part_of_fresh_matched_three',
                        'sourceBindings': [{'path': name, 'sha256': digest}
-                                          for name, digest in sorted((bindings if config_id == TARGET
-                                                                      else context_bindings).items())],
+                                          for name, digest in sorted(config_bindings.items())],
                        'artifactSha256': config['artifact_sha256'],
                        'executionControls': {'surface': config['surface'],
                            'modelIdentifier': config['model_identifier'],
