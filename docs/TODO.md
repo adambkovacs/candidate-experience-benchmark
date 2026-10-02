@@ -23,7 +23,7 @@ No OpenRouter child is active. After the closed Mistral continuation, the aggreg
 The older checkpoints below are historical, including their host-sleep blocker and balances.
 
 
-Updated 1 October 2026. This is the current coordination list. Frozen manifests and saved responses establish execution status; this checklist does not authorize spending or change the experiment protocol. See [current goals](CURRENT_GOALS.md) and the [detailed roster](REMAINING_ROSTER_2026-09-29.md).
+Historical checkpoint from 1 October 2026. The 2 October sections above supersede its process, budget and publication status. Frozen manifests and saved responses establish execution status; this checklist does not authorize spending or change the experiment protocol. See [current goals](CURRENT_GOALS.md) and the [detailed roster](REMAINING_ROSTER_2026-09-29.md).
 
 ## Active assignments
 
@@ -67,7 +67,7 @@ Checkpoint: 1 October 2026, 06:23 UTC. Earlier statuses are retained in [coordin
 ## Remaining execution and blockers
 
 - [x] AnyJev generated P0/P1/P2 execution is closed at 9/9, with intrinsic invalid outputs retained. SemIf generated is also closed at 9/9. Final AnyJev publication is live at a6900d3b.
-- [ ] **Generic local execution:** the detailed roster and public small-local report confirm E2B off/on and E4B off at 9/9. E4B on remains 4/9 with the interrupted P2 outcomes above. Qwen3.5 off and six legacy Qwen configurations remain pending. Refresh exact hosted availability and local runtime/cache/host readiness before admission. No download is authorized by this checklist.
+- [ ] **Generic local execution:** the detailed roster and public small-local report confirm E2B off/on and E4B off at 9/9. E4B on remains 4/9 with the interrupted P2 outcomes above. Qwen3.5 off and five legacy SDK Qwen configurations remain pending; the HTTP nonthinking 0.6B series is closed at 9/9. Refresh exact hosted availability and local runtime/cache/host readiness before admission. No download is authorized by this checklist.
 - [ ] Finish the remaining hosted Qwen, Gemma, DeepSeek, Mistral and Gemini configurations listed in the detailed roster. The user approved an additional $2.38 on 30 September, and the [master ledger](../results/openrouter-paid-budget.jsonl) now records the $12.38 cap. The current locked budget checkpoint is in Active assignments above. The proposed $17 total remains unapproved. TypeSafe retains its separate $1 cap.
 - [ ] Admit new decision models individually after exact route, interface, account access, price and context checks. A vendor's free preview listing does not establish account access. Preserve native probabilities separately from generated-letter logprobs. The 30 September check found no conventional Liquid, Upstage, Alibaba/DashScope, Together, Nace/Drex, Fastino or Cloudflare credential variables in this project's `.env` or the current process environment. This does not establish whether credentials exist elsewhere; direct-provider access remains unverified. OpenRouter Jev/Kev access is verified by their saved smokes.
 - [ ] Resolve reference-review items with human adjudication where required. Preserve frozen labels and original scores.
