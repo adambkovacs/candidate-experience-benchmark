@@ -85,6 +85,7 @@
   const gemmaPostabortSchema = 'gemma26-on-v2-postabort-findings-v1';
   const gemmaP2RepeatUrl = './gemma26-p2-repeat-findings.json';
   const gemmaP2RepeatSchema = 'gemma26-on-v2-p2-descriptive-repeat-findings-v1';
+  const clefThirdUrl = './clef-p0-third-checkpoint.json';
   const deepseekThirdUrl = './deepseek-low-third-interruption-findings.json';
   const deepseekThirdSchema = 'deepseek-low-third-interruption-findings-v1';
   const validBindings = bindings => Array.isArray(bindings) && bindings.length > 0 &&
@@ -939,13 +940,42 @@
     const isGeneratedAnyJev = s => s.schema === 'anyjev-generated-repeat-findings-v1' &&
       s.method === 'generated-json-control';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isQwen27Final(s) || isGemmaSecond(s) || isGemmaPostabort(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
-    root.innerHTML = `<div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Model category describes what the model was trained to do. Output interface describes how it returns an answer: generated text, direct choices, or scores. A general LLM can also return choice scores. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
+    root.innerHTML = `<section class="analysis-caveat" aria-labelledby="clef-third-heading"><h3 id="clef-third-heading">Clef native P0 repeat checkpoint</h3><p id="repeat-clef-third">Loading the saved third-pass checkpoint.</p></section><div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Model category describes what the model was trained to do. Output interface describes how it returns an answer: generated text, direct choices, or scores. A general LLM can also return choice scores. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
       <div id="repeat-selected-results"><p class="category-selected" id="repeat-category-note"></p><p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
       <div id="repeat-chart" aria-live="polite"></div>
       <div class="repeat-detail-grid"><div><h3 id="repeat-delta-title">How did prompt scores change across passes?</h3><p id="repeat-delta-intro">Change in matching answers compared with P0 in the same pass. Positive means more matches; negative means fewer.</p><div id="repeat-deltas"></div></div>
       <div><h3>Which answers changed?</h3><label class="repeat-control"><span id="repeat-condition-label">Prompt condition</span> <select id="repeat-condition">${Object.entries(conditions).map(([k,v]) => `<option value="${k}">${k}: ${v}</option>`).join('')}</select></label><div id="repeat-flips" aria-live="polite"></div></div></div>
       <details class="repeat-usage"><summary>Requests, tokens and reported costs</summary><p>Each completed row covers 60 comments. Request counts depend on whether the configuration uses individual comments or batches. Smoke tests are separate. Claude input excludes cache reads and writes; Codex input includes cached tokens. Reasoning tokens are already in output and are not counted twice. Some providers report a charge. API-equivalent estimates use public rates and are not subscription bills. Subscription charge and quota use per run remain unknown. Request durations include client and service overhead.</p><div class="table-wrap"><table><caption>Recorded development usage</caption><thead><tr><th>Condition</th><th>Pass</th><th>Requests</th><th>Input tokens</th><th>Output tokens</th><th>Reported cost (USD)</th><th>Price-based estimate (USD)</th><th>Sum of request seconds</th></tr></thead><tbody id="repeat-usage-body"></tbody></table></div></details></div>`;
+    const clefPanel = document.getElementById('repeat-clef-third');
+    if (clefPanel) Promise.resolve().then(() => fetch(clefThirdUrl)).then(response => {
+      if (!response.ok) throw Error('Missing Clef third-P0 checkpoint');
+      return response.json();
+    }).then(checkpoint => {
+      const a = checkpoint?.models?.clef, b = checkpoint?.models?.['clef-flash'];
+      const ah = a?.fresh3P0, bh = b?.fresh3P0;
+      const bound = checkpoint?.sourceSha256;
+      if (checkpoint?.schema !== 'clef-native-p0-third-checkpoint-v1' ||
+          checkpoint?.priorTwoPassSource !== 'public-site/clef-p0-repeat-findings.json' ||
+          checkpoint?.cohort?.records !== 60 || checkpoint?.cohort?.plannedCellsPerModel !== 9 ||
+          a?.status !== 'complete' || a?.scoredCellsOfNine !== 3 || ah?.valid !== 60 ||
+          ah?.allFourCorrect !== 53 || ah?.denominator !== 60 ||
+          JSON.stringify(a?.p0AllFourByPass) !== JSON.stringify({fresh1:53,fresh2:53,fresh3:53}) ||
+          a?.sharedValidThreePassDenominator !== 60 ||
+          a?.threePassPredictionChangedIds?.length !== 0 ||
+          a?.nativeDistributionChangedIds?.length !== 0 ||
+          a?.vendorConfidenceChangedIds?.length !== 0 ||
+          b?.status !== 'stopped_unknown_outcome' || b?.scoredCellsOfNine !== 2 ||
+          bh?.attempted !== 1 || bh?.valid !== 0 || bh?.score !== null ||
+          JSON.stringify(bh?.unknownOutcomeIds) !== JSON.stringify(['DEV-001']) ||
+          bh?.neverSentIds?.length !== 59 || bh.neverSentIds[0] !== 'DEV-002' ||
+          bh.neverSentIds[58] !== 'DEV-060' || b?.p0AllFourByPass?.fresh3 !== null ||
+          b?.sharedValidThreePassDenominator !== 0 ||
+          !bound || !/^[0-9a-f]{64}$/.test(bound['results/clef-native-v1/clef/fresh3/P0/development/completion.json'] || '') ||
+          !/^[0-9a-f]{64}$/.test(bound['results/clef-native-v1/clef-flash/fresh3/P0/development/external-error-audit.json'] || ''))
+        throw Error('Changed Clef third-P0 checkpoint');
+      clefPanel.innerHTML = `Clef has <strong>3 of 9</strong> planned runs scored: <strong>53/60</strong> all-four matches in each of three P0 passes, with no observed answer, native-probability or vendor-confidence changes at reported precision across the same 60 reviews. Clef Flash has <strong>2 of 9</strong> planned runs scored: <strong>45/60</strong> in each of its first two P0 passes. Its third P0 pass stopped after one unknown outcome; 59 reviews were never sent, so it has no third score. P1 and P2 remain outside this checkpoint. <a href="${clefThirdUrl}">Read the source-bound checkpoint</a>.`;
+    }).catch(() => {clefPanel.textContent = 'The Clef third-P0 checkpoint is unavailable; earlier repeat studies remain available below.';});
     const configControl = document.getElementById('repeat-config');
     const fieldControl = document.getElementById('repeat-field');
     const conditionControl = document.getElementById('repeat-condition');

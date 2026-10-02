@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 79)
+        self.assertEqual(len(rebuilt["sources"]), 80)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -69,6 +69,16 @@ class AnalysisRefreshTest(unittest.TestCase):
                      "changedFourFieldVectorIds": []},
             "clef-flash": {"fresh1AllFour": 45, "fresh2AllFour": 45,
                            "changedFourFieldVectorIds": []}})
+        self.assertEqual(cohorts["clefNativeP0"]["thirdCheckpointSource"],
+                         "public-site/clef-p0-third-checkpoint.json")
+        self.assertEqual(cohorts["clefNativeP0"]["thirdCheckpoint"], {
+            "clef": {"scoredCellsOfNine": 3, "fresh3AllFour": 53, "valid": 60,
+                     "sharedValidThreePassDenominator": 60, "changedPredictionIds": [],
+                     "nativeDistributionChangedIds": [], "vendorConfidenceChangedIds": []},
+            "clefFlash": {"scoredCellsOfNine": 2,
+                          "fresh3Status": "stopped_unknown_outcome",
+                          "unknownOutcomeIds": ["DEV-001"], "neverSentCount": 59,
+                          "fresh3Score": None}})
         self.assertIsNone(cohorts["clefNativeP0"]["providerBilledUsd"])
         self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 3)
         legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
@@ -93,6 +103,11 @@ class AnalysisRefreshTest(unittest.TestCase):
                 shutil.copyfile(source, target)
             clef_repeat = json.loads((ROOT / "public-site/clef-p0-repeat-findings.json").read_text())
             for name in clef_repeat["sourceSha256"]:
+                target = temp / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / name, target)
+            clef_third = json.loads((ROOT / "public-site/clef-p0-third-checkpoint.json").read_text())
+            for name in clef_third["sourceSha256"]:
                 target = temp / name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(ROOT / name, target)

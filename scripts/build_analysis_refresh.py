@@ -35,6 +35,7 @@ SOURCES = (
     "public-site/gemma26-p2-repeat-findings.json",
     "public-site/clef-findings.json",
     "public-site/clef-p0-repeat-findings.json",
+    "public-site/clef-p0-third-checkpoint.json",
     MISTRAL_ORIGINAL,
     MISTRAL_FIRST_SUFFIX,
     MISTRAL_SECOND_SUFFIX,
@@ -235,6 +236,7 @@ def build(root=ROOT):
     gemma_p2_repeat = data["public-site/gemma26-p2-repeat-findings.json"]
     clef = data["public-site/clef-findings.json"]
     clef_repeat = data["public-site/clef-p0-repeat-findings.json"]
+    clef_third = data["public-site/clef-p0-third-checkpoint.json"]
     mistral_original = data[MISTRAL_ORIGINAL]
     mistral_first = data[MISTRAL_FIRST_SUFFIX]
     mistral_second = data[MISTRAL_SECOND_SUFFIX]
@@ -344,6 +346,47 @@ def build(root=ROOT):
         if (relative.is_absolute() or ".." in relative.parts or
                 sha(root / relative) != expected):
             raise ValueError("Clef P0 paired repeat source changed: " + name)
+    third_models = clef_third.get("models") or {}
+    third_clef = third_models.get("clef") or {}
+    third_flash = third_models.get("clef-flash") or {}
+    if (clef_third.get("schema") != "clef-native-p0-third-checkpoint-v1" or
+            clef_third.get("referenceStatus") != clef_repeat.get("referenceStatus") or
+            clef_third.get("priorTwoPassSource") != "public-site/clef-p0-repeat-findings.json" or
+            clef_third.get("cohort") != {"records": 60, "condition": "P0",
+                "plannedCellsPerModel": 9, "thirdPassStatus": "clef_complete_flash_stopped",
+                "otherConditionsCompleted": False} or
+            set(third_models) != {"clef", "clef-flash"} or
+            third_clef.get("status") != "complete" or
+            third_clef.get("scoredCellsOfNine") != 3 or
+            third_clef.get("p0AllFourByPass") != {"fresh1": 53, "fresh2": 53, "fresh3": 53} or
+            third_clef.get("fresh3P0", {}).get("attempted") != 60 or
+            third_clef["fresh3P0"].get("valid") != 60 or
+            third_clef["fresh3P0"].get("allFourCorrect") != 53 or
+            third_clef["fresh3P0"].get("denominator") != 60 or
+            third_clef["fresh3P0"].get("providerBilledUsd") is not None or
+            third_clef.get("sharedValidThreePassDenominator") != 60 or
+            third_clef.get("threePassPredictionChangedIds") != [] or
+            third_clef.get("nativeDistributionChangedIds") != [] or
+            third_clef.get("vendorConfidenceChangedIds") != [] or
+            third_flash.get("status") != "stopped_unknown_outcome" or
+            third_flash.get("scoredCellsOfNine") != 2 or
+            third_flash.get("p0AllFourByPass") != {"fresh1": 45, "fresh2": 45, "fresh3": None} or
+            third_flash.get("fresh3P0", {}).get("attempted") != 1 or
+            third_flash["fresh3P0"].get("valid") != 0 or
+            third_flash["fresh3P0"].get("unknownOutcomeIds") != ["DEV-001"] or
+            third_flash["fresh3P0"].get("neverSentIds") !=
+                [f"DEV-{i:03d}" for i in range(2, 61)] or
+            third_flash["fresh3P0"].get("score") is not None or
+            third_flash["fresh3P0"].get("providerEnvelopeAvailable") is not False or
+            third_flash.get("sharedValidThreePassDenominator") != 0 or
+            third_flash.get("threePassPredictionChangedIds") is not None or
+            len(clef_third.get("sourceSha256", {})) != 1595):
+        raise ValueError("Clef third P0 checkpoint source or coverage differs")
+    for name, expected in clef_third["sourceSha256"].items():
+        relative = Path(name)
+        if (relative.is_absolute() or ".." in relative.parts or
+                sha(root / relative) != expected):
+            raise ValueError("Clef third P0 checkpoint source changed: " + name)
     legacy_series = {s.get("configuration"): s for s in legacy_qwen.get("series", [])}
     legacy_complete = ("qwen3-0.6b-q4km-nonthinking",
                        "qwen3-0.6b-sdk-thinking-on",
@@ -448,7 +491,20 @@ def build(root=ROOT):
                                      "fresh1AllFour": clef_repeat["models"][name]["fresh1"]["allFourCorrect"],
                                      "fresh2AllFour": clef_repeat["models"][name]["fresh2"]["allFourCorrect"],
                                      "changedFourFieldVectorIds": clef_repeat["models"][name]["paired"]["predictionVectorChangedIds"]}
-                                     for name in ("clef", "clef-flash")}}},
+                                     for name in ("clef", "clef-flash")}},
+                             "thirdCheckpointSource": "public-site/clef-p0-third-checkpoint.json",
+                             "thirdCheckpoint": {"clef": {"scoredCellsOfNine": 3,
+                                 "fresh3AllFour": third_clef["fresh3P0"]["allFourCorrect"],
+                                 "valid": third_clef["fresh3P0"]["valid"],
+                                 "sharedValidThreePassDenominator": 60,
+                                 "changedPredictionIds": third_clef["threePassPredictionChangedIds"],
+                                 "nativeDistributionChangedIds": third_clef["nativeDistributionChangedIds"],
+                                 "vendorConfidenceChangedIds": third_clef["vendorConfidenceChangedIds"]},
+                               "clefFlash": {"scoredCellsOfNine": 2,
+                                 "fresh3Status": "stopped_unknown_outcome",
+                                 "unknownOutcomeIds": third_flash["fresh3P0"]["unknownOutcomeIds"],
+                                 "neverSentCount": len(third_flash["fresh3P0"]["neverSentIds"]),
+                                 "fresh3Score": None}}},
             "deepseekLow": {"source": "public-site/deepseek-low-third-interruption-findings.json",
                             "seriesCount": len(deepseek["series"]),
                             "completedConditions": [item["completedConditions"] for item in deepseek["series"]],

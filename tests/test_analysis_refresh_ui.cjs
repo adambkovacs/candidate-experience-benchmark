@@ -48,10 +48,14 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/Clef native P0/);
   assert.match(view.cutoffs,/53\/60/);
   assert.match(view.cutoffs,/45\/60/);
-  assert.match(view.cutoffs,/two full passes per model/);
-  assert.match(view.cutoffs,/Neither model changed a four-field answer among 60 paired comments/);
+  assert.match(view.cutoffs,/Clef has 3\/9 planned runs scored/);
+  assert.match(view.cutoffs,/Clef Flash has 2\/9 planned runs scored/);
+  assert.match(view.cutoffs,/59 reviews were never sent/);
+  assert.match(view.cutoffs,/so it has no third score/);
+  assert.match(view.cutoffs,/no changed four-field answer, native probability dictionary or vendor confidence value/);
   assert.match(view.cutoffs,/href="\.\/gemma26-p2-repeat-findings\.json"/);
   assert.match(view.cutoffs,/href="\.\/clef-p0-repeat-findings\.json"/);
+  assert.match(view.cutoffs,/href="\.\/clef-p0-third-checkpoint\.json"/);
   assert.doesNotMatch(view.cutoffs,/href="public-site\//);
   assert.match(view.cutoffs,/Small Qwen SDK/);
   assert.match(view.cutoffs,/58 valid and 2 invalid/);
