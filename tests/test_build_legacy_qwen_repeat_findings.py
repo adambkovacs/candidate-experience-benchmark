@@ -38,24 +38,68 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         for other in report['series'][1:]:
             self.assertEqual(other['completedConditions'] + len(other['missingPasses']), 9)
 
-    def test_inspected_stopped_sdk_smoke_is_bound_but_unscored(self):
+    def test_sdk_successor_development_preserves_rejected_smoke_and_invalid_outputs(self):
         report = findings.build(ROOT)
-        for config_id, expected in [('qwen3-0.6b-sdk-thinking-on', (1, 2)),
-                                    ('qwen3-0.6b-sdk-thinking-off', (0, 3))]:
+        for config_id, expected in [('qwen3-0.6b-sdk-thinking-on', (1, 2, 27, 33)),
+                                    ('qwen3-0.6b-sdk-thinking-off', (0, 3, 1, 59))]:
             with self.subTest(config_id=config_id):
                 series = next(row for row in report['series']
                               if row['configuration'] == config_id)
-                item = next(row for row in series['missingPasses']
-                            if row['pass'] == 'fresh1' and row['condition'] == 'P0')
-                self.assertEqual(item['status'], 'smoke_blocked')
-                self.assertEqual((item['stage'], item['attempted'], item['saved'],
-                                  item['valid'], item['invalid']), ('smoke', 3, 3, *expected))
-                self.assertNotIn('P0', series['passes']['fresh1'])
-                self.assertEqual(series['completedConditions'], 0)
+                item = series['passes']['fresh1']['P0']
+                self.assertEqual(item['completionStatus'], 'complete')
+                self.assertEqual(item['score']['denominator'], 60)
+                self.assertEqual(item['score']['valid'], expected[2])
+                self.assertEqual(item['score']['outcomes']['invalid_output'], expected[3])
+                self.assertEqual((item['originalSmoke']['status'], item['originalSmoke']['attempted'],
+                                  item['originalSmoke']['saved'], item['originalSmoke']['valid'],
+                                  item['originalSmoke']['invalid']), ('smoke_blocked', 3, 3, *expected[:2]))
+                self.assertGreaterEqual(series['completedConditions'], 1)
+                self.assertNotIn(('fresh1', 'P0'), [(row['pass'], row['condition'])
+                                                  for row in series['missingPasses']])
                 bound = {source['path'] for source in series['sourceBindings']}
-                self.assertTrue({item['evidence']['inspection']['path'],
-                                 item['evidence']['raw']['path'],
-                                 item['evidence']['completion']['path']} <= bound)
+                self.assertTrue({item['evidence']['smoke']['inspection']['path'],
+                                 item['evidence']['smoke']['raw']['path'],
+                                 item['evidence']['smokeSuccessor']['manifest']['path'],
+                                 item['evidence']['smokeSuccessor']['inspection']['path'],
+                                 item['evidence']['development']['completion']['path']} <= bound)
+
+    def test_successor_accepts_closed_all_valid_sdk_smoke_for_next_phase(self):
+        plan = json.loads((ROOT / findings.MANIFEST).read_text())
+        original, successor = findings.successor_smoke(
+            ROOT, plan, 'qwen3-0.6b-sdk-thinking-on', 'fresh1', 'P2',
+            findings.binder(ROOT)[0], require_development_review=False)
+        self.assertEqual((original['status'], original['valid'], original['invalid']),
+                         ('smoke_complete', 3, 0))
+        self.assertIn('smoke-format-successor-inspection.json',
+                      successor['inspection']['path'])
+
+    def test_successor_binds_stopped_sdk_smoke_without_legacy_inspection(self):
+        plan = json.loads((ROOT / findings.MANIFEST).read_text())
+        original, successor = findings.successor_smoke(
+            ROOT, plan, 'qwen3-0.6b-sdk-thinking-off', 'fresh1', 'P2',
+            findings.binder(ROOT)[0], require_development_review=False)
+        self.assertEqual((original['status'], original['valid'], original['invalid']),
+                         ('smoke_blocked', 0, 3))
+        self.assertNotIn('inspection', original['evidence'])
+        self.assertIn('smoke-format-successor-inspection.json',
+                      successor['inspection']['path'])
+
+    def test_second_sdk_phases_keep_fixed_denominator_and_distinct_smoke_evidence(self):
+        report = findings.build(ROOT)
+        for config_id, expected in [('qwen3-0.6b-sdk-thinking-on', (56, 4, 3, 'smoke_complete')),
+                                    ('qwen3-0.6b-sdk-thinking-off', (1, 59, 0, 'smoke_blocked'))]:
+            with self.subTest(config_id=config_id):
+                series = next(row for row in report['series']
+                              if row['configuration'] == config_id)
+                entry = series['passes']['fresh1']['P2']
+                self.assertEqual((entry['score']['denominator'], entry['score']['valid'],
+                                  entry['score']['outcomes']['invalid_output'],
+                                  entry['score']['allFour'], entry['originalSmoke']['status']),
+                                 (60, *expected))
+                self.assertEqual(entry['evidence']['development']['completion']['path'],
+                                 str(findings.BASE / config_id / 'fresh1/P2/development.completion.json'))
+                if config_id.endswith('thinking-off'):
+                    self.assertNotIn('inspection', entry['evidence']['smoke'])
 
     def test_closed_phase_rejects_mutated_saved_record(self):
         phase = findings.BASE / findings.TARGET / 'fresh1' / 'P0'

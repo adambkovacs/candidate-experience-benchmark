@@ -34,8 +34,11 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   for (const configuration of ['qwen3-0.6b-sdk-thinking-on','qwen3-0.6b-sdk-thinking-off']) {
     elements.get('repeat-config').value = configuration;
     elements.get('repeat-config').change();
-    assert.match(elements.get('repeat-chart').innerHTML, /Smoke returned invalid format; full run not started/);
-    assert.doesNotMatch(elements.get('repeat-chart').innerHTML, /<meter/);
+    const series = payload.series.find(row => row.configuration === configuration);
+    assert.equal((elements.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, series.completedConditions);
+    assert.match(elements.get('repeat-chart').innerHTML, /Three-pass range unavailable/);
+    assert.equal(series.passes.fresh1.P0.score.denominator, 60);
+    assert.ok(series.passes.fresh1.P0.score.outcomes.invalid_output > 0);
   }
   elements.get('repeat-search').value = 'no-such-model';
   elements.get('repeat-search').input();

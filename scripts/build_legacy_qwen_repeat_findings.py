@@ -17,6 +17,10 @@ MANIFEST = BASE / 'manifest.json'
 MANIFEST_SHA = '7ef8c42a5fd66308e46c0dd885d92373bdbe3ba0e4aa7bdecf58298b82dd80c0'
 LABELS = Path('data/pilot/proposed_labels.jsonl')
 LABELS_SHA = '440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464'
+SUCCESSOR_MANIFEST = Path('results/repeatability-v1/legacy-qwen-sdk-format-successor-v1/manifest.json')
+SUCCESSOR_MANIFEST_SHA = '7538dacb509f670e95182aae60d381daba96777c9a0fcca3a4124203012ed057'
+SUCCESSOR_CONTROLLER = Path('scripts/legacy_qwen_sdk_format_successor_v1.cjs')
+SUCCESSOR_CONTROLLER_SHA = '88890d4d981f74df38f09c05529a017e1929bbb3574d856777b1fa6613dedbc5'
 OUTPUT = Path('public-site/legacy-qwen-repeats.json')
 TARGET = 'qwen3-0.6b-q4km-nonthinking'
 PASSES = ('fresh1', 'fresh2', 'fresh3')
@@ -178,13 +182,15 @@ def classify_sdk(raw, config, request):
     return {'status': 'ok', 'prediction': prediction}
 
 
-def closed_stage(root, plan, config_id, repeat, condition, name, bind):
+def closed_stage(root, plan, config_id, repeat, condition, name, bind, review_name=None):
     phase = f'{config_id}/{repeat}/{condition}'
     folder = BASE / phase
     files = {key: folder / f'{name}.{suffix}' for key, suffix in
              (('review', 'root-review.json'), ('claim', 'claim.json'),
               ('raw', 'raw.jsonl'), ('records', 'records.jsonl'),
               ('journal', 'journal.jsonl'), ('completion', 'completion.json'))}
+    if review_name is not None:
+        files['review'] = folder / review_name
     evidence = {key: {'path': str(path), 'sha256': bind(path)} for key, path in files.items()}
     review = json.loads(file_at(root, files['review']).read_text())
     claim = json.loads(file_at(root, files['claim']).read_text())
@@ -251,7 +257,96 @@ def closed_stage(root, plan, config_id, repeat, condition, name, bind):
     return records, raw, evidence
 
 
-def stopped_smoke(root, plan, config_id, repeat, condition, bind):
+def successor_smoke(root, plan, config_id, repeat, condition, bind,
+                    require_development_review=True):
+    """Bind a terminal SDK smoke and its separately approved successor admission."""
+    phase = f'{config_id}/{repeat}/{condition}'
+    folder = BASE / phase
+    smoke_completion = json.loads(file_at(root, folder / 'smoke.completion.json').read_text())
+    if smoke_completion.get('status') == 'stopped':
+        original = stopped_smoke(root, plan, config_id, repeat, condition, bind,
+                                 require_original_inspection=False)
+        original_evidence = original['evidence']
+    elif smoke_completion.get('status') == 'completed':
+        smoke_records, _, original_evidence = closed_stage(
+            root, plan, config_id, repeat, condition, 'smoke', bind)
+        original = {'status': 'smoke_complete', 'attempted': 3, 'saved': 3,
+                    'valid': len(smoke_records), 'invalid': 0, 'evidence': original_evidence}
+    else:
+        raise ValueError(f'Unrecognized SDK smoke terminal status: {phase}')
+    manifest_hash = bind(SUCCESSOR_MANIFEST, SUCCESSOR_MANIFEST_SHA)
+    controller_hash = bind(SUCCESSOR_CONTROLLER, SUCCESSOR_CONTROLLER_SHA)
+    manifest = json.loads(file_at(root, SUCCESSOR_MANIFEST).read_text())
+    inspection_path = folder / 'smoke-format-successor-inspection.json'
+    inspection_hash = bind(inspection_path)
+    inspection = json.loads(file_at(root, inspection_path).read_text())
+    review_path = folder / 'development.successor-root-review.json'
+    review_hash = bind(review_path) if require_development_review else None
+    review = (json.loads(file_at(root, review_path).read_text())
+              if require_development_review else None)
+    smoke_raw = read_rows(root, original_evidence['raw']['path'])
+    smoke_records = read_rows(root, original_evidence['records']['path'])
+    config = plan['configurations'][config_id]
+    requests = config['conditions'][condition]['requests'][:3]
+    expected_details = []
+    for wire, saved, request in zip(smoke_raw, smoke_records, requests):
+        result = wire['result']
+        stats = result['stats']
+        decision = classify_sdk(wire, config, request)
+        expected_details.append({'id': wire['id'], 'status': decision['status'],
+                                 'reason': decision.get('reason'),
+                                 'prompt_tokens': stats['promptTokensCount'],
+                                 'stop_reason': stats['stopReason'],
+                                 'model_instance': result['modelInfo']['instanceReference']})
+        if saved['decision'] != decision:
+            raise ValueError(f'SDK successor raw decision differs: {phase}/{wire["id"]}')
+    original_inspection = folder / 'smoke-inspection.json'
+    original_inspection_sha = (bind(original_inspection) if file_at(root, original_inspection).exists()
+                               else None)
+    if (manifest.get('schema') != 'legacy-qwen-sdk-format-successor-v1' or
+            manifest.get('status') != 'approved' or
+            manifest.get('approval', {}).get('independent_review') is not True or
+            manifest['approval'].get('authorized_by_root') is not True or
+            manifest.get('frozen_plan') != {'file': str(MANIFEST), 'sha256': MANIFEST_SHA} or
+            manifest.get('frozen_controller', {}).get('sha256') != plan['controller_sha256'] or
+            manifest.get('frozen_classifier', {}).get('sha256') !=
+                bind(manifest['frozen_classifier']['file'], manifest['frozen_classifier']['sha256']) or
+            manifest.get('policy', {}).get('accepted_smoke_decisions') != ['ok', 'invalid_output'] or
+            manifest['policy'].get('smoke_replay') is not False or
+            manifest['policy'].get('output_repair') is not False or
+            manifest['policy'].get('references_in_requests') is not False or
+            inspection.get('kind') != 'legacy-qwen-sdk-format-successor-inspection-v1' or
+            inspection.get('approved') is not True or
+            inspection.get('independent_review') is not True or
+            inspection.get('authorized_by_root') is not True or
+            inspection.get('phase') != phase or inspection.get('stage') != 'smoke' or
+            inspection.get('intrinsic_invalid_count') != original['invalid'] or
+            inspection.get('details') != expected_details or
+            inspection.get('reference_labels_read') is not False or
+            inspection.get('semantic_correctness_claimed') is not False or
+            inspection.get('output_repaired') is not False or
+            inspection.get('smoke_replayed') is not False or
+            inspection.get('control_and_transport_verified') is not True or
+            any(inspection.get(key + '_sha256') != original_evidence[key]['sha256']
+                for key in ('completion', 'claim', 'journal', 'raw', 'records')) or
+            inspection.get('original_inspection_sha256') != original_inspection_sha or
+            (require_development_review and (
+                review.get('successor_manifest_sha256') != manifest_hash or
+                review.get('successor_controller_sha256') != controller_hash or
+                review.get('successor_admission_policy') != 'legacy-qwen-sdk-format-successor-v1' or
+                review.get('smoke_inspection_sha256') != inspection_hash or
+                review.get('authorized_by_root') is not True))):
+        raise ValueError(f'SDK successor admission differs: {phase}')
+    evidence = {'manifest': {'path': str(SUCCESSOR_MANIFEST), 'sha256': manifest_hash},
+                'controller': {'path': str(SUCCESSOR_CONTROLLER), 'sha256': controller_hash},
+                'inspection': {'path': str(inspection_path), 'sha256': inspection_hash}}
+    if require_development_review:
+        evidence['review'] = {'path': str(review_path), 'sha256': review_hash}
+    return original, evidence
+
+
+def stopped_smoke(root, plan, config_id, repeat, condition, bind,
+                  require_original_inspection=True):
     """Bind a terminal smoke rejection without creating a development score."""
     phase = f'{config_id}/{repeat}/{condition}'
     folder = BASE / phase
@@ -261,11 +356,15 @@ def stopped_smoke(root, plan, config_id, repeat, condition, bind):
               ('journal', 'journal.jsonl'), ('completion', 'completion.json'))}
     inspection_file = folder / 'smoke-inspection.json'
     evidence = {key: {'path': str(path), 'sha256': bind(path)} for key, path in files.items()}
-    evidence['inspection'] = {'path': str(inspection_file), 'sha256': bind(inspection_file)}
+    has_inspection = file_at(root, inspection_file).exists()
+    if require_original_inspection and not has_inspection:
+        raise ValueError(f'Original smoke inspection missing: {phase}')
+    if has_inspection:
+        evidence['inspection'] = {'path': str(inspection_file), 'sha256': bind(inspection_file)}
     review = json.loads(file_at(root, files['review']).read_text())
     claim = json.loads(file_at(root, files['claim']).read_text())
     terminal = json.loads(file_at(root, files['completion']).read_text())
-    inspection = json.loads(file_at(root, inspection_file).read_text())
+    inspection = json.loads(file_at(root, inspection_file).read_text()) if has_inspection else None
     route = review.get('route_catalog_file')
     evidence['routeAudit'] = {'path': route, 'sha256': bind(route, review.get('route_catalog_sha256'))}
     config = plan['configurations'][config_id]
@@ -289,21 +388,22 @@ def stopped_smoke(root, plan, config_id, repeat, condition, bind):
             terminal.get('raw_sha256') != evidence['raw']['sha256'] or
             terminal.get('records_sha256') != evidence['records']['sha256'] or
             terminal.get('journal_sha256') != evidence['journal']['sha256'] or
-            inspection.get('kind') != 'legacy-qwen-three-record-smoke-inspection-v1' or
-            inspection.get('approved') is not False or
-            inspection.get('phase') != phase or inspection.get('stage') != 'smoke' or
-            inspection.get('reference_labels_sent') is not False or
-            inspection.get('completion_sha256') != evidence['completion']['sha256'] or
-            inspection.get('claim_sha256') != evidence['claim']['sha256'] or
-            inspection.get('review_sha256') != evidence['review']['sha256'] or
-            inspection.get('raw_sha256') != evidence['raw']['sha256'] or
-            inspection.get('records_sha256') != evidence['records']['sha256'] or
-            inspection.get('journal_sha256') != evidence['journal']['sha256']):
+            (inspection is not None and (
+                inspection.get('kind') != 'legacy-qwen-three-record-smoke-inspection-v1' or
+                inspection.get('approved') is not False or
+                inspection.get('phase') != phase or inspection.get('stage') != 'smoke' or
+                inspection.get('reference_labels_sent') is not False or
+                inspection.get('completion_sha256') != evidence['completion']['sha256'] or
+                inspection.get('claim_sha256') != evidence['claim']['sha256'] or
+                inspection.get('review_sha256') != evidence['review']['sha256'] or
+                inspection.get('raw_sha256') != evidence['raw']['sha256'] or
+                inspection.get('records_sha256') != evidence['records']['sha256'] or
+                inspection.get('journal_sha256') != evidence['journal']['sha256']))):
         raise ValueError(f'Stopped smoke evidence differs: {phase}')
     raw = read_rows(root, files['raw'])
     records = read_rows(root, files['records'])
     journal = read_rows(root, files['journal'])
-    details = inspection.get('details')
+    details = inspection.get('details') if inspection else [None] * 3
     if len(raw) != 3 or len(records) != 3 or len(journal) != 6 or not isinstance(details, list) or len(details) != 3:
         raise ValueError(f'Stopped smoke membership differs: {phase}')
     counts = Counter()
@@ -313,7 +413,8 @@ def stopped_smoke(root, plan, config_id, repeat, condition, bind):
         started, finished = journal[2 * index:2 * index + 2]
         request = planned[index]
         elapsed = wire.get('elapsed_seconds')
-        if (wire.get('id') != rid or saved.get('id') != rid or detail.get('id') != rid or
+        if (wire.get('id') != rid or saved.get('id') != rid or
+                (detail is not None and detail.get('id') != rid) or
                 not isinstance(wire.get('attempt_id'), str) or not wire['attempt_id'] or
                 saved.get('attempt_id') != wire['attempt_id'] or
                 started.get('event') != 'started' or finished.get('event') != 'finished' or
@@ -328,8 +429,8 @@ def stopped_smoke(root, plan, config_id, repeat, condition, bind):
         decision = (classify_http(wire, config, request) if config['surface'] == 'local_http'
                     else classify_sdk(wire, config, request))
         if (saved.get('decision') != decision or finished.get('status') != decision['status'] or
-                detail.get('decision') != decision['status'] or
-                detail.get('reason') != decision.get('reason') or
+                (detail is not None and (detail.get('decision') != decision['status'] or
+                                         detail.get('reason') != decision.get('reason'))) or
                 decision['status'] not in ('ok', 'invalid_output')):
             raise ValueError(f'Stopped smoke decision differs: {phase}/{rid}')
         counts[decision['status']] += 1
@@ -426,6 +527,7 @@ def build(root=ROOT):
         passes = {repeat: {} for repeat in PASSES}
         parsed = {}
         missing = []
+        successor_used = False
         for scheduled in config['schedule']:
             repeat = scheduled['name']
             for condition in scheduled['conditions']:
@@ -435,10 +537,21 @@ def build(root=ROOT):
                     smoke_terminal_file = folder / 'smoke.completion.json'
                     if file_at(root, smoke_terminal_file).exists():
                         smoke_terminal = json.loads(file_at(root, smoke_terminal_file).read_text())
-                        if (smoke_terminal.get('status') == 'stopped' and
-                                file_at(root, folder / 'smoke-inspection.json').exists()):
-                            missing.append(stopped_smoke(root, plan, config_id, repeat, condition, bind))
-                            continue
+                        if smoke_terminal.get('status') == 'stopped':
+                            successor_inspection = folder / 'smoke-format-successor-inspection.json'
+                            if (config_id in ('qwen3-0.6b-sdk-thinking-on',
+                                              'qwen3-0.6b-sdk-thinking-off') and
+                                    file_at(root, successor_inspection).exists()):
+                                stopped, successor_evidence = successor_smoke(
+                                    root, plan, config_id, repeat, condition, bind,
+                                    require_development_review=False)
+                                stopped['evidence']['smokeSuccessor'] = successor_evidence
+                                missing.append(stopped)
+                                continue
+                            if file_at(root, folder / 'smoke-inspection.json').exists():
+                                missing.append(stopped_smoke(root, plan, config_id,
+                                                             repeat, condition, bind))
+                                continue
                     missing.append({'pass': repeat, 'condition': condition,
                                     'status': 'not_in_closed_snapshot'})
                     continue
@@ -447,22 +560,34 @@ def build(root=ROOT):
                     missing.append({'pass': repeat, 'condition': condition,
                                     'status': 'not_in_closed_snapshot'})
                     continue
-                smoke, _, smoke_evidence = closed_stage(root, plan, config_id, repeat,
-                                                         condition, 'smoke', bind)
-                development, raw, dev_evidence = closed_stage(root, plan, config_id, repeat,
-                                                               condition, 'development', bind)
-                inspection_file = folder / 'smoke-inspection.json'
-                inspection = json.loads(file_at(root, inspection_file).read_text())
-                inspection_sha = bind(inspection_file)
-                review = json.loads(file_at(root, folder / 'development.root-review.json').read_text())
-                if (inspection.get('kind') != 'legacy-qwen-three-record-smoke-inspection-v1' or
-                        inspection.get('approved') is not True or
-                        inspection.get('raw_sha256') != smoke_evidence['raw']['sha256'] or
-                        inspection.get('records_sha256') != smoke_evidence['records']['sha256'] or
-                        inspection.get('reference_labels_sent') is not False or
-                        review.get('smoke_inspection_sha256') != inspection_sha or
-                        any(row['decision']['status'] != 'ok' for row in smoke)):
-                    raise ValueError(f'Development smoke admission differs: {config_id}/{repeat}/{condition}')
+                successor = (config_id in ('qwen3-0.6b-sdk-thinking-on',
+                                           'qwen3-0.6b-sdk-thinking-off') and
+                             file_at(root, folder / 'development.successor-root-review.json').exists())
+                if successor:
+                    successor_used = True
+                    original_smoke, successor_evidence = successor_smoke(
+                        root, plan, config_id, repeat, condition, bind)
+                    smoke_evidence = original_smoke['evidence']
+                    development, raw, dev_evidence = closed_stage(
+                        root, plan, config_id, repeat, condition, 'development', bind,
+                        review_name='development.successor-root-review.json')
+                else:
+                    smoke, _, smoke_evidence = closed_stage(root, plan, config_id, repeat,
+                                                             condition, 'smoke', bind)
+                    development, raw, dev_evidence = closed_stage(root, plan, config_id, repeat,
+                                                                   condition, 'development', bind)
+                    inspection_file = folder / 'smoke-inspection.json'
+                    inspection = json.loads(file_at(root, inspection_file).read_text())
+                    inspection_sha = bind(inspection_file)
+                    review = json.loads(file_at(root, folder / 'development.root-review.json').read_text())
+                    if (inspection.get('kind') != 'legacy-qwen-three-record-smoke-inspection-v1' or
+                            inspection.get('approved') is not True or
+                            inspection.get('raw_sha256') != smoke_evidence['raw']['sha256'] or
+                            inspection.get('records_sha256') != smoke_evidence['records']['sha256'] or
+                            inspection.get('reference_labels_sent') is not False or
+                            review.get('smoke_inspection_sha256') != inspection_sha or
+                            any(row['decision']['status'] != 'ok' for row in smoke)):
+                        raise ValueError(f'Development smoke admission differs: {config_id}/{repeat}/{condition}')
                 predictions = {row['id']: {'status': row['decision']['status'],
                                            'prediction': row['decision'].get('prediction')}
                                for row in development}
@@ -472,15 +597,25 @@ def build(root=ROOT):
                          'predictedClassCounts': predicted_counts,
                          'classConfusion': confusion,
                          'usage': usage(raw, config['surface']),
-                         'evidence': {'smoke': smoke_evidence,
-                                      'smokeInspection': {'path': str(inspection_file), 'sha256': inspection_sha},
-                                      'development': dev_evidence}}
+                         'evidence': ({'smoke': smoke_evidence,
+                                       'smokeSuccessor': successor_evidence,
+                                       'development': dev_evidence} if successor else
+                                      {'smoke': smoke_evidence,
+                                       'smokeInspection': {'path': str(inspection_file), 'sha256': inspection_sha},
+                                       'development': dev_evidence})}
+                if successor:
+                    entry['originalSmoke'] = {key: original_smoke[key] for key in
+                                              ('status', 'attempted', 'saved', 'valid', 'invalid')}
                 passes[repeat][condition] = entry
                 parsed[repeat, condition] = predictions
         by_condition, flips, across = summary(passes, parsed)
         config_bindings = dict(context_bindings)
         config_bindings.update({name: digest for name, digest in bindings.items()
                                 if name not in prior_bindings})
+        if successor_used:
+            for name in (str(SUCCESSOR_MANIFEST), str(SUCCESSOR_CONTROLLER),
+                         'scripts/local_prompt_execution_v1.cjs'):
+                config_bindings[name] = bindings[name]
         series.append({'schema': 'legacy-qwen-closed-phase-findings-v1',
                        'configuration': config_id, 'displayName': DISPLAY_NAMES[config_id],
                        'method': 'fresh-matched-local-output-stability',
