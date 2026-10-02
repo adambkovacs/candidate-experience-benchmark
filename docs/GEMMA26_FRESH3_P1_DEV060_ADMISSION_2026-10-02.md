@@ -1,0 +1,18 @@
+# Gemma 26B fresh3/P1 DEV060 admission
+
+The original [fresh3/P1 development stage](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3/P1/development.attempts.jsonl) stopped after DEV059 timed out. It has 58 valid responses, one attempted unknown outcome at DEV059, and one never-sent position at DEV060. The [terminal observation](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-terminal-pending-review.json) records the 125 attempts across the shared P0/P1 child. The [root review](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-interrupted.root-review.json) approved retaining DEV059's full $0.01974272 unknown-charge bound. The [reconciliation receipt](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-interrupted-reconciliation.json) seals that child and releases $0.34030231 of unused allocation. DEV059 is not eligible for replay.
+
+The [versioned controller](../scripts/gemma26_fresh3_p1_dev060_suffix_v1.py) and [manifest](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/manifest.json) admit only the frozen DEV060 P1 development payload. The predecessor gate binds the terminal receipt, root review, sealed child, reconciliation, original 59 attempt rows, 58 raw responses and wire captures, and exact journal order. It independently reclassifies the saved valid responses. Each live admission rechecks the exact DeepInfra fp8 route and pricing, the unchanged frozen request, a distinct $0.02 child partition under the $12.38 OpenRouter cap, and a distinct $0.02 hold under the shared $10 postapproval authority. The earlier $0.40 global hold stays recorded. No allocation or request was made while preparing this controller.
+
+The new child cap covers one $0.01974272 reservation. The controller writes an exclusive claim, reserves before HTTP, captures bounded raw bytes, settles reported cost when available, and stops on an intrinsic invalid, service error, or unknown cost. It never retries DEV060 automatically. A successful DEV060 response would account for all 60 P1 positions but would leave DEV059 as a preserved failure, so the combined phase would remain an interrupted descriptive result rather than a clean 60-valid pass.
+
+Before dispatch, an independent reviewer must verify the [five focused offline tests](../tests/test_gemma26_fresh3_p1_dev060_suffix_v1.py) and the manifest, then root must recheck both locked ledgers. If both caps fit, root can allocate only the new child with `paid_budget_partitions_v3.allocate` using manifest path `results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/budget.json`, partition ID `gemma26-fresh3-p1-dev060-v1`, cap `0.02`, model `google/gemma-4-26b-a4b-it`, provider `deepinfra/fp8`, and reasoning `on`. Root must create `fresh3/P1/suffix.root-review.json` from `expected_review(manifest, manifest_sha, budget_path, current_global_authority_sha256)` after allocation and review its exact content. Only then may root run:
+
+```sh
+python3 scripts/gemma26_fresh3_p1_dev060_suffix_v1.py run \
+  --root-review-receipt results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/fresh3/P1/suffix.root-review.json \
+  --budget-manifest results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/budget.json \
+  --env-file /Users/adamkovacs/Documents/codebuild/.env
+```
+
+This preparation grants no dispatch authority. Preserve the new claim, journal, attempt, response, wire and child ledger even if the call fails before a response arrives.
