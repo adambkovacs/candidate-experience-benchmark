@@ -19,3 +19,5 @@ The final reporter passed all three focused tests, including a public-only check
 The final expanded UI suite passed 114 tests, including synthetic closed runs with missing usage and distinct stopped/running/unstarted phases.
 
 The first Sonnet deployment (`6e563a98`, Pages `36993406287`) stopped before publication: its three unit tests loaded private local captures in the CI checkout. Both public-bundle validators passed. The release tests now read the sanitized evidence bundle. Three public tests pass in a fresh Git archive; the extra private-original stopped-phase mutation test is explicitly skipped there and passed locally. No inference or evidence repair was involved.
+
+Sonnet publication verified: `eda53919` passed [Pages run 36993821176](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36993821176). Live HTML, app.js, repeats.js, subscription prices, Sonnet findings and its projected report match committed bytes. Findings SHA-256: `ddcf0e523d49a5873285daa0c606d7e875251711670fc97ffb13d7d4c04b9f56`; projected report: `710776ac46a51f0b8eaaf30c31605a1d47d986bce705d81228dabaf0b6e4157d`.
