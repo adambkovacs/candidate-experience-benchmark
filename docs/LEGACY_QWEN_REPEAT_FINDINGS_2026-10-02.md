@@ -1,8 +1,21 @@
 # Legacy Qwen repeat findings, 2 October 2026
 
-The [source-bound report](../public-site/legacy-qwen-repeats.json) covers the six exact configurations in the [frozen fresh-three plan](../results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json). All nine full development phases are closed for **Qwen3 0.6B · local HTTP · thinking off**. Each phase saved 60 of 60 responses and passed the report's raw-response, request-identity, runtime-control and completion-hash checks. **Qwen3 0.6B · SDK · thinking on** and **thinking off** each have two closed phases, fresh1/P0 and fresh1/P2. Their other seven phases and the three larger SDK configurations remain pending. This does not complete the legacy Qwen roster.
+The [source-bound report](../public-site/legacy-qwen-repeats.json) covers the six exact configurations in the [frozen fresh-three plan](../results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json). All nine full development phases are closed for **Qwen3 0.6B · local HTTP · thinking off**. Each phase saved 60 of 60 responses and passed the report's raw-response, request-identity, runtime-control and completion-hash checks. **Qwen3 0.6B · SDK · thinking on** and **thinking off** each have a complete first pass of P0, P1 and P2. Their other six phases and the three larger SDK configurations remain pending. This does not complete the legacy Qwen roster.
 
 The two SDK fresh1/P0 smokes were originally stopped after three attempts because strict parsing found intrinsic fenced-JSON output (two invalid with thinking on; three with thinking off). The separately approved [SDK format successor](../results/repeatability-v1/legacy-qwen-sdk-format-successor-v1/manifest.json) admitted new development phases without repairing or replaying those smokes. The report binds each terminal smoke, successor inspection and receipt, and development completion and raw response. At P0, thinking on saved 60/60 with **27 valid and 33 invalid outputs**; thinking off saved 60/60 with **1 valid and 59 invalid outputs**. Both score **0/60 all-four exact matches** against the frozen provisional key. At P2, thinking on saved 60/60 with **56 valid, 4 invalid, and 3/60 all-four matches**; thinking off saved 60/60 with **1 valid, 59 invalid, and 0/60 all-four matches**. The thinking-on P2 smoke was all valid; the thinking-off P2 smoke stopped with three invalid outputs and had only a successor inspection, which the report binds directly. Invalid outputs remain in the fixed denominator. These are one fresh pass per exact SDK condition, not three-pass repeatability results. The [thinking-on P2 completion](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-on/fresh1/P2/development.completion.json) and [thinking-off P2 completion](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-0.6b-sdk-thinking-off/fresh1/P2/development.completion.json) retain the outcomes.
+
+The completed SDK first pass now includes P1, the classifier-instruction condition. Thinking on returned 53 valid outputs and one complete match; thinking off returned four valid outputs and no complete matches. Every row below includes all 60 reviews, including invalid responses.
+
+| SDK setting | Prompt | Valid format | All four labels match |
+| --- | --- | ---: | ---: |
+| Thinking on | P0: base task | 27/60 | 0/60 |
+| Thinking on | P1: classifier instructions | 53/60 | 1/60 |
+| Thinking on | P2: instructions and decision tree | 56/60 | 3/60 |
+| Thinking off | P0: base task | 1/60 | 0/60 |
+| Thinking off | P1: classifier instructions | 4/60 | 0/60 |
+| Thinking off | P2: instructions and decision tree | 1/60 | 0/60 |
+
+The added instructions improved format compliance in this thinking-on first pass, while complete-label agreement stayed low. This is an observed difference across the frozen prompt conditions, not yet evidence that the size of the improvement repeats reliably. The strict parser rejects Markdown fences; stripping those fences after execution would change the measured task. The original outputs remain available for a separately declared parsing study if desired.
 
 For the nine HTTP nonthinking phases, all 60 classifications in each phase are schema-valid, yet **0/60 match all four fields** of the frozen, provisional [v0.2 reference key](../data/pilot/proposed_labels.jsonl). Field agreement is identical across the three fresh passes within each prompt condition:
 
