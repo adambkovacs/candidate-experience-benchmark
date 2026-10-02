@@ -1,20 +1,34 @@
 # MVP roster accounting
 
-This is a disposition inventory for model execution configurations, not agent tasks. It combines the [frozen 163-entry roster](../results/prompt-comparison-v1-2026-09-24/roster.json), [additive hosted-first amendment](../results/prompt-comparison-v1-2026-09-24/roster-amendment-hosted-first-v1.json), and current [public export](../public-site/data.json). The frozen roster is unchanged. Three future local P1/P2 schedules became exclusions.
+This is a disposition inventory for model execution configurations, not agent tasks. The table below records the [frozen 163-entry roster](../results/prompt-comparison-v1-2026-09-24/roster.json), [additive hosted-first amendment](../results/prompt-comparison-v1-2026-09-24/roster-amendment-hosted-first-v1.json), and historical first-pass [public export](../public-site/data.json). The frozen roster is unchanged. Three future local P1/P2 schedules became exclusions. The dated update below tracks later, separately declared work without adding it to the 163-entry denominator.
 
 | Scope | Entries |
 | --- | ---: |
-| Frozen scheduled / excluded / blocked | 79 / 59 / 25 |
-| Current scheduled / excluded / blocked | 76 / 62 / 25 |
-| Scheduled with P0/P1/P2 positions accounted | 67 |
-| Scheduled with a partial P2 public view | 2 |
-| Scheduled with P0 only in the public export | 7 |
+| Frozen scheduled / excluded / blocked (163-entry cohort) | 79 / 59 / 25 |
+| After hosted-first amendment: scheduled / excluded / blocked (same cohort) | 76 / 62 / 25 |
+| Historical scheduled entries with P0/P1/P2 positions accounted | 67 |
+| Historical scheduled entries with a partial P2 public view | 2 |
+| Historical scheduled entries with P0 only in the public export | 7 |
 
-The seven P0-only configurations include a separate partial Antigravity Pro-low P1 attempt; that attempt does not create an eighth configuration or a full public P1 view.
+The seven historical P0-only configurations include a separate partial Antigravity Pro-low P1 attempt; that attempt does not create an eighth configuration or a full public P1 view.
 
-A condition cell is **accounted / valid / nonvalid** and links to its primary evidence. Each condition has a 60-review target. A never-sent review is outside the accounted count. An attempted review with unknown response outcome can appear in a normalized public view, as marked below. "Positions accounted" means three 60-position views. The 70 retained ambiguous subscription attempts are counted as attempted positions, not observed predictions; pairing still requires a separate audit. `n/a` means no admitted full public condition view; linked smoke or partial evidence can still exist. The public export currently has 53 prompt comparisons: 44 audited pair entries (39 hosted/subscription and five local historical pairs), plus nine separate observational Gemini comparisons. These categories remain separate; pair eligibility follows the [individual paired reports](../results/prompt-comparison-v1-2026-09-24/paired-reports/) and [local pair reports](../results/local-prompt-pairs-v1/).
+A condition cell is **accounted / valid / nonvalid** and links to its primary evidence. Each condition has a 60-review target. A never-sent review is outside the accounted count. An attempted review with unknown response outcome can appear in a normalized public view, as marked below. "Positions accounted" means three 60-position views. The 70 retained ambiguous subscription attempts are counted as attempted positions, not observed predictions; pairing still requires a separate audit. `n/a` means no admitted full public condition view; linked smoke or partial evidence can still exist. The historical first-pass export has 53 prompt comparisons: 44 audited pair entries (39 hosted/subscription and five local historical pairs), plus nine separate observational Gemini comparisons. These categories remain separate; pair eligibility follows the [individual paired reports](../results/prompt-comparison-v1-2026-09-24/paired-reports/) and [local pair reports](../results/local-prompt-pairs-v1/).
 
-## Scheduled configurations
+## Later execution coverage, 2 October 2026
+
+These counts are **closed full development phases**, except where a row explicitly says partial. A fresh phase requires its own 60-review dispatch. Historical first passes count only where an explicit protocol audit admits them; smokes and interrupted views cannot fill a closed full-phase cell. The [current goals](CURRENT_GOALS.md), [remaining-roster audit](REMAINING_ROSTER_2026-09-29.md) and [current checklist](TODO.md) keep the broader queue visible.
+
+| Separate cohort or exact configuration | Closed full phases | Evidence and remaining boundary |
+| --- | ---: | --- |
+| Claude Sonnet 5.5, low / medium / high / xhigh | **36/36** across four separately added configurations | Three P0/P1/P2 passes at each effort are closed, with 60 valid outputs in every phase. The [source-bound report](../public-site/sonnet55-fresh-matched3.json) keeps these fresh runs distinct from older Claude first passes. This closes the declared Sonnet series, not the whole roster. |
+| Qwen3 0.6B, local HTTP, thinking off | **9/9** | The [fresh repeat report](../public-site/legacy-qwen-repeats.json) binds all nine 60-response phases. Its historical P0/P1/P2 results in the table below remain separate observations. |
+| Qwen3 0.6B, local SDK, thinking on / off | **8/9 each** | The [same report](../public-site/legacy-qwen-repeats.json) retains strict-format failures. Each setup still lacks its third P2 full phase; the [latest checklist](TODO.md) records reviewed smokes and the host-preflight stop. Historical SDK rows below do not fill those cells. |
+| Qwen3 1.7B SDK on / off; Qwen3.5 4B SDK on | **0/9 each** | These are the other three configurations in the [54-phase legacy Qwen plan](../results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json). Historical runs below do not count as fresh passes. |
+| Cloudflare Clef / Clef Flash, native Choice interface | **1/9 each** | Each [first P0 pass](../public-site/clef-findings.json) has 60 valid responses. The [continuation admission](CLEF_REPEAT_ADMISSION_2026-10-02.md) identifies 16 remaining model/pass/condition stages; it is a proposal, not an executed phase. These models are additions outside the frozen roster. |
+
+The [remaining-roster audit](REMAINING_ROSTER_2026-09-29.md) also retains unfinished hosted and local work. Mistral 119B `none` has **no closed full phase**: its first fresh P0 composite has 50 valid, three failed and seven never-sent reviews in the [second-suffix terminal record](../results/repeatability-v1/mistral119-fresh-matched3-v1/v3-second-suffix-none-v1/fresh1/P0/suffix.terminal-public.json); `high` has no full phase. DeepSeek Flash low is at 2/9, while DeepSeek high, Qwen3.6 thinking on and Gemini 3.1 Pro high still have no new full repeat series. Gemma 4 26B thinking on has interrupted phases; Gemma E4B thinking on and Qwen3.5 4B thinking off remain incomplete in the [small-local report](../public-site/small-local-repeats.json). Solar Decide has only a stopped [P0 smoke](../results/solar-decide-native-smoke-v1/terminal-public.json); the [GLiNER contract](GLINER_HOSTED_ADAPTER_CONTRACT_2026-10-01.md) still lacks an admitted model call. These statements do not reclassify the historical rows or grant a replay of failed requests.
+
+## Scheduled configurations in the frozen cohort
 
 | Configuration | P0 | P1 | P2 | Accounting | Next step or boundary |
 | --- | ---: | ---: | ---: | --- | --- |
@@ -162,7 +176,7 @@ A condition cell is **accounted / valid / nonvalid** and links to its primary ev
 | `anyjev-qwen06-l1` | n/a | n/a | n/a | Excluded | Prompt variants do not apply to this native method; retain P0 evidence. |
 | `anyjev-qwen06-l2` | [60/60/0](../results/anyjev-l2-cv5-hf517-v1-2026-09-24/full.jsonl) | n/a | n/a | Excluded | Prompt variants do not apply to this native method; retain P0 evidence. |
 
-## Blocked configurations
+## Blocked configurations in the frozen cohort
 
 | Configuration | P0 | P1 | P2 | Accounting | Next step or boundary |
 | --- | ---: | ---: | ---: | --- | --- |
@@ -196,6 +210,6 @@ A condition cell is **accounted / valid / nonvalid** and links to its primary ev
 
 No score is imputed for missing responses. Qwen3.5 4B thinking-on P2 and SemIf P2 each have one unresolved started review. Qwen3.6 thinking-on P2 now has 54 valid outputs, six saved service errors and zero never-sent reviews after the [final DEV-044–060 suffix](../results/qwen36-on-p2-never-sent-episodes-v1/episode-002/PUBLICATION.md); all earlier failures remain retained. Gemini 3.1 Pro low P1 has a partial attempt outside the completed public P1 views. Seven subscription conditions retain ten original failed-attempt positions each: 70 ambiguous response outcomes, no never-sent records. The public view normalizes these positions as `service_error`; that label does not prove that a provider returned a concrete error for each review. The [suffix reports](../results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v1/reconciliation-v1/), [Haiku report](../results/prompt-comparison-v1-2026-09-24/subscription-suffix-continuation-v2-haiku/reconciliation-v1/haiku45-not_applicable-phase2-batch10-p0-P1.json), and [original attempt journals](../results/prompt-comparison-v1-2026-09-24/runs/) preserve the distinction. † marks those conditions in the table. Invalid outputs remain benchmark outcomes; they are not requests to retry until valid.
 
-Blocked rows include historical unavailable endpoints and original Gemini runs. Their status is preserved for accounting, but it does not by itself require a new run to finish the currently scheduled comparison. The completed Mistral Venice and paid DeepSeek configurations remain separate from older blocked routes. Two Mistral 119B modes each failed their first DEV-001 smoke with HTTP 429; neither has admitted development data.
+Blocked rows include historical unavailable endpoints and original Gemini runs. Their status is preserved for accounting, but it does not by itself require a new run to finish the currently scheduled comparison. The completed Mistral Venice and paid DeepSeek configurations remain separate from older blocked routes. Both Mistral 119B modes failed their original DEV-001 smoke with HTTP 429. The later `none` fresh1/P0 development attempt is a separate, still incomplete series described in the dated update above; `high` has no admitted development phase.
 
 The hosted-first amendment changes scheduling only. Local Qwen3 8B and Qwen3.8 27B P1/P2 are excluded; their separately recorded hosted configurations retain their own methods and evidence. Paid, free, local, and subscription routes do not inherit each other’s completion state. A completed P0 does not fill an absent P1 or P2.
