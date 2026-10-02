@@ -1,5 +1,17 @@
 # Current work checklist
 
+## Third-P0 reporting and hosted continuation, 2 October 2026, 16:35 UTC
+
+This checkpoint supersedes earlier assignment and running-state statements below.
+
+- Root verified and pushed `b73487d0`: Clef's third P0 checkpoint and the Gemma fresh3 P0/P1 successor. Four report tests and eight successor tests passed. The budget fix binds the global hold to one exact child manifest, partition and ledger; a second child cannot reuse it.
+- Clef: three P0 passes each scored 53/60 with 60 valid outputs, and no observed label, probability or confidence changes. Flash: two completed P0 passes; its third has one unknown outcome and 59 never-sent inputs. Further Cloudflare dispatch remains stopped. The hosted report agent owns integration of this dated checkpoint into analysis and repeat views.
+- Gemma: the roster execution agent owns only the newly admitted fresh3/P0 three-record smoke, subject to fresh host, route and atomic budget checks. Full P0 and P1 are not yet admitted. Do not infer that an authorized stage has started without its execution handle or terminal evidence.
+- Fastino: root reviewed the offline GLiNER2.5-Decide request manifest and three tests passed. Public catalogs now list $0.03/M input and zero output price. Missing credentials, unverified account access and complete-input token fit remain gates. No inference or budget allocation occurred.
+- DeepSeek: the native-preflight agent owns a new versioned price/suffix admission for never-sent DEV-051–060, with no inference or allocation authorized. Earlier failed requests must not be replayed.
+- Website: category explanation `de9f9aa7` is pushed; seven focused UI checks passed. Pages publication is being verified. The existing category filters separate model specialization from output interface and hosting route.
+
+
 ## Published repeat findings and remaining-route preparation, 2 October 2026
 
 The two source-bound repeat reports were published in `2deb6958`; Pages `37031477144` passed and both live feeds matched their committed bytes. Integration `1a30318e` adds Gemma's 2/57 shared-valid P2 changes and the separately dated Clef two-pass comparison. Root verified all four deployed HTML/script/feed assets against local bytes after deploy step success in `37032352052`; 132 UI tests, two analysis tests and browser checks passed. The first-pass Clef panel now explicitly names its historical cutoff and links the two-pass report.
