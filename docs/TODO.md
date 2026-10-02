@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Third Clef P0 admission and repeat-analysis review, 2 October 2026
+
+Root decoded and independently inspected all six fresh3/P0 smoke responses, checked response hashes, returned model IDs and parsed choices against the raw native answers. Each model has three valid smoke outputs. The roster agent owns the separately admitted 60-review fresh3/P0 stages for Clef and Clef Flash, with fresh route, price and account checks and atomic holds under the existing shared ceiling. No P1/P2 stage is admitted by this checkpoint. Admission is not evidence of dispatch or completion; terminal receipts will determine the outcome.
+
+The hosted agent is independently reviewing the new Gemma P2 three-pass analysis; the native agent is independently reviewing the Clef two-pass P0 analysis. Neither report is published yet. Root owns integration and publication after review. The proposed findings retain fixed-60 scores and shared-valid denominators separately. The previous publication and local AC-power blocker remain as recorded below. Both reviews returned APPROVE after the new Clef report replaced an unsupported negative adjudication claim with the confirmed human-check history. Follow-up: the frozen first-pass Clef feed still contains the old wording; correct it through a versioned report revision and refresh dependent source bindings, without changing scores or raw evidence.
+
 ## Report integration and second Clef passes, 2 October 2026
 
 Both Clef fresh2/P0 stages are archived and pushed in `dd1220aa`, each with 60 valid outputs. Root independently checked completion hashes, ID order and reference exclusion; the archive scan found no credential or account-ID values. The hosted agent owns a separate two-pass findings report. The reviewed remaining-stage controller and deterministic budget fixtures are pushed in `b28fecc5`; 13 tests pass. Root admitted only the two fresh3/P0 three-record smokes, each requiring fresh account, route, price and atomic budget checks. Full development remains gated on independent raw-response review.
