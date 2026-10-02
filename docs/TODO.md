@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Clef second pass and larger Qwen checkpoint, 2 October 2026
+
+- The three model-category filters and validity/agreement chart are published. Category provenance and the Cloudflare visual reference are documented in [the category review](REPORT_CATEGORY_REVIEW_2026-10-02.md). General models, task-fine-tuned checkpoints, and dedicated decision models stay separate from interface and hosting route.
+- Qwen3 1.7B SDK thinking-on first P0 pass is closed: 60/60 valid responses. Its three-record smoke, controls, request hashes, exact local artifact and host checks are archived and pushed in `49a730c7`. The native agent owns the offline report refresh. No later 1.7B phase has been dispatched.
+- Gemma's interrupted third P2 sequence now has 58 valid outputs and two preserved service failures across all 60 positions. It matches all four frozen reference fields on 56/60 reviews. The new seven-of-nine-condition report is committed in `8bbf3f0b`; six focused tests pass and all 108 source bindings match the archive. The hosted agent owns combined-analysis integration; the native agent will own repeat-view integration after the Qwen refresh. Third P0 and P1 remain unsent.
+- Clef's second P0 pass has closed with 60/60 valid native responses. Its evidence is under the roster agent's verification and archive ownership. Both three-record smokes passed independent raw-response review. Clef Flash's second full P0 pass is authorized separately after fresh billing and atomic budget checks; its result remains pending. Further Clef phases are not dispatched by this checkpoint.
+- These are progress checkpoints, not completion of the full model, prompt and repeat roster. Older sections below preserve historical cutoffs.
+
 ## Small-Qwen SDK studies closed, 2 October 2026
 
 Both Qwen3 0.6B SDK setups now have all nine full P0/P1/P2 phases closed, alongside the nine completed HTTP phases. The final thinking-on P2 run saved 58 valid and two invalid outputs; thinking-off saved five valid and 55 invalid outputs. Raw responses, strict-parser failures and the between-stage host sleep remain preserved. The separate host rebaseline passed before and after both final runs. Thinking-on P2 scores across passes were 3/60, 1/60 and 1/60; 47 of 52 reviews valid in all three changed at least one label. Thinking-off has no shared-valid three-pass set for any prompt. Evidence, report, README and roster updates are committed in `a6ae6c77`. The release initially caught a stale UI-test assumption that SDK studies were incomplete; `1e28fbcb` corrects it. All 129 UI tests pass. Pages `37025068303` succeeded, and the live repeat feed matches committed bytes. The three larger legacy configurations remain pending.
