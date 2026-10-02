@@ -1,5 +1,14 @@
 # Current work checklist
 
+## Current checkpoint — 2 October 2026, SDK P2 and new Cloudflare approval
+
+- SDK P2 thinking-on/off full phases are archived in `cb0fabcb` and `85708a2d`. Thinking on returned 56 valid responses and 3/60 complete matches; thinking off returned one valid response and 0/60 complete matches. Invalid outputs remain unchanged. Reporter, README and findings updates are pushed in `0627b6ea`; Pages publication is still being verified.
+- SDK fresh1/P1 smokes were independently inspected and approved under the existing successor policy; full runs are delegated serially to the local execution agent.
+- Gemma DEV-017–046 is admitted through the reviewed fifth continuation, with a $0.60 child reserved within the existing OpenRouter cap. Root owns live session 32610. No completed or failed request is replayed.
+- The user approved tests and live runs up to $10 overall in the current discussion. The first Cloudflare admission will remain limited to the reviewed $0.10 smoke stage. The shared environment token returned HTTP403 on Workers AI discovery; connected-app discovery works. The hosted agent is preparing an app transport that retains the runner's durable reservations and evidence before inference. No Clef request has been sent.
+- The report research agent is reviewing Cloudflare's evaluation site and proposing evidence-backed model categories and charts. General-purpose, task-tuned and dedicated decision models must remain distinct from the API output format.
+
+
 ## Current checkpoint — 2 October 2026, after SDK first-pass archival
 
 This checkpoint supersedes older running-state statements below.
