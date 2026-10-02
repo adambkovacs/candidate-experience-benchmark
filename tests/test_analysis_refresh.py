@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 66)
+        self.assertEqual(len(rebuilt["sources"]), 79)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -46,12 +46,29 @@ class AnalysisRefreshTest(unittest.TestCase):
             "status": "completed_composite_interrupted", "valid": 58,
             "failedIds": ["DEV-005", "DEV-006"], "allFour": 56,
             "denominator": 60})
+        self.assertEqual(cohorts["gemma26"]["p2RepeatSource"],
+                         "public-site/gemma26-p2-repeat-findings.json")
+        self.assertEqual(cohorts["gemma26"]["p2Repeat"], {
+            "fixed60AllFourByPass": {"fresh1": 57, "fresh2": 56, "fresh3": 56},
+            "sharedValidDenominator": 57,
+            "excludedIds": ["DEV-005", "DEV-006", "DEV-007"],
+            "changedFourFieldVectorIds": ["DEV-013", "DEV-059"],
+            "cleanMatchedThreeEligible": False})
         self.assertEqual(cohorts["gemma26"]["neverSentConditions"],
                          ["fresh3/P0", "fresh3/P1"])
         self.assertEqual(cohorts["clefNativeP0"]["models"], {
             "clef": {"valid": 60, "allFour": 53, "denominator": 60},
             "clef-flash": {"valid": 60, "allFour": 45, "denominator": 60}})
         self.assertEqual(cohorts["clefNativeP0"]["fullPassesPerModelCompleted"], 1)
+        self.assertEqual(cohorts["clefNativeP0"]["repeatSource"],
+                         "public-site/clef-p0-repeat-findings.json")
+        self.assertEqual(cohorts["clefNativeP0"]["repeat"]["fullPassesPerModelCompleted"], 2)
+        self.assertEqual(cohorts["clefNativeP0"]["repeat"]["sharedValidDenominator"], 60)
+        self.assertEqual(cohorts["clefNativeP0"]["repeat"]["models"], {
+            "clef": {"fresh1AllFour": 53, "fresh2AllFour": 53,
+                     "changedFourFieldVectorIds": []},
+            "clef-flash": {"fresh1AllFour": 45, "fresh2AllFour": 45,
+                           "changedFourFieldVectorIds": []}})
         self.assertIsNone(cohorts["clefNativeP0"]["providerBilledUsd"])
         self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 3)
         legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
@@ -74,6 +91,11 @@ class AnalysisRefreshTest(unittest.TestCase):
                 target = temp / item["path"]
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source, target)
+            clef_repeat = json.loads((ROOT / "public-site/clef-p0-repeat-findings.json").read_text())
+            for name in clef_repeat["sourceSha256"]:
+                target = temp / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / name, target)
             output = temp / analysis.OUTPUT
             output.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / analysis.OUTPUT, output)

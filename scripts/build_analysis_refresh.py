@@ -32,7 +32,9 @@ SOURCES = (
     "public-site/deepseek-low-third-interruption-findings.json",
     "public-site/gemma26-second-continuation-findings.json",
     "public-site/gemma26-postabort-findings.json",
+    "public-site/gemma26-p2-repeat-findings.json",
     "public-site/clef-findings.json",
+    "public-site/clef-p0-repeat-findings.json",
     MISTRAL_ORIGINAL,
     MISTRAL_FIRST_SUFFIX,
     MISTRAL_SECOND_SUFFIX,
@@ -230,7 +232,9 @@ def build(root=ROOT):
     deepseek = data["public-site/deepseek-low-third-interruption-findings.json"]
     gemma = data["public-site/gemma26-second-continuation-findings.json"]
     gemma_postabort = data["public-site/gemma26-postabort-findings.json"]
+    gemma_p2_repeat = data["public-site/gemma26-p2-repeat-findings.json"]
     clef = data["public-site/clef-findings.json"]
+    clef_repeat = data["public-site/clef-p0-repeat-findings.json"]
     mistral_original = data[MISTRAL_ORIGINAL]
     mistral_first = data[MISTRAL_FIRST_SUFFIX]
     mistral_second = data[MISTRAL_SECOND_SUFFIX]
@@ -277,6 +281,35 @@ def build(root=ROOT):
             not math.isfinite(gemma_usage["clientRequestSecondsTotal"]) or
             gemma_usage["clientRequestSecondsTotal"] < 0):
         raise ValueError("Gemma reported usage differs")
+    gemma_repeat_shared = gemma_p2_repeat.get("allThreeSharedValid") or {}
+    gemma_repeat_scores = gemma_p2_repeat.get("fixed60Scores") or {}
+    gemma_repeat_bindings = gemma_p2_repeat.get("sourceBindings") or []
+    if (gemma_p2_repeat.get("schema") != "gemma26-on-v2-p2-descriptive-repeat-findings-v1" or
+            gemma_p2_repeat.get("configuration") != gemma_postabort.get("configuration") or
+            gemma_p2_repeat.get("condition") != "P2" or
+            gemma_p2_repeat.get("method") != "descriptive-interrupted-three-pass-comparison" or
+            gemma_p2_repeat.get("denominator") != 60 or
+            gemma_p2_repeat.get("completedP2Passes") != 3 or
+            gemma_p2_repeat.get("scoredSeriesConditions") != 7 or
+            gemma_p2_repeat.get("cleanMatchedThreeEligible") is not False or
+            {name: gemma_repeat_scores.get(name, {}).get("allFour")
+             for name in ("fresh1", "fresh2", "fresh3")} !=
+                {"fresh1": 57, "fresh2": 56, "fresh3": 56} or
+            gemma_repeat_scores.get("fresh3") != new_score or
+            gemma_repeat_shared.get("denominator") != 57 or
+            gemma_repeat_shared.get("excludedIds") != ["DEV-005", "DEV-006", "DEV-007"] or
+            [row.get("id") for row in gemma_repeat_shared.get("changedRecords", [])] !=
+                ["DEV-013", "DEV-059"] or
+            len(gemma_repeat_bindings) != 14 or
+            any(not isinstance(item, dict) or not isinstance(item.get("path"), str) or
+                not isinstance(item.get("sha256"), str) or
+                len(item["sha256"]) != 64 or
+                item["path"].startswith("/") or ".." in Path(item["path"]).parts or
+                sha(root / item["path"]) != item["sha256"]
+                for item in gemma_repeat_bindings)):
+        raise ValueError("Gemma P2 repeat comparison differs from closed evidence")
+    for item in gemma_repeat_bindings:
+        bindings[item["path"]] = item["sha256"]
     if (clef.get("schema") != "clef-native-p0-findings-v1" or
             clef.get("cohort", {}).get("records") != 60 or
             clef["cohort"].get("pass") != "fresh1" or
@@ -289,6 +322,28 @@ def build(root=ROOT):
             clef.get("cost", {}).get("providerBilledUsd") is not None or
             not clef.get("sourceSha256")):
         raise ValueError("Clef first-pass source or coverage differs")
+    if (clef_repeat.get("schema") != "clef-native-p0-repeat-findings-v1" or
+            clef_repeat.get("cohort") != {"records": 60, "condition": "P0",
+                "fullPassesPerModelCompleted": 2, "requiredFullPassesPerCondition": 3,
+                "otherConditionsCompleted": False} or
+            clef_repeat.get("referenceStatus") !=
+                "Frozen provisional v0.2 key; project owner confirmed human checks of all 60 reviews on 2026-10-02" or
+            set(clef_repeat.get("models", {})) != {"clef", "clef-flash"} or
+            any(clef_repeat["models"][name]["fresh1"]["allFourCorrect"] !=
+                clef["models"][name]["allFourCorrect"] or
+                clef_repeat["models"][name]["fresh2"]["allFourCorrect"] !=
+                clef["models"][name]["allFourCorrect"] or
+                clef_repeat["models"][name]["paired"]["sharedValid"] != 60 or
+                clef_repeat["models"][name]["paired"]["predictionVectorChangedIds"] != [] or
+                clef_repeat["models"][name]["fresh2"]["providerBilledUsd"] is not None
+                for name in ("clef", "clef-flash")) or
+            len(clef_repeat.get("sourceSha256", {})) != 1258):
+        raise ValueError("Clef P0 paired repeat source or coverage differs")
+    for name, expected in clef_repeat["sourceSha256"].items():
+        relative = Path(name)
+        if (relative.is_absolute() or ".." in relative.parts or
+                sha(root / relative) != expected):
+            raise ValueError("Clef P0 paired repeat source changed: " + name)
     legacy_series = {s.get("configuration"): s for s in legacy_qwen.get("series", [])}
     legacy_complete = ("qwen3-0.6b-q4km-nonthinking",
                        "qwen3-0.6b-sdk-thinking-on",
@@ -384,7 +439,16 @@ def build(root=ROOT):
                                 "denominator": 60}
                                 for name in ("clef", "clef-flash")},
                              "providerBilledUsd": None,
-                             "costKind": "input-price estimate and conservative hold, not an observed bill"},
+                             "costKind": "input-price estimate and conservative hold, not an observed bill",
+                             "repeatSource": "public-site/clef-p0-repeat-findings.json",
+                             "repeat": {"fullPassesPerModelCompleted": 2,
+                                 "requiredFullPassesPerCondition": 3,
+                                 "sharedValidDenominator": 60,
+                                 "models": {name: {
+                                     "fresh1AllFour": clef_repeat["models"][name]["fresh1"]["allFourCorrect"],
+                                     "fresh2AllFour": clef_repeat["models"][name]["fresh2"]["allFourCorrect"],
+                                     "changedFourFieldVectorIds": clef_repeat["models"][name]["paired"]["predictionVectorChangedIds"]}
+                                     for name in ("clef", "clef-flash")}}},
             "deepseekLow": {"source": "public-site/deepseek-low-third-interruption-findings.json",
                             "seriesCount": len(deepseek["series"]),
                             "completedConditions": [item["completedConditions"] for item in deepseek["series"]],
@@ -393,6 +457,14 @@ def build(root=ROOT):
                             "latestInterruptedOutcomes": deepseek["series"][0]["thirdInterruptionCheckpoint"]["outcomes"],
                             "latestInterruptedScore": deepseek["series"][0]["thirdInterruptionCheckpoint"]["score"]},
             "gemma26": {"source": "public-site/gemma26-postabort-findings.json",
+                        "p2RepeatSource": "public-site/gemma26-p2-repeat-findings.json",
+                        "p2Repeat": {"fixed60AllFourByPass": {name: gemma_repeat_scores[name]["allFour"]
+                            for name in ("fresh1", "fresh2", "fresh3")},
+                            "sharedValidDenominator": gemma_repeat_shared["denominator"],
+                            "excludedIds": gemma_repeat_shared["excludedIds"],
+                            "changedFourFieldVectorIds": [row["id"] for row in
+                                gemma_repeat_shared["changedRecords"]],
+                            "cleanMatchedThreeEligible": False},
                         "priorCutoffSource": "public-site/gemma26-second-continuation-findings.json",
                         "completedConditionsAtSecondContinuation": gemma["completedConditions"],
                         "completedConditions": gemma_postabort["completedConditions"],

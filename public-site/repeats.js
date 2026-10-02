@@ -30,7 +30,7 @@
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
   };
   const sonnet55Url = './sonnet55-fresh-matched3.json';
-  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './gemma26-postabort-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './legacy-qwen-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json', sonnet55Url];
+  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './gemma26-postabort-findings.json', './gemma26-p2-repeat-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './legacy-qwen-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json', sonnet55Url];
   const sonnet55Series = report => {
     const efforts=['low','medium','high','xhigh'],passes=['pass1','pass2','pass3'],conditions=['P0','P1','P2'];
     if (report?.schema !== 'claude-sonnet55-fresh-matched3-findings-v1' || report.model !== 'claude-sonnet-5-5' || report.plannedCells !== 36 || report.denominatorPerCell !== 60 ||
@@ -83,6 +83,8 @@
   const gemmaSecondSchema = 'gemma26-on-v2-second-interruption-findings-v1';
   const gemmaPostabortUrl = './gemma26-postabort-findings.json';
   const gemmaPostabortSchema = 'gemma26-on-v2-postabort-findings-v1';
+  const gemmaP2RepeatUrl = './gemma26-p2-repeat-findings.json';
+  const gemmaP2RepeatSchema = 'gemma26-on-v2-p2-descriptive-repeat-findings-v1';
   const deepseekThirdUrl = './deepseek-low-third-interruption-findings.json';
   const deepseekThirdSchema = 'deepseek-low-third-interruption-findings-v1';
   const validBindings = bindings => Array.isArray(bindings) && bindings.length > 0 &&
@@ -98,7 +100,7 @@
   };
   Promise.all([...feedUrls.map(url => {
     const load=Promise.resolve().then(() => fetch(url)).then(r => {
-    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === gemmaPostabortUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === './legacy-qwen-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl || url === sonnet55Url) && r.status === 404) return {series: []};
+    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === gemmaPostabortUrl || url === gemmaP2RepeatUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === './legacy-qwen-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl || url === sonnet55Url) && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
       if (url === sonnet55Url) return {series:sonnet55Series(payload)};
@@ -782,6 +784,29 @@
           throw Error('Invalid Gemma26 post-abort findings');
         return {series: [], gemmaPostabort: payload};
       }
+      if (url === gemmaP2RepeatUrl) {
+        if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
+        const shared = payload?.allThreeSharedValid;
+        const scores = payload?.fixed60Scores;
+        if (payload?.schema !== gemmaP2RepeatSchema ||
+            payload?.configuration !== 'openrouter-paid-gemma4-26b-a4b-on' ||
+            payload?.condition !== 'P2' ||
+            payload?.method !== 'descriptive-interrupted-three-pass-comparison' ||
+            payload?.cleanMatchedThreeEligible !== false ||
+            payload?.denominator !== 60 || payload?.completedP2Passes !== 3 ||
+            payload?.scoredSeriesConditions !== 7 ||
+            JSON.stringify(['fresh1','fresh2','fresh3'].map(p => scores?.[p]?.allFour)) !== JSON.stringify([57,56,56]) ||
+            JSON.stringify(['fresh1','fresh2','fresh3'].map(p => scores?.[p]?.valid)) !== JSON.stringify([59,60,58]) ||
+            JSON.stringify(payload?.failureIdsByPass) !== JSON.stringify({fresh1:['DEV-007'],fresh2:[],fresh3:['DEV-005','DEV-006']}) ||
+            shared?.denominator !== 57 ||
+            JSON.stringify(shared?.excludedIds) !== JSON.stringify(['DEV-005','DEV-006','DEV-007']) ||
+            JSON.stringify(shared?.changedRecords?.map(row => row.id)) !== JSON.stringify(['DEV-013','DEV-059']) ||
+            !Array.isArray(shared?.pairwise) || shared.pairwise.length !== 3 ||
+            !validBindings(payload?.sourceBindings) || payload.sourceBindings.length !== 14 ||
+            !payload.sourceBindings.some(item => item.path === 'public-site/gemma26-postabort-findings.json'))
+          throw Error('Invalid Gemma26 P2 repeat comparison');
+        return {series: [], gemmaP2Repeat: payload};
+      }
       if (url === deepseekThirdUrl) {
         if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
         const only = payload?.series?.[0];
@@ -848,6 +873,11 @@
           'Fresh pass 3 P2 stopped after DEV-005. Its 55 remaining comments were not sent, so it has no score.']});
     }
     const gemmaPostabortReport = payloads.find(payload => payload?.gemmaPostabort)?.gemmaPostabort || null;
+    const gemmaP2RepeatReport = payloads.find(payload => payload?.gemmaP2Repeat)?.gemmaP2Repeat || null;
+    if (gemmaP2RepeatReport && gemmaPostabortReport &&
+        JSON.stringify(gemmaP2RepeatReport.fixed60Scores.fresh3) !==
+          JSON.stringify(gemmaPostabortReport.fresh3P2.score))
+      throw Error('Gemma P2 repeat comparison lacks matching terminal cutoff');
     if (gemmaPostabortReport) {
       const prior = loadedSeries.find(item => item?.seriesId === 'gemma26-on-v2-second-interruption-continuation-v1');
       if (!prior || prior.completedConditions !== gemmaPostabortReport.priorCompletedConditions ||
@@ -861,6 +891,7 @@
         passes: {...prior.passes, fresh3: {...prior.passes.fresh3,
           P2: {status: 'completed_interrupted', score: gemmaPostabortReport.fresh3P2.score}}},
         postabortDetail: gemmaPostabortReport,
+        p2RepeatDetail: gemmaP2RepeatReport,
         sourceBindings: gemmaPostabortReport.sourceBindings,
         interpretation: [...prior.interpretation.slice(0, -1),
           'Fresh pass 3 P2 now has a fixed-60 score from separately dispatched stages. DEV-005 and DEV-006 remain service failures; neither was replayed.',
@@ -989,6 +1020,8 @@
         `<p><a href="${gemmaSecondUrl}">Read this public cutoff and its source hashes</a></p>`;
       if (gemmaPostabort) document.getElementById('repeat-interpretation').innerHTML +=
         `<p><a href="${gemmaPostabortUrl}">Read the latest source-bound findings</a></p>`;
+      if (gemmaPostabort && data.p2RepeatDetail) document.getElementById('repeat-interpretation').innerHTML +=
+        `<p><a href="${gemmaP2RepeatUrl}">Read the three-pass P2 answer comparison</a></p>`;
       if (freshSonnet) document.getElementById('repeat-interpretation').innerHTML +=
         `<p><a href="${sonnet55Url}">Read the Sonnet 5.5 source report and evidence hashes</a></p>`;
       if (interruptedE4b) {
@@ -1025,6 +1058,8 @@
         : `${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt-and-pass runs'} have final results for the same ${data.denominator} fictional comments. Finished runs can include failed or unusable answers. ${data.displayName || data.configuration}. Open study details for costs and measurement limits.`;
       if (readerSummary && interruptedE4b) readerSummary.textContent +=
         ' Fresh pass 2 P2 has 50 valid saved responses, two unknown timeouts and eight unsent comments; it has no final score.';
+      if (readerSummary && gemmaPostabort && data.p2RepeatDetail) readerSummary.textContent +=
+        ' P2 all-four scores across the three fixed-60 passes are 57, 56 and 56; 2 of 57 shared-valid comments changed a decision.';
       const seriesPrice=subscriptionPricing?.repeatSeries?.[data.configuration];
       if (readerSummary && seriesPrice && seriesPrice.model === data.model && seriesPrice.fullSeriesEstimateUsd !== null) {
         readerSummary.textContent += ` API-equivalent estimate across ${seriesPrice.totalPhases} phases: ${money(seriesPrice.fullSeriesEstimateUsd)}. Subscription charge and quota use are unknown.`;
@@ -1047,6 +1082,8 @@
         ? `${data.displayName || data.configuration}. ${data.completedConditions} of ${data.plannedConditions} full phases closed; separate from native AnyJev. Valid responses by pass 1/2/3: ${generatedAnyJevValidity.join('; ')}${data.completedConditions < data.plannedConditions ? ' (pending means no full score)' : ''}. Counts and scores use all ${data.denominator} reviews, including invalid outputs.`
         : `${data.displayName || data.configuration}. ${data.completedConditions} of ${data.plannedConditions} planned ${nativeP0 ? 'native P0 passes' : 'prompt/pass combinations'} have complete evidence on the same ${data.denominator} development comments. Incomplete passes are not zero scores.` + Object.entries(data.passes).flatMap(([pass, conditions]) => Object.entries(conditions).filter(([, phase]) => phase.completionStatus === 'partial').map(([condition, phase]) => { const o = phase.score.outcomes; return ` ${condition} ${displayPass(pass)} stopped with ${o.valid} valid responses, ${o.service_error || 0} service errors and ${o.never_sent || 0} reviews not sent.`; })).join('');
       if (localFresh) document.getElementById('repeat-lead').textContent += ` This study plans three fresh local passes. Only completed phases have scores. Earlier local results are observational and are not counted here. Only terminal phases have scores. Reference labels are provisional and were used only for offline scoring. Client request time includes runtime overhead; loaded engine version, model load time and local cost are unknown.`;
+      if (gemmaPostabort && data.p2RepeatDetail) document.getElementById('repeat-lead').textContent +=
+        ' The paired P2 comparison uses 57 comments with valid answers in all three passes; DEV-005, DEV-006 and DEV-007 are excluded from answer-change counts but remain in each fixed-60 score.';
       if (freshCodex) document.getElementById('repeat-lead').textContent += ' Each series schedules three fresh Codex subscription passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. The requested model and CLI version are recorded; the served model identity and revision, effective seed and attributable subscription cost are unavailable. Request time includes client overhead.';
       if (freshSonnet) document.getElementById('repeat-lead').textContent += ' This separate Sonnet 5.5 study plans three passes per prompt version. Only closed 60-comment development phases have scores; smoke results and unfinished attempts are excluded. The original low-effort pass 1 P0 guard failure was retained and admitted offline, not replayed. Client request duration includes overhead; pure inference time and actual subscription cost are unavailable.';
       if (freshHosted) document.getElementById('repeat-lead').textContent += ' This series schedules three fresh hosted passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. Costs are provider-reported charges; request durations include network and service overhead, not pure inference time. Smoke usage is separate.';
@@ -1152,8 +1189,14 @@
       const pairs = (data.pairwiseFlips || []).filter(x => x.condition === c &&
         (!freshSeries || (closedSlot(x.from, c) && closedSlot(x.to, c))));
       document.getElementById('repeat-flips').innerHTML = `${generatedAnyJev && changes?.denominator === 0 ? '<p>No comments had answers in the required format in all three passes; change comparisons are unavailable.</p>' : ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>Comparable means answers met the required format in all three passes. ${changes.excludedIds.length} ${changes.excludedIds.length === 1 ? 'comment was' : 'comments were'} excluded because at least one pass did not.</p>` : freshSonnet && passes.every(p => closedSlot(p,c)) ? '<p>Pairwise changes between completed passes are listed below.</p>' : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {if (generatedAnyJev && x.denominator === 0) return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: unavailable (0 comments with answers in the required format in both passes)</li>`; const f = field === 'allFour' ? x.fourFieldVector : nativeL1 ? x.fields[field] : x[field]; const changed = Array.isArray(f) ? f.length : f.changed; return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: ${changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
-      if (gemmaPostabort && passes.every(p => closedSlot(p, c))) document.getElementById('repeat-flips').innerHTML =
-        '<p>All three passes have scores. Review-by-review answer changes have not yet been calculated for this interrupted series.</p>';
+      if (gemmaPostabort && c === 'P2' && passes.every(p => closedSlot(p, c))) {
+        const comparison = data.p2RepeatDetail?.allThreeSharedValid;
+        const changed = comparison?.changedRecords?.filter(row =>
+          field === 'allFour' || row.changedFields.includes(field)).map(row => row.id);
+        document.getElementById('repeat-flips').innerHTML = comparison
+          ? `<p><strong>${changed.length} / ${comparison.denominator}</strong> shared-valid comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across three P2 passes. ${comparison.excludedIds.length} comments lack a valid answer in at least one pass: ${comparison.excludedIds.map(esc).join(', ')}.</p><p class="repeat-case-ids">${changed.length ? changed.map(esc).join(' · ') : 'No changed comments.'}</p><ul>${comparison.pairwise.map(pair => `<li>${esc(displayPass(pair.from))} to ${esc(displayPass(pair.to))}: ${field === 'allFour' ? pair.changedFourFieldVectorCount : pair.fields[field].changedIds.length} / ${pair.denominator} changed</li>`).join('')}</ul><p>This interrupted series is descriptive, not a clean matched-three experiment. <a href="${gemmaP2RepeatUrl}">Read the source-bound P2 comparison</a>.</p>`
+          : '<p>The paired P2 comparison is unavailable for this interrupted series.</p>';
+      }
       if (qwen27Cutoff) document.getElementById('repeat-flips').innerHTML =
         '<p>Cross-pass answer changes are outside this fresh pass 3 cutoff. Select the earlier hosted series for its completed comparisons.</p>';
       if (qwen27Second) document.getElementById('repeat-flips').innerHTML =

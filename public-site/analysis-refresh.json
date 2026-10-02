@@ -972,6 +972,24 @@
       },
       "pass": "fresh1",
       "providerBilledUsd": null,
+      "repeat": {
+        "fullPassesPerModelCompleted": 2,
+        "models": {
+          "clef": {
+            "changedFourFieldVectorIds": [],
+            "fresh1AllFour": 53,
+            "fresh2AllFour": 53
+          },
+          "clef-flash": {
+            "changedFourFieldVectorIds": [],
+            "fresh1AllFour": 45,
+            "fresh2AllFour": 45
+          }
+        },
+        "requiredFullPassesPerCondition": 3,
+        "sharedValidDenominator": 60
+      },
+      "repeatSource": "public-site/clef-p0-repeat-findings.json",
       "source": "public-site/clef-findings.json"
     },
     "deepseekLow": {
@@ -1010,6 +1028,25 @@
         "fresh3/P0",
         "fresh3/P1"
       ],
+      "p2Repeat": {
+        "changedFourFieldVectorIds": [
+          "DEV-013",
+          "DEV-059"
+        ],
+        "cleanMatchedThreeEligible": false,
+        "excludedIds": [
+          "DEV-005",
+          "DEV-006",
+          "DEV-007"
+        ],
+        "fixed60AllFourByPass": {
+          "fresh1": 57,
+          "fresh2": 56,
+          "fresh3": 56
+        },
+        "sharedValidDenominator": 57
+      },
+      "p2RepeatSource": "public-site/gemma26-p2-repeat-findings.json",
       "plannedConditions": 9,
       "priorCutoffSource": "public-site/gemma26-second-continuation-findings.json",
       "priorThirdContinuation": {
@@ -2785,12 +2822,24 @@
       "sha256": "14484268038fb43b0efd4b62b686c9666a1e53b7ba8ad70ff1716339bfae2e3e"
     },
     {
+      "path": "public-site/clef-p0-repeat-findings.json",
+      "sha256": "8bbe4ed0be59c922c72e90640b30a9dc4d90f4aa063a61d142424ae66e16ad61"
+    },
+    {
       "path": "public-site/deepseek-low-third-interruption-findings.json",
       "sha256": "d00e5100c085160e126956db8f4335a944859d6bf9b7a527cb84ebb7d2b9b60e"
     },
     {
       "path": "public-site/findings.json",
       "sha256": "a3ae2097b2bba91c73076248679250066cb9f58c3f54686391c63cad30430ed3"
+    },
+    {
+      "path": "public-site/gemma26-continuation-findings.json",
+      "sha256": "cce3d6d24e1708960ffe16158016017d8d28cbcdc2a5deb60e76e47b51cb32e7"
+    },
+    {
+      "path": "public-site/gemma26-p2-repeat-findings.json",
+      "sha256": "f595203141acf14ab9994e39d329ad177fdd79a429fa17844af553728c448fd9"
     },
     {
       "path": "public-site/gemma26-postabort-findings.json",
@@ -3017,6 +3066,38 @@
       "sha256": "ce8fbafd6a282ed6331d98e8543eddd2260e9f19e4bb5cbf0badcc2c11b18741"
     },
     {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/manifest.json",
+      "sha256": "fba7273c9691deff399e38e34970c642f268b761659132734962a8273aadca29"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh2/manifest.json",
+      "sha256": "b1b89af36ac6137c7c085a4d51747038cbcc81d1a3ebf05b8b209adb2f9924d2"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3/manifest.json",
+      "sha256": "86750c9372d18956e6665e8a23537fd87752b0da06144ce1f1254735093a65c3"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.attempts.jsonl",
+      "sha256": "93dc506308f6a7d4534a781931b7808d1aded7945c944875b29e0edbb6f58bcd"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.attempts.jsonl",
+      "sha256": "85fb5333db2a2fc28039f0b9d6e26d65416f5f8e745e77cd4097170e179616b2"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/public-prefix-v1/development.attempts.jsonl",
+      "sha256": "d296b438ac1420b5fccb0eeb49ee8373139eba68f4027059f69dd3e129650569"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/postabort-suffix-054-060-v1/public-composite-projection.json",
+      "sha256": "55ddc3390b2b5afc360793a86114b1cb91523a0bd7e90a15b76ee8e681ea5b67"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/postabort-suffix-054-060-v1/public-composite-review.json",
+      "sha256": "7d1a3aec9d82ac2aa83e6c36abd1fa858ad1eac1d484a64624f6730af8b925d1"
+    },
+    {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/third-interruption-continuation-v1/terminal-public-after-dev006.json",
       "sha256": "ec2bde5d2bd380f3df56d9241d006d5ffd466bdf481497b24f6997a485eb8f4c"
     },
@@ -3031,6 +3112,14 @@
     {
       "path": "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-second-suffix-none-v1/fresh1/P0/suffix.terminal-public.json",
       "sha256": "07e7a2ae939612f25f3c74a42c54cf96c9ef22c76fa27484f76bd8007b54c892"
+    },
+    {
+      "path": "schemas/judgments.schema.json",
+      "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+    },
+    {
+      "path": "scripts/build_gemma26_p2_repeat_findings.py",
+      "sha256": "252487d1cf2d9c59175969114a0e2e10617f1843797aa7a3cdf3cfd0ed6b6186"
     }
   ]
 }
