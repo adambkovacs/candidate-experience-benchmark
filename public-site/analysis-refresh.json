@@ -954,6 +954,26 @@
   "generatedAt": "2026-10-02",
   "method": "Offline descriptive synthesis of published feeds and sanitized Sonnet record evidence",
   "newerCohorts": {
+    "clefNativeP0": {
+      "condition": "P0",
+      "costKind": "input-price estimate and conservative hold, not an observed bill",
+      "fullPassesPerModelCompleted": 1,
+      "models": {
+        "clef": {
+          "allFour": 53,
+          "denominator": 60,
+          "valid": 60
+        },
+        "clef-flash": {
+          "allFour": 45,
+          "denominator": 60,
+          "valid": 60
+        }
+      },
+      "pass": "fresh1",
+      "providerBilledUsd": null,
+      "source": "public-site/clef-findings.json"
+    },
     "deepseekLow": {
       "completedConditions": [
         2
@@ -973,15 +993,103 @@
       "source": "public-site/deepseek-low-third-interruption-findings.json"
     },
     "gemma26": {
+      "cleanMatchedThreeEligible": false,
+      "completedConditions": 7,
       "completedConditionsAtSecondContinuation": 6,
-      "latestThirdContinuation": {
+      "fresh3P2": {
+        "allFour": 56,
+        "denominator": 60,
+        "failedIds": [
+          "DEV-005",
+          "DEV-006"
+        ],
+        "status": "completed_composite_interrupted",
+        "valid": 58
+      },
+      "neverSentConditions": [
+        "fresh3/P0",
+        "fresh3/P1"
+      ],
+      "plannedConditions": 9,
+      "priorCutoffSource": "public-site/gemma26-second-continuation-findings.json",
+      "priorThirdContinuation": {
         "failedId": "DEV-006",
         "neverSentCount": 54,
         "score": null,
         "status": "stopped_unscored"
       },
-      "plannedConditions": 9,
-      "source": "public-site/gemma26-second-continuation-findings.json"
+      "source": "public-site/gemma26-postabort-findings.json",
+      "usage": {
+        "clientRequestSecondsTotal": 1609.5669084999645,
+        "missingCostCount": 2,
+        "pureInferenceSeconds": null,
+        "reportedCostCount": 58,
+        "reportedKnownCostUsd": "0.02230691",
+        "reportedReasoningExceedsCompletion": true,
+        "tokenAvailability": {
+          "completion_tokens": {
+            "missingCount": 2,
+            "reportedCount": 58,
+            "reportedSum": 34908,
+            "sumAllRequests": null
+          },
+          "prompt_tokens": {
+            "missingCount": 2,
+            "reportedCount": 58,
+            "reportedSum": 149117,
+            "sumAllRequests": null
+          },
+          "reasoning_tokens": {
+            "missingCount": 2,
+            "reportedCount": 58,
+            "reportedSum": 35331,
+            "sumAllRequests": null
+          },
+          "total_tokens": {
+            "missingCount": 2,
+            "reportedCount": 58,
+            "reportedSum": 184025,
+            "sumAllRequests": null
+          }
+        },
+        "tokenCategoryCaveat": "Provider-reported reasoning tokens exceed completion tokens here; the categories conflict and must not be added or treated as a reliable subset."
+      }
+    },
+    "legacyQwen": {
+      "completedConfigurations": [
+        "qwen3-0.6b-q4km-nonthinking",
+        "qwen3-0.6b-sdk-thinking-on",
+        "qwen3-0.6b-sdk-thinking-off"
+      ],
+      "remainingConfigurations": {
+        "qwen3-1.7b-sdk-thinking-off": {
+          "completedConditions": 0,
+          "plannedConditions": 9
+        },
+        "qwen3-1.7b-sdk-thinking-on": {
+          "completedConditions": 1,
+          "plannedConditions": 9
+        },
+        "qwen3.5-4b-sdk-thinking-on": {
+          "completedConditions": 0,
+          "plannedConditions": 9
+        }
+      },
+      "sdkFinalP2": {
+        "thinkingOff": {
+          "allFour": 0,
+          "denominator": 60,
+          "invalid": 55,
+          "valid": 5
+        },
+        "thinkingOn": {
+          "allFour": 1,
+          "denominator": 60,
+          "invalid": 2,
+          "valid": 58
+        }
+      },
+      "source": "public-site/legacy-qwen-repeats.json"
     },
     "mistral119": {
       "combinedSavedValidCount": 50,
@@ -2673,6 +2781,10 @@
       "sha256": "11a44a7368695bb8f53961ba05b55b8eeca1701487ecd6036b9a110027af6a4d"
     },
     {
+      "path": "public-site/clef-findings.json",
+      "sha256": "14484268038fb43b0efd4b62b686c9666a1e53b7ba8ad70ff1716339bfae2e3e"
+    },
+    {
       "path": "public-site/deepseek-low-third-interruption-findings.json",
       "sha256": "d00e5100c085160e126956db8f4335a944859d6bf9b7a527cb84ebb7d2b9b60e"
     },
@@ -2681,12 +2793,20 @@
       "sha256": "a3ae2097b2bba91c73076248679250066cb9f58c3f54686391c63cad30430ed3"
     },
     {
+      "path": "public-site/gemma26-postabort-findings.json",
+      "sha256": "e555d975e0943ff7bd4ddf88dcb7f55046672229114a2522750106d2b5660c56"
+    },
+    {
       "path": "public-site/gemma26-second-continuation-findings.json",
       "sha256": "f23d805f23117d39da1e1229d2bc2516eb667e1d17c355bc7ab5223c9bbb8ee0"
     },
     {
       "path": "public-site/haiku-fresh-matched3.json",
       "sha256": "6b49805ec97c55401b85eec2bd5ede5d18b8fe60ad63f7f7daa4fe4a922313f2"
+    },
+    {
+      "path": "public-site/legacy-qwen-repeats.json",
+      "sha256": "b9ffd6d7ea1ed78d26ca8adfd8447787e37ebade754639ebf4e3ab7388158db3"
     },
     {
       "path": "public-site/qwen27-final-descriptive-findings.json",

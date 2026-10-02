@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 63)
+        self.assertEqual(len(rebuilt["sources"]), 66)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -37,6 +37,33 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertIsNone(mistral["score"])
         self.assertIn(analysis.MISTRAL_SECOND_SUFFIX,
                       {item["path"] for item in rebuilt["sources"]})
+        cohorts = rebuilt["newerCohorts"]
+        self.assertEqual(cohorts["gemma26"]["source"],
+                         "public-site/gemma26-postabort-findings.json")
+        self.assertEqual(cohorts["gemma26"]["completedConditionsAtSecondContinuation"], 6)
+        self.assertEqual(cohorts["gemma26"]["completedConditions"], 7)
+        self.assertEqual(cohorts["gemma26"]["fresh3P2"], {
+            "status": "completed_composite_interrupted", "valid": 58,
+            "failedIds": ["DEV-005", "DEV-006"], "allFour": 56,
+            "denominator": 60})
+        self.assertEqual(cohorts["gemma26"]["neverSentConditions"],
+                         ["fresh3/P0", "fresh3/P1"])
+        self.assertEqual(cohorts["clefNativeP0"]["models"], {
+            "clef": {"valid": 60, "allFour": 53, "denominator": 60},
+            "clef-flash": {"valid": 60, "allFour": 45, "denominator": 60}})
+        self.assertEqual(cohorts["clefNativeP0"]["fullPassesPerModelCompleted"], 1)
+        self.assertIsNone(cohorts["clefNativeP0"]["providerBilledUsd"])
+        self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 3)
+        legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
+        pending = {s["configuration"]: s for s in legacy["series"]}
+        for name, progress in cohorts["legacyQwen"]["remainingConfigurations"].items():
+            self.assertEqual(progress["completedConditions"],
+                             pending[name]["completedConditions"])
+        self.assertEqual(cohorts["legacyQwen"]["sdkFinalP2"]["thinkingOn"],
+                         {"valid": 58, "invalid": 2, "allFour": 1, "denominator": 60})
+        self.assertEqual(cohorts["legacyQwen"]["sdkFinalP2"]["thinkingOff"],
+                         {"valid": 5, "invalid": 55, "allFour": 0, "denominator": 60})
+        self.assertEqual(cohorts["qwen27"]["seriesCount"], 2)
 
     def test_check_rejects_changed_source_even_if_json_values_same(self):
         published = json.loads((ROOT / analysis.OUTPUT).read_text())
@@ -59,6 +86,13 @@ class AnalysisRefreshTest(unittest.TestCase):
                                     "--root", str(temp), "--check"], capture_output=True, text=True)
             self.assertNotEqual(stale.returncode, 0)
             self.assertIn("stale", stale.stderr)
+            shutil.copyfile(ROOT / "public-site/findings.json", path)
+            gemma = temp / "public-site/gemma26-postabort-findings.json"
+            changed = json.loads(gemma.read_text())
+            changed["fresh3P2"]["score"]["valid"] = 59
+            gemma.write_text(json.dumps(changed))
+            with self.assertRaisesRegex(ValueError, "Gemma postabort composite"):
+                analysis.build(temp)
 
 
 if __name__ == "__main__":

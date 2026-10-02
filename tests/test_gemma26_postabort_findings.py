@@ -12,13 +12,56 @@ import build_gemma26_postabort_findings as report
 
 
 class GemmaPostabortFindingsTests(unittest.TestCase):
+    def test_published_token_conflict_is_explicit(self):
+        feed = json.loads((report.ROOT / report.OUTPUT).read_text())
+        usage = feed['compositeUsage']
+        self.assertGreater(
+            usage['tokenAvailability']['reasoning_tokens']['reportedSum'],
+            usage['tokenAvailability']['completion_tokens']['reportedSum'])
+        self.assertTrue(usage['reportedReasoningExceedsCompletion'])
+        self.assertIn('categories conflict', usage['tokenCategoryCaveat'])
+
+    def test_composite_usage_retains_missing_cost_and_token_counts(self):
+        rows = [
+            {'observedCostUsd': '0.2', 'clientSeconds': 1.0,
+             'tokens': {'prompt_tokens': 10, 'completion_tokens': 2,
+                        'total_tokens': 12, 'reasoning_tokens': None}},
+            {'observedCostUsd': None, 'clientSeconds': 2.0,
+             'tokens': {key: None for key in report.TOKEN_KEYS}},
+            {'observedCostUsd': '0.3', 'clientSeconds': 3.0,
+             'tokens': {'prompt_tokens': 20, 'completion_tokens': 3,
+                        'total_tokens': 23, 'reasoning_tokens': 1}},
+        ]
+        usage = report.composite_usage(rows)
+        self.assertEqual(usage['reportedKnownCostUsd'], '0.5')
+        self.assertEqual(usage['reportedCostCount'], 2)
+        self.assertEqual(usage['missingCostCount'], 1)
+        self.assertIsNone(usage['providerBilledUsd'])
+        self.assertEqual(usage['clientRequestSecondsTotal'], 6.0)
+        self.assertIsNone(usage['pureInferenceSeconds'])
+        self.assertEqual(usage['tokenAvailability']['prompt_tokens'],
+                         {'reportedSum': 30, 'reportedCount': 2,
+                          'missingCount': 1, 'sumAllRequests': None})
+        self.assertEqual(usage['tokenAvailability']['reasoning_tokens'],
+                         {'reportedSum': 1, 'reportedCount': 1,
+                          'missingCount': 2, 'sumAllRequests': None})
+        self.assertFalse(usage['reportedReasoningExceedsCompletion'])
+        self.assertIn('do not add', usage['tokenCategoryCaveat'])
+
     def test_closed_source_projection_is_allowlisted(self):
-        path = report.ROOT / report.BASE / report.STAGES[0][0] / 'development.attempts.jsonl'
-        rows = report.first_report.rows(path)
         plan = json.loads((report.ROOT / report.BASE / 'fresh3/manifest.json').read_text())
         requests = plan['conditions']['P2']['development']
-        valid_row = report.projection_row(rows[0], requests[0])
-        failed_row = report.projection_row(rows[4], requests[4])
+        # Synthetic privacy fixture; no private provider error bodies are needed.
+        def fixture(request, status):
+            return {'id': request['record_id'], 'request_sha256': request['request_sha256'],
+                    'request': request['payload'], 'reference_labels_read': False,
+                    'status': status, 'billing_ok': True, 'cost_unknown': False,
+                    'observed_cost_usd': '0.0001', 'elapsed_seconds': 1.0,
+                    'prediction': {'sentiment': 'positive', 'follow_up_needed': 'no',
+                        'serious_concern_reported': 'no', 'testimonial_potential': 'yes'},
+                    'raw_response': 'private fixture body', 'error_headers': {'x-fixture': 'private'}}
+        valid_row = report.projection_row(fixture(requests[0], 'ok'), requests[0])
+        failed_row = report.projection_row(fixture(requests[4], 'service_error'), requests[4])
         self.assertEqual(set(valid_row), report.PUBLIC_KEYS)
         self.assertEqual(set(failed_row), report.PUBLIC_KEYS)
         self.assertNotIn('raw_response', json.dumps(valid_row))
@@ -161,6 +204,9 @@ class GemmaPostabortFindingsTests(unittest.TestCase):
             self.assertEqual(value['fresh3P2']['failedIds'],
                              ['DEV-005', 'DEV-006', 'DEV-060'])
             self.assertFalse(value['cleanMatchedThreeEligible'])
+            self.assertEqual(value['compositeUsage']['reportedCostCount'], 57)
+            self.assertEqual(value['compositeUsage']['missingCostCount'], 3)
+            self.assertIsNone(value['compositeUsage']['pureInferenceSeconds'])
 
 
 if __name__ == '__main__':

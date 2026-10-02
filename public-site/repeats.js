@@ -30,7 +30,7 @@
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
   };
   const sonnet55Url = './sonnet55-fresh-matched3.json';
-  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './legacy-qwen-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json', sonnet55Url];
+  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './gemma26-postabort-findings.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './legacy-qwen-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json', sonnet55Url];
   const sonnet55Series = report => {
     const efforts=['low','medium','high','xhigh'],passes=['pass1','pass2','pass3'],conditions=['P0','P1','P2'];
     if (report?.schema !== 'claude-sonnet55-fresh-matched3-findings-v1' || report.model !== 'claude-sonnet-5-5' || report.plannedCells !== 36 || report.denominatorPerCell !== 60 ||
@@ -81,6 +81,8 @@
   const qwen27FinalSchema = 'qwen27-v2-final-descriptive-nine-findings-v1';
   const gemmaSecondUrl = './gemma26-second-continuation-findings.json';
   const gemmaSecondSchema = 'gemma26-on-v2-second-interruption-findings-v1';
+  const gemmaPostabortUrl = './gemma26-postabort-findings.json';
+  const gemmaPostabortSchema = 'gemma26-on-v2-postabort-findings-v1';
   const deepseekThirdUrl = './deepseek-low-third-interruption-findings.json';
   const deepseekThirdSchema = 'deepseek-low-third-interruption-findings-v1';
   const validBindings = bindings => Array.isArray(bindings) && bindings.length > 0 &&
@@ -96,7 +98,7 @@
   };
   Promise.all([...feedUrls.map(url => {
     const load=Promise.resolve().then(() => fetch(url)).then(r => {
-    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === './legacy-qwen-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl || url === sonnet55Url) && r.status === 404) return {series: []};
+    if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === gemmaPostabortUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === './legacy-qwen-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl || url === sonnet55Url) && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
       if (url === sonnet55Url) return {series:sonnet55Series(payload)};
@@ -735,6 +737,51 @@
           throw Error('Invalid Gemma26 second continuation cutoff');
         return {series: [], gemmaSecond: payload};
       }
+      if (url === gemmaPostabortUrl) {
+        if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
+        const phase = payload?.fresh3P2;
+        const score = phase?.score;
+        if (payload?.schema !== gemmaPostabortSchema ||
+            payload?.seriesId !== 'gemma26-on-v2-postabort-suffix-054-060-v1' ||
+            payload?.configuration !== 'openrouter-paid-gemma4-26b-a4b-on' ||
+            payload?.method !== 'descriptive-interrupted-composite' ||
+            payload?.cleanMatchedThreeEligible !== false || payload?.denominator !== 60 ||
+            payload?.plannedConditions !== 9 || payload?.priorCompletedConditions !== 6 ||
+            payload?.completedConditions !== 7 ||
+            phase?.status !== 'completed_composite_interrupted' ||
+            score?.denominator !== 60 || score?.saved !== 60 || score?.valid !== 58 ||
+            score?.allFour !== 56 || score?.scoreKind !== 'fixed_60' ||
+            JSON.stringify(score?.fields) !== JSON.stringify({sentiment:57, follow_up_needed:57,
+              serious_concern_reported:58, testimonial_potential:58}) ||
+            JSON.stringify(score?.outcomes) !== JSON.stringify({valid:58, invalid_output:0,
+              service_error:2, never_sent:0}) ||
+            phase?.valid !== 58 ||
+            JSON.stringify(phase?.failedIds) !== JSON.stringify(['DEV-005','DEV-006']) ||
+            JSON.stringify(phase?.stageRanges) !== JSON.stringify(['DEV-001..DEV-005',
+              'DEV-006..DEV-006','DEV-007..DEV-016','DEV-017..DEV-046',
+              'DEV-047..DEV-053','DEV-054..DEV-060']) ||
+            JSON.stringify(score?.validIds) !== JSON.stringify(idsFrom(1).filter(id =>
+              id !== 'DEV-005' && id !== 'DEV-006')) ||
+            payload?.fresh3P0?.status !== 'never_sent' || payload.fresh3P0.score !== null ||
+            payload?.fresh3P1?.status !== 'never_sent' || payload.fresh3P1.score !== null ||
+            payload?.referenceStatus !== 'frozen_provisional_v0.2_human_checked_2026-10-02' ||
+            payload?.timingKind !== 'client_request_to_record_not_provider_inference' ||
+            payload?.billing?.isProviderInvoice !== false ||
+            !/^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(payload?.billing?.finalChildKnownActualUsd || '') ||
+            payload?.billing?.finalChildUnknownUpperBoundUsd !== '0' ||
+            payload?.compositeUsage?.requestCount !== 60 ||
+            payload.compositeUsage.reportedCostCount !== 58 || payload.compositeUsage.missingCostCount !== 2 ||
+            !Number.isFinite(payload.compositeUsage.clientRequestSecondsTotal) ||
+            payload.compositeUsage.clientRequestSecondsTotal < 0 ||
+            payload.compositeUsage.pureInferenceSeconds !== null ||
+            payload.compositeUsage.providerBilledUsd !== null ||
+            !/^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(payload.compositeUsage.reportedKnownCostUsd || '') ||
+            ['prompt_tokens','completion_tokens'].some(key => {const t = payload.compositeUsage.tokenAvailability?.[key];
+              return !Number.isInteger(t?.reportedSum) || t.reportedSum < 0 || t.reportedCount !== 58 || t.missingCount !== 2 || t.sumAllRequests !== null;}) ||
+            !validBindings(payload?.sourceBindings) || payload.sourceBindings.length !== 108)
+          throw Error('Invalid Gemma26 post-abort findings');
+        return {series: [], gemmaPostabort: payload};
+      }
       if (url === deepseekThirdUrl) {
         if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
         const only = payload?.series?.[0];
@@ -800,6 +847,25 @@
           'Fresh pass 2 P0 combines the original DEV-001 response, preserved DEV-002 service error, and 58 later saved responses.',
           'Fresh pass 3 P2 stopped after DEV-005. Its 55 remaining comments were not sent, so it has no score.']});
     }
+    const gemmaPostabortReport = payloads.find(payload => payload?.gemmaPostabort)?.gemmaPostabort || null;
+    if (gemmaPostabortReport) {
+      const prior = loadedSeries.find(item => item?.seriesId === 'gemma26-on-v2-second-interruption-continuation-v1');
+      if (!prior || prior.completedConditions !== gemmaPostabortReport.priorCompletedConditions ||
+          prior.passes?.fresh3?.P2 || prior.cutoffDetail?.compositeP0?.score?.valid !== 59)
+        throw Error('Gemma post-abort findings lack the second public cutoff');
+      loadedSeries.push({...prior, schema: gemmaPostabortSchema,
+        seriesId: gemmaPostabortReport.seriesId,
+        displayName: 'Gemma 26B thinking-on · latest interrupted composite (7 of 9)',
+        method: gemmaPostabortReport.method,
+        completedConditions: gemmaPostabortReport.completedConditions,
+        passes: {...prior.passes, fresh3: {...prior.passes.fresh3,
+          P2: {status: 'completed_interrupted', score: gemmaPostabortReport.fresh3P2.score}}},
+        postabortDetail: gemmaPostabortReport,
+        sourceBindings: gemmaPostabortReport.sourceBindings,
+        interpretation: [...prior.interpretation.slice(0, -1),
+          'Fresh pass 3 P2 now has a fixed-60 score from separately dispatched stages. DEV-005 and DEV-006 remain service failures; neither was replayed.',
+          'Fresh pass 3 P0 and P1 were never sent. This composite is descriptive, not a clean matched-three run.']});
+    }
     const hasDeepseekLowContinuation = loadedSeries.some(s => s?.seriesId === deepseekLowContinuationId);
     const series = loadedSeries.filter(s => !(hasDeepseekLowContinuation &&
       s?.schema === 'additional-hosted-fresh-repeat-findings-v1' &&
@@ -829,6 +895,8 @@
       s.method === 'descriptive-nine-with-interrupted-composites';
     const isGemmaSecond = s => s.schema === gemmaSecondSchema &&
       s.method === 'descriptive-second-interruption-continuation';
+    const isGemmaPostabort = s => s.schema === gemmaPostabortSchema &&
+      s.method === 'descriptive-interrupted-composite';
     const isDeepseekThird = s => s.schema === deepseekThirdSchema &&
       s.method === 'descriptive-continuation-after-service-error';
     const isNativeOpenJev = s => s.schema === 'openjev-native-fresh-three-report-v1' &&
@@ -839,7 +907,7 @@
       s.method === 'fresh-native-generated-repeat';
     const isGeneratedAnyJev = s => s.schema === 'anyjev-generated-repeat-findings-v1' &&
       s.method === 'generated-json-control';
-    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isQwen27Final(s) || isGemmaSecond(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
+    const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isQwen27Final(s) || isGemmaSecond(s) || isGemmaPostabort(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
     root.innerHTML = `<div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Model category describes what the model was trained to do. Output interface describes how it returns an answer: generated text, direct choices, or scores. A general LLM can also return choice scores. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
       <div id="repeat-selected-results"><p class="category-selected" id="repeat-category-note"></p><p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
@@ -866,6 +934,7 @@
       const qwen27Second = isQwen27Second(data);
       const qwen27Final = isQwen27Final(data);
       const gemmaSecond = isGemmaSecond(data);
+      const gemmaPostabort = isGemmaPostabort(data);
       const deepseekThird = isDeepseekThird(data);
       const nativeOpenJev = isNativeOpenJev(data);
       const generatedOpenJev = isGeneratedOpenJev(data);
@@ -882,14 +951,14 @@
       const nativeKev = data.schema === 'kev-native-repeat-findings-v1';
       const nativeAlex = data.schema === 'alex-native-repeat-findings-v1';
       const displayPass = pass => nativeL2 ? ({original: 'Historical pass', repeat2: 'Repeat 2', repeat3: 'Repeat 3'}[pass] || pass) : passName[pass];
-      const closed = phase => gemmaContinuation || gemmaSecond ? phase?.status === 'completed' || phase?.status === 'completed_interrupted'
+      const closed = phase => gemmaContinuation || gemmaSecond || gemmaPostabort ? phase?.status === 'completed' || phase?.status === 'completed_interrupted'
         : qwenContinuation || deepseekLowContinuation || qwen27Cutoff || qwen27Second || qwen27Final || deepseekThird ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error' || phase?.status === 'completed_interrupted_composite'
         : freshCodex || freshHosted ? phase?.status === 'completed'
         : freshSonnet ? phase?.completionStatus === 'complete'
         : generatedOpenJev || generatedSemIf || generatedAnyJev ? phase?.completionStatus === 'complete'
         : (localFresh || nativeP0) ? phase?.completionStatus === 'complete'
           : Boolean(phase) && phase.completionStatus !== 'partial';
-      const freshSeries = freshSonnet || data.schema === 'hosted-v2-fresh-repeat-findings-v1' || data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || gemmaContinuation || qwen27Cutoff || qwen27Second || qwen27Final || gemmaSecond || deepseekThird || nativeOpenJev || generatedOpenJev || generatedSemIf || generatedAnyJev || nativeKev;
+      const freshSeries = freshSonnet || data.schema === 'hosted-v2-fresh-repeat-findings-v1' || data.schema === 'additional-hosted-fresh-repeat-findings-v1' || qwenContinuation || deepseekLowContinuation || gemmaContinuation || qwen27Cutoff || qwen27Second || qwen27Final || gemmaSecond || gemmaPostabort || deepseekThird || nativeOpenJev || generatedOpenJev || generatedSemIf || generatedAnyJev || nativeKev;
       const qwenUnknownFor = (pass, condition) => qwenContinuation
         ? data.secondInterruption.retainedOldUnknownBounds.find(item => item.phase === `${pass}/${condition}`)?.upperBoundUsd
         : null;
@@ -899,7 +968,7 @@
       if (!conditionOrder.includes(conditionControl.value)) conditionControl.value = conditionOrder[0];
       conditionControl.innerHTML = conditionOrder.map(c => `<option value="${esc(c)}"${c === conditionControl.value ? ' selected' : ''}>${c}: ${esc(nativeP0 && c === 'P0' ? nativeLabel : conditions[c] || c)}</option>`).join('');
       const field = fieldControl.value;
-      document.getElementById('repeat-interpretation').innerHTML = gemmaContinuation || gemmaSecond
+      document.getElementById('repeat-interpretation').innerHTML = gemmaContinuation || gemmaSecond || gemmaPostabort
         ? `<details><summary>Why this series has limits</summary>${(data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('')}</details>`
         : generatedAnyJev
         ? `<details><summary>Protocol and measurement limits</summary><p>This generated JSON control is separate from AnyJev native readouts. The strict parser does not repair fenced JSON. Answer-change comparisons use only comments with answers in the required format in both phases. When none qualify, stability cannot be assessed.</p>${(data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('')}</details>`
@@ -918,6 +987,8 @@
         : '') + (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
       if (gemmaSecond) document.getElementById('repeat-interpretation').innerHTML +=
         `<p><a href="${gemmaSecondUrl}">Read this public cutoff and its source hashes</a></p>`;
+      if (gemmaPostabort) document.getElementById('repeat-interpretation').innerHTML +=
+        `<p><a href="${gemmaPostabortUrl}">Read the latest source-bound findings</a></p>`;
       if (freshSonnet) document.getElementById('repeat-interpretation').innerHTML +=
         `<p><a href="${sonnet55Url}">Read the Sonnet 5.5 source report and evidence hashes</a></p>`;
       if (interruptedE4b) {
@@ -937,7 +1008,9 @@
         `${condition} ${passes.map(pass => closedSlot(pass, condition)
           ? data.passes[pass][condition].score.valid : 'pending').join(' / ')}`) : [];
       const readerSummary = document.getElementById('repeat-summary');
-      if (readerSummary) readerSummary.textContent = gemmaSecond
+      if (readerSummary) readerSummary.textContent = gemmaPostabort
+        ? 'Gemma 26B thinking-on: 7 of 9 phases have fixed-60 scores. Fresh pass 3 P2 matched all four decisions for 56 of 60 comments: 58 valid responses and two preserved service failures. Fresh pass 3 P0 and P1 were never sent. This is an interrupted composite, not a clean matched-three run.'
+        : gemmaSecond
         ? 'Gemma 26B thinking-on: 6 of 9 phases have final scores at the second continuation cutoff. Fresh pass 2 P0 has a fixed-60 composite score. Fresh pass 3 P2 has 4 valid responses, one service error and 55 unsent comments; it has no score.'
         : qwen27Final
         ? `Qwen 27B ${data.configuration.endsWith('medium') ? 'medium' : 'xhigh'}: all three passes of P0, P1 and P2 have scores. P0 ranges from ${data.threePassSummary.P0.allFour.range.join(' to ')} matches out of 60. Similar scores can hide changed answers; see the comparisons below. Pass 3 followed an interrupted schedule.`
@@ -956,7 +1029,9 @@
       if (readerSummary && seriesPrice && seriesPrice.model === data.model && seriesPrice.fullSeriesEstimateUsd !== null) {
         readerSummary.textContent += ` API-equivalent estimate across ${seriesPrice.totalPhases} phases: ${money(seriesPrice.fullSeriesEstimateUsd)}. Subscription charge and quota use are unknown.`;
       }
-      document.getElementById('repeat-lead').textContent = gemmaSecond
+      document.getElementById('repeat-lead').textContent = gemmaPostabort
+        ? 'The latest Gemma 26B snapshot closes fresh pass 3 P2 across separate dispatches. All 60 comment positions are accounted for: 58 valid responses and service failures at DEV-005 and DEV-006. Neither failed request was replayed. The fixed-60 all-four score is 56/60. Fresh pass 3 P0 and P1 were never sent and have no scores. Earlier interruption cutoffs remain selectable. Reference labels are provisional; request duration includes transport and service overhead.'
+        : gemmaSecond
         ? 'This is the second Gemma 26B interruption cutoff. Fresh pass 2 P0 combines DEV-001, the preserved DEV-002 service error and a separately dispatched suffix of 58 saved responses. Its fixed-60 score includes the failed request. Fresh pass 3 P2 stopped after DEV-005: four valid, one service error and 55 not sent. That phase has no score. The first cutoff and historical hosted evidence remain separate.'
         : qwen27Final
         ? `Both Qwen 27B effort settings have nine scored prompt-and-pass runs. Scores count all 60 comments, including the service error in fresh pass 3 P0. Changes in individual answers are counted only for comments with valid answers across the compared runs. Fresh pass 3 P0 combines separately sent attempts; xhigh P1 does too, while medium P1 ran as a full stage. Earlier public snapshots remain selectable. This does not establish that prompt wording caused the differences.`
@@ -995,6 +1070,8 @@
       }
       if (gemmaSecond) document.getElementById('repeat-lead').textContent +=
         ` The suffix saved 58 responses with ${money(data.cutoffDetail.closedStageUsage['fresh2/P0/suffix'].knownCostUsd)} known provider charges. The original DEV-002 unknown charge remains bounded at ${money(data.cutoffDetail.secondInterruption.unknownCostUpperBoundUsd)}; this is not an observed charge. The fresh pass 3 P2 cost cannot be fully reconciled from this public cutoff.`;
+      if (gemmaPostabort) document.getElementById('repeat-lead').textContent +=
+        ` The latest source feed reports ${money(data.postabortDetail.billing.finalChildKnownActualUsd)} in known charges for the final 14-request allocation only; it does not report an invoice or a full P2 total. ${data.postabortDetail.compositeUsage.tokenCategoryCaveat}`;
       if (qwen27Cutoff) document.getElementById('repeat-lead').textContent +=
         ` Known P0 charges across saved attempts: ${money(data.cutoffDetail.knownObservedDevelopmentCostUsd)}. The preserved service error has a separate unknown-charge upper bound of ${money(data.cutoffDetail.unknownCostUpperBoundUsd)}. It is not an observed charge. Request time includes transport and recording.`;
       if (qwen27Second) document.getElementById('repeat-lead').textContent +=
@@ -1034,7 +1111,8 @@
         const label = nativeP0 && c === 'P0' ? nativeLabel : conditions[c] || c;
         const summary = data.threePassSummary?.[c];
         const completeThree = !freshSeries || passes.every(p => closedSlot(p, c));
-        const stats = completeThree ? (field === 'allFour' ? summary?.allFour : summary?.fields?.[field]) : null;
+        const values = gemmaPostabort && completeThree ? passes.map(p => valueOf(data.passes[p][c].score, field)) : [];
+        const stats = completeThree ? (field === 'allFour' ? summary?.allFour : summary?.fields?.[field]) || (values.length === 3 ? {range: [Math.min(...values), Math.max(...values)]} : null) : null;
         return `<article><h3>${c} <span>${esc(label)}</span></h3>${passes.map(p => {
           const phase = data.passes[p]?.[c];
           const partial = phase?.completionStatus === 'partial';
@@ -1047,7 +1125,7 @@
           const gemmaStop = gemmaContinuation && p === 'fresh2' && c === 'P0';
           const gemmaSecondStop = gemmaSecond && p === 'fresh3' && c === 'P2';
           const gemmaUnsent = (gemmaContinuation && p === 'fresh3') ||
-            (gemmaSecond && p === 'fresh3' && c !== 'P2');
+            ((gemmaSecond || gemmaPostabort) && p === 'fresh3' && c !== 'P2');
           const e4bStop = interruptedE4b && p === 'fresh2' && c === 'P2';
           const kevStop = nativeKev && phase?.completionStatus === 'interrupted';
           const nativeStop = nativeOpenJev && data.missingPasses.some(item => item.pass === p && item.status === 'stopped');
@@ -1063,7 +1141,7 @@
         const d = (!freshSeries || (closedSlot(p, 'P0') && closedSlot(p, c)))
           ? data.withinPassPromptDeltas?.find(x => x.pass === p && x.to === c) : null;
         const localDelta = ((localFresh && data.passes[p]?.[c]?.completionStatus === 'complete' && data.passes[p]?.P0?.completionStatus === 'complete') ||
-          ((gemmaContinuation || gemmaSecond || qwen27Second) && closedSlot(p, c) && closedSlot(p, 'P0')))
+          ((gemmaContinuation || gemmaSecond || gemmaPostabort || qwen27Second) && closedSlot(p, c) && closedSlot(p, 'P0')))
           ? valueOf(data.passes[p][c].score, field) - valueOf(data.passes[p].P0.score, field) : null;
         return `<td>${d ? signed(valueOf(d,field)) : localDelta == null ? 'Not completed' : signed(localDelta)}</td>`;
       }).join('')}</tr>`).join('')}</tbody></table></div>${qwenContinuation || generatedOpenJev || generatedSemIf || generatedAnyJev ? `<p class="analysis-caveat">Answer-change comparisons use only comments with answers in the required format in both conditions: ${(data.withinPassPromptFlips || []).filter(x => closedSlot(x.pass, 'P0') && closedSlot(x.pass, x.to)).map(x => `${esc(passName[x.pass])} P0 to ${esc(x.to)}: ${generatedAnyJev && x.denominator === 0 ? 'unavailable; none had answers in the required format in both conditions; ' : generatedOpenJev || generatedSemIf || generatedAnyJev ? `${(field === 'allFour' ? x.fourFieldVector : x[field]).changed} / ${x.denominator} changed; ` : ''}${x.denominator} of 60 comparable; ${x.excludedIds.length} excluded`).join('; ') || 'no paired conditions completed yet'}.</p>` : ''}`;
@@ -1074,6 +1152,8 @@
       const pairs = (data.pairwiseFlips || []).filter(x => x.condition === c &&
         (!freshSeries || (closedSlot(x.from, c) && closedSlot(x.to, c))));
       document.getElementById('repeat-flips').innerHTML = `${generatedAnyJev && changes?.denominator === 0 ? '<p>No comments had answers in the required format in all three passes; change comparisons are unavailable.</p>' : ids ? `<p><strong>${ids.length} / ${changes.denominator}</strong> comparable comments changed ${field === 'allFour' ? 'at least one decision' : esc(fields[field].toLowerCase())} across the three passes.</p><p class="repeat-case-ids">${ids.length ? ids.map(id => localFresh || data.passOrder ? esc(id) : `<a href="?experiment=${encodeURIComponent(data.configuration)}&amp;run=${encodeURIComponent(data.configuration + (c === 'P0' ? '' : '--' + c.toLowerCase()))}&amp;case=${encodeURIComponent(id)}#inspect">${esc(id)}</a>`).join(' · ') : 'No changed comments.'}</p><p>Comparable means answers met the required format in all three passes. ${changes.excludedIds.length} ${changes.excludedIds.length === 1 ? 'comment was' : 'comments were'} excluded because at least one pass did not.</p>` : freshSonnet && passes.every(p => closedSlot(p,c)) ? '<p>Pairwise changes between completed passes are listed below.</p>' : '<p>Three-pass changes are unavailable until all passes finish.</p>'}<ul>${pairs.map(x => {if (generatedAnyJev && x.denominator === 0) return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: unavailable (0 comments with answers in the required format in both passes)</li>`; const f = field === 'allFour' ? x.fourFieldVector : nativeL1 ? x.fields[field] : x[field]; const changed = Array.isArray(f) ? f.length : f.changed; return `<li>${displayPass(x.from)} to ${displayPass(x.to)}: ${changed} / ${x.denominator} changed</li>`;}).join('')}</ul>`;
+      if (gemmaPostabort && passes.every(p => closedSlot(p, c))) document.getElementById('repeat-flips').innerHTML =
+        '<p>All three passes have scores. Review-by-review answer changes have not yet been calculated for this interrupted series.</p>';
       if (qwen27Cutoff) document.getElementById('repeat-flips').innerHTML =
         '<p>Cross-pass answer changes are outside this fresh pass 3 cutoff. Select the earlier hosted series for its completed comparisons.</p>';
       if (qwen27Second) document.getElementById('repeat-flips').innerHTML =
@@ -1116,20 +1196,24 @@
           const later = item.laterP1;
           return `<tr><th scope="row">P1</th><td>Fresh pass 3 (unscored)</td><td>${later.saved} attempted<br><small>${later.neverSent} unsent</small></td><td>Unavailable</td><td>Unavailable</td><td>${money(later.knownObservedDevelopmentCostUsd)} known</td><td>Unavailable</td><td>${later.clientRequestToRecordSeconds == null ? 'Unavailable' : later.clientRequestToRecordSeconds.toFixed(1) + ' client seconds'}</td></tr>`;
         }
-        if (gemmaSecond && p === 'fresh2' && c === 'P0') {
+        if ((gemmaSecond || gemmaPostabort) && p === 'fresh2' && c === 'P0') {
           const original = data.stoppedPhases[0].usage;
           const suffix = data.cutoffDetail.closedStageUsage['fresh2/P0/suffix'];
           return `<tr><th scope="row">P0</th><td>Fresh pass 2 (closed composite)</td><td>60 attempted<br><small>59 valid, 1 preserved service error</small></td><td>Unavailable overall<br><small>58 suffix responses: ${number(suffix.tokenAvailability.prompt_tokens.sum)}</small></td><td>Unavailable overall<br><small>58 suffix responses: ${number(suffix.tokenAvailability.completion_tokens.sum)}</small></td><td>${money(Number(original.knownCostUsd) + Number(suffix.knownCostUsd))} known<br><small>Unknown charge up to ${money(data.cutoffDetail.secondInterruption.unknownCostUpperBoundUsd)}; not observed</small></td><td>Unavailable</td><td>${(original.requestSecondsTotal + suffix.clientSecondsTotal).toFixed(1)}<br><small>Client request-to-record</small></td></tr>`;
         }
         if (gemmaSecond && p === 'fresh3' && c === 'P2')
           return '<tr><th scope="row">P2</th><td>Fresh pass 3 (stopped, unscored)</td><td>5 attempted<br><small>4 valid, 1 service error, 55 unsent</small></td><td>Unavailable</td><td>Unavailable</td><td>Unavailable</td><td>Unavailable</td><td>Unavailable</td></tr>';
+        if (gemmaPostabort && p === 'fresh3' && c === 'P2') {
+          const u = data.postabortDetail.compositeUsage;
+          return `<tr><th scope="row">P2</th><td>Fresh pass 3 (closed interrupted composite)</td><td>60 attempted<br><small>58 valid, 2 preserved service failures</small></td><td>${number(u.tokenAvailability.prompt_tokens.reportedSum)} reported<br><small>${u.tokenAvailability.prompt_tokens.reportedCount}/60 requests</small></td><td>${number(u.tokenAvailability.completion_tokens.reportedSum)} reported<br><small>${u.tokenAvailability.completion_tokens.reportedCount}/60 requests</small></td><td>${money(u.reportedKnownCostUsd)} known<br><small>${u.missingCostCount} requests have unknown cost; not a complete bill</small></td><td>Unavailable</td><td>${u.clientRequestSecondsTotal.toFixed(1)}<br><small>Summed client request time; not inference time</small></td></tr>`;
+        }
         if (deepseekThird && p === 'fresh1' && c === 'P2')
           return '<tr><th scope="row">P2</th><td>Fresh pass 1 (stopped, unscored)</td><td>50 attempted<br><small>46 valid, 1 invalid, 3 service errors, 10 unsent</small></td><td>Unavailable</td><td>Unavailable</td><td>Unavailable in this cutoff</td><td>Unavailable</td><td>Client HTTP time only for DEV-050; see public cutoff</td></tr>';
         if (interruptedE4b && p === 'fresh2' && c === 'P2') {
           const u = interruptedE4b.usage;
           return `<tr><th scope="row">P2</th><td>Fresh pass 2 (stopped, unscored)</td><td>52 attempted<br><small>50 saved, 2 unknown, 8 unsent</small></td><td>${number(u.tokens.input)}<br><small>50 saved responses only</small></td><td>${number(u.tokens.output)}<br><small>50 saved responses only</small></td><td>Unavailable</td><td>Unavailable</td><td>${u.observedClientRequestSeconds.toFixed(1)}<br><small>Includes host sleep; not model inference time</small></td></tr>`;
         }
-        if (gemmaContinuation || gemmaSecond) {
+        if (gemmaContinuation || gemmaSecond || gemmaPostabort) {
           const stopped = p === 'fresh2' && c === 'P0';
           const u = stopped ? data.stoppedPhases[0].usage : data.passes[p]?.[c]?.usage;
           if (!u) return `<tr><th scope="row">${c}</th><td>${displayPass(p)} (not sent)</td><td>Not sent</td><td>Unavailable</td><td>Unavailable</td><td>Unavailable</td><td>Unavailable</td><td>Not sent</td></tr>`;

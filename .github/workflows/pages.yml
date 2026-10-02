@@ -104,6 +104,8 @@ jobs:
           python3 scripts/build_qwen36_off_second_interruption_findings.py --output public-site/qwen36-off-second-interruption-findings.json --check
           python3 -m unittest tests.test_build_qwen36_off_second_interruption_findings -q
           python3 scripts/build_gemma26_continuation_findings.py --output public-site/gemma26-continuation-findings.json --check
+          python3 scripts/build_gemma26_postabort_findings.py --output public-site/gemma26-postabort-findings.json --check
+          python3 -m unittest tests.test_gemma26_postabort_findings -q
           python3 -m unittest tests.test_build_gemma26_continuation_findings -q
           node --test tests/test_gemma26_continuation_ui.cjs
           python3 -m unittest tests.test_build_qwen27_interrupted_continuation_findings tests.test_build_deepseek_low_third_interruption_findings -q

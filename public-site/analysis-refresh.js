@@ -26,7 +26,15 @@
     }
     const cutoffs = document.getElementById('analysis-refresh-cutoffs');
     if (cutoffs && report.newerCohorts) {
-      cutoffs.innerHTML = '<p><strong>Incomplete tests still limit the conclusions.</strong> The latest Gemma and DeepSeek continuations remain unscored. Mistral’s first P0 attempt also remains incomplete. The updated report includes their later failures and unsent reviews; it does not turn partial responses into full-run scores.</p>';
+      const {gemma26:gemma, clefNativeP0:clef, legacyQwen:qwen, deepseekLow:deepseek, mistral119:mistral} = report.newerCohorts;
+      if (!gemma?.fresh3P2 || !clef?.models || !qwen?.sdkFinalP2 || !deepseek || !mistral) throw Error('Incomplete cohort analysis');
+      const on=qwen.sdkFinalP2.thinkingOn, off=qwen.sdkFinalP2.thinkingOff;
+      cutoffs.innerHTML = `<p><strong>Other saved cohorts use different routes and completion rules.</strong></p><ul>
+        <li><strong>Gemma 26B:</strong> ${esc(gemma.completedConditions)}/${esc(gemma.plannedConditions)} conditions scored. Its interrupted fresh3 P2 composite has ${esc(gemma.fresh3P2.allFour)}/${esc(gemma.fresh3P2.denominator)} all-four agreement, ${esc(gemma.fresh3P2.valid)} valid answers and preserved ${esc(gemma.fresh3P2.failedIds.join(' and '))} failures. Fresh3 P0 and P1 were never sent.</li>
+        <li><strong>Clef native P0:</strong> one full pass per model. Clef has ${esc(clef.models.clef.allFour)}/60 and Clef Flash ${esc(clef.models['clef-flash'].allFour)}/60 all-four agreement. Provider-billed dollars are unavailable.</li>
+        <li><strong>Small Qwen SDK:</strong> the final thinking-on P2 run has ${esc(on.valid)} valid and ${esc(on.invalid)} invalid answers (${esc(on.allFour)}/60 all-four); thinking-off has ${esc(off.valid)} valid and ${esc(off.invalid)} invalid (${esc(off.allFour)}/60). These local settings are separate from hosted Qwen 27B.</li>
+        <li><strong>Still incomplete:</strong> DeepSeek low and Mistral 119B retain failed and unsent positions without a full score.</li>
+      </ul>`;
     }
   }).catch(() => {
     target.innerHTML = '<p>The comparison could not be loaded. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/ANALYSIS_REFRESH_2026-10-02.md">Read the dated analysis and source tables.</a></p>';

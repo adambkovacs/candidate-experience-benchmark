@@ -71,8 +71,6 @@ def stage_paths(root, stage):
 
 def terminal_gate(root, bindings):
     """Require a sealed child and complete successor before any projection."""
-    if root == ROOT:
-        successor.prior_gate()  # Recheck the inherited failed attempts and abort.
     audit = json.loads(bind(root, AUDIT, bindings, successor.AUDIT_SHA).read_text())
     terminal = json.loads(bind(root, TERMINAL, bindings).read_text())
     fourth = json.loads(bind(root, FOURTH_TERMINAL, bindings).read_text())
@@ -144,6 +142,7 @@ def export_projection(root=ROOT):
     root = Path(root).resolve()
     if root != ROOT:
         raise ValueError('Private export requires the live repository root')
+    successor.prior_gate()  # Private export rechecks the original raw prefix.
     bindings = []
     terminal = terminal_gate(root, bindings)
     manifest = successor.verify()[0]
@@ -227,6 +226,38 @@ def export_projection(root=ROOT):
         out.write('\n')
         out.flush(); os.fsync(out.fileno())
     return path
+
+
+def composite_usage(rows):
+    """Summarize only saved usage fields; missing reports remain missing."""
+    known = [Decimal(str(row['observedCostUsd'])) for row in rows
+             if row['observedCostUsd'] is not None]
+    tokens = {}
+    for key in TOKEN_KEYS:
+        reported = [row['tokens'][key] for row in rows
+                    if row['tokens'][key] is not None]
+        tokens[key] = {'reportedSum': sum(reported),
+                       'reportedCount': len(reported),
+                       'missingCount': len(rows) - len(reported),
+                       'sumAllRequests': sum(reported) if len(reported) == len(rows)
+                       else None}
+    exceeds = (tokens['reasoning_tokens']['reportedSum'] >
+               tokens['completion_tokens']['reportedSum'])
+    return {'requestCount': len(rows),
+            'reportedKnownCostUsd': str(sum(known, Decimal(0))),
+            'reportedCostCount': len(known),
+            'missingCostCount': len(rows) - len(known),
+            'providerBilledUsd': None,
+            'clientRequestSecondsTotal': sum(row['clientSeconds'] for row in rows),
+            'pureInferenceSeconds': None,
+            'tokenAvailability': tokens,
+            'reportedReasoningExceedsCompletion': exceeds,
+            'tokenCategoryCaveat':
+                ('Provider-reported reasoning tokens exceed completion tokens here; '
+                 'the categories conflict and must not be added or treated as a '
+                 'reliable subset.' if exceeds else
+                 'Provider-reported reasoning tokens are a separate diagnostic; '
+                 'do not add them to completion or assume they are a subset.')}
 
 
 def build(root=ROOT):
@@ -330,6 +361,7 @@ def build(root=ROOT):
                         'finalChildUnknownUpperBoundUsd':
                             terminal['budget_reconciliation']['unknown_upper_bound_usd'],
                         'isProviderInvoice': False},
+            'compositeUsage': composite_usage(rows),
             'sourceBindings': bindings}
 
 

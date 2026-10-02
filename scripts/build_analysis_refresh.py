@@ -10,6 +10,7 @@ from collections import Counter
 from decimal import Decimal
 import hashlib
 import json
+import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,8 +28,11 @@ SOURCES = (
     "public-site/findings.json",
     "public-site/subscription-price-estimates.json",
     "public-site/qwen27-final-descriptive-findings.json",
+    "public-site/legacy-qwen-repeats.json",
     "public-site/deepseek-low-third-interruption-findings.json",
     "public-site/gemma26-second-continuation-findings.json",
+    "public-site/gemma26-postabort-findings.json",
+    "public-site/clef-findings.json",
     MISTRAL_ORIGINAL,
     MISTRAL_FIRST_SUFFIX,
     MISTRAL_SECOND_SUFFIX,
@@ -222,8 +226,11 @@ def build(root=ROOT):
                                 for condition in ("P1", "P2")}})
 
     qwen = data["public-site/qwen27-final-descriptive-findings.json"]
+    legacy_qwen = data["public-site/legacy-qwen-repeats.json"]
     deepseek = data["public-site/deepseek-low-third-interruption-findings.json"]
     gemma = data["public-site/gemma26-second-continuation-findings.json"]
+    gemma_postabort = data["public-site/gemma26-postabort-findings.json"]
+    clef = data["public-site/clef-findings.json"]
     mistral_original = data[MISTRAL_ORIGINAL]
     mistral_first = data[MISTRAL_FIRST_SUFFIX]
     mistral_second = data[MISTRAL_SECOND_SUFFIX]
@@ -233,6 +240,83 @@ def build(root=ROOT):
             mistral_second["status"] != "interrupted_unscored" or
             gemma_terminal["status"] != "stopped_unscored"):
         raise ValueError("Expected retained unscored interruption states")
+    new_gemma = gemma_postabort.get("fresh3P2") or {}
+    new_score = new_gemma.get("score") or {}
+    gemma_usage = gemma_postabort.get("compositeUsage") or {}
+    if (gemma_postabort.get("schema") != "gemma26-on-v2-postabort-findings-v1" or
+            gemma_postabort.get("completedConditions") != 7 or
+            gemma_postabort.get("priorCompletedConditions") != 6 or
+            gemma_postabort.get("plannedConditions") != 9 or
+            gemma_postabort.get("cleanMatchedThreeEligible") is not False or
+            new_gemma.get("status") != "completed_composite_interrupted" or
+            new_gemma.get("failedIds") != ["DEV-005", "DEV-006"] or
+            new_score.get("denominator") != 60 or
+            new_score.get("saved") != 60 or
+            new_score.get("valid") != 58 or
+            new_score.get("allFour") != 56 or
+            new_score.get("scoreKind") != "fixed_60" or
+            new_score.get("outcomes", {}).get("never_sent") != 0 or
+            gemma_postabort.get("fresh3P0", {}).get("status") != "never_sent" or
+            gemma_postabort.get("fresh3P1", {}).get("status") != "never_sent" or
+            gemma_usage.get("requestCount") != 60 or
+            gemma_usage.get("reportedCostCount") != 58 or
+            gemma_usage.get("missingCostCount") != 2 or
+            gemma_usage.get("providerBilledUsd") is not None or
+            gemma_usage.get("pureInferenceSeconds") is not None or
+            set(gemma_usage.get("tokenAvailability", {})) !=
+                {"prompt_tokens", "completion_tokens", "total_tokens", "reasoning_tokens"} or
+            any(v.get("reportedCount") != 58 or v.get("missingCount") != 2
+                for v in gemma_usage["tokenAvailability"].values()) or
+            gemma_usage.get("reportedReasoningExceedsCompletion") is not True or
+            "categories conflict" not in gemma_usage.get("tokenCategoryCaveat", "") or
+            not gemma_postabort.get("sourceBindings")):
+        raise ValueError("Gemma postabort composite source or coverage differs")
+    reported_gemma_cost = Decimal(str(gemma_usage.get("reportedKnownCostUsd")))
+    if (not reported_gemma_cost.is_finite() or reported_gemma_cost < 0 or
+            type(gemma_usage.get("clientRequestSecondsTotal")) not in (int, float) or
+            not math.isfinite(gemma_usage["clientRequestSecondsTotal"]) or
+            gemma_usage["clientRequestSecondsTotal"] < 0):
+        raise ValueError("Gemma reported usage differs")
+    if (clef.get("schema") != "clef-native-p0-findings-v1" or
+            clef.get("cohort", {}).get("records") != 60 or
+            clef["cohort"].get("pass") != "fresh1" or
+            clef["cohort"].get("condition") != "P0" or
+            clef["cohort"].get("fullPassesPerModelCompleted") != 1 or
+            set(clef.get("models", {})) != {"clef", "clef-flash"} or
+            any(clef["models"][name].get("valid") != 60 for name in clef["models"]) or
+            clef["models"]["clef"].get("allFourCorrect") != 53 or
+            clef["models"]["clef-flash"].get("allFourCorrect") != 45 or
+            clef.get("cost", {}).get("providerBilledUsd") is not None or
+            not clef.get("sourceSha256")):
+        raise ValueError("Clef first-pass source or coverage differs")
+    legacy_series = {s.get("configuration"): s for s in legacy_qwen.get("series", [])}
+    legacy_complete = ("qwen3-0.6b-q4km-nonthinking",
+                       "qwen3-0.6b-sdk-thinking-on",
+                       "qwen3-0.6b-sdk-thinking-off")
+    legacy_pending = ("qwen3-1.7b-sdk-thinking-on",
+                      "qwen3-1.7b-sdk-thinking-off",
+                      "qwen3.5-4b-sdk-thinking-on")
+    if (legacy_qwen.get("schema") != "legacy-qwen-closed-phase-report-v1" or
+            set(legacy_series) != set(legacy_complete + legacy_pending) or
+            any(legacy_series[name].get("completedConditions") != 9 or
+                legacy_series[name].get("plannedConditions") != 9 or
+                legacy_series[name].get("missingPasses") or
+                not legacy_series[name].get("sourceBindings")
+                for name in legacy_complete) or
+            any(not isinstance(legacy_series[name].get("completedConditions"), int) or
+                not 0 <= legacy_series[name]["completedConditions"] < 9 or
+                legacy_series[name].get("plannedConditions") != 9
+                for name in legacy_pending)):
+        raise ValueError("Legacy Qwen SDK and HTTP cohort coverage differs")
+    sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
+    sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
+    if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
+            sdk_on.get("allFour") != 1 or
+            sdk_on.get("outcomes", {}).get("invalid_output") != 2 or
+            sdk_off.get("denominator") != 60 or sdk_off.get("valid") != 5 or
+            sdk_off.get("allFour") != 0 or
+            sdk_off.get("outcomes", {}).get("invalid_output") != 55):
+        raise ValueError("Qwen SDK final P2 validity or score differs")
     mistral_valid = mistral_original["valid_count"] + len(mistral_first["valid_ids"]) + len(mistral_second["valid_ids"])
     mistral_failed = mistral_original["unknown_outcome_count"] + 2
     if (mistral_original["unknown_id"] != "DEV-048" or
@@ -281,6 +365,26 @@ def build(root=ROOT):
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},
+            "legacyQwen": {"source": "public-site/legacy-qwen-repeats.json",
+                           "completedConfigurations": list(legacy_complete),
+                           "remainingConfigurations": {name:
+                               {"completedConditions": legacy_series[name]["completedConditions"],
+                                "plannedConditions": 9} for name in legacy_pending},
+                           "sdkFinalP2": {"thinkingOn": {"valid": sdk_on["valid"],
+                                   "invalid": sdk_on["outcomes"]["invalid_output"],
+                                   "allFour": sdk_on["allFour"], "denominator": 60},
+                               "thinkingOff": {"valid": sdk_off["valid"],
+                                   "invalid": sdk_off["outcomes"]["invalid_output"],
+                                   "allFour": sdk_off["allFour"], "denominator": 60}}},
+            "clefNativeP0": {"source": "public-site/clef-findings.json",
+                             "pass": "fresh1", "condition": "P0",
+                             "fullPassesPerModelCompleted": 1,
+                             "models": {name: {"valid": clef["models"][name]["valid"],
+                                "allFour": clef["models"][name]["allFourCorrect"],
+                                "denominator": 60}
+                                for name in ("clef", "clef-flash")},
+                             "providerBilledUsd": None,
+                             "costKind": "input-price estimate and conservative hold, not an observed bill"},
             "deepseekLow": {"source": "public-site/deepseek-low-third-interruption-findings.json",
                             "seriesCount": len(deepseek["series"]),
                             "completedConditions": [item["completedConditions"] for item in deepseek["series"]],
@@ -288,10 +392,27 @@ def build(root=ROOT):
                             "latestInterruptedPhase": deepseek["series"][0]["thirdInterruptionCheckpoint"]["phase"],
                             "latestInterruptedOutcomes": deepseek["series"][0]["thirdInterruptionCheckpoint"]["outcomes"],
                             "latestInterruptedScore": deepseek["series"][0]["thirdInterruptionCheckpoint"]["score"]},
-            "gemma26": {"source": "public-site/gemma26-second-continuation-findings.json",
+            "gemma26": {"source": "public-site/gemma26-postabort-findings.json",
+                        "priorCutoffSource": "public-site/gemma26-second-continuation-findings.json",
                         "completedConditionsAtSecondContinuation": gemma["completedConditions"],
-                        "plannedConditions": gemma["plannedConditions"],
-                        "latestThirdContinuation": {"status": gemma_terminal["status"],
+                        "completedConditions": gemma_postabort["completedConditions"],
+                        "plannedConditions": gemma_postabort["plannedConditions"],
+                        "cleanMatchedThreeEligible": False,
+                        "fresh3P2": {"status": new_gemma["status"],
+                            "valid": new_score["valid"],
+                            "failedIds": new_gemma["failedIds"],
+                            "allFour": new_score["allFour"],
+                            "denominator": 60},
+                        "usage": {"reportedKnownCostUsd": gemma_usage["reportedKnownCostUsd"],
+                            "reportedCostCount": gemma_usage["reportedCostCount"],
+                            "missingCostCount": gemma_usage["missingCostCount"],
+                            "clientRequestSecondsTotal": gemma_usage["clientRequestSecondsTotal"],
+                            "pureInferenceSeconds": None,
+                            "tokenAvailability": gemma_usage["tokenAvailability"],
+                            "reportedReasoningExceedsCompletion": True,
+                            "tokenCategoryCaveat": gemma_usage["tokenCategoryCaveat"]},
+                        "neverSentConditions": ["fresh3/P0", "fresh3/P1"],
+                        "priorThirdContinuation": {"status": gemma_terminal["status"],
                             "failedId": gemma_terminal["new_failed_id"],
                             "neverSentCount": len(gemma_terminal["new_stage_never_sent_ids"]),
                             "score": gemma_terminal["score"]}},
