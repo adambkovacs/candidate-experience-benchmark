@@ -1,5 +1,15 @@
 # Current work checklist
 
+## Mistral launch gate, 2 October 2026, 17:49 UTC
+
+Root allocated a new $0.30 child and the controller retained its matching shared-authority hold. Launch handle `71186` exited with a source-drift validation error in the nested predecessor gate before creating any phase claim or sending a request. The child contains only its initial budget event. The native/preflight agent owns a versioned controller fix and regression test; no retry, release or further dispatch has occurred. The seven DEV-054–060 positions remain unsent.
+
+## Gemma P1 interrupted and reconciled, 2 October 2026, 17:44 UTC
+
+This checkpoint supersedes the live Gemma P1 statements in the dated entries below. The original process `31625` stopped after 59 of 60 development requests: DEV-001–058 are valid, DEV-059 timed out with no captured response and an unknown charge, and DEV-060 was never sent. The [terminal receipt](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-terminal-pending-review.json) and [root review](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-interrupted.root-review.json) bind the attempts, raw evidence and stopped journal. P1 has no third full-phase score. The [interruption note](GEMMA26_P1_INTERRUPTION_2026-10-02.md) keeps the eight scored Gemma phases separate from this partial ninth phase.
+
+Root retained the full $0.01974272 unknown-cost bound, sealed the $0.40 child and [reconciled](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/fresh3-p1-interrupted-reconciliation.json) $0.03995497 known charges, releasing $0.34030231 of unused allocation. The separate shared-authority hold remains $0.40. A 17:44 UTC locked [OpenRouter master ledger](../results/openrouter-paid-budget.jsonl) read showed $0.60679290250 unallocated under $12.38 and no active child; this is a dated snapshot, so the next stage must recheck the ledger and exact route. DEV-059 must not be replayed. DEV-060 is the only never-sent P1 position and needs its own reviewed admission. No new request is authorized by this checklist.
+
 ## Analysis publication confirmed, 2 October 2026, 17:25 UTC
 
 - Pages `37039744218` succeeded for `e6d211f6`. Root fetched the live analysis script, analysis feed and Gemma P0 checkpoint; all three matched committed bytes. The newer repeat UI commit `b0776561` also deployed successfully in Pages run `37040279641`. Root fetched the live HTML and repeat script after completion; both matched committed bytes (HTML `97499ae1f43fa292a32477b3f63cd72561ad53f6dc4e79c142fdd204fea530e6`, script `53519706d32ea3c5a5213d286a55ef1b7e6c517ec016c40e2dea625b560f5129`).
