@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Live Clef checkpoint — 2 October 2026
+
+Clef and Clef Flash each completed the three-record P0 smoke through the connected Cloudflare app: six valid responses, retained native choice distributions, 6,628 input tokens per model and zero reported output tokens. Root checked raw choices and completion hashes; evidence is archived in `3ef70aa0`. Published input rates imply $0.00218724 combined, but observed charges remain unavailable and the $0.064884 full-context hold is retained. The live app route works; the direct environment token's earlier HTTP403 remains a separate observation. Full 60-record stages and shared accounting under the user's new $10 overall approval are being prepared; no full Clef phase has run.
+
+Both Qwen SDK settings now have a complete first pass of P0/P1/P2. The findings are pushed in `f029b405`; Pages `37012485162` succeeded. Second-pass P2 work continues separately. Gemma's fifth hosted continuation remains assigned to root session32610. Model-category controls and Cloudflare-inspired chart review are assigned to the report agent.
+
+
 ## Current checkpoint — 2 October 2026, SDK P2 and new Cloudflare approval
 
 - SDK P2 thinking-on/off full phases are archived in `cb0fabcb` and `85708a2d`. Thinking on returned 56 valid responses and 3/60 complete matches; thinking off returned one valid response and 0/60 complete matches. Invalid outputs remain unchanged. Reporter, README and findings updates are pushed in `0627b6ea`; Pages publication is still being verified.
