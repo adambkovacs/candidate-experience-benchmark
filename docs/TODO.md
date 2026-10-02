@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Publication and continuation checkpoint, 2 October 2026
+
+- The category filters, comparison chart and both Clef first-pass result cards are published. Pages run `37019450511` succeeded; root fetched `app.js`, `index.html`, `clef-first-pass.css`, `clef-findings.json` and `model-categories.js`, and each matched committed bytes. The separate mobile label fix is pushed in `7b134ada`; its publication check is pending.
+- Qwen SDK thinking on and off each have eight of nine full phases archived. Third-pass P0 findings are published in `3194a83d`; thinking-on P0 had 0/60 complete matches in each pass, while all five shared-valid reviews changed at least one label. Both final P2 smokes were independently inspected and approved. Neither final full phase was sent before a host-sleep preflight stop. The native agent is refreshing the operational host check while preserving the old sleep evidence and frozen model controls.
+- Gemma's final suffix saved DEV-047–053: seven valid responses with $0.00244094 reported charge. A catalogue lookup timed out before DEV-054; DEV-054–060 remain unsent. The process is terminal, and its existing $0.30 allocation remains active with no pending request reservation. The hosted agent owns a separately reviewed seven-record continuation; rerunning the claimed stage is prohibited.
+- The [Clef continuation proposal](CLEF_REPEAT_ADMISSION_2026-10-02.md) lists all 16 remaining model/pass/condition combinations, with separate smokes. Root verified its 12 source bindings and all 32 unsent smoke/full request sets. The next paired stage fits the current authority, but the complete remaining matrix's conservative holds exceed it by $3.163076. This is a reservation requirement, not an observed bill. No continuation is dispatched by this proposal.
+- The roster agent owns a dated update to the coverage inventory. Historical cohorts stay separate from these new full passes and interrupted continuations. The complete project remains unfinished.
+
 ## Closed Clef and second-pass checkpoint — 2 October 2026
 
 - Clef and Clef Flash each finished 60/60 valid native P0 responses. Evidence is archived in `11c50cfe`; the [analysis](CLEF_FINDINGS_2026-10-02.md), builder and tests are pushed in `7701eedb`. All-four agreement is 53/60 and 45/60. All 625 report source hashes resolve to committed files. Input-price estimates total $0.04378902; provider charges and pure inference latency remain unavailable. Only one P0 pass per model has run; native instruction variants and repeats remain pending.
