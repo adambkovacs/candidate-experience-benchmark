@@ -4,6 +4,12 @@
 
 The forced restart interrupted the analysis/publication work, not a running model request. The completed Sonnet study remains published. The offline analysis refresh, website section and tests survived locally and are committed/pushed in `19dc646e`. Its 62 source bindings, 12 focused Python tests and 116 UI tests pass; independent review approved the corrected report. [Pages publication 36998863739](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36998863739) succeeded. Root verified all six changed live assets against committed bytes. The user resumed the updated app goal; its active attachment matches [APP_GOAL.md](APP_GOAL.md). The approved cap is $12.38. No completed inference is to be replayed.
 
+## Resumed execution preparation, 2 October 2026
+
+The separately reviewed Mistral DEV-051–060 continuation is terminal and preserved in `1251dcac`. DEV-051 and DEV-052 returned valid responses; DEV-053 hit HTTP 429 from the upstream shared pool; DEV-054–060 were never sent. Its child is sealed with $0.00047715 known charges, $0.04177920 retained unknown-charge bound and $0.20774365 released. Across the original phase and two continuations, 50 responses are valid, three positions failed or remain unknown, and seven are unsent. The phase is unscored; no failed request was replayed. The locked master now has $0.68739575250 unallocated and no active child.
+
+Qwen3 0.6B HTTP nonthinking fresh1/P0 smoke completed with three valid responses. Root inspected the raw outputs and the separate development phase completed on handle `49398` with 60 valid responses. Completion hashes and all 60 IDs were verified; closed evidence is archived in `2e609550`. The local worker is delegated the remaining eight phases for this exact configuration, with separate route/runtime checks, inspected smokes and full-stage receipts. This exact model had no OpenRouter catalogue match at the refreshed check, so the local route is permitted. The SDK thinking-on configuration remains separate and unadmitted after its parallelism mismatch.
+
 ## Latest execution checkpoint — 2 October 2026
 
 The host is awake again. The separately admitted Mistral DEV-049–060 continuation is closed and preserved in `48c8d62a`: DEV-049 returned a valid response; DEV-050 hit the provider's shared-pool HTTP 429 limit; DEV-051–060 were never sent. This was not an account-balance rejection. The child is sealed with $0.00023835 known cost and $0.04177920 retained unknown-charge bound. The original DEV-048 timeout is unchanged. No failed request was replayed.

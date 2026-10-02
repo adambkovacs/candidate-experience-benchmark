@@ -14,6 +14,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = "public-site/analysis-refresh.json"
+MISTRAL_ORIGINAL = "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-development-none-v1/fresh1/P0/development.terminal-public.json"
+MISTRAL_FIRST_SUFFIX = "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-remaining-none-v1/fresh1/P0-suffix-049-060/suffix.terminal-public.json"
+MISTRAL_SECOND_SUFFIX = "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-second-suffix-none-v1/fresh1/P0/suffix.terminal-public.json"
+GEMMA_TERMINAL = "results/repeatability-v1/gemma26-on-fresh-matched3-v2/third-interruption-continuation-v1/terminal-public-after-dev006.json"
 SOURCES = (
     "public-site/sonnet55-fresh-matched3.json",
     "public-site/sonnet55-fresh-matched3-evidence/report.json",
@@ -25,9 +29,10 @@ SOURCES = (
     "public-site/qwen27-final-descriptive-findings.json",
     "public-site/deepseek-low-third-interruption-findings.json",
     "public-site/gemma26-second-continuation-findings.json",
-    "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-development-none-v1/fresh1/P0/development.terminal-public.json",
-    "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-remaining-none-v1/fresh1/P0-suffix-049-060/suffix.terminal-public.json",
-    "results/repeatability-v1/gemma26-on-fresh-matched3-v2/third-interruption-continuation-v1/terminal-public-after-dev006.json",
+    MISTRAL_ORIGINAL,
+    MISTRAL_FIRST_SUFFIX,
+    MISTRAL_SECOND_SUFFIX,
+    GEMMA_TERMINAL,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -219,13 +224,34 @@ def build(root=ROOT):
     qwen = data["public-site/qwen27-final-descriptive-findings.json"]
     deepseek = data["public-site/deepseek-low-third-interruption-findings.json"]
     gemma = data["public-site/gemma26-second-continuation-findings.json"]
-    mistral_original = data[SOURCES[-4]]
-    mistral = data[SOURCES[-3]]
-    gemma_terminal = data[SOURCES[-2]]
+    mistral_original = data[MISTRAL_ORIGINAL]
+    mistral_first = data[MISTRAL_FIRST_SUFFIX]
+    mistral_second = data[MISTRAL_SECOND_SUFFIX]
+    gemma_terminal = data[GEMMA_TERMINAL]
     if (mistral_original["status"] != "interrupted_unscored" or
-            mistral["status"] != "interrupted_unscored" or
+            mistral_first["status"] != "interrupted_unscored" or
+            mistral_second["status"] != "interrupted_unscored" or
             gemma_terminal["status"] != "stopped_unscored"):
         raise ValueError("Expected retained unscored interruption states")
+    mistral_valid = mistral_original["valid_count"] + len(mistral_first["valid_ids"]) + len(mistral_second["valid_ids"])
+    mistral_failed = mistral_original["unknown_outcome_count"] + 2
+    if (mistral_original["unknown_id"] != "DEV-048" or
+            mistral_first["valid_ids"] != ["DEV-049"] or
+            mistral_first["failed_id"] != "DEV-050" or
+            mistral_first["unsent_ids"] != [f"DEV-{i:03d}" for i in range(51, 61)] or
+            mistral_second["valid_ids"] != ["DEV-051", "DEV-052"] or
+            mistral_second["failed_id"] != "DEV-053" or
+            mistral_second["unsent_ids"] != [f"DEV-{i:03d}" for i in range(54, 61)] or
+            mistral_second["earlier_failed_ids_preserved"] != ["DEV-048", "DEV-050"] or
+            mistral_second["http_status"] != 429 or
+            mistral_second["limit_source"] != "upstream_provider_shared_pool" or
+            mistral_second["reference_labels_sent"] is not False or
+            mistral_second["composite_valid_count"] != mistral_valid or
+            mistral_second["composite_failed_count"] != mistral_failed or
+            mistral_second["composite_never_sent_count"] != len(mistral_second["unsent_ids"]) or
+            mistral_second["composite_score"] is not None or
+            mistral_valid + mistral_failed + len(mistral_second["unsent_ids"]) != 60):
+        raise ValueError("Mistral saved suffix and composite outcomes differ")
     estimated_total = sum((Decimal(by_effort[e]["usage"]["developmentApiEquivalentUsd"])
                            for e in EFFORTS), Decimal(0))
     return {
@@ -269,17 +295,23 @@ def build(root=ROOT):
                             "failedId": gemma_terminal["new_failed_id"],
                             "neverSentCount": len(gemma_terminal["new_stage_never_sent_ids"]),
                             "score": gemma_terminal["score"]}},
-            "mistral119": {"source": SOURCES[-3], "status": mistral["status"],
+            "mistral119": {"source": MISTRAL_SECOND_SUFFIX,
+                           "priorSuffixSource": MISTRAL_FIRST_SUFFIX,
+                           "status": mistral_second["status"],
                            "originalValidCount": mistral_original["valid_count"],
-                           "combinedSavedValidCount": mistral_original["valid_count"] + len(mistral["valid_ids"]),
-                           "validCount": mistral_original["valid_count"] + len(mistral["valid_ids"]),
-                           "failedOrUnknownCount": mistral_original["unknown_outcome_count"] + 1,
+                           "combinedSavedValidCount": mistral_valid,
+                           "validCount": mistral_valid,
+                           "failedOrUnknownCount": mistral_failed,
                            "originalUnknownId": mistral_original["unknown_id"],
-                           "validIdsInSuffix": mistral["valid_ids"],
-                           "failedId": mistral["failed_id"],
-                           "neverSentCount": len(mistral["unsent_ids"]),
-                           "originalDev048UnknownPreserved": mistral["original_DEV048_unknown_preserved"],
-                           "score": mistral["score"]},
+                           "validIdsInSuffix": mistral_first["valid_ids"] + mistral_second["valid_ids"],
+                           "validIdsInFirstSuffix": mistral_first["valid_ids"],
+                           "validIdsInSecondSuffix": mistral_second["valid_ids"],
+                           "priorFailedId": mistral_first["failed_id"],
+                           "failedId": mistral_second["failed_id"],
+                           "failedIds": [mistral_original["unknown_id"], mistral_first["failed_id"], mistral_second["failed_id"]],
+                           "neverSentCount": len(mistral_second["unsent_ids"]),
+                           "originalDev048UnknownPreserved": mistral_first["original_DEV048_unknown_preserved"],
+                           "score": mistral_second["composite_score"]},
         },
         "coverage": {
             "observed": ["frozen reference class counts", "all-four and per-field scores",

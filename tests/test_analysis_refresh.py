@@ -18,15 +18,25 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 62)
+        self.assertEqual(len(rebuilt["sources"]), 63)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
         self.assertEqual(rebuilt["sonnet55"]["byEffort"]["xhigh"]["conditions"]["P1"]["scores"],
                          [58, 58, 58])
         self.assertEqual(rebuilt["sonnet55"]["byEffort"]["xhigh"]["conditions"]["P1"]["changedReviewCount"], 1)
-        self.assertEqual(rebuilt["newerCohorts"]["mistral119"]["combinedSavedValidCount"], 48)
-        self.assertIsNone(rebuilt["newerCohorts"]["mistral119"]["score"])
+        mistral = rebuilt["newerCohorts"]["mistral119"]
+        self.assertEqual(mistral["source"], analysis.MISTRAL_SECOND_SUFFIX)
+        self.assertEqual(mistral["priorSuffixSource"], analysis.MISTRAL_FIRST_SUFFIX)
+        self.assertEqual(mistral["combinedSavedValidCount"], 50)
+        self.assertEqual(mistral["failedOrUnknownCount"], 3)
+        self.assertEqual(mistral["neverSentCount"], 7)
+        self.assertEqual(mistral["validIdsInFirstSuffix"], ["DEV-049"])
+        self.assertEqual(mistral["validIdsInSecondSuffix"], ["DEV-051", "DEV-052"])
+        self.assertEqual(mistral["failedIds"], ["DEV-048", "DEV-050", "DEV-053"])
+        self.assertIsNone(mistral["score"])
+        self.assertIn(analysis.MISTRAL_SECOND_SUFFIX,
+                      {item["path"] for item in rebuilt["sources"]})
 
     def test_check_rejects_changed_source_even_if_json_values_same(self):
         published = json.loads((ROOT / analysis.OUTPUT).read_text())
