@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Small-Qwen SDK studies closed, 2 October 2026
+
+Both Qwen3 0.6B SDK setups now have all nine full P0/P1/P2 phases closed, alongside the nine completed HTTP phases. The final thinking-on P2 run saved 58 valid and two invalid outputs; thinking-off saved five valid and 55 invalid outputs. Raw responses, strict-parser failures and the between-stage host sleep remain preserved. The separate host rebaseline passed before and after both final runs. Thinking-on P2 scores across passes were 3/60, 1/60 and 1/60; 47 of 52 reviews valid in all three changed at least one label. Thinking-off has no shared-valid three-pass set for any prompt. Report, README and roster updates are being verified for publication; the three larger legacy configurations remain pending.
+
+Gemma's seven-record unsent continuation has passed source review and focused tests; its final budget-prefix check is being completed before admission. Clef's next paired repeat controller remains in implementation. Neither preparation implies completed inference.
+
 ## Publication and continuation checkpoint, 2 October 2026
 
 - The category filters, comparison chart and both Clef first-pass result cards are published. Pages run `37019450511` succeeded; root fetched `app.js`, `index.html`, `clef-first-pass.css`, `clef-findings.json` and `model-categories.js`, and each matched committed bytes. The mobile label fix in `7b134ada` is also published: Pages `37022452727` succeeded and the live stylesheet matches committed bytes.

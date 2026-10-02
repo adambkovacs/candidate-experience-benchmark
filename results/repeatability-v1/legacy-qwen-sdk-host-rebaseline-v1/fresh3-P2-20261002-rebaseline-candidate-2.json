@@ -1,0 +1,41 @@
+{
+  "kind": "legacy-qwen-sdk-host-rebaseline-v1",
+  "approved": false,
+  "reviewer": null,
+  "reviewed_utc": null,
+  "authorized_by_root": false,
+  "created_utc": "2026-10-02T14:55:12.501Z",
+  "scope": [
+    "qwen3-0.6b-sdk-thinking-on/fresh3/P2",
+    "qwen3-0.6b-sdk-thinking-off/fresh3/P2"
+  ],
+  "reason": "between-stage clamshell sleep; previous zero-wake gate refused admission",
+  "prior_sleep_wakes": 0,
+  "observed_host": {
+    "boot": "2026-10-02 12:48:09 +0200",
+    "sleep_wakes": 1,
+    "ac_power": true,
+    "lid_open": true,
+    "memory_free_percent": 86,
+    "battery_percent": 15,
+    "last_wake": "2026-10-02 16:43:20 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVA] : due to HID Activity Using AC (Charge:2%)",
+    "sleep_wake_events": [
+      "2026-10-02 16:37:45 +0200 Sleep               \tEntering Sleep state due to 'Clamshell Sleep':TCPKeepAlive=active Using Batt (Charge:2%) 314 secs",
+      "2026-10-02 16:42:59 +0200 DarkWake            \tDarkWake from Deep Idle [CDNP] : due to smc.sysState.Wake(0x70070000) USB-C_plug SMC.OutboxNotEmpty nub-spmi-a1.0x0B/ Using AC (Charge:3%) 0 secs",
+      "2026-10-02 16:42:59 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVAP] : due to Notification Using AC (Charge:3%) 5 secs",
+      "2026-10-02 16:43:04 +0200 Sleep               \tEntering DarkWake state due to 'Notification Wake Back to Sleep':TCPKeepAlive=active Using AC (Charge:3%) 5 secs",
+      "2026-10-02 16:43:09 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVAPB] : due to Notification Using BATT (Charge:2%) 1 secs",
+      "2026-10-02 16:43:10 +0200 Sleep               \tEntering DarkWake state due to 'Clamshell Sleep':TCPKeepAlive=active Using Batt (Charge:2%) 10 secs",
+      "2026-10-02 16:43:20 +0200 Wake                \tDarkWake to FullWake from Deep Idle [CDNVA] : due to HID Activity Using AC (Charge:2%)"
+    ]
+  },
+  "policy": {
+    "require_same_boot": true,
+    "require_same_sleep_wakes": true,
+    "require_ac_power": true,
+    "require_open_lid": true,
+    "min_memory_free_percent": 25,
+    "verify_after_stage": true,
+    "battery_percentage_cutoff": null
+  }
+}
