@@ -2,7 +2,7 @@
 
 ## Restart recovery and analysis refresh — 2 October 2026
 
-The forced restart interrupted the analysis/publication work, not a running model request. The completed Sonnet study remains published. The offline analysis refresh, website section and tests survived locally; its 62 source bindings and focused tests pass. Final review and publication are being resumed. The app goal remains blocked and points to an older attachment; the updated replacement text is [APP_GOAL.md](APP_GOAL.md). The approved cap is $12.38, not the attachment’s older $10. No completed inference is to be replayed.
+The forced restart interrupted the analysis/publication work, not a running model request. The completed Sonnet study remains published. The offline analysis refresh, website section and tests survived locally and are committed/pushed in `19dc646e`. Its 62 source bindings, 12 focused Python tests and 116 UI tests pass; independent review approved the corrected report. Pages publication is being verified. The app goal remains blocked and points to an older attachment; the updated replacement text is [APP_GOAL.md](APP_GOAL.md). The approved cap is $12.38, not the attachment’s older $10. No completed inference is to be replayed.
 
 ## Latest execution checkpoint — 2 October 2026
 
