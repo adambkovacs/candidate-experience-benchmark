@@ -9,7 +9,7 @@ const source = fs.readFileSync(path.join(site, 'repeats.js'), 'utf8');
 const url = './qwen27-final-descriptive-findings.json';
 const report = JSON.parse(fs.readFileSync(path.join(site, url.slice(2)), 'utf8'));
 const earlier = JSON.parse(fs.readFileSync(path.join(site, 'qwen27-second-continuation-findings.json'), 'utf8'));
-const ids = ['repeat-results', 'repeat-config', 'repeat-field', 'repeat-condition',
+const ids = ['repeat-search','repeat-coverage','repeat-filter-count','repeat-selected-results','repeat-results', 'repeat-config', 'repeat-field', 'repeat-condition',
   'repeat-condition-label', 'repeat-interpretation', 'repeat-summary',
   'repeat-lead', 'repeat-chart', 'repeat-delta-title', 'repeat-delta-intro',
   'repeat-deltas', 'repeat-flips', 'repeat-usage-body'];
@@ -74,4 +74,16 @@ test('malformed report fails visibly; optional absence does not erase other seri
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
   assert.match((await render({status: 500})).get('repeat-results').innerHTML,
     /Repeat results could not be loaded/);
+});
+
+test('all-recorded coverage includes final descriptive Qwen series with scoredConditions', async () => {
+  const ui = await render();
+  ui.get('repeat-coverage').value = 'complete';
+  ui.get('repeat-coverage').change();
+  assert.match(ui.get('repeat-config').innerHTML, new RegExp(medium));
+  assert.match(ui.get('repeat-config').innerHTML, new RegExp(xhigh));
+  ui.get('repeat-coverage').value = 'pending';
+  ui.get('repeat-coverage').change();
+  assert.doesNotMatch(ui.get('repeat-config').innerHTML, new RegExp(medium));
+  assert.doesNotMatch(ui.get('repeat-config').innerHTML, new RegExp(xhigh));
 });

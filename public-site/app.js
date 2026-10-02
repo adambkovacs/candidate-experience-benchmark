@@ -267,12 +267,21 @@
     const allFourLoss = Array.isArray(pair.allFourCorrectToWrong) ? pair.allFourCorrectToWrong.length : 0;
     panel.innerHTML = `<div class="audited-heading"><div><p class="eyebrow">${native ? 'Jev instruction comparison' : hosted ? 'Hosted prompt comparison' : 'Recorded prompt comparison'}</p><h4>Compare the saved answers</h4></div>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Read the comparison report ↗</a>` : ''}</div><p class="audited-method">The same 60 fictional comments were used. These counts describe the saved answers. ${native ? 'Jev P1 and P2 change native Choice questions, not chat system prompts. Its P0 was run earlier in one pass. ' : ''}${esc(report.comparisonLimit || report.historicalP0Limitation || '')}</p><label class="audited-pair-control"><span>Choose two prompt versions</span><select id="pair-select">${available.map(key => `<option value="${key}"${key === pairKey ? ' selected' : ''}>${names[key]}</option>`).join('')}</select></label><div class="audited-counts" role="status" aria-live="polite" aria-atomic="true"><div><strong>${esc(count(pair.bothValid))} / 60</strong><span>comments with answers in the required format in both runs</span></div><div><strong>${esc(count(pair.changedRecordCount))}</strong><span>reviews with changed outputs</span></div><div><strong>${esc(count(allFourGain))} / ${esc(count(allFourLoss))}</strong><span>gained / lost matches on all four</span></div></div>${item ? `<div class="audited-record"><label><span>Comment with a changed answer</span><select id="pair-case-select">${cases.map((entry,index) => `<option value="${index}"${index === caseIndex ? ' selected' : ''}>${esc(entry.id)}</option>`).join('')}</select></label><article class="case-card"><div class="case-head"><span>REVIEW ${esc(item.id)}</span><span>${esc(readableValue(item.from_state))} → ${esc(readableValue(item.to_state))}</span></div><blockquote>${esc(item.feedback || 'Comment unavailable')}</blockquote><div class="audited-predictions"><div><strong>BEFORE · ${before}</strong><span>${esc(caseValue(item.from_prediction))}</span></div><div><strong>AFTER · ${after}</strong><span>${esc(caseValue(item.to_prediction))}</span></div><div><strong>REFERENCE</strong><span>${esc(caseValue(item.reference))}</span></div></div></article></div>` : '<p class="note">No changed review is listed for this pair.</p>'}${report.referenceStatus ? `<p class="note">Reference status: ${esc(report.referenceStatus)}</p>` : ''}`;
   }
+  function modelFamily(run) {
+    const name = `${run.id} ${run.model}`.toLowerCase();
+    for (const [pattern, family] of [[/anyjev/, 'AnyJev'], [/openjev/, 'OpenJev'], [/typesafe|\bjev\b/, 'Jev'], [/clef/, 'Clef'], [/laya/, 'Laya'], [/semif/, 'Semif'], [/kev/, 'Kev'], [/qwen/, 'Qwen'], [/gemma/, 'Gemma'], [/deepseek/, 'DeepSeek'], [/mistral/, 'Mistral'], [/gemini/, 'Gemini'], [/claude|sonnet|opus|haiku|fable/, 'Claude'], [/gpt|codex/, 'GPT'], [/rules|regex/, 'Rules baseline']]) {
+      if (pattern.test(name)) return family;
+    }
+    return 'Other';
+  }
   function visibleRuns() {
     const query = $('#search').value.trim().toLowerCase();
     const condition = $('#condition-filter').value;
     const surface = $('#surface-filter').value;
     const include = $('#include-incomplete').checked;
-    const runs = state.data.runs.filter(r => (include || complete(r)) && (!condition || r.condition === condition) && (!surface || r.surface === surface) && (!query || `${r.id} ${r.model} ${r.effort} ${r.surface} ${experimentId(r)}`.toLowerCase().includes(query)));
+    const family = $('#family-filter')?.value || '';
+    const effort = $('#effort-filter')?.value || '';
+    const runs = state.data.runs.filter(r => (include || complete(r)) && (!family || modelFamily(r) === family) && (!effort || r.effort === effort) && (!condition || r.condition === condition) && (!surface || r.surface === surface) && (!query || `${r.id} ${r.model} ${r.effort} ${r.surface} ${experimentId(r)}`.toLowerCase().includes(query)));
     if ($('#sort').value === 'model-asc') runs.sort((a,b) => label(a).localeCompare(label(b)) || a.condition.localeCompare(b.condition));
     else runs.sort((a,b) => (n(score(b)) ?? -1)-(n(score(a)) ?? -1) || label(a).localeCompare(label(b)));
     return runs;
@@ -428,6 +437,17 @@
       $('#compare-run-select').addEventListener('change',event=>{if(event.target.value)selectRun(event.target.value,false);});
       for(const selector of ['#usage-run-select','#inspect-run-select']) $(selector).addEventListener('change',event=>selectRun(event.target.value,false));
       $('#surface-filter').innerHTML='<option value="">All execution methods</option>'+[...new Set(state.data.runs.map(r=>r.surface).filter(Boolean))].sort().map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+      for (const [selector, values, all] of [
+        ['#family-filter', state.data.runs.map(modelFamily), 'All model families'],
+        ['#effort-filter', state.data.runs.map(r => r.effort).filter(Boolean), 'All reasoning settings']
+      ]) {
+        const control = $(selector);
+        if (control) { control.innerHTML = `<option value="">${all}</option>` + [...new Set(values)].sort().map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join(''); control.addEventListener('change', renderLedger); }
+      }
+      $('#clear-run-filters')?.addEventListener('click', () => {
+        for (const id of ['#search','#condition-filter','#surface-filter','#family-filter','#effort-filter']) { const control=$(id); if(control) control.value=''; }
+        $('#include-incomplete').checked=false; renderLedger();
+      });
       $('#experiment-select').addEventListener('change',() => {const group=state.experiments.get($('#experiment-select').value)||[];const lead=group.find(r=>r.condition==='P0')||group[0];if(lead)selectRun(lead.id,false);else renderExperiment();});
       $('#metric').addEventListener('change',() => {renderExperiment();renderLedger();if(state.selectedId)selectRun(state.selectedId,false);});
       ['#search','#condition-filter','#surface-filter','#sort','#include-incomplete'].forEach(selector => $(selector).addEventListener(selector==='#search'?'input':'change',renderLedger));

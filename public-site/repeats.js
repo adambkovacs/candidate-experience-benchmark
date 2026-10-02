@@ -839,13 +839,13 @@
     const isGeneratedAnyJev = s => s.schema === 'anyjev-generated-repeat-findings-v1' &&
       s.method === 'generated-json-control';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isQwen27Final(s) || isGemmaSecond(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
-    root.innerHTML = `<label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
-      <p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
+    root.innerHTML = `<div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label></div><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
+      <div id="repeat-selected-results"><p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
       <div id="repeat-chart" aria-live="polite"></div>
       <div class="repeat-detail-grid"><div><h3 id="repeat-delta-title">How did prompt scores change across passes?</h3><p id="repeat-delta-intro">Change in matching answers compared with P0 in the same pass. Positive means more matches; negative means fewer.</p><div id="repeat-deltas"></div></div>
       <div><h3>Which answers changed?</h3><label class="repeat-control"><span id="repeat-condition-label">Prompt condition</span> <select id="repeat-condition">${Object.entries(conditions).map(([k,v]) => `<option value="${k}">${k}: ${v}</option>`).join('')}</select></label><div id="repeat-flips" aria-live="polite"></div></div></div>
-      <details class="repeat-usage"><summary>Requests, tokens and reported costs</summary><p>Each completed row covers 60 comments. Request counts depend on whether the configuration uses individual comments or batches. Smoke tests are separate. Claude input excludes cache reads and writes; Codex input includes cached tokens. Reasoning tokens are already in output and are not counted twice. Some providers report a charge. API-equivalent estimates use public rates and are not subscription bills. Subscription charge and quota use per run remain unknown. Request durations include client and service overhead.</p><div class="table-wrap"><table><caption>Recorded development usage</caption><thead><tr><th>Condition</th><th>Pass</th><th>Requests</th><th>Input tokens</th><th>Output tokens</th><th>Reported cost (USD)</th><th>Price-based estimate (USD)</th><th>Sum of request seconds</th></tr></thead><tbody id="repeat-usage-body"></tbody></table></div></details>`;
+      <details class="repeat-usage"><summary>Requests, tokens and reported costs</summary><p>Each completed row covers 60 comments. Request counts depend on whether the configuration uses individual comments or batches. Smoke tests are separate. Claude input excludes cache reads and writes; Codex input includes cached tokens. Reasoning tokens are already in output and are not counted twice. Some providers report a charge. API-equivalent estimates use public rates and are not subscription bills. Subscription charge and quota use per run remain unknown. Request durations include client and service overhead.</p><div class="table-wrap"><table><caption>Recorded development usage</caption><thead><tr><th>Condition</th><th>Pass</th><th>Requests</th><th>Input tokens</th><th>Output tokens</th><th>Reported cost (USD)</th><th>Price-based estimate (USD)</th><th>Sum of request seconds</th></tr></thead><tbody id="repeat-usage-body"></tbody></table></div></details></div>`;
     const configControl = document.getElementById('repeat-config');
     const fieldControl = document.getElementById('repeat-field');
     const conditionControl = document.getElementById('repeat-condition');
@@ -1164,6 +1164,26 @@
         return `<tr><th scope="row">${c}</th><td>${displayPass(p)}${interrupted || nativeStop || generatedStop ? ' (stopped, unscored)' : data.passes[p]?.[c]?.completionStatus === 'partial' ? ' (partial)' : ''}</td><td>${interrupted ? '49 attempted' : number(u?.startedRequestCount ?? u?.requestCount)}</td><td>${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.input_tokens ?? u?.tokens?.prompt_tokens)}${sonnetTokenNote}${nativePositions}<br><small>Cache read: ${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.cache_read_input_tokens ?? u?.tokens?.cached_input_tokens)}<br>Cache write: ${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.cache_creation_input_tokens ?? u?.tokens?.cache_write_input_tokens)}</small></td><td>${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.output_tokens ?? u?.tokens?.completion_tokens)}${sonnetTokenNote}<br><small>Reasoning: ${freshSonnet && sonnetCoverage === 0 ? 'Unavailable' : number(u?.tokens?.thinking_tokens ?? u?.tokens?.reasoning_output_tokens)}${u?.providerReasoningTokensAboveCompletionCount ? `<br>Provider reasoning count exceeds output count in ${number(u.providerReasoningTokensAboveCompletionCount)} responses; retained as reported.` : ''}</small></td><td>${interrupted ? 'Partial; see accounting note above' : money(u?.actualCostUsd ?? u?.knownCostUsd)}${qwenUnknownFor(p, c) ? `<br><small>Unknown charge up to ${money(qwenUnknownFor(p, c))}</small>` : u?.unknownCostCount ? ` (${u.unknownCostCount} unknown)` : ''}</td><td>${priceCell}</td><td>${elapsed == null ? (data.passes[p]?.[c] ? 'Unavailable' : 'Not completed') : elapsed.toFixed(1)}</td></tr>`;
       })).join('');
     }
+    const searchControl = document.getElementById('repeat-search');
+    const coverageControl = document.getElementById('repeat-coverage');
+    function filterStudies() {
+      const query = (searchControl?.value || '').trim().toLowerCase();
+      const coverage = coverageControl?.value || '';
+      const matches = series.filter(s => {
+        const recorded = isQwen27Final(s) ? s.scoredConditions : s.completedConditions;
+        const allRecorded = Number.isFinite(s.plannedConditions) && s.plannedConditions > 0 && recorded === s.plannedConditions;
+        return (!query || `${s.displayName || ''} ${s.configuration || ''} ${s.method || ''}`.toLowerCase().includes(query)) &&
+          (!coverage || (coverage === 'complete' ? allRecorded : !allRecorded));
+      });
+      const previous = configControl.value;
+      configControl.innerHTML = matches.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}</option>`).join('');
+      configControl.disabled = !matches.length;
+      const panel=document.getElementById('repeat-selected-results'); if(panel) panel.hidden=!matches.length;
+      const count=document.getElementById('repeat-filter-count'); if(count) count.textContent=matches.length ? `${matches.length} of ${series.length} studies match. Recorded runs can include failed answers.` : 'No studies match. Clear the search or choose all studies.';
+      if(matches.length) {configControl.value=matches.some(s=>seriesKey(s)===previous)?previous:seriesKey(matches[0]);render();}
+    }
+    searchControl?.addEventListener('input', filterStudies);
+    coverageControl?.addEventListener('change', filterStudies);
     configControl.addEventListener('change', render);
     fieldControl.addEventListener('change', render);
     conditionControl.addEventListener('change', render);

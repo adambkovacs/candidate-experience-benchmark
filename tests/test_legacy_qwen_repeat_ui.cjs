@@ -8,7 +8,7 @@ const site = path.join(__dirname, '..', 'public-site');
 test('legacy Qwen feed exposes all six configurations and only closed scores', async () => {
   const payload = JSON.parse(fs.readFileSync(path.join(site, 'legacy-qwen-repeats.json')));
   assert.equal(payload.series.length, 6);
-  const ids = ['repeat-results','repeat-config','repeat-field','repeat-condition',
+  const ids = ['repeat-search','repeat-coverage','repeat-filter-count','repeat-selected-results','repeat-results','repeat-config','repeat-field','repeat-condition',
     'repeat-condition-label','repeat-interpretation','repeat-lead','repeat-chart',
     'repeat-delta-title','repeat-delta-intro','repeat-deltas','repeat-flips','repeat-usage-body'];
   const elements = new Map(ids.map(id => [id, {innerHTML:'', textContent:'', value:'',
@@ -37,4 +37,17 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
     assert.match(elements.get('repeat-chart').innerHTML, /Smoke returned invalid format; full run not started/);
     assert.doesNotMatch(elements.get('repeat-chart').innerHTML, /<meter/);
   }
+  elements.get('repeat-search').value = 'no-such-model';
+  elements.get('repeat-search').input();
+  assert.equal(elements.get('repeat-config').disabled, true);
+  assert.equal(elements.get('repeat-selected-results').hidden, true);
+  assert.match(elements.get('repeat-filter-count').textContent, /No studies match/);
+  elements.get('repeat-search').value = '';
+  elements.get('repeat-coverage').value = 'complete';
+  elements.get('repeat-coverage').change();
+  assert.equal(elements.get('repeat-config').value, target.configuration);
+  assert.equal(elements.get('repeat-selected-results').hidden, false);
+  assert.equal(elements.get('repeat-config').disabled, false);
+  assert.match(elements.get('repeat-filter-count').textContent, /1 of 6/);
+
 });
