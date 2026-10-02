@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Gemma third P0 closed, 2 October 2026, 17:04 UTC
+
+- Original process `22047` exited zero. Root independently verified all 60 ordered DEV-001–060 outcomes, the exact phase journal, and raw/wire bindings: 60 valid, no invalid or unknown outcomes, $0.01918032 observed development charges.
+- The shared $0.40 child remains open for P1, with $0.02002689 accounted including the P0 smoke and no pending reservation at closure. Do not seal it prematurely to fund another model.
+- Root admitted only the fresh3/P1 three-record smoke through the unchanged successor and same child. The roster execution agent owns fresh route/budget checks and dispatch. Full P1 still requires independent raw smoke inspection.
+- The hosted reporting agent owns a new source-bound P0 checkpoint and eventual separate P1 cutoff. Existing feeds remain frozen because execution admission binds them. Publication of the new P0 result is pending.
+
 ## Mistral continuation reviewed, 2 October 2026, 16:59 UTC
 
 This checkpoint supersedes earlier running-state and admission statements below.
