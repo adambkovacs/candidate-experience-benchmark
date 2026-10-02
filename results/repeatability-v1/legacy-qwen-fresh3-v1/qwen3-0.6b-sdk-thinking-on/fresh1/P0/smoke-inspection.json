@@ -1,0 +1,90 @@
+{
+  "kind": "legacy-qwen-three-record-smoke-inspection-v1",
+  "approved": false,
+  "reviewer": "/root/resume_local_preflight",
+  "authorized_by_root": true,
+  "reviewed_utc": "2026-10-02T12:24:16.277476+00:00",
+  "phase": "qwen3-0.6b-sdk-thinking-on/fresh1/P0",
+  "stage": "smoke",
+  "scope": "raw_protocol_and_control_validation_no_semantic_review",
+  "semantic_correctness_claimed": false,
+  "reference_labels_sent": false,
+  "reason": "two raw nonReasoningContent values are fenced JSON and fail strict parse; frozen controller stopped development admission",
+  "completion_sha256": "a1221a1bdce2c3098f2fd4e41cf95c4db93efce149fb52be7f92f1e31d6e4156",
+  "claim_sha256": "186d6383ee2bae07dd232a96bc2637ee91852bd0a23236b428a9ce474fd664af",
+  "review_sha256": "9d8d4f2242676ef1c291469ff76b2a8be36673906c1a05a3b430aebc14f5d95a",
+  "journal_sha256": "1655e6e58b7859bb5ae5a7a15e5d3015d452ebd9edb9231c8e101af8b535b1b2",
+  "raw_sha256": "c4e9f6bcbde76b2ae7f50c943499136412ee3aed9e317def31859ebf96232638",
+  "records_sha256": "47396bcb794bfd63872070478e81638ca321f3bfd8b364db238b82199ff11fa8",
+  "details": [
+    {
+      "id": "DEV-001",
+      "decision": "invalid_output",
+      "reason": "non_json",
+      "control_checks": {
+        "model_identifier": true,
+        "artifact_path": true,
+        "artifact_size": true,
+        "context": true,
+        "instance": true,
+        "quantization": true,
+        "load_config": true,
+        "prediction_config": true,
+        "prompt_tokens": true,
+        "stop_reason": true,
+        "reasoning_separated": true
+      },
+      "prompt_tokens": 1557,
+      "predicted_tokens": 244,
+      "reasoning_content_present": true,
+      "nonreasoning_parse": "non_json_fenced",
+      "nonreasoning_starts_with_fenced_json": true
+    },
+    {
+      "id": "DEV-002",
+      "decision": "ok",
+      "reason": null,
+      "control_checks": {
+        "model_identifier": true,
+        "artifact_path": true,
+        "artifact_size": true,
+        "context": true,
+        "instance": true,
+        "quantization": true,
+        "load_config": true,
+        "prediction_config": true,
+        "prompt_tokens": true,
+        "stop_reason": true,
+        "reasoning_separated": true
+      },
+      "prompt_tokens": 1531,
+      "predicted_tokens": 203,
+      "reasoning_content_present": true,
+      "nonreasoning_parse": "strict_json",
+      "nonreasoning_starts_with_fenced_json": false
+    },
+    {
+      "id": "DEV-003",
+      "decision": "invalid_output",
+      "reason": "non_json",
+      "control_checks": {
+        "model_identifier": true,
+        "artifact_path": true,
+        "artifact_size": true,
+        "context": true,
+        "instance": true,
+        "quantization": true,
+        "load_config": true,
+        "prediction_config": true,
+        "prompt_tokens": true,
+        "stop_reason": true,
+        "reasoning_separated": true
+      },
+      "prompt_tokens": 1554,
+      "predicted_tokens": 278,
+      "reasoning_content_present": true,
+      "nonreasoning_parse": "non_json_fenced",
+      "nonreasoning_starts_with_fenced_json": true
+    }
+  ]
+}
