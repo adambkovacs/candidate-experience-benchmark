@@ -1,5 +1,16 @@
 # Current work checklist
 
+## Current checkpoint — 2 October 2026, after SDK first-pass archival
+
+This checkpoint supersedes older running-state statements below.
+
+- **Qwen SDK — execution:** thinking-on and thinking-off each saved all 60 fresh1/P0 responses. Strict parsing accepted 27 and 1 respectively; 33 and 59 format failures remain unchanged. The closed evidence and route audits are committed in `9d89c001`. Root has delegated the next scheduled fresh1/P2 smokes, serially, with independent inspection required before full development runs.
+- **Qwen SDK — reporting:** the reporting agent is adding source bindings for the separately reviewed admission policy. These new full phases are not yet published in the findings feed.
+- **Gemma hosted:** the DEV-007–016 continuation process exited successfully. The hosted agent is checking its terminal evidence and reconciling its budget partition before archival. No further hosted requests are dispatched by this checkpoint.
+- **Cloudflare Clef:** the connected app can list the account and both exact model routes. Existing shared environment credentials are available; inference permission is not yet demonstrated. The runner is being updated to accept the existing variable aliases. The separate $0.10 smoke allowance remains pending; no Clef inference has been sent.
+- **Website:** model-family and effort filters, repeat-study search and coverage filters, and comparison-section navigation are published and byte-verified in `a33187b9` / Pages `37008242107`.
+
+
 ## Restart recovery and analysis refresh — 2 October 2026
 
 The forced restart interrupted the analysis/publication work, not a running model request. The completed Sonnet study remains published. The offline analysis refresh, website section and tests survived locally and are committed/pushed in `19dc646e`. Its 62 source bindings, 12 focused Python tests and 116 UI tests pass; independent review approved the corrected report. [Pages publication 36998863739](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/36998863739) succeeded. Root verified all six changed live assets against committed bytes. The user resumed the updated app goal; its active attachment matches [APP_GOAL.md](APP_GOAL.md). The approved cap is $12.38. No completed inference is to be replayed.
