@@ -1,0 +1,36 @@
+{
+  "schema": "gemma26-fresh3-p0-p1-composite-successor-v1",
+  "series_id": "gemma26-on-fresh-matched3-v2",
+  "configuration_id": "openrouter-paid-gemma4-26b-a4b-on",
+  "model": "google/gemma-4-26b-a4b-it",
+  "provider": "deepinfra/fp8",
+  "reasoning_effort": "on",
+  "stages": [
+    "fresh3/P0/smoke",
+    "fresh3/P0/development",
+    "fresh3/P1/smoke",
+    "fresh3/P1/development"
+  ],
+  "predecessor": "P2 has 60 attempted positions, 58 valid and two preserved service errors; descriptive composite, not a clean full phase",
+  "preserved_failed_ids": [
+    "DEV-005",
+    "DEV-006"
+  ],
+  "frozen_plan_sha256": {
+    "fresh1": "fba7273c9691deff399e38e34970c642f268b761659132734962a8273aadca29",
+    "fresh2": "b1b89af36ac6137c7c085a4d51747038cbcc81d1a3ebf05b8b209adb2f9924d2",
+    "fresh3": "86750c9372d18956e6665e8a23537fd87752b0da06144ce1f1254735093a65c3"
+  },
+  "frozen_runner_sha256": "02f7892143c4936cf79555222ee2e71b05d61d254a4b09b7b2647408364eb654",
+  "composite_builder_sha256": "764186c30bf05b0e2b06ffd385a529ee7c775c773f3d8919b1b014c822c858ce",
+  "composite_terminal_sha256": "2f2a58be917f5b3dc0acbb65d55f5fb71b80285b9938d42175341913d07997ed",
+  "composite_projection_sha256": "55ddc3390b2b5afc360793a86114b1cb91523a0bd7e90a15b76ee8e681ea5b67",
+  "composite_review_sha256": "7d1a3aec9d82ac2aa83e6c36abd1fa858ad1eac1d484a64624f6730af8b925d1",
+  "composite_feed_sha256": "e555d975e0943ff7bd4ddf88dcb7f55046672229114a2522750106d2b5660c56",
+  "per_request_reserve_usd": "0.01974272",
+  "proposed_child_cap_usd": "0.40",
+  "global_hold_id": "openrouter-gemma26-fresh3-p0-p1-v1",
+  "global_hold_usd": "0.40",
+  "global_hold_scope": "one reviewed child partition and ledger identity for all admitted stages",
+  "admission": "independent review and root stage receipt; fresh exact route, child and global hold checks before inference"
+}
