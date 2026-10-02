@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 80)
+        self.assertEqual(len(rebuilt["sources"]), 88)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -39,9 +39,9 @@ class AnalysisRefreshTest(unittest.TestCase):
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
         self.assertEqual(cohorts["gemma26"]["source"],
-                         "public-site/gemma26-postabort-findings.json")
+                         "public-site/gemma26-fresh3-p0-checkpoint.json")
         self.assertEqual(cohorts["gemma26"]["completedConditionsAtSecondContinuation"], 6)
-        self.assertEqual(cohorts["gemma26"]["completedConditions"], 7)
+        self.assertEqual(cohorts["gemma26"]["completedConditions"], 8)
         self.assertEqual(cohorts["gemma26"]["fresh3P2"], {
             "status": "completed_composite_interrupted", "valid": 58,
             "failedIds": ["DEV-005", "DEV-006"], "allFour": 56,
@@ -54,8 +54,8 @@ class AnalysisRefreshTest(unittest.TestCase):
             "excludedIds": ["DEV-005", "DEV-006", "DEV-007"],
             "changedFourFieldVectorIds": ["DEV-013", "DEV-059"],
             "cleanMatchedThreeEligible": False})
-        self.assertEqual(cohorts["gemma26"]["neverSentConditions"],
-                         ["fresh3/P0", "fresh3/P1"])
+        self.assertEqual(cohorts["gemma26"]["unscoredConditionsAtCutoff"],
+                         ["fresh3/P1"])
         self.assertEqual(cohorts["clefNativeP0"]["models"], {
             "clef": {"valid": 60, "allFour": 53, "denominator": 60},
             "clef-flash": {"valid": 60, "allFour": 45, "denominator": 60}})
@@ -128,7 +128,7 @@ class AnalysisRefreshTest(unittest.TestCase):
             changed = json.loads(gemma.read_text())
             changed["fresh3P2"]["score"]["valid"] = 59
             gemma.write_text(json.dumps(changed))
-            with self.assertRaisesRegex(ValueError, "Gemma postabort composite"):
+            with self.assertRaisesRegex(ValueError, "Gemma (postabort composite|P0 checkpoint source hash)"):
                 analysis.build(temp)
 
 

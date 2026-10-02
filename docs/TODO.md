@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Gemma P0 report integration, 2 October 2026, 17:16 UTC
+
+- Root reviewed the new P0 checkpoint builder and privacy projection; its seven tests and exact feed rebuild pass. P0 fixed-60 all-four scores are 59/56/58 with validity 60/59/60. Shared-valid comparisons explicitly use 59 records; fresh2 DEV-002 remains failed.
+- The analysis refresh includes the new checkpoint and 88 direct source hashes. Two analysis tests and three analysis UI tests pass. README, coverage inventory and current goals reflect eight scored runs; the repeat-view integration is under final review.
+- Fresh3/P1 full development remains live under the roster execution owner's handle `31625`; the latest poll reached 18 valid outcomes with no invalid or unknown result. The $0.40 child remains active.
+- Public deployment is not yet verified for this checkpoint. Root owns commits/publication, the native-preflight agent owns the repeat UI, and the hosted agent reviews the combined analysis.
+
 ## Gemma P1 full run admitted, 2 October 2026, 17:08 UTC
 
 - P1 smoke process `51253` exited zero with three valid responses, no unknown charges and $0.00091939 observed cost. Root inspected all three final raw answers and verified the ordered request, journal and wire bindings; the smoke was accepted unchanged.

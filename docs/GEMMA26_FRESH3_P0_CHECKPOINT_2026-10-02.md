@@ -1,0 +1,17 @@
+# Gemma 26B thinking-on: third P0 pass
+
+Gemma 26B thinking-on now has **eight of nine planned P0/P1/P2 runs scored**. The new fresh3/P0 development phase closed with 60 ordered, valid, known-cost responses. Its [allowlisted projection](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-checkpoint-v1/P0/public-projection.json) binds the frozen request hashes and the private claim, review, journal, attempts, parsed responses, and wire hashes. The [root terminal and public review](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-checkpoint-v1/P0/terminal-public-review.json) binds that projection and confirms the completed process exit. The [new checkpoint feed](../public-site/gemma26-fresh3-p0-checkpoint.json) rebuilds from those files and the earlier frozen Gemma reports; it does not publish raw provider bodies or feedback text.
+
+| P0 pass | Valid / 60 | All four fields match / 60 | Sentiment | Follow-up | Serious concern | Testimonial |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Fresh 1 | 60 | 59 | 59 | 60 | 60 | 60 |
+| Fresh 2 | 59 | 56 | 58 | 59 | 58 | 58 |
+| Fresh 3 | 60 | 58 | 58 | 60 | 60 | 60 |
+
+The fixed denominator is 60 in every pass. Fresh2/P0 retains its original DEV-002 service error; the new pass does not erase or replay it. The 59 records valid in all three P0 passes exclude DEV-002. On that shared set, all-four matches are **58, 56, and 57**. Four prediction vectors changed from fresh1 to fresh2, three from fresh2 to fresh3, and one from fresh1 to fresh3. The changed IDs and each field's match gains and losses are recorded in the [feed](../public-site/gemma26-fresh3-p0-checkpoint.json), along with pairwise available-valid denominators of 59, 59, and 60. The [earlier P2 comparison](../public-site/gemma26-p2-repeat-findings.json) remains a separate interrupted three-pass result; P0 flips do not alter its cutoff.
+
+The new P0 phase reports **$0.01918032** in known per-request charges across all 60 responses. That sum is from response usage, not an independently verified provider invoice. Client request-to-record time totals 1,484.36 seconds; pure inference time is unavailable. The provider reports 87,568 prompt tokens, 38,384 completion tokens, and 125,952 total tokens for this phase. Its 38,848 reported reasoning tokens exceed reported completion tokens, so those categories conflict and cannot be added or treated as a reliable subset. The [feed's usage fields](../public-site/gemma26-fresh3-p0-checkpoint.json) preserve the counts and caveat.
+
+The references are frozen provisional v0.2 labels, with a user-confirmed human check of all 60 on 2 October. These are agreement counts against that fixed reference, not a separately adjudicated ground-truth accuracy claim. The earlier [post-abort findings](../public-site/gemma26-postabort-findings.json) retain the fresh3/P2 DEV-005 and DEV-006 failures, while the [second-continuation findings](../public-site/gemma26-second-continuation-findings.json) retain fresh2/P0 DEV-002. The overall series is descriptive and interrupted, not a clean matched-three repeat. Fresh3/P1 is the remaining ninth run and is not scored in this checkpoint.
+
+The [builder](../scripts/build_gemma26_fresh3_checkpoint.py) can later produce a separate fresh3/P1 cutoff after a complete, independently reviewed P1 projection; it leaves this P0 feed fixed. Rebuild with `python3 scripts/build_gemma26_fresh3_checkpoint.py build --cutoff P0 --check` and run `python3 -m unittest tests.test_build_gemma26_fresh3_checkpoint -v`.

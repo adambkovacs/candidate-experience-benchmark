@@ -40,8 +40,10 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   const view = await renderState(report);
   assert.match(view.summary,/21 Claude setups/);
   assert.match(view.cutoffs,/Gemma 26B/);
-  assert.match(view.cutoffs,/7\/9 conditions scored/);
+  assert.match(view.cutoffs,/8\/9 conditions scored/);
   assert.match(view.cutoffs,/57, 56, 56 out of 60/);
+  assert.match(view.cutoffs,/59, 56, 58 of 60 reviews/);
+  assert.doesNotMatch(view.cutoffs,/full fresh3 P0 and P1 results are absent/);
   assert.match(view.cutoffs,/2 of 57 shared-valid comments changed a decision/);
   assert.match(view.cutoffs,/DEV-005 and DEV-006/);
   assert.match(view.cutoffs,/not a clean matched-three experiment/);

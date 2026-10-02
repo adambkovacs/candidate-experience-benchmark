@@ -1033,7 +1033,7 @@
     },
     "gemma26": {
       "cleanMatchedThreeEligible": false,
-      "completedConditions": 7,
+      "completedConditions": 8,
       "completedConditionsAtSecondContinuation": 6,
       "fresh3P2": {
         "allFour": 56,
@@ -1045,10 +1045,1116 @@
         "status": "completed_composite_interrupted",
         "valid": 58
       },
-      "neverSentConditions": [
-        "fresh3/P0",
-        "fresh3/P1"
-      ],
+      "p0Checkpoint": {
+        "allThreeSharedValid": {
+          "allFourMatches": {
+            "fresh1": 58,
+            "fresh2": 56,
+            "fresh3": 57
+          },
+          "denominator": 59,
+          "excludedIds": [
+            "DEV-002"
+          ],
+          "pairwise": [
+            {
+              "changedFourFieldVectorCount": 4,
+              "changedFourFieldVectorIds": [
+                "DEV-005",
+                "DEV-013",
+                "DEV-014",
+                "DEV-048"
+              ],
+              "denominator": 59,
+              "fields": {
+                "follow_up_needed": {
+                  "changedIds": [],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": []
+                },
+                "sentiment": {
+                  "changedIds": [
+                    "DEV-005",
+                    "DEV-013"
+                  ],
+                  "gainedMatchIds": [
+                    "DEV-005"
+                  ],
+                  "lostMatchIds": [
+                    "DEV-013"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "changedIds": [
+                    "DEV-048"
+                  ],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": [
+                    "DEV-048"
+                  ]
+                },
+                "testimonial_potential": {
+                  "changedIds": [
+                    "DEV-014"
+                  ],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": [
+                    "DEV-014"
+                  ]
+                }
+              },
+              "from": "fresh1",
+              "gainedAllFourMatchIds": [
+                "DEV-005"
+              ],
+              "lostAllFourMatchIds": [
+                "DEV-013",
+                "DEV-014",
+                "DEV-048"
+              ],
+              "to": "fresh2"
+            },
+            {
+              "changedFourFieldVectorCount": 3,
+              "changedFourFieldVectorIds": [
+                "DEV-005",
+                "DEV-014",
+                "DEV-048"
+              ],
+              "denominator": 59,
+              "fields": {
+                "follow_up_needed": {
+                  "changedIds": [],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": []
+                },
+                "sentiment": {
+                  "changedIds": [
+                    "DEV-005"
+                  ],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": [
+                    "DEV-005"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "changedIds": [
+                    "DEV-048"
+                  ],
+                  "gainedMatchIds": [
+                    "DEV-048"
+                  ],
+                  "lostMatchIds": []
+                },
+                "testimonial_potential": {
+                  "changedIds": [
+                    "DEV-014"
+                  ],
+                  "gainedMatchIds": [
+                    "DEV-014"
+                  ],
+                  "lostMatchIds": []
+                }
+              },
+              "from": "fresh2",
+              "gainedAllFourMatchIds": [
+                "DEV-014",
+                "DEV-048"
+              ],
+              "lostAllFourMatchIds": [
+                "DEV-005"
+              ],
+              "to": "fresh3"
+            },
+            {
+              "changedFourFieldVectorCount": 1,
+              "changedFourFieldVectorIds": [
+                "DEV-013"
+              ],
+              "denominator": 59,
+              "fields": {
+                "follow_up_needed": {
+                  "changedIds": [],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": []
+                },
+                "sentiment": {
+                  "changedIds": [
+                    "DEV-013"
+                  ],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": [
+                    "DEV-013"
+                  ]
+                },
+                "serious_concern_reported": {
+                  "changedIds": [],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": []
+                },
+                "testimonial_potential": {
+                  "changedIds": [],
+                  "gainedMatchIds": [],
+                  "lostMatchIds": []
+                }
+              },
+              "from": "fresh1",
+              "gainedAllFourMatchIds": [],
+              "lostAllFourMatchIds": [
+                "DEV-013"
+              ],
+              "to": "fresh3"
+            }
+          ]
+        },
+        "classBalanceAndConfusion": {
+          "fresh1": {
+            "follow_up_needed": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 24,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 35
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "no": 24,
+                "yes": 35
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 1,
+                "no": 24,
+                "yes": 35
+              },
+              "unavailable": 0
+            },
+            "sentiment": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 1,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "mixed": {
+                  "insufficient_information": 0,
+                  "mixed": 8,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "negative": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 31,
+                  "neutral": 0,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "neutral": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 8,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "positive": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 11,
+                  "unavailable": 0
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "mixed": 8,
+                "negative": 31,
+                "neutral": 9,
+                "positive": 11
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 2,
+                "mixed": 8,
+                "negative": 31,
+                "neutral": 8,
+                "positive": 11
+              },
+              "unavailable": 0
+            },
+            "serious_concern_reported": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 6,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 29,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 25
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 6,
+                "no": 29,
+                "yes": 25
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 6,
+                "no": 29,
+                "yes": 25
+              },
+              "unavailable": 0
+            },
+            "testimonial_potential": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 50,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 9
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "no": 50,
+                "yes": 9
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 1,
+                "no": 50,
+                "yes": 9
+              },
+              "unavailable": 0
+            }
+          },
+          "fresh2": {
+            "follow_up_needed": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 23,
+                  "unavailable": 1,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 35
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "no": 23,
+                "yes": 35
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 1,
+                "no": 24,
+                "yes": 35
+              },
+              "unavailable": 1
+            },
+            "sentiment": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 2,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "mixed": {
+                  "insufficient_information": 0,
+                  "mixed": 8,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "negative": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 31,
+                  "neutral": 0,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "neutral": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 7,
+                  "positive": 1,
+                  "unavailable": 0
+                },
+                "positive": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 10,
+                  "unavailable": 1
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 2,
+                "mixed": 8,
+                "negative": 31,
+                "neutral": 7,
+                "positive": 11
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 2,
+                "mixed": 8,
+                "negative": 31,
+                "neutral": 8,
+                "positive": 11
+              },
+              "unavailable": 1
+            },
+            "serious_concern_reported": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 5,
+                  "no": 1,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 28,
+                  "unavailable": 1,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 25
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 5,
+                "no": 29,
+                "yes": 25
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 6,
+                "no": 29,
+                "yes": 25
+              },
+              "unavailable": 1
+            },
+            "testimonial_potential": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 49,
+                  "unavailable": 1,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "unavailable": 0,
+                  "yes": 8
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "no": 50,
+                "yes": 8
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 1,
+                "no": 50,
+                "yes": 9
+              },
+              "unavailable": 1
+            }
+          },
+          "fresh3": {
+            "follow_up_needed": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 24,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 35
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "no": 24,
+                "yes": 35
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 1,
+                "no": 24,
+                "yes": 35
+              },
+              "unavailable": 0
+            },
+            "sentiment": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 1,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "mixed": {
+                  "insufficient_information": 0,
+                  "mixed": 8,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "negative": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 31,
+                  "neutral": 0,
+                  "positive": 0,
+                  "unavailable": 0
+                },
+                "neutral": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 7,
+                  "positive": 1,
+                  "unavailable": 0
+                },
+                "positive": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 11,
+                  "unavailable": 0
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "mixed": 8,
+                "negative": 31,
+                "neutral": 8,
+                "positive": 12
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 2,
+                "mixed": 8,
+                "negative": 31,
+                "neutral": 8,
+                "positive": 11
+              },
+              "unavailable": 0
+            },
+            "serious_concern_reported": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 6,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 29,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 25
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 6,
+                "no": 29,
+                "yes": 25
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 6,
+                "no": 29,
+                "yes": 25
+              },
+              "unavailable": 0
+            },
+            "testimonial_potential": {
+              "confusion": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 50,
+                  "unavailable": 0,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "unavailable": 0,
+                  "yes": 9
+                }
+              },
+              "predictedClassBalanceValidOnly": {
+                "insufficient_information": 1,
+                "no": 50,
+                "yes": 9
+              },
+              "referenceClassBalance": {
+                "insufficient_information": 1,
+                "no": 50,
+                "yes": 9
+              },
+              "unavailable": 0
+            }
+          }
+        },
+        "failureIdsByPass": {
+          "fresh1": [],
+          "fresh2": [
+            "DEV-002"
+          ],
+          "fresh3": []
+        },
+        "fixed60Ranges": {
+          "allFour": {
+            "max": 59,
+            "min": 56,
+            "spread": 3
+          },
+          "follow_up_needed": {
+            "max": 60,
+            "min": 59,
+            "spread": 1
+          },
+          "sentiment": {
+            "max": 59,
+            "min": 58,
+            "spread": 1
+          },
+          "serious_concern_reported": {
+            "max": 60,
+            "min": 58,
+            "spread": 2
+          },
+          "testimonial_potential": {
+            "max": 60,
+            "min": 58,
+            "spread": 2
+          }
+        },
+        "fixed60Scores": {
+          "fresh1": {
+            "allFour": 59,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 60,
+              "sentiment": 59,
+              "serious_concern_reported": 60,
+              "testimonial_potential": 60
+            },
+            "outcomes": {
+              "invalid_output": 0,
+              "never_sent": 0,
+              "service_error": 0,
+              "valid": 60
+            },
+            "saved": 60,
+            "scoreKind": "fixed_60",
+            "valid": 60,
+            "validIds": [
+              "DEV-001",
+              "DEV-002",
+              "DEV-003",
+              "DEV-004",
+              "DEV-005",
+              "DEV-006",
+              "DEV-007",
+              "DEV-008",
+              "DEV-009",
+              "DEV-010",
+              "DEV-011",
+              "DEV-012",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-016",
+              "DEV-017",
+              "DEV-018",
+              "DEV-019",
+              "DEV-020",
+              "DEV-021",
+              "DEV-022",
+              "DEV-023",
+              "DEV-024",
+              "DEV-025",
+              "DEV-026",
+              "DEV-027",
+              "DEV-028",
+              "DEV-029",
+              "DEV-030",
+              "DEV-031",
+              "DEV-032",
+              "DEV-033",
+              "DEV-034",
+              "DEV-035",
+              "DEV-036",
+              "DEV-037",
+              "DEV-038",
+              "DEV-039",
+              "DEV-040",
+              "DEV-041",
+              "DEV-042",
+              "DEV-043",
+              "DEV-044",
+              "DEV-045",
+              "DEV-046",
+              "DEV-047",
+              "DEV-048",
+              "DEV-049",
+              "DEV-050",
+              "DEV-051",
+              "DEV-052",
+              "DEV-053",
+              "DEV-054",
+              "DEV-055",
+              "DEV-056",
+              "DEV-057",
+              "DEV-058",
+              "DEV-059",
+              "DEV-060"
+            ]
+          },
+          "fresh2": {
+            "allFour": 56,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 59,
+              "sentiment": 58,
+              "serious_concern_reported": 58,
+              "testimonial_potential": 58
+            },
+            "outcomes": {
+              "invalid_output": 0,
+              "never_sent": 0,
+              "service_error": 1,
+              "valid": 59
+            },
+            "saved": 60,
+            "scoreKind": "fixed_60",
+            "valid": 59,
+            "validIds": [
+              "DEV-001",
+              "DEV-003",
+              "DEV-004",
+              "DEV-005",
+              "DEV-006",
+              "DEV-007",
+              "DEV-008",
+              "DEV-009",
+              "DEV-010",
+              "DEV-011",
+              "DEV-012",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-016",
+              "DEV-017",
+              "DEV-018",
+              "DEV-019",
+              "DEV-020",
+              "DEV-021",
+              "DEV-022",
+              "DEV-023",
+              "DEV-024",
+              "DEV-025",
+              "DEV-026",
+              "DEV-027",
+              "DEV-028",
+              "DEV-029",
+              "DEV-030",
+              "DEV-031",
+              "DEV-032",
+              "DEV-033",
+              "DEV-034",
+              "DEV-035",
+              "DEV-036",
+              "DEV-037",
+              "DEV-038",
+              "DEV-039",
+              "DEV-040",
+              "DEV-041",
+              "DEV-042",
+              "DEV-043",
+              "DEV-044",
+              "DEV-045",
+              "DEV-046",
+              "DEV-047",
+              "DEV-048",
+              "DEV-049",
+              "DEV-050",
+              "DEV-051",
+              "DEV-052",
+              "DEV-053",
+              "DEV-054",
+              "DEV-055",
+              "DEV-056",
+              "DEV-057",
+              "DEV-058",
+              "DEV-059",
+              "DEV-060"
+            ]
+          },
+          "fresh3": {
+            "allFour": 58,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 60,
+              "sentiment": 58,
+              "serious_concern_reported": 60,
+              "testimonial_potential": 60
+            },
+            "outcomes": {
+              "invalid_output": 0,
+              "never_sent": 0,
+              "service_error": 0,
+              "valid": 60
+            },
+            "saved": 60,
+            "scoreKind": "fixed_60",
+            "valid": 60,
+            "validIds": [
+              "DEV-001",
+              "DEV-002",
+              "DEV-003",
+              "DEV-004",
+              "DEV-005",
+              "DEV-006",
+              "DEV-007",
+              "DEV-008",
+              "DEV-009",
+              "DEV-010",
+              "DEV-011",
+              "DEV-012",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-016",
+              "DEV-017",
+              "DEV-018",
+              "DEV-019",
+              "DEV-020",
+              "DEV-021",
+              "DEV-022",
+              "DEV-023",
+              "DEV-024",
+              "DEV-025",
+              "DEV-026",
+              "DEV-027",
+              "DEV-028",
+              "DEV-029",
+              "DEV-030",
+              "DEV-031",
+              "DEV-032",
+              "DEV-033",
+              "DEV-034",
+              "DEV-035",
+              "DEV-036",
+              "DEV-037",
+              "DEV-038",
+              "DEV-039",
+              "DEV-040",
+              "DEV-041",
+              "DEV-042",
+              "DEV-043",
+              "DEV-044",
+              "DEV-045",
+              "DEV-046",
+              "DEV-047",
+              "DEV-048",
+              "DEV-049",
+              "DEV-050",
+              "DEV-051",
+              "DEV-052",
+              "DEV-053",
+              "DEV-054",
+              "DEV-055",
+              "DEV-056",
+              "DEV-057",
+              "DEV-058",
+              "DEV-059",
+              "DEV-060"
+            ]
+          }
+        },
+        "pairwiseAvailableValid": [
+          {
+            "changedFourFieldVectorCount": 4,
+            "changedFourFieldVectorIds": [
+              "DEV-005",
+              "DEV-013",
+              "DEV-014",
+              "DEV-048"
+            ],
+            "denominator": 59,
+            "fields": {
+              "follow_up_needed": {
+                "changedIds": [],
+                "gainedMatchIds": [],
+                "lostMatchIds": []
+              },
+              "sentiment": {
+                "changedIds": [
+                  "DEV-005",
+                  "DEV-013"
+                ],
+                "gainedMatchIds": [
+                  "DEV-005"
+                ],
+                "lostMatchIds": [
+                  "DEV-013"
+                ]
+              },
+              "serious_concern_reported": {
+                "changedIds": [
+                  "DEV-048"
+                ],
+                "gainedMatchIds": [],
+                "lostMatchIds": [
+                  "DEV-048"
+                ]
+              },
+              "testimonial_potential": {
+                "changedIds": [
+                  "DEV-014"
+                ],
+                "gainedMatchIds": [],
+                "lostMatchIds": [
+                  "DEV-014"
+                ]
+              }
+            },
+            "from": "fresh1",
+            "gainedAllFourMatchIds": [
+              "DEV-005"
+            ],
+            "lostAllFourMatchIds": [
+              "DEV-013",
+              "DEV-014",
+              "DEV-048"
+            ],
+            "to": "fresh2"
+          },
+          {
+            "changedFourFieldVectorCount": 3,
+            "changedFourFieldVectorIds": [
+              "DEV-005",
+              "DEV-014",
+              "DEV-048"
+            ],
+            "denominator": 59,
+            "fields": {
+              "follow_up_needed": {
+                "changedIds": [],
+                "gainedMatchIds": [],
+                "lostMatchIds": []
+              },
+              "sentiment": {
+                "changedIds": [
+                  "DEV-005"
+                ],
+                "gainedMatchIds": [],
+                "lostMatchIds": [
+                  "DEV-005"
+                ]
+              },
+              "serious_concern_reported": {
+                "changedIds": [
+                  "DEV-048"
+                ],
+                "gainedMatchIds": [
+                  "DEV-048"
+                ],
+                "lostMatchIds": []
+              },
+              "testimonial_potential": {
+                "changedIds": [
+                  "DEV-014"
+                ],
+                "gainedMatchIds": [
+                  "DEV-014"
+                ],
+                "lostMatchIds": []
+              }
+            },
+            "from": "fresh2",
+            "gainedAllFourMatchIds": [
+              "DEV-014",
+              "DEV-048"
+            ],
+            "lostAllFourMatchIds": [
+              "DEV-005"
+            ],
+            "to": "fresh3"
+          },
+          {
+            "changedFourFieldVectorCount": 1,
+            "changedFourFieldVectorIds": [
+              "DEV-013"
+            ],
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": {
+                "changedIds": [],
+                "gainedMatchIds": [],
+                "lostMatchIds": []
+              },
+              "sentiment": {
+                "changedIds": [
+                  "DEV-013"
+                ],
+                "gainedMatchIds": [],
+                "lostMatchIds": [
+                  "DEV-013"
+                ]
+              },
+              "serious_concern_reported": {
+                "changedIds": [],
+                "gainedMatchIds": [],
+                "lostMatchIds": []
+              },
+              "testimonial_potential": {
+                "changedIds": [],
+                "gainedMatchIds": [],
+                "lostMatchIds": []
+              }
+            },
+            "from": "fresh1",
+            "gainedAllFourMatchIds": [],
+            "lostAllFourMatchIds": [
+              "DEV-013"
+            ],
+            "to": "fresh3"
+          }
+        ],
+        "thirdPassUsage": {
+          "clientRequestSecondsTotal": 1484.3553924589978,
+          "missingCostCount": 0,
+          "providerBilledUsd": null,
+          "pureInferenceSeconds": null,
+          "reportedCostCount": 60,
+          "reportedKnownCostUsd": "0.01918032",
+          "reportedReasoningExceedsCompletion": true,
+          "requestCount": 60,
+          "tokenAvailability": {
+            "completion_tokens": {
+              "missingCount": 0,
+              "reportedCount": 60,
+              "reportedSum": 38384,
+              "sumAllRequests": 38384
+            },
+            "prompt_tokens": {
+              "missingCount": 0,
+              "reportedCount": 60,
+              "reportedSum": 87568,
+              "sumAllRequests": 87568
+            },
+            "reasoning_tokens": {
+              "missingCount": 0,
+              "reportedCount": 60,
+              "reportedSum": 38848,
+              "sumAllRequests": 38848
+            },
+            "total_tokens": {
+              "missingCount": 0,
+              "reportedCount": 60,
+              "reportedSum": 125952,
+              "sumAllRequests": 125952
+            }
+          },
+          "tokenCategoryCaveat": "Provider-reported reasoning tokens exceed completion tokens here; the categories conflict and must not be added or treated as a reliable subset."
+        }
+      },
       "p2Repeat": {
         "changedFourFieldVectorIds": [
           "DEV-013",
@@ -1076,7 +2182,10 @@
         "score": null,
         "status": "stopped_unscored"
       },
-      "source": "public-site/gemma26-postabort-findings.json",
+      "source": "public-site/gemma26-fresh3-p0-checkpoint.json",
+      "unscoredConditionsAtCutoff": [
+        "fresh3/P1"
+      ],
       "usage": {
         "clientRequestSecondsTotal": 1609.5669084999645,
         "missingCostCount": 2,
@@ -2863,6 +3972,10 @@
       "sha256": "cce3d6d24e1708960ffe16158016017d8d28cbcdc2a5deb60e76e47b51cb32e7"
     },
     {
+      "path": "public-site/gemma26-fresh3-p0-checkpoint.json",
+      "sha256": "89cdf0bb3dcc82c4aa90662b4994067c8faa99b7c16b9244ef07d14394bdd8bf"
+    },
+    {
       "path": "public-site/gemma26-p2-repeat-findings.json",
       "sha256": "f595203141acf14ab9994e39d329ad177fdd79a429fa17844af553728c448fd9"
     },
@@ -3091,6 +4204,10 @@
       "sha256": "ce8fbafd6a282ed6331d98e8543eddd2260e9f19e4bb5cbf0badcc2c11b18741"
     },
     {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.attempts.jsonl",
+      "sha256": "a5e9a5472eba60f5742955875dcdb51b6aec45cd96aabe992493d6cb54b81d1c"
+    },
+    {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/manifest.json",
       "sha256": "fba7273c9691deff399e38e34970c642f268b761659132734962a8273aadca29"
     },
@@ -3099,12 +4216,28 @@
       "sha256": "b1b89af36ac6137c7c085a4d51747038cbcc81d1a3ebf05b8b209adb2f9924d2"
     },
     {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-checkpoint-v1/P0/public-projection.json",
+      "sha256": "0f9b9ecda16f00f398c8d5bd67076c48160acb95c94deb04a05d70625d974b32"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-checkpoint-v1/P0/terminal-public-review.json",
+      "sha256": "2b146729c6924d4a9b32af243670f1fe08fdcc4e454195ece3426657015c984a"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p0-p1-composite-successor-v1/manifest.json",
+      "sha256": "591c228bdc3f5a70dbc97b82bd6d7f83879abd82b67acefc02cdb3234ef06f72"
+    },
+    {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3/manifest.json",
       "sha256": "86750c9372d18956e6665e8a23537fd87752b0da06144ce1f1254735093a65c3"
     },
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh1/P2/suffix.attempts.jsonl",
       "sha256": "93dc506308f6a7d4534a781931b7808d1aded7945c944875b29e0edbb6f58bcd"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P0/development.attempts.jsonl",
+      "sha256": "97ab8826f07400cedc7e686ba453fd4006a0a3d45e4a7e0a9c031d0646995780"
     },
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/interruption-continuation-v1/fresh2/P2/development.attempts.jsonl",
@@ -3121,6 +4254,10 @@
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/postabort-suffix-054-060-v1/public-composite-review.json",
       "sha256": "7d1a3aec9d82ac2aa83e6c36abd1fa858ad1eac1d484a64624f6730af8b925d1"
+    },
+    {
+      "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/second-interruption-continuation-v1/fresh2/P0/suffix.public-summary.json",
+      "sha256": "624161800e3444ed9efe42e373cd362b049c8cd226242f93a03338aa0d4bbae6"
     },
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/third-interruption-continuation-v1/terminal-public-after-dev006.json",
@@ -3141,6 +4278,10 @@
     {
       "path": "schemas/judgments.schema.json",
       "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
+    },
+    {
+      "path": "scripts/build_gemma26_fresh3_checkpoint.py",
+      "sha256": "53a002f0b3fa937e95ecdca26fcf41de893d52ed3e1ba1538029a0c5e77028ef"
     },
     {
       "path": "scripts/build_gemma26_p2_repeat_findings.py",
