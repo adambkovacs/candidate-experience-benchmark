@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Gemma P1 full run admitted, 2 October 2026, 17:08 UTC
+
+- P1 smoke process `51253` exited zero with three valid responses, no unknown charges and $0.00091939 observed cost. Root inspected all three final raw answers and verified the ordered request, journal and wire bindings; the smoke was accepted unchanged.
+- Root admitted fresh3/P1 development on the same reviewed successor and $0.40 child. The roster execution agent owns fresh route/budget checks and the single launch. No new allocation, retries or model substitutions are authorized.
+- Provider DEV-001 reported 587 reasoning tokens and 549 completion tokens. Preserve both measurements and flag the inconsistency; do not sum them.
+- P0 analysis is being prepared separately. The README now distinguishes the seven-run published cutoff from the newly closed third P0 and P1 smoke.
+
 ## Gemma third P0 closed, 2 October 2026, 17:04 UTC
 
 - Original process `22047` exited zero. Root independently verified all 60 ordered DEV-001–060 outcomes, the exact phase journal, and raw/wire bindings: 60 valid, no invalid or unknown outcomes, $0.01918032 observed development charges.
