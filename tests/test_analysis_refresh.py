@@ -134,6 +134,11 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual([q17["scores"][p]["valid"] for p in ("P0", "P1", "P2")], [60, 60, 59])
         self.assertTrue(q17["firstPassOnly"])
         self.assertTrue(cohorts["legacyQwen"]["qwen17RepeatStudyComplete"])
+        off = cohorts["legacyQwen"]["qwen17OffFirstP0"]
+        self.assertTrue(off["firstPassOnly"])
+        self.assertEqual((off["score"]["valid"], off["score"]["allFour"]), (60, 28))
+        self.assertEqual(off["usage"]["tokens"]["total_tokens"], 95628)
+        self.assertIsNone(off["usage"]["inferenceSeconds"])
         q17p2 = cohorts["legacyQwen"]["qwen17P2Repeat"]
         self.assertEqual([s["allFour"] for s in q17p2["scores"]], [8, 9, 8])
         self.assertEqual(q17p2["comparison"]["denominator"], 58)

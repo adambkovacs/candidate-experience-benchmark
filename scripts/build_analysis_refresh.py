@@ -668,6 +668,10 @@ def build(root=ROOT):
         for a, b in zip(qwen17_p0["scores"], qwen17_p1["scores"])]
     qwen17_p2["matchedP0AllFourDeltas"] = [b["allFour"] - a["allFour"]
         for a, b in zip(qwen17_p0["scores"], qwen17_p2["scores"])]
+    qwen17_off_p0 = legacy_series["qwen3-1.7b-sdk-thinking-off"]["passes"]["fresh1"]["P0"]
+    if (qwen17_off_p0.get("completionStatus") != "complete" or
+            qwen17_off_p0.get("score", {}).get("denominator") != 60):
+        raise ValueError("Qwen1.7B thinking-off first P0 is not closed")
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
@@ -729,6 +733,8 @@ def build(root=ROOT):
             "legacyQwen": {"source": "public-site/legacy-qwen-repeats.json",
                            "qwen17FirstPass": {"scores": qwen17_scores, "firstPassOnly": True},
                            "qwen17RepeatStudyComplete": True,
+                           "qwen17OffFirstP0": {"score": qwen17_off_p0["score"],
+                               "usage": qwen17_off_p0["usage"], "firstPassOnly": True},
                            "qwen17P2Repeat": qwen17_p2,
                            "qwen17P1Repeat": qwen17_p1,
                            "qwen17P0Repeat": qwen17_p0,

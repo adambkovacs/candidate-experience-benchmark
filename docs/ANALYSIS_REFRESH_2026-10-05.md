@@ -78,3 +78,8 @@ The final P2 pass returned 60 valid outputs and 8/60 all-four matches. Its field
 P0 ranges from 23–24 full matches, P1 from 11–16 and P2 from 8–9. Both instruction variants score below P0 in all three matched passes. P2 trails by 16, 14 and 16 full matches. The final P2 pass predicts testimonial “yes” for 44 of the 50 reference “no” reviews. This repeated over-selection explains much of its poor all-four agreement; it is not a general claim that detailed instructions hurt other models. These remain repeated measurements of the same 60 synthetic inputs.
 
 The final pass recorded 157,770 input and 21,946 output tokens, 179,716 total, and 333.19 seconds of summed client-observed request duration. Neither pure inference duration nor local running cost is available. The exact Q4_K_M artifact, runtime and hardware remain bound in the [source report](../public-site/legacy-qwen-repeats.json). This closes one configuration, not the wider benchmark.
+
+
+## Qwen1.7B thinking-off: first P0 pass
+
+Qwen3 1.7B with thinking disabled has closed its first P0 pass: 60 valid answers and 28/60 all-four matches. Field matches are 51 sentiment, 55 follow-up, 45 serious-concern and 43 testimonial, each out of 60. It recorded 95,628 tokens and 30.13 seconds of client-observed request time. Pure inference duration and local cost are unavailable. This configuration is 1/9 complete; its prompt comparisons and repeat conclusions remain pending, separate from the completed thinking-on study. On testimonial decisions it returned “yes” for 13 of 50 reference “no” reviews. One pass does not establish a repeatability range or a general advantage from disabling thinking. [Source-bound report](../public-site/legacy-qwen-repeats.json).
