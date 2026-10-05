@@ -6,15 +6,51 @@ from datetime import datetime
 import hashlib
 import json
 from pathlib import Path
+from unittest.mock import patch
 
 import build_repeat_findings as shared
 from development_benchmark import valid
 import mistral119_fresh_repeat_study as study
 import mistral119_fresh_repeat_execution as execution
 import mistral119_v3_smoke as smoke
+import export_provider_error_public_evidence as public_archive
 
 ROOT = Path(__file__).resolve().parents[1]
+EVIDENCE = Path('public-evidence/mistral119-report-v1')
 SERIES = Path('results/repeatability-v1/mistral119-fresh-matched3-v1')
+LOGICAL_SERIES = SERIES
+PUBLIC_MODE = False
+
+
+def source_path(path):
+    """Use private evidence when present, otherwise the sealed public mirror."""
+    path = Path(path)
+    if path.parts[:len(EVIDENCE.parts)] == EVIDENCE.parts:
+        return ROOT / path
+    if PUBLIC_MODE and path.parts[:len(LOGICAL_SERIES.parts)] == LOGICAL_SERIES.parts:
+        public = ROOT / EVIDENCE / path
+        if public.is_file() or public.is_dir():
+            return public
+    private = ROOT / path
+    if private.is_file() or private.is_dir():
+        return private
+    public = ROOT / EVIDENCE / path
+    if public.is_file() or public.is_dir():
+        return public
+    return private
+
+
+private_series = ROOT / SERIES
+required_private = (
+    private_series / 'v3-development-none-v1/fresh1/P0/development.attempts.jsonl',
+    private_series / 'v3-remaining-none-v1/fresh1/P0-suffix-049-060/suffix.attempts.jsonl',
+    private_series / 'v3-second-suffix-none-v1/fresh1/P0/suffix.attempts.jsonl',
+    private_series / 'v3-third-suffix-none-v1/fresh1/P0/suffix.attempts.jsonl',
+    private_series / 'v5-fourth-suffix-none-v1/fresh1/P0/suffix.attempts.jsonl',
+)
+if not all(path.is_file() for path in required_private):
+    SERIES = EVIDENCE / SERIES
+    PUBLIC_MODE = True
 BASE = SERIES / 'v3-development-none-v1/fresh1/P0'
 FOURTH = SERIES / 'v5-fourth-suffix-none-v1/fresh1/P0'
 OUT = Path('public-site/mistral119-fresh1-p0-findings.json')
@@ -42,30 +78,41 @@ def sha(path):
 
 
 def read_json(path):
-    return json.loads((ROOT / path).read_text())
+    return json.loads(source_path(path).read_text())
 
 
 def read_rows(path):
-    return [json.loads(line) for line in (ROOT / path).read_text().splitlines()
+    return [json.loads(line) for line in source_path(path).read_text().splitlines()
             if line.strip()]
 
 
 def bind(path):
-    return {'path': path.as_posix(), 'sha256': sha(ROOT / path)}
+    path = Path(path)
+    logical = canonical_path(path)
+    public = ROOT / EVIDENCE / logical
+    digest_path = public if public.is_file() else source_path(path)
+    return {'path': logical.as_posix(), 'sha256': sha(digest_path)}
+
+
+def canonical_path(path):
+    path = Path(path)
+    if path.parts[:len(EVIDENCE.parts)] == EVIDENCE.parts:
+        return path.relative_to(EVIDENCE)
+    return path
 
 
 def portable_source_path(value):
     """Resolve archived absolute references inside the current repository."""
     path = Path(value)
     if not path.is_absolute():
-        return ROOT / path
+        return source_path(path)
     try:
-        return ROOT / path.resolve().relative_to(ROOT.resolve())
+        return source_path(path.resolve().relative_to(ROOT.resolve()))
     except ValueError:
         anchors = {'results', 'scripts', 'tests', 'data', 'docs', 'public-site'}
         for index, part in enumerate(path.parts):
             if part in anchors:
-                return ROOT.joinpath(*path.parts[index:])
+                return source_path(Path(*path.parts[index:]))
     raise ValueError(f'Absolute evidence path has no portable repository suffix: {value}')
 
 
@@ -81,10 +128,61 @@ def verify_reconciled_child(base, reconciliation, budget_manifest_name):
     if (not child_name or child_name != expected_name or
             Path(reconciliation.get('child_ledger', '')).name != expected_name):
         raise ValueError('Reconciliation child name differs from reviewed stage manifest')
-    local_child = ROOT / base / child_name
+    local_child = source_path(base / child_name)
     if not local_child.is_file() or sha(local_child) != reconciliation.get('child_sha256'):
         raise ValueError('Stage-local reconciled child hash differs')
     return local_child
+
+
+def verify_frozen_plan_and_execution():
+    """Reconstruct admission from tracked sanitized history and its hash attestations."""
+    evidence_manifest = source_path(EVIDENCE / 'manifest.json')
+    if evidence_manifest.is_file():
+        manifest = json.loads(evidence_manifest.read_text())
+        if manifest.get('schema') != 'mistral119-report-public-evidence-v1':
+            raise ValueError('Mistral report evidence manifest schema differs')
+        for entry in manifest.get('sources', []):
+            public_path = ROOT / entry['publicPath']
+            if (not public_path.is_file() or
+                    sha(public_path) != entry['sanitizedSha256']):
+                raise ValueError(f'Sanitized report evidence changed: {public_path}')
+            original_path = ROOT / entry['originalPath']
+            if original_path.is_file() and sha(original_path) != entry['originalSha256']:
+                raise ValueError(f'Original report evidence changed: {original_path}')
+    public_archive.verify_public(ROOT)
+    archive = read_json(Path('public-evidence/provider-errors-v1/manifest.json'))
+    by_original = {entry['originalPath']: entry for entry in archive['sources']}
+    archived_history = {}
+    for config in study.CONFIGS.values():
+        for original_path in config['historical_smokes']:
+            entry = by_original.get(original_path)
+            if not entry:
+                raise ValueError(f'Historical smoke lacks public hash attestation: {original_path}')
+            archived_path = Path(entry['publicPath'])
+            if sha(source_path(archived_path)) != entry['publicSha256']:
+                raise ValueError(f'Sanitized historical smoke changed: {archived_path}')
+            archived_history[original_path] = entry
+
+    original_bind = study.bind
+    original_jsonl = study.jsonl
+
+    def bound_file(relative):
+        entry = archived_history.get(str(relative))
+        if entry:
+            return {'path': str(relative), 'sha256': entry['privateOriginalSha256']}
+        return original_bind(relative)
+
+    def bound_jsonl(relative):
+        entry = archived_history.get(str(relative))
+        if entry:
+            return study.jsonl(entry['publicPath'])
+        return original_jsonl(relative)
+
+    with patch.object(study, 'bind', side_effect=bound_file), \
+            patch.object(study, 'jsonl', side_effect=bound_jsonl):
+        plan = study.verify(smoke.CONFIG, 'fresh1', smoke.PLAN_SHA)
+        execution.runner.verify_execution_manifest(smoke.EXECUTION_SHA)
+    return plan
 
 
 def verify_named_sources(base, terminal):
@@ -118,6 +216,8 @@ def build():
     attempts_all = []
     bindings = []
     stage_counts = []
+    plan = verify_frozen_plan_and_execution()
+    plan_requests = plan['conditions']['P0']['development']
 
     for index, (base, phase, expected_attempted, expected_failed) in enumerate(STAGES):
         terminal_path = (base / ('development.terminal-public.json' if index == 0 else
@@ -130,9 +230,6 @@ def build():
         verify_named_sources(base, terminal)
         manifest_path = base / 'manifest.json'
         manifest = read_json(manifest_path)
-        plan = study.verify(smoke.CONFIG, 'fresh1', smoke.PLAN_SHA)
-        execution.runner.verify_execution_manifest(smoke.EXECUTION_SHA)
-        plan_requests = plan['conditions']['P0']['development']
         start = PLAN_STARTS[index]
         manifest_requests = manifest.get('requests', manifest.get('suffix_requests'))
         expected_manifest_requests = plan_requests[start:]
@@ -167,7 +264,7 @@ def build():
             entry = terminal_bindings.get(name, terminal_bindings.get(short_name))
             if isinstance(entry, dict):
                 entry = entry.get('sha256')
-            if entry != sha(ROOT / path):
+            if entry != sha(source_path(path)):
                 raise ValueError(f'Terminal does not bind {path}')
             bindings.append(bind(path))
         attempts = read_rows(source_names[f'{phase}.attempts.jsonl'])
@@ -262,7 +359,7 @@ def build():
             if not valid(prediction):
                 raise ValueError(f'Invalid stored classification: {row["id"]}')
             predictions[row['id']] = prediction
-        stage_counts.append({'phase': phase, 'path': base.as_posix(),
+        stage_counts.append({'phase': phase, 'path': canonical_path(base).as_posix(),
                              'attempted': len(attempts), 'valid': len(parsed),
                              'failed': len(failed_ids)})
         bindings.append(bind(terminal_path))
