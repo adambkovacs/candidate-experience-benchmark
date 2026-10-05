@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Flash P0 recovery checks, 5 October 2026
+
+The new one-shot suffix controller prepares exactly DEV-002 through DEV-060 for Flash fresh3/P0. Root verified the original request manifest, parent evidence, completed smoke, account binding and current billing source. Six focused offline tests pass both in the working tree and a clean Git archive with the new files overlaid; six existing remaining-stage tests also pass. Coverage includes all 59 requests, malformed and invalid responses, cap refusal, duplicate claims, concurrent ledger locking and the real connected-app submission handshake. The prepared manifest is `b5a512b67adbb1af9e852f6f9ed4c5326ca535ae9abd3a3e7463737f6d49006f`.
+
+Independent review returned APPROVE with no confirmed BLOCKING findings. One RESIDUAL remains: a crash after the authority hold but before child creation can leave a conservative unused hold requiring reconciliation; it cannot send a request or overrun the cap. Root owns the grant and live dispatch. No new hold or inference request has been created. The proposed $0.348041 hold fits the current authority and would leave $0.633518. DEV-001 remains an unknown outcome, and its original hold is preserved.
+
 ## Clef P1 integrated; Flash continuation preparation, 5 October 2026
 
 The combined analysis now recomputes Clef fresh1/P1 and matched P0 from ten completion-bound evidence files. Its 115-source feed reports 52/60 versus 53/60, four changed reviews, one gained full match and two lost matches. P1 remains one of three required passes. Two Python tests, including changed-source rejection, and three UI tests pass; root checked the rendered text. Independent review of `a4f1bc49` returned APPROVE with no confirmed BLOCKING or RESIDUAL findings and repeated the focused checks. Pages job `37311032456` succeeded. Root fetched live `analysis-refresh.json`, `analysis-refresh.js` and `index.html`; all are byte-identical to the verified local build.
