@@ -15,6 +15,74 @@ SPEC.loader.exec_module(analysis)
 
 
 class AnalysisRefreshTest(unittest.TestCase):
+    def test_qwen35_projection_waits_for_closed_phases_and_matching_repeats(self):
+        report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
+        empty = copy.deepcopy(next(s for s in report["series"]
+                               if s["configuration"] == "qwen3.5-4b-sdk-thinking-on"))
+        empty["passes"] = {name: {} for name in ("fresh1", "fresh2", "fresh3")}
+        empty["completedConditions"] = 0
+        empty["missingPasses"] = [{"pass": name, "condition": condition,
+                                    "status": "not_in_closed_snapshot"}
+                                   for name in empty["passes"] for condition in analysis.CONDITIONS]
+        empty["pairwiseFlips"] = []
+        empty["changesAcrossThreePasses"] = {}
+        result = analysis.qwen35_repeat_summary(empty)
+        self.assertEqual(result["completedConditions"], 0)
+        self.assertEqual(result["matchedP0AllFourDeltas"], {})
+        self.assertEqual(result["conditions"]["P0"]["passes"], [])
+
+        closed = copy.deepcopy(next(s for s in report["series"]
+                                if s["configuration"] == "qwen3-1.7b-sdk-thinking-on"))
+        phase = closed["passes"]["fresh1"]["P0"]
+        empty["passes"]["fresh1"]["P0"] = phase
+        empty["completedConditions"] = 1
+        empty["missingPasses"] = [row for row in empty["missingPasses"]
+                                  if (row["pass"], row["condition"]) != ("fresh1", "P0")]
+        result = analysis.qwen35_repeat_summary(empty)
+        self.assertEqual(result["conditions"]["P0"]["passes"][0]["score"], phase["score"])
+        self.assertEqual(result["conditions"]["P0"]["passes"][0]["usage"], phase["usage"])
+        self.assertEqual(result["matchedP0AllFourDeltas"], {"fresh1": {}})
+
+        empty["passes"]["fresh1"]["P1"] = closed["passes"]["fresh1"]["P1"]
+        empty["completedConditions"] = 2
+        empty["missingPasses"] = [row for row in empty["missingPasses"]
+                                  if (row["pass"], row["condition"]) != ("fresh1", "P1")]
+        result = analysis.qwen35_repeat_summary(empty)
+        self.assertEqual(result["matchedP0AllFourDeltas"]["fresh1"]["P1"],
+                         closed["passes"]["fresh1"]["P1"]["score"]["allFour"] -
+                         phase["score"]["allFour"])
+
+        # Assemble two and then three P0 repeats from a saved closed schema fixture.
+        empty["passes"]["fresh2"]["P0"] = closed["passes"]["fresh2"]["P0"]
+        empty["completedConditions"] = 3
+        empty["missingPasses"] = [row for row in empty["missingPasses"]
+                                  if (row["pass"], row["condition"]) != ("fresh2", "P0")]
+        with self.assertRaisesRegex(ValueError, "pairwise coverage differs"):
+            analysis.qwen35_repeat_summary(empty)
+        empty["pairwiseFlips"] = [pair for pair in closed["pairwiseFlips"]
+                                  if pair["condition"] == "P0" and
+                                  pair["from"] == "fresh1" and pair["to"] == "fresh2"]
+        result = analysis.qwen35_repeat_summary(empty)
+        self.assertEqual(result["conditions"]["P0"]["completedPasses"], 2)
+        self.assertEqual(len(result["conditions"]["P0"]["pairwiseFlips"]), 1)
+        self.assertIsNone(result["conditions"]["P0"]["changesAcrossThreePasses"])
+
+        empty["passes"]["fresh3"]["P0"] = closed["passes"]["fresh3"]["P0"]
+        empty["completedConditions"] = 4
+        empty["missingPasses"] = [row for row in empty["missingPasses"]
+                                  if (row["pass"], row["condition"]) != ("fresh3", "P0")]
+        empty["pairwiseFlips"] = [pair for pair in closed["pairwiseFlips"]
+                                  if pair["condition"] == "P0"]
+        with self.assertRaisesRegex(ValueError, "three-pass coverage differs"):
+            analysis.qwen35_repeat_summary(empty)
+        empty["changesAcrossThreePasses"] = {
+            "P0": closed["changesAcrossThreePasses"]["P0"]}
+        result = analysis.qwen35_repeat_summary(empty)
+        self.assertEqual(result["conditions"]["P0"]["completedPasses"], 3)
+        self.assertEqual(len(result["conditions"]["P0"]["pairwiseFlips"]), 3)
+        self.assertEqual(result["conditions"]["P0"]["changesAcrossThreePasses"],
+                         closed["changesAcrossThreePasses"]["P0"])
+
     def test_published_feed_rebuilds_from_bound_sources(self):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
@@ -166,6 +234,13 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual(len(off_repeat["conditions"]["P2"]["changesAcrossThreePasses"]["fourFieldVector"]), 7)
         self.assertEqual(off_repeat["conditions"]["P2"]["pairwiseFlips"][0]["fourFieldVector"]["changed"], 5)
         self.assertEqual(off_repeat["missingPasses"], [])
+        q35 = cohorts["legacyQwen"]["qwen35Repeat"]
+        q35_source = next(s for s in json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())["series"]
+                          if s["configuration"] == "qwen3.5-4b-sdk-thinking-on")
+        self.assertEqual(q35["completedConditions"], q35_source["completedConditions"])
+        self.assertEqual(len(q35["missingPasses"]), 9-q35["completedConditions"])
+        self.assertEqual(sum(len(q35["conditions"][condition]["passes"])
+                             for condition in ("P0", "P1", "P2")), q35["completedConditions"])
         q17p2 = cohorts["legacyQwen"]["qwen17P2Repeat"]
         self.assertEqual([s["allFour"] for s in q17p2["scores"]], [8, 9, 8])
         self.assertEqual(q17p2["comparison"]["denominator"], 58)

@@ -129,6 +129,69 @@ def qwen17_off_repeat_summary(series):
             "conditions": conditions, "missingPasses": remaining}
 
 
+def qwen35_repeat_summary(series):
+    """Project only closed Qwen3.5 phases; keep unavailable comparisons absent."""
+    names = ("fresh1", "fresh2", "fresh3")
+    passes = series.get("passes", {})
+    if (series.get("plannedConditions") != 9 or set(passes) != set(names) or
+            any(set(passes[name]) - set(CONDITIONS) for name in names)):
+        raise ValueError("Qwen3.5 repeat coverage differs")
+    completed = sum(len(passes[name]) for name in names)
+    missing = series.get("missingPasses", [])
+    expected_missing = {(name, condition) for name in names for condition in CONDITIONS
+                        if condition not in passes[name]}
+    if (series.get("completedConditions") != completed or
+            len(missing) != len(expected_missing) or
+            {(item.get("pass"), item.get("condition")) for item in missing} != expected_missing):
+        raise ValueError("Qwen3.5 missing phases differ")
+    conditions = {}
+    for condition in CONDITIONS:
+        closed = []
+        for name in names:
+            phase = passes[name].get(condition)
+            if phase is None:
+                continue
+            score = phase.get("score", {})
+            usage = phase.get("usage", {})
+            outcomes = score.get("outcomes", {})
+            if (phase.get("completionStatus") != "complete" or
+                    score.get("denominator") != 60 or
+                    not 0 <= score.get("allFour", -1) <= score.get("valid", -1) <= 60 or
+                    outcomes.get("valid") != score["valid"] or
+                    sum(outcomes.values()) != 60 or
+                    usage.get("requestCount") != 60 or
+                    usage.get("timeBasis") != "client_observed_wall_clock" or
+                    not isinstance(usage.get("clientRequestSecondsTotal"), (int, float)) or
+                    usage["clientRequestSecondsTotal"] < 0 or
+                    usage.get("inferenceSeconds") is not None or
+                    usage.get("actualCostUsd") is not None):
+                raise ValueError("Qwen3.5 closed phase score or usage differs")
+            closed.append({"pass": name, "score": score, "usage": usage})
+        pairs = [item for item in series.get("pairwiseFlips", [])
+                 if item.get("condition") == condition]
+        expected_pairs = {(left, right) for i, left in enumerate(
+            [item["pass"] for item in closed]) for right in
+            [item["pass"] for item in closed][i + 1:]}
+        if {(item.get("from"), item.get("to")) for item in pairs} != expected_pairs or len(pairs) != len(expected_pairs):
+            raise ValueError("Qwen3.5 pairwise coverage differs")
+        three_pass = series.get("changesAcrossThreePasses", {}).get(condition)
+        if (len(closed) == 3) != (three_pass is not None):
+            raise ValueError("Qwen3.5 three-pass coverage differs")
+        conditions[condition] = {"completedPasses": len(closed), "passes": closed,
+                                 "pairwiseFlips": pairs,
+                                 "changesAcrossThreePasses": three_pass}
+    matched = {}
+    for name in names:
+        first = passes[name]
+        if "P0" in first:
+            matched[name] = {condition: first[condition]["score"]["allFour"] -
+                             first["P0"]["score"]["allFour"]
+                             for condition in ("P1", "P2") if condition in first}
+    return {"completedConditions": completed, "plannedConditions": 9,
+            "conditions": conditions, "matchedP0AllFourDeltas": matched,
+            "missingPasses": missing}
+
+
 def _class_hits(root, public_report, labels, bindings):
     """Recheck public records, their hashes, and the reporter's cell scores."""
     result = {}
@@ -779,6 +842,7 @@ def build(root=ROOT):
             raise ValueError("Qwen1.7B thinking-off first prompt pass is not closed")
     qwen17_off_p0 = qwen17_off_first["P0"]
     qwen17_off_repeat = qwen17_off_repeat_summary(legacy_series["qwen3-1.7b-sdk-thinking-off"])
+    qwen35_repeat = qwen35_repeat_summary(legacy_series["qwen3.5-4b-sdk-thinking-on"])
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
@@ -847,6 +911,7 @@ def build(root=ROOT):
                            "qwen17OffFirstP0": {"score": qwen17_off_p0["score"],
                                "usage": qwen17_off_p0["usage"], "firstPassOnly": True},
                            "qwen17OffRepeat": qwen17_off_repeat,
+                           "qwen35Repeat": qwen35_repeat,
                            "qwen17P2Repeat": qwen17_p2,
                            "qwen17P1Repeat": qwen17_p1,
                            "qwen17P0Repeat": qwen17_p0,

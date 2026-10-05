@@ -71,7 +71,7 @@ All three P1 passes returned 60 valid answers, with all-four scores of 12/60, 11
 P0 scores 24/60, 23/60 and 24/60, with all 60 answers valid in every pass. Across the three passes, 19 of 60 reviews changed at least one label: 6 sentiment, 1 follow-up, 7 serious-concern and 10 testimonial decisions, with overlap. Pairwise changed-review counts are 11, 12 and 17. The third pass used 99,549 tokens and 87.48 seconds of client-observed request time. P1 scores below P0 in all three matched passes, by 12, 12 and 8 full matches. This describes the frozen local Qwen1.7B setup on these 60 reviews, not a general effect of classifier instructions. Only third P2 remains for this configuration. [Source-bound report](../public-site/legacy-qwen-repeats.json).
 
 
-## Qwen1.7B: all nine runs complete
+## Qwen1.7B thinking-on: all nine runs complete
 
 The final P2 pass returned 60 valid outputs and 8/60 all-four matches. Its field matches were sentiment 41, follow-up 52, serious concern 42 and testimonial 14, each out of 60. P2's three scores are 8/9/8, but 40 of the 58 reviews valid in all three passes changed at least one label. The changed-review counts by field are 18/8/15/16, with overlap. DEV-012 and DEV-033 are excluded only from the shared-valid flip calculation; their earlier invalid outputs remain in the fixed score denominators.
 
@@ -82,12 +82,12 @@ The final pass recorded 157,770 input and 21,946 output tokens, 179,716 total, a
 
 ## Qwen1.7B thinking-off: first P0 pass
 
-Qwen3 1.7B with thinking disabled has closed its first P0 pass: 60 valid answers and 28/60 all-four matches. Field matches are 51 sentiment, 55 follow-up, 45 serious-concern and 43 testimonial, each out of 60. It recorded 95,628 tokens and 30.13 seconds of client-observed request time. Pure inference duration and local cost are unavailable. This configuration is 1/9 complete; its prompt comparisons and repeat conclusions remain pending, separate from the completed thinking-on study. On testimonial decisions it returned “yes” for 13 of 50 reference “no” reviews. One pass does not establish a repeatability range or a general advantage from disabling thinking. [Source-bound report](../public-site/legacy-qwen-repeats.json).
+Qwen3 1.7B with thinking disabled has closed its first P0 pass: 60 valid answers and 28/60 all-four matches. Field matches are 51 sentiment, 55 follow-up, 45 serious-concern and 43 testimonial, each out of 60. It recorded 95,628 tokens and 30.13 seconds of client-observed request time. Pure inference duration and local cost are unavailable. At that first-pass checkpoint, this configuration was 1/9 complete. The full repeat findings below supersede that coverage status. On testimonial decisions it returned “yes” for 13 of 50 reference “no” reviews. One pass does not establish a repeatability range or a general advantage from disabling thinking. [Source-bound report](../public-site/legacy-qwen-repeats.json).
 
 
 ## Qwen1.7B thinking-off: first prompt comparison
 
-Qwen3 1.7B with thinking disabled has closed its first P0/P1/P2 passes, scoring 28/25/32 all-four matches out of 60, with 60/59/57 valid answers. P1 preserves one strict-JSON failure (DEV-029); P2 preserves three (DEV-002, DEV-005 and DEV-018). All four failures were JSON answers wrapped in Markdown code fences. The protocol requires bare JSON; outputs were not repaired. Decision rules improved the first-pass all-four total over P0 while reducing format validity. This differs from thinking-on, where P2 scored below P0 in all three passes. These are observations of the exact settings, not a general effect of reasoning or prompt detail. Thinking-off is 3/9 complete; its two further passes per prompt remain required.
+Qwen3 1.7B with thinking disabled has closed its first P0/P1/P2 passes, scoring 28/25/32 all-four matches out of 60, with 60/59/57 valid answers. P1 preserves one strict-JSON failure (DEV-029); P2 preserves three (DEV-002, DEV-005 and DEV-018). All four failures were JSON answers wrapped in Markdown code fences. The protocol requires bare JSON; outputs were not repaired. Decision rules improved the first-pass all-four total over P0 while reducing format validity. This differs from thinking-on, where P2 scored below P0 in all three passes. These are observations of the exact settings, not a general effect of reasoning or prompt detail. That checkpoint covered the first three phases; all nine are now closed, as described below.
 
 P1 matches sentiment/follow-up/serious-concern/testimonial on 48/56/43/44 reviews; P2 matches 49/51/37/54, all on the fixed 60-review denominator. P2 improves testimonial agreement while losing serious-concern agreement against P0 (43 and 45 respectively). The single all-four total hides that tradeoff. P1 records 106,130 tokens and 39.76 seconds of client request time; P2 records 160,446 tokens and 44.71 seconds. Pure inference time and local cost remain unavailable. [Source-bound report](../public-site/legacy-qwen-repeats.json).
 
@@ -102,3 +102,12 @@ The first-pass prompt comparison now reads the three saved record files, verifie
 | P0 → P2 | 57 | 28 → 32 | 9 | 5 | 20 | 3 |
 
 The invalidated reviews were not all-four matches in P0. They therefore do not explain the net score changes, though they still count as failures on the fixed 60-review denominator. Shared-valid comparisons answer a narrower question about label changes; they do not replace that denominator. The [analysis feed](../public-site/analysis-refresh.json) includes gained, lost, changed and invalidated IDs under `newerCohorts.legacyQwen.qwen17OffFirstPass.matchedP0`. A second deterministic calculation independently reproduced all counts and IDs. These are prompt comparisons within one pass, not repeatability results.
+
+
+## Qwen1.7B thinking-off: all nine runs complete
+
+All three passes of each prompt condition are closed. All-four matches out of 60 are P0: 28/26/26, P1: 25/26/25, and P2: 32/30/30. P2 gains four matches over P0 in every corresponding pass. That improvement comes with more unusable outputs: P2 returns 57/56/55 valid answers, while P0 returns 60 in every pass. P1 returns 59/60/60 valid answers. The invalid answers remain in each 60-review score.
+
+Across all three passes, at least one label changes on 10/60 shared-valid reviews for P0, 12/59 for P1 and 7/48 for P2. P2's smaller shared-valid denominator matters: its 7/48 result does not establish better stability across the full dataset. The repeat results support a limited finding: these decision-rule prompts improve all-four agreement for this exact thinking-off configuration, while reducing output validity. Thinking-on shows the opposite score direction. Neither result establishes a general advantage for a prompt or reasoning setting.
+
+The original third-P2 smoke stopped on a code-fenced answer. Its responses remain unchanged; a separately reviewed admission allowed the development pass with the same frozen requests and parser. The final pass returned five invalid answers and 30/60 matches. See the [source-bound findings](LEGACY_QWEN_REPEAT_FINDINGS_2026-10-02.md) and [repeat report](../public-site/legacy-qwen-repeats.json) for individual outcomes, usage and power-source observations.

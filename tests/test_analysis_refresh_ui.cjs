@@ -142,6 +142,51 @@ test('Qwen current repeat narrative distinguishes a stopped smoke from a closed 
   assert.match(complete.cutoffs,/All three P2 full passes are complete/);
   assert.doesNotMatch(complete.cutoffs,/Fresh3 P2 stopped at smoke/);
 });
+test('Qwen3.5 summary shows only closed phases and supported comparisons', async()=>{
+  const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
+  const q35 = {completedConditions:0,plannedConditions:9,missingPasses:[],matchedP0AllFourDeltas:{},
+    conditions:Object.fromEntries(['P0','P1','P2'].map(c=>[c,{completedPasses:0,passes:[],pairwiseFlips:[],changesAcrossThreePasses:null}]))};
+  report.newerCohorts.legacyQwen.qwen35Repeat=q35;
+  let view=await renderState(report);
+  assert.match(view.cutoffs,/Qwen3.5 4B SDK, thinking on:<\/strong> 0\/9 full phases are closed/);
+  assert.match(view.cutoffs,/No full 60-review phase is closed yet/);
+  assert.doesNotMatch(view.cutoffs,/Qwen3.5 4B SDK[\s\S]*fresh1 P0:/);
+  q35.conditions.P0.passes.push({pass:'fresh1',score:{allFour:22,valid:59},
+    usage:{clientRequestSecondsTotal:120.49,tokens:{input_tokens:83190,output_tokens:2498,total_tokens:85688,reasoning_output_tokens:500}}});
+  q35.conditions.P0.completedPasses=1;
+  q35.completedConditions=1;
+  q35.matchedP0AllFourDeltas={fresh1:{}};
+  view=await renderState(report);
+  assert.match(view.cutoffs,/fresh1 P0: 22\/60 all-four matches, 59\/60 valid answers, 1 invalid or failed; 83,190 input tokens, 2,498 output tokens, 85,688 total \(500 reasoning tokens within output\); 120.5 seconds/);
+  assert.doesNotMatch(view.cutoffs,/fresh1 P1 versus P0/);
+  q35.conditions.P1.passes.push({pass:'fresh1',score:{allFour:25,valid:60},
+    usage:{clientRequestSecondsTotal:100,tokens:{input_tokens:null,output_tokens:2000,total_tokens:null,reasoning_output_tokens:null}}});
+  q35.conditions.P1.completedPasses=1;
+  q35.completedConditions=2;
+  q35.matchedP0AllFourDeltas.fresh1.P1=3;
+  view=await renderState(report);
+  assert.match(view.cutoffs,/fresh1 P1 versus P0: \+3 all-four matches out of 60/);
+  assert.match(view.cutoffs,/unavailable input tokens, 2,000 output tokens, unavailable total/);
+  q35.conditions.P0.passes.push({pass:'fresh2',score:{allFour:23,valid:60},
+    usage:{clientRequestSecondsTotal:110,tokens:{input_tokens:80000,output_tokens:2400,total_tokens:82400,reasoning_output_tokens:400}}});
+  q35.conditions.P0.completedPasses=2;
+  q35.completedConditions=3;
+  q35.conditions.P0.pairwiseFlips.push({from:'fresh1',to:'fresh2',denominator:59,
+    fourFieldVector:{changed:7}});
+  view=await renderState(report);
+  assert.match(view.cutoffs,/P0 fresh1 to fresh2: 7\/59 shared-valid reviews changed at least one label/);
+  assert.doesNotMatch(view.cutoffs,/P0 across three passes:/);
+  q35.conditions.P0.passes.push({pass:'fresh3',score:{allFour:24,valid:60},
+    usage:{clientRequestSecondsTotal:105,tokens:{input_tokens:81000,output_tokens:2600,total_tokens:83600,reasoning_output_tokens:450}}});
+  q35.conditions.P0.completedPasses=3;
+  q35.completedConditions=4;
+  q35.conditions.P0.pairwiseFlips.push({from:'fresh1',to:'fresh3',denominator:59,fourFieldVector:{changed:8}});
+  q35.conditions.P0.pairwiseFlips.push({from:'fresh2',to:'fresh3',denominator:60,fourFieldVector:{changed:6}});
+  q35.conditions.P0.changesAcrossThreePasses={denominator:59,fourFieldVector:Array(9).fill('synthetic-review')};
+  view=await renderState(report);
+  assert.match(view.cutoffs,/P0 across three passes: 9\/59 reviews valid in all three changed at least one label/);
+  assert.match(view.cutoffs,/local hardware and electricity cost and pure inference time were not measured/);
+});
 test('unavailable or malformed analysis links the report instead of showing invented results', async()=>{
   assert.match(await render(null,false),/could not be loaded/);
   assert.match(await render({}),/could not be loaded/);
