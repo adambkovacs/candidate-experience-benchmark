@@ -8,7 +8,8 @@ const root=process.cwd(), a=require(root+'/scripts/legacy_qwen_repeat_admission.
  const host=h.currentHost(),runtime=await s.realRuntime(plan,c),selected=a.stageRows(plan,id,condition,'development'),measured=[];
  for(const row of selected)measured.push(await a.verifyRequestRuntime(runtime,c,row));
  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+Z/,'Z');
- const dir=`results/route-audits/${id}-${condition}-${stage}-${stamp}`;fs.mkdirSync(dir,{recursive:true});
+ const routeId=id.replace(/[^a-zA-Z0-9_-]/g,'_');
+ const dir=`results/route-audits/${routeId}-${condition}-${stage}-${stamp}`;fs.mkdirSync(dir,{recursive:true});
  const response=await fetch('https://openrouter.ai/api/v1/models');assert.equal(response.status,200);const raw=await response.text(),body=JSON.parse(raw);assert(body.data.length>=100);
  const families={'Qwen3-0.6B':'qwen306b','Qwen3-1.7B':'qwen317b','Qwen3.5-4B':'qwen354b'};
  const matches=body.data.filter(m=>Object.values(families).some(f=>[m.id,m.name,m.canonical_slug,m.hugging_face_id].some(v=>typeof v==='string'&&v.toLowerCase().replace(/[^a-z0-9]/g,'').includes(f))));assert.equal(matches.length,0,'Hosted route requires review');

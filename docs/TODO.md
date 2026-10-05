@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Battery run closed, 5 October 2026, 19:13 UTC
+
+Root closed thinking-off fresh2/P2: 60 saved, 56 valid, 30/60 all-four matches. Actual battery operation is recorded, with unchanged boot/sleep and open lid verified. Fresh2/P1 handle 49188 then closed: 60 valid, 26/60 matches, with post-stage checks passed. Coverage is 5/9; next is fresh2/P0 smoke. No inference is running. A route-audit filename mismatch stopped the first preflight before dispatch; the helper now sanitizes the directory name and the frozen controller remains unchanged. Eleven Python and thirteen Node checks pass. Combined and legacy report feeds are regenerated; publication is pending. No paid request or budget mutation occurred. Read-only review: APPROVE; RESIDUAL receipt candidate timestamps precede the explicit root review/copy step, retained for follow-up.
+
 ## Battery execution authorized, 5 October 2026
 
 The user removed the AC-only restriction. `config/local-execution.json` permits battery operation; the current host helper and Qwen preflight record actual power source and policy hash. Five tests pass, including battery admission, preserved historical AC enforcement, sleep detection, and lid/memory checks. Live host admission passed on battery at 49%. Earlier power-blocked notes are historical. Next step remains a fresh development preflight for thinking-off fresh2/P2, retaining the completed smoke.
