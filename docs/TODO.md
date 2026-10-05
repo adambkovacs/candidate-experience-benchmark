@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Clef Flash P2 three-pass execution complete, 5 October 2026
+
+Root fresh3/P2 smoke `59400` and full-development `76311` exited zero. The smoke was inspected before full-stage admission. All three P2 full passes contain 60 valid ordered outputs, with 154,954 input tokens each and no pairwise changes in predictions, native probabilities or provider confidence. Root verified completion hashes and IDs independently. The P2 findings agent is extending the report to all three passes before root review. P1 and P2 repeat execution is now closed; Flash P0 remains interrupted and Clef P1/P2 remain unfinished.
+
+The combined analysis draft is under root review. Root requested correction of a misleading P0 denominator and stale Mistral unsent-status text. Mistral's historical evidence dependency still needs a clean-checkout verification before publication. No spending cap was changed.
+
+
 ## P2 second pass closed; publication dependency found, 5 October 2026
 
 Clef Flash fresh2/P2 smoke `37826` and development `66015` exited zero. Root inspected the smoke then admitted the full pass; all 60 ordered outputs are valid and completion hashes match. Both P2 passes report 154,954 input tokens and have identical predictions, probabilities and confidence. One P2 full pass remains. The report agent owns the two-pass P2 analysis update.
