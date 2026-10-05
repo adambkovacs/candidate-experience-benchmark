@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 100)
+        self.assertEqual(len(rebuilt["sources"]), 105)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -90,6 +90,30 @@ class AnalysisRefreshTest(unittest.TestCase):
                           "unknownOutcomeIds": ["DEV-001"], "neverSentCount": 59,
                           "fresh3Score": None}})
         self.assertIsNone(cohorts["clefNativeP0"]["providerBilledUsd"])
+        flash_p1 = cohorts["clefFlashP1"]
+        self.assertEqual(flash_p1["source"], "public-site/clef-flash-p1-findings.json")
+        self.assertEqual([flash_p1["passes"][p]["allFour"] for p in ("fresh1", "fresh2", "fresh3")],
+                         [47, 47, 47])
+        self.assertTrue(flash_p1["predictionVectorsStable"])
+        self.assertTrue(flash_p1["nativeDistributionsStable"])
+        self.assertTrue(flash_p1["vendorConfidenceStable"])
+        self.assertEqual(flash_p1["matchedFresh1P0"], {
+            "sharedValid": 60, "p0AllFour": 45, "p1AllFour": 47, "allFourDelta": 2,
+            "becameCorrectIds": ["DEV-027", "DEV-044"], "becameIncorrectIds": []})
+        self.assertEqual(flash_p1["inputTokensPerPass"],
+                         {"fresh1": 144694, "fresh2": 144694, "fresh3": 144694})
+        self.assertIsNone(flash_p1["providerBilledUsd"])
+        p2 = cohorts["clefFlashP2"]
+        self.assertEqual([p2["passes"][p]["allFour"] for p in ("fresh1", "fresh2", "fresh3")], [46, 46, 46])
+        self.assertEqual(p2["matchedFresh1P1"]["allFourBecameCorrectIds"], ["DEV-058"])
+        self.assertEqual(p2["matchedFresh1P1"]["allFourBecameIncorrectIds"], ["DEV-027", "DEV-032"])
+        self.assertIsNone(p2["providerBilledUsd"])
+        mistral_partial = cohorts["mistral119Fresh1P0"]
+        self.assertEqual(mistral_partial["source"], "public-site/mistral119-fresh1-p0-findings.json")
+        self.assertEqual((mistral_partial["valid"], mistral_partial["failed"],
+                          mistral_partial["allFourMatches"], mistral_partial["fixed60Denominator"]),
+                         (55, 5, 40, 60))
+        self.assertFalse(mistral_partial["cleanRepeatabilityClaim"])
         self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 3)
         legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
         pending = {s["configuration"]: s for s in legacy["series"]}

@@ -1,6 +1,14 @@
 # Current objectives and direction
 
-Updated 2026-10-02 with Clef's third P0 checkpoint, Gemma's closed DEV-060 suffix and the shared spending authorization. The classification-bench implementation remains owned by a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
+Updated 2026-10-05 with Clef Flash P1/P2 repeats, the final interrupted Mistral P0 checkpoint and report category work. The classification-bench implementation remains owned by a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
+
+## Current checkpoint, 5 October 2026
+
+This checkpoint supersedes unfinished-run statements in the dated history below. [Clef Flash P1](CLEF_FLASH_P1_FINDINGS_2026-10-05.md) and [P2](CLEF_FLASH_P2_FINDINGS_2026-10-05.md) each have three closed 60-valid passes, scoring 47/60 and 46/60 respectively. No labels, native probabilities or vendor confidence values changed within either condition. Flash's third P0 pass remains interrupted (DEV-001 unknown, DEV-002–060 never sent); Clef P1/P2 remain required and unexecuted. The pending request to increase the separate $10 postapproval cap is not approval. Existing caps still apply.
+
+Gemma's nine planned phases now have descriptive results, including retained failures; [P1 scores are 58/58/57](GEMMA26_FRESH3_P1_INTERRUPTED_2026-10-02.md) on the fixed 60-review denominator. Mistral fresh1/P0 attempted all 60: 55 valid, five failed and 40 all-four matches. Its [report](MISTRAL119_FRESH1_P0_FINDINGS_2026-10-05.md) passed clean-checkout reconstruction and exact-byte verification in `324695e3`; live publication still needs verification. Other Mistral conditions are unfinished. [DeepSeek's exact required endpoint remains absent](ROUTE_RECHECK_2026-10-05.md); other endpoints do not continue that frozen configuration.
+
+The [analysis update](ANALYSIS_REFRESH_2026-10-05.md) incorporates the new prompt/repeat results. The Mistral archive gate is fixed; deployment verification is pending. Report filters must distinguish model purpose, verified task-specific training and output interface, which may overlap. The [Cloudflare leaderboard](https://clef-evals.workers-ai-mle.workers.dev/) is a design and model-discovery reference, not an additional source of scores for our dataset or automatic admission of every listed model. See [TODO](TODO.md) for current owners and verification status.
 
 ## Clef and report filtering, 2 October 2026
 

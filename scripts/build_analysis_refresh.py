@@ -19,6 +19,11 @@ MISTRAL_ORIGINAL = "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-dev
 MISTRAL_FIRST_SUFFIX = "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-remaining-none-v1/fresh1/P0-suffix-049-060/suffix.terminal-public.json"
 MISTRAL_SECOND_SUFFIX = "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-second-suffix-none-v1/fresh1/P0/suffix.terminal-public.json"
 GEMMA_TERMINAL = "results/repeatability-v1/gemma26-on-fresh-matched3-v2/third-interruption-continuation-v1/terminal-public-after-dev006.json"
+CLEF_FLASH_P1 = "results/clef-native-v1/clef-flash-p1-findings-public.json"
+CLEF_FLASH_P1_PUBLIC = "public-site/clef-flash-p1-findings.json"
+CLEF_FLASH_P2 = "results/clef-native-v1/clef-flash-p2-findings-public.json"
+CLEF_FLASH_P2_PUBLIC = "public-site/clef-flash-p2-findings.json"
+MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
 SOURCES = (
     "public-site/sonnet55-fresh-matched3.json",
     "public-site/sonnet55-fresh-matched3-evidence/report.json",
@@ -42,6 +47,9 @@ SOURCES = (
     MISTRAL_FIRST_SUFFIX,
     MISTRAL_SECOND_SUFFIX,
     GEMMA_TERMINAL,
+    CLEF_FLASH_P1,
+    CLEF_FLASH_P2,
+    MISTRAL_P0_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -292,6 +300,31 @@ def build(root=ROOT):
     mistral_first = data[MISTRAL_FIRST_SUFFIX]
     mistral_second = data[MISTRAL_SECOND_SUFFIX]
     gemma_terminal = data[GEMMA_TERMINAL]
+    clef_flash_p1 = data[CLEF_FLASH_P1]
+    public_clef_flash_p1 = root / CLEF_FLASH_P1_PUBLIC
+    if (not public_clef_flash_p1.is_file() or
+            public_clef_flash_p1.read_bytes() != (root / CLEF_FLASH_P1).read_bytes()):
+        raise ValueError("Public Clef Flash P1 projection differs from reviewed source")
+    bindings[CLEF_FLASH_P1_PUBLIC] = sha(public_clef_flash_p1)
+    flash_p2 = data[CLEF_FLASH_P2]
+    if (root / CLEF_FLASH_P2_PUBLIC).read_bytes() != (root / CLEF_FLASH_P2).read_bytes():
+        raise ValueError("Public Clef Flash P2 projection differs from reviewed source")
+    bindings[CLEF_FLASH_P2_PUBLIC] = sha(root / CLEF_FLASH_P2_PUBLIC)
+    if (flash_p2.get("schema") != "clef-flash-p2-findings-v1" or
+            flash_p2.get("controls", {}).get("fullPassesCompleted") != 3 or
+            set(flash_p2.get("phaseByPass", {})) != {"fresh1", "fresh2", "fresh3"}):
+        raise ValueError("Clef Flash P2 coverage differs")
+    for phase in flash_p2["phaseByPass"].values():
+        if phase["counts"] != {"valid": 60, "invalidOutput": 0, "serviceError": 0,
+                               "unknownOutcome": 0, "neverSent": 0}:
+            raise ValueError("Clef Flash P2 outcomes differ")
+    for pair in ("p2Repeatability", "p2Fresh1Fresh3", "p2Fresh2Fresh3"):
+        comparison = flash_p2["controls"][pair]
+        if comparison["sharedValid"] != 60 or any(comparison[field] for field in (
+                "predictionVectorChangedIds", "nativeDistributionsChangedIds",
+                "vendorConfidenceChangedIds")):
+            raise ValueError("Clef Flash P2 repeat findings differ")
+    mistral_p0 = data[MISTRAL_P0_PUBLIC]
     if (mistral_original["status"] != "interrupted_unscored" or
             mistral_first["status"] != "interrupted_unscored" or
             mistral_second["status"] != "interrupted_unscored" or
@@ -375,6 +408,49 @@ def build(root=ROOT):
             clef.get("cost", {}).get("providerBilledUsd") is not None or
             not clef.get("sourceSha256")):
         raise ValueError("Clef first-pass source or coverage differs")
+    p1_passes = clef_flash_p1.get("phaseByPass") or {}
+    p1_repeat = (clef_flash_p1.get("controls") or {}).get("p1Repeatability") or {}
+    p1_matched = (clef_flash_p1.get("controls") or {}).get("matchedFresh1P0") or {}
+    p1_expected_passes = {"fresh1", "fresh2", "fresh3"}
+    if (clef_flash_p1.get("schema") != "clef-flash-p1-findings-v1" or
+            clef_flash_p1.get("configuration", {}).get("model") != "clef-flash" or
+            clef_flash_p1.get("configuration", {}).get("condition") != "P1" or
+            clef_flash_p1.get("configuration", {}).get("referenceLabelsSent") is not False or
+            set(p1_passes) != p1_expected_passes or
+            any(p.get("counts", {}).get("valid") != 60 or
+                p.get("counts", {}).get("invalidOutput") != 0 or
+                p.get("counts", {}).get("serviceError") != 0 or
+                p.get("counts", {}).get("unknownOutcome") != 0 or
+                p.get("counts", {}).get("neverSent") != 0 or
+                p.get("allFourCorrect") != 47 or p.get("allFourDenominator") != 60
+                for p in p1_passes.values()) or
+            p1_repeat.get("sharedValid") != 60 or
+            p1_repeat.get("predictionVectorChangedIds") != [] or
+            p1_repeat.get("nativeDistributionsChangedIds") != [] or
+            p1_repeat.get("vendorConfidenceChangedIds") != [] or
+            p1_matched.get("auditPassed") is not True or
+            p1_matched.get("sharedValid") != 60 or
+            p1_matched.get("p0AllFourCorrect") != 45 or
+            p1_matched.get("p1AllFourCorrect") != 47 or
+            p1_matched.get("comparison", {}).get("allFourBecameCorrectIds") !=
+                ["DEV-027", "DEV-044"] or
+            p1_matched.get("comparison", {}).get("allFourBecameIncorrectIds") != [] or
+            clef_flash_p1.get("cost", {}).get("providerBilledUsd") is not None):
+        raise ValueError("Clef Flash P1 source or coverage differs")
+    if (mistral_p0.get("schema") != "mistral119-fresh1-p0-partial-findings-v1" or
+            mistral_p0.get("status") != "partial_unscored_as_repeat" or
+            mistral_p0.get("condition") != "P0" or
+            mistral_p0.get("freshPass") != "fresh1" or
+            mistral_p0.get("denominator") != 60 or
+            mistral_p0.get("outcomes", {}).get("valid") != 55 or
+            mistral_p0.get("outcomes", {}).get("failed") != 5 or
+            mistral_p0.get("outcomes", {}).get("neverSent") != 0 or
+            mistral_p0.get("scoring", {}).get("allFourMatches") != 40 or
+            mistral_p0.get("scoring", {}).get("allFourDenominator") != 60 or
+            mistral_p0.get("scoring", {}).get("allFourAmongValid") != 0.727273 or
+            mistral_p0.get("lineage", {}).get("cleanRepeatabilityClaim") is not False or
+            mistral_p0.get("lineage", {}).get("referenceLabelsSent") is not False):
+        raise ValueError("Mistral 119B interrupted P0 source or coverage differs")
     if (clef_repeat.get("schema") != "clef-native-p0-repeat-findings-v1" or
             clef_repeat.get("cohort") != {"records": 60, "condition": "P0",
                 "fullPassesPerModelCompleted": 2, "requiredFullPassesPerCondition": 3,
@@ -488,7 +564,7 @@ def build(root=ROOT):
     estimated_total = sum((Decimal(by_effort[e]["usage"]["developmentApiEquivalentUsd"])
                            for e in EFFORTS), Decimal(0))
     return {
-        "schema": "analysis-refresh-v1", "generatedAt": "2026-10-02",
+        "schema": "analysis-refresh-v1", "generatedAt": "2026-10-05",
         "method": "Offline descriptive synthesis of published feeds and sanitized Sonnet record evidence",
         "reference": {"version": "0.2", "reviews": 60,
                       "status": sonnet["referenceStatus"],
@@ -556,6 +632,53 @@ def build(root=ROOT):
                                  "unknownOutcomeIds": third_flash["fresh3P0"]["unknownOutcomeIds"],
                                  "neverSentCount": len(third_flash["fresh3P0"]["neverSentIds"]),
                                  "fresh3Score": None}}},
+            "clefFlashP1": {"source": CLEF_FLASH_P1_PUBLIC,
+                "sourceEvidence": CLEF_FLASH_P1,
+                "passes": {name: {"valid": p1_passes[name]["counts"]["valid"],
+                    "allFour": p1_passes[name]["allFourCorrect"], "denominator": 60}
+                    for name in ("fresh1", "fresh2", "fresh3")},
+                "predictionVectorsStable": True,
+                "nativeDistributionsStable": True,
+                "vendorConfidenceStable": True,
+                "repeatSharedValid": p1_repeat["sharedValid"],
+                "matchedFresh1P0": {"sharedValid": p1_matched["sharedValid"],
+                    "p0AllFour": p1_matched["p0AllFourCorrect"],
+                    "p1AllFour": p1_matched["p1AllFourCorrect"],
+                    "allFourDelta": p1_matched["comparison"]["allFourDelta"],
+                    "becameCorrectIds": p1_matched["comparison"]["allFourBecameCorrectIds"],
+                    "becameIncorrectIds": p1_matched["comparison"]["allFourBecameIncorrectIds"]},
+                "inputTokensPerPass": {name: p1_passes[name]["observedInputTokens"]
+                    for name in ("fresh1", "fresh2", "fresh3")},
+                "inputPriceEstimateUsdPerPass": clef_flash_p1["cost"]["publishedInputPriceEstimateUsdByPass"],
+                "providerBilledUsd": None,
+                "pureInferenceLatencyAvailable": clef_flash_p1["timing"]["inferenceLatencyAvailable"]},
+            "clefFlashP2": {"source": CLEF_FLASH_P2_PUBLIC,
+                "passes": {name: {"valid": phase["counts"]["valid"],
+                    "allFour": phase["allFourCorrect"], "denominator": phase["allFourDenominator"]}
+                    for name, phase in flash_p2["phaseByPass"].items()},
+                "repeatSharedValid": 60,
+                "predictionVectorsStable": True,
+                "nativeDistributionsStable": True,
+                "vendorConfidenceStable": True,
+                "matchedFresh1P0": flash_p2["controls"]["matchedFresh1P0"],
+                "matchedFresh1P1": flash_p2["controls"]["matchedFresh1P1"],
+                "inputTokensPerPass": {name: phase["observedInputTokens"]
+                    for name, phase in flash_p2["phaseByPass"].items()},
+                "inputPriceEstimateUsdPerPass": flash_p2["cost"]["publishedInputPriceEstimateUsdByPass"],
+                "providerBilledUsd": flash_p2["cost"]["providerBilledUsd"],
+                "pureInferenceLatencyAvailable": flash_p2["timing"]["inferenceLatencyAvailable"]},
+            "mistral119Fresh1P0": {"source": MISTRAL_P0_PUBLIC,
+                "status": mistral_p0["status"], "condition": "P0", "pass": "fresh1",
+                "valid": mistral_p0["outcomes"]["valid"],
+                "failed": mistral_p0["outcomes"]["failed"],
+                "failedIds": mistral_p0["outcomes"]["failedIds"],
+                "neverSent": mistral_p0["outcomes"]["neverSent"],
+                "allFourMatches": mistral_p0["scoring"]["allFourMatches"],
+                "fixed60Denominator": mistral_p0["scoring"]["allFourDenominator"],
+                "allFourAmongValid": mistral_p0["scoring"]["allFourAmongValid"],
+                "observedKnownCostUsd": mistral_p0["usage"]["observedKnownCostUsd"],
+                "unknownChargeUpperBoundUsd": mistral_p0["usage"]["unknownChargeUpperBoundUsd"],
+                "cleanRepeatabilityClaim": False},
             "deepseekLow": {"source": "public-site/deepseek-low-third-interruption-findings.json",
                             "seriesCount": len(deepseek["series"]),
                             "completedConditions": [item["completedConditions"] for item in deepseek["series"]],

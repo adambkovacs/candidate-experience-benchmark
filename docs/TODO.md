@@ -1,5 +1,14 @@
 # Current work checklist
 
+## Public archive fixed; Clef P1 running, 5 October 2026
+
+Root independently reproduced the Mistral report from a clean Git archive plus its candidate public bundle: exact JSON bytes matched and all three focused tests passed. The 61-file bundle preserves original and public hashes; differences are limited to local path removal and dependent hash references. A credential-pattern scan found no matches. Review: APPROVE, no confirmed BLOCKING findings. Fix `324695e3` is pushed; live deployment is not yet verified.
+
+The combined analysis now includes Clef Flash P1/P2 and the final interrupted Mistral P0. Its 105 source bindings, two Python tests and three UI tests pass. The category agent still owns its frontend increment. The separate decision-model source note is pushed in `31bdfd66`.
+
+Clef (not Flash) fresh1/P1 smoke `32325` completed 3/3 valid and was inspected by root. The exact new full-stage grant admitted development handle `22576`; root owns its connected-app dispatch. No failed or completed request is being replayed. The current $10 postapproval cap remains unchanged.
+
+
 ## Report categories and P2 analysis, 5 October 2026
 
 Clef Flash P2 analysis is verified and pushed in `81f7c855`: three passes, each 60 valid answers and 46/60 all-four matches, with no pairwise label, probability or confidence changes. Root ran the projection check and all three focused tests. Review: APPROVE; no confirmed BLOCKING findings. This updates the earlier pending-analysis checkpoint below.
