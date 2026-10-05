@@ -107,6 +107,8 @@ jobs:
           python3 scripts/build_gemma26_postabort_findings.py --output public-site/gemma26-postabort-findings.json --check
           python3 -m unittest tests.test_gemma26_postabort_findings -q
           python3 scripts/build_gemma26_fresh3_checkpoint.py build --cutoff P0 --check
+          python3 scripts/build_gemma26_fresh3_p1_interrupted.py build --check
+          node --test tests/test_gemma26_fresh3_p1_interrupted_ui.cjs
           python3 scripts/build_gemma26_p2_repeat_findings.py --check
           python3 -m unittest tests.test_gemma26_p2_repeat_findings -q
           python3 scripts/build_clef_p0_repeat_findings.py --check
