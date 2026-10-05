@@ -74,6 +74,61 @@ def score_values(series, condition):
     return series["threePassSummary"][condition]["allFour"]["values"]
 
 
+def qwen17_off_repeat_summary(series):
+    """Carry closed scores and unscored phase status from the bound repeat feed."""
+    passes = series.get("passes", {})
+    names = ("fresh1", "fresh2", "fresh3")
+    if (series.get("plannedConditions") != 9 or
+            set(passes) != set(names) or
+            any(set(passes[name]) - set(CONDITIONS) for name in names)):
+        raise ValueError("Qwen1.7B thinking-off repeat coverage differs")
+    completed = sum(len(passes[name]) for name in names)
+    missing = series.get("missingPasses", [])
+    expected_missing = {(name, condition) for name in names for condition in CONDITIONS
+                        if condition not in passes[name]}
+    if (series.get("completedConditions") != completed or
+            len(missing) != len(expected_missing) or
+            {(item.get("pass"), item.get("condition")) for item in missing} != expected_missing):
+        raise ValueError("Qwen1.7B thinking-off missing phases differ")
+    conditions = {}
+    for condition in CONDITIONS:
+        closed = []
+        for name in names:
+            phase = passes[name].get(condition)
+            if phase is None:
+                continue
+            score = phase.get("score", {})
+            if (phase.get("completionStatus") != "complete" or
+                    score.get("denominator") != 60 or
+                    not 0 <= score.get("allFour", -1) <= score.get("valid", -1) <= 60):
+                raise ValueError("Qwen1.7B thinking-off closed score differs")
+            closed.append({"pass": name, "score": score})
+        pairs = [item for item in series.get("pairwiseFlips", [])
+                 if item.get("condition") == condition]
+        if len(pairs) != len(closed) * (len(closed) - 1) // 2:
+            raise ValueError("Qwen1.7B thinking-off pairwise coverage differs")
+        three_pass = series.get("changesAcrossThreePasses", {}).get(condition)
+        if (len(closed) == 3) != (three_pass is not None):
+            raise ValueError("Qwen1.7B thinking-off three-pass coverage differs")
+        conditions[condition] = {"completedPasses": len(closed), "passes": closed,
+                                 "allFourRange": ([min(x["score"]["allFour"] for x in closed),
+                                                    max(x["score"]["allFour"] for x in closed)]
+                                                   if closed else None),
+                                 "pairwiseFlips": pairs,
+                                 "changesAcrossThreePasses": three_pass}
+    remaining = []
+    for item in missing:
+        if item.get("status") == "smoke_blocked":
+            if (item.get("stage") != "smoke" or item.get("attempted") != 3 or
+                    item.get("saved") != 3 or
+                    item.get("valid", -1) + item.get("invalid", -1) != 3 or
+                    "score" in item or not item.get("evidence", {}).get("completion")):
+                raise ValueError("Qwen1.7B thinking-off stopped smoke differs")
+        remaining.append(item)
+    return {"completedConditions": completed, "plannedConditions": 9,
+            "conditions": conditions, "missingPasses": remaining}
+
+
 def _class_hits(root, public_report, labels, bindings):
     """Recheck public records, their hashes, and the reporter's cell scores."""
     result = {}
@@ -674,7 +729,7 @@ def build(root=ROOT):
                 not legacy_series[name].get("sourceBindings")
                 for name in legacy_complete) or
             any(not isinstance(legacy_series[name].get("completedConditions"), int) or
-                not 0 <= legacy_series[name]["completedConditions"] < 9 or
+                not 0 <= legacy_series[name]["completedConditions"] <= 9 or
                 legacy_series[name].get("plannedConditions") != 9
                 for name in legacy_pending)):
         raise ValueError("Legacy Qwen SDK and HTTP cohort coverage differs")
@@ -723,6 +778,7 @@ def build(root=ROOT):
                 phase.get("score", {}).get("denominator") != 60):
             raise ValueError("Qwen1.7B thinking-off first prompt pass is not closed")
     qwen17_off_p0 = qwen17_off_first["P0"]
+    qwen17_off_repeat = qwen17_off_repeat_summary(legacy_series["qwen3-1.7b-sdk-thinking-off"])
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
@@ -790,13 +846,17 @@ def build(root=ROOT):
                                "matchedP0": qwen_prompt_pairs(root, qwen17_off_first, labels, bindings)},
                            "qwen17OffFirstP0": {"score": qwen17_off_p0["score"],
                                "usage": qwen17_off_p0["usage"], "firstPassOnly": True},
+                           "qwen17OffRepeat": qwen17_off_repeat,
                            "qwen17P2Repeat": qwen17_p2,
                            "qwen17P1Repeat": qwen17_p1,
                            "qwen17P0Repeat": qwen17_p0,
-                           "completedConfigurations": list(legacy_complete),
+                           "completedConfigurations": list(legacy_complete) +
+                               [name for name in legacy_pending
+                                if legacy_series[name]["completedConditions"] == 9],
                            "remainingConfigurations": {name:
                                {"completedConditions": legacy_series[name]["completedConditions"],
-                                "plannedConditions": 9} for name in legacy_pending},
+                                "plannedConditions": 9} for name in legacy_pending
+                                if legacy_series[name]["completedConditions"] < 9},
                            "sdkFinalP2": {"thinkingOn": {"valid": sdk_on["valid"],
                                    "invalid": sdk_on["outcomes"]["invalid_output"],
                                    "allFour": sdk_on["allFour"], "denominator": 60},

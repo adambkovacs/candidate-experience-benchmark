@@ -1,0 +1,53 @@
+{
+  "schema": "legacy-qwen-17off-format-successor-v1",
+  "status": "approved",
+  "approval": {
+    "independent_review": true,
+    "authorized_by_root": true,
+    "reviewer": "/root",
+    "reviewed_utc": "2026-10-05T19:33:44.594228+00:00",
+    "scope": "Exact fresh3/P2 development admission after preserved intrinsic smoke formatting failure. Frozen requests, model controls, parser and prior evidence unchanged. Twelve current and historical successor tests passed. Inference additionally requires independent smoke inspection and fresh reviewed preflight."
+  },
+  "scope": {
+    "configuration": "qwen3-1.7b-sdk-thinking-off",
+    "pass": "fresh3",
+    "condition": "P2",
+    "stage": "development"
+  },
+  "frozen_plan": {
+    "file": "results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json",
+    "sha256": "7ef8c42a5fd66308e46c0dd885d92373bdbe3ba0e4aa7bdecf58298b82dd80c0"
+  },
+  "frozen_controller": {
+    "file": "scripts/legacy_qwen_repeat_admission.cjs",
+    "sha256": "427846fc36df3dccf87ab834e1bc99673794b2cf4554c60d55ea971a1f13c989"
+  },
+  "frozen_classifier": {
+    "file": "scripts/local_prompt_execution_v1.cjs",
+    "sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
+  },
+  "artifact_sha256": "e0801cbda7e2f3fd00bea4d73b53b422b14b13aa130e778f6414b6b641920b7e",
+  "prediction_config_sha256": "71f78bad93201d35a53412a7387964a928bf836a60e18e0eb0457710cf0fa3f0",
+  "initial_smoke_bindings": {
+    "review": "c2196e59f7ef709746b5329d74b293031a32ff6fce7dbd98a0c9bd8530aa7670",
+    "claim": "392b19d5a650fb7f440df25c904d1066d1869c5ec561969f70c8fd9ebb019451",
+    "journal": "f24577515354284e3c74b1ae1e447e867a1ec534825c5df1630a7303195318fe",
+    "raw": "25c829658bd90ab2b95c7b3d5e3eca790354751a754a33d5b0fed5118868df59",
+    "records": "e4b079fdbaa56a45f2f6a86b9449721c0ae57425269f653c1553ed545f6f1cfb",
+    "completion": "7eb9f766cfb6661d43ada570d0de829868bae0e6e083d735c710c29cd5881aa9"
+  },
+  "policy": {
+    "accepted_smoke_decisions": [
+      "ok",
+      "invalid_output"
+    ],
+    "accepted_invalid_reasons": [
+      "non_json",
+      "schema"
+    ],
+    "smoke_replay": false,
+    "output_repair": false,
+    "references_in_requests": false,
+    "native_lock": "results/repeatability-v1/laya-expanded-cpu-v1/execution.lock"
+  }
+}

@@ -7,6 +7,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import re
 
 import build_repeat_findings as shared
 from development_benchmark import valid
@@ -21,6 +22,9 @@ SUCCESSOR_MANIFEST = Path('results/repeatability-v1/legacy-qwen-sdk-format-succe
 SUCCESSOR_MANIFEST_SHA = '7538dacb509f670e95182aae60d381daba96777c9a0fcca3a4124203012ed057'
 SUCCESSOR_CONTROLLER = Path('scripts/legacy_qwen_sdk_format_successor_v1.cjs')
 SUCCESSOR_CONTROLLER_SHA = '88890d4d981f74df38f09c05529a017e1929bbb3574d856777b1fa6613dedbc5'
+SUCCESSOR17_MANIFEST = Path('results/repeatability-v1/legacy-qwen-17off-format-successor-v1/manifest.json')
+SUCCESSOR17_CONTROLLER = Path('scripts/legacy_qwen_17off_format_successor_v1.cjs')
+SUCCESSOR17_INSPECTION = SUCCESSOR17_MANIFEST.parent / 'smoke-inspection.json'
 OUTPUT = Path('public-site/legacy-qwen-repeats.json')
 TARGET = 'qwen3-0.6b-q4km-nonthinking'
 PASSES = ('fresh1', 'fresh2', 'fresh3')
@@ -305,7 +309,7 @@ def successor_smoke(root, plan, config_id, repeat, condition, bind,
                                else None)
     if (manifest.get('schema') != 'legacy-qwen-sdk-format-successor-v1' or
             manifest.get('status') != 'approved' or
-            manifest.get('approval', {}).get('independent_review') is not True or
+            (manifest.get('approval') or {}).get('independent_review') is not True or
             manifest['approval'].get('authorized_by_root') is not True or
             manifest.get('frozen_plan') != {'file': str(MANIFEST), 'sha256': MANIFEST_SHA} or
             manifest.get('frozen_controller', {}).get('sha256') != plan['controller_sha256'] or
@@ -342,6 +346,103 @@ def successor_smoke(root, plan, config_id, repeat, condition, bind,
                 'inspection': {'path': str(inspection_path), 'sha256': inspection_hash}}
     if require_development_review:
         evidence['review'] = {'path': str(review_path), 'sha256': review_hash}
+    return original, evidence
+
+
+def successor_17off_smoke(root, plan, bind, require_development_review=True):
+    """Bind the exact Qwen1.7B thinking-off fresh3/P2 successor, if approved."""
+    config_id, repeat, condition = 'qwen3-1.7b-sdk-thinking-off', 'fresh3', 'P2'
+    phase = f'{config_id}/{repeat}/{condition}'
+    folder = BASE / phase
+    original = stopped_smoke(root, plan, config_id, repeat, condition, bind,
+                             require_original_inspection=False)
+    original_evidence = original['evidence']
+    manifest_hash = bind(SUCCESSOR17_MANIFEST)
+    controller_hash = bind(SUCCESSOR17_CONTROLLER)
+    manifest = json.loads(file_at(root, SUCCESSOR17_MANIFEST).read_text())
+    inspection_hash = bind(SUCCESSOR17_INSPECTION)
+    inspection = json.loads(file_at(root, SUCCESSOR17_INSPECTION).read_text())
+    review_path = folder / 'development.successor-root-review.json'
+    review_hash = bind(review_path) if require_development_review else None
+    review = (json.loads(file_at(root, review_path).read_text())
+              if require_development_review else None)
+    candidate_path = None
+    candidate_hash = None
+    candidate = None
+    if require_development_review:
+        candidate_path = Path(review.get('successor_candidate_file', ''))
+        if (candidate_path.parent != SUCCESSOR17_MANIFEST.parent or
+                not re.fullmatch(r'development-receipt-candidate-\d{8}T\d{9}Z\.json',
+                                 candidate_path.name)):
+            raise ValueError(f'Qwen1.7B thinking-off successor candidate path differs: {phase}')
+        candidate_hash = bind(candidate_path)
+        candidate = json.loads(file_at(root, candidate_path).read_text())
+    config = plan['configurations'][config_id]
+    smoke_raw = read_rows(root, original_evidence['raw']['path'])
+    expected_details = []
+    for wire, request in zip(smoke_raw, config['conditions'][condition]['requests'][:3]):
+        result = wire['result']
+        decision = classify_sdk(wire, config, request)
+        expected_details.append({'id': wire['id'], 'status': decision['status'],
+                                 'reason': decision.get('reason'),
+                                 'prompt_tokens': result['stats']['promptTokensCount'],
+                                 'stop_reason': result['stats']['stopReason'],
+                                 'model_instance': result['modelInfo']['instanceReference']})
+    prediction_config = json.dumps(config['controls']['prediction_config'],
+                                   separators=(',', ':'), ensure_ascii=False).encode()
+    if (manifest.get('schema') != 'legacy-qwen-17off-format-successor-v1' or
+            manifest.get('status') != 'approved' or
+            manifest.get('approval', {}).get('independent_review') is not True or
+            manifest['approval'].get('authorized_by_root') is not True or
+            manifest.get('scope') != {'configuration': config_id, 'pass': repeat,
+                                      'condition': condition, 'stage': 'development'} or
+            manifest.get('frozen_plan') != {'file': str(MANIFEST), 'sha256': MANIFEST_SHA} or
+            manifest.get('frozen_controller') != {'file': 'scripts/legacy_qwen_repeat_admission.cjs',
+                                                  'sha256': plan['controller_sha256']} or
+            manifest.get('frozen_classifier', {}).get('sha256') !=
+                bind(manifest['frozen_classifier']['file'], manifest['frozen_classifier']['sha256']) or
+            manifest.get('artifact_sha256') != config['artifact_sha256'] or
+            manifest.get('prediction_config_sha256') != hashlib.sha256(prediction_config).hexdigest() or
+            manifest.get('initial_smoke_bindings') !=
+                {key: original_evidence[key]['sha256'] for key in
+                 ('review', 'claim', 'journal', 'raw', 'records', 'completion')} or
+            manifest.get('policy') != {'accepted_smoke_decisions': ['ok', 'invalid_output'],
+                                       'accepted_invalid_reasons': ['non_json', 'schema'],
+                                       'smoke_replay': False, 'output_repair': False,
+                                       'references_in_requests': False,
+                                       'native_lock': plan['policy']['lock_path']} or
+            inspection.get('kind') != 'legacy-qwen-17off-format-successor-inspection-v1' or
+            inspection.get('phase') != phase or inspection.get('stage') != 'smoke' or
+            inspection.get('approved') is not True or
+            inspection.get('independent_review') is not True or
+            inspection.get('authorized_by_root') is not True or
+            inspection.get('reference_labels_read') is not False or
+            inspection.get('semantic_correctness_claimed') is not False or
+            inspection.get('output_repaired') is not False or
+            inspection.get('smoke_replayed') is not False or
+            inspection.get('control_and_transport_verified') is not True or
+            inspection.get('intrinsic_invalid_count') != original['invalid'] or
+            inspection.get('details') != expected_details or
+            any(inspection.get(key + '_sha256') != original_evidence[key]['sha256']
+                for key in ('review', 'claim', 'journal', 'raw', 'records', 'completion')) or
+            (require_development_review and (
+                not isinstance(review.get('reviewer'), str) or not review['reviewer'] or
+                review.get('approved') is not True or
+                review.get('reviewed_utc') is None or
+                review.get('successor_manifest_sha256') != manifest_hash or
+                review.get('successor_controller_sha256') != controller_hash or
+                review.get('successor_admission_policy') != 'legacy-qwen-17off-format-successor-v1' or
+                review.get('smoke_inspection_sha256') != inspection_hash or
+                review.get('authorized_by_root') is not True or
+                {**review, 'approved': False, 'reviewer': None,
+                 'reviewed_utc': None, 'authorized_by_root': False} != candidate))):
+        raise ValueError(f'Qwen1.7B thinking-off successor admission differs: {phase}')
+    evidence = {'manifest': {'path': str(SUCCESSOR17_MANIFEST), 'sha256': manifest_hash},
+                'controller': {'path': str(SUCCESSOR17_CONTROLLER), 'sha256': controller_hash},
+                'inspection': {'path': str(SUCCESSOR17_INSPECTION), 'sha256': inspection_hash}}
+    if require_development_review:
+        evidence['review'] = {'path': str(review_path), 'sha256': review_hash}
+        evidence['candidate'] = {'path': str(candidate_path), 'sha256': candidate_hash}
     return original, evidence
 
 
@@ -586,9 +687,15 @@ def build(root=ROOT):
                         if smoke_terminal.get('status') == 'stopped':
                             if (config_id == 'qwen3-1.7b-sdk-thinking-off' and
                                     repeat == 'fresh3' and condition == 'P2'):
-                                missing.append(stopped_smoke(root, plan, config_id, repeat,
-                                                             condition, bind,
-                                                             require_original_inspection=False))
+                                if file_at(root, SUCCESSOR17_INSPECTION).exists():
+                                    stopped, successor_evidence = successor_17off_smoke(
+                                        root, plan, bind, require_development_review=False)
+                                    stopped['evidence']['smokeSuccessor'] = successor_evidence
+                                else:
+                                    stopped = stopped_smoke(root, plan, config_id, repeat,
+                                                            condition, bind,
+                                                            require_original_inspection=False)
+                                missing.append(stopped)
                                 continue
                             successor_inspection = folder / 'smoke-format-successor-inspection.json'
                             if (config_id in ('qwen3-0.6b-sdk-thinking-on',
@@ -612,10 +719,21 @@ def build(root=ROOT):
                     missing.append({'pass': repeat, 'condition': condition,
                                     'status': 'not_in_closed_snapshot'})
                     continue
-                successor = (config_id in ('qwen3-0.6b-sdk-thinking-on',
-                                           'qwen3-0.6b-sdk-thinking-off') and
-                             file_at(root, folder / 'development.successor-root-review.json').exists())
-                if successor:
+                successor17 = (config_id == 'qwen3-1.7b-sdk-thinking-off' and
+                               repeat == 'fresh3' and condition == 'P2')
+                successor06 = (config_id in ('qwen3-0.6b-sdk-thinking-on',
+                                             'qwen3-0.6b-sdk-thinking-off') and
+                               file_at(root, folder / 'development.successor-root-review.json').exists())
+                successor = successor06 or successor17
+                if successor17:
+                    if not file_at(root, folder / 'development.successor-root-review.json').exists():
+                        raise ValueError(f'Qwen1.7B thinking-off successor review missing: {config_id}/{repeat}/{condition}')
+                    original_smoke, successor_evidence = successor_17off_smoke(root, plan, bind)
+                    smoke_evidence = original_smoke['evidence']
+                    development, raw, dev_evidence = closed_stage(
+                        root, plan, config_id, repeat, condition, 'development', bind,
+                        review_name='development.successor-root-review.json')
+                elif successor06:
                     successor_used = True
                     original_smoke, successor_evidence = successor_smoke(
                         root, plan, config_id, repeat, condition, bind)

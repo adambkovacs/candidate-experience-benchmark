@@ -68,6 +68,6 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   assert.equal(elements.get('repeat-config').value, 'qwen3-0.6b-sdk-thinking-off');
   assert.equal(elements.get('repeat-selected-results').hidden, false);
   assert.equal(elements.get('repeat-config').disabled, false);
-  assert.match(elements.get('repeat-filter-count').textContent, /4 of 6/);
+  assert.match(elements.get('repeat-filter-count').textContent, /5 of 6/);
 
 });

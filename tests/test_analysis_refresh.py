@@ -1,4 +1,5 @@
 import importlib.util
+import copy
 import json
 from pathlib import Path
 import shutil
@@ -147,6 +148,24 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual((pairs["P2"]["sharedValid"], len(pairs["P2"]["gainedMatchIds"]), len(pairs["P2"]["lostMatchIds"])), (57, 9, 5))
         self.assertEqual(pairs["P2"]["validToInvalidIds"], ["DEV-002", "DEV-005", "DEV-018"])
         self.assertEqual(pairs["P2"]["previouslyCorrectNowInvalidIds"], [])
+        off_repeat = cohorts["legacyQwen"]["qwen17OffRepeat"]
+        self.assertEqual((off_repeat["completedConditions"], off_repeat["plannedConditions"]), (9, 9))
+        self.assertEqual([off_repeat["conditions"][c]["completedPasses"] for c in ("P0", "P1", "P2")],
+                         [3, 3, 3])
+        self.assertEqual([[p["score"]["allFour"] for p in off_repeat["conditions"][c]["passes"]]
+                          for c in ("P0", "P1", "P2")],
+                         [[28, 26, 26], [25, 26, 25], [32, 30, 30]])
+        self.assertEqual([[p["score"]["valid"] for p in off_repeat["conditions"][c]["passes"]]
+                          for c in ("P0", "P1", "P2")],
+                         [[60, 60, 60], [59, 60, 60], [57, 56, 55]])
+        self.assertEqual([off_repeat["conditions"][c]["allFourRange"] for c in ("P0", "P1", "P2")],
+                         [[26, 28], [25, 26], [30, 32]])
+        self.assertEqual(len(off_repeat["conditions"]["P0"]["changesAcrossThreePasses"]["fourFieldVector"]), 10)
+        self.assertEqual(len(off_repeat["conditions"]["P1"]["changesAcrossThreePasses"]["fourFieldVector"]), 12)
+        self.assertEqual(off_repeat["conditions"]["P2"]["changesAcrossThreePasses"]["denominator"], 48)
+        self.assertEqual(len(off_repeat["conditions"]["P2"]["changesAcrossThreePasses"]["fourFieldVector"]), 7)
+        self.assertEqual(off_repeat["conditions"]["P2"]["pairwiseFlips"][0]["fourFieldVector"]["changed"], 5)
+        self.assertEqual(off_repeat["missingPasses"], [])
         q17p2 = cohorts["legacyQwen"]["qwen17P2Repeat"]
         self.assertEqual([s["allFour"] for s in q17p2["scores"]], [8, 9, 8])
         self.assertEqual(q17p2["comparison"]["denominator"], 58)
@@ -168,7 +187,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual(q17p0["comparison"]["fourFieldVector"]["changed"], 11)
         self.assertEqual(q17p0["completedPasses"], 3)
         self.assertEqual(len(q17p0["changesAcrossThreePasses"]["fourFieldVector"]), 19)
-        self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 4)
+        self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 5)
         legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
         pending = {s["configuration"]: s for s in legacy["series"]}
         for name, progress in cohorts["legacyQwen"]["remainingConfigurations"].items():
@@ -179,6 +198,36 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual(cohorts["legacyQwen"]["sdkFinalP2"]["thinkingOff"],
                          {"valid": 5, "invalid": 55, "allFour": 0, "denominator": 60})
         self.assertEqual(cohorts["qwen27"]["seriesCount"], 2)
+
+    def test_qwen17_off_summary_distinguishes_stopped_smoke_from_full_phase(self):
+        report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
+        series = copy.deepcopy(next(s for s in report["series"]
+                                    if s["configuration"] == "qwen3-1.7b-sdk-thinking-off"))
+        ninth = series["passes"]["fresh3"].pop("P2")
+        full_pairs = series["pairwiseFlips"]
+        series["pairwiseFlips"] = [pair for pair in full_pairs
+                                   if pair["condition"] != "P2" or pair["to"] != "fresh3"]
+        three_pass = series["changesAcrossThreePasses"].pop("P2")
+        series["completedConditions"] = 8
+        series["missingPasses"] = [{"pass": "fresh3", "condition": "P2",
+                                    "status": "smoke_blocked", "stage": "smoke",
+                                    "attempted": 3, "saved": 3, "valid": 2, "invalid": 1,
+                                    "evidence": {"completion": "smoke.completion.json"}}]
+        partial = analysis.qwen17_off_repeat_summary(series)
+        self.assertEqual(partial["completedConditions"], 8)
+        self.assertEqual(partial["conditions"]["P2"]["completedPasses"], 2)
+        self.assertEqual(partial["missingPasses"][0]["status"], "smoke_blocked")
+        series["passes"]["fresh3"]["P2"] = ninth
+        series["pairwiseFlips"] = full_pairs
+        series["changesAcrossThreePasses"]["P2"] = three_pass
+        series["completedConditions"] = 9
+        series["missingPasses"] = []
+        complete = analysis.qwen17_off_repeat_summary(series)
+        self.assertEqual(complete["completedConditions"], 9)
+        self.assertEqual(complete["missingPasses"], [])
+        self.assertEqual(complete["conditions"]["P2"]["completedPasses"], 3)
+        self.assertEqual([p["score"]["allFour"] for p in complete["conditions"]["P2"]["passes"]],
+                         [32, 30, 30])
 
     def test_check_rejects_changed_source_even_if_json_values_same(self):
         published = json.loads((ROOT / analysis.OUTPUT).read_text())

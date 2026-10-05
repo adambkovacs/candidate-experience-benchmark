@@ -133,21 +133,35 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         self.assertIn('smoke-format-successor-inspection.json',
                       successor['inspection']['path'])
 
-    def test_qwen17_off_final_smoke_is_bound_but_unscored(self):
+    def test_qwen17_off_successor_preserves_stopped_smoke_and_binds_closed_development(self):
+        plan = json.loads((ROOT / findings.MANIFEST).read_text())
+        original, admitted = findings.successor_17off_smoke(
+            ROOT, plan, findings.binder(ROOT)[0], require_development_review=False)
+        self.assertEqual((original['status'], original['attempted'], original['saved'],
+                          original['valid'], original['invalid']),
+                         ('smoke_blocked', 3, 3, 2, 1))
+        self.assertNotIn('score', original)
+        self.assertEqual(set(admitted), {'manifest', 'controller', 'inspection'})
         report = findings.build(ROOT)
         series = next(row for row in report['series']
                       if row['configuration'] == 'qwen3-1.7b-sdk-thinking-off')
-        self.assertNotIn('P2', series['passes']['fresh3'])
-        stopped = next(row for row in series['missingPasses']
-                       if row['pass'] == 'fresh3' and row['condition'] == 'P2')
-        self.assertEqual((stopped['status'], stopped['stage'], stopped['attempted'],
-                          stopped['saved'], stopped['valid'], stopped['invalid']),
-                         ('smoke_blocked', 'smoke', 3, 3, 2, 1))
-        self.assertNotIn('score', stopped)
-        self.assertIn('completion', stopped['evidence'])
-        self.assertIn(stopped['evidence']['raw'], [
-            {'path': source['path'], 'sha256': source['sha256']}
-            for source in series['sourceBindings']])
+        phase = series['passes']['fresh3'].get('P2')
+        if phase is None:
+            stopped = next(row for row in series['missingPasses']
+                           if row['pass'] == 'fresh3' and row['condition'] == 'P2')
+            self.assertEqual((stopped['status'], stopped['valid'], stopped['invalid']),
+                             ('smoke_blocked', 2, 1))
+            self.assertNotIn('score', stopped)
+            self.assertEqual(set(stopped['evidence']['smokeSuccessor']),
+                             {'manifest', 'controller', 'inspection'})
+        else:
+            self.assertEqual((phase['score']['denominator'], phase['score']['valid'],
+                              phase['score']['allFour']), (60, 55, 30))
+            self.assertEqual(phase['originalSmoke']['status'], 'smoke_blocked')
+            self.assertEqual(set(phase['evidence']['smokeSuccessor']),
+                             {'manifest', 'controller', 'inspection', 'review', 'candidate'})
+            bound = {source['path'] for source in series['sourceBindings']}
+            self.assertTrue({item['path'] for item in phase['evidence']['smokeSuccessor'].values()} <= bound)
 
     def test_second_sdk_phases_keep_fixed_denominator_and_distinct_smoke_evidence(self):
         report = findings.build(ROOT)

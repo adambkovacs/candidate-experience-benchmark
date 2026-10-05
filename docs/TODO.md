@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Final thinking-off P2 closed, 5 October 2026, 19:35 UTC
+
+Root reviewed the exact-phase successor (APPROVE, no confirmed BLOCKING or RESIDUAL findings); twelve current and historical successor tests passed. Independent raw-smoke inspection was approved by `battery_review`. Fresh locked host/route/all-60 runtime checks passed, then root approved the candidate receipt and dispatched handle 8976. The full phase completed with 60 saved, 55 valid, five invalid. Hashes, ordered IDs, reference isolation and post-stage host checks passed. All nine thinking-off development phases are executed; source-bound report integration and final analysis/publication remain underway. Independent review caught a BLOCKING builder regression in the old 0.6B branch; it was fixed before publication. Settled review: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Both feeds rebuilt; fourteen Python and twenty-one Node tests passed. README, findings, coverage and main analysis now reflect 9/9. Final publication is pending. Next local matrix is Qwen3.5 4B thinking-on, subject to fresh exact-route/runtime admission. The original stopped smoke is unchanged. No inference is running and no paid request occurred. Pages 37363502046 for 3e0f0492 succeeded; live HTML, repeat JS, legacy report and combined analysis JSON match committed bytes.
+
+## Final P2 continuation preparation, 5 October 2026
+
+No inference is running. `battery_review` owns the new exact-phase 1.7B thinking-off fresh3/P2 successor controller, manifest and offline tests; it is unapproved. `off_p2_findings` owns the main analysis builder/UI update to remove stale second/third-pass wording and expose current repeated results. Root owns independent admission, regenerated feeds, documentation, git and publication. Existing frozen runners, requests and failed smoke are preserved. The broader goal remains active and incomplete.
+
 ## Eight thinking-off passes closed, 5 October 2026, 19:27 UTC
 
 Fresh2/P0 and fresh3/P1/P0 closed with 60 valid answers each; all post-stage checks passed. Scores P0 28/26/26, P1 25/26/25, P2 32/30. Fresh3/P2 smoke handle 98636 stopped after three responses: two valid, DEV-003 invalid fenced JSON. No full P2 request was sent and no inference is running. Root and review agent are examining a separately versioned continuation; the failed smoke must not be repaired or replayed. Public power-source labels and source-bound evidence pass review (APPROVE, no BLOCKING or RESIDUAL findings). Browser visual verification was blocked by the browser tool policy; automated UI checks pass. Report refresh and publication of this checkpoint are pending.

@@ -3809,7 +3809,8 @@
         "qwen3-0.6b-q4km-nonthinking",
         "qwen3-0.6b-sdk-thinking-on",
         "qwen3-0.6b-sdk-thinking-off",
-        "qwen3-1.7b-sdk-thinking-on"
+        "qwen3-1.7b-sdk-thinking-on",
+        "qwen3-1.7b-sdk-thinking-off"
       ],
       "qwen17FirstPass": {
         "firstPassOnly": true,
@@ -4150,6 +4151,915 @@
             }
           }
         }
+      },
+      "qwen17OffRepeat": {
+        "completedConditions": 9,
+        "conditions": {
+          "P0": {
+            "allFourRange": [
+              26,
+              28
+            ],
+            "changesAcrossThreePasses": {
+              "denominator": 60,
+              "excludedIds": [],
+              "fields": {
+                "follow_up_needed": [],
+                "sentiment": [
+                  "DEV-002",
+                  "DEV-054"
+                ],
+                "serious_concern_reported": [
+                  "DEV-054",
+                  "DEV-055"
+                ],
+                "testimonial_potential": [
+                  "DEV-002",
+                  "DEV-015",
+                  "DEV-019",
+                  "DEV-030",
+                  "DEV-037",
+                  "DEV-042",
+                  "DEV-051",
+                  "DEV-052",
+                  "DEV-055"
+                ]
+              },
+              "fourFieldVector": [
+                "DEV-002",
+                "DEV-015",
+                "DEV-019",
+                "DEV-030",
+                "DEV-037",
+                "DEV-042",
+                "DEV-051",
+                "DEV-052",
+                "DEV-054",
+                "DEV-055"
+              ]
+            },
+            "completedPasses": 3,
+            "pairwiseFlips": [
+              {
+                "condition": "P0",
+                "denominator": 60,
+                "excludedIds": [],
+                "follow_up_needed": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-002",
+                    "DEV-015",
+                    "DEV-030",
+                    "DEV-037",
+                    "DEV-042",
+                    "DEV-051",
+                    "DEV-054",
+                    "DEV-055"
+                  ],
+                  "changed": 8,
+                  "rate": 0.13333333333333333
+                },
+                "from": "fresh1",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-002",
+                    "DEV-054"
+                  ],
+                  "changed": 2,
+                  "rate": 0.03333333333333333
+                },
+                "serious_concern_reported": {
+                  "caseIds": [
+                    "DEV-054",
+                    "DEV-055"
+                  ],
+                  "changed": 2,
+                  "rate": 0.03333333333333333
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-002",
+                    "DEV-015",
+                    "DEV-030",
+                    "DEV-037",
+                    "DEV-042",
+                    "DEV-051",
+                    "DEV-055"
+                  ],
+                  "changed": 7,
+                  "rate": 0.11666666666666667
+                },
+                "to": "fresh2"
+              },
+              {
+                "condition": "P0",
+                "denominator": 60,
+                "excludedIds": [],
+                "follow_up_needed": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-002",
+                    "DEV-015",
+                    "DEV-019",
+                    "DEV-030",
+                    "DEV-037",
+                    "DEV-042",
+                    "DEV-051",
+                    "DEV-052"
+                  ],
+                  "changed": 8,
+                  "rate": 0.13333333333333333
+                },
+                "from": "fresh1",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-002"
+                  ],
+                  "changed": 1,
+                  "rate": 0.016666666666666666
+                },
+                "serious_concern_reported": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-002",
+                    "DEV-015",
+                    "DEV-019",
+                    "DEV-030",
+                    "DEV-037",
+                    "DEV-042",
+                    "DEV-051",
+                    "DEV-052"
+                  ],
+                  "changed": 8,
+                  "rate": 0.13333333333333333
+                },
+                "to": "fresh3"
+              },
+              {
+                "condition": "P0",
+                "denominator": 60,
+                "excludedIds": [],
+                "follow_up_needed": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-019",
+                    "DEV-052",
+                    "DEV-054",
+                    "DEV-055"
+                  ],
+                  "changed": 4,
+                  "rate": 0.06666666666666667
+                },
+                "from": "fresh2",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-054"
+                  ],
+                  "changed": 1,
+                  "rate": 0.016666666666666666
+                },
+                "serious_concern_reported": {
+                  "caseIds": [
+                    "DEV-054",
+                    "DEV-055"
+                  ],
+                  "changed": 2,
+                  "rate": 0.03333333333333333
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-019",
+                    "DEV-052",
+                    "DEV-055"
+                  ],
+                  "changed": 3,
+                  "rate": 0.05
+                },
+                "to": "fresh3"
+              }
+            ],
+            "passes": [
+              {
+                "pass": "fresh1",
+                "score": {
+                  "allFour": 28,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 55,
+                    "sentiment": 51,
+                    "serious_concern_reported": 45,
+                    "testimonial_potential": 43
+                  },
+                  "invalidIds": [],
+                  "outcomes": {
+                    "invalid_output": 0,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 60
+                  },
+                  "valid": 60
+                }
+              },
+              {
+                "pass": "fresh2",
+                "score": {
+                  "allFour": 26,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 55,
+                    "sentiment": 49,
+                    "serious_concern_reported": 45,
+                    "testimonial_potential": 42
+                  },
+                  "invalidIds": [],
+                  "outcomes": {
+                    "invalid_output": 0,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 60
+                  },
+                  "valid": 60
+                }
+              },
+              {
+                "pass": "fresh3",
+                "score": {
+                  "allFour": 26,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 55,
+                    "sentiment": 50,
+                    "serious_concern_reported": 45,
+                    "testimonial_potential": 39
+                  },
+                  "invalidIds": [],
+                  "outcomes": {
+                    "invalid_output": 0,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 60
+                  },
+                  "valid": 60
+                }
+              }
+            ]
+          },
+          "P1": {
+            "allFourRange": [
+              25,
+              26
+            ],
+            "changesAcrossThreePasses": {
+              "denominator": 59,
+              "excludedIds": [
+                "DEV-029"
+              ],
+              "fields": {
+                "follow_up_needed": [],
+                "sentiment": [
+                  "DEV-020",
+                  "DEV-025",
+                  "DEV-046",
+                  "DEV-049",
+                  "DEV-056"
+                ],
+                "serious_concern_reported": [
+                  "DEV-040"
+                ],
+                "testimonial_potential": [
+                  "DEV-012",
+                  "DEV-020",
+                  "DEV-023",
+                  "DEV-032",
+                  "DEV-039",
+                  "DEV-046",
+                  "DEV-049",
+                  "DEV-050",
+                  "DEV-056",
+                  "DEV-060"
+                ]
+              },
+              "fourFieldVector": [
+                "DEV-012",
+                "DEV-020",
+                "DEV-023",
+                "DEV-025",
+                "DEV-032",
+                "DEV-039",
+                "DEV-040",
+                "DEV-046",
+                "DEV-049",
+                "DEV-050",
+                "DEV-056",
+                "DEV-060"
+              ]
+            },
+            "completedPasses": 3,
+            "pairwiseFlips": [
+              {
+                "condition": "P1",
+                "denominator": 59,
+                "excludedIds": [
+                  "DEV-029"
+                ],
+                "follow_up_needed": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-012",
+                    "DEV-020",
+                    "DEV-023",
+                    "DEV-040",
+                    "DEV-049",
+                    "DEV-056"
+                  ],
+                  "changed": 6,
+                  "rate": 0.1016949152542373
+                },
+                "from": "fresh1",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-020",
+                    "DEV-049",
+                    "DEV-056"
+                  ],
+                  "changed": 3,
+                  "rate": 0.05084745762711865
+                },
+                "serious_concern_reported": {
+                  "caseIds": [
+                    "DEV-040"
+                  ],
+                  "changed": 1,
+                  "rate": 0.01694915254237288
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-012",
+                    "DEV-023",
+                    "DEV-049",
+                    "DEV-056"
+                  ],
+                  "changed": 4,
+                  "rate": 0.06779661016949153
+                },
+                "to": "fresh2"
+              },
+              {
+                "condition": "P1",
+                "denominator": 59,
+                "excludedIds": [
+                  "DEV-029"
+                ],
+                "follow_up_needed": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-012",
+                    "DEV-020",
+                    "DEV-025",
+                    "DEV-032",
+                    "DEV-039",
+                    "DEV-040",
+                    "DEV-046",
+                    "DEV-050",
+                    "DEV-056",
+                    "DEV-060"
+                  ],
+                  "changed": 10,
+                  "rate": 0.1694915254237288
+                },
+                "from": "fresh1",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-025",
+                    "DEV-046",
+                    "DEV-056"
+                  ],
+                  "changed": 3,
+                  "rate": 0.05084745762711865
+                },
+                "serious_concern_reported": {
+                  "caseIds": [
+                    "DEV-040"
+                  ],
+                  "changed": 1,
+                  "rate": 0.01694915254237288
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-012",
+                    "DEV-020",
+                    "DEV-032",
+                    "DEV-039",
+                    "DEV-046",
+                    "DEV-050",
+                    "DEV-056",
+                    "DEV-060"
+                  ],
+                  "changed": 8,
+                  "rate": 0.13559322033898305
+                },
+                "to": "fresh3"
+              },
+              {
+                "condition": "P1",
+                "denominator": 60,
+                "excludedIds": [],
+                "follow_up_needed": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-020",
+                    "DEV-023",
+                    "DEV-025",
+                    "DEV-032",
+                    "DEV-039",
+                    "DEV-046",
+                    "DEV-049",
+                    "DEV-050",
+                    "DEV-060"
+                  ],
+                  "changed": 9,
+                  "rate": 0.15
+                },
+                "from": "fresh2",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-020",
+                    "DEV-025",
+                    "DEV-046",
+                    "DEV-049"
+                  ],
+                  "changed": 4,
+                  "rate": 0.06666666666666667
+                },
+                "serious_concern_reported": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-020",
+                    "DEV-023",
+                    "DEV-032",
+                    "DEV-039",
+                    "DEV-046",
+                    "DEV-049",
+                    "DEV-050",
+                    "DEV-060"
+                  ],
+                  "changed": 8,
+                  "rate": 0.13333333333333333
+                },
+                "to": "fresh3"
+              }
+            ],
+            "passes": [
+              {
+                "pass": "fresh1",
+                "score": {
+                  "allFour": 25,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 56,
+                    "sentiment": 48,
+                    "serious_concern_reported": 43,
+                    "testimonial_potential": 44
+                  },
+                  "invalidIds": [
+                    "DEV-029"
+                  ],
+                  "outcomes": {
+                    "invalid_output": 1,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 59
+                  },
+                  "valid": 59
+                }
+              },
+              {
+                "pass": "fresh2",
+                "score": {
+                  "allFour": 26,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 56,
+                    "sentiment": 48,
+                    "serious_concern_reported": 45,
+                    "testimonial_potential": 44
+                  },
+                  "invalidIds": [],
+                  "outcomes": {
+                    "invalid_output": 0,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 60
+                  },
+                  "valid": 60
+                }
+              },
+              {
+                "pass": "fresh3",
+                "score": {
+                  "allFour": 25,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 56,
+                    "sentiment": 49,
+                    "serious_concern_reported": 45,
+                    "testimonial_potential": 44
+                  },
+                  "invalidIds": [],
+                  "outcomes": {
+                    "invalid_output": 0,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 60
+                  },
+                  "valid": 60
+                }
+              }
+            ]
+          },
+          "P2": {
+            "allFourRange": [
+              30,
+              32
+            ],
+            "changesAcrossThreePasses": {
+              "denominator": 48,
+              "excludedIds": [
+                "DEV-002",
+                "DEV-003",
+                "DEV-005",
+                "DEV-018",
+                "DEV-020",
+                "DEV-022",
+                "DEV-025",
+                "DEV-027",
+                "DEV-043",
+                "DEV-051",
+                "DEV-055",
+                "DEV-059"
+              ],
+              "fields": {
+                "follow_up_needed": [
+                  "DEV-008",
+                  "DEV-040"
+                ],
+                "sentiment": [
+                  "DEV-011",
+                  "DEV-040"
+                ],
+                "serious_concern_reported": [
+                  "DEV-019",
+                  "DEV-042",
+                  "DEV-057"
+                ],
+                "testimonial_potential": [
+                  "DEV-015",
+                  "DEV-042"
+                ]
+              },
+              "fourFieldVector": [
+                "DEV-008",
+                "DEV-011",
+                "DEV-015",
+                "DEV-019",
+                "DEV-040",
+                "DEV-042",
+                "DEV-057"
+              ]
+            },
+            "completedPasses": 3,
+            "pairwiseFlips": [
+              {
+                "condition": "P2",
+                "denominator": 53,
+                "excludedIds": [
+                  "DEV-002",
+                  "DEV-005",
+                  "DEV-018",
+                  "DEV-022",
+                  "DEV-025",
+                  "DEV-043",
+                  "DEV-055"
+                ],
+                "follow_up_needed": {
+                  "caseIds": [
+                    "DEV-040"
+                  ],
+                  "changed": 1,
+                  "rate": 0.018867924528301886
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-011",
+                    "DEV-019",
+                    "DEV-040",
+                    "DEV-042",
+                    "DEV-057"
+                  ],
+                  "changed": 5,
+                  "rate": 0.09433962264150944
+                },
+                "from": "fresh1",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-011",
+                    "DEV-040"
+                  ],
+                  "changed": 2,
+                  "rate": 0.03773584905660377
+                },
+                "serious_concern_reported": {
+                  "caseIds": [
+                    "DEV-019",
+                    "DEV-042",
+                    "DEV-057"
+                  ],
+                  "changed": 3,
+                  "rate": 0.05660377358490566
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-042"
+                  ],
+                  "changed": 1,
+                  "rate": 0.018867924528301886
+                },
+                "to": "fresh2"
+              },
+              {
+                "condition": "P2",
+                "denominator": 52,
+                "excludedIds": [
+                  "DEV-002",
+                  "DEV-003",
+                  "DEV-005",
+                  "DEV-018",
+                  "DEV-020",
+                  "DEV-027",
+                  "DEV-051",
+                  "DEV-059"
+                ],
+                "follow_up_needed": {
+                  "caseIds": [
+                    "DEV-008",
+                    "DEV-040"
+                  ],
+                  "changed": 2,
+                  "rate": 0.038461538461538464
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-008",
+                    "DEV-011",
+                    "DEV-015",
+                    "DEV-019",
+                    "DEV-040",
+                    "DEV-042"
+                  ],
+                  "changed": 6,
+                  "rate": 0.11538461538461539
+                },
+                "from": "fresh1",
+                "sentiment": {
+                  "caseIds": [
+                    "DEV-011",
+                    "DEV-040"
+                  ],
+                  "changed": 2,
+                  "rate": 0.038461538461538464
+                },
+                "serious_concern_reported": {
+                  "caseIds": [
+                    "DEV-019",
+                    "DEV-042"
+                  ],
+                  "changed": 2,
+                  "rate": 0.038461538461538464
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-015",
+                    "DEV-042"
+                  ],
+                  "changed": 2,
+                  "rate": 0.038461538461538464
+                },
+                "to": "fresh3"
+              },
+              {
+                "condition": "P2",
+                "denominator": 51,
+                "excludedIds": [
+                  "DEV-003",
+                  "DEV-020",
+                  "DEV-022",
+                  "DEV-025",
+                  "DEV-027",
+                  "DEV-043",
+                  "DEV-051",
+                  "DEV-055",
+                  "DEV-059"
+                ],
+                "follow_up_needed": {
+                  "caseIds": [
+                    "DEV-008"
+                  ],
+                  "changed": 1,
+                  "rate": 0.0196078431372549
+                },
+                "fourFieldVector": {
+                  "caseIds": [
+                    "DEV-008",
+                    "DEV-015",
+                    "DEV-057"
+                  ],
+                  "changed": 3,
+                  "rate": 0.058823529411764705
+                },
+                "from": "fresh2",
+                "sentiment": {
+                  "caseIds": [],
+                  "changed": 0,
+                  "rate": 0.0
+                },
+                "serious_concern_reported": {
+                  "caseIds": [
+                    "DEV-057"
+                  ],
+                  "changed": 1,
+                  "rate": 0.0196078431372549
+                },
+                "testimonial_potential": {
+                  "caseIds": [
+                    "DEV-015"
+                  ],
+                  "changed": 1,
+                  "rate": 0.0196078431372549
+                },
+                "to": "fresh3"
+              }
+            ],
+            "passes": [
+              {
+                "pass": "fresh1",
+                "score": {
+                  "allFour": 32,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 51,
+                    "sentiment": 49,
+                    "serious_concern_reported": 37,
+                    "testimonial_potential": 54
+                  },
+                  "invalidIds": [
+                    "DEV-002",
+                    "DEV-005",
+                    "DEV-018"
+                  ],
+                  "outcomes": {
+                    "invalid_output": 3,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 57
+                  },
+                  "valid": 57
+                }
+              },
+              {
+                "pass": "fresh2",
+                "score": {
+                  "allFour": 30,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 49,
+                    "sentiment": 43,
+                    "serious_concern_reported": 39,
+                    "testimonial_potential": 53
+                  },
+                  "invalidIds": [
+                    "DEV-022",
+                    "DEV-025",
+                    "DEV-043",
+                    "DEV-055"
+                  ],
+                  "outcomes": {
+                    "invalid_output": 4,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 56
+                  },
+                  "valid": 56
+                }
+              },
+              {
+                "pass": "fresh3",
+                "score": {
+                  "allFour": 30,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 49,
+                    "sentiment": 44,
+                    "serious_concern_reported": 36,
+                    "testimonial_potential": 51
+                  },
+                  "invalidIds": [
+                    "DEV-003",
+                    "DEV-020",
+                    "DEV-027",
+                    "DEV-051",
+                    "DEV-059"
+                  ],
+                  "outcomes": {
+                    "invalid_output": 5,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 55
+                  },
+                  "valid": 55
+                }
+              }
+            ]
+          }
+        },
+        "missingPasses": [],
+        "plannedConditions": 9
       },
       "qwen17P0Repeat": {
         "changesAcrossThreePasses": {
@@ -5111,10 +6021,6 @@
       },
       "qwen17RepeatStudyComplete": true,
       "remainingConfigurations": {
-        "qwen3-1.7b-sdk-thinking-off": {
-          "completedConditions": 8,
-          "plannedConditions": 9
-        },
         "qwen3.5-4b-sdk-thinking-on": {
           "completedConditions": 0,
           "plannedConditions": 9
@@ -6905,7 +7811,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "11bf02a2498e0f137f257ee729eea2bf02d465a43d5b309d43cff75644d9a44e"
+      "sha256": "53d4df6717936cf47e781886b1135414e0dca1b1596b3c48bfb87386bb22c5f8"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",
