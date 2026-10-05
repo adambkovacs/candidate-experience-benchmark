@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Second P0 closed, 5 October 2026
+
+Pages job `37324862613` succeeded for `16ce572a`; live HTML, legacy Qwen JSON and combined analysis JSON/JavaScript match that commit. Root review of the second-P0 report: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Eleven Python and eight UI checks passed; browser coverage and paired findings are verified.
+
+Root fresh2/P0 smoke handle `99236` exited zero with three valid outputs. Root inspected the raw JSON and verified completion hashes and reference isolation. A fresh exact-route audit and all 60 runtime/render/token checks passed under the pinned loaded Qwen1.7B model. Full handle `76829` exited zero with 60 saved and valid answers. Root verified hashes, ordered IDs, reference exclusion and unchanged host boot/sleep/AC/lid. The second P0 score is 23/60 versus 24/60 previously, with labels changing on 11/60 reviews. Coverage is 6/9; each condition needs one final pass. No inference is currently running; root owns closure and combined analysis, and `qwen17_repeat_projection` owns only the closed legacy projection and findings. No paid inference or cap change occurred.
+
+
 ## Second P2 published; second P1 closed, 5 October 2026
 
 Pages job `37323486415` succeeded for `ee618fd8`. Live HTML, legacy Qwen JSON and combined analysis JSON/JavaScript match the committed bytes. Root independently verified fresh2/P1 smoke handle `98857` with three valid raw answers, hashes and reference isolation. All 60 fresh runtime/render/token checks passed; the exact family remains absent from the 466-model OpenRouter catalogue. Full handle `26168` exited zero with 60 saved and valid answers. Root verified source hashes, ordered IDs, reference isolation and unchanged boot/sleep/AC/lid state. P1 scores 11/60 versus 12/60 previously, with 23 of 60 reviews changing a label. Coverage is 5/9; four phases remain. No inference is currently running. Root owns execution and combined analysis; `qwen17_repeat_projection` owns the closed legacy feed and findings only after root verifies completion. No paid inference or cap change occurred.

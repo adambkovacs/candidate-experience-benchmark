@@ -54,3 +54,8 @@ The first two P2 passes score 8/60 and 9/60 all-four matches. Both have 59 valid
 ## Qwen1.7B second classifier-instruction pass
 
 P1 scores 12/60 and 11/60 across its first two passes, both with 60 valid answers. Labels changed on 23 of those 60 reviews: 8 sentiment, 3 follow-up, 10 serious-concern and 8 testimonial decisions, with overlap between fields. The second pass used 119,213 tokens and 195.24 seconds of client-observed request time; pure inference duration and local running costs remain unavailable. Alongside P2's 30/58 changed-review result, this reinforces the distinction between stable aggregate scores and stable individual decisions. The third passes remain pending; four of the nine planned phases for this setup are unfinished. [Exact source-bound comparisons](../public-site/legacy-qwen-repeats.json).
+
+
+## Qwen1.7B second base-task pass
+
+P0 scores 24/60 and 23/60 across its first two passes, both with 60 valid answers. Labels changed on 11/60 reviews: 2 sentiment, 1 follow-up, 4 serious-concern and 6 testimonial decisions, with overlap between fields. The second pass used 98,024 tokens and 71.68 seconds of client-observed request time. Pure inference duration and local running costs remain unavailable. The observed changed-review counts are lower for P0 than P1 (23/60) or P2 (30/58 jointly valid), but these two-pass observations do not establish a general effect of prompt detail. All three final passes remain required. [Exact source-bound comparisons](../public-site/legacy-qwen-repeats.json).
