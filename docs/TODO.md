@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Qwen3.5 first full pass running, 5 October 2026, 19:50 UTC
+
+Smoke handle 10314 completed with three valid outputs. Root inspected each raw response, verified hashes and reference isolation, then passed fresh all-60 preflight under the same pinned instance. Fresh1/P0 development handle 35256 is running; do not dispatch another phase or model on its GPU lock. Completed smoke evidence is archived separately from live development files. The preceding final Qwen1.7B report is verified published. No paid request occurred.
+
+## Qwen3.5 4B smoke running, 5 October 2026, 19:48 UTC
+
+Root refreshed the 464-model OpenRouter catalogue: no exact Qwen3.5 4B family was found. Loaded the existing Q4_K_M artifact through the CLI with context 8192, GPU ratio 1 and parallel count 1. Frozen runtime, artifact and all-60 rendered/token checks passed on battery, instance Nqw5yKTLeyosrkku4WOQzW4M. Fresh1/P0 smoke handle 10314 is live; LM Studio confirms GENERATING and DEV-001 saved a valid JSON response. No full development request is admitted yet. Root owns smoke inspection and dispatch. Qwen1.7B final publication job 37365373674 succeeded; live HTML, repeat JS, legacy report and combined analysis JSON/JS exactly match cac0776d. No paid request occurred.
+
 ## Final thinking-off P2 closed, 5 October 2026, 19:35 UTC
 
 Root reviewed the exact-phase successor (APPROVE, no confirmed BLOCKING or RESIDUAL findings); twelve current and historical successor tests passed. Independent raw-smoke inspection was approved by `battery_review`. Fresh locked host/route/all-60 runtime checks passed, then root approved the candidate receipt and dispatched handle 8976. The full phase completed with 60 saved, 55 valid, five invalid. Hashes, ordered IDs, reference isolation and post-stage host checks passed. All nine thinking-off development phases are executed; source-bound report integration and final analysis/publication remain underway. Independent review caught a BLOCKING builder regression in the old 0.6B branch; it was fixed before publication. Settled review: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Both feeds rebuilt; fourteen Python and twenty-one Node tests passed. README, findings, coverage and main analysis now reflect 9/9. Final publication is pending. Next local matrix is Qwen3.5 4B thinking-on, subject to fresh exact-route/runtime admission. The original stopped smoke is unchanged. No inference is running and no paid request occurred. Pages 37363502046 for 3e0f0492 succeeded; live HTML, repeat JS, legacy report and combined analysis JSON match committed bytes.
