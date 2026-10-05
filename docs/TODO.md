@@ -1,5 +1,10 @@
 # Current work checklist
 
+## Mistral findings approved after portability fix, 5 October 2026
+
+Root reviewed the portable archived-child lookup, ran three focused tests and checked exact report regeneration. Verdict: APPROVE, with no remaining confirmed BLOCKING or RESIDUAL findings. Commit `5f3afa92` is pushed and includes the public projection plus CI verification. It reports 40/60 all-four matches, 55 valid outputs and five retained failures; 40/55 is the secondary valid-output figure. Deployment `37304071708` is queued behind `37303866029`; publication is not yet verified. The combined analysis agent is integrating this separate interrupted checkpoint and the approved Clef P1 findings.
+
+
 ## Clef P1 analysis approved, 5 October 2026
 
 Root reviewed and committed the source-bound Clef Flash P1 findings in `4bab11d0`; four focused tests and the saved projection check passed. Three passes each score 47/60 with 60 valid outputs and no label/probability/confidence changes. The matched fresh1/P0 comparison rises from 45/60 to 47/60, with gains on DEV-027 and DEV-044 and no losses. The public analysis agent owns integration into the existing combined view; publication is not yet claimed.
