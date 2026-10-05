@@ -90,3 +90,15 @@ Qwen3 1.7B with thinking disabled has closed its first P0 pass: 60 valid answers
 Qwen3 1.7B with thinking disabled has closed its first P0/P1/P2 passes, scoring 28/25/32 all-four matches out of 60, with 60/59/57 valid answers. P1 preserves one strict-JSON failure (DEV-029); P2 preserves three (DEV-002, DEV-005 and DEV-018). All four failures were JSON answers wrapped in Markdown code fences. The protocol requires bare JSON; outputs were not repaired. Decision rules improved the first-pass all-four total over P0 while reducing format validity. This differs from thinking-on, where P2 scored below P0 in all three passes. These are observations of the exact settings, not a general effect of reasoning or prompt detail. Thinking-off is 3/9 complete; its two further passes per prompt remain required.
 
 P1 matches sentiment/follow-up/serious-concern/testimonial on 48/56/43/44 reviews; P2 matches 49/51/37/54, all on the fixed 60-review denominator. P2 improves testimonial agreement while losing serious-concern agreement against P0 (43 and 45 respectively). The single all-four total hides that tradeoff. P1 records 106,130 tokens and 39.76 seconds of client request time; P2 records 160,446 tokens and 44.71 seconds. Pure inference time and local cost remain unavailable. [Source-bound report](../public-site/legacy-qwen-repeats.json).
+
+
+## Which thinking-off reviews changed with the prompt?
+
+The first-pass prompt comparison now reads the three saved record files, verifies their hashes against the closed legacy report, checks all 60 ordered IDs and reference isolation, and recomputes valid and all-four counts before pairing reviews. The combined report binds 130 sources.
+
+| Comparison | Valid in both | All-four matches on those reviews | Gained a match | Lost a match | Changed any label | Became invalid |
+| --- | ---: | --- | ---: | ---: | ---: | ---: |
+| P0 → P1 | 59 | 28 → 25 | 4 | 7 | 17 | 1 |
+| P0 → P2 | 57 | 28 → 32 | 9 | 5 | 20 | 3 |
+
+The invalidated reviews were not all-four matches in P0. They therefore do not explain the net score changes, though they still count as failures on the fixed 60-review denominator. Shared-valid comparisons answer a narrower question about label changes; they do not replace that denominator. The [analysis feed](../public-site/analysis-refresh.json) includes gained, lost, changed and invalidated IDs under `newerCohorts.legacyQwen.qwen17OffFirstPass.matchedP0`. A second deterministic calculation independently reproduced all counts and IDs. These are prompt comparisons within one pass, not repeatability results.

@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 127)
+        self.assertEqual(len(rebuilt["sources"]), 130)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -142,6 +142,11 @@ class AnalysisRefreshTest(unittest.TestCase):
         off_prompts = cohorts["legacyQwen"]["qwen17OffFirstPass"]
         self.assertEqual([off_prompts["scores"][c]["allFour"] for c in ("P0", "P1", "P2")], [28, 25, 32])
         self.assertEqual([off_prompts["scores"][c]["valid"] for c in ("P0", "P1", "P2")], [60, 59, 57])
+        pairs = off_prompts["matchedP0"]
+        self.assertEqual((pairs["P1"]["sharedValid"], len(pairs["P1"]["gainedMatchIds"]), len(pairs["P1"]["lostMatchIds"])), (59, 4, 7))
+        self.assertEqual((pairs["P2"]["sharedValid"], len(pairs["P2"]["gainedMatchIds"]), len(pairs["P2"]["lostMatchIds"])), (57, 9, 5))
+        self.assertEqual(pairs["P2"]["validToInvalidIds"], ["DEV-002", "DEV-005", "DEV-018"])
+        self.assertEqual(pairs["P2"]["previouslyCorrectNowInvalidIds"], [])
         q17p2 = cohorts["legacyQwen"]["qwen17P2Repeat"]
         self.assertEqual([s["allFour"] for s in q17p2["scores"]], [8, 9, 8])
         self.assertEqual(q17p2["comparison"]["denominator"], 58)
@@ -212,6 +217,12 @@ class AnalysisRefreshTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Clef first-pass evidence hash changed"):
                 analysis.build(temp)
             record_path.write_text(original_records)
+            qwen_records = temp / "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-off/fresh1/P2/development.records.jsonl"
+            original_qwen = qwen_records.read_text()
+            qwen_records.write_text(original_qwen + " ")
+            with self.assertRaisesRegex(ValueError, "Qwen prompt-pair record hash differs"):
+                analysis.build(temp)
+            qwen_records.write_text(original_qwen)
             path = temp / "public-site/findings.json"
             path.write_text(path.read_text() + " ")
             stale = subprocess.run([sys.executable, str(ROOT / "scripts/build_analysis_refresh.py"),

@@ -208,6 +208,54 @@ def clef_flash_latest_p0_interruption(root, bindings):
             "source": CLEF_FLASH_P0_SUFFIX + "/completion.json"}
 
 
+def qwen_prompt_pairs(root, phases, labels, bindings):
+    """Compare the same reviews; report invalid transitions outside shared-valid flips."""
+    decisions = {}
+    for condition in CONDITIONS:
+        source = phases[condition]["evidence"]["development"]["records"]
+        path = source["path"]
+        digest = sha(root / path)
+        if digest != source["sha256"]:
+            raise ValueError(f"Qwen prompt-pair record hash differs: {path}")
+        bindings[path] = digest
+        rows = [json.loads(line) for line in (root / path).read_text().splitlines()]
+        if (len(rows) != 60 or [r["id"] for r in rows] != sorted(labels)
+                or any(r.get("reference_labels_read") is not False for r in rows)):
+            raise ValueError("Qwen prompt-pair membership or isolation differs")
+        decisions[condition] = {r["id"]: r["decision"] for r in rows}
+        valid_rows = {r["id"]: r["decision"]["prediction"] for r in rows
+                      if r["decision"]["status"] == "ok"}
+        if any(set(pred) != set(FIELDS) for pred in valid_rows.values()):
+            raise ValueError("Qwen valid prediction fields differ")
+        score = phases[condition]["score"]
+        if (len(valid_rows) != score["valid"] or
+                sum(pred == labels[rid] for rid, pred in valid_rows.items()) != score["allFour"]):
+            raise ValueError("Qwen prompt-pair score differs")
+    output = {}
+    base = decisions["P0"]
+    for condition in ("P1", "P2"):
+        other = decisions[condition]
+        shared = [rid for rid in sorted(labels)
+                  if base[rid]["status"] == other[rid]["status"] == "ok"]
+        correct_a = {rid for rid in shared if base[rid]["prediction"] == labels[rid]}
+        correct_b = {rid for rid in shared if other[rid]["prediction"] == labels[rid]}
+        invalidated = [rid for rid in sorted(labels)
+                       if base[rid]["status"] == "ok" and other[rid]["status"] != "ok"]
+        output[condition] = {
+            "sharedValid": len(shared), "baseMatchesOnShared": len(correct_a),
+            "promptMatchesOnShared": len(correct_b),
+            "gainedMatchIds": sorted(correct_b - correct_a),
+            "lostMatchIds": sorted(correct_a - correct_b),
+            "changedLabelIds": [rid for rid in shared if base[rid]["prediction"] != other[rid]["prediction"]],
+            "validToInvalidIds": invalidated,
+            "previouslyCorrectNowInvalidIds": [rid for rid in invalidated if base[rid]["prediction"] == labels[rid]],
+            "invalidToValidIds": [rid for rid in sorted(labels)
+                                  if base[rid]["status"] != "ok" and other[rid]["status"] == "ok"],
+            "fixedDenominator": 60,
+        }
+    return output
+
+
 def build(root=ROOT):
     bindings = {}
     data = {name: read(root, name, bindings) for name in SOURCES if not name.endswith(".jsonl")}
@@ -738,7 +786,8 @@ def build(root=ROOT):
                            "qwen17RepeatStudyComplete": True,
                            "qwen17OffFirstPass": {"scores": {c: qwen17_off_first[c]["score"] for c in ("P0", "P1", "P2")},
                                "usage": {c: qwen17_off_first[c]["usage"] for c in ("P0", "P1", "P2")},
-                               "firstPassOnly": True},
+                               "firstPassOnly": True,
+                               "matchedP0": qwen_prompt_pairs(root, qwen17_off_first, labels, bindings)},
                            "qwen17OffFirstP0": {"score": qwen17_off_p0["score"],
                                "usage": qwen17_off_p0["usage"], "firstPassOnly": True},
                            "qwen17P2Repeat": qwen17_p2,

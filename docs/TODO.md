@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Offline paired-prompt analysis, 5 October 2026
+
+AC-power requirement still blocks local inference. Root added source-bound thinking-off P0→P1/P2 review comparisons, independently recomputed by the projection agent: P1 gained/lost 4/7 matches among 59 jointly valid; P2 gained/lost 9/5 among 57. Invalidated reviews were already non-matches in P0. Two Python tests (including relocated reconstruction and source-tamper rejection) and seven UI checks pass. Root review: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Browser counts and explanation are verified; publication follows. The preceding `039416a5` Pages run `37333275549` succeeded and its live HTML plus three report assets match committed bytes. No model request or budget mutation occurred.
+
 ## Local host boundary, 5 October 2026, 15:30 UTC
 
 Fresh2/P2 thinking-off smoke handle `15127` completed with three valid outputs and root inspection. The subsequent full-development preflight `55073` failed before dispatch because the host is on battery power, confirmed by `pmset -g batt`. No development request was sent and no inference is running. Reconnect AC, revalidate host and runtime, then create a fresh development receipt; do not repeat the completed smoke. First-prompt comparison commit `039416a5` is pushed; Pages job `37333275549` is pending. Other provider and budget limits remain unchanged.

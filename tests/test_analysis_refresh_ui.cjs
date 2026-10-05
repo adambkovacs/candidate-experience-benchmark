@@ -89,6 +89,8 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.doesNotMatch(view.cutoffs,/href="public-site\//);
   assert.match(view.cutoffs,/Qwen1.7B with thinking disabled, first prompt comparison/);
   assert.match(view.cutoffs,/matched all four labels on 28\/25\/32 of 60 reviews/);
+  assert.match(view.cutoffs,/gained an all-four match on 4 reviews but lost one on 7, among 59/);
+  assert.match(view.cutoffs,/Decision rules gained 9 and lost 5, among 57/);
   assert.match(view.cutoffs,/Qwen1.7B, first pass/);
   assert.match(view.cutoffs,/base task scored 24\/60, classifier instructions 12\/60, and decision rules 8\/60/);
   assert.match(view.cutoffs,/P0, P1 and P2 now each have three complete passes/);
