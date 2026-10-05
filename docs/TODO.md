@@ -1,5 +1,14 @@
 # Current work checklist
 
+## Report categories and P2 analysis, 5 October 2026
+
+Clef Flash P2 analysis is verified and pushed in `81f7c855`: three passes, each 60 valid answers and 46/60 all-four matches, with no pairwise label, probability or confidence changes. Root ran the projection check and all three focused tests. Review: APPROVE; no confirmed BLOCKING findings. This updates the earlier pending-analysis checkpoint below.
+
+Following the user's [Cloudflare leaderboard reference](https://clef-evals.workers-ai-mle.workers.dev/), the presentation agent owns clearer category navigation and verified training-lineage filters. Purpose, fine-tuning and output interface can overlap and must remain separate. A source-research agent owns a bounded comparison of new decision-model families against our roster; external scores are not our results and discovery does not admit live runs.
+
+The Mistral report agent owns a clean-checkout publication fix. Its builder still requires sealed evidence absent from the public archive; this is BLOCKING for publication. Root owns final integration and deployment verification. No budget increase or additional live dispatch occurred in this checkpoint.
+
+
 ## Clef Flash P2 three-pass execution complete, 5 October 2026
 
 Root fresh3/P2 smoke `59400` and full-development `76311` exited zero. The smoke was inspected before full-stage admission. All three P2 full passes contain 60 valid ordered outputs, with 154,954 input tokens each and no pairwise changes in predictions, native probabilities or provider confidence. Root verified completion hashes and IDs independently. The P2 findings agent is extending the report to all three passes before root review. P1 and P2 repeat execution is now closed; Flash P0 remains interrupted and Clef P1/P2 remain unfinished.
