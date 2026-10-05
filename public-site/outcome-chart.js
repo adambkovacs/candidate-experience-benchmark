@@ -36,7 +36,7 @@
   }
   function filtered(){
     const condition=$('outcome-condition').value,category=$('outcome-category').value;
-    return all.filter(run=>(condition==='all'||run.condition===condition) && (!category||run.category.category===category));
+    return all.filter(run=>(condition==='all'||run.condition===condition) && (!category||(run.category.categories || [run.category.category]).includes(category)));
   }
   function showRun(point){
     const select=$('outcome-run');
@@ -63,7 +63,7 @@
       ?points.map(point=>`<option value="${esc(point.key)}">${point.valid}/60 valid · ${point.matches}/60 match · ${point.runs.length} ${point.runs.length===1?'run':'runs'}</option>`).join('')
       :'<option value="">No matching points</option>';
     $('outcome-plot').innerHTML=points.map(point=>{
-      const categories=[...new Set(point.runs.map(run=>run.category.category))];
+      const categories=[...new Set(point.runs.flatMap(run=>run.category.categories || [run.category.category]))];
       const type=categories.length===1?categories[0]:'mixed';
       return `<button type="button" class="outcome-point" data-point="${esc(point.key)}" data-category="${esc(type)}" style="left:${(point.valid/60*100).toFixed(4)}%;bottom:${(point.matches/60*100).toFixed(4)}%" aria-label="${point.valid} of 60 valid; ${point.matches} of 60 all four match; ${point.runs.length} ${point.runs.length===1?'run':'runs'}" aria-pressed="false">${point.runs.length>1?`<span aria-hidden="true">${point.runs.length}</span>`:''}</button>`;
     }).join('');

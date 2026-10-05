@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Clef P1 closed; category filters verified, 5 October 2026
+
+Clef fresh1/P1 smoke and development are closed: 3/3 and 60/60 valid. Independent audit verified completion hashes, ordered IDs and frozen request hashes; inference records confirm reference labels were not read. Development matched all four provisional labels on 52/60 reviews and reported 144,694 input tokens, zero output. This is one P1 pass, not a completed repeat study. Root owns immutable evidence archival; private app-bridge transport files stay untracked. The next required Clef P1/P2 passes and interrupted Flash P0 suffix remain unfinished; no spending cap changed.
+
+The category update separates purpose, source-verified task-specific training and output interface. Categories can overlap; chart, saved-run and repeat filters agree. Seven focused UI tests pass. Browser checks verified decision-filter membership, fitted-head filtering, clearing filters and keyboard focus; the responsive viewport has no horizontal page overflow. Review APPROVE: no confirmed BLOCKING findings. RESIDUAL: new training filters need a full visual mobile review; interaction checks alone do not establish that presentation quality is finished.
+
+Pages deployment `37308122826` for `5db1df22` succeeded. This confirms the Mistral public-archive fix and combined analysis build; the newer taxonomy increment still awaits its own deployment. The analysis source inventory has 105 bindings.
+
 ## Public archive fixed; Clef P1 running, 5 October 2026
 
 Root independently reproduced the Mistral report from a clean Git archive plus its candidate public bundle: exact JSON bytes matched and all three focused tests passed. The 61-file bundle preserves original and public hashes; differences are limited to local path removal and dependent hash references. A credential-pattern scan found no matches. Review: APPROVE, no confirmed BLOCKING findings. Fix `324695e3` is pushed; live deployment is not yet verified.

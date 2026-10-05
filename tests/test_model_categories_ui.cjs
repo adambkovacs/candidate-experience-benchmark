@@ -15,28 +15,38 @@ function categories() {
   return context.BenchmarkCategories;
 }
 
-test('source-backed model specialization stays separate from interface and fitted adaptation', () => {
+test('purpose can overlap while training lineage remains source-backed and separate', () => {
   const classify = categories().classify;
   const byId = id => classify(runs.find(run => run.id === id));
   assert.equal(byId('typesafe-jev113-v2').category, 'decision');
+  assert.deepEqual(Array.from(byId('typesafe-jev113-v2').categories), ['decision']);
   assert.equal(byId('laya-typed-expanded-cpu').interfaceKind, 'native');
   assert.equal(byId('alex-openjev4b').category, 'tuned');
+  assert.deepEqual(Array.from(byId('alex-openjev4b').categories), ['tuned','decision']);
+  assert.equal(byId('alex-openjev4b').trainingLineage, 'task_finetuned');
   assert.equal(byId('alex-openjev4b').interfaceKind, 'nli');
   assert.equal(byId('openjev-fixed').category, 'general');
+  assert.equal(byId('openjev-fixed').trainingLineage, 'unknown');
   assert.equal(byId('openjev-fixed').interfaceKind, 'native');
   assert.equal(byId('openjev-generated-off').interfaceKind, 'generated');
   assert.equal(byId('semif-direct').category, 'general');
-  assert.equal(byId('anyjev-qwen06-l2').category, 'general');
+  assert.equal(byId('semif-direct').trainingLineage, 'frozen');
+  assert.equal(byId('anyjev-qwen06-l0').trainingLineage, 'frozen');
+  assert.equal(byId('anyjev-qwen06-l2').category, 'decision');
+  assert.deepEqual(Array.from(byId('anyjev-qwen06-l2').categories), ['general','decision']);
+  assert.equal(byId('anyjev-qwen06-l2').trainingLineage, 'fitted_head');
   assert.equal(byId('anyjev-qwen06-l2').interfaceKind, 'adapted');
   assert.equal(byId('rules-v1').category, 'rules');
   assert.equal(classify({configuration:'unverified-new-model'}).category, 'unknown');
+  assert.equal(classify({configuration:'unverified-new-model'}).trainingLineage, 'unknown');
   assert.equal(classify({configuration:'clef-flash-prepared'}).category, 'decision');
   assert.equal(classify({configuration:'kev-4b-native'}).category, 'decision');
+  assert.equal(classify({configuration:'kev-4b-native'}).trainingLineage, 'fitted_head');
 });
 
 test('saved-run category and interface filters retain the fixed 60-record scope', () => {
   const controls = Object.fromEntries([
-    'search','condition-filter','surface-filter','family-filter','effort-filter','category-filter','interface-filter','sort','include-incomplete','metric'
+    'search','condition-filter','surface-filter','family-filter','effort-filter','category-filter','training-filter','interface-filter','sort','include-incomplete','metric'
   ].map(id => [`#${id}`, {value:'',checked:true}]));
   controls['#sort'].value = 'score-desc';
   controls['#metric'].value = 'all_four';
@@ -58,8 +68,15 @@ test('saved-run category and interface filters retain the fixed 60-record scope'
   controls['#interface-filter'].value = '';
   shown = context.__categoriesUi.visibleRuns();
   assert.ok(shown.some(run => run.id === 'typesafe-jev113-v2'));
-  assert.ok(shown.every(run => context.__categoriesUi.modelType(run).category === 'decision'));
+  assert.ok(shown.some(run => run.id === 'alex-openjev4b'));
+  assert.ok(shown.every(run => context.__categoriesUi.modelType(run).categories.includes('decision')));
+  controls['#category-filter'].value = '';
+  controls['#training-filter'].value = 'fitted_head';
+  shown = context.__categoriesUi.visibleRuns();
+  assert.ok(shown.some(run => run.id === 'anyjev-qwen06-l2'));
+  assert.ok(shown.every(run => context.__categoriesUi.modelType(run).trainingLineage === 'fitted_head'));
   controls['#category-filter'].value = 'rules';
+  controls['#training-filter'].value = '';
   shown = context.__categoriesUi.visibleRuns();
   assert.deepEqual(Array.from(shown, run => run.id), ['rules-v1']);
 });
@@ -70,9 +87,14 @@ test('both public views load the shared mapping before rendering category contro
   assert.ok(html.indexOf('model-categories.js') < html.indexOf('app.js'));
   assert.ok(html.indexOf('model-categories.js') < html.indexOf('repeats.js'));
   assert.match(html, /id="category-filter"/);
+  assert.match(html, /id="training-filter"/);
   assert.match(html, /id="interface-filter"/);
   assert.match(repeats, /id="repeat-category"/);
+  assert.match(repeats, /id="repeat-training"/);
   assert.match(repeats, /id="repeat-interface"/);
-  assert.match(repeats, /modelType\(s\)\.category === category/);
+  assert.match(repeats, /modelType\(s\)\.categories \|\| \[modelType\(s\)\.category\]/);
+  assert.match(repeats, /modelType\(s\)\.trainingLineage === trainingLineage/);
   assert.match(repeats, /modelType\(s\)\.interfaceKind === interfaceKind/);
+  assert.match(html, /Fresh native OpenJev P0 results/);
+  assert.doesNotMatch(html, /Fresh native Jev P0 results/);
 });

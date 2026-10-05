@@ -74,6 +74,12 @@ test('chart source binding admits only full 60-record saved runs', async () => {
 test('prompt and category filters select exact source-bound runs', async () => {
   const { elements } = mount();
   await new Promise(resolve => setImmediate(resolve));
+  elements['outcome-category'].value = 'decision';
+  elements['outcome-category'].handlers.change();
+  const decisionCount = Number(elements['outcome-count'].textContent.split(' ')[0]);
+  const expected = merged.runs.filter(r => r.complete && r.records === 60 && r.condition === 'P0' && /alex-openjev|anyjev-qwen06-l2|typesafe|laya|clef/.test(r.id)).length;
+  assert.equal(decisionCount, expected);
+  elements['outcome-category'].value = '';
   elements['outcome-condition'].value = 'P2';
   elements['outcome-condition'].handlers.change();
   assert.match(elements['outcome-count'].textContent, /^84 closed runs shown/);

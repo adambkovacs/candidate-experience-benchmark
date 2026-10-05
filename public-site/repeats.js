@@ -1,7 +1,7 @@
 /* Each configuration is one separate 60-record repeat series. */
 (() => {
   const root = document.getElementById('repeat-results');
-  const modelType = item => globalThis.BenchmarkCategories?.classify(item) || {category:'unknown',categoryLabel:'Classification pending source',interfaceKind:'unknown',interfaceLabel:'Interface pending source'};
+  const modelType = item => globalThis.BenchmarkCategories?.classify(item) || {category:'unknown',categories:['unknown'],categoryLabel:'Classification pending source',trainingLineage:'unknown',trainingLabel:'Training lineage not verified',interfaceKind:'unknown',interfaceLabel:'Interface pending source'};
   if (!root) return;
   const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const passName = {original:'Pass 1', repeat2:'Pass 2', repeat3:'Pass 3', pass1:'Pass 1', pass2:'Pass 2', pass3:'Pass 3', fresh1:'Fresh pass 1', fresh2:'Fresh pass 2', fresh3:'Fresh pass 3'};
@@ -1057,7 +1057,7 @@
     const isGeneratedAnyJev = s => s.schema === 'anyjev-generated-repeat-findings-v1' &&
       s.method === 'generated-json-control';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isQwen27Final(s) || isGemmaSecond(s) || isGemmaPostabort(s) || isGemmaP0Checkpoint(s) || isGemmaP1Checkpoint(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
-    root.innerHTML = `<section class="analysis-caveat" aria-labelledby="clef-third-heading"><h3 id="clef-third-heading">Clef native P0 repeat checkpoint</h3><p id="repeat-clef-third">Loading the saved third-pass checkpoint.</p></section><div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Model category describes what the model was trained to do. Output interface describes how it returns an answer: generated text, direct choices, or scores. A general LLM can also return choice scores. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
+    root.innerHTML = `<section class="analysis-caveat" aria-labelledby="clef-third-heading"><h3 id="clef-third-heading">Clef native P0 repeat checkpoint</h3><p id="repeat-clef-third">Loading the saved third-pass checkpoint.</p></section><div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Verified training lineage</span><select id="repeat-training"><option value="">All training lineages</option>${Object.entries(globalThis.BenchmarkCategories?.training || {unknown:'Training lineage not verified'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Purpose and training history are separate: a decision model can use a general LLM backbone. Fine-tuning or adaptation changes model weights; prompt instructions do not. This filter shows only source-verified task-specific training or adaptation. Other training history stays “not verified.” <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/MODEL_CATEGORY_TAXONOMY_2026-10-05.md">How purpose and training labels work</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
       <div id="repeat-selected-results"><p class="category-selected" id="repeat-category-note"></p><p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
       <div id="repeat-chart" aria-live="polite"></div>
@@ -1101,7 +1101,7 @@
       const data = series.find(s => seriesKey(s) === configControl.value);
       if (!data) throw Error('Unknown repeat configuration');
       const categoryNote=document.getElementById('repeat-category-note');
-      if (categoryNote) {const type=modelType(data);categoryNote.textContent=`${type.categoryLabel} · ${type.interfaceLabel}${type.interfaceKind==='adapted' ? ' · fitted head on general model weights' : ''}`;}
+      if (categoryNote) {const type=modelType(data);categoryNote.textContent=`${type.categoryLabel} · ${type.trainingLabel} · ${type.interfaceLabel}${type.interfaceKind==='adapted' ? ' · fitted head on general model weights' : ''}`;}
       const freshCodex = isFreshCodex(data);
       const freshSonnet = isFreshSonnet(data);
       const freshHosted = isFreshHosted(data);
@@ -1483,18 +1483,21 @@
     const searchControl = document.getElementById('repeat-search');
     const coverageControl = document.getElementById('repeat-coverage');
     const categoryControl = document.getElementById('repeat-category');
+    const trainingControl = document.getElementById('repeat-training');
     const interfaceControl = document.getElementById('repeat-interface');
     function filterStudies() {
       const query = (searchControl?.value || '').trim().toLowerCase();
       const coverage = coverageControl?.value || '';
       const category = categoryControl?.value || '';
+      const trainingLineage = trainingControl?.value || '';
       const interfaceKind = interfaceControl?.value || '';
       const matches = series.filter(s => {
         const recorded = isQwen27Final(s) ? s.scoredConditions : s.completedConditions;
         const allRecorded = Number.isFinite(s.plannedConditions) && s.plannedConditions > 0 && recorded === s.plannedConditions;
         return (!query || `${s.displayName || ''} ${s.configuration || ''} ${s.method || ''}`.toLowerCase().includes(query)) &&
           (!coverage || (coverage === 'complete' ? allRecorded : !allRecorded)) &&
-          (!category || modelType(s).category === category) && (!interfaceKind || modelType(s).interfaceKind === interfaceKind);
+          (!category || (modelType(s).categories || [modelType(s).category]).includes(category)) &&
+          (!trainingLineage || modelType(s).trainingLineage === trainingLineage) && (!interfaceKind || modelType(s).interfaceKind === interfaceKind);
       });
       const previous = configControl.value;
       configControl.innerHTML = matches.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}</option>`).join('');
@@ -1506,6 +1509,7 @@
     searchControl?.addEventListener('input', filterStudies);
     coverageControl?.addEventListener('change', filterStudies);
     categoryControl?.addEventListener('change', filterStudies);
+    trainingControl?.addEventListener('change', filterStudies);
     interfaceControl?.addEventListener('change', filterStudies);
     configControl.addEventListener('change', render);
     fieldControl.addEventListener('change', render);
