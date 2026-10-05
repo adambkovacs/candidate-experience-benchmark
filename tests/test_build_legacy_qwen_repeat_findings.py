@@ -16,6 +16,55 @@ SPEC.loader.exec_module(findings)
 
 
 class LegacyQwenFindingsTests(unittest.TestCase):
+    def test_power_observation_requires_matching_checks_and_binds_post_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            folder = Path('phase')
+            (root / folder).mkdir()
+            review_path = folder / 'development.root-review.json'
+            completion_path = folder / 'development.completion.json'
+            completion_path_at_root = root / completion_path
+            completion_path_at_root.write_text('{}')
+            completion_hash = findings.sha(completion_path_at_root)
+            before = {'boot': 'boot-1', 'sleep_wakes': 4, 'ac_power': True}
+            review = {'phase': 'test/fresh1/P0', 'capacity_evidence': before}
+            (root / review_path).write_text(json.dumps(review))
+            evidence = {'review': {'path': str(review_path)},
+                        'completion': {'sha256': completion_hash}}
+            bind, bindings = findings.binder(root)
+            self.assertEqual(findings.power_observation(root, evidence, bind),
+                             {'source': 'ac', 'basis': 'pre_stage_only'})
+            self.assertNotIn('postStageVerification', evidence)
+
+            post_path = folder / 'development.post-stage-verification.json'
+            post = {'kind': 'root-closed-phase-verification-v1',
+                    'phase': review['phase'], 'completion_sha256': completion_hash,
+                    'host_unchanged': True,
+                    'host': {'boot': 'boot-1', 'sleep_wakes': 4, 'ac_power': True}}
+            (root / post_path).write_text(json.dumps(post))
+            self.assertEqual(findings.power_observation(root, evidence, bind),
+                             {'source': 'ac', 'basis': 'matching_pre_post_checks'})
+            self.assertEqual(evidence['postStageVerification']['sha256'], bindings[str(post_path)])
+
+            review['capacity_evidence'] = {'boot': 'boot-1', 'sleep_wakes': 4,
+                                           'ac_power': False, 'power_source': 'battery'}
+            post['host'] = review['capacity_evidence'].copy()
+            (root / review_path).write_text(json.dumps(review))
+            (root / post_path).write_text(json.dumps(post))
+            self.assertEqual(findings.power_observation(root, evidence, bind),
+                             {'source': 'battery', 'basis': 'matching_pre_post_checks'})
+
+            post['host']['ac_power'] = True
+            post['host']['power_source'] = 'ac'
+            (root / post_path).write_text(json.dumps(post))
+            self.assertEqual(findings.power_observation(root, evidence, bind),
+                             {'source': None, 'basis': 'unverified_or_conflicting_checks'})
+            review['capacity_evidence'] = 'unavailable'
+            (root / review_path).write_text(json.dumps(review))
+            (root / post_path).unlink()
+            self.assertEqual(findings.power_observation(root, evidence, bind),
+                             {'source': None, 'basis': 'unavailable'})
+
     def test_report_rebuilds_from_closed_source_and_tracks_all_configurations(self):
         report = findings.build(ROOT)
         saved = json.loads((ROOT / findings.OUTPUT).read_text())
@@ -83,6 +132,22 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         self.assertNotIn('inspection', original['evidence'])
         self.assertIn('smoke-format-successor-inspection.json',
                       successor['inspection']['path'])
+
+    def test_qwen17_off_final_smoke_is_bound_but_unscored(self):
+        report = findings.build(ROOT)
+        series = next(row for row in report['series']
+                      if row['configuration'] == 'qwen3-1.7b-sdk-thinking-off')
+        self.assertNotIn('P2', series['passes']['fresh3'])
+        stopped = next(row for row in series['missingPasses']
+                       if row['pass'] == 'fresh3' and row['condition'] == 'P2')
+        self.assertEqual((stopped['status'], stopped['stage'], stopped['attempted'],
+                          stopped['saved'], stopped['valid'], stopped['invalid']),
+                         ('smoke_blocked', 'smoke', 3, 3, 2, 1))
+        self.assertNotIn('score', stopped)
+        self.assertIn('completion', stopped['evidence'])
+        self.assertIn(stopped['evidence']['raw'], [
+            {'path': source['path'], 'sha256': source['sha256']}
+            for source in series['sourceBindings']])
 
     def test_second_sdk_phases_keep_fixed_denominator_and_distinct_smoke_evidence(self):
         report = findings.build(ROOT)

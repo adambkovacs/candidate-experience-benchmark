@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Eight thinking-off passes closed, 5 October 2026, 19:27 UTC
+
+Fresh2/P0 and fresh3/P1/P0 closed with 60 valid answers each; all post-stage checks passed. Scores P0 28/26/26, P1 25/26/25, P2 32/30. Fresh3/P2 smoke handle 98636 stopped after three responses: two valid, DEV-003 invalid fenced JSON. No full P2 request was sent and no inference is running. Root and review agent are examining a separately versioned continuation; the failed smoke must not be repaired or replayed. Public power-source labels and source-bound evidence pass review (APPROVE, no BLOCKING or RESIDUAL findings). Browser visual verification was blocked by the browser tool policy; automated UI checks pass. Report refresh and publication of this checkpoint are pending.
+
+## Second P0 closed; third P1 running, 5 October 2026, 19:22 UTC
+
+Root closed fresh2/P0 with 60 valid responses and verified post-stage host evidence. Thinking-off execution is 6/9; third P1 handle 91247 is running after three inspected valid smoke responses and all-60 preflight. The report agent owns power-source provenance in the legacy builder and repeat UI; root owns execution, regenerated feeds, docs and git. Pages job 37362249831 succeeded for 03a4bfc3; exact live HTML, legacy feed and combined analysis JSON/JavaScript bytes are verified. No paid request occurred.
+
 ## Battery run closed, 5 October 2026, 19:13 UTC
 
 Root closed thinking-off fresh2/P2: 60 saved, 56 valid, 30/60 all-four matches. Actual battery operation is recorded, with unchanged boot/sleep and open lid verified. Fresh2/P1 handle 49188 then closed: 60 valid, 26/60 matches, with post-stage checks passed. Coverage is 5/9; next is fresh2/P0 smoke. No inference is running. A route-audit filename mismatch stopped the first preflight before dispatch; the helper now sanitizes the directory name and the frozen controller remains unchanged. Eleven Python and thirteen Node checks pass. Combined and legacy report feeds are regenerated; publication is pending. No paid request or budget mutation occurred. Read-only review: APPROVE; RESIDUAL receipt candidate timestamps precede the explicit root review/copy step, retained for follow-up.

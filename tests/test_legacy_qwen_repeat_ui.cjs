@@ -43,6 +43,20 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
     assert.equal(series.passes.fresh1.P0.score.denominator, 60);
     assert.ok(series.passes.fresh1.P0.score.outcomes.invalid_output > 0);
   }
+  const qwen17 = payload.series.find(row => row.configuration === 'qwen3-1.7b-sdk-thinking-off');
+  qwen17.passes.fresh1.P0.powerObservation = {source:'ac', basis:'matching_pre_post_checks'};
+  qwen17.passes.fresh1.P1.powerObservation = {source:'ac', basis:'pre_stage_only'};
+  qwen17.passes.fresh1.P2.powerObservation = {source:null, basis:'unverified_or_conflicting_checks'};
+  qwen17.passes.fresh2.P1.powerObservation = {source:'battery', basis:'matching_pre_post_checks'};
+  elements.get('repeat-config').value = qwen17.configuration;
+  elements.get('repeat-config').change();
+  const timing = elements.get('repeat-usage-body').innerHTML;
+  assert.match(timing, /Power at matching pre\/post checks: AC/);
+  assert.match(timing, /Power at matching pre\/post checks: battery/);
+  assert.match(timing, /Power at pre-stage check: AC; end unverified/);
+  assert.match(timing, /Power source unavailable from verified checks/);
+  elements.get('repeat-config').value = 'qwen3-0.6b-sdk-thinking-off';
+  elements.get('repeat-config').change();
   elements.get('repeat-search').value = 'no-such-model';
   elements.get('repeat-search').input();
   assert.equal(elements.get('repeat-config').disabled, true);

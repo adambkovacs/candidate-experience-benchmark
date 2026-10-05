@@ -471,6 +471,52 @@ def usage(raw, surface='local_http'):
             'modelLoadSeconds': None, 'actualCostUsd': None, 'tokens': tokens}
 
 
+def host_power_source(host):
+    if not isinstance(host, dict):
+        return None
+    source = host.get('power_source')
+    ac_power = host.get('ac_power')
+    if source in ('ac', 'battery'):
+        if type(ac_power) is bool and (source == 'ac') != ac_power:
+            return None
+        return source
+    if source is not None:
+        return None
+    if type(ac_power) is bool:
+        return 'ac' if ac_power else 'battery'
+    return None
+
+
+def power_observation(root, development_evidence, bind):
+    """Report power at recorded checks, without inferring uninterrupted power."""
+    review_path = Path(development_evidence['review']['path'])
+    review = json.loads(file_at(root, review_path).read_text())
+    before = review.get('capacity_evidence')
+    before_source = host_power_source(before)
+    post_path = review_path.parent / 'development.post-stage-verification.json'
+    if not file_at(root, post_path).exists():
+        return {'source': before_source,
+                'basis': 'pre_stage_only' if before_source else 'unavailable'}
+    post_sha = bind(post_path)
+    development_evidence['postStageVerification'] = {'path': str(post_path), 'sha256': post_sha}
+    post = json.loads(file_at(root, post_path).read_text())
+    if (post.get('kind') != 'root-closed-phase-verification-v1' or
+            post.get('phase') != review.get('phase') or
+            post.get('completion_sha256') != development_evidence['completion']['sha256']):
+        raise ValueError(f'Post-stage verification differs: {post_path}')
+    after = post.get('host')
+    after_source = host_power_source(after)
+    if (before_source and before_source == after_source and
+            post.get('host_unchanged') is True and
+            isinstance(before, dict) and isinstance(after, dict) and
+            isinstance(before.get('boot'), str) and before['boot'] and
+            type(before.get('sleep_wakes')) is int and
+            before.get('boot') == after.get('boot') and
+            before.get('sleep_wakes') == after.get('sleep_wakes')):
+        return {'source': before_source, 'basis': 'matching_pre_post_checks'}
+    return {'source': None, 'basis': 'unverified_or_conflicting_checks'}
+
+
 def class_counts(predictions, labels):
     """Count valid predictions and their frozen-reference confusion by field."""
     eligible = [rid for rid in IDS if shared.outcome(predictions[rid]) == 'valid']
@@ -538,6 +584,12 @@ def build(root=ROOT):
                     if file_at(root, smoke_terminal_file).exists():
                         smoke_terminal = json.loads(file_at(root, smoke_terminal_file).read_text())
                         if smoke_terminal.get('status') == 'stopped':
+                            if (config_id == 'qwen3-1.7b-sdk-thinking-off' and
+                                    repeat == 'fresh3' and condition == 'P2'):
+                                missing.append(stopped_smoke(root, plan, config_id, repeat,
+                                                             condition, bind,
+                                                             require_original_inspection=False))
+                                continue
                             successor_inspection = folder / 'smoke-format-successor-inspection.json'
                             if (config_id in ('qwen3-0.6b-sdk-thinking-on',
                                               'qwen3-0.6b-sdk-thinking-off') and
@@ -597,6 +649,7 @@ def build(root=ROOT):
                          'predictedClassCounts': predicted_counts,
                          'classConfusion': confusion,
                          'usage': usage(raw, config['surface']),
+                         'powerObservation': power_observation(root, dev_evidence, bind),
                          'evidence': ({'smoke': smoke_evidence,
                                        'smokeSuccessor': successor_evidence,
                                        'development': dev_evidence} if successor else
