@@ -13,7 +13,7 @@ const phases=[
 const sha256=b=>crypto.createHash('sha256').update(b).digest('hex');
 const command=(name,args)=>execFileSync(name,args,{encoding:'utf8',timeout:120000,maxBuffer:64*1024*1024});
 
-function parseHost({power,clamshell,memory,log}){
+function parseHost({power,clamshell,memory,log},{requireAcPower=true}={}){
   const total=log.match(/Total Sleep\/Wakes since boot at (.+?)\s+:\s*(\d+)/);
   assert(total,'Host boot/sleep count unavailable');
   const boot=total[1].trim(),sleepWakes=Number(total[2]);
@@ -22,7 +22,8 @@ function parseHost({power,clamshell,memory,log}){
   const lidOpen=/"AppleClamshellState" = No/.test(clamshell);
   const memoryFree=Number(memory.match(/System-wide memory free percentage:\s*(\d+)%/)?.[1]);
   const batteryPercent=Number(power.match(/-InternalBattery-\d+.*?\b(\d+)%/)?.[1]);
-  assert(ac,'Host is not on AC power');
+  assert(ac || /Now drawing from 'Battery Power'/.test(power),'Host power source unavailable');
+  if(requireAcPower) assert(ac,'Host is not on AC power');
   assert(lidOpen,'Host lid is not open');
   assert(Number.isFinite(memoryFree) && memoryFree>=25,'Memory headroom below 25% or unavailable');
   const bootMs=Date.parse(boot);
@@ -37,10 +38,10 @@ function parseHost({power,clamshell,memory,log}){
     last_wake:lastWake,sleep_wake_events:events};
 }
 
-function currentHost(run=command){
+function currentHost(run=command,options={}){
   return parseHost({power:run('pmset',['-g','batt']),
     clamshell:run('ioreg',['-r','-k','AppleClamshellState','-d','4']),
-    memory:run('memory_pressure',['-Q']),log:run('pmset',['-g','log'])});
+    memory:run('memory_pressure',['-Q']),log:run('pmset',['-g','log'])},options);
 }
 
 function candidate(host,now=new Date()){

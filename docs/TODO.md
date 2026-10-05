@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Battery execution authorized, 5 October 2026
+
+The user removed the AC-only restriction. `config/local-execution.json` permits battery operation; the current host helper and Qwen preflight record actual power source and policy hash. Five tests pass, including battery admission, preserved historical AC enforcement, sleep detection, and lid/memory checks. Live host admission passed on battery at 49%. Earlier power-blocked notes are historical. Next step remains a fresh development preflight for thinking-off fresh2/P2, retaining the completed smoke.
+
 ## Published; execution blocked, 5 October 2026, 15:42 UTC
 
 Pages job `37334126837` succeeded for `b9d041e2`. Live HTML, analysis JSON and analysis JavaScript match committed bytes; a transient SSL timeout was followed by a successful bounded retry. Roster correction `f29ee95f` is pushed. AC power remains unavailable across three consecutive goal turns. No inference is running; thinking-off fresh2/P2 development is still never sent and its completed smoke inspection is preserved. Offline paired analysis and its publication are verified. Resume local execution after AC and runtime checks; existing hosted budget, quota and exact-route/access blockers remain. The benchmark is not complete.

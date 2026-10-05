@@ -2,6 +2,10 @@
 
 Updated 2026-10-05 with Clef Flash P1/P2 repeats, the final interrupted Mistral P0 checkpoint and report category work. The classification-bench implementation remains owned by a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
 
+## Local power policy, 5 October 2026
+
+The user authorized local inference on battery. `config/local-execution.json` now sets `allow_battery_power` to true. Current preflight uses `scripts/local_host_admission.cjs` through `scripts/legacy_qwen_current_preflight.cjs`; power source, battery percentage and policy hash are recorded in new receipts. AC is no longer an admission requirement. Open-lid, memory and sleep checks remain. Preserve historical receipts and distinguish battery observations when comparing timing; no model request settings or reference labels change.
+
 ## Current checkpoint, 5 October 2026
 
 Qwen3 1.7B SDK thinking-on has completed all nine planned runs. P0 scores 24/23/24, P1 12/11/16 and P2 8/9/8 out of 60. P0 and P1 are valid on all 60 reviews in every pass; P2 has 59/59/60 valid outputs, preserving earlier format failures on DEV-012 and DEV-033. Across three passes, labels vary on 19/60 reviews for P0, 30/60 for P1 and 40/58 valid in all three P2 passes. P1 and P2 score below P0 in every matched pass. The [updated findings](LEGACY_QWEN_REPEAT_FINDINGS_2026-10-02.md) keep this exact local configuration separate from hosted Qwen models; fresh route checks found no exact hosted family. Final smoke inspection, all-60 runtime/render/token preflight and post-run host checks passed. The wider roster is not complete: the 1.7B thinking-off matrix is underway and the 3.5 4B thinking-on matrix, among other recorded work, remains pending.
