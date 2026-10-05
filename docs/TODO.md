@@ -1,5 +1,14 @@
 # Current work checklist
 
+## Execution resumed, 5 October 2026, 11:10 UTC
+
+Mistral fresh1/P0 has now attempted all 60 records: 55 valid and five failed (DEV-048, DEV-050, DEV-053, DEV-058, DEV-060). Root handle `48363` exited after DEV-060 returned HTTP 429; DEV-059 succeeded with $0.00023835 observed cost. The last child remains reserved pending terminal reconciliation; no failed request will be replayed. The terminal-review agent owns the proposal, root owns sealing and publication.
+
+Clef Flash fresh1/P1 smoke handle `13299` exited zero with three valid responses. Root inspected all three native responses and wrote the source-bound smoke review. Input usage totals 7,228 tokens; no provider charges were returned, so the $0.017697 full-context hold remains. Parent environment credentials were verified without exposure. The unchanged 60-record development stage is next, requiring its separate exact grant and reservation.
+
+
+Browser QA also passed on a local server using the published source: desktop 1280px, mobile 390px, keyboard disclosure, reduced motion, and category/interface filtering. No horizontal overflow or console errors were observed. Production asset equality was checked separately; this was not a direct production interaction test.
+
 ## Explorer publication verified, 5 October 2026
 
 Pages run `37299477508` succeeded for `87cbf4bf`. Root fetched the live HTML and repeat script after deployment; both match the committed files (HTML SHA-256 `682e1fbd0b8d2e8a7bfb25ac09d26fe3ccccd8d481992b069a7b506588ccbf84`, repeat script `7f0667b5f3186bd3333269f2b494f01fac83a15a79dc6ffc3902b77988079eee`). Browser interaction checks remain assigned separately; byte equality does not prove desktop or mobile usability.
