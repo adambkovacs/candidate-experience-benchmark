@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Local host boundary, 5 October 2026, 15:30 UTC
+
+Fresh2/P2 thinking-off smoke handle `15127` completed with three valid outputs and root inspection. The subsequent full-development preflight `55073` failed before dispatch because the host is on battery power, confirmed by `pmset -g batt`. No development request was sent and no inference is running. Reconnect AC, revalidate host and runtime, then create a fresh development receipt; do not repeat the completed smoke. First-prompt comparison commit `039416a5` is pushed; Pages job `37333275549` is pending. Other provider and budget limits remain unchanged.
+
 ## Qwen1.7B thinking-off first prompt comparison closed, 5 October 2026
 
 Root closed P2 handle `27062` (57 valid, 3 invalid, 32/60 matches) and P1 handle `23860` (59 valid, 1 invalid, 25/60 matches). Root inspected P1 smoke, verified both completions, hashes, ordered IDs, reference isolation and unchanged host. All four invalid outputs contain Markdown code fences; no repair or retry occurred. Thinking-off is 3/9; thinking-on remains 9/9. No inference is currently running. Next is thinking-off fresh2/P2 smoke. No paid request or cap change occurred.
