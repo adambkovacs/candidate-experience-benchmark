@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Published; execution blocked, 5 October 2026, 15:42 UTC
+
+Pages job `37334126837` succeeded for `b9d041e2`. Live HTML, analysis JSON and analysis JavaScript match committed bytes; a transient SSL timeout was followed by a successful bounded retry. Roster correction `f29ee95f` is pushed. AC power remains unavailable across three consecutive goal turns. No inference is running; thinking-off fresh2/P2 development is still never sent and its completed smoke inspection is preserved. Offline paired analysis and its publication are verified. Resume local execution after AC and runtime checks; existing hosted budget, quota and exact-route/access blockers remain. The benchmark is not complete.
+
 ## Offline paired-prompt analysis, 5 October 2026
 
 AC-power requirement still blocks local inference. Root added source-bound thinking-off P0→P1/P2 review comparisons, independently recomputed by the projection agent: P1 gained/lost 4/7 matches among 59 jointly valid; P2 gained/lost 9/5 among 57. Invalidated reviews were already non-matches in P0. Two Python tests (including relocated reconstruction and source-tamper rejection) and seven UI checks pass. Root review: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Browser counts and explanation are verified; publication follows. The preceding `039416a5` Pages run `37333275549` succeeded and its live HTML plus three report assets match committed bytes. No model request or budget mutation occurred.
