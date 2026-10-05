@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Third P0 closed, 5 October 2026
+
+Pages job `37327405475` succeeded for `53457fe2`; live HTML, legacy Qwen JSON and combined analysis JSON/JavaScript match the committed bytes. Root review of this checkpoint: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Eleven Python and eight UI checks passed; browser coverage and the matched three-pass comparison are verified.
+
+Fresh3/P0 smoke handle `32428` exited zero with three valid outputs. Root inspected raw JSON, verified source hashes and reference isolation, then checked all 60 rendered requests and the pinned runtime against a fresh exact-route audit. Full handle `54665` exited zero with 60 saved and valid answers. Root verified hashes, ordered IDs, reference isolation and unchanged host boot/sleep/AC/lid. P0 scores 24/23/24 out of 60; across three passes 19/60 reviews change labels. Coverage is 8/9, with only third P2 remaining. No inference is currently running. Root owns execution and combined analysis; `qwen17_repeat_projection` owns only the closed legacy report and findings. No paid inference or cap change occurred.
+
+
 ## Third P1 closed, 5 October 2026
 
 Root review: APPROVE, no confirmed BLOCKING findings. A RESIDUAL stale two-pass sentence was corrected before publication. Eleven Python and eight UI checks passed; browser coverage is 7/9 and the P1 three-pass finding is verified.

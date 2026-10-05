@@ -3887,6 +3887,65 @@
         }
       },
       "qwen17P0Repeat": {
+        "changesAcrossThreePasses": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "follow_up_needed": [
+              "DEV-018"
+            ],
+            "sentiment": [
+              "DEV-007",
+              "DEV-009",
+              "DEV-025",
+              "DEV-027",
+              "DEV-041",
+              "DEV-054"
+            ],
+            "serious_concern_reported": [
+              "DEV-017",
+              "DEV-019",
+              "DEV-028",
+              "DEV-041",
+              "DEV-048",
+              "DEV-054",
+              "DEV-055"
+            ],
+            "testimonial_potential": [
+              "DEV-008",
+              "DEV-011",
+              "DEV-018",
+              "DEV-023",
+              "DEV-037",
+              "DEV-040",
+              "DEV-042",
+              "DEV-048",
+              "DEV-051",
+              "DEV-055"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-011",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-023",
+            "DEV-025",
+            "DEV-027",
+            "DEV-028",
+            "DEV-037",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-048",
+            "DEV-051",
+            "DEV-054",
+            "DEV-055"
+          ]
+        },
         "comparison": {
           "condition": "P0",
           "denominator": 60,
@@ -3948,7 +4007,7 @@
           },
           "to": "fresh2"
         },
-        "completedPasses": 2,
+        "completedPasses": 3,
         "requiredPasses": 3,
         "scores": [
           {
@@ -3996,8 +4055,95 @@
               "valid": 60
             },
             "valid": 60
+          },
+          {
+            "allFour": 24,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 55,
+              "sentiment": 46,
+              "serious_concern_reported": 44,
+              "testimonial_potential": 41
+            },
+            "invalidIds": [],
+            "outcomes": {
+              "invalid_output": 0,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 60
+            },
+            "valid": 60
           }
-        ]
+        ],
+        "summary": {
+          "allFour": {
+            "completedPasses": 3,
+            "range": [
+              23,
+              24
+            ],
+            "values": [
+              24,
+              23,
+              24
+            ]
+          },
+          "fields": {
+            "follow_up_needed": {
+              "completedPasses": 3,
+              "range": [
+                55,
+                56
+              ],
+              "values": [
+                55,
+                56,
+                55
+              ]
+            },
+            "sentiment": {
+              "completedPasses": 3,
+              "range": [
+                46,
+                51
+              ],
+              "values": [
+                49,
+                51,
+                46
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "range": [
+                44,
+                46
+              ],
+              "values": [
+                45,
+                46,
+                44
+              ]
+            },
+            "testimonial_potential": {
+              "completedPasses": 3,
+              "range": [
+                36,
+                41
+              ],
+              "values": [
+                38,
+                36,
+                41
+              ]
+            }
+          }
+        }
       },
       "qwen17P1Repeat": {
         "changesAcrossThreePasses": {
@@ -4181,6 +4327,11 @@
           "to": "fresh2"
         },
         "completedPasses": 3,
+        "matchedP0AllFourDeltas": [
+          -12,
+          -12,
+          -8
+        ],
         "requiredPasses": 3,
         "scores": [
           {
@@ -4491,7 +4642,7 @@
           "plannedConditions": 9
         },
         "qwen3-1.7b-sdk-thinking-on": {
-          "completedConditions": 7,
+          "completedConditions": 8,
           "plannedConditions": 9
         },
         "qwen3.5-4b-sdk-thinking-on": {
@@ -6284,7 +6435,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "0debdb9ce49500caf41af7ec800c83c1b57a4335a680518baa129aa3f62d42ff"
+      "sha256": "66a6efa551f5a637c2a9041602cbe0688fed0ebdd329c051410085ed5c8401c5"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",

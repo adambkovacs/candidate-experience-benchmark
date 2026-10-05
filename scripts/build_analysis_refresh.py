@@ -655,11 +655,15 @@ def build(root=ROOT):
                  "summary": qwen17_series["threePassSummary"]["P1"],
                  "changesAcrossThreePasses": qwen17_series["changesAcrossThreePasses"]["P1"]}
     qwen17_p0 = {"scores": [qwen17_series["passes"][p]["P0"]["score"]
-                            for p in ("fresh1", "fresh2")],
+                            for p in ("fresh1", "fresh2", "fresh3")],
                  "comparison": next(x for x in qwen17_series["pairwiseFlips"]
                                     if x["condition"] == "P0" and x["from"] == "fresh1"
                                     and x["to"] == "fresh2"),
-                 "requiredPasses": 3, "completedPasses": 2}
+                 "requiredPasses": 3, "completedPasses": 3,
+                 "summary": qwen17_series["threePassSummary"]["P0"],
+                 "changesAcrossThreePasses": qwen17_series["changesAcrossThreePasses"]["P0"]}
+    qwen17_p1["matchedP0AllFourDeltas"] = [b["allFour"] - a["allFour"]
+        for a, b in zip(qwen17_p0["scores"], qwen17_p1["scores"])]
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or

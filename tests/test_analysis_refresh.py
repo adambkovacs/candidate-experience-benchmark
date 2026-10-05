@@ -142,11 +142,14 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual(q17p1["comparison"]["denominator"], 60)
         self.assertEqual(q17p1["comparison"]["fourFieldVector"]["changed"], 23)
         self.assertEqual(q17p1["completedPasses"], 3)
+        self.assertEqual(q17p1["matchedP0AllFourDeltas"], [-12, -12, -8])
         self.assertEqual(len(q17p1["changesAcrossThreePasses"]["fourFieldVector"]), 30)
         q17p0 = cohorts["legacyQwen"]["qwen17P0Repeat"]
-        self.assertEqual([s["allFour"] for s in q17p0["scores"]], [24, 23])
+        self.assertEqual([s["allFour"] for s in q17p0["scores"]], [24, 23, 24])
         self.assertEqual(q17p0["comparison"]["denominator"], 60)
         self.assertEqual(q17p0["comparison"]["fourFieldVector"]["changed"], 11)
+        self.assertEqual(q17p0["completedPasses"], 3)
+        self.assertEqual(len(q17p0["changesAcrossThreePasses"]["fourFieldVector"]), 19)
         self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 3)
         legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
         pending = {s["configuration"]: s for s in legacy["series"]}
