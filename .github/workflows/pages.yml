@@ -31,6 +31,9 @@ jobs:
           node --check public-site/reader.js
           python3 scripts/build_reader_story.py --check
           python3 -m unittest tests.test_reader_story -q
+          python3 scripts/build_mistral119_fresh1_p0_findings.py > /tmp/mistral119-fresh1-p0-findings.json
+          cmp /tmp/mistral119-fresh1-p0-findings.json public-site/mistral119-fresh1-p0-findings.json
+          python3 -m unittest tests.test_build_mistral119_fresh1_p0_findings -q
           python3 scripts/build_clef_flash_p1_findings.py --check
           python3 -m unittest tests.test_build_clef_flash_p1_findings -q
           python3 scripts/build_analysis_refresh.py --check
