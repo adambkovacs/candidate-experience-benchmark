@@ -40,7 +40,7 @@ jobs:
           python3 -m unittest tests.test_build_clef_flash_p2_findings -q
           python3 scripts/build_analysis_refresh.py --check
           python3 -m unittest tests.test_analysis_refresh -q
-          node --test tests/test_analysis_refresh_ui.cjs
+          node --test tests/test_analysis_refresh_ui.cjs tests/test_clef_current_matrix_ui.cjs tests/test_clef_p0_third_checkpoint_ui.cjs
           python3 scripts/build_legacy_qwen_repeat_findings.py --check
           python3 -m unittest tests.test_build_legacy_qwen_repeat_findings -q
           node --test tests/test_legacy_qwen_repeat_ui.cjs

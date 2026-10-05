@@ -89,6 +89,7 @@
   const gemmaP0CheckpointSchema = 'gemma26-on-v2-fresh3-checkpoint-v1';
   const gemmaP1CheckpointUrl = './gemma26-fresh3-p1-interrupted-checkpoint.json';
   const gemmaP1CheckpointSchema = 'gemma26-fresh3-p1-interrupted-checkpoint-v1';
+  const analysisRefreshUrl = './analysis-refresh.json';
   const clefThirdUrl = './clef-p0-third-checkpoint.json';
   const deepseekThirdUrl = './deepseek-low-third-interruption-findings.json';
   const deepseekThirdSchema = 'deepseek-low-third-interruption-findings-v1';
@@ -1057,13 +1058,75 @@
     const isGeneratedAnyJev = s => s.schema === 'anyjev-generated-repeat-findings-v1' &&
       s.method === 'generated-json-control';
     const seriesKey = s => isFreshCodex(s) || isFreshHosted(s) || isQwenContinuation(s) || isDeepseekLowContinuation(s) || isGemmaContinuation(s) || isQwen27Cutoff(s) || isQwen27Second(s) || isQwen27Final(s) || isGemmaSecond(s) || isGemmaPostabort(s) || isGemmaP0Checkpoint(s) || isGemmaP1Checkpoint(s) || isDeepseekThird(s) || isNativeOpenJev(s) || isGeneratedOpenJev(s) ? s.seriesId : s.configuration;
-    root.innerHTML = `<section class="analysis-caveat" aria-labelledby="clef-third-heading"><h3 id="clef-third-heading">Clef native P0 repeat checkpoint</h3><p id="repeat-clef-third">Loading the saved third-pass checkpoint.</p></section><div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Verified training lineage</span><select id="repeat-training"><option value="">All training lineages</option>${Object.entries(globalThis.BenchmarkCategories?.training || {unknown:'Training lineage not verified'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Purpose and training history are separate: a decision model can use a general LLM backbone. Fine-tuning or adaptation changes model weights; prompt instructions do not. This filter shows only source-verified task-specific training or adaptation. Other training history stays “not verified.” <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/MODEL_CATEGORY_TAXONOMY_2026-10-05.md">How purpose and training labels work</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
+    root.innerHTML = `<section class="analysis-caveat clef-current-matrix" aria-labelledby="clef-current-heading"><h3 id="clef-current-heading">Clef and Clef Flash: repeated results</h3><div id="repeat-clef-current" role="status" aria-live="polite"><p>Loading the current Clef and Clef Flash results.</p></div><details class="repeat-usage"><summary>Historical P0 checkpoint, 2 October 2026</summary><p id="repeat-clef-third">Loading the saved third-pass checkpoint.</p></details></section><div class="filter-grid"><label><span>Find a repeat study</span><input id="repeat-search" type="search" placeholder="Model, route or setting"></label><label><span>Study coverage</span><select id="repeat-coverage"><option value="">All studies</option><option value="complete">All planned runs recorded</option><option value="pending">Runs still missing</option></select></label><label><span>Model category</span><select id="repeat-category"><option value="">All model categories</option>${Object.entries(globalThis.BenchmarkCategories?.categories || {unknown:'Classification pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Verified training lineage</span><select id="repeat-training"><option value="">All training lineages</option>${Object.entries(globalThis.BenchmarkCategories?.training || {unknown:'Training lineage not verified'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label><label><span>Output interface</span><select id="repeat-interface"><option value="">All output interfaces</option>${Object.entries(globalThis.BenchmarkCategories?.interfaces || {unknown:'Interface pending source'}).map(([key,value])=>`<option value="${esc(key)}">${esc(value)}</option>`).join('')}</select></label></div><p class="category-explainer">Purpose and training history are separate: a decision model can use a general LLM backbone. Fine-tuning or adaptation changes model weights; prompt instructions do not. This filter shows only source-verified task-specific training or adaptation. Other training history stays “not verified.” <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md">Read the source mapping</a>. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/MODEL_CATEGORY_TAXONOMY_2026-10-05.md">How purpose and training labels work</a>.</p><p id="repeat-filter-count" role="status" aria-live="polite"></p><label class="repeat-control">Model and test setup <select id="repeat-config">${series.map(s => `<option value="${esc(seriesKey(s))}">${esc(s.displayName || s.configuration)}${isFreshCodex(s) ? ' · three new passes' : ''}</option>`).join('')}</select></label>
       <div id="repeat-selected-results"><p class="category-selected" id="repeat-category-note"></p><p class="repeat-summary" id="repeat-summary"></p><details class="repeat-usage"><summary>Study details and measurement limits</summary><p class="repeat-lead" id="repeat-lead"></p></details><div id="repeat-interpretation"></div>
       <label class="repeat-control">Compare agreement for <select id="repeat-field">${Object.entries(fields).map(([k,v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
       <div id="repeat-chart" aria-live="polite"></div>
       <div class="repeat-detail-grid"><div><h3 id="repeat-delta-title">How did prompt scores change across passes?</h3><p id="repeat-delta-intro">Change in matching answers compared with P0 in the same pass. Positive means more matches; negative means fewer.</p><div id="repeat-deltas"></div></div>
       <div><h3>Which answers changed?</h3><label class="repeat-control"><span id="repeat-condition-label">Prompt condition</span> <select id="repeat-condition">${Object.entries(conditions).map(([k,v]) => `<option value="${k}">${k}: ${v}</option>`).join('')}</select></label><div id="repeat-flips" aria-live="polite"></div></div></div>
       <details class="repeat-usage"><summary>Requests, tokens and reported costs</summary><p>Each completed row covers 60 comments. Request counts depend on whether the configuration uses individual comments or batches. Smoke tests are separate. Claude input excludes cache reads and writes; Codex input includes cached tokens. Reasoning tokens are already in output and are not counted twice. Some providers report a charge. API-equivalent estimates use public rates and are not subscription bills. Subscription charge and quota use per run remain unknown. Request durations include client and service overhead.</p><div class="table-wrap"><table><caption>Recorded development usage</caption><thead><tr><th>Condition</th><th>Pass</th><th>Requests</th><th>Input tokens</th><th>Output tokens</th><th>Reported cost (USD)</th><th>Price-based estimate (USD)</th><th>Sum of request seconds</th></tr></thead><tbody id="repeat-usage-body"></tbody></table></div></details></div>`;
+    const currentClefPanel = document.getElementById('repeat-clef-current');
+    if (currentClefPanel) Promise.resolve().then(() => fetch(analysisRefreshUrl)).then(response => {
+      if (!response.ok) throw Error('Missing current analysis feed');
+      return response.json();
+    }).then(report => {
+      const cohorts = report?.newerCohorts;
+      const p0 = cohorts?.clefNativeP0;
+      const clefP1 = cohorts?.clefP1FirstPass;
+      const flashP1 = cohorts?.clefFlashP1;
+      const flashP2 = cohorts?.clefFlashP2;
+      const flashP0Third = cohorts?.latestFlashP0Interruption;
+      const passes = ['fresh1', 'fresh2', 'fresh3'];
+      const boundSource = path => typeof path === 'string' && report.sources.some(item =>
+        item?.path === path && /^[0-9a-f]{64}$/.test(item?.sha256 || ''));
+      const scored = value => Number.isInteger(value?.allFour) && value.allFour >= 0 && value.allFour <= 60 &&
+        value?.denominator === 60 && value?.valid === 60;
+      const scoreCell = value => `<strong>${esc(value.allFour)}/60</strong><small>Complete</small>`;
+      const pendingCell = '<strong>Pending</strong><small>No score</small>';
+      const sourceHref = value => value?.startsWith('public-site/') ? `./${value.slice(12)}` :
+        `https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/${value}`;
+      const sourceLink = (value, label = 'Source findings') => value ?
+        `<a href="${esc(sourceHref(value))}">${esc(label)}</a>` : '<span>Pending</span>';
+      const p0ClefScores = {
+        fresh1: {allFour:p0?.repeat?.models?.clef?.fresh1AllFour, denominator:p0?.models?.clef?.denominator, valid:p0?.models?.clef?.valid},
+        fresh2: {allFour:p0?.repeat?.models?.clef?.fresh2AllFour, denominator:p0?.models?.clef?.denominator, valid:p0?.models?.clef?.valid},
+        fresh3: {allFour:p0?.thirdCheckpoint?.clef?.fresh3AllFour, denominator:p0?.models?.clef?.denominator, valid:p0?.thirdCheckpoint?.clef?.valid},
+      };
+      const p0FlashScores = {
+        fresh1: {allFour:p0?.repeat?.models?.['clef-flash']?.fresh1AllFour, denominator:p0?.models?.['clef-flash']?.denominator, valid:p0?.models?.['clef-flash']?.valid},
+        fresh2: {allFour:p0?.repeat?.models?.['clef-flash']?.fresh2AllFour, denominator:p0?.models?.['clef-flash']?.denominator, valid:p0?.models?.['clef-flash']?.valid},
+      };
+      const interruptedIds = [...(flashP0Third?.unknownOutcomeIds || []), ...(flashP0Third?.neverSentIds || [])];
+      if (report?.schema !== 'analysis-refresh-v1' || !Array.isArray(report?.sources) ||
+          !report.sources.every(item => typeof item?.path === 'string' && /^[0-9a-f]{64}$/.test(item?.sha256 || '')) ||
+          p0?.condition !== 'P0' || p0?.repeat?.requiredFullPassesPerCondition !== 3 ||
+          !boundSource(p0?.thirdCheckpointSource) ||
+          !passes.every(pass => scored(p0ClefScores[pass])) || !scored(p0FlashScores.fresh1) || !scored(p0FlashScores.fresh2) ||
+          clefP1?.condition !== 'P1' || clefP1?.pass !== 'fresh1' || !scored(clefP1) ||
+          clefP1?.completedP1Passes !== 1 || clefP1?.plannedP1Passes !== 3 ||
+          !boundSource(clefP1?.source) || typeof clefP1?.findings !== 'string' ||
+          flashP1?.source !== 'public-site/clef-flash-p1-findings.json' || !boundSource(flashP1.source) ||
+          flashP2?.source !== 'public-site/clef-flash-p2-findings.json' || !boundSource(flashP2.source) ||
+          !passes.every(pass => scored(flashP1?.passes?.[pass])) || !passes.every(pass => scored(flashP2?.passes?.[pass])) ||
+          flashP0Third?.reviewCount !== 60 || flashP0Third?.status !== 'interrupted_unscored' ||
+          !boundSource(flashP0Third?.source) ||
+          flashP0Third?.score !== null || flashP0Third?.valid !== 0 ||
+          !Array.isArray(flashP0Third?.unknownOutcomeIds) || flashP0Third.unknownOutcomeIds.length !== 2 ||
+          !Array.isArray(flashP0Third?.neverSentIds) || flashP0Third.neverSentIds.length !== flashP0Third.neverSentCount ||
+          interruptedIds.length !== 60 || new Set(interruptedIds).size !== 60 ||
+          JSON.stringify([...interruptedIds].sort()) !== JSON.stringify(idsFrom(1)))
+        throw Error('Changed current Clef analysis');
+      const interruptedCell = `<strong>Interrupted</strong><small>${esc(flashP0Third.unknownOutcomeIds.length)} unknown outcomes; ${esc(flashP0Third.neverSentCount)} never sent; no score</small>`;
+      const rows = [
+        ['Clef', 'P0', passes.map(pass => scoreCell(p0ClefScores[pass])), p0?.thirdCheckpointSource],
+        ['Clef', 'P1', [scoreCell(clefP1), pendingCell, pendingCell], clefP1?.findings],
+        ['Clef', 'P2', [pendingCell, pendingCell, pendingCell], null],
+        ['Clef Flash', 'P0', [scoreCell(p0FlashScores.fresh1), scoreCell(p0FlashScores.fresh2), interruptedCell], flashP0Third?.source],
+        ['Clef Flash', 'P1', passes.map(pass => scoreCell(flashP1.passes[pass])), flashP1?.source],
+        ['Clef Flash', 'P2', passes.map(pass => scoreCell(flashP2.passes[pass])), flashP2?.source],
+      ];
+      currentClefPanel.innerHTML = `<p>Scores count exact all-four matches out of 60 reviews. Each row uses the model's native choice variant: the model selects from the supplied answer options. P0 is the base task, P1 adds classifier instructions, and P2 adds decision rules. Pending cells have no saved score; interrupted cells remain unscored.</p><div class="table-wrap" tabindex="0" role="region" aria-label="Clef repeat results, scroll horizontally on small screens"><table><caption>Current Clef native-choice repeat status</caption><thead><tr><th scope="col">Model</th><th scope="col">Condition</th><th scope="col">Pass 1</th><th scope="col">Pass 2</th><th scope="col">Pass 3</th><th scope="col">Evidence</th></tr></thead><tbody>${rows.map(([model, condition, cells, source]) => `<tr><th scope="row">${esc(model)}</th><td>${esc(condition)}</td>${cells.map(cell => `<td>${cell}</td>`).join('')}<td>${sourceLink(source)}</td></tr>`).join('')}</tbody></table></div>`;
+    }).catch(() => {currentClefPanel.textContent = 'The current Clef and Clef Flash matrix is unavailable because its analysis feed is missing or changed.';});
     const clefPanel = document.getElementById('repeat-clef-third');
     if (clefPanel) Promise.resolve().then(() => fetch(clefThirdUrl)).then(response => {
       if (!response.ok) throw Error('Missing Clef third-P0 checkpoint');
@@ -1091,7 +1154,7 @@
           !bound || !/^[0-9a-f]{64}$/.test(bound['results/clef-native-v1/clef/fresh3/P0/development/completion.json'] || '') ||
           !/^[0-9a-f]{64}$/.test(bound['results/clef-native-v1/clef-flash/fresh3/P0/development/external-error-audit.json'] || ''))
         throw Error('Changed Clef third-P0 checkpoint');
-      clefPanel.innerHTML = `Clef has <strong>3 of 9</strong> planned runs scored: <strong>53/60</strong> all-four matches in each of three P0 passes, with no observed answer, native-probability or vendor-confidence changes at reported precision across the same 60 reviews. Clef Flash has <strong>2 of 9</strong> planned runs scored: <strong>45/60</strong> in each of its first two P0 passes. Its third P0 pass stopped after one unknown outcome; 59 reviews were never sent, so it has no third score. P1 and P2 remain outside this checkpoint. <a href="${clefThirdUrl}">Read the source-bound checkpoint</a>.`;
+      clefPanel.innerHTML = `At this dated checkpoint, Clef had <strong>3 of 9</strong> planned runs scored: <strong>53/60</strong> all-four matches in each of three P0 passes, with no observed answer, native-probability or vendor-confidence changes at reported precision across the same 60 reviews. Clef Flash had <strong>2 of 9</strong> planned runs scored: <strong>45/60</strong> in each of its first two P0 passes. Its third P0 pass stopped after one unknown outcome; 59 reviews were never sent, so it had no third score. P1 and P2 were outside this checkpoint. <a href="${clefThirdUrl}">Read the source-bound checkpoint</a>.`;
     }).catch(() => {clefPanel.textContent = 'The Clef third-P0 checkpoint is unavailable; earlier repeat studies remain available below.';});
     const configControl = document.getElementById('repeat-config');
     const fieldControl = document.getElementById('repeat-field');

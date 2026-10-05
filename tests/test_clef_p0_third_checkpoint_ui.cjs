@@ -42,10 +42,10 @@ async function render(third = checkpoint, thirdStatus = 200) {
 
 test('repeat page shows Clef third-P0 coverage and keeps Flash unscored', async () => {
   const panel = (await render()).get('repeat-clef-third').innerHTML;
-  assert.match(panel, /Clef has <strong>3 of 9<\/strong> planned runs scored/);
+  assert.match(panel, /Clef had <strong>3 of 9<\/strong> planned runs scored/);
   assert.match(panel, /53\/60/);
   assert.match(panel, /at reported precision/);
-  assert.match(panel, /Clef Flash has <strong>2 of 9<\/strong> planned runs scored/);
+  assert.match(panel, /Clef Flash had <strong>2 of 9<\/strong> planned runs scored/);
   assert.match(panel, /one unknown outcome; 59 reviews were never sent/);
   assert.match(panel, /no third score/);
   assert.match(panel, /href="\.\/clef-p0-third-checkpoint\.json"/);

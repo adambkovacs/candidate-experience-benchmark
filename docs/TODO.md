@@ -2,7 +2,9 @@
 
 ## Current repeat view and roster reconciliation, 5 October 2026
 
-Agent `clef_repeat_matrix` owns the current native Clef P0/P1/P2 matrix in the repeatability section and its focused UI tests. Agent `next_work_audit` owns the current counts in `MVP_ROSTER_ACCOUNTING.md`. Root owns integration, browser checks, Git and publication. No inference is admitted or running. This work corrects stale presentation of completed evidence while Cloudflare quota and the other recorded execution blockers remain.
+The current Clef P0/P1/P2 matrix now shows all three pass positions from the combined analysis feed. Clef has four scored passes; Flash has eight, with its third P0 preserving two unknown outcomes and 58 unsent reviews. The historical P0 snapshot is dated and collapsed. The roster also reflects Gemma's nine descriptive results and Mistral's first descriptive result with 55 valid and five failed answers.
+
+Root review: APPROVE, no remaining confirmed BLOCKING or RESIDUAL findings. The fixed source-count guard was corrected before publication so unrelated feed additions do not break the matrix. All 112 existing/shared repeat-view checks passed, followed by six focused checks including an additional source and duplicate-ID rejection. Desktop and 390px mobile previews are readable, with no horizontal page overflow; the table supports independent keyboard scrolling. No animation was added. Publication is pending. No inference is admitted or running; Cloudflare quota and other recorded execution blockers remain.
 
 ## Flash continuation stopped at provider quota, 5 October 2026
 
