@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Qwen first-pass publication and second P2 execution, 5 October 2026
+
+Pages job `37321501799` succeeded for `37d9c78f`. Root verified live HTML, repeat JavaScript, legacy Qwen JSON and combined analysis JSON/JavaScript against local committed bytes. The browser now shows the correct 3/9 first-pass coverage and scores 24/12/8 after the stale repeat-feed cache fix; 77 shared UI tests passed.
+
+Fresh2/P2 smoke handle `90137` exited zero with three valid outputs. Root inspected raw responses, completion hashes, strict non-reasoning JSON and reference isolation. A fresh 466-model hosted catalogue audit still has no exact legacy Qwen route. All 60 runtime/token checks passed with the pinned loaded artifact and AC/open-lid host. Full handle `98747` is running under the frozen plan. Root owns dispatch and closure; agent `qwen17_repeat_projection` owns only the report projection and findings after closure. Sol report delegation was unavailable at capacity; Luna is the declared fallback. No paid request or cap change occurred.
+
+
 ## Qwen1.7B P2 resumed, 5 October 2026
 
 Root verified AC power, open lid, 85% memory headroom and the unchanged pinned SDK/app/CLI and Q4_K_M artifact. The current 466-model OpenRouter catalogue has no exact legacy Qwen family route. The loaded instance passed all 60 frozen P2 render/token checks. Fresh1/P2 smoke closed with three valid outputs and was independently inspected before development admission. Full pass handle `13294` exited zero with all 60 saved, 59 valid and one format failure. Root verified completion hashes, ordered IDs, reference exclusion and unchanged host boot/sleep state. Closed evidence is pushed in `1ff4ab61`. P2 scores 8/60 all-four matches versus 24/60 for P0 in this first pass; the format failure is DEV-012. Fresh1/P1 smoke subsequently closed with three valid outputs and was independently inspected. Its full pass handle `9570` exited zero with 60 saved and valid outputs; root verified the same hashes, IDs, reference exclusion and host checks. All three first-pass prompt conditions are now closed; scores P0/P1/P2 are 24/12/8 out of 60, and six second/third passes remain. No inference is currently running. Agent `qwen17_p2_report` owns the closed-result projection and narrative; root owns combined analysis and publication. The read-only dispatch audit independently confirmed the frozen stage order. No paid request or cap change occurred.
