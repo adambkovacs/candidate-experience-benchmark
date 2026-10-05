@@ -1,5 +1,12 @@
 # Current work checklist
 
+## P2 second pass closed; publication dependency found, 5 October 2026
+
+Clef Flash fresh2/P2 smoke `37826` and development `66015` exited zero. Root inspected the smoke then admitted the full pass; all 60 ordered outputs are valid and completion hashes match. Both P2 passes report 154,954 input tokens and have identical predictions, probabilities and confidence. One P2 full pass remains. The report agent owns the two-pass P2 analysis update.
+
+Pages `37303866029` succeeded for the Clef P1 evidence gate. Mistral deployment `37304071708` failed because `study.verify` requires an uncommitted historical smoke dependency (`results/openrouter-partition-mistral119-none-2026-09-23/smoke.jsonl`). Root reopened the report review as BLOCKING and assigned a full clean-archive verification, not just a helper fixture. No Mistral live-publication claim is valid. The existing public website remains at its prior successful deployment.
+
+
 ## Mistral findings approved after portability fix, 5 October 2026
 
 Root reviewed the portable archived-child lookup, ran three focused tests and checked exact report regeneration. Verdict: APPROVE, with no remaining confirmed BLOCKING or RESIDUAL findings. Commit `5f3afa92` is pushed and includes the public projection plus CI verification. It reports 40/60 all-four matches, 55 valid outputs and five retained failures; 40/55 is the secondary valid-output figure. Deployment `37304071708` is queued behind `37303866029`; publication is not yet verified. The combined analysis agent is integrating this separate interrupted checkpoint and the approved Clef P1 findings.
