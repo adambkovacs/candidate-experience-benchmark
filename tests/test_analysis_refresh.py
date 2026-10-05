@@ -132,11 +132,16 @@ class AnalysisRefreshTest(unittest.TestCase):
         q17 = cohorts["legacyQwen"]["qwen17FirstPass"]
         self.assertEqual([q17["scores"][p]["allFour"] for p in ("P0", "P1", "P2")], [24, 12, 8])
         self.assertEqual([q17["scores"][p]["valid"] for p in ("P0", "P1", "P2")], [60, 60, 59])
-        self.assertFalse(q17["repeatabilityEstablished"])
+        self.assertTrue(q17["firstPassOnly"])
+        self.assertTrue(cohorts["legacyQwen"]["qwen17RepeatStudyComplete"])
         q17p2 = cohorts["legacyQwen"]["qwen17P2Repeat"]
-        self.assertEqual([s["allFour"] for s in q17p2["scores"]], [8, 9])
+        self.assertEqual([s["allFour"] for s in q17p2["scores"]], [8, 9, 8])
         self.assertEqual(q17p2["comparison"]["denominator"], 58)
         self.assertEqual(q17p2["comparison"]["fourFieldVector"]["changed"], 30)
+        self.assertEqual(q17p2["completedPasses"], 3)
+        self.assertEqual(q17p2["matchedP0AllFourDeltas"], [-16, -14, -16])
+        self.assertEqual(q17p2["changesAcrossThreePasses"]["denominator"], 58)
+        self.assertEqual(len(q17p2["changesAcrossThreePasses"]["fourFieldVector"]), 40)
         q17p1 = cohorts["legacyQwen"]["qwen17P1Repeat"]
         self.assertEqual([s["allFour"] for s in q17p1["scores"]], [12, 11, 16])
         self.assertEqual(q17p1["comparison"]["denominator"], 60)
@@ -150,7 +155,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual(q17p0["comparison"]["fourFieldVector"]["changed"], 11)
         self.assertEqual(q17p0["completedPasses"], 3)
         self.assertEqual(len(q17p0["changesAcrossThreePasses"]["fourFieldVector"]), 19)
-        self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 3)
+        self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 4)
         legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
         pending = {s["configuration"]: s for s in legacy["series"]}
         for name, progress in cohorts["legacyQwen"]["remainingConfigurations"].items():

@@ -69,3 +69,12 @@ All three P1 passes returned 60 valid answers, with all-four scores of 12/60, 11
 ## Qwen1.7B base task: three passes complete
 
 P0 scores 24/60, 23/60 and 24/60, with all 60 answers valid in every pass. Across the three passes, 19 of 60 reviews changed at least one label: 6 sentiment, 1 follow-up, 7 serious-concern and 10 testimonial decisions, with overlap. Pairwise changed-review counts are 11, 12 and 17. The third pass used 99,549 tokens and 87.48 seconds of client-observed request time. P1 scores below P0 in all three matched passes, by 12, 12 and 8 full matches. This describes the frozen local Qwen1.7B setup on these 60 reviews, not a general effect of classifier instructions. Only third P2 remains for this configuration. [Source-bound report](../public-site/legacy-qwen-repeats.json).
+
+
+## Qwen1.7B: all nine runs complete
+
+The final P2 pass returned 60 valid outputs and 8/60 all-four matches. Its field matches were sentiment 41, follow-up 52, serious concern 42 and testimonial 14, each out of 60. P2's three scores are 8/9/8, but 40 of the 58 reviews valid in all three passes changed at least one label. The changed-review counts by field are 18/8/15/16, with overlap. DEV-012 and DEV-033 are excluded only from the shared-valid flip calculation; their earlier invalid outputs remain in the fixed score denominators.
+
+P0 ranges from 23–24 full matches, P1 from 11–16 and P2 from 8–9. Both instruction variants score below P0 in all three matched passes. P2 trails by 16, 14 and 16 full matches. The final P2 pass predicts testimonial “yes” for 44 of the 50 reference “no” reviews. This repeated over-selection explains much of its poor all-four agreement; it is not a general claim that detailed instructions hurt other models. These remain repeated measurements of the same 60 synthetic inputs.
+
+The final pass recorded 157,770 input and 21,946 output tokens, 179,716 total, and 333.19 seconds of summed client-observed request duration. Neither pure inference duration nor local running cost is available. The exact Q4_K_M artifact, runtime and hardware remain bound in the [source report](../public-site/legacy-qwen-repeats.json). This closes one configuration, not the wider benchmark.

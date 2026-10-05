@@ -21,3 +21,11 @@ The model's purpose and training history are separate. Fine-tuning and fitted ad
 - **Training lineage not verified**: the reviewed source does not establish task-specific training or adaptation. This does not mean the model was never fine-tuned.
 
 The [category evidence review](REPORT_CATEGORY_REVIEW_2026-10-02.md) contains the full roster mapping and source limits. In particular, lineage remains unknown for many general-purpose model families and specialist models whose available sources establish their interface or intended use but not task-specific weight changes.
+
+## Chart reference checked on 5 October
+
+The [Cloudflare leaderboard](https://clef-evals.workers-ai-mle.workers.dev/) currently shows 73 entries and separate Leaderboard, Charts, Benchmarks and Methodology tabs. The Charts view offers quality versus latency, selectable area profiles and calibration versus quality. Its notes explicitly separate author-reported Cloudflare timings from community measurements on an RTX PRO 6000. These are examples of presentation and disclosure, not measurements of our candidate reviews.
+
+For our four labels, aligned bars make field-level differences easier to read than a radar polygon. Prompt comparisons should use matched configurations, and repeat charts should show all three scores alongside the number of reviews that changed labels. Quality-versus-time plots need a timing-method and execution-surface filter; no shared speed frontier should mix local compute, hosted request duration and subscription CLI elapsed time. Calibration views require native probabilities and a stated calculation; missing values stay missing. The existing category, training and interface filters support these distinctions.
+
+This taxonomy supersedes the older category review's suggestion that purpose and training can be represented by one exclusive classification. A decision model can also be a task-fine-tuned LLM. The site's model list remains a discovery source: each additional model needs its own identity, access, interface and cost checks before admission to this benchmark.

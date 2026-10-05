@@ -614,9 +614,9 @@ def build(root=ROOT):
     legacy_series = {s.get("configuration"): s for s in legacy_qwen.get("series", [])}
     legacy_complete = ("qwen3-0.6b-q4km-nonthinking",
                        "qwen3-0.6b-sdk-thinking-on",
-                       "qwen3-0.6b-sdk-thinking-off")
-    legacy_pending = ("qwen3-1.7b-sdk-thinking-on",
-                      "qwen3-1.7b-sdk-thinking-off",
+                       "qwen3-0.6b-sdk-thinking-off",
+                       "qwen3-1.7b-sdk-thinking-on")
+    legacy_pending = ("qwen3-1.7b-sdk-thinking-off",
                       "qwen3.5-4b-sdk-thinking-on")
     if (legacy_qwen.get("schema") != "legacy-qwen-closed-phase-report-v1" or
             set(legacy_series) != set(legacy_complete + legacy_pending) or
@@ -641,11 +641,13 @@ def build(root=ROOT):
         qwen17_scores[condition] = score
     qwen17_series = legacy_series["qwen3-1.7b-sdk-thinking-on"]
     qwen17_p2 = {"scores": [qwen17_series["passes"][p]["P2"]["score"]
-                            for p in ("fresh1", "fresh2")],
+                            for p in ("fresh1", "fresh2", "fresh3")],
                  "comparison": next(x for x in qwen17_series["pairwiseFlips"]
                                     if x["condition"] == "P2" and x["from"] == "fresh1"
                                     and x["to"] == "fresh2"),
-                 "requiredPasses": 3, "completedPasses": 2}
+                 "requiredPasses": 3, "completedPasses": 3,
+                 "summary": qwen17_series["threePassSummary"]["P2"],
+                 "changesAcrossThreePasses": qwen17_series["changesAcrossThreePasses"]["P2"]}
     qwen17_p1 = {"scores": [qwen17_series["passes"][p]["P1"]["score"]
                             for p in ("fresh1", "fresh2", "fresh3")],
                  "comparison": next(x for x in qwen17_series["pairwiseFlips"]
@@ -664,6 +666,8 @@ def build(root=ROOT):
                  "changesAcrossThreePasses": qwen17_series["changesAcrossThreePasses"]["P0"]}
     qwen17_p1["matchedP0AllFourDeltas"] = [b["allFour"] - a["allFour"]
         for a, b in zip(qwen17_p0["scores"], qwen17_p1["scores"])]
+    qwen17_p2["matchedP0AllFourDeltas"] = [b["allFour"] - a["allFour"]
+        for a, b in zip(qwen17_p0["scores"], qwen17_p2["scores"])]
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
@@ -723,7 +727,8 @@ def build(root=ROOT):
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},
             "legacyQwen": {"source": "public-site/legacy-qwen-repeats.json",
-                           "qwen17FirstPass": {"scores": qwen17_scores, "repeatabilityEstablished": False},
+                           "qwen17FirstPass": {"scores": qwen17_scores, "firstPassOnly": True},
+                           "qwen17RepeatStudyComplete": True,
                            "qwen17P2Repeat": qwen17_p2,
                            "qwen17P1Repeat": qwen17_p1,
                            "qwen17P0Repeat": qwen17_p0,

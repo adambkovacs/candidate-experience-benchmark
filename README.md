@@ -53,7 +53,15 @@ The [Gemini 3.8 Flash low repeats](docs/GEMINI38_LOW_REPEAT_FINDINGS_2026-09-28.
 
 The [Gemma E4B thinking-off repeats](docs/GEMMA_E4B_FIRST_PASS_FINDINGS_2026-10-01.md) are complete for all three prompts. The decision-procedure prompt scored 42/60 in every pass, yet seven comments changed at least one classification. The base task ranged from 38 to 40 matches; classifier instructions ranged from 40 to 41. All nine passes returned 60 answers in the required format. These results describe one local setup and the same fictional comments.
 
-The larger Qwen3 1.7B SDK thinking-on setup has closed its first P0, P1 and P2 passes. All-four agreement was **24/60, 12/60 and 8/60**, respectively. P0 and P1 returned 60 valid answers each; P2 returned 59 valid and one invalid. Testimonial agreement fell from 38/60 under P0 to 19/60 under P1 and 13/60 under P2. The second P2 pass scored 9/60 with 59 valid answers; 30 of 58 reviews valid in both P2 passes changed at least one label. The second P1 pass scored 11/60 with all 60 answers valid; 23 reviews changed a label from its first pass. The second P0 pass scored 23/60 with all 60 answers valid and 11 changed reviews. P1 now has all three passes: 12/60, 11/60 and 16/60, all valid, with 30 of 60 reviews changing labels across repeats. P0 is also complete: 24/60, 23/60 and 24/60, with 19 of 60 reviews changing labels. P1 scored lower than P0 in every matched pass. Only the final P2 pass remains. [The exact local configuration, usage and evidence](docs/LEGACY_QWEN_REPEAT_FINDINGS_2026-10-02.md) stay separate from the smaller model and hosted runs.
+The Qwen3 1.7B SDK thinking-on setup has completed three passes of each prompt version. Added instructions scored lower in every matched pass on these 60 reviews:
+
+| Prompt | All-four matches in passes 1 / 2 / 3 | Reviews whose labels changed across repeats |
+| --- | --- | --- |
+| Base task (P0) | 24 / 23 / 24 out of 60 | 19 of 60 |
+| Classifier instructions (P1) | 12 / 11 / 16 out of 60 | 30 of 60 |
+| Decision rules (P2) | 8 / 9 / 8 out of 60 | 40 of 58 valid in all three |
+
+P0 and P1 returned 60 valid answers in every pass. P2 returned 59, 59 and 60; the two format failures remain in the score denominators. Nearly identical totals did not mean identical decisions. Testimonial agreement stayed lower under P1 (18–21/60) and P2 (13–14/60) than P0 (36–41/60). [The exact local configuration, usage and evidence](docs/LEGACY_QWEN_REPEAT_FINDINGS_2026-10-02.md) stay separate from smaller models and hosted runs. Other configurations remain unfinished.
 
 [Qwen3 0.6B now has three full passes per prompt through each tested HTTP and SDK setup](docs/LEGACY_QWEN_REPEAT_FINDINGS_2026-10-02.md). The HTTP setup returned valid classifications every time, but no review matched all four reference answers. Its predictions stayed identical across repeats; under the base prompt, it marked all 60 reviews as potential testimonials against nine in the reference key.
 

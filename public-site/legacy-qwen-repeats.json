@@ -11898,14 +11898,8 @@
       },
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 8,
-      "missingPasses": [
-        {
-          "pass": "fresh3",
-          "condition": "P2",
-          "status": "not_in_closed_snapshot"
-        }
-      ],
+      "completedConditions": 9,
+      "missingPasses": [],
       "partialPasses": [],
       "passes": {
         "fresh1": {
@@ -13485,6 +13479,200 @@
                 }
               }
             }
+          },
+          "P2": {
+            "completionStatus": "complete",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 8,
+              "fields": {
+                "sentiment": 41,
+                "follow_up_needed": 52,
+                "serious_concern_reported": 42,
+                "testimonial_potential": 14
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "mixed": 21,
+                "negative": 23,
+                "neutral": 6,
+                "positive": 10
+              },
+              "follow_up_needed": {
+                "no": 17,
+                "yes": 43
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 5,
+                "no": 27,
+                "yes": 28
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 5,
+                "yes": 54
+              }
+            },
+            "classConfusion": {
+              "sentiment": {
+                "insufficient_information": {
+                  "mixed": 1,
+                  "positive": 1
+                },
+                "mixed": {
+                  "mixed": 6,
+                  "positive": 2
+                },
+                "negative": {
+                  "mixed": 8,
+                  "negative": 23
+                },
+                "neutral": {
+                  "mixed": 3,
+                  "neutral": 5
+                },
+                "positive": {
+                  "mixed": 3,
+                  "neutral": 1,
+                  "positive": 7
+                }
+              },
+              "follow_up_needed": {
+                "insufficient_information": {
+                  "yes": 1
+                },
+                "no": {
+                  "no": 17,
+                  "yes": 7
+                },
+                "yes": {
+                  "yes": 35
+                }
+              },
+              "serious_concern_reported": {
+                "insufficient_information": {
+                  "no": 3,
+                  "yes": 3
+                },
+                "no": {
+                  "insufficient_information": 4,
+                  "no": 21,
+                  "yes": 4
+                },
+                "yes": {
+                  "insufficient_information": 1,
+                  "no": 3,
+                  "yes": 21
+                }
+              },
+              "testimonial_potential": {
+                "insufficient_information": {
+                  "yes": 1
+                },
+                "no": {
+                  "insufficient_information": 1,
+                  "no": 5,
+                  "yes": 44
+                },
+                "yes": {
+                  "yes": 9
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSecondsTotal": 333.187875168,
+              "timeBasis": "client_observed_wall_clock",
+              "inferenceSeconds": null,
+              "modelLoadSeconds": null,
+              "actualCostUsd": null,
+              "tokens": {
+                "input_tokens": 157770,
+                "output_tokens": 21946,
+                "total_tokens": 179716,
+                "reasoning_output_tokens": null
+              }
+            },
+            "evidence": {
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.root-review.json",
+                  "sha256": "d6b1b720bfeb162f34496cef19a46ceeb837815ac5bdec8894f25e59988f7920"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.claim.json",
+                  "sha256": "8016eda579ccde2bfa6d97baec6c28ba3a409130b388b5733114fc03ef665b6e"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.raw.jsonl",
+                  "sha256": "5c4293bc51534a8a0a42f3435225b484d5e4d00fca333e2bc22c819af3797678"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.records.jsonl",
+                  "sha256": "3689cd543cde5e949ed789285140ec19c499c99ecf351dfa9da3db23991465c7"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.journal.jsonl",
+                  "sha256": "ebedde9a6218f3579016f1c26e9b3a36916984129e093b001c59e9f2c66895c2"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.completion.json",
+                  "sha256": "8e51ededf00f1925911a6e57587c6395fb0929cde29b75397e525be6dbdddc52"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/qwen17-P2-smoke-20261005T145618Z/catalog-audit.json",
+                  "sha256": "45bb4f78526a9e045b2bc4a27e9fddb59c5a00e207343ca3a349e4ef5facf6fa"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke-inspection.json",
+                "sha256": "a979c179af107961e77fdc1c9c7ad6b0ed9d6481cebcab10cd4765aecb7de701"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.root-review.json",
+                  "sha256": "63b3594d6bd158c6dff06462ee02739f03ab8b208f01bf6286667e3a2553e631"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.claim.json",
+                  "sha256": "9e261adecf05bf1e246f3791a6d512d265c4828600c895f7ddb3bb408bd922ce"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.raw.jsonl",
+                  "sha256": "f9f4996992dcdd3026758d2b5e91e7f944b8b710de54082b582cc38f52d7f149"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.records.jsonl",
+                  "sha256": "6accfd29228b312fee0ba5051b9c7e2d5ad2a425ff6035a273e70310481044b5"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.journal.jsonl",
+                  "sha256": "f75fbf5cd26d42db71e6bdc22cd67f50c00ac8f3773afa19d8aa8e0294b920f1"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.completion.json",
+                  "sha256": "bfa8a405570098cb6f188735bc33ea7153539f747a79a2bdf60f7bd862be3bcb"
+                },
+                "routeAudit": {
+                  "path": "results/route-audits/qwen17-P2-development-20261005T150033Z/catalog-audit.json",
+                  "sha256": "97214ca193fdb9e668d35c3c5dfbd5efd8cdace403aa9420ad6a9276dffe5e06"
+                }
+              }
+            }
           }
         }
       },
@@ -13619,45 +13807,65 @@
         },
         "P2": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
               8,
-              9
+              9,
+              8
             ],
-            "range": null
+            "range": [
+              8,
+              9
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 39,
-                35
+                35,
+                41
               ],
-              "range": null
+              "range": [
+                35,
+                41
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 50,
+                52,
                 52
               ],
-              "range": null
+              "range": [
+                50,
+                52
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 39,
+                42,
                 42
               ],
-              "range": null
+              "range": [
+                39,
+                42
+              ]
             },
             "testimonial_potential": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 13,
+                14,
                 14
               ],
-              "range": null
+              "range": [
+                13,
+                14
+              ]
             }
           }
         }
@@ -14241,6 +14449,221 @@
               "DEV-060"
             ]
           }
+        },
+        {
+          "condition": "P2",
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 59,
+          "excludedIds": [
+            "DEV-012"
+          ],
+          "sentiment": {
+            "changed": 12,
+            "rate": 0.2033898305084746,
+            "caseIds": [
+              "DEV-004",
+              "DEV-020",
+              "DEV-028",
+              "DEV-030",
+              "DEV-031",
+              "DEV-035",
+              "DEV-041",
+              "DEV-051",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-058"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 7,
+            "rate": 0.11864406779661017,
+            "caseIds": [
+              "DEV-004",
+              "DEV-006",
+              "DEV-013",
+              "DEV-027",
+              "DEV-028",
+              "DEV-030",
+              "DEV-052"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 11,
+            "rate": 0.1864406779661017,
+            "caseIds": [
+              "DEV-009",
+              "DEV-015",
+              "DEV-017",
+              "DEV-018",
+              "DEV-019",
+              "DEV-021",
+              "DEV-031",
+              "DEV-033",
+              "DEV-034",
+              "DEV-040",
+              "DEV-048"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 7,
+            "rate": 0.11864406779661017,
+            "caseIds": [
+              "DEV-005",
+              "DEV-025",
+              "DEV-028",
+              "DEV-031",
+              "DEV-045",
+              "DEV-047",
+              "DEV-054"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 30,
+            "rate": 0.5084745762711864,
+            "caseIds": [
+              "DEV-004",
+              "DEV-005",
+              "DEV-006",
+              "DEV-009",
+              "DEV-013",
+              "DEV-015",
+              "DEV-017",
+              "DEV-018",
+              "DEV-019",
+              "DEV-020",
+              "DEV-021",
+              "DEV-025",
+              "DEV-027",
+              "DEV-028",
+              "DEV-030",
+              "DEV-031",
+              "DEV-033",
+              "DEV-034",
+              "DEV-035",
+              "DEV-040",
+              "DEV-041",
+              "DEV-045",
+              "DEV-047",
+              "DEV-048",
+              "DEV-051",
+              "DEV-052",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-058"
+            ]
+          }
+        },
+        {
+          "condition": "P2",
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 59,
+          "excludedIds": [
+            "DEV-033"
+          ],
+          "sentiment": {
+            "changed": 12,
+            "rate": 0.2033898305084746,
+            "caseIds": [
+              "DEV-022",
+              "DEV-025",
+              "DEV-028",
+              "DEV-035",
+              "DEV-037",
+              "DEV-043",
+              "DEV-049",
+              "DEV-051",
+              "DEV-055",
+              "DEV-057",
+              "DEV-058",
+              "DEV-060"
+            ]
+          },
+          "follow_up_needed": {
+            "changed": 5,
+            "rate": 0.0847457627118644,
+            "caseIds": [
+              "DEV-004",
+              "DEV-024",
+              "DEV-027",
+              "DEV-028",
+              "DEV-052"
+            ]
+          },
+          "serious_concern_reported": {
+            "changed": 10,
+            "rate": 0.1694915254237288,
+            "caseIds": [
+              "DEV-006",
+              "DEV-007",
+              "DEV-009",
+              "DEV-018",
+              "DEV-021",
+              "DEV-025",
+              "DEV-031",
+              "DEV-042",
+              "DEV-048",
+              "DEV-054"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 12,
+            "rate": 0.2033898305084746,
+            "caseIds": [
+              "DEV-006",
+              "DEV-018",
+              "DEV-022",
+              "DEV-023",
+              "DEV-031",
+              "DEV-039",
+              "DEV-040",
+              "DEV-045",
+              "DEV-047",
+              "DEV-055",
+              "DEV-056",
+              "DEV-060"
+            ]
+          },
+          "fourFieldVector": {
+            "changed": 31,
+            "rate": 0.5254237288135594,
+            "caseIds": [
+              "DEV-004",
+              "DEV-006",
+              "DEV-007",
+              "DEV-009",
+              "DEV-018",
+              "DEV-021",
+              "DEV-022",
+              "DEV-023",
+              "DEV-024",
+              "DEV-025",
+              "DEV-027",
+              "DEV-028",
+              "DEV-031",
+              "DEV-035",
+              "DEV-037",
+              "DEV-039",
+              "DEV-040",
+              "DEV-042",
+              "DEV-043",
+              "DEV-045",
+              "DEV-047",
+              "DEV-048",
+              "DEV-049",
+              "DEV-051",
+              "DEV-052",
+              "DEV-054",
+              "DEV-055",
+              "DEV-056",
+              "DEV-057",
+              "DEV-058",
+              "DEV-060"
+            ]
+          }
         }
       ],
       "changesAcrossThreePasses": {
@@ -14392,6 +14815,122 @@
             "DEV-057",
             "DEV-058",
             "DEV-059"
+          ]
+        },
+        "P2": {
+          "denominator": 58,
+          "excludedIds": [
+            "DEV-012",
+            "DEV-033"
+          ],
+          "fields": {
+            "sentiment": [
+              "DEV-004",
+              "DEV-020",
+              "DEV-022",
+              "DEV-025",
+              "DEV-028",
+              "DEV-030",
+              "DEV-031",
+              "DEV-035",
+              "DEV-037",
+              "DEV-041",
+              "DEV-043",
+              "DEV-049",
+              "DEV-051",
+              "DEV-054",
+              "DEV-055",
+              "DEV-057",
+              "DEV-058",
+              "DEV-060"
+            ],
+            "follow_up_needed": [
+              "DEV-004",
+              "DEV-006",
+              "DEV-013",
+              "DEV-024",
+              "DEV-027",
+              "DEV-028",
+              "DEV-030",
+              "DEV-052"
+            ],
+            "serious_concern_reported": [
+              "DEV-006",
+              "DEV-007",
+              "DEV-009",
+              "DEV-015",
+              "DEV-017",
+              "DEV-018",
+              "DEV-019",
+              "DEV-021",
+              "DEV-025",
+              "DEV-031",
+              "DEV-034",
+              "DEV-040",
+              "DEV-042",
+              "DEV-048",
+              "DEV-054"
+            ],
+            "testimonial_potential": [
+              "DEV-005",
+              "DEV-006",
+              "DEV-018",
+              "DEV-022",
+              "DEV-023",
+              "DEV-025",
+              "DEV-028",
+              "DEV-031",
+              "DEV-039",
+              "DEV-040",
+              "DEV-045",
+              "DEV-047",
+              "DEV-054",
+              "DEV-055",
+              "DEV-056",
+              "DEV-060"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-009",
+            "DEV-013",
+            "DEV-015",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-027",
+            "DEV-028",
+            "DEV-030",
+            "DEV-031",
+            "DEV-034",
+            "DEV-035",
+            "DEV-037",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-045",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-051",
+            "DEV-052",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-060"
           ]
         }
       },
@@ -14930,6 +15469,58 @@
           "sha256": "1463ce89955d0ba8f0c583391dd202cb922b1b053398e06f3dcb027121b20fc7"
         },
         {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.claim.json",
+          "sha256": "9e261adecf05bf1e246f3791a6d512d265c4828600c895f7ddb3bb408bd922ce"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.completion.json",
+          "sha256": "bfa8a405570098cb6f188735bc33ea7153539f747a79a2bdf60f7bd862be3bcb"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.journal.jsonl",
+          "sha256": "f75fbf5cd26d42db71e6bdc22cd67f50c00ac8f3773afa19d8aa8e0294b920f1"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.raw.jsonl",
+          "sha256": "f9f4996992dcdd3026758d2b5e91e7f944b8b710de54082b582cc38f52d7f149"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.records.jsonl",
+          "sha256": "6accfd29228b312fee0ba5051b9c7e2d5ad2a425ff6035a273e70310481044b5"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/development.root-review.json",
+          "sha256": "63b3594d6bd158c6dff06462ee02739f03ab8b208f01bf6286667e3a2553e631"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke-inspection.json",
+          "sha256": "a979c179af107961e77fdc1c9c7ad6b0ed9d6481cebcab10cd4765aecb7de701"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.claim.json",
+          "sha256": "8016eda579ccde2bfa6d97baec6c28ba3a409130b388b5733114fc03ef665b6e"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.completion.json",
+          "sha256": "8e51ededf00f1925911a6e57587c6395fb0929cde29b75397e525be6dbdddc52"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.journal.jsonl",
+          "sha256": "ebedde9a6218f3579016f1c26e9b3a36916984129e093b001c59e9f2c66895c2"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.raw.jsonl",
+          "sha256": "5c4293bc51534a8a0a42f3435225b484d5e4d00fca333e2bc22c819af3797678"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.records.jsonl",
+          "sha256": "3689cd543cde5e949ed789285140ec19c499c99ecf351dfa9da3db23991465c7"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh3/P2/smoke.root-review.json",
+          "sha256": "d6b1b720bfeb162f34496cef19a46ceeb837815ac5bdec8894f25e59988f7920"
+        },
+        {
           "path": "results/route-audits/legacy-six-local-20260929/catalog-audit.json",
           "sha256": "5391059a6f834153be3e7bcb406b4cc363781f53004a7bda6524fd78b2951100"
         },
@@ -14982,12 +15573,20 @@
           "sha256": "224eb697b7e18b7ce987372c5bd4ccc383a692ac88fcf498def0d88174469cfb"
         },
         {
+          "path": "results/route-audits/qwen17-P2-development-20261005T150033Z/catalog-audit.json",
+          "sha256": "97214ca193fdb9e668d35c3c5dfbd5efd8cdace403aa9420ad6a9276dffe5e06"
+        },
+        {
           "path": "results/route-audits/qwen17-P2-smoke-20261005T133919Z/catalog-audit.json",
           "sha256": "ed79b990555ea83b949062e883449e41432ebb0d31e24e8ac0d8c884f69e07c6"
         },
         {
           "path": "results/route-audits/qwen17-P2-smoke-20261005T140416Z/catalog-audit.json",
           "sha256": "0c8c916c9b7e4f71bb85b4fee97314fa16d72cbc3ad51615af328d4b4c4c8858"
+        },
+        {
+          "path": "results/route-audits/qwen17-P2-smoke-20261005T145618Z/catalog-audit.json",
+          "sha256": "45bb4f78526a9e045b2bc4a27e9fddb59c5a00e207343ca3a349e4ef5facf6fa"
         },
         {
           "path": "results/route-audits/qwen17-sdk-on-fresh1-P0-development-20261002T152203Z/catalog-audit.json",

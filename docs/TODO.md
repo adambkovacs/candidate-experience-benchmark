@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Qwen1.7B thinking-on matrix closed, 5 October 2026
+
+Root closed final fresh3/P2: smoke handle 1418 and development handle 72800 exited zero. Smoke raw responses were inspected; full run saved 60 valid answers, with hashes, ordered IDs, reference isolation and unchanged host verified. The configuration is now 9/9. P2 scores 8/9/8; 40/58 shared-valid reviews vary across repeats. Root owns combined analysis, review, commit and publication; the projection agent owns the closed legacy feed and findings. No inference is currently running. No paid request or cap increase occurred. Remaining roster entries and provider/budget blockers below still apply.
+
+Previous checkpoint f2a11778 is published: Pages job 37328666061 succeeded and live HTML plus the three report assets match the committed bytes. The final nine-run checkpoint passed eleven Python tests and eight UI tests. Browser checks show 9/9 coverage and the 40/58 P2 changed-review result. Root review: APPROVE, no confirmed BLOCKING findings or new RESIDUAL findings. Commit and publication verification follow.
+
 ## Third P0 closed, 5 October 2026
 
 Pages job `37327405475` succeeded for `53457fe2`; live HTML, legacy Qwen JSON and combined analysis JSON/JavaScript match the committed bytes. Root review of this checkpoint: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Eleven Python and eight UI checks passed; browser coverage and the matched three-pass comparison are verified.
