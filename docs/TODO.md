@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Explorer publication verified, 5 October 2026
+
+Pages run `37299477508` succeeded for `87cbf4bf`. Root fetched the live HTML and repeat script after deployment; both match the committed files (HTML SHA-256 `682e1fbd0b8d2e8a7bfb25ac09d26fe3ccccd8d481992b069a7b506588ccbf84`, repeat script `7f0667b5f3186bd3333269f2b494f01fac83a15a79dc6ffc3902b77988079eee`). Browser interaction checks remain assigned separately; byte equality does not prove desktop or mobile usability.
+
+The Cloudflare connected app returned both exact Clef routes on 5 October, with 65,536-token context and unchanged input prices ($0.24/M for Clef; $0.09/M for Flash). This read-only catalogue check does not prove remaining daily allowance. A bounded preparation agent owns admission for an unstarted Flash fresh1/P1 smoke; no request has been sent. The manifest has 12 untouched combinations, one completed Clef fresh3/P0 and one interrupted Flash fresh3/P0. The latter still needs a separate 59-record suffix; DEV-001 must not be replayed.
+
 ## Resume checkpoint, 5 October 2026
 
 This checkpoint supersedes the pending-analysis and unsent-Mistral statements below. Gemma has nine scored P0/P1/P2 conditions, with historical failures retained. P1 scores are 58/58/57 out of 60; all three passes score 57 on their 59 shared-valid reviews. The one-point fall comes from DEV-059's timeout. Pages run `37045652208` succeeded for `f190874d`; root fetched the live analysis script, analysis feed and P1 report and verified byte equality on 5 October. The repeat explorer update is committed as `87cbf4bf`; its deployment and real-browser checks are pending. Four focused P0/P1 UI tests pass. Root review: APPROVE, no confirmed BLOCKING or RESIDUAL findings.
