@@ -1,10 +1,14 @@
 # Current work checklist
 
+## Current repeat view and roster reconciliation, 5 October 2026
+
+Agent `clef_repeat_matrix` owns the current native Clef P0/P1/P2 matrix in the repeatability section and its focused UI tests. Agent `next_work_audit` owns the current counts in `MVP_ROSTER_ACCOUNTING.md`. Root owns integration, browser checks, Git and publication. No inference is admitted or running. This work corrects stale presentation of completed evidence while Cloudflare quota and the other recorded execution blockers remain.
+
 ## Flash continuation stopped at provider quota, 5 October 2026
 
 Reviewed controller `478615ce` is pushed. Root dispatched exactly one suffix request, DEV-002, through the connected Cloudflare app. The app returned error 4006, daily free-neuron allocation exhausted. The original runner handle `37421` then exited zero with a stopped receipt: one unknown outcome, zero valid outputs, DEV-003–060 never sent. No retry, upgrade or plan change occurred. DEV-001's earlier unknown outcome remains separate. Both completions and the new external-error audit are sealed.
 
-The new $0.348041 stage hold remains conservative; total postapproval holds are $9.366482, leaving $0.633518. Actual Cloudflare charges are unavailable. Funding alone does not resolve the current daily provider quota. Further Cloudflare dispatch requires verified quota/access and separately admitted never-sent requests. Root review of the analysis update: APPROVE, no remaining confirmed BLOCKING or RESIDUAL findings. The draft's incorrect unknown-ID projection and missing completion-hash checks were fixed before publication. Two Python tests, three UI tests, clean-index archive reconstruction and browser text verification pass. All 127 analysis bindings match staged evidence. Publication is pending; all prior scores remain unchanged.
+The new $0.348041 stage hold remains conservative; total postapproval holds are $9.366482, leaving $0.633518. Actual Cloudflare charges are unavailable. Funding alone does not resolve the current daily provider quota. Further Cloudflare dispatch requires verified quota/access and separately admitted never-sent requests. Root review of the analysis update: APPROVE, no remaining confirmed BLOCKING or RESIDUAL findings. The draft's incorrect unknown-ID projection and missing completion-hash checks were fixed before publication. Two Python tests, three UI tests, clean-index archive reconstruction and browser text verification pass. All 127 analysis bindings match staged evidence. Pages job `37314865502` succeeded; live analysis JSON and JavaScript match the verified local bytes. All prior scores remain unchanged.
 
 ## Flash P0 recovery checks, 5 October 2026
 
