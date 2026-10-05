@@ -129,6 +129,10 @@ class AnalysisRefreshTest(unittest.TestCase):
                           mistral_partial["allFourMatches"], mistral_partial["fixed60Denominator"]),
                          (55, 5, 40, 60))
         self.assertFalse(mistral_partial["cleanRepeatabilityClaim"])
+        q17 = cohorts["legacyQwen"]["qwen17FirstPass"]
+        self.assertEqual([q17["scores"][p]["allFour"] for p in ("P0", "P1", "P2")], [24, 12, 8])
+        self.assertEqual([q17["scores"][p]["valid"] for p in ("P0", "P1", "P2")], [60, 60, 59])
+        self.assertFalse(q17["repeatabilityEstablished"])
         self.assertEqual(len(cohorts["legacyQwen"]["completedConfigurations"]), 3)
         legacy = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
         pending = {s["configuration"]: s for s in legacy["series"]}

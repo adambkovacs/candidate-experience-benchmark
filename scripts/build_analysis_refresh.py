@@ -630,6 +630,15 @@ def build(root=ROOT):
                 legacy_series[name].get("plannedConditions") != 9
                 for name in legacy_pending)):
         raise ValueError("Legacy Qwen SDK and HTTP cohort coverage differs")
+    qwen17_first = legacy_series["qwen3-1.7b-sdk-thinking-on"]["passes"]["fresh1"]
+    qwen17_scores = {}
+    for condition in ("P0", "P1", "P2"):
+        phase = qwen17_first.get(condition, {})
+        score = phase.get("score", {})
+        if (phase.get("completionStatus") != "complete" or score.get("denominator") != 60
+                or not 0 <= score.get("allFour", -1) <= score.get("valid", -1) <= 60):
+            raise ValueError("Qwen1.7B first-pass prompt evidence is incomplete")
+        qwen17_scores[condition] = score
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
@@ -689,6 +698,7 @@ def build(root=ROOT):
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},
             "legacyQwen": {"source": "public-site/legacy-qwen-repeats.json",
+                           "qwen17FirstPass": {"scores": qwen17_scores, "repeatabilityEstablished": False},
                            "completedConfigurations": list(legacy_complete),
                            "remainingConfigurations": {name:
                                {"completedConditions": legacy_series[name]["completedConditions"],

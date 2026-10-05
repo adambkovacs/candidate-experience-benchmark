@@ -22,7 +22,7 @@
   const hostedV2Ids = {'openrouter-paid-gemma4-26b-a4b-on': 'gemma26-on-fresh-matched3-v2', 'openrouter-paid-qwen3.8-27b-medium': 'qwen27-fresh-matched3-v2-medium', 'openrouter-paid-qwen3.8-27b-xhigh': 'qwen27-fresh-matched3-v2-xhigh'};
   const priceUrl = './subscription-price-estimates.json';
   const optionalPricing = () => {
-    const load=Promise.resolve().then(() => fetch(priceUrl))
+    const load=Promise.resolve().then(() => fetch(priceUrl, {cache: 'no-store'}))
       .then(response => response.ok ? response.json() : null).catch(() => null);
     if (typeof setTimeout !== 'function') return load;
     let timer;
@@ -105,7 +105,7 @@
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
   };
   Promise.all([...feedUrls.map(url => {
-    const load=Promise.resolve().then(() => fetch(url)).then(r => {
+    const load=Promise.resolve().then(() => fetch(url, {cache: 'no-store'})).then(r => {
     if (!r.ok && (url === './hosted-v2-repeats.json' || url === './gemma26-continuation-findings.json' || url === gemmaSecondUrl || url === gemmaPostabortUrl || url === gemmaP2RepeatUrl || url === gemmaP0CheckpointUrl || url === gemmaP1CheckpointUrl || url === './kev-native-repeats.json' || url === './semif-generated-repeats.json' || url === './small-local-repeats.json' || url === './legacy-qwen-repeats.json' || url === e4bInterruptionUrl || url === './anyjev-raw-repeats.json' || url === './anyjev-l0-repeats.json' || url === './anyjev-l1-repeats.json' || url === './anyjev-l2-repeats.json' || url === './anyjev-generated-repeats.json' || url === './openjev-native-repeats.json' || url === './openjev-generated-repeats.json' || url === './alex-native-repeats.json' || url === './codex-fresh-repeats.json' || url === './deepseek-fresh-repeats.json' || url === './additional-hosted-fresh-repeats.json' || url === './qwen36-off-second-interruption-findings.json' || url === qwen27CutoffUrl || url === qwen27SecondUrl || url === qwen27FinalUrl || url === './deepseek-low-continuation-repeats.json' || url === deepseekThirdUrl || url === sonnet55Url) && r.status === 404) return {series: []};
     if (!r.ok) throw Error('Missing repeat results');
     return r.json().then(payload => {
@@ -1066,7 +1066,7 @@
       <div><h3>Which answers changed?</h3><label class="repeat-control"><span id="repeat-condition-label">Prompt condition</span> <select id="repeat-condition">${Object.entries(conditions).map(([k,v]) => `<option value="${k}">${k}: ${v}</option>`).join('')}</select></label><div id="repeat-flips" aria-live="polite"></div></div></div>
       <details class="repeat-usage"><summary>Requests, tokens and reported costs</summary><p>Each completed row covers 60 comments. Request counts depend on whether the configuration uses individual comments or batches. Smoke tests are separate. Claude input excludes cache reads and writes; Codex input includes cached tokens. Reasoning tokens are already in output and are not counted twice. Some providers report a charge. API-equivalent estimates use public rates and are not subscription bills. Subscription charge and quota use per run remain unknown. Request durations include client and service overhead.</p><div class="table-wrap"><table><caption>Recorded development usage</caption><thead><tr><th>Condition</th><th>Pass</th><th>Requests</th><th>Input tokens</th><th>Output tokens</th><th>Reported cost (USD)</th><th>Price-based estimate (USD)</th><th>Sum of request seconds</th></tr></thead><tbody id="repeat-usage-body"></tbody></table></div></details></div>`;
     const currentClefPanel = document.getElementById('repeat-clef-current');
-    if (currentClefPanel) Promise.resolve().then(() => fetch(analysisRefreshUrl)).then(response => {
+    if (currentClefPanel) Promise.resolve().then(() => fetch(analysisRefreshUrl, {cache: 'no-store'})).then(response => {
       if (!response.ok) throw Error('Missing current analysis feed');
       return response.json();
     }).then(report => {
@@ -1128,7 +1128,7 @@
       currentClefPanel.innerHTML = `<p>Scores count exact all-four matches out of 60 reviews. Each row uses the model's native choice variant: the model selects from the supplied answer options. P0 is the base task, P1 adds classifier instructions, and P2 adds decision rules. Pending cells have no saved score; interrupted cells remain unscored.</p><div class="table-wrap" tabindex="0" role="region" aria-label="Clef repeat results, scroll horizontally on small screens"><table><caption>Current Clef native-choice repeat status</caption><thead><tr><th scope="col">Model</th><th scope="col">Condition</th><th scope="col">Pass 1</th><th scope="col">Pass 2</th><th scope="col">Pass 3</th><th scope="col">Evidence</th></tr></thead><tbody>${rows.map(([model, condition, cells, source]) => `<tr><th scope="row">${esc(model)}</th><td>${esc(condition)}</td>${cells.map(cell => `<td>${cell}</td>`).join('')}<td>${sourceLink(source)}</td></tr>`).join('')}</tbody></table></div>`;
     }).catch(() => {currentClefPanel.textContent = 'The current Clef and Clef Flash matrix is unavailable because its analysis feed is missing or changed.';});
     const clefPanel = document.getElementById('repeat-clef-third');
-    if (clefPanel) Promise.resolve().then(() => fetch(clefThirdUrl)).then(response => {
+    if (clefPanel) Promise.resolve().then(() => fetch(clefThirdUrl, {cache: 'no-store'})).then(response => {
       if (!response.ok) throw Error('Missing Clef third-P0 checkpoint');
       return response.json();
     }).then(checkpoint => {

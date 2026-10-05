@@ -19,7 +19,8 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   elements.get('repeat-field').value = 'allFour';
   elements.get('repeat-condition').value = 'P0';
   const requested = [];
-  const fetch = async url => {
+  const fetch = async (url, options) => {
+    assert.equal(options?.cache, 'no-store', 'repeat data must bypass stale browser caches');
     requested.push(url);
     return {ok:true,status:200,json:async () => url === './legacy-qwen-repeats.json' ? payload : {series:[]}};
   };

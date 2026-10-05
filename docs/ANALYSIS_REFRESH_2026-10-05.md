@@ -40,3 +40,7 @@ This addition raises the combined source inventory from 105 to 115 bindings. The
 ## Later Flash P0 interruption
 
 The 5 October continuation adds no predictions. Its closed receipt leaves the third P0 pass with two unknown outcomes, zero valid responses and 58 never-sent reviews. The combined feed now binds 127 source files and shows this later state separately from the historical 2 October checkpoint. All published scores and repeat comparisons are unchanged. See the [continuation checkpoint](CLEF_FLASH_P0_SUFFIX_CHECKPOINT_2026-10-05.md).
+
+## Later Qwen1.7B first-pass prompt results
+
+The local SDK thinking-on configuration now has one closed P0, P1 and P2 pass. Scores are 24/60, 12/60 and 8/60 all-four matches respectively. P0 and P1 each returned 60 valid answers; P2 returned 59 and retained the DEV-012 format failure. Added instructions scored lower in this first pass, but six repeat passes remain, so consistency of that difference is not established. The combined feed derives these scores from the source-bound legacy Qwen report. See the [field-level findings and usage](LEGACY_QWEN_REPEAT_FINDINGS_2026-10-02.md).
