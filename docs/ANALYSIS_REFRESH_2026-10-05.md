@@ -1,6 +1,6 @@
 # Analysis refresh, 5 October 2026
 
-The combined [analysis feed](../public-site/analysis-refresh.json) now includes three source-bound checkpoints: three Clef Flash P1 passes, three P2 passes and an interrupted Mistral 119B fresh1 P0 run. It binds the public projection and its reviewed source files by SHA-256. Earlier cohort cutoffs remain separate.
+The combined [analysis feed](../public-site/analysis-refresh.json) now includes four source-bound checkpoints: three Clef Flash P1 passes, three P2 passes, an interrupted Mistral 119B fresh1 P0 run and Clef's first P1 pass. It binds the public projection and its reviewed source files by SHA-256. Earlier cohort cutoffs remain separate.
 
 ## Clef Flash P1
 
@@ -16,9 +16,9 @@ This pass returned 55 valid answers and retained five failed requests in the fix
 
 ## Scope and status
 
-These additions update the combined analysis and public explorer. They do not close the full Clef or Mistral repeat matrices. Clef P0's three-pass checkpoint and Clef Flash's interrupted third P0 pass remain as previously reported. P2 repeatability is not claimed here. The project still requires the full roster, condition-specific repeats where eligible, and publication of later source-bound evidence.
+These additions update the combined analysis and public explorer. They do not close the full Clef or Mistral repeat matrices. Clef P0's three-pass checkpoint and Clef Flash's interrupted third P0 pass remain as previously reported. Clef Flash P2 has three closed passes; Clef P1 has one closed pass and Clef P2 remains unexecuted. The project still requires the full roster, condition-specific repeats where eligible, and publication of later source-bound evidence.
 
-The analysis feed retains prior sources and historical cohorts. Its `sources` list records 103 SHA-256 bindings at this cutoff. Rebuild and verify it offline with:
+The analysis feed retains prior sources and historical cohorts. Its `sources` list records 115 SHA-256 bindings at this cutoff. Rebuild and verify it offline with:
 
 ```sh
 python3 scripts/build_analysis_refresh.py
@@ -30,3 +30,9 @@ python3 scripts/build_analysis_refresh.py --check
 [Three P2 passes](CLEF_FLASH_P2_FINDINGS_2026-10-05.md) each returned 60 valid answers and 46/60 all-four matches. All three pairwise comparisons found no changed labels, probability distributions or vendor confidence values. In the matched first-pass comparison, P0 scored 45, P1 scored 47 and P2 scored 46. P2 gained DEV-058 against P1 but lost DEV-027 and DEV-032. These different mistakes matter more than the one-point net change alone.
 
 Each P2 pass reported 154,954 input tokens and zero output tokens. The published input-price estimate is $0.01394586 per pass; the bill and pure inference time remain unavailable. Repeated identical outputs do not establish calibration or correctness. Flash's third P0 pass remains interrupted.
+
+## Clef P1 first-pass addition
+
+The combined feed now recomputes Clef fresh1/P1 and matched P0 directly from completion-bound records. P1 scored 52/60 versus P0 53/60: DEV-056 gained an all-four match, DEV-013 and DEV-014 lost one, and DEV-053 changed an answer without changing all-four agreement. All responses were valid. Two more P1 passes remain required; the single contrast does not establish a repeatable prompt effect. Input usage was 144,694 tokens, with a published-price estimate of $0.03472656 and no observed bill or pure inference duration. [Evidence and per-field counts](CLEF_P1_FIRST_PASS_2026-10-05.md).
+
+This addition raises the combined source inventory from 105 to 115 bindings. The builder rejects changed completion-bound source bytes. Earlier cohort cutoffs and failures remain intact.

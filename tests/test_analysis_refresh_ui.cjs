@@ -55,11 +55,14 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/Clef native P0/);
   assert.match(view.cutoffs,/53\/60/);
   assert.match(view.cutoffs,/45\/60/);
-  assert.match(view.cutoffs,/Clef has 3\/9 planned runs scored/);
+  assert.match(view.cutoffs,/At the P0 checkpoint, Clef had 3\/9 planned runs scored/);
   assert.match(view.cutoffs,/At the P0 checkpoint, Clef Flash had two completed P0 passes, scoring 45\/60 and 45\/60/);
   assert.match(view.cutoffs,/59 reviews were never sent/);
   assert.match(view.cutoffs,/so it has no third P0 score/);
   assert.match(view.cutoffs,/no changed four-field answer, native probability dictionary or vendor confidence value/);
+  assert.match(view.cutoffs,/Clef P1, first pass/);
+  assert.match(view.cutoffs,/52\/60 versus 53\/60/);
+  assert.match(view.cutoffs,/0\.03472656/);
   assert.match(view.cutoffs,/Clef Flash P1/);
   assert.match(view.cutoffs,/All three passes returned 60 valid answers and scored 47\/60/);
   assert.match(view.cutoffs,/Two reviews became all-four matches \(DEV-027 and DEV-044\) and none lost one/);

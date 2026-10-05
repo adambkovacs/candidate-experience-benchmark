@@ -15,6 +15,8 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
+Clef's first classifier-instruction (P1) pass scored **52/60**, compared with **53/60** for its matched base-task pass. Four reviews changed an answer; one gained a full match and two lost one. All 60 responses were valid. This is one prompt comparison; two further P1 passes are still required. Reported usage was 144,694 input tokens and zero output tokens, with a $0.03472656 published-price estimate rather than a provider bill. [First P1 findings](docs/CLEF_P1_FIRST_PASS_2026-10-05.md).
+
 Cloudflare Clef and Clef Flash each completed native P0 work on the same 60 reviews. Clef scored 53/60 in each of its three P0 passes. Clef Flash scored 45/60 in its first two P0 passes; its third stopped after one unknown outcome, leaving 59 reviews unsent. In three P1 passes, Clef Flash scored 47/60 each time, with no observed changes to predictions, native probability distributions or vendor confidence. In the matched fresh1 comparison, P1 scored 47/60 against P0's 45/60; DEV-027 and DEV-044 became all-four matches, with no losses. This single prompt contrast is descriptive. Provider-billed dollars and pure inference latency are unavailable. [P1 findings](docs/CLEF_FLASH_P1_FINDINGS_2026-10-05.md) · [third P0 checkpoint](docs/CLEF_P0_THIRD_CHECKPOINT_2026-10-02.md).
 
 Mistral 119B fresh1 P0 returned 55 valid answers and five failed requests. It matched all four provisional reference fields on 40/60 records, or 40/55 among valid answers. This interrupted pass is not a repeat result; its failures and unknown-charge bound remain visible in the [partial findings](public-site/mistral119-fresh1-p0-findings.json).

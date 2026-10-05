@@ -24,4 +24,4 @@ Development reported 144,694 input tokens and zero output tokens. At the [publis
 - [Frozen references](../data/pilot/proposed_labels.jsonl), used offline only.
 - [Smoke inspection](../results/clef-native-v1/clef/fresh1/P1/smoke/root-smoke-review.json).
 
-Root and an independent audit checked completion hashes and ordered records. Raw native probabilities and provider confidence are preserved separately. No completed or failed request was replayed. This document adds a first-pass finding; the public combined-analysis feed has not yet incorporated this new P1 pass.
+Root and an independent audit checked completion hashes and ordered records. Raw native probabilities and provider confidence are preserved separately. No completed or failed request was replayed. This document adds a first-pass finding; the [combined-analysis feed](../public-site/analysis-refresh.json) incorporates this result as `clefP1FirstPass`, separate from the three-pass results.

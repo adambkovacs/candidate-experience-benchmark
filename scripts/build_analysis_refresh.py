@@ -114,6 +114,58 @@ def _class_hits(root, public_report, labels, bindings):
     return result
 
 
+def clef_p1_first_pass(root, labels, bindings):
+    """Score two closed native passes offline; do not imply repeat coverage."""
+    phases = {}
+    for condition in ("P0", "P1"):
+        base = f"results/clef-native-v1/clef/fresh1/{condition}/development"
+        completion = read(root, base + "/completion.json", bindings)
+        if (completion.get("status") != "complete" or completion.get("attempted") != 60
+                or completion.get("counts", {}).get("valid") != 60
+                or completion.get("never_sent") != []):
+            raise ValueError("Clef first-pass completion is not 60 valid records")
+        for kind in ("claim", "journal", "raw", "records"):
+            name = base + "/" + kind + (".json" if kind == "claim" else ".jsonl")
+            digest = sha(root / name)
+            if digest != completion.get(kind + "_sha256"):
+                raise ValueError("Clef first-pass evidence hash changed: " + name)
+            bindings[name] = digest
+        records = [json.loads(line) for line in (root / (base + "/records.jsonl")).read_text().splitlines()]
+        if [r.get("id") for r in records] != [f"DEV-{i:03d}" for i in range(1, 61)]:
+            raise ValueError("Clef first-pass record order differs")
+        for row in records:
+            parsed = row.get("parsed") or {}
+            if (row.get("status") != "valid" or row.get("reference_labels_read") is not False
+                    or parsed.get("returned_model") != "clef"
+                    or set(parsed.get("prediction", {})) != set(FIELDS)):
+                raise ValueError("Clef first-pass record identity or isolation differs")
+        phases[condition] = records
+    predictions = {c: {r["id"]: r["parsed"]["prediction"] for r in rows}
+                   for c, rows in phases.items()}
+    hit = lambda c, i: all(predictions[c][i][f] == labels[i][f] for f in FIELDS)
+    ids = list(predictions["P1"])
+    usage = [r["parsed"]["usage"] for r in phases["P1"]]
+    if any(type(u.get(k)) is not int or u[k] < 0 for u in usage
+           for k in ("input_tokens", "output_tokens")):
+        raise ValueError("Clef P1 usage unavailable")
+    inputs = sum(u["input_tokens"] for u in usage)
+    return {"source": "results/clef-native-v1/clef/fresh1/P1/development/records.jsonl",
+            "findings": "docs/CLEF_P1_FIRST_PASS_2026-10-05.md",
+            "condition": "P1", "pass": "fresh1", "valid": 60, "denominator": 60,
+            "completedP1Passes": 1, "plannedP1Passes": 3,
+            "allFour": sum(hit("P1", i) for i in ids),
+            "perField": {f: sum(predictions["P1"][i][f] == labels[i][f] for i in ids) for f in FIELDS},
+            "matchedP0": {"allFour": sum(hit("P0", i) for i in ids),
+                "changedIds": [i for i in ids if predictions["P0"][i] != predictions["P1"][i]],
+                "gainedIds": [i for i in ids if hit("P1", i) and not hit("P0", i)],
+                "lostIds": [i for i in ids if hit("P0", i) and not hit("P1", i)]},
+            "inputTokens": inputs, "outputTokens": sum(u["output_tokens"] for u in usage),
+            "inputPriceEstimateUsd": str(Decimal(inputs) * Decimal("0.24") / Decimal(1000000)),
+            "priceSource": "https://developers.cloudflare.com/workers-ai/models/clef/",
+            "providerBilledUsd": None, "pureInferenceLatencyAvailable": False,
+            "repeatabilityClaim": False}
+
+
 def build(root=ROOT):
     bindings = {}
     data = {name: read(root, name, bindings) for name in SOURCES if not name.endswith(".jsonl")}
@@ -123,6 +175,8 @@ def build(root=ROOT):
     labels = {row["id"]: row["proposed_labels"] for row in rows}
     if len(labels) != 60 or any(row["review_version"] != "0.2" for row in rows):
         raise ValueError("Expected 60 frozen v0.2 references")
+
+    clef_p1 = clef_p1_first_pass(root, labels, bindings)
 
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
@@ -587,6 +641,7 @@ def build(root=ROOT):
                        for row in claude_rows) for condition in ("P1", "P2")},
                    "comparability": "Within each saved series only. Historical first passes and later repeats can use different CLI versions; fresh Sonnet 5.5 v2 is a separate route and model. Do not pool reviews or score differences across series."},
         "newerCohorts": {
+            "clefP1FirstPass": clef_p1,
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},

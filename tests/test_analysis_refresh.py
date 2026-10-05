@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 105)
+        self.assertEqual(len(rebuilt["sources"]), 115)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -38,6 +38,15 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertIn(analysis.MISTRAL_SECOND_SUFFIX,
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
+        p1 = cohorts["clefP1FirstPass"]
+        self.assertEqual((p1["valid"], p1["allFour"], p1["completedP1Passes"]), (60, 52, 1))
+        self.assertEqual(p1["matchedP0"], {"allFour": 53,
+            "changedIds": ["DEV-013", "DEV-014", "DEV-053", "DEV-056"],
+            "gainedIds": ["DEV-056"], "lostIds": ["DEV-013", "DEV-014"]})
+        self.assertEqual(p1["inputPriceEstimateUsd"], "0.03472656")
+        self.assertFalse(p1["repeatabilityClaim"])
+        self.assertIsNone(p1["providerBilledUsd"])
+
         self.assertEqual(cohorts["gemma26"]["source"],
                          "public-site/gemma26-fresh3-p1-interrupted-checkpoint.json")
         self.assertEqual(cohorts["gemma26"]["priorP0Source"],
@@ -151,6 +160,12 @@ class AnalysisRefreshTest(unittest.TestCase):
             check = subprocess.run([sys.executable, str(ROOT / "scripts/build_analysis_refresh.py"),
                                     "--root", str(temp), "--check"], capture_output=True, text=True)
             self.assertEqual(check.returncode, 0, check.stderr)
+            record_path = temp / "results/clef-native-v1/clef/fresh1/P1/development/records.jsonl"
+            original_records = record_path.read_text()
+            record_path.write_text(original_records + " ")
+            with self.assertRaisesRegex(ValueError, "Clef first-pass evidence hash changed"):
+                analysis.build(temp)
+            record_path.write_text(original_records)
             path = temp / "public-site/findings.json"
             path.write_text(path.read_text() + " ")
             stale = subprocess.run([sys.executable, str(ROOT / "scripts/build_analysis_refresh.py"),

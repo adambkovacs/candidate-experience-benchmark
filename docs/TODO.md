@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Clef P1 integrated; Flash continuation preparation, 5 October 2026
+
+The combined analysis now recomputes Clef fresh1/P1 and matched P0 from ten completion-bound evidence files. Its 115-source feed reports 52/60 versus 53/60, four changed reviews, one gained full match and two lost matches. P1 remains one of three required passes. Two Python tests, including changed-source rejection, and three UI tests pass; root checked the rendered text. Independent code review and publication verification are pending for this increment.
+
+Root's authenticated Cloudflare catalogue check still returns the exact Clef and Clef Flash routes, 65,536-token context and unchanged $0.24/$0.09 input prices per million. This is not a daily-quota check. The execution audit confirmed no existing reviewed runner can send only Flash fresh3/P0 DEV-002–060. Agent `flash_p0_suffix_prepare` owns a new offline-only controller, tests and admission note; root owns review, grant and any later dispatch. The old DEV-001 unknown outcome and full-stage hold remain intact. A new $0.348041 suffix hold would fit current authority; nothing has been allocated or sent for it.
+
 ## Clef P1 closed; category filters verified, 5 October 2026
 
 Clef fresh1/P1 smoke and development are closed: 3/3 and 60/60 valid. Independent audit verified completion hashes, ordered IDs and frozen request hashes; inference records confirm reference labels were not read. Development matched all four provisional labels on 52/60 reviews and reported 144,694 input tokens, zero output. This is one P1 pass, not a completed repeat study. Root owns immutable evidence archival; private app-bridge transport files stay untracked. The next required Clef P1/P2 passes and interrupted Flash P0 suffix remain unfinished; no spending cap changed. Shared paid-work holds total $9.018441, leaving $0.981559 under the $10 cap. A Clef smoke-plus-full pair reserves $0.990927, so another complete pair cannot currently be admitted. These are conservative holds, not observed bills. The existing request for a $14.33 aggregate postapproval ceiling remains pending.
