@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Mistral P1 smoke stopped, 5 October 2026, 20:24 UTC
+
+Reviewed successor `f0b98402` passed eight offline tests and independent review (APPROVE; no remaining findings). Fresh credentials and exact route checks passed. Root reserved $0.12533760 for the three-record smoke under both authorities. Handle 67707 exited 1 after DEV-001 returned HTTP 429 from the upstream provider shared pool with no reported cost. DEV-002/003 were never sent; no P1 development request was admitted. The raw response is retained locally; the [public terminal receipt](../results/repeatability-v1/mistral119-fresh-matched3-v1/p1-successor-v1/smoke.terminal-public.json) excludes the private account identifier. No request was replayed.
+
+Root retained the full $0.04177920 unknown-charge bound, sealed the child, and released $0.08355840 unused OpenRouter allocation. The separate $0.12533760 global authority hold remains retained. This is a provider capacity failure, not insufficient account credit. The local Qwen3.5 P0 run remains active under handle 35256. The whole benchmark remains incomplete.
+
 ## Hosted admission preparation, 5 October 2026, 20:11 UTC
 
 Root verified the existing Qwen3.5 first-P0 handle 35256 remains live, with 17 saved responses at this checkpoint. No new local run is admitted. A fresh locked OpenRouter replay has $0.52219181750 unallocated under $12.38, no pending reservations and no active children. The separate cross-provider authority has $0.633518 remaining under $10. Both files were unchanged by these checks.
