@@ -2,6 +2,8 @@
 
 ## Analysis consistency checkpoint, 5 October 2026, 20:01 UTC
 
+Publication verified: commit `2dd9cc5c`, Pages job `37367158387` succeeded. Public HTML, analysis JavaScript, analysis JSON and the legacy repeat feed match the committed bytes. The live Qwen3.5 run remains active at 12/60 saved responses; no completed score is inferred from that partial count.
+
 Root verified handle 35256 remains live, with eight saved Qwen3.5 P0 responses at this checkpoint. No full Qwen3.5 result is published. The roster and analysis document now reflect all nine completed Qwen1.7 thinking-off phases. The report agent added closed-phase Qwen3.5 scores, validity, tokens, client timing and supported comparisons; root regenerated the analysis feed from 130 source hashes. Fifteen Python and ten UI checks pass. Review: APPROVE, no confirmed BLOCKING findings. RESIDUAL: browser visual verification remains unavailable under the previously recorded browser-tool access restriction. Root owns publication and the live run; no paid request or budget change occurred.
 
 ## Qwen3.5 first full pass running, 5 October 2026, 19:50 UTC
