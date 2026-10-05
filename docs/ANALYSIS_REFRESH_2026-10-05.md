@@ -59,3 +59,8 @@ P1 scores 12/60 and 11/60 across its first two passes, both with 60 valid answer
 ## Qwen1.7B second base-task pass
 
 P0 scores 24/60 and 23/60 across its first two passes, both with 60 valid answers. Labels changed on 11/60 reviews: 2 sentiment, 1 follow-up, 4 serious-concern and 6 testimonial decisions, with overlap between fields. The second pass used 98,024 tokens and 71.68 seconds of client-observed request time. Pure inference duration and local running costs remain unavailable. The observed changed-review counts are lower for P0 than P1 (23/60) or P2 (30/58 jointly valid), but these two-pass observations do not establish a general effect of prompt detail. All three final passes remain required. [Exact source-bound comparisons](../public-site/legacy-qwen-repeats.json).
+
+
+## Qwen1.7B classifier instructions: three passes complete
+
+All three P1 passes returned 60 valid answers, with all-four scores of 12/60, 11/60 and 16/60. The observed score range is 11–16, not a confidence interval. Across all three passes, 30 of 60 reviews changed at least one label; field changes affected 9 sentiment, 5 follow-up, 16 serious-concern and 15 testimonial decisions, with overlap within reviews. Pairwise changed-review counts were 23, 20 and 24 out of 60. The third pass used 118,013 tokens and 198.84 seconds of client-observed request time. Pure inference duration and local cost remain unavailable. P1 execution is complete for this setup; P0 and P2 third passes remain. [Source-bound report](../public-site/legacy-qwen-repeats.json).

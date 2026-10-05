@@ -647,11 +647,13 @@ def build(root=ROOT):
                                     and x["to"] == "fresh2"),
                  "requiredPasses": 3, "completedPasses": 2}
     qwen17_p1 = {"scores": [qwen17_series["passes"][p]["P1"]["score"]
-                            for p in ("fresh1", "fresh2")],
+                            for p in ("fresh1", "fresh2", "fresh3")],
                  "comparison": next(x for x in qwen17_series["pairwiseFlips"]
                                     if x["condition"] == "P1" and x["from"] == "fresh1"
                                     and x["to"] == "fresh2"),
-                 "requiredPasses": 3, "completedPasses": 2}
+                 "requiredPasses": 3, "completedPasses": 3,
+                 "summary": qwen17_series["threePassSummary"]["P1"],
+                 "changesAcrossThreePasses": qwen17_series["changesAcrossThreePasses"]["P1"]}
     qwen17_p0 = {"scores": [qwen17_series["passes"][p]["P0"]["score"]
                             for p in ("fresh1", "fresh2")],
                  "comparison": next(x for x in qwen17_series["pairwiseFlips"]

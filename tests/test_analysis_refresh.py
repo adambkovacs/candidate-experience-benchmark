@@ -138,9 +138,11 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual(q17p2["comparison"]["denominator"], 58)
         self.assertEqual(q17p2["comparison"]["fourFieldVector"]["changed"], 30)
         q17p1 = cohorts["legacyQwen"]["qwen17P1Repeat"]
-        self.assertEqual([s["allFour"] for s in q17p1["scores"]], [12, 11])
+        self.assertEqual([s["allFour"] for s in q17p1["scores"]], [12, 11, 16])
         self.assertEqual(q17p1["comparison"]["denominator"], 60)
         self.assertEqual(q17p1["comparison"]["fourFieldVector"]["changed"], 23)
+        self.assertEqual(q17p1["completedPasses"], 3)
+        self.assertEqual(len(q17p1["changesAcrossThreePasses"]["fourFieldVector"]), 30)
         q17p0 = cohorts["legacyQwen"]["qwen17P0Repeat"]
         self.assertEqual([s["allFour"] for s in q17p0["scores"]], [24, 23])
         self.assertEqual(q17p0["comparison"]["denominator"], 60)

@@ -1,5 +1,14 @@
 # Current work checklist
 
+## Third P1 closed, 5 October 2026
+
+Root review: APPROVE, no confirmed BLOCKING findings. A RESIDUAL stale two-pass sentence was corrected before publication. Eleven Python and eight UI checks passed; browser coverage is 7/9 and the P1 three-pass finding is verified.
+
+Pages job `37325886456` succeeded for `d374d20d`; live HTML, legacy Qwen JSON and combined analysis JSON/JavaScript match the committed bytes.
+
+Root fresh3/P1 smoke handle `12337` exited zero with three valid outputs. Raw JSON, completion hashes and reference isolation were inspected. Fresh route and all 60 runtime/render/token checks passed under the same pinned instance. Full handle `73837` exited zero with 60 saved and valid answers. Root verified hashes, ordered IDs, reference isolation and unchanged boot/sleep/AC/lid. P1 scores 12/11/16 out of 60 across three passes; 30/60 reviews changed labels. Coverage is 7/9, with third P0/P2 pending. No inference is currently running. Root owns closure and combined analysis; `qwen17_repeat_projection` owns the closed legacy feed and findings after notification. No paid request or cap change occurred.
+
+
 ## Second P0 closed, 5 October 2026
 
 Pages job `37324862613` succeeded for `16ce572a`; live HTML, legacy Qwen JSON and combined analysis JSON/JavaScript match that commit. Root review of the second-P0 report: APPROVE, no confirmed BLOCKING or RESIDUAL findings. Eleven Python and eight UI checks passed; browser coverage and paired findings are verified.

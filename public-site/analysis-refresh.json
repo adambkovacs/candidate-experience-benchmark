@@ -4000,6 +4000,97 @@
         ]
       },
       "qwen17P1Repeat": {
+        "changesAcrossThreePasses": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "follow_up_needed": [
+              "DEV-006",
+              "DEV-020",
+              "DEV-024",
+              "DEV-029",
+              "DEV-057"
+            ],
+            "sentiment": [
+              "DEV-002",
+              "DEV-004",
+              "DEV-018",
+              "DEV-022",
+              "DEV-024",
+              "DEV-040",
+              "DEV-050",
+              "DEV-057",
+              "DEV-059"
+            ],
+            "serious_concern_reported": [
+              "DEV-002",
+              "DEV-003",
+              "DEV-006",
+              "DEV-007",
+              "DEV-013",
+              "DEV-014",
+              "DEV-015",
+              "DEV-017",
+              "DEV-019",
+              "DEV-021",
+              "DEV-029",
+              "DEV-033",
+              "DEV-034",
+              "DEV-048",
+              "DEV-057",
+              "DEV-058"
+            ],
+            "testimonial_potential": [
+              "DEV-002",
+              "DEV-006",
+              "DEV-011",
+              "DEV-012",
+              "DEV-015",
+              "DEV-018",
+              "DEV-021",
+              "DEV-022",
+              "DEV-031",
+              "DEV-033",
+              "DEV-039",
+              "DEV-048",
+              "DEV-049",
+              "DEV-051",
+              "DEV-059"
+            ]
+          },
+          "fourFieldVector": [
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-006",
+            "DEV-007",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-024",
+            "DEV-029",
+            "DEV-031",
+            "DEV-033",
+            "DEV-034",
+            "DEV-039",
+            "DEV-040",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059"
+          ]
+        },
         "comparison": {
           "condition": "P1",
           "denominator": 60,
@@ -4089,7 +4180,7 @@
           },
           "to": "fresh2"
         },
-        "completedPasses": 2,
+        "completedPasses": 3,
         "requiredPasses": 3,
         "scores": [
           {
@@ -4137,8 +4228,95 @@
               "valid": 60
             },
             "valid": 60
+          },
+          {
+            "allFour": 16,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 55,
+              "sentiment": 45,
+              "serious_concern_reported": 49,
+              "testimonial_potential": 21
+            },
+            "invalidIds": [],
+            "outcomes": {
+              "invalid_output": 0,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 60
+            },
+            "valid": 60
           }
-        ]
+        ],
+        "summary": {
+          "allFour": {
+            "completedPasses": 3,
+            "range": [
+              11,
+              16
+            ],
+            "values": [
+              12,
+              11,
+              16
+            ]
+          },
+          "fields": {
+            "follow_up_needed": {
+              "completedPasses": 3,
+              "range": [
+                55,
+                57
+              ],
+              "values": [
+                55,
+                57,
+                55
+              ]
+            },
+            "sentiment": {
+              "completedPasses": 3,
+              "range": [
+                43,
+                45
+              ],
+              "values": [
+                43,
+                44,
+                45
+              ]
+            },
+            "serious_concern_reported": {
+              "completedPasses": 3,
+              "range": [
+                44,
+                49
+              ],
+              "values": [
+                44,
+                46,
+                49
+              ]
+            },
+            "testimonial_potential": {
+              "completedPasses": 3,
+              "range": [
+                18,
+                21
+              ],
+              "values": [
+                19,
+                18,
+                21
+              ]
+            }
+          }
+        }
       },
       "qwen17P2Repeat": {
         "comparison": {
@@ -4313,7 +4491,7 @@
           "plannedConditions": 9
         },
         "qwen3-1.7b-sdk-thinking-on": {
-          "completedConditions": 6,
+          "completedConditions": 7,
           "plannedConditions": 9
         },
         "qwen3.5-4b-sdk-thinking-on": {
@@ -6106,7 +6284,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "fd3591fe967243677b94703f53894ef0c272f6513774d96c00e4266533bad162"
+      "sha256": "0debdb9ce49500caf41af7ec800c83c1b57a4335a680518baa129aa3f62d42ff"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",
