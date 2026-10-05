@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Flash continuation stopped at provider quota, 5 October 2026
+
+Reviewed controller `478615ce` is pushed. Root dispatched exactly one suffix request, DEV-002, through the connected Cloudflare app. The app returned error 4006, daily free-neuron allocation exhausted. The original runner handle `37421` then exited zero with a stopped receipt: one unknown outcome, zero valid outputs, DEV-003–060 never sent. No retry, upgrade or plan change occurred. DEV-001's earlier unknown outcome remains separate. Both completions and the new external-error audit are sealed.
+
+The new $0.348041 stage hold remains conservative; total postapproval holds are $9.366482, leaving $0.633518. Actual Cloudflare charges are unavailable. Funding alone does not resolve the current daily provider quota. Further Cloudflare dispatch requires verified quota/access and separately admitted never-sent requests. Root review of the analysis update: APPROVE, no remaining confirmed BLOCKING or RESIDUAL findings. The draft's incorrect unknown-ID projection and missing completion-hash checks were fixed before publication. Two Python tests, three UI tests, clean-index archive reconstruction and browser text verification pass. All 127 analysis bindings match staged evidence. Publication is pending; all prior scores remain unchanged.
+
 ## Flash P0 recovery checks, 5 October 2026
 
 The new one-shot suffix controller prepares exactly DEV-002 through DEV-060 for Flash fresh3/P0. Root verified the original request manifest, parent evidence, completed smoke, account binding and current billing source. Six focused offline tests pass both in the working tree and a clean Git archive with the new files overlaid; six existing remaining-stage tests also pass. Coverage includes all 59 requests, malformed and invalid responses, cap refusal, duplicate claims, concurrent ledger locking and the real connected-app submission handshake. The prepared manifest is `b5a512b67adbb1af9e852f6f9ed4c5326ca535ae9abd3a3e7463737f6d49006f`.

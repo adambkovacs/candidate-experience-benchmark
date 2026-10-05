@@ -18,7 +18,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 115)
+        self.assertEqual(len(rebuilt["sources"]), 127)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -38,6 +38,12 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertIn(analysis.MISTRAL_SECOND_SUFFIX,
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
+        latest = cohorts["latestFlashP0Interruption"]
+        self.assertEqual(latest["unknownOutcomeIds"], ["DEV-001", "DEV-002"])
+        self.assertEqual(latest["neverSentIds"], [f"DEV-{i:03d}" for i in range(3, 61)])
+        self.assertEqual(latest["valid"], 0)
+        self.assertEqual(latest["reviewCount"], 60)
+        self.assertIsNone(latest["score"])
         p1 = cohorts["clefP1FirstPass"]
         self.assertEqual((p1["valid"], p1["allFour"], p1["completedP1Passes"]), (60, 52, 1))
         self.assertEqual(p1["matchedP0"], {"allFour": 53,
@@ -160,6 +166,12 @@ class AnalysisRefreshTest(unittest.TestCase):
             check = subprocess.run([sys.executable, str(ROOT / "scripts/build_analysis_refresh.py"),
                                     "--root", str(temp), "--check"], capture_output=True, text=True)
             self.assertEqual(check.returncode, 0, check.stderr)
+            suffix_path = temp / analysis.CLEF_FLASH_P0_SUFFIX / "records.jsonl"
+            original_suffix = suffix_path.read_text()
+            suffix_path.write_text(original_suffix + " ")
+            with self.assertRaisesRegex(ValueError, "interruption source hash differs"):
+                analysis.build(temp)
+            suffix_path.write_text(original_suffix)
             record_path = temp / "results/clef-native-v1/clef/fresh1/P1/development/records.jsonl"
             original_records = record_path.read_text()
             record_path.write_text(original_records + " ")

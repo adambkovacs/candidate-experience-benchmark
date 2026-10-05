@@ -23,6 +23,8 @@ CLEF_FLASH_P1 = "results/clef-native-v1/clef-flash-p1-findings-public.json"
 CLEF_FLASH_P1_PUBLIC = "public-site/clef-flash-p1-findings.json"
 CLEF_FLASH_P2 = "results/clef-native-v1/clef-flash-p2-findings-public.json"
 CLEF_FLASH_P2_PUBLIC = "public-site/clef-flash-p2-findings.json"
+CLEF_FLASH_P0_PARENT = "results/clef-native-v1/clef-flash/fresh3/P0/development"
+CLEF_FLASH_P0_SUFFIX = "results/clef-native-v1/clef-flash/fresh3/P0/development-suffix-v1"
 MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
 SOURCES = (
     "public-site/sonnet55-fresh-matched3.json",
@@ -164,6 +166,46 @@ def clef_p1_first_pass(root, labels, bindings):
             "priceSource": "https://developers.cloudflare.com/workers-ai/models/clef/",
             "providerBilledUsd": None, "pureInferenceLatencyAvailable": False,
             "repeatabilityClaim": False}
+
+
+def clef_flash_latest_p0_interruption(root, bindings):
+    """Verify the closed parent and suffix before projecting their fixed 60 IDs."""
+    unknown = []
+    previous_completion = None
+    for directory, rid, remainder in (
+            (CLEF_FLASH_P0_PARENT, "DEV-001", list(range(2, 61))),
+            (CLEF_FLASH_P0_SUFFIX, "DEV-002", list(range(3, 61)))):
+        done = read(root, directory + "/completion.json", bindings)
+        if (done.get("model") != "clef-flash" or done.get("status") != "stopped" or
+                done.get("stage") != directory.removeprefix("results/clef-native-v1/") or
+                done.get("attempted") != 1 or done.get("counts") != {
+                    "valid": 0, "invalid_output": 0, "service_error": 0, "unknown_outcome": 1} or
+                done.get("never_sent") != [f"DEV-{i:03d}" for i in remainder]):
+            raise ValueError("Clef Flash interruption boundary differs")
+        for name, key in [("claim.json", "claim_sha256"), ("journal.jsonl", "journal_sha256"),
+                          ("raw.jsonl", "raw_sha256"), ("records.jsonl", "records_sha256")]:
+            name = directory + "/" + name
+            bindings[name] = sha(root / name)
+            if bindings[name] != done.get(key):
+                raise ValueError("Clef Flash interruption source hash differs")
+        records = [json.loads(line) for line in (root / directory / "records.jsonl").read_text().splitlines()]
+        if (len(records) != 1 or records[0].get("id") != rid or
+                records[0].get("status") != "unknown_outcome" or
+                records[0].get("parsed") is not None or records[0].get("reference_labels_read") is not False):
+            raise ValueError("Clef Flash interruption terminal record differs")
+        audit = read(root, directory + "/external-error-audit.json", bindings)
+        if (audit.get("completion_sha256") != bindings[directory + "/completion.json"] or
+                audit.get("id") != rid or audit.get("attempt_id") != records[0].get("attempt_id") or
+                audit.get("no_replay") is not True or audit.get("provider_envelope_available") is not False):
+            raise ValueError("Clef Flash interruption audit differs")
+        if previous_completion is not None and done.get("parent_completion_sha256") != previous_completion:
+            raise ValueError("Clef Flash suffix parent differs")
+        previous_completion = bindings[directory + "/completion.json"]
+        unknown.append(rid)
+    return {"status": "interrupted_unscored", "unknownOutcomeIds": unknown,
+            "neverSentCount": 58, "neverSentIds": [f"DEV-{i:03d}" for i in range(3, 61)],
+            "valid": 0, "score": None, "reviewCount": 60,
+            "source": CLEF_FLASH_P0_SUFFIX + "/completion.json"}
 
 
 def build(root=ROOT):
@@ -350,6 +392,7 @@ def build(root=ROOT):
     clef = data["public-site/clef-findings.json"]
     clef_repeat = data["public-site/clef-p0-repeat-findings.json"]
     clef_third = data["public-site/clef-p0-third-checkpoint.json"]
+    latest_flash_p0_interruption = clef_flash_latest_p0_interruption(root, bindings)
     mistral_original = data[MISTRAL_ORIGINAL]
     mistral_first = data[MISTRAL_FIRST_SUFFIX]
     mistral_second = data[MISTRAL_SECOND_SUFFIX]
@@ -687,6 +730,7 @@ def build(root=ROOT):
                                  "unknownOutcomeIds": third_flash["fresh3P0"]["unknownOutcomeIds"],
                                  "neverSentCount": len(third_flash["fresh3P0"]["neverSentIds"]),
                                  "fresh3Score": None}}},
+            "latestFlashP0Interruption": latest_flash_p0_interruption,
             "clefFlashP1": {"source": CLEF_FLASH_P1_PUBLIC,
                 "sourceEvidence": CLEF_FLASH_P1,
                 "passes": {name: {"valid": p1_passes[name]["counts"]["valid"],

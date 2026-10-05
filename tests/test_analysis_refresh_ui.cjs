@@ -53,6 +53,9 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/DEV-005 and DEV-006/);
   assert.match(view.cutoffs,/The series remains interrupted/);
   assert.match(view.cutoffs,/Clef native P0/);
+  assert.match(view.cutoffs,/third pass has 2 unknown outcomes and 58 reviews that have not been sent/);
+  assert.match(view.cutoffs,/Neither attempt returned a usable answer/);
+  assert.match(view.cutoffs,/CLEF_FLASH_P0_SUFFIX_CHECKPOINT_2026-10-05.md/);
   assert.match(view.cutoffs,/53\/60/);
   assert.match(view.cutoffs,/45\/60/);
   assert.match(view.cutoffs,/At the P0 checkpoint, Clef had 3\/9 planned runs scored/);

@@ -36,3 +36,7 @@ Each P2 pass reported 154,954 input tokens and zero output tokens. The published
 The combined feed now recomputes Clef fresh1/P1 and matched P0 directly from completion-bound records. P1 scored 52/60 versus P0 53/60: DEV-056 gained an all-four match, DEV-013 and DEV-014 lost one, and DEV-053 changed an answer without changing all-four agreement. All responses were valid. Two more P1 passes remain required; the single contrast does not establish a repeatable prompt effect. Input usage was 144,694 tokens, with a published-price estimate of $0.03472656 and no observed bill or pure inference duration. [Evidence and per-field counts](CLEF_P1_FIRST_PASS_2026-10-05.md).
 
 This addition raises the combined source inventory from 105 to 115 bindings. The builder rejects changed completion-bound source bytes. Earlier cohort cutoffs and failures remain intact.
+
+## Later Flash P0 interruption
+
+The 5 October continuation adds no predictions. Its closed receipt leaves the third P0 pass with two unknown outcomes, zero valid responses and 58 never-sent reviews. The combined feed now binds 127 source files and shows this later state separately from the historical 2 October checkpoint. All published scores and repeat comparisons are unchanged. See the [continuation checkpoint](CLEF_FLASH_P0_SUFFIX_CHECKPOINT_2026-10-05.md).
