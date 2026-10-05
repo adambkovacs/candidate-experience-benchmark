@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Clef Flash P2 first pass closed, 5 October 2026
+
+Root P2 smoke handle `46942` and full-development handle `41365` exited zero. Root inspected all three smoke responses before the separate full-stage admission; the full pass contains 60 ordered valid outputs with matching completion hashes. Two further P2 passes remain. The P1 findings builder passed four root-run tests; its report and the Mistral report are under final reference-history/copy review before combined publication.
+
+Before P2 admission, the locked shared authority had $3.087397 available. Remaining Clef/Clef Flash stages required $7.408514 in conservative full-context holds, a $4.321117 shortfall. Root asked the user to raise the separate cross-provider cap from $10 to $14.33, leaving the OpenRouter $12.38 cap unchanged. No answer or cap change is recorded. The affordable P2 smoke/full pair used $0.371637 of the existing headroom; further work must continue to use the current cap until explicit approval. These are reservation bounds, not observed charges.
+
+
 ## Clef Flash P1 three-pass execution complete, 5 October 2026
 
 Fresh2 and fresh3 P1 smoke/full stages completed under separate reviewed grants. Full-run handles `76818` and `5993` both exited zero with 60 valid outputs. Root verified source hashes, ordered IDs and all three pairwise comparisons: zero changes in predictions, probabilities or confidence across the three full passes. Each reports 144,694 input tokens. This establishes observed repeat stability, not correctness or calibration. The analysis agent is incorporating all three passes into the source-bound findings before publication. All actual Cloudflare charges remain unavailable and full-context reservations remain held.
