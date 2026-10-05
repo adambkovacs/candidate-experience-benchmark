@@ -1,5 +1,10 @@
 # Current work checklist
 
+## Second P2 published; second P1 closed, 5 October 2026
+
+Pages job `37323486415` succeeded for `ee618fd8`. Live HTML, legacy Qwen JSON and combined analysis JSON/JavaScript match the committed bytes. Root independently verified fresh2/P1 smoke handle `98857` with three valid raw answers, hashes and reference isolation. All 60 fresh runtime/render/token checks passed; the exact family remains absent from the 466-model OpenRouter catalogue. Full handle `26168` exited zero with 60 saved and valid answers. Root verified source hashes, ordered IDs, reference isolation and unchanged boot/sleep/AC/lid state. P1 scores 11/60 versus 12/60 previously, with 23 of 60 reviews changing a label. Coverage is 5/9; four phases remain. No inference is currently running. Root owns execution and combined analysis; `qwen17_repeat_projection` owns the closed legacy feed and findings only after root verifies completion. No paid inference or cap change occurred.
+
+
 ## Qwen first-pass publication and second P2 execution, 5 October 2026
 
 Pages job `37321501799` succeeded for `37d9c78f`. Root verified live HTML, repeat JavaScript, legacy Qwen JSON and combined analysis JSON/JavaScript against local committed bytes. The browser now shows the correct 3/9 first-pass coverage and scores 24/12/8 after the stale repeat-feed cache fix; 77 shared UI tests passed.

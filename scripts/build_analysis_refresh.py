@@ -646,6 +646,12 @@ def build(root=ROOT):
                                     if x["condition"] == "P2" and x["from"] == "fresh1"
                                     and x["to"] == "fresh2"),
                  "requiredPasses": 3, "completedPasses": 2}
+    qwen17_p1 = {"scores": [qwen17_series["passes"][p]["P1"]["score"]
+                            for p in ("fresh1", "fresh2")],
+                 "comparison": next(x for x in qwen17_series["pairwiseFlips"]
+                                    if x["condition"] == "P1" and x["from"] == "fresh1"
+                                    and x["to"] == "fresh2"),
+                 "requiredPasses": 3, "completedPasses": 2}
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
@@ -707,6 +713,7 @@ def build(root=ROOT):
             "legacyQwen": {"source": "public-site/legacy-qwen-repeats.json",
                            "qwen17FirstPass": {"scores": qwen17_scores, "repeatabilityEstablished": False},
                            "qwen17P2Repeat": qwen17_p2,
+                           "qwen17P1Repeat": qwen17_p1,
                            "completedConfigurations": list(legacy_complete),
                            "remainingConfigurations": {name:
                                {"completedConditions": legacy_series[name]["completedConditions"],

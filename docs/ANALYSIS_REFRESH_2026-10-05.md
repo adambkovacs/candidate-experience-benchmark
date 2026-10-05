@@ -49,3 +49,8 @@ The local SDK thinking-on configuration now has one closed P0, P1 and P2 pass. S
 ## Qwen1.7B second decision-tree pass
 
 The first two P2 passes score 8/60 and 9/60 all-four matches. Both have 59 valid outputs, but their format failures affect different reviews: DEV-012 and DEV-033. Among the 58 reviews with valid answers in both passes, 30 changed at least one label. Field changes are 12 sentiment, 4 follow-up, 12 serious-concern and 13 testimonial decisions; these overlap within reviews. Similar aggregate scores therefore hide substantial changes in individual answers. This is a two-pass observation under the frozen local SDK protocol, not a completed three-pass study. Five of this configuration's nine planned phases remain. [Exact source-bound comparisons](../public-site/legacy-qwen-repeats.json).
+
+
+## Qwen1.7B second classifier-instruction pass
+
+P1 scores 12/60 and 11/60 across its first two passes, both with 60 valid answers. Labels changed on 23 of those 60 reviews: 8 sentiment, 3 follow-up, 10 serious-concern and 8 testimonial decisions, with overlap between fields. The second pass used 119,213 tokens and 195.24 seconds of client-observed request time; pure inference duration and local running costs remain unavailable. Alongside P2's 30/58 changed-review result, this reinforces the distinction between stable aggregate scores and stable individual decisions. The third passes remain pending; four of the nine planned phases for this setup are unfinished. [Exact source-bound comparisons](../public-site/legacy-qwen-repeats.json).
