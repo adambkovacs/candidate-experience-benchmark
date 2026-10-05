@@ -31,6 +31,8 @@ jobs:
           node --check public-site/reader.js
           python3 scripts/build_reader_story.py --check
           python3 -m unittest tests.test_reader_story -q
+          python3 scripts/build_clef_flash_p1_findings.py --check
+          python3 -m unittest tests.test_build_clef_flash_p1_findings -q
           python3 scripts/build_analysis_refresh.py --check
           python3 -m unittest tests.test_analysis_refresh -q
           node --test tests/test_analysis_refresh_ui.cjs

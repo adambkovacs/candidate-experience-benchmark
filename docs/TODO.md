@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Clef P1 analysis approved, 5 October 2026
+
+Root reviewed and committed the source-bound Clef Flash P1 findings in `4bab11d0`; four focused tests and the saved projection check passed. Three passes each score 47/60 with 60 valid outputs and no label/probability/confidence changes. The matched fresh1/P0 comparison rises from 45/60 to 47/60, with gains on DEV-027 and DEV-044 and no losses. The public analysis agent owns integration into the existing combined view; publication is not yet claimed.
+
+Root review found a BLOCKING portability defect in the draft Mistral report: archived child ledger reads used original-machine absolute paths. The report agent is fixing the reads and adding a relocation check before approval. Its candidate 40/60 result remains unpublished pending verification. No spending-cap increase has been approved.
+
+
 ## Clef Flash P2 first pass closed, 5 October 2026
 
 Root P2 smoke handle `46942` and full-development handle `41365` exited zero. Root inspected all three smoke responses before the separate full-stage admission; the full pass contains 60 ordered valid outputs with matching completion hashes. Two further P2 passes remain. The P1 findings builder passed four root-run tests; its report and the Mistral report are under final reference-history/copy review before combined publication.
