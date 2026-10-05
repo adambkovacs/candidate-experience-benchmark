@@ -3927,6 +3927,130 @@
           }
         }
       },
+      "qwen17OffFirstPass": {
+        "firstPassOnly": true,
+        "scores": {
+          "P0": {
+            "allFour": 28,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 55,
+              "sentiment": 51,
+              "serious_concern_reported": 45,
+              "testimonial_potential": 43
+            },
+            "invalidIds": [],
+            "outcomes": {
+              "invalid_output": 0,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 60
+            },
+            "valid": 60
+          },
+          "P1": {
+            "allFour": 25,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 56,
+              "sentiment": 48,
+              "serious_concern_reported": 43,
+              "testimonial_potential": 44
+            },
+            "invalidIds": [
+              "DEV-029"
+            ],
+            "outcomes": {
+              "invalid_output": 1,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 59
+            },
+            "valid": 59
+          },
+          "P2": {
+            "allFour": 32,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 51,
+              "sentiment": 49,
+              "serious_concern_reported": 37,
+              "testimonial_potential": 54
+            },
+            "invalidIds": [
+              "DEV-002",
+              "DEV-005",
+              "DEV-018"
+            ],
+            "outcomes": {
+              "invalid_output": 3,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 57
+            },
+            "valid": 57
+          }
+        },
+        "usage": {
+          "P0": {
+            "actualCostUsd": null,
+            "clientRequestSecondsTotal": 30.12634213,
+            "inferenceSeconds": null,
+            "modelLoadSeconds": null,
+            "requestCount": 60,
+            "timeBasis": "client_observed_wall_clock",
+            "tokens": {
+              "input_tokens": 93210,
+              "output_tokens": 2418,
+              "reasoning_output_tokens": null,
+              "total_tokens": 95628
+            }
+          },
+          "P1": {
+            "actualCostUsd": null,
+            "clientRequestSecondsTotal": 39.759520089,
+            "inferenceSeconds": null,
+            "modelLoadSeconds": null,
+            "requestCount": 60,
+            "timeBasis": "client_observed_wall_clock",
+            "tokens": {
+              "input_tokens": 103710,
+              "output_tokens": 2420,
+              "reasoning_output_tokens": null,
+              "total_tokens": 106130
+            }
+          },
+          "P2": {
+            "actualCostUsd": null,
+            "clientRequestSecondsTotal": 44.707124126,
+            "inferenceSeconds": null,
+            "modelLoadSeconds": null,
+            "requestCount": 60,
+            "timeBasis": "client_observed_wall_clock",
+            "tokens": {
+              "input_tokens": 158010,
+              "output_tokens": 2436,
+              "reasoning_output_tokens": null,
+              "total_tokens": 160446
+            }
+          }
+        }
+      },
       "qwen17P0Repeat": {
         "changesAcrossThreePasses": {
           "denominator": 60,
@@ -4888,7 +5012,7 @@
       "qwen17RepeatStudyComplete": true,
       "remainingConfigurations": {
         "qwen3-1.7b-sdk-thinking-off": {
-          "completedConditions": 1,
+          "completedConditions": 3,
           "plannedConditions": 9
         },
         "qwen3.5-4b-sdk-thinking-on": {
@@ -6681,7 +6805,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "2a19364759ffe2d3e6b14e9c767509e8f3c8478dbb5b8ce17981b0f0317467ec"
+      "sha256": "29bb5c4107573c6d54abf6b1e105ef6bd963e979183553cf0b438a253fec8f4b"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",

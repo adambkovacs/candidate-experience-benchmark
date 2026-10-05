@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Qwen1.7B thinking-off first prompt comparison closed, 5 October 2026
+
+Root closed P2 handle `27062` (57 valid, 3 invalid, 32/60 matches) and P1 handle `23860` (59 valid, 1 invalid, 25/60 matches). Root inspected P1 smoke, verified both completions, hashes, ordered IDs, reference isolation and unchanged host. All four invalid outputs contain Markdown code fences; no repair or retry occurred. Thinking-off is 3/9; thinking-on remains 9/9. No inference is currently running. Next is thinking-off fresh2/P2 smoke. No paid request or cap change occurred.
+
+Preceding P0 commit `90e698d7` is verified live: Pages `37331900049` succeeded, and HTML, legacy report and combined analysis JSON/JavaScript match the committed bytes. Current first-prompt checkpoint passes eleven Python and eight UI checks. The browser shows 3/9 and the 28/25/32 comparison. Root review: APPROVE, no confirmed BLOCKING or new RESIDUAL findings. Commit and publication verification follow.
+
 ## Qwen1.7B thinking-off P0 closed, 5 October 2026
 
 Root inspected three valid smoke outputs (handle `58919`), verified a fresh hosted-route audit and all 60 frozen runtime/render/token checks, then closed development handle `1536` with 60 valid outputs and 28/60 matches. Post-stage hashes, ordered IDs, reference isolation and unchanged boot/sleep/AC/lid passed. Thinking-off is 1/9; thinking-on remains 9/9. No inference is currently running. Next scheduled stage is thinking-off fresh1/P2 smoke. No paid request or budget mutation occurred. Eleven Python and eight UI checks pass; the browser shows 1/9 and 28/60 correctly. Root review: APPROVE, no confirmed BLOCKING or new RESIDUAL findings. Publication of this increment is pending. The preceding nine-run checkpoint `2d29c12d` is verified live: Pages job `37330774936` succeeded and HTML plus the three report assets match committed bytes.

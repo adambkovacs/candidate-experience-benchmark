@@ -83,3 +83,10 @@ The final pass recorded 157,770 input and 21,946 output tokens, 179,716 total, a
 ## Qwen1.7B thinking-off: first P0 pass
 
 Qwen3 1.7B with thinking disabled has closed its first P0 pass: 60 valid answers and 28/60 all-four matches. Field matches are 51 sentiment, 55 follow-up, 45 serious-concern and 43 testimonial, each out of 60. It recorded 95,628 tokens and 30.13 seconds of client-observed request time. Pure inference duration and local cost are unavailable. This configuration is 1/9 complete; its prompt comparisons and repeat conclusions remain pending, separate from the completed thinking-on study. On testimonial decisions it returned “yes” for 13 of 50 reference “no” reviews. One pass does not establish a repeatability range or a general advantage from disabling thinking. [Source-bound report](../public-site/legacy-qwen-repeats.json).
+
+
+## Qwen1.7B thinking-off: first prompt comparison
+
+Qwen3 1.7B with thinking disabled has closed its first P0/P1/P2 passes, scoring 28/25/32 all-four matches out of 60, with 60/59/57 valid answers. P1 preserves one strict-JSON failure (DEV-029); P2 preserves three (DEV-002, DEV-005 and DEV-018). All four failures were JSON answers wrapped in Markdown code fences. The protocol requires bare JSON; outputs were not repaired. Decision rules improved the first-pass all-four total over P0 while reducing format validity. This differs from thinking-on, where P2 scored below P0 in all three passes. These are observations of the exact settings, not a general effect of reasoning or prompt detail. Thinking-off is 3/9 complete; its two further passes per prompt remain required.
+
+P1 matches sentiment/follow-up/serious-concern/testimonial on 48/56/43/44 reviews; P2 matches 49/51/37/54, all on the fixed 60-review denominator. P2 improves testimonial agreement while losing serious-concern agreement against P0 (43 and 45 respectively). The single all-four total hides that tradeoff. P1 records 106,130 tokens and 39.76 seconds of client request time; P2 records 160,446 tokens and 44.71 seconds. Pure inference time and local cost remain unavailable. [Source-bound report](../public-site/legacy-qwen-repeats.json).

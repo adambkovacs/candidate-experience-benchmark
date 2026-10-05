@@ -1,6 +1,6 @@
 # Legacy Qwen repeat findings, updated 5 October 2026
 
-The [source-bound report](../public-site/legacy-qwen-repeats.json) covers the six exact configurations in the [frozen fresh-three plan](../results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json). All nine full development phases are closed for **Qwen3 0.6B · local HTTP · thinking off**. Each phase saved 60 of 60 responses and passed the report's raw-response, request-identity, runtime-control and completion-hash checks. **Qwen3 0.6B · SDK · thinking on** and **thinking off** each have all three complete passes of P0, P1 and P2. All nine phases are now closed for **Qwen3 1.7B · SDK · thinking on**. The separate Qwen3 1.7B SDK thinking-off configuration has one of nine phases closed; its remaining eight phases and all nine phases for Qwen3.5 4B thinking-on are pending. The legacy Qwen roster is still incomplete.
+The [source-bound report](../public-site/legacy-qwen-repeats.json) covers the six exact configurations in the [frozen fresh-three plan](../results/repeatability-v1/legacy-qwen-fresh3-v1/manifest.json). All nine full development phases are closed for **Qwen3 0.6B · local HTTP · thinking off**. Each phase saved 60 of 60 responses and passed the report's raw-response, request-identity, runtime-control and completion-hash checks. **Qwen3 0.6B · SDK · thinking on** and **thinking off** each have all three complete passes of P0, P1 and P2. All nine phases are now closed for **Qwen3 1.7B · SDK · thinking on**. The separate Qwen3 1.7B SDK thinking-off configuration has three of nine phases closed; its remaining six phases and all nine phases for Qwen3.5 4B thinking-on are pending. The legacy Qwen roster is still incomplete.
 
 The first **Qwen3 1.7B SDK thinking-on** pass for each prompt saved all 60 responses. P0 and P1 returned 60 valid classifications; P2 returned **59 valid and one invalid (DEV-012)**. All-four agreement with the frozen provisional key was **24/60 for P0, 12/60 for P1 and 8/60 for P2**. Each score keeps the fixed 60-review denominator. The [P0](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P0/development.completion.json), [P1](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P1/development.completion.json) and [P2](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-on/fresh1/P2/development.completion.json) completions bind the exact GGUF artifact, controls and request identities. Exact hosted availability was checked before this local-only configuration ran.
 
@@ -36,9 +36,17 @@ Across the three 1.7B first-pass development phases, the SDK reported **98,135 t
 
 ## Qwen3 1.7B SDK thinking-off results
 
-The first closed phase for this separate configuration was fresh1/P0. It saved 60 responses, all valid, and matched all four reference labels on **28/60** reviews. Field matches were **51/60 sentiment, 55/60 follow-up, 45/60 serious concern and 43/60 testimonial potential**. The score uses the fixed 60-review denominator. This configuration's thinking-off control is distinct from the thinking-on series above; the two result series remain separate.
+The first-pass thinking-off configuration has three of nine phases closed. Each saved 60 requests; scores retain the fixed 60-review denominator, including invalid outputs.
 
-The report currently has **1/9** phases closed for thinking-off, so this is a single-phase observation and does not support a repeatability comparison. Fresh1/P0 used **95,628 total tokens** (93,210 input and 2,418 output) over **30.13 seconds** of client-observed request time. Pure inference time, model-load time and hardware cost were not measured. The [fresh1/P0 completion](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-off/fresh1/P0/development.completion.json) and [source-bound report](../public-site/legacy-qwen-repeats.json) retain the evidence and per-phase accounting.
+| Fresh1 condition | Valid | Invalid outputs | Sentiment | Follow-up | Serious concern | Testimonial potential | All four | Evidence |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| P0: base task | 60/60 | 0 | 51/60 | 55/60 | 45/60 | 43/60 | 28/60 | [Completion](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-off/fresh1/P0/development.completion.json) |
+| P1: classifier instructions | 59/60 | 1 (DEV-029) | 48/60 | 56/60 | 43/60 | 44/60 | 25/60 | [Completion](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-off/fresh1/P1/development.completion.json) |
+| P2: instructions and decision tree | 57/60 | 3 (DEV-002, DEV-005, DEV-018) | 49/60 | 51/60 | 37/60 | 54/60 | 32/60 | [Completion](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3-1.7b-sdk-thinking-off/fresh1/P2/development.completion.json) |
+
+This is a separate execution configuration from thinking-on; its results are not combined with that series. With only fresh1 complete, these are single-pass observations and do not establish repeatability.
+
+Client-observed request time and SDK usage were **30.13 seconds and 95,628 tokens** for P0 (93,210 input, 2,418 output), **39.76 seconds and 106,130 tokens** for P1 (103,710 input, 2,420 output), and **44.71 seconds and 160,446 tokens** for P2 (158,010 input, 2,436 output). Pure inference time, model-load time and hardware cost were not measured. The [source-bound report](../public-site/legacy-qwen-repeats.json) retains the per-phase source bindings and accounting.
 
 ## Qwen3 0.6B SDK results
 
