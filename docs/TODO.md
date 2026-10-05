@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Clef Flash P1 complete and Mistral sealed, 5 October 2026
+
+Root handle `79859` exited zero after all 60 Clef Flash fresh1/P1 development requests returned valid native outputs. Root verified ordered IDs, completion source hashes and input-only flags; reported input usage totals 144,694 tokens. The full $0.35394 stage hold remains because no actual charge was returned. The analysis agent owns the new P1 findings and comparison-control audit; no public score is claimed before that review.
+
+Root reviewed the Mistral fourth terminal proposal (two tests passed before sealing), retained DEV-060's $0.04177920 unknown-charge bound, sealed the final child and released $0.04798245 unused allocation. Its observed DEV-059 cost is $0.00023835. The combined pass has 55 valid and five failed records, with none unsent. The Mistral agent owns the source-bound combined report; historical failures remain intact.
+
+
 ## Execution resumed, 5 October 2026, 11:10 UTC
 
 Mistral fresh1/P0 has now attempted all 60 records: 55 valid and five failed (DEV-048, DEV-050, DEV-053, DEV-058, DEV-060). Root handle `48363` exited after DEV-060 returned HTTP 429; DEV-059 succeeded with $0.00023835 observed cost. The last child remains reserved pending terminal reconciliation; no failed request will be replayed. The terminal-review agent owns the proposal, root owns sealing and publication.
