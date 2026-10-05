@@ -1,5 +1,9 @@
 # Current objectives and direction
 
+## Mistral P1 execution update, 5 October 2026
+
+The reviewed P1 successor was attempted through the exact hosted route. Its first smoke request returned upstream HTTP 429; the remaining smoke reviews and full P1 pass were not sent. The [terminal evidence](../results/repeatability-v1/mistral119-fresh-matched3-v1/p1-successor-v1/smoke.terminal-public.json) retains the failed position and unknown-charge bound. No retry or scope exclusion is authorized by that failure. Qwen3.5 thinking-on continues its first local P0 pass; see [the checklist](TODO.md) for the current handle and ownership. Earlier completed scores remain unchanged.
+
 Updated 2026-10-05 with Clef Flash P1/P2 repeats, the final interrupted Mistral P0 checkpoint and report category work. The classification-bench implementation remains owned by a separate user-started task. This document supersedes conflicting historical routing and scope statements. It does not authorize a higher spending cap.
 
 ## Local power policy, 5 October 2026

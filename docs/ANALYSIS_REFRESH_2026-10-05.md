@@ -14,6 +14,8 @@ Each P1 pass reported 144,694 input tokens and zero output tokens. At the saved 
 
 This pass returned 55 valid answers and retained five failed requests in the fixed 60-review denominator. It matched all four reference fields on 40/60 records (66.7%); among the 55 valid answers, the count was 40/55 (72.7%). The valid-subset score does not replace the fixed-denominator result. This is an interrupted single pass and is not a completed repeat result. The observed known cost is $0.005084835; failed requests retain a $0.20889600 unknown-charge upper bound. See the source-bound [partial findings](../public-site/mistral119-fresh1-p0-findings.json).
 
+The later P1 smoke stopped at DEV-001 with an upstream shared-pool HTTP 429 and no reported charge. Its two remaining smoke reviews were never sent, and no full P1 pass was admitted. The failed smoke has no accuracy score or measured token total; it does not change the P0 result above. Its $0.04177920 retained reservation is an unknown-charge upper bound, not an observed bill. The [terminal record](../results/repeatability-v1/mistral119-fresh-matched3-v1/p1-successor-v1/smoke.terminal-public.json) preserves this boundary without publishing private account information.
+
 ## Scope and status
 
 These additions update the combined analysis and public explorer. They do not close the full Clef or Mistral repeat matrices. Clef P0's three-pass checkpoint and Clef Flash's interrupted third P0 pass remain as previously reported. Clef Flash P2 has three closed passes; Clef P1 has one closed pass and Clef P2 remains unexecuted. The project still requires the full roster, condition-specific repeats where eligible, and publication of later source-bound evidence.
