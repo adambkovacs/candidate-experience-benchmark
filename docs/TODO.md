@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Clef Flash P1 three-pass execution complete, 5 October 2026
+
+Fresh2 and fresh3 P1 smoke/full stages completed under separate reviewed grants. Full-run handles `76818` and `5993` both exited zero with 60 valid outputs. Root verified source hashes, ordered IDs and all three pairwise comparisons: zero changes in predictions, probabilities or confidence across the three full passes. Each reports 144,694 input tokens. This establishes observed repeat stability, not correctness or calibration. The analysis agent is incorporating all three passes into the source-bound findings before publication. All actual Cloudflare charges remain unavailable and full-context reservations remain held.
+
+The Mistral Sol analysis agent hit model capacity; a Luna agent now owns that bounded offline report. No new benchmark requests were assigned to analysis agents. Other Clef conditions and the wider roster remain unfinished.
+
+
 ## Clef Flash P1 complete and Mistral sealed, 5 October 2026
 
 Root handle `79859` exited zero after all 60 Clef Flash fresh1/P1 development requests returned valid native outputs. Root verified ordered IDs, completion source hashes and input-only flags; reported input usage totals 144,694 tokens. The full $0.35394 stage hold remains because no actual charge was returned. The analysis agent owns the new P1 findings and comparison-control audit; no public score is claimed before that review.
