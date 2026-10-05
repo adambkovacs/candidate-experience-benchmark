@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Resume checkpoint, 5 October 2026
+
+This checkpoint supersedes the pending-analysis and unsent-Mistral statements below. Gemma has nine scored P0/P1/P2 conditions, with historical failures retained. P1 scores are 58/58/57 out of 60; all three passes score 57 on their 59 shared-valid reviews. The one-point fall comes from DEV-059's timeout. Pages run `37045652208` succeeded for `f190874d`; root fetched the live analysis script, analysis feed and P1 report and verified byte equality on 5 October. The repeat explorer update is committed as `87cbf4bf`; its deployment and real-browser checks are pending. Four focused P0/P1 UI tests pass. Root review: APPROVE, no confirmed BLOCKING or RESIDUAL findings.
+
+Mistral fresh1/P0 has 54 valid responses, four preserved failures and two unsent reviews (DEV-059–060). The latest HTTP429 at DEV-058 retains its full $0.04177920 unknown-charge bound. Its child is sealed, with $0.000393795 known charges and $0.257827005 unused allocation released; evidence is archived in `e3c847ef`. A Sol agent owns a new offline continuation for only the two unsent reviews, with a proposed $0.09 child. No allocation or dispatch is authorized by that proposal. Root owns budget admission and execution. A separate browser-QA agent owns desktop/mobile/keyboard/reduced-motion verification; it may not change report data.
+
+The broader requested roster remains unfinished. These milestones do not close the whole benchmark.
+
 ## Gemma DEV-060 closed; Mistral gate pending, 2 October 2026
 
 The separately admitted [Gemma DEV-060 suffix](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/fresh3/P1/suffix.attempts.jsonl) closed with one valid response and $0.00041054 observed cost. Its [child reconciliation](../results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh3-p1-dev060-suffix-v1/reconciliation.json) retained no unknown charge and released $0.01958946 of the new $0.02 allocation. Commit `eed797b1` archives the closed suffix evidence. All 60 fresh3/P1 development positions are now accounted for: 59 valid, DEV-059 timed out with its $0.01974272 unknown-charge bound retained, and DEV-060 valid. The combined score is pending the source-bound report; this is not a clean 60-valid phase, and DEV-059 remains ineligible for replay.
