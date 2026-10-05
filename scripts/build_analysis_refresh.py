@@ -639,6 +639,13 @@ def build(root=ROOT):
                 or not 0 <= score.get("allFour", -1) <= score.get("valid", -1) <= 60):
             raise ValueError("Qwen1.7B first-pass prompt evidence is incomplete")
         qwen17_scores[condition] = score
+    qwen17_series = legacy_series["qwen3-1.7b-sdk-thinking-on"]
+    qwen17_p2 = {"scores": [qwen17_series["passes"][p]["P2"]["score"]
+                            for p in ("fresh1", "fresh2")],
+                 "comparison": next(x for x in qwen17_series["pairwiseFlips"]
+                                    if x["condition"] == "P2" and x["from"] == "fresh1"
+                                    and x["to"] == "fresh2"),
+                 "requiredPasses": 3, "completedPasses": 2}
     sdk_on = legacy_series["qwen3-0.6b-sdk-thinking-on"]["passes"]["fresh3"]["P2"]["score"]
     sdk_off = legacy_series["qwen3-0.6b-sdk-thinking-off"]["passes"]["fresh3"]["P2"]["score"]
     if (sdk_on.get("denominator") != 60 or sdk_on.get("valid") != 58 or
@@ -699,6 +706,7 @@ def build(root=ROOT):
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},
             "legacyQwen": {"source": "public-site/legacy-qwen-repeats.json",
                            "qwen17FirstPass": {"scores": qwen17_scores, "repeatabilityEstablished": False},
+                           "qwen17P2Repeat": qwen17_p2,
                            "completedConfigurations": list(legacy_complete),
                            "remainingConfigurations": {name:
                                {"completedConditions": legacy_series[name]["completedConditions"],

@@ -3886,13 +3886,180 @@
           }
         }
       },
+      "qwen17P2Repeat": {
+        "comparison": {
+          "condition": "P2",
+          "denominator": 58,
+          "excludedIds": [
+            "DEV-012",
+            "DEV-033"
+          ],
+          "follow_up_needed": {
+            "caseIds": [
+              "DEV-006",
+              "DEV-013",
+              "DEV-024",
+              "DEV-030"
+            ],
+            "changed": 4,
+            "rate": 0.06896551724137931
+          },
+          "fourFieldVector": {
+            "caseIds": [
+              "DEV-004",
+              "DEV-005",
+              "DEV-006",
+              "DEV-007",
+              "DEV-009",
+              "DEV-013",
+              "DEV-015",
+              "DEV-017",
+              "DEV-018",
+              "DEV-019",
+              "DEV-020",
+              "DEV-022",
+              "DEV-023",
+              "DEV-024",
+              "DEV-025",
+              "DEV-028",
+              "DEV-030",
+              "DEV-031",
+              "DEV-034",
+              "DEV-037",
+              "DEV-039",
+              "DEV-040",
+              "DEV-041",
+              "DEV-042",
+              "DEV-043",
+              "DEV-049",
+              "DEV-054",
+              "DEV-055",
+              "DEV-056",
+              "DEV-060"
+            ],
+            "changed": 30,
+            "rate": 0.5172413793103449
+          },
+          "from": "fresh1",
+          "sentiment": {
+            "caseIds": [
+              "DEV-004",
+              "DEV-020",
+              "DEV-022",
+              "DEV-025",
+              "DEV-030",
+              "DEV-031",
+              "DEV-037",
+              "DEV-041",
+              "DEV-043",
+              "DEV-049",
+              "DEV-054",
+              "DEV-060"
+            ],
+            "changed": 12,
+            "rate": 0.20689655172413793
+          },
+          "serious_concern_reported": {
+            "caseIds": [
+              "DEV-006",
+              "DEV-007",
+              "DEV-009",
+              "DEV-015",
+              "DEV-017",
+              "DEV-019",
+              "DEV-025",
+              "DEV-031",
+              "DEV-034",
+              "DEV-040",
+              "DEV-042",
+              "DEV-054"
+            ],
+            "changed": 12,
+            "rate": 0.20689655172413793
+          },
+          "testimonial_potential": {
+            "caseIds": [
+              "DEV-005",
+              "DEV-006",
+              "DEV-018",
+              "DEV-022",
+              "DEV-023",
+              "DEV-025",
+              "DEV-028",
+              "DEV-039",
+              "DEV-040",
+              "DEV-054",
+              "DEV-055",
+              "DEV-056",
+              "DEV-060"
+            ],
+            "changed": 13,
+            "rate": 0.22413793103448276
+          },
+          "to": "fresh2"
+        },
+        "completedPasses": 2,
+        "requiredPasses": 3,
+        "scores": [
+          {
+            "allFour": 8,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 50,
+              "sentiment": 39,
+              "serious_concern_reported": 39,
+              "testimonial_potential": 13
+            },
+            "invalidIds": [
+              "DEV-012"
+            ],
+            "outcomes": {
+              "invalid_output": 1,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 59
+            },
+            "valid": 59
+          },
+          {
+            "allFour": 9,
+            "denominator": 60,
+            "fields": {
+              "follow_up_needed": 52,
+              "sentiment": 35,
+              "serious_concern_reported": 42,
+              "testimonial_potential": 14
+            },
+            "invalidIds": [
+              "DEV-033"
+            ],
+            "outcomes": {
+              "invalid_output": 1,
+              "isolation_violation": 0,
+              "never_sent": 0,
+              "other_error": 0,
+              "refusal": 0,
+              "service_error": 0,
+              "timeout": 0,
+              "unknown_started": 0,
+              "valid": 59
+            },
+            "valid": 59
+          }
+        ]
+      },
       "remainingConfigurations": {
         "qwen3-1.7b-sdk-thinking-off": {
           "completedConditions": 0,
           "plannedConditions": 9
         },
         "qwen3-1.7b-sdk-thinking-on": {
-          "completedConditions": 3,
+          "completedConditions": 4,
           "plannedConditions": 9
         },
         "qwen3.5-4b-sdk-thinking-on": {
@@ -5685,7 +5852,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "9e89de54ad39c6fc57237061aa63815f52915e810d016337a661e5df05098217"
+      "sha256": "9a8c6f204a7c6d13db17be2cc459d6cab947366e090bd85a05323d4612262eac"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",

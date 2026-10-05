@@ -44,3 +44,8 @@ The 5 October continuation adds no predictions. Its closed receipt leaves the th
 ## Later Qwen1.7B first-pass prompt results
 
 The local SDK thinking-on configuration now has one closed P0, P1 and P2 pass. Scores are 24/60, 12/60 and 8/60 all-four matches respectively. P0 and P1 each returned 60 valid answers; P2 returned 59 and retained the DEV-012 format failure. Added instructions scored lower in this first pass, but six repeat passes remain, so consistency of that difference is not established. The combined feed derives these scores from the source-bound legacy Qwen report. See the [field-level findings and usage](LEGACY_QWEN_REPEAT_FINDINGS_2026-10-02.md).
+
+
+## Qwen1.7B second decision-tree pass
+
+The first two P2 passes score 8/60 and 9/60 all-four matches. Both have 59 valid outputs, but their format failures affect different reviews: DEV-012 and DEV-033. Among the 58 reviews with valid answers in both passes, 30 changed at least one label. Field changes are 12 sentiment, 4 follow-up, 12 serious-concern and 13 testimonial decisions; these overlap within reviews. Similar aggregate scores therefore hide substantial changes in individual answers. This is a two-pass observation under the frozen local SDK protocol, not a completed three-pass study. Five of this configuration's nine planned phases remain. [Exact source-bound comparisons](../public-site/legacy-qwen-repeats.json).
