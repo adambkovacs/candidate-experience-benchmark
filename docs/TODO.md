@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Live publication and admission, 6 October 2026
+
+DeepSeek low's final report is now published: [Pages run 37529618355](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37529618355) succeeded for `3664dce0`, and root verified exact live bytes for the standalone report, combined analysis and analysis JavaScript.
+
+Cloudflare's five-stage Clef adapter is reviewed and committed in `6af4ad93`. Root inspected the exact first P2 three-record grant against the new inclusive $10 ledger and authorized connected-app dispatch. A full pass still requires raw smoke inspection. The historical bound is $0.259584; the new smoke reserves $0.047187. Flash's exact 58-record suffix is being prepared separately.
+
+Solar full v1 made no requests. A test incorrectly assumed an unadmitted workspace and failed after admission. Its unused $1 child was sealed and released in `e0a48f68`; the versioned successor fixes the fixture without rewriting frozen evidence. No full Solar pass is complete.
+
 ## Preparation checkpoint, 6 October 2026, 20:59 UTC
 
 - Final DeepSeek low analysis was independently approved and pushed in `3664dce0`. It passes 19 Python tests plus four subtests, 15 UI tests, and a clean-archive analysis check against 1,142 source hashes. Pages deployment is queued; do not yet claim this version is live.
