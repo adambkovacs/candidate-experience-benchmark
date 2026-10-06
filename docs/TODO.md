@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Report reconciliation, 6 October 2026
+
+- Root rebuilt the Jev and Qwen feeds, including all three Jev P0/P1 passes and the interrupted P2 composite. Combined analysis now checks those values against the raw-evidence report. Publication is pending verification.
+- Jev P2 fresh3 passed independent review and is running on original handle 88263 under a separate $0.080640 reservation. Root verified the exact route, frozen inputs, predecessor, context and budget before dispatch. The published-report cutoff below excludes this live pass.
+- Qwen checks preserve the invalid P2 smoke and sleep-interrupted P1 smoke as separate outcomes; neither counts as a development pass.
+- Three unused Kev P1 reservations were released through the unchanged verifier. Known charges remain counted; no spending cap changed.
+
 ## Jev P0/P1 three-pass execution, 06 October 2026, 12:31 UTC
 
 - P0 now has three terminal full passes: 60/60/59 valid responses. The third retains DEV-040 as an invalid probability distribution. Each pass has $0.005890920 observed cost. Root verified all raw/request bindings and reconciled all children. The third pass's authority hold remains encumbered because the frozen release verifier requires all-valid outcomes; no output was repaired.

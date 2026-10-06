@@ -220,123 +220,48 @@ def kev_native_prompt_summary(root, report, bindings):
 
 
 def jev_native_prompt_summary(root, report, bindings):
-    """Project only verified, saved Jev native Choice states."""
-    if set(report) != {"sourceBindings", "passes", "comparisons"} or \
-            set(report["passes"]) != {"P1", "P2"} or \
-            any(set(report["passes"][condition]) != {"fresh1", "fresh2"}
-                for condition in ("P1", "P2")):
-        raise ValueError("Jev native prompt report coverage differs")
+    """Recompute the native report from raw evidence before projecting it."""
+    import build_jev_native_prompt_findings as jev
     source_map = bind_report_sources(root, report, bindings, "Jev native prompt report")
-    if source_map.get("data/pilot/proposed_labels.jsonl") != \
-            "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464":
-        raise ValueError("Jev frozen reference binding differs")
-    expected = {
-        ("P1", "fresh1"): ("complete", 60, 54, {"valid": 60}, "0.006405000", "0"),
-        ("P1", "fresh2"): ("complete", 59, 53,
-                           {"valid": 59, "invalid_native_distribution": 1}, "0.006405000", "0"),
-        ("P2", "fresh1"): ("complete", 60, 54, {"valid": 60}, "0.006851040", "0"),
-        ("P2", "fresh2"): ("stopped", 17, 15,
-                           {"valid": 17, "unknown_cost_http_429": 1, "never_sent": 42},
-                           "0.001940694", "0.001344000"),
-    }
-    fields = {
-        ("P1", "fresh1"): (56, 58, 57, 58),
-        ("P1", "fresh2"): (55, 57, 56, 57),
-        ("P2", "fresh1"): (56, 58, 57, 58),
-        ("P2", "fresh2"): (16, 17, 16, 17),
-    }
-    projected = {}
-    required_sources = {"data/pilot/proposed_labels.jsonl"}
-    for condition in ("P1", "P2"):
-        config = f"jev-openrouter-native-{condition.lower()}-choice-v1"
-        manifest = ("results/route-audits/jev-native-full-v1-20261006/"
-                    f"{config}.json")
-        if manifest not in source_map:
-            raise ValueError("Jev frozen manifest source absent")
-        required_sources.add(manifest)
-        config_dir = ("results/route-audits/jev-native-full-v1-20261006/"
-                      f"{config}/")
-        required_sources.update(config_dir + name for name in
-                                ("provider-context-proof.json", "smoke-inspection.json"))
-        projected[condition] = {"plannedPasses": 3, "completePasses": 0,
-                                "passes": {}}
-        for stage in ("fresh1", "fresh2"):
-            item = report["passes"][condition][stage]
-            status, valid_count, all_four, outcomes, known, unknown = expected[(condition, stage)]
-            score = item.get("score") or {}
-            if (item.get("status") != status or score.get("denominator") != 60 or
-                    score.get("valid") != valid_count or score.get("allFour") != all_four or
-                    tuple(score.get("fields", {}).get(field) for field in FIELDS) !=
-                        fields[(condition, stage)] or
-                    item.get("outcomes") != outcomes or
-                    item.get("knownCostUsd") != known or
-                    item.get("unknownUpperBoundUsd") != unknown or
-                    type(item.get("inputTokens")) is not int or item["inputTokens"] < 0 or
-                    type(item.get("outputTokens")) is not int or item["outputTokens"] < 0 or
-                    type(item.get("clientSeconds")) not in (int, float) or
-                    not math.isfinite(item["clientSeconds"]) or item["clientSeconds"] < 0):
+    # The canonical verifier uses its checkout-relative archive. The hash map
+    # above verifies every equivalent source under --root before projection.
+    verified = jev.build()
+    if source_map != {item["path"]: item["sha256"] for item in verified["sourceBindings"]}:
+        raise ValueError("Jev native prompt source closure differs")
+    for condition, passes in verified["passes"].items():
+        for stage, item in passes.items():
+            if report.get("passes", {}).get(condition, {}).get(stage) != item:
                 raise ValueError(f"Jev {condition} {stage} outcome differs")
-            phase = ("results/route-audits/jev-native-full-v1-20261006/"
-                     f"{config}/{stage}/")
-            needed = ["attempts.jsonl", "review-receipt.json", "budget-reconciliation.json",
-                      "endpoint-catalog.json"]
-            needed += (["terminal-public.json", "unknown-cost-evidence.jsonl"]
-                       if status == "stopped" else ["completion.json"])
-            if any(phase + name not in source_map for name in needed):
-                raise ValueError(f"Jev {condition} {stage} source closure differs")
-            required_sources.update(phase + name for name in needed)
-            partition = f"{config}-{stage}-full-v1"
-            required_sources.update(config_dir + name for name in
-                (f"{stage}.root-review.json", f"{stage}.budget.json",
-                 f"{stage}.budget-{partition}.jsonl"))
-            projected[condition]["passes"][stage] = {
-                "status": status, "score": score, "outcomes": outcomes,
-                "knownProviderCostUsd": known, "unknownChargeUpperBoundUsd": unknown,
+    if report != verified:
+        raise ValueError("Jev native prompt coverage or comparisons differ")
+    projected = {}
+    for condition, passes in report["passes"].items():
+        projected[condition] = {"plannedPasses": 3,
+            "completePasses": sum(item["status"] == "complete" for item in passes.values()),
+            "passes": {stage: {
+                "status": item["status"], "score": item["score"],
+                "outcomes": item["outcomes"],
+                "knownProviderCostUsd": item["knownCostUsd"],
+                "unknownChargeUpperBoundUsd": item["unknownUpperBoundUsd"],
                 "inputTokens": item["inputTokens"], "outputTokens": item["outputTokens"],
                 "clientSeconds": item["clientSeconds"],
-                "cleanRepeatEligible": status == "complete" and valid_count == 60,
-            }
-            projected[condition]["completePasses"] += status == "complete"
-    if set(source_map) != required_sources:
-        raise ValueError("Jev native prompt source closure differs")
-    comparisons = report.get("comparisons") or {}
-    expected_comparisons = {"P1repeat": (59, ["DEV-056"], []),
-                            "P1P2fresh1": (60, [], ["DEV-013"]),
-                            "P1P2fresh2shared": (17,
-                                [f"DEV-{i:03d}" for i in range(18, 61)], ["DEV-013"])}
-    if set(comparisons) != set(expected_comparisons):
-        raise ValueError("Jev comparison coverage differs")
-    compact = {}
-    for name, (denominator, excluded, changed) in expected_comparisons.items():
-        item = comparisons[name]
-        if (item.get("denominator") != denominator or item.get("excludedIds") != excluded or
-                item.get("fourFieldVectorChangedIds") != changed or
-                set(item.get("fields", {})) != set(FIELDS) or
-                any(set(item["fields"][field]) != {"choiceChangedIds", "probabilityChangedIds",
-                    "confidenceChangedIds"} for field in FIELDS)):
-            raise ValueError("Jev comparison denominator or outcomes differ")
-        field_changes = {field: {kind: len(item["fields"][field][kind]) for kind in
-                         ("choiceChangedIds", "probabilityChangedIds", "confidenceChangedIds")}
-                         for field in FIELDS}
-        if any(any(not isinstance(ids, list) or len(ids) != len(set(ids)) or
-                   any(ident in excluded for ident in ids)
-                   for ids in item["fields"][field].values()) for field in FIELDS):
-            raise ValueError("Jev comparison changed IDs differ")
-        compact[name] = {"denominator": denominator, "excludedIds": excluded,
-                         "fourFieldVectorChangedIds": changed, "fields": field_changes}
-    if any(compact["P1repeat"]["fields"][field]["choiceChangedIds"] != 0 for field in FIELDS) or \
-            compact["P1P2fresh1"]["fields"]["sentiment"]["choiceChangedIds"] != 1 or \
-            any(compact["P1P2fresh1"]["fields"][field]["choiceChangedIds"] != 0
-                for field in FIELDS if field != "sentiment"):
-        raise ValueError("Jev answer comparison differs")
+                "cleanRepeatEligible": item["status"] == "complete" and item["score"]["valid"] == 60,
+            } for stage, item in passes.items()}}
+    compact = {name: {"denominator": item["denominator"],
+        "excludedIds": item["excludedIds"],
+        "fourFieldVectorChangedIds": item["fourFieldVectorChangedIds"],
+        "fields": {field: {kind: len(ids) for kind, ids in changes.items()}
+                   for field, changes in item["fields"].items()}}
+        for name, item in report["comparisons"].items()}
     return {"source": JEV_NATIVE_PROMPT_PUBLIC,
             "findings": "docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md",
             "routeScope": "standalone OpenRouter native Choice route; same Jev model",
             "denominator": 60, "conditions": projected, "comparisons": compact,
-            "partialBoundary": {"P2fresh2": {"attempted": 18, "valid": 17,
-                "unknownCostId": "DEV-018", "neverSentIds":
-                [f"DEV-{i:03d}" for i in range(19, 61)],
-                "fullPassScore": None, "cleanRepeatEligible": False},
+            "continuations": report["continuations"], "composites": report["composites"],
+            "partialBoundary": {"P2fresh2": {"attempted": 60, "valid": 57,
+                "unknownCostIds": ["DEV-018", "DEV-060"], "neverSentIds": [],
+                "fullPassScore": None, "descriptiveAllFour": 50,
+                "cleanRepeatEligible": False},
                 "P1fresh2Invalid": {"id": "DEV-056",
                     "reason": "native probability distribution validation failure; categorical labels not adjudicated",
                     "strictAllFour": 53}}}
@@ -423,6 +348,69 @@ def qwen35_repeat_summary(series):
     if not isinstance(descriptive, list) or len(descriptive) > 1:
         raise ValueError("Qwen3.5 descriptive coverage differs")
     bound = {item.get("path"): item.get("sha256") for item in series.get("sourceBindings", [])}
+
+    def bound_source(source):
+        return (isinstance(source, dict) and set(source) == {"path", "sha256"} and
+                isinstance(source["path"], str) and
+                isinstance(source["sha256"], str) and
+                bound.get(source["path"]) == source["sha256"])
+
+    def bound_group(group, keys):
+        return (isinstance(group, dict) and set(group) == set(keys) and
+                all(bound_source(source) for source in group.values()))
+
+    continuation = "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1"
+    blocked_folder = "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2"
+    blocked_keys = {"review", "claim", "journal", "raw", "records", "completion",
+                    "hostAudit", "candidate", "hostBaseline", "runtimePreflight",
+                    "routeAudit", "routeRaw"}
+    continuation_authority_keys = {"proposal", "designReview", "controller", "blockedSmoke"}
+    continuation_smoke_keys = {"review", "claim", "raw", "records", "journal",
+                               "completion", "hostAudit", "candidate"}
+    for item in missing:
+        slot = (item.get("pass"), item.get("condition"))
+        status = item.get("status")
+        if slot == ("fresh2", "P2") and status == "smoke_blocked":
+            evidence = item.get("evidence")
+            if (item.get("stage") != "smoke" or
+                    (item.get("attempted"), item.get("saved"), item.get("valid"),
+                     item.get("invalid")) != (3, 3, 2, 1) or
+                    item.get("invalidReasonIds") != {"non_json": ["DEV-001"]} or
+                    item.get("cleanRepeatEligible") is not False or
+                    item.get("intrinsicModelFailure") is not True or
+                    item.get("developmentAdmitted") is not False or
+                    item.get("source") != "qwen35_after_smoke_failure_v1" or
+                    item.get("sourcePath") != blocked_folder or "score" in item or
+                    not isinstance(evidence, dict) or
+                    set(evidence) != {"proposal", "designReview", "controller", "smoke"} or
+                    not all(bound_source(evidence[key]) for key in
+                            ("proposal", "designReview", "controller")) or
+                    not bound_group(evidence["smoke"], blocked_keys)):
+                raise ValueError("Qwen3.5 blocked continuation smoke differs")
+        elif slot == ("fresh2", "P1") and status == "stopped_unknown":
+            evidence = item.get("evidence")
+            if (item.get("stage") != "smoke" or
+                    (item.get("attempted"), item.get("saved"), item.get("valid"),
+                     item.get("invalid")) != (3, 2, 2, 0) or
+                    item.get("unknownStartedIds") != ["DEV-003"] or
+                    item.get("neverSentIds") != [] or
+                    item.get("cleanRepeatEligible") is not False or
+                    item.get("failureClass") != "host_sleep_during_timeout" or
+                    item.get("intrinsicModelFailure") is not False or
+                    item.get("developmentAdmitted") is not False or
+                    item.get("source") != "qwen35_after_smoke_failure_v1" or
+                    item.get("sourcePath") != continuation + "/fresh2/P1" or
+                    "score" in item or not isinstance(evidence, dict) or
+                    set(evidence) != {"authority", "smoke"} or
+                    not isinstance(evidence["authority"], dict) or
+                    set(evidence["authority"]) != continuation_authority_keys or
+                    not all(bound_source(evidence["authority"][key]) for key in
+                            ("proposal", "designReview", "controller")) or
+                    not bound_group(evidence["authority"]["blockedSmoke"], blocked_keys) or
+                    not bound_group(evidence["smoke"], continuation_smoke_keys)):
+                raise ValueError("Qwen3.5 interrupted continuation smoke differs")
+        elif status == "smoke_blocked" and slot != ("fresh2", "P2"):
+            raise ValueError("Qwen3.5 unexpected blocked smoke")
     for item in partial:
         slot = (item.get("pass"), item.get("condition"))
         unknown = item.get("unknownStartedIds")
@@ -447,7 +435,9 @@ def qwen35_repeat_summary(series):
                 any(not isinstance(source, dict) or bound.get(source.get("path")) != source.get("sha256")
                     for source in evidence.values())):
             raise ValueError("Qwen3.5 partial source or counts differ")
-    if any(item.get("status") == "stopped_unknown" and item not in partial for item in missing):
+    if any(item.get("status") == "stopped_unknown" and item not in partial and
+           (item.get("pass"), item.get("condition")) != ("fresh2", "P1")
+           for item in missing):
         raise ValueError("Qwen3.5 stopped phase is not projected")
     for item in descriptive:
         score = item.get("score", {})

@@ -21,6 +21,13 @@ QWEN35_SUCCESSOR_MANIFEST = QWEN35_SUCCESSOR / 'manifest.json'
 QWEN35_SUCCESSOR_MANIFEST_SHA = '5b74a42cfa922219813c4e83037f05cbe4f769094c3776e5a9a48f24ed8423ae'
 QWEN35_SUCCESSOR_CONTROLLER = Path('scripts/qwen35_remaining_phases_v1.cjs')
 QWEN35_SUCCESSOR_CONTROLLER_SHA = '25628fb191433c83991b31de34db67760f184d7f973bb8825d4dedfc36447e33'
+QWEN35_CONTINUATION = BASE / 'qwen35-after-smoke-failure-v1'
+QWEN35_CONTINUATION_PROPOSAL = QWEN35_CONTINUATION / 'proposal.json'
+QWEN35_CONTINUATION_PROPOSAL_SHA = '36dfc88704064b8317c8901326b002c2d5605911ee423e742b2c39860f455e3d'
+QWEN35_CONTINUATION_REVIEW = QWEN35_CONTINUATION / 'design.root-review.json'
+QWEN35_CONTINUATION_REVIEW_SHA = '170f82217ba5742d4004a1d20918d5a966093033c4c16d32e5206eba11ce54e1'
+QWEN35_CONTINUATION_CONTROLLER = Path('scripts/qwen35_after_smoke_failure_v1.cjs')
+QWEN35_CONTINUATION_CONTROLLER_SHA = '6978090d25ed4d5b8d98a88c85f4fb053aa7bc423caa45ab474daa5c32c99370'
 MANIFEST = BASE / 'manifest.json'
 MANIFEST_SHA = '7ef8c42a5fd66308e46c0dd885d92373bdbe3ba0e4aa7bdecf58298b82dd80c0'
 LABELS = Path('data/pilot/proposed_labels.jsonl')
@@ -268,6 +275,198 @@ def closed_stage(root, plan, config_id, repeat, condition, name, bind, review_na
     return records, raw, evidence
 
 
+def qwen35_continuation_context(root, plan, bind):
+    """Verify the approved post-smoke-failure authority and its retained failure."""
+    proposal_hash = bind(QWEN35_CONTINUATION_PROPOSAL, QWEN35_CONTINUATION_PROPOSAL_SHA)
+    review_hash = bind(QWEN35_CONTINUATION_REVIEW, QWEN35_CONTINUATION_REVIEW_SHA)
+    controller_hash = bind(QWEN35_CONTINUATION_CONTROLLER,
+                           QWEN35_CONTINUATION_CONTROLLER_SHA)
+    proposal = json.loads(file_at(root, QWEN35_CONTINUATION_PROPOSAL).read_text())
+    design_review = json.loads(file_at(root, QWEN35_CONTINUATION_REVIEW).read_text())
+    frozen = proposal.get('frozen', {})
+    for name, item in frozen.items():
+        items = item.values() if name == 'completed_predecessors' else (item,)
+        for binding in items:
+            if (not isinstance(binding, dict) or not binding.get('file') or
+                    not binding.get('sha256')):
+                raise ValueError('Qwen3.5 continuation frozen binding differs')
+            bind(binding['file'], binding['sha256'])
+    blocked = proposal.get('scope', {}).get('blocked_phase', {})
+    blocked_evidence = {}
+    for name, item in blocked.get('bindings', {}).items():
+        if not isinstance(item, dict) or not item.get('file') or not item.get('sha256'):
+            raise ValueError('Qwen3.5 blocked-smoke binding differs')
+        blocked_evidence[name] = {'path': item['file'],
+                                  'sha256': bind(item['file'], item['sha256'])}
+    normalized = dict(proposal)
+    normalized.update(status='offline_prepared_unapproved', approval=None)
+    normalized_hash = hashlib.sha256(
+        (json.dumps(normalized, indent=2) + '\n').encode()).hexdigest()
+    config_id = 'qwen3.5-4b-sdk-thinking-on'
+    config = plan['configurations'][config_id]
+    phases = proposal.get('scope', {}).get('phases', [])
+    expected_phases = [('fresh2', 'P1'), ('fresh2', 'P0'), ('fresh3', 'P1'),
+                       ('fresh3', 'P0'), ('fresh3', 'P2')]
+    phase_pairs = [(item.get('pass'), item.get('condition')) for item in phases]
+    if (proposal.get('schema') != 'qwen35-after-smoke-failure-v1' or
+            proposal.get('status') != 'approved' or
+            (proposal.get('approval') or {}).get('authorized_by_root') is not True or
+            proposal['approval'].get('independent_review') is not True or
+            proposal['approval'].get('reviewer') != 'root' or
+            proposal.get('inference_authorized') is not False or
+            proposal.get('reference_labels_read') is not False or
+            proposal.get('scope', {}).get('configuration') != config_id or
+            phase_pairs != expected_phases or
+            any(item.get('ids') != list(IDS) or
+                item.get('request_sha256') != [row['sha256'] for row in
+                    config['conditions'][item['condition']]['requests']]
+                for item in phases) or
+            frozen.get('plan') != {'file': str(MANIFEST), 'sha256': MANIFEST_SHA} or
+            frozen.get('prior_manifest') !=
+                {'file': str(QWEN35_SUCCESSOR_MANIFEST),
+                 'sha256': QWEN35_SUCCESSOR_MANIFEST_SHA} or
+            frozen.get('continuation_controller') !=
+                {'file': str(QWEN35_CONTINUATION_CONTROLLER),
+                 'sha256': QWEN35_CONTINUATION_CONTROLLER_SHA} or
+            blocked.get('phase') != f'{config_id}/fresh2/P2' or
+            blocked.get('status') != 'smoke_blocked' or
+            blocked.get('development_admitted') is not False or
+            blocked.get('replay_authorized') is not False or
+            (blocked.get('attempted'), blocked.get('saved'), blocked.get('valid'),
+             blocked.get('invalid')) != (3, 3, 2, 1) or
+            blocked.get('invalid_reason_ids') != {'non_json': ['DEV-001']} or
+            proposal.get('policy', {}).get('blocked_smoke_replay') is not False or
+            proposal['policy'].get('blocked_phase_development_admission') is not False or
+            proposal['policy'].get('output_repair') is not False or
+            proposal['policy'].get('controls_unchanged') is not True or
+            design_review.get('kind') != 'qwen35-after-smoke-failure-v1-design-root-review' or
+            design_review.get('approved') is not True or
+            design_review.get('authorized_by_root') is not True or
+            design_review.get('independent_review') is not True or
+            design_review.get('reviewer') != 'root' or
+            design_review.get('proposal_sha256') != normalized_hash or
+            design_review.get('controller_sha256') != controller_hash or
+            design_review.get('prior_manifest_sha256') != QWEN35_SUCCESSOR_MANIFEST_SHA or
+            design_review.get('blocked_completion_sha256') !=
+                blocked['bindings']['completion']['sha256'] or
+            design_review.get('blocked_status') != 'smoke_blocked' or
+            design_review.get('blocked_smoke_replay') is not False or
+            design_review.get('blocked_development_admission') is not False or
+            design_review.get('phases') != [list(item) for item in expected_phases]):
+        raise ValueError('Qwen3.5 continuation proposal differs')
+    return {'proposal': proposal, 'proposalHash': proposal_hash,
+            'controllerHash': controller_hash, 'designReviewHash': review_hash,
+            'blockedEvidence': blocked_evidence, 'blocked': blocked}
+
+
+def qwen35_continuation_stopped_smoke(root, plan, bind):
+    """Bind the terminal host-sleep smoke without treating it as intrinsic failure."""
+    context = qwen35_continuation_context(root, plan, bind)
+    repeat, condition = 'fresh2', 'P1'
+    config_id = 'qwen3.5-4b-sdk-thinking-on'
+    phase = f'{config_id}/{repeat}/{condition}'
+    folder = QWEN35_CONTINUATION / repeat / condition
+    files = {key: folder / f'smoke.{suffix}' for key, suffix in
+             (('review', 'root-review.json'), ('claim', 'claim.json'),
+              ('raw', 'raw.jsonl'), ('records', 'records.jsonl'),
+              ('journal', 'journal.jsonl'), ('completion', 'completion.json'),
+              ('hostAudit', 'host-audit.json'))}
+    if not all(file_at(root, path).exists() for path in files.values()):
+        return None
+    evidence = {key: {'path': str(path), 'sha256': bind(path)}
+                for key, path in files.items()}
+    review = json.loads(file_at(root, files['review']).read_text())
+    claim = json.loads(file_at(root, files['claim']).read_text())
+    completion = json.loads(file_at(root, files['completion']).read_text())
+    audit = json.loads(file_at(root, files['hostAudit']).read_text())
+    candidate_path = Path(review.get('candidate_file', ''))
+    candidate_hash = bind(candidate_path, review.get('candidate_sha256'))
+    candidate = json.loads(file_at(root, candidate_path).read_text())
+    evidence['candidate'] = {'path': str(candidate_path), 'sha256': candidate_hash}
+    normalized = dict(review)
+    normalized.update(approved=False, authorized_by_root=False, reviewer=None,
+                      reviewed_utc=None)
+    normalized.pop('candidate_sha256', None)
+    config = plan['configurations'][config_id]
+    requests = config['conditions'][condition]['requests'][:3]
+    if (review.get('kind') != 'qwen35-after-smoke-failure-v1-stage-root-review' or
+            review.get('approved') is not True or
+            review.get('authorized_by_root') is not True or
+            review.get('reviewer') != 'root' or normalized != candidate or
+            review.get('proposal_sha256') != context['proposalHash'] or
+            review.get('controller_sha256') != context['controllerHash'] or
+            review.get('prior_manifest_sha256') != QWEN35_SUCCESSOR_MANIFEST_SHA or
+            review.get('blocked_completion_sha256') !=
+                context['blocked']['bindings']['completion']['sha256'] or
+            review.get('phase') != phase or review.get('stage') != 'smoke' or
+            review.get('ids') != list(IDS[:3]) or
+            review.get('request_sha256') != [item['sha256'] for item in requests] or
+            review.get('reference_labels_read') is not False or
+            review.get('blocked_phase_clean_credit') is not False or
+            review.get('individually_clean_phase') is not True or
+            claim.get('phase') != phase or claim.get('stage') != 'smoke' or
+            claim.get('plan_sha256') != MANIFEST_SHA or
+            claim.get('controller_sha256') != plan['controller_sha256'] or
+            claim.get('receipt_sha256') != evidence['review']['sha256'] or
+            completion.get('phase') != phase or completion.get('stage') != 'smoke' or
+            completion.get('status') != 'stopped' or
+            completion.get('reason') != 'Prediction exceeded 600000ms; cancellation requested' or
+            (completion.get('attempted'), completion.get('saved'), completion.get('invalid')) !=
+                (3, 2, 0) or
+            completion.get('raw_sha256') != evidence['raw']['sha256'] or
+            completion.get('records_sha256') != evidence['records']['sha256'] or
+            completion.get('journal_sha256') != evidence['journal']['sha256'] or
+            audit.get('schema') != 'qwen35-after-smoke-failure-v1-host-audit' or
+            audit.get('status') != 'failed' or audit.get('phase') != phase or
+            audit.get('stage') != 'smoke' or audit.get('host_check') is not None or
+            'Host slept during stage' not in (audit.get('error') or '') or
+            audit.get('before', {}).get('sleep_wakes') != 93 or
+            audit.get('after', {}).get('sleep_wakes') != 94 or
+            audit.get('completion_sha256') != evidence['completion']['sha256'] or
+            audit.get('reviewed_receipt_sha256') != evidence['review']['sha256']):
+        raise ValueError('Qwen3.5 continuation stopped smoke differs')
+    raw, records, journal = (read_rows(root, files[name])
+                             for name in ('raw', 'records', 'journal'))
+    if len(raw) != 3 or len(records) != 2 or len(journal) != 6:
+        raise ValueError('Qwen3.5 continuation stopped smoke membership differs')
+    for index, rid in enumerate(IDS[:2]):
+        request, wire, saved = requests[index], raw[index], records[index]
+        started, finished = journal[2 * index:2 * index + 2]
+        decision = classify_sdk(wire, config, request)
+        if (wire.get('id') != rid or saved.get('id') != rid or
+                saved.get('attempt_id') != wire.get('attempt_id') or
+                saved.get('request_sha256') != request['sha256'] or
+                saved.get('reference_labels_read') is not False or
+                saved.get('decision') != decision or decision.get('status') != 'ok' or
+                started.get('event') != 'started' or finished.get('event') != 'finished' or
+                finished.get('status') != 'ok'):
+            raise ValueError(f'Qwen3.5 continuation stopped decision differs: {rid}')
+    third_started, third_finished = journal[4:6]
+    if (raw[2].get('id') != 'DEV-003' or
+            raw[2].get('error') != 'Prediction exceeded 600000ms; cancellation requested' or
+            raw[2].get('code') != 'PREDICTION_TIMEOUT' or
+            raw[2].get('cancellationAcknowledged') is not True or
+            third_started.get('event') != 'started' or
+            third_finished.get('event') != 'stopped_unknown' or
+            third_started.get('request_sha256') != requests[2]['sha256']):
+        raise ValueError('Qwen3.5 continuation unknown attempt differs: DEV-003')
+    authority = {'proposal': {'path': str(QWEN35_CONTINUATION_PROPOSAL),
+                              'sha256': context['proposalHash']},
+                 'designReview': {'path': str(QWEN35_CONTINUATION_REVIEW),
+                                  'sha256': context['designReviewHash']},
+                 'controller': {'path': str(QWEN35_CONTINUATION_CONTROLLER),
+                                'sha256': context['controllerHash']},
+                 'blockedSmoke': context['blockedEvidence']}
+    return {'pass': repeat, 'condition': condition, 'status': 'stopped_unknown',
+            'stage': 'smoke', 'attempted': 3, 'saved': 2, 'valid': 2, 'invalid': 0,
+            'unknownStartedIds': ['DEV-003'], 'neverSentIds': [],
+            'cleanRepeatEligible': False, 'failureClass': 'host_sleep_during_timeout',
+            'intrinsicModelFailure': False, 'developmentAdmitted': False,
+            'source': 'qwen35_after_smoke_failure_v1',
+            'sourcePath': str(folder),
+            'evidence': {'authority': authority, 'smoke': evidence}}
+
+
 def qwen35_successor_phase(root, plan, repeat, condition, bind, labels=None):
     """Read one independently closed Qwen3.5 successor phase, if it is terminal."""
     folder = QWEN35_SUCCESSOR / repeat / condition
@@ -468,6 +667,179 @@ def qwen35_successor_phase(root, plan, repeat, condition, bind, labels=None):
                           'development': development_evidence}}
     return {'pass': repeat, 'condition': condition,
             'source': 'qwen35_remaining_phases_v1',
+            'entry': entry, 'predictions': predictions}
+
+
+def qwen35_continuation_phase(root, plan, repeat, condition, bind, labels=None):
+    """Read one terminal phase governed by the approved post-failure proposal."""
+    folder = QWEN35_CONTINUATION / repeat / condition
+    terminal = (folder / 'development.completion.json',
+                folder / 'development.host-audit.json')
+    if not all(file_at(root, path).exists() for path in terminal):
+        return None
+    context = qwen35_continuation_context(root, plan, bind)
+    proposal = context['proposal']
+    scheduled = next((item for item in proposal['scope']['phases']
+                      if item.get('pass') == repeat and item.get('condition') == condition), None)
+    if scheduled is None:
+        raise ValueError('Qwen3.5 continuation phase is outside approved scope')
+    config_id = 'qwen3.5-4b-sdk-thinking-on'
+    config = plan['configurations'][config_id]
+    phase = f'{config_id}/{repeat}/{condition}'
+
+    def validate_stage(stage):
+        count = 3 if stage == 'smoke' else 60
+        paths = {key: folder / f'{stage}.{suffix}' for key, suffix in
+                 (('review', 'root-review.json'), ('claim', 'claim.json'),
+                  ('raw', 'raw.jsonl'), ('records', 'records.jsonl'),
+                  ('journal', 'journal.jsonl'), ('completion', 'completion.json'),
+                  ('hostAudit', 'host-audit.json'))}
+        if not all(file_at(root, path).exists() for path in paths.values()):
+            return None
+        evidence = {key: {'path': str(path), 'sha256': bind(path)}
+                    for key, path in paths.items()}
+        review = json.loads(file_at(root, paths['review']).read_text())
+        claim = json.loads(file_at(root, paths['claim']).read_text())
+        completion = json.loads(file_at(root, paths['completion']).read_text())
+        audit = json.loads(file_at(root, paths['hostAudit']).read_text())
+        candidate_path = Path(review.get('candidate_file', ''))
+        candidate_hash = bind(candidate_path, review.get('candidate_sha256'))
+        candidate = json.loads(file_at(root, candidate_path).read_text())
+        evidence['candidate'] = {'path': str(candidate_path), 'sha256': candidate_hash}
+        normalized = dict(review)
+        normalized.update(approved=False, authorized_by_root=False, reviewer=None,
+                          reviewed_utc=None)
+        normalized.pop('candidate_sha256', None)
+        expected_ids = list(IDS[:count])
+        expected_requests = config['conditions'][condition]['requests'][:count]
+        if (review.get('kind') != 'qwen35-after-smoke-failure-v1-stage-root-review' or
+                review.get('approved') is not True or
+                review.get('authorized_by_root') is not True or
+                review.get('reviewer') != 'root' or normalized != candidate or
+                review.get('proposal_sha256') != context['proposalHash'] or
+                review.get('controller_sha256') != context['controllerHash'] or
+                review.get('prior_manifest_sha256') != QWEN35_SUCCESSOR_MANIFEST_SHA or
+                review.get('blocked_completion_sha256') !=
+                    context['blocked']['bindings']['completion']['sha256'] or
+                review.get('phase') != phase or review.get('stage') != stage or
+                review.get('ids') != expected_ids or
+                review.get('request_sha256') != [row['sha256'] for row in expected_requests] or
+                review.get('model_identifier') != config['model_identifier'] or
+                review.get('artifact_sha256') != config['artifact_sha256'] or
+                review.get('artifact_bytes') != config['artifact_bytes'] or
+                review.get('surface') != 'lmstudio_sdk' or
+                review.get('request_config_sha256') != proposal['runtime']['request_config_sha256'] or
+                review.get('load_config_sha256') != proposal['runtime']['load_config_sha256'] or
+                review.get('prediction_config_sha256') != proposal['runtime']['prediction_config_sha256'] or
+                review.get('cache_policy') != proposal['runtime']['cache_policy'] or
+                review.get('reference_labels_read') is not False or
+                review.get('blocked_phase_clean_credit') is not False or
+                review.get('individually_clean_phase') is not True or
+                claim.get('phase') != phase or claim.get('stage') != stage or
+                claim.get('plan_sha256') != MANIFEST_SHA or
+                claim.get('controller_sha256') != plan['controller_sha256'] or
+                claim.get('receipt_sha256') != evidence['review']['sha256'] or
+                claim.get('runtime_attestation', {}).get('artifact_sha256') != config['artifact_sha256'] or
+                claim['runtime_attestation'].get('load_evidence', {}).get('cache') !=
+                    proposal['runtime']['cache_policy'] or
+                completion.get('phase') != phase or completion.get('stage') != stage or
+                completion.get('status') != 'completed' or completion.get('reason') is not None or
+                completion.get('attempted') != count or completion.get('saved') != count or
+                completion.get('raw_sha256') != evidence['raw']['sha256'] or
+                completion.get('records_sha256') != evidence['records']['sha256'] or
+                completion.get('journal_sha256') != evidence['journal']['sha256'] or
+                audit.get('schema') != 'qwen35-after-smoke-failure-v1-host-audit' or
+                audit.get('status') != 'passed' or audit.get('error') is not None or
+                audit.get('phase') != phase or audit.get('stage') != stage or
+                audit.get('completion_sha256') != evidence['completion']['sha256'] or
+                audit.get('reviewed_receipt_sha256') != evidence['review']['sha256'] or
+                audit.get('host_check', {}).get('host_unchanged') is not True):
+            raise ValueError(f'Qwen3.5 continuation receipt differs: {phase}/{stage}')
+        raw, records, journal = (read_rows(root, paths[name])
+                                 for name in ('raw', 'records', 'journal'))
+        if len(raw) != count or len(records) != count or len(journal) != 2 * count:
+            raise ValueError(f'Qwen3.5 continuation membership differs: {phase}/{stage}')
+        invalid = 0
+        for index, (rid, request) in enumerate(zip(expected_ids, expected_requests)):
+            wire, saved = raw[index], records[index]
+            started, finished = journal[2 * index:2 * index + 2]
+            decision = classify_sdk(wire, config, request)
+            elapsed = wire.get('elapsed_seconds')
+            if (wire.get('id') != rid or saved.get('id') != rid or
+                    not isinstance(wire.get('attempt_id'), str) or not wire['attempt_id'] or
+                    saved.get('attempt_id') != wire['attempt_id'] or
+                    saved.get('request_sha256') != request['sha256'] or
+                    saved.get('reference_labels_read') is not False or
+                    started.get('event') != 'started' or finished.get('event') != 'finished' or
+                    started.get('id') != rid or finished.get('id') != rid or
+                    started.get('attempt_id') != wire['attempt_id'] or
+                    finished.get('attempt_id') != wire['attempt_id'] or
+                    started.get('request_sha256') != request['sha256'] or
+                    finished.get('status') != decision['status'] or
+                    saved.get('decision') != decision or
+                    decision['status'] not in ('ok', 'invalid_output') or
+                    type(elapsed) not in (int, float) or not math.isfinite(elapsed) or elapsed < 0):
+                raise ValueError(f'Qwen3.5 continuation classifier differs: {phase}/{stage}/{rid}')
+            invalid += decision['status'] == 'invalid_output'
+        if completion.get('invalid') != invalid or (stage == 'smoke' and invalid):
+            raise ValueError(f'Qwen3.5 continuation invalid count differs: {phase}/{stage}')
+        return records, raw, evidence, audit
+
+    smoke_result, development_result = validate_stage('smoke'), validate_stage('development')
+    if smoke_result is None or development_result is None:
+        return None
+    smoke, _, smoke_evidence, _ = smoke_result
+    development, raw, development_evidence, audit = development_result
+    inspection_path = folder / 'smoke-inspection.json'
+    inspection_hash = bind(inspection_path)
+    inspection = json.loads(file_at(root, inspection_path).read_text())
+    if (inspection.get('kind') != 'legacy-qwen-three-record-smoke-inspection-v1' or
+            inspection.get('approved') is not True or inspection.get('reviewer') != 'root' or
+            inspection.get('completion_sha256') != smoke_evidence['completion']['sha256'] or
+            inspection.get('raw_sha256') != smoke_evidence['raw']['sha256'] or
+            inspection.get('records_sha256') != smoke_evidence['records']['sha256'] or
+            inspection.get('reference_labels_sent') is not False or
+            inspection.get('ids') != list(IDS[:3]) or
+            any(row['decision']['status'] != 'ok' for row in smoke)):
+        raise ValueError(f'Qwen3.5 continuation smoke inspection differs: {phase}')
+    if labels is None:
+        labels = {row['id']: row['proposed_labels'] for row in read_rows(root, LABELS)}
+    predictions = {row['id']: {'status': row['decision']['status'],
+                               'prediction': row['decision'].get('prediction')}
+                   for row in development}
+    invalid_reason_ids = {}
+    for row in development:
+        if row['decision']['status'] != 'ok':
+            invalid_reason_ids.setdefault(row['decision'].get('reason', 'unknown'), []).append(row['id'])
+    score = shared.score(predictions, labels, IDS)
+    score['invalidReasonIds'] = invalid_reason_ids
+    predicted_counts, confusion = class_counts(predictions, labels)
+    before_source, after_source = host_power_source(audit.get('before')), host_power_source(audit.get('after'))
+    power = {'source': before_source if before_source == after_source else None,
+             'basis': ('matching_pre_post_checks' if before_source == after_source and before_source
+                       else 'unverified_or_conflicting_checks')}
+    authority = {'proposal': {'path': str(QWEN35_CONTINUATION_PROPOSAL),
+                              'sha256': context['proposalHash']},
+                 'designReview': {'path': str(QWEN35_CONTINUATION_REVIEW),
+                                  'sha256': context['designReviewHash']},
+                 'controller': {'path': str(QWEN35_CONTINUATION_CONTROLLER),
+                                'sha256': context['controllerHash']},
+                 'blockedSmoke': context['blockedEvidence']}
+    entry = {'completionStatus': 'complete', 'source': 'qwen35_after_smoke_failure_v1',
+             'sourcePath': str(folder), 'cleanRepeatCredit': True,
+             'predecessorP0CleanRepeatCredit': False,
+             'blockedPredecessor': {key: context['blocked'][key] for key in
+                 ('phase', 'status', 'development_admitted', 'replay_authorized',
+                  'attempted', 'saved', 'valid', 'invalid', 'invalid_reason_ids')},
+             'score': score, 'predictedClassCounts': predicted_counts,
+             'classConfusion': confusion, 'usage': usage(raw, config['surface']),
+             'powerObservation': power,
+             'evidence': {'successor': authority, 'smoke': smoke_evidence,
+                          'smokeInspection': {'path': str(inspection_path),
+                                              'sha256': inspection_hash},
+                          'development': development_evidence}}
+    return {'pass': repeat, 'condition': condition,
+            'source': 'qwen35_after_smoke_failure_v1',
             'entry': entry, 'predictions': predictions}
 
 
@@ -1137,6 +1509,9 @@ def build(root=ROOT):
                         (repeat, condition) != ('fresh1', 'P0')):
                     successor_phase = qwen35_successor_phase(
                         root, plan, repeat, condition, bind, labels)
+                    if successor_phase is None:
+                        successor_phase = qwen35_continuation_phase(
+                            root, plan, repeat, condition, bind, labels)
                     if successor_phase is not None:
                         passes[repeat][condition] = successor_phase['entry']
                         parsed[repeat, condition] = successor_phase['predictions']
@@ -1144,6 +1519,36 @@ def build(root=ROOT):
                 folder = BASE / config_id / repeat / condition
                 completion_file = folder / 'development.completion.json'
                 if not file_at(root, completion_file).exists():
+                    if (config_id == 'qwen3.5-4b-sdk-thinking-on' and
+                            repeat == 'fresh2' and condition == 'P2' and
+                            file_at(root, QWEN35_CONTINUATION_PROPOSAL).exists()):
+                        context = qwen35_continuation_context(root, plan, bind)
+                        blocked = context['blocked']
+                        missing.append({'pass': repeat, 'condition': condition,
+                            'status': 'smoke_blocked', 'stage': 'smoke',
+                            'attempted': blocked['attempted'], 'saved': blocked['saved'],
+                            'valid': blocked['valid'], 'invalid': blocked['invalid'],
+                            'invalidReasonIds': blocked['invalid_reason_ids'],
+                            'cleanRepeatEligible': False, 'intrinsicModelFailure': True,
+                            'developmentAdmitted': False,
+                            'source': 'qwen35_after_smoke_failure_v1',
+                            'sourcePath': str(QWEN35_SUCCESSOR / repeat / condition),
+                            'evidence': {'proposal': {
+                                'path': str(QWEN35_CONTINUATION_PROPOSAL),
+                                'sha256': context['proposalHash']},
+                                'designReview': {'path': str(QWEN35_CONTINUATION_REVIEW),
+                                    'sha256': context['designReviewHash']},
+                                'controller': {'path': str(QWEN35_CONTINUATION_CONTROLLER),
+                                    'sha256': context['controllerHash']},
+                                'smoke': context['blockedEvidence']}})
+                        continue
+                    if (config_id == 'qwen3.5-4b-sdk-thinking-on' and
+                            repeat == 'fresh2' and condition == 'P1'):
+                        stopped_continuation = qwen35_continuation_stopped_smoke(
+                            root, plan, bind)
+                        if stopped_continuation is not None:
+                            missing.append(stopped_continuation)
+                            continue
                     smoke_terminal_file = folder / 'smoke.completion.json'
                     if file_at(root, smoke_terminal_file).exists():
                         smoke_terminal = json.loads(file_at(root, smoke_terminal_file).read_text())

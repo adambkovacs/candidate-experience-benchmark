@@ -19522,12 +19522,206 @@
         {
           "pass": "fresh2",
           "condition": "P2",
-          "status": "not_in_closed_snapshot"
+          "status": "smoke_blocked",
+          "stage": "smoke",
+          "attempted": 3,
+          "saved": 3,
+          "valid": 2,
+          "invalid": 1,
+          "invalidReasonIds": {
+            "non_json": [
+              "DEV-001"
+            ]
+          },
+          "cleanRepeatEligible": false,
+          "intrinsicModelFailure": true,
+          "developmentAdmitted": false,
+          "source": "qwen35_after_smoke_failure_v1",
+          "sourcePath": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2",
+          "evidence": {
+            "proposal": {
+              "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/proposal.json",
+              "sha256": "36dfc88704064b8317c8901326b002c2d5605911ee423e742b2c39860f455e3d"
+            },
+            "designReview": {
+              "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/design.root-review.json",
+              "sha256": "170f82217ba5742d4004a1d20918d5a966093033c4c16d32e5206eba11ce54e1"
+            },
+            "controller": {
+              "path": "scripts/qwen35_after_smoke_failure_v1.cjs",
+              "sha256": "6978090d25ed4d5b8d98a88c85f4fb053aa7bc423caa45ab474daa5c32c99370"
+            },
+            "smoke": {
+              "review": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.root-review.json",
+                "sha256": "69e14daff3c7416257df78c2bec74b9acd7bd251abc33ee064da5cafe9e90d5a"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.claim.json",
+                "sha256": "6a60056b1755c9f1c456640751ae271f60f0c161181476ac4efcca42687cf575"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.journal.jsonl",
+                "sha256": "a1acc7196a6fd964f381f53e2c014d97a80ca73287e54c117b75e26829041ab6"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.raw.jsonl",
+                "sha256": "f9991bb12a0aa129f995f611936062404152cbcc923e423a6e59b70d875f4345"
+              },
+              "records": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.records.jsonl",
+                "sha256": "8c679682a15b822d317ebbdd0852ea86784ef6429d84bebb1ed55915fde0352b"
+              },
+              "completion": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.completion.json",
+                "sha256": "21748b3b0d0e7bd05b67eb1f48a6175a1e588ec861f73f69a5450f6a5abc8415"
+              },
+              "hostAudit": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.host-audit.json",
+                "sha256": "f9c094a95e586e4eacf15df226e7f8926fc4307ba840e310331eb40bf863c09c"
+              },
+              "candidate": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.root-review-candidate.json",
+                "sha256": "819dd5799d07f50924384b2ca7a5d0cb3cbd148571543641f9502570b9560edc"
+              },
+              "hostBaseline": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.host-baseline.json",
+                "sha256": "38ef959242544aa843797d7184837314b20d887cb661e21da2839cb8656c618a"
+              },
+              "runtimePreflight": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.runtime-preflight.json",
+                "sha256": "a46dd479f33215ac7e2873bea99445717d3678ebffe76fc23a6ba3b5b8a19586"
+              },
+              "routeAudit": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.route.audit.json",
+                "sha256": "61932db6a6522de69b7c7e5ff8c2e666baa4f531df5de217af03c13367f2b558"
+              },
+              "routeRaw": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.route.raw.json",
+                "sha256": "539916ad9826581d1f0e559d096f1fe236962569d97764072770d6ac903bc864"
+              }
+            }
+          }
         },
         {
           "pass": "fresh2",
           "condition": "P1",
-          "status": "not_in_closed_snapshot"
+          "status": "stopped_unknown",
+          "stage": "smoke",
+          "attempted": 3,
+          "saved": 2,
+          "valid": 2,
+          "invalid": 0,
+          "unknownStartedIds": [
+            "DEV-003"
+          ],
+          "neverSentIds": [],
+          "cleanRepeatEligible": false,
+          "failureClass": "host_sleep_during_timeout",
+          "intrinsicModelFailure": false,
+          "developmentAdmitted": false,
+          "source": "qwen35_after_smoke_failure_v1",
+          "sourcePath": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1",
+          "evidence": {
+            "authority": {
+              "proposal": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/proposal.json",
+                "sha256": "36dfc88704064b8317c8901326b002c2d5605911ee423e742b2c39860f455e3d"
+              },
+              "designReview": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/design.root-review.json",
+                "sha256": "170f82217ba5742d4004a1d20918d5a966093033c4c16d32e5206eba11ce54e1"
+              },
+              "controller": {
+                "path": "scripts/qwen35_after_smoke_failure_v1.cjs",
+                "sha256": "6978090d25ed4d5b8d98a88c85f4fb053aa7bc423caa45ab474daa5c32c99370"
+              },
+              "blockedSmoke": {
+                "review": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.root-review.json",
+                  "sha256": "69e14daff3c7416257df78c2bec74b9acd7bd251abc33ee064da5cafe9e90d5a"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.claim.json",
+                  "sha256": "6a60056b1755c9f1c456640751ae271f60f0c161181476ac4efcca42687cf575"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.journal.jsonl",
+                  "sha256": "a1acc7196a6fd964f381f53e2c014d97a80ca73287e54c117b75e26829041ab6"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.raw.jsonl",
+                  "sha256": "f9991bb12a0aa129f995f611936062404152cbcc923e423a6e59b70d875f4345"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.records.jsonl",
+                  "sha256": "8c679682a15b822d317ebbdd0852ea86784ef6429d84bebb1ed55915fde0352b"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.completion.json",
+                  "sha256": "21748b3b0d0e7bd05b67eb1f48a6175a1e588ec861f73f69a5450f6a5abc8415"
+                },
+                "hostAudit": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.host-audit.json",
+                  "sha256": "f9c094a95e586e4eacf15df226e7f8926fc4307ba840e310331eb40bf863c09c"
+                },
+                "candidate": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.root-review-candidate.json",
+                  "sha256": "819dd5799d07f50924384b2ca7a5d0cb3cbd148571543641f9502570b9560edc"
+                },
+                "hostBaseline": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.host-baseline.json",
+                  "sha256": "38ef959242544aa843797d7184837314b20d887cb661e21da2839cb8656c618a"
+                },
+                "runtimePreflight": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.runtime-preflight.json",
+                  "sha256": "a46dd479f33215ac7e2873bea99445717d3678ebffe76fc23a6ba3b5b8a19586"
+                },
+                "routeAudit": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.route.audit.json",
+                  "sha256": "61932db6a6522de69b7c7e5ff8c2e666baa4f531df5de217af03c13367f2b558"
+                },
+                "routeRaw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.route.raw.json",
+                  "sha256": "539916ad9826581d1f0e559d096f1fe236962569d97764072770d6ac903bc864"
+                }
+              }
+            },
+            "smoke": {
+              "review": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.root-review.json",
+                "sha256": "2e56b7c5af3e8f7c8bc8eb70372392b14cd49a72b1510ca362553a40382be73d"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.claim.json",
+                "sha256": "169771375020469303d38feeb145227deebb639f5d96f12198e376cc9a6cf49d"
+              },
+              "raw": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.raw.jsonl",
+                "sha256": "2cde218c393f0f0c098db8dc4d40f001eff5a7a9ae447361f81f96a9d78cf4bc"
+              },
+              "records": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.records.jsonl",
+                "sha256": "5becd9e68d2acfa75efeef4218e6185255ddc9b2d50e3965c82d3927fdb2eaeb"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.journal.jsonl",
+                "sha256": "9ef3057d1d83b115ac8b638afdf2c1d9a16a2f033e946b2dce463d00e77064a8"
+              },
+              "completion": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.completion.json",
+                "sha256": "10787599c7fbb92872e48e1d730f35b1af8617c5d749cbc2685187cff10b0a3f"
+              },
+              "hostAudit": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.host-audit.json",
+                "sha256": "3723d28a08dcab860acd48f6432e74959d6f6b6251e5f1bfc2f80fe34eb70ca1"
+              },
+              "candidate": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke-20261006T114842324Z.root-review-candidate.json",
+                "sha256": "7134f29c773b1b4a2c2fdf6b30cd834f4985a40a5d0fa0cba292810022472a6c"
+              }
+            }
+          }
         },
         {
           "pass": "fresh2",
@@ -20379,6 +20573,46 @@
           "sha256": "d438200af15f472508926b172075f8151886bdd37755dbfec8484a7c2fd5d0e7"
         },
         {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/design.root-review.json",
+          "sha256": "170f82217ba5742d4004a1d20918d5a966093033c4c16d32e5206eba11ce54e1"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke-20261006T114842324Z.root-review-candidate.json",
+          "sha256": "7134f29c773b1b4a2c2fdf6b30cd834f4985a40a5d0fa0cba292810022472a6c"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.claim.json",
+          "sha256": "169771375020469303d38feeb145227deebb639f5d96f12198e376cc9a6cf49d"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.completion.json",
+          "sha256": "10787599c7fbb92872e48e1d730f35b1af8617c5d749cbc2685187cff10b0a3f"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.host-audit.json",
+          "sha256": "3723d28a08dcab860acd48f6432e74959d6f6b6251e5f1bfc2f80fe34eb70ca1"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.journal.jsonl",
+          "sha256": "9ef3057d1d83b115ac8b638afdf2c1d9a16a2f033e946b2dce463d00e77064a8"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.raw.jsonl",
+          "sha256": "2cde218c393f0f0c098db8dc4d40f001eff5a7a9ae447361f81f96a9d78cf4bc"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.records.jsonl",
+          "sha256": "5becd9e68d2acfa75efeef4218e6185255ddc9b2d50e3965c82d3927fdb2eaeb"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/fresh2/P1/smoke.root-review.json",
+          "sha256": "2e56b7c5af3e8f7c8bc8eb70372392b14cd49a72b1510ca362553a40382be73d"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-after-smoke-failure-v1/proposal.json",
+          "sha256": "36dfc88704064b8317c8901326b002c2d5605911ee423e742b2c39860f455e3d"
+        },
+        {
           "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-p0-unsent-suffix-v1/composite.root-review.json",
           "sha256": "469188fcc9d84d431cef68c8a2695ac6ede728b87351894d38148ffa7cf5210e"
         },
@@ -20567,6 +20801,54 @@
           "sha256": "ddf6bb9dd4c2b23658d3f0587a3fa60089c7b411733deb9f3ee7751b196786e7"
         },
         {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.host-baseline.json",
+          "sha256": "38ef959242544aa843797d7184837314b20d887cb661e21da2839cb8656c618a"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.root-review-candidate.json",
+          "sha256": "819dd5799d07f50924384b2ca7a5d0cb3cbd148571543641f9502570b9560edc"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.route.audit.json",
+          "sha256": "61932db6a6522de69b7c7e5ff8c2e666baa4f531df5de217af03c13367f2b558"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.route.raw.json",
+          "sha256": "539916ad9826581d1f0e559d096f1fe236962569d97764072770d6ac903bc864"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke-20261006T112934580Z.runtime-preflight.json",
+          "sha256": "a46dd479f33215ac7e2873bea99445717d3678ebffe76fc23a6ba3b5b8a19586"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.claim.json",
+          "sha256": "6a60056b1755c9f1c456640751ae271f60f0c161181476ac4efcca42687cf575"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.completion.json",
+          "sha256": "21748b3b0d0e7bd05b67eb1f48a6175a1e588ec861f73f69a5450f6a5abc8415"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.host-audit.json",
+          "sha256": "f9c094a95e586e4eacf15df226e7f8926fc4307ba840e310331eb40bf863c09c"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.journal.jsonl",
+          "sha256": "a1acc7196a6fd964f381f53e2c014d97a80ca73287e54c117b75e26829041ab6"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.raw.jsonl",
+          "sha256": "f9991bb12a0aa129f995f611936062404152cbcc923e423a6e59b70d875f4345"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.records.jsonl",
+          "sha256": "8c679682a15b822d317ebbdd0852ea86784ef6429d84bebb1ed55915fde0352b"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh2/P2/smoke.root-review.json",
+          "sha256": "69e14daff3c7416257df78c2bec74b9acd7bd251abc33ee064da5cafe9e90d5a"
+        },
+        {
           "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/manifest.json",
           "sha256": "5b74a42cfa922219813c4e83037f05cbe4f769094c3776e5a9a48f24ed8423ae"
         },
@@ -20597,6 +20879,10 @@
         {
           "path": "scripts/local_prompt_execution_v1.cjs",
           "sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
+        },
+        {
+          "path": "scripts/qwen35_after_smoke_failure_v1.cjs",
+          "sha256": "6978090d25ed4d5b8d98a88c85f4fb053aa7bc423caa45ab474daa5c32c99370"
         },
         {
           "path": "scripts/qwen35_p0_unsent_suffix_v1.cjs",

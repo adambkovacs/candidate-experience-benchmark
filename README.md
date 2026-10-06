@@ -100,6 +100,12 @@ The [DeepSeek Flash reasoning-off repeats](docs/DEEPSEEK_FRESH_REPEAT_FINDINGS_2
 
 The task concerns candidates' experience of a process. It does not assess their suitability for a job. All reviews are synthetic; no invented testimonial is a real endorsement.
 
+## Latest native Jev results
+
+The three OpenRouter P0 passes matched all four reference answers on **54, 53 and 52 of 60 reviews**. P1 scored **54, 53 and 54**. Each condition includes one pass with an invalid probability distribution, which stays in the denominator as a failure. More instructions did not remove every disagreement.
+
+P2's first pass scored 54/60. Its second pass and continuation scored 50/60 across 57 valid answers, one invalid answer and two unknown outcomes. That interrupted pass is not a clean repeat. The third pass remains pending. [Read the native Jev comparison](docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md).
+
 ## Jev alongside the alternatives
 
 TypeSafe Jev is the starting point for this comparison. The roster also includes OpenJev, SemIf, AnyJev, Laya and NLI specialists; GPT and Claude subscription configurations; Gemini; and hosted Qwen, Gemma, DeepSeek and Mistral configurations. Exact model, effort, route and controls matter: two rows sharing a model family are not necessarily the same experiment.

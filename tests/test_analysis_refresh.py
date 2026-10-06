@@ -12,9 +12,50 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("build_analysis_refresh", ROOT / "scripts/build_analysis_refresh.py")
 analysis = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(analysis)
+sys.path.insert(0, str(ROOT / "scripts"))
+import build_legacy_qwen_repeat_findings as legacy_qwen_findings
 
 
 class AnalysisRefreshTest(unittest.TestCase):
+    def test_qwen35_new_missing_smokes_remain_bound_and_unscored(self):
+        report = legacy_qwen_findings.build()
+        series = next(row for row in report["series"]
+                      if row["configuration"] == "qwen3.5-4b-sdk-thinking-on")
+        projected = analysis.qwen35_repeat_summary(series)
+        self.assertEqual(projected["completedConditions"], 2)
+        self.assertEqual(sum(len(row["passes"]) for row in projected["conditions"].values()), 2)
+        missing = {(row["pass"], row["condition"]): row for row in projected["missingPasses"]}
+        p1, p2 = missing["fresh2", "P1"], missing["fresh2", "P2"]
+        self.assertEqual((p1["status"], p1["saved"], p1["unknownStartedIds"]),
+                         ("stopped_unknown", 2, ["DEV-003"]))
+        self.assertFalse(p1["intrinsicModelFailure"])
+        self.assertEqual((p2["status"], p2["valid"], p2["invalid"]),
+                         ("smoke_blocked", 2, 1))
+        self.assertTrue(p2["intrinsicModelFailure"])
+        for item in (p1, p2):
+            self.assertFalse(item["developmentAdmitted"])
+            self.assertFalse(item["cleanRepeatEligible"])
+            self.assertNotIn("score", item)
+
+        for slot, change in ((("fresh2", "P1"), ("saved", 3)),
+                             (("fresh2", "P1"), ("unknownStartedIds", [])),
+                             (("fresh2", "P2"), ("intrinsicModelFailure", False)),
+                             (("fresh2", "P2"), ("score", {"allFour": 2}))):
+            with self.subTest(slot=slot, change=change):
+                altered = copy.deepcopy(series)
+                item = next(row for row in altered["missingPasses"]
+                            if (row["pass"], row["condition"]) == slot)
+                item[change[0]] = change[1]
+                with self.assertRaises(ValueError):
+                    analysis.qwen35_repeat_summary(altered)
+
+        altered = copy.deepcopy(series)
+        item = next(row for row in altered["missingPasses"]
+                    if (row["pass"], row["condition"]) == ("fresh2", "P1"))
+        item["evidence"]["smoke"]["completion"]["sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "interrupted continuation smoke differs"):
+            analysis.qwen35_repeat_summary(altered)
+
     def _qwen35_p0_only_series(self):
         report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
         series = copy.deepcopy(next(s for s in report["series"]
@@ -175,7 +216,15 @@ class AnalysisRefreshTest(unittest.TestCase):
         report = json.loads((ROOT / analysis.JEV_NATIVE_PROMPT_PUBLIC).read_text())
         projected = analysis.jev_native_prompt_summary(ROOT, report, {})
         self.assertEqual(projected["denominator"], 60)
-        self.assertEqual(projected["conditions"]["P1"]["completePasses"], 2)
+        self.assertEqual(projected["conditions"]["P1"]["completePasses"], 3)
+        self.assertEqual(projected["conditions"]["P0"]["completePasses"], 3)
+        self.assertEqual([p["score"]["allFour"] for p in projected["conditions"]["P0"]["passes"].values()], [54, 53, 52])
+        composite = projected["composites"]["P2fresh2"]
+        self.assertEqual(composite["score"]["valid"], 57)
+        self.assertEqual(composite["score"]["allFour"], 50)
+        self.assertFalse(composite["cleanRepeatCredit"])
+        self.assertEqual(composite["neverSent"], 0)
+        self.assertEqual(composite["unknownUpperBoundUsd"], "0.002688000")
         self.assertEqual(projected["conditions"]["P2"]["completePasses"], 1)
         p1 = projected["conditions"]["P1"]["passes"]["fresh2"]
         self.assertEqual((p1["score"]["valid"], p1["score"]["allFour"]), (59, 53))
@@ -203,7 +252,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         missing = copy.deepcopy(report)
         missing["sourceBindings"] = [item for item in missing["sourceBindings"]
                                      if not item["path"].endswith("fresh2/terminal-public.json")]
-        with self.assertRaisesRegex(ValueError, "Jev P2 fresh2 source closure differs"):
+        with self.assertRaisesRegex(ValueError, "Jev native prompt source closure differs"):
             analysis.jev_native_prompt_summary(ROOT, missing, {})
         missing_child = copy.deepcopy(report)
         missing_child["sourceBindings"] = [item for item in missing_child["sourceBindings"]
@@ -235,7 +284,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 233)
+        self.assertEqual(len(rebuilt["sources"]), 287)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")

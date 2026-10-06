@@ -1,5 +1,6 @@
 'use strict';
 const test=require('node:test');
+const checkpointCrypto=require('node:crypto');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const os=require('node:os');
@@ -127,12 +128,13 @@ test('proposal preparation creates reviewable files but grants no admission',t=>
   assert.equal(candidate.blocked_smoke_replay,false);assert.equal(candidate.blocked_development_admission,false);
 });
 
-test('checked-in proposal matches current sources and remains unapproved',()=>{
+test('checked-in proposal preserves its unapproved candidate after explicit root approval',()=>{
   const ctx=continuation.verifyProposal();
   const candidate=JSON.parse(fs.readFileSync(continuation.REVIEW_CANDIDATE));
-  assert.equal(ctx.proposal.status,'offline_prepared_unapproved');
-  assert.equal(ctx.proposal.approval,null);assert.equal(ctx.proposal.inference_authorized,false);
-  assert.equal(candidate.proposal_sha256,ctx.proposalSha);
+  assert(['offline_prepared_unapproved','approved'].includes(ctx.proposal.status));
+  assert.equal(ctx.proposal.inference_authorized,false);
+  const original={...ctx.proposal,status:'offline_prepared_unapproved',approval:null};
+  assert.equal(candidate.proposal_sha256,checkpointCrypto.createHash('sha256').update(JSON.stringify(original,null,2)+'\n').digest('hex'));
   assert.equal(candidate.controller_sha256,ctx.proposal.frozen.continuation_controller.sha256);
   assert.equal(candidate.approved,false);assert.equal(candidate.authorized_by_root,false);
   assert.equal(candidate.independent_review,false);assert.equal(candidate.inference_authorized,false);

@@ -28,6 +28,42 @@ class JevNativePromptFindingsTests(unittest.TestCase):
         self.assertEqual(value['comparisons']['P1repeat']['excludedIds'], ['DEV-056'])
         self.assertEqual(value['comparisons']['P1repeat']['fourFieldVectorChangedIds'], [])
         self.assertEqual(value['comparisons']['P1P2fresh1']['fourFieldVectorChangedIds'], ['DEV-013'])
+        self.assertEqual(passes['P1']['fresh3']['score']['valid'], 60)
+        self.assertEqual(passes['P1']['fresh3']['score']['allFour'], 54)
+        self.assertEqual(passes['P1']['fresh3']['knownCostUsd'], '0.006405000')
+        self.assertEqual([(passes['P0'][s]['score']['valid'],
+                           passes['P0'][s]['score']['allFour'])
+                          for s in ('fresh1', 'fresh2', 'fresh3')],
+                         [(60, 54), (60, 53), (59, 52)])
+        self.assertEqual([passes['P0'][s]['knownCostUsd']
+                          for s in ('fresh1', 'fresh2', 'fresh3')],
+                         ['0.005890920'] * 3)
+        self.assertEqual(passes['P0']['fresh3']['outcomes']['invalid_native_distribution'], 1)
+        self.assertEqual(value['comparisons']['P0fresh1fresh2']['fourFieldVectorChangedIds'],
+                         ['DEV-013', 'DEV-030', 'DEV-056'])
+        self.assertEqual(value['comparisons']['P0fresh2fresh3']['denominator'], 59)
+        self.assertEqual(value['comparisons']['P0fresh2fresh3']['fourFieldVectorChangedIds'],
+                         ['DEV-030'])
+        self.assertEqual(value['comparisons']['P1fresh2fresh3']['denominator'], 59)
+        self.assertEqual(value['comparisons']['P1fresh2fresh3']['fourFieldVectorChangedIds'],
+                         ['DEV-013'])
+        tail = value['continuations']['P2fresh2tail']
+        self.assertEqual((tail['score']['denominator'], tail['score']['valid'],
+                          tail['score']['allFour']), (42, 40, 35))
+        self.assertEqual(tail['outcomes']['invalid_native_distribution'], 1)
+        self.assertEqual(tail['outcomes']['unknown_cost_transport_timeout'], 1)
+        combined = value['composites']['P2fresh2']
+        self.assertEqual((combined['score']['denominator'], combined['score']['valid'],
+                          combined['score']['allFour']), (60, 57, 50))
+        self.assertEqual(combined['outcomes']['unknown_cost_http_429'], 1)
+        self.assertEqual(combined['outcomes']['unknown_cost_transport_timeout'], 1)
+        self.assertEqual(combined['outcomes']['invalid_native_distribution'], 1)
+        self.assertEqual(combined['neverSent'], 0)
+        self.assertFalse(combined['cleanRepeatCredit'])
+        self.assertEqual(combined['parentOriginal'], passes['P2']['fresh2'])
+        self.assertEqual(combined['knownCostUsd'], '0.006622434')
+        self.assertEqual(combined['unknownUpperBoundUsd'], '0.002688000')
+        self.assertEqual(value['comparisons']['P1P2fresh2CompositeShared']['denominator'], 56)
 
     def test_archived_receipt_never_queries_live_budget_identity(self):
         with patch.object(report.full, 'budget_identity', side_effect=AssertionError('live budget read')):
@@ -38,6 +74,11 @@ class JevNativePromptFindingsTests(unittest.TestCase):
         self.assertEqual(report.OUTPUT.read_text(), report.render(report.build()))
         self.assertIn('not a distinct Jev model', report.OUTPUT.read_text())
         self.assertIn('unknown charge bounded at $0.001344000', report.OUTPUT.read_text())
+        self.assertIn('57 valid, one invalid, two unknown-cost attempts',
+                      report.OUTPUT.read_text())
+        self.assertIn('P1 fresh3 is the third attempted full pass',
+                      report.OUTPUT.read_text())
+        self.assertIn('P0 fresh3:', report.OUTPUT.read_text())
 
     def test_raw_response_drift_fails_before_scoring(self):
         config = report.CONFIGS['P1']
@@ -145,6 +186,83 @@ class JevNativePromptFindingsTests(unittest.TestCase):
         broken[report.CONFIGS['P2']]['requests'][0]['payload']['state']['feedback'] += ' drift'
         with self.assertRaisesRegex(ValueError, 'Native prompt non-instruction controls differ'):
             report.verify_prompt_delta(broken)
+
+    def test_tail_raw_timeout_and_invalid_are_kept_out_of_scoring(self):
+        manifest = report.bridge.verify_tail()
+        stage = report.full.paths(report.TAIL_BASE, report.CONFIGS['P2'],
+                                  report.bridge.TAIL_STAGE)['stage']
+        requests = report.frozen.build_plan(report.ROOT)[report.CONFIGS['P2']]['requests'][18:]
+        parsed = report.parse_attempts(manifest, stage, 42, invalid_id='DEV-040',
+                                       unknown_id='DEV-060', unknown_kind='transport_timeout',
+                                       expected_requests=requests)
+        self.assertEqual(parsed['statuses']['DEV-040'], 'invalid_native_distribution')
+        self.assertEqual(parsed['statuses']['DEV-060'], 'unknown_cost_transport_timeout')
+        self.assertNotIn('DEV-040', parsed['predictions'])
+        self.assertNotIn('DEV-060', parsed['predictions'])
+        self.assertEqual(len(parsed['predictions']), 40)
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / 'attempts.jsonl'
+            events = report.rows(stage / 'attempts.jsonl')
+            events[-1]['error_type'] = 'OtherError'
+            path.write_text(''.join(json.dumps(event) + '\n' for event in events))
+            with self.assertRaisesRegex(ValueError, 'Stopped transport outcome differs'):
+                report.parse_attempts(manifest, Path(temp), 42, invalid_id='DEV-040',
+                                      unknown_id='DEV-060', unknown_kind='transport_timeout',
+                                      expected_requests=requests)
+
+    def test_tail_v2_receipt_tamper_is_rejected(self):
+        manifest = report.bridge.verify_tail()
+        original = report.full.paths(report.TAIL_BASE, report.CONFIGS['P2'],
+                                     report.bridge.TAIL_STAGE)
+        with tempfile.TemporaryDirectory() as temp:
+            relocated = Path(temp) / 'tail'
+            copied = report.full.paths(relocated, report.CONFIGS['P2'],
+                                       report.bridge.TAIL_STAGE)
+            for key in ('manifest', 'budget', 'receipt'):
+                copied[key].parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(original[key], copied[key])
+            child_name = original['budget'].stem + '-' + report.bridge.TAIL_PARTITION + '.jsonl'
+            shutil.copy2(original['budget'].parent / child_name, copied['budget'].parent / child_name)
+            copied['stage'].mkdir(parents=True, exist_ok=True)
+            shutil.copy2(original['stage'] / 'review-receipt.json',
+                         copied['stage'] / 'review-receipt.json')
+            with patch.object(report, 'TAIL_BASE', relocated):
+                report.tail_receipt(manifest)
+                receipt = json.loads(copied['receipt'].read_text())
+                receipt['bridge_sha256'] = '0' * 64
+                copied['receipt'].write_text(json.dumps(receipt) + '\n')
+                with self.assertRaisesRegex(ValueError, 'Tail root receipt differs'):
+                    report.tail_receipt(manifest)
+
+    def test_p1_fresh3_v2_evidence_tamper_is_rejected(self):
+        config = report.CONFIGS['P1']
+        manifest, _ = report.bridge._source_bound(config)
+        stage = report.full.paths(report.bridge.BASE, config, 'fresh3')['stage']
+        with tempfile.TemporaryDirectory() as temp:
+            shutil.copy2(stage / 'attempts.jsonl', Path(temp) / 'attempts.jsonl')
+            events = report.rows(Path(temp) / 'attempts.jsonl')
+            events[2]['raw_response_sha256'] = '0' * 64
+            (Path(temp) / 'attempts.jsonl').write_text(''.join(json.dumps(x) + '\n' for x in events))
+            with self.assertRaisesRegex(ValueError, 'Raw response differs'):
+                report.parse_attempts(manifest, Path(temp), 60,
+                    expected_requests=report.frozen.build_plan(report.ROOT)[config]['requests'])
+
+    def test_p0_fresh3_invalid_and_exact_requests_are_verified(self):
+        config = report.bridge.p0.CONFIG
+        manifest, _ = report.bridge._source_bound(config)
+        stage = report.full.paths(report.bridge.BASE, config, 'fresh3')['stage']
+        requests = report.bridge.p0.build_plan(report.ROOT)[config]['requests']
+        parsed = report.parse_attempts(manifest, stage, 60, invalid_id='DEV-040',
+                                       expected_requests=requests)
+        self.assertEqual(len(parsed['predictions']), 59)
+        self.assertEqual(parsed['statuses']['DEV-040'], 'invalid_native_distribution')
+        with self.assertRaisesRegex(ValueError, 'Probabilities do not sum to one'):
+            report.parse_attempts(manifest, stage, 60, expected_requests=requests)
+        changed = copy.deepcopy(requests)
+        changed[0]['payload']['state']['feedback'] += ' drift'
+        with self.assertRaisesRegex(ValueError, 'Saved request bytes differ'):
+            report.parse_attempts(manifest, stage, 60, invalid_id='DEV-040',
+                                  expected_requests=changed)
 
 
 if __name__ == '__main__':

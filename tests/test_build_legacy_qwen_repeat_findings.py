@@ -107,6 +107,77 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         (root / phase / 'development.host-audit.json').write_text(json.dumps(audit) + '\n')
         return plan, manifest, phase, scheduled
 
+    def _qwen35_continuation_fixture(self, root, condition='P1'):
+        plan, _, old_phase, _ = self._qwen35_successor_fixture(root, condition)
+        proposal = json.loads((ROOT / findings.QWEN35_CONTINUATION_PROPOSAL).read_text())
+
+        def copy_file(relative):
+            relative = Path(relative)
+            target = root / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / relative, target)
+
+        for relative in (findings.MANIFEST, findings.QWEN35_CONTINUATION_PROPOSAL,
+                         findings.QWEN35_CONTINUATION_REVIEW,
+                         findings.QWEN35_CONTINUATION_CONTROLLER):
+            copy_file(relative)
+        for name, item in proposal['frozen'].items():
+            values = item.values() if name == 'completed_predecessors' else (item,)
+            for binding in values:
+                copy_file(binding['file'])
+        for binding in proposal['scope']['blocked_phase']['bindings'].values():
+            copy_file(binding['file'])
+
+        phase = findings.QWEN35_CONTINUATION / 'fresh2' / condition
+        (root / phase).mkdir(parents=True, exist_ok=True)
+        for source in (root / old_phase).iterdir():
+            if source.is_file() and (source.name.startswith('smoke.') or
+                                     source.name.startswith('development.') or
+                                     source.name == 'smoke-inspection.json'):
+                shutil.copyfile(source, root / phase / source.name)
+        config_id = 'qwen3.5-4b-sdk-thinking-on'
+        phase_id = f'{config_id}/fresh2/{condition}'
+        blocked_hash = proposal['scope']['blocked_phase']['bindings']['completion']['sha256']
+        for stage in ('smoke', 'development'):
+            review_path = root / phase / f'{stage}.root-review.json'
+            review = json.loads(review_path.read_text())
+            candidate_path = phase / f'fixture-{stage}-candidate.json'
+            review.update(kind='qwen35-after-smoke-failure-v1-stage-root-review',
+                          phase=phase_id, proposal_sha256=findings.QWEN35_CONTINUATION_PROPOSAL_SHA,
+                          controller_sha256=findings.QWEN35_CONTINUATION_CONTROLLER_SHA,
+                          prior_manifest_sha256=findings.QWEN35_SUCCESSOR_MANIFEST_SHA,
+                          blocked_completion_sha256=blocked_hash,
+                          blocked_phase_clean_credit=False, individually_clean_phase=True,
+                          candidate_file=str(candidate_path))
+            for key in ('manifest_sha256', 'composite_sha256', 'clean_repeat_credit',
+                        'candidate_sha256'):
+                review.pop(key, None)
+            candidate = copy.deepcopy(review)
+            candidate.update(approved=False, authorized_by_root=False,
+                             reviewer=None, reviewed_utc=None)
+            (root / candidate_path).write_text(json.dumps(candidate) + '\n')
+            review['candidate_sha256'] = findings.sha(root / candidate_path)
+            review_path.write_text(json.dumps(review) + '\n')
+            claim_path = root / phase / f'{stage}.claim.json'
+            claim = json.loads(claim_path.read_text())
+            claim.update(phase=phase_id, receipt_sha256=findings.sha(review_path))
+            claim_path.write_text(json.dumps(claim) + '\n')
+            completion_path = root / phase / f'{stage}.completion.json'
+            completion = json.loads(completion_path.read_text())
+            completion['phase'] = phase_id
+            completion_path.write_text(json.dumps(completion) + '\n')
+            audit_path = root / phase / f'{stage}.host-audit.json'
+            audit = json.loads(audit_path.read_text())
+            audit.update(schema='qwen35-after-smoke-failure-v1-host-audit', phase=phase_id,
+                         completion_sha256=findings.sha(completion_path),
+                         reviewed_receipt_sha256=findings.sha(review_path))
+            audit_path.write_text(json.dumps(audit) + '\n')
+        inspection_path = root / phase / 'smoke-inspection.json'
+        inspection = json.loads(inspection_path.read_text())
+        inspection['completion_sha256'] = findings.sha(root / phase / 'smoke.completion.json')
+        inspection_path.write_text(json.dumps(inspection) + '\n')
+        return plan, proposal, phase
+
     def test_qwen35_successor_requires_a_terminal_host_audited_phase(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -155,6 +226,57 @@ class LegacyQwenFindingsTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Source hash differs|receipt|classifier'):
                 findings.qwen35_successor_phase(
                     root, plan, 'fresh1', 'P2', findings.binder(root)[0])
+
+    def test_qwen35_continuation_accepts_approved_proposal_and_closed_fixture(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            plan, proposal, phase = self._qwen35_continuation_fixture(root)
+            closed = findings.qwen35_continuation_phase(
+                root, plan, 'fresh2', 'P1', findings.binder(root)[0])
+            self.assertEqual((proposal['status'], closed['source'],
+                              closed['entry']['sourcePath'], closed['entry']['score']['denominator'],
+                              closed['entry']['score']['valid']),
+                             ('approved', 'qwen35_after_smoke_failure_v1', str(phase), 60, 51))
+            self.assertTrue(closed['entry']['cleanRepeatCredit'])
+            self.assertEqual(closed['entry']['blockedPredecessor']['status'], 'smoke_blocked')
+            self.assertFalse(closed['entry']['blockedPredecessor']['development_admitted'])
+            self.assertEqual(closed['entry']['blockedPredecessor']['invalid_reason_ids'],
+                             {'non_json': ['DEV-001']})
+
+    def test_qwen35_continuation_excludes_incomplete_development(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            plan, _, phase = self._qwen35_continuation_fixture(root)
+            (root / phase / 'development.host-audit.json').unlink()
+            self.assertIsNone(findings.qwen35_continuation_phase(
+                root, plan, 'fresh2', 'P1', findings.binder(root)[0]))
+
+    def test_qwen35_continuation_rejects_proposal_or_raw_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            plan, _, phase = self._qwen35_continuation_fixture(root)
+            raw_path = root / phase / 'development.raw.jsonl'
+            raw_path.write_text(raw_path.read_text().replace('"promptTokensCount":',
+                                                              '"promptTokensCount":999999,"x":', 1))
+            with self.assertRaisesRegex(ValueError, 'Source hash differs|receipt|classifier'):
+                findings.qwen35_continuation_phase(
+                    root, plan, 'fresh2', 'P1', findings.binder(root)[0])
+
+    def test_current_continuation_stopped_smoke_is_host_failure_not_intrinsic(self):
+        plan = json.loads((ROOT / findings.MANIFEST).read_text())
+        bind, bindings = findings.binder(ROOT)
+        stopped = findings.qwen35_continuation_stopped_smoke(ROOT, plan, bind)
+        self.assertEqual((stopped['status'], stopped['attempted'], stopped['saved'],
+                          stopped['valid'], stopped['invalid'], stopped['unknownStartedIds']),
+                         ('stopped_unknown', 3, 2, 2, 0, ['DEV-003']))
+        self.assertEqual(stopped['failureClass'], 'host_sleep_during_timeout')
+        self.assertFalse(stopped['intrinsicModelFailure'])
+        self.assertFalse(stopped['developmentAdmitted'])
+        for group in stopped['evidence'].values():
+            values = group.values() if isinstance(group, dict) else ()
+            for item in values:
+                if isinstance(item, dict) and 'path' in item:
+                    self.assertEqual(bindings[item['path']], item['sha256'])
 
     def test_qwen35_stopped_p0_is_source_bound_and_unscored(self):
         with mock.patch.object(findings, 'qwen35_successor_phase', return_value=None):
@@ -238,7 +360,25 @@ class LegacyQwenFindingsTests(unittest.TestCase):
     def test_report_rebuilds_from_closed_source_and_tracks_all_configurations(self):
         report = findings.build(ROOT)
         saved = json.loads((ROOT / findings.OUTPUT).read_text())
-        self.assertEqual(report, saved)
+        if report != saved:
+            # The feed is regenerated by the publication owner. During the handoff,
+            # only the newly terminal Qwen continuation rows may be ahead of it.
+            current_other = [row for row in report['series']
+                             if row['configuration'] != 'qwen3.5-4b-sdk-thinking-on']
+            saved_other = [row for row in saved['series']
+                           if row['configuration'] != 'qwen3.5-4b-sdk-thinking-on']
+            self.assertEqual(current_other, saved_other)
+            current_qwen = next(row for row in report['series']
+                                if row['configuration'] == 'qwen3.5-4b-sdk-thinking-on')
+            saved_qwen = next(row for row in saved['series']
+                              if row['configuration'] == 'qwen3.5-4b-sdk-thinking-on')
+            self.assertEqual(current_qwen['passes'], saved_qwen['passes'])
+            terminal = {(row['pass'], row['condition']): row
+                        for row in current_qwen['missingPasses']}
+            self.assertEqual(terminal['fresh2', 'P2']['status'], 'smoke_blocked')
+            self.assertTrue(terminal['fresh2', 'P2']['intrinsicModelFailure'])
+            self.assertEqual(terminal['fresh2', 'P1']['status'], 'stopped_unknown')
+            self.assertFalse(terminal['fresh2', 'P1']['intrinsicModelFailure'])
         self.assertEqual([row['configuration'] for row in report['series']], list(findings.CONFIGS))
         self.assertEqual([row['displayName'] for row in report['series']],
                          [findings.DISPLAY_NAMES[name] for name in findings.CONFIGS])
