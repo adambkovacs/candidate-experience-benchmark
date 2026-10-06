@@ -1,5 +1,10 @@
 # Current work checklist
 
+## E4B suffix closed, 6 October 2026
+
+- Original handle 46546 exited zero. All eight never-sent reviews returned valid answers; 7/8 matched all four frozen references. Root checked hashes and strict predictions. Host stayed awake on battery with no sleep transition. The interrupted full pass now has 58 valid and two earlier unknown outcomes; it remains descriptive.
+- Closed evidence is archived separately. E4B report integration is pending; no inference is running. Jev third-pass report integration and Pages verification remain underway.
+
 ## Portable publication and E4B continuation, 6 October 2026
 
 - Root verified the Jev archived-path fix in a clean checkout: combined report check and 15 Jev reporter tests passed. Fix 048f7753 is pushed; Pages was manually dispatched. Publication is not yet verified.
