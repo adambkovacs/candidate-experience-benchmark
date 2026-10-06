@@ -92,6 +92,15 @@ def test_closed_first_phase_retains_full_denominator_and_price_identity():
     assert series['passes']['fresh1']['P2']['score']['allFour'] == 58
 
 
+def test_offline_closure_does_not_follow_runtime_ledger_paths():
+    with mock.patch.object(report.adapter, 'old_child_closed',
+                           side_effect=AssertionError('runtime old ledger gate')), \
+         mock.patch.object(report.adapter.prior, 'verify_plan',
+                           side_effect=AssertionError('runtime prior plan gate')):
+        closed = report.verified_closure('fresh1', 'P2', [])
+    assert closed['score']['denominator'] == 60
+
+
 def test_copied_reporter_source_must_match_executing_builder(tmp_path):
     names = [item['path'] for item in report.reporter_bindings(ROOT)]
     for name in names:

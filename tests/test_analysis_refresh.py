@@ -74,9 +74,9 @@ class AnalysisRefreshTest(unittest.TestCase):
         future = copy.deepcopy(json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text()))
         qwen = next(item for item in future["series"] if "qwen36" in item["configuration"])
         deepseek = next(item for item in future["series"] if "high-authority-v3" in item["configuration"])
-        added_pass, added_condition = next(
-            (row["pass"], row["condition"]) for row in qwen["missingPasses"]
-            if row["status"] == "not_started" and row["condition"] == "P0")
+        added_pass, added_condition = "synthetic-future", "P0"
+        qwen["passes"][added_pass] = {}
+        qwen["plannedConditions"] += 1
         previous_qwen_count = qwen["completedConditions"]
         qwen["passes"][added_pass][added_condition] = copy.deepcopy(qwen["passes"]["fresh1"]["P0"])
         qwen["completedConditions"] += 1

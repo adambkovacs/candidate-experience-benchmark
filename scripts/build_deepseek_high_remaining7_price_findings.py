@@ -2,12 +2,14 @@
 """Audit and report closed DeepSeek high price-v1 phases without old-pass credit."""
 import argparse
 from collections import Counter
+from copy import deepcopy
 from decimal import Decimal
 import fcntl
 import hashlib
 import json
 import os
 from pathlib import Path
+from types import FunctionType
 
 import build_deepseek_high_authority_v3_findings as previous
 import deepseek_high_remaining7_execution_v1 as adapter
@@ -127,11 +129,107 @@ def admission_reviews(folder, repeat, condition, plan_sha):
             raise ValueError('Independent stage admission review differs: ' + phase)
 
 
+def portable_plan(repeat, expected_sha):
+    """Rebuild the frozen request plan from archived sources, without a live ledger."""
+    if repeat not in adapter.study.ORDERS:
+        raise ValueError('Unknown revised-price fresh pass')
+    proposal = json.loads(adapter.proposal.MANIFEST.read_text())
+    execution = json.loads(adapter.MANIFEST.read_text())
+    for sources in (proposal['source_bindings'], execution['source_bindings']):
+        for name, item in sources.items():
+            digest = item if isinstance(item, str) else item['sha256']
+            if not isinstance(item, str) and item.get('path') != name:
+                raise ValueError('Portable source path differs: ' + name)
+            path = (ROOT / name).resolve()
+            path.relative_to(ROOT.resolve())
+            if sha(path) != digest:
+                raise ValueError('Portable frozen source differs: ' + name)
+    if (proposal.get('schema') != adapter.proposal.SCHEMA + '-execution-plan' or
+            proposal.get('configuration_id') != CONFIG or
+            execution.get('schema') != adapter.SCHEMA + '-manifest' or
+            execution.get('configuration_id') != CONFIG or
+            execution.get('proposal_sha256') != sha(adapter.proposal.MANIFEST) or
+            execution.get('old_child_reconciliation_sha256') != sha(adapter.OLD_RECONCILIATION)):
+        raise ValueError('Portable proposal or execution manifest differs')
+    old_receipt = json.loads(adapter.OLD_RECONCILIATION.read_text())
+    if (old_receipt.get('event') != 'partition_reconciled' or
+            old_receipt.get('partition_id') != adapter.prior.PARTITION_ID or
+            old_receipt.get('child_sha256') != sha(adapter.OLD_LEDGER) or
+            Decimal(old_receipt.get('unknown_upper_bound_usd', '-1')) != 0):
+        raise ValueError('Archived old child reconciliation differs')
+    path = BASE / repeat / 'manifest.json'
+    if sha(path) != expected_sha or execution['plans_sha256'].get(repeat) != expected_sha:
+        raise ValueError('Portable revised-price plan hash differs')
+    plan = json.loads(path.read_text())
+    old_path = adapter.prior.BASE / repeat / 'manifest.json'
+    old = json.loads(old_path.read_text())
+    selected = [condition for name, condition in adapter.proposal.PHASES if name == repeat]
+    expected = deepcopy(old)
+    expected['conditions'] = {condition: expected['conditions'][condition]
+                              for condition in selected}
+    expected['condition_order'] = selected
+    for condition in selected:
+        for phase in ('smoke', 'development'):
+            rows = proposal['requests_by_stage'][f'{repeat}/{condition}/{phase}']
+            old_rows = expected['conditions'][condition][phase]
+            if (len(rows) != len(old_rows) or
+                    [row['id'] for row in rows] != [row['record_id'] for row in old_rows]):
+                raise ValueError('Portable request order differs')
+            for request, saved in zip(old_rows, rows):
+                if (saved['original_request_sha256'] != request['request_sha256'] or
+                        saved['input_sha256'] != request['input_sha256'] or
+                        saved['instruction_sha256'] != request['instruction_sha256'] or
+                        adapter.study.digest(json.dumps(saved['payload'], sort_keys=True)) !=
+                        saved['request_sha256']):
+                    raise ValueError('Portable frozen request identity differs')
+                only_price = deepcopy(request['payload'])
+                only_price['provider']['max_price'] = saved['payload']['provider']['max_price']
+                if only_price != saved['payload']:
+                    raise ValueError('Portable request changed beyond price ceilings')
+                request.update(payload=saved['payload'], request_sha256=saved['request_sha256'])
+    expected.update(schema=adapter.SCHEMA + '-plan', series_id=adapter.proposal.SCHEMA,
+        configuration_id=CONFIG, original_configuration_id=adapter.prior.CONFIG,
+        source_proposal_sha256=sha(adapter.proposal.MANIFEST),
+        public_route_sha256=sha(adapter.proposal.ROUTE),
+        partition_id=adapter.proposal.PARTITION_ID,
+        proposed_child_budget_usd=str(adapter.proposal.CHILD_CAP),
+        input_price_ceiling_usd_per_million=str(adapter.proposal.INPUT_CEILING),
+        output_price_ceiling_usd_per_million=str(adapter.proposal.OUTPUT_CEILING),
+        cache_read_price_ceiling_usd_per_million=str(adapter.proposal.CACHE_CEILING),
+        per_request_reserve_usd=str(adapter.proposal.RESERVE),
+        dispatch_gate='Separate adapter review, exact stage receipt, $1 OpenRouter-only hold, '
+            'closed old child, live route and reserve, sequential capacity, inspected smoke')
+    if plan != expected:
+        raise ValueError('Portable revised-price plan differs from frozen requests')
+    return plan
+
+
+def portable_phase_verifier():
+    core = adapter.repaired_core()
+    class PortableStudy(core.study):
+        @staticmethod
+        def verify(*args):
+            if len(args) == 2:
+                repeat, digest = args
+            elif len(args) == 3 and args[0] == CONFIG:
+                _, repeat, digest = args
+            else:
+                raise ValueError('Portable verifier configuration differs')
+            return portable_plan(repeat, digest)
+    core.study = PortableStudy
+    outer = dict(core.verify_phase_closure.__globals__, study=PortableStudy)
+    strict = outer['_strict_closure']
+    outer['_strict_closure'] = FunctionType(strict.__code__,
+        dict(strict.__globals__, study=PortableStudy))
+    core.verify_phase_closure = FunctionType(core.verify_phase_closure.__code__, outer)
+    return core
+
+
 def evidence(repeat, condition, snapshot_bytes):
     folder = folder_for(repeat, condition)
-    plan = adapter.verify_plan(repeat, sha(BASE / repeat / 'manifest.json'))
+    plan = portable_plan(repeat, sha(BASE / repeat / 'manifest.json'))
     admission_reviews(folder, repeat, condition, sha(BASE / repeat / 'manifest.json'))
-    core = adapter.repaired_core()
+    core = portable_phase_verifier()
     smoke_bindings = core.verify_phase_closure(plan, condition, 'smoke')
     inspected_smoke(folder, smoke_bindings)
     core.verify_phase_closure(plan, condition, 'development')
