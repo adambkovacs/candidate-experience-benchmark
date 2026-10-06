@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Kev reference-review wording corrected, 6 October 2026, 09:49 UTC
+
+The Kev builder and feed now record the owner's 2 October confirmation that all 60 labels were human-reviewed, while retaining frozen provisional v0.2 labels and unchanged scores. JSON comparison confirms only `referenceStatus` changed. Combined analysis still verifies against all 130 source hashes. Of 27 combined reporter tests, one historical hosted-v2 export test failed at a pre-existing missing phase-closure file; no Kev test failed. The old hosted-v2 builder also fails its current-tree interrupted predecessor gate. Those historical builders and feeds were restored unchanged; their archival refresh needs a separately versioned approach. Root review of the two-line Kev change: APPROVE, no findings. Publication is pending.
+
+The native-variant audit reports both exact Kev/Jev endpoints available at unchanged public rates. The old runner's hard $10 ledger and missing shared-authority hold prevent current admission despite sufficient last-observed headroom. No request or budget mutation was made; a reviewed versioned executor is the next step after the audit finishes.
+
 ## Independent continuation preparation, 6 October 2026, 09:44 UTC
 
 `e4b_unsent_prepare` owns offline preparation for exactly DEV-053 through DEV-060 in Gemma E4B thinking-on fresh2/P2. Its two unknown outcomes, DEV-039 and DEV-052, and 50 saved answers must remain unchanged. The agent may create a separate controller, tests and unapproved manifest; it may not load a model or send requests. Root must review it and recheck hosted availability before any local admission.
