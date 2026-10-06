@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Gemma continuation prepared; native review underway, 6 October 2026, 10:05 UTC
+
+Root re-reviewed the E4B continuation after the live prompt/token preflight fix: APPROVE, no confirmed remaining findings. Six tests passed in root's run; the implementer then added and passed a seventh test for all eight successful fixture responses. The exact DEV-053–060 manifest is frozen as `offline_prepared_unapproved`, SHA `ce0ff9227691fff4be38cfba9f2e3e1372d528778062be640c60dbfd0fe4b6dc`. No runtime preflight, model load or inference has occurred for it. Qwen3.5 retains the GPU lock; later admission must verify hosted absence, the loaded model, current host and root receipt.
+
+`e4b_unsent_prepare` now independently reviews the new Kev/Jev native-v2 smoke executor. Root is running its six offline tests. The old full-pass context gate remains; no smoke is yet admitted. Root manually dispatched Pages after the test-only publication fix, because this workflow triggers automatically only on public-site or workflow changes. Deployment success and live-byte verification are still pending.
+
 ## Publication fixture repaired, 6 October 2026, 09:58 UTC
 
 Pages run 37445559463 failed because three new Qwen reporter tests read the uncommitted live development receipt. Root replaced that dependency with explicitly synthetic development receipts derived from committed smoke evidence. All 15 reporter tests pass both in the working tree and in a clean Git archive with only the proposed test overlaid. Review: APPROVE; the confirmed BLOCKING clean-checkout failure is resolved without committing live run files. No published score or inference request changed. A new deployment must still succeed before the Kev wording change is called published.
