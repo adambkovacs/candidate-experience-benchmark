@@ -10,7 +10,7 @@ Use explicitly configured Sol high agents for remaining delegated work. Finish t
 
 ## Execution checkpoint, 6 October 2026, 22:38 UTC
 
-Solar has eight completed full passes. Its final fresh3/P2 run stopped at DEV-009: eight answers saved, one unknown outcome and 51 unsent reviews. An exact unsent continuation is being prepared; the unknown request will not be replayed. The main report now includes the 21 additional Solar, Liquid and Tev run views, verified on the published site. The newer Clef comparison grid and combined findings are also published, with all five updated assets verified against `ffa7a3a7`.
+Solar has eight completed full passes. Its final fresh3/P2 run stopped at DEV-009: eight answers saved, one unknown outcome and 51 unsent reviews. The reviewed exact 51-review continuation is admitted and running; the unknown request will not be replayed. The main report now includes the 21 additional Solar, Liquid and Tev run views, verified on the published site. The newer Clef comparison grid and combined findings are also published, with all five updated assets verified against `ffa7a3a7`.
 
 Cloudflare remains paused at its daily provider quota. Preparation continues for the exact 59 unsent Clef reviews, 58 unsent Flash reviews and the separate Jev study. The $10 alert is enabled; the project ledger separately enforces the spending limit. No local inference is running for this task.
 
