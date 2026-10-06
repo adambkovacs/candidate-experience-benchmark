@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Publication and admission checks, 06 October 2026, 11:47 UTC
+
+- Qwen publication is verified: Pages 37457799533 succeeded for `d54ab26a`. Live legacy-Qwen and combined-analysis feeds match that commit exactly and report 2/9 closed Qwen3.5 phases.
+- Jev tail admission stopped before allocation because its proposed partition name contained uppercase characters rejected by the real allocator. Root verified no child, receipt or stage exists; authority and master heads are unchanged. jev_authority_v2_bridge is fixing the name and adding a real-allocation regression test. No request was sent.
+- Independent Qwen continuation review found a blocking host-audit schema mismatch between smoke completion and development admission. qwen35_successor_report is fixing it with a transition test. jev_v2_activation_review owns independent re-review of both fixes.
+
 ## Jev v2 activation, 6 October 2026, 11:44 UTC
 
 - Independent activation review: APPROVE, no confirmed blocking or residual findings; 40 focused and related offline tests passed. The reviewed implementation is committed in `3adc27d6`.
