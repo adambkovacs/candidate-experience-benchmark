@@ -11,7 +11,8 @@ import liquid_d1_full_execution_v1 as full
 OUTPUT = ROOT / 'public-site/liquid-d1-native-full-findings.json'
 # Deliberately explicit: a live or merely smoked phase is never auto-published.
 CLOSED_STAGES = ('fresh1/P0', 'fresh1/P1', 'fresh1/P2',
-                 'fresh2/P0', 'fresh2/P1', 'fresh2/P2', 'fresh3/P0')
+                 'fresh2/P0', 'fresh2/P1', 'fresh2/P2',
+                 'fresh3/P0', 'fresh3/P1', 'fresh3/P2')
 
 
 def condition_summary(stages, condition):
@@ -64,6 +65,13 @@ def build(root=ROOT):
         projected_bindings.append({'path': str(path.relative_to(root)), 'sha256': full.sha(path)})
     phase_rows = {stage: {'all_four_correct': item['all_four_correct'],
                           'fields_correct': {key: item['fields'][key]['correct'] for key in KEYS},
+                          'usage': {'input_tokens': sum(row['usage']['input_tokens']
+                                                        for row in item['records']),
+                                    'output_tokens': sum(row['usage']['output_tokens']
+                                                         for row in item['records'])},
+                          'provider_confidence_thresholds_by_field': {
+                              key: item['fields'][key]['provider_confidence_thresholds']
+                              for key in KEYS},
                           'known_actual_usd': item['known_actual_usd'],
                           'public_projection_sha256': projected_bindings[index]['sha256']}
                   for index, (stage, item) in enumerate(stages.items())}

@@ -34,10 +34,13 @@ class LiquidAggregateTests(unittest.TestCase):
             self.skipTest('Public aggregate not present in this checkout')
         result = report.build()
         self.assertEqual(result['closed_development_stages'], list(report.CLOSED_STAGES))
-        self.assertEqual(result['closed_stage_count'], 7)
+        self.assertEqual(result['closed_stage_count'], 9)
         self.assertEqual(result['planned_stage_count'], 9)
-        self.assertEqual(result['unpublished_development_stages'],
-                         ['fresh3/P1', 'fresh3/P2'])
+        self.assertEqual(result['unpublished_development_stages'], [])
+        self.assertTrue(all(value['usage']['output_tokens'] == 0
+                            for value in result['phases'].values()))
+        self.assertTrue(all(value['usage']['input_tokens'] > 0
+                            for value in result['phases'].values()))
         self.assertEqual(json.loads(report.OUTPUT.read_text()), result)
 
     def test_selected_root_uses_only_declared_source_bindings(self):

@@ -1,0 +1,221 @@
+{
+  "kind": "liquid-d1-native-offline-score-v1",
+  "stage": "fresh3/P2",
+  "denominator": 60,
+  "valid_outputs": 60,
+  "all_four_correct": 41,
+  "fields_correct": {
+    "sentiment": 47,
+    "follow_up_needed": 54,
+    "serious_concern_reported": 56,
+    "testimonial_potential": 58
+  },
+  "reference_status": "AI-reviewed provisional; development only",
+  "development_score": {
+    "reference_status": "AI-reviewed provisional; development only",
+    "records": 60,
+    "valid_outputs": 60,
+    "missing_or_failed": [],
+    "metrics": {
+      "sentiment": {
+        "correct": 47,
+        "denominator": 60,
+        "accuracy": 0.7833333333333333,
+        "macro_f1": 0.7813343888815587,
+        "per_label": {
+          "positive": {
+            "tp": 10,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.9090909090909091,
+            "recall": 0.9090909090909091,
+            "f1": 0.9090909090909091
+          },
+          "negative": {
+            "tp": 21,
+            "fp": 1,
+            "fn": 10,
+            "precision": 0.9545454545454546,
+            "recall": 0.6774193548387096,
+            "f1": 0.7924528301886793
+          },
+          "mixed": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "neutral": {
+            "tp": 7,
+            "fp": 11,
+            "fn": 1,
+            "precision": 0.3888888888888889,
+            "recall": 0.875,
+            "f1": 0.5384615384615384
+          },
+          "insufficient_information": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666
+          }
+        }
+      },
+      "follow_up_needed": {
+        "correct": 54,
+        "denominator": 60,
+        "accuracy": 0.9,
+        "macro_f1": 0.603988603988604,
+        "per_label": {
+          "yes": {
+            "tp": 30,
+            "fp": 0,
+            "fn": 5,
+            "precision": 1.0,
+            "recall": 0.8571428571428571,
+            "f1": 0.9230769230769231
+          },
+          "no": {
+            "tp": 24,
+            "fp": 6,
+            "fn": 0,
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "serious_concern_reported": {
+        "correct": 56,
+        "denominator": 60,
+        "accuracy": 0.9333333333333333,
+        "macro_f1": 0.8444444444444444,
+        "per_label": {
+          "yes": {
+            "tp": 25,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "no": {
+            "tp": 28,
+            "fp": 3,
+            "fn": 1,
+            "precision": 0.9032258064516129,
+            "recall": 0.9655172413793104,
+            "f1": 0.9333333333333333
+          },
+          "insufficient_information": {
+            "tp": 3,
+            "fp": 1,
+            "fn": 3,
+            "precision": 0.75,
+            "recall": 0.5,
+            "f1": 0.6
+          }
+        }
+      },
+      "testimonial_potential": {
+        "correct": 58,
+        "denominator": 60,
+        "accuracy": 0.9666666666666667,
+        "macro_f1": 0.6405228758169934,
+        "per_label": {
+          "yes": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.8888888888888888,
+            "f1": 0.9411764705882353
+          },
+          "no": {
+            "tp": 50,
+            "fp": 2,
+            "fn": 0,
+            "precision": 0.9615384615384616,
+            "recall": 1.0,
+            "f1": 0.9803921568627451
+          },
+          "insufficient_information": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      }
+    },
+    "serious_concerns": {
+      "reference_yes": 25,
+      "predicted_no": [],
+      "predicted_insufficient": [],
+      "output_failed_or_missing": [],
+      "false_escalations": []
+    },
+    "pair_checks": [
+      {
+        "id": "resolution",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "style",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "irrelevant_religion",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "sex_stereotype_symmetry",
+        "status": "scored",
+        "invariants_preserved": false,
+        "expected_changes_correct": true,
+        "both_fully_correct": false
+      },
+      {
+        "id": "identity_evidence",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      },
+      {
+        "id": "complaint_style",
+        "status": "scored",
+        "invariants_preserved": true,
+        "expected_changes_correct": true,
+        "both_fully_correct": true
+      }
+    ]
+  },
+  "references_sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+  "pairs_sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da",
+  "scoring_source_sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d",
+  "parsed_sha256": "75c210f87e919c9c4442180ca7af6ff61a21f12d6dac9809fe8ea17a369de899"
+}
