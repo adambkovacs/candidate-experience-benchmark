@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Native smoke executor reviewed, 6 October 2026, 10:13 UTC
+
+The [v2 Kev/Jev smoke executor](../scripts/openrouter_native_variants_v2.py) passed independent re-review after fixing the request-binding gap. Verdict: APPROVE, no confirmed remaining findings. Seven offline tests pass in both the implementer's and root's runs, including temporary-ledger accounting and changed-input refusal before spending. Four offline manifests remain `prepared_not_admitted`; no allocation, authority hold or model call was made.
+
+The next eligible native stage is Kev P1 DEV-001–003, subject to fresh exact-route verification, an atomic child allocation and a root receipt binding the current shared-authority head. Full passes remain disabled pending all-record context proof and inspected smoke evidence. The [dated route audit](../results/route-audits/native-variants-recheck-20261006/README.md) records public metadata and ledger headroom, not current admission.
+
 ## Publication verified, 6 October 2026, 10:08 UTC
 
 [Pages run 37447299000](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37447299000) succeeded for `92d07574`. Live `kev-native-repeats.json` matches the committed feed, SHA-256 `3f8b95ae790a8252fe2bb7a6823a8ee8196a245bf37bd4fb4f5944cb2b0e0fa9`; live HTML also matches, SHA-256 `4dc84f169a20b7201adc6b96bf6b0bda1fef81d6ceee703d5d07be1d06a5e3c0`. This verifies publication bytes, not a new browser visual inspection. The earlier failed deployment is preserved.
