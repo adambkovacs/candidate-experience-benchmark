@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Battery and hosted continuation, 6 October 2026
+
+- Qwen fresh2/P0 remains on its original live handle 4810. The user raised battery drain; no further local pass will start until they answer whether to continue local execution. Preserve the running pass and all saved responses.
+- The user reaffirmed OpenRouter usage and reported $0.47 remaining account credit. DeepSeek's ten-request conservative reservation is $0.630784. No new paid allocation or request has been sent. The new price/authority adapter is prepared with 21 offline tests passing and is under independent review; root owns admission after account capacity and spending authority are reconciled.
+- The repeat selector accessibility update is published: Pages 37473696141 succeeded for 85663666, and root verified exact live repeats.js bytes. Qwen admission transition tests are committed and pushed in c7f5f554; only isolated fixtures changed.
+
 ## Current checkpoint, 6 October 2026
 
 - Publication is verified: Pages run [37469516388](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37469516388) succeeded for `a8640dc0`. Live `e4b-interruption-findings.json`, `repeats.js` and `analysis-refresh.json` match the committed files byte for byte.
