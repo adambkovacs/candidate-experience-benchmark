@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Preparation checkpoint, 6 October 2026, 20:59 UTC
+
+- Final DeepSeek low analysis was independently approved and pushed in `3664dce0`. It passes 19 Python tests plus four subtests, 15 UI tests, and a clean-archive analysis check against 1,142 source hashes. Pages deployment is queued; do not yet claim this version is live.
+- The Cloudflare historical reconciliation proposal is independently approved at `193a6489`: $0.247786 pricing-derived upper bound for successful responses plus $0.011798 retained for two unknown requests. This is not an invoice total. The inclusive $10 cap has room for the remaining work; a new Cloudflare-only runner is still being prepared and no request has been sent.
+- Solar's full nine-phase candidate is repaired and frozen at `a27a02d5`. Both committed-archive preparation tests now pass without weakening existing-artifact refusal. Eight tests and five subtests pass; final independent review remains before allocation and the new three-record smoke. The earlier two-record continuation stays separate.
+- Live mobile resource-use selection displayed Fable's cache tokens and API-equivalent price. Native arrow-key selection remains unverified; see the [bounded browser check](REPORT_BROWSER_CHECK_2026-10-06.md).
+
 ## Verified progress, 6 October 2026, 20:50 UTC
 
 - DeepSeek low execution is complete. Its final P0 pass returned 59 valid answers and 58/60 all-field matches. The sealed successor records $0.099872777706 known cost and no new unknown charges; root released only its unused $0.400127222294. Earlier failures remain preserved. The final report is committed in `83bc6130`; combined-analysis integration is under review.
