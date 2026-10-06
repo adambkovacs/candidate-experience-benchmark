@@ -38,7 +38,10 @@ class PostapprovalAuthorityV2Test(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.ledger = Path(self.tmp.name) / 'authority.jsonl'
-        shutil.copyfile(ROOT / 'results/postapproval-paid-work-2026-10-02.jsonl', self.ledger)
+        raw = (ROOT / 'results/postapproval-paid-work-2026-10-02.jsonl').read_bytes()
+        baseline = b''.join(raw.splitlines(keepends=True)[:authority.ORIGINAL_EVENTS])
+        self.assertEqual(authority.sha(baseline), authority.ORIGINAL_HEAD)
+        self.ledger.write_bytes(baseline)
 
     def release(self, *, amount=AMOUNT, head=None, stage=STAGE, child=None,
                 master=MASTER, release_id='jev-p2-fresh1-unused-v2'):

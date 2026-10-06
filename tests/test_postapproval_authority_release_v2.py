@@ -27,9 +27,12 @@ class FirstReleaseControllerTest(unittest.TestCase):
         self.receipt_path = self.folder / 'release-receipt.json'
         source = ROOT / 'results/postapproval-paid-work-2026-10-02.jsonl'
         self.production_head = hashlib.sha256(source.read_bytes()).hexdigest()
-        shutil.copyfile(source, self.ledger)
+        baseline = b''.join(source.read_bytes().splitlines(keepends=True)[:authority.ORIGINAL_EVENTS])
+        self.assertEqual(authority.sha(baseline), authority.ORIGINAL_HEAD)
+        self.ledger.write_bytes(baseline)
         proposal = json.loads((ROOT / 'results/route-audits/postapproval-authority-v2-20261006/proposal.json').read_text())
         proposal['authority_file'] = str(self.ledger)
+        proposal['master_head_sha256_at_proposal'] = authority.file_sha(Path(proposal['proposed_release_receipt']['release_event']['master_ledger_path']))
         self.proposal = proposal
         self.save_proposal()
         self.approve()
