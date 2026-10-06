@@ -1,0 +1,18 @@
+# Liquid d1 native Choice full-stage candidate
+
+Status: **offline prepared, unapproved**. No child allocation, authority hold or new inference was made by this adapter. The closed three-record fresh1/P0 smoke remains in its original child and is used only as inspected predecessor evidence. Its [public projection](../smoke.public.json), [closure receipt](../smoke.closure-audit.json) and [reconciliation](../smoke.reconciliation.json) bind that result; the full-stage executor does not replay it.
+
+The [OpenRouter endpoint record](https://openrouter.ai/api/v1/models/liquid/d1/endpoints) pins `liquid/d1` to `Liquid | liquid/d1-20260930`, the `liquid` provider, native `text->decisions`, and a 65,536-token context. [Liquid's decision-model documentation](https://docs.liquid.ai/lfm/models/decision-models) says input usage totals all questions. Each request carries the four frozen Choice questions and an input-only feedback/policy state. The runner sends the exact canonical payload from the frozen [nine-phase plan](../plan.json), with no truncation or reference labels. The largest serialized request is 12,737 UTF-8 bytes. The three completed P0 smoke calls reported 6,460–6,564 aggregate input tokens. The endpoint identifies its tokenizer as `Other` and publishes no exact token-count route for this configuration; these sizes and observations do **not** prove the 540 future development requests fit. A provider context rejection stops the stage with its attempt and cost evidence intact.
+
+The per-request reserve is four complete 65,536-token contexts at the higher of the prompt and cache-read prices, or **$0.01048576**. The proposed new v4 OpenRouter-only child and matching authority hold are **$1.00**. That covers one 60-record phase plus its three-record smoke at the full-context ceiling ($0.66060288). Later phases may run only while the same child has another full request reserve; $1.00 is not a guarantee that all nine phases will finish. The full-context ceiling for nine development phases plus eight new smokes is $5.91396864, but no such amount is allocated here. Fresh authority and master headroom must be checked before root allocation.
+
+The order is fresh1/P0 development, then P1 and P2 in fresh1, followed by P0/P1/P2 in fresh2 and fresh3. Each of the remaining eight phases needs a three-record smoke, a root inspection bound to its exact closure, and a separate 60-record development review. Every stage needs the reviewed adapter receipt, exact v4 child binding, unreleased authority hold, live endpoint/price check, and phase-specific root receipt. The runner claims a stage once, reserves before each call, records the raw response before parsing, and never retries automatically. A known-cost intrinsic Choice failure remains in the 60-attempt denominator without clean credit; transport, provider, route, context, tariff and unknown-cost failures stop the stage. Unknown cost retains its full reserve.
+
+Offline checks, with no key or paid request:
+
+```sh
+PYTHONPATH=scripts python3 scripts/liquid_d1_full_execution_v1.py verify
+PYTHONPATH=scripts python3 -m unittest tests.test_liquid_d1_full_execution_v1 -q
+```
+
+After independent review and root allocation, `hold-source` computes the exact source digest for a root-controlled `openrouter_authority_release_v4.hold_authority` call. `stage-template --stage fresh1/P0 --mode development` produces the initial phase receipt only after all gates are present. Root must set the adapter and phase receipts to approved, inspect each later smoke using `inspect-template`, and use the returned exact stage receipt path with `development` or `smoke`. No CLI action creates an allocation or an authority hold.
