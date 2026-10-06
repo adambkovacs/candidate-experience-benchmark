@@ -51,3 +51,7 @@ This is local rendering evidence, not deployment verification. The chart has no 
 ## Liquid paired findings publication
 
 [Pages run 37534957568](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37534957568) succeeded for `26dfa073`. The live Liquid findings feed, combined analysis JSON and analysis JavaScript matched that commit byte for byte. This publishes the nine paired calculations and their explanation. The chart integration in the following commit was still deploying at this check.
+
+## Resource selector keyboard check resolved
+
+On the local integrated page, the browser's native keyboard events (Space, Down, Return) changed `usage-run-select` from `typesafe-jev113-v2` to `typesafe-jev113-v2--p1`. The section updated to P1, showing 152,500 input tokens, 11,176 output tokens and a $0.006405 estimate. Focus remained on the selector with a visible solid outline. This resolves the earlier selector-specific keyboard test limitation; synthetic locator key presses alone did not change the value. It does not establish full-site keyboard coverage.
