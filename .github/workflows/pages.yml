@@ -42,7 +42,7 @@ jobs:
           python3 -m unittest tests.test_build_clef_flash_p2_findings -q
           python3 scripts/build_supplemental_decision_runs_v1.py check
           PYTHONPATH=scripts python3 -m unittest discover -s tests -p test_build_supplemental_decision_runs_v1.py -q
-          node --test tests/test_supplemental_decision_ui.cjs
+          node --test tests/test_supplemental_decision_ui.cjs tests/test_clef_repeat_chart_ui.cjs
           python3 scripts/build_analysis_refresh.py --check
           python3 -m unittest tests.test_analysis_refresh -q
           node --test tests/test_analysis_refresh_ui.cjs tests/test_clef_current_matrix_ui.cjs tests/test_clef_p0_third_checkpoint_ui.cjs
