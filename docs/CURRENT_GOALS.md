@@ -8,6 +8,14 @@ No further local inference is authorized. Preserve completed local results and m
 
 Use explicitly configured Sol high agents for remaining delegated work. Finish the admitted hosted runs, reconcile the remaining roster, and refresh the complete analysis and public presentation. The private classification-bench work remains separate. [Current assignments](TODO.md) and [copyable goal](APP_GOAL.md).
 
+## Hosted analysis and publication checkpoint, 6 October 2026, 23:33 UTC
+
+Solar's [full report](../public-site/solar-decide-full-findings.json) covers all nine declared attempts: eight passes have 60 usable answers, and final fresh3/P2 has 59 usable answers plus the preserved DEV-009 timeout. That is 539 usable answers across 540 planned development positions. The exact DEV-010–060 continuation finished without replaying DEV-009. Comparisons involving final P2 use 59 shared usable reviews and do not call it a clean repeat. The original child retains a $0.10485760 unknown-charge bound; known charges across both sealed children total $0.21342610.
+
+The Solar report and combined analysis passed independent post-fix review. A real Git archive, with no local-file overlays, passed the Solar, supplemental and combined-analysis checks, 27 focused Python tests plus four subtests, and 17 UI tests. The separate historical E4B test fixture was corrected in `5c85d1b4` without changing runtime evidence; the broad Node suite now passes 351/351. Corrected [Pages run 37546716678](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37546716678) is still in progress. Do not call this integrated edition published until the run succeeds and live asset hashes match the committed files.
+
+Cloudflare POSTs remain paused after provider error 4006 exhausted the free daily allowance. The [documented reset](https://developers.cloudflare.com/workers-ai/platform/pricing/) is 00:00 UTC; a budget alert and project cap do not bypass that quota. The latest plain Mistral high P2 smoke returned HTTP 429 on DEV-001; DEV-002/003 and development remain unsent, and the $0.04177920 unknown-charge bound is retained. Neither failed request is replayed. See the [current checklist](TODO.md) for exact pending work.
+
 ## Execution checkpoint, 6 October 2026, 23:05 UTC
 
 Solar execution has ended: eight passes contain all 60 responses; the final P2 has 59 valid responses and one preserved timeout. Its exact 51-record continuation cost $0.01968815 and introduced no further unknown charges. The full repeat and prompt analysis is in preparation against sealed evidence.
