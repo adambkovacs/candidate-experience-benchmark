@@ -55,3 +55,11 @@ This is local rendering evidence, not deployment verification. The chart has no 
 ## Resource selector keyboard check resolved
 
 On the local integrated page, the browser's native keyboard events (Space, Down, Return) changed `usage-run-select` from `typesafe-jev113-v2` to `typesafe-jev113-v2--p1`. The section updated to P1, showing 152,500 input tokens, 11,176 output tokens and a $0.006405 estimate. Focus remained on the selector with a visible solid outline. This resolves the earlier selector-specific keyboard test limitation; synthetic locator key presses alone did not change the value. It does not establish full-site keyboard coverage.
+
+## Published Liquid chart and keyboard navigation verified
+
+Pages run [37535467966](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37535467966) succeeded for `7b308d14`. Root compared live chart JavaScript, stylesheet and index bytes with that commit; all matched.
+
+On the live page, reduced-motion emulation applied to 140 chart descendants. Every checked element had no animation and a zero-second transition; the root scroll behavior was `auto`. The override was cleared afterward. This verifies the Liquid chart, not every animation elsewhere on the site.
+
+Native keyboard input focused “Skip to content” on the first Tab. Return moved to `#main`, and the next Tab focused “See what we found” inside the main content. The earlier resource selector check remains separate.
