@@ -6,6 +6,7 @@ import pytest
 
 import clef_cloudflare_operator_v1 as operator
 import clef_connected_app_bridge as bridge
+import clef_native_preparation as prep
 
 
 def request(tmp_path, outer):
@@ -47,3 +48,19 @@ def test_error_or_multiple_blocks_preserve_original_and_do_not_reply(tmp_path, o
     assert bridge.read_json(tmp_path / f'{attempt}.tool-result.original.json') == outer
     assert not (tmp_path / f'{attempt}.response.json').exists()
     assert not (tmp_path / f'{attempt}.app-result.json').exists()
+
+
+def test_prepare_rejects_wrong_account_before_dispatch(tmp_path):
+    account = 'a' * 32
+    attempt = '123e4567-e89b-12d3-a456-426614174001'
+    ready = {'kind': bridge.KIND + '-request', 'attempt_id': attempt,
+             'id': 'DEV-002', 'model': 'clef', 'method': 'POST',
+             'path': '/accounts/{ACCOUNT_ID}/ai/run/@cf/cloudflare/clef',
+             'account_id_sha256': prep.sha(account.encode()),
+             'request_sha256': 'a' * 64, 'body': {'model': 'clef'}}
+    bridge.atomic_json(tmp_path / f'{attempt}.request.json', ready)
+    with pytest.raises(ValueError, match='identity'):
+        operator.prepare(tmp_path, 'b' * 32)
+    assert not (tmp_path / f'{attempt}.dispatch.json').exists()
+    assert operator.prepare(tmp_path, account) == ready
+    assert (tmp_path / f'{attempt}.dispatch.json').exists()

@@ -10,6 +10,40 @@ import json
 from pathlib import Path
 
 import clef_connected_app_bridge as bridge
+import clef_native_preparation as prep
+import clef_native_smoke_runner as smoke
+
+
+def prepare(directory, account_id):
+    directory = Path(directory)
+    if (directory.parent / 'completion.json').exists():
+        raise ValueError('Stage already terminal')
+    pending = []
+    for path in directory.glob('*.request.json'):
+        attempt = path.name.removesuffix('.request.json')
+        if not (directory / (attempt + '.dispatch.json')).exists():
+            pending.append(path)
+    if len(pending) != 1:
+        raise ValueError('Expected exactly one durable, undispatched request')
+    path = pending[0]
+    ready = bridge.read_json(path)
+    attempt = ready['attempt_id']
+    if (path.name != attempt + '.request.json' or
+            ready.get('kind') != bridge.KIND + '-request' or
+            ready.get('account_id_sha256') != prep.sha(account_id.encode('ascii')) or
+            ready.get('model') not in ('clef', 'clef-flash') or
+            ready.get('method') != 'POST' or
+            ready.get('path') != '/accounts/{ACCOUNT_ID}/ai/run/@cf/cloudflare/' + ready['model'] or
+            not isinstance(ready.get('body'), dict) or
+            ready['body'].get('model') != ready['model'] or
+            any((directory / (attempt + suffix)).exists() for suffix in
+                ('.response.json', '.tool-result.original.json', '.tool-result.json',
+                 '.app-result.json'))):
+        raise ValueError('Request identity or duplicate dispatch differs')
+    bridge.atomic_json(directory / (attempt + '.dispatch.json'),
+                       {'operator': '/root/qwen_recovery',
+                        'request_sha256': ready['request_sha256']})
+    return ready
 
 
 def consume(request_path):
@@ -47,9 +81,16 @@ def consume(request_path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('request', type=Path)
+    parser.add_argument('command', choices=('prepare', 'consume'))
+    parser.add_argument('path', type=Path)
+    parser.add_argument('--account-id')
     args = parser.parse_args()
-    print(consume(args.request))
+    if args.command == 'prepare':
+        if not args.account_id or not smoke.ACCOUNT_PATTERN.fullmatch(args.account_id):
+            raise ValueError('Exact Cloudflare account ID required')
+        print(json.dumps(prepare(args.path, args.account_id), separators=(',', ':')))
+    else:
+        print(consume(args.path))
 
 
 if __name__ == '__main__':
