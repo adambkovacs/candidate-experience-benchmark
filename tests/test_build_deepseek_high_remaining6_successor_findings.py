@@ -23,7 +23,7 @@ def copied_root(tmp_path):
 
 def test_archived_suffix_and_full_phases_stay_separate():
     result = report.build()
-    assert result['publishedClosedStages'] == ['fresh2/P2', 'fresh2/P0', 'fresh2/P1']
+    assert result['publishedClosedStages'] == ['fresh2/P2', 'fresh2/P0', 'fresh2/P1', 'fresh3/P1', 'fresh3/P2']
     assert result['matchedCleanRepeatEligible'] is False
     composite = result['phases']['fresh2/P2']
     assert composite['status'] == 'interrupted_composite_descriptive_only'
@@ -67,7 +67,7 @@ def test_selected_root_rejects_different_reporter(tmp_path):
 
 def test_unfinished_future_phase_is_not_promoted():
     result = report.build()
-    assert 'fresh3/P1' not in result['phases']
+    assert 'fresh3/P0' not in result['phases']
 
 
 def test_parent_projection_keeps_private_provider_responses_out_of_bundle(tmp_path):
@@ -100,3 +100,14 @@ def test_parent_projection_rejects_prediction_change_without_private_raw(tmp_pat
     path.write_text(json.dumps(projection))
     with pytest.raises(ValueError, match='projection receipt differs'):
         report.build(root)
+
+
+def test_equal_scores_preserve_record_level_changes():
+    result = report.build()
+    for key in ('p1TwoPassRepeat', 'fresh3PromptChange'):
+        assert result[key]['allFourScores'] == [58, 58]
+        assert result[key]['changedRecordIds'] == ['DEV-030']
+        assert result[key]['changedRecords'] == 1
+        assert result[key]['denominator'] == 60
+    assert result['phases']['fresh3/P1']['fieldCorrect']['serious_concern_reported'] == 58
+    assert result['phases']['fresh3/P2']['fieldCorrect']['serious_concern_reported'] == 59

@@ -1,6 +1,13 @@
 # Current work checklist
 
-## Current checkpoint, 6 October 2026, 19:54 UTC
+## Current checkpoint, 6 October 2026, 20:00 UTC
+
+- Tev now has five closed full passes: first P0/P1/P2 and second P0/P1, all 300 answers valid. First-pass scores are 45/44/44; second P0/P1 scores are 45/44. Agent `gemini_recovery` is preparing second P2 smoke and owns the remaining four full passes.
+- DeepSeek high third P2 closed with 60 valid answers and 58/60 full matches. Final third P0 is running on original handle 98644. Agent `qwen_recovery` owns execution and is preparing the next Mistral exact-unsent hosted proposal offline. Root's five-stage high report verifies the two closed third-pass phases, per-field counts and record-level comparisons. Both classifier-prompt passes scored 58/60 but differed on DEV-030; third-pass P1/P2 also scored 58/60 and differed on DEV-030. These are descriptive comparisons, not proof that prompting caused a change. Nine report tests, 12 UI tests and a clean Git archive rebuild with 1,051 source bindings pass; independent review approved.
+- DeepSeek low's 33-review suffix is closed: 32 valid answers and DEV-030 truncated, with $0.016800335396 known cost and no new unknown charge. The combined second P1 still retains DEV-006 invalid and DEV-027 unknown. Third P1 is running on original handle 49264 after root-inspected smoke; third P2/P0 follow. Agent `deepseek_recovery` owns execution and a separate report.
+- Publication repair `94a891a7` is pushed. Deployment 37522399801 remains in progress at the last check; the newer high analysis needs publication after this checkpoint. No local inference was started. Mistral, other specialist routes, Cloudflare funding, full roster reconciliation and final public checks remain unfinished.
+
+## Earlier checkpoint, 6 October 2026, 19:54 UTC
 
 - Tev first P0, P1 and P2 are closed: each has 60 valid answers, with all-four agreement of 45/60, 44/60 and 44/60 respectively. Second P0 smoke is next. Agent `gemini_recovery` owns this series.
 - DeepSeek high third P2 remains running on original handle 79273; third P0 follows. Agent `qwen_recovery` owns it. DeepSeek low's independently reviewed successor is admitted at $0.50 and original handle 38147 is processing only DEV-028–060 of interrupted second P1. Agent `deepseek_recovery` owns that continuation and the three later full passes. No completed request was replayed.

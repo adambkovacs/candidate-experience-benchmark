@@ -5,7 +5,9 @@
   "publishedClosedStages": [
     "fresh2/P2",
     "fresh2/P0",
-    "fresh2/P1"
+    "fresh2/P1",
+    "fresh3/P1",
+    "fresh3/P2"
   ],
   "plannedRemainingStages": [
     "fresh2/P2",
@@ -33,6 +35,12 @@
       "knownDevelopmentCostUsd": "0.028609033890",
       "unknownCostUpperBoundUsd": "0.06905856",
       "smokeCostExcluded": true,
+      "fieldCorrect": {
+        "sentiment": 58,
+        "follow_up_needed": 59,
+        "serious_concern_reported": 57,
+        "testimonial_potential": 59
+      },
       "closureReceiptSha256": "2b9de8ee5176333860b008320fb17e50725e58b6019c42e21b3243562cc0da5a"
     },
     "fresh2/P0": {
@@ -52,6 +60,12 @@
       "knownDevelopmentCostUsd": "0.031520474702",
       "unknownCostUpperBoundUsd": "0",
       "smokeCostExcluded": true,
+      "fieldCorrect": {
+        "sentiment": 58,
+        "follow_up_needed": 59,
+        "serious_concern_reported": 59,
+        "testimonial_potential": 59
+      },
       "closureReceiptSha256": "5cb3dd7dc53738af3924fcee8ba20e69cae8321d23703268ce01395abaf5966b"
     },
     "fresh2/P1": {
@@ -68,10 +82,90 @@
       "knownDevelopmentCostUsd": "0.0277482953",
       "unknownCostUpperBoundUsd": "0",
       "smokeCostExcluded": true,
+      "fieldCorrect": {
+        "sentiment": 59,
+        "follow_up_needed": 59,
+        "serious_concern_reported": 59,
+        "testimonial_potential": 60
+      },
       "closureReceiptSha256": "ae212eb6876060e4a1e155cc683177b887075f7cbbff6f2fda590f507ea4a421"
+    },
+    "fresh3/P1": {
+      "status": "completed",
+      "score": {
+        "denominator": 60,
+        "valid": 60,
+        "allFour": 58,
+        "invalidIds": [],
+        "outcomes": {
+          "ok": 60
+        }
+      },
+      "knownDevelopmentCostUsd": "0.02685414743",
+      "unknownCostUpperBoundUsd": "0",
+      "smokeCostExcluded": true,
+      "fieldCorrect": {
+        "sentiment": 59,
+        "follow_up_needed": 59,
+        "serious_concern_reported": 58,
+        "testimonial_potential": 60
+      },
+      "closureReceiptSha256": "15a610646c981e2156e058476acdaf2cde68a1d9c2af3a37e49181e96ad3048f"
+    },
+    "fresh3/P2": {
+      "status": "completed",
+      "score": {
+        "denominator": 60,
+        "valid": 60,
+        "allFour": 58,
+        "invalidIds": [],
+        "outcomes": {
+          "ok": 60
+        }
+      },
+      "knownDevelopmentCostUsd": "0.031944583072",
+      "unknownCostUpperBoundUsd": "0",
+      "smokeCostExcluded": true,
+      "fieldCorrect": {
+        "sentiment": 59,
+        "follow_up_needed": 59,
+        "serious_concern_reported": 59,
+        "testimonial_potential": 60
+      },
+      "closureReceiptSha256": "3e8ac19d238e544dbfc934f7a7177c575d10e11a73b8be0f33937795e5ab9e2d"
     }
   },
   "matchedCleanRepeatEligible": false,
+  "p1TwoPassRepeat": {
+    "passes": [
+      "fresh2/P1",
+      "fresh3/P1"
+    ],
+    "denominator": 60,
+    "changedRecordIds": [
+      "DEV-030"
+    ],
+    "changedRecords": 1,
+    "allFourScores": [
+      58,
+      58
+    ]
+  },
+  "fresh3PromptChange": {
+    "conditions": [
+      "P1",
+      "P2"
+    ],
+    "denominator": 60,
+    "changedRecordIds": [
+      "DEV-030"
+    ],
+    "changedRecords": 1,
+    "allFourScores": [
+      58,
+      58
+    ]
+  },
   "referenceStatus": "Frozen provisional v0.2 development labels; owner-confirmed human checks on 2026-10-02, without independent adjudication.",
   "limitations": [
     "The interrupted P2 composite retains DEV-027 as a provider failure with unknown cost.",
@@ -123,6 +217,14 @@
     {
       "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/budget-at-fresh2-p2-suffix-closure.jsonl",
       "sha256": "42ea0b24b68d6e7ef95c7f060ca4823118a603d4a43ecb14d7413ced39bbaefb"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/budget-at-fresh3-p1-closure.jsonl",
+      "sha256": "db593c9ed4a6d74c395a909d812a20f7ba1d24798ffb86bfadb7ce26505a77ec"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/budget-at-fresh3-p2-closure.jsonl",
+      "sha256": "3e55191fe5bc821c18274b8a08e134cae5e8c1c8979a487092b61147b3583648"
     },
     {
       "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/budget.json",
@@ -273,6 +375,106 @@
       "sha256": "c0eef81c239364d74ee58cbff06775bb9223c2341121e9669a59ed4b4725ba36"
     },
     {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/closure.review.json",
+      "sha256": "15a610646c981e2156e058476acdaf2cde68a1d9c2af3a37e49181e96ad3048f"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/development.attempts.jsonl",
+      "sha256": "3174bd570ffc650d9616b4b0cb1f655c350b0e6c92ce6edd6fa785a812a02e86"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/development.claim.json",
+      "sha256": "f3504f966a151db54aeba43556cd4069120a2cbc6ed0e129d6c6ffb41ca1e701"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/development.journal.jsonl",
+      "sha256": "6151bad8ce602ea24c62e5832031c13a4a01f66b0abe72f1e315352214af4bac"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/development.responses.jsonl",
+      "sha256": "f6bdb2b753aa7a488e2825841c5135e1f73bcb5bb228e1d8443b5c5c807c75f3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/development.root-review.json",
+      "sha256": "14f61be37fa986dabd0c7a57308a20aca0dbfa2054d255d15658b87be506079d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/smoke-inspection.json",
+      "sha256": "04d51c0d12c364690c50a13e25d32685f04df6629d47d1f875f97e78375346ab"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/smoke.attempts.jsonl",
+      "sha256": "8adcd14ff6fdf1a3e0deceb9715d1b4f36e89dffbf534f9761174d0908202921"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/smoke.claim.json",
+      "sha256": "c696d6a24a72abfa3ba22a8edc769ed93a7bcb496a877535843684ebc3a6a87b"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/smoke.journal.jsonl",
+      "sha256": "25ad106a62756cd78f4274ea21984ee9e3138369ed42b54a648b517f9374c6d5"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/smoke.responses.jsonl",
+      "sha256": "a43d1b6305b071061cf43ff8ff77eab7be2aab51b2ab1cf6a94dbdc08d630bbd"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P1/smoke.root-review.json",
+      "sha256": "78de7840e5880d3aeaf1fc677ff04a42b05887da2edf3c6db21d0eb2ff411d17"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/closure.review.json",
+      "sha256": "3e8ac19d238e544dbfc934f7a7177c575d10e11a73b8be0f33937795e5ab9e2d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/development.attempts.jsonl",
+      "sha256": "eee8ec3ed38294d18b8792100ebe67a03b04bbfe4a09318e19d66098a7f6a424"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/development.claim.json",
+      "sha256": "9639bc284cc9d88951f092c9640a8a883ae06fdccf7fc7f338323d2ebe0d855b"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/development.journal.jsonl",
+      "sha256": "5b610cb460481f2e262bf84228f8fbf56303c421b841f736b8a8586c23464e95"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/development.responses.jsonl",
+      "sha256": "ab16ff0996ba37556dc8b1d13366a154830705a017880ee9d915f6233acfd743"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/development.root-review.json",
+      "sha256": "74adfd1f9cbe5cf93f5417dc9cf4d087293e5a8386b8a117c34ddaaf10140987"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/smoke-inspection.json",
+      "sha256": "bea43c051f4bc5870e247d3c283d032d9a0fbaea6f43ce8390ed56e61236b4ce"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/smoke.attempts.jsonl",
+      "sha256": "34dd9beadef8e38a9fbd008f6d58c0027f79dc2de661db479e1e8c17b304e451"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/smoke.claim.json",
+      "sha256": "c5fdf7887b890b1ad5e0469e93fb02958a69990bfe3b2b9aa9398a57ff5c064e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/smoke.journal.jsonl",
+      "sha256": "695273e7f2862a0d5fc3b1385518c84f58c1aca47741c063b1e544bfe2f27dd2"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/smoke.responses.jsonl",
+      "sha256": "4e2ccd61b025caae5b4c709a539f21c68b2a834825bcbc8cb85f1cdef5435309"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/P2/smoke.root-review.json",
+      "sha256": "f58c661dfa7ac5e696cb980cd1319ae49d1dda923c349e2bc7538db30629b4cd"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/fresh3/manifest.json",
+      "sha256": "a3da47d732bfaaf0dfb23cd9ef452b4c5ab129dc1b4208525b165437e0900f1d"
+    },
+    {
       "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/unsent-continuation-v1/execution-adapter-v1/manifest.json",
       "sha256": "90f9ffa255a2f6e7fd32e1d7383b036db32f12fb7a70e9cc7974b8c3841dc979"
     },
@@ -290,7 +492,7 @@
     },
     {
       "path": "scripts/build_deepseek_high_remaining6_successor_findings.py",
-      "sha256": "c2ff30afc2e06cd8220cb14803dd80f69f00b8bfeeacd809c55c69dbe7127f08"
+      "sha256": "443264c5673a891d5c8ab093d4a9009e201d001d108bfd6b447d8cbb42deafa4"
     },
     {
       "path": "scripts/deepseek_high_remaining6_successor_execution_v1.py",
@@ -298,7 +500,7 @@
     },
     {
       "path": "tests/test_build_deepseek_high_remaining6_successor_findings.py",
-      "sha256": "dca46a65c5408199ce2d97299c3e223d9c7dfe0a91e901ee9938bac39b21cc84"
+      "sha256": "797bedf5c5d076910bc840f561fdd7665cd60b5031d58b8cf1c2cd067cbdf4ab"
     }
   ]
 }

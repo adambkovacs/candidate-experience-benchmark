@@ -15,7 +15,8 @@ EXECUTION = SUCCESSOR / 'execution-adapter-v1'
 PARENT = BASE / 'execution-adapter-v1/fresh2/P2'
 LABELS = Path('data/pilot/proposed_labels.jsonl')
 OUTPUT = Path('public-site/deepseek-high-remaining6-successor-findings.json')
-STAGES = (('fresh2', 'P2', 33), ('fresh2', 'P0', 60), ('fresh2', 'P1', 60))
+STAGES = (('fresh2', 'P2', 33), ('fresh2', 'P0', 60), ('fresh2', 'P1', 60),
+          ('fresh3', 'P1', 60), ('fresh3', 'P2', 60))
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported',
           'testimonial_potential')
 IDS = [f'DEV-{number:03d}' for number in range(1, 61)]
@@ -220,26 +221,27 @@ def build(root=ROOT):
         raise ValueError('High parent attempted IDs or unknown outcome differ')
     all_attempts = []
     phases = {}
+    stage_predictions = {}
+    stage_requests = {}
+    stage_controls = {}
     for repeat, condition, length in STAGES:
         stage = repeat + '/' + condition
         folder = EXECUTION / stage
-        snapshot = SUCCESSOR / {
-            'P2': 'budget-at-fresh2-p2-suffix-closure.jsonl',
-            'P0': 'budget-at-fresh2-p0-closure.jsonl',
-            'P1': 'budget-at-fresh2-p1-closure.jsonl',
-        }[condition]
-        receipt_path = (SUCCESSOR / 'fresh2-p2-suffix-closure.review.json' if condition == 'P2'
+        interrupted = stage == 'fresh2/P2'
+        snapshot = SUCCESSOR / ('budget-at-fresh2-p2-suffix-closure.jsonl'
+            if interrupted else f'budget-at-{repeat}-{condition.lower()}-closure.jsonl')
+        receipt_path = (SUCCESSOR / 'fresh2-p2-suffix-closure.review.json' if interrupted
                         else folder / 'closure.review.json')
-        required = stage_sources(stage, snapshot, condition == 'P2')
-        if condition == 'P2':
+        required = stage_sources(stage, snapshot, interrupted)
+        if interrupted:
             required.update(str(path) for path in (parent_audit_path,
                 BASE / 'reconciliation-after-dev027.json'))
         receipt = verify_receipt(root, receipt_path,
-            ('deepseek-high-remaining6-fresh2-p2-suffix-closure-v1' if condition == 'P2'
+            ('deepseek-high-remaining6-fresh2-p2-suffix-closure-v1' if interrupted
              else 'deepseek-high-remaining6-successor-phase-closure-v1'), required, bindings)
         plan = json.loads((root / EXECUTION / repeat / 'manifest.json').read_text())
         frozen = plan['conditions'][condition]
-        expected = IDS[27:] if condition == 'P2' else IDS
+        expected = IDS[27:] if interrupted else IDS
         if [item['record_id'] for item in frozen['development']] != expected:
             raise ValueError('High successor plan IDs differ: ' + stage)
         smoke = raw_phase(root, stage, 'smoke', expected[:3], frozen['smoke'])
@@ -247,11 +249,19 @@ def build(root=ROOT):
         if len(development) != length or any(row['status'] != 'ok' for row in smoke):
             raise ValueError('High successor phase length or smoke differs')
         all_attempts.extend(smoke + development)
+        stage_predictions[stage] = {row['id']: row['prediction'] for row in development if row['status'] == 'ok'}
+        stage_requests[stage] = [row['request_sha256'] for row in frozen['development']]
+        controls = json.loads(json.dumps([row['payload'] for row in frozen['development']]))
+        for payload in controls:
+            if payload['messages'][0]['role'] != 'system':
+                raise ValueError('Expected a separate system prompt')
+            payload['messages'][0]['content'] = '<declared prompt condition>'
+        stage_controls[stage] = controls
         if ledger_prefix(root, snapshot, all_attempts) != receipt['snapshot_sha256']:
             raise ValueError('High child snapshot receipt differs')
-        scored = score(parent + development if condition == 'P2' else development, labels)
+        scored = score(parent + development if interrupted else development, labels)
         known = sum((Decimal(row['observed_cost_usd']) for row in development), Decimal(0))
-        if condition == 'P2':
+        if interrupted:
             if (scored['valid'] != 59 or scored['invalidIds'] != ['DEV-027'] or
                     receipt.get('clean_full_phase') is not False or
                     receipt.get('full_60_clean_score') is not None or
@@ -270,9 +280,20 @@ def build(root=ROOT):
             status = 'completed_with_intrinsic_invalid' if scored['invalidIds'] else 'completed'
         phases[stage] = {'status': status, 'score': scored,
                          'knownDevelopmentCostUsd': str(known),
-                         'unknownCostUpperBoundUsd': '0.06905856' if condition == 'P2' else '0',
+                         'unknownCostUpperBoundUsd': '0.06905856' if interrupted else '0',
                          'smokeCostExcluded': True,
+                         'fieldCorrect': {field: sum(row['prediction'][field] == labels[row['id']][field]
+                            for row in (parent + development if interrupted else development)
+                            if row['status'] == 'ok') for field in FIELDS},
                          'closureReceiptSha256': bindings[str(receipt_path)]}
+    p1_before, p1_after = stage_predictions['fresh2/P1'], stage_predictions['fresh3/P1']
+    if stage_requests['fresh2/P1'] != stage_requests['fresh3/P1']:
+        raise ValueError('P1 repeat request bytes differ')
+    p1_changed = [rid for rid in IDS if p1_before[rid] != p1_after[rid]]
+    if stage_controls['fresh3/P1'] != stage_controls['fresh3/P2']:
+        raise ValueError('Prompt comparison differs beyond system instructions')
+    prompt_changed = [rid for rid in IDS if
+        stage_predictions['fresh3/P1'][rid] != stage_predictions['fresh3/P2'][rid]]
     return {'schema': 'deepseek-high-remaining6-successor-findings-v1',
             'configuration': 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1',
             'continuation': 'exact-unsent DEV-028–DEV-060, then later full stages',
@@ -281,6 +302,12 @@ def build(root=ROOT):
                                        'fresh3/P1', 'fresh3/P2', 'fresh3/P0'],
             'phases': phases,
             'matchedCleanRepeatEligible': False,
+            'p1TwoPassRepeat': {'passes': ['fresh2/P1', 'fresh3/P1'], 'denominator': 60,
+                'changedRecordIds': p1_changed, 'changedRecords': len(p1_changed),
+                'allFourScores': [phases[stage]['score']['allFour'] for stage in ('fresh2/P1','fresh3/P1')]},
+            'fresh3PromptChange': {'conditions': ['P1','P2'], 'denominator': 60,
+                'changedRecordIds': prompt_changed, 'changedRecords': len(prompt_changed),
+                'allFourScores': [phases['fresh3/'+c]['score']['allFour'] for c in ('P1','P2')]},
             'referenceStatus': 'Frozen provisional v0.2 development labels; owner-confirmed human checks on 2026-10-02, without independent adjudication.',
             'limitations': ['The interrupted P2 composite retains DEV-027 as a provider failure with unknown cost.',
                             'All phases reuse the same 60 synthetic reviews.',
