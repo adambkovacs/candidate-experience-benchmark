@@ -2,6 +2,9 @@
 
 ## Recovery after unexpected shutdown, 6 October 2026
 
+- Current execution: hosted Qwen remaining-series fresh1/P2 is running on handle 45855 after its inspected smoke. DeepSeek high fresh1/P1 smoke is running on 67804 through the reviewed closure bridge. DeepSeek P0 is independently verified and archived in `fd4fd56b`: 59 valid, one retained invalid, 57/60 matches, $0.034324790897 known development cost.
+- Gemini all-nine analysis is committed in `a1989111`; the public Qwen clean/interrupted comparison is committed in `99fd2f40`. Pages deployment verification remains pending for these latest changes. `deepseek_recovery` owns the new DeepSeek high public report. Root owns admissions, closure, roster and publication.
+
 - Gemini high series is complete and independently verified at 9/9: P0 scores 55/56/56, P1 56/56/56, P2 55/56/56. The six newly executed full passes plus smokes cost $1.636000. Root reconciled the child with no unknown costs; $0.364 unused allocation was released in the master. The separate authority hold remains conservative. Historical closure ledger hashes are preserved as exact immutable prefix snapshots.
 - DeepSeek high P0 original 49284 exited successfully after all 60 attempts (59 valid, one intrinsic invalid). Root found a closure-verifier adapter bug involving path/argument compatibility and lower live pricing; completed requests remain preserved. A separate verifier repair is required before P1 admission. Preliminary offline score is 57/60 and known cost $0.034324790897, pending full closure audit.
 - Pages run 37493723371 succeeded for the seven-condition report; newer eight-condition run 37494161989 is in progress. Nine-condition report and combined findings are prepared for the next publication.
