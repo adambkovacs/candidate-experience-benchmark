@@ -126,7 +126,7 @@
           !/^[0-9a-f]{64}$/.test(report.sourceSha256[path] || '') || !/^[0-9a-f]{64}$/.test(report.sourceSha256[completion] || '')) return [];
       runs.push({id:`${name}-native-fresh1-p0`,model:name==='clef'?'Cloudflare Clef':'Cloudflare Clef Flash',effort:'not applicable',surface:'Cloudflare Workers AI',condition:'P0',
         complete:true,records:60,valid:item.valid,metrics:{all_four:item.allFourCorrect,...Object.fromEntries(fields.map(field=>[field,item.fields[field].correct]))},
-        pairedEligible:false,resultStatus:'One closed native P0 pass; repeat passes and P1/P2 have not been completed.',
+        pairedEligible:false,resultStatus:'Historical first P0 pass. Later prompt and repeat results are reported separately in Latest results.',
         timing:{kind:'connected-app',requests:60,inferenceSeconds:null,inferenceReportedRequests:0,note:'Saved client elapsed time includes connected-app operator handoff; pure model inference time is unavailable.'},
         tokens:{input:item.observedInputTokens,output:item.observedOutputTokens,reportedRequests:60,totalRequests:60,complete:true},
         cost:{actualUsd:null,knownUsd:null,estimatedUsd:Number(price),estimateKind:'published_input_rate',unknownUpperBoundUsd:Number(hold),
