@@ -15,6 +15,12 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
+Gemini 3.1 Pro Preview at high effort completed all nine planned runs on the same 60 reviews. Across three passes, the base task scored **55, 56 and 56/60**; classifier instructions scored **56, 56 and 56/60**; decision rules scored **55, 56 and 56/60**. Neither added prompt improved the score consistently in matched passes. Some individual answers changed even when the total score did not. [Repeat results](public-site/gemini-repeats.json) · [Analysis](docs/ANALYSIS_REFRESH_2026-10-05.md).
+
+Hosted Qwen3.6 with thinking enabled scored **54/60** with the base task and **56/60** with decision rules in its first matched pass; both runs returned 60 usable answers. That two-match gain is one comparison on these reviews, not an established general prompt benefit. A later classifier-instruction run scored 54/60, but its matching base-task run has not finished. The first classifier-instruction attempt was interrupted and remains separate. [Saved hosted results](public-site/additional-hosted-fresh-repeats.json).
+
+DeepSeek V4.1 Flash at high effort scored **57/60** in its first base-task run and **57/60** with classifier instructions. Each run had 59 usable answers, but different reviews produced unusable outputs: DEV-030 for the base task and DEV-006 for classifier instructions. The same total can hide different missing answers. [Saved hosted results](public-site/additional-hosted-fresh-repeats.json).
+
 DeepSeek low now has descriptive scores for all three prompt conditions in its first pass: **58/60, 57/60 and 53/60** for the base task, classifier instructions and decision rules. The decision-rule result retains one invalid answer and three earlier failures; all ten previously unsent reviews are now valid full matches. Among reviews answered validly under both prompts, two four-field answers changed from the base task to decision rules. The interrupted result is not a clean repeat. [Comparison, costs and token coverage](docs/DEEPSEEK_LOW_FINAL_SUFFIX_FINDINGS_2026-10-06.md).
 
 The next Qwen3.5 4B thinking-on base-task pass completed with **48/60** full matches, 52 valid answers and eight invalid outputs. Its host checks passed without a sleep interruption. Three of nine planned phases now have completed results; the earlier interrupted P0 remains separate. [Source-bound results](public-site/legacy-qwen-repeats.json).
