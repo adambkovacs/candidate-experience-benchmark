@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Portable publication and E4B continuation, 6 October 2026
+
+- Root verified the Jev archived-path fix in a clean checkout: combined report check and 15 Jev reporter tests passed. Fix 048f7753 is pushed; Pages was manually dispatched. Publication is not yet verified.
+- E4B fresh2/P2 never-sent DEV-053–060 is running on original handle 46546. Seven offline tests and all 60 live render/token checks passed; exact hosted E4B was absent from a fresh 464-model OpenRouter catalogue. Loaded Gemma4 E4B Q4_K_M at context8192, instance rPBkF4BjfjDl6SDDWo3j0Xwl; battery92%, lid open, sleep counter94. Earlier unknown DEV-039/052 remain unchanged.
+- authority_reconciliation_v2 owns Jev P2 fresh3 report/renderer integration. Root owns combined feed, publication and local closure.
+
 ## Jev P2 third pass closed, 6 October 2026
 
 - Original handle 88263 exited successfully: 60 valid responses, 54/60 all-four matches, $0.006851040 observed cost. Root verified all request/raw-response hashes and strict predictions, reconciled the child, and released only $0.073788960 unused authority. No inference is running.
