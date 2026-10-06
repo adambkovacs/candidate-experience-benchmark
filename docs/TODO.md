@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Publication verified and authority audit, 6 October 2026, 11:08 UTC
+
+- Kev publication is verified: Pages [37453498358](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37453498358) succeeded for `f0515800`. Live HTML, renderer and both data feeds match committed bytes exactly. Desktop and 390px mobile views were inspected; the cost disclosure expanded by keyboard. New reduced-motion emulation was not performed.
+- The 47-entry shared-authority tracker retains maximum historical holds after terminal reconciliation. Read-only audit found at least one verified unused hold of $0.073788960 (Jev P2 fresh1), exceeding the immediate continuation shortfall. The $10.41 question is still unapproved, but an increase may be unnecessary after a reviewed versioned reconciliation. Do not append release events to the frozen hold-only format or spend against an unimplemented release. native_variant_admission_audit owns the full provenance audit; root owns any later guarded implementation.
+- Jev P0 and the exact P2 unsent proposal passed independent review; no dispatch is admitted. Jev findings are prepared in separate offline files and await root integration. Qwen P1 continues on its original handle.
+
 ## Publication and next admissions, 6 October 2026, 11:01 UTC
 
 - Kev: publication commit `f0515800` is pushed; Pages job 37453498358 is running. The combined analysis binds 193 source hashes. A clean staged checkout passed 15 Python and 12 JavaScript tests after fixing offline verification of archived absolute budget paths. Live page verification is still pending.
