@@ -10,7 +10,7 @@ The updated [app goal text](APP_GOAL.md) and AGENTS.md supersede older routing a
 
 ## Latest hosted execution checkpoint, 6 October 2026
 
-DeepSeek DEV-051–060 is closed and verified: ten valid answers, all ten matching all four references, with $0.004464008007 observed charges. The full interrupted P2 composite now scores 53/60, with 56 valid, one invalid and three failed outcomes; none remain unsent. Its report update is prepared but not yet published. [Findings](DEEPSEEK_LOW_FINAL_SUFFIX_FINDINGS_2026-10-06.md).
+DeepSeek DEV-051–060 is closed and verified: ten valid answers, all ten matching all four references, with $0.004464008007 observed charges. The full interrupted P2 composite now scores 53/60, with 56 valid, one invalid and three failed outcomes; none remain unsent. Its report update is published in `0816f09f`; Pages run 37485975020 succeeded and all five updated public assets match committed bytes. [Findings](DEEPSEEK_LOW_FINAL_SUFFIX_FINDINGS_2026-10-06.md).
 
 The local Qwen3.5 4B fresh2/P0 pass is archived in `abad20dd`: 52 valid, eight invalid, and 48/60 all-four matches. Clean full-phase coverage is now 3/9. The model is unloaded; no further local pass has started.
 

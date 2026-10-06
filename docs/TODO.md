@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Hosted runs and publication verified, 6 October 2026
+
+- Pages run [37485975020](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37485975020) succeeded for `0816f09f`. Live analysis-refresh.json, deepseek-low-final-suffix-findings.json, legacy-qwen-repeats.json, repeats.js and analysis-refresh.js match committed bytes. Browser checks show 58/57/53 DeepSeek scores, 56 valid P2 answers, retained failures, and the known-cost/token denominators.
+- Gemini high repeat2/P1 is independently verified: six batches, 60 valid records, $0.248738. Hosted Qwen3.6 thinking-on fresh1/P0 is independently verified: 60 valid records, $0.0673437. Both passed request/raw/strict prediction and settlement checks.
+- Gemini repeat2/P2 and Qwen fresh1/P1 each passed a new three-review smoke. Gemini P2 full process 3895 has exited zero; gemini_closure_checkpoint owns P1/P2 source-bound closure receipts. Qwen P1 full process 92924 remains running. Root owns subsequent admissions.
+- hosted_closed_audit owns a new DeepSeek high budget/price adapter and offline tests only. No DeepSeek high inference or allocation is admitted. Its existing executor rejects current price and budget controls; frozen history stays unchanged.
+- No local inference was started. The broader roster, later repeats and final analysis remain incomplete.
+
 ## Latest execution and publication checkpoint, 6 October 2026
 
 - OpenRouter-first routing and the additional $10 are activated in AGENTS.md, APP_GOAL.md and the versioned ledgers. Cumulative OpenRouter ceiling: $22.38. The same grant is counted once across overlapping authority.
