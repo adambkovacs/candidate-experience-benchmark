@@ -1,5 +1,9 @@
 # Current work checklist
 
+## DeepSeek route unavailable again, 6 October 2026, 08:59 UTC
+
+Root archived a fresh public catalog response: the exact `open-inference/fp4` endpoint now reports status -2 and changed prices. This supersedes the earlier 08:43 available observation. [Audit and raw snapshots](HOSTED_ROUTE_CHECK_2026-10-06.md) are saved; no child allocation, global hold or inference was made. The price-wrapper agent is finishing offline fixes only. Qwen3.5 P2 continues under handle 13132; its GPU lock remains exclusive.
+
 ## Qwen3.5 full P2 running, 6 October 2026, 08:53 UTC
 
 Smoke handle 67319 completed with three valid outputs; root inspected each final JSON, verified raw classification and unchanged host, then recorded the smoke inspection. Fresh all-60 P2 preflight passed under the same model instance. Full development handle 13132 is running; no complete P2 score exists yet. Root owns monitoring and closure. Pages job 37438211625 succeeded for `58eb2682`; live HTML, repeat JavaScript, analysis JavaScript and both report JSON files match committed bytes. DeepSeek fourth-price successor remains offline preparation. No paid request or budget mutation occurred.

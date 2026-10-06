@@ -1,5 +1,13 @@
 # Hosted route check · 6 October 2026
 
+## Latest check, 08:59 UTC
+
+A fresh root fetch supersedes the availability observation below. The exact `open-inference/fp4` endpoint is listed with **status -2**, not the required available status 0. Its reported prices also differ: $0.0495/M input, $1.32/M output and $0.0165/M cached input. The runner must refuse this snapshot. No model request, reservation or allocation was made. The earlier price calculation remains a dated observation and cannot authorize execution now.
+
+The [archived audit](../results/route-audits/deepseek-fourth-price-20261006/audit.json) binds the complete public [model catalog](../results/route-audits/deepseek-fourth-price-20261006/models.raw.json) and [endpoint response](../results/route-audits/deepseek-fourth-price-20261006/endpoints.raw.json). Another admission needs a fresh available exact route, verified prices and budget checks; changing the provider is not authorized by this failure.
+
+## Earlier check, 08:43 UTC
+
 Read-only audit at **2026-10-06 08:43 UTC**. No inference, paid request, budget write, or credential value was accessed. This audit note is the only file created by the audit.
 
 ## DeepSeek low suffix
