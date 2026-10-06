@@ -4,7 +4,7 @@
 
 - Publication: Qwen3.5 P2 findings in e9b49905 are live. Pages run [37449776179](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37449776179) succeeded. Live legacy-Qwen and combined-analysis feeds match committed bytes (SHA-256 `3a80bebb076d6b96015a5addb673934d37deffa183100fefea77bccc94ae0f1c` and `c2f3a3d219f23a0af94317892d7ad4f94d29645b2fd846016271e37eee51d622`). Public browser text renders 1/9 and the 50/60 P2 result; this does not claim a new mobile or visual review.
 - Root: Qwen3.5 fresh1/P1 development continues on original handle 92736.
-- Root: reviewed Kev native full-run executor passed seven tests and independent review. P1 fresh1 (32276) and P2 fresh1 (52890) are now running independently. Each reserves at most $0.020643840. The declared all-60 context calculation is a conservative estimate, not a provider guarantee; failures and unknown charges remain preserved.
+- Root: reviewed Kev native full-run executor passed seven tests and independent review. P1 and P2 each have two closed, root-verified full passes with 60 valid responses per pass. Their third passes are running on handles 52197 and 43475. Each reserves at most $0.020643840. The declared all-60 context calculation is a conservative estimate, not a provider guarantee; failures and unknown charges remain preserved.
 - Root: OpenRouter Jev P1/P2 smokes each closed with three valid responses. Observed costs are $0.000319998 and $0.000342300. Both were inspected unchanged and child allocations reconciled. Full Jev admission preparation belongs to native_variant_admission_audit; e4b_unsent_prepare reviews it independently. No full Jev run is admitted by this checkpoint.
 
 
