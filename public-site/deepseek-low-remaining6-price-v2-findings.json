@@ -1,0 +1,163 @@
+{
+  "schema": "deepseek-low-remaining6-price-v2-findings-v1",
+  "series": [
+    {
+      "seriesId": "openrouter-paid-deepseek-v41-flash-low-remaining6-price-v2",
+      "displayName": "DeepSeek V4.1 Flash low, revised-price P2 continuation",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "provider": "OpenInference fp4",
+      "effort": "low",
+      "pass": "fresh2",
+      "condition": "P2",
+      "method": "descriptive_interrupted_phase_plus_closed_suffix",
+      "cleanMatchedRepeatEligible": false,
+      "score": {
+        "denominator": 60,
+        "valid": 59,
+        "allFour": 57,
+        "fields": {
+          "sentiment": 59,
+          "follow_up_needed": 58,
+          "serious_concern_reported": 57,
+          "testimonial_potential": 59
+        },
+        "outcomes": {
+          "ok": 59,
+          "service_error": 1
+        },
+        "invalidIds": [
+          "DEV-005"
+        ],
+        "confusionCounts": {
+          "sentiment": {
+            "positive": {
+              "positive": 11
+            },
+            "negative": {
+              "negative": 31
+            },
+            "neutral": {
+              "neutral": 8
+            },
+            "mixed": {
+              "mixed": 8
+            },
+            "insufficient_information": {
+              "insufficient_information": 1
+            }
+          },
+          "follow_up_needed": {
+            "no": {
+              "no": 23
+            },
+            "yes": {
+              "yes": 34,
+              "insufficient_information": 1
+            },
+            "insufficient_information": {
+              "insufficient_information": 1
+            }
+          },
+          "serious_concern_reported": {
+            "no": {
+              "no": 28
+            },
+            "insufficient_information": {
+              "no": 2,
+              "insufficient_information": 4
+            },
+            "yes": {
+              "yes": 25
+            }
+          },
+          "testimonial_potential": {
+            "yes": {
+              "yes": 9
+            },
+            "no": {
+              "no": 49
+            },
+            "insufficient_information": {
+              "insufficient_information": 1
+            }
+          }
+        },
+        "predictedClassCounts": {
+          "sentiment": {
+            "positive": 11,
+            "negative": 31,
+            "neutral": 8,
+            "mixed": 8,
+            "insufficient_information": 1
+          },
+          "follow_up_needed": {
+            "no": 23,
+            "yes": 34,
+            "insufficient_information": 2
+          },
+          "serious_concern_reported": {
+            "no": 30,
+            "yes": 25,
+            "insufficient_information": 4
+          },
+          "testimonial_potential": {
+            "yes": 9,
+            "no": 49,
+            "insufficient_information": 1
+          }
+        }
+      },
+      "developmentKnownCostUsd": "0.030564226637",
+      "developmentUnknownCostUpperBoundUsd": "0.06905856",
+      "predecessorUnknownCostId": "DEV-005",
+      "completedSuffixCount": 55,
+      "limitations": [
+        "The original DEV-005 provider failure has unknown cost and no usable prediction.",
+        "The DEV-006–060 continuation was a separately funded, closed child. The combined 60 positions are descriptive, not a clean uninterrupted repeat.",
+        "Private raw responses are not present in a clean checkout; the projection records hashes checked against the retained private attempts at creation."
+      ]
+    }
+  ],
+  "sourceBindings": [
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/fresh2-p2-sanitized-projection-v1.json",
+      "sha256": "639d49c6e6b011c11d3497831164f9bd3cf51a4cc07e6fd4cd5a7126c4198c62"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/fresh2-p2-development-cost-correction.json",
+      "sha256": "0ce222350d5d62a2867f6519852d9728896d1894ddcf1758a36dcee5199dc129"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/fresh2-p2-suffix-closure-audit.json",
+      "sha256": "949aeaf753e5e0e47fe05fcf0195f9ad2267eba3294d4f79517025cb0b48ace4"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/execution-adapter-v1/fresh2/manifest.json",
+      "sha256": "448adb7d28d2062a6f3052771695555dc0e95000904b0c7fe9863b83dbf65e7e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/execution-adapter-v1/fresh2/manifest.json",
+      "sha256": "fd0c10eff71362881ddbd8d7259b047841f342cafb6ad4f6c4799367b2bddfcc"
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "scripts/build_deepseek_low_remaining6_price_v2_findings.py",
+      "sha256": "4dca2451f4740f49b40eec02416bcd11aafbc5bc8635fb6af0e400433628810e"
+    },
+    {
+      "path": "tests/test_build_deepseek_low_remaining6_price_v2_findings.py",
+      "sha256": "5877510c91a6e36fd453a11d56a57b4a98ee3edc37ff1b17768fe084ca877e0d"
+    },
+    {
+      "path": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
+    }
+  ],
+  "privateAttemptSourceSha256": {
+    "results/repeatability-v1/deepseek-low-remaining6-price-v2/execution-adapter-v1/fresh2/P2/development.attempts.jsonl": "c7b07391743191d0686307732ce06fe583e1cd44c31946e3086cbf2448276d0b",
+    "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/execution-adapter-v1/fresh2/P2/development.attempts.jsonl": "46b1dc3bec502d1a1c889778ab651eafe45c08579e8b77a95a864c3e76cf39af"
+  }
+}
