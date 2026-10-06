@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Qwen3.5 P0 interrupted by low-power sleep, 6 October 2026
+
+Handle 35256 is terminal (exit 1), and LM Studio reports the model idle. The run saved 51 responses: 44 valid and seven invalid. DEV-052 was started and remains unknown after the 600-second prediction cancellation; DEV-053–060 were never sent. Completion hashes and ordered IDs are verified. The [host audit](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3.5-4b-sdk-thinking-on/fresh1/P0/interruption.host-audit.json) records Low Power Sleep at 1% battery on 5 October, followed by hibernation wake on 6 October. Sleep count changed from 92 to 93 without a reboot. The timeout spans that sleep and is not an inference-time measurement.
+
+No clean pass or full score is claimed. `qwen35_interruption_report` owns the separate partial-result projection. `qwen35_suffix_fallback` owns an offline, exact DEV-053–060 continuation; the originally selected Sol agent could not start because of capacity. Root owns review and any live dispatch. The completed smoke and all 52 attempted positions are preserved; DEV-052 must not be replayed. The host is currently on AC with its lid open and adequate memory, but a new admission must verify current route/runtime and host state. No inference is running and no additional paid request was sent.
+
 ## Mistral P1 smoke stopped, 5 October 2026, 20:24 UTC
 
 Reviewed successor `f0b98402` passed eight offline tests and independent review (APPROVE; no remaining findings). Fresh credentials and exact route checks passed. Root reserved $0.12533760 for the three-record smoke under both authorities. Handle 67707 exited 1 after DEV-001 returned HTTP 429 from the upstream provider shared pool with no reported cost. DEV-002/003 were never sent; no P1 development request was admitted. The raw response is retained locally; the [public terminal receipt](../results/repeatability-v1/mistral119-fresh-matched3-v1/p1-successor-v1/smoke.terminal-public.json) excludes the private account identifier. No request was replayed.
