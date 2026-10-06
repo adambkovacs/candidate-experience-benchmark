@@ -299,6 +299,8 @@ test('DeepSeek high later results retain provider and intrinsic failures', async
   assert.match(view.cutoffs,/DeepSeek high, later passes/);
   assert.match(view.cutoffs,/fresh2\/P2: 56\/60 full matches, 59\/60 valid answers/);
   assert.match(view.cutoffs,/fresh2\/P1: 58\/60 full matches, 60\/60 valid answers/);
+  assert.match(view.cutoffs,/fresh3\/P0: 58\/60 full matches, 58\/60 valid answers/);
+  assert.match(view.cutoffs,/All six scheduled continuation stages are closed/);
   assert.match(view.cutoffs,/deepseek-high-remaining6-successor-findings.json/);
   assert.match(view.cutoffs,/1\/60 reviews changed a label \(DEV-030\)/);
   assert.match(view.cutoffs,/classifier instructions and decision rules differed on 1\/60 reviews/);

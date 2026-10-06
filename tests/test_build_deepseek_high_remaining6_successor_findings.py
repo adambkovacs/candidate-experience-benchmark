@@ -23,7 +23,7 @@ def copied_root(tmp_path):
 
 def test_archived_suffix_and_full_phases_stay_separate():
     result = report.build()
-    assert result['publishedClosedStages'] == ['fresh2/P2', 'fresh2/P0', 'fresh2/P1', 'fresh3/P1', 'fresh3/P2']
+    assert result['publishedClosedStages'] == ['fresh2/P2', 'fresh2/P0', 'fresh2/P1', 'fresh3/P1', 'fresh3/P2', 'fresh3/P0']
     assert result['matchedCleanRepeatEligible'] is False
     composite = result['phases']['fresh2/P2']
     assert composite['status'] == 'interrupted_composite_descriptive_only'
@@ -65,9 +65,16 @@ def test_selected_root_rejects_different_reporter(tmp_path):
         report.build(root)
 
 
-def test_unfinished_future_phase_is_not_promoted():
+def test_final_phase_retains_two_intrinsic_failures():
     result = report.build()
-    assert 'fresh3/P0' not in result['phases']
+    assert result['plannedRemainingStages'] == []
+    assert result['allScheduledSuccessorStagesClosed'] is True
+    assert result['matchedCleanRepeatEligible'] is False
+    final = result['phases']['fresh3/P0']
+    assert final['score']['valid'] == 58
+    assert final['score']['allFour'] == 58
+    assert final['score']['invalidIds'] == ['DEV-006', 'DEV-030']
+    assert final['knownDevelopmentCostUsd'] == '0.036185557418'
 
 
 def test_parent_projection_keeps_private_provider_responses_out_of_bundle(tmp_path):

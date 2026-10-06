@@ -16,7 +16,7 @@ PARENT = BASE / 'execution-adapter-v1/fresh2/P2'
 LABELS = Path('data/pilot/proposed_labels.jsonl')
 OUTPUT = Path('public-site/deepseek-high-remaining6-successor-findings.json')
 STAGES = (('fresh2', 'P2', 33), ('fresh2', 'P0', 60), ('fresh2', 'P1', 60),
-          ('fresh3', 'P1', 60), ('fresh3', 'P2', 60))
+          ('fresh3', 'P1', 60), ('fresh3', 'P2', 60), ('fresh3', 'P0', 60))
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported',
           'testimonial_potential')
 IDS = [f'DEV-{number:03d}' for number in range(1, 61)]
@@ -298,8 +298,8 @@ def build(root=ROOT):
             'configuration': 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1',
             'continuation': 'exact-unsent DEV-028–DEV-060, then later full stages',
             'publishedClosedStages': [repeat + '/' + condition for repeat, condition, _ in STAGES],
-            'plannedRemainingStages': ['fresh2/P2', 'fresh2/P0', 'fresh2/P1',
-                                       'fresh3/P1', 'fresh3/P2', 'fresh3/P0'],
+            'plannedRemainingStages': [],
+            'allScheduledSuccessorStagesClosed': True,
             'phases': phases,
             'matchedCleanRepeatEligible': False,
             'p1TwoPassRepeat': {'passes': ['fresh2/P1', 'fresh3/P1'], 'denominator': 60,
