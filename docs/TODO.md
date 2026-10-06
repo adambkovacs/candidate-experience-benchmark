@@ -622,3 +622,7 @@ Next hosted work is a separately versioned Gemma26 thinking-on fresh3/P2 suffix 
 ## Pending funding request, 6 October 2026
 
 Root requested a revised separate postapproval ceiling of $10.36. Current holds are $9.625811024 against $10, leaving $0.374188976. Nine Jev full passes at the conservative $0.080640 bound need $0.351571024 additional reservation capacity. The request is pending, not approved. The OpenRouter aggregate cap remains $12.38; its current unallocated capacity is $0.44667141350 after Kev reconciliation. Root can continue individually admitted work within both current caps.
+
+## Jev full-pass admission, 6 October 2026
+
+Root and independent reviewer approved the separate Jev adapter after seven offline tests. First P1/P2 full passes are running on handles 72998 and 2040, each with a $0.080640 reservation inside the existing caps. The context estimate is explicit, source-bound and not a provider guarantee. A temporary launch helper initially stopped before allocation because its file handle shadowed a module variable; the helper was corrected before dispatch. No failed inference was replayed. The requested $10.36 postapproval cap remains pending.
