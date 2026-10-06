@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from development_benchmark import ROOT, KEYS
+from development_benchmark import ROOT, KEYS, VALUES, read_rows
 import build_liquid_d1_native_full_findings as phase_report
 import liquid_d1_full_execution_v1 as full
 
@@ -44,6 +44,70 @@ def condition_summary(stages, condition):
             'choice_flips': flips}
 
 
+def paired_prompt_comparison(left, right, truth, left_stage, right_stage):
+    """Compare only record IDs with valid public predictions in both phases."""
+    def indexed(item):
+        rows = item['records']
+        by_id = {row['id']: row['prediction'] for row in rows}
+        if len(by_id) != len(rows) or any(
+                ident not in truth or set(prediction) != set(KEYS) or
+                any(prediction[key] not in VALUES[key] for key in KEYS)
+                for ident, prediction in by_id.items()):
+            raise ValueError('Liquid paired public record differs')
+        return by_id
+
+    left_by_id, right_by_id = indexed(left), indexed(right)
+    shared = sorted(left_by_id.keys() & right_by_id.keys())
+    left_only = sorted(left_by_id.keys() - right_by_id.keys())
+    right_only = sorted(right_by_id.keys() - left_by_id.keys())
+    changed = []
+    field_flips = {key: [] for key in KEYS}
+    field_gains = {key: [] for key in KEYS}
+    field_losses = {key: [] for key in KEYS}
+    all_four_gains, all_four_losses = [], []
+    field_left = {key: 0 for key in KEYS}
+    field_right = {key: 0 for key in KEYS}
+    all_four_left = all_four_right = 0
+    for ident in shared:
+        before, after, reference = left_by_id[ident], right_by_id[ident], truth[ident]
+        flipped = [key for key in KEYS if before[key] != after[key]]
+        if flipped:
+            changed.append({'id': ident, 'fields': flipped,
+                            'left_choices': {key: before[key] for key in flipped},
+                            'right_choices': {key: after[key] for key in flipped}})
+            for key in flipped:
+                field_flips[key].append(ident)
+        before_all = all(before[key] == reference[key] for key in KEYS)
+        after_all = all(after[key] == reference[key] for key in KEYS)
+        all_four_left += before_all
+        all_four_right += after_all
+        if not before_all and after_all:
+            all_four_gains.append(ident)
+        elif before_all and not after_all:
+            all_four_losses.append(ident)
+        for key in KEYS:
+            before_correct = before[key] == reference[key]
+            after_correct = after[key] == reference[key]
+            field_left[key] += before_correct
+            field_right[key] += after_correct
+            if not before_correct and after_correct:
+                field_gains[key].append(ident)
+            elif before_correct and not after_correct:
+                field_losses[key].append(ident)
+    return {'left': left_stage, 'right': right_stage,
+            'shared_valid': len(shared), 'left_only_ids': left_only,
+            'right_only_ids': right_only,
+            'changed_record_count': len(changed), 'changed_records': changed,
+            'label_flips_by_field': {key: {'count': len(field_flips[key]),
+                                           'ids': field_flips[key]} for key in KEYS},
+            'all_four': {'left_correct': all_four_left, 'right_correct': all_four_right,
+                         'gained_ids': all_four_gains, 'lost_ids': all_four_losses},
+            'fields': {key: {'left_correct': field_left[key],
+                             'right_correct': field_right[key],
+                             'gained_ids': field_gains[key],
+                             'lost_ids': field_losses[key]} for key in KEYS}}
+
+
 def build(root=ROOT):
     root = Path(root).resolve()
     for module in (phase_report, full):
@@ -65,6 +129,9 @@ def build(root=ROOT):
         projected_bindings.append({'path': str(path.relative_to(root)), 'sha256': full.sha(path)})
     phase_rows = {stage: {'all_four_correct': item['all_four_correct'],
                           'fields_correct': {key: item['fields'][key]['correct'] for key in KEYS},
+                          'confusion_reference_by_choice': {
+                              key: item['fields'][key]['confusion_reference_by_choice']
+                              for key in KEYS},
                           'usage': {'input_tokens': sum(row['usage']['input_tokens']
                                                         for row in item['records']),
                                     'output_tokens': sum(row['usage']['output_tokens']
@@ -75,6 +142,16 @@ def build(root=ROOT):
                           'known_actual_usd': item['known_actual_usd'],
                           'public_projection_sha256': projected_bindings[index]['sha256']}
                   for index, (stage, item) in enumerate(stages.items())}
+    references = read_rows(root / 'data/pilot/proposed_labels.jsonl')
+    truth = {row['id']: row['proposed_labels'] for row in references}
+    if len(truth) != len(references):
+        raise ValueError('Liquid reference IDs differ')
+    prompt_pairs = (('P0', 'P1'), ('P1', 'P2'), ('P0', 'P2'))
+    paired = {f'{fresh}/{left}_vs_{fresh}/{right}': paired_prompt_comparison(
+                  stages[f'{fresh}/{left}'], stages[f'{fresh}/{right}'], truth,
+                  f'{fresh}/{left}', f'{fresh}/{right}')
+              for fresh in ('fresh1', 'fresh2', 'fresh3')
+              for left, right in prompt_pairs}
     needed = [Path('scripts/build_liquid_d1_native_full_findings.py'),
               Path('scripts/build_liquid_d1_native_full_aggregate.py'),
               Path('scripts/development_benchmark.py'),
@@ -111,6 +188,7 @@ def build(root=ROOT):
             'phases': phase_rows,
             'conditions': {condition: condition_summary(stages, condition)
                            for condition in ('P0', 'P1', 'P2')},
+            'matched_prompt_comparisons': paired,
             'reference_status': 'Frozen provisional v0.2 development labels; owner-confirmed human checks on 2026-10-02, without independent adjudication.',
             'interpretation': 'Scores show agreement with the frozen synthetic development reference. Choice flips compare completed passes only. Provider confidence thresholds in each phase are descriptive, not calibrated.',
             'private_raw_limit': 'Portable checks bind each projection to a closure receipt and saved raw hash; they cannot reparse private response bytes in a clean checkout.',

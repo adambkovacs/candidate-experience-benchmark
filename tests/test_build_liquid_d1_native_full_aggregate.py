@@ -8,10 +8,36 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import build_liquid_d1_native_full_aggregate as report
-from development_benchmark import KEYS
+from development_benchmark import KEYS, VALUES
 
 
 class LiquidAggregateTests(unittest.TestCase):
+    def test_paired_prompt_counts_equal_scores_with_changed_answers_and_missing_ids(self):
+        reference = {key: VALUES[key][0] for key in KEYS}
+        wrong = VALUES['sentiment'][1]
+        correct = dict(reference)
+        incorrect = {**reference, 'sentiment': wrong}
+        truth = {f'DEV-{index:03d}': reference for index in range(1, 5)}
+        left = {'records': [{'id': 'DEV-001', 'prediction': correct},
+                            {'id': 'DEV-002', 'prediction': incorrect},
+                            {'id': 'DEV-003', 'prediction': correct}]}
+        right = {'records': [{'id': 'DEV-001', 'prediction': incorrect},
+                             {'id': 'DEV-002', 'prediction': correct},
+                             {'id': 'DEV-004', 'prediction': correct}]}
+        result = report.paired_prompt_comparison(left, right, truth,
+                                                  'fresh1/P0', 'fresh1/P1')
+        self.assertEqual(result['shared_valid'], 2)
+        self.assertEqual(result['left_only_ids'], ['DEV-003'])
+        self.assertEqual(result['right_only_ids'], ['DEV-004'])
+        self.assertEqual(result['changed_record_count'], 2)
+        self.assertEqual(result['label_flips_by_field']['sentiment']['ids'],
+                         ['DEV-001', 'DEV-002'])
+        self.assertEqual(result['all_four'],
+                         {'left_correct': 1, 'right_correct': 1,
+                          'gained_ids': ['DEV-002'], 'lost_ids': ['DEV-001']})
+        self.assertEqual(result['fields']['sentiment']['gained_ids'], ['DEV-002'])
+        self.assertEqual(result['fields']['sentiment']['lost_ids'], ['DEV-001'])
+
     def test_condition_flip_counts_only_changed_labels(self):
         first = {'all_four_correct': 1,
                  'fields': {key: {'correct': 1} for key in KEYS},
@@ -41,6 +67,16 @@ class LiquidAggregateTests(unittest.TestCase):
                             for value in result['phases'].values()))
         self.assertTrue(all(value['usage']['input_tokens'] > 0
                             for value in result['phases'].values()))
+        self.assertEqual(len(result['matched_prompt_comparisons']), 9)
+        self.assertTrue(all(item['shared_valid'] == 60 and
+                            not item['left_only_ids'] and not item['right_only_ids']
+                            for item in result['matched_prompt_comparisons'].values()))
+        for stage in result['phases'].values():
+            for key in KEYS:
+                matrix = stage['confusion_reference_by_choice'][key]
+                self.assertEqual(sum(map(sum, (row.values() for row in matrix.values()))), 60)
+                self.assertEqual(sum(matrix[value][value] for value in VALUES[key]),
+                                 stage['fields_correct'][key])
         self.assertEqual(json.loads(report.OUTPUT.read_text()), result)
 
     def test_selected_root_uses_only_declared_source_bindings(self):
