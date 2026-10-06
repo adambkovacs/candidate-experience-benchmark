@@ -283,3 +283,12 @@ test('low continuation keeps unknown outcome and smoke costs separate', async()=
   report.newerCohorts.deepseekLowRevisedPrice.cleanMatchedRepeatEligible=true;
   assert.match(await render(report),/could not be loaded/);
 });
+
+test('Liquid findings show repeat counts without claiming confidence calibration', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const view=await renderState(report);
+  assert.match(view.cutoffs,/Liquid d1, native decision interface/);
+  assert.match(view.cutoffs,/reviews changed at least one label/);
+  assert.match(view.cutoffs,/not proven probabilities of being correct/);
+  assert.match(view.cutoffs,/liquid-d1-native-full-findings.json/);
+});

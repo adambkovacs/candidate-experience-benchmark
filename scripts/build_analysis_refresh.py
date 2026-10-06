@@ -31,6 +31,7 @@ KEV_NATIVE_PROMPT_PUBLIC = "public-site/kev-native-prompt-findings.json"
 JEV_NATIVE_PROMPT_PUBLIC = "public-site/jev-native-prompt-findings.json"
 GEMINI_AUTHORITY_PUBLIC = "public-site/gemini-repeats.json"
 HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
+LIQUID_PUBLIC = "public-site/liquid-d1-native-full-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
 SOURCES = (
     "public-site/e4b-interruption-findings.json",
@@ -65,6 +66,7 @@ SOURCES = (
     GEMINI_AUTHORITY_PUBLIC,
     HOSTED_FRESH_PUBLIC,
     LOW_REVISED_PUBLIC,
+    LIQUID_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -1021,6 +1023,12 @@ def build(root=ROOT):
         raise ValueError('Revised-price DeepSeek low report differs from closed evidence')
     bind_report_sources(root, low_revised, bindings, 'Revised-price DeepSeek low')
 
+    import build_liquid_d1_native_full_aggregate as liquid_builder
+    liquid = data[LIQUID_PUBLIC]
+    if liquid != liquid_builder.build(root):
+        raise ValueError('Liquid report differs from closed evidence')
+    bind_report_sources(root, liquid, bindings, 'Liquid native decision results')
+
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
     if (sonnet["completedCells"] != 36 or sonnet["plannedCells"] != 36 or
@@ -1539,6 +1547,7 @@ def build(root=ROOT):
                        for row in claude_rows) for condition in ("P1", "P2")},
                    "comparability": "Within each saved series only. Historical first passes and later repeats can use different CLI versions; fresh Sonnet 5.5 v2 is a separate route and model. Do not pool reviews or score differences across series."},
         "newerCohorts": {
+            "liquidNative": {"source": LIQUID_PUBLIC, **liquid},
             "e4bInterrupted": {"source": e4b_source,
                 "score": e4b["descriptiveScore"], "unknownIds": e4b["unknownIds"],
                 "neverSentIds": e4b["neverSentIds"], "cleanRepeatEligible": False,
