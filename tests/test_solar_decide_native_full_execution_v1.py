@@ -128,17 +128,32 @@ class SolarFullExecutionTests(unittest.TestCase):
                       'scripts/solar_decide_native_full_execution_v1.py',
                       'tests/test_solar_decide_native_full_execution_v1.py',
                       'results/solar-decide-native-full-v1/plan.json',
-                      'results/solar-decide-native-full-v1/root-review.json')
+                      'results/solar-decide-native-full-v1/root-review.json',
+                      'results/solar-decide-native-full-v1/execution-adapter-v1/manifest.json',
+                      'results/solar-decide-native-full-v1/execution-adapter-v1/root-review.json')
             for name in copies:
                 target = checkout / name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(ROOT / name, target)
             env = dict(os.environ, PYTHONPATH=str(checkout / 'scripts'))
             command = [sys.executable, str(checkout / 'scripts/solar_decide_native_full_execution_v1.py')]
-            for action in ('prepare', 'verify'):
-                result = subprocess.run(command + [action], cwd=checkout, env=env,
-                                        text=True, capture_output=True)
-                self.assertEqual(result.returncode, 0, result.stderr)
+            result = subprocess.run(command + ['verify'], cwd=checkout, env=env,
+                                    text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            script = '''import tempfile
+from pathlib import Path
+from unittest.mock import patch
+import solar_decide_native_full_execution_v1 as s
+with tempfile.TemporaryDirectory() as temp:
+    base = Path(temp) / 'fresh-adapter'
+    with (patch.object(s, 'BASE', base),
+          patch.object(s, 'MANIFEST', base / 'manifest.json'),
+          patch.object(s, 'REVIEW', base / 'root-review.json')):
+        assert s.prepare() == s.verify()
+'''
+            result = subprocess.run([sys.executable, '-c', script], cwd=checkout,
+                                    env=env, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == '__main__':
