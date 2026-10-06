@@ -375,12 +375,19 @@ test('findings groups keep all model results and source links available', async(
   assert.match(groups[2][2],/legacy-qwen-repeats.json/);
 });
 
- test('Solar first-pass scope retains equal-score answer changes and separate charges', async()=>{
+ test('Solar full series keeps missing outcomes and paired gains visible', async()=>{
   const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
   const {cutoffs}=await renderState(report);
-  assert.match(cutoffs,/Solar Decide, first pass/);
-  assert.match(cutoffs,/P1: 53\/60; P2: 53\/60/);
-  assert.match(cutoffs,/P1 to P2 changed 6\/60 reviews/);
-  assert.match(cutoffs,/do not establish a repeatable prompt effect/);
-  assert.match(cutoffs,/\$0\.067881, excluding smoke tests/);
+  const solar=report.newerCohorts.solarFullSeries;
+  assert.match(cutoffs,/Solar Decide, three planned passes per prompt/);
+  assert.match(cutoffs,/final decision-rule run returned 59/);
+  assert.match(cutoffs,/DEV-009 timed out and remains missing/);
+  assert.match(cutoffs,/59 shared answers; other pairs use 60/);
+  assert.ok(cutoffs.includes(`$${solar.known_development_cost_usd}, excluding smoke tests`));
+  assert.match(cutoffs,/possible-charge bound, not an observed bill/);
+  assert.match(cutoffs,/reduced all-four matches in each pass, by 2, 1, 3/);
+  assert.match(cutoffs,/retained 31\/60 answers, including 3 disagreements/);
+  assert.match(cutoffs,/aria-label="Solar prompt gains and losses"/);
+  assert.match(cutoffs,/solar-decide-full-findings.json/);
+  assert.equal((cutoffs.match(/<th scope="row">[^<]*\(interrupted\)<\/th>/g)||[]).length >= 1,true);
 });

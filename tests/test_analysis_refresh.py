@@ -432,6 +432,16 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertGreaterEqual(len(rebuilt["sources"]), 507)
         self.assertIn(analysis.GEMINI_AUTHORITY_PUBLIC,
                       {item["path"] for item in rebuilt["sources"]})
+        solar = rebuilt["newerCohorts"]["solarFullSeries"]
+        self.assertEqual(len(solar["stages"]), 9)
+        self.assertEqual(sum(stage["valid_answers"] for stage in solar["stages"]), 539)
+        self.assertEqual(sum(stage["valid_answers"] == 60 for stage in solar["stages"]), 8)
+        final = next(stage for stage in solar["stages"] if stage["stage"] == "fresh3/P2")
+        self.assertEqual(final["unusable_ids"], ["DEV-009"])
+        for pair in solar["repeat_comparisons"] + solar["matched_prompt_comparisons"]:
+            self.assertEqual(pair["paired_records"],
+                             59 if "fresh3/P2" in (pair["left"], pair["right"]) else 60)
+        self.assertEqual(solar["child_all_requests"]["original_unknown_upper_bound_usd"], "0.10485760")
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")

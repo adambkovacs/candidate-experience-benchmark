@@ -36,12 +36,14 @@ HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
 HIGH_SUCCESSOR_PUBLIC = "public-site/deepseek-high-remaining6-successor-findings.json"
 TEV_PUBLIC = "public-site/tev-native-full-findings.json"
 SOLAR_FIRST_PUBLIC = "public-site/solar-decide-first-pass-findings.json"
+SOLAR_FULL_PUBLIC = "public-site/solar-decide-full-findings.json"
 LIQUID_PUBLIC = "public-site/liquid-d1-native-full-findings.json"
 LOW_FRESH3_PUBLIC = "public-site/deepseek-low-fresh3-findings.json"
 LOW_P1_SUCCESSOR_PUBLIC = "public-site/deepseek-low-p1-successor-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
 SOURCES = (
     SOLAR_FIRST_PUBLIC,
+    SOLAR_FULL_PUBLIC,
     "public-site/e4b-interruption-findings.json",
     "public-site/sonnet55-fresh-matched3.json",
     "public-site/sonnet55-fresh-matched3-evidence/report.json",
@@ -1190,6 +1192,19 @@ def build(root=ROOT):
             raise ValueError('Solar public source differs: ' + name)
         bindings[name] = digest
 
+    import build_solar_decide_native_full_findings as solar_full_builder
+    solar_full = data[SOLAR_FULL_PUBLIC]
+    if solar_full != solar_full_builder.build(root):
+        raise ValueError('Solar full-series report differs from sealed evidence')
+    solar_full_receipt = read(root, str(solar_full_builder.RECEIPT), bindings)
+    read(root, str(solar_full_builder.PROJECTION), bindings)
+    for name, digest in solar_full_receipt['source_sha256'].items():
+        if name.endswith(solar_first_builder.PRIVATE_SUFFIXES):
+            continue
+        if sha(root / name) != digest:
+            raise ValueError('Solar full-series public source differs: ' + name)
+        bindings[name] = digest
+
     import build_tev_native_full_findings as tev_builder
     tev = data[TEV_PUBLIC]
     if tev != tev_builder.build(root):
@@ -1724,6 +1739,7 @@ def build(root=ROOT):
         "newerCohorts": {
             "deepseekHighSuccessor": {"source": HIGH_SUCCESSOR_PUBLIC, **high_successor},
             "solarFirstPass": {"source": SOLAR_FIRST_PUBLIC, **solar_first},
+            "solarFullSeries": {"source": SOLAR_FULL_PUBLIC, **solar_full},
             "liquidNative": {"source": LIQUID_PUBLIC, **liquid},
             "tevNative": {"source": TEV_PUBLIC, **tev},
             "e4bInterrupted": {"source": e4b_source,

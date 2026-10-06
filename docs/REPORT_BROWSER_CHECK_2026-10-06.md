@@ -83,3 +83,9 @@ At a 390 by 844 viewport, the page's content and scroll widths both measured 375
 ## Publication verification, 7 October 2026
 
 [Pages run 37543502633](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37543502633) succeeded for `a12dbc9f`. Root fetched the live `analysis-refresh.json`, `analysis-refresh.js`, `index.html`, `clef-repeat-chart.js` and `clef-closed-repeat-findings.json`; all five matched that commit byte for byte. This confirms publication of the Qwen class-error disclosure and Clef prompt gains/losses checked above.
+
+## Solar full-series integration, 7 October 2026
+
+The local report displays all nine Solar stage rows and nine prompt-pair rows. The interrupted final P2 shows 59/60 returned answers, 52/60 all-field matches, one missing response, 59/60 usage coverage, $0.02277075 known development cost and a separate $0.10485760 possible-charge bound. Its source link describes 59 outputs, and the comparison note says 59 shared answers. The client-duration sum is labeled separately from unavailable server inference time.
+
+At a 390 by 844 viewport, page client and scroll widths both measured 375 pixels. Both new Solar tables kept their 760-pixel contents in 256-pixel scroll regions with keyboard focus targets. The temporary viewport was reset. These checks cover the local integration; publication remains pending.
