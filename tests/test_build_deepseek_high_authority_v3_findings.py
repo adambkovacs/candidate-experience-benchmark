@@ -72,9 +72,13 @@ class DeepSeekHighFindingsTests(unittest.TestCase):
         current = report.build(ROOT)
         for old, new in zip(published['series'][:2], current['series'][:2]):
             self.assertEqual(old['configuration'], new['configuration'])
-        self.assertEqual(published['series'][-1]['passes']['fresh1']['P0'],
-                         current['series'][-1]['passes']['fresh1']['P0'])
-        self.assertIn('P0', current['series'][-1]['passes']['fresh1'])
+        published_high = next(item for item in published['series']
+                              if item['configuration'] == report.CONFIG)
+        current_high = next(item for item in current['series']
+                            if item['configuration'] == report.CONFIG)
+        self.assertEqual(published_high['passes']['fresh1']['P0'],
+                         current_high['passes']['fresh1']['P0'])
+        self.assertIn('P0', current_high['passes']['fresh1'])
 
     def test_synthetic_future_stage_requires_approved_source_bound_closure(self):
         # The fixture is isolated: no P1 closure is written to the real evidence tree.
