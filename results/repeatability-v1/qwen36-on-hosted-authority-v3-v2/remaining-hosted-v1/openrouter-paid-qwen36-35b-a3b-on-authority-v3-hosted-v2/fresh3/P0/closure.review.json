@@ -1,0 +1,113 @@
+{
+  "schema": "qwen36-on-remaining-hosted-phase-closure-v1",
+  "verdict": "APPROVE",
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2",
+  "fresh_pass": "fresh3",
+  "condition": "P0",
+  "phase": "development",
+  "scope": "Saved completed phase and immutable child-ledger snapshot; no inference or ledger mutation during closure.",
+  "checks": {
+    "frozen_successor_plan_and_execution_verified": true,
+    "smoke_and_development_verified_by_private_runner": true,
+    "sixty_ordered_requests_and_raw_strict_outputs_valid": true,
+    "terminal_phase_completed": true,
+    "one_matching_reserve_and_settlement_per_attempt": true,
+    "reference_labels_read_during_inference": false
+  },
+  "metrics": {
+    "smoke_attempts": 3,
+    "development_attempts": 60,
+    "valid_records": 60,
+    "invalid_records": 0,
+    "all_four_matches": 51,
+    "all_four_denominator": 60,
+    "development_observed_cost_usd": "0.0676245",
+    "smoke_observed_cost_usd": "0.0032548",
+    "smoke_plus_development_observed_cost_usd": "0.0708793",
+    "child_events_at_closure": 757,
+    "child_reservations_at_closure": 378,
+    "child_settlements_at_closure": 378,
+    "child_accounted_usd_at_closure": "0.4204218"
+  },
+  "source_bindings": {
+    "execution_manifest": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/execution-manifest.json",
+      "sha256": "b34eb5b78493eb8cb4017a24cd401b9848836964d0615311bb46fc0e95aca337"
+    },
+    "budget_manifest": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget.json",
+      "sha256": "5b37f436241ba86ab971e3928443829eb2bf3d83948e6bb0264da6411abd0346"
+    },
+    "ledger_snapshot": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh3-p0-closure.jsonl",
+      "sha256": "3ecb275608c6abc8568446d7b1b6c0dc26b963b599eaee5b588b1c8fbf16daac"
+    },
+    "smoke_claim": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/smoke.claim.json",
+      "sha256": "ecabb7dbf0cae5a2462cae792f6acc34a01266c76e37ea34b4630c4e3f06cd9f"
+    },
+    "smoke_root_review": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/smoke.root-review.json",
+      "sha256": "2fd087bbc015ba421cf2def014414aaf15c66a4114a6598b055c0e1a4ab49421"
+    },
+    "smoke_inspection": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/smoke-inspection.json",
+      "sha256": "972ee33035d241eca72842fcaf7d6f22d69b68f6e400511d8f1bad96432ab9c8"
+    },
+    "smoke_journal": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/smoke.journal.jsonl",
+      "sha256": "289fb9f5d1ae64cc6af1e746410733eab9231e06f64b9bf3c3595931a3c71402"
+    },
+    "smoke_attempts": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/smoke.attempts.jsonl",
+      "sha256": "bb56a764624fddaf2c0eb19c95b258d913d30c090f4cbd624d38af462102f7cb"
+    },
+    "smoke_responses": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/smoke.responses.jsonl",
+      "sha256": "58db76b452b3d1be25cd41e5025da141812b2021a9fcf57d683d6db51ae1d1a2"
+    },
+    "development_claim": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/development.claim.json",
+      "sha256": "0e4aaf99ae0b81f8815870cdaa264a3862da79176e4d57a6f75ff28b3ac5b5e6"
+    },
+    "development_root_review": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/development.root-review.json",
+      "sha256": "0b051696361b12f6a94865e183dc8f97151bb9e645b29eaf22e26bb0bb847e8f"
+    },
+    "development_journal": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/development.journal.jsonl",
+      "sha256": "9cb530708478e6ced80b4321808fef8f765026c08e62438a979e20997eec1d76"
+    },
+    "development_attempts": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/development.attempts.jsonl",
+      "sha256": "d9a8fa65cd7ca4891ce3cc938b87ed252ad1139bca8d15422ffbe7a6e611e76e"
+    },
+    "development_responses": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/development.responses.jsonl",
+      "sha256": "115464ef642b8bd9c047c2608631c0f24ac77f8d8f91800eb4c141f2a38a6d12"
+    },
+    "reference_labels": {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    "controller": {
+      "path": "scripts/qwen36_on_remaining_hosted_v1.py",
+      "sha256": "9f2829a5be307e32925f67c3a0c3f486a4fe0c5e90272084a7855f987e0eb0ca"
+    },
+    "verifier": {
+      "path": "scripts/qwen27_fresh_repeat_execution.py",
+      "sha256": "77642b57cfb603e4040ed240ebb173a4196ef82f79390e594fb67925a9e9d8aa"
+    },
+    "fresh3_plan": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/manifest.json",
+      "sha256": "c5c7a5554b9788ee6cee65f718657043e6d65f9497f01ea0ee294b3a369fd6ef"
+    }
+  },
+  "findings": [
+    {
+      "classification": "RESIDUAL",
+      "reason": "Synthetic assistant-authored provisional labels measure agreement, not independently adjudicated accuracy."
+    }
+  ],
+  "reviewer": "qwen_recovery"
+}
