@@ -25,6 +25,7 @@ class AnalysisRefreshTest(unittest.TestCase):
                                     "status": "not_in_closed_snapshot"}
                                    for name in empty["passes"] for condition in analysis.CONDITIONS]
         empty["partialPasses"] = []
+        empty.pop("descriptiveComposites", None)
         empty["pairwiseFlips"] = []
         empty["changesAcrossThreePasses"] = {}
         result = analysis.qwen35_repeat_summary(empty)
@@ -111,6 +112,39 @@ class AnalysisRefreshTest(unittest.TestCase):
         unsent["partialPasses"][0]["neverSentIds"][0] = "DEV-052"
         with self.assertRaisesRegex(ValueError, "partial source or counts differ"):
             analysis.qwen35_repeat_summary(unsent)
+
+    def test_qwen35_descriptive_projection_keeps_clean_coverage_zero(self):
+        report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
+        series = copy.deepcopy(next(s for s in report["series"]
+                               if s["configuration"] == "qwen3.5-4b-sdk-thinking-on"))
+        partial = series["partialPasses"][0]
+        exemplar = partial["evidence"]["completion"]
+        keys = ("claim", "journal", "raw", "records", "completion", "review",
+                "manifest", "controller", "compositeReview")
+        composite = {"pass": "fresh1", "condition": "P0",
+                     "status": "completed_interrupted_composite",
+                     "completionStatus": "descriptive_interrupted",
+                     "cleanRepeatEligible": False,
+                     "score": {"denominator": 60, "valid": 51, "allFour": 20,
+                               "outcomes": {"valid": 51, "invalid_output": 8,
+                                            "unknown_started": 1, "never_sent": 0}},
+                     "originalInterruption": partial,
+                     "evidence": {key: exemplar for key in keys}}
+        series["descriptiveComposites"] = [composite]
+        series["missingPasses"] = [composite if (item["pass"], item["condition"]) ==
+                                   ("fresh1", "P0") else item for item in series["missingPasses"]]
+        projection = analysis.qwen35_repeat_summary(series)
+        self.assertEqual(projection["completedConditions"], 0)
+        self.assertEqual(projection["conditions"]["P0"]["passes"], [])
+        self.assertEqual(projection["descriptiveComposites"][0]["score"]["allFour"], 20)
+
+        overlap = copy.deepcopy(series)
+        overlap["passes"]["fresh1"]["P0"] = {"completionStatus": "complete"}
+        overlap["completedConditions"] = 1
+        overlap["missingPasses"] = [item for item in overlap["missingPasses"]
+                                     if (item["pass"], item["condition"]) != ("fresh1", "P0")]
+        with self.assertRaisesRegex(ValueError, "partial source or counts differ"):
+            analysis.qwen35_repeat_summary(overlap)
 
     def test_published_feed_rebuilds_from_bound_sources(self):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())

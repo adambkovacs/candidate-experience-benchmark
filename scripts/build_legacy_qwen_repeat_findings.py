@@ -14,6 +14,8 @@ from development_benchmark import valid
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = Path('results/repeatability-v1/legacy-qwen-fresh3-v1')
+QWEN35_SUFFIX = BASE / 'qwen35-p0-unsent-suffix-v1'
+QWEN35_COMPOSITE_REVIEW = QWEN35_SUFFIX / 'composite.root-review.json'
 MANIFEST = BASE / 'manifest.json'
 MANIFEST_SHA = '7ef8c42a5fd66308e46c0dd885d92373bdbe3ba0e4aa7bdecf58298b82dd80c0'
 LABELS = Path('data/pilot/proposed_labels.jsonl')
@@ -361,6 +363,147 @@ def qwen35_interruption(root, plan, bind):
             'attempted': 52, 'saved': 51, 'valid': 44, 'invalid': 7,
             'unknownStartedIds': ['DEV-052'], 'neverSentIds': never_sent,
             'cleanRepeatEligible': False, 'evidence': evidence}
+
+
+def qwen35_descriptive_composite(root, plan, labels, bind, partial):
+    """Combine the retained prefix with a separately closed eight-record suffix."""
+    phase = 'qwen3.5-4b-sdk-thinking-on/fresh1/P0'
+    config = plan['configurations']['qwen3.5-4b-sdk-thinking-on']
+    receipt_sha = bind(QWEN35_COMPOSITE_REVIEW)
+    receipt = json.loads(file_at(root, QWEN35_COMPOSITE_REVIEW).read_text())
+    bindings = receipt.get('bindings')
+    if (receipt.get('schema') != 'qwen35-p0-descriptive-composite-root-review-v1' or
+            receipt.get('approved') is not True or receipt.get('reviewer') != 'root' or
+            receipt.get('phase') != phase or receipt.get('saved') != 59 or
+            receipt.get('unknown_ids') != ['DEV-052'] or
+            receipt.get('never_sent_ids') != [] or
+            receipt.get('clean_repeat_eligible') is not False or
+            receipt.get('reference_labels_read') is not False or
+            not isinstance(bindings, dict)):
+        raise ValueError('Qwen3.5 composite review differs')
+    manifest_path = QWEN35_SUFFIX / 'manifest.json'
+    controller_path = Path('scripts/qwen35_p0_unsent_suffix_v1.cjs')
+    needed = {str(manifest_path), str(controller_path),
+              *(item['path'] for item in partial['evidence'].values())}
+    manifest = json.loads(file_at(root, manifest_path).read_text())
+    suffix_files = manifest.get('suffix', {}).get('output_files', {})
+    if set(suffix_files) != {'claim', 'journal', 'raw', 'records', 'completion'}:
+        raise ValueError('Qwen3.5 suffix output plan differs')
+    needed.update(suffix_files.values())
+    needed.add(str(QWEN35_SUFFIX / 'suffix.root-review.json'))
+    if not needed <= set(bindings):
+        raise ValueError('Qwen3.5 composite source bindings incomplete')
+    for name, digest in bindings.items():
+        if (not isinstance(name, str) or not isinstance(digest, str) or
+                not re.fullmatch('[0-9a-f]{64}', digest)):
+            raise ValueError('Qwen3.5 composite source binding malformed')
+        bind(name, digest)
+    suffix_evidence = {key: {'path': name, 'sha256': bindings[name]}
+                       for key, name in suffix_files.items()}
+    review_path = QWEN35_SUFFIX / 'suffix.root-review.json'
+    suffix_evidence['review'] = {'path': str(review_path), 'sha256': bindings[str(review_path)]}
+    suffix_evidence['manifest'] = {'path': str(manifest_path), 'sha256': bindings[str(manifest_path)]}
+    suffix_evidence['controller'] = {'path': str(controller_path), 'sha256': bindings[str(controller_path)]}
+    suffix_evidence['compositeReview'] = {'path': str(QWEN35_COMPOSITE_REVIEW), 'sha256': receipt_sha}
+    planned = config['conditions']['P0']['requests']
+    suffix_ids = list(IDS[52:])
+    if (manifest.get('schema') != 'qwen35-p0-unsent-suffix-v1' or
+            manifest.get('status') != 'approved' or
+            manifest.get('clean_repeat_eligible') is not False or
+            manifest.get('reference_labels_read') is not False or
+            manifest.get('scope') != {'configuration': 'qwen3.5-4b-sdk-thinking-on',
+                                      'pass': 'fresh1', 'condition': 'P0',
+                                      'stage': 'development_suffix'} or
+            manifest.get('controller') != {'file': str(controller_path),
+                                           'sha256': bindings[str(controller_path)]} or
+            manifest['suffix'].get('ids') != suffix_ids or
+            [item.get('sha256') for item in manifest['suffix'].get('requests', [])] !=
+                [item['sha256'] for item in planned[52:]] or
+            manifest.get('original', {}).get('unknown_ids') != ['DEV-052'] or
+            manifest['original'].get('never_sent_ids') != suffix_ids):
+        raise ValueError('Qwen3.5 frozen suffix manifest differs')
+    for item in manifest['original']['bindings'].values():
+        if bindings.get(item['file']) != item['sha256']:
+            raise ValueError('Qwen3.5 original source differs from suffix plan')
+    review = json.loads(file_at(root, review_path).read_text())
+    claim = json.loads(file_at(root, suffix_files['claim']).read_text())
+    completion = json.loads(file_at(root, suffix_files['completion']).read_text())
+    if (review.get('kind') != 'qwen35-p0-unsent-suffix-v1-execution-root-review' or
+            review.get('approved') is not True or review.get('phase') != phase or
+            review.get('stage') != 'development_suffix' or
+            review.get('ids') != suffix_ids or
+            review.get('reference_labels_read') is not False or
+            review.get('clean_repeat_credit') is not False or
+            claim.get('schema') != 'qwen35-p0-unsent-suffix-v1-atomic-claim' or
+            claim.get('phase') != phase or claim.get('stage') != 'development_suffix' or
+            claim.get('ids') != suffix_ids or
+            claim.get('manifest_sha256') != bindings[str(manifest_path)] or
+            claim.get('controller_sha256') != bindings[str(controller_path)] or
+            claim.get('receipt_sha256') != bindings[str(review_path)] or
+            completion.get('schema') != 'qwen35-p0-unsent-suffix-v1-completion' or
+            completion.get('phase') != phase or completion.get('stage') != 'development_suffix' or
+            completion.get('status') != 'completed' or completion.get('reason') is not None or
+            completion.get('attempted') != 8 or completion.get('saved') != 8 or
+            completion.get('unknown_ids') != [] or
+            completion.get('original_unknown_ids') != ['DEV-052'] or
+            completion.get('clean_repeat_eligible') is not False or
+            completion.get('host_check', {}).get('host_unchanged') is not True or
+            completion.get('host_after', {}).get('boot') != claim.get('host_baseline', {}).get('boot') or
+            completion.get('host_after', {}).get('sleep_wakes') !=
+                claim.get('host_baseline', {}).get('sleep_wakes') or
+            any(completion.get(key + '_sha256') != bindings[suffix_files[key]]
+                for key in ('journal', 'raw', 'records'))):
+        raise ValueError('Qwen3.5 suffix terminal differs')
+    raw = read_rows(root, suffix_files['raw'])
+    records = read_rows(root, suffix_files['records'])
+    journal = read_rows(root, suffix_files['journal'])
+    if len(raw) != 8 or len(records) != 8 or len(journal) != 16:
+        raise ValueError('Qwen3.5 suffix membership differs')
+    original_records = read_rows(root, partial['evidence']['records']['path'])
+    original_raw = read_rows(root, partial['evidence']['raw']['path'])
+    predictions = {item['id']: {'status': item['decision']['status'],
+                                'prediction': item['decision'].get('prediction')}
+                   for item in original_records}
+    predictions['DEV-052'] = {'status': 'unknown_started', 'prediction': None}
+    invalid = 0
+    for index, rid in enumerate(suffix_ids):
+        wire, saved = raw[index], records[index]
+        started, finished = journal[index * 2:index * 2 + 2]
+        request = planned[index + 52]
+        if (wire.get('id') != rid or saved.get('id') != rid or
+                wire.get('attempt_id') != saved.get('attempt_id') or
+                started.get('event') != 'started' or finished.get('event') != 'finished' or
+                started.get('id') != rid or finished.get('id') != rid or
+                started.get('attempt_id') != wire.get('attempt_id') or
+                finished.get('attempt_id') != wire.get('attempt_id') or
+                started.get('request_sha256') != request['sha256'] or
+                saved.get('request_sha256') != request['sha256'] or
+                saved.get('reference_labels_read') is not False):
+            raise ValueError(f'Qwen3.5 suffix identity differs: {rid}')
+        decision = classify_sdk(wire, config, request)
+        if saved.get('decision') != decision or finished.get('status') != decision['status']:
+            raise ValueError(f'Qwen3.5 suffix decision differs: {rid}')
+        if decision['status'] not in ('ok', 'invalid_output'):
+            raise ValueError(f'Qwen3.5 suffix outcome differs: {rid}')
+        invalid += decision['status'] == 'invalid_output'
+        predictions[rid] = {'status': decision['status'],
+                            'prediction': decision.get('prediction')}
+    if (len(predictions) != 60 or invalid != completion.get('invalid') or
+            set(predictions) != set(IDS)):
+        raise ValueError('Qwen3.5 composite denominator differs')
+    score = shared.score(predictions, labels, IDS)
+    if (receipt.get('valid') != score['valid'] or
+            receipt.get('invalid') != score['outcomes']['invalid_output'] or
+            score['outcomes']['unknown_started'] != 1 or
+            score['outcomes']['never_sent'] != 0):
+        raise ValueError('Qwen3.5 composite score review differs')
+    return {'pass': 'fresh1', 'condition': 'P0',
+            'status': 'completed_interrupted_composite',
+            'completionStatus': 'descriptive_interrupted',
+            'cleanRepeatEligible': False, 'score': score,
+            'originalInterruption': partial,
+            'knownResponseUsage': usage(original_raw[:51] + raw, config['surface']),
+            'evidence': suffix_evidence}
 
 
 def successor_smoke(root, plan, config_id, repeat, condition, bind,
@@ -777,6 +920,7 @@ def build(root=ROOT):
         parsed = {}
         missing = []
         partial = []
+        descriptive = []
         successor_used = False
         for scheduled in config['schedule']:
             repeat = scheduled['name']
@@ -823,8 +967,14 @@ def build(root=ROOT):
                             repeat == 'fresh1' and condition == 'P0' and
                             completion.get('status') == 'stopped'):
                         interrupted = qwen35_interruption(root, plan, bind)
-                        missing.append(interrupted)
                         partial.append(interrupted)
+                        if file_at(root, QWEN35_COMPOSITE_REVIEW).exists():
+                            composite = qwen35_descriptive_composite(
+                                root, plan, labels, bind, interrupted)
+                            missing.append(composite)
+                            descriptive.append(composite)
+                        else:
+                            missing.append(interrupted)
                         continue
                     missing.append({'pass': repeat, 'condition': condition,
                                     'status': 'not_in_closed_snapshot'})
@@ -922,6 +1072,8 @@ def build(root=ROOT):
                            'Reference v0.2 labels were applied offline after model requests.',
                            'Client request durations include runtime and transport overhead; pure inference time is unavailable.',
                            'Local hardware and electricity cost were not measured; unknown is not zero.']})
+        if descriptive:
+            series[-1]['descriptiveComposites'] = descriptive
     return {'schema': 'legacy-qwen-closed-phase-report-v1', 'series': series}
 
 

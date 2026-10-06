@@ -24,7 +24,6 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         self.assertNotIn('P0', series['passes']['fresh1'])
         self.assertEqual(series['threePassSummary']['P0']['allFour']['completedPasses'], 0)
         partial = series['partialPasses'][0]
-        self.assertEqual(partial, series['missingPasses'][0])
         self.assertEqual((partial['status'], partial['attempted'], partial['saved'],
                           partial['valid'], partial['invalid']),
                          ('stopped_unknown', 52, 51, 44, 7))
@@ -34,6 +33,17 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         bound = {item['path']: item['sha256'] for item in series['sourceBindings']}
         for item in partial['evidence'].values():
             self.assertEqual(bound[item['path']], item['sha256'])
+        composite = series.get('descriptiveComposites', [])
+        if (ROOT / findings.QWEN35_COMPOSITE_REVIEW).exists():
+            self.assertEqual(len(composite), 1)
+            self.assertEqual(composite[0], series['missingPasses'][0])
+            self.assertEqual(composite[0]['score']['denominator'], 60)
+            self.assertEqual(composite[0]['score']['outcomes']['unknown_started'], 1)
+            self.assertEqual(composite[0]['score']['outcomes']['never_sent'], 0)
+            self.assertFalse(composite[0]['cleanRepeatEligible'])
+        else:
+            self.assertEqual(composite, [])
+            self.assertEqual(partial, series['missingPasses'][0])
 
     def test_power_observation_requires_matching_checks_and_binds_post_receipt(self):
         with tempfile.TemporaryDirectory() as directory:

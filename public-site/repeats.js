@@ -1185,7 +1185,9 @@
       const generatedSemIf = isGeneratedSemIf(data);
       const generatedAnyJev = isGeneratedAnyJev(data);
       const localFresh = data.method === 'fresh-matched-local-output-stability';
-      const qwen35Stop = localFresh && data.configuration === 'qwen3.5-4b-sdk-thinking-on'
+      const qwen35Composite = localFresh && data.configuration === 'qwen3.5-4b-sdk-thinking-on'
+        ? data.descriptiveComposites?.find(item => item.pass === 'fresh1' && item.condition === 'P0' && item.status === 'completed_interrupted_composite') : null;
+      const qwen35Stop = localFresh && data.configuration === 'qwen3.5-4b-sdk-thinking-on' && !qwen35Composite
         ? data.partialPasses?.find(item => item.pass === 'fresh1' && item.condition === 'P0' && item.status === 'stopped_unknown') : null;
       const interruptedE4b = localFresh && data.configuration === e4bInterruptionId ? e4bInterruption : null;
       const passes = data.passOrder || (localFresh ? ['fresh1', 'fresh2', 'fresh3'] : ['original', 'repeat2', 'repeat3']);
@@ -1243,7 +1245,7 @@
         `<p><a href="${gemmaP1CheckpointUrl}">Read this dated P1 checkpoint and its source hashes</a></p>`;
       if (freshSonnet) document.getElementById('repeat-interpretation').innerHTML +=
         `<p><a href="${sonnet55Url}">Read the Sonnet 5.5 source report and evidence hashes</a></p>`;
-      if (qwen35Stop) document.getElementById('repeat-interpretation').innerHTML +=
+      if (qwen35Stop || qwen35Composite) document.getElementById('repeat-interpretation').innerHTML +=
         '<p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN35_P0_INTERRUPTION_2026-10-06.md">Read the Qwen3.5 interruption report and source links</a></p>';
       if (interruptedE4b) {
         const u = interruptedE4b.usage;
@@ -1285,6 +1287,8 @@
         ' Fresh pass 2 P2 has 50 valid saved responses, two unknown timeouts and eight unsent comments; it has no final score.';
       if (readerSummary && qwen35Stop) readerSummary.textContent +=
         ` Fresh pass 1 P0 stopped after ${qwen35Stop.saved} saved responses: ${qwen35Stop.valid} valid, ${qwen35Stop.invalid} invalid, one unknown outcome and ${qwen35Stop.neverSentIds.length} not sent. It has no full-pass score.`;
+      if (readerSummary && qwen35Composite) readerSummary.textContent =
+        `${data.displayName || data.configuration}: ${data.completedConditions}/9 clean phases are closed. Fresh pass 1 P0 has a descriptive interrupted result: ${qwen35Composite.score.allFour}/60 all-four matches, ${qwen35Composite.score.valid} valid responses, ${qwen35Composite.score.outcomes.invalid_output} invalid responses and one unknown outcome. The later eight reviews were sent separately.`;
       if (readerSummary && gemmaPostabort && data.p2RepeatDetail) readerSummary.textContent +=
         ' P2 all-four scores across the three fixed-60 passes are 57, 56 and 56; 2 of 57 shared-valid comments changed a decision.';
       const seriesPrice=subscriptionPricing?.repeatSeries?.[data.configuration];
@@ -1315,6 +1319,8 @@
       if (localFresh) document.getElementById('repeat-lead').textContent += ` This study plans three fresh local passes. Only completed phases have scores. Earlier local results are observational and are not counted here. Only terminal phases have scores. Reference labels are provisional and were used only for offline scoring. Client request time includes runtime overhead; loaded engine version, model load time and local cost are unknown.`;
       if (qwen35Stop) document.getElementById('repeat-lead').textContent +=
         ` Fresh pass 1 P0: ${qwen35Stop.valid} valid and ${qwen35Stop.invalid} invalid saved responses; DEV-052 has an unknown outcome; DEV-053 to DEV-060 were not sent. The host slept during DEV-052, so elapsed wall time is not model inference time. This phase remains unscored. See the source-bound interruption report.`;
+      if (qwen35Composite) document.getElementById('repeat-lead').textContent +=
+        ` Fresh pass 1 P0 combines 51 original saved responses with eight separately sent responses. DEV-052 remains unknown and no reviews remain unsent. Its ${qwen35Composite.score.allFour}/60 all-four result uses the fixed 60-review denominator and is descriptive, without clean-repeat credit. The host slept during the original DEV-052 attempt; that elapsed wall time is not model inference time.`;
       if (gemmaPostabort && data.p2RepeatDetail) document.getElementById('repeat-lead').textContent +=
         ' The paired P2 comparison uses 57 comments with valid answers in all three passes; DEV-005, DEV-006 and DEV-007 are excluded from answer-change counts but remain in each fixed-60 score.';
       if (freshCodex) document.getElementById('repeat-lead').textContent += ' Each series schedules three fresh Codex subscription passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. The requested model and CLI version are recorded; the served model identity and revision, effective seed and attributable subscription cost are unavailable. Request time includes client overhead.';
@@ -1403,7 +1409,8 @@
           const sonnetMissing = freshSonnet ? data.missingPasses.find(item => item.pass === p && item.condition === c) : null;
           const localSmokeBlocked = localFresh && data.missingPasses.some(item => item.pass === p && item.condition === c && item.status === 'smoke_blocked');
           const qwen35Cell = qwen35Stop && p === 'fresh1' && c === 'P0';
-          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (qwen35Cell ? `<span>Stopped: ${qwen35Stop.valid} valid, ${qwen35Stop.invalid} invalid, 1 unknown, ${qwen35Stop.neverSentIds.length} unsent; no score</span>` : kevStop ? '<span>Interrupted; unscored</span>' : stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : thirdStop ? '<span>Stopped: 46 valid, 1 invalid, 3 service errors, 10 unsent; no score</span>' : qwen27P0Stop ? '<span>Stopped: 37 valid, 1 service error, 22 unsent; no score</span>' : qwen27P1Stop ? `<span>${data.cutoffDetail.laterP1.saved} saved, ${data.cutoffDetail.laterP1.neverSent} unsent; no score</span>` : gemmaStop ? '<span>Stopped: 1 valid, 1 service error, 58 unsent; no score</span>' : gemmaSecondStop ? '<span>Stopped: 4 valid, 1 service error, 55 unsent; no score</span>' : e4bStop ? '<span>Stopped: 50 valid, 2 unknown, 8 unsent; no score</span>' : gemmaP0Checkpoint && p === 'fresh3' && c === 'P1' ? '<span>No full result in this checkpoint</span>' : gemmaUnsent ? '<span>Not sent</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : freshSonnet ? `<span>${esc(sonnetMissingLabel(sonnetMissing) + sonnetSavedLabel(sonnetMissing))}</span>` : localSmokeBlocked ? '<span>Smoke returned invalid format; full run not started</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
+          const qwen35Descriptive = qwen35Composite && p === 'fresh1' && c === 'P0';
+          return `<div class="repeat-bar-row"><span>${displayPass(p)}</span>${n == null ? (qwen35Descriptive ? `<span>Descriptive interrupted: ${qwen35Composite.score.allFour}/60 matches, ${qwen35Composite.score.valid} valid, 1 unknown; no clean-pass credit</span>` : qwen35Cell ? `<span>Stopped: ${qwen35Stop.valid} valid, ${qwen35Stop.invalid} invalid, 1 unknown, ${qwen35Stop.neverSentIds.length} unsent; no score</span>` : kevStop ? '<span>Interrupted; unscored</span>' : stopped ? '<span>Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score</span>' : thirdStop ? '<span>Stopped: 46 valid, 1 invalid, 3 service errors, 10 unsent; no score</span>' : qwen27P0Stop ? '<span>Stopped: 37 valid, 1 service error, 22 unsent; no score</span>' : qwen27P1Stop ? `<span>${data.cutoffDetail.laterP1.saved} saved, ${data.cutoffDetail.laterP1.neverSent} unsent; no score</span>` : gemmaStop ? '<span>Stopped: 1 valid, 1 service error, 58 unsent; no score</span>' : gemmaSecondStop ? '<span>Stopped: 4 valid, 1 service error, 55 unsent; no score</span>' : e4bStop ? '<span>Stopped: 50 valid, 2 unknown, 8 unsent; no score</span>' : gemmaP0Checkpoint && p === 'fresh3' && c === 'P1' ? '<span>No full result in this checkpoint</span>' : gemmaUnsent ? '<span>Not sent</span>' : nativeStop || generatedStop ? '<span>Stopped; unscored</span>' : freshSonnet ? `<span>${esc(sonnetMissingLabel(sonnetMissing) + sonnetSavedLabel(sonnetMissing))}</span>` : localSmokeBlocked ? '<span>Smoke returned invalid format; full run not started</span>' : partial ? '<span>Partial run</span>' : '<span>Not completed</span>') : `<meter min="0" max="${data.denominator}" value="${n}" aria-label="${c} ${displayPass(p)} ${esc(fields[field])}: ${n} out of ${data.denominator}">${n}</meter><strong>${n}<small> / ${data.denominator}</small></strong>`}</div>`;
         }).join('')}<p class="repeat-range">${stats?.range ? `Three-pass range: <strong>${stats.range[0]}–${stats.range[1]}</strong> out of ${data.denominator}` : qwen27Cutoff || qwen27Second ? 'This entry covers fresh pass 3 only; select the hosted series for earlier passes.' : 'Three-pass range unavailable until all passes finish.'}</p></article>`;
       }).join('')}</div><p class="analysis-caveat">Bars start at zero. Agreement is measured against provisional references, separately from valid response format. Repeated comments are not independent cases.</p>`;
       document.getElementById('repeat-delta-title').textContent = nativeP0 ? 'One native decision procedure' : 'How did prompt scores change across passes?';
@@ -1516,6 +1523,10 @@
         }
         if (qwen35Stop && p === 'fresh1' && c === 'P0')
           return `<tr><th scope="row">P0</th><td>Fresh pass 1 (stopped, unscored)</td><td>${qwen35Stop.attempted} attempted<br><small>${qwen35Stop.valid} valid, ${qwen35Stop.invalid} invalid, 1 unknown, ${qwen35Stop.neverSentIds.length} unsent</small></td><td>Unavailable for full phase</td><td>Unavailable for full phase</td><td>Unmeasured local cost</td><td>Unavailable</td><td>Host sleep overlaps the unknown request; elapsed time is not model inference time</td></tr>`;
+        if (qwen35Composite && p === 'fresh1' && c === 'P0') {
+          const u = qwen35Composite.knownResponseUsage;
+          return `<tr><th scope="row">P0</th><td>Fresh pass 1 (descriptive interrupted composite)</td><td>60 positions<br><small>59 saved, 1 unknown, 0 unsent</small></td><td>${number(u.tokens.input_tokens)}<br><small>59 saved responses only</small></td><td>${number(u.tokens.output_tokens)}<br><small>59 saved responses only</small></td><td>Unmeasured local cost</td><td>Unavailable</td><td>Unknown request overlaps host sleep; no full-phase inference time</td></tr>`;
+        }
         if (gemmaContinuation || gemmaSecond || gemmaPostabort) {
           const stopped = p === 'fresh2' && c === 'P0';
           const u = stopped ? data.stoppedPhases[0].usage : data.passes[p]?.[c]?.usage;

@@ -2,7 +2,7 @@
 
 ## Qwen3.5 interruption, 6 October 2026
 
-The first fresh thinking-on P0 pass is stopped: 44 valid responses, seven invalid responses, one unknown outcome and eight never-sent reviews. It remains 0/9 completed phases. [The interruption report](QWEN35_P0_INTERRUPTION_2026-10-06.md) preserves the evidence and timing caveat. A separate continuation for only DEV-053–060 is under review; DEV-052 must not be replayed. No inference is running at this checkpoint.
+The first fresh thinking-on P0 pass and its eight-review continuation now account for all 60 positions: 51 valid responses, eight invalid responses and one unknown outcome. Its descriptive all-four score is 47/60 (47/51 among valid answers); it remains 0/9 clean completed phases. [The interruption report](QWEN35_P0_INTERRUPTION_2026-10-06.md) preserves the evidence and timing caveat. The separate continuation for DEV-053–060 is closed and reviewed; DEV-052 remains unknown and must not be replayed. No inference is running at this checkpoint.
 
 ## Mistral P1 execution update, 5 October 2026
 

@@ -16,7 +16,7 @@ A condition cell is **accounted / valid / nonvalid** and links to its primary ev
 
 ## Later execution coverage, updated 6 October 2026
 
-Qwen3.5 4B thinking-on remains **0/9 completed phases**. Its first fresh P0 pass saved 44 valid and seven invalid answers, retains DEV-052 as unknown, and leaves DEV-053–060 unsent. [Interruption evidence](QWEN35_P0_INTERRUPTION_2026-10-06.md). Historical Qwen3.5 results below are a separate cohort.
+Qwen3.5 4B thinking-on remains **0/9 completed phases**. Its interrupted first fresh P0 pass plus the separate eight-review continuation has 51 valid answers, eight invalid answers and DEV-052 unknown. All positions are accounted; the descriptive all-four score is 47/60, not clean-repeat credit. [Interruption evidence](QWEN35_P0_INTERRUPTION_2026-10-06.md). Historical Qwen3.5 results below are a separate cohort.
 
 These counts distinguish completed 60-review passes, descriptive results with failures, and interrupted work. A fresh pass requires its own dispatch; a failed answer stays in its original 60-review denominator. Historical first passes count only where an explicit protocol audit admits them. Smokes and unfinished dispatches cannot fill a completed pass. The [current goals](CURRENT_GOALS.md), [remaining-roster audit](REMAINING_ROSTER_2026-09-29.md) and [current checklist](TODO.md) keep the broader queue visible.
 

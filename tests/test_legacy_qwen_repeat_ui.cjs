@@ -9,7 +9,7 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   const payload = JSON.parse(fs.readFileSync(path.join(site, 'legacy-qwen-repeats.json')));
   assert.equal(payload.series.length, 6);
   const ids = ['repeat-search','repeat-coverage','repeat-filter-count','repeat-selected-results','repeat-results','repeat-config','repeat-field','repeat-condition',
-    'repeat-condition-label','repeat-interpretation','repeat-lead','repeat-chart',
+    'repeat-condition-label','repeat-interpretation','repeat-lead','repeat-summary','repeat-chart',
     'repeat-delta-title','repeat-delta-intro','repeat-deltas','repeat-flips','repeat-usage-body'];
   const elements = new Map(ids.map(id => [id, {innerHTML:'', textContent:'', value:'',
     addEventListener(type, listener) { this[type] = listener; }}]));
@@ -49,9 +49,19 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   assert.equal(qwen35.passes.fresh1.P0, undefined);
   elements.get('repeat-config').value = qwen35.configuration;
   elements.get('repeat-config').change();
-  assert.match(elements.get('repeat-chart').innerHTML, /Stopped: 44 valid, 7 invalid, 1 unknown, 8 unsent; no score/);
-  assert.match(elements.get('repeat-lead').textContent, /DEV-052 has an unknown outcome/);
-  assert.match(elements.get('repeat-usage-body').innerHTML, /Host sleep overlaps the unknown request/);
+  if (qwen35.descriptiveComposites?.length) {
+    const composite = qwen35.descriptiveComposites[0];
+    assert.match(elements.get('repeat-chart').innerHTML, new RegExp(`Descriptive interrupted: ${composite.score.allFour}/60 matches`));
+    assert.match(elements.get('repeat-lead').textContent, /DEV-052 remains unknown and no reviews remain unsent/);
+    assert.match(elements.get('repeat-summary').textContent, /0\/9 clean phases are closed/);
+    assert.doesNotMatch(elements.get('repeat-summary').textContent, /no final results/i);
+    assert.match(elements.get('repeat-usage-body').innerHTML, /59 saved, 1 unknown, 0 unsent/);
+    assert.doesNotMatch(elements.get('repeat-chart').innerHTML, /8 unsent/);
+  } else {
+    assert.match(elements.get('repeat-chart').innerHTML, /Stopped: 44 valid, 7 invalid, 1 unknown, 8 unsent; no score/);
+    assert.match(elements.get('repeat-lead').textContent, /DEV-052 has an unknown outcome/);
+    assert.match(elements.get('repeat-usage-body').innerHTML, /Host sleep overlaps the unknown request/);
+  }
   assert.equal((elements.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 0);
   const qwen17 = payload.series.find(row => row.configuration === 'qwen3-1.7b-sdk-thinking-off');
   qwen17.passes.fresh1.P0.powerObservation = {source:'ac', basis:'matching_pre_post_checks'};

@@ -145,8 +145,11 @@ def qwen35_repeat_summary(series):
             {(item.get("pass"), item.get("condition")) for item in missing} != expected_missing):
         raise ValueError("Qwen3.5 missing phases differ")
     partial = series.get("partialPasses", [])
+    descriptive = series.get("descriptiveComposites", [])
     if not isinstance(partial, list) or len(partial) > 1:
         raise ValueError("Qwen3.5 partial coverage differs")
+    if not isinstance(descriptive, list) or len(descriptive) > 1:
+        raise ValueError("Qwen3.5 descriptive coverage differs")
     bound = {item.get("path"): item.get("sha256") for item in series.get("sourceBindings", [])}
     for item in partial:
         slot = (item.get("pass"), item.get("condition"))
@@ -154,7 +157,9 @@ def qwen35_repeat_summary(series):
         unsent = item.get("neverSentIds")
         evidence = item.get("evidence")
         if (slot != ("fresh1", "P0") or slot not in expected_missing or
-                item not in missing or item.get("status") != "stopped_unknown" or
+                (item not in missing and not any(c.get("originalInterruption") == item
+                                                 for c in descriptive)) or
+                item.get("status") != "stopped_unknown" or
                 item.get("attempted") != 52 or item.get("saved") != 51 or
                 item.get("valid") != 44 or item.get("invalid") != 7 or
                 unknown != ["DEV-052"] or
@@ -172,6 +177,32 @@ def qwen35_repeat_summary(series):
             raise ValueError("Qwen3.5 partial source or counts differ")
     if any(item.get("status") == "stopped_unknown" and item not in partial for item in missing):
         raise ValueError("Qwen3.5 stopped phase is not projected")
+    for item in descriptive:
+        score = item.get("score", {})
+        outcomes = score.get("outcomes", {})
+        evidence = item.get("evidence")
+        if (len(partial) != 1 or item.get("originalInterruption") != partial[0] or
+                (item.get("pass"), item.get("condition")) != ("fresh1", "P0") or
+                item not in missing or ("fresh1", "P0") not in expected_missing or
+                item.get("status") != "completed_interrupted_composite" or
+                item.get("completionStatus") != "descriptive_interrupted" or
+                item.get("cleanRepeatEligible") is not False or
+                score.get("denominator") != 60 or
+                not 0 <= score.get("allFour", -1) <= score.get("valid", -1) <= 59 or
+                outcomes.get("valid") != score.get("valid") or
+                outcomes.get("unknown_started") != 1 or
+                outcomes.get("never_sent") != 0 or
+                outcomes.get("invalid_output") != 59 - score.get("valid", -1) or
+                sum(outcomes.values()) != 60 or
+                not isinstance(evidence, dict) or
+                set(evidence) != {"claim", "journal", "raw", "records", "completion",
+                                  "review", "manifest", "controller", "compositeReview"} or
+                any(not isinstance(source, dict) or bound.get(source.get("path")) != source.get("sha256")
+                    for source in evidence.values())):
+            raise ValueError("Qwen3.5 descriptive composite differs")
+    if any(item.get("status") == "completed_interrupted_composite" and item not in descriptive
+           for item in missing):
+        raise ValueError("Qwen3.5 composite is not projected")
     conditions = {}
     for condition in CONDITIONS:
         closed = []
@@ -215,9 +246,12 @@ def qwen35_repeat_summary(series):
             matched[name] = {condition: first[condition]["score"]["allFour"] -
                              first["P0"]["score"]["allFour"]
                              for condition in ("P1", "P2") if condition in first}
-    return {"completedConditions": completed, "plannedConditions": 9,
-            "conditions": conditions, "matchedP0AllFourDeltas": matched,
-            "missingPasses": missing, "partialPasses": partial}
+    result = {"completedConditions": completed, "plannedConditions": 9,
+              "conditions": conditions, "matchedP0AllFourDeltas": matched,
+              "missingPasses": missing, "partialPasses": partial}
+    if descriptive:
+        result["descriptiveComposites"] = descriptive
+    return result
 
 
 def _class_hits(root, public_report, labels, bindings):

@@ -192,6 +192,7 @@ test('Qwen3.5 interrupted P0 remains a separate unscored partial in analysis', a
   const q35 = report.newerCohorts.legacyQwen.qwen35Repeat;
   assert.equal(q35.completedConditions, 0);
   assert.equal(q35.partialPasses.length, 1);
+  delete q35.descriptiveComposites;
   const view = await renderState(report);
   assert.match(view.cutoffs,/Qwen3.5 4B SDK, thinking on:<\/strong> 0\/9 full phases are closed/);
   assert.match(view.cutoffs,/Fresh1 P0 stopped after 52 attempts: 51 saved responses \(44 valid, 7 invalid\), DEV-052 with an unknown outcome, and 8 reviews never sent/);
@@ -199,6 +200,21 @@ test('Qwen3.5 interrupted P0 remains a separate unscored partial in analysis', a
   assert.match(view.cutoffs,/host slept during the unknown request/);
   assert.match(view.cutoffs,/QWEN35_P0_INTERRUPTION_2026-10-06.md/);
   assert.doesNotMatch(view.cutoffs,/fresh1 P0: \d+\/60 all-four matches/);
+});
+test('Qwen3.5 descriptive composite shows fixed-60 result without clean credit', async()=>{
+  const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
+  const q35 = report.newerCohorts.legacyQwen.qwen35Repeat;
+  const composite = q35.descriptiveComposites?.[0] || {
+    pass:'fresh1',condition:'P0',status:'completed_interrupted_composite',
+    score:{denominator:60,allFour:47,valid:51,outcomes:{invalid_output:8,unknown_started:1,never_sent:0}}
+  };
+  q35.descriptiveComposites=[composite];
+  const view = await renderState(report);
+  assert.match(view.cutoffs,/Qwen3.5 4B SDK, thinking on:<\/strong> 0\/9 full phases are closed/);
+  assert.match(view.cutoffs,/descriptive interrupted result: 47\/60 all-four matches, 51 valid responses, 8 invalid responses and one unknown outcome at DEV-052/);
+  assert.match(view.cutoffs,/none remain unsent/);
+  assert.match(view.cutoffs,/not a clean repeat pass/);
+  assert.doesNotMatch(view.cutoffs,/8 reviews never sent/);
 });
 test('unavailable or malformed analysis links the report instead of showing invented results', async()=>{
   assert.match(await render(null,false),/could not be loaded/);
