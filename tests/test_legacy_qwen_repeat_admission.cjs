@@ -186,9 +186,12 @@ test('a failure after raw response capture remains an unknown stopped attempt',a
   assert.equal(small.read(x.paths.completion).saved,0);
 });
 
-test('development needs an independently inspected three-valid smoke and predecessor closure',()=>{
-  assert.throws(()=>legacy.checkPredecessor(plan,legacy.IDS[0],'fresh1','P0','development'),/Smoke not complete/);
-  assert.throws(()=>legacy.checkPredecessor(plan,legacy.IDS[0],'fresh1','P1','smoke'),/Prior phase incomplete/);
+test('missing smoke and predecessor fixtures block admission regardless of saved workspace results',t=>{
+  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'legacy-qwen-missing-predecessor-'));
+  t.after(()=>fs.rmSync(folder,{recursive:true,force:true}));
+  const paths=(_id,pass,condition,stage)=>({folder,completion:path.join(folder,`${pass}-${condition}-${stage}.completion.json`)});
+  assert.throws(()=>legacy.checkPredecessor(plan,legacy.IDS[0],'fresh1','P0','development',paths),/Smoke not complete/);
+  assert.throws(()=>legacy.checkPredecessor(plan,legacy.IDS[0],'fresh1','P1','smoke',paths),/Prior phase incomplete/);
 });
 
 test('current route receipt is required and becomes stale after five minutes',()=>{

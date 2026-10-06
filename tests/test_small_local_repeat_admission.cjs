@@ -222,6 +222,10 @@ test('common native host lock excludes a second process', async t => {
     error=>error.status===73);
 });
 
-test('development requires completed three-valid smoke with root inspection',() => {
-  assert.throws(()=>admission.checkPredecessor(plan,e2bOff,'fresh2','P0','development'),/Prior phase incomplete|Smoke not complete/);
+test('development rejects a missing predecessor without relying on current saved results',t => {
+  const [pass,condition]=admission.phaseInfo(plan,e2bOff,'fresh2','P0').preceding[0].split('/');
+  const absent=admission.stagePaths(e2bOff,pass,condition,'development').completion;
+  const exists=fs.existsSync;
+  t.mock.method(fs,'existsSync',file=>file===absent?false:exists(file));
+  assert.throws(()=>admission.checkPredecessor(plan,e2bOff,'fresh2','P0','development'),/Prior phase incomplete/);
 });
