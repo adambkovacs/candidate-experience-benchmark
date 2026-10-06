@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Verified progress, 6 October 2026, 20:50 UTC
+
+- DeepSeek low execution is complete. Its final P0 pass returned 59 valid answers and 58/60 all-field matches. The sealed successor records $0.099872777706 known cost and no new unknown charges; root released only its unused $0.400127222294. Earlier failures remain preserved. The final report is committed in `83bc6130`; combined-analysis integration is under review.
+- Solar's two previously unsent smoke records returned valid native choices. Root inspected both raw responses unchanged. Known cost is $0.00073290; no new unknown charge. The sealed child's unused $0.20926710 is released. The original DEV-001 failure and separate risk hold remain. A full-series candidate is being prepared, not yet admitted.
+- Cloudflare's account-wide $10 email budget alert is enabled and was re-read successfully. It is a delayed notification, not a hard cap. Agent `qwen_recovery` is preparing the inclusive project cap and remaining Clef/Flash runner. Current invoice totals remain inaccessible; historical holds must not be mislabeled as spending.
+- The grouped findings page deployment succeeded at `a079b01b`; three live UI assets match committed bytes. Tev and DeepSeek high reports also match the published integration. No local inference will resume under the user's revised scope.
+
 ## Latest instructions and assignments, 6 October 2026
 
 - Root: record the hosted-only scope, integrate closed findings, verify publication, and reconcile the final roster. No new local inference; unfinished local-only work is now excluded by the user.

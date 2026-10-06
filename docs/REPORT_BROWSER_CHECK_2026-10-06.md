@@ -23,3 +23,8 @@ This was a content and loading check. It does not replace the remaining keyboard
 The long analysis list now uses three native disclosure groups: seven decision-model entries, eleven hosted-language-model entries and nine historical-local entries. Independent review confirmed that all 27 entries, calculations and source links remain present. Fifteen focused UI tests pass. Both JavaScript and presentation stylesheet cache versions changed.
 
 Local browser checks showed the grouped layout on desktop and at a 390-pixel viewport. The findings container measured about 320 pixels wide on mobile, with no document horizontal overflow. Enter opened the decision and hosted groups and retained keyboard focus. The browser captured no console errors. These controls add no custom animation or scroll behavior. The existing broader reduced-motion checks remain separate; this checkpoint is not a full-site accessibility audit.
+
+
+## Grouped findings publication verified
+
+Pages run [37527766678](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37527766678) succeeded for `a079b01b`. Live `index.html`, `presentation.css` and `analysis-refresh.js` match that commit byte for byte. The Tev and DeepSeek high reports also match their integrated `07ca8c45` versions. This verifies deployment of the previously checked interface; it does not claim a new full-site UX audit.
