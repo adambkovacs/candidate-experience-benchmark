@@ -80,9 +80,64 @@ class JevNativePromptFindingsTests(unittest.TestCase):
         child = report.BASE / config / (stage + '.budget-' + config + '-' + stage + '-full-v1.jsonl')
         reconciliation = json.loads((directory / 'budget-reconciliation.json').read_text())
         reconciliation['unknown_upper_bound_usd'] = '0'
+        archived_child = reconciliation['child_ledger']
+        archived_root = report.archived_root(archived_child,
+            report.BASE_RELATIVE / config / child.name, 'Budget child ledger')
         with self.assertRaisesRegex(ValueError, 'Child reconciliation differs'):
-            report.check_child(child, config + '-' + stage + '-full-v1', parsed,
+            report.check_child(child, archived_child, archived_root,
+                               config + '-' + stage + '-full-v1', parsed,
                                reconciliation, directory / 'unknown-cost-evidence.jsonl')
+
+    def test_archived_receipt_survives_relocation_and_rejects_tamper(self):
+        config, stage = report.CONFIGS['P1'], 'fresh1'
+        manifest = json.loads((report.BASE / (config + '.json')).read_text())
+        original = report.full.paths(report.BASE, config, stage)
+        with tempfile.TemporaryDirectory() as temp:
+            relocated = Path(temp) / 'results/route-audits/jev-native-full-v1-20261006'
+            copied = report.full.paths(relocated, config, stage)
+            files = ('manifest', 'estimate', 'context', 'inspection', 'receipt', 'budget')
+            for name in files:
+                copied[name].parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(original[name], copied[name])
+            copied_child = copied['budget'].parent / (
+                copied['budget'].stem + '-' + manifest['passes'][0]['partition_id'] + '.jsonl')
+            original_child = original['budget'].parent / copied_child.name
+            shutil.copy2(original_child, copied_child)
+            copied_receipt = copied['stage'] / 'review-receipt.json'
+            copied_receipt.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(original['stage'] / 'review-receipt.json', copied_receipt)
+            value = report.archived_receipt(config, stage, manifest, relocated)
+            self.assertEqual(value[1], copied_child)
+            archived_child = json.loads(original['budget'].read_text())['partitions'][0]['child_ledger']
+            self.assertEqual(value[2], archived_child)
+            receipt = json.loads(copied['receipt'].read_text())
+            receipt['approved'] = False
+            copied['receipt'].write_text(json.dumps(receipt))
+            with self.assertRaisesRegex(ValueError, 'Archived root receipt differs'):
+                report.archived_receipt(config, stage, manifest, relocated)
+
+    def test_archived_unknown_evidence_path_rejects_root_drift(self):
+        config, stage = report.CONFIGS['P2'], 'fresh2'
+        manifest = json.loads((report.BASE / (config + '.json')).read_text())
+        directory = report.BASE / config / stage
+        parsed = report.parse_attempts(manifest, directory, 18, unknown_id='DEV-018')
+        original_child = report.BASE / config / (
+            stage + '.budget-' + config + '-' + stage + '-full-v1.jsonl')
+        archived_child = json.loads((directory / 'budget-reconciliation.json').read_text())['child_ledger']
+        archived_root = report.archived_root(archived_child,
+            report.BASE_RELATIVE / config / original_child.name, 'Budget child ledger')
+        with tempfile.TemporaryDirectory() as temp:
+            child = Path(temp) / original_child.name
+            events = report.rows(original_child)
+            events[-2]['evidence_path'] = '/different/checkout/' + '/'.join(
+                (report.BASE_RELATIVE / config / stage / 'unknown-cost-evidence.jsonl').parts)
+            child.write_text(''.join(json.dumps(item) + '\n' for item in events))
+            reconciliation = json.loads((directory / 'budget-reconciliation.json').read_text())
+            reconciliation['child_sha256'] = report.sha(child)
+            with self.assertRaisesRegex(ValueError, 'Unknown-cost raw evidence differs'):
+                report.check_child(child, archived_child, archived_root,
+                    config + '-' + stage + '-full-v1', parsed, reconciliation,
+                    directory / 'unknown-cost-evidence.jsonl')
 
     def test_prompt_non_instruction_drift_is_rejected(self):
         plans = report.frozen.build_plan(report.ROOT)

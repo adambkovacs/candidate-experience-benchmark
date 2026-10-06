@@ -12,12 +12,20 @@ P1 and P2 used the same feedback, policies, criteria, labels, label order, route
 
 The three P1 passes used 371,958 input and 52,017 output tokens and cost $0.015622236 in observed provider charges. P2 used 402,738 input and 52,095 output tokens and cost $0.016914996. Recorded request totals were 153.73 and 162.01 seconds respectively; these are client-observed durations, not pure inference time. The earlier clean P0 passes scored 48/60 twice and remain a separate descriptive baseline. The interrupted third P0 attempt is excluded from clean comparisons. See the [source-bound Kev findings](KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md) and [public feed](../public-site/kev-native-prompt-findings.json).
 
+## Jev OpenRouter native Choice update, 6 October 2026
+
+Jev P1 fresh1 and P2 fresh1 each returned 60 valid answers and matched all four provisional fields on 54/60 reviews. Their categorical answers differed only on DEV-013. Native probability dictionaries and vendor confidence changed on multiple reviews; the [Jev findings](JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md) count those changes separately. This OpenRouter route is a separate execution surface for the same Jev model, not a new model.
+
+P1 fresh2 finished all 60 requests with 59 valid outputs and a strict score of **53/60**. DEV-056 returned HTTP 200 but failed the unchanged native probability-sum check. That validation failure does not establish that its categorical labels were wrong; the response is excluded from scoring and its known charge remains counted. Among the 59 reviews valid in both P1 passes, no four-field answer vector changed, though native probabilities and vendor confidence did change.
+
+P2 fresh2 stopped after 17 valid responses and an HTTP 429 on DEV-018. Fifteen of those 17 valid responses matched all four fields. The failed attempt retains a $0.001344000 unknown-charge bound, and DEV-019 through DEV-060 were never sent. The 15 matches are partial evidence on a fixed 60-review accounting frame, not a full-pass score or a second clean P2 repeat. P1/P2 fresh3 and a full OpenRouter P0 pass remain absent. The [source-bound Jev feed](../public-site/jev-native-prompt-findings.json) and [terminal record](../results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/terminal-public.json) preserve these states.
+
 
 ## Addendum, 6 October: interrupted Qwen3.5 pass
 
 The first new P0 pass and its completed eight-review continuation have 51 valid answers, eight invalid answers and one unknown outcome. The descriptive all-four score is 47/60, or 47/51 among valid answers. The unknown and invalid positions stay in the fixed denominator; this result supplies no clean-repeat estimate or paired prompt effect. Earlier completed comparisons remain unchanged. The [interruption report](QWEN35_P0_INTERRUPTION_2026-10-06.md) binds the saved evidence; the combined report exposes this partial coverage separately. Hibernation during the unknown request makes its client timeout unsuitable as inference latency.
 
-The combined [analysis feed](../public-site/analysis-refresh.json) includes the Kev P1/P2 study alongside the four earlier source-bound checkpoints: three Clef Flash P1 passes, three P2 passes, an interrupted Mistral 119B fresh1 P0 run and Clef's first P1 pass. It binds each public projection and its reviewed source files by SHA-256. Earlier cohort cutoffs remain separate.
+The combined [analysis feed](../public-site/analysis-refresh.json) includes the Kev and Jev native Choice studies alongside the earlier source-bound checkpoints for Clef Flash, Mistral 119B and Clef. It binds each projection and its reviewed source files by SHA-256. Earlier cohort cutoffs remain separate.
 
 ## Clef Flash P1
 
@@ -37,7 +45,7 @@ The later P1 smoke stopped at DEV-001 with an upstream shared-pool HTTP 429 and 
 
 These additions update the combined analysis and public explorer. They do not close the full Clef or Mistral repeat matrices. Clef P0's three-pass checkpoint and Clef Flash's interrupted third P0 pass remain as previously reported. Clef Flash P2 has three closed passes; Clef P1 has one closed pass and Clef P2 remains unexecuted. The project still requires the full roster, condition-specific repeats where eligible, and publication of later source-bound evidence.
 
-The analysis feed retains prior sources and historical cohorts. Its current `sources` list records 193 SHA-256 bindings, including the Kev report and its underlying closed evidence. Rebuild and verify it offline with:
+The analysis feed retains prior sources and historical cohorts. Its refreshed `sources` list records 233 SHA-256 bindings, including the Kev and Jev reports and their underlying evidence. Rebuild and verify it offline with:
 
 ```sh
 python3 scripts/build_analysis_refresh.py

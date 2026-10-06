@@ -27,6 +27,7 @@ CLEF_FLASH_P0_PARENT = "results/clef-native-v1/clef-flash/fresh3/P0/development"
 CLEF_FLASH_P0_SUFFIX = "results/clef-native-v1/clef-flash/fresh3/P0/development-suffix-v1"
 MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
 KEV_NATIVE_PROMPT_PUBLIC = "public-site/kev-native-prompt-findings.json"
+JEV_NATIVE_PROMPT_PUBLIC = "public-site/jev-native-prompt-findings.json"
 SOURCES = (
     "public-site/sonnet55-fresh-matched3.json",
     "public-site/sonnet55-fresh-matched3-evidence/report.json",
@@ -54,6 +55,7 @@ SOURCES = (
     CLEF_FLASH_P2,
     MISTRAL_P0_PUBLIC,
     KEV_NATIVE_PROMPT_PUBLIC,
+    JEV_NATIVE_PROMPT_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -215,6 +217,129 @@ def kev_native_prompt_summary(root, report, bindings):
         "historicalP0": {"scope": "separate descriptive baseline",
             "cleanPasses": ["fresh1", "fresh2"], "scores": [48, 48],
             "interruptedThirdExcluded": True}}
+
+
+def jev_native_prompt_summary(root, report, bindings):
+    """Project only verified, saved Jev native Choice states."""
+    if set(report) != {"sourceBindings", "passes", "comparisons"} or \
+            set(report["passes"]) != {"P1", "P2"} or \
+            any(set(report["passes"][condition]) != {"fresh1", "fresh2"}
+                for condition in ("P1", "P2")):
+        raise ValueError("Jev native prompt report coverage differs")
+    source_map = bind_report_sources(root, report, bindings, "Jev native prompt report")
+    if source_map.get("data/pilot/proposed_labels.jsonl") != \
+            "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464":
+        raise ValueError("Jev frozen reference binding differs")
+    expected = {
+        ("P1", "fresh1"): ("complete", 60, 54, {"valid": 60}, "0.006405000", "0"),
+        ("P1", "fresh2"): ("complete", 59, 53,
+                           {"valid": 59, "invalid_native_distribution": 1}, "0.006405000", "0"),
+        ("P2", "fresh1"): ("complete", 60, 54, {"valid": 60}, "0.006851040", "0"),
+        ("P2", "fresh2"): ("stopped", 17, 15,
+                           {"valid": 17, "unknown_cost_http_429": 1, "never_sent": 42},
+                           "0.001940694", "0.001344000"),
+    }
+    fields = {
+        ("P1", "fresh1"): (56, 58, 57, 58),
+        ("P1", "fresh2"): (55, 57, 56, 57),
+        ("P2", "fresh1"): (56, 58, 57, 58),
+        ("P2", "fresh2"): (16, 17, 16, 17),
+    }
+    projected = {}
+    required_sources = {"data/pilot/proposed_labels.jsonl"}
+    for condition in ("P1", "P2"):
+        config = f"jev-openrouter-native-{condition.lower()}-choice-v1"
+        manifest = ("results/route-audits/jev-native-full-v1-20261006/"
+                    f"{config}.json")
+        if manifest not in source_map:
+            raise ValueError("Jev frozen manifest source absent")
+        required_sources.add(manifest)
+        config_dir = ("results/route-audits/jev-native-full-v1-20261006/"
+                      f"{config}/")
+        required_sources.update(config_dir + name for name in
+                                ("provider-context-proof.json", "smoke-inspection.json"))
+        projected[condition] = {"plannedPasses": 3, "completePasses": 0,
+                                "passes": {}}
+        for stage in ("fresh1", "fresh2"):
+            item = report["passes"][condition][stage]
+            status, valid_count, all_four, outcomes, known, unknown = expected[(condition, stage)]
+            score = item.get("score") or {}
+            if (item.get("status") != status or score.get("denominator") != 60 or
+                    score.get("valid") != valid_count or score.get("allFour") != all_four or
+                    tuple(score.get("fields", {}).get(field) for field in FIELDS) !=
+                        fields[(condition, stage)] or
+                    item.get("outcomes") != outcomes or
+                    item.get("knownCostUsd") != known or
+                    item.get("unknownUpperBoundUsd") != unknown or
+                    type(item.get("inputTokens")) is not int or item["inputTokens"] < 0 or
+                    type(item.get("outputTokens")) is not int or item["outputTokens"] < 0 or
+                    type(item.get("clientSeconds")) not in (int, float) or
+                    not math.isfinite(item["clientSeconds"]) or item["clientSeconds"] < 0):
+                raise ValueError(f"Jev {condition} {stage} outcome differs")
+            phase = ("results/route-audits/jev-native-full-v1-20261006/"
+                     f"{config}/{stage}/")
+            needed = ["attempts.jsonl", "review-receipt.json", "budget-reconciliation.json",
+                      "endpoint-catalog.json"]
+            needed += (["terminal-public.json", "unknown-cost-evidence.jsonl"]
+                       if status == "stopped" else ["completion.json"])
+            if any(phase + name not in source_map for name in needed):
+                raise ValueError(f"Jev {condition} {stage} source closure differs")
+            required_sources.update(phase + name for name in needed)
+            partition = f"{config}-{stage}-full-v1"
+            required_sources.update(config_dir + name for name in
+                (f"{stage}.root-review.json", f"{stage}.budget.json",
+                 f"{stage}.budget-{partition}.jsonl"))
+            projected[condition]["passes"][stage] = {
+                "status": status, "score": score, "outcomes": outcomes,
+                "knownProviderCostUsd": known, "unknownChargeUpperBoundUsd": unknown,
+                "inputTokens": item["inputTokens"], "outputTokens": item["outputTokens"],
+                "clientSeconds": item["clientSeconds"],
+                "cleanRepeatEligible": status == "complete" and valid_count == 60,
+            }
+            projected[condition]["completePasses"] += status == "complete"
+    if set(source_map) != required_sources:
+        raise ValueError("Jev native prompt source closure differs")
+    comparisons = report.get("comparisons") or {}
+    expected_comparisons = {"P1repeat": (59, ["DEV-056"], []),
+                            "P1P2fresh1": (60, [], ["DEV-013"]),
+                            "P1P2fresh2shared": (17,
+                                [f"DEV-{i:03d}" for i in range(18, 61)], ["DEV-013"])}
+    if set(comparisons) != set(expected_comparisons):
+        raise ValueError("Jev comparison coverage differs")
+    compact = {}
+    for name, (denominator, excluded, changed) in expected_comparisons.items():
+        item = comparisons[name]
+        if (item.get("denominator") != denominator or item.get("excludedIds") != excluded or
+                item.get("fourFieldVectorChangedIds") != changed or
+                set(item.get("fields", {})) != set(FIELDS) or
+                any(set(item["fields"][field]) != {"choiceChangedIds", "probabilityChangedIds",
+                    "confidenceChangedIds"} for field in FIELDS)):
+            raise ValueError("Jev comparison denominator or outcomes differ")
+        field_changes = {field: {kind: len(item["fields"][field][kind]) for kind in
+                         ("choiceChangedIds", "probabilityChangedIds", "confidenceChangedIds")}
+                         for field in FIELDS}
+        if any(any(not isinstance(ids, list) or len(ids) != len(set(ids)) or
+                   any(ident in excluded for ident in ids)
+                   for ids in item["fields"][field].values()) for field in FIELDS):
+            raise ValueError("Jev comparison changed IDs differ")
+        compact[name] = {"denominator": denominator, "excludedIds": excluded,
+                         "fourFieldVectorChangedIds": changed, "fields": field_changes}
+    if any(compact["P1repeat"]["fields"][field]["choiceChangedIds"] != 0 for field in FIELDS) or \
+            compact["P1P2fresh1"]["fields"]["sentiment"]["choiceChangedIds"] != 1 or \
+            any(compact["P1P2fresh1"]["fields"][field]["choiceChangedIds"] != 0
+                for field in FIELDS if field != "sentiment"):
+        raise ValueError("Jev answer comparison differs")
+    return {"source": JEV_NATIVE_PROMPT_PUBLIC,
+            "findings": "docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md",
+            "routeScope": "standalone OpenRouter native Choice route; same Jev model",
+            "denominator": 60, "conditions": projected, "comparisons": compact,
+            "partialBoundary": {"P2fresh2": {"attempted": 18, "valid": 17,
+                "unknownCostId": "DEV-018", "neverSentIds":
+                [f"DEV-{i:03d}" for i in range(19, 61)],
+                "fullPassScore": None, "cleanRepeatEligible": False},
+                "P1fresh2Invalid": {"id": "DEV-056",
+                    "reason": "native probability distribution validation failure; categorical labels not adjudicated",
+                    "strictAllFour": 53}}}
 
 
 def score_values(series, condition):
@@ -596,6 +721,8 @@ def build(root=ROOT):
     clef_p1 = clef_p1_first_pass(root, labels, bindings)
     kev_native_prompts = kev_native_prompt_summary(
         root, data[KEV_NATIVE_PROMPT_PUBLIC], bindings)
+    jev_native_prompts = jev_native_prompt_summary(
+        root, data[JEV_NATIVE_PROMPT_PUBLIC], bindings)
 
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
@@ -1110,6 +1237,7 @@ def build(root=ROOT):
         "newerCohorts": {
             "clefP1FirstPass": clef_p1,
             "kevNativePrompts": kev_native_prompts,
+            "jevNativePrompts": jev_native_prompts,
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},

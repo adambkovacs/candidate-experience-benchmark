@@ -3732,6 +3732,312 @@
         "tokenCategoryCaveat": "Provider-reported reasoning tokens exceed completion tokens here; the categories conflict and must not be added or treated as a reliable subset."
       }
     },
+    "jevNativePrompts": {
+      "comparisons": {
+        "P1P2fresh1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "follow_up_needed": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 22,
+              "probabilityChangedIds": 21
+            },
+            "sentiment": {
+              "choiceChangedIds": 1,
+              "confidenceChangedIds": 27,
+              "probabilityChangedIds": 32
+            },
+            "serious_concern_reported": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 26,
+              "probabilityChangedIds": 26
+            },
+            "testimonial_potential": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 14,
+              "probabilityChangedIds": 12
+            }
+          },
+          "fourFieldVectorChangedIds": [
+            "DEV-013"
+          ]
+        },
+        "P1P2fresh2shared": {
+          "denominator": 17,
+          "excludedIds": [
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "fields": {
+            "follow_up_needed": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 8,
+              "probabilityChangedIds": 6
+            },
+            "sentiment": {
+              "choiceChangedIds": 1,
+              "confidenceChangedIds": 6,
+              "probabilityChangedIds": 9
+            },
+            "serious_concern_reported": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 6,
+              "probabilityChangedIds": 3
+            },
+            "testimonial_potential": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 4,
+              "probabilityChangedIds": 4
+            }
+          },
+          "fourFieldVectorChangedIds": [
+            "DEV-013"
+          ]
+        },
+        "P1repeat": {
+          "denominator": 59,
+          "excludedIds": [
+            "DEV-056"
+          ],
+          "fields": {
+            "follow_up_needed": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 17,
+              "probabilityChangedIds": 15
+            },
+            "sentiment": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 22,
+              "probabilityChangedIds": 25
+            },
+            "serious_concern_reported": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 17,
+              "probabilityChangedIds": 11
+            },
+            "testimonial_potential": {
+              "choiceChangedIds": 0,
+              "confidenceChangedIds": 9,
+              "probabilityChangedIds": 8
+            }
+          },
+          "fourFieldVectorChangedIds": []
+        }
+      },
+      "conditions": {
+        "P1": {
+          "completePasses": 2,
+          "passes": {
+            "fresh1": {
+              "cleanRepeatEligible": true,
+              "clientSeconds": 32.260497459999996,
+              "inputTokens": 152500,
+              "knownProviderCostUsd": "0.006405000",
+              "outcomes": {
+                "valid": 60
+              },
+              "outputTokens": 11176,
+              "score": {
+                "allFour": 54,
+                "denominator": 60,
+                "fields": {
+                  "follow_up_needed": 58,
+                  "sentiment": 56,
+                  "serious_concern_reported": 57,
+                  "testimonial_potential": 58
+                },
+                "valid": 60
+              },
+              "status": "complete",
+              "unknownChargeUpperBoundUsd": "0"
+            },
+            "fresh2": {
+              "cleanRepeatEligible": false,
+              "clientSeconds": 35.985815126,
+              "inputTokens": 152500,
+              "knownProviderCostUsd": "0.006405000",
+              "outcomes": {
+                "invalid_native_distribution": 1,
+                "valid": 59
+              },
+              "outputTokens": 11176,
+              "score": {
+                "allFour": 53,
+                "denominator": 60,
+                "fields": {
+                  "follow_up_needed": 57,
+                  "sentiment": 55,
+                  "serious_concern_reported": 56,
+                  "testimonial_potential": 57
+                },
+                "valid": 59
+              },
+              "status": "complete",
+              "unknownChargeUpperBoundUsd": "0"
+            }
+          },
+          "plannedPasses": 3
+        },
+        "P2": {
+          "completePasses": 1,
+          "passes": {
+            "fresh1": {
+              "cleanRepeatEligible": true,
+              "clientSeconds": 32.840852914,
+              "inputTokens": 163120,
+              "knownProviderCostUsd": "0.006851040",
+              "outcomes": {
+                "valid": 60
+              },
+              "outputTokens": 11176,
+              "score": {
+                "allFour": 54,
+                "denominator": 60,
+                "fields": {
+                  "follow_up_needed": 58,
+                  "sentiment": 56,
+                  "serious_concern_reported": 57,
+                  "testimonial_potential": 58
+                },
+                "valid": 60
+              },
+              "status": "complete",
+              "unknownChargeUpperBoundUsd": "0"
+            },
+            "fresh2": {
+              "cleanRepeatEligible": false,
+              "clientSeconds": 10.295085001,
+              "inputTokens": 46207,
+              "knownProviderCostUsd": "0.001940694",
+              "outcomes": {
+                "never_sent": 42,
+                "unknown_cost_http_429": 1,
+                "valid": 17
+              },
+              "outputTokens": 3166,
+              "score": {
+                "allFour": 15,
+                "denominator": 60,
+                "fields": {
+                  "follow_up_needed": 17,
+                  "sentiment": 16,
+                  "serious_concern_reported": 16,
+                  "testimonial_potential": 17
+                },
+                "valid": 17
+              },
+              "status": "stopped",
+              "unknownChargeUpperBoundUsd": "0.001344000"
+            }
+          },
+          "plannedPasses": 3
+        }
+      },
+      "denominator": 60,
+      "findings": "docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md",
+      "partialBoundary": {
+        "P1fresh2Invalid": {
+          "id": "DEV-056",
+          "reason": "native probability distribution validation failure; categorical labels not adjudicated",
+          "strictAllFour": 53
+        },
+        "P2fresh2": {
+          "attempted": 18,
+          "cleanRepeatEligible": false,
+          "fullPassScore": null,
+          "neverSentIds": [
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "unknownCostId": "DEV-018",
+          "valid": 17
+        }
+      },
+      "routeScope": "standalone OpenRouter native Choice route; same Jev model",
+      "source": "public-site/jev-native-prompt-findings.json"
+    },
     "kevNativePrompts": {
       "conditions": {
         "P1": {
@@ -8410,6 +8716,10 @@
       "sha256": "6b49805ec97c55401b85eec2bd5ede5d18b8fe60ad63f7f7daa4fe4a922313f2"
     },
     {
+      "path": "public-site/jev-native-prompt-findings.json",
+      "sha256": "bc0d6ca426ccb6dc22ba47fee3ffb2b113ec615d52f3156c2f868fcf3bedff2d"
+    },
+    {
       "path": "public-site/kev-native-prompt-findings.json",
       "sha256": "0b860a96067bdd729c35bd131dd10a4495f7526ad7a01ee979077af36be52683"
     },
@@ -8876,6 +9186,162 @@
     {
       "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/root-review.json",
       "sha256": "704b19acee3848da629d7a44bff81cc34732764df68c8b95368c97ac3dd65b64"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1.json",
+      "sha256": "1bcbd47ca93e6efe5915414ff6f0269c8dbe030a0079389082eae1531b01a616"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1.budget-jev-openrouter-native-p1-choice-v1-fresh1-full-v1.jsonl",
+      "sha256": "242bfc7f311da8f1ec920a06c265364b3b9463ba991c48a2009a75111d9c8864"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1.budget.json",
+      "sha256": "e2fe1198c3ed56faa7e45994d25cc40cd62741b2c40bee9cf053c775cabfc3f8"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1.root-review.json",
+      "sha256": "a7d980840631faba962e698b8399c52566bf6fee84e073a96e8a71983d12287e"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1/attempts.jsonl",
+      "sha256": "bf23abc5a51dccb1368348da42f29bacdfc1af1a1d5da7cc8f35a15632f20334"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1/budget-reconciliation.json",
+      "sha256": "d4041ba0031909d786f31566f79e3ad26927d1bafa15fe2dd1ba38b3007ba837"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1/completion.json",
+      "sha256": "cceacfc642178811b10fdb5c1a6ad065f3bad84b459c4138920f42b10d3b7c89"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1/endpoint-catalog.json",
+      "sha256": "3ed79c4b675486844d51c950cc03bda32282b91fc88ee222029de912f2693af5"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh1/review-receipt.json",
+      "sha256": "a7d980840631faba962e698b8399c52566bf6fee84e073a96e8a71983d12287e"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2.budget-jev-openrouter-native-p1-choice-v1-fresh2-full-v1.jsonl",
+      "sha256": "edd8b660c60355e69e706ab7310bbbc61b6deffac60ff3053bebfe8a14726d35"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2.budget.json",
+      "sha256": "51e8ac00444b08fbe6d720c7ab5d3f57841c62505a5a0344913e383da8246d8f"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2.root-review.json",
+      "sha256": "9b8d5b4b4f0707b43ab42d26711e73243fcd900094f69633358110feefa7db7d"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2/attempts.jsonl",
+      "sha256": "644b2a333cc2565be9ab95fc1f0d8bd569fb3fcdc4f5a40e0c8d9d8b5b2c3a1d"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2/budget-reconciliation.json",
+      "sha256": "23a6ef5355464b3d70c7c959cb10cfe5e70e9349a02b557a9810d0ad832e9e4a"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2/completion.json",
+      "sha256": "840196bbfbc646aa777c685ee7c0e22455b2b53ef7f8216543066b40c3232092"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2/endpoint-catalog.json",
+      "sha256": "3ed79c4b675486844d51c950cc03bda32282b91fc88ee222029de912f2693af5"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/fresh2/review-receipt.json",
+      "sha256": "9b8d5b4b4f0707b43ab42d26711e73243fcd900094f69633358110feefa7db7d"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/provider-context-proof.json",
+      "sha256": "89533dcc5310a98e4bcddae8055b117fd8d0233fdda2a4691ad4d3f68298bfbd"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p1-choice-v1/smoke-inspection.json",
+      "sha256": "b42164cc1e8e5d12b0237a5024ce2eae97edb7401ae7dc6b0adc463ab017946f"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1.json",
+      "sha256": "d86133a0debf93da450009806ecc3b07463ff882822630cb74d9d55762d1db26"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1.budget-jev-openrouter-native-p2-choice-v1-fresh1-full-v1.jsonl",
+      "sha256": "2492748ed6310b6d6772015efcdf00efc8947e0f848dd515f696fac083c21334"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1.budget.json",
+      "sha256": "321cb226775a5e761fe3d1442f72961eae7a2325bcd1ada550ec69caa7abe8a4"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1.root-review.json",
+      "sha256": "932ee81489fc525206ab544bd382c2febab3da86b72ec1ffc28e53b73c6bd155"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1/attempts.jsonl",
+      "sha256": "55a3dcc01bad7524e7d8b5e609b86d02cb8731b57a209f5f05f62b622f4cfe1f"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1/budget-reconciliation.json",
+      "sha256": "272c6567d461742b20de4ebed97bfbc280d655815469eb781886839a481f2895"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1/completion.json",
+      "sha256": "235f47d4bcaa29e5f0162a45ea7eb7a5facb6d55967cab2ab7b91834f6b3760d"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1/endpoint-catalog.json",
+      "sha256": "3ed79c4b675486844d51c950cc03bda32282b91fc88ee222029de912f2693af5"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1/review-receipt.json",
+      "sha256": "932ee81489fc525206ab544bd382c2febab3da86b72ec1ffc28e53b73c6bd155"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2.budget-jev-openrouter-native-p2-choice-v1-fresh2-full-v1.jsonl",
+      "sha256": "f526dcdc6bcfdd876fd17cc37e0b5a403d5569c4cc8b79d6d0bb8e7f7cc0f58d"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2.budget.json",
+      "sha256": "d025dfb962c87df9b49d8544fb5f2a8764cddb9c9e78bd3e1d6f34124a793cec"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2.root-review.json",
+      "sha256": "0c9583e1fb199ded4f7164c4e354f2a4ad4768d2360525e7b8ea39b00e6af38b"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/attempts.jsonl",
+      "sha256": "493249b0ae707095319d9a5b1992899cbdeb3c392e37cdfa957c4208a112970f"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/budget-reconciliation.json",
+      "sha256": "c238add53debbd15a64097f3e03a769cdc4237597feb2c1f596726b3ef7ffda1"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/endpoint-catalog.json",
+      "sha256": "3ed79c4b675486844d51c950cc03bda32282b91fc88ee222029de912f2693af5"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/review-receipt.json",
+      "sha256": "0c9583e1fb199ded4f7164c4e354f2a4ad4768d2360525e7b8ea39b00e6af38b"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/terminal-public.json",
+      "sha256": "60d05a7bc8e3741bf9cd35158022112cadf878f4645412202c060ea61c663919"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/unknown-cost-evidence.jsonl",
+      "sha256": "69cf28952a255ee6305f8d1107f2c6cae7ff061e6a28cd8497a5514c685828e5"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/provider-context-proof.json",
+      "sha256": "84d35be2349a4bbe06a225e7c601e47dbd9a3e8e3ea5d7d12cbdb0b56de3e71f"
+    },
+    {
+      "path": "results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/smoke-inspection.json",
+      "sha256": "21337338826b09ff9e59e35130a1d7b3d33d2dff3544301f87c8c35c32c7406c"
     },
     {
       "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1.json",

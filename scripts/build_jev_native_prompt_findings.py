@@ -22,6 +22,8 @@ CONFIGS = {'P1': 'jev-openrouter-native-p1-choice-v1',
            'P2': 'jev-openrouter-native-p2-choice-v1'}
 STAGES = ('fresh1', 'fresh2')
 OUTPUT = ROOT / 'docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md'
+BASE_RELATIVE = BASE.relative_to(ROOT)
+MASTER_RELATIVE = Path('results/openrouter-paid-budget.jsonl')
 
 
 def sha(path):
@@ -42,20 +44,40 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def archived_root(path_value, relative, label):
+    """Check a signed absolute path's repository suffix without opening it."""
+    path = Path(path_value) if isinstance(path_value, str) else Path()
+    relative = Path(relative)
+    require(path.is_absolute() and len(path.parts) > len(relative.parts) and
+            path.parts[-len(relative.parts):] == relative.parts,
+            label + ' archived path differs')
+    return path.parts[:-len(relative.parts)]
+
+
 def archived_receipt(config, stage, manifest, base):
-    """Reconstruct receipt from saved files; never inspect a live master ledger."""
+    """Retain signed archived paths while reading relocated local evidence."""
     p = full.paths(base, config, stage)
     budget = json.loads(p['budget'].read_text())
     partition = manifest['passes'][full.PASSES.index(stage)]['partition_id']
     child = p['budget'].parent / (p['budget'].stem + '-' + partition + '.jsonl')
-    expected_partition = {'id': partition, 'cap_usd': manifest['whole_pass_bound_usd'],
-                          'child_ledger': str(child.resolve()), 'model': manifest['model'],
-                          'provider': manifest['provider_tag'], 'reasoning': 'none'}
+    partitions = budget.get('partitions')
     require(budget.get('version') == 'paid-partitions-v1' and
-            budget.get('partitions') == [expected_partition] and child.is_file(),
+            isinstance(partitions, list) and len(partitions) == 1 and
+            child.is_file() and child.stat().st_size > 0,
             'Archived child allocation differs')
+    archived_child = partitions[0].get('child_ledger')
+    expected_partition = {'id': partition, 'cap_usd': manifest['whole_pass_bound_usd'],
+                          'child_ledger': archived_child, 'model': manifest['model'],
+                          'provider': manifest['provider_tag'], 'reasoning': 'none'}
+    require(partitions == [expected_partition],
+            'Archived child allocation differs')
+    old_root = archived_root(budget.get('master_ledger'), MASTER_RELATIVE,
+                             'Budget master ledger')
+    child_relative = BASE_RELATIVE / config / child.name
+    require(archived_root(archived_child, child_relative, 'Budget child ledger') == old_root,
+            'Archived budget paths use different checkout roots')
     identity = {'manifest_sha256': sha(p['manifest']), 'budget_manifest_sha256': sha(p['budget']),
-                'partition_id': partition, 'child_ledger': str(child.resolve()),
+                'partition_id': partition, 'child_ledger': archived_child,
                 'cap_usd': expected_partition['cap_usd']}
     hold_source = smoke.sha(decision.canonical(identity))
     context_sha = full.context_proof(config, manifest, base=base)
@@ -70,7 +92,7 @@ def archived_receipt(config, stage, manifest, base):
             receipt == {**expected, 'global_authority_head_sha256': head} and
             sha(p['stage'] / 'review-receipt.json') == sha(p['receipt']),
             'Archived root receipt differs')
-    return p, child, context_sha, inspection_sha, prior
+    return p, child, archived_child, old_root, context_sha, inspection_sha, prior
 
 
 def parse_attempts(manifest, stage_dir, expected_count, invalid_id=None, unknown_id=None):
@@ -158,7 +180,8 @@ def parse_attempts(manifest, stage_dir, expected_count, invalid_id=None, unknown
             'ledger_events': ledger_events}
 
 
-def check_child(child, partition, parsed, reconciliation, unknown_path=None):
+def check_child(child, archived_child, archived_checkout_root, partition, parsed,
+                reconciliation, unknown_path=None):
     events = rows(child)
     cap = Decimal(events[0].get('cap_usd', '-1')) if events else Decimal(-1)
     require(events[0].get('event') == 'budget' and cap == Decimal('0.080640000') and
@@ -172,8 +195,12 @@ def check_child(child, partition, parsed, reconciliation, unknown_path=None):
                 (kind != 'reserve' or event.get('record_id') == partition + ':' + ident),
                 'Archived child ledger event differs: ' + ident)
         if kind == 'unknown_cost_accounted_as_upper_bound':
+            relative = (BASE_RELATIVE / CONFIGS['P2'] / 'fresh2' /
+                        'unknown-cost-evidence.jsonl')
             require(unknown_path is not None and
                     event.get('evidence_sha256') == sha(unknown_path) and
+                    archived_root(event.get('evidence_path'), relative,
+                                  'Unknown-cost evidence') == archived_checkout_root and
                     rows(unknown_path) == [rows(unknown_path.parent / 'attempts.jsonl')[-1]],
                     'Unknown-cost raw evidence differs')
     known = sum(parsed['costs'].values(), Decimal(0))
@@ -181,7 +208,7 @@ def check_child(child, partition, parsed, reconciliation, unknown_path=None):
                    if x[0] == 'unknown_cost_accounted_as_upper_bound'), Decimal(0))
     require(reconciliation.get('event') == 'partition_reconciled' and
             reconciliation.get('partition_id') == partition and
-            reconciliation.get('child_ledger') == str(child.resolve()) and
+            reconciliation.get('child_ledger') == archived_child and
             reconciliation.get('child_sha256') == sha(child) and
             Decimal(reconciliation['known_actual_usd']) == known and
             Decimal(reconciliation['unknown_upper_bound_usd']) == unknown and
@@ -252,14 +279,16 @@ def build(base=BASE, refs_path=REFERENCES):
         result['sourceBindings'].append(source(full.paths(base, config)['manifest']))
         result['passes'][condition], private[condition] = {}, {}
         for stage in STAGES:
-            p, child, context_sha, inspection_sha, prior = archived_receipt(config, stage, manifest, base)
+            p, child, archived_child, archived_checkout_root, context_sha, inspection_sha, prior = \
+                archived_receipt(config, stage, manifest, base)
             directory = p['stage']
             terminal = condition == 'P2' and stage == 'fresh2'
             parsed = parse_attempts(manifest, directory, 18 if terminal else 60,
                                     'DEV-056' if condition == 'P1' and stage == 'fresh2' else None,
                                     'DEV-018' if terminal else None)
             reconciliation = json.loads((directory / 'budget-reconciliation.json').read_text())
-            known, unknown = check_child(child, manifest['passes'][full.PASSES.index(stage)]['partition_id'],
+            known, unknown = check_child(child, archived_child, archived_checkout_root,
+                                         manifest['passes'][full.PASSES.index(stage)]['partition_id'],
                                          parsed, reconciliation,
                                          directory / 'unknown-cost-evidence.jsonl' if terminal else None)
             status = 'stopped' if terminal else 'complete'
@@ -389,8 +418,16 @@ def render(report):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--json-output', type=Path, help='Write the verified machine-readable findings to this path')
     args = parser.parse_args()
-    rendered = render(build())
+    report = build()
+    rendered = render(report)
+    if args.json_output:
+        payload = json.dumps(report, indent=2, ensure_ascii=False) + '\n'
+        if args.check:
+            require(args.json_output.read_text() == payload, 'Saved Jev JSON differs from verified evidence')
+        else:
+            args.json_output.write_text(payload)
     if args.check:
         require(OUTPUT.read_text() == rendered, 'Saved Jev findings report differs from verified evidence')
     else:

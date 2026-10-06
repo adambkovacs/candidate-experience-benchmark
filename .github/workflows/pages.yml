@@ -58,6 +58,9 @@ jobs:
           node --test tests/test_kev_prompt_ui.cjs
           python3 scripts/build_kev_native_prompt_findings.py --check
           python3 -m unittest tests.test_build_kev_native_prompt_findings -q
+          node --test tests/test_jev_prompt_ui.cjs
+          python3 scripts/build_jev_native_prompt_findings.py --json-output public-site/jev-native-prompt-findings.json --check
+          python3 -m unittest tests.test_build_jev_native_prompt_findings -q
           python3 scripts/build_kev_native_findings.py --check
           python3 -m unittest tests.test_build_kev_native_findings -q
           python3 scripts/build_repeat_findings.py --check

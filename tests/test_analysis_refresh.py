@@ -171,6 +171,51 @@ class AnalysisRefreshTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Kev P1 fresh1 source subset differs"):
             analysis.kev_native_prompt_summary(ROOT, unbound, {})
 
+    def test_jev_projection_keeps_invalid_and_stopped_states(self):
+        report = json.loads((ROOT / analysis.JEV_NATIVE_PROMPT_PUBLIC).read_text())
+        projected = analysis.jev_native_prompt_summary(ROOT, report, {})
+        self.assertEqual(projected["denominator"], 60)
+        self.assertEqual(projected["conditions"]["P1"]["completePasses"], 2)
+        self.assertEqual(projected["conditions"]["P2"]["completePasses"], 1)
+        p1 = projected["conditions"]["P1"]["passes"]["fresh2"]
+        self.assertEqual((p1["score"]["valid"], p1["score"]["allFour"]), (59, 53))
+        self.assertEqual(p1["outcomes"]["invalid_native_distribution"], 1)
+        self.assertFalse(p1["cleanRepeatEligible"])
+        p2 = projected["conditions"]["P2"]["passes"]["fresh2"]
+        self.assertEqual(p2["status"], "stopped")
+        self.assertEqual(p2["outcomes"], {"valid": 17, "unknown_cost_http_429": 1,
+                                           "never_sent": 42})
+        self.assertIsNone(projected["partialBoundary"]["P2fresh2"]["fullPassScore"])
+        self.assertEqual(projected["comparisons"]["P1repeat"]["denominator"], 59)
+        self.assertEqual(projected["comparisons"]["P1P2fresh1"]["fourFieldVectorChangedIds"],
+                         ["DEV-013"])
+
+    def test_jev_projection_rejects_laundered_invalid_and_partial_completion(self):
+        report = json.loads((ROOT / analysis.JEV_NATIVE_PROMPT_PUBLIC).read_text())
+        invalid = copy.deepcopy(report)
+        invalid["passes"]["P1"]["fresh2"]["score"]["valid"] = 60
+        with self.assertRaisesRegex(ValueError, "Jev P1 fresh2 outcome differs"):
+            analysis.jev_native_prompt_summary(ROOT, invalid, {})
+        partial = copy.deepcopy(report)
+        partial["passes"]["P2"]["fresh2"]["status"] = "complete"
+        with self.assertRaisesRegex(ValueError, "Jev P2 fresh2 outcome differs"):
+            analysis.jev_native_prompt_summary(ROOT, partial, {})
+        missing = copy.deepcopy(report)
+        missing["sourceBindings"] = [item for item in missing["sourceBindings"]
+                                     if not item["path"].endswith("fresh2/terminal-public.json")]
+        with self.assertRaisesRegex(ValueError, "Jev P2 fresh2 source closure differs"):
+            analysis.jev_native_prompt_summary(ROOT, missing, {})
+        missing_child = copy.deepcopy(report)
+        missing_child["sourceBindings"] = [item for item in missing_child["sourceBindings"]
+            if not item["path"].endswith(
+                "fresh2.budget-jev-openrouter-native-p2-choice-v1-fresh2-full-v1.jsonl")]
+        with self.assertRaisesRegex(ValueError, "Jev native prompt source closure differs"):
+            analysis.jev_native_prompt_summary(ROOT, missing_child, {})
+        drift = copy.deepcopy(report)
+        drift["sourceBindings"][0]["sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "Jev native prompt report source hash differs"):
+            analysis.jev_native_prompt_summary(ROOT, drift, {})
+
     def test_nested_report_source_binding_rejects_byte_drift(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
@@ -190,7 +235,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 193)
+        self.assertEqual(len(rebuilt["sources"]), 233)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -211,6 +256,10 @@ class AnalysisRefreshTest(unittest.TestCase):
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
         kev = cohorts["kevNativePrompts"]
+        jev = cohorts["jevNativePrompts"]
+        self.assertEqual(jev["source"], analysis.JEV_NATIVE_PROMPT_PUBLIC)
+        self.assertEqual(jev["conditions"]["P1"]["passes"]["fresh2"]["score"]["allFour"], 53)
+        self.assertEqual(jev["conditions"]["P2"]["passes"]["fresh2"]["status"], "stopped")
         self.assertEqual(kev["source"], analysis.KEV_NATIVE_PROMPT_PUBLIC)
         self.assertTrue(kev["nativePromptEquivalence"]["verified"])
         self.assertEqual(kev["conditions"]["P1"]["scores"], [49, 49, 49])
