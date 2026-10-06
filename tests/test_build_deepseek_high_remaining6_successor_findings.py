@@ -68,3 +68,35 @@ def test_selected_root_rejects_different_reporter(tmp_path):
 def test_unfinished_future_phase_is_not_promoted():
     result = report.build()
     assert 'fresh3/P1' not in result['phases']
+
+
+def test_parent_projection_keeps_private_provider_responses_out_of_bundle(tmp_path):
+    root = copied_root(tmp_path)
+    private = root / report.PARENT / 'development.responses.jsonl'
+    assert not private.exists()
+    projection = json.loads((root / report.PARENT / 'development.public.json').read_text())
+    assert all(set(row) == {'id', 'status', 'prediction', 'cost_unknown',
+                            'observed_cost_usd'} for row in projection['attempts'])
+    assert projection['attempts'][-1]['id'] == 'DEV-027'
+    assert projection['attempts'][-1]['cost_unknown'] is True
+    assert report.build(root)['phases']['fresh2/P2']['score']['allFour'] == 56
+
+
+def test_parent_projection_rejects_changed_provenance(tmp_path):
+    root = copied_root(tmp_path)
+    path = root / report.PARENT / 'development.public.json'
+    projection = json.loads(path.read_text())
+    projection['source_sha256']['development.attempts.jsonl'] = '0' * 64
+    path.write_text(json.dumps(projection))
+    with pytest.raises(ValueError, match='projection provenance differs'):
+        report.build(root)
+
+
+def test_parent_projection_rejects_prediction_change_without_private_raw(tmp_path):
+    root = copied_root(tmp_path)
+    path = root / report.PARENT / 'development.public.json'
+    projection = json.loads(path.read_text())
+    projection['attempts'][0]['prediction']['sentiment'] = 'negative'
+    path.write_text(json.dumps(projection))
+    with pytest.raises(ValueError, match='projection receipt differs'):
+        report.build(root)

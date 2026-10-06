@@ -177,8 +177,42 @@ def build(root=ROOT):
     for name, digest in parent_sources.items():
         relative = (BASE / 'execution-adapter-v1/fresh2/manifest.json' if name == 'manifest.json'
                     else PARENT / name)
-        bindings[str(relative)] = binding(root, relative, digest)['sha256']
-    parent = rows(root / PARENT / 'development.attempts.jsonl')
+        # Raw provider errors contain private account identifiers. Keep their
+        # audited hashes, verify private bytes when present, and publish only
+        # the bounded scoring projection below.
+        if name == 'manifest.json':
+            bindings[str(relative)] = binding(root, relative, digest)['sha256']
+        elif (root / relative).exists():
+            binding(root, relative, digest)
+    projection_path = PARENT / 'development.public.json'
+    projection = json.loads((root / projection_path).read_text())
+    if (projection.get('schema') != 'deepseek-high-parent-public-projection-v1' or
+            projection.get('source_sha256') != parent_sources):
+        raise ValueError('High parent public projection provenance differs')
+    projection_receipt_path = PARENT / 'development.public.receipt.json'
+    projection_receipt = json.loads((root / projection_receipt_path).read_text())
+    if (projection_receipt.get('schema') != 'deepseek-high-parent-public-projection-receipt-v1' or
+            projection_receipt.get('projection_sha256') != sha(root / projection_path) or
+            projection_receipt.get('source_attempts_sha256') !=
+            parent_sources['development.attempts.jsonl'] or
+            projection_receipt.get('parent_audit_sha256') != sha(root / parent_audit_path) or
+            projection_receipt.get('verified_against_private_originals') is not True or
+            projection_receipt.get('projected_attempts') != 27 or
+            projection_receipt.get('valid') != 26 or
+            projection_receipt.get('unknown_ids') != ['DEV-027']):
+        raise ValueError('High parent public projection receipt differs')
+    bindings[str(projection_receipt_path)] = sha(root / projection_receipt_path)
+    parent = projection['attempts']
+    public_keys = {'id', 'status', 'prediction', 'cost_unknown', 'observed_cost_usd'}
+    if any(set(row) != public_keys for row in parent):
+        raise ValueError('High parent public projection fields differ')
+    private_attempts = root / PARENT / 'development.attempts.jsonl'
+    if private_attempts.exists():
+        expected = [{key: row.get(key) for key in public_keys}
+                    for row in rows(private_attempts)]
+        if parent != expected:
+            raise ValueError('High parent projection differs from private attempts')
+    bindings[str(projection_path)] = sha(root / projection_path)
     if ([row['id'] for row in parent] != IDS[:27] or
             [row['status'] for row in parent] != ['ok'] * 26 + ['service_error'] or
             parent[-1].get('cost_unknown') is not True or
@@ -250,6 +284,7 @@ def build(root=ROOT):
             'referenceStatus': 'Frozen provisional v0.2 development labels; owner-confirmed human checks on 2026-10-02, without independent adjudication.',
             'limitations': ['The interrupted P2 composite retains DEV-027 as a provider failure with unknown cost.',
                             'All phases reuse the same 60 synthetic reviews.',
+                            'The interrupted parent uses a receipt-bound public projection; private provider errors are not re-decoded in clean checkouts.',
                             'The interrupted P2 and intrinsic-invalid P0 do not form a clean matched prompt comparison.'],
             'sourceBindings': [{'path': name, 'sha256': digest}
                                for name, digest in sorted(bindings.items())]}

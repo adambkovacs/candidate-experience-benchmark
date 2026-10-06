@@ -1,6 +1,13 @@
 # Current work checklist
 
-## Current checkpoint, 6 October 2026, 19:43 UTC
+## Current checkpoint, 6 October 2026, 19:54 UTC
+
+- Tev first P0, P1 and P2 are closed: each has 60 valid answers, with all-four agreement of 45/60, 44/60 and 44/60 respectively. Second P0 smoke is next. Agent `gemini_recovery` owns this series.
+- DeepSeek high third P2 remains running on original handle 79273; third P0 follows. Agent `qwen_recovery` owns it. DeepSeek low's independently reviewed successor is admitted at $0.50 and original handle 38147 is processing only DEV-028–060 of interrupted second P1. Agent `deepseek_recovery` owns that continuation and the three later full passes. No completed request was replayed.
+- The high continuation website update failed its clean-checkout gate: five historical parent files were present locally but untracked. The provider error contains a private account identifier. Root replaced the public dependency with a bounded scoring/billing projection and a separate immutable receipt, retaining audited raw hashes and checking private originals when present. Independent review caught and prompted repair of a missing projection integrity check. Eight focused tests now pass, including a clean-copy prediction-tamper rejection. Combined analysis has 1,024 source bindings. The clean Git archive rebuild verifies all 1,024 bindings and eight focused tests pass. Independent re-review approved the repair with only the disclosed private-raw verification limitation remaining. Deployment remains pending.
+- Liquid's nine full passes remain complete and live-verified. The full benchmark remains unfinished: Tev, DeepSeek, Mistral, other specialist availability, Cloudflare funding, complete roster reconciliation and final publication still need work. No local inference was started.
+
+## Earlier checkpoint, 6 October 2026, 19:43 UTC
 
 - Liquid's nine full passes are complete: 540 valid development answers. P0 scores are 43/43/43, P1 42/44/42 and P2 41/41/41 out of 60. Three reviews changed a P1 label; P0/P2 labels stayed identical. Full development used 3,637,332 input tokens and cost $0.14549328. The child including 24 later smoke requests is sealed at $0.15197472 known, zero unknown; $0.84802528 unused allocation was released. [Final receipts](../results/liquid-d1-native-v1/full-v1/reconciliation-final.json).
 - Liquid publication [37519845318](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37519845318) succeeded for `854409f8`. Root matched all three live Liquid/combined-analysis assets byte for byte and verified the rendered nine-run counts, token totals and costs in the browser, with no captured console errors. The later DeepSeek integration at `c0830091` still awaits publication verification.
