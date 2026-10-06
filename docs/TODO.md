@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Publication and next admissions, 6 October 2026, 11:01 UTC
+
+- Kev: publication commit `f0515800` is pushed; Pages job 37453498358 is running. The combined analysis binds 193 source hashes. A clean staged checkout passed 15 Python and 12 JavaScript tests after fixing offline verification of archived absolute budget paths. Live page verification is still pending.
+- Jev: closed and interrupted evidence is pushed in `31774b56`. P0 adapter passed seven offline tests and independent review, but no full P0 pass is admitted. The exact P2 fresh2 DEV-019–060 continuation has five passing offline tests and a proposal-only controller; independent review and executable admission remain pending. No replay of DEV-018 is permitted.
+- Funding: the latest pending request is $10.41 for the separate shared postapproval ceiling, superseding the unanswered $10.36 proposal. The rate-limit continuation adds a reserve; remaining Jev work requires a ceiling of $10.408019024. OpenRouter aggregate authority remains $12.38. Neither pending amount is approved.
+- Root: Qwen3.5 fresh1/P1 remains live on handle 92736. e4b_unsent_prepare owns offline Jev findings; root owns final report integration and publication verification.
+
 ## Verified checkpoint, 06 October 2026, 10:53 UTC
 
 - Root: Jev OpenRouter fresh1 P1 and P2 are closed, raw-verified and budget-reconciled: each 60 valid answers and 54/60 all-four matches. P1 fresh2 is terminal with 59 valid, DEV-056 invalid and 53/60 all-four matches. P2 fresh2 stopped at DEV-018 with HTTP 429 after 17 valid answers; DEV-019–060 are never sent. The full $0.001344 unknown-charge bound is retained and its child is reconciled. No failed request was replayed. Earlier reconciliation helper attempts failed on method lookup before ledger mutation; the corrected call succeeded.
