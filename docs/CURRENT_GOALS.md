@@ -2,9 +2,9 @@
 
 ## Shutdown recovery, 6 October 2026
 
-The goal remains active and its routing and spending instructions match the latest authorization. The unexpected shutdown did not lose the saved Gemini second-pass evidence: P0, P1 and P2 each have 60 valid records and 56/60 all-four matches after raw-response and settlement verification. The third P2 pass is also closed and verified at 56/60 matches; the third P0 pass is now running on OpenRouter after a fresh inspected smoke. DeepSeek high first P0 is also running on OpenRouter after its three-review smoke passed. No local inference was restarted.
+The goal remains active and its routing and spending instructions match the latest authorization. Gemini high has all nine declared phases verified. Hosted Qwen3.6 thinking-on has four clean closed phases: fresh1/P0 and P2, then fresh2/P1 and P2. The [fresh2/P2 closure](../results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P2/closure.review.json) records 60 valid answers, 56/60 all-four matches and $0.0656712 known development cost. Fresh2/P0 and all fresh3 phases remain unclosed. The [hosted report](../public-site/additional-hosted-fresh-repeats.json) and [combined analysis](../public-site/analysis-refresh.json) include this closed result; publication is not yet verified.
 
-Hosted Qwen thinking-on first P1 retains 48 valid records, one timed-out unknown request and 11 never-sent reviews. Its unknown charge remains reserved. The parent ledger is conservatively reconciled and a separate continuation for only the 11 unsent reviews is now running; completed requests are not repeated. New evidence still needs public-report integration. See [current assignments](TODO.md); older process handles below are historical.
+Qwen fresh1/P1 remains an interrupted descriptive composite: 48 original valid answers, one timed-out unknown DEV-049, and 11 valid answers from a separately closed never-sent continuation. Its 59 valid answers and 52/60 score do not earn clean repeat credit. DEV-049 retains its unknown-charge bound and has not been replayed. See [current assignments](TODO.md); older process handles below are historical.
 
 ## OpenRouter priority and additional authorization, 6 October 2026
 

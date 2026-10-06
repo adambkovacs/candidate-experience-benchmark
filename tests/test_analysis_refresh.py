@@ -28,8 +28,10 @@ class AnalysisRefreshTest(unittest.TestCase):
                           qwen["matchedP0P2AllFourDelta"]), (54, 56, 2))
         self.assertFalse(qwen["interruptedP1"]["cleanComparisonEligible"])
         self.assertFalse(qwen["cleanMatchedThreeEligible"])
-        self.assertEqual(qwen["closedCells"], ["fresh1/P0", "fresh1/P2", "fresh2/P1"])
-        self.assertEqual(qwen["closedPhases"][-1]["allFour"], 54)
+        self.assertEqual(len(qwen["closedCells"]), qwen["completedCleanConditions"])
+        self.assertTrue({"fresh1/P0", "fresh1/P2", "fresh2/P1", "fresh2/P2"}.issubset(qwen["closedCells"]))
+        self.assertEqual(next(row["allFour"] for row in qwen["closedPhases"]
+                              if row["pass"] == "fresh2" and row["condition"] == "P2"), 56)
         self.assertEqual([(row["pass"], row["to"], row["allFourDelta"])
                           for row in qwen["matchedPromptComparisons"]],
                          [("fresh1", "P2", 2)])
@@ -66,19 +68,28 @@ class AnalysisRefreshTest(unittest.TestCase):
         future = copy.deepcopy(json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text()))
         qwen = next(item for item in future["series"] if "qwen36" in item["configuration"])
         deepseek = next(item for item in future["series"] if "high-authority-v3" in item["configuration"])
-        qwen["passes"]["fresh2"]["P0"] = copy.deepcopy(qwen["passes"]["fresh1"]["P0"])
+        added_pass, added_condition = next(
+            (row["pass"], row["condition"]) for row in qwen["missingPasses"]
+            if row["status"] == "not_started" and row["condition"] == "P0")
+        previous_qwen_count = qwen["completedConditions"]
+        qwen["passes"][added_pass][added_condition] = copy.deepcopy(qwen["passes"]["fresh1"]["P0"])
         qwen["completedConditions"] += 1
         deepseek["passes"]["fresh1"]["P2"] = copy.deepcopy(deepseek["passes"]["fresh1"]["P0"])
         deepseek["passes"]["fresh1"]["P2"]["status"] = "completed"
         deepseek["completedConditions"] += 1
         with patch.object(hosted_builder, "build", return_value=future):
             result = analysis.hosted_fresh_summary(ROOT, future, {})
-        self.assertEqual(result["qwen36On"]["completedCleanConditions"], 4)
-        self.assertIn("fresh2/P0", result["qwen36On"]["closedCells"])
-        self.assertIn({"pass": "fresh2", "from": "P0", "to": "P1",
-                       "allFourDelta": 0, "allFour": {"P0": 54, "P1": 54},
-                       "invalidIds": {"P0": [], "P1": []}, "denominator": 60},
-                      result["qwen36On"]["matchedPromptComparisons"])
+        self.assertEqual(result["qwen36On"]["completedCleanConditions"], previous_qwen_count + 1)
+        self.assertIn(f"{added_pass}/{added_condition}", result["qwen36On"]["closedCells"])
+        if added_pass == "fresh2":
+            self.assertIn({"pass": "fresh2", "from": "P0", "to": "P1",
+                           "allFourDelta": 0, "allFour": {"P0": 54, "P1": 54},
+                           "invalidIds": {"P0": [], "P1": []}, "denominator": 60},
+                          result["qwen36On"]["matchedPromptComparisons"])
+            self.assertIn({"pass": "fresh2", "from": "P0", "to": "P2",
+                           "allFourDelta": 2, "allFour": {"P0": 54, "P2": 56},
+                           "invalidIds": {"P0": [], "P2": []}, "denominator": 60},
+                          result["qwen36On"]["matchedPromptComparisons"])
         self.assertEqual(result["deepseekHigh"]["completedConditions"], 3)
         self.assertIn("fresh1/P2", result["deepseekHigh"]["closedCells"])
 
