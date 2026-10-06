@@ -33,11 +33,13 @@ GEMINI_AUTHORITY_PUBLIC = "public-site/gemini-repeats.json"
 HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
 HIGH_SUCCESSOR_PUBLIC = "public-site/deepseek-high-remaining6-successor-findings.json"
 TEV_PUBLIC = "public-site/tev-native-full-findings.json"
+SOLAR_FIRST_PUBLIC = "public-site/solar-decide-first-pass-findings.json"
 LIQUID_PUBLIC = "public-site/liquid-d1-native-full-findings.json"
 LOW_FRESH3_PUBLIC = "public-site/deepseek-low-fresh3-findings.json"
 LOW_P1_SUCCESSOR_PUBLIC = "public-site/deepseek-low-p1-successor-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
 SOURCES = (
+    SOLAR_FIRST_PUBLIC,
     "public-site/e4b-interruption-findings.json",
     "public-site/sonnet55-fresh-matched3.json",
     "public-site/sonnet55-fresh-matched3-evidence/report.json",
@@ -1053,6 +1055,19 @@ def build(root=ROOT):
         raise ValueError('Liquid report differs from closed evidence')
     bind_report_sources(root, liquid, bindings, 'Liquid native decision results')
 
+    import build_solar_decide_native_first_pass_findings as solar_first_builder
+    solar_first = data[SOLAR_FIRST_PUBLIC]
+    if solar_first != solar_first_builder.build(root):
+        raise ValueError('Solar first-pass report differs from closed evidence')
+    solar_receipt = read(root, str(solar_first_builder.RECEIPT), bindings)
+    read(root, str(solar_first_builder.PROJECTION), bindings)
+    for name, digest in solar_receipt['source_sha256'].items():
+        if name.endswith(solar_first_builder.PRIVATE_SUFFIXES):
+            continue
+        if sha(root / name) != digest:
+            raise ValueError('Solar public source differs: ' + name)
+        bindings[name] = digest
+
     import build_tev_native_full_findings as tev_builder
     tev = data[TEV_PUBLIC]
     if tev != tev_builder.build(root):
@@ -1586,6 +1601,7 @@ def build(root=ROOT):
                    "comparability": "Within each saved series only. Historical first passes and later repeats can use different CLI versions; fresh Sonnet 5.5 v2 is a separate route and model. Do not pool reviews or score differences across series."},
         "newerCohorts": {
             "deepseekHighSuccessor": {"source": HIGH_SUCCESSOR_PUBLIC, **high_successor},
+            "solarFirstPass": {"source": SOLAR_FIRST_PUBLIC, **solar_first},
             "liquidNative": {"source": LIQUID_PUBLIC, **liquid},
             "tevNative": {"source": TEV_PUBLIC, **tev},
             "e4bInterrupted": {"source": e4b_source,

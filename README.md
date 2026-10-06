@@ -15,6 +15,8 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
+Solar Decide's first three prompt runs scored **55/53/53 out of 60**, all with valid answers. The last two prompts had equal totals but changed decisions on **six reviews**. Their combined development charge was **$0.067881**, excluding smoke tests. Repeats are still underway. [Solar field scores and paired comparisons](public-site/solar-decide-first-pass-findings.json).
+
 DeepSeek V4.1 Flash at low effort has closed its final three prompt passes: **58/60** for the base task, **57/60** with classifier instructions and **58/60** with decision rules. The base task and classifier version each lost one answer to truncation, on different reviews. Among the 59 reviews valid for both the base task and decision rules, one sentiment label changed despite identical all-four totals. [Final passes and paired changes](public-site/deepseek-low-fresh3-findings.json).
 
 Gemini 3.1 Pro Preview at high effort completed all nine planned runs on the same 60 reviews. Across three passes, the base task scored **55, 56 and 56/60**; classifier instructions scored **56, 56 and 56/60**; decision rules scored **55, 56 and 56/60**. Neither added prompt improved the score consistently in matched passes. Some individual answers changed even when the total score did not. [Repeat results](public-site/gemini-repeats.json) · [Analysis](docs/ANALYSIS_REFRESH_2026-10-05.md).

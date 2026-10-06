@@ -20,7 +20,7 @@ In Liquid's first P0 pass, sentiment matched 49 of 60 references. A confidence t
 
 ## Solar's first pass across the three prompts
 
-Solar Decide returned 60 valid answers for each prompt: the base task matched 55/60 reviews, classifier instructions 53/60 and decision rules 53/60. The longer prompts did not improve this first-pass total. Equal P1/P2 totals do not establish that the individual answers stayed the same; paired analysis and the remaining repeats are still being prepared.
+Solar Decide returned 60 valid answers for each prompt: the base task matched 55/60 reviews, classifier instructions 53/60 and decision rules 53/60. The longer prompts did not improve this first-pass total. Moving from P0 to P1 changed five reviews. Moving from P1 to P2 changed six, despite both scoring 53/60. The changed fields were sentiment on five reviews, follow-up on one and serious concern on one, with overlap between fields. These are paired first-pass observations; the remaining repeats are unfinished. [Field confusions and changed reviews](../public-site/solar-decide-first-pass-findings.json).
 
 Reported development costs were $0.022067 for P0, $0.022655 for P1 and $0.023159 for P2, excluding smoke tests. These aggregates bind the saved private responses by hash; a public checkout cannot independently decode those private responses. [P0 evidence](../results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P0/development.public-score.json) · [P1 evidence](../results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P1/development.public-score.json) · [P2 evidence](../results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P2/development.public-score.json).
 

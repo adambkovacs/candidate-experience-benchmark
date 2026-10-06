@@ -13361,6 +13361,415 @@
       "seriesCount": 2,
       "source": "public-site/qwen27-final-descriptive-findings.json"
     },
+    "solarFirstPass": {
+      "comparison_scope": "These are paired answer changes on the same 60 reviews in one pass. They do not establish a repeatable prompt gain.",
+      "configuration": {
+        "interface": "four native Choice questions",
+        "model": "upstage/solar-decide",
+        "provider": "Upstage",
+        "returned_model": "upstage/solar-decide-20260928"
+      },
+      "cost_scope": "Known model inference charge from provider usage. Development and three-record smoke charges are listed separately; local client time is excluded.",
+      "development_records": 180,
+      "known_development_cost_usd": "0.06788100",
+      "known_smoke_cost_usd": "0.00339045",
+      "paired_prompt_comparisons": [
+        {
+          "changed_fields": {
+            "follow_up_needed": 2,
+            "sentiment": 3,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          },
+          "changed_record_ids": [
+            "DEV-006",
+            "DEV-013",
+            "DEV-020",
+            "DEV-029",
+            "DEV-059"
+          ],
+          "left": "fresh1/P0",
+          "paired_records": 60,
+          "records_with_any_changed_answer": 5,
+          "right": "fresh1/P1"
+        },
+        {
+          "changed_fields": {
+            "follow_up_needed": 1,
+            "sentiment": 5,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 0
+          },
+          "changed_record_ids": [
+            "DEV-009",
+            "DEV-013",
+            "DEV-020",
+            "DEV-022",
+            "DEV-029",
+            "DEV-059"
+          ],
+          "left": "fresh1/P1",
+          "paired_records": 60,
+          "records_with_any_changed_answer": 6,
+          "right": "fresh1/P2"
+        }
+      ],
+      "reference_status": "Frozen provisional v0.2 development labels; the project owner confirmed human checks of all 60 reviews on 2026-10-02. Scores measure agreement with that key.",
+      "schema": "solar-decide-first-pass-findings-v1",
+      "source": "public-site/solar-decide-first-pass-findings.json",
+      "source_bindings": {
+        "projection_receipt_sha256": "ca439ec504181f94f3c387872961265a278ffc0071d18e19151f61032dbe7f75",
+        "projection_sha256": "52c2ef28b7156d1846e7ccef962a8318e6c5ae6d708a1b7782ee45d4472afb41",
+        "reference_sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+      },
+      "stage_order": [
+        "fresh1/P0",
+        "fresh1/P1",
+        "fresh1/P2"
+      ],
+      "stages": [
+        {
+          "all_four_correct": 55,
+          "fields": {
+            "follow_up_needed": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 24,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "yes": 34
+                }
+              },
+              "correct": 58
+            },
+            "sentiment": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "mixed": 0,
+                  "negative": 1,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "mixed": {
+                  "insufficient_information": 0,
+                  "mixed": 8,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "negative": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 31,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "neutral": {
+                  "insufficient_information": 1,
+                  "mixed": 1,
+                  "negative": 0,
+                  "neutral": 6,
+                  "positive": 0
+                },
+                "positive": {
+                  "insufficient_information": 0,
+                  "mixed": 1,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 10
+                }
+              },
+              "correct": 56
+            },
+            "serious_concern_reported": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 3,
+                  "no": 3,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 29,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "yes": 25
+                }
+              },
+              "correct": 57
+            },
+            "testimonial_potential": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 50,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 8
+                }
+              },
+              "correct": 58
+            }
+          },
+          "input_tokens": 441340,
+          "known_development_cost_usd": "0.02206700",
+          "known_smoke_cost_usd": "0.00110215",
+          "output_tokens": 240,
+          "records": 60,
+          "stage": "fresh1/P0",
+          "valid_answers": 60
+        },
+        {
+          "all_four_correct": 53,
+          "fields": {
+            "follow_up_needed": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "no": 0,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 24,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "yes": 35
+                }
+              },
+              "correct": 60
+            },
+            "sentiment": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 1,
+                  "mixed": 0,
+                  "negative": 1,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "mixed": {
+                  "insufficient_information": 0,
+                  "mixed": 6,
+                  "negative": 1,
+                  "neutral": 0,
+                  "positive": 1
+                },
+                "negative": {
+                  "insufficient_information": 0,
+                  "mixed": 0,
+                  "negative": 31,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "neutral": {
+                  "insufficient_information": 1,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 6,
+                  "positive": 1
+                },
+                "positive": {
+                  "insufficient_information": 0,
+                  "mixed": 1,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 10
+                }
+              },
+              "correct": 54
+            },
+            "serious_concern_reported": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 3,
+                  "no": 3,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 29,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "yes": 25
+                }
+              },
+              "correct": 57
+            },
+            "testimonial_potential": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 50,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 8
+                }
+              },
+              "correct": 58
+            }
+          },
+          "input_tokens": 453100,
+          "known_development_cost_usd": "0.02265500",
+          "known_smoke_cost_usd": "0.00113155",
+          "output_tokens": 240,
+          "records": 60,
+          "stage": "fresh1/P1",
+          "valid_answers": 60
+        },
+        {
+          "all_four_correct": 53,
+          "fields": {
+            "follow_up_needed": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 24,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "yes": 35
+                }
+              },
+              "correct": 59
+            },
+            "sentiment": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 2,
+                  "mixed": 0,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "mixed": {
+                  "insufficient_information": 0,
+                  "mixed": 8,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "negative": {
+                  "insufficient_information": 0,
+                  "mixed": 1,
+                  "negative": 30,
+                  "neutral": 0,
+                  "positive": 0
+                },
+                "neutral": {
+                  "insufficient_information": 1,
+                  "mixed": 1,
+                  "negative": 0,
+                  "neutral": 6,
+                  "positive": 0
+                },
+                "positive": {
+                  "insufficient_information": 0,
+                  "mixed": 1,
+                  "negative": 0,
+                  "neutral": 0,
+                  "positive": 10
+                }
+              },
+              "correct": 56
+            },
+            "serious_concern_reported": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 2,
+                  "no": 4,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 29,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 0,
+                  "yes": 25
+                }
+              },
+              "correct": 56
+            },
+            "testimonial_potential": {
+              "confusion_reference_by_choice": {
+                "insufficient_information": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 0
+                },
+                "no": {
+                  "insufficient_information": 0,
+                  "no": 50,
+                  "yes": 0
+                },
+                "yes": {
+                  "insufficient_information": 0,
+                  "no": 1,
+                  "yes": 8
+                }
+              },
+              "correct": 58
+            }
+          },
+          "input_tokens": 463180,
+          "known_development_cost_usd": "0.02315900",
+          "known_smoke_cost_usd": "0.00115675",
+          "output_tokens": 240,
+          "records": 60,
+          "stage": "fresh1/P2",
+          "valid_answers": 60
+        }
+      ],
+      "status": "three_closed_first_pass_runs",
+      "unknown_cost_attempts": 0,
+      "valid_development_answers": 180,
+      "verification_boundary": "Private raw responses were decoded when the public projection was prepared. A copy without those raw files can verify archived hashes, scores and prices, but cannot decode the responses again."
+    },
     "tevNative": {
       "child_all_requests": {
         "includes_eight_three_request_smokes": true,
@@ -17013,6 +17422,10 @@
     {
       "path": "public-site/qwen27-final-descriptive-findings.json",
       "sha256": "008fa43be645b4414a57e3e0783d6e5fc0bf428c09fa1bd5771fd064b93b1c42"
+    },
+    {
+      "path": "public-site/solar-decide-first-pass-findings.json",
+      "sha256": "f1bed1b6d8392d5017db5efaaf560b6695103a859493938395c0529258967bb9"
     },
     {
       "path": "public-site/sonnet55-fresh-matched3-evidence/evidence/results/repeatability-v1/claude-sonnet55-fresh-matched3-v2/high/pass1/P0/development.records.jsonl",
@@ -21011,6 +21424,70 @@
       "sha256": "22038f5d83c67983bfab17f049774f4d12edc46bdfbf3fcf381b3635b1449db8"
     },
     {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/first-pass.public-projection.json",
+      "sha256": "52c2ef28b7156d1846e7ccef962a8318e6c5ae6d708a1b7782ee45d4472afb41"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/first-pass.public-projection.receipt.json",
+      "sha256": "ca439ec504181f94f3c387872961265a278ffc0071d18e19151f61032dbe7f75"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P0/development.claim.json",
+      "sha256": "b0b93a0717945826c80a741640fd23c6fd876d9cb3679eb18dc5b3823f2c9347"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P0/development.public-score.json",
+      "sha256": "3cd7a35b0f9ade21a2a7857941f776c2060ff2bf20d7b7d2b53476b3776e51d5"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P0/development.root-review.json",
+      "sha256": "409b5808c7b8190e9fc747050d8dce39dca63a39f638e8e09b1565dd3668cf31"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P0/smoke-inspection.json",
+      "sha256": "127e30babd17ae70a5df88bdc1bd8cf64ae24e8b8947c3f4a8f626b1b17649c7"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P1/development.claim.json",
+      "sha256": "ae97bf018d3060b0f7ad7375c50a9d85dfa84238e1d1e1035ffc58b112696240"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P1/development.public-score.json",
+      "sha256": "1751c8901f82b7045cb90f114289c295c534dfe3eee2601711a1eec0e494efa0"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P1/development.root-review.json",
+      "sha256": "8cb34a11852127c045e857e6a8493f336a17785ef1ad4484ceeaaa4131c3ac2a"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P1/smoke-inspection.json",
+      "sha256": "a2ff296d967a93bce4cbe0ecc860dce69f964bba5657e1287d9877603def8b2a"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P2/development.claim.json",
+      "sha256": "95ccdb82de00428fb3cb6a8610c80dc7bed4c11787a6b87f6c5a86208a3eca3f"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P2/development.public-score.json",
+      "sha256": "62f353116df3c476391578a46f4a7a4f0a24ee9a935a5a80e8e0c3049dccc5b9"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P2/development.root-review.json",
+      "sha256": "58126d7bf6d484fd89754198825e217a97bbc10dc06b61cfd6704ef76183cd28"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/fresh1/P2/smoke-inspection.json",
+      "sha256": "22a6f2e6cb8ffc61f53fae1461e755443173fa0535855dbf760a046ed9d31bfd"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/execution-adapter-v2/manifest.json",
+      "sha256": "51dcbfb90ab30bd8534ea7e86ff0106e356770043f3f7afedf1f120e3fc2c594"
+    },
+    {
+      "path": "results/solar-decide-native-full-v1/plan.json",
+      "sha256": "8da88e41f5e33490498401aceb3ca18009e77b032b06a3a2543dadf39b987988"
+    },
+    {
       "path": "results/tev-native-v1/full-v1/budget-tev-native-full-v1.jsonl",
       "sha256": "1e143a87a70fb931551120810312a8a28e5417e02b874f36849030fb5d2548a6"
     },
@@ -21157,6 +21634,10 @@
     {
       "path": "scripts/build_qwen36_on_hosted_authority_v2_findings.py",
       "sha256": "4360234a425be93e5bc15c3b8412116de098c8d4fa6392a8642e2cef33d27e4a"
+    },
+    {
+      "path": "scripts/build_solar_decide_native_first_pass_findings.py",
+      "sha256": "5da906f57f2e82c883a633d278ea4129f17ee7c89500c76522b19b25b8d59b18"
     },
     {
       "path": "scripts/build_tev_native_full_findings.py",
@@ -21393,6 +21874,10 @@
     {
       "path": "tests/test_build_deepseek_low_remaining6_price_v2_findings.py",
       "sha256": "5877510c91a6e36fd453a11d56a57b4a98ee3edc37ff1b17768fe084ca877e0d"
+    },
+    {
+      "path": "tests/test_build_solar_decide_native_first_pass_findings.py",
+      "sha256": "7cef48a8dd12d16cc06bffff660a87cdd0a64bfe7bb1cc704c56a72ce04f376c"
     },
     {
       "path": "tests/test_build_tev_native_full_findings.py",
