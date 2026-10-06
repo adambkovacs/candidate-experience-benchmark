@@ -9,37 +9,14 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import solar_decide_unsent_smoke_v2_execution as run
+import openrouter_budget_v4 as budget_v4
 from development_benchmark import KEYS, VALUES
 
 
-class FakeChild:
-    cap = run.CAP
-    master_cap = Decimal('22.38')
-    closed = False
-
-    def __init__(self):
-        self.pending = {}
-        self.costs = []
-        self.closed_handle = False
-
-    def state(self):
-        return {}, set(self.pending), False
-
-    def accounted(self):
-        return sum(self.costs, Decimal(0)) + sum(self.pending.values(), Decimal(0))
-
-    def reserve(self, amount, record_id):
-        attempt = 'attempt-' + record_id
-        self.pending[attempt] = amount
-        return attempt
-
-    def settle(self, attempt, amount):
-        assert amount <= self.pending.pop(attempt)
-        self.costs.append(amount)
-        return True
-
-    def close(self):
-        self.closed_handle = True
+def temp_child(path):
+    child = budget_v4.BudgetLedger(path, cap_limit=run.CAP)
+    child.master_cap = budget_v4.CAP
+    return child
 
 
 def response():
@@ -75,7 +52,7 @@ class SolarUnsentExecutionTests(unittest.TestCase):
 
     def test_mocked_two_request_success_and_no_replay(self):
         with tempfile.TemporaryDirectory() as temp:
-            child = FakeChild()
+            child_path = Path(temp) / 'child.jsonl'
             payloads = []
             stage_review = Path(temp) / 'stage-review.json'
             stage_review.write_text('{}\n')
@@ -88,21 +65,25 @@ class SolarUnsentExecutionTests(unittest.TestCase):
                   mock.patch.object(run, 'require_stage_review'),
                   mock.patch.object(run, 'verify', return_value='checked'),
                   mock.patch.object(run, 'live_route', return_value=(b'{}', {})),
-                  mock.patch.object(run.partitions, 'open_partition', return_value=child),
+                  mock.patch.object(run.partitions, 'open_partition',
+                                    side_effect=lambda *args: temp_child(child_path)),
                   mock.patch.object(run, 'load_key', return_value='test-token')):
                 self.assertTrue(run.execute(send=send))
                 rows = run.jsonl(Path(temp) / 'smoke.raw.jsonl')
                 self.assertEqual([row['id'] for row in rows], ['DEV-002','DEV-003'])
                 self.assertEqual(len(payloads), 2)
                 self.assertEqual(len(run.jsonl(Path(temp) / 'smoke.parsed.jsonl')), 2)
-                self.assertEqual(child.costs, [Decimal('0.000005')]*2)
-                self.assertTrue(child.closed_handle)
+                events = run.jsonl(child_path)
+                self.assertEqual([event['event'] for event in events],
+                                 ['budget','reserve','settle','reserve','settle'])
+                self.assertEqual([event['usd'] for event in events if event['event']=='settle'],
+                                 ['0.000005']*2)
                 with self.assertRaises(FileExistsError):
                     run.execute(send=send)
 
     def test_mocked_429_keeps_unknown_and_second_unsent(self):
         with tempfile.TemporaryDirectory() as temp:
-            child = FakeChild()
+            child_path = Path(temp) / 'child.jsonl'
             calls = []
             stage_review = Path(temp) / 'stage-review.json'
             stage_review.write_text('{}\n')
@@ -114,15 +95,33 @@ class SolarUnsentExecutionTests(unittest.TestCase):
                   mock.patch.object(run, 'require_stage_review'),
                   mock.patch.object(run, 'verify', return_value='checked'),
                   mock.patch.object(run, 'live_route', return_value=(b'{}', {})),
-                  mock.patch.object(run.partitions, 'open_partition', return_value=child),
+                  mock.patch.object(run.partitions, 'open_partition',
+                                    side_effect=lambda *args: temp_child(child_path)),
                   mock.patch.object(run, 'load_key', return_value='test-token')):
                 self.assertFalse(run.execute(send=send))
                 rows = run.jsonl(Path(temp) / 'smoke.attempts.jsonl')
                 self.assertEqual([(row['id'],row['status']) for row in rows],
                                  [('DEV-002','unknown_cost')])
                 self.assertEqual(len(calls), 1)
-                self.assertEqual(child.pending, {'attempt-DEV-002': run.BOUND})
-                self.assertTrue(child.closed_handle)
+                events = run.jsonl(child_path)
+                self.assertEqual([event['event'] for event in events], ['budget','reserve'])
+                self.assertEqual(events[1]['record_id'], 'DEV-002')
+                self.assertEqual(events[1]['usd'], str(run.BOUND))
+
+    def test_bound_money_and_key_sources_reject_drift(self):
+        saved = json.loads(run.MANIFEST.read_text())
+        for name in ('scripts/openrouter_budget_amendment_v3.py',
+                     'scripts/openrouter_benchmark.py',
+                     'scripts/development_benchmark.py'):
+            self.assertEqual(saved['source_sha256'][name], run.sha(ROOT / name))
+            changed = json.loads(json.dumps(saved))
+            changed['source_sha256'][name] = '0'*64
+            with tempfile.TemporaryDirectory() as temp:
+                changed_path = Path(temp) / 'manifest.json'
+                changed_path.write_text(json.dumps(changed))
+                with mock.patch.object(run, 'MANIFEST', changed_path):
+                    with self.assertRaises(ValueError):
+                        run.verify()
 
 
 if __name__ == '__main__':
