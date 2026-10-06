@@ -2,6 +2,10 @@
 
 ## Recovery after unexpected shutdown, 6 October 2026
 
+- Gemini high series is complete and independently verified at 9/9: P0 scores 55/56/56, P1 56/56/56, P2 55/56/56. The six newly executed full passes plus smokes cost $1.636000. Root reconciled the child with no unknown costs; $0.364 unused allocation was released in the master. The separate authority hold remains conservative. Historical closure ledger hashes are preserved as exact immutable prefix snapshots.
+- DeepSeek high P0 original 49284 exited successfully after all 60 attempts (59 valid, one intrinsic invalid). Root found a closure-verifier adapter bug involving path/argument compatibility and lower live pricing; completed requests remain preserved. A separate verifier repair is required before P1 admission. Preliminary offline score is 57/60 and known cost $0.034324790897, pending full closure audit.
+- Pages run 37493723371 succeeded for the seven-condition report; newer eight-condition run 37494161989 is in progress. Nine-condition report and combined findings are prepared for the next publication.
+
 - Latest: Gemini repeat3/P0 is verified (60 valid, 56/60, $0.228962 development). Repeat3/P1 is now running on handle 11129 after its inspected smoke; this is the last condition in that series. DeepSeek high P0 remains running on 49284.
 - Qwen suffix is independently closed and reconciled in `7f4ae647`: 11 valid, 9 all-four matches, $0.0134064. Full interrupted P1 is descriptive: 59 valid, one preserved unknown, 52/60 matches, $0.0696082 known development charges plus $0.0299008 unknown upper bound. No P1 positions remain unsent. Further Qwen phases need separate admission after parent closure.
 - Pages attempt 37493274075 failed because the immutable Gemini allocation manifest was absent from Git. Fix `9c9a774e` includes it; an isolated 990-file report verification passed. Replacement Pages run 37493723371 remains pending verification. The report currently includes seven closed Gemini conditions; the newer P0 closure and final P1 result need the next report refresh.

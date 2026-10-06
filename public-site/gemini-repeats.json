@@ -16328,15 +16328,9 @@
         }
       },
       "denominator": 60,
-      "completedConditions": 8,
+      "completedConditions": 9,
       "plannedConditions": 9,
-      "missingPasses": [
-        {
-          "pass": "repeat3",
-          "condition": "P1",
-          "status": "smoke_open_or_incomplete"
-        }
-      ],
+      "missingPasses": [],
       "partialPasses": [],
       "passes": {
         "original": {
@@ -16878,6 +16872,87 @@
               "rawResponseCount": 6
             }
           },
+          "P1": {
+            "completionStatus": "complete",
+            "terminalEvent": "phase_completed",
+            "finishedRequests": 6,
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 56,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "valid": 60,
+                "invalid_output": 0,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": []
+            },
+            "usage": {
+              "requestCount": 6,
+              "startedRequestCount": 6,
+              "requestSeconds": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "requestSecondsTotal": null,
+              "requestTimeKind": "client_wall_clock_if_recorded",
+              "inferenceSeconds": null,
+              "tokens": {
+                "input_tokens": 12307,
+                "output_tokens": 17469,
+                "cached_input_tokens": 0,
+                "cache_write_input_tokens": 0,
+                "reasoning_output_tokens": 13915
+              },
+              "knownCostUsd": "0.234242",
+              "actualCostUsd": "0.234242",
+              "unknownCostCount": 0,
+              "costNote": "USD amounts come from saved provider usage; unknown charges are not zero."
+            },
+            "evidence": {
+              "attempts": {
+                "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.attempts.jsonl",
+                "sha256": "422a5e06492b61c81268a253cd0a3c82c9fbeff4d246b63cb7ed09d5bd11d717"
+              },
+              "responses": {
+                "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.responses.jsonl",
+                "sha256": "31891faed422a9ae13c7398b7b11dee35f47864af215c60af9b54642649555f4"
+              },
+              "records": {
+                "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.records.jsonl",
+                "sha256": "48e18a07bd9eb5617341b498dd4ab8bcf4a653177232a72db36d6f649e93b262"
+              },
+              "claim": {
+                "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.claim.json",
+                "sha256": "db0620775e7bf8f94460ce13243f0cc37acb832a30d93d069060b696b48ddfab"
+              },
+              "journal": {
+                "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.journal.jsonl",
+                "sha256": "e5955c2dd4c466b12d894c99baeee5068ebdb040300f7b326df06733f9b14c9d"
+              },
+              "rootReview": {
+                "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.root-review.json",
+                "sha256": "029a62975c4c8f559f50bd3f7881cf4cf74b2ece526b1572e95d31aeb18bcf9d"
+              },
+              "rawResponseCount": 6
+            }
+          },
           "P2": {
             "completionStatus": "complete",
             "terminalEvent": "phase_completed",
@@ -17033,50 +17108,70 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 2,
+            "completedPasses": 3,
             "values": [
+              56,
               56,
               56
             ],
-            "mean": null,
-            "range": null
+            "mean": 56.0,
+            "range": [
+              56,
+              56
+            ]
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                58,
                 58,
                 58
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.0,
+              "range": [
+                58,
+                58
+              ]
             },
             "follow_up_needed": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
+                60,
                 60,
                 60
               ],
-              "mean": null,
-              "range": null
+              "mean": 60.0,
+              "range": [
+                60,
+                60
+              ]
             },
             "serious_concern_reported": {
-              "completedPasses": 2,
+              "completedPasses": 3,
               "values": [
                 58,
-                59
-              ],
-              "mean": null,
-              "range": null
-            },
-            "testimonial_potential": {
-              "completedPasses": 2,
-              "values": [
                 59,
                 59
               ],
-              "mean": null,
-              "range": null
+              "mean": 58.666666666666664,
+              "range": [
+                58,
+                59
+              ]
+            },
+            "testimonial_potential": {
+              "completedPasses": 3,
+              "values": [
+                59,
+                59,
+                59
+              ],
+              "mean": 59.0,
+              "range": [
+                59,
+                59
+              ]
             }
           }
         },
@@ -17298,6 +17393,74 @@
           }
         },
         {
+          "condition": "P1",
+          "from": "original",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 1,
+            "rate": 0.016666666666666666,
+            "caseIds": [
+              "DEV-030"
+            ]
+          }
+        },
+        {
+          "condition": "P1",
+          "from": "repeat2",
+          "to": "repeat3",
+          "denominator": 60,
+          "excludedIds": [],
+          "sentiment": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "follow_up_needed": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "serious_concern_reported": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "testimonial_potential": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          },
+          "fourFieldVector": {
+            "changed": 0,
+            "rate": 0.0,
+            "caseIds": []
+          }
+        },
+        {
           "condition": "P2",
           "from": "original",
           "to": "repeat2",
@@ -17426,6 +17589,21 @@
             "DEV-030"
           ]
         },
+        "P1": {
+          "denominator": 60,
+          "excludedIds": [],
+          "fields": {
+            "sentiment": [],
+            "follow_up_needed": [],
+            "serious_concern_reported": [
+              "DEV-030"
+            ],
+            "testimonial_potential": []
+          },
+          "fourFieldVector": [
+            "DEV-030"
+          ]
+        },
         "P2": {
           "denominator": 60,
           "excludedIds": [],
@@ -17501,6 +17679,19 @@
         {
           "pass": "repeat3",
           "from": "P0",
+          "to": "P1",
+          "denominator": 60,
+          "allFour": 0,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        },
+        {
+          "pass": "repeat3",
+          "from": "P0",
           "to": "P2",
           "denominator": 60,
           "allFour": 0,
@@ -17514,17 +17705,33 @@
       ],
       "pairedDeltaSpread": {
         "P1": {
-          "completedPairs": 2,
+          "completedPairs": 3,
           "allFourValues": [
             1,
+            0,
             0
           ],
-          "allFourRange": null,
+          "allFourRange": [
+            0,
+            1
+          ],
           "fieldRanges": {
-            "sentiment": null,
-            "follow_up_needed": null,
-            "serious_concern_reported": null,
-            "testimonial_potential": null
+            "sentiment": [
+              0,
+              0
+            ],
+            "follow_up_needed": [
+              0,
+              0
+            ],
+            "serious_concern_reported": [
+              0,
+              1
+            ],
+            "testimonial_potential": [
+              0,
+              0
+            ]
           }
         },
         "P2": {
@@ -17968,6 +18175,58 @@
           "sha256": "2de470f5ad0052c6cf55bf65978a3e0be5134a1f473d5833db7a053b1cf3a63b"
         },
         {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.attempts.jsonl",
+          "sha256": "1e2339c7c4f5718799aa3dc96544e693f6281066984da27397a34702d51608db"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.responses.jsonl",
+          "sha256": "c9574aa92732b64a7f1c4b6fb7bcc8479a8412f2932957a5cd34f250b84f6158"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.records.jsonl",
+          "sha256": "dad22d077a299c9f3ec9037cfb7d8a0e3eaf557a22da9258335f11c05ccc0ab7"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.claim.json",
+          "sha256": "72a65de5c76ce3c1ba79084d136668efa788b59c9528c028916ec5e4ebfb0f9d"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.journal.jsonl",
+          "sha256": "10c1e48c9ea273470ff75447ac015c8592017da988c756266814a0caebcc2440"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.root-review.json",
+          "sha256": "745ab39fddf028d82090772a6a3e37c5f87ac0065459b6840e11890723d0c602"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke-inspection.json",
+          "sha256": "381ec77eea3e58f95d9a84c072eb491f4764893241f291558c7f276bbece87fd"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.attempts.jsonl",
+          "sha256": "422a5e06492b61c81268a253cd0a3c82c9fbeff4d246b63cb7ed09d5bd11d717"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.responses.jsonl",
+          "sha256": "31891faed422a9ae13c7398b7b11dee35f47864af215c60af9b54642649555f4"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.records.jsonl",
+          "sha256": "48e18a07bd9eb5617341b498dd4ab8bcf4a653177232a72db36d6f649e93b262"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.claim.json",
+          "sha256": "db0620775e7bf8f94460ce13243f0cc37acb832a30d93d069060b696b48ddfab"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.journal.jsonl",
+          "sha256": "e5955c2dd4c466b12d894c99baeee5068ebdb040300f7b326df06733f9b14c9d"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.root-review.json",
+          "sha256": "029a62975c4c8f559f50bd3f7881cf4cf74b2ece526b1572e95d31aeb18bcf9d"
+        },
+        {
           "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke.attempts.jsonl",
           "sha256": "52d8b73a790db4732a0db3736e9f6be2dac7de2316de72ee2d55c2692273581e"
         },
@@ -18034,6 +18293,10 @@
         {
           "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/closure.review.json",
           "sha256": "144e211a5fc434e98b9cf0ddf75a3b41a6eacf7c54a83f840e6081e208d582b4"
+        },
+        {
+          "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/closure.review.json",
+          "sha256": "0e2b9a0697ccf754083eb64b5f2f57778e701413526d261f88a3f55e16c3c630"
         },
         {
           "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/closure.review.json",
