@@ -28,3 +28,10 @@ Local browser checks showed the grouped layout on desktop and at a 390-pixel vie
 ## Grouped findings publication verified
 
 Pages run [37527766678](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37527766678) succeeded for `a079b01b`. Live `index.html`, `presentation.css` and `analysis-refresh.js` match that commit byte for byte. The Tev and DeepSeek high reports also match their integrated `07ca8c45` versions. This verifies deployment of the previously checked interface; it does not claim a new full-site UX audit.
+
+
+## Resource selector and subscription estimate check
+
+On the live page, the resource-use section exposes 304 saved run choices. Selecting `fable51-high` changed the section to that run and displayed 120 input tokens, 186,000 cache-read tokens, 28,275 cache-write tokens, 11,715 output tokens and 3,312 reasoning tokens. Its API-equivalent estimate is $1.19895, with a dated public pricing link and explicit separation from unknown subscription charges. This checks display against the selected published feed, not a new independent pricing audit.
+
+At a 390-by-844 viewport, document width was 375 pixels and the selector was about 320 pixels wide; the screenshot showed readable content and a visible focus outline. The temporary viewport was reset. No console errors were captured before this interaction. Automated ArrowDown/Enter left the selected value unchanged, so keyboard selection is not claimed verified. The prior disclosure-keyboard checks remain separate.
