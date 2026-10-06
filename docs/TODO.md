@@ -2,6 +2,10 @@
 
 ## Recovery after unexpected shutdown, 6 October 2026
 
+- Latest: Gemini repeat3/P0 is verified (60 valid, 56/60, $0.228962 development). Repeat3/P1 is now running on handle 11129 after its inspected smoke; this is the last condition in that series. DeepSeek high P0 remains running on 49284.
+- Qwen suffix is independently closed and reconciled in `7f4ae647`: 11 valid, 9 all-four matches, $0.0134064. Full interrupted P1 is descriptive: 59 valid, one preserved unknown, 52/60 matches, $0.0696082 known development charges plus $0.0299008 unknown upper bound. No P1 positions remain unsent. Further Qwen phases need separate admission after parent closure.
+- Pages attempt 37493274075 failed because the immutable Gemini allocation manifest was absent from Git. Fix `9c9a774e` includes it; an isolated 990-file report verification passed. Replacement Pages run 37493723371 remains pending verification. The report currently includes seven closed Gemini conditions; the newer P0 closure and final P1 result need the next report refresh.
+
 - Hosted execution has resumed concurrently: Gemini repeat3/P0 (handle 63965), DeepSeek high fresh1/P0 (49284), and Qwen P1 DEV-050–060 continuation (56685). Gemini repeat3/P2 is closed and independently verified: 60 valid, 56/60 matches, $0.264350 development charges. Root owns closure and next admissions.
 - Qwen parent accounting is reconciled: $0.1300116 known charges across its completed stages and $0.0299008 retained unknown bound. The suffix has a separate $0.3289088 maximum allocation; its output will remain an interrupted descriptive composite.
 - Gemini public-feed integration now has seven independently verified conditions out of nine, preserving the original eight series. Tests pass; publication verification is pending. Shared Ruflo sentinel retrieval and recovery checkpoint save-back are verified in both canonical stores.
