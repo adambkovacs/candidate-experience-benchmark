@@ -3,7 +3,7 @@
 ## Hosted execution resumed, 6 October 2026, 17:21 UTC
 
 - Root inspected DeepSeek high remaining-seven fresh1/P2 smoke: three valid raw JSON answers with normal stops. Original smoke handle 93637 exited successfully; full development is admitted on original handle 55857, with no completion credit yet. The separately priced configuration and reviewed adapter are archived and pushed in `75001769`; its $1 child comes from the OpenRouter-only allowance.
-- Qwen hosted fresh2/P0 full pass remains on original handle 61377 after inspected smoke; do not replay it. Closed fresh2/P2 and the refreshed reports are pushed in `9eeea0a3`; Pages run 37502397634 is still in progress.
+- Qwen hosted fresh2/P0 full pass remains on original handle 61377 after inspected smoke; do not replay it. Closed fresh2/P2 and the refreshed reports are pushed in `9eeea0a3`; Pages run 37502397634 succeeded; root verified that live `analysis-refresh.json` and `additional-hosted-fresh-repeats.json` exactly match `9eeea0a3`.
 - `gemini_recovery` owns a read-only audit of retained shared-authority holds for Clef. `deepseek_recovery` owns preparation of the remaining low-effort hosted proposal. Neither may allocate or dispatch; root owns admission. No local inference is running.
 
 ## Recovery after unexpected shutdown, 6 October 2026
