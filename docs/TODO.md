@@ -2,9 +2,9 @@
 
 ## Current checkpoint, 6 October 2026: hosted work after reconciliation
 
-- Liquid first-pass P0/P1/P2 are closed with 60 valid answers each and all-four totals43/42/41. Fresh2/P0 smoke passed root inspection; its full stage is admitted. Native repeat stability is not yet established.
-- Revised-price DeepSeek low P2 is integrated into combined analysis and public findings as57/60 all-four,59 valid andDEV-005 provider failure with unknown cost. The corrected development subtotal excludes smoke costs. Independent review approved the integration;16 Python and10 UI tests passed, and the analysis rebuild verifies918 source bindings.
-- Qwen repeat-change deployment37513788411 succeeded; hosted feed, analysis JSON and analysis JavaScript match commit12f1b432 exactly on the live site.
+- Liquid first-pass P0/P1/P2 are closed with 60 valid answers each and all-four totals 43/42/41. Fresh2/P0 smoke passed root inspection; its full stage is admitted. Native repeat stability is not yet established.
+- Revised-price DeepSeek low P2 is integrated into combined analysis and public findings as 57/60 all-four, 59 valid and DEV-005 provider failure with unknown cost. The corrected development subtotal excludes smoke costs. Independent review approved the integration; 16 Python and 10 UI tests passed, and the analysis rebuild verifies 918 source bindings.
+- Qwen repeat-change deployment 37513788411 succeeded; hosted feed, analysis JSON and analysis JavaScript match commit `12f1b432` exactly on the live site.
 
 - Hosted execution now has DeepSeek low fresh2/P0 running on original handle 78357. Liquid fresh1/P0 closed with 60 valid outputs and $0.01568912 known cost; its P1 smoke passed root inspection. DeepSeek high fresh2/P0 smoke also passed root inspection. Their full-stage admissions are proceeding under existing child allocations.
 - A new [Mistral public endpoint check](../results/route-audits/mistral119-public-20261006-evening/audit.json) lists the exact `mistral/zdr` and `mistral` routes at status 0, $0.15/M input and $0.60/M output. No inference was sent and account capacity remains unverified. Prepare a v4 exact-unsent smoke continuation after a worker becomes available; preserve the historical HTTP 429 outcomes.
