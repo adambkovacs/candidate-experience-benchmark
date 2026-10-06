@@ -21,8 +21,8 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
     def test_all_closed_runs_keep_scores_costs_and_public_links(self):
         feed = self.expected
         self.assertEqual((feed['schema'], feed['denominator'], len(feed['runs'])),
-                         ('supplemental-decision-runs-v1', 60, 21))
-        self.assertEqual(len({run['id'] for run in feed['runs']}), 21)
+                         ('supplemental-decision-runs-v1', 60, 27))
+        self.assertEqual(len({run['id'] for run in feed['runs']}), 27)
         self.assertEqual({run['model'] for run in feed['runs']},
                          {'upstage/solar-decide', 'liquid/d1',
                           'togethercomputer/tev1-4b-experimental'})
@@ -34,16 +34,33 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
         self.assertEqual([by_id[f'tev1-4b-native-fresh1-{prompt}']['metrics']['all_four']
                           for prompt in ('p0', 'p1', 'p2')], [45, 44, 44])
         self.assertEqual(sum(run['cost']['knownUsd'] for run in feed['runs']
-                             if run['id'].startswith('solar')), 0.067881)
+                             if run['id'].startswith('solar-decide-native-fresh1')), 0.067881)
+        old = json.loads((ROOT / subject.OUTPUT).read_text())
+        old_first = {run['id']: run for run in old['runs'] if
+                     run['id'].startswith('solar-decide-native-fresh1')}
+        for ident, previous in old_first.items():
+            self.assertEqual((by_id[ident]['id'], by_id[ident]['sourceRecordsUrl'],
+                              by_id[ident]['evidenceUrl']),
+                             (previous['id'], previous['sourceRecordsUrl'],
+                              previous['evidenceUrl']))
+        final = by_id['solar-decide-native-fresh3-p2']
+        self.assertEqual((final['records'], final['valid'], final['complete'],
+                          final['pairedEligible']), (60, 59, False, False))
+        self.assertEqual((final['tokens']['reportedRequests'],
+                          final['tokens']['totalRequests'], final['tokens']['complete']),
+                         (59, 60, False))
+        self.assertEqual(final['cost']['unknownUpperBoundUsd'], 0.1048576)
+        self.assertIn('DEV-009', final['resultStatus'])
         for run in feed['runs']:
-            self.assertEqual((run['records'], run['valid']), (60, 60))
-            self.assertTrue(run['complete'])
+            self.assertEqual(run['records'], 60)
+            self.assertEqual(run['valid'], 59 if run is final else 60)
+            self.assertEqual(run['complete'], run is not final)
             self.assertTrue(run['sourceOnlyDetails'])
             self.assertIsNone(run['cost']['actualUsd'])
             self.assertIsNone(run['cost']['estimatedUsd'])
             self.assertEqual((run['timing']['requests'], run['timing']['inferenceSeconds']),
                              (0, None))
-            self.assertEqual(run['tokens']['reportedRequests'], 60)
+            self.assertEqual(run['tokens']['reportedRequests'], run['valid'])
             self.assertEqual(run['parentBaselineId'], None if run['condition'] == 'P0'
                              else run['id'].rsplit('-', 1)[0] + '-p0')
             path = Path(run['sourceRecordsUrl'].split('/blob/main/', 1)[1])
@@ -57,8 +74,9 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
 
     def small_copy(self, temp):
         root = Path(temp)
-        paths = [subject.SOLAR, subject.LIQUID, subject.TEV,
+        paths = [subject.SOLAR, subject.SOLAR_FULL, subject.LIQUID, subject.TEV,
                  subject.solar_builder.PROJECTION, subject.solar_builder.RECEIPT,
+                 subject.solar_full_builder.PROJECTION, subject.solar_full_builder.RECEIPT,
                  subject.tev_builder.PROJECTION, subject.tev_builder.RECEIPT,
                  Path('public-site/data-provider-errors-v1.json'),
                  Path('scripts/build_supplemental_decision_runs_v1.py')]
@@ -72,8 +90,10 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
 
     def builder_stubs(self):
         reports = {path: json.loads((ROOT / path).read_text())
-                   for path in (subject.SOLAR, subject.LIQUID, subject.TEV)}
+                   for path in (subject.SOLAR, subject.SOLAR_FULL,
+                                subject.LIQUID, subject.TEV)}
         return (mock.patch.object(subject.solar_builder, 'build', return_value=reports[subject.SOLAR]),
+                mock.patch.object(subject.solar_full_builder, 'build', return_value=reports[subject.SOLAR_FULL]),
                 mock.patch.object(subject.liquid_builder, 'build', return_value=reports[subject.LIQUID]),
                 mock.patch.object(subject.tev_builder, 'build', return_value=reports[subject.TEV]))
 
@@ -84,8 +104,8 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
             value = json.loads(path.read_text())
             value['stages'][0]['records'][0]['prediction']['sentiment'] = 'negative'
             path.write_text(json.dumps(value))
-            first, second, third = self.builder_stubs()
-            with first, second, third, self.assertRaisesRegex(ValueError, 'projection differs'):
+            first, second, third, fourth = self.builder_stubs()
+            with first, second, third, fourth, self.assertRaisesRegex(ValueError, 'projection differs'):
                 subject.build(root)
 
     def test_changed_report_rejected(self):
@@ -95,8 +115,20 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
             value = json.loads(path.read_text())
             value['stages'][0]['all_four_correct'] += 1
             path.write_text(json.dumps(value))
-            first, second, third = self.builder_stubs()
-            with first, second, third, self.assertRaisesRegex(ValueError, 'report differs'):
+            first, second, third, fourth = self.builder_stubs()
+            with first, second, third, fourth, self.assertRaisesRegex(ValueError, 'report differs'):
+                subject.build(root)
+
+    def test_final_projection_and_unknown_bound_cannot_be_cleaned_by_copy(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = self.small_copy(temp)
+            path = root / subject.SOLAR_FULL
+            value = json.loads(path.read_text())
+            final = value['stages'][-1]
+            final['valid_answers'] = 60
+            path.write_text(json.dumps(value))
+            first, second, third, fourth = self.builder_stubs()
+            with first, second, third, fourth, self.assertRaisesRegex(ValueError, 'report differs'):
                 subject.build(root)
 
     def test_invalid_score_cost_and_private_link_rejected(self):

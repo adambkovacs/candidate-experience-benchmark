@@ -10,11 +10,13 @@ from pathlib import Path
 from development_benchmark import ROOT
 import build_liquid_d1_native_full_aggregate as liquid_builder
 import build_solar_decide_native_first_pass_findings as solar_builder
+import build_solar_decide_native_full_findings as solar_full_builder
 import build_tev_native_full_findings as tev_builder
 
 
 OUTPUT = Path('public-site/supplemental-decision-runs-v1.json')
 SOLAR = Path('public-site/solar-decide-first-pass-findings.json')
+SOLAR_FULL = Path('public-site/solar-decide-full-findings.json')
 LIQUID = Path('public-site/liquid-d1-native-full-findings.json')
 TEV = Path('public-site/tev-native-full-findings.json')
 BASE_URL = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/'
@@ -50,17 +52,21 @@ def amount(value, label):
     return float(result)
 
 
-def usage(input_tokens, output_tokens):
+def usage(input_tokens, output_tokens, reported_requests=60):
     if any(type(value) is not int or value < 0 for value in (input_tokens, output_tokens)):
         raise ValueError('Native token count differs')
+    if type(reported_requests) is not int or not 0 <= reported_requests <= 60:
+        raise ValueError('Native usage request count differs')
     return {'input': input_tokens, 'output': output_tokens,
             'cachedInput': None, 'cacheWrite': None, 'reasoning': None,
-            'reportedRequests': 60, 'totalRequests': 60, 'complete': True,
-            'note': 'Provider-reported development usage. Missing token categories are unavailable, not zero.'}
+            'reportedRequests': reported_requests, 'totalRequests': 60,
+            'complete': reported_requests == 60,
+            'note': 'Provider-reported development usage covers the returned answers only. Missing token categories are unavailable, not zero.'}
 
 
 def row(family, model, returned_model, provider, stages, stage, scores, input_tokens,
-        output_tokens, charge, projection_path, projection_sha, report_path):
+        output_tokens, charge, projection_path, projection_sha, report_path, *,
+        valid=60, unknown_upper_bound='0', result_status=None):
     if stage not in stages or len(stage.split('/')) != 2:
         raise ValueError('Unexpected native stage')
     repeat, condition = stage.split('/')
@@ -70,6 +76,14 @@ def row(family, model, returned_model, provider, stages, stage, scores, input_to
     ident = f'{prefix}-{condition.lower()}'
     fields = {key: bounded_count(scores[key], stage + '/' + key) for key in FIELDS}
     all_four = bounded_count(scores['all_four'], stage + '/all_four')
+    valid = bounded_count(valid, stage + '/valid')
+    if any(score > valid for score in (all_four, *fields.values())):
+        raise ValueError('Native score exceeds usable answers')
+    unknown = amount(unknown_upper_bound, stage + '/unknown bound')
+    if valid == 60 and unknown:
+        raise ValueError('Complete native run has unknown-cost attempt')
+    if valid < 60 and not unknown:
+        raise ValueError('Interrupted native run lacks retained unknown bound')
     if not projection_path.parts or any(part in PRIVATE_NAMES for part in projection_path.parts):
         raise ValueError('Private source path cannot be published')
     if len(projection_sha) != 64 or any(ch not in '0123456789abcdef' for ch in projection_sha):
@@ -81,19 +95,19 @@ def row(family, model, returned_model, provider, stages, stage, scores, input_to
         'model': model, 'returnedModel': returned_model, 'provider': provider,
         'interface': 'four native Choice questions', 'effort': 'not applicable',
         'surface': 'OpenRouter native Choice', 'condition': condition,
-        'complete': True, 'records': 60, 'valid': 60,
-        'metrics': {'all_four': all_four, **fields}, 'pairedEligible': True,
-        'resultStatus': ('First pass only; later Solar repeats are separate. '
+        'complete': valid == 60, 'records': 60, 'valid': valid,
+        'metrics': {'all_four': all_four, **fields}, 'pairedEligible': valid == 60,
+        'resultStatus': result_status or ('First pass only; later Solar repeats are separate. '
                          'The linked report has source-backed paired changes.' if family == 'solar-decide'
                          else 'Closed native-choice repeat. The linked report has source-backed paired and repeat comparisons.'),
         'timing': {'kind': 'record', 'requests': 0, 'totalRequests': 60,
                    'medianSeconds': None, 'p95Seconds': None, 'totalSeconds': None,
                    'inferenceSeconds': None, 'inferenceReportedRequests': 0,
                    'note': 'No public client-duration series or server inference duration is available for this run.'},
-        'tokens': usage(input_tokens, output_tokens),
+        'tokens': usage(input_tokens, output_tokens, valid),
         'cost': {'actualUsd': None, 'knownUsd': amount(charge, stage + '/cost'),
-                 'estimatedUsd': None, 'unknownUpperBoundUsd': 0,
-                 'note': 'Known development inference charge from provider-reported usage; smoke tests excluded. No invoice amount is asserted.'},
+                 'estimatedUsd': None, 'unknownUpperBoundUsd': unknown,
+                 'note': 'Known development inference charge covers returned answers only; smoke tests excluded. Unknown-cost bounds are retained separately, and no invoice amount is asserted.'},
         'sourceOnlyDetails': True, 'sourceRecordsUrl': BASE_URL + str(projection_path),
         'sourceRecordSha256': projection_sha, 'evidenceUrl': BASE_URL + str(report_path),
     }
@@ -109,10 +123,11 @@ def verify_report(root, path, expected):
 def build(root=ROOT):
     root = Path(root).resolve()
     solar = verify_report(root, SOLAR, solar_builder.build(root))
+    solar_full = verify_report(root, SOLAR_FULL, solar_full_builder.build(root))
     liquid = verify_report(root, LIQUID, liquid_builder.build(root))
     tev = verify_report(root, TEV, tev_builder.build(root))
     sources = {str(path): sha(root / path) for path in
-               (SOLAR, LIQUID, TEV, Path('public-site/data-provider-errors-v1.json'),
+               (SOLAR, SOLAR_FULL, LIQUID, TEV, Path('public-site/data-provider-errors-v1.json'),
                 Path('scripts/build_supplemental_decision_runs_v1.py'))}
     runs = []
 
@@ -141,6 +156,73 @@ def build(root=ROOT):
                         solar['configuration']['returned_model'], solar['configuration']['provider'],
                         THREE, expected_stage, scores, item['input_tokens'], item['output_tokens'],
                         item['known_development_cost_usd'], solar_projection, solar_digest, SOLAR))
+
+    if (solar_full.get('schema') != 'solar-decide-native-full-findings-v1' or
+            solar_full.get('status') != 'eight_closed_runs_one_interrupted_with_exact_unsent_suffix' or
+            solar_full.get('stage_order') != list(NINE) or
+            solar_full.get('development_records') != 540 or
+            solar_full.get('valid_development_answers') != 539 or
+            solar_full.get('unknown_cost_development_attempts') != 1 or
+            solar_full.get('interrupted_stage') != 'fresh3/P2' or
+            solar_full.get('interrupted_record_id') != 'DEV-009' or
+            len(solar_full.get('stages', [])) != 9 or
+            solar_full.get('child_all_requests', {}).get('original_unknown_upper_bound_usd') != '0.10485760'):
+        raise ValueError('Solar nine-stage coverage differs')
+    if solar_full['configuration'] != {
+            'model': solar['configuration']['model'],
+            'returned_model': solar['configuration']['returned_model'],
+            'provider': solar['configuration']['provider'],
+            'interface': 'four native Choice questions'}:
+        raise ValueError('Solar configuration differs across reports')
+    for kind, rows in (('repeat', solar_full.get('repeat_comparisons')),
+                       ('prompt', solar_full.get('matched_prompt_comparisons'))):
+        if not isinstance(rows, list) or len(rows) != 9:
+            raise ValueError('Solar matched comparison coverage differs')
+        for pair in rows:
+            final_pair = 'fresh3/P2' in (pair.get('left'), pair.get('right'))
+            if (pair.get('kind') != kind or
+                    pair.get('paired_records') != (59 if final_pair else 60) or
+                    pair.get('excluded_unusable_ids') != (['DEV-009'] if final_pair else [])):
+                raise ValueError('Solar matched comparison denominator differs')
+    full_projection = solar_full_builder.PROJECTION
+    full_digest = source(full_projection, solar_full['source_bindings']['projection_sha256'])
+    source(solar_full_builder.RECEIPT,
+           solar_full['source_bindings']['projection_receipt_sha256'])
+    public_stages = load(root, full_projection)['stages']
+    if [item.get('stage') for item in public_stages] != list(NINE):
+        raise ValueError('Solar public stage order differs')
+    for expected_stage, item, projected in zip(NINE, solar_full['stages'], public_stages):
+        final = expected_stage == 'fresh3/P2'
+        valid = 59 if final else 60
+        expected_ids = [f'DEV-{number:03}' for number in range(1, 61)
+                        if not (final and number == 9)]
+        if (item.get('stage') != expected_stage or item.get('records') != 60 or
+                item.get('valid_answers') != valid or
+                item.get('status') != ('interrupted_with_exact_unsent_suffix' if final else 'closed') or
+                item.get('unknown_cost_attempts') != int(final) or
+                item.get('unusable_ids') != (['DEV-009'] if final else []) or
+                projected.get('stage') != expected_stage or
+                projected.get('status') != item['status'] or
+                projected.get('unknown_cost_attempts') != int(final) or
+                [record.get('id') for record in projected.get('records', [])] != expected_ids):
+            raise ValueError('Solar full-stage usable answers differ')
+        if expected_stage in THREE:
+            first = solar['stages'][THREE.index(expected_stage)]
+            if (item['all_four_correct'] != first['all_four_correct'] or
+                    item['known_development_cost_usd'] != first['known_development_cost_usd']):
+                raise ValueError('Solar first-pass score changed in full report')
+            continue
+        scores = {'all_four': item['all_four_correct'],
+                  **{key: item['fields'][key]['correct'] for key in FIELDS}}
+        runs.append(row('solar-decide', solar_full['configuration']['model'],
+                        solar_full['configuration']['returned_model'],
+                        solar_full['configuration']['provider'], NINE, expected_stage,
+                        scores, item['input_tokens'], item['output_tokens'],
+                        item['known_development_cost_usd'], full_projection,
+                        full_digest, SOLAR_FULL, valid=valid,
+                        unknown_upper_bound='0.10485760' if final else '0',
+                        result_status=('Interrupted after 59 usable answers; DEV-009 has no usable answer and retains a separate unknown-cost bound. This is not a clean 60-answer repeat.'
+                                       if final else 'Closed native-choice repeat. The linked report has source-backed paired and repeat comparisons.')))
 
     if (liquid.get('kind') != 'liquid-d1-native-full-findings-v1' or
             liquid.get('closed_development_stages') != list(NINE) or
@@ -182,7 +264,7 @@ def build(root=ROOT):
 
     ids = [item['id'] for item in runs]
     existing_ids = {item['id'] for item in load(root, Path('public-site/data-provider-errors-v1.json'))['runs']}
-    if len(ids) != 21 or len(set(ids)) != 21 or set(ids) & existing_ids:
+    if len(ids) != 27 or len(set(ids)) != 27 or set(ids) & existing_ids:
         raise ValueError('Supplemental native run ID collision or missing run')
     if sum(1 for item in runs if item['repeatPass'] == 'fresh1') != 9:
         raise ValueError('First-pass coverage differs')
