@@ -1,11 +1,19 @@
 # Current work checklist
 
+## Recovery after unexpected shutdown, 6 October 2026
+
+- Root verified the $22.38 OpenRouter amendment and both authority pools. Existing reservations remain counted; the additional $10 was not applied again. No matching benchmark process survived the shutdown, and no local inference was restarted.
+- Gemini repeat2/P1 and P2 closed evidence is pushed in `9b4440e2`. P0 is now independently verified: six batches, 60 valid records, 56/60 all-four matches and $0.294926 development charges. Repeat3/P2 passed its three-review smoke and raw inspection; its full hosted pass is running on original handle 63970.
+- `qwen_recovery` owns the separate continuation for P1 DEV-050–060 only. DEV-049 remains an unknown timed-out request with its $0.0299008 bound retained. Root owns ledger reconciliation and dispatch after review.
+- DeepSeek high lower-price admission is reviewed and committed in `f1a3793a`; 32 tests and seven subtests passed. Root allocated the $0.90 child, inspected three valid smoke responses, and launched the first P0 full hosted pass on original handle 49284. `deepseek_recovery` is now checking the public-report integration needed for new closed runs.
+- Root verified 13 Gemini authority and budget-amendment tests. Root owns the next hosted dispatches and publication reconciliation. No completed request is queued again.
+
 ## Hosted runs and publication verified, 6 October 2026
 
 - Pages run [37485975020](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37485975020) succeeded for `0816f09f`. Live analysis-refresh.json, deepseek-low-final-suffix-findings.json, legacy-qwen-repeats.json, repeats.js and analysis-refresh.js match committed bytes. Browser checks show 58/57/53 DeepSeek scores, 56 valid P2 answers, retained failures, and the known-cost/token denominators.
 - Gemini high repeat2/P1 is independently verified: six batches, 60 valid records, $0.248738. Hosted Qwen3.6 thinking-on fresh1/P0 is independently verified: 60 valid records, $0.0673437. Both passed request/raw/strict prediction and settlement checks.
-- Gemini repeat2/P2 and Qwen fresh1/P1 each passed a new three-review smoke. Gemini P2 full process 3895 has exited zero; gemini_closure_checkpoint owns P1/P2 source-bound closure receipts. Qwen P1 full process 92924 remains running. Root owns subsequent admissions.
-- hosted_closed_audit owns a new DeepSeek high budget/price adapter and offline tests only. No DeepSeek high inference or allocation is admitted. Its existing executor rejects current price and budget controls; frozen history stays unchanged.
+- Gemini repeat2/P2 and Qwen fresh1/P1 each passed a new three-review smoke. Gemini P2 full process 3895 is root-verified: 60 valid, 56/60 all-four matches, $0.266594; six exact request/raw bindings and reserve/settle pairs passed. gemini_closure_checkpoint owns P1/P2 source-bound closure receipts. Gemini repeat2/P0 smoke is running on handle 31363. Qwen P1 full process 92924 stopped: DEV-001–048 are valid, DEV-049 has TimeoutError with no captured response or confirmed HTTP status, and DEV-050–060 remain unsent. Its $0.0299008 unresolved reservation remains counted. hosted_closed_audit owns a new never-sent suffix proposal; root has not finalized the parent ledger. Root owns subsequent admissions.
+- The new DeepSeek high adapter passed 26 tests and seven subtests, including actual amended-ledger admission. Root live route verification refused a changed endpoint field before allocation; the exact difference is under inspection. No DeepSeek high inference or allocation is admitted. Its existing executor rejects current price and budget controls; frozen history stays unchanged.
 - No local inference was started. The broader roster, later repeats and final analysis remain incomplete.
 
 ## Latest execution and publication checkpoint, 6 October 2026
