@@ -118,6 +118,12 @@
       const hostedPhases = item => item.closedPhases.map(phase => `${esc(passName(phase.pass))}, ${esc(promptName(phase.condition))}: ${esc(phase.allFour)}/60 matches, ${esc(phase.valid)}/60 usable answers`).join('; ');
       const hostedPairs = item => item.matchedPromptComparisons.length ? item.matchedPromptComparisons.map(pair => `${esc(passName(pair.pass))}, ${esc(promptName(pair.to))} versus base task: ${esc(pair.allFourDelta>0?'+':'')}${esc(pair.allFourDelta)} matches`).join('; ') : 'No same-pass comparison with the base task is available yet.';
       const qwenRepeatText = Object.entries(hosted.qwen36On.repeatability || {}).map(([condition, row]) => `${esc(promptName(condition))}: at least one label changed on ${esc(row.changedReviewIds.length)}/${esc(row.denominator)} reviews across ${esc(row.passCount)} complete passes`).join('; ');
+      const highSuccessor = report.newerCohorts.deepseekHighSuccessor;
+      const highSuccessorText = highSuccessor ? highSuccessor.publishedClosedStages.map(stage => {
+        const p = highSuccessor.phases[stage];
+        return `${stage}: ${p.score.allFour}/60 full matches, ${p.score.valid}/60 valid answers`;
+      }).join('; ') : '';
+      const highSuccessorHtml = highSuccessor ? `<li><strong>DeepSeek high, later passes:</strong> ${esc(highSuccessorText)}. The interrupted decision-rule run retains DEV-027 as an unknown provider outcome. The base-task run includes a truncated answer at DEV-006. Those outcomes remain in the 60-review denominators. Equal scores can mask differences in usable answers. <a href="./deepseek-high-remaining6-successor-findings.json">See closed results and costs</a>.</li>` : '';
       const liquid = report.newerCohorts.liquidNative;
       const liquidText = liquid ? ['P0','P1','P2'].map(c => {
         const item = liquid.conditions[c];
@@ -137,6 +143,7 @@
       cutoffs.innerHTML = `<p><strong>Other saved cohorts use different routes and completion rules.</strong></p><ul>
         <li><strong>Gemini 3.1 Pro Preview, high effort:</strong> ${esc(gemini.completedConditions)}/9 condition and pass combinations are closed. All 60 answers were valid in each. All-four scores across the original pass and two repeats are ${geminiScores}. At least one answer changed across repeats on ${geminiChanges} reviews, even where score totals stayed the same. Matched changes from P0 are ${geminiDeltas} full matches. The added prompt instructions gave no consistent score gain on these 60 synthetic reviews. <a href="./gemini-repeats.json">Read the source-bound Gemini report</a>.</li>
         <li><strong>Hosted Qwen3.6 with thinking enabled:</strong> ${esc(hosted.qwen36On.completedCleanConditions)} of ${esc(hosted.qwen36On.plannedConditions)} planned runs are complete${qwenUsability}: ${hostedPhases(hosted.qwen36On)}. Same-pass comparisons: ${hostedPairs(hosted.qwen36On)}. The first classifier-instruction run was interrupted and is excluded from these comparisons. ${qwenRepeatText ? `Repeat changes: ${qwenRepeatText}.` : ''} These are repeated classifications of the same reviews, not additional cases; the interrupted pass does not count toward stability. <a href="./additional-hosted-fresh-repeats.json">See the saved results</a>.</li>
+        ${highSuccessorHtml}
         ${liquidHtml}
         ${lowRevisedHtml}
         <li><strong>DeepSeek V4.1 Flash, high effort:</strong> ${esc(hosted.deepseekHigh.completedConditions)} of ${esc(hosted.deepseekHigh.plannedConditions)} planned runs are complete, including unusable answers where shown: ${hostedPhases(hosted.deepseekHigh)}. Same-pass comparisons: ${hostedPairs(hosted.deepseekHigh)}. In the first pass, the base task and classifier instructions both scored ${esc(deepseekFirstPair.allFour.P0)}/60, but different reviews produced unusable answers (${esc(deepseekFirstPair.invalidIds.P0.join(', '))} and ${esc(deepseekFirstPair.invalidIds.P1.join(', '))}). Equal totals do not mean the same reviews had usable answers. <a href="./additional-hosted-fresh-repeats.json">See the saved results</a>.</li>

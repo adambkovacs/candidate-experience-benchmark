@@ -292,3 +292,12 @@ test('Liquid findings show repeat counts without claiming confidence calibration
   assert.match(view.cutoffs,/not proven probabilities of being correct/);
   assert.match(view.cutoffs,/liquid-d1-native-full-findings.json/);
 });
+
+test('DeepSeek high later results retain provider and intrinsic failures', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const view=await renderState(report);
+  assert.match(view.cutoffs,/DeepSeek high, later passes/);
+  assert.match(view.cutoffs,/fresh2\/P2: 56\/60 full matches, 59\/60 valid answers/);
+  assert.match(view.cutoffs,/fresh2\/P1: 58\/60 full matches, 60\/60 valid answers/);
+  assert.match(view.cutoffs,/deepseek-high-remaining6-successor-findings.json/);
+});
