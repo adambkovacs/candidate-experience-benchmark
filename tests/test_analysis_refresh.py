@@ -284,7 +284,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 301)
+        self.assertEqual(len(rebuilt["sources"]), 362)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -304,6 +304,13 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertIn(analysis.MISTRAL_SECOND_SUFFIX,
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
+        e4b = cohorts["e4bInterrupted"]
+        self.assertEqual(e4b["score"]["allFour"], 48)
+        self.assertEqual(e4b["score"]["valid"], 58)
+        self.assertEqual(e4b["unknownIds"], ["DEV-039", "DEV-052"])
+        self.assertEqual(e4b["neverSentIds"], [])
+        self.assertFalse(e4b["cleanRepeatEligible"])
+        self.assertEqual(e4b["usage"]["tokens"]["total"], 184124)
         kev = cohorts["kevNativePrompts"]
         jev = cohorts["jevNativePrompts"]
         self.assertEqual(jev["source"], analysis.JEV_NATIVE_PROMPT_PUBLIC)

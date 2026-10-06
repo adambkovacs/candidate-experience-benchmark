@@ -4,6 +4,12 @@ This analysis asks what the saved responses reveal about classification, instruc
 
 [Open the visual findings](https://adambkovacs.github.io/candidate-experience-benchmark/#findings) · [Download the calculations](../public-site/findings.json) · [Read the labeling guide](LABELING_GUIDE.md)
 
+## Native Jev and interrupted E4B update, 6 October 2026
+
+Jev's three OpenRouter P0 passes scored 54, 53 and 52 out of 60; P1 scored 54, 53 and 54. An invalid probability distribution accounts for one unscorable response in P0 pass 3 and P1 pass 2. The completed first and third P2 passes each scored 54/60, but their answers differ on DEV-030. Equal totals therefore do not establish identical classifications. The interrupted second P2 pass has 57 valid responses, one invalid and two unknown outcomes; its descriptive score is 50/60. [Jev results and changed answers](JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md).
+
+Gemma E4B thinking-on's second P2 pass now accounts for all 60 attempted reviews. Eight later responses were valid, and seven matched all four references. Combined with the earlier results, that gives 48/60 matches, 58 valid responses and two unknown outcomes. It remains an interrupted comparison, not a clean repeat. Its 159,051 input and 25,073 output tokens cover the 58 saved responses only. The two unknown requests have no complete token measurements. Recorded elapsed time includes host sleep during those earlier attempts and cannot be used as inference speed. The final eight requests completed on battery without a sleep transition. [E4B evidence and accounting](../public-site/e4b-interruption-findings.json).
+
 ## Review updated 2 October 2026
 
 The [latest synthesis](ANALYSIS_REFRESH_2026-10-02.md) checks the newer completed and interrupted studies, including all 36 Sonnet 5.5 runs. The 39-setup charts below describe the original first-pass cohort; they do not include every later repeat. Cohort counts are kept separate to avoid counting historical baselines and their fresh replacements twice. The expanded Claude review includes 17 earlier configurations and four new Sonnet settings: no configuration gained all-four matches from P1 or P2 over P0 in every pass. Sonnet xhigh kept 58/60 throughout while changing individual answers under P1 and P2. See the synthesis for the field-level differences, changed-review IDs, tokens and cache-sensitive costs.

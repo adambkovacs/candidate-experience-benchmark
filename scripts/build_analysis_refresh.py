@@ -29,6 +29,7 @@ MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
 KEV_NATIVE_PROMPT_PUBLIC = "public-site/kev-native-prompt-findings.json"
 JEV_NATIVE_PROMPT_PUBLIC = "public-site/jev-native-prompt-findings.json"
 SOURCES = (
+    "public-site/e4b-interruption-findings.json",
     "public-site/sonnet55-fresh-matched3.json",
     "public-site/sonnet55-fresh-matched3-evidence/report.json",
     "public-site/claude-roster-repeats.json",
@@ -711,6 +712,12 @@ def build(root=ROOT):
     clef_p1 = clef_p1_first_pass(root, labels, bindings)
     kev_native_prompts = kev_native_prompt_summary(
         root, data[KEV_NATIVE_PROMPT_PUBLIC], bindings)
+    import build_e4b_interruption_findings as e4b_report
+    e4b_source = "public-site/e4b-interruption-findings.json"
+    e4b = data[e4b_source]
+    bind_report_sources(root, e4b, bindings, "E4B interrupted report")
+    if e4b != e4b_report.build(root):
+        raise ValueError("E4B interrupted report differs from raw evidence")
     jev_native_prompts = jev_native_prompt_summary(
         root, data[JEV_NATIVE_PROMPT_PUBLIC], bindings)
 
@@ -1225,6 +1232,10 @@ def build(root=ROOT):
                        for row in claude_rows) for condition in ("P1", "P2")},
                    "comparability": "Within each saved series only. Historical first passes and later repeats can use different CLI versions; fresh Sonnet 5.5 v2 is a separate route and model. Do not pool reviews or score differences across series."},
         "newerCohorts": {
+            "e4bInterrupted": {"source": e4b_source,
+                "score": e4b["descriptiveScore"], "unknownIds": e4b["unknownIds"],
+                "neverSentIds": e4b["neverSentIds"], "cleanRepeatEligible": False,
+                "status": e4b["status"], "usage": e4b["usage"]},
             "clefP1FirstPass": clef_p1,
             "kevNativePrompts": kev_native_prompts,
             "jevNativePrompts": jev_native_prompts,

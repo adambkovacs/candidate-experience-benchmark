@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Analysis and publication checkpoint, 6 October 2026
+
+- Jev report portability fix published successfully in Pages 37466895531; root byte-verified five public assets against 048f7753 and inspected desktop/mobile content.
+- Jev P2 fresh3 findings are committed/pushed 37728da8; Pages 37468351522 is pending. Both complete P2 passes score 54/60 but differ at DEV-030.
+- E4B composite is verified from saved raw evidence: 48/60 all-four, 58 valid, 2 unknown, 0 unsent. Reporter, repeat UI and combined analysis are being checked in a clean archive before publication. Root owns remaining integration after the agent reached model capacity.
+- No inference is running. Qwen3.5 later phases need a reviewed continuation after its host-interrupted smoke; wider roster blockers and scope remain unchanged.
+
 ## E4B suffix closed, 6 October 2026
 
 - Original handle 46546 exited zero. All eight never-sent reviews returned valid answers; 7/8 matched all four frozen references. Root checked hashes and strict predictions. Host stayed awake on battery with no sleep transition. The interrupted full pass now has 58 valid and two earlier unknown outcomes; it remains descriptive.

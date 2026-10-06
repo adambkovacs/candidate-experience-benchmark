@@ -3,10 +3,13 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const {execFileSync} = require('node:child_process');
 
 const site = path.join(__dirname, '..', 'public-site');
 const source = fs.readFileSync(path.join(site, 'repeats.js'), 'utf8');
-const interrupted = JSON.parse(fs.readFileSync(path.join(site, 'e4b-interruption-findings.json'), 'utf8'));
+const interrupted = JSON.parse(execFileSync('python3', ['-c',
+  'import json,sys;sys.path.insert(0,"scripts");import build_e4b_interruption_findings as b;print(json.dumps(b.build()))'],
+{cwd: path.join(__dirname, '..'), encoding: 'utf8'}));
 const local = JSON.parse(fs.readFileSync(path.join(site, 'small-local-repeats.json'), 'utf8'));
 const url = './e4b-interruption-findings.json';
 const config = 'gemma4-e4b-sdk-thinking-on';
@@ -37,25 +40,29 @@ async function render(payload = interrupted, status = 200, selected = config) {
   }};
 }
 
-test('E4B interruption explains the unscored P2 without changing clean scores', async () => {
+test('E4B closed interruption shows a descriptive P2 without changing clean scores', async () => {
   const ui = await render();
   assert.equal(ui.requested.filter(item => item === url).length, 1);
   assert.match(ui.get('repeat-summary').textContent, /4 of 9 planned prompt-and-pass runs have final results/);
-  assert.match(ui.get('repeat-summary').textContent, /50 valid saved responses, two unknown timeouts and eight unsent/);
+  assert.match(ui.get('repeat-summary').textContent, /58 valid saved responses, two unknown timeouts and no unsent/);
+  assert.match(ui.get('repeat-summary').textContent, /48\/60 all-four figure is descriptive and gets no clean repeat credit/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 4);
-  assert.match(ui.get('repeat-chart').innerHTML, /Stopped: 50 valid, 2 unknown, 8 unsent; no score/);
+  assert.match(ui.get('repeat-chart').innerHTML, /Descriptive interrupted: 48\/60 matches, 58 valid, 2 unknown, 0 unsent; no clean-pass credit/);
   assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>/);
   const explanation = ui.get('repeat-interpretation').innerHTML;
-  assert.match(explanation, /50 valid saved responses, 2 unknown timeouts, and 8 comments never sent/);
+  assert.match(explanation, /58 valid saved responses, 2 unknown timeouts, and 0 comments unsent/);
+  assert.match(explanation, /historical cutoff had 50 valid responses, 2 unknown timeouts and 8 unsent comments/);
+  assert.match(explanation, /7\/8 all-four matches/);
   assert.match(explanation, /<details><summary>What happened to this pass\?/);
   assert.match(explanation, /Both timeout intervals overlapped recorded host sleep/);
   assert.match(explanation, /docs\/HOST_INTERRUPTION_2026-10-01\.md/);
   assert.match(explanation, /development\.completion\.json/);
   assert.match(explanation, /suffix\.completion\.json/);
+  assert.match(explanation, /suffix\.closure-review\.json/);
   assert.doesNotMatch(explanation, /partialResult|reasoningContent|Prediction exceeded/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /52 attempted/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /137,099/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /20,884/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /60 attempted/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /159,051/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /25,073/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Includes host sleep; not model inference time/);
 });
 
@@ -68,7 +75,10 @@ test('optional missing feed leaves local series usable; malformed evidence fails
   for (const bad of [
     {...interrupted, savedValid: 51},
     {...interrupted, finalScore: {allFour: 50}},
-    {...interrupted, neverSentIds: interrupted.neverSentIds.slice(1)},
+    {...interrupted, neverSentIds: ['DEV-060']},
+    {...interrupted, descriptiveScore: {...interrupted.descriptiveScore, allFour: 49}},
+    {...interrupted, finalSuffix: {...interrupted.finalSuffix, cleanRepeatCredit: true}},
+    {...interrupted, originalCutoff: {...interrupted.originalCutoff, neverSentIds: []}},
     {...interrupted, hostInterruption: {...interrupted.hostInterruption,
       observation: 'no_host_overlap'}},
     {...interrupted, sourceBindings: [{path: 'private/account.json', sha256: 'a'.repeat(64)}]},

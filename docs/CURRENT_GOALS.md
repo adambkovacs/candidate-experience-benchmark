@@ -1,5 +1,9 @@
 # Current objectives and direction
 
+## E4B continuation accounted for, 6 October 2026
+
+The eight never-sent E4B thinking-on fresh2/P2 reviews finished on battery without a host sleep transition. All eight responses are valid; seven matched all four references. The full interrupted pass now has 58 valid responses, two earlier unknown outcomes and no unsent reviews, with a descriptive score of 48/60. It remains outside clean repeat coverage. [Accounting and source evidence](../public-site/e4b-interruption-findings.json).
+
 ## Jev and Qwen reconciliation, 6 October 2026
 
 Jev P0 and P1 each have three full passes. P0 scores 54/53/52 out of 60; P1 scores 54/53/54. Invalid distributions remain failures. The second P2 pass and its continuation together account for all 60 attempts: 57 valid, one invalid and two unknown, with 50 all-four matches. It remains interrupted. The third P2 pass returned 60 valid answers and scored 54/60; its classifications differ from the first P2 pass on DEV-030 despite the equal totals. Updated report publication is pending.

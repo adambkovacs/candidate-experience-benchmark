@@ -100,6 +100,8 @@ The [DeepSeek Flash reasoning-off repeats](docs/DEEPSEEK_FRESH_REPEAT_FINDINGS_2
 
 The task concerns candidates' experience of a process. It does not assess their suitability for a job. All reviews are synthetic; no invented testimonial is a real endorsement.
 
+The interrupted **Gemma E4B thinking-on second P2 pass** now has results for all attempted positions: 48/60 all-four matches, 58 valid responses and two unknown outcomes. Its final eight responses completed on battery. This is a descriptive result, not a clean repeat or an inference-speed measurement. [Saved evidence and limitations](public-site/e4b-interruption-findings.json).
+
 ## Latest native Jev results
 
 The three OpenRouter P0 passes matched all four reference answers on **54, 53 and 52 of 60 reviews**. P1 scored **54, 53 and 54**. Each condition includes one pass with an invalid probability distribution, which stays in the denominator as a failure. More instructions did not remove every disagreement.
