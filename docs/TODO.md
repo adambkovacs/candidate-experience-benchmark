@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Jev v2 activation, 6 October 2026, 11:44 UTC
+
+- Independent activation review: APPROVE, no confirmed blocking or residual findings; 40 focused and related offline tests passed. The reviewed implementation is committed in `3adc27d6`.
+- Root activated exactly one source-bound unused-reservation release of $0.073788960 and verified its durable receipt. Shared-authority accounted amount is now $9.874582064, leaving $0.125417936 under the unchanged $10 cap. OpenRouter aggregate authority remains $12.38. Known charges and unknown-charge bounds remain reserved. No new child allocation or inference has occurred yet.
+- Root owns fresh exact-route admission of the 42 never-sent Jev P2 reviews. Legacy hold-only writers now fail closed on the versioned release event; future paid work must use a reviewed v2-aware bridge.
+- Qwen post-smoke continuation is offline-prepared; jev_v2_activation_review is reviewing it independently. The failed fresh2/P2 gate is preserved, with no development credit or replay.
+
 ## Active checkpoint, 6 October 2026, 11:40 UTC
 
 - Qwen3.5: fresh1/P1 is closed and raw-verified, with 51 valid responses, nine invalid and 47/60 all-four matches. P1/P2 findings and both feeds now show 2/9 clean phases; pushed in `d54ab26a`; Pages job 37457799533 is running. The fresh2/P2 smoke is terminal: three saved, DEV-001 invalid after exhausting 4,096 output tokens, no full-pass dispatch. No model inference is currently running. qwen35_successor_report is preparing a separate controller to continue other scheduled phases without replaying this smoke or concealing the failed gate.
