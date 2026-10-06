@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Successor reporting reviewed, 6 October 2026, 09:27 UTC
+
+The reporter now validates separately completed Qwen3.5 successor phases before counting them in the repeat study. The interrupted P0 composite keeps its own exclusion from clean repeats. Independent review approved the change with no remaining findings; all 15 focused reporter tests passed. Live P2 output remains excluded from the public feed. Handle 13132 is confirmed running, with 19 saved responses (14 valid) at this checkpoint. Root owns execution, closure and publication.
+
+DeepSeek fourth-price continuation code and 14 passing offline tests are ready for independent review by `deepseek_fourth_review`. Its manifest is unapproved, and the archived exact endpoint reports status -2. No paid request, allocation or hold was made. Battery operation remains enabled and both policy tests pass; no active run was restarted.
+
 ## Admission tests repaired; hosted access checked, 6 October 2026, 09:12 UTC
 
 Commit `3c958872` removes two stale test assumptions that historical run folders remain empty; all 43 admission/continuation tests pass. Production controllers and frozen evidence are unchanged. Qwen3.5 P2 handle 13132 remains live (nine saved at this checkpoint, seven valid and two invalid). The report agent is preparing validation for completed successor phases without exporting live output. The DeepSeek wrapper remains offline and its exact route is blocked by the 08:59 snapshot. A separate authorized read-only Cloudflare route could not read the model catalog (HTTP 403), so current Clef access and quota are still unverified. No paid request, reservation or credential change occurred.

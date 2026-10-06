@@ -16,6 +16,122 @@ SPEC.loader.exec_module(findings)
 
 
 class LegacyQwenFindingsTests(unittest.TestCase):
+    def _qwen35_successor_fixture(self, root):
+        successor = (Path('results/repeatability-v1/legacy-qwen-fresh3-v1') /
+                     'qwen35-remaining-phases-v1')
+        phase = successor / 'fresh1' / 'P2'
+        manifest = json.loads((ROOT / successor / 'manifest.json').read_text())
+        plan = json.loads((ROOT / findings.MANIFEST).read_text())
+        scheduled = next(row for row in manifest['scope']['phases']
+                         if row['pass'] == 'fresh1' and row['condition'] == 'P2')
+
+        source_paths = [successor / 'manifest.json',
+                        Path('scripts/qwen35_remaining_phases_v1.cjs'),
+                        Path(manifest['composite']['file']), findings.LABELS]
+        source_paths.extend(Path(item['file']) for item in manifest['frozen'].values())
+        smoke_names = ('claim.json', 'journal.jsonl', 'raw.jsonl', 'records.jsonl',
+                       'completion.json', 'root-review.json', 'host-audit.json')
+        source_paths.extend(phase / f'smoke.{name}' for name in smoke_names)
+        source_paths.append(phase / 'smoke-inspection.json')
+        smoke_review = json.loads((ROOT / phase / 'smoke.root-review.json').read_text())
+        source_paths.append(Path(smoke_review['candidate_file']))
+        development_review = json.loads((ROOT / phase / 'development.root-review.json').read_text())
+        source_paths.extend((phase / 'development.claim.json', phase / 'development.root-review.json',
+                             Path(development_review['candidate_file'])))
+        for relative in dict.fromkeys(source_paths):
+            destination = root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / relative, destination)
+
+        template = json.loads((ROOT / phase / 'smoke.raw.jsonl').read_text().splitlines()[0])
+        config = plan['configurations']['qwen3.5-4b-sdk-thinking-on']
+        raw, records, journal = [], [], []
+        for index, rid in enumerate(findings.IDS):
+            request = config['conditions']['P2']['requests'][index]
+            wire = copy.deepcopy(template)
+            wire.update({'id': rid, 'attempt_id': f'fixture-{rid}', 'elapsed_seconds': 1.0})
+            wire['result']['stats']['promptTokensCount'] = request['prompt_tokens']
+            wire['result']['stats']['totalTokensCount'] = (
+                request['prompt_tokens'] + wire['result']['stats']['predictedTokensCount'])
+            decision = findings.classify_sdk(wire, config, request)
+            self.assertEqual(decision['status'], 'ok')
+            raw.append(wire)
+            records.append({'id': rid, 'attempt_id': wire['attempt_id'],
+                            'request_sha256': request['sha256'],
+                            'reference_labels_read': False, 'decision': decision})
+            journal.extend(({'event': 'started', 'id': rid, 'attempt_id': wire['attempt_id'],
+                             'request_sha256': request['sha256']},
+                            {'event': 'finished', 'id': rid, 'attempt_id': wire['attempt_id'],
+                             'status': 'ok'}))
+
+        def write_rows(name, rows):
+            target = root / phase / name
+            target.write_text(''.join(json.dumps(row, separators=(',', ':')) + '\n' for row in rows))
+            return findings.sha(target)
+
+        raw_hash = write_rows('development.raw.jsonl', raw)
+        records_hash = write_rows('development.records.jsonl', records)
+        journal_hash = write_rows('development.journal.jsonl', journal)
+        completion = {'phase': 'qwen3.5-4b-sdk-thinking-on/fresh1/P2',
+                      'stage': 'development', 'status': 'completed', 'reason': None,
+                      'attempted': 60, 'saved': 60, 'invalid': 0,
+                      'journal_sha256': journal_hash, 'raw_sha256': raw_hash,
+                      'records_sha256': records_hash, 'finished_utc': '2026-10-06T10:00:00Z'}
+        completion_path = root / phase / 'development.completion.json'
+        completion_path.write_text(json.dumps(completion) + '\n')
+        review_hash = findings.sha(root / phase / 'development.root-review.json')
+        audit = {'schema': 'qwen35-remaining-phases-v1-host-audit', 'status': 'passed',
+                 'phase': completion['phase'], 'stage': 'development',
+                 'before': {'boot': 'fixture', 'sleep_wakes': 1, 'ac_power': True},
+                 'after': {'boot': 'fixture', 'sleep_wakes': 1, 'ac_power': True},
+                 'host_check': {'host_unchanged': True, 'power_source_changed': False,
+                                'power_source_before': 'ac', 'power_source_after': 'ac'},
+                 'error': None, 'completion_sha256': findings.sha(completion_path),
+                 'reviewed_receipt_sha256': review_hash,
+                 'finished_utc': '2026-10-06T10:00:01Z'}
+        (root / phase / 'development.host-audit.json').write_text(json.dumps(audit) + '\n')
+        return plan, manifest, phase, scheduled
+
+    def test_qwen35_successor_requires_a_terminal_host_audited_phase(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            plan, manifest, phase, _ = self._qwen35_successor_fixture(root)
+            (root / phase / 'development.host-audit.json').unlink()
+            result = findings.qwen35_successor_phase(
+                root, plan, 'fresh1', 'P2', findings.binder(root)[0])
+            self.assertIsNone(result)
+
+    def test_qwen35_successor_reports_individually_closed_phase_from_successor_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            plan, manifest, phase, _ = self._qwen35_successor_fixture(root)
+            closed = findings.qwen35_successor_phase(
+                root, plan, 'fresh1', 'P2', findings.binder(root)[0])
+            self.assertEqual((closed['pass'], closed['condition'], closed['source'],
+                              closed['entry']['score']['denominator'],
+                              closed['entry']['score']['valid']),
+                             ('fresh1', 'P2', 'qwen35_remaining_phases_v1', 60, 60))
+            self.assertTrue(closed['entry']['cleanRepeatCredit'])
+            self.assertFalse(closed['entry']['predecessorP0CleanRepeatCredit'])
+            self.assertEqual(closed['entry']['evidence']['development']['completion']['path'],
+                             str(phase / 'development.completion.json'))
+            self.assertEqual(closed['entry']['evidence']['successor']['manifest']['sha256'],
+                             findings.sha(root / phase.parents[1] / 'manifest.json'))
+
+    def test_qwen35_successor_rejects_source_tampering(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            plan, _, phase, _ = self._qwen35_successor_fixture(root)
+            raw_path = root / phase / 'development.raw.jsonl'
+            rows = raw_path.read_text().splitlines()
+            changed = json.loads(rows[0])
+            changed['result']['stats']['promptTokensCount'] += 1
+            rows[0] = json.dumps(changed, separators=(',', ':'))
+            raw_path.write_text('\n'.join(rows) + '\n')
+            with self.assertRaisesRegex(ValueError, 'Source hash differs|receipt|classifier'):
+                findings.qwen35_successor_phase(
+                    root, plan, 'fresh1', 'P2', findings.binder(root)[0])
+
     def test_qwen35_stopped_p0_is_source_bound_and_unscored(self):
         report = findings.build(ROOT)
         series = next(row for row in report['series']
