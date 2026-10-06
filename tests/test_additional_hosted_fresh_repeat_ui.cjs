@@ -9,6 +9,7 @@ const url = './additional-hosted-fresh-repeats.json';
 const schema = 'additional-hosted-fresh-repeat-findings-v1';
 const qwen = 'openrouter-paid-qwen36-35b-a3b-off';
 const low = 'openrouter-paid-deepseek-v41-flash-low';
+const on = 'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2';
 const ids = ['repeat-results', 'repeat-config', 'repeat-field', 'repeat-condition',
   'repeat-condition-label', 'repeat-interpretation', 'repeat-lead', 'repeat-chart',
   'repeat-delta-title', 'repeat-delta-intro', 'repeat-deltas', 'repeat-flips',
@@ -95,6 +96,18 @@ test('both additional hosted series are separate from historical results and sho
   ui.select(qwen);
   assert.match(ui.get('repeat-lead').textContent, /Historical Qwen result/);
   assert.doesNotMatch(ui.get('repeat-lead').textContent, /three fresh hosted passes/);
+});
+
+test('published hosted ON P1 composite is visible without clean repeat credit', async () => {
+  const published = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'public-site',
+    'additional-hosted-fresh-repeats.json'), 'utf8'));
+  const ui = await render(published, 200, `${on}-fresh-matched3`);
+  assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${on}-fresh-matched3"`));
+  assert.match(ui.get('repeat-chart').innerHTML, /54 out of 60/);
+  assert.match(ui.get('repeat-chart').innerHTML, /52 out of 60/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-049 remains an unknown timeout/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /no clean repeat credit/);
+  assert.match(ui.get('repeat-lead').textContent, /1 of 9/);
 });
 
 test('open phases cannot expose stale scores, derived values, tokens, costs or durations', async () => {

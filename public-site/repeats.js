@@ -104,7 +104,8 @@
     ['fresh2','P2'], ['fresh2','P0'], ['fresh2','P1'], ['fresh3','P1'], ['fresh3','P2'], ['fresh3','P0']];
   const additionalHostedIds = {
     'openrouter-paid-qwen36-35b-a3b-off': 'openrouter-paid-qwen36-35b-a3b-off-fresh-matched3-v2',
-    'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2'
+    'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2',
+    'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2': 'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2-fresh-matched3'
   };
   Promise.all([...feedUrls.map(url => {
     const load=Promise.resolve().then(() => fetch(url, {cache: 'no-store'})).then(r => {
@@ -1245,6 +1246,8 @@
       const freshCodex = isFreshCodex(data);
       const freshSonnet = isFreshSonnet(data);
       const freshHosted = isFreshHosted(data);
+      const qwenOnComposite = data.configuration === 'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2' &&
+        data.schema === 'additional-hosted-fresh-repeat-findings-v1';
       const qwenContinuation = isQwenContinuation(data);
       const deepseekLowContinuation = isDeepseekLowContinuation(data);
       const gemmaContinuation = isGemmaContinuation(data);
@@ -1279,6 +1282,7 @@
       const displayPass = pass => nativeL2 ? ({original: 'Historical pass', repeat2: 'Repeat 2', repeat3: 'Repeat 3'}[pass] || pass) : passName[pass];
       const closed = phase => gemmaContinuation || gemmaSecond || gemmaPostabort ? phase?.status === 'completed' || phase?.status === 'completed_interrupted'
         : qwenContinuation || deepseekLowContinuation || qwen27Cutoff || qwen27Second || qwen27Final || deepseekThird ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error' || phase?.status === 'completed_interrupted_composite'
+        : qwenOnComposite ? phase?.status === 'completed' || phase?.status === 'completed_interrupted_composite'
         : freshCodex || freshHosted ? phase?.status === 'completed'
         : freshSonnet ? phase?.completionStatus === 'complete'
         : generatedOpenJev || generatedSemIf || generatedAnyJev ? phase?.completionStatus === 'complete'
@@ -1298,6 +1302,8 @@
         ? `<details><summary>Why this series has limits</summary>${(data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('')}</details>`
         : generatedAnyJev
         ? `<details><summary>Protocol and measurement limits</summary><p>This generated JSON control is separate from AnyJev native readouts. The strict parser does not repair fenced JSON. Answer-change comparisons use only comments with answers in the required format in both phases. When none qualify, stability cannot be assessed.</p>${(data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('')}</details>`
+        : qwenOnComposite
+        ? `<p class="analysis-caveat">P0 is one clean 60-response pass, scoring 54/60 against provisional references. P1 combines 48 original valid answers and 11 separately sent valid answers; DEV-049 remains an unknown timeout. Its 52/60 fixed-denominator score is descriptive and earns no clean repeat credit. The $0.0299008 unknown-charge bound is separate from observed charges.</p><p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/closure.review.json">Read the closure review</a></p>`
         : (qwenContinuation
         ? '<p class="analysis-caveat"><strong>Descriptive continuation after two service errors:</strong> Fresh pass 1 P0 retains DEV-006 and fresh pass 3 P1 retains DEV-031. Each phase has 59 valid outputs and one HTTP 429 service error among 60 comments. The unsent requests ran later without replaying either failed request. This is not a clean matched-three series. Scores keep all 60 comments; answer-change rates use only comments with answers in the required format in both passes.</p>'
         : deepseekLowContinuation
