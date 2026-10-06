@@ -1,0 +1,97 @@
+{
+  "schema": "qwen36-on-p1-unsent-closure-review-v1",
+  "verdict": "CLOSED_11_VALID",
+  "scope": "fresh1/P1/DEV-050-060 separate descriptive continuation",
+  "clean_full_phase": false,
+  "configuration_id": "openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2",
+  "model": "qwen/qwen3.6-35b-a3b",
+  "provider": "akashml/fp8",
+  "manifest_sha256": "112498a0640b5ed5c1d08b70c96d82200a9aa69b874411cf70cbbb3ba5f83fac",
+  "parent_attempted": 49,
+  "parent_valid": 48,
+  "parent_unknown_attempted_id": "DEV-049",
+  "parent_unknown_charge_upper_bound_usd": "0.0299008",
+  "suffix_attempted": 11,
+  "suffix_valid": 11,
+  "suffix_ids": [
+    "DEV-050",
+    "DEV-051",
+    "DEV-052",
+    "DEV-053",
+    "DEV-054",
+    "DEV-055",
+    "DEV-056",
+    "DEV-057",
+    "DEV-058",
+    "DEV-059",
+    "DEV-060"
+  ],
+  "suffix_known_cost_usd": "0.0134064",
+  "parent_p1_known_cost_usd": "0.0562018",
+  "composite_known_p1_cost_usd": "0.0696082",
+  "composite_valid": 59,
+  "composite_denominator": 60,
+  "composite_unknown_ids": [
+    "DEV-049"
+  ],
+  "parent_all_four_correct": 43,
+  "suffix_all_four_correct": 9,
+  "composite_all_four_correct": 52,
+  "reference_status": "AI-reviewed provisional; development only",
+  "child_reconciled_at_review": false,
+  "source_bindings": {
+    "development.claim.json": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.claim.json",
+      "sha256": "b5c893cc954a1d0fa873412d09f3e4408ae9e3a4f2779ad7443acd296df0e298"
+    },
+    "development.root-review.json": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.root-review.json",
+      "sha256": "444d3c8e30b31d007468723213c8f95efebdf850daad4d81974d85d60272f976"
+    },
+    "development.journal.jsonl": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.journal.jsonl",
+      "sha256": "a2169839441da4115338c4f8ae2e1884365e95fbecf6f81acb8a5785e68b6cd9"
+    },
+    "development.attempts.jsonl": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.attempts.jsonl",
+      "sha256": "5b154c901c79d61e13e13667ece04b457f5703d4546426db137d689a6d5d7f4c"
+    },
+    "development.responses.jsonl": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.responses.jsonl",
+      "sha256": "3d650655de3d8c8c430515e3e08719b25d35fa8d52973285513baac0668a36ad"
+    },
+    "continuation_manifest": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/manifest.json",
+      "sha256": "112498a0640b5ed5c1d08b70c96d82200a9aa69b874411cf70cbbb3ba5f83fac"
+    },
+    "new_budget_manifest": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/budget.json",
+      "sha256": "b9959726b17dd188c723522a3042f6ee29e54388e1f55d4eff9c6c620e2c7ba8"
+    },
+    "new_child_ledger_at_review": {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/budget-before-reconciliation.jsonl",
+      "sha256": "12c074548ec0257c9d6d3f460dd0a0f72e67c05f3084a360bec4107ece076a59"
+    },
+    "reference_labels": {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    "reference_pairs": {
+      "path": "data/pilot/pairs.json",
+      "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+    }
+  },
+  "reference_score": {
+    "valid_outputs": 59,
+    "missing_or_failed": [
+      "DEV-049"
+    ],
+    "field_correct": {
+      "sentiment": 57,
+      "follow_up_needed": 59,
+      "serious_concern_reported": 56,
+      "testimonial_potential": 56
+    }
+  },
+  "post_review_note": "Root reconciled the child after this closure review. The child source binding points to the immutable pre-reconciliation bytes reviewed here; the live child ledger now contains a later partition closure event."
+}
