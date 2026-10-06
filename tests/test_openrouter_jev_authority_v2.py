@@ -48,6 +48,30 @@ class JevAuthorityV2Test(unittest.TestCase):
         self.assertEqual(tail.IDS, bridge.suffix.IDS)
         self.assertEqual(bridge.full.IDS, [f'DEV-{i:03d}' for i in range(1, 61)])
 
+    def test_real_allocator_accepts_exact_tail_partition_on_temp_ledger(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp) / 'tail'
+            master = Path(tmp) / 'master.jsonl'
+            bridge.prepare_tail(base=base)
+            manifest = bridge.verify_tail(base=base)
+            p = bridge.full.paths(base, bridge.suffix.CONFIG, bridge.TAIL_STAGE)
+            budget_v3.BudgetLedger(master).close()
+            partition_id = manifest['passes'][0]['partition_id']
+            self.assertEqual(partition_id, bridge.TAIL_PARTITION)
+            self.assertIn('dev019-060', partition_id)
+            budget = partitions.allocate(master, p['budget'], [{
+                'id': partition_id,
+                'cap_usd': manifest['whole_pass_bound_usd'],
+                'model': manifest['model'],
+                'provider': manifest['provider_tag'],
+                'reasoning': 'none'}])
+            self.assertEqual(budget['partitions'][0]['id'], partition_id)
+            self.assertEqual(budget['partitions'][0]['cap_usd'], '0.056448000')
+            self.assertTrue(Path(budget['partitions'][0]['child_ledger']).is_file())
+            self.assertEqual(len(bridge._tail_core(base=base).budget_identity(
+                bridge.suffix.CONFIG, bridge.TAIL_STAGE, manifest, p['budget'],
+                base=base, master=master)), 64)
+
     def test_receipt_binds_bridge_authority_frozen_sources_and_parent(self):
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp) / 'tail'

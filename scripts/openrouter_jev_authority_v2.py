@@ -31,7 +31,7 @@ import postapproval_authority_v2 as authority_v2
 BASE = ROOT / 'results/route-audits/jev-authority-v2-20261006'
 TAIL_BASE = BASE / 'p2-fresh2-unsent-continuation'
 TAIL_STAGE = 'tail'
-TAIL_PARTITION = suffix.CONFIG + '-fresh2-DEV019-060-continuation-v2'
+TAIL_PARTITION = suffix.CONFIG + '-fresh2-dev019-060-continuation-v2'
 TAIL_SCHEMA = 'jev-openrouter-native-p2-fresh2-tail-v2'
 COMPOSITE = BASE / 'p2-fresh2-composite.json'
 COMPOSITE_REVIEW = BASE / 'p2-fresh2-composite.root-review.json'
@@ -204,6 +204,8 @@ def tail_manifest(*, root=ROOT):
 
 
 def prepare_tail(*, base=TAIL_BASE, root=ROOT):
+    full.paths(base, suffix.CONFIG, TAIL_STAGE)['budget'].parent.mkdir(
+        parents=True, exist_ok=True)
     return _write_new(full.paths(base, suffix.CONFIG)['manifest'], tail_manifest(root=root))
 
 
