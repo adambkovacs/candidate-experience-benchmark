@@ -868,7 +868,7 @@
       "provider": "akashml/fp8",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 2,
+      "completedConditions": 3,
       "conditionOrder": [
         "P0",
         "P1",
@@ -1221,7 +1221,119 @@
             }
           }
         },
-        "fresh2": {},
+        "fresh2": {
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 54,
+              "fields": {
+                "sentiment": 57,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "ok": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 30,
+                    "insufficient_information": 1
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "positive": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 7,
+                    "positive": 1
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 4,
+                    "no": 2
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 8,
+                    "no": 1
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 13,
+                  "negative": 30,
+                  "neutral": 7,
+                  "insufficient_information": 3,
+                  "mixed": 7
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 31,
+                  "insufficient_information": 4,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 8,
+                  "no": 51,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "tokens": {
+                "prompt_tokens": 96450,
+                "completion_tokens": 70523
+              },
+              "knownCostUsd": "0.0700005",
+              "actualCostUsd": "0.0700005",
+              "unknownCostCount": 0,
+              "requestSecondsTotal": null
+            }
+          }
+        },
         "fresh3": {}
       },
       "missingPasses": [
@@ -1233,11 +1345,6 @@
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_started"
-        },
-        {
-          "pass": "fresh2",
-          "condition": "P1",
           "status": "not_started"
         },
         {
@@ -2110,6 +2217,62 @@
         {
           "path": "scripts/qwen36_on_remaining_hosted_v1.py",
           "sha256": "9f2829a5be307e32925f67c3a0c3f486a4fe0c5e90272084a7855f987e0eb0ca"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/closure.review.json",
+          "sha256": "4e04ebd21afe4d6f80d33c5234a04c0f4e1942311ad805b358c7ae70cd93238f"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/manifest.json",
+          "sha256": "ee633c68649796801fbb5bd937af690b300ecb1c10d008a1202986440d83d32d"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh2-p1-closure.jsonl",
+          "sha256": "27b8057d7370d4ee299b8a6a28f5e57e055de5f4ae8768612f04b6330759a8bd"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.claim.json",
+          "sha256": "926d0a9d408d1722a52fffc71e9201a2a1e39314fa3c470500f08569bb5599e5"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.root-review.json",
+          "sha256": "e866985463125220d9ff6dad7d1b19842bf7bd759af79a0a6e8fe0a19e887c03"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke-inspection.json",
+          "sha256": "1fbd6961682de346155f997b6a73cac996d4df35ae261c0d5c3ca6e462f7c632"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.journal.jsonl",
+          "sha256": "9191e52e3e7681710e673efd836ec73c35e933a8a88edc8058a5542b52408e49"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.attempts.jsonl",
+          "sha256": "e42d33ce0851b7e86fc32ef3d67c0f7652cef5d4447ddf2e361658d16a49e2c0"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.responses.jsonl",
+          "sha256": "2bff1b4301940696a60aad28d90c39576e4d1a389a7c5c57ac0259b22c679b2d"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.claim.json",
+          "sha256": "5a9ac502bb7a05843da0bf75ab0724a7b9cddf0bcd3fe5890c10c9cc6ec90a0e"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.root-review.json",
+          "sha256": "669e061846bb3344bcad5f3f70b570972808d777b4501f0365c65ccd6f0fce95"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.journal.jsonl",
+          "sha256": "eeefe51660cc97c65c61e6f8bfaba7fcd8b8a4f897291a6322e9d28aef970491"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.attempts.jsonl",
+          "sha256": "f0b0187ed99ec5dcd43c810b7fc15e6989ee021759ecd8724b382ccea9f2087f"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.responses.jsonl",
+          "sha256": "31bb9fa01f0d8e1662d85879df0ce69a16893f7a90dda2dac972d34340608a1a"
         }
       ],
       "publicVerificationLimit": "Six private historical Qwen controls remain hash-declared in the frozen plan; this public report scores only independently closed current-authority phases. The interrupted P1 composite remains descriptive.",
@@ -2133,7 +2296,7 @@
       "provider": "open-inference/fp4",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 1,
+      "completedConditions": 2,
       "cleanCompletedConditions": 0,
       "conditionOrder": [
         "P0",
@@ -2257,17 +2420,124 @@
               "unknownCostCount": 0,
               "requestSecondsTotal": null
             }
+          },
+          "P1": {
+            "status": "completed_with_intrinsic_invalid",
+            "score": {
+              "denominator": 60,
+              "valid": 59,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 57,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "ok": 59,
+                "invalid_output": 1
+              },
+              "invalidIds": [
+                "DEV-006"
+              ],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 30
+                  },
+                  "neutral": {
+                    "neutral": 6,
+                    "positive": 1,
+                    "negative": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 34
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "yes": {
+                    "yes": 25
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 4,
+                    "no": 1
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 49
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 31,
+                  "neutral": 6,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 34,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "yes": 25,
+                  "insufficient_information": 4
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 49,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "tokens": {
+                "prompt_tokens": 96337,
+                "completion_tokens": 22944
+              },
+              "knownCostUsd": "0.031765648225",
+              "actualCostUsd": "0.031765648225",
+              "unknownCostCount": 0,
+              "requestSecondsTotal": null
+            }
           }
         },
         "fresh2": {},
         "fresh3": {}
       },
       "missingPasses": [
-        {
-          "pass": "fresh1",
-          "condition": "P1",
-          "status": "not_published"
-        },
         {
           "pass": "fresh1",
           "condition": "P2",
@@ -2562,6 +2832,46 @@
         {
           "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/closure-ledger-snapshot.jsonl",
           "sha256": "61ffa7ff89eb2ed14434c5a0ed3fd24167d6547e51e053b5b9866b7d6cd2ba59"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/closure.root-review.json",
+          "sha256": "7ea4ea931080ac9260003788638d9ed22c93b09dc4feb86d7e0e59d90a6cffa9"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.claim.json",
+          "sha256": "761f676fd7378876a521d0fc807d68e6a0fed427cc3ffd96a306a98b7e4f9a39"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.root-review.json",
+          "sha256": "839079ce8f3bd46795121792084bed071acc4d51d842bb14a01b217816941d0e"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.journal.jsonl",
+          "sha256": "ce0b1dd11d352c93a5f354b457d7bda01ab9f6ad839e3e7b1bc0865f7dcb80ec"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.attempts.jsonl",
+          "sha256": "e11d242f28a63a854b73208c0cd5d15935d9233fdd768e414ba8e1a571e83bff"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.responses.jsonl",
+          "sha256": "33c73b4ea6148daaa595a3fe8eaa2183cda0babe6496bc31e552e955b2c5eae0"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.attempts.jsonl",
+          "sha256": "ec8bfa6f7439faf72c48ed5c0fcc7ab6f448ae2e6a75b70ee3f2349339e82743"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.responses.jsonl",
+          "sha256": "2cb2d1eebdd9cdaee6090bbf6ac662f3f4af4e4930a4d984b861b9c9fad88f42"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.journal.jsonl",
+          "sha256": "e05926f31709b00c2617902152edb726da4829d8751539e8d0854bb0b50a8929"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/closure-ledger-snapshot.jsonl",
+          "sha256": "d92782fa593159c526aec0a3d4e3fefa5b20cde72e4c7f7a60ee3e5309108a59"
         }
       ],
       "limitations": [
@@ -3604,6 +3914,62 @@
       "sha256": "9f2829a5be307e32925f67c3a0c3f486a4fe0c5e90272084a7855f987e0eb0ca"
     },
     {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/closure.review.json",
+      "sha256": "4e04ebd21afe4d6f80d33c5234a04c0f4e1942311ad805b358c7ae70cd93238f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/manifest.json",
+      "sha256": "ee633c68649796801fbb5bd937af690b300ecb1c10d008a1202986440d83d32d"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh2-p1-closure.jsonl",
+      "sha256": "27b8057d7370d4ee299b8a6a28f5e57e055de5f4ae8768612f04b6330759a8bd"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.claim.json",
+      "sha256": "926d0a9d408d1722a52fffc71e9201a2a1e39314fa3c470500f08569bb5599e5"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.root-review.json",
+      "sha256": "e866985463125220d9ff6dad7d1b19842bf7bd759af79a0a6e8fe0a19e887c03"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke-inspection.json",
+      "sha256": "1fbd6961682de346155f997b6a73cac996d4df35ae261c0d5c3ca6e462f7c632"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "9191e52e3e7681710e673efd836ec73c35e933a8a88edc8058a5542b52408e49"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "e42d33ce0851b7e86fc32ef3d67c0f7652cef5d4447ddf2e361658d16a49e2c0"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.responses.jsonl",
+      "sha256": "2bff1b4301940696a60aad28d90c39576e4d1a389a7c5c57ac0259b22c679b2d"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.claim.json",
+      "sha256": "5a9ac502bb7a05843da0bf75ab0724a7b9cddf0bcd3fe5890c10c9cc6ec90a0e"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.root-review.json",
+      "sha256": "669e061846bb3344bcad5f3f70b570972808d777b4501f0365c65ccd6f0fce95"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.journal.jsonl",
+      "sha256": "eeefe51660cc97c65c61e6f8bfaba7fcd8b8a4f897291a6322e9d28aef970491"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.attempts.jsonl",
+      "sha256": "f0b0187ed99ec5dcd43c810b7fc15e6989ee021759ecd8724b382ccea9f2087f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.responses.jsonl",
+      "sha256": "31bb9fa01f0d8e1662d85879df0ce69a16893f7a90dda2dac972d34340608a1a"
+    },
+    {
       "path": "scripts/build_deepseek_high_authority_v3_findings.py",
       "sha256": "92d6a210b639a4a2660c8a57bc5c0a8b2b61a3c20d4ed60fdc240e580c49ebc5"
     },
@@ -3786,6 +4152,46 @@
     {
       "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/closure-ledger-snapshot.jsonl",
       "sha256": "61ffa7ff89eb2ed14434c5a0ed3fd24167d6547e51e053b5b9866b7d6cd2ba59"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/closure.root-review.json",
+      "sha256": "7ea4ea931080ac9260003788638d9ed22c93b09dc4feb86d7e0e59d90a6cffa9"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.claim.json",
+      "sha256": "761f676fd7378876a521d0fc807d68e6a0fed427cc3ffd96a306a98b7e4f9a39"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.root-review.json",
+      "sha256": "839079ce8f3bd46795121792084bed071acc4d51d842bb14a01b217816941d0e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.journal.jsonl",
+      "sha256": "ce0b1dd11d352c93a5f354b457d7bda01ab9f6ad839e3e7b1bc0865f7dcb80ec"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.attempts.jsonl",
+      "sha256": "e11d242f28a63a854b73208c0cd5d15935d9233fdd768e414ba8e1a571e83bff"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.responses.jsonl",
+      "sha256": "33c73b4ea6148daaa595a3fe8eaa2183cda0babe6496bc31e552e955b2c5eae0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.attempts.jsonl",
+      "sha256": "ec8bfa6f7439faf72c48ed5c0fcc7ab6f448ae2e6a75b70ee3f2349339e82743"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.responses.jsonl",
+      "sha256": "2cb2d1eebdd9cdaee6090bbf6ac662f3f4af4e4930a4d984b861b9c9fad88f42"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.journal.jsonl",
+      "sha256": "e05926f31709b00c2617902152edb726da4829d8751539e8d0854bb0b50a8929"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/closure-ledger-snapshot.jsonl",
+      "sha256": "d92782fa593159c526aec0a3d4e3fefa5b20cde72e4c7f7a60ee3e5309108a59"
     }
   ]
 }

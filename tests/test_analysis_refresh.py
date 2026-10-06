@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("build_analysis_refresh", ROOT / "scripts/build_analysis_refresh.py")
@@ -17,6 +18,70 @@ import build_legacy_qwen_repeat_findings as legacy_qwen_findings
 
 
 class AnalysisRefreshTest(unittest.TestCase):
+    def test_hosted_fresh_projection_keeps_interrupted_p1_out_of_comparisons(self):
+        published = json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text())
+        bindings = {}
+        result = analysis.hosted_fresh_summary(ROOT, published, bindings)
+        qwen, deepseek = result["qwen36On"], result["deepseekHigh"]
+        self.assertEqual((qwen["scores"]["P0"]["allFour"],
+                          qwen["scores"]["P2"]["allFour"],
+                          qwen["matchedP0P2AllFourDelta"]), (54, 56, 2))
+        self.assertFalse(qwen["interruptedP1"]["cleanComparisonEligible"])
+        self.assertFalse(qwen["cleanMatchedThreeEligible"])
+        self.assertEqual(qwen["closedCells"], ["fresh1/P0", "fresh1/P2", "fresh2/P1"])
+        self.assertEqual(qwen["closedPhases"][-1]["allFour"], 54)
+        self.assertEqual([(row["pass"], row["to"], row["allFourDelta"])
+                          for row in qwen["matchedPromptComparisons"]],
+                         [("fresh1", "P2", 2)])
+        self.assertEqual((deepseek["allFour"], deepseek["valid"],
+                          deepseek["invalidIds"]), (57, 59, ["DEV-030"]))
+        self.assertFalse(deepseek["firstP0AloneSupportsPromptComparison"])
+        self.assertEqual(deepseek["closedCells"], ["fresh1/P0", "fresh1/P1"])
+        self.assertEqual(deepseek["matchedPromptComparisons"], [{
+            "pass": "fresh1", "from": "P0", "to": "P1", "allFourDelta": 0,
+            "allFour": {"P0": 57, "P1": 57},
+            "invalidIds": {"P0": ["DEV-030"], "P1": ["DEV-006"]},
+            "denominator": 60}])
+        self.assertIn("results/repeatability-v1/deepseek-high-authority-v3/"
+                      "fresh1/P0/closure.root-review.json", bindings)
+        self.assertTrue(any("closure-ledger-snapshot.jsonl" in path or
+                            "budget-at-fresh1-p2-closure.jsonl" in path
+                            for path in bindings))
+
+    def test_hosted_fresh_projection_rejects_changed_scores_and_coverage(self):
+        published = json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text())
+        changed = copy.deepcopy(published)
+        qwen = next(item for item in changed["series"] if "qwen36" in item["configuration"])
+        qwen["passes"]["fresh1"]["P2"]["score"]["allFour"] += 1
+        with self.assertRaisesRegex(ValueError, "differs from closed evidence"):
+            analysis.hosted_fresh_summary(ROOT, changed, {})
+        changed = copy.deepcopy(published)
+        qwen = next(item for item in changed["series"] if "qwen36" in item["configuration"])
+        qwen["completedConditions"] += 1
+        with self.assertRaisesRegex(ValueError, "differs from closed evidence"):
+            analysis.hosted_fresh_summary(ROOT, changed, {})
+
+    def test_hosted_fresh_projection_accepts_additional_rebuilt_closed_cells(self):
+        import build_deepseek_high_authority_v3_findings as hosted_builder
+        future = copy.deepcopy(json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text()))
+        qwen = next(item for item in future["series"] if "qwen36" in item["configuration"])
+        deepseek = next(item for item in future["series"] if "high-authority-v3" in item["configuration"])
+        qwen["passes"]["fresh2"]["P0"] = copy.deepcopy(qwen["passes"]["fresh1"]["P0"])
+        qwen["completedConditions"] += 1
+        deepseek["passes"]["fresh1"]["P2"] = copy.deepcopy(deepseek["passes"]["fresh1"]["P0"])
+        deepseek["passes"]["fresh1"]["P2"]["status"] = "completed"
+        deepseek["completedConditions"] += 1
+        with patch.object(hosted_builder, "build", return_value=future):
+            result = analysis.hosted_fresh_summary(ROOT, future, {})
+        self.assertEqual(result["qwen36On"]["completedCleanConditions"], 4)
+        self.assertIn("fresh2/P0", result["qwen36On"]["closedCells"])
+        self.assertIn({"pass": "fresh2", "from": "P0", "to": "P1",
+                       "allFourDelta": 0, "allFour": {"P0": 54, "P1": 54},
+                       "invalidIds": {"P0": [], "P1": []}, "denominator": 60},
+                      result["qwen36On"]["matchedPromptComparisons"])
+        self.assertEqual(result["deepseekHigh"]["completedConditions"], 3)
+        self.assertIn("fresh1/P2", result["deepseekHigh"]["closedCells"])
+
     def test_gemini_authority_projection_rebuilds_nine_closed_conditions(self):
         published = json.loads((ROOT / analysis.GEMINI_AUTHORITY_PUBLIC).read_text())
         bindings = {}

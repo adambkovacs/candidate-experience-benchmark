@@ -26,7 +26,7 @@
     }
     const cutoffs = document.getElementById('analysis-refresh-cutoffs');
     if (cutoffs && report.newerCohorts) {
-      const {clefP1FirstPass:clefP1, gemma26:gemma, clefNativeP0:clef, latestFlashP0Interruption:latestFlashRaw, clefFlashP1:flashP1, clefFlashP2:flashP2, legacyQwen:qwen, deepseekLow:deepseek, mistral119:mistral, mistral119Fresh1P0:mistralP0, geminiAuthority:gemini} = report.newerCohorts;
+      const {clefP1FirstPass:clefP1, gemma26:gemma, clefNativeP0:clef, latestFlashP0Interruption:latestFlashRaw, clefFlashP1:flashP1, clefFlashP2:flashP2, legacyQwen:qwen, deepseekLow:deepseek, mistral119:mistral, mistral119Fresh1P0:mistralP0, geminiAuthority:gemini, hostedFresh:hosted} = report.newerCohorts;
       const latestFlash = latestFlashRaw || {source:'public-site/clef-p0-third-checkpoint.json', unknownOutcomeIds:clef?.thirdCheckpoint?.clefFlash?.unknownOutcomeIds || [], neverSentCount:clef?.thirdCheckpoint?.clefFlash?.neverSentCount || 0};
       if (!gemma?.p0Checkpoint || !gemma?.p1Checkpoint || !gemma?.fresh3P2 ||
           gemma?.source !== 'public-site/gemma26-fresh3-p1-interrupted-checkpoint.json' ||
@@ -50,6 +50,17 @@
           mistralP0?.valid !== 55 || mistralP0?.failed !== 5 || mistralP0?.allFourMatches !== 40 ||
           !qwen?.sdkFinalP2 || !qwen?.qwen17OffRepeat?.conditions ||
           !deepseek || !mistral || !latestFlash?.source || !Array.isArray(latestFlash.unknownOutcomeIds) ||
+          hosted?.source !== 'public-site/additional-hosted-fresh-repeats.json' ||
+          hosted.qwen36On?.completedCleanConditions < 2 ||
+          !hosted.qwen36On?.closedCells?.includes('fresh1/P0') ||
+          !hosted.qwen36On?.closedCells?.includes('fresh1/P2') ||
+          !Array.isArray(hosted.qwen36On?.matchedPromptComparisons) ||
+          !Array.isArray(hosted.qwen36On?.closedPhases) ||
+          hosted.qwen36On?.interruptedP1?.cleanComparisonEligible !== false ||
+          hosted.deepseekHigh?.intrinsicInvalidCount !== 1 ||
+          !hosted.deepseekHigh?.closedCells?.includes('fresh1/P0') ||
+          !Array.isArray(hosted.deepseekHigh?.matchedPromptComparisons) ||
+          !Array.isArray(hosted.deepseekHigh?.closedPhases) ||
           gemini?.source !== 'public-site/gemini-repeats.json' ||
           gemini?.completedConditions !== 9 || gemini?.plannedConditions !== 9 ||
           ['P0','P1','P2'].some(c => !Array.isArray(gemini?.conditions?.[c]?.allFourScores) ||
@@ -99,8 +110,17 @@
       const geminiScores = ['P0','P1','P2'].map(c => `${c}: ${gemini.conditions[c].allFourScores.map(esc).join(', ')} of 60`).join('; ');
       const geminiChanges = ['P0','P1','P2'].map(c => `${c} ${esc(gemini.conditions[c].changedReviewIds.length)}/60`).join(', ');
       const geminiDeltas = ['P1','P2'].map(c => `${c} ${['original','repeat2','repeat3'].map(p => esc(gemini.matchedP0[p][c].allFourDelta)).join(', ')}`).join('; ');
+      const passName = pass => ({fresh1:'first pass', fresh2:'second pass', fresh3:'third pass'})[pass] || pass;
+      const promptName = condition => ({P0:'base task', P1:'classifier instructions', P2:'decision rules'})[condition] || condition;
+      const hostedPhases = item => item.closedPhases.map(phase => `${esc(passName(phase.pass))}, ${esc(promptName(phase.condition))}: ${esc(phase.allFour)}/60 matches, ${esc(phase.valid)}/60 usable answers`).join('; ');
+      const hostedPairs = item => item.matchedPromptComparisons.length ? item.matchedPromptComparisons.map(pair => `${esc(passName(pair.pass))}, ${esc(promptName(pair.to))} versus base task: ${esc(pair.allFourDelta>0?'+':'')}${esc(pair.allFourDelta)} matches`).join('; ') : 'No same-pass comparison with the base task is available yet.';
+      const qwenUsability = hosted.qwen36On.closedPhases.every(phase=>phase.valid===60) ? ' with 60 usable answers each' : '';
+      const deepseekFirstPair = hosted.deepseekHigh.matchedPromptComparisons.find(pair=>pair.pass==='fresh1' && pair.to==='P1');
+      if (!deepseekFirstPair || !Array.isArray(deepseekFirstPair.invalidIds.P0) || !Array.isArray(deepseekFirstPair.invalidIds.P1)) throw Error('Incomplete DeepSeek matched comparison');
       cutoffs.innerHTML = `<p><strong>Other saved cohorts use different routes and completion rules.</strong></p><ul>
         <li><strong>Gemini 3.1 Pro Preview, high effort:</strong> ${esc(gemini.completedConditions)}/9 condition and pass combinations are closed. All 60 answers were valid in each. All-four scores across the original pass and two repeats are ${geminiScores}. At least one answer changed across repeats on ${geminiChanges} reviews, even where score totals stayed the same. Matched changes from P0 are ${geminiDeltas} full matches. The added prompt instructions gave no consistent score gain on these 60 synthetic reviews. <a href="./gemini-repeats.json">Read the source-bound Gemini report</a>.</li>
+        <li><strong>Hosted Qwen3.6 with thinking enabled:</strong> ${esc(hosted.qwen36On.completedCleanConditions)} of ${esc(hosted.qwen36On.plannedConditions)} planned runs are complete${qwenUsability}: ${hostedPhases(hosted.qwen36On)}. Same-pass comparisons: ${hostedPairs(hosted.qwen36On)}. The first classifier-instruction run was interrupted and is excluded from these comparisons. The first-pass gain with decision rules alone does not show a consistent benefit. <a href="./additional-hosted-fresh-repeats.json">See the saved results</a>.</li>
+        <li><strong>DeepSeek V4.1 Flash, high effort:</strong> ${esc(hosted.deepseekHigh.completedConditions)} of ${esc(hosted.deepseekHigh.plannedConditions)} planned runs are complete, including unusable answers where shown: ${hostedPhases(hosted.deepseekHigh)}. Same-pass comparisons: ${hostedPairs(hosted.deepseekHigh)}. In the first pass, the base task and classifier instructions both scored ${esc(deepseekFirstPair.allFour.P0)}/60, but different reviews produced unusable answers (${esc(deepseekFirstPair.invalidIds.P0.join(', '))} and ${esc(deepseekFirstPair.invalidIds.P1.join(', '))}). Equal totals do not mean the same reviews had usable answers. <a href="./additional-hosted-fresh-repeats.json">See the saved results</a>.</li>
         <li><strong>Gemma 26B:</strong> All ${esc(gemma.completedConditions)} planned runs now have results, including failed requests in the 60-review totals.
           <p>The P2 all-four scores are ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p2Repeat.fixed60AllFourByPass[p])).join(', ')} of 60. ${esc(gemma.p2Repeat.changedFourFieldVectorIds.length)} of ${esc(gemma.p2Repeat.sharedValidDenominator)} shared-valid reviews changed a decision; fresh3 retains ${esc(gemma.fresh3P2.failedIds.join(' and '))} failures. P0 scores are ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p0Checkpoint.fixed60Scores[p].allFour)).join(', ')} of 60, with one failed request in the second pass.</p>
           <p>P1 scores are ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p1Checkpoint.fixed60AllFourByPass[p])).join(', ')} of 60. Fresh3 has ${esc(gemma.p1Checkpoint.validByPass.fresh3)} valid answers and preserves ${esc(gemma.p1Checkpoint.failedIds.join(' and '))}. On the ${esc(gemma.p1Checkpoint.sharedValidDenominator)} reviews with valid answers in all three P1 passes, each pass matched all four fields on ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p1Checkpoint.sharedValidAllFourByPass[p])).join(', ')}. The third pass's lower 60-review score reflects the unavailable DEV-059 answer. The series remains interrupted.</p>

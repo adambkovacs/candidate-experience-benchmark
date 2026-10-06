@@ -30,6 +30,7 @@ MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
 KEV_NATIVE_PROMPT_PUBLIC = "public-site/kev-native-prompt-findings.json"
 JEV_NATIVE_PROMPT_PUBLIC = "public-site/jev-native-prompt-findings.json"
 GEMINI_AUTHORITY_PUBLIC = "public-site/gemini-repeats.json"
+HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
 SOURCES = (
     "public-site/e4b-interruption-findings.json",
     "public-site/sonnet55-fresh-matched3.json",
@@ -61,6 +62,7 @@ SOURCES = (
     KEV_NATIVE_PROMPT_PUBLIC,
     JEV_NATIVE_PROMPT_PUBLIC,
     GEMINI_AUTHORITY_PUBLIC,
+    HOSTED_FRESH_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -99,6 +101,116 @@ def bind_report_sources(root, report, bindings, label):
         seen[path] = digest
         bindings[path] = digest
     return seen
+
+
+def hosted_fresh_summary(root, published, bindings):
+    """Project only independently closed hosted cells from the rebuilt report."""
+    import build_deepseek_high_authority_v3_findings as hosted_builder
+
+    if published != hosted_builder.build(root):
+        raise ValueError("Hosted fresh report differs from closed evidence")
+    bind_report_sources(root, published, bindings, "Hosted fresh report")
+    series = {item["configuration"]: item for item in published["series"]}
+    qwen = series["openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2"]
+    deepseek = series["openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price"]
+    qpasses = qwen["passes"]["fresh1"]
+    base, rules, interrupted = (qpasses[name] for name in ("P0", "P2", "P1"))
+    delta = qwen["withinPassPromptDeltas"]
+    first_delta = [item for item in delta if item.get("pass") == "fresh1" and
+                   item.get("from") == "P0" and item.get("to") == "P2"]
+    qwen_closed = [(name, condition) for name, phases in qwen["passes"].items()
+                   for condition, phase in phases.items() if phase["status"] == "completed"]
+    deepseek_closed = [(name, condition) for name, phases in deepseek["passes"].items()
+                       for condition, phase in phases.items()
+                       if phase["status"].startswith("completed")]
+
+    def closed_phase_summaries(item, cells):
+        return [{"pass": name, "condition": condition,
+                 "status": item["passes"][name][condition]["status"],
+                 "allFour": item["passes"][name][condition]["score"]["allFour"],
+                 "valid": item["passes"][name][condition]["score"]["valid"],
+                 "invalidIds": item["passes"][name][condition]["score"]["invalidIds"],
+                 "denominator": item["passes"][name][condition]["score"]["denominator"]}
+                for name, condition in cells]
+
+    def matched_comparisons(item, allowed_statuses):
+        compared = []
+        for name, phases in item["passes"].items():
+            base = phases.get("P0")
+            if not base or base["status"] not in allowed_statuses:
+                continue
+            for condition in ("P1", "P2"):
+                added = phases.get(condition)
+                if not added or added["status"] not in allowed_statuses:
+                    continue
+                if (base["score"]["denominator"] != 60 or
+                        added["score"]["denominator"] != 60):
+                    raise ValueError("Hosted matched comparison denominator differs")
+                compared.append({"pass": name, "from": "P0", "to": condition,
+                    "allFourDelta": added["score"]["allFour"] - base["score"]["allFour"],
+                    "allFour": {"P0": base["score"]["allFour"],
+                                condition: added["score"]["allFour"]},
+                    "invalidIds": {"P0": base["score"]["invalidIds"],
+                                   condition: added["score"]["invalidIds"]},
+                    "denominator": 60})
+        return compared
+
+    qwen_pairs = matched_comparisons(qwen, {"completed"})
+    deepseek_pairs = matched_comparisons(
+        deepseek, {"completed", "completed_with_intrinsic_invalid"})
+    if (qwen["denominator"] != 60 or
+            qwen["completedConditions"] != len(qwen_closed) or
+            not 2 <= len(qwen_closed) <= qwen["plannedConditions"] or
+            base["status"] != "completed" or rules["status"] != "completed" or
+            interrupted["status"] != "completed_interrupted_composite" or
+            (base["score"]["valid"], rules["score"]["valid"]) != (60, 60) or
+            first_delta != [{"pass": "fresh1", "from": "P0", "to": "P2",
+                       "denominator": 60,
+                       "allFour": rules["score"]["allFour"] - base["score"]["allFour"],
+                       "fields": {field: rules["score"]["fields"][field] -
+                                  base["score"]["fields"][field] for field in FIELDS},
+                       "scope": "descriptive matched first pass; interrupted P1 excluded"}] or
+            not any(item["pass"] == "fresh1" and item["condition"] == "P1" and
+                    item["status"] == "interrupted_descriptive"
+                    for item in qwen["missingPasses"])):
+        raise ValueError("Hosted Qwen clean comparison differs")
+    dpass = deepseek["passes"]["fresh1"]["P0"]
+    dscore = dpass["score"]
+    if (deepseek["denominator"] != 60 or
+            deepseek["completedConditions"] != len(deepseek_closed) or
+            not 1 <= len(deepseek_closed) <= deepseek["plannedConditions"] or
+            dpass["status"] != "completed_with_intrinsic_invalid" or
+            dscore["valid"] != 59 or dscore["outcomes"] !=
+                {"ok": 59, "invalid_output": 1} or
+            dscore["invalidIds"] != ["DEV-030"]):
+        raise ValueError("Hosted DeepSeek high first pass differs")
+    return {
+        "source": HOSTED_FRESH_PUBLIC,
+        "qwen36On": {"completedCleanConditions": qwen["completedConditions"],
+            "plannedConditions": qwen["plannedConditions"],
+            "closedCells": [f"{name}/{condition}" for name, condition in qwen_closed],
+            "closedPhases": closed_phase_summaries(qwen, qwen_closed),
+            "matchedPromptComparisons": qwen_pairs,
+            "pass": "fresh1", "scores": {name: {"allFour": qpasses[name]["score"]["allFour"],
+                "valid": qpasses[name]["score"]["valid"], "denominator": 60}
+                for name in ("P0", "P2")},
+            "matchedP0P2AllFourDelta": first_delta[0]["allFour"],
+            "interruptedP1": {"status": interrupted["status"],
+                "valid": interrupted["score"]["valid"],
+                "allFour": interrupted["score"]["allFour"],
+                "cleanComparisonEligible": False},
+            "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},
+        "deepseekHigh": {"completedConditions": deepseek["completedConditions"],
+            "plannedConditions": deepseek["plannedConditions"],
+            "closedCells": [f"{name}/{condition}" for name, condition in deepseek_closed],
+            "closedPhases": closed_phase_summaries(deepseek, deepseek_closed),
+            "matchedPromptComparisons": deepseek_pairs,
+            "pass": "fresh1",
+            "condition": "P0", "allFour": dscore["allFour"], "valid": dscore["valid"],
+            "denominator": 60, "invalidIds": dscore["invalidIds"],
+            "intrinsicInvalidCount": dscore["outcomes"]["invalid_output"],
+            "firstP0AloneSupportsPromptComparison": False},
+    }
 
 
 def gemini_authority_summary(root, published, bindings):
@@ -845,6 +957,7 @@ def build(root=ROOT):
         root, data[JEV_NATIVE_PROMPT_PUBLIC], bindings)
     gemini_authority = gemini_authority_summary(
         root, data[GEMINI_AUTHORITY_PUBLIC], bindings)
+    hosted_fresh = hosted_fresh_summary(root, data[HOSTED_FRESH_PUBLIC], bindings)
 
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
@@ -1372,6 +1485,7 @@ def build(root=ROOT):
             "kevNativePrompts": kev_native_prompts,
             "jevNativePrompts": jev_native_prompts,
             "geminiAuthority": gemini_authority,
+            "hostedFresh": hosted_fresh,
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},

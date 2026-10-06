@@ -4532,6 +4532,148 @@
         "tokenCategoryCaveat": "Provider-reported reasoning tokens exceed completion tokens here; the categories conflict and must not be added or treated as a reliable subset."
       }
     },
+    "hostedFresh": {
+      "deepseekHigh": {
+        "allFour": 57,
+        "closedCells": [
+          "fresh1/P0",
+          "fresh1/P1"
+        ],
+        "closedPhases": [
+          {
+            "allFour": 57,
+            "condition": "P0",
+            "denominator": 60,
+            "invalidIds": [
+              "DEV-030"
+            ],
+            "pass": "fresh1",
+            "status": "completed_with_intrinsic_invalid",
+            "valid": 59
+          },
+          {
+            "allFour": 57,
+            "condition": "P1",
+            "denominator": 60,
+            "invalidIds": [
+              "DEV-006"
+            ],
+            "pass": "fresh1",
+            "status": "completed_with_intrinsic_invalid",
+            "valid": 59
+          }
+        ],
+        "completedConditions": 2,
+        "condition": "P0",
+        "denominator": 60,
+        "firstP0AloneSupportsPromptComparison": false,
+        "intrinsicInvalidCount": 1,
+        "invalidIds": [
+          "DEV-030"
+        ],
+        "matchedPromptComparisons": [
+          {
+            "allFour": {
+              "P0": 57,
+              "P1": 57
+            },
+            "allFourDelta": 0,
+            "denominator": 60,
+            "from": "P0",
+            "invalidIds": {
+              "P0": [
+                "DEV-030"
+              ],
+              "P1": [
+                "DEV-006"
+              ]
+            },
+            "pass": "fresh1",
+            "to": "P1"
+          }
+        ],
+        "pass": "fresh1",
+        "plannedConditions": 9,
+        "valid": 59
+      },
+      "qwen36On": {
+        "cleanMatchedThreeEligible": false,
+        "closedCells": [
+          "fresh1/P0",
+          "fresh1/P2",
+          "fresh2/P1"
+        ],
+        "closedPhases": [
+          {
+            "allFour": 54,
+            "condition": "P0",
+            "denominator": 60,
+            "invalidIds": [],
+            "pass": "fresh1",
+            "status": "completed",
+            "valid": 60
+          },
+          {
+            "allFour": 56,
+            "condition": "P2",
+            "denominator": 60,
+            "invalidIds": [],
+            "pass": "fresh1",
+            "status": "completed",
+            "valid": 60
+          },
+          {
+            "allFour": 54,
+            "condition": "P1",
+            "denominator": 60,
+            "invalidIds": [],
+            "pass": "fresh2",
+            "status": "completed",
+            "valid": 60
+          }
+        ],
+        "completedCleanConditions": 3,
+        "interruptedP1": {
+          "allFour": 52,
+          "cleanComparisonEligible": false,
+          "status": "completed_interrupted_composite",
+          "valid": 59
+        },
+        "matchedP0P2AllFourDelta": 2,
+        "matchedPromptComparisons": [
+          {
+            "allFour": {
+              "P0": 54,
+              "P2": 56
+            },
+            "allFourDelta": 2,
+            "denominator": 60,
+            "from": "P0",
+            "invalidIds": {
+              "P0": [],
+              "P2": []
+            },
+            "pass": "fresh1",
+            "to": "P2"
+          }
+        ],
+        "pass": "fresh1",
+        "plannedConditions": 9,
+        "scores": {
+          "P0": {
+            "allFour": 54,
+            "denominator": 60,
+            "valid": 60
+          },
+          "P2": {
+            "allFour": 56,
+            "denominator": 60,
+            "valid": 60
+          }
+        }
+      },
+      "source": "public-site/additional-hosted-fresh-repeats.json"
+    },
     "jevNativePrompts": {
       "comparisons": {
         "P0P1fresh1": {
@@ -10216,8 +10358,16 @@
       "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
     },
     {
+      "path": "data/pilot/pairs.json",
+      "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+    },
+    {
       "path": "data/pilot/proposed_labels.jsonl",
       "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "docs/HOSTED_REMAINING_PAIR_AUDIT_2026-09-28.md",
+      "sha256": "1c1f04a6b0bce4d3343a552585ab0b76c9785189b1b6369a52df97bc1b5a1dd0"
     },
     {
       "path": "docs/HOST_INTERRUPTION_2026-10-01.md",
@@ -10226,6 +10376,14 @@
     {
       "path": "docs/LABELING_GUIDE.md",
       "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+    },
+    {
+      "path": "docs/QWEN36_ON_P2_EPISODES.md",
+      "sha256": "cb0f557e511ec0b49f4721a9e49edd396cf86ea6868e3942b744eb4dba675fc2"
+    },
+    {
+      "path": "docs/REPEATABILITY_PLAN.md",
+      "sha256": "ba9bab5e6ba77fa83dcb7241c2cecd91094e35e6a57e38a86438c3f9823d9274"
     },
     {
       "path": "prompts/variants-v1/P1-classifier.txt",
@@ -10238,6 +10396,10 @@
     {
       "path": "prompts/variants-v1/manifest.json",
       "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
+    },
+    {
+      "path": "public-site/additional-hosted-fresh-repeats.json",
+      "sha256": "87e2eccbfb73e30674059e580ba88ab2d2eae748cff9bfa8f5e0f4d8e224e729"
     },
     {
       "path": "public-site/claude-repeats.json",
@@ -10740,12 +10902,808 @@
       "sha256": "5a08bc20f019d6f23ba00da9e6c201f4ee4345def706e8bfebece9488340f8a8"
     },
     {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P1/instruction.txt",
+      "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/P2/instruction.txt",
+      "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-high/baseline.txt",
+      "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P1/instruction.txt",
+      "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/P2/instruction.txt",
+      "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-deepseek-v41-flash-low/baseline.txt",
+      "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/instruction.txt",
+      "sha256": "18d9ee782ea5a6a749e0fe489f82fcf37ecd923b1de8517505e1e0b38f98a7d1"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-03.json",
+      "sha256": "fc7c16b8e858f6f001417478a94e0eb42c4567c63bbf153f7e2c900fcf77bb76"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-04.json",
+      "sha256": "f7757269274f3cd412ac114b9cd5e571947d8f6a56c60e26aeae30cba585392c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-05.json",
+      "sha256": "90a2ca5471bfcf3e266284206ce5477d20a7a6554fa76632b99b69e2e47b782b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-06.json",
+      "sha256": "117f8d46029e89487eb2ed8cce105d10b4658f196dfb27bb8cf9cea68c526bba"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-07.json",
+      "sha256": "3097dac6c0215aa288562eaf92be2da42c29d25f80f91f0cc69e32fc00bf0916"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-08.json",
+      "sha256": "87459c5616199df3d2799632a2ba8768233677acc1ab362af92a348b780f7b6b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-09.json",
+      "sha256": "a71c14df324499121909e6e3e79f5708375df55c21b1bf220628523f5161fae7"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-10.json",
+      "sha256": "552ca4431a26d441daa79980fc90abcbb5d9f9da69cf716500d65068b91d8a9d"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-11.json",
+      "sha256": "b5a747a46bb89221f6411c6b7339f57ffe800116dcd2b0557155ae0cf6fe17a1"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-12.json",
+      "sha256": "ef5d5a5e416e185cf81187a52dd6cbda749cca98f058a103a3e81992c3a1e5c0"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-13.json",
+      "sha256": "6f7406b3b7bafbd26bbc7cbf16bf8b7fc353683cb96cb095ab9f8321faa24542"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-14.json",
+      "sha256": "e22f2d6df965d3abeb097ba438c2ff49de3c6b9a238ae2d951d005ecd0f033b8"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-15.json",
+      "sha256": "d6d64d59456fa4007942e3f17cc1a4bc25759fbec3342a322c3982d15860f9cd"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-16.json",
+      "sha256": "27922b2e157c1a628ab2b4dc0ca9918e15993583634a692897a2418e2c200be0"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-17.json",
+      "sha256": "fc4f4fa1320508ee43f50ce860b5251071889882fdd16406647862cbb416771e"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-18.json",
+      "sha256": "a9a15ad8c82d27bc6f2372a386898053a18acba9dcfe62709daa9f5103abf44b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-19.json",
+      "sha256": "494d2155d5fe68039ba362f45f866adec82f57e2d48f52704f6b7e4aaf7cfdf2"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-20.json",
+      "sha256": "90271e7d54deeeec1c6072f954cf6d6bb7dfbb6628d3742a9fcfc913288a3e5a"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-21.json",
+      "sha256": "9fd67a3089a31f141907f2c67c4ad93993453e67c86510c51514c45a53248cae"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-22.json",
+      "sha256": "9d916ab43d54cf65b736a525a69b91f9982d3ba9a78f4309f2520835bb51d59a"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-23.json",
+      "sha256": "3a2e73114e0b20d8c2502e819fffeb27e39e633ac43b08150731f0802cfb503d"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-24.json",
+      "sha256": "290426b9b9858a4391e54ec4977fcdd3e12a88d5f8c04b39faa2a11829de3bdc"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-25.json",
+      "sha256": "51731d67c01f48e925d4fcc3b30bbf5339cc200c50dcbca3cabc180d77086f7c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-26.json",
+      "sha256": "995ae665e2da4622afbd107043c24391d6bf7ed018b4bd83f84639aeee7836ac"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-27.json",
+      "sha256": "e3481958327da2de4a87ab2855927854fe87f8bd2c8d92912b8a8b0b7b7fddd5"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-28.json",
+      "sha256": "012482bf5282a24fa032b24f5d55bc2f8122f0f70a2b54500f521e65de0fb85b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-29.json",
+      "sha256": "6583946ee0b563e56119284d5b9773d68280495581e23e5b268767e2e9f089f9"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-30.json",
+      "sha256": "c1c36e0f05c0363ee0f56798030a29fda90cba0c1f4affc7fe9c1d05919281a9"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-31.json",
+      "sha256": "b76d5673ad69f75f7f6614d40f3a0894ef50ec15f7c0853aa1150eb682582443"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-32.json",
+      "sha256": "fb02cd739a86444afc072f08e9894a0fbb842e14479866ee15405cbb895c14ea"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-33.json",
+      "sha256": "99036c11195db2c91953a43eb416318a9ce80df6a0e932aadc30c6fc5c34bb2b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-34.json",
+      "sha256": "42dcf03e0bd489514bb1d5c079f101ed2c99cc621ad4d961fc781ff998809680"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-35.json",
+      "sha256": "fdbba20183e8c2c4490b62d6dcd115094f0d54234d33530b663b3b6672775d33"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-36.json",
+      "sha256": "1bc85f329ac915870205308fabd08ca22f13bb53b85e8b174b41ac37ef226afc"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-37.json",
+      "sha256": "1df3641377155607732e5e747bff174200b9303c7fb0680ec1238bc583c8d233"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-38.json",
+      "sha256": "0ec92ec44597b282e48cb4be45a8efb6c239097202ee2c0d862dd38c71aae57c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-39.json",
+      "sha256": "aec973d1e27db2d33f8a3134d458cc006fe3a5f9803faca922b4303055e37460"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-40.json",
+      "sha256": "ea83e0baec73b3a685869018bbe309d65a20dab803e77759c06bd03f253d453d"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-41.json",
+      "sha256": "ba34188b0b423721dc6dca24db19c992349de672bbe1d71d96cf2a9481c63ad0"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-42.json",
+      "sha256": "54c9cf8ad69c673cd2696c9c35d6a3854e18e8d2c37fc7a39a91700182c1a441"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-43.json",
+      "sha256": "e6a85b8e20f4e24ace8c537cee108198c3ae2bb547789e84fe6cedb9e98f6937"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-44.json",
+      "sha256": "e137fffcbf28dc025cc2c67559368167d25436ca7f2e55fe16a6156c749aade3"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-45.json",
+      "sha256": "61a27ea261a0d0ed3b71e07988a8a28e201f569e77ea5ecf8404cbedc3eac87b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-46.json",
+      "sha256": "98ea9de272e59027d723a29a40ef5e85c5e2704a3ad5912bb2c9537879be2680"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-47.json",
+      "sha256": "d8c2ed4fe9bcac2a17cfb3473b39bd9ea32ced78f111daaf364fa8c3d317f711"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-48.json",
+      "sha256": "cac0eab07dbdef80675706c917808a3f6b94c246158b409581f91b6cc04c9c63"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-49.json",
+      "sha256": "896b825458336c77ccba2070889ef9073bbd6bd20df2ee36db8a5097cc536b6b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-50.json",
+      "sha256": "6fb6f100b75d07949c7c150b6bb31dc9b2b08fcc05f8589fc1988cabdab12906"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-51.json",
+      "sha256": "2b673797efca858a562cce1e8c06f8eb1839c7a45ff89823cfa6fc77f808da9b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-52.json",
+      "sha256": "108b05f422cb6b7a79e49d1d6e972ff63faf6a8e7f39c643049f03f49074303d"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-53.json",
+      "sha256": "fcf8699712c24be227f2fd5362d9be50880e21e044af2085e5116e2cfbf2c39f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-54.json",
+      "sha256": "14ea3a534ee86d22fe39263c9d5c7a424b508fe805312ed4f4f6dee1ce907656"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-55.json",
+      "sha256": "c121d220a089053ca9e1fd6058a6093d717eefb91ff33ac59c0ae8c8f18bd719"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-56.json",
+      "sha256": "4f1898e1352ab4d13f6e235bc34f34009d8548e3d34c6a0dba87a2856bb2214c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-57.json",
+      "sha256": "7c8106fde072779671948dca201a14b94ba7110eb6dea6d059680c6a091b4894"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-58.json",
+      "sha256": "44dde108669a34d74de262a2d4e6d99df14bd3d4ba5e5ecd0520a166e5cdaf76"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-59.json",
+      "sha256": "6696544413c23af5c9094be7932e92e574e5631276a2e758d77aca7796b31388"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-60.json",
+      "sha256": "2bcf3a3c29a7374d37f7f124e8a21222028a0b4eb030dade10479461e5e1fdbb"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-61.json",
+      "sha256": "a66a5bf0517fd15783f175f8f7e1ab4136e08a76cc267fa64d60f9ff3997e3ed"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P1/request-62.json",
+      "sha256": "51393719faa54b16e0ced1d92020979a37c513a21da0cd75f065e01f2aafc8c9"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/instruction.txt",
+      "sha256": "5c977de8f90832aada7e0b2f2ddd2e1339fc066ea6a4761b371dba43c9b1a184"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-03.json",
+      "sha256": "f2476c76e9291555b373dd08d0ec2869aa51816e8624feaaf323bbde7841f3c8"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-04.json",
+      "sha256": "e6773a9ae3337448163cfb7a810d423fd2395048dc5996661b33c0898bc743e0"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-05.json",
+      "sha256": "de6ccfd5cf07deb58996af2c468d8fd3fefa961f7f42ba1cb41385efd9c4d81c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-06.json",
+      "sha256": "84eba73956411fda6edb8bdf9a6488007774955503542fbb2b352300e97ddd1a"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-07.json",
+      "sha256": "1c8f71f936d6d080649876e2c07596a7334e8fb037c33fee459668bed95ac783"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-08.json",
+      "sha256": "e67f5b1fc64cce7025e820d465e58630534e25f4f2b9dc65bf05b510491245d0"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-09.json",
+      "sha256": "31051861a1a062e68239c4efdf798785cbeb265179e2bfcc3bd12dfdc1a3ec7f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-10.json",
+      "sha256": "54f24f01780f00ca7b2f474b78bf42b62f8988901a3382956a4bf306c9183fda"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-11.json",
+      "sha256": "6071d8f448de8230b1dbe5c2b426bcdb2e70faf0e19535fead01ea007ece1527"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-12.json",
+      "sha256": "777842f804995f091e0ad30b8ff0d1e22170991f95b6341f9d437405a2f5582f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-13.json",
+      "sha256": "6c4c7b1600d0c9985e3f1bdd7c9da5ea914d91cc86c7b7bf262c0cece036891c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-14.json",
+      "sha256": "a0d3871e9343b14b6a0efbc23f9589d4bbcc3e0226dabdc8056413cc07813a13"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-15.json",
+      "sha256": "41b834354b822b5edfddff03eb81bfca61ee19a6588ddd834e7c0138c7ff8cbb"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-16.json",
+      "sha256": "f2b6573a2a9be34372ba6e19724cf97a8d611189e46af8d13b3d992e2bcaf746"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-17.json",
+      "sha256": "55f44ad608bf663601baa821b95a6fe4df32ee1817abf8e94486ab210ff4b186"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-18.json",
+      "sha256": "7ffd636aff1ae3704eccd0302a123b493dad2fbc816ca0f03662d034ff078430"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-19.json",
+      "sha256": "7e428668c4f0455c4a15a6101ba3740b246aa1041dafa71900ba26f7eebc49a7"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-20.json",
+      "sha256": "096847f2fe82ae6dcdde64d8fdf11c5e98f5ae7db879cdcba13b9ed12c259e02"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-21.json",
+      "sha256": "e9c0c532ae489f7732f53ab251a7d2fe0c6fff106d7f238cacaa68e4e9efcce0"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-22.json",
+      "sha256": "6ec98c9b9cbe956145585afee6448bf3304132caa2fc747836a97ad2643b72f5"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-23.json",
+      "sha256": "feb3a783477d848151a4100f03619af5a01e265623c97ac8f34a6e91966b5e9a"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-24.json",
+      "sha256": "e01fb205f12890406f86ca3cb4969a2bdb47ebaa4e1f9a9958d9074e08b89f0a"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-25.json",
+      "sha256": "295ee8ae75a580b4797b5469321b57dda1eb35cb7516ac7b95e90be9a474ea94"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-26.json",
+      "sha256": "402245db2cd2cebeb3dd874c8b289b2bb6c8d6f334e2a01c9a2699cb13a58a25"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-27.json",
+      "sha256": "faeb270aff6543d8db70ced88aacb7536981df33f2d5eb43adab72cc931d95ab"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-28.json",
+      "sha256": "09d07e04a4238e3a42811cdc3708f22d78b03380e66a7d3b76028f2f67a41633"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-29.json",
+      "sha256": "03b761dc7222f624447640a6e5fad93a942c677101d3efe8a428642e12a316ad"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-30.json",
+      "sha256": "b63e2dd0f464cf32a9438d7b57827cfb6e46694a5de22692b1a9d93addbc8ead"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-31.json",
+      "sha256": "ecadfdf96ee95b7cf5f6830d19beb898da3b1d7de37717a3ad028cace1ab4435"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-32.json",
+      "sha256": "b5810de6480c3857935a510c937df03b17db2ca2e116ee3f5fbad3e3361ce80b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-33.json",
+      "sha256": "fa88756b6bf6a1e0673543516abb80308f00a2c220921069c2a58ee9619574c8"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-34.json",
+      "sha256": "3dd3c0b3e70675415ba1107ba8f87b06cf01974f2b0868fbefd7b89c013e84ac"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-35.json",
+      "sha256": "220300bac5c9f84eb9d1318e911fd692123936e0a5d4071974e9db3faf864043"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-36.json",
+      "sha256": "4bcef7af9961e5cba71c4ac50a462a108d49c7b1e894c81512c5c4d112a90d36"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-37.json",
+      "sha256": "d0ce54463af17cd24c94fbc01ec0c8a46c41bc444228dbe6fbc9c2f171ad3a2c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-38.json",
+      "sha256": "07fa815cf8257c431241e55dadcb7a0aecab422d74cdcb3bfbeb0955563cdfe4"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-39.json",
+      "sha256": "232e130d50c5c3df6e74f6d4264932e5222d954d429bbfe32e0fd7be8057591a"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-40.json",
+      "sha256": "150ce626373a8aa2f8387d29d841897964cb4cff9bb78d56dc191c8dab8faa2b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-41.json",
+      "sha256": "3cd36f67c5aaf6a84661952d304345346f84ca4debaed76df0afee32f9460a45"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-42.json",
+      "sha256": "1df88a9335ec47025b1f2b0834de518851f7e043e0bac8d71a9aa21bc2be7409"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-43.json",
+      "sha256": "c4683d3efc1325ebd461284235da91bcb7aa8c1cfe4df690a729d7b4d4eb1fde"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-44.json",
+      "sha256": "0612bf2e619d24aef356ba01d81f37812d8889068ab518c4e5249440f290c0b1"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-45.json",
+      "sha256": "0c26dde4e9a62fcbda3084ccf2bdf19c57d064154dab0efb1008ee1698c433be"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-46.json",
+      "sha256": "b61610bca4b08dd7d0d3b0379eebffec7c5dc8fff53e15e9912cc4c5eee707aa"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-47.json",
+      "sha256": "48e396491fd8c2a649ddf308a22c3810d60de6614ef0f80f552e09429d6e04c3"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-48.json",
+      "sha256": "1242b43a417dd548a47ab68046404fc3db4f04ac0ac561b33643bceb5534aac7"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-49.json",
+      "sha256": "ce4d9cb8b199c7b2f2a95bfa3426bc2d24f0e44c886e48007e517362ef518c12"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-50.json",
+      "sha256": "4d9c5bcf1692758cb1fa278fc994e8804c3db6470c9e51a39fb8e1c0d17c314b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-51.json",
+      "sha256": "6ce18439605b5a98d50e20864e398c232a810804e977fd317c67897bad07fc59"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-52.json",
+      "sha256": "6744872c4e1371e6fc6cde497e176f8f20e76d61a43444f68759a29683c2354b"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-53.json",
+      "sha256": "e28f0327ea9bb01ef8a3252b1de854280c636930f66335b4344a3c448d00c7be"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-54.json",
+      "sha256": "a3323f7070519dba1421aedd704b4a06e7120bf1ec090c865760a46fc7335345"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-55.json",
+      "sha256": "f5db6047b0a89df855f21960d92c2ea42ccf26322ec49ba05663587ddafd479e"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-56.json",
+      "sha256": "680803a56e0ab6605b595422a4d9bd431426682fc5c619fb266902b1fbb4a9b5"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-57.json",
+      "sha256": "57c067c3fb16a40423112e8e3fb58e30dcd4d30a6740aadbd1f5f2f740c937bd"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-58.json",
+      "sha256": "be55ed777b85eb206bd4a3e3b110d5927d5c8ddfff4d793c3c0bb825c3c61f6f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-59.json",
+      "sha256": "21dbff8e3803f1b986f22a9bd820554b1c30fdced54d80ed609080506c0eb52a"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-60.json",
+      "sha256": "00e4865270cc8e6b6c84d16b40c08cd44bed495bfa475929a49416220604dfdf"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-61.json",
+      "sha256": "580f435ab318d2c10af5ab3ae5e54e32cf8d9f74a0b9d275347a8ef4ea814bfe"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/P2/request-62.json",
+      "sha256": "7caa62ae59202fe6114a21c036669f0eb3910547a0a3c33c6768b55636dc68b7"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/baseline.txt",
+      "sha256": "cbb8dd568fd464f7859039cb87ea65ead8c40a23a88ebabe5f07be22f993581f"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/configuration.json",
+      "sha256": "32b2eeb29842b73131d9336537cb7757c390021bb990475a6c14cd7dcb251f1c"
+    },
+    {
+      "path": "results/hosted-prompt-preparation-2026-09-24/openrouter-paid-qwen36-35b-a3b-on/historical-attempts.jsonl",
+      "sha256": "8817b970a43fd788524467f50de5413923ea504e15b67e068d52ec6c0917e321"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/attempts.jsonl",
+      "sha256": "34a09a2fbf26dcc43b2269c8c7d6715e688970bcfbadafc121db991de1c95095"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/development.jsonl",
+      "sha256": "1859dad45f2196dc1befb21142cb3a842b169b5956832926f0086125fb693463"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/frozen-manifest.json",
+      "sha256": "606e1306da08cc3400904efae750081a6e5dbf5818f9c2210274d0b975c747f3"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/reconciliation-v1.json",
+      "sha256": "9c4c576b840195b5b0af5fa13f9b4467d1a47f6fb2259a49afbdbd3953dd5739"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p1/root-review.json",
+      "sha256": "5f0f9d6113a96b6f19b77fa5a53dc53ea9a15003c71f2cc4cfdeee5bf194ab85"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/attempts.jsonl",
+      "sha256": "e44717bd77d9277941006e6536beb66dfe89e80a6b6f6ae66d70b90b11089add"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/development.jsonl",
+      "sha256": "21b5a603eaa4ef8d5e25a6f9debb549dcaacf7633eabe049858a5be75209142a"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/frozen-manifest.json",
+      "sha256": "3135a8da5371e1c74e83f150841f4a0ee1166e96a8f4325e4af754ae85337f86"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/reconciliation-v1.json",
+      "sha256": "df99853b668516b60c38ae77c279004fe3f4c18d4df48ad0ee26cc87a2585388"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-high-p2/root-review.json",
+      "sha256": "1d125d90ac96d2dd2f7bf68cee2574a90a327388ab6af7de5a829e1adf55214d"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p1/development.jsonl",
+      "sha256": "89427cde5304acfdfa17ce1187170631d35fb65b8e188167f049cbec5a7db429"
+    },
+    {
+      "path": "results/hosted-unattempted-continuation-v2/openrouter-paid-deepseek-v41-flash-low-p2/development.jsonl",
+      "sha256": "41e693093f84b7164a04c4f0a91f5b2fd4ff3a184f052af20a636b754315cf70"
+    },
+    {
       "path": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P2/development.jsonl",
       "sha256": "a18091f41c39cdb1778fafadce68d6b49d45f2e3075753522573c4424df95b07"
     },
     {
+      "path": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/development-complete.jsonl",
+      "sha256": "24df93f7669839f580413dbb8a2fb8f68ece8754a2bb6562cb9158571c25f6e9"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-high-2026-09-23/smoke.jsonl",
+      "sha256": "cd2b53d334a8badb65a1ecd7beec61aecad60700163c304ec1441632c489143a"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-complete.jsonl",
+      "sha256": "aee3f15a4ed678d1b9b2d8a8afe5684eba0ec009d1d8481b4abd00345a4f41db"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development-from007.jsonl",
+      "sha256": "011ad9843d174bcefab8f35fa4c3322d3c38e0012c13ca0d58959e9807725d84"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/development.jsonl",
+      "sha256": "785f98cce757512a8d675f46f22df4ea83c26d70fe771002ce472451c348a812"
+    },
+    {
+      "path": "results/openrouter-parallel-deepseek-flash-low-2026-09-23/smoke.jsonl",
+      "sha256": "597a38302123c7d8dfd3a2a427f07ea2089f238b58891cb30425a9da1d51dfdd"
+    },
+    {
+      "path": "results/openrouter-qwen35-on-2026-09-23/smoke.jsonl",
+      "sha256": "1fbd280907f210c3180080fca0f94decc48fffc488cd978ce03c5243b3dbab49"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/development.jsonl",
+      "sha256": "87607c83eac4d5a8f80a1e0373fa3d3148b2c95f0ed52fe91f834b8f3a0d8cc0"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/high-P1/reconciliation-v1.json",
+      "sha256": "1ac28c5b5b8a7160fdde03949d0258dc46a8183ed2ed2a0b2710624c8a1dfc3c"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/hosted-continuations-v1/low-P2/development.jsonl",
+      "sha256": "16c9fa4691f924526546a4032c996a5bdcdf7d9f0587f02c4388a7610c1ffc6c"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/hosted-execution.json",
+      "sha256": "20f49d85cf0216923e7ee677856188932078723a42f7ed2c66864e9577280456"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/hosted-remaining-audit-v1/continuation-pairs-v1/openrouter-paid-deepseek-v41-flash-low.json",
+      "sha256": "badc5741a0ddcecec64a63d5b41a3155576d2d38c4046b77cfee1501150d63da"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/paired-reports/hosted-remaining-audit-v1/openrouter-paid-deepseek-v41-flash-high.json",
+      "sha256": "d6e8e84f9b6073230e30f99eab9591c4575e807c16d54d16e9a8fcd627ee98f1"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/development.jsonl",
+      "sha256": "e7107c7f15c6bb7c013a22819c173d247dbca0088be8be0b4fee445ab427c5fd"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/smoke-after-launch-failure.jsonl",
+      "sha256": "33d2be9f9a5e0ecd0b53b9f089eb26fac3c663b9320bfb97d4681bff253a6fb7"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P1/smoke-inspection.json",
+      "sha256": "76ad96c4b0e0a26559ebb35d2991e0cd3c2a2f11dee5427c2fd85ab157c2dc50"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P2/development.jsonl",
+      "sha256": "fa6325a66cc4c23dce43e6dca23412a1d2e6e80c49da3cb3b236f768a4ac5405"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P2/smoke-inspection.json",
+      "sha256": "9f7b39c2569012c34ab5769dbb72f4d1149c3d8d5941e748fa396e68eb4eed90"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-high/P2/smoke.jsonl",
+      "sha256": "29e98062386a565362dad87bb62a8d82aa47149c2c3b5d01d27b1ac4bf1d74ea"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P1/development.jsonl",
+      "sha256": "86c9f8a4787101920aa8fdc4b36a16d462ede1562e95e63de1b2491097c0cd7d"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P1/smoke.jsonl",
+      "sha256": "feff1e3e70f6d92578aaba0ec00a55a29cd62c25c1d951f14fdea83a8c9e355c"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/development.jsonl",
+      "sha256": "da61be15f5d9f2cec9f4c9603bda625c5a49ab5e0802c231538120b22e56e5fd"
+    },
+    {
+      "path": "results/prompt-comparison-v1-2026-09-24/runs/openrouter-paid-deepseek-v41-flash-low/P2/smoke.jsonl",
+      "sha256": "6b35a54dec935b778a7a3bec2f9f87f7a548d42c92b111d9485bd550bf27bc1d"
+    },
+    {
+      "path": "results/qwen36-on-p2-never-sent-episodes-v1/episode-001/attempts.jsonl",
+      "sha256": "7fbd8b4fe368c9fba70c60b1992550156ff94d59f7b3ee31d76ae121581602b1"
+    },
+    {
+      "path": "results/qwen36-on-p2-never-sent-episodes-v1/episode-002/attempts.jsonl",
+      "sha256": "77948bc38d6b8b0213da4b6993dfb22b69acb32ac701ad177e114159c015ddad"
+    },
+    {
+      "path": "results/qwen36-prompt-recovery-v1/on-p1-development.jsonl",
+      "sha256": "569ce1a6fc25aa1a4bcb8fb962325a4a106af1fabc9763124371177af50f4c98"
+    },
+    {
+      "path": "results/qwen36-prompt-recovery-v1/on-p1-smoke.jsonl",
+      "sha256": "583e7a625acc697fa308c9b10a419816606f8c2349403374924e036b6b77ac85"
+    },
+    {
+      "path": "results/qwen36-prompt-recovery-v1/on-p2-smoke.jsonl",
+      "sha256": "7ad7d3848470dbc830cfb2a71374a100a1733540f2fac62caf0845edf8b8e341"
+    },
+    {
       "path": "results/repeatability-v1/coverage.json",
       "sha256": "e63b0615785ad9fe047a1348e61a7f4c815743fb806167ab5304d90d7a8577c9"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/budget.json",
+      "sha256": "daef34fe1fa1e5fb1dc047d3f650aeadf0bbaa35aa9aa960d2cdb578b150cd42"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/execution-manifest.json",
+      "sha256": "92a6d817c97c0d21e272b1cad8d4c14092d0a86381c3eea615a07b65f5d3ac3d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/closure-ledger-snapshot.jsonl",
+      "sha256": "61ffa7ff89eb2ed14434c5a0ed3fd24167d6547e51e053b5b9866b7d6cd2ba59"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/closure.root-review.json",
+      "sha256": "a4ae9847734a41918fe2849928f79bc13bfa06c2a7600e66574f000c3a3aa820"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/development.attempts.jsonl",
+      "sha256": "132f53b21641aecf86c61d0395102cb61d5c54f2b23787fa3870d7dd3701daeb"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/development.claim.json",
+      "sha256": "14cf05b62d1cbb11e51f6b55c3e319159621fbf436c6b3e717712c5a418b749a"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/development.journal.jsonl",
+      "sha256": "ca630952a3c557202453df08e264fd80530960c2d40ab1d32433cce06497126e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/development.responses.jsonl",
+      "sha256": "8d19e3b0e62ebd92e43a0cf4603a3069ded0d833e57f205228106c398dc01b7e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/development.root-review.json",
+      "sha256": "1c63ddd7a7ff207d487e1cf7eb7e1410ea58b11bbbed4610cc7beb7e362d05e3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/smoke.attempts.jsonl",
+      "sha256": "4a45d3ab05c34f7281def5d7f79b98d0aeb3d18bd8cb2f1352e3857b2c91fa2e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/smoke.journal.jsonl",
+      "sha256": "d3876f4f5e7711ba0fc295b1ec440ebdec095385cbb7cb76e36d875d6c7ede3b"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/smoke.responses.jsonl",
+      "sha256": "b42077d3efeb7d9dd0619820d796f19f28ad1176552782eb87eef9768d0ea52f"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/closure-ledger-snapshot.jsonl",
+      "sha256": "d92782fa593159c526aec0a3d4e3fefa5b20cde72e4c7f7a60ee3e5309108a59"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/closure.root-review.json",
+      "sha256": "7ea4ea931080ac9260003788638d9ed22c93b09dc4feb86d7e0e59d90a6cffa9"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.attempts.jsonl",
+      "sha256": "e11d242f28a63a854b73208c0cd5d15935d9233fdd768e414ba8e1a571e83bff"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.claim.json",
+      "sha256": "761f676fd7378876a521d0fc807d68e6a0fed427cc3ffd96a306a98b7e4f9a39"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.journal.jsonl",
+      "sha256": "ce0b1dd11d352c93a5f354b457d7bda01ab9f6ad839e3e7b1bc0865f7dcb80ec"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.responses.jsonl",
+      "sha256": "33c73b4ea6148daaa595a3fe8eaa2183cda0babe6496bc31e552e955b2c5eae0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/development.root-review.json",
+      "sha256": "839079ce8f3bd46795121792084bed071acc4d51d842bb14a01b217816941d0e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.attempts.jsonl",
+      "sha256": "ec8bfa6f7439faf72c48ed5c0fcc7ab6f448ae2e6a75b70ee3f2349339e82743"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.journal.jsonl",
+      "sha256": "e05926f31709b00c2617902152edb726da4829d8751539e8d0854bb0b50a8929"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/smoke.responses.jsonl",
+      "sha256": "2cb2d1eebdd9cdaee6090bbf6ac662f3f4af4e4930a4d984b861b9c9fad88f42"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/manifest.json",
+      "sha256": "791fc75a1de7d8082c69e93075515264142b0a214b463af5745922d796cf708e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh2/manifest.json",
+      "sha256": "6343e7f8980b5f552ea52c374736a29b6d7443f6450e416b62c4a4273a650677"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh3/manifest.json",
+      "sha256": "ef41a1d890df6b414daf16d69d628589c11b74ce9a5c3d1edae421f6f5f1f989"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-authority-v3/public-route.json",
+      "sha256": "e9105c4566ee1ae5fc2d91736ffbbd84685978a82bd5465588f55bfc65c7e844"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/admission-plan.json",
+      "sha256": "98c4b32319fc2e933c40c59583eb1f9ac1bd8c037c3453c11c0196cfc758dc21"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/budget.json",
+      "sha256": "d412cab9771482b0d03cf082895cc629ca3239e428a3195febb4b9e19d0d0afc"
     },
     {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/closure.root-review.json",
@@ -10776,12 +11734,104 @@
       "sha256": "b9b734af47c1fda6b8a2bd8cafd4b44850fe4671d4dcb2b1f8e68f24e048f29d"
     },
     {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/lower-price-endpoint-audit-v1.json",
+      "sha256": "d73fc5b310b551331f44eaf135f86c072218b14e9657cf919293a2392e1c7f03"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/manifest.json",
+      "sha256": "c1c685db6a4e6a9c4b8376d1d11adc98942fcf9f66eb137daed867b1dc2c5004"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-budget-prefix.jsonl",
+      "sha256": "76706c7f4550599ada9b18725e892bc480e11cb4e4a33956694f95d03473899f"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.claim.json",
+      "sha256": "592956f1ce612142707c6b33e84f4a5ac9b18dd77835c6615d625a89c79b73ac"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.journal.jsonl",
+      "sha256": "40ca31d5b36a9767c0b9ea1d767508633334b0f252536da1a0c716b52c5ebfef"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.raw.jsonl",
+      "sha256": "cd926a6cd309398a7c7607fce6d0b1962bb74ab5a77a644d353b5ffc06128e56"
+    },
+    {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.records.jsonl",
       "sha256": "9fe7eb8063ed991392b607ace8b4d75f7ee041285246341d0906bc8f2542edd3"
     },
     {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.root-review.json",
+      "sha256": "c4cd06563cb5235dd92c272219399dae99f2598717f162081cb5c81528f14746"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.claim.json",
+      "sha256": "45985e87fd341fee1ccef3812c502431833b172970acb74114c79cadc26af5f7"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.journal.jsonl",
+      "sha256": "442b352655ecc2ea87ad214421dfecbd3412cf4a27233acb1f2a41368d092938"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.raw.jsonl",
+      "sha256": "c2fc219ccf6343bb21fe9f4ee65fb7ff34f4b0dd607b0fa671792d70ece8bde0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.records.jsonl",
+      "sha256": "277a8998616df19dbcd76c7a5b6734f8b13442af2c46dee85e43a2d65ee3b162"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-smoke.root-review.json",
+      "sha256": "a6a3cb19e0192b5086a8e19689434bfc1638884f572de087b21e00bc72ff7c63"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-budget-prefix.jsonl",
+      "sha256": "896b2dcdecd407b245bfac6ba938301266f65d7c2bd294a0c5cef4779b6fff5a"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.claim.json",
+      "sha256": "bca1347ed4976da23241a821d254cf65887e8704f0871585dcbe4a0b5783d746"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.journal.jsonl",
+      "sha256": "5c36bdb25090b60533d72a415915f5a81dec0f48f62cfe63c20155b7eb7faa28"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.price-amendment.root-review.json",
+      "sha256": "26bbd2842c6aaffd9bcb44d9aa27159b25becffe82c2d04ce0e20bbe1e356d6d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.raw.jsonl",
+      "sha256": "a3e8532bb8d736ebac999bb7e3bb8a1b2a2bb1f8df93a37f3bc4a74fe2f19b33"
+    },
+    {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.records.jsonl",
       "sha256": "4ef72edf721212048136e67c0fc0e1b61f08a61403cb13f6312bcea616772ab0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.root-review.json",
+      "sha256": "a2512188346af060560bd9275b60fc946d5433bc00b2427c1d949cb01b107103"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.claim.json",
+      "sha256": "5312899fe9e768c83a09d375658ae9b2f9adf81773c5df43f833b15dce46a1df"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.journal.jsonl",
+      "sha256": "3b68a6a22da58d4e7109d9437515808b7741f9309c08fa0f9ebae0801b7e1ce4"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.raw.jsonl",
+      "sha256": "15c07c30576cde2fdfc97f7a9431644339c9674f25fef8f627ed5ba952f38c6d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.records.jsonl",
+      "sha256": "4b32b88672fe313045993f5278f73ceb4aef36fc85bd36f54f4daa50a53a5777"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-smoke.root-review.json",
+      "sha256": "45ed6a13c3d03d39b8584cb382496b4e8a7da2ce204e72f098cb5e2174d227a8"
     },
     {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/second-interruption-continuation-v1/phase-03-suffix.public.json",
@@ -11254,6 +12304,270 @@
     {
       "path": "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-second-suffix-none-v1/fresh1/P0/suffix.terminal-public.json",
       "sha256": "07e7a2ae939612f25f3c74a42c54cf96c9ef22c76fa27484f76bd8007b54c892"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/execution-manifest.json",
+      "sha256": "a8142907387ee36855bd56364aa595bf3bcb646e3aa7be7b00a8ed7d29d39afb"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/closure.root-review.json",
+      "sha256": "653d05896430497f27beefdd36dd9378938056fb21ca4d2aeda8732b570b2c03"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/development.attempts.jsonl",
+      "sha256": "dd984de6090277de30fe1f0e1de1c773abf09d7765e075c713e2b698575ecede"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/development.claim.json",
+      "sha256": "cf7674817a99297606ffb984982782b9d8dcd410ed1b309126a1de0955e7b26c"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/development.journal.jsonl",
+      "sha256": "0234528ddf040ed3f76042dfe79f9751bdbc54fcb92afb5c3c47634fffc205a1"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/development.responses.jsonl",
+      "sha256": "c92f94c366a830d71c97ac629d431a7c1a7250832baa4f9bc00801aa7f689173"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/development.root-review.json",
+      "sha256": "8adcece142ddeec6c23ac91591ad80c763c40dbacaa35cd01f10636a933739b9"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/smoke-inspection.json",
+      "sha256": "a2eeb64708e7defa9c4bd3b7057ed8f248814dd4ee68fe6c543232c5f1b8db15"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/smoke.attempts.jsonl",
+      "sha256": "dfde190e94bed7932d89b24bc8a3e352ee74e834eafcf462f4045f201425bdc0"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/smoke.claim.json",
+      "sha256": "552b883882bb42913155ba50e7b793b777f439b0caa54e7f03f0071e3c3063b3"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/smoke.journal.jsonl",
+      "sha256": "5fc2d9eab46838a9883cbf6846ba96f98c9b799bf600a5694772f3074e2113fa"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/smoke.responses.jsonl",
+      "sha256": "c1b9664b335856728577ff20e9182a7ec915cafebaef3540ac227bb333c51810"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P0/smoke.root-review.json",
+      "sha256": "88ac15685593c341acb0c902ac16c6b00e4f86af0a1faada3528f26a728843ae"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/development.attempts.jsonl",
+      "sha256": "4ed4b865d3416d5c6a88c9e7bce2c9ff43345d173d1389a2762edb8d941c9e0a"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/development.claim.json",
+      "sha256": "ced196e8ce171e0433da0e1cc90cfeeb441b618636eb4471c3b28dc8c88a90d6"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/development.journal.jsonl",
+      "sha256": "98fbdea3ed6e61057e78277ba95118ac9d9ff1fc691e0fabc405d3c4f0ccf889"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/development.responses.jsonl",
+      "sha256": "3f37ad932621e4596e5f8dfedd458e99dec843231a77e326e7130904e6488eb4"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/development.root-review.json",
+      "sha256": "9378cea9ad733b151f87273fe5039c18609bc02d6803a8ece8de3bd679b8d368"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/smoke-inspection.json",
+      "sha256": "5cadb9e92b6ea110a302bd38837ad78ab18b0f654f77c4f59574d030ad9a7f57"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/smoke.attempts.jsonl",
+      "sha256": "5345f0d878a4d44ef04637a4c3b2e7f1acd25cc01c9d474b339597290abc1883"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/smoke.claim.json",
+      "sha256": "8c3c7b3fd11ff5714d804d8c72064bc0336cc885336cefe710fc34a44ceb64e5"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/smoke.journal.jsonl",
+      "sha256": "92cb291d477b73b39ff86dd7d7766f91a1a8d3c9adc943e6e8fe30f9c1823900"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/P1/smoke.responses.jsonl",
+      "sha256": "d145f38f5240e39a954807045541c389f74ffd89a78745c7444875d6e4c7175f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh1/manifest.json",
+      "sha256": "808f03ac197b41eea7731a12db59a7e606df25c6db7d2c7faf1750b95ced6be7"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh2/manifest.json",
+      "sha256": "cae8e0b1be4605da965e2e660b7cbf51e2208a66cc9c3b8c9000e83518d9bf85"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/fresh3/manifest.json",
+      "sha256": "6c0518f44cdbc74fba108a54ef3374ea73164485ca0fc395c784341bbbb7549d"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/budget-before-reconciliation.jsonl",
+      "sha256": "12c074548ec0257c9d6d3f460dd0a0f72e67c05f3084a360bec4107ece076a59"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/budget.json",
+      "sha256": "b9959726b17dd188c723522a3042f6ee29e54388e1f55d4eff9c6c620e2c7ba8"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/closure.review.json",
+      "sha256": "6ef141dddfb3b11c6a9df1c5110fa6e7c40ed98a386283f28f2c46045d37efb3"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.attempts.jsonl",
+      "sha256": "5b154c901c79d61e13e13667ece04b457f5703d4546426db137d689a6d5d7f4c"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.claim.json",
+      "sha256": "b5c893cc954a1d0fa873412d09f3e4408ae9e3a4f2779ad7443acd296df0e298"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.journal.jsonl",
+      "sha256": "a2169839441da4115338c4f8ae2e1884365e95fbecf6f81acb8a5785e68b6cd9"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.responses.jsonl",
+      "sha256": "3d650655de3d8c8c430515e3e08719b25d35fa8d52973285513baac0668a36ad"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/fresh1/P1/development.root-review.json",
+      "sha256": "444d3c8e30b31d007468723213c8f95efebdf850daad4d81974d85d60272f976"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/manifest.json",
+      "sha256": "112498a0640b5ed5c1d08b70c96d82200a9aa69b874411cf70cbbb3ba5f83fac"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/public-route.json",
+      "sha256": "a5cf58dbf1d653217ea354abeca57040fd07601d518a94320a45d22e40025694"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh1-p2-closure.jsonl",
+      "sha256": "d91642e465e277fa4218f5a581a6ee960dfa5d3b13957e890af07618b3289be9"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh2-p1-closure.jsonl",
+      "sha256": "27b8057d7370d4ee299b8a6a28f5e57e055de5f4ae8768612f04b6330759a8bd"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget.json",
+      "sha256": "5b37f436241ba86ab971e3928443829eb2bf3d83948e6bb0264da6411abd0346"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/execution-manifest.json",
+      "sha256": "b34eb5b78493eb8cb4017a24cd401b9848836964d0615311bb46fc0e95aca337"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/closure.review.json",
+      "sha256": "729f17705cbe6449cf89d52f3cf991f87465852786166a90bf4d518b056f5673"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.attempts.jsonl",
+      "sha256": "a74db14a6cc928799e164b3184bbb78e89ef71bafd9af617b0926d2bdc19d79d"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.claim.json",
+      "sha256": "7a93e7a61dc339217b71183c28a269239316ef52df115afed89c9cda63717a63"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.journal.jsonl",
+      "sha256": "127389514dcb786390748f5e215ad6d6d4f6de0ca739ac032779820fa5477977"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.responses.jsonl",
+      "sha256": "12c9811bea482c965e6108c5acd5e211eb006f651f83c3ec84aa321a05457462"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.root-review.json",
+      "sha256": "9560f4b48a4b0e67d3844a4f01e8cc5d5a7e782c44cc3d0304075d2aafec8abc"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke-inspection.json",
+      "sha256": "4e8caa8dc1cf768192247172645a0d100f96112a55e11ea1db4c5b240bd00d54"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.attempts.jsonl",
+      "sha256": "d9f404974ae49e27a94c9cf93a1705035cd33a2045d83f61293e6cf225d9653c"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.claim.json",
+      "sha256": "7cffdde19b7fe12d2f6407865bbc408ccf97a81877f609ddd141efb587b1e054"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.journal.jsonl",
+      "sha256": "86c0ee29c5373cb5e7448f854c258dd8f4a52af7036d7e6258ecc089785d1847"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.responses.jsonl",
+      "sha256": "fcb272977b0fc5e0784f081eadb02edb27aa9b1cb858ed3eeb4bf9b3efb50f63"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.root-review.json",
+      "sha256": "3061a9f4e5e93cffd6f5d8474da6bc798324c14fcd35b237d61d999dcdd444c6"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/manifest.json",
+      "sha256": "21be43189feeec14921a8adea02456a8f8a9bd6aa8c6bfcb6fe980f3e0682283"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/closure.review.json",
+      "sha256": "4e04ebd21afe4d6f80d33c5234a04c0f4e1942311ad805b358c7ae70cd93238f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.attempts.jsonl",
+      "sha256": "f0b0187ed99ec5dcd43c810b7fc15e6989ee021759ecd8724b382ccea9f2087f"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.claim.json",
+      "sha256": "5a9ac502bb7a05843da0bf75ab0724a7b9cddf0bcd3fe5890c10c9cc6ec90a0e"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.journal.jsonl",
+      "sha256": "eeefe51660cc97c65c61e6f8bfaba7fcd8b8a4f897291a6322e9d28aef970491"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.responses.jsonl",
+      "sha256": "31bb9fa01f0d8e1662d85879df0ce69a16893f7a90dda2dac972d34340608a1a"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/development.root-review.json",
+      "sha256": "669e061846bb3344bcad5f3f70b570972808d777b4501f0365c65ccd6f0fce95"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke-inspection.json",
+      "sha256": "1fbd6961682de346155f997b6a73cac996d4df35ae261c0d5c3ca6e462f7c632"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.attempts.jsonl",
+      "sha256": "e42d33ce0851b7e86fc32ef3d67c0f7652cef5d4447ddf2e361658d16a49e2c0"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.claim.json",
+      "sha256": "926d0a9d408d1722a52fffc71e9201a2a1e39314fa3c470500f08569bb5599e5"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.journal.jsonl",
+      "sha256": "9191e52e3e7681710e673efd836ec73c35e933a8a88edc8058a5542b52408e49"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.responses.jsonl",
+      "sha256": "2bff1b4301940696a60aad28d90c39576e4d1a389a7c5c57ac0259b22c679b2d"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/smoke.root-review.json",
+      "sha256": "e866985463125220d9ff6dad7d1b19842bf7bd759af79a0a6e8fe0a19e887c03"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/manifest.json",
+      "sha256": "ee633c68649796801fbb5bd937af690b300ecb1c10d008a1202986440d83d32d"
     },
     {
       "path": "results/repeatability-v1/small-local-v1/gemma4-e4b-sdk-thinking-on/fresh1/P0/development.claim.json",
@@ -12128,6 +13442,14 @@
       "sha256": "7919d0a4ad63bd7225581478e337659b27acfc92a7596e27f85bba113e212067"
     },
     {
+      "path": "scripts/build_additional_hosted_fresh_repeat_findings.py",
+      "sha256": "515a569865fe2bda0192a7f5e4bc2c646c859b83eb85c8b3b0e2889ecf5dc26c"
+    },
+    {
+      "path": "scripts/build_deepseek_high_authority_v3_findings.py",
+      "sha256": "92d6a210b639a4a2660c8a57bc5c0a8b2b61a3c20d4ed60fdc240e580c49ebc5"
+    },
+    {
       "path": "scripts/build_gemma26_fresh3_checkpoint.py",
       "sha256": "53a002f0b3fa937e95ecdca26fcf41de893d52ed3e1ba1538029a0c5e77028ef"
     },
@@ -12140,8 +13462,40 @@
       "sha256": "252487d1cf2d9c59175969114a0e2e10617f1843797aa7a3cdf3cfd0ed6b6186"
     },
     {
+      "path": "scripts/build_qwen36_on_hosted_authority_v2_findings.py",
+      "sha256": "4360234a425be93e5bc15c3b8412116de098c8d4fa6392a8642e2cef33d27e4a"
+    },
+    {
       "path": "scripts/codex_batch_benchmark.py",
       "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+    },
+    {
+      "path": "scripts/deepseek_high_authority_v3.py",
+      "sha256": "012c8c39b96039d7ec20b939dc89301310b7ce8c2dcdf70a9a2548bcadd10f3f"
+    },
+    {
+      "path": "scripts/deepseek_high_fresh_repeat_execution.py",
+      "sha256": "98fccd291757b1f3c8c1e8a66513132d7bdb1513510755fc2e511282457e0156"
+    },
+    {
+      "path": "scripts/deepseek_high_fresh_repeat_study.py",
+      "sha256": "904ab87c18bbc731914941237a5b1893ca6e34d93edc9ff7297018d315e343d6"
+    },
+    {
+      "path": "scripts/deepseek_low_fresh_repeat_admission.py",
+      "sha256": "95ffd2d9985787d039f12b5ef32c97b99b35d60c121824d5255993fbbdee3152"
+    },
+    {
+      "path": "scripts/deepseek_low_fresh_repeat_execution_v2.py",
+      "sha256": "8d64f7e1d277eedc27f2edc5273681bfce34355dbc9ff262d9a9ed1c965494a9"
+    },
+    {
+      "path": "scripts/deepseek_low_price_successor_v1.py",
+      "sha256": "4ceca10419521b6ce312b61a45027f131b6b944efc3c1fe55e45f01cf9117e6f"
+    },
+    {
+      "path": "scripts/development_benchmark.py",
+      "sha256": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d"
     },
     {
       "path": "scripts/e4b_p2_unsent_suffix_v1.cjs",
@@ -12178,6 +13532,10 @@
     {
       "path": "scripts/local_prompt_execution_v1.cjs",
       "sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
+    },
+    {
+      "path": "scripts/openrouter_benchmark.py",
+      "sha256": "d754c2b20a1cfd18bcf55c76a357df42d7be0f5506707e996f172a03f3d90d94"
     },
     {
       "path": "scripts/openrouter_budget_amendment_v3.py",
@@ -12232,12 +13590,48 @@
       "sha256": "c2683ab76cfd463262083677e5814520d00b5c835306b303810159edb1a9e51c"
     },
     {
+      "path": "scripts/prompt_admission.py",
+      "sha256": "eff67d728724923dc668eb4b0471c2e3b56e8514adcd5abb81bad082992f0e99"
+    },
+    {
+      "path": "scripts/qwen27_fresh_repeat_execution.py",
+      "sha256": "77642b57cfb603e4040ed240ebb173a4196ef82f79390e594fb67925a9e9d8aa"
+    },
+    {
+      "path": "scripts/qwen36_on_fresh_repeat_execution.py",
+      "sha256": "117eebf4e30c59155210c7374220f35370c81965ce6359565ba1315ef5d54e57"
+    },
+    {
+      "path": "scripts/qwen36_on_fresh_repeat_study.py",
+      "sha256": "204a622c1cf4c1d3f26a95b446735cb43b9eb3e2e0e733b9a2dae7d011745946"
+    },
+    {
+      "path": "scripts/qwen36_on_hosted_authority_v2.py",
+      "sha256": "9fe61813d28eb3c209af4c6bf975e01a89e1add223d8e114dafd41e4e2e9b413"
+    },
+    {
+      "path": "scripts/qwen36_on_p1_unsent_continuation_v1.py",
+      "sha256": "d2967af3d29ee78b3e1a204ed571cff6d069f80aef319ca6ae8a7d5ae9d48912"
+    },
+    {
+      "path": "scripts/qwen36_on_remaining_hosted_v1.py",
+      "sha256": "9f2829a5be307e32925f67c3a0c3f486a4fe0c5e90272084a7855f987e0eb0ca"
+    },
+    {
       "path": "scripts/small_local_e4b_on_interruption_continuation_v1.cjs",
       "sha256": "7378b19b89fcf093c3d1b0a9e33b7149f8a8233663796264c4cdaa1b59ba144d"
     },
     {
       "path": "scripts/small_local_repeat_admission.cjs",
       "sha256": "3076927fda41ca9922f2a56b401d55ffee2e67462d06af70c7cfecaf8c21a7e8"
+    },
+    {
+      "path": "tests/test_deepseek_high_fresh_repeat_study.py",
+      "sha256": "a41451a8b3501430ee917e4a0de22f0ef98cd0996b52851a30fcf345de0e65c5"
+    },
+    {
+      "path": "tests/test_deepseek_low_price_successor_v1.py",
+      "sha256": "18363d58e6d3ffb47e8c45a5824f184033a9fa80d5c2e71196da58f04e9dad71"
     }
   ]
 }

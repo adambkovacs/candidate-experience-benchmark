@@ -109,10 +109,10 @@ test('published hosted ON P1 composite is visible without clean repeat credit', 
   assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-049 remains an unknown timeout/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /no clean repeat credit/);
   assert.match(ui.get('repeat-chart').innerHTML, /56 out of 60/);
-  assert.match(ui.get('repeat-lead').textContent, /2 of 9/);
+  assert.match(ui.get('repeat-lead').textContent, new RegExp(`${published.series.find(s => s.configuration === on).completedConditions} of 9`));
 });
 
-test('published DeepSeek high P0 retains its billed invalid and excludes live P1', async () => {
+test('published DeepSeek high retains its billed invalid and includes only closed phases', async () => {
   const published = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'public-site',
     'additional-hosted-fresh-repeats.json'), 'utf8'));
   const ui = await render(published, 200, `${high}-fresh-matched3`);
@@ -120,8 +120,8 @@ test('published DeepSeek high P0 retains its billed invalid and excludes live P1
   assert.match(ui.get('repeat-chart').innerHTML, /57 out of 60/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-030 as an invalid/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /not repaired or replayed/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /P1 and later phases are not included/);
-  assert.match(ui.get('repeat-lead').textContent, /1 of 9/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /Later phases appear below only after/);
+  assert.match(ui.get('repeat-lead').textContent, new RegExp(`${published.series.find(s => s.configuration === high).completedConditions} of 9`));
 });
 
 test('open phases cannot expose stale scores, derived values, tokens, costs or durations', async () => {

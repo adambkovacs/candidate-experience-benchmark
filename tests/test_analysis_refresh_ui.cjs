@@ -257,3 +257,18 @@ test('unavailable or malformed analysis links the report instead of showing inve
   delete report.newerCohorts.clefNativeP0;
   assert.match(await render(report),/could not be loaded/);
 });
+
+// Closed hosted phases must remain visible as more phases are published.
+test('hosted findings compare Qwen prompts and retain different DeepSeek invalid reviews', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const view=await renderState(report);
+  assert.match(view.cutoffs,/Hosted Qwen3\.6 with thinking enabled/);
+  assert.match(view.cutoffs,/54\/60/);
+  assert.match(view.cutoffs,/56\/60/);
+  assert.match(view.cutoffs,/first classifier-instruction run was interrupted and is excluded/);
+  assert.match(view.cutoffs,/DeepSeek V4\.1 Flash, high effort/);
+  assert.match(view.cutoffs,/57\/60/);
+  assert.match(view.cutoffs,/DEV-030/);
+  assert.match(view.cutoffs,/DEV-006/);
+  assert.match(view.cutoffs,/Equal totals do not mean the same reviews had usable answers/);
+});
