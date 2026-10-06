@@ -96,6 +96,21 @@ class SolarRiskHoldTests(unittest.TestCase):
                 self.assertEqual(result['new_requests'], 0)
                 self.assertEqual(calls[0][1][0]['cap_usd'], str(risk.CAP))
                 self.assertEqual(calls[1][0], 'hold')
+                claim.unlink()
+                existing = {risk.PARTITION_ID: {'usd': str(risk.CAP),
+                    'source_sha256': risk.hold_source(),
+                    'funding_pool': 'openrouter_additional',
+                    'budget_manifest_path': str(budget),
+                    'budget_manifest_sha256': risk.sha(budget),
+                    'partition_id': risk.PARTITION_ID,
+                    'master_path': str(risk.MASTER)}}
+                with (mock.patch.object(risk.authority, 'read_authority',
+                                        return_value=SimpleNamespace(openrouter_available_usd=Decimal('0'))),
+                      mock.patch.object(risk.authority, '_scan',
+                                        return_value=(SimpleNamespace(head_sha256='later'), existing, set()))):
+                    recovered = risk.admit()
+                self.assertEqual(recovered['status'], 'active_risk_hold_no_inference')
+                self.assertEqual(len(calls), 2)
                 with self.assertRaises(FileExistsError):
                     risk.admit()
             self.assertEqual(risk.sha(original), before)

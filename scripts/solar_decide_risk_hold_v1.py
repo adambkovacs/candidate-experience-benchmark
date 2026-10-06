@@ -161,7 +161,11 @@ def admit():
             raise FileExistsError('Solar risk hold already admitted')
         old_sha = sha(OLD / 'budget-manifest-solar-decide-upstage-p0-smoke-v1.jsonl')
         state = authority.read_authority(AUTHORITY)
-        if state.openrouter_available_usd < CAP:
+        with authority.old._locked(AUTHORITY) as handle:
+            _, prior_holds, prior_released = authority._scan(handle.read())
+        if PARTITION_ID in prior_released:
+            raise ValueError('Risk hold was released before billing resolution')
+        if PARTITION_ID not in prior_holds and state.openrouter_available_usd < CAP:
             raise ValueError('Insufficient OpenRouter-only authority for risk hold')
         if not BUDGET.exists():
             partitions.allocate(MASTER, BUDGET, [{'id': PARTITION_ID, 'cap_usd': str(CAP),
@@ -178,7 +182,11 @@ def admit():
         else:
             hold = holds[PARTITION_ID]
             if (hold.get('usd') != str(CAP) or hold.get('source_sha256') != hold_source() or
-                    hold.get('funding_pool') != 'openrouter_additional'):
+                    hold.get('funding_pool') != 'openrouter_additional' or
+                    hold.get('budget_manifest_path') != str(BUDGET) or
+                    hold.get('budget_manifest_sha256') != sha(BUDGET) or
+                    hold.get('partition_id') != PARTITION_ID or
+                    hold.get('master_path') != str(MASTER)):
                 raise ValueError('Existing Solar risk hold differs')
         if sha(OLD / 'budget-manifest-solar-decide-upstage-p0-smoke-v1.jsonl') != old_sha:
             raise ValueError('Historical Solar child changed during admission')
