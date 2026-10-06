@@ -329,3 +329,14 @@ test('Tev findings distinguish stable repeats from matching reference answers', 
   assert.match(view.cutoffs,/0\.151342128/);
   assert.match(view.cutoffs,/not calibrated probabilities/);
 });
+
+test('findings groups keep all model results and source links available', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const {cutoffs}=await renderState(report);
+  const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/details>/g)];
+  assert.deepEqual(groups.map(g=>g[1]),['findings-decision','findings-hosted','findings-local']);
+  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[7,11,9]);
+  assert.match(groups[0][2],/tev-native-full-findings.json/);
+  assert.match(groups[1][2],/deepseek-high-remaining6-successor-findings.json/);
+  assert.match(groups[2][2],/legacy-qwen-repeats.json/);
+});
