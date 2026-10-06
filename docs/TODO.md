@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Qwen3.5 P2 smoke running, 6 October 2026, 08:49 UTC
+
+The P0 descriptive composite is closed at 47/60 all-four matches, 51 valid, eight invalid and one unknown; sources are archived in `772af561`, report changes in `58eb2682`. Remaining-phase successor `8d0dea4c` passed seven offline tests and independent review after an exact-model route check fix. Verdict APPROVE; RESIDUAL receipt provenance fields are documented. Fresh host, artifact, instance and all-60 prompt/token checks passed. Handle 67319 is running fresh1/P2 smoke under the shared GPU lock. Root must inspect its three raw responses before any full pass. Do not stage live phase files or replay the claimed stage. DeepSeek price successor preparation is delegated to `deepseek_price_fallback` after Sol capacity failure; no paid request or hold has been made. Pages job 37438211625 is still deploying the P0 composite at this checkpoint.
+
 ## Qwen3.5 P0 continuation closed, 6 October 2026, 08:39 UTC
 
 Handle 41371 exited 0 after all eight never-sent reviews were saved: seven valid and one invalid. DEV-057 exhausted 4,096 output tokens without final JSON; it is retained unchanged. Root reclassified saved outputs and checked hashes, ordered request IDs, reference isolation and unchanged host state. The [composite root review](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-p0-unsent-suffix-v1/composite.root-review.json) binds 28 source files. Combined P0 accounting is 59 saved: 51 valid, eight invalid, plus DEV-052 unknown and zero unsent. It remains descriptive and non-clean. No inference is running. The report agent owns composite projections; the successor agent owns offline admission for the remaining eight phases. Root owns review, generated feeds, publication and dispatch.
