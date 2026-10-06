@@ -1,6 +1,14 @@
 # Current work checklist
 
-## Current checkpoint, 6 October 2026, 20:00 UTC
+## Current checkpoint, 6 October 2026, 20:06 UTC
+
+- Tev's first and second P0/P1/P2 passes and third P0 are closed: 420 valid answers. First and second scores are 45/44/44; third P0 also scored 45/60. Third P1 smoke is next, then its full pass and third P2. Agent `gemini_recovery` owns execution and the later native report.
+- DeepSeek high final P0 remains running on original handle 98644. Agent `qwen_recovery` also owns an offline Mistral plan for eight unopened stages with separately inspected smokes; failed first P0 and its two never-sent smoke positions remain separate. No Mistral allocation or request has been made.
+- DeepSeek low third P1 remains running on original handle 49264. The prior interrupted second P1 now has an independently reviewed, receipt-bound public projection: all 57 usable answers matched all four references, but DEV-006/030 truncated and DEV-027 failed with unknown cost. The report correctly retains 57/60 rather than treating the usable-answer subset as the full result. Standalone report committed as `a93ff597`; root's shared analysis update passed clean-archive source verification (1,065 bindings), 21 Python tests plus four subtests, 13 UI tests and independent review.
+- Publication 37522399801 succeeded for `67e5356a`. Root fetched the live high report, combined analysis and analysis JavaScript and verified all three byte for byte against that deployed commit. The newer five-stage high findings in `a10568dc` still await publication verification.
+- Solar's next admission also needs a four-question reserve audit: the historical smoke used one-context pricing, while current native decision executors reserve four contexts conservatively. Preserve the original ledger and any unknown-cost bound; resolve any additional bound through a reviewed amendment before dispatch. This is queued after Tev, not permission to restart Solar's failed request. Remaining specialist routes, Cloudflare funding, full roster reconciliation and final public checks remain unfinished. No local inference was started.
+
+## Earlier checkpoint, 6 October 2026, 20:00 UTC
 
 - Tev now has five closed full passes: first P0/P1/P2 and second P0/P1, all 300 answers valid. First-pass scores are 45/44/44; second P0/P1 scores are 45/44. Agent `gemini_recovery` is preparing second P2 smoke and owns the remaining four full passes.
 - DeepSeek high third P2 closed with 60 valid answers and 58/60 full matches. Final third P0 is running on original handle 98644. Agent `qwen_recovery` owns execution and is preparing the next Mistral exact-unsent hosted proposal offline. Root's five-stage high report verifies the two closed third-pass phases, per-field counts and record-level comparisons. Both classifier-prompt passes scored 58/60 but differed on DEV-030; third-pass P1/P2 also scored 58/60 and differed on DEV-030. These are descriptive comparisons, not proof that prompting caused a change. Nine report tests, 12 UI tests and a clean Git archive rebuild with 1,051 source bindings pass; independent review approved.

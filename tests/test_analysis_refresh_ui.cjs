@@ -303,3 +303,15 @@ test('DeepSeek high later results retain provider and intrinsic failures', async
   assert.match(view.cutoffs,/1\/60 reviews changed a label \(DEV-030\)/);
   assert.match(view.cutoffs,/classifier instructions and decision rules differed on 1\/60 reviews/);
 });
+
+
+test('low P1 usable-answer agreement retains all three failed outcomes', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const view=await renderState(report);
+  assert.match(view.cutoffs,/All 57 usable answers matched all four reference labels, giving 57\/60/);
+  assert.match(view.cutoffs,/DEV-006 and DEV-030/);
+  assert.match(view.cutoffs,/DEV-027 failed at the provider/);
+  assert.match(view.cutoffs,/0\.030730605596/);
+  report.newerCohorts.deepseekLowP1Successor.cleanFullPhase=true;
+  assert.match(await render(report),/could not be loaded/);
+});

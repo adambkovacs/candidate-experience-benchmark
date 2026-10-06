@@ -33,6 +33,7 @@ GEMINI_AUTHORITY_PUBLIC = "public-site/gemini-repeats.json"
 HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
 HIGH_SUCCESSOR_PUBLIC = "public-site/deepseek-high-remaining6-successor-findings.json"
 LIQUID_PUBLIC = "public-site/liquid-d1-native-full-findings.json"
+LOW_P1_SUCCESSOR_PUBLIC = "public-site/deepseek-low-p1-successor-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
 SOURCES = (
     "public-site/e4b-interruption-findings.json",
@@ -67,6 +68,7 @@ SOURCES = (
     GEMINI_AUTHORITY_PUBLIC,
     HOSTED_FRESH_PUBLIC,
     LOW_REVISED_PUBLIC,
+    LOW_P1_SUCCESSOR_PUBLIC,
     LIQUID_PUBLIC,
     HIGH_SUCCESSOR_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
@@ -1019,6 +1021,11 @@ def build(root=ROOT):
     gemini_authority = gemini_authority_summary(
         root, data[GEMINI_AUTHORITY_PUBLIC], bindings)
     hosted_fresh = hosted_fresh_summary(root, data[HOSTED_FRESH_PUBLIC], bindings)
+    import build_deepseek_low_p1_successor_findings as low_p1_builder
+    low_p1 = data[LOW_P1_SUCCESSOR_PUBLIC]
+    if low_p1 != low_p1_builder.build(root):
+        raise ValueError('DeepSeek low P1 continuation differs from bound evidence')
+    bind_report_sources(root, low_p1, bindings, 'DeepSeek low P1 continuation')
     import build_deepseek_low_remaining6_price_v2_findings as low_revised_builder
     low_revised = data[LOW_REVISED_PUBLIC]
     if low_revised != low_revised_builder.build(root):
@@ -1566,6 +1573,7 @@ def build(root=ROOT):
             "jevNativePrompts": jev_native_prompts,
             "geminiAuthority": gemini_authority,
             "hostedFresh": hosted_fresh,
+            "deepseekLowP1Successor": {"source": LOW_P1_SUCCESSOR_PUBLIC, **low_p1},
             "deepseekLowRevisedPrice": {"source": LOW_REVISED_PUBLIC,
                                         **low_revised['series'][0]},
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
