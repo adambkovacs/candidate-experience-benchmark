@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Qwen3.5 full P2 running, 6 October 2026, 08:53 UTC
+
+Smoke handle 67319 completed with three valid outputs; root inspected each final JSON, verified raw classification and unchanged host, then recorded the smoke inspection. Fresh all-60 P2 preflight passed under the same model instance. Full development handle 13132 is running; no complete P2 score exists yet. Root owns monitoring and closure. Pages job 37438211625 succeeded for `58eb2682`; live HTML, repeat JavaScript, analysis JavaScript and both report JSON files match committed bytes. DeepSeek fourth-price successor remains offline preparation. No paid request or budget mutation occurred.
+
 ## Qwen3.5 P2 smoke running, 6 October 2026, 08:49 UTC
 
 The P0 descriptive composite is closed at 47/60 all-four matches, 51 valid, eight invalid and one unknown; sources are archived in `772af561`, report changes in `58eb2682`. Remaining-phase successor `8d0dea4c` passed seven offline tests and independent review after an exact-model route check fix. Verdict APPROVE; RESIDUAL receipt provenance fields are documented. Fresh host, artifact, instance and all-60 prompt/token checks passed. Handle 67319 is running fresh1/P2 smoke under the shared GPU lock. Root must inspect its three raw responses before any full pass. Do not stage live phase files or replay the claimed stage. DeepSeek price successor preparation is delegated to `deepseek_price_fallback` after Sol capacity failure; no paid request or hold has been made. Pages job 37438211625 is still deploying the P0 composite at this checkpoint.
