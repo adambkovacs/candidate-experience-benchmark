@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Interrupted execution, 06 October 2026, 12:17 UTC
+
+- Both live handles are terminal. Qwen fresh2/P1 smoke saved two valid answers; DEV-003 timed out after a recorded host sleep. Host audit failed as expected; no full pass is admitted and no unknown request was replayed. qwen35_successor_report owns offline reporting of the terminal evidence.
+- Jev P2 continuation attempted all 42 previously unsent reviews. It saved 40 valid responses, one invalid response on DEV-040, then DEV-060 timed out. Root verified all request/raw hashes, retained the full $0.001344 unknown-charge bound, and reconciled the child. Known continuation cost is $0.004681740. Combined with the parent: 57 valid, one invalid and two unknown positions across 60; no never-sent reviews remain. This is an interrupted composite, not a clean repeat. jev_authority_v2_bridge owns report integration.
+- No inference is running. authority_reconciliation_v2 is preparing the next known-cost P1 fresh1 reserve release; the invalid-output P1 fresh2 release is unsupported by the frozen v2 verifier and remains encumbered. Future paid admission remains root-owned.
+
+
 ## Publication and admission checks, 06 October 2026, 11:47 UTC
 
 - Qwen publication is verified: Pages 37457799533 succeeded for `d54ab26a`. Live legacy-Qwen and combined-analysis feeds match that commit exactly and report 2/9 closed Qwen3.5 phases.
