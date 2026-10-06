@@ -26,6 +26,7 @@ CLEF_FLASH_P2_PUBLIC = "public-site/clef-flash-p2-findings.json"
 CLEF_FLASH_P0_PARENT = "results/clef-native-v1/clef-flash/fresh3/P0/development"
 CLEF_FLASH_P0_SUFFIX = "results/clef-native-v1/clef-flash/fresh3/P0/development-suffix-v1"
 MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
+KEV_NATIVE_PROMPT_PUBLIC = "public-site/kev-native-prompt-findings.json"
 SOURCES = (
     "public-site/sonnet55-fresh-matched3.json",
     "public-site/sonnet55-fresh-matched3-evidence/report.json",
@@ -52,6 +53,7 @@ SOURCES = (
     CLEF_FLASH_P1,
     CLEF_FLASH_P2,
     MISTRAL_P0_PUBLIC,
+    KEV_NATIVE_PROMPT_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -68,6 +70,151 @@ def read(root, name, bindings):
     path = root / name
     bindings[name] = sha(path)
     return json.loads(path.read_text())
+
+
+def bind_report_sources(root, report, bindings, label):
+    """Verify and retain every source named by a source-bound public report."""
+    items = report.get("sourceBindings") or []
+    if not items:
+        raise ValueError(f"{label} has no source bindings")
+    seen = {}
+    for item in items:
+        path = item.get("path") if isinstance(item, dict) else None
+        digest = item.get("sha256") if isinstance(item, dict) else None
+        if (not isinstance(path, str) or not path or path.startswith("/") or
+                ".." in Path(path).parts or not isinstance(digest, str) or
+                len(digest) != 64):
+            raise ValueError(f"{label} source binding is malformed")
+        if path in seen and seen[path] != digest:
+            raise ValueError(f"{label} repeats a source with conflicting hashes: {path}")
+        if sha(root / path) != digest:
+            raise ValueError(f"{label} source hash differs: {path}")
+        seen[path] = digest
+        bindings[path] = digest
+    return seen
+
+
+def kev_native_prompt_summary(root, report, bindings):
+    """Validate the closed native P1/P2 study and return its compact projection."""
+    expected_ids = ["DEV-001", "DEV-005", "DEV-022", "DEV-030",
+                    "DEV-035", "DEV-041", "DEV-059"]
+    expected = {
+        "P1": {"allFour": 49, "fields": {"sentiment": 53,
+            "follow_up_needed": 58, "serious_concern_reported": 55,
+            "testimonial_potential": 58}},
+        "P2": {"allFour": 46, "fields": {"sentiment": 54,
+            "follow_up_needed": 53, "serious_concern_reported": 55,
+            "testimonial_potential": 59}},
+    }
+    if (report.get("schema") != "kev-native-prompt-findings-v1" or
+            report.get("denominator") != 60 or
+            report.get("conditionOrder") != ["P1", "P2"] or
+            report.get("excludedPasses") != [] or
+            set(report.get("conditions", {})) != {"P1", "P2"} or
+            report.get("nativePromptEquivalence", {}).get("verified") is not True or
+            report["nativePromptEquivalence"].get("denominator") != 60):
+        raise ValueError("Kev native prompt report identity or coverage differs")
+    source_map = bind_report_sources(root, report, bindings, "Kev native prompt report")
+    reference = report.get("referenceBinding") or {}
+    if source_map.get(reference.get("path")) != reference.get("sha256"):
+        raise ValueError("Kev native prompt reference binding differs")
+
+    projected_conditions = {}
+    for condition in ("P1", "P2"):
+        item = report["conditions"][condition]
+        if (item.get("completedPasses") != 3 or item.get("plannedPasses") != 3 or
+                item.get("passOrder") != ["fresh1", "fresh2", "fresh3"] or
+                set(item.get("passes", {})) != {"fresh1", "fresh2", "fresh3"} or
+                len(item.get("repeatComparisons", [])) != 3 or
+                item.get("repeatVariation", {}).get("allFourRange") !=
+                    [expected[condition]["allFour"]] * 2):
+            raise ValueError(f"Kev {condition} repeat coverage differs")
+        scores = []
+        fields = {field: [] for field in FIELDS}
+        usage = {"inputTokens": 0, "outputTokens": 0,
+                 "actualProviderCostUsd": Decimal(0), "clientRequestSeconds": 0.0}
+        for name in ("fresh1", "fresh2", "fresh3"):
+            phase = item["passes"][name]
+            score = phase.get("score") or {}
+            if (phase.get("completionStatus") != "complete" or
+                    score.get("denominator") != 60 or score.get("valid") != 60 or
+                    score.get("allFour") != expected[condition]["allFour"] or
+                    score.get("fields") != expected[condition]["fields"] or
+                    score.get("outcomes", {}).get("valid") != 60 or
+                    any(value for key, value in score.get("outcomes", {}).items()
+                        if key != "valid") or score.get("invalidIds") != []):
+                raise ValueError(f"Kev {condition} {name} score or outcomes differ")
+            for source in phase.get("sourceBindings") or []:
+                if source_map.get(source.get("path")) != source.get("sha256"):
+                    raise ValueError(f"Kev {condition} {name} source subset differs")
+            scores.append(score["allFour"])
+            for field in FIELDS:
+                fields[field].append(score["fields"][field])
+            phase_usage = phase.get("usage") or {}
+            try:
+                cost = Decimal(str(phase_usage["actualProviderCostUsd"]))
+                client_seconds = phase_usage["clientRequestSeconds"]["total"]
+            except (KeyError, TypeError, ValueError):
+                raise ValueError(f"Kev {condition} {name} usage differs") from None
+            if (not cost.is_finite() or cost < 0 or
+                    type(client_seconds) not in (int, float) or
+                    not math.isfinite(client_seconds) or client_seconds < 0 or
+                    phase_usage["clientRequestSeconds"].get("kind") !=
+                        "client_observed_request"):
+                raise ValueError(f"Kev {condition} {name} usage differs")
+            usage["inputTokens"] += phase_usage["inputTokens"]
+            usage["outputTokens"] += phase_usage["outputTokens"]
+            usage["actualProviderCostUsd"] += cost
+            usage["clientRequestSeconds"] += client_seconds
+        for comparison in item["repeatComparisons"]:
+            if (comparison.get("denominator") != 60 or
+                    comparison.get("fourFieldVectorChanges") != 0 or
+                    comparison.get("fourFieldVectorChangedIds") != [] or
+                    comparison.get("nativeProbabilityDictionaryChanges") != 0 or
+                    comparison.get("vendorConfidenceChanges") != 0):
+                raise ValueError(f"Kev {condition} repeat stability differs")
+        projected_conditions[condition] = {
+            "completedPasses": 3, "scores": scores, "fields": fields,
+            "changedFourFieldVectorIdsAcrossRepeats": [],
+            "usage": {"inputTokens": usage["inputTokens"],
+                "outputTokens": usage["outputTokens"],
+                "actualProviderCostUsd": str(usage["actualProviderCostUsd"]),
+                "clientRequestSeconds": usage["clientRequestSeconds"],
+                "timingKind": "client-observed request time; not pure inference time"},
+        }
+
+    paired = report.get("pairedP1P2") or []
+    expected_delta = {"allFour": -3, "fields": {"sentiment": 1,
+        "follow_up_needed": -5, "serious_concern_reported": 0,
+        "testimonial_potential": 1}}
+    if (len(paired) != 3 or [row.get("stage") for row in paired] !=
+            ["fresh1", "fresh2", "fresh3"] or
+            any(row.get("denominator") != 60 or row.get("fourFieldVectorChanges") != 7 or
+                row.get("fourFieldVectorChangedIds") != expected_ids or
+                row.get("scoreDeltaP2MinusP1") != expected_delta
+                for row in paired)):
+        raise ValueError("Kev matched P1/P2 comparison differs")
+    historical = report.get("historicalP0") or {}
+    clean = historical.get("cleanComparisons") or {}
+    if (historical.get("controlsVerified") is not True or
+            historical.get("interruptedThirdExcluded") is not True or
+            set(clean) != {"fresh1", "fresh2"} or
+            any(clean[name].get("score") != {"denominator": 60, "valid": 60,
+                "allFour": 48, "fields": {"sentiment": 52,
+                    "follow_up_needed": 58, "serious_concern_reported": 55,
+                    "testimonial_potential": 59}} for name in clean)):
+        raise ValueError("Kev historical P0 boundary differs")
+    for name, phase in clean.items():
+        bind_report_sources(root, phase, bindings, f"Kev historical P0 {name}")
+    return {"source": KEV_NATIVE_PROMPT_PUBLIC,
+        "findings": "docs/KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md",
+        "nativePromptEquivalence": report["nativePromptEquivalence"],
+        "conditions": projected_conditions,
+        "matchedP1P2": {"passes": 3, "changedFourFieldVectorIds": expected_ids,
+            "changedReviewsPerPass": 7, "scoreDeltaP2MinusP1": expected_delta},
+        "historicalP0": {"scope": "separate descriptive baseline",
+            "cleanPasses": ["fresh1", "fresh2"], "scores": [48, 48],
+            "interruptedThirdExcluded": True}}
 
 
 def score_values(series, condition):
@@ -447,6 +594,8 @@ def build(root=ROOT):
         raise ValueError("Expected 60 frozen v0.2 references")
 
     clef_p1 = clef_p1_first_pass(root, labels, bindings)
+    kev_native_prompts = kev_native_prompt_summary(
+        root, data[KEV_NATIVE_PROMPT_PUBLIC], bindings)
 
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
@@ -960,6 +1109,7 @@ def build(root=ROOT):
                    "comparability": "Within each saved series only. Historical first passes and later repeats can use different CLI versions; fresh Sonnet 5.5 v2 is a separate route and model. Do not pool reviews or score differences across series."},
         "newerCohorts": {
             "clefP1FirstPass": clef_p1,
+            "kevNativePrompts": kev_native_prompts,
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},

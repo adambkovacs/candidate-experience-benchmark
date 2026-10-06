@@ -157,11 +157,40 @@ class AnalysisRefreshTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "partial source or counts differ"):
             analysis.qwen35_repeat_summary(overlap)
 
+    def test_kev_projection_rejects_missing_pass_and_unbound_phase_source(self):
+        report = json.loads((ROOT / analysis.KEV_NATIVE_PROMPT_PUBLIC).read_text())
+        missing = copy.deepcopy(report)
+        missing["conditions"]["P2"]["passes"].pop("fresh3")
+        with self.assertRaisesRegex(ValueError, "Kev P2 repeat coverage differs"):
+            analysis.kev_native_prompt_summary(ROOT, missing, {})
+
+        unbound = copy.deepcopy(report)
+        phase_source = unbound["conditions"]["P1"]["passes"]["fresh1"]["sourceBindings"][0]
+        unbound["sourceBindings"] = [item for item in unbound["sourceBindings"]
+                                     if item["path"] != phase_source["path"]]
+        with self.assertRaisesRegex(ValueError, "Kev P1 fresh1 source subset differs"):
+            analysis.kev_native_prompt_summary(ROOT, unbound, {})
+
+    def test_nested_report_source_binding_rejects_byte_drift(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root / "evidence/attempts.jsonl"
+            source.parent.mkdir(parents=True)
+            source.write_text('{"id":"DEV-001"}\n')
+            report = {"sourceBindings": [{"path": "evidence/attempts.jsonl",
+                                           "sha256": analysis.sha(source)}]}
+            bindings = {}
+            analysis.bind_report_sources(root, report, bindings, "fixture")
+            self.assertEqual(bindings["evidence/attempts.jsonl"], analysis.sha(source))
+            source.write_text(source.read_text() + " ")
+            with self.assertRaisesRegex(ValueError, "fixture source hash differs"):
+                analysis.bind_report_sources(root, report, {}, "fixture")
+
     def test_published_feed_rebuilds_from_bound_sources(self):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 130)
+        self.assertEqual(len(rebuilt["sources"]), 193)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")
@@ -181,6 +210,30 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertIn(analysis.MISTRAL_SECOND_SUFFIX,
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
+        kev = cohorts["kevNativePrompts"]
+        self.assertEqual(kev["source"], analysis.KEV_NATIVE_PROMPT_PUBLIC)
+        self.assertTrue(kev["nativePromptEquivalence"]["verified"])
+        self.assertEqual(kev["conditions"]["P1"]["scores"], [49, 49, 49])
+        self.assertEqual(kev["conditions"]["P2"]["scores"], [46, 46, 46])
+        self.assertEqual(kev["conditions"]["P1"]["fields"]["follow_up_needed"],
+                         [58, 58, 58])
+        self.assertEqual(kev["conditions"]["P2"]["fields"]["follow_up_needed"],
+                         [53, 53, 53])
+        self.assertEqual(kev["conditions"]["P1"]["changedFourFieldVectorIdsAcrossRepeats"], [])
+        self.assertEqual(kev["conditions"]["P2"]["changedFourFieldVectorIdsAcrossRepeats"], [])
+        self.assertEqual(kev["matchedP1P2"]["changedFourFieldVectorIds"],
+                         ["DEV-001", "DEV-005", "DEV-022", "DEV-030",
+                          "DEV-035", "DEV-041", "DEV-059"])
+        self.assertEqual(kev["matchedP1P2"]["scoreDeltaP2MinusP1"], {
+            "allFour": -3, "fields": {"sentiment": 1, "follow_up_needed": -5,
+                "serious_concern_reported": 0, "testimonial_potential": 1}})
+        self.assertEqual(kev["historicalP0"], {
+            "scope": "separate descriptive baseline", "cleanPasses": ["fresh1", "fresh2"],
+            "scores": [48, 48], "interruptedThirdExcluded": True})
+        self.assertEqual(kev["conditions"]["P1"]["usage"]["actualProviderCostUsd"],
+                         "0.015622236")
+        self.assertEqual(kev["conditions"]["P2"]["usage"]["actualProviderCostUsd"],
+                         "0.016914996")
         latest = cohorts["latestFlashP0Interruption"]
         self.assertEqual(latest["unknownOutcomeIds"], ["DEV-001", "DEV-002"])
         self.assertEqual(latest["neverSentIds"], [f"DEV-{i:03d}" for i in range(3, 61)])
@@ -379,7 +432,7 @@ class AnalysisRefreshTest(unittest.TestCase):
                          [32, 30, 30])
 
     def test_check_rejects_changed_source_even_if_json_values_same(self):
-        published = json.loads((ROOT / analysis.OUTPUT).read_text())
+        published = analysis.build(ROOT)
         with tempfile.TemporaryDirectory() as folder:
             temp = Path(folder)
             for item in published["sources"]:
@@ -399,7 +452,8 @@ class AnalysisRefreshTest(unittest.TestCase):
                 shutil.copyfile(ROOT / name, target)
             output = temp / analysis.OUTPUT
             output.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(ROOT / analysis.OUTPUT, output)
+            output.write_text(json.dumps(published, indent=2, sort_keys=True,
+                                         ensure_ascii=False) + "\n")
             check = subprocess.run([sys.executable, str(ROOT / "scripts/build_analysis_refresh.py"),
                                     "--root", str(temp), "--check"], capture_output=True, text=True)
             self.assertEqual(check.returncode, 0, check.stderr)
@@ -421,6 +475,13 @@ class AnalysisRefreshTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Qwen prompt-pair record hash differs"):
                 analysis.build(temp)
             qwen_records.write_text(original_qwen)
+            kev_attempts = temp / ("results/route-audits/native-variants-full-v1-20261006/"
+                                   "kev-openrouter-native-p1-choice-v1/fresh1/attempts.jsonl")
+            original_kev = kev_attempts.read_text()
+            kev_attempts.write_text(original_kev + " ")
+            with self.assertRaisesRegex(ValueError, "Kev native prompt report source hash differs"):
+                analysis.build(temp)
+            kev_attempts.write_text(original_kev)
             path = temp / "public-site/findings.json"
             path.write_text(path.read_text() + " ")
             stale = subprocess.run([sys.executable, str(ROOT / "scripts/build_analysis_refresh.py"),

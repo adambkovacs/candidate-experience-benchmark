@@ -55,6 +55,9 @@ jobs:
           python3 -m unittest tests.test_build_sonnet55_matched3_findings -q
           node --test tests/test_public_repeat_ui.cjs tests/test_small_local_repeat_ui.cjs tests/test_anyjev_raw_repeat_ui.cjs tests/test_anyjev_l0_repeat_ui.cjs tests/test_anyjev_l1_repeat_ui.cjs tests/test_anyjev_l2_repeat_ui.cjs tests/test_anyjev_generated_repeat_ui.cjs tests/test_openjev_native_repeat_ui.cjs tests/test_openjev_generated_repeat_ui.cjs tests/test_semif_generated_repeat_ui.cjs tests/test_alex_native_repeat_ui.cjs tests/test_codex_fresh_repeat_ui.cjs tests/test_deepseek_fresh_repeat_ui.cjs tests/test_additional_hosted_fresh_repeat_ui.cjs tests/test_qwen36_continuation_ui.cjs tests/test_deepseek_low_interruption_ui.cjs tests/test_latest_continuation_cutoffs_ui.cjs tests/test_qwen27_second_continuation_ui.cjs tests/test_qwen27_final_descriptive_ui.cjs
           node --test tests/test_kev_repeat_ui.cjs
+          node --test tests/test_kev_prompt_ui.cjs
+          python3 scripts/build_kev_native_prompt_findings.py --check
+          python3 -m unittest tests.test_build_kev_native_prompt_findings -q
           python3 scripts/build_kev_native_findings.py --check
           python3 -m unittest tests.test_build_kev_native_findings -q
           python3 scripts/build_repeat_findings.py --check

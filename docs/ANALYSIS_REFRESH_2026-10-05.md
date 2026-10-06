@@ -4,12 +4,20 @@
 
 Qwen3.5 4B thinking-on completed its first P2 pass: **50/60 all-four matches**, with 51 valid responses and nine invalid outputs. DEV-030 was the only valid response that differed from the frozen reference. Its interrupted P0 result remains descriptive, so this is not a clean paired prompt comparison or a completed repeatability study. The run used 303,294 tokens; pure inference time and local cost are unavailable. [P2 findings](QWEN35_P2_FIRST_PASS_2026-10-06.md).
 
+## Kev native prompt study, 6 October 2026
+
+Kev completed three full 60-review native Choice passes for each added-instruction condition. P1 scored **49/60** all-four matches in every pass; P2 scored **46/60** in every pass. No parsed choice, native probability dictionary or vendor confidence value changed within either condition across the three passes.
+
+P1 and P2 used the same feedback, policies, criteria, labels, label order, route and parser. Only each field's native Choice instruction changed. In every matched pass, seven reviews changed at least one choice: DEV-001, DEV-005, DEV-022, DEV-030, DEV-035, DEV-041 and DEV-059. P2 gained one sentiment match and one testimonial match, retained the same serious-concern score, and lost five follow-up matches. Its all-four score was three lower. The repeated result documents this exact native prompt contrast; it is not a claim about generative chat prompts or other reviews.
+
+The three P1 passes used 371,958 input and 52,017 output tokens and cost $0.015622236 in observed provider charges. P2 used 402,738 input and 52,095 output tokens and cost $0.016914996. Recorded request totals were 153.73 and 162.01 seconds respectively; these are client-observed durations, not pure inference time. The earlier clean P0 passes scored 48/60 twice and remain a separate descriptive baseline. The interrupted third P0 attempt is excluded from clean comparisons. See the [source-bound Kev findings](KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md) and [public feed](../public-site/kev-native-prompt-findings.json).
+
 
 ## Addendum, 6 October: interrupted Qwen3.5 pass
 
 The first new P0 pass and its completed eight-review continuation have 51 valid answers, eight invalid answers and one unknown outcome. The descriptive all-four score is 47/60, or 47/51 among valid answers. The unknown and invalid positions stay in the fixed denominator; this result supplies no clean-repeat estimate or paired prompt effect. Earlier completed comparisons remain unchanged. The [interruption report](QWEN35_P0_INTERRUPTION_2026-10-06.md) binds the saved evidence; the combined report exposes this partial coverage separately. Hibernation during the unknown request makes its client timeout unsuitable as inference latency.
 
-The combined [analysis feed](../public-site/analysis-refresh.json) now includes four source-bound checkpoints: three Clef Flash P1 passes, three P2 passes, an interrupted Mistral 119B fresh1 P0 run and Clef's first P1 pass. It binds the public projection and its reviewed source files by SHA-256. Earlier cohort cutoffs remain separate.
+The combined [analysis feed](../public-site/analysis-refresh.json) includes the Kev P1/P2 study alongside the four earlier source-bound checkpoints: three Clef Flash P1 passes, three P2 passes, an interrupted Mistral 119B fresh1 P0 run and Clef's first P1 pass. It binds each public projection and its reviewed source files by SHA-256. Earlier cohort cutoffs remain separate.
 
 ## Clef Flash P1
 
@@ -29,7 +37,7 @@ The later P1 smoke stopped at DEV-001 with an upstream shared-pool HTTP 429 and 
 
 These additions update the combined analysis and public explorer. They do not close the full Clef or Mistral repeat matrices. Clef P0's three-pass checkpoint and Clef Flash's interrupted third P0 pass remain as previously reported. Clef Flash P2 has three closed passes; Clef P1 has one closed pass and Clef P2 remains unexecuted. The project still requires the full roster, condition-specific repeats where eligible, and publication of later source-bound evidence.
 
-The analysis feed retains prior sources and historical cohorts. Its `sources` list records 115 SHA-256 bindings at this cutoff. Rebuild and verify it offline with:
+The analysis feed retains prior sources and historical cohorts. Its current `sources` list records 193 SHA-256 bindings, including the Kev report and its underlying closed evidence. Rebuild and verify it offline with:
 
 ```sh
 python3 scripts/build_analysis_refresh.py

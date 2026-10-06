@@ -3732,6 +3732,134 @@
         "tokenCategoryCaveat": "Provider-reported reasoning tokens exceed completion tokens here; the categories conflict and must not be added or treated as a reliable subset."
       }
     },
+    "kevNativePrompts": {
+      "conditions": {
+        "P1": {
+          "changedFourFieldVectorIdsAcrossRepeats": [],
+          "completedPasses": 3,
+          "fields": {
+            "follow_up_needed": [
+              58,
+              58,
+              58
+            ],
+            "sentiment": [
+              53,
+              53,
+              53
+            ],
+            "serious_concern_reported": [
+              55,
+              55,
+              55
+            ],
+            "testimonial_potential": [
+              58,
+              58,
+              58
+            ]
+          },
+          "scores": [
+            49,
+            49,
+            49
+          ],
+          "usage": {
+            "actualProviderCostUsd": "0.015622236",
+            "clientRequestSeconds": 153.73143062100002,
+            "inputTokens": 371958,
+            "outputTokens": 52017,
+            "timingKind": "client-observed request time; not pure inference time"
+          }
+        },
+        "P2": {
+          "changedFourFieldVectorIdsAcrossRepeats": [],
+          "completedPasses": 3,
+          "fields": {
+            "follow_up_needed": [
+              53,
+              53,
+              53
+            ],
+            "sentiment": [
+              54,
+              54,
+              54
+            ],
+            "serious_concern_reported": [
+              55,
+              55,
+              55
+            ],
+            "testimonial_potential": [
+              59,
+              59,
+              59
+            ]
+          },
+          "scores": [
+            46,
+            46,
+            46
+          ],
+          "usage": {
+            "actualProviderCostUsd": "0.016914996",
+            "clientRequestSeconds": 162.011818126,
+            "inputTokens": 402738,
+            "outputTokens": 52095,
+            "timingKind": "client-observed request time; not pure inference time"
+          }
+        }
+      },
+      "findings": "docs/KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md",
+      "historicalP0": {
+        "cleanPasses": [
+          "fresh1",
+          "fresh2"
+        ],
+        "interruptedThirdExcluded": true,
+        "scope": "separate descriptive baseline",
+        "scores": [
+          48,
+          48
+        ]
+      },
+      "matchedP1P2": {
+        "changedFourFieldVectorIds": [
+          "DEV-001",
+          "DEV-005",
+          "DEV-022",
+          "DEV-030",
+          "DEV-035",
+          "DEV-041",
+          "DEV-059"
+        ],
+        "changedReviewsPerPass": 7,
+        "passes": 3,
+        "scoreDeltaP2MinusP1": {
+          "allFour": -3,
+          "fields": {
+            "follow_up_needed": -5,
+            "sentiment": 1,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 1
+          }
+        }
+      },
+      "nativePromptEquivalence": {
+        "denominator": 60,
+        "instructionDifferencesByField": {
+          "follow_up_needed": 60,
+          "sentiment": 60,
+          "serious_concern_reported": 60,
+          "testimonial_potential": 60
+        },
+        "meaning": "P1 and P2 share feedback, policy, criteria, labels, label order, route, and parser. Only each native Choice question instruction differs.",
+        "verified": true,
+        "wireEquivalence": "Native Choice analogues of the prompt conditions; not byte-identical chat prompts."
+      },
+      "source": "public-site/kev-native-prompt-findings.json"
+    },
     "latestFlashP0Interruption": {
       "neverSentCount": 58,
       "neverSentIds": [
@@ -8282,6 +8410,10 @@
       "sha256": "6b49805ec97c55401b85eec2bd5ede5d18b8fe60ad63f7f7daa4fe4a922313f2"
     },
     {
+      "path": "public-site/kev-native-prompt-findings.json",
+      "sha256": "0b860a96067bdd729c35bd131dd10a4495f7526ad7a01ee979077af36be52683"
+    },
+    {
       "path": "public-site/legacy-qwen-repeats.json",
       "sha256": "3a80bebb076d6b96015a5addb673934d37deffa183100fefea77bccc94ae0f1c"
     },
@@ -8712,6 +8844,254 @@
     {
       "path": "results/repeatability-v1/mistral119-fresh-matched3-v1/v3-second-suffix-none-v1/fresh1/P0/suffix.terminal-public.json",
       "sha256": "07e7a2ae939612f25f3c74a42c54cf96c9ef22c76fa27484f76bd8007b54c892"
+    },
+    {
+      "path": "results/route-audits/decision-kev-development-20260930/attempts.jsonl",
+      "sha256": "ea3d47582f4f9458b917dfb362d1c9aa0b01703b0f18d6108e9d7ac82fe1c895"
+    },
+    {
+      "path": "results/route-audits/decision-kev-development-20260930/completion.json",
+      "sha256": "b63b014a8945b370f5edfd1f9fb14b2332c07e3e34f72671edbe04e8f2380341"
+    },
+    {
+      "path": "results/route-audits/decision-kev-development-20260930/manifest.json",
+      "sha256": "bbbbc536ffb4d05fa176cea280ab87357a4846a9605d97237ee018935a6a3d58"
+    },
+    {
+      "path": "results/route-audits/decision-kev-development-20260930/root-review.json",
+      "sha256": "44f463f58407097b3a3d103d2949a3d1744424f2870555db421965b42e8b12b8"
+    },
+    {
+      "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/attempts.jsonl",
+      "sha256": "92b0bf8e3473ada8d4aa0f0dc6b3874c01fa27de46cc1b1f8111f104e10ca997"
+    },
+    {
+      "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/completion.json",
+      "sha256": "0f4ae3a5bda61385caeda6192427df53004c40c143275ca17d910a9c2ecd763c"
+    },
+    {
+      "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/manifest.json",
+      "sha256": "0c77a66813969aada4d469011b9e6f164976ac795bce3be98e2e2e0fe9b8cac0"
+    },
+    {
+      "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/root-review.json",
+      "sha256": "704b19acee3848da629d7a44bff81cc34732764df68c8b95368c97ac3dd65b64"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1.json",
+      "sha256": "8db51fcf9f3cd3f9f589fc3314e9a5e3bbf5e84f49b12b8c04cb71b125744c1f"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.budget-kev-openrouter-native-p1-choice-v1-fresh1-full-v1.jsonl",
+      "sha256": "2109a44145dd57d8b66c269b3e9b67b58e8bc9c0f590a0d341c6face4d9f6e25"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.budget.json",
+      "sha256": "6f8984aa8d7756abe42cda6b14dabb3085af24178ab37895fc5469c90201d40e"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.root-review.json",
+      "sha256": "b388516f8a748b1b36049e062e56a3d7d812b0f86ed799b812582aec926e3d5d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/attempts.jsonl",
+      "sha256": "31bed1622e0750501578027241681b725a853bb50cf9429dda04213044716093"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/budget-reconciliation.json",
+      "sha256": "cae8101d3e3c6803c632fbd26d76ab139e8cf7c2aeead29237284606943e82b6"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/completion.json",
+      "sha256": "a5e48b68f6c9a2858319601fb133ca07a77ef2db18dbbeb68e9ec5084cc5fb1d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/endpoint-catalog.json",
+      "sha256": "fa18bbf179ee5c7c4af088b2f309e38af05b3a41f02fa4dc289b66e9f7454d8e"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/review-receipt.json",
+      "sha256": "b388516f8a748b1b36049e062e56a3d7d812b0f86ed799b812582aec926e3d5d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.budget-kev-openrouter-native-p1-choice-v1-fresh2-full-v1.jsonl",
+      "sha256": "9fce4c7b63670ca1414f30a29399e52d8a23c5a3108fc7b8d04babe6e9a9c2f4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.budget.json",
+      "sha256": "47524b815f11bbd22efb13aeb3973d68f26996f1be3637d2e511a75131d0e878"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.root-review.json",
+      "sha256": "9bc2f5840a77ed0768ed87d115f603d5b63a5b6b2dd85b6ccb3efef442891e02"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/attempts.jsonl",
+      "sha256": "fb03a4b50b36eeb29dad827f459c626b681036e77d4141973a7a3cd1a1660bbd"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/budget-reconciliation.json",
+      "sha256": "dc56a1e34569953e81b3d6024d1db7cf1a4a5a8c3f3071c1523b5816889ab5e0"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/completion.json",
+      "sha256": "deb500d8571db75eb82a8be80d86363e7c4caea11fb1a7002c2fa612765b916b"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/review-receipt.json",
+      "sha256": "9bc2f5840a77ed0768ed87d115f603d5b63a5b6b2dd85b6ccb3efef442891e02"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.budget-kev-openrouter-native-p1-choice-v1-fresh3-full-v1.jsonl",
+      "sha256": "973efc2063be2a3ae4e040f8a28da24dc4a056dffd869538beb905b180484ce2"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.budget.json",
+      "sha256": "4c4f7db5b08109742b0373539969f7e25661d8a788c48dd3c88e2e3f40a9612a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.root-review.json",
+      "sha256": "242f386148a2109e933faa0f6380286bf2da421db562d4239eb8570559c2b62a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/attempts.jsonl",
+      "sha256": "cdbbe80364725c019ce0072d9ec8dbb02f0d53caabd948f75432cb7b677c3ee3"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/budget-reconciliation.json",
+      "sha256": "b5cdfbfae6ba5037ba800927792e2ff25a285b4a62e57a17ac76fe0dd6e81451"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/completion.json",
+      "sha256": "331377d3aa8849f454317a44b9b36dbc07f359c15af08655d1c71ce2425d9d94"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/review-receipt.json",
+      "sha256": "242f386148a2109e933faa0f6380286bf2da421db562d4239eb8570559c2b62a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/provider-context-proof.json",
+      "sha256": "c646fd287c25910cebb8daff655b63d93319a1df922749e1f05dbc2db46e8456"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/smoke-inspection.json",
+      "sha256": "2af2458a104bb77e590178b4b9dcc506f951379a6e16e099956f33b76c143658"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1.json",
+      "sha256": "86b8af3f560efee561b265cf5fe57cd8c170c657f080add3a8c1cae75aae19e7"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.budget-kev-openrouter-native-p2-choice-v1-fresh1-full-v1.jsonl",
+      "sha256": "f6cc8f3524734162d521c002c5b2e55875c9cc6216ce5941e608c14b8419b4ba"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.budget.json",
+      "sha256": "c398872f2e6c97088808b198a90aa3a03e7737f4f26dda8938fd35689ad49a62"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.root-review.json",
+      "sha256": "59851f93651d02c1d827977097f3d01af3bdb491d02175b0bdc5921acec9d471"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/attempts.jsonl",
+      "sha256": "d0c41a1162283fd0849d2e8751792d123fb3a28e272f765c91a2aadfd2150d85"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/budget-reconciliation.json",
+      "sha256": "b241816ced5087bb9615ada4ecf7411c7335e76e7156f93de501392dd53b944a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/completion.json",
+      "sha256": "206e940ca03fda3af367ed63fa9b736fd455200d12acdee5fdff179d1216b134"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/review-receipt.json",
+      "sha256": "59851f93651d02c1d827977097f3d01af3bdb491d02175b0bdc5921acec9d471"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.budget-kev-openrouter-native-p2-choice-v1-fresh2-full-v1.jsonl",
+      "sha256": "555e2e30f1b9f2260d0ed0db887adca568bc85cc39f7f20da583324dfa117eda"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.budget.json",
+      "sha256": "e289e7f1306add4a3425fa17d7adcf47a22686d9a0a5f6f37e50787a9a00345d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.root-review.json",
+      "sha256": "a51d857ffc823b3de9aac96f9a2d9880196ba63f73fbe4e878f8c792779c5880"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/attempts.jsonl",
+      "sha256": "a21f0aa8f706abb4e388b7b5207b19872d9ef53cb711915d344d1548ab8bc0be"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/budget-reconciliation.json",
+      "sha256": "10e49a364c7c99ec3ce5ccba0efb47fe413231e30547d390c5f482d16b504976"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/completion.json",
+      "sha256": "448a1376e6568901481c03e170f36edb89aa15e91ee356dbdbf87e3387f0371f"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/review-receipt.json",
+      "sha256": "a51d857ffc823b3de9aac96f9a2d9880196ba63f73fbe4e878f8c792779c5880"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.budget-kev-openrouter-native-p2-choice-v1-fresh3-full-v1.jsonl",
+      "sha256": "553296d347c89a9fb1eb66d5c9bf925aa148dced286890c8fd51f57b22883c19"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.budget.json",
+      "sha256": "5376870b527e4f5d231c44a7691c0925a4be42750fca76da5669175ae66674c3"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.root-review.json",
+      "sha256": "d41757729ae92f57e3d99acfbf6daf7e39559e9943791f1293d501e6821ae2eb"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/attempts.jsonl",
+      "sha256": "2d7d8682f2ef7b29edcdba2dc5b12db72aaa8e18bf7d73aa79b5105b5303a2f2"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/budget-reconciliation.json",
+      "sha256": "6bd770fdcca140e3f25e8d6a236de78e0587bde7adaa8a3f743eaa721e8452bb"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/completion.json",
+      "sha256": "95c7aab860854e704a0b5185a4cc85b118513f3d6b821bf7045b64b6a9fb90bd"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/review-receipt.json",
+      "sha256": "d41757729ae92f57e3d99acfbf6daf7e39559e9943791f1293d501e6821ae2eb"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/provider-context-proof.json",
+      "sha256": "0f5fddbbe6a565ce0dae8a25dde64788763c3c94e5324c8e827e4624610f8a46"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/smoke-inspection.json",
+      "sha256": "53fa527a742ca3484397fd2862356435ae93b99b4ea86540e44073873b651517"
     },
     {
       "path": "schemas/judgments.schema.json",

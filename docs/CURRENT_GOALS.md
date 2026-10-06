@@ -1,5 +1,9 @@
 # Current objectives and direction
 
+## Native prompt update, 6 October 2026
+
+Kev P1 and P2 each completed three full passes, with 60 valid responses per pass. P1 scores 49/60 all-four matches and P2 scores 46/60 in every pass; follow-up agreement falls from 58/60 to 53/60. No labels changed within either three-pass condition. [Kev findings](KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md) are verified; website publication is pending. OpenRouter Jev first P1/P2 passes each score 54/60 with 60 valid responses. Its second P1 has 59 valid and one invalid response; second P2 is interrupted by HTTP 429 after 17 valid answers. These are unfinished repeat studies. See [the checklist](TODO.md) for the exact continuation and publication state.
+
 ## Qwen3.5 P2 update, 6 October 2026
 
 Qwen3.5 4B thinking-on completed its first P2 pass: **50/60 all-four matches**, with 51 valid responses and nine invalid outputs. DEV-030 was the only valid response that differed from the frozen reference. Its interrupted P0 result remains descriptive, so this is not a clean paired prompt comparison or a completed repeatability study. The run used 303,294 tokens; pure inference time and local cost are unavailable. [P2 findings](QWEN35_P2_FIRST_PASS_2026-10-06.md).

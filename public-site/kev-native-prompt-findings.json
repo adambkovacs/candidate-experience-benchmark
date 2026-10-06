@@ -1,0 +1,3281 @@
+{
+  "schema": "kev-native-prompt-findings-v1",
+  "displayName": "Kev 4B OpenRouter native Choice prompt findings",
+  "denominator": 60,
+  "conditionOrder": [
+    "P1",
+    "P2"
+  ],
+  "referenceStatus": "Frozen provisional v0.2 development labels; scoring is offline.",
+  "nativePromptEquivalence": {
+    "verified": true,
+    "denominator": 60,
+    "meaning": "P1 and P2 share feedback, policy, criteria, labels, label order, route, and parser. Only each native Choice question instruction differs.",
+    "instructionDifferencesByField": {
+      "sentiment": 60,
+      "follow_up_needed": 60,
+      "serious_concern_reported": 60,
+      "testimonial_potential": 60
+    },
+    "wireEquivalence": "Native Choice analogues of the prompt conditions; not byte-identical chat prompts."
+  },
+  "conditions": {
+    "P1": {
+      "completedPasses": 3,
+      "plannedPasses": 3,
+      "passOrder": [
+        "fresh1",
+        "fresh2",
+        "fresh3"
+      ],
+      "passes": {
+        "fresh1": {
+          "completionStatus": "complete",
+          "score": {
+            "denominator": 60,
+            "valid": 60,
+            "allFour": 49,
+            "fields": {
+              "sentiment": 53,
+              "follow_up_needed": 58,
+              "serious_concern_reported": 55,
+              "testimonial_potential": 58
+            },
+            "outcomes": {
+              "valid": 60,
+              "invalid_output": 0,
+              "refusal": 0,
+              "timeout": 0,
+              "service_error": 0,
+              "isolation_violation": 0,
+              "other_error": 0,
+              "unknown_started": 0,
+              "never_sent": 0
+            },
+            "invalidIds": []
+          },
+          "usage": {
+            "inputTokens": 123986,
+            "outputTokens": 17339,
+            "actualProviderCostUsd": "0.005207412",
+            "clientRequestSeconds": {
+              "total": 51.460518711,
+              "median": 0.828027604,
+              "p95": 0.958380708,
+              "kind": "client_observed_request"
+            }
+          },
+          "sourceBindings": [
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1.json",
+              "sha256": "8db51fcf9f3cd3f9f589fc3314e9a5e3bbf5e84f49b12b8c04cb71b125744c1f"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/provider-context-proof.json",
+              "sha256": "c646fd287c25910cebb8daff655b63d93319a1df922749e1f05dbc2db46e8456"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/smoke-inspection.json",
+              "sha256": "2af2458a104bb77e590178b4b9dcc506f951379a6e16e099956f33b76c143658"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.root-review.json",
+              "sha256": "b388516f8a748b1b36049e062e56a3d7d812b0f86ed799b812582aec926e3d5d"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.budget.json",
+              "sha256": "6f8984aa8d7756abe42cda6b14dabb3085af24178ab37895fc5469c90201d40e"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.budget-kev-openrouter-native-p1-choice-v1-fresh1-full-v1.jsonl",
+              "sha256": "2109a44145dd57d8b66c269b3e9b67b58e8bc9c0f590a0d341c6face4d9f6e25"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/review-receipt.json",
+              "sha256": "b388516f8a748b1b36049e062e56a3d7d812b0f86ed799b812582aec926e3d5d"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/endpoint-catalog.json",
+              "sha256": "fa18bbf179ee5c7c4af088b2f309e38af05b3a41f02fa4dc289b66e9f7454d8e"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/attempts.jsonl",
+              "sha256": "31bed1622e0750501578027241681b725a853bb50cf9429dda04213044716093"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/completion.json",
+              "sha256": "a5e48b68f6c9a2858319601fb133ca07a77ef2db18dbbeb68e9ec5084cc5fb1d"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/budget-reconciliation.json",
+              "sha256": "cae8101d3e3c6803c632fbd26d76ab139e8cf7c2aeead29237284606943e82b6"
+            }
+          ]
+        },
+        "fresh2": {
+          "completionStatus": "complete",
+          "score": {
+            "denominator": 60,
+            "valid": 60,
+            "allFour": 49,
+            "fields": {
+              "sentiment": 53,
+              "follow_up_needed": 58,
+              "serious_concern_reported": 55,
+              "testimonial_potential": 58
+            },
+            "outcomes": {
+              "valid": 60,
+              "invalid_output": 0,
+              "refusal": 0,
+              "timeout": 0,
+              "service_error": 0,
+              "isolation_violation": 0,
+              "other_error": 0,
+              "unknown_started": 0,
+              "never_sent": 0
+            },
+            "invalidIds": []
+          },
+          "usage": {
+            "inputTokens": 123986,
+            "outputTokens": 17339,
+            "actualProviderCostUsd": "0.005207412",
+            "clientRequestSeconds": {
+              "total": 51.343095416,
+              "median": 0.828499,
+              "p95": 1.081173042,
+              "kind": "client_observed_request"
+            }
+          },
+          "sourceBindings": [
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1.json",
+              "sha256": "8db51fcf9f3cd3f9f589fc3314e9a5e3bbf5e84f49b12b8c04cb71b125744c1f"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/provider-context-proof.json",
+              "sha256": "c646fd287c25910cebb8daff655b63d93319a1df922749e1f05dbc2db46e8456"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/smoke-inspection.json",
+              "sha256": "2af2458a104bb77e590178b4b9dcc506f951379a6e16e099956f33b76c143658"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.root-review.json",
+              "sha256": "9bc2f5840a77ed0768ed87d115f603d5b63a5b6b2dd85b6ccb3efef442891e02"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.budget.json",
+              "sha256": "47524b815f11bbd22efb13aeb3973d68f26996f1be3637d2e511a75131d0e878"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.budget-kev-openrouter-native-p1-choice-v1-fresh2-full-v1.jsonl",
+              "sha256": "9fce4c7b63670ca1414f30a29399e52d8a23c5a3108fc7b8d04babe6e9a9c2f4"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/review-receipt.json",
+              "sha256": "9bc2f5840a77ed0768ed87d115f603d5b63a5b6b2dd85b6ccb3efef442891e02"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/endpoint-catalog.json",
+              "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/attempts.jsonl",
+              "sha256": "fb03a4b50b36eeb29dad827f459c626b681036e77d4141973a7a3cd1a1660bbd"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/completion.json",
+              "sha256": "deb500d8571db75eb82a8be80d86363e7c4caea11fb1a7002c2fa612765b916b"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/budget-reconciliation.json",
+              "sha256": "dc56a1e34569953e81b3d6024d1db7cf1a4a5a8c3f3071c1523b5816889ab5e0"
+            }
+          ]
+        },
+        "fresh3": {
+          "completionStatus": "complete",
+          "score": {
+            "denominator": 60,
+            "valid": 60,
+            "allFour": 49,
+            "fields": {
+              "sentiment": 53,
+              "follow_up_needed": 58,
+              "serious_concern_reported": 55,
+              "testimonial_potential": 58
+            },
+            "outcomes": {
+              "valid": 60,
+              "invalid_output": 0,
+              "refusal": 0,
+              "timeout": 0,
+              "service_error": 0,
+              "isolation_violation": 0,
+              "other_error": 0,
+              "unknown_started": 0,
+              "never_sent": 0
+            },
+            "invalidIds": []
+          },
+          "usage": {
+            "inputTokens": 123986,
+            "outputTokens": 17339,
+            "actualProviderCostUsd": "0.005207412",
+            "clientRequestSeconds": {
+              "total": 50.927816494,
+              "median": 0.815246,
+              "p95": 1.057658375,
+              "kind": "client_observed_request"
+            }
+          },
+          "sourceBindings": [
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1.json",
+              "sha256": "8db51fcf9f3cd3f9f589fc3314e9a5e3bbf5e84f49b12b8c04cb71b125744c1f"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/provider-context-proof.json",
+              "sha256": "c646fd287c25910cebb8daff655b63d93319a1df922749e1f05dbc2db46e8456"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/smoke-inspection.json",
+              "sha256": "2af2458a104bb77e590178b4b9dcc506f951379a6e16e099956f33b76c143658"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.root-review.json",
+              "sha256": "242f386148a2109e933faa0f6380286bf2da421db562d4239eb8570559c2b62a"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.budget.json",
+              "sha256": "4c4f7db5b08109742b0373539969f7e25661d8a788c48dd3c88e2e3f40a9612a"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.budget-kev-openrouter-native-p1-choice-v1-fresh3-full-v1.jsonl",
+              "sha256": "973efc2063be2a3ae4e040f8a28da24dc4a056dffd869538beb905b180484ce2"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/review-receipt.json",
+              "sha256": "242f386148a2109e933faa0f6380286bf2da421db562d4239eb8570559c2b62a"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/endpoint-catalog.json",
+              "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/attempts.jsonl",
+              "sha256": "cdbbe80364725c019ce0072d9ec8dbb02f0d53caabd948f75432cb7b677c3ee3"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/completion.json",
+              "sha256": "331377d3aa8849f454317a44b9b36dbc07f359c15af08655d1c71ce2425d9d94"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/budget-reconciliation.json",
+              "sha256": "b5cdfbfae6ba5037ba800927792e2ff25a285b4a62e57a17ac76fe0dd6e81451"
+            }
+          ]
+        }
+      },
+      "repeatComparisons": [
+        {
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "fourFieldVectorChanges": 0,
+          "fourFieldVectorChangedIds": [],
+          "fields": {
+            "sentiment": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "follow_up_needed": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "serious_concern_reported": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "testimonial_potential": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            }
+          },
+          "nativeProbabilityDictionaryChanges": 0,
+          "nativeProbabilityDictionaryChangedIds": [],
+          "vendorConfidenceChanges": 0,
+          "vendorConfidenceChangedIds": []
+        },
+        {
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "fourFieldVectorChanges": 0,
+          "fourFieldVectorChangedIds": [],
+          "fields": {
+            "sentiment": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "follow_up_needed": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "serious_concern_reported": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "testimonial_potential": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            }
+          },
+          "nativeProbabilityDictionaryChanges": 0,
+          "nativeProbabilityDictionaryChangedIds": [],
+          "vendorConfidenceChanges": 0,
+          "vendorConfidenceChangedIds": []
+        },
+        {
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "fourFieldVectorChanges": 0,
+          "fourFieldVectorChangedIds": [],
+          "fields": {
+            "sentiment": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "follow_up_needed": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "serious_concern_reported": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "testimonial_potential": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            }
+          },
+          "nativeProbabilityDictionaryChanges": 0,
+          "nativeProbabilityDictionaryChangedIds": [],
+          "vendorConfidenceChanges": 0,
+          "vendorConfidenceChangedIds": []
+        }
+      ],
+      "repeatVariation": {
+        "available": true,
+        "allFourRange": [
+          49,
+          49
+        ],
+        "fieldRanges": {
+          "sentiment": [
+            53,
+            53
+          ],
+          "follow_up_needed": [
+            58,
+            58
+          ],
+          "serious_concern_reported": [
+            55,
+            55
+          ],
+          "testimonial_potential": [
+            58,
+            58
+          ]
+        }
+      }
+    },
+    "P2": {
+      "completedPasses": 3,
+      "plannedPasses": 3,
+      "passOrder": [
+        "fresh1",
+        "fresh2",
+        "fresh3"
+      ],
+      "passes": {
+        "fresh1": {
+          "completionStatus": "complete",
+          "score": {
+            "denominator": 60,
+            "valid": 60,
+            "allFour": 46,
+            "fields": {
+              "sentiment": 54,
+              "follow_up_needed": 53,
+              "serious_concern_reported": 55,
+              "testimonial_potential": 59
+            },
+            "outcomes": {
+              "valid": 60,
+              "invalid_output": 0,
+              "refusal": 0,
+              "timeout": 0,
+              "service_error": 0,
+              "isolation_violation": 0,
+              "other_error": 0,
+              "unknown_started": 0,
+              "never_sent": 0
+            },
+            "invalidIds": []
+          },
+          "usage": {
+            "inputTokens": 134246,
+            "outputTokens": 17365,
+            "actualProviderCostUsd": "0.005638332",
+            "clientRequestSeconds": {
+              "total": 54.133404712,
+              "median": 0.8890153335,
+              "p95": 0.99159075,
+              "kind": "client_observed_request"
+            }
+          },
+          "sourceBindings": [
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1.json",
+              "sha256": "86b8af3f560efee561b265cf5fe57cd8c170c657f080add3a8c1cae75aae19e7"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/provider-context-proof.json",
+              "sha256": "0f5fddbbe6a565ce0dae8a25dde64788763c3c94e5324c8e827e4624610f8a46"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/smoke-inspection.json",
+              "sha256": "53fa527a742ca3484397fd2862356435ae93b99b4ea86540e44073873b651517"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.root-review.json",
+              "sha256": "59851f93651d02c1d827977097f3d01af3bdb491d02175b0bdc5921acec9d471"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.budget.json",
+              "sha256": "c398872f2e6c97088808b198a90aa3a03e7737f4f26dda8938fd35689ad49a62"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.budget-kev-openrouter-native-p2-choice-v1-fresh1-full-v1.jsonl",
+              "sha256": "f6cc8f3524734162d521c002c5b2e55875c9cc6216ce5941e608c14b8419b4ba"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/review-receipt.json",
+              "sha256": "59851f93651d02c1d827977097f3d01af3bdb491d02175b0bdc5921acec9d471"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/endpoint-catalog.json",
+              "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/attempts.jsonl",
+              "sha256": "d0c41a1162283fd0849d2e8751792d123fb3a28e272f765c91a2aadfd2150d85"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/completion.json",
+              "sha256": "206e940ca03fda3af367ed63fa9b736fd455200d12acdee5fdff179d1216b134"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/budget-reconciliation.json",
+              "sha256": "b241816ced5087bb9615ada4ecf7411c7335e76e7156f93de501392dd53b944a"
+            }
+          ]
+        },
+        "fresh2": {
+          "completionStatus": "complete",
+          "score": {
+            "denominator": 60,
+            "valid": 60,
+            "allFour": 46,
+            "fields": {
+              "sentiment": 54,
+              "follow_up_needed": 53,
+              "serious_concern_reported": 55,
+              "testimonial_potential": 59
+            },
+            "outcomes": {
+              "valid": 60,
+              "invalid_output": 0,
+              "refusal": 0,
+              "timeout": 0,
+              "service_error": 0,
+              "isolation_violation": 0,
+              "other_error": 0,
+              "unknown_started": 0,
+              "never_sent": 0
+            },
+            "invalidIds": []
+          },
+          "usage": {
+            "inputTokens": 134246,
+            "outputTokens": 17365,
+            "actualProviderCostUsd": "0.005638332",
+            "clientRequestSeconds": {
+              "total": 53.639360415,
+              "median": 0.8708498545,
+              "p95": 1.053846625,
+              "kind": "client_observed_request"
+            }
+          },
+          "sourceBindings": [
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1.json",
+              "sha256": "86b8af3f560efee561b265cf5fe57cd8c170c657f080add3a8c1cae75aae19e7"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/provider-context-proof.json",
+              "sha256": "0f5fddbbe6a565ce0dae8a25dde64788763c3c94e5324c8e827e4624610f8a46"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/smoke-inspection.json",
+              "sha256": "53fa527a742ca3484397fd2862356435ae93b99b4ea86540e44073873b651517"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.root-review.json",
+              "sha256": "a51d857ffc823b3de9aac96f9a2d9880196ba63f73fbe4e878f8c792779c5880"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.budget.json",
+              "sha256": "e289e7f1306add4a3425fa17d7adcf47a22686d9a0a5f6f37e50787a9a00345d"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.budget-kev-openrouter-native-p2-choice-v1-fresh2-full-v1.jsonl",
+              "sha256": "555e2e30f1b9f2260d0ed0db887adca568bc85cc39f7f20da583324dfa117eda"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/review-receipt.json",
+              "sha256": "a51d857ffc823b3de9aac96f9a2d9880196ba63f73fbe4e878f8c792779c5880"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/endpoint-catalog.json",
+              "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/attempts.jsonl",
+              "sha256": "a21f0aa8f706abb4e388b7b5207b19872d9ef53cb711915d344d1548ab8bc0be"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/completion.json",
+              "sha256": "448a1376e6568901481c03e170f36edb89aa15e91ee356dbdbf87e3387f0371f"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/budget-reconciliation.json",
+              "sha256": "10e49a364c7c99ec3ce5ccba0efb47fe413231e30547d390c5f482d16b504976"
+            }
+          ]
+        },
+        "fresh3": {
+          "completionStatus": "complete",
+          "score": {
+            "denominator": 60,
+            "valid": 60,
+            "allFour": 46,
+            "fields": {
+              "sentiment": 54,
+              "follow_up_needed": 53,
+              "serious_concern_reported": 55,
+              "testimonial_potential": 59
+            },
+            "outcomes": {
+              "valid": 60,
+              "invalid_output": 0,
+              "refusal": 0,
+              "timeout": 0,
+              "service_error": 0,
+              "isolation_violation": 0,
+              "other_error": 0,
+              "unknown_started": 0,
+              "never_sent": 0
+            },
+            "invalidIds": []
+          },
+          "usage": {
+            "inputTokens": 134246,
+            "outputTokens": 17365,
+            "actualProviderCostUsd": "0.005638332",
+            "clientRequestSeconds": {
+              "total": 54.239052999,
+              "median": 0.8724260835,
+              "p95": 0.9787115,
+              "kind": "client_observed_request"
+            }
+          },
+          "sourceBindings": [
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1.json",
+              "sha256": "86b8af3f560efee561b265cf5fe57cd8c170c657f080add3a8c1cae75aae19e7"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/provider-context-proof.json",
+              "sha256": "0f5fddbbe6a565ce0dae8a25dde64788763c3c94e5324c8e827e4624610f8a46"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/smoke-inspection.json",
+              "sha256": "53fa527a742ca3484397fd2862356435ae93b99b4ea86540e44073873b651517"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.root-review.json",
+              "sha256": "d41757729ae92f57e3d99acfbf6daf7e39559e9943791f1293d501e6821ae2eb"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.budget.json",
+              "sha256": "5376870b527e4f5d231c44a7691c0925a4be42750fca76da5669175ae66674c3"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.budget-kev-openrouter-native-p2-choice-v1-fresh3-full-v1.jsonl",
+              "sha256": "553296d347c89a9fb1eb66d5c9bf925aa148dced286890c8fd51f57b22883c19"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/review-receipt.json",
+              "sha256": "d41757729ae92f57e3d99acfbf6daf7e39559e9943791f1293d501e6821ae2eb"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/endpoint-catalog.json",
+              "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/attempts.jsonl",
+              "sha256": "2d7d8682f2ef7b29edcdba2dc5b12db72aaa8e18bf7d73aa79b5105b5303a2f2"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/completion.json",
+              "sha256": "95c7aab860854e704a0b5185a4cc85b118513f3d6b821bf7045b64b6a9fb90bd"
+            },
+            {
+              "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/budget-reconciliation.json",
+              "sha256": "6bd770fdcca140e3f25e8d6a236de78e0587bde7adaa8a3f743eaa721e8452bb"
+            }
+          ]
+        }
+      },
+      "repeatComparisons": [
+        {
+          "from": "fresh1",
+          "to": "fresh2",
+          "denominator": 60,
+          "fourFieldVectorChanges": 0,
+          "fourFieldVectorChangedIds": [],
+          "fields": {
+            "sentiment": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "follow_up_needed": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "serious_concern_reported": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "testimonial_potential": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            }
+          },
+          "nativeProbabilityDictionaryChanges": 0,
+          "nativeProbabilityDictionaryChangedIds": [],
+          "vendorConfidenceChanges": 0,
+          "vendorConfidenceChangedIds": []
+        },
+        {
+          "from": "fresh1",
+          "to": "fresh3",
+          "denominator": 60,
+          "fourFieldVectorChanges": 0,
+          "fourFieldVectorChangedIds": [],
+          "fields": {
+            "sentiment": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "follow_up_needed": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "serious_concern_reported": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "testimonial_potential": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            }
+          },
+          "nativeProbabilityDictionaryChanges": 0,
+          "nativeProbabilityDictionaryChangedIds": [],
+          "vendorConfidenceChanges": 0,
+          "vendorConfidenceChangedIds": []
+        },
+        {
+          "from": "fresh2",
+          "to": "fresh3",
+          "denominator": 60,
+          "fourFieldVectorChanges": 0,
+          "fourFieldVectorChangedIds": [],
+          "fields": {
+            "sentiment": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "follow_up_needed": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "serious_concern_reported": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            },
+            "testimonial_potential": {
+              "choiceChanged": 0,
+              "choiceChangedIds": [],
+              "nativeProbabilityDictionaryChanged": 0,
+              "nativeProbabilityDictionaryChangedIds": [],
+              "vendorConfidenceChanged": 0,
+              "vendorConfidenceChangedIds": []
+            }
+          },
+          "nativeProbabilityDictionaryChanges": 0,
+          "nativeProbabilityDictionaryChangedIds": [],
+          "vendorConfidenceChanges": 0,
+          "vendorConfidenceChangedIds": []
+        }
+      ],
+      "repeatVariation": {
+        "available": true,
+        "allFourRange": [
+          46,
+          46
+        ],
+        "fieldRanges": {
+          "sentiment": [
+            54,
+            54
+          ],
+          "follow_up_needed": [
+            53,
+            53
+          ],
+          "serious_concern_reported": [
+            55,
+            55
+          ],
+          "testimonial_potential": [
+            59,
+            59
+          ]
+        }
+      }
+    }
+  },
+  "pairedP1P2": [
+    {
+      "denominator": 60,
+      "fourFieldVectorChanges": 7,
+      "fourFieldVectorChangedIds": [
+        "DEV-001",
+        "DEV-005",
+        "DEV-022",
+        "DEV-030",
+        "DEV-035",
+        "DEV-041",
+        "DEV-059"
+      ],
+      "fields": {
+        "sentiment": {
+          "choiceChanged": 1,
+          "choiceChangedIds": [
+            "DEV-030"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "follow_up_needed": {
+          "choiceChanged": 5,
+          "choiceChangedIds": [
+            "DEV-005",
+            "DEV-022",
+            "DEV-035",
+            "DEV-041",
+            "DEV-059"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "serious_concern_reported": {
+          "choiceChanged": 0,
+          "choiceChangedIds": [],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "testimonial_potential": {
+          "choiceChanged": 1,
+          "choiceChangedIds": [
+            "DEV-001"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        }
+      },
+      "nativeProbabilityDictionaryChanges": 60,
+      "nativeProbabilityDictionaryChangedIds": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "vendorConfidenceChanges": 60,
+      "vendorConfidenceChangedIds": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "stage": "fresh1",
+      "scoreDeltaP2MinusP1": {
+        "allFour": -3,
+        "fields": {
+          "sentiment": 1,
+          "follow_up_needed": -5,
+          "serious_concern_reported": 0,
+          "testimonial_potential": 1
+        }
+      }
+    },
+    {
+      "denominator": 60,
+      "fourFieldVectorChanges": 7,
+      "fourFieldVectorChangedIds": [
+        "DEV-001",
+        "DEV-005",
+        "DEV-022",
+        "DEV-030",
+        "DEV-035",
+        "DEV-041",
+        "DEV-059"
+      ],
+      "fields": {
+        "sentiment": {
+          "choiceChanged": 1,
+          "choiceChangedIds": [
+            "DEV-030"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "follow_up_needed": {
+          "choiceChanged": 5,
+          "choiceChangedIds": [
+            "DEV-005",
+            "DEV-022",
+            "DEV-035",
+            "DEV-041",
+            "DEV-059"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "serious_concern_reported": {
+          "choiceChanged": 0,
+          "choiceChangedIds": [],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "testimonial_potential": {
+          "choiceChanged": 1,
+          "choiceChangedIds": [
+            "DEV-001"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        }
+      },
+      "nativeProbabilityDictionaryChanges": 60,
+      "nativeProbabilityDictionaryChangedIds": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "vendorConfidenceChanges": 60,
+      "vendorConfidenceChangedIds": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "stage": "fresh2",
+      "scoreDeltaP2MinusP1": {
+        "allFour": -3,
+        "fields": {
+          "sentiment": 1,
+          "follow_up_needed": -5,
+          "serious_concern_reported": 0,
+          "testimonial_potential": 1
+        }
+      }
+    },
+    {
+      "denominator": 60,
+      "fourFieldVectorChanges": 7,
+      "fourFieldVectorChangedIds": [
+        "DEV-001",
+        "DEV-005",
+        "DEV-022",
+        "DEV-030",
+        "DEV-035",
+        "DEV-041",
+        "DEV-059"
+      ],
+      "fields": {
+        "sentiment": {
+          "choiceChanged": 1,
+          "choiceChangedIds": [
+            "DEV-030"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "follow_up_needed": {
+          "choiceChanged": 5,
+          "choiceChangedIds": [
+            "DEV-005",
+            "DEV-022",
+            "DEV-035",
+            "DEV-041",
+            "DEV-059"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "serious_concern_reported": {
+          "choiceChanged": 0,
+          "choiceChangedIds": [],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "testimonial_potential": {
+          "choiceChanged": 1,
+          "choiceChangedIds": [
+            "DEV-001"
+          ],
+          "nativeProbabilityDictionaryChanged": 60,
+          "nativeProbabilityDictionaryChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "vendorConfidenceChanged": 60,
+          "vendorConfidenceChangedIds": [
+            "DEV-001",
+            "DEV-002",
+            "DEV-003",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-007",
+            "DEV-008",
+            "DEV-009",
+            "DEV-010",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-015",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-019",
+            "DEV-020",
+            "DEV-021",
+            "DEV-022",
+            "DEV-023",
+            "DEV-024",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-033",
+            "DEV-034",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-038",
+            "DEV-039",
+            "DEV-040",
+            "DEV-041",
+            "DEV-042",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-058",
+            "DEV-059",
+            "DEV-060"
+          ]
+        }
+      },
+      "nativeProbabilityDictionaryChanges": 60,
+      "nativeProbabilityDictionaryChangedIds": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "vendorConfidenceChanges": 60,
+      "vendorConfidenceChangedIds": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "stage": "fresh3",
+      "scoreDeltaP2MinusP1": {
+        "allFour": -3,
+        "fields": {
+          "sentiment": 1,
+          "follow_up_needed": -5,
+          "serious_concern_reported": 0,
+          "testimonial_potential": 1
+        }
+      }
+    }
+  ],
+  "excludedPasses": [],
+  "historicalP0": {
+    "controlsVerified": true,
+    "comparisonScope": "Separate descriptive baseline; only clean closed P0 fresh1/fresh2 are eligible.",
+    "cleanComparisons": {
+      "fresh1": {
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 48,
+          "fields": {
+            "sentiment": 52,
+            "follow_up_needed": 58,
+            "serious_concern_reported": 55,
+            "testimonial_potential": 59
+          }
+        },
+        "usage": {
+          "inputTokens": 111986,
+          "outputTokens": 17350,
+          "actualProviderCostUsd": "0.004703412",
+          "clientRequestSeconds": {
+            "total": 94.521693377,
+            "median": 1.4615205835,
+            "p95": 2.281540042,
+            "kind": "client_observed_request"
+          }
+        },
+        "sourceBindings": [
+          {
+            "path": "results/route-audits/decision-kev-development-20260930/manifest.json",
+            "sha256": "bbbbc536ffb4d05fa176cea280ab87357a4846a9605d97237ee018935a6a3d58"
+          },
+          {
+            "path": "results/route-audits/decision-kev-development-20260930/root-review.json",
+            "sha256": "44f463f58407097b3a3d103d2949a3d1744424f2870555db421965b42e8b12b8"
+          },
+          {
+            "path": "results/route-audits/decision-kev-development-20260930/attempts.jsonl",
+            "sha256": "ea3d47582f4f9458b917dfb362d1c9aa0b01703b0f18d6108e9d7ac82fe1c895"
+          },
+          {
+            "path": "results/route-audits/decision-kev-development-20260930/completion.json",
+            "sha256": "b63b014a8945b370f5edfd1f9fb14b2332c07e3e34f72671edbe04e8f2380341"
+          }
+        ]
+      },
+      "fresh2": {
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 48,
+          "fields": {
+            "sentiment": 52,
+            "follow_up_needed": 58,
+            "serious_concern_reported": 55,
+            "testimonial_potential": 59
+          }
+        },
+        "usage": {
+          "inputTokens": 111986,
+          "outputTokens": 17350,
+          "actualProviderCostUsd": "0.004703412",
+          "clientRequestSeconds": {
+            "total": 96.853626629,
+            "median": 1.5083094789999998,
+            "p95": 2.3764085,
+            "kind": "client_observed_request"
+          }
+        },
+        "sourceBindings": [
+          {
+            "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/manifest.json",
+            "sha256": "0c77a66813969aada4d469011b9e6f164976ac795bce3be98e2e2e0fe9b8cac0"
+          },
+          {
+            "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/root-review.json",
+            "sha256": "704b19acee3848da629d7a44bff81cc34732764df68c8b95368c97ac3dd65b64"
+          },
+          {
+            "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/attempts.jsonl",
+            "sha256": "92b0bf8e3473ada8d4aa0f0dc6b3874c01fa27de46cc1b1f8111f104e10ca997"
+          },
+          {
+            "path": "results/route-audits/decision-kev-repeats-20260930/fresh2/completion.json",
+            "sha256": "0f4ae3a5bda61385caeda6192427df53004c40c143275ca17d910a9c2ecd763c"
+          }
+        ]
+      }
+    },
+    "scoreDeltas": {
+      "fresh1": {
+        "P1": {
+          "allFourDeltaVsP0": 1,
+          "fieldDeltaVsP0": {
+            "sentiment": 1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": -1
+          }
+        },
+        "P2": {
+          "allFourDeltaVsP0": -2,
+          "fieldDeltaVsP0": {
+            "sentiment": 2,
+            "follow_up_needed": -5,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        }
+      },
+      "fresh2": {
+        "P1": {
+          "allFourDeltaVsP0": 1,
+          "fieldDeltaVsP0": {
+            "sentiment": 1,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": -1
+          }
+        },
+        "P2": {
+          "allFourDeltaVsP0": -2,
+          "fieldDeltaVsP0": {
+            "sentiment": 2,
+            "follow_up_needed": -5,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 0
+          }
+        }
+      }
+    },
+    "interruptedThirdExcluded": true
+  },
+  "interpretation": {
+    "nativeChoiceProbabilities": "Full native Choice probability dictionaries are retained and compared separately from categorical answers.",
+    "vendorConfidence": "Provider confidence is retained separately. It is not treated as the chosen-label probability or a calibrated correctness probability.",
+    "timing": "Client-observed request duration includes network and local work; it is not provider inference time.",
+    "tokens": "Token counts are provider-reported usage.",
+    "cost": "Cost is observed provider cost reconciled against the closed child ledger.",
+    "repeatPower": "Three closed passes describe observed repeat variation for these exact requests. They do not determine performance on new records or another route."
+  },
+  "referenceBinding": {
+    "path": "data/pilot/proposed_labels.jsonl",
+    "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "sourceBindings": [
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1.json",
+      "sha256": "8db51fcf9f3cd3f9f589fc3314e9a5e3bbf5e84f49b12b8c04cb71b125744c1f"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.budget-kev-openrouter-native-p1-choice-v1-fresh1-full-v1.jsonl",
+      "sha256": "2109a44145dd57d8b66c269b3e9b67b58e8bc9c0f590a0d341c6face4d9f6e25"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.budget.json",
+      "sha256": "6f8984aa8d7756abe42cda6b14dabb3085af24178ab37895fc5469c90201d40e"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1.root-review.json",
+      "sha256": "b388516f8a748b1b36049e062e56a3d7d812b0f86ed799b812582aec926e3d5d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/attempts.jsonl",
+      "sha256": "31bed1622e0750501578027241681b725a853bb50cf9429dda04213044716093"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/budget-reconciliation.json",
+      "sha256": "cae8101d3e3c6803c632fbd26d76ab139e8cf7c2aeead29237284606943e82b6"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/completion.json",
+      "sha256": "a5e48b68f6c9a2858319601fb133ca07a77ef2db18dbbeb68e9ec5084cc5fb1d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/endpoint-catalog.json",
+      "sha256": "fa18bbf179ee5c7c4af088b2f309e38af05b3a41f02fa4dc289b66e9f7454d8e"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh1/review-receipt.json",
+      "sha256": "b388516f8a748b1b36049e062e56a3d7d812b0f86ed799b812582aec926e3d5d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.budget-kev-openrouter-native-p1-choice-v1-fresh2-full-v1.jsonl",
+      "sha256": "9fce4c7b63670ca1414f30a29399e52d8a23c5a3108fc7b8d04babe6e9a9c2f4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.budget.json",
+      "sha256": "47524b815f11bbd22efb13aeb3973d68f26996f1be3637d2e511a75131d0e878"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2.root-review.json",
+      "sha256": "9bc2f5840a77ed0768ed87d115f603d5b63a5b6b2dd85b6ccb3efef442891e02"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/attempts.jsonl",
+      "sha256": "fb03a4b50b36eeb29dad827f459c626b681036e77d4141973a7a3cd1a1660bbd"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/budget-reconciliation.json",
+      "sha256": "dc56a1e34569953e81b3d6024d1db7cf1a4a5a8c3f3071c1523b5816889ab5e0"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/completion.json",
+      "sha256": "deb500d8571db75eb82a8be80d86363e7c4caea11fb1a7002c2fa612765b916b"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh2/review-receipt.json",
+      "sha256": "9bc2f5840a77ed0768ed87d115f603d5b63a5b6b2dd85b6ccb3efef442891e02"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.budget-kev-openrouter-native-p1-choice-v1-fresh3-full-v1.jsonl",
+      "sha256": "973efc2063be2a3ae4e040f8a28da24dc4a056dffd869538beb905b180484ce2"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.budget.json",
+      "sha256": "4c4f7db5b08109742b0373539969f7e25661d8a788c48dd3c88e2e3f40a9612a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3.root-review.json",
+      "sha256": "242f386148a2109e933faa0f6380286bf2da421db562d4239eb8570559c2b62a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/attempts.jsonl",
+      "sha256": "cdbbe80364725c019ce0072d9ec8dbb02f0d53caabd948f75432cb7b677c3ee3"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/budget-reconciliation.json",
+      "sha256": "b5cdfbfae6ba5037ba800927792e2ff25a285b4a62e57a17ac76fe0dd6e81451"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/completion.json",
+      "sha256": "331377d3aa8849f454317a44b9b36dbc07f359c15af08655d1c71ce2425d9d94"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/fresh3/review-receipt.json",
+      "sha256": "242f386148a2109e933faa0f6380286bf2da421db562d4239eb8570559c2b62a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/provider-context-proof.json",
+      "sha256": "c646fd287c25910cebb8daff655b63d93319a1df922749e1f05dbc2db46e8456"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p1-choice-v1/smoke-inspection.json",
+      "sha256": "2af2458a104bb77e590178b4b9dcc506f951379a6e16e099956f33b76c143658"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1.json",
+      "sha256": "86b8af3f560efee561b265cf5fe57cd8c170c657f080add3a8c1cae75aae19e7"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.budget-kev-openrouter-native-p2-choice-v1-fresh1-full-v1.jsonl",
+      "sha256": "f6cc8f3524734162d521c002c5b2e55875c9cc6216ce5941e608c14b8419b4ba"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.budget.json",
+      "sha256": "c398872f2e6c97088808b198a90aa3a03e7737f4f26dda8938fd35689ad49a62"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1.root-review.json",
+      "sha256": "59851f93651d02c1d827977097f3d01af3bdb491d02175b0bdc5921acec9d471"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/attempts.jsonl",
+      "sha256": "d0c41a1162283fd0849d2e8751792d123fb3a28e272f765c91a2aadfd2150d85"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/budget-reconciliation.json",
+      "sha256": "b241816ced5087bb9615ada4ecf7411c7335e76e7156f93de501392dd53b944a"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/completion.json",
+      "sha256": "206e940ca03fda3af367ed63fa9b736fd455200d12acdee5fdff179d1216b134"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh1/review-receipt.json",
+      "sha256": "59851f93651d02c1d827977097f3d01af3bdb491d02175b0bdc5921acec9d471"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.budget-kev-openrouter-native-p2-choice-v1-fresh2-full-v1.jsonl",
+      "sha256": "555e2e30f1b9f2260d0ed0db887adca568bc85cc39f7f20da583324dfa117eda"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.budget.json",
+      "sha256": "e289e7f1306add4a3425fa17d7adcf47a22686d9a0a5f6f37e50787a9a00345d"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2.root-review.json",
+      "sha256": "a51d857ffc823b3de9aac96f9a2d9880196ba63f73fbe4e878f8c792779c5880"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/attempts.jsonl",
+      "sha256": "a21f0aa8f706abb4e388b7b5207b19872d9ef53cb711915d344d1548ab8bc0be"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/budget-reconciliation.json",
+      "sha256": "10e49a364c7c99ec3ce5ccba0efb47fe413231e30547d390c5f482d16b504976"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/completion.json",
+      "sha256": "448a1376e6568901481c03e170f36edb89aa15e91ee356dbdbf87e3387f0371f"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh2/review-receipt.json",
+      "sha256": "a51d857ffc823b3de9aac96f9a2d9880196ba63f73fbe4e878f8c792779c5880"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.budget-kev-openrouter-native-p2-choice-v1-fresh3-full-v1.jsonl",
+      "sha256": "553296d347c89a9fb1eb66d5c9bf925aa148dced286890c8fd51f57b22883c19"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.budget.json",
+      "sha256": "5376870b527e4f5d231c44a7691c0925a4be42750fca76da5669175ae66674c3"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3.root-review.json",
+      "sha256": "d41757729ae92f57e3d99acfbf6daf7e39559e9943791f1293d501e6821ae2eb"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/attempts.jsonl",
+      "sha256": "2d7d8682f2ef7b29edcdba2dc5b12db72aaa8e18bf7d73aa79b5105b5303a2f2"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/budget-reconciliation.json",
+      "sha256": "6bd770fdcca140e3f25e8d6a236de78e0587bde7adaa8a3f743eaa721e8452bb"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/completion.json",
+      "sha256": "95c7aab860854e704a0b5185a4cc85b118513f3d6b821bf7045b64b6a9fb90bd"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/endpoint-catalog.json",
+      "sha256": "a6dde24eede3d53d6b59214a6845b4a5f729a670b65a221e8d5d42c9789b86d4"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/fresh3/review-receipt.json",
+      "sha256": "d41757729ae92f57e3d99acfbf6daf7e39559e9943791f1293d501e6821ae2eb"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/provider-context-proof.json",
+      "sha256": "0f5fddbbe6a565ce0dae8a25dde64788763c3c94e5324c8e827e4624610f8a46"
+    },
+    {
+      "path": "results/route-audits/native-variants-full-v1-20261006/kev-openrouter-native-p2-choice-v1/smoke-inspection.json",
+      "sha256": "53fa527a742ca3484397fd2862356435ae93b99b4ea86540e44073873b651517"
+    }
+  ]
+}
