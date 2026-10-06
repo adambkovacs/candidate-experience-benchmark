@@ -79,3 +79,7 @@ The integrated local Clef grid renders seven scored runs and two visibly interru
 The new Qwen field-error disclosure opens in the local report and retains all nine planned runs, including DEV-049 as unavailable in the interrupted first P1. The first P0 shows testimonial agreement of 7/9 reference yes cases separately from 58/60 field agreement. Labels display as ordinary words, including "insufficient information".
 
 At a 390 by 844 viewport, the page's content and scroll widths both measured 375 pixels. The table's 760-pixel content stayed inside its 256-pixel scroll region. The region accepted keyboard focus and a native Right key moved its horizontal scroll position. The temporary viewport was reset afterward. These are local rendering checks, not confirmation of the pending Pages deployment.
+
+## Publication verification, 7 October 2026
+
+[Pages run 37543502633](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37543502633) succeeded for `a12dbc9f`. Root fetched the live `analysis-refresh.json`, `analysis-refresh.js`, `index.html`, `clef-repeat-chart.js` and `clef-closed-repeat-findings.json`; all five matched that commit byte for byte. This confirms publication of the Qwen class-error disclosure and Clef prompt gains/losses checked above.

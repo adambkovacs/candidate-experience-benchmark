@@ -8,6 +8,14 @@ No further local inference is authorized. Preserve completed local results and m
 
 Use explicitly configured Sol high agents for remaining delegated work. Finish the admitted hosted runs, reconcile the remaining roster, and refresh the complete analysis and public presentation. The private classification-bench work remains separate. [Current assignments](TODO.md) and [copyable goal](APP_GOAL.md).
 
+## Execution checkpoint, 6 October 2026, 23:05 UTC
+
+Solar execution has ended: eight passes contain all 60 responses; the final P2 has 59 valid responses and one preserved timeout. Its exact 51-record continuation cost $0.01968815 and introduced no further unknown charges. The full repeat and prompt analysis is in preparation against sealed evidence.
+
+The previously unopened plain Mistral high P2 smoke hit HTTP 429 on its first request. The remaining smoke and development records were not sent. Cloudflare still awaits its provider quota reset. These provider failures remain visible; none is replaced by a clean rerun.
+
+Qwen field/class errors and Clef prompt gains/losses are published at `a12dbc9f`, verified against five live assets. The historical Jev/Kev additional risk reservation is applied in `aa03ab52`. See [current checklist](TODO.md) for remaining work.
+
 ## Execution checkpoint, 6 October 2026, 22:38 UTC
 
 Solar has eight completed full passes. Its final fresh3/P2 run stopped at DEV-009: eight answers saved, one unknown outcome and 51 unsent reviews. The reviewed exact 51-review continuation is admitted and running; the unknown request will not be replayed. The main report now includes the 21 additional Solar, Liquid and Tev run views, verified on the published site. The newer Clef comparison grid and combined findings are also published, with all five updated assets verified against `ffa7a3a7`.
