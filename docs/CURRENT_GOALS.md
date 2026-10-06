@@ -8,6 +8,21 @@ No further local inference is authorized. Preserve completed local results and m
 
 Use explicitly configured Sol high agents for remaining delegated work. Finish the admitted hosted runs, reconcile the remaining roster, and refresh the complete analysis and public presentation. The private classification-bench work remains separate. [Current assignments](TODO.md) and [copyable goal](APP_GOAL.md).
 
+## Publication verification, 6 October 2026, 23:37 UTC
+
+Corrected [Pages run 37546716678](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37546716678) succeeded for `ee2c2cab`. Root fetched six live assets with a cache-busting query and verified that each response matches the file in that commit byte for byte:
+
+| Live asset | SHA-256 |
+| --- | --- |
+| [Combined analysis JSON](../public-site/analysis-refresh.json) | `c22e10a93aec29441c67fc825d323b93c91c8f9e1d691e0683d3906c3a85ff37` |
+| [Combined analysis JavaScript](../public-site/analysis-refresh.js) | `a8a69321d8a9c84295f5dcea81381d4f051fb9789a22daf64f7edc278f580d27` |
+| [App JavaScript](../public-site/app.js) | `bee1a96d6ce24c2a06d23d7cada232d18f02050dd76646dd7815ecae7de441d3` |
+| [Results HTML](../public-site/index.html) | `e882387970fed280660e520bb416f5eac200e9f932da64dc1d1e213b384ea843` |
+| [Supplemental run feed](../public-site/supplemental-decision-runs-v1.json) | `964d5a863f4be39c1f45c20c0f8a7567501d6eb44e3163ae82549eca735ae189` |
+| [Solar full findings](../public-site/solar-decide-full-findings.json) | `c7d40ec31f573983e4a0f1153add5679191f935a446844ced733cf55c69f2216` |
+
+The integrated Solar analysis and 27 supplemental run views are therefore published at this cutoff. The final Solar P2 result remains a 59-answer composite with DEV-009 unknown; publication does not turn it into a clean repeat. Cloudflare remains at its quota gate pending the next 00:00 UTC reset, and Mistral's first P2 smoke request remains an HTTP 429 with the rest unsent. The [current checklist](TODO.md) tracks the remaining hosted work.
+
 ## Hosted analysis and publication checkpoint, 6 October 2026, 23:33 UTC
 
 Solar's [full report](../public-site/solar-decide-full-findings.json) covers all nine declared attempts: eight passes have 60 usable answers, and final fresh3/P2 has 59 usable answers plus the preserved DEV-009 timeout. That is 539 usable answers across 540 planned development positions. The exact DEV-010–060 continuation finished without replaying DEV-009. Comparisons involving final P2 use 59 shared usable reviews and do not call it a clean repeat. The original child retains a $0.10485760 unknown-charge bound; known charges across both sealed children total $0.21342610.
