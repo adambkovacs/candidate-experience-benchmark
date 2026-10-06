@@ -8,6 +8,14 @@ No further local inference is authorized. Preserve completed local results and m
 
 Use explicitly configured Sol high agents for remaining delegated work. Finish the admitted hosted runs, reconcile the remaining roster, and refresh the complete analysis and public presentation. The private classification-bench work remains separate. [Current assignments](TODO.md) and [copyable goal](APP_GOAL.md).
 
+## Execution checkpoint, 6 October 2026, 22:38 UTC
+
+Solar has seven completed full passes; fresh3/P1 is active and fresh3/P2 remains next. The main report now includes the 21 additional Solar, Liquid and Tev run views, verified on the published site. The newer Clef comparison grid and combined findings are deploying.
+
+Cloudflare remains paused at its daily provider quota. Preparation continues for the exact 59 unsent Clef reviews, 58 unsent Flash reviews and the separate Jev study. The $10 alert is enabled; the project ledger separately enforces the spending limit. No local inference is running for this task.
+
+The Kev and OpenRouter Jev audits account for all three declared attempts, including invalid and unknown outcomes. A missing third successful comparison does not authorize a fourth pass to replace failures. Their historical unknown-charge bounds need a conservative additional $0.009096192 reservation; the amendment is being prepared for review, with no new inference. See [repeat audit](JEV_KEV_REPEAT_COMPLETION_AUDIT_2026-10-07.md) and [current checklist](TODO.md).
+
 ## Execution checkpoint, 6 October 2026, 21:58 UTC
 
 Solar has three closed full passes (P0/P1/P2), each with 60 valid responses and all-four scores of 55/53/53. Its second baseline pass is active. Clef has seven clean full passes and one interrupted composite; the final P2 pass encountered Cloudflare's daily free quota on its first request. Preserve that saved error and the unsent remainder. Cloudflare work is paused pending a quota reset or account upgrade; the approved project budget and enabled alert do not remove the provider gate. Flash's 58 never-sent reviews and the new Cloudflare Jev study remain pending. No local inference will resume.
