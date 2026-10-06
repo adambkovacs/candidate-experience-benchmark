@@ -48,6 +48,13 @@
       category = 'decision'; categoriesForRun = ['decision']; interfaceKind = 'native'; source = 'https://typesafe.ai/blog/introducing-system-one-models-and-jev';
     } else if (/\bclef(?:-|\b)/.test(combined)) {
       category = 'decision'; categoriesForRun = ['decision']; interfaceKind = 'native'; source = 'https://blog.cloudflare.com/clef-decision-models/';
+    } else if (/solar-decide|liquid-d1|tev1-4b/.test(combined)) {
+      category = 'decision'; categoriesForRun = ['decision']; interfaceKind = 'native';
+      source = /solar-decide/.test(combined)
+        ? 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/public-site/solar-decide-first-pass-findings.json'
+        : /liquid-d1/.test(combined)
+          ? 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/public-site/liquid-d1-native-full-findings.json'
+          : 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/public-site/tev-native-full-findings.json';
     } else if (/\bopenjev|\bsemif|\banyjev/.test(combined)) {
       category = 'general'; categoriesForRun = ['general'];
       interfaceKind = /generated/.test(combined) ? 'generated' : /anyjev.*l2/.test(combined) ? 'adapted' : 'native';

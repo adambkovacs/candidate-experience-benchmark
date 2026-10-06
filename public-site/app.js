@@ -26,6 +26,38 @@
     const timeout=new Promise(resolve => {timer=setTimeout(() => resolve({invalidSource:true}),3000);});
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
   };
+  const optionalDecisionRuns = () => {
+    const load = Promise.resolve().then(() => fetch('./supplemental-decision-runs-v1.json', {cache:'no-store'}))
+      .then(response => response.ok ? response.json() : null).catch(() => null);
+    if (typeof setTimeout !== 'function') return load;
+    let timer;
+    return Promise.race([load, new Promise(resolve => {timer=setTimeout(() => resolve(null),3000);})])
+      .finally(() => clearTimeout(timer));
+  };
+  function supplementalDecisionRuns(report, existing = []) {
+    if (report?.schema !== 'supplemental-decision-runs-v1' || report.denominator !== 60 ||
+        !Array.isArray(report.runs) || report.runs.length !== 21 ||
+        !Array.isArray(report.sources) || !report.sources.length ||
+        report.sources.some(s => typeof s.path !== 'string' || !/^[a-f0-9]{64}$/.test(s.sha256 || ''))) return [];
+    const seen = new Set(existing.map(r => r.id));
+    const fields = ['all_four','sentiment','follow_up_needed','serious_concern_reported','testimonial_potential'];
+    for (const run of report.runs) {
+      const match = /^(solar-decide|liquid-d1|tev1-4b)-native-fresh([123])-p([012])$/.exec(run?.id || '');
+      if (!match || seen.has(run.id) || run.condition !== `P${match[3]}` ||
+          (match[1] === 'solar-decide' && match[2] !== '1') ||
+          run.complete !== true || run.records !== 60 || run.valid !== 60 ||
+          typeof run.model !== 'string' || !run.model || typeof run.surface !== 'string' ||
+          fields.some(f => !Number.isInteger(run.metrics?.[f]) || run.metrics[f] < 0 || run.metrics[f] > 60) ||
+          !Number.isInteger(run.tokens?.input) || run.tokens.input < 0 ||
+          !Number.isInteger(run.tokens?.output) || run.tokens.output < 0 ||
+          !Number.isFinite(run.cost?.knownUsd) || run.cost.knownUsd < 0 ||
+          run.timing?.inferenceSeconds !== null || run.sourceOnlyDetails !== true ||
+          !url(run.sourceRecordsUrl) || !url(run.evidenceUrl) ||
+          !/^[a-f0-9]{64}$/.test(run.sourceRecordSha256 || '')) return [];
+      seen.add(run.id);
+    }
+    return report.runs;
+  }
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const n = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
   const count = value => n(value) === null ? 'Unavailable' : Math.round(n(value)).toLocaleString();
@@ -319,7 +351,7 @@
   }
   function modelFamily(run) {
     const name = `${run.id} ${run.model}`.toLowerCase();
-    for (const [pattern, family] of [[/anyjev/, 'AnyJev'], [/openjev/, 'OpenJev'], [/typesafe|\bjev\b/, 'Jev'], [/clef/, 'Clef'], [/laya/, 'Laya'], [/semif/, 'Semif'], [/kev/, 'Kev'], [/qwen/, 'Qwen'], [/gemma/, 'Gemma'], [/deepseek/, 'DeepSeek'], [/mistral/, 'Mistral'], [/gemini/, 'Gemini'], [/claude|sonnet|opus|haiku|fable/, 'Claude'], [/gpt|codex/, 'GPT'], [/rules|regex/, 'Rules baseline']]) {
+    for (const [pattern, family] of [[/solar-decide/, 'Solar'], [/liquid|lfm.*d1/, 'Liquid'], [/tev1/, 'Tev'], [/anyjev/, 'AnyJev'], [/openjev/, 'OpenJev'], [/typesafe|\bjev\b/, 'Jev'], [/clef/, 'Clef'], [/laya/, 'Laya'], [/semif/, 'Semif'], [/kev/, 'Kev'], [/qwen/, 'Qwen'], [/gemma/, 'Gemma'], [/deepseek/, 'DeepSeek'], [/mistral/, 'Mistral'], [/gemini/, 'Gemini'], [/claude|sonnet|opus|haiku|fable/, 'Claude'], [/gpt|codex/, 'GPT'], [/rules|regex/, 'Rules baseline']]) {
       if (pattern.test(name)) return family;
     }
     return 'Other';
@@ -412,8 +444,8 @@
     if (price) rows.push(dataRow('API-equivalent estimate, not billed',money(price.estimateUsd)));
     else if (n(cost.estimatedUsd) !== null) rows.push(dataRow(cost.estimateKind === 'known_usage_only' ? 'Known-usage API-equivalent estimate, not billed' : cost.estimateKind === 'calculated_api_equivalent' ? 'API-equivalent estimate, not billed' : cost.estimateKind === 'cli_list_price' ? 'CLI list-price estimate, not billed' : 'API price estimate, not billed',money(cost.estimatedUsd)));
     if (n(cost.unknownUpperBoundUsd) > 0) rows.push(dataRow('Possible additional charge, upper bound',money(cost.unknownUpperBoundUsd)));
-    const source=price && url(price.rate?.sourceUrl) ? `<p class="note">Public rate checked ${esc(price.rate.checkedDate)} · <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>. ${price.estimateUsd === null ? 'Estimate unavailable: '+esc(price.estimateStatus.replace(/_/g,' '))+'.' : ''} Actual subscription charge and quota use are unknown.</p>` : url(cost.sourceUrl) ? `<p class="note"><a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>. Actual subscription charge and quota use are unknown.</p>` : '';
-    return resourceSection('Cost in USD',rows,cost.note || 'Subscription fees are not allocated per run.')+source;
+    const source=price && url(price.rate?.sourceUrl) ? `<p class="note">Public rate checked ${esc(price.rate.checkedDate)} · <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>. ${price.estimateUsd === null ? 'Estimate unavailable: '+esc(price.estimateStatus.replace(/_/g,' '))+'.' : ''} Actual subscription charge and quota use are unknown.</p>` : url(cost.sourceUrl) ? `<p class="note"><a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>. ${/subscription/i.test(run.surface || '') ? 'Actual subscription charge and quota use are unknown.' : 'Provider usage charges and price estimates are shown separately.'}</p>` : '';
+    return resourceSection('Cost in USD',rows,cost.note || (/subscription/i.test(run.surface || '') ? 'Subscription fees are not allocated per run.' : 'Unreported charges remain unavailable.'))+source;
   }
   function renderUsage(run) {
     const timing=run.timing || {},tokens=runTokens(run),cost=runCost(run),price=priceEntry(run);
@@ -421,7 +453,7 @@
     const actualLabel=n(cost.actualUsd) !== null ? 'Observed API charge' : n(cost.knownUsd) !== null ? 'Known API charge' : 'Observed API charge';
     const inferred=inferenceTime(timing);
     const generation=providerGenerationTime(timing);
-    const inferenceNote=inferred === 'Unavailable' ? 'No server inference duration was reported for this run. Client request timing appears in the technical details below.' : `${count(timing.inferenceReportedRequests)} requests reported server inference time. ${timing.inferenceBasis || ''}`;
+    const inferenceNote=inferred === 'Unavailable' ? (n(timing.requests) > 0 ? 'No server inference duration was reported for this run. Client request timing appears in the technical details below.' : 'No server inference duration or client request duration is available in this public report.') : `${count(timing.inferenceReportedRequests)} requests reported server inference time. ${timing.inferenceBasis || ''}`;
     const evidence=url(run.evidenceUrl);
     $('#usage-summary').innerHTML=`<div class="usage-heading"><h3>${esc(run.model)} <small>${esc(run.condition)} · ${esc(run.id)}</small></h3>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div class="usage-grid"><article><span class="usage-label">Server inference time</span><strong>${esc(inferred)}</strong><p>${esc(inferenceNote)}</p>${generation ? `<dl><div><dt>Provider generation median</dt><dd>${esc(generation)}</dd></div><div><dt>Requests with generation time</dt><dd>${esc(count(timing.providerGenerationReportedRequests))} / ${esc(count(timing.providerGenerationTotalRequests))}</dd></div></dl><p>${esc(timing.providerGenerationBasis || 'Provider generation duration is not pure inference time.')}</p>` : ''}</article><article><span class="usage-label">Token use</span><dl><div><dt>Input</dt><dd>${esc(count(tokens.input))}</dd></div><div><dt>Cache read</dt><dd>${esc(count(tokens.cachedInput))}</dd></div><div><dt>Cache write</dt><dd>${esc(count(tokens.cacheWrite))}</dd></div><div><dt>Output</dt><dd>${esc(count(tokens.output))}</dd></div><div><dt>Reasoning</dt><dd>${esc(count(tokens.reasoning))}</dd></div></dl><p>${esc(coverage)}. ${tokens.complete === false ? 'Totals cover only requests with usage data.' : ''}</p></article><article><span class="usage-label">API cost</span><dl><div><dt>${esc(actualLabel)}</dt><dd>${esc(observedCost(cost))}</dd></div><div><dt>${cost.estimateKind === 'known_usage_only' ? 'Known-usage API-equivalent estimate' : price || cost.estimateKind === 'calculated_api_equivalent' ? 'API-equivalent estimate' : cost.estimateKind === 'cli_list_price' ? 'CLI list-price estimate' : 'Price estimate'}</dt><dd>${esc(money(cost.estimatedUsd))}</dd></div>${n(cost.unknownUpperBoundUsd) > 0 ? `<div><dt>Possible extra charge, upper bound</dt><dd>${esc(money(cost.unknownUpperBoundUsd))}</dd></div>` : ''}</dl><p>Estimates and upper bounds are not provider bills.${price || cost.estimateKind ? ' Actual subscription charge and quota use are unknown.' : ''}${cost.estimateKind === 'known_usage_only' ? ' Any estimate covers only requests with priced usage.' : ''}${price ? ' Reasoning is included in output.' : ''}${price && url(price.rate?.sourceUrl) ? ` <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a> (${esc(price.rate.checkedDate)}).` : url(cost.sourceUrl) ? ` <a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a>.` : ''}${price?.estimateUsd === null ? ` Estimate unavailable: ${esc(price.estimateStatus.replace(/_/g,' '))}.` : ''}${run.id === 'typesafe-jev113-v2' ? ' The extra amount is a reservation ceiling for one failed request.' : ''}</p></article></div>`;
   }
@@ -479,12 +511,13 @@
       const response=await fetch('./data-provider-errors-v1.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
       const data=await response.json();if(!Array.isArray(data.runs)||n(data.denominator)!==60)throw new Error('Invalid public data');
       state.data={...data,runs:data.runs.filter(r => r?.id && ['P0','P1','P2'].includes(r.condition)),cases:Array.isArray(data.cases)?data.cases:[],roster:Array.isArray(data.roster)?data.roster:[]};
-      const [pricing,sonnet55,clef]=await Promise.all([optionalPricing(),optionalSonnet55(),optionalClef()]);
+      const [pricing,sonnet55,clef,decisionRuns]=await Promise.all([optionalPricing(),optionalSonnet55(),optionalClef(),optionalDecisionRuns()]);
       if (pricing?.schema === 'subscription-price-estimates-v1' && pricing.runs && typeof pricing.runs === 'object') state.pricing=pricing;
       state.data.runs.push(...sonnet55FirstPassRuns(sonnet55).filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
       const clefRuns=clefFirstPassRuns(clef);
       state.data.runs.push(...clefRuns.filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
       renderClefFirstPass(clefRuns,clef);
+      state.data.runs.push(...supplementalDecisionRuns(decisionRuns,state.data.runs));
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;
       groups();renderExperimentSelect();renderModelSelect();renderSectionRunPickers();
       ['#overview-condition','#overview-surface'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));
