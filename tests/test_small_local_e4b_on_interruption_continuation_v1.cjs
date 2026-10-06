@@ -37,10 +37,14 @@ test('versioned schedule selects only never-sent DEV-040 through DEV-060 first',
     /Unknown continuation stage|assert/);
 });
 
-test('later stage refuses absent completed suffix and cannot bypass predecessor',()=>{
+test('later stage refuses absent completed suffix and cannot bypass predecessor',t=>{
   const manifest=recovery.expectedManifest();
-  assert.equal(recovery.verifyPredecessors(manifest,'test-sha','fresh2','P2','suffix'),null);
-  assert.throws(()=>recovery.verifyPredecessors(manifest,'test-sha','fresh2','P0','smoke'),
+  const manifestSha=original.hashFile(recovery.MANIFEST);
+  assert.equal(recovery.verifyPredecessors(manifest,manifestSha,'fresh2','P2','suffix'),null);
+  const absent=recovery.paths('fresh2','P2','suffix').claim;
+  const exists=fs.existsSync;
+  t.mock.method(fs,'existsSync',file=>file===absent?false:exists(file));
+  assert.throws(()=>recovery.verifyPredecessors(manifest,manifestSha,'fresh2','P0','smoke'),
     /Continuation closure missing/);
 });
 
