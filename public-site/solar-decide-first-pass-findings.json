@@ -1,0 +1,408 @@
+{
+  "comparison_scope": "These are paired answer changes on the same 60 reviews in one pass. They do not establish a repeatable prompt gain.",
+  "configuration": {
+    "interface": "four native Choice questions",
+    "model": "upstage/solar-decide",
+    "provider": "Upstage",
+    "returned_model": "upstage/solar-decide-20260928"
+  },
+  "cost_scope": "Known model inference charge from provider usage. Development and three-record smoke charges are listed separately; local client time is excluded.",
+  "development_records": 180,
+  "known_development_cost_usd": "0.06788100",
+  "known_smoke_cost_usd": "0.00339045",
+  "paired_prompt_comparisons": [
+    {
+      "changed_fields": {
+        "follow_up_needed": 2,
+        "sentiment": 3,
+        "serious_concern_reported": 0,
+        "testimonial_potential": 0
+      },
+      "changed_record_ids": [
+        "DEV-006",
+        "DEV-013",
+        "DEV-020",
+        "DEV-029",
+        "DEV-059"
+      ],
+      "left": "fresh1/P0",
+      "paired_records": 60,
+      "records_with_any_changed_answer": 5,
+      "right": "fresh1/P1"
+    },
+    {
+      "changed_fields": {
+        "follow_up_needed": 1,
+        "sentiment": 5,
+        "serious_concern_reported": 1,
+        "testimonial_potential": 0
+      },
+      "changed_record_ids": [
+        "DEV-009",
+        "DEV-013",
+        "DEV-020",
+        "DEV-022",
+        "DEV-029",
+        "DEV-059"
+      ],
+      "left": "fresh1/P1",
+      "paired_records": 60,
+      "records_with_any_changed_answer": 6,
+      "right": "fresh1/P2"
+    }
+  ],
+  "reference_status": "Frozen provisional v0.2 development labels; the project owner confirmed human checks of all 60 reviews on 2026-10-02. Scores measure agreement with that key.",
+  "schema": "solar-decide-first-pass-findings-v1",
+  "source_bindings": {
+    "projection_receipt_sha256": "ca439ec504181f94f3c387872961265a278ffc0071d18e19151f61032dbe7f75",
+    "projection_sha256": "52c2ef28b7156d1846e7ccef962a8318e6c5ae6d708a1b7782ee45d4472afb41",
+    "reference_sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+  },
+  "stage_order": [
+    "fresh1/P0",
+    "fresh1/P1",
+    "fresh1/P2"
+  ],
+  "stages": [
+    {
+      "all_four_correct": 55,
+      "fields": {
+        "follow_up_needed": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 24,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 1,
+              "no": 0,
+              "yes": 34
+            }
+          },
+          "correct": 58
+        },
+        "sentiment": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 1,
+              "mixed": 0,
+              "negative": 1,
+              "neutral": 0,
+              "positive": 0
+            },
+            "mixed": {
+              "insufficient_information": 0,
+              "mixed": 8,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 0
+            },
+            "negative": {
+              "insufficient_information": 0,
+              "mixed": 0,
+              "negative": 31,
+              "neutral": 0,
+              "positive": 0
+            },
+            "neutral": {
+              "insufficient_information": 1,
+              "mixed": 1,
+              "negative": 0,
+              "neutral": 6,
+              "positive": 0
+            },
+            "positive": {
+              "insufficient_information": 0,
+              "mixed": 1,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 10
+            }
+          },
+          "correct": 56
+        },
+        "serious_concern_reported": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 3,
+              "no": 3,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 29,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 0,
+              "yes": 25
+            }
+          },
+          "correct": 57
+        },
+        "testimonial_potential": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 50,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 8
+            }
+          },
+          "correct": 58
+        }
+      },
+      "input_tokens": 441340,
+      "known_development_cost_usd": "0.02206700",
+      "known_smoke_cost_usd": "0.00110215",
+      "output_tokens": 240,
+      "records": 60,
+      "stage": "fresh1/P0",
+      "valid_answers": 60
+    },
+    {
+      "all_four_correct": 53,
+      "fields": {
+        "follow_up_needed": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 1,
+              "no": 0,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 24,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 0,
+              "yes": 35
+            }
+          },
+          "correct": 60
+        },
+        "sentiment": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 1,
+              "mixed": 0,
+              "negative": 1,
+              "neutral": 0,
+              "positive": 0
+            },
+            "mixed": {
+              "insufficient_information": 0,
+              "mixed": 6,
+              "negative": 1,
+              "neutral": 0,
+              "positive": 1
+            },
+            "negative": {
+              "insufficient_information": 0,
+              "mixed": 0,
+              "negative": 31,
+              "neutral": 0,
+              "positive": 0
+            },
+            "neutral": {
+              "insufficient_information": 1,
+              "mixed": 0,
+              "negative": 0,
+              "neutral": 6,
+              "positive": 1
+            },
+            "positive": {
+              "insufficient_information": 0,
+              "mixed": 1,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 10
+            }
+          },
+          "correct": 54
+        },
+        "serious_concern_reported": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 3,
+              "no": 3,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 29,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 0,
+              "yes": 25
+            }
+          },
+          "correct": 57
+        },
+        "testimonial_potential": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 50,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 8
+            }
+          },
+          "correct": 58
+        }
+      },
+      "input_tokens": 453100,
+      "known_development_cost_usd": "0.02265500",
+      "known_smoke_cost_usd": "0.00113155",
+      "output_tokens": 240,
+      "records": 60,
+      "stage": "fresh1/P1",
+      "valid_answers": 60
+    },
+    {
+      "all_four_correct": 53,
+      "fields": {
+        "follow_up_needed": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 24,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 0,
+              "yes": 35
+            }
+          },
+          "correct": 59
+        },
+        "sentiment": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 2,
+              "mixed": 0,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 0
+            },
+            "mixed": {
+              "insufficient_information": 0,
+              "mixed": 8,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 0
+            },
+            "negative": {
+              "insufficient_information": 0,
+              "mixed": 1,
+              "negative": 30,
+              "neutral": 0,
+              "positive": 0
+            },
+            "neutral": {
+              "insufficient_information": 1,
+              "mixed": 1,
+              "negative": 0,
+              "neutral": 6,
+              "positive": 0
+            },
+            "positive": {
+              "insufficient_information": 0,
+              "mixed": 1,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 10
+            }
+          },
+          "correct": 56
+        },
+        "serious_concern_reported": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 2,
+              "no": 4,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 29,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 0,
+              "yes": 25
+            }
+          },
+          "correct": 56
+        },
+        "testimonial_potential": {
+          "confusion_reference_by_choice": {
+            "insufficient_information": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 50,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 8
+            }
+          },
+          "correct": 58
+        }
+      },
+      "input_tokens": 463180,
+      "known_development_cost_usd": "0.02315900",
+      "known_smoke_cost_usd": "0.00115675",
+      "output_tokens": 240,
+      "records": 60,
+      "stage": "fresh1/P2",
+      "valid_answers": 60
+    }
+  ],
+  "status": "three_closed_first_pass_runs",
+  "unknown_cost_attempts": 0,
+  "valid_development_answers": 180,
+  "verification_boundary": "Private raw responses were decoded when the public projection was prepared. A copy without those raw files can verify archived hashes, scores and prices, but cannot decode the responses again."
+}
