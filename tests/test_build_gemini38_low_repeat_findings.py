@@ -38,16 +38,18 @@ class RecoveredGeminiLowFindingsTest(unittest.TestCase):
         self.assertIn('results/repeatability-v1/gemini38-low-p0-openrouter-v2/budget-reconciliation-v1.json',sources)
         self.assertIn(budget['childLedger']['path'],sources)
 
-    def test_opt_in_keeps_existing_published_seven_byte_semantics(self):
+    def test_opt_in_keeps_existing_eight_series_before_authority_appendix(self):
         published=json.loads((ROOT/'public-site/gemini-repeats.json').read_text())
         default=report.build(ROOT)
         opt_in=report.build(ROOT,include_recovered_low=True)
         self.assertEqual(len(default['series']),7)
-        self.assertEqual(len(published['series']),8)
+        self.assertEqual(len(published['series']),9)
         self.assertEqual(default['series'],published['series'][:7])
         self.assertEqual(opt_in['series'][:7],default['series'])
-        self.assertEqual(opt_in['series'],published['series'])
+        self.assertEqual(opt_in['series'],published['series'][:8])
         self.assertEqual(opt_in['series'][7]['configuration'],CONFIG)
+        self.assertEqual(published['series'][8]['configuration'],
+                         'gemini31-pro-preview-high-p0-openrouter-v3')
 
     def test_recovered_p0_rejects_saved_prediction_drift(self):
         plan=report.recovered_low.expected_plan(CONFIG,'repeat2')

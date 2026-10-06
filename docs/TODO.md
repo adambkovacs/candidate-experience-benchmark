@@ -2,6 +2,10 @@
 
 ## Recovery after unexpected shutdown, 6 October 2026
 
+- Hosted execution has resumed concurrently: Gemini repeat3/P0 (handle 63965), DeepSeek high fresh1/P0 (49284), and Qwen P1 DEV-050–060 continuation (56685). Gemini repeat3/P2 is closed and independently verified: 60 valid, 56/60 matches, $0.264350 development charges. Root owns closure and next admissions.
+- Qwen parent accounting is reconciled: $0.1300116 known charges across its completed stages and $0.0299008 retained unknown bound. The suffix has a separate $0.3289088 maximum allocation; its output will remain an interrupted descriptive composite.
+- Gemini public-feed integration now has seven independently verified conditions out of nine, preserving the original eight series. Tests pass; publication verification is pending. Shared Ruflo sentinel retrieval and recovery checkpoint save-back are verified in both canonical stores.
+
 - Root verified the $22.38 OpenRouter amendment and both authority pools. Existing reservations remain counted; the additional $10 was not applied again. No matching benchmark process survived the shutdown, and no local inference was restarted.
 - Gemini repeat2/P1 and P2 closed evidence is pushed in `9b4440e2`. P0 is now independently verified: six batches, 60 valid records, 56/60 all-four matches and $0.294926 development charges. Repeat3/P2 passed its three-review smoke and raw inspection; its full hosted pass is running on original handle 63970.
 - `qwen_recovery` owns the separate continuation for P1 DEV-050–060 only. DEV-049 remains an unknown timed-out request with its $0.0299008 bound retained. Root owns ledger reconciliation and dispatch after review.

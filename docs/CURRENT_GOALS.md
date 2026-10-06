@@ -2,9 +2,9 @@
 
 ## Shutdown recovery, 6 October 2026
 
-The goal remains active and its routing and spending instructions match the latest authorization. The unexpected shutdown did not lose the saved Gemini second-pass evidence: P0, P1 and P2 each have 60 valid records and 56/60 all-four matches after raw-response and settlement verification. The third P2 pass is running on OpenRouter after a fresh inspected smoke. DeepSeek high first P0 is also running on OpenRouter after its three-review smoke passed. No local inference was restarted.
+The goal remains active and its routing and spending instructions match the latest authorization. The unexpected shutdown did not lose the saved Gemini second-pass evidence: P0, P1 and P2 each have 60 valid records and 56/60 all-four matches after raw-response and settlement verification. The third P2 pass is also closed and verified at 56/60 matches; the third P0 pass is now running on OpenRouter after a fresh inspected smoke. DeepSeek high first P0 is also running on OpenRouter after its three-review smoke passed. No local inference was restarted.
 
-Hosted Qwen thinking-on first P1 retains 48 valid records, one timed-out unknown request and 11 never-sent reviews. Its unknown charge remains reserved. A separate continuation for only the 11 unsent reviews is under preparation; completed requests will not be repeated. New evidence still needs public-report integration. See [current assignments](TODO.md); older process handles below are historical.
+Hosted Qwen thinking-on first P1 retains 48 valid records, one timed-out unknown request and 11 never-sent reviews. Its unknown charge remains reserved. The parent ledger is conservatively reconciled and a separate continuation for only the 11 unsent reviews is now running; completed requests are not repeated. New evidence still needs public-report integration. See [current assignments](TODO.md); older process handles below are historical.
 
 ## OpenRouter priority and additional authorization, 6 October 2026
 
