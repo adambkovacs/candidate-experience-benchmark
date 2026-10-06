@@ -2,7 +2,7 @@
 
 ## Scope update, 6 October 2026: hosted completion and Cloudflare approval
 
-The user approved a separate Cloudflare budget of up to $10 for the remaining tests and live runs, and requested a budget alert. Alert configuration and the versioned runner authority still need verification before dispatch. OpenRouter retains its cumulative $22.38 ceiling; this is not an increase to that provider's cap.
+The user approved a separate Cloudflare budget of up to $10 for the remaining tests and live runs, and requested a budget alert. The account-wide $10 email alert is enabled and verified. The separately reviewed project ledger includes a $0.259584 historical upper bound and enforces the inclusive $10 cap; the alert alone does not stop spending. OpenRouter retains its cumulative $22.38 ceiling; this is not an increase to that provider's cap.
 
 No further local inference is authorized. Preserve completed local results and mark unfinished local-only configurations as excluded by the user's revised scope. OpenRouter remains the default; worthwhile exact Cloudflare decision-model routes may be considered when unavailable there. Do not substitute model sizes or replay attempted requests.
 

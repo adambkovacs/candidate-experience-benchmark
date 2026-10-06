@@ -4,9 +4,11 @@
 
 DeepSeek low's final report is now published: [Pages run 37529618355](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37529618355) succeeded for `3664dce0`, and root verified exact live bytes for the standalone report, combined analysis and analysis JavaScript.
 
-Cloudflare's five-stage Clef adapter is reviewed and committed in `6af4ad93`. Root inspected the exact first P2 three-record grant against the new inclusive $10 ledger and authorized connected-app dispatch. A full pass still requires raw smoke inspection. The historical bound is $0.259584; the new smoke reserves $0.047187. Flash's exact 58-record suffix is being prepared separately.
+Cloudflare Clef fresh1/P2 smoke is closed: all three HTTP 200 responses returned valid native choices. Root decoded and inspected each saved response and verified its hash. The full pass has not started: a historical-inventory check mistakenly includes the new smoke directory. A narrow versioned fix is in preparation; no development request was sent. The enabled account-wide $10 email alert is separate from the reviewed inclusive $10 runner cap. Flash's exact 58-record suffix remains pending.
 
-Solar full v1 made no requests. A test incorrectly assumed an unadmitted workspace and failed after admission. Its unused $1 child was sealed and released in `e0a48f68`; the versioned successor fixes the fixture without rewriting frozen evidence. No full Solar pass is complete.
+Solar full v1 made no requests. Its unused $1 child was sealed and released in `e0a48f68`. The v2 fix is committed in `491eef90`; root's five execution tests, including the archive check, pass. Independent review and fresh admission remain before smoke dispatch. No full Solar pass is complete.
+
+No further local inference will run. Final work remains: finish the available hosted specialist runs, reconcile unavailable routes and failures, update the combined findings, and verify publication and website controls.
 
 ## Preparation checkpoint, 6 October 2026, 20:59 UTC
 
