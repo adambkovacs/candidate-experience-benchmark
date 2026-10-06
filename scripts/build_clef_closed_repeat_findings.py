@@ -258,7 +258,9 @@ def build(root=ROOT):
         if copied != (ROOT / name).read_bytes():
             raise ValueError('Executed reporter source differs from requested checkout')
     for path in prep.SOURCE_FILES:
-        sources.path(path)
+        copied = sources.path(path)
+        if path.suffix == '.py' and copied != (ROOT / path).read_bytes():
+            raise ValueError('Executed prompt module differs from requested checkout')
     sources.path('docs/REFERENCE_REVIEW_V1.md')
     sources.path('docs/CLEF_FINDINGS_2026-10-02.md')
     sources.path(BASE / 'clef-billing-source.md')

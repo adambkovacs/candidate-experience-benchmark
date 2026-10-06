@@ -59,3 +59,15 @@ def test_tampered_terminal_record_refused(tmp_path):
     copied.write_text('\n'.join(lines) + '\n')
     with pytest.raises(ValueError):
         report.build(root)
+
+
+def test_alternate_checkout_cannot_claim_unexecuted_prompt_module(tmp_path):
+    root = tmp_path / 'checkout'
+    for name in report.build()['sourceBindings']:
+        target = root / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(report.ROOT / name, target)
+    source = root / 'scripts/jev_native_prompt_variants_v1.py'
+    source.write_bytes(source.read_bytes() + b'\n# Changed only in copied checkout.\n')
+    with pytest.raises(ValueError, match='Executed prompt module differs'):
+        report.build(root)
