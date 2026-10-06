@@ -1,0 +1,5 @@
+# DeepSeek high fresh2/P2 accounting closure, 6 October 2026
+
+Root finalized the DEV-027 HTTP 429 unknown charge at its full $0.06905856 reserved upper bound and reconciled the $1.00 DeepSeek high revised-price child. The [reconciliation receipt](../results/repeatability-v1/deepseek-high-remaining7-price-v1/reconciliation-after-dev027.json) records $0.047026223585 cumulative known charges, $0.06905856 retained unknown-cost bound and $0.883915216415 unused allocation released. Its `child_sha256` matches the archived [sealed child ledger](../results/repeatability-v1/deepseek-high-remaining7-price-v1/budget-deepseek-high-remaining7-price-v1.jsonl): `dec47ea3922fdf2735b04646d2772c378740c061923cd5e65a9b3f40b6ee4025`.
+
+The earlier [interruption audit](DEEPSEEK_HIGH_FRESH2_P2_INTERRUPTION_2026-10-06.md) remains the phase result: 26 completed records, DEV-027 failed with unknown actual cost, and DEV-028–060 never sent. This ledger closure does not create a full-phase score. The global authority ledger and OpenRouter master ledger are outside this archive.
