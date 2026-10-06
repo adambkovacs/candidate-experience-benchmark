@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Independent continuation preparation, 6 October 2026, 09:44 UTC
+
+`e4b_unsent_prepare` owns offline preparation for exactly DEV-053 through DEV-060 in Gemma E4B thinking-on fresh2/P2. Its two unknown outcomes, DEV-039 and DEV-052, and 50 saved answers must remain unchanged. The agent may create a separate controller, tests and unapproved manifest; it may not load a model or send requests. Root must review it and recheck hosted availability before any local admission.
+
+`native_variant_admission_audit` owns a read-only check of the prepared Kev/Jev OpenRouter P1/P2 variants, including actual prior execution, exact routes, prices, context accounting and current budget-controller compatibility. Public metadata reads are allowed; credentials, paid calls and ledger changes are not. Root owns any later admission. Qwen3.5 P2 continues on handle 13132 under the shared GPU lock.
+
 ## Roster counts reconciled, 6 October 2026, 09:40 UTC
 
 Root finalized the [remaining roster](REMAINING_ROSTER_2026-09-29.md) against the published reports. Five legacy Qwen configurations have all nine phases closed. Qwen3.5 thinking-on retains its separate interrupted P0 composite and live P2; neither is counted as a completed clean phase. Mistral none has one fully accounted P0 descriptive composite (55 valid, five failed, 40/60 all-four matches), with no clean-repeat credit; high remains unstarted. P1's failed smoke remains visible. Counts and local links were checked. The agent's specialist action inventory is unfinished and is not claimed as delivered; root retains that task. No new request or budget entry was made.
