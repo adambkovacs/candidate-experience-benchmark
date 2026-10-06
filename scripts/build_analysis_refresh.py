@@ -208,6 +208,35 @@ def hosted_fresh_summary(root, published, bindings):
             "cleanMatchedThreeEligible": False,
             "comparisonWithOriginalConfigurationEligible": False,
         }
+    # Compare only complete passes of the same prompt. The interrupted P1
+    # remains visible elsewhere but contributes no repeat-stability credit.
+    qwen_repeats = {}
+    qbase = Path('results/repeatability-v1/qwen36-on-hosted-authority-v3-v2')
+    for condition in ('P0', 'P1', 'P2'):
+        passes = [name for name in ('fresh1', 'fresh2', 'fresh3')
+                  if (name, condition) in qwen_closed]
+        predictions = []
+        for name in passes:
+            folder = (qbase / name / condition if (name, condition) == ('fresh1', 'P0')
+                      else qbase / 'remaining-hosted-v1' / qwen['configuration'] / name / condition)
+            source = str(folder / 'development.attempts.jsonl')
+            if source not in bindings:
+                raise ValueError('Qwen repeat input lacks verified source binding')
+            records = [json.loads(line) for line in (root / source).read_text().splitlines()]
+            predictions.append({row['id']: row['prediction'] for row in records})
+        if len(passes) < 2:
+            continue
+        ids = [f'DEV-{i:03d}' for i in range(1, 61)]
+        if any(set(prediction) != set(ids) for prediction in predictions):
+            raise ValueError('Qwen repeat membership differs')
+        qwen_repeats[condition] = {
+            'passes': passes, 'passCount': len(passes), 'denominator': 60,
+            'allFourScores': [qwen['passes'][name][condition]['score']['allFour'] for name in passes],
+            'changedReviewIds': [rid for rid in ids if any(
+                prediction[rid] != predictions[0][rid] for prediction in predictions[1:])],
+            'changedByField': {field: [rid for rid in ids if len({
+                prediction[rid][field] for prediction in predictions}) > 1] for field in FIELDS},
+        }
     return {
         "source": HOSTED_FRESH_PUBLIC,
         "qwen36On": {"completedCleanConditions": qwen["completedConditions"],
@@ -215,6 +244,7 @@ def hosted_fresh_summary(root, published, bindings):
             "closedCells": [f"{name}/{condition}" for name, condition in qwen_closed],
             "closedPhases": closed_phase_summaries(qwen, qwen_closed),
             "matchedPromptComparisons": qwen_pairs,
+            "repeatability": qwen_repeats,
             "pass": "fresh1", "scores": {name: {"allFour": qpasses[name]["score"]["allFour"],
                 "valid": qpasses[name]["score"]["valid"], "denominator": 60}
                 for name in ("P0", "P2")},

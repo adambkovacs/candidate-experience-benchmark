@@ -28,6 +28,15 @@ class AnalysisRefreshTest(unittest.TestCase):
                           qwen["matchedP0P2AllFourDelta"]), (54, 56, 2))
         self.assertFalse(qwen["interruptedP1"]["cleanComparisonEligible"])
         self.assertFalse(qwen["cleanMatchedThreeEligible"])
+        repeats = qwen["repeatability"]
+        self.assertEqual(repeats['P1']['passes'], ['fresh2', 'fresh3'])
+        self.assertEqual(repeats['P0']['allFourScores'], [54, 53, 51])
+        self.assertEqual(repeats['P2']['allFourScores'], [56, 56, 54])
+        self.assertEqual({condition: len(row['changedReviewIds'])
+                          for condition, row in repeats.items()}, {'P0': 5, 'P1': 6, 'P2': 7})
+        self.assertTrue(all(row['denominator'] == 60 for row in repeats.values()))
+        self.assertTrue(all(not row['changedByField']['follow_up_needed']
+                            for row in repeats.values()))
         self.assertEqual(len(qwen["closedCells"]), qwen["completedCleanConditions"])
         self.assertTrue({"fresh1/P0", "fresh1/P2", "fresh2/P0", "fresh2/P1", "fresh2/P2", "fresh3/P2"}.issubset(qwen["closedCells"]))
         self.assertEqual(next(row["allFour"] for row in qwen["closedPhases"]
