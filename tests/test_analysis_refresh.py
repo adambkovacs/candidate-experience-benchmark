@@ -17,6 +17,36 @@ import build_legacy_qwen_repeat_findings as legacy_qwen_findings
 
 
 class AnalysisRefreshTest(unittest.TestCase):
+    def test_gemini_authority_projection_rebuilds_nine_closed_conditions(self):
+        published = json.loads((ROOT / analysis.GEMINI_AUTHORITY_PUBLIC).read_text())
+        bindings = {}
+        result = analysis.gemini_authority_summary(ROOT, published, bindings)
+        self.assertEqual(result["completedConditions"], 9)
+        self.assertEqual(result["conditions"]["P0"]["allFourScores"], [55, 56, 56])
+        self.assertEqual(result["conditions"]["P1"]["allFourScores"], [56, 56, 56])
+        self.assertEqual(result["conditions"]["P2"]["allFourScores"], [55, 56, 56])
+        self.assertEqual(result["conditions"]["P1"]["changedReviewIds"], ["DEV-030"])
+        self.assertEqual([result["matchedP0"][name]["P1"]["allFourDelta"]
+                          for name in ("original", "repeat2", "repeat3")], [1, 0, 0])
+        self.assertIn("results/repeatability-v1/gemini31-high-authority-v2/"
+                      "gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/closure.review.json",
+                      bindings)
+
+    def test_gemini_authority_rejects_changed_feed_and_incomplete_coverage(self):
+        published = json.loads((ROOT / analysis.GEMINI_AUTHORITY_PUBLIC).read_text())
+        changed = copy.deepcopy(published)
+        series = next(item for item in changed["series"] if item.get("configuration") ==
+                      "gemini31-pro-preview-high-p0-openrouter-v3")
+        series["passes"]["repeat3"]["P1"]["score"]["allFour"] += 1
+        with self.assertRaisesRegex(ValueError, "differs from closed evidence"):
+            analysis.gemini_authority_summary(ROOT, changed, {})
+        incomplete = copy.deepcopy(published)
+        series = next(item for item in incomplete["series"] if item.get("configuration") ==
+                      "gemini31-pro-preview-high-p0-openrouter-v3")
+        series["completedConditions"] = 8
+        with self.assertRaisesRegex(ValueError, "differs from closed evidence"):
+            analysis.gemini_authority_summary(ROOT, incomplete, {})
+
     def test_qwen35_new_missing_smokes_remain_bound_and_unscored(self):
         report = legacy_qwen_findings.build()
         series = next(row for row in report["series"]
@@ -284,7 +314,9 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 373)
+        self.assertGreaterEqual(len(rebuilt["sources"]), 507)
+        self.assertIn(analysis.GEMINI_AUTHORITY_PUBLIC,
+                      {item["path"] for item in rebuilt["sources"]})
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")

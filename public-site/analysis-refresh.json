@@ -3151,6 +3151,173 @@
         }
       }
     },
+    "geminiAuthority": {
+      "completedConditions": 9,
+      "conditions": {
+        "P0": {
+          "allFourRange": [
+            55,
+            56
+          ],
+          "allFourScores": [
+            55,
+            56,
+            56
+          ],
+          "changedReviewIds": [
+            "DEV-022",
+            "DEV-030"
+          ],
+          "pairwiseFlips": [
+            {
+              "changedReviewIds": [
+                "DEV-022"
+              ],
+              "from": "original",
+              "to": "repeat2"
+            },
+            {
+              "changedReviewIds": [
+                "DEV-022",
+                "DEV-030"
+              ],
+              "from": "original",
+              "to": "repeat3"
+            },
+            {
+              "changedReviewIds": [
+                "DEV-030"
+              ],
+              "from": "repeat2",
+              "to": "repeat3"
+            }
+          ]
+        },
+        "P1": {
+          "allFourRange": [
+            56,
+            56
+          ],
+          "allFourScores": [
+            56,
+            56,
+            56
+          ],
+          "changedReviewIds": [
+            "DEV-030"
+          ],
+          "pairwiseFlips": [
+            {
+              "changedReviewIds": [
+                "DEV-030"
+              ],
+              "from": "original",
+              "to": "repeat2"
+            },
+            {
+              "changedReviewIds": [
+                "DEV-030"
+              ],
+              "from": "original",
+              "to": "repeat3"
+            },
+            {
+              "changedReviewIds": [],
+              "from": "repeat2",
+              "to": "repeat3"
+            }
+          ]
+        },
+        "P2": {
+          "allFourRange": [
+            55,
+            56
+          ],
+          "allFourScores": [
+            55,
+            56,
+            56
+          ],
+          "changedReviewIds": [
+            "DEV-006",
+            "DEV-010"
+          ],
+          "pairwiseFlips": [
+            {
+              "changedReviewIds": [
+                "DEV-006",
+                "DEV-010"
+              ],
+              "from": "original",
+              "to": "repeat2"
+            },
+            {
+              "changedReviewIds": [
+                "DEV-006",
+                "DEV-010"
+              ],
+              "from": "original",
+              "to": "repeat3"
+            },
+            {
+              "changedReviewIds": [],
+              "from": "repeat2",
+              "to": "repeat3"
+            }
+          ]
+        }
+      },
+      "configuration": "gemini31-pro-preview-high-p0-openrouter-v3",
+      "denominator": 60,
+      "matchedP0": {
+        "original": {
+          "P1": {
+            "allFourDelta": 1,
+            "changedReviewIds": [
+              "DEV-022"
+            ]
+          },
+          "P2": {
+            "allFourDelta": 0,
+            "changedReviewIds": []
+          }
+        },
+        "repeat2": {
+          "P1": {
+            "allFourDelta": 0,
+            "changedReviewIds": [
+              "DEV-030"
+            ]
+          },
+          "P2": {
+            "allFourDelta": 0,
+            "changedReviewIds": [
+              "DEV-006",
+              "DEV-010",
+              "DEV-022"
+            ]
+          }
+        },
+        "repeat3": {
+          "P1": {
+            "allFourDelta": 0,
+            "changedReviewIds": []
+          },
+          "P2": {
+            "allFourDelta": 0,
+            "changedReviewIds": [
+              "DEV-006",
+              "DEV-010",
+              "DEV-022",
+              "DEV-030"
+            ]
+          }
+        }
+      },
+      "plannedConditions": 9,
+      "referenceStatus": "AI reviewed provisional, not independent adjudication",
+      "source": "public-site/gemini-repeats.json"
+    },
     "gemma26": {
       "cleanMatchedThreeEligible": false,
       "completedConditions": 9,
@@ -10045,12 +10212,32 @@
   },
   "sources": [
     {
+      "path": "data/pilot/inputs.jsonl",
+      "sha256": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e"
+    },
+    {
       "path": "data/pilot/proposed_labels.jsonl",
       "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
     },
     {
       "path": "docs/HOST_INTERRUPTION_2026-10-01.md",
       "sha256": "409dec1384522d01c53e5d63c18434cb3b319ead9e9548216da89c79e9e787ca"
+    },
+    {
+      "path": "docs/LABELING_GUIDE.md",
+      "sha256": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925"
+    },
+    {
+      "path": "prompts/variants-v1/P1-classifier.txt",
+      "sha256": "f6653ebb301287e112b01e032285c75e33337acde009a1db2be17d03cde28ad7"
+    },
+    {
+      "path": "prompts/variants-v1/P2-classifier-sop.txt",
+      "sha256": "b056b9c1162b3d1e3e1d6a09823a83883b35004f4e45fa0e0cc75427598892e9"
+    },
+    {
+      "path": "prompts/variants-v1/manifest.json",
+      "sha256": "d4be944de76d94b85743c536997051755a0247ea13f0d27b612dbbf025fb8264"
     },
     {
       "path": "public-site/claude-repeats.json",
@@ -10095,6 +10282,10 @@
     {
       "path": "public-site/findings.json",
       "sha256": "a3ae2097b2bba91c73076248679250066cb9f58c3f54686391c63cad30430ed3"
+    },
+    {
+      "path": "public-site/gemini-repeats.json",
+      "sha256": "760f24fd7cb79318db54f52f1dcca43243461e9a7c32d0aba2db209348f2b4b2"
     },
     {
       "path": "public-site/gemma26-continuation-findings.json",
@@ -10445,8 +10636,116 @@
       "sha256": "3bc681b50494b4d94222c10a84e735d55e78f80577f712d0295d8a1a6fde33cb"
     },
     {
+      "path": "results/gemini-openrouter-prep-v3/catalog.json",
+      "sha256": "1c107c95082c23adf7710a48469cf67b911f8ceb01413a0235ef2a109b9bdc72"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/gemini-3.1-pro-preview-endpoints.json",
+      "sha256": "1458c5dc09ce40e0fb73a87901772b3114c7e503a1f98ac15762681a869ba137"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/development-attempts.jsonl",
+      "sha256": "fbf28fd0133db2fcb95f46c6d49dfecd04052e00f2425d63ce4c2299990426dd"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/development-journal.jsonl",
+      "sha256": "7f6f02d80bead37d2e93d2336b82c93a3762dec3c940bf32edf654c340cc3785"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/development-records.jsonl",
+      "sha256": "6ecb38534cb88eaf33a5d3563ab7a2dd49e76fa90ad9904d709139f459e78ee4"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/manifest.json",
+      "sha256": "ee5823a3d04ffb3ea87769483ca4bfe970ed8ac7462e879e9230b69d380139e4"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/smoke-attempts.jsonl",
+      "sha256": "7db88bcd788744c26bb9698b78f7898f47574520bc2b9e6b3a0e4747d598ab42"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/smoke-inspection-v3.json",
+      "sha256": "9366b065753a2ce35e0360285f87cd4615dbcfa13e868c0bf3f0ab2161a29e3d"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/smoke-journal.jsonl",
+      "sha256": "736d65739e3b549957daa9523f4961d1aa6247cff281ad45cdb0ee5a83e1012b"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/p0-ready-v1/gemini31-pro-preview-high/smoke-records.jsonl",
+      "sha256": "63d6be06e628f9f53aed957a7447f350209e497992f9c9ed4063ac6eccbe97d5"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/development-attempts.jsonl",
+      "sha256": "32d657089f6306fdb5c3b6aaf1fcff8909db2051de47f31f2f550fdefb75f0a9"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/development-journal.jsonl",
+      "sha256": "b62c071833aef598c4df1b6c001d788e44c1a815b862902b3657da97f6eb0764"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/development-records.jsonl",
+      "sha256": "7c4587055580fae4e71341e986541050b800b027e911f5f38dd5669b9d5ecb4b"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/manifest.json",
+      "sha256": "3a9abc26512f284466db2e9681ef7493f44a8f3e1d5def468f9e31c685a97a5b"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/smoke-attempts.jsonl",
+      "sha256": "8beb5b89a03e57a1e645d192c7864cd7ccfbf6a6fc9c9138b0c8d2c0d40d9638"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/smoke-inspection-v3.json",
+      "sha256": "bd825f845cfbf4883fc71da2eeb6664db7a4c96902ec987c613d466900cfc5cd"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/smoke-journal.jsonl",
+      "sha256": "1d8308fd17ab2946ec1344e32c6dc1fbc79f0029cde62dee739710e6f8337411"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p1/smoke-records.jsonl",
+      "sha256": "05483a3bfb812bea98e48a5b8c3d02897b7ba7cdf1253d57bc9805ca6e63f433"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/development-attempts.jsonl",
+      "sha256": "b282d276c703df0cff66c98c7e2b9470bad9707d44511fd2206206639b4f2cdf"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/development-journal.jsonl",
+      "sha256": "6cec3f26487c72331b1e7c8501f16e4677e3334a71d2a3ca7e5834788285f4f5"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/development-records.jsonl",
+      "sha256": "ab4d370ecd6834ff18a297243769f816f39666596fb9fbfc1b33313aafcafc3f"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/manifest.json",
+      "sha256": "7f40fcd1710b0bcb4f368f7d476031c6c7b4552b1108de97e1b70d54c63c6941"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/smoke-attempts.jsonl",
+      "sha256": "5b57ec7c6fe401f55dbc55ebcfdb6cbf735941fa3bfe91888c30d602fb494913"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/smoke-inspection-v3.json",
+      "sha256": "8621eda33941fab5385263280abd261ee44842576fea4861783b360ef3f4b0dd"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/smoke-journal.jsonl",
+      "sha256": "54644f1bc9d70d28b62bdf96c26f4f26acfc1b9dd3c149c4bdedf70f532404b6"
+    },
+    {
+      "path": "results/gemini-openrouter-prep-v3/prompt-variants-v1/gemini31-pro-preview-high/p2/smoke-records.jsonl",
+      "sha256": "5a08bc20f019d6f23ba00da9e6c201f4ee4345def706e8bfebece9488340f8a8"
+    },
+    {
       "path": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P2/development.jsonl",
       "sha256": "a18091f41c39cdb1778fafadce68d6b49d45f2e3075753522573c4424df95b07"
+    },
+    {
+      "path": "results/repeatability-v1/coverage.json",
+      "sha256": "e63b0615785ad9fe047a1348e61a7f4c815743fb806167ab5304d90d7a8577c9"
     },
     {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/closure.root-review.json",
@@ -10487,6 +10786,354 @@
     {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/second-interruption-continuation-v1/phase-03-suffix.public.json",
       "sha256": "8d2814c5c58f695f7741897fdbf7db2308e4344d5b95c8bfe5b25dbf283f5346"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/budget.json",
+      "sha256": "cfe10587f7d8e9e0fd41413930f3246b261bb65cc8d761c679400acce76174a7"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/closure.review.json",
+      "sha256": "d48f110c96355d9d37ea1df3fc56465ec0897645288a692cea78b79e1bc8ad6d"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/development.attempts.jsonl",
+      "sha256": "6eade5f43d8567a2eb88679d424bda7807fa982414a74c7508575a07c6aef240"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/development.claim.json",
+      "sha256": "5d4576b212b414419ca95fd55a51d5935442b3b6724fdbcb40ee18e02ffdc8bc"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/development.journal.jsonl",
+      "sha256": "5f324909255ab33206e65d85a63a6a3da7455834f8f29a1f465cac72e67327e1"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/development.records.jsonl",
+      "sha256": "3a791107c416eaf363d4f6afdf0d7bfcbe00f9e077c38a1cb741b1a66e5b17e3"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/development.responses.jsonl",
+      "sha256": "598ea310f526a54eb335d4314e9978f45f497ab670d206e29b777bb17db34835"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/development.root-review.json",
+      "sha256": "b10b80487ec9d3378cdf73994f25dc302b056ccf922bab39578d773bf6686a7b"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/smoke-inspection.json",
+      "sha256": "e9e85c56713b27a723f74d9cc11ff1990ca40c8d14d2aa27aef46efe6943e475"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/smoke.attempts.jsonl",
+      "sha256": "07974d90acd7c6832ab4a94d588e79fd509a8a4ad78c99e14d7f81ae4cfd6516"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/smoke.claim.json",
+      "sha256": "7fdecd667b51dc60de9e316e44bb10a23838e054726874f3625fe976326ffda9"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/smoke.journal.jsonl",
+      "sha256": "448c0ce3cd7a7bfa272f089e0d52065b215b654a41a1273ef5a3d406daf637bb"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/smoke.records.jsonl",
+      "sha256": "e068cf06942fc1ba0bcb179e5b9b1b0c1cce386515c8bc8e3ed65db23f0bb434"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/smoke.responses.jsonl",
+      "sha256": "a8c9a0c94918ec7123fa5682888829d753fc8b6bc65b34e70349487ebfa1124b"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P0/smoke.root-review.json",
+      "sha256": "07cf622aeb39bf4b3e7eb05cb2ee24eb5d8d7d803cffc2d27b1e7f4d61961002"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/closure.review.json",
+      "sha256": "c6845352bce3611cb3299398cb8f718017322e4c7f556386ee778674c03d5643"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/development.attempts.jsonl",
+      "sha256": "d47a91f70ae3b7200d985274f178d796112b56ad7469cd18c0accd83435d6b9b"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/development.claim.json",
+      "sha256": "25d8220d4fdaac2d72495552b9d2450a69f105b10d976000704a2d0339fe9c13"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/development.journal.jsonl",
+      "sha256": "5ba51767d65eb0a55270c0bfbe46f031bdd18c7b1f8c63b1241e148586188df8"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/development.records.jsonl",
+      "sha256": "6052d46814364c80b50901165742c08dd7c729bfec211f43341a9d3288faf1ce"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/development.responses.jsonl",
+      "sha256": "c3b2d72ed35cb194de2cb938661f50c36cfaee307add660700c59054172eaa31"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/development.root-review.json",
+      "sha256": "6bc697d9adadfea76262e1ce42578c81b91a32adc1604e0fe8184d2f1b180691"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/smoke-inspection.json",
+      "sha256": "56091c64c9d0c2932dc86c9e4c296c939c12808127325507478417f781d8ca1a"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/smoke.attempts.jsonl",
+      "sha256": "305cea566cb3dda66f3688e456dfe1a99b0c2072f5d249371f7d336981819466"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/smoke.claim.json",
+      "sha256": "324faba65af12dc318b6e921181414f82a62ff0926e1b16745f01deacc7a20c3"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/smoke.journal.jsonl",
+      "sha256": "d03d60efe123954976923245d1ca8ab12094ac2238ceb9bfc517bce72d7e25a8"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/smoke.records.jsonl",
+      "sha256": "7ebabc4c1df5d52fd452f3602ede7b2489cae72c4d4a762e0c2cd4e31a5fa3f1"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/smoke.responses.jsonl",
+      "sha256": "5851c5087a18f25f381a960a7c25c0bbc246cecb803ff8afbb3cef6bc4106a7a"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P1/smoke.root-review.json",
+      "sha256": "a862ae6382f413a5ed1132ce1a01ad9d8f33d0f98e72a4fb11738a7a451760e4"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/closure.review.json",
+      "sha256": "c073ae497bd5e796b1f269c69006e93e5605e5f23f9d9bfebaa2d67f241fe498"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/development.attempts.jsonl",
+      "sha256": "0242a67681cfd09eb393efa1182d23d1c4c7fd3f1829309560c4b25fbd6f4aae"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/development.claim.json",
+      "sha256": "85889940fb75fad6293530797a5e7932d816985b495ac214137d0807f1a97386"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/development.journal.jsonl",
+      "sha256": "79b2aa5469d8f08f3cc275128e85ed606f5cc4300867b7773eceec1222717dce"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/development.records.jsonl",
+      "sha256": "e7aa1703e638500d7c191a01d612c79e59cae94c3197eda17d116825f34f2956"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/development.responses.jsonl",
+      "sha256": "54f4b130ca38d01cfc6c6907e0b0763af37d3b7df469d9a0acce8161386176c5"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/development.root-review.json",
+      "sha256": "1150c33ddc6c5c72d2950178d7a398b9bd860c32c6922688a5b79a22ea4fbe07"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/smoke-inspection.json",
+      "sha256": "b7cc69e953a248bc5e9c3fc87a3ce6b03582bebc72a79c052f1764a5c1ae68f7"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/smoke.attempts.jsonl",
+      "sha256": "ac52917e7f5897db2166d346cbfe440a47bbe6c4d15451a0496a3ca3095cbe8a"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/smoke.claim.json",
+      "sha256": "7424fdf7a4f802efaefa59a84691efe967210cb43be01b27bafe50bb74ce1cbe"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/smoke.journal.jsonl",
+      "sha256": "b1e85fb068fc97c1059972efd9ca48ae99851faf48c753efe9960d0056ed00eb"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/smoke.records.jsonl",
+      "sha256": "bb9d92590936bad9dfb81ca19fbc8dfe79881f798f1a0485cbb2b53a0dfa4ef2"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/smoke.responses.jsonl",
+      "sha256": "5348da6d655b144eb32f5e9a76fd614811912e31244454795511a8c59a140ed7"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/P2/smoke.root-review.json",
+      "sha256": "c57e19932eb6417ac5536451d9a65f9ec14fb7f3c15808657f773dfed26b6e62"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat2/manifest.json",
+      "sha256": "4dfd2cdc807435bba0ce080e94ce1d626c057bc29a9ed72372b2d854bc440f7b"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/closure.review.json",
+      "sha256": "144e211a5fc434e98b9cf0ddf75a3b41a6eacf7c54a83f840e6081e208d582b4"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/development.attempts.jsonl",
+      "sha256": "438f48765191af4e99ff2b291d5708cc74c098cbd728ce8531e9d2a57373a4b1"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/development.claim.json",
+      "sha256": "3ebfe477ed2bee986424cc6e019bc83f7dfbc92354b0bba5305645dfb5427745"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/development.journal.jsonl",
+      "sha256": "920963e0c643cac7a15cdf28e78f696bab43bea581e929e7ae8290b6166c6107"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/development.records.jsonl",
+      "sha256": "a1e6218500dd126d97fe4f1e167d4dbcb87994393fb92b3b534c27554f5927f8"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/development.responses.jsonl",
+      "sha256": "a5639654b7b8c70e07cb60bb73dd022152f69ced25511dd31e996d6b83c2b280"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/development.root-review.json",
+      "sha256": "2de470f5ad0052c6cf55bf65978a3e0be5134a1f473d5833db7a053b1cf3a63b"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/smoke-inspection.json",
+      "sha256": "6d54f425b70ec58e5c59c8eb1a5174180fa4fc5411a5128c72858904232b3fed"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/smoke.attempts.jsonl",
+      "sha256": "dbaedba84890b95d8220778a69959037e65957ec0c08995306a431ff821e30d3"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/smoke.claim.json",
+      "sha256": "7597c16ff43af308bef9474de9a1cbca13129e9e321bfd86833008f1c817eda8"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/smoke.journal.jsonl",
+      "sha256": "d80d0133569da7e47550ebf769dab7a7feb7d63256b6820a0202c5e65de213df"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/smoke.records.jsonl",
+      "sha256": "aa1935e8c89c0a2dc80b95c403aba7c3dae457d89ecaad4d36befab46e76dca6"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/smoke.responses.jsonl",
+      "sha256": "90fb0f7bd7cb765c0367e102f05df4b01f359c6564771403f7fbdad527b3e5b5"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P0/smoke.root-review.json",
+      "sha256": "b418bc3dc4471a8a7ee79dd2c2c8c52700819fcdfc17bc1877be437e380d879e"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/closure.review.json",
+      "sha256": "0e2b9a0697ccf754083eb64b5f2f57778e701413526d261f88a3f55e16c3c630"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.attempts.jsonl",
+      "sha256": "422a5e06492b61c81268a253cd0a3c82c9fbeff4d246b63cb7ed09d5bd11d717"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.claim.json",
+      "sha256": "db0620775e7bf8f94460ce13243f0cc37acb832a30d93d069060b696b48ddfab"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.journal.jsonl",
+      "sha256": "e5955c2dd4c466b12d894c99baeee5068ebdb040300f7b326df06733f9b14c9d"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.records.jsonl",
+      "sha256": "48e18a07bd9eb5617341b498dd4ab8bcf4a653177232a72db36d6f649e93b262"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.responses.jsonl",
+      "sha256": "31891faed422a9ae13c7398b7b11dee35f47864af215c60af9b54642649555f4"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/development.root-review.json",
+      "sha256": "029a62975c4c8f559f50bd3f7881cf4cf74b2ece526b1572e95d31aeb18bcf9d"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke-inspection.json",
+      "sha256": "381ec77eea3e58f95d9a84c072eb491f4764893241f291558c7f276bbece87fd"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.attempts.jsonl",
+      "sha256": "1e2339c7c4f5718799aa3dc96544e693f6281066984da27397a34702d51608db"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.claim.json",
+      "sha256": "72a65de5c76ce3c1ba79084d136668efa788b59c9528c028916ec5e4ebfb0f9d"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.journal.jsonl",
+      "sha256": "10c1e48c9ea273470ff75447ac015c8592017da988c756266814a0caebcc2440"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.records.jsonl",
+      "sha256": "dad22d077a299c9f3ec9037cfb7d8a0e3eaf557a22da9258335f11c05ccc0ab7"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.responses.jsonl",
+      "sha256": "c9574aa92732b64a7f1c4b6fb7bcc8479a8412f2932957a5cd34f250b84f6158"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P1/smoke.root-review.json",
+      "sha256": "745ab39fddf028d82090772a6a3e37c5f87ac0065459b6840e11890723d0c602"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/closure.review.json",
+      "sha256": "bc1436aaedc38b70d2bd5b396321d51c13c1e757ecc95ff29e1389d879aee8ed"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/development.attempts.jsonl",
+      "sha256": "ea798070769466d3e8167f3e76377ccd30a19c464ced46cf39523163eb168efe"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/development.claim.json",
+      "sha256": "0c41645e1482db0a3fab230a2d7cc3018f4e95f2a5cfa5041b57ef84543b10c6"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/development.journal.jsonl",
+      "sha256": "34bf4a04dbd0679dabae67a982aa43146df9b55694a0ead3193a2b69745be095"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/development.records.jsonl",
+      "sha256": "1bddfb05a120b415948d2d01905edf375569f998a2eef7e00f62e544c4388d5d"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/development.responses.jsonl",
+      "sha256": "d525b16f7b9937edf8ae1e5d28dd3312e602621dbd75077a37291063b87b3a4c"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/development.root-review.json",
+      "sha256": "ac423f8a1b470a3d919f4db7dc2e925a0c048052968cb196a231d282e30d70e5"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke-inspection.json",
+      "sha256": "c5445d2ac97f3d38302e0632eba4fe03c7ed660fa06f57c138254a746337cfbe"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke.attempts.jsonl",
+      "sha256": "52d8b73a790db4732a0db3736e9f6be2dac7de2316de72ee2d55c2692273581e"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke.claim.json",
+      "sha256": "70da6b623b1703ddef1b2008272f69b00717b013ddd3a1ffab6c14b7b730ef16"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke.journal.jsonl",
+      "sha256": "44d9c6910a08c5c86b1dd72e66b758749415c8893fd4d5b94f1631205648ed58"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke.records.jsonl",
+      "sha256": "02fa9f7401feffa331408c8ffe5267b4f2a123e5724cc08420355f8f2dc7ab13"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke.responses.jsonl",
+      "sha256": "add0d50ae6d1398156acf25fb742ed6ec44ec7535b76cfd49617634595d9ba96"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/P2/smoke.root-review.json",
+      "sha256": "f4e8bd92e9f28d96f1bdb7fb65b79c5248000986011aa4fc0ef33f4e16298f18"
+    },
+    {
+      "path": "results/repeatability-v1/gemini31-high-authority-v2/gemini31-pro-preview-high-p0-openrouter-v3/repeat3/manifest.json",
+      "sha256": "2d735ce8c8ef53279b81ea54d3c7c801baa107bd9983984cd744e0f04a30a2e8"
     },
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.attempts.jsonl",
@@ -11493,8 +12140,28 @@
       "sha256": "252487d1cf2d9c59175969114a0e2e10617f1843797aa7a3cdf3cfd0ed6b6186"
     },
     {
+      "path": "scripts/codex_batch_benchmark.py",
+      "sha256": "7d8ad13cfb44bd577f198e649c77977fb81b0bb6ffee2d8ba6c63903aa971941"
+    },
+    {
       "path": "scripts/e4b_p2_unsent_suffix_v1.cjs",
       "sha256": "4677c596e1ea2ed58c0e3bcf6c0177dfe8b8e72b6890166cd5e1260134332a0e"
+    },
+    {
+      "path": "scripts/frozen_prompt_variants.py",
+      "sha256": "d7b4516c0af157c764006d57754c13773f71de77d9132b5465701135d8bdf653"
+    },
+    {
+      "path": "scripts/gemini31_high_authority_v2.py",
+      "sha256": "80178c534d4e8f5dc00582deed8b3e61ae892798a8496b9f64d81828239b37cd"
+    },
+    {
+      "path": "scripts/gemini_openrouter_batch_v3.py",
+      "sha256": "4f7b66a62f256fc7f3b5e0296fe96b6267c01514796a2faddcab97c8e188b550"
+    },
+    {
+      "path": "scripts/gemini_repeat_roster.py",
+      "sha256": "621d3e4307fd463de77b0e9b26a5f0f39a5fe7c89ac91b5caf587d71de85792f"
     },
     {
       "path": "scripts/gemma26_fresh3_p1_dev060_suffix_v1.py",
@@ -11513,6 +12180,18 @@
       "sha256": "23daef4bcf21f104716c2fe6dc3cbc8464eec8dbb6caa417b1620dc281fbcfbd"
     },
     {
+      "path": "scripts/openrouter_budget_amendment_v3.py",
+      "sha256": "b712daa5505c6de5eaa890edeed28d93fef6c414330a7a75bb05dec2278073da"
+    },
+    {
+      "path": "scripts/openrouter_budget_v2.py",
+      "sha256": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188"
+    },
+    {
+      "path": "scripts/openrouter_budget_v4.py",
+      "sha256": "a4432ac67862c189775f4204c41e1a41c56bfb4d8d0dc5126a49573e43f58747"
+    },
+    {
       "path": "scripts/openrouter_jev_authority_v2.py",
       "sha256": "2e9b11485f1d153ac5bec84b25d13b00a9c976a149f28633173b9c6adccc7594"
     },
@@ -11525,8 +12204,32 @@
       "sha256": "94d26e7a27d68704390ee62976f42c51f765e68e7ee1df0702fa83187cb68685"
     },
     {
+      "path": "scripts/openrouter_paid_benchmark.py",
+      "sha256": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7"
+    },
+    {
+      "path": "scripts/openrouter_repeat_wave.py",
+      "sha256": "f3e5cdc2e9b81a9bf9c9adf88c5f35662dbf93d2392c0ec0a57e3dc1d871e3b5"
+    },
+    {
+      "path": "scripts/paid_budget_partitions_v2.py",
+      "sha256": "b5b1862bd41261f428d92fc350635d34a946bb3c33443205ec802923cdba9535"
+    },
+    {
+      "path": "scripts/paid_budget_partitions_v3.py",
+      "sha256": "eac0543a2e3d3e9f0aa4f9950b6f1fab486b71127eb6ec96da09c1361b6e3eab"
+    },
+    {
+      "path": "scripts/paid_budget_partitions_v4.py",
+      "sha256": "65fa6c5037662380d288815f788ba59d87e918e747edf388a3cb45e6edbe63ed"
+    },
+    {
       "path": "scripts/postapproval_authority_v2.py",
       "sha256": "b7819f5da4a002f7f50ace810e61e6e5095299e14f5b2ef20533a3e4d4967cc4"
+    },
+    {
+      "path": "scripts/postapproval_authority_v3.py",
+      "sha256": "c2683ab76cfd463262083677e5814520d00b5c835306b303810159edb1a9e51c"
     },
     {
       "path": "scripts/small_local_e4b_on_interruption_continuation_v1.cjs",

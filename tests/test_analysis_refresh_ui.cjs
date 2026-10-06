@@ -45,6 +45,21 @@ test('latest effort table uses source ranges, changed-review counts and nine-run
   assert.match(page,/estimates are not subscription charges/);
   assert.match(page,/same 60 reviews/);
 });
+test('Gemini authority summary shows closed scores and record changes', async()=>{
+  const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
+  const view = await renderState(report);
+  assert.match(view.cutoffs,/Gemini 3\.1 Pro Preview, high effort/);
+  assert.match(view.cutoffs,/9\/9 condition and pass combinations are closed/);
+  assert.match(view.cutoffs,/P0: 55, 56, 56 of 60; P1: 56, 56, 56 of 60; P2: 55, 56, 56 of 60/);
+  assert.match(view.cutoffs,/P0 2\/60, P1 1\/60, P2 2\/60 reviews/);
+  assert.match(view.cutoffs,/P1 1, 0, 0; P2 0, 0, 0 full matches/);
+  assert.match(view.cutoffs,/no consistent score gain/);
+  const incomplete = structuredClone(report);
+  incomplete.newerCohorts.geminiAuthority.completedConditions = 8;
+  const broken = await renderState(incomplete);
+  assert.equal(broken.cutoffs, '');
+  assert.match(broken.table,/comparison could not be loaded/);
+});
 test('analysis page shows Gemma composite, Clef and local Qwen as separate cohorts', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
   const view = await renderState(report);

@@ -12,6 +12,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = "public-site/analysis-refresh.json"
@@ -28,6 +29,7 @@ CLEF_FLASH_P0_SUFFIX = "results/clef-native-v1/clef-flash/fresh3/P0/development-
 MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
 KEV_NATIVE_PROMPT_PUBLIC = "public-site/kev-native-prompt-findings.json"
 JEV_NATIVE_PROMPT_PUBLIC = "public-site/jev-native-prompt-findings.json"
+GEMINI_AUTHORITY_PUBLIC = "public-site/gemini-repeats.json"
 SOURCES = (
     "public-site/e4b-interruption-findings.json",
     "public-site/sonnet55-fresh-matched3.json",
@@ -58,6 +60,7 @@ SOURCES = (
     MISTRAL_P0_PUBLIC,
     KEV_NATIVE_PROMPT_PUBLIC,
     JEV_NATIVE_PROMPT_PUBLIC,
+    GEMINI_AUTHORITY_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -96,6 +99,125 @@ def bind_report_sources(root, report, bindings, label):
         seen[path] = digest
         bindings[path] = digest
     return seen
+
+
+def gemini_authority_summary(root, published, bindings):
+    """Rebuild the closed series before projecting its matched comparisons."""
+    import build_gemini31_high_authority_v2_findings as gemini_report
+
+    if published.get("schema") != "gemini-repeat-series-v1":
+        raise ValueError("Published Gemini authority report differs from closed evidence")
+    closures = {}
+    for repeat in gemini_report.REPEATS:
+        for condition in gemini_report.CONDITIONS:
+            found = gemini_report._closure(root, repeat, condition)
+            if found is None:
+                raise ValueError("Gemini authority closure is missing")
+            closures[repeat, condition] = found
+        plan_path = gemini_report.BASE / gemini_report.CONFIG / repeat / "manifest.json"
+        plan = json.loads((root / plan_path).read_text())
+        for condition in gemini_report.CONDITIONS:
+            for name in ("catalog", "endpoints"):
+                source = plan["conditions"][condition][name]
+                if sha(root / source["path"]) != source["sha256"]:
+                    raise ValueError("Gemini authority endpoint source differs")
+                bindings[source["path"]] = source["sha256"]
+
+    ordinary_terminal = gemini_report.report._terminal
+
+    def admitted_terminal(report_root, relative):
+        relative = Path(relative)
+        if (relative.name in ("smoke.journal.jsonl", "development.journal.jsonl") and
+                relative.parts[:len(gemini_report.BASE.parts) + 1] ==
+                (*gemini_report.BASE.parts, gemini_report.CONFIG)):
+            repeat, condition = relative.parts[len(gemini_report.BASE.parts) + 1:
+                                               len(gemini_report.BASE.parts) + 3]
+            if (repeat, condition) not in closures:
+                return None
+        return ordinary_terminal(report_root, relative)
+
+    def authority_controller(config):
+        if config != gemini_report.CONFIG:
+            raise ValueError("Unexpected Gemini authority configuration")
+        return gemini_report.authority.runner
+
+    with (patch.object(gemini_report.report, "BASE", gemini_report.BASE),
+          patch.object(gemini_report.report, "_controller", authority_controller),
+          patch.object(gemini_report.report, "_terminal", admitted_terminal)):
+        rebuilt = gemini_report.report.build_series(gemini_report.CONFIG, root)
+    for (repeat, condition), (binding, metrics) in closures.items():
+        phase = rebuilt["passes"][repeat][condition]
+        if (phase["completionStatus"] != "complete" or
+                phase["score"]["allFour"] != metrics["all_four_matches"] or
+                phase["score"]["valid"] != metrics["valid_records"] or
+                phase["score"]["outcomes"]["invalid_output"] != metrics["invalid_records"] or
+                phase["usage"]["knownCostUsd"] != metrics["development_observed_cost_usd"]):
+            raise ValueError("Gemini authority closure metrics differ from report")
+        rebuilt["sourceBindings"].append(binding)
+    matches = [item for item in published.get("series", [])
+               if item.get("configuration") == gemini_report.CONFIG]
+    if len(matches) != 1 or matches[0] != rebuilt:
+        raise ValueError("Published Gemini authority report differs from closed evidence")
+    series = matches[0]
+    passes = ("original", "repeat2", "repeat3")
+    if (series.get("completedConditions") != 9 or series.get("plannedConditions") != 9 or
+            series.get("denominator") != 60 or series.get("missingPasses") or
+            series.get("partialPasses") or set(series.get("passes", {})) != set(passes)):
+        raise ValueError("Gemini authority nine-condition coverage differs")
+    source_map = bind_report_sources(root, series, bindings, "Gemini authority report")
+    ids = [f"DEV-{n:03}" for n in range(1, 61)]
+    records = {}
+    conditions = {}
+    for condition in CONDITIONS:
+        phases = [series["passes"][name][condition] for name in passes]
+        if any(phase["completionStatus"] != "complete" or
+               phase["score"]["valid"] != 60 or
+               phase["score"]["outcomes"]["invalid_output"] != 0
+               for phase in phases):
+            raise ValueError("Gemini authority phase is incomplete or invalid")
+        for name, phase in zip(passes, phases):
+            evidence = phase["evidence"]
+            binding = evidence["development_records" if name == "original" else "records"]
+            if source_map.get(binding["path"]) != binding["sha256"]:
+                raise ValueError("Gemini authority record binding differs")
+            rows = [json.loads(line) for line in (root / binding["path"]).read_text().splitlines()]
+            if ([row.get("id") for row in rows] != ids or
+                    any(row.get("status") != "ok" or not isinstance(row.get("prediction"), dict)
+                        for row in rows)):
+                raise ValueError("Gemini authority ordered records differ")
+            records[name, condition] = {row["id"]: row["prediction"] for row in rows}
+        summary = series["threePassSummary"][condition]
+        scores = [phase["score"]["allFour"] for phase in phases]
+        changes = series["changesAcrossThreePasses"][condition]
+        if (summary["allFour"]["values"] != scores or
+                summary["allFour"]["range"] != [min(scores), max(scores)] or
+                changes["denominator"] != 60 or changes["excludedIds"]):
+            raise ValueError("Gemini authority repeat summary differs")
+        conditions[condition] = {
+            "allFourScores": scores,
+            "allFourRange": summary["allFour"]["range"],
+            "changedReviewIds": changes["fourFieldVector"],
+            "pairwiseFlips": [{"from": pair["from"], "to": pair["to"],
+                               "changedReviewIds": pair["fourFieldVector"]["caseIds"]}
+                              for pair in series["pairwiseFlips"] if pair["condition"] == condition],
+        }
+    prompt_pairs = {}
+    for name in passes:
+        prompt_pairs[name] = {}
+        for target in ("P1", "P2"):
+            changed = [rid for rid in ids if records[name, "P0"][rid] != records[name, target][rid]]
+            delta = next(item["allFour"] for item in series["withinPassPromptDeltas"]
+                         if item["pass"] == name and item["from"] == "P0" and item["to"] == target)
+            expected_delta = (series["passes"][name][target]["score"]["allFour"] -
+                              series["passes"][name]["P0"]["score"]["allFour"])
+            if delta != expected_delta:
+                raise ValueError("Gemini authority paired prompt delta differs")
+            prompt_pairs[name][target] = {"allFourDelta": delta,
+                                          "changedReviewIds": changed}
+    return {"source": GEMINI_AUTHORITY_PUBLIC, "configuration": series["configuration"],
+            "completedConditions": 9, "plannedConditions": 9, "denominator": 60,
+            "conditions": conditions, "matchedP0": prompt_pairs,
+            "referenceStatus": series["referenceStatus"]}
 
 
 def kev_native_prompt_summary(root, report, bindings):
@@ -721,6 +843,8 @@ def build(root=ROOT):
         raise ValueError("E4B interrupted report differs from raw evidence")
     jev_native_prompts = jev_native_prompt_summary(
         root, data[JEV_NATIVE_PROMPT_PUBLIC], bindings)
+    gemini_authority = gemini_authority_summary(
+        root, data[GEMINI_AUTHORITY_PUBLIC], bindings)
 
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
@@ -1247,6 +1371,7 @@ def build(root=ROOT):
             "clefP1FirstPass": clef_p1,
             "kevNativePrompts": kev_native_prompts,
             "jevNativePrompts": jev_native_prompts,
+            "geminiAuthority": gemini_authority,
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},

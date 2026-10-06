@@ -26,7 +26,7 @@
     }
     const cutoffs = document.getElementById('analysis-refresh-cutoffs');
     if (cutoffs && report.newerCohorts) {
-      const {clefP1FirstPass:clefP1, gemma26:gemma, clefNativeP0:clef, latestFlashP0Interruption:latestFlashRaw, clefFlashP1:flashP1, clefFlashP2:flashP2, legacyQwen:qwen, deepseekLow:deepseek, mistral119:mistral, mistral119Fresh1P0:mistralP0} = report.newerCohorts;
+      const {clefP1FirstPass:clefP1, gemma26:gemma, clefNativeP0:clef, latestFlashP0Interruption:latestFlashRaw, clefFlashP1:flashP1, clefFlashP2:flashP2, legacyQwen:qwen, deepseekLow:deepseek, mistral119:mistral, mistral119Fresh1P0:mistralP0, geminiAuthority:gemini} = report.newerCohorts;
       const latestFlash = latestFlashRaw || {source:'public-site/clef-p0-third-checkpoint.json', unknownOutcomeIds:clef?.thirdCheckpoint?.clefFlash?.unknownOutcomeIds || [], neverSentCount:clef?.thirdCheckpoint?.clefFlash?.neverSentCount || 0};
       if (!gemma?.p0Checkpoint || !gemma?.p1Checkpoint || !gemma?.fresh3P2 ||
           gemma?.source !== 'public-site/gemma26-fresh3-p1-interrupted-checkpoint.json' ||
@@ -49,7 +49,12 @@
           !mistralP0 || mistralP0?.source !== 'public-site/mistral119-fresh1-p0-findings.json' ||
           mistralP0?.valid !== 55 || mistralP0?.failed !== 5 || mistralP0?.allFourMatches !== 40 ||
           !qwen?.sdkFinalP2 || !qwen?.qwen17OffRepeat?.conditions ||
-          !deepseek || !mistral || !latestFlash?.source || !Array.isArray(latestFlash.unknownOutcomeIds)) throw Error('Incomplete cohort analysis');
+          !deepseek || !mistral || !latestFlash?.source || !Array.isArray(latestFlash.unknownOutcomeIds) ||
+          gemini?.source !== 'public-site/gemini-repeats.json' ||
+          gemini?.completedConditions !== 9 || gemini?.plannedConditions !== 9 ||
+          ['P0','P1','P2'].some(c => !Array.isArray(gemini?.conditions?.[c]?.allFourScores) ||
+            gemini.conditions[c].allFourScores.length !== 3 ||
+            !Array.isArray(gemini.conditions[c].changedReviewIds))) throw Error('Incomplete cohort analysis');
       const on=qwen.sdkFinalP2.thinkingOn, off=qwen.sdkFinalP2.thinkingOff;
       const offRepeat=qwen.qwen17OffRepeat;
       const offCondition = (condition) => {
@@ -91,7 +96,11 @@
       const q35PartialText=q35Partial ? `Fresh1 P0 stopped after ${esc(q35Partial.attempted)} attempts: ${esc(q35Partial.saved)} saved responses (${esc(q35Partial.valid)} valid, ${esc(q35Partial.invalid)} invalid), ${esc(q35Partial.unknownStartedIds.join(', '))} with an unknown outcome, and ${esc(q35Partial.neverSentIds.length)} reviews never sent. It has no full-pass score. The host slept during the unknown request, so wall time is not pure inference time.` : '';
       const q35CompositeText=q35Composite ? `Fresh1 P0 has a descriptive interrupted result: ${esc(q35Composite.score.allFour)}/60 all-four matches, ${esc(q35Composite.score.valid)} valid responses, ${esc(q35Composite.score.outcomes.invalid_output)} invalid responses and one unknown outcome at DEV-052. The eight later reviews were sent separately; none remain unsent. This is not a clean repeat pass. The host slept during the original DEV-052 attempt, so its wall time is not pure inference time.` : '';
       const q35Html=q35 ? `<li><strong>Qwen3.5 4B SDK, thinking on:</strong> ${esc(q35.completedConditions)}/${esc(q35.plannedConditions)} full phases are closed. ${q35Text} ${q35PartialText}${q35CompositeText} The local hardware and electricity cost and pure inference time were not measured. These are repeated observations of the same 60 synthetic reviews. <a href="./legacy-qwen-repeats.json">Read the source-bound repeat evidence</a>${q35Partial || q35Composite ? ' · <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN35_P0_INTERRUPTION_2026-10-06.md">Read the interruption report</a>' : ''}.</li>` : '';
+      const geminiScores = ['P0','P1','P2'].map(c => `${c}: ${gemini.conditions[c].allFourScores.map(esc).join(', ')} of 60`).join('; ');
+      const geminiChanges = ['P0','P1','P2'].map(c => `${c} ${esc(gemini.conditions[c].changedReviewIds.length)}/60`).join(', ');
+      const geminiDeltas = ['P1','P2'].map(c => `${c} ${['original','repeat2','repeat3'].map(p => esc(gemini.matchedP0[p][c].allFourDelta)).join(', ')}`).join('; ');
       cutoffs.innerHTML = `<p><strong>Other saved cohorts use different routes and completion rules.</strong></p><ul>
+        <li><strong>Gemini 3.1 Pro Preview, high effort:</strong> ${esc(gemini.completedConditions)}/9 condition and pass combinations are closed. All 60 answers were valid in each. All-four scores across the original pass and two repeats are ${geminiScores}. At least one answer changed across repeats on ${geminiChanges} reviews, even where score totals stayed the same. Matched changes from P0 are ${geminiDeltas} full matches. The added prompt instructions gave no consistent score gain on these 60 synthetic reviews. <a href="./gemini-repeats.json">Read the source-bound Gemini report</a>.</li>
         <li><strong>Gemma 26B:</strong> All ${esc(gemma.completedConditions)} planned runs now have results, including failed requests in the 60-review totals.
           <p>The P2 all-four scores are ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p2Repeat.fixed60AllFourByPass[p])).join(', ')} of 60. ${esc(gemma.p2Repeat.changedFourFieldVectorIds.length)} of ${esc(gemma.p2Repeat.sharedValidDenominator)} shared-valid reviews changed a decision; fresh3 retains ${esc(gemma.fresh3P2.failedIds.join(' and '))} failures. P0 scores are ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p0Checkpoint.fixed60Scores[p].allFour)).join(', ')} of 60, with one failed request in the second pass.</p>
           <p>P1 scores are ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p1Checkpoint.fixed60AllFourByPass[p])).join(', ')} of 60. Fresh3 has ${esc(gemma.p1Checkpoint.validByPass.fresh3)} valid answers and preserves ${esc(gemma.p1Checkpoint.failedIds.join(' and '))}. On the ${esc(gemma.p1Checkpoint.sharedValidDenominator)} reviews with valid answers in all three P1 passes, each pass matched all four fields on ${['fresh1','fresh2','fresh3'].map(p=>esc(gemma.p1Checkpoint.sharedValidAllFourByPass[p])).join(', ')}. The third pass's lower 60-review score reflects the unavailable DEV-059 answer. The series remains interrupted.</p>
