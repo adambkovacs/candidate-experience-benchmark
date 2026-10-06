@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Third Qwen pass and DeepSeek low launched, 6 October 2026
+
+- Qwen fresh2/P0 is closed and pushed in `0c2dfa9a`: 60 valid answers, 53/60 all-four matches. Second-pass P0/P1/P2 scores are 53/54/56. The new report still needs deployment verification. Root inspected fresh3/P2 smoke (original 67883, terminal success) and launched full development on original 40515.
+- DeepSeek low remaining-six smoke (original 47187) completed with three inspected valid raw answers. Full fresh2/P2 is admitted on original 57830; no completion is claimed. Its source-bound adapter is archived in `8f124bb5`; isolated review-state tests in `fc319ee7` pass. The frozen pre-admission test retains a known live-state assumption and is not in Pages CI; broad pytest is not claimed green.
+- DeepSeek high fresh1/P2 remains on original 55857. Root owns execution. The report agents own closed-only projection preparation; the authority agent owns offline release preparation. No active ledger may be staged or released.
+
 ## Hosted execution resumed, 6 October 2026, 17:21 UTC
 
 - Root inspected DeepSeek high remaining-seven fresh1/P2 smoke: three valid raw JSON answers with normal stops. Original smoke handle 93637 exited successfully; full development is admitted on original handle 55857, with no completion credit yet. The separately priced configuration and reviewed adapter are archived and pushed in `75001769`; its $1 child comes from the OpenRouter-only allowance.
