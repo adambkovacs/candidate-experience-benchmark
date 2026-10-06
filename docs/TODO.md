@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Jev P1 repeat closure and P0 admission, 06 October 2026, 12:27 UTC
+
+- P1 fresh3 finished with 60 valid responses, zero invalid and $0.006405000 observed cost. Root checked all 60 request and response hashes and strict parsed decisions, then reconciled the child. P1 now has three full passes with 60/59/60 valid responses. Updated scores and repeat comparisons are being calculated by jev_authority_v2_bridge.
+- Root released the reviewed P1 fresh1 unused reservation and the source-verified P1 fresh3 unused reservation, each $0.074235, using the unchanged authority-v2 verifier. Known charges remain counted. P1 fresh2 and the interrupted P2 tail remain encumbered under that verifier.
+- Jev P0 fresh1 is now live on handle 19352. Its historical three-record native smoke was re-inspected, all 60 request/context bindings verified, exact route checked and a root receipt/child allocation admitted. It retains original model controls, label-free requests and strict offline scoring. No other inference is running.
+
+
 ## Interrupted execution, 06 October 2026, 12:17 UTC
 
 - Both live handles are terminal. Qwen fresh2/P1 smoke saved two valid answers; DEV-003 timed out after a recorded host sleep. Host audit failed as expected; no full pass is admitted and no unknown request was replayed. qwen35_successor_report owns offline reporting of the terminal evidence.
