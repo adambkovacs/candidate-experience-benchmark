@@ -29,12 +29,13 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertFalse(qwen["interruptedP1"]["cleanComparisonEligible"])
         self.assertFalse(qwen["cleanMatchedThreeEligible"])
         self.assertEqual(len(qwen["closedCells"]), qwen["completedCleanConditions"])
-        self.assertTrue({"fresh1/P0", "fresh1/P2", "fresh2/P1", "fresh2/P2"}.issubset(qwen["closedCells"]))
+        self.assertTrue({"fresh1/P0", "fresh1/P2", "fresh2/P0", "fresh2/P1", "fresh2/P2"}.issubset(qwen["closedCells"]))
         self.assertEqual(next(row["allFour"] for row in qwen["closedPhases"]
                               if row["pass"] == "fresh2" and row["condition"] == "P2"), 56)
-        self.assertEqual([(row["pass"], row["to"], row["allFourDelta"])
-                          for row in qwen["matchedPromptComparisons"]],
-                         [("fresh1", "P2", 2)])
+        self.assertTrue({("fresh1", "P2", 2), ("fresh2", "P1", 1),
+                         ("fresh2", "P2", 3)}.issubset({
+            (row["pass"], row["to"], row["allFourDelta"])
+            for row in qwen["matchedPromptComparisons"]}))
         self.assertEqual((deepseek["allFour"], deepseek["valid"],
                           deepseek["invalidIds"]), (57, 59, ["DEV-030"]))
         self.assertFalse(deepseek["firstP0AloneSupportsPromptComparison"])
@@ -81,15 +82,9 @@ class AnalysisRefreshTest(unittest.TestCase):
             result = analysis.hosted_fresh_summary(ROOT, future, {})
         self.assertEqual(result["qwen36On"]["completedCleanConditions"], previous_qwen_count + 1)
         self.assertIn(f"{added_pass}/{added_condition}", result["qwen36On"]["closedCells"])
-        if added_pass == "fresh2":
-            self.assertIn({"pass": "fresh2", "from": "P0", "to": "P1",
-                           "allFourDelta": 0, "allFour": {"P0": 54, "P1": 54},
-                           "invalidIds": {"P0": [], "P1": []}, "denominator": 60},
-                          result["qwen36On"]["matchedPromptComparisons"])
-            self.assertIn({"pass": "fresh2", "from": "P0", "to": "P2",
-                           "allFourDelta": 2, "allFour": {"P0": 54, "P2": 56},
-                           "invalidIds": {"P0": [], "P2": []}, "denominator": 60},
-                          result["qwen36On"]["matchedPromptComparisons"])
+        self.assertTrue({("fresh2", "P1", 1), ("fresh2", "P2", 3)}.issubset({
+            (row["pass"], row["to"], row["allFourDelta"])
+            for row in result["qwen36On"]["matchedPromptComparisons"]}))
         self.assertEqual(result["deepseekHigh"]["completedConditions"], 3)
         self.assertIn("fresh1/P2", result["deepseekHigh"]["closedCells"])
 

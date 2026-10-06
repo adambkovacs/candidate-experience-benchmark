@@ -4602,7 +4602,8 @@
           "fresh1/P0",
           "fresh1/P2",
           "fresh2/P1",
-          "fresh2/P2"
+          "fresh2/P2",
+          "fresh2/P0"
         ],
         "closedPhases": [
           {
@@ -4640,9 +4641,18 @@
             "pass": "fresh2",
             "status": "completed",
             "valid": 60
+          },
+          {
+            "allFour": 53,
+            "condition": "P0",
+            "denominator": 60,
+            "invalidIds": [],
+            "pass": "fresh2",
+            "status": "completed",
+            "valid": 60
           }
         ],
-        "completedCleanConditions": 4,
+        "completedCleanConditions": 5,
         "interruptedP1": {
           "allFour": 52,
           "cleanComparisonEligible": false,
@@ -4664,6 +4674,36 @@
               "P2": []
             },
             "pass": "fresh1",
+            "to": "P2"
+          },
+          {
+            "allFour": {
+              "P0": 53,
+              "P1": 54
+            },
+            "allFourDelta": 1,
+            "denominator": 60,
+            "from": "P0",
+            "invalidIds": {
+              "P0": [],
+              "P1": []
+            },
+            "pass": "fresh2",
+            "to": "P1"
+          },
+          {
+            "allFour": {
+              "P0": 53,
+              "P2": 56
+            },
+            "allFourDelta": 3,
+            "denominator": 60,
+            "from": "P0",
+            "invalidIds": {
+              "P0": [],
+              "P2": []
+            },
+            "pass": "fresh2",
             "to": "P2"
           }
         ],
@@ -10409,7 +10449,7 @@
     },
     {
       "path": "public-site/additional-hosted-fresh-repeats.json",
-      "sha256": "f0638302df68f2bbfd42589f34d3b722d1fe853e8544250b6e6c698b2d85b397"
+      "sha256": "0144784eaa4e35e35e92f98f40d113c2bbdb047d7726b4aeb9d47c2ec5cdf306"
     },
     {
       "path": "public-site/claude-repeats.json",
@@ -12464,6 +12504,10 @@
       "sha256": "d91642e465e277fa4218f5a581a6ee960dfa5d3b13957e890af07618b3289be9"
     },
     {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh2-p0-closure.jsonl",
+      "sha256": "5079442398bf88888a3ff5ce78ddbbefdd0fbb37b8155169b01d64eb99068370"
+    },
+    {
       "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh2-p1-closure.jsonl",
       "sha256": "27b8057d7370d4ee299b8a6a28f5e57e055de5f4ae8768612f04b6330759a8bd"
     },
@@ -12530,6 +12574,54 @@
     {
       "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/manifest.json",
       "sha256": "21be43189feeec14921a8adea02456a8f8a9bd6aa8c6bfcb6fe980f3e0682283"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/closure.review.json",
+      "sha256": "7be3d528ebbe49e0e3407bc147e979becaba92e163f48d2d8e4d63553435ad23"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/development.attempts.jsonl",
+      "sha256": "791e778cb53106629441f26e7c5b6c17d6d9750327a170bd617291e7d30caa2a"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/development.claim.json",
+      "sha256": "0e57c26948a84c89b373f3d4dd7ae45dadf6bf381ec7218cf2007a2d05730783"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/development.journal.jsonl",
+      "sha256": "889c0da73ce7e13772707c1cfa8354335f03a3c45683381859d180a55aa8a9cb"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/development.responses.jsonl",
+      "sha256": "faab02e0884b43f5b06fc6faab42ca522a8ede56f3c35e1271ebc416ca55dd52"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/development.root-review.json",
+      "sha256": "f2ddb4816c180254f78960ea808f6e63f5a09e6580d3372a2fbb4b44deba1148"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/smoke-inspection.json",
+      "sha256": "0e4e5b73a94639624d4d1e528470b0945992a8d9dd0e86c62ecfbc008e256ad2"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/smoke.attempts.jsonl",
+      "sha256": "50dbee739ab0be6b35904cb98a033f9fb0e8e6e836dc329b57b24e062ac1eaae"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/smoke.claim.json",
+      "sha256": "285d0a8260e417e926afe4481086b15a242c296d25bff52b9ffdec4945009bdb"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/smoke.journal.jsonl",
+      "sha256": "d87968293019699c44a7c2c97d1531e5354779079756429a7ae344c8e2203fef"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/smoke.responses.jsonl",
+      "sha256": "b8c8f12d15a43a6acd2ce0f7573c8aee1a17050f8204f0a9be47d6bf54f4d0ec"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/smoke.root-review.json",
+      "sha256": "73706ee9f44ded97ba6aa533acd2432423d14abf637586eb35f4d9d1095ff926"
     },
     {
       "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P1/closure.review.json",
