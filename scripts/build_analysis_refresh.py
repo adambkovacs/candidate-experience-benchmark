@@ -34,6 +34,7 @@ HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
 HIGH_SUCCESSOR_PUBLIC = "public-site/deepseek-high-remaining6-successor-findings.json"
 TEV_PUBLIC = "public-site/tev-native-full-findings.json"
 LIQUID_PUBLIC = "public-site/liquid-d1-native-full-findings.json"
+LOW_FRESH3_PUBLIC = "public-site/deepseek-low-fresh3-findings.json"
 LOW_P1_SUCCESSOR_PUBLIC = "public-site/deepseek-low-p1-successor-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
 SOURCES = (
@@ -70,6 +71,7 @@ SOURCES = (
     HOSTED_FRESH_PUBLIC,
     LOW_REVISED_PUBLIC,
     LOW_P1_SUCCESSOR_PUBLIC,
+    LOW_FRESH3_PUBLIC,
     LIQUID_PUBLIC,
     TEV_PUBLIC,
     HIGH_SUCCESSOR_PUBLIC,
@@ -1023,6 +1025,11 @@ def build(root=ROOT):
     gemini_authority = gemini_authority_summary(
         root, data[GEMINI_AUTHORITY_PUBLIC], bindings)
     hosted_fresh = hosted_fresh_summary(root, data[HOSTED_FRESH_PUBLIC], bindings)
+    import build_deepseek_low_fresh3_findings as low_fresh3_builder
+    low_fresh3 = data[LOW_FRESH3_PUBLIC]
+    if low_fresh3 != low_fresh3_builder.build(root):
+        raise ValueError('DeepSeek low final report differs from closed evidence')
+    bind_report_sources(root, low_fresh3, bindings, 'DeepSeek low final passes')
     import build_deepseek_low_p1_successor_findings as low_p1_builder
     low_p1 = data[LOW_P1_SUCCESSOR_PUBLIC]
     if low_p1 != low_p1_builder.build(root):
@@ -1590,6 +1597,7 @@ def build(root=ROOT):
             "jevNativePrompts": jev_native_prompts,
             "geminiAuthority": gemini_authority,
             "hostedFresh": hosted_fresh,
+            "deepseekLowFresh3": {"source": LOW_FRESH3_PUBLIC, **low_fresh3},
             "deepseekLowP1Successor": {"source": LOW_P1_SUCCESSOR_PUBLIC, **low_p1},
             "deepseekLowRevisedPrice": {"source": LOW_REVISED_PUBLIC,
                                         **low_revised['series'][0]},

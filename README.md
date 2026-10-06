@@ -15,6 +15,8 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
+DeepSeek V4.1 Flash at low effort has closed its final three prompt passes: **58/60** for the base task, **57/60** with classifier instructions and **58/60** with decision rules. The base task and classifier version each lost one answer to truncation, on different reviews. Among the 59 reviews valid for both the base task and decision rules, one sentiment label changed despite identical all-four totals. [Final passes and paired changes](public-site/deepseek-low-fresh3-findings.json).
+
 Gemini 3.1 Pro Preview at high effort completed all nine planned runs on the same 60 reviews. Across three passes, the base task scored **55, 56 and 56/60**; classifier instructions scored **56, 56 and 56/60**; decision rules scored **55, 56 and 56/60**. Neither added prompt improved the score consistently in matched passes. Some individual answers changed even when the total score did not. [Repeat results](public-site/gemini-repeats.json) · [Analysis](docs/ANALYSIS_REFRESH_2026-10-05.md).
 
 Liquid d1 completed **all nine planned runs**, each with 60 valid answers. Its three base-task passes scored **43/60** with identical labels. Classifier-instruction passes scored **42, 44 and 42/60**; three reviews changed a label across repeats. Decision-rule passes all scored **41/60**, with identical labels. Added instructions did not consistently improve agreement on these reviews. These are repeated answers to the same 60 cases. [Liquid results, token use and costs](public-site/liquid-d1-native-full-findings.json).

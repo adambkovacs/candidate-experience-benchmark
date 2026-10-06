@@ -335,7 +335,7 @@ test('findings groups keep all model results and source links available', async(
   const {cutoffs}=await renderState(report);
   const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/details>/g)];
   assert.deepEqual(groups.map(g=>g[1]),['findings-decision','findings-hosted','findings-local']);
-  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[7,11,9]);
+  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[7,12,9]);
   assert.match(groups[0][2],/tev-native-full-findings.json/);
   assert.match(groups[1][2],/deepseek-high-remaining6-successor-findings.json/);
   assert.match(groups[2][2],/legacy-qwen-repeats.json/);
