@@ -29,6 +29,8 @@ jobs:
           test -f public-site/data.json
           test -z "$(find public-site -type l -print)"
           node --check public-site/reader.js
+          node --check public-site/liquid-prompt-chart.js
+          node --test tests/test_liquid_prompt_chart_ui.cjs
           python3 scripts/build_reader_story.py --check
           python3 -m unittest tests.test_reader_story -q
           python3 scripts/build_mistral119_fresh1_p0_findings.py > /tmp/mistral119-fresh1-p0-findings.json
