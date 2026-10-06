@@ -12,7 +12,7 @@ DeepSeek high's second and third classifier-instruction passes both scored 58/60
 
 Tev returned valid answers for all nine full passes. Its P0/P1/P2 scores were 45/44/44 in every repeat, with no label changes within a prompt condition. P1 and P2 had equal scores but changed six reviews per pass. A stable classifier can repeatedly disagree with the reference. [Tev comparisons, field confusions and costs](../public-site/tev-native-full-findings.json).
 
-Liquid also completed nine valid full passes. P0 scored 43/43/43, P1 scored 42/44/42 and P2 scored 41/41/41. Three reviews changed a P1 label across repeats; P0 and P2 stayed unchanged. The added prompts did not consistently improve the score. Detailed cross-prompt changes still need analysis; net score differences alone cannot show which errors changed. [Liquid results](../public-site/liquid-d1-native-full-findings.json).
+Liquid also completed nine valid full passes. P0 scored 43/43/43, P1 scored 42/44/42 and P2 scored 41/41/41. Three reviews changed a P1 label across repeats; P0 and P2 stayed unchanged. The added prompts did not consistently improve the score. Comparing decision rules with the base task changed four reviews in each pass. Two reviews lost an all-four match each time, with no newly gained all-four matches. The classifier prompt changed two, two and one reviews versus the base task; its middle-pass gain was not repeated in the other passes. These paired results explain the score changes without treating repeated reviews as independent cases. [Liquid results](../public-site/liquid-d1-native-full-findings.json).
 
 ## Confidence trades coverage for agreement
 
