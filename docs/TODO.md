@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Verified execution checkpoint, 6 October 2026, 10:19 UTC
+
+- Root: Qwen3.5 thinking-on fresh1/P2 closed with 60 saved responses, 51 valid and nine invalid; terminal exit 0 and host audit passed. Findings review is assigned to qwen35_successor_report. These results are not yet published.
+- Root: Qwen3.5 fresh1/P1 three-record smoke is running on handle 48069 after fresh route, runtime, token and host checks. No P1 full pass is admitted yet.
+- Root: Kev P1 native smoke closed with three valid responses and $0.000260064 observed cost. Raw responses inspected unchanged; child allocation reconciled. The earlier missing-directory admission failed before any ledger mutation or inference. Full-pass context proof and executor preparation belong to native_variant_admission_audit; no full Kev P1 pass is admitted.
+- The complete roster remains unfinished. This dated checkpoint supersedes older running-handle statements below; preserved historical notes are not current dispatch instructions.
+
+
 ## Native smoke executor reviewed, 6 October 2026, 10:13 UTC
 
 The [v2 Kev/Jev smoke executor](../scripts/openrouter_native_variants_v2.py) passed independent re-review after fixing the request-binding gap. Verdict: APPROVE, no confirmed remaining findings. Seven offline tests pass in both the implementer's and root's runs, including temporary-ledger accounting and changed-input refusal before spending. Four offline manifests remain `prepared_not_admitted`; no allocation, authority hold or model call was made.
