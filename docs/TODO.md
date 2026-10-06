@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Qwen3.5 P0 continuation closed, 6 October 2026, 08:39 UTC
+
+Handle 41371 exited 0 after all eight never-sent reviews were saved: seven valid and one invalid. DEV-057 exhausted 4,096 output tokens without final JSON; it is retained unchanged. Root reclassified saved outputs and checked hashes, ordered request IDs, reference isolation and unchanged host state. The [composite root review](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-p0-unsent-suffix-v1/composite.root-review.json) binds 28 source files. Combined P0 accounting is 59 saved: 51 valid, eight invalid, plus DEV-052 unknown and zero unsent. It remains descriptive and non-clean. No inference is running. The report agent owns composite projections; the successor agent owns offline admission for the remaining eight phases. Root owns review, generated feeds, publication and dispatch.
+
 ## Eight-record Qwen3.5 continuation running, 6 October 2026, 08:25 UTC
 
 Commit `21f19ed5` is pushed. Seventeen Python report tests, eleven UI checks and four suffix tests passed. Root review: APPROVE; no remaining BLOCKING findings. RESIDUAL: two older admission tests assume completed smoke evidence is absent. The new continuation retains the completed smoke and permits only DEV-053–060; DEV-052 remains unknown. Fresh all-60 rendered-prompt/token checks, artifact identity, host state and exact OpenRouter route absence passed. Handle 41371 is live and DEV-053 has started. Root owns dispatch and closure; the implementation agent completed the [next-phase admission design](QWEN35_REMAINING_PHASE_ADMISSION.md); implementation follows terminal reconciliation of this suffix. Pages job 37435857145 succeeded; live HTML, both JavaScript files and both report JSON files match the committed bytes. Browser visual verification remains unavailable under the recorded access restriction. Do not stage live suffix output or replay its claimed stage.
