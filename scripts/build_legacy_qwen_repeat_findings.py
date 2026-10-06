@@ -437,6 +437,13 @@ def qwen35_successor_phase(root, plan, repeat, condition, bind, labels=None):
     predictions = {row['id']: {'status': row['decision']['status'],
                                'prediction': row['decision'].get('prediction')}
                    for row in development}
+    invalid_reason_ids = {}
+    for row in development:
+        decision = row['decision']
+        if decision['status'] != 'ok':
+            invalid_reason_ids.setdefault(decision.get('reason', 'unknown'), []).append(row['id'])
+    score = shared.score(predictions, labels, IDS)
+    score['invalidReasonIds'] = invalid_reason_ids
     predicted_counts, confusion = class_counts(predictions, labels)
     before, after = audit.get('before'), audit.get('after')
     before_source, after_source = host_power_source(before), host_power_source(after)
@@ -451,7 +458,7 @@ def qwen35_successor_phase(root, plan, repeat, condition, bind, labels=None):
     entry = {'completionStatus': 'complete', 'source': 'qwen35_remaining_phases_v1',
              'sourcePath': str(folder), 'cleanRepeatCredit': True,
              'predecessorP0CleanRepeatCredit': False,
-             'score': shared.score(predictions, labels, IDS),
+             'score': score,
              'predictedClassCounts': predicted_counts, 'classConfusion': confusion,
              'usage': usage(raw, config['surface']), 'powerObservation': power,
              'evidence': {'successor': successor_evidence,

@@ -19368,7 +19368,7 @@
       },
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 1,
+      "completedConditions": 2,
       "missingPasses": [
         {
           "pass": "fresh1",
@@ -19520,11 +19520,6 @@
           }
         },
         {
-          "pass": "fresh1",
-          "condition": "P1",
-          "status": "not_in_closed_snapshot"
-        },
-        {
           "pass": "fresh2",
           "condition": "P2",
           "status": "not_in_closed_snapshot"
@@ -19653,7 +19648,20 @@
                 "DEV-028",
                 "DEV-057",
                 "DEV-058"
-              ]
+              ],
+              "invalidReasonIds": {
+                "non_json": [
+                  "DEV-005",
+                  "DEV-006",
+                  "DEV-013",
+                  "DEV-015",
+                  "DEV-018",
+                  "DEV-022",
+                  "DEV-028",
+                  "DEV-057",
+                  "DEV-058"
+                ]
+              }
             },
             "predictedClassCounts": {
               "sentiment": {
@@ -19838,6 +19846,244 @@
                 }
               }
             }
+          },
+          "P1": {
+            "completionStatus": "complete",
+            "source": "qwen35_remaining_phases_v1",
+            "sourcePath": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1",
+            "cleanRepeatCredit": true,
+            "predecessorP0CleanRepeatCredit": false,
+            "score": {
+              "denominator": 60,
+              "valid": 51,
+              "allFour": 47,
+              "fields": {
+                "sentiment": 49,
+                "follow_up_needed": 51,
+                "serious_concern_reported": 49,
+                "testimonial_potential": 51
+              },
+              "outcomes": {
+                "valid": 51,
+                "invalid_output": 9,
+                "refusal": 0,
+                "timeout": 0,
+                "service_error": 0,
+                "isolation_violation": 0,
+                "other_error": 0,
+                "unknown_started": 0,
+                "never_sent": 0
+              },
+              "invalidIds": [
+                "DEV-002",
+                "DEV-005",
+                "DEV-010",
+                "DEV-013",
+                "DEV-015",
+                "DEV-021",
+                "DEV-022",
+                "DEV-058",
+                "DEV-059"
+              ],
+              "invalidReasonIds": {
+                "non_json": [
+                  "DEV-002",
+                  "DEV-005",
+                  "DEV-010",
+                  "DEV-013",
+                  "DEV-015",
+                  "DEV-021",
+                  "DEV-022",
+                  "DEV-058",
+                  "DEV-059"
+                ]
+              }
+            },
+            "predictedClassCounts": {
+              "sentiment": {
+                "insufficient_information": 1,
+                "mixed": 5,
+                "negative": 28,
+                "neutral": 7,
+                "positive": 10
+              },
+              "follow_up_needed": {
+                "insufficient_information": 1,
+                "no": 18,
+                "yes": 32
+              },
+              "serious_concern_reported": {
+                "insufficient_information": 3,
+                "no": 25,
+                "yes": 23
+              },
+              "testimonial_potential": {
+                "insufficient_information": 1,
+                "no": 42,
+                "yes": 8
+              }
+            },
+            "classConfusion": {
+              "sentiment": {
+                "insufficient_information": {
+                  "insufficient_information": 1
+                },
+                "mixed": {
+                  "mixed": 4,
+                  "positive": 1
+                },
+                "negative": {
+                  "mixed": 1,
+                  "negative": 28
+                },
+                "neutral": {
+                  "neutral": 7
+                },
+                "positive": {
+                  "positive": 9
+                }
+              },
+              "follow_up_needed": {
+                "insufficient_information": {
+                  "insufficient_information": 1
+                },
+                "no": {
+                  "no": 18
+                },
+                "yes": {
+                  "yes": 32
+                }
+              },
+              "serious_concern_reported": {
+                "insufficient_information": {
+                  "insufficient_information": 3,
+                  "no": 2
+                },
+                "no": {
+                  "no": 23
+                },
+                "yes": {
+                  "yes": 23
+                }
+              },
+              "testimonial_potential": {
+                "insufficient_information": {
+                  "insufficient_information": 1
+                },
+                "no": {
+                  "no": 42
+                },
+                "yes": {
+                  "yes": 8
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "clientRequestSecondsTotal": 3772.666249587,
+              "timeBasis": "client_observed_wall_clock",
+              "inferenceSeconds": null,
+              "modelLoadSeconds": null,
+              "actualCostUsd": null,
+              "tokens": {
+                "input_tokens": 106290,
+                "output_tokens": 127480,
+                "total_tokens": 233770,
+                "reasoning_output_tokens": null
+              }
+            },
+            "powerObservation": {
+              "source": "ac",
+              "basis": "matching_pre_post_checks"
+            },
+            "evidence": {
+              "successor": {
+                "manifest": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/manifest.json",
+                  "sha256": "5b74a42cfa922219813c4e83037f05cbe4f769094c3776e5a9a48f24ed8423ae"
+                },
+                "controller": {
+                  "path": "scripts/qwen35_remaining_phases_v1.cjs",
+                  "sha256": "25628fb191433c83991b31de34db67760f184d7f973bb8825d4dedfc36447e33"
+                },
+                "composite": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-p0-unsent-suffix-v1/composite.root-review.json",
+                  "sha256": "469188fcc9d84d431cef68c8a2695ac6ede728b87351894d38148ffa7cf5210e"
+                }
+              },
+              "smoke": {
+                "review": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.root-review.json",
+                  "sha256": "0aff930cbd84533da35ee659ad16f6d57624d2b2df448f2a85a616cf3c9be956"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.claim.json",
+                  "sha256": "6c2d3dbdd70717cf7b6d6611fec70cf7b996a6b02c3ba92f5a1f6d365cc328c6"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.raw.jsonl",
+                  "sha256": "c0b13835e15ef0ed8994ecba2af1ec968bb43e84fe51a1701cd7e0661348e43c"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.records.jsonl",
+                  "sha256": "f9323a8b6be33ea1a84fea75840ea340045760878c5b02847ba738923d2a2470"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.journal.jsonl",
+                  "sha256": "09808eccac2aa66f5d64e516f5e54bd42ac7ed14733ed7451aefc7f1521baa61"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.completion.json",
+                  "sha256": "000eec398b5402e2c9d716944425b426fd06c3c0ff0996ba75dbf82943e9cfdc"
+                },
+                "hostAudit": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.host-audit.json",
+                  "sha256": "22dfb72f2d118e6af2cd898ae72b1b3e7525af1583f904ac56778a2890c958f6"
+                },
+                "candidate": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke-20261006T101756630Z.root-review-candidate.json",
+                  "sha256": "f2c52a66511aa8de9c6fe156aa9641f7a58af19caf3b7a39ca1b4ebaf2131709"
+                }
+              },
+              "smokeInspection": {
+                "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke-inspection.json",
+                "sha256": "1b60a3a1a55dc94375d670c40d43ffdd76c4e4a0f7526edfd30825512e1f902d"
+              },
+              "development": {
+                "review": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.root-review.json",
+                  "sha256": "ca0593078d40d63a7915aaf3866fc83fadb677846e52decd8f03ff7433bb9cc8"
+                },
+                "claim": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.claim.json",
+                  "sha256": "d8654b0e526f9ff6c3b7abccdf73226d5d77ae443f12d53ca4d6216f8cab466e"
+                },
+                "raw": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.raw.jsonl",
+                  "sha256": "32f44dbc97d121561848cea41df66c5f9d5a1273ffb1dddd2e4001ed655808d8"
+                },
+                "records": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.records.jsonl",
+                  "sha256": "ddb8f248fa2b26b12d83dab8fe8f8a5690cdb313a40f525c9df50c93546083a9"
+                },
+                "journal": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.journal.jsonl",
+                  "sha256": "b8ea8dcf56ee349c50feaebd764d333aa5e36d8866badef0b720c4847ad7b074"
+                },
+                "completion": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.completion.json",
+                  "sha256": "2341db26e00893ef259bb3f25fe70d5ef7796a7c14b66fc118d679022cf9c03b"
+                },
+                "hostAudit": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.host-audit.json",
+                  "sha256": "7bb2273da97061b3c82464f0e8d55f95cbe19036b60665e3e00a40c39891367b"
+                },
+                "candidate": {
+                  "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development-20261006T102154581Z.root-review-candidate.json",
+                  "sha256": "bb2f25bdd80cc7dcb605f8b142d2c8914b6c1feba81b1a63ae9c2b3b56e70de4"
+                }
+              }
+            }
           }
         },
         "fresh2": {},
@@ -19875,29 +20121,39 @@
         },
         "P1": {
           "allFour": {
-            "completedPasses": 0,
-            "values": [],
+            "completedPasses": 1,
+            "values": [
+              47
+            ],
             "range": null
           },
           "fields": {
             "sentiment": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                49
+              ],
               "range": null
             },
             "follow_up_needed": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                51
+              ],
               "range": null
             },
             "serious_concern_reported": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                49
+              ],
               "range": null
             },
             "testimonial_potential": {
-              "completedPasses": 0,
-              "values": [],
+              "completedPasses": 1,
+              "values": [
+                51
+              ],
               "range": null
             }
           }
@@ -20173,6 +20429,74 @@
         {
           "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-p0-unsent-suffix-v1/suffix.root-review.json",
           "sha256": "f5220866e66a144041db6071af19cc1605b80dfdcc4ae97a2fcfd1d4708369f5"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development-20261006T102154581Z.root-review-candidate.json",
+          "sha256": "bb2f25bdd80cc7dcb605f8b142d2c8914b6c1feba81b1a63ae9c2b3b56e70de4"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.claim.json",
+          "sha256": "d8654b0e526f9ff6c3b7abccdf73226d5d77ae443f12d53ca4d6216f8cab466e"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.completion.json",
+          "sha256": "2341db26e00893ef259bb3f25fe70d5ef7796a7c14b66fc118d679022cf9c03b"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.host-audit.json",
+          "sha256": "7bb2273da97061b3c82464f0e8d55f95cbe19036b60665e3e00a40c39891367b"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.journal.jsonl",
+          "sha256": "b8ea8dcf56ee349c50feaebd764d333aa5e36d8866badef0b720c4847ad7b074"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.raw.jsonl",
+          "sha256": "32f44dbc97d121561848cea41df66c5f9d5a1273ffb1dddd2e4001ed655808d8"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.records.jsonl",
+          "sha256": "ddb8f248fa2b26b12d83dab8fe8f8a5690cdb313a40f525c9df50c93546083a9"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/development.root-review.json",
+          "sha256": "ca0593078d40d63a7915aaf3866fc83fadb677846e52decd8f03ff7433bb9cc8"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke-20261006T101756630Z.root-review-candidate.json",
+          "sha256": "f2c52a66511aa8de9c6fe156aa9641f7a58af19caf3b7a39ca1b4ebaf2131709"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke-inspection.json",
+          "sha256": "1b60a3a1a55dc94375d670c40d43ffdd76c4e4a0f7526edfd30825512e1f902d"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.claim.json",
+          "sha256": "6c2d3dbdd70717cf7b6d6611fec70cf7b996a6b02c3ba92f5a1f6d365cc328c6"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.completion.json",
+          "sha256": "000eec398b5402e2c9d716944425b426fd06c3c0ff0996ba75dbf82943e9cfdc"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.host-audit.json",
+          "sha256": "22dfb72f2d118e6af2cd898ae72b1b3e7525af1583f904ac56778a2890c958f6"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.journal.jsonl",
+          "sha256": "09808eccac2aa66f5d64e516f5e54bd42ac7ed14733ed7451aefc7f1521baa61"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.raw.jsonl",
+          "sha256": "c0b13835e15ef0ed8994ecba2af1ec968bb43e84fe51a1701cd7e0661348e43c"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.records.jsonl",
+          "sha256": "f9323a8b6be33ea1a84fea75840ea340045760878c5b02847ba738923d2a2470"
+        },
+        {
+          "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P1/smoke.root-review.json",
+          "sha256": "0aff930cbd84533da35ee659ad16f6d57624d2b2df448f2a85a616cf3c9be956"
         },
         {
           "path": "results/repeatability-v1/legacy-qwen-fresh3-v1/qwen35-remaining-phases-v1/fresh1/P2/development-20261006T085259065Z.root-review-candidate.json",

@@ -122,6 +122,10 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/58 valid and 2 invalid/);
   assert.match(view.cutoffs,/5 valid and 55 invalid/);
   assert.match(view.cutoffs,/separate from hosted Qwen 27B/);
+  assert.match(view.cutoffs,/Qwen3\.5 4B SDK, thinking on:<\/strong> 2\/9 full phases are closed/);
+  assert.match(view.cutoffs,/fresh1 P1: 47\/60 all-four matches, 51\/60 valid answers, 9 invalid or failed/);
+  assert.match(view.cutoffs,/fresh1 P2: 50\/60 all-four matches, 51\/60 valid answers, 9 invalid or failed/);
+  assert.match(view.cutoffs,/descriptive interrupted result: 47\/60 all-four matches/);
   assert.doesNotMatch(view.cutoffs,/latest Gemma and DeepSeek continuations remain unscored/);
 });
 test('Qwen current repeat narrative distinguishes a stopped smoke from a closed full pass', async()=>{

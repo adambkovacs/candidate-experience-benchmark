@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Active checkpoint, 6 October 2026, 11:40 UTC
+
+- Qwen3.5: fresh1/P1 is closed and raw-verified, with 51 valid responses, nine invalid and 47/60 all-four matches. P1/P2 findings and both feeds now show 2/9 clean phases; publication is pending. The fresh2/P2 smoke is terminal: three saved, DEV-001 invalid after exhausting 4,096 output tokens, no full-pass dispatch. No model inference is currently running. qwen35_successor_report is preparing a separate controller to continue other scheduled phases without replaying this smoke or concealing the failed gate.
+- Jev publication: Pages 37456158933 succeeded. Live HTML, renderer, Jev feed and combined-analysis feed match deployment bbf00d95 byte for byte. Browser verification of the new panel remains pending.
+- Paid execution: the reviewed authority-v2 accounting module is committed in 80a13242. jev_authority_v2_bridge owns its full/tail runner integration; authority_reconciliation_v2 owns durable release-receipt activation. Both are offline work. No production release, new allocation, cap increase or paid inference has occurred. Root reviews and admits only after the implementations and fresh budget checks pass.
+- Wider roster, reference controls and remaining repeats remain in scope. Earlier dated running-handle and balance statements below are historical.
+
+
 ## Active checkpoint, 06 October 2026, 11:26 UTC
 
 - Jev: public prompt/repeat panel and combined analysis are pushed in `bbf00d95`. Pages 37456158933 is running; publication is not yet verified. Clean staged reconstruction passed 20 Python and 19 JavaScript tests, including relocated archived receipts, child-ledger and unknown-evidence tampering. Both first passes score 54/60; P1 fresh2 retains 59 valid/53 matches and P2 fresh2 remains stopped with 17 valid, one HTTP 429 and 42 unsent.

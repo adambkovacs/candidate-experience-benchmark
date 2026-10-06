@@ -6455,7 +6455,7 @@
       },
       "qwen17RepeatStudyComplete": true,
       "qwen35Repeat": {
-        "completedConditions": 1,
+        "completedConditions": 2,
         "conditions": {
           "P0": {
             "changesAcrossThreePasses": null,
@@ -6465,9 +6465,73 @@
           },
           "P1": {
             "changesAcrossThreePasses": null,
-            "completedPasses": 0,
+            "completedPasses": 1,
             "pairwiseFlips": [],
-            "passes": []
+            "passes": [
+              {
+                "pass": "fresh1",
+                "score": {
+                  "allFour": 47,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 51,
+                    "sentiment": 49,
+                    "serious_concern_reported": 49,
+                    "testimonial_potential": 51
+                  },
+                  "invalidIds": [
+                    "DEV-002",
+                    "DEV-005",
+                    "DEV-010",
+                    "DEV-013",
+                    "DEV-015",
+                    "DEV-021",
+                    "DEV-022",
+                    "DEV-058",
+                    "DEV-059"
+                  ],
+                  "invalidReasonIds": {
+                    "non_json": [
+                      "DEV-002",
+                      "DEV-005",
+                      "DEV-010",
+                      "DEV-013",
+                      "DEV-015",
+                      "DEV-021",
+                      "DEV-022",
+                      "DEV-058",
+                      "DEV-059"
+                    ]
+                  },
+                  "outcomes": {
+                    "invalid_output": 9,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 51
+                  },
+                  "valid": 51
+                },
+                "usage": {
+                  "actualCostUsd": null,
+                  "clientRequestSecondsTotal": 3772.666249587,
+                  "inferenceSeconds": null,
+                  "modelLoadSeconds": null,
+                  "requestCount": 60,
+                  "timeBasis": "client_observed_wall_clock",
+                  "tokens": {
+                    "input_tokens": 106290,
+                    "output_tokens": 127480,
+                    "reasoning_output_tokens": null,
+                    "total_tokens": 233770
+                  }
+                }
+              }
+            ]
           },
           "P2": {
             "changesAcrossThreePasses": null,
@@ -6496,6 +6560,19 @@
                     "DEV-057",
                     "DEV-058"
                   ],
+                  "invalidReasonIds": {
+                    "non_json": [
+                      "DEV-005",
+                      "DEV-006",
+                      "DEV-013",
+                      "DEV-015",
+                      "DEV-018",
+                      "DEV-022",
+                      "DEV-028",
+                      "DEV-057",
+                      "DEV-058"
+                    ]
+                  },
                   "outcomes": {
                     "invalid_output": 9,
                     "isolation_violation": 0,
@@ -6830,11 +6907,6 @@
             "status": "completed_interrupted_composite"
           },
           {
-            "condition": "P1",
-            "pass": "fresh1",
-            "status": "not_in_closed_snapshot"
-          },
-          {
             "condition": "P2",
             "pass": "fresh2",
             "status": "not_in_closed_snapshot"
@@ -6928,7 +7000,7 @@
       },
       "remainingConfigurations": {
         "qwen3.5-4b-sdk-thinking-on": {
-          "completedConditions": 1,
+          "completedConditions": 2,
           "plannedConditions": 9
         }
       },
@@ -8725,7 +8797,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "3a80bebb076d6b96015a5addb673934d37deffa183100fefea77bccc94ae0f1c"
+      "sha256": "3a55b3fa51f55f9a46e0129e5102595b21f6e9239e82c267463a91cd9a9870e4"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",
