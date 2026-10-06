@@ -6,7 +6,7 @@ Root checked the published report at a 390 × 844 viewport: no horizontal page o
 
 ## Third Qwen pass and DeepSeek low launched, 6 October 2026
 
-- Qwen fresh2/P0 is closed and pushed in `0c2dfa9a`: 60 valid answers, 53/60 all-four matches. Second-pass P0/P1/P2 scores are 53/54/56. The new report still needs deployment verification. Root inspected fresh3/P2 smoke (original 67883, terminal success) and launched full development on original 40515.
+- Qwen fresh2/P0 is closed and pushed in `0c2dfa9a`: 60 valid answers, 53/60 all-four matches. Second-pass P0/P1/P2 scores are 53/54/56. Pages run 37504246044 succeeded; root verified exact live hosted-report and combined-analysis bytes against `0c2dfa9a`. Root inspected fresh3/P2 smoke (original 67883, terminal success) and launched full development on original 40515.
 - DeepSeek low remaining-six smoke (original 47187) completed with three inspected valid raw answers. Full fresh2/P2 original 57830 stopped after five attempts: DEV-005 returned HTTP 429 with unknown cost; DEV-006–060 were never sent. The first four responses and full unknown reservation remain preserved. The agent owns interruption audit; no retry or continuation dispatch is admitted. Its source-bound adapter is archived in `8f124bb5`; isolated review-state tests in `fc319ee7` pass. The frozen pre-admission test retains a known live-state assumption and is not in Pages CI; broad pytest is not claimed green.
 - DeepSeek high fresh1/P2 remains on original 55857. Root owns execution. The report agents own closed-only projection preparation; the authority agent owns offline release preparation. No active ledger may be staged or released.
 
