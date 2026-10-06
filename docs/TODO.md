@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Active checkpoint, 06 October 2026, 11:26 UTC
+
+- Jev: public prompt/repeat panel and combined analysis are pushed in `bbf00d95`. Pages 37456158933 is running; publication is not yet verified. Clean staged reconstruction passed 20 Python and 19 JavaScript tests, including relocated archived receipts, child-ledger and unknown-evidence tampering. Both first passes score 54/60; P1 fresh2 retains 59 valid/53 matches and P2 fresh2 remains stopped with 17 valid, one HTTP 429 and 42 unsent.
+- Reservation reconciliation: the read-only 47-hold audit is committed in `28813b7d`. authority_reconciliation_v2 (Sol high) owns offline v2 accounting implementation and tests; authority_v2_review (Sol high) owns independent money/concurrency review. No production release, authority amendment or new paid inference is admitted. Verified unused reservations may avoid the pending cap increase; do not treat historical holds as observed charges.
+- Root: Qwen3.5 fresh1/P1 remains live on handle 92736. On terminal completion, verify all raw/source hashes and post-run host audit, archive only closed evidence, then prepare the scheduled fresh2/P2 smoke. Never replay an already attempted position.
+
 ## Publication verified and authority audit, 6 October 2026, 11:08 UTC
 
 - Kev publication is verified: Pages [37453498358](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37453498358) succeeded for `f0515800`. Live HTML, renderer and both data feeds match committed bytes exactly. Desktop and 390px mobile views were inspected; the cost disclosure expanded by keyboard. New reduced-motion emulation was not performed.
