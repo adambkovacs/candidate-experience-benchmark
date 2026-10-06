@@ -1,5 +1,11 @@
 # Current work checklist
 
+## DeepSeek continuation reviewed, 6 October 2026, 09:31 UTC
+
+The [fourth-price controller](../scripts/deepseek_low_fourth_price_suffix_v1.py) and its [unapproved manifest](../results/repeatability-v1/deepseek-low-fresh3-v2/fourth-price-suffix-051-060-v1/manifest.json) passed independent review and 14 offline tests. Verdict: APPROVE. RESIDUAL: the focused tests stop at the live gate rather than exercising a successful request against temporary budget ledgers; the inherited atomic budget implementation was inspected. This is a test coverage gap, not a confirmed execution defect.
+
+The exact DEV-051 through DEV-060 continuation remains blocked: the latest archived provider status is -2, and its prices differ from this proposal. No allocation, hold or inference was made. Root owns fresh admission if that route becomes available. `remaining_action_audit` is checking the specialist roster for independent work; Qwen3.5 P2 continues on its existing handle 13132.
+
 ## Successor reporting reviewed, 6 October 2026, 09:27 UTC
 
 The reporter now validates separately completed Qwen3.5 successor phases before counting them in the repeat study. The interrupted P0 composite keeps its own exclusion from clean repeats. Independent review approved the change with no remaining findings; all 15 focused reporter tests passed. Live P2 output remains excluded from the public feed. Handle 13132 is confirmed running, with 19 saved responses (14 valid) at this checkpoint. Root owns execution, closure and publication.
