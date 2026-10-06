@@ -164,12 +164,17 @@ def build(root=ROOT):
     for expected_stage, item in zip(THREE, solar['stages']):
         if item.get('stage') != expected_stage or item.get('records') != 60 or item.get('valid_answers') != 60:
             raise ValueError('Solar closed stage differs')
+        full_item = solar_full['stages'][THREE.index(expected_stage)]
+        if full_item.get('stage') != expected_stage:
+            raise ValueError('Solar first-pass timing stage differs')
         scores = {'all_four': item['all_four_correct'],
                   **{key: item['fields'][key]['correct'] for key in FIELDS}}
         runs.append(row('solar-decide', solar['configuration']['model'],
                         solar['configuration']['returned_model'], solar['configuration']['provider'],
                         THREE, expected_stage, scores, item['input_tokens'], item['output_tokens'],
-                        item['known_development_cost_usd'], solar_projection, solar_digest, SOLAR))
+                        item['known_development_cost_usd'], solar_projection, solar_digest, SOLAR,
+                        client_elapsed_available=full_item['client_elapsed_available'],
+                        client_elapsed_ns_sum=full_item['client_elapsed_ns_sum_known_responses']))
 
     if (solar_full.get('schema') != 'solar-decide-native-full-findings-v1' or
             solar_full.get('status') != 'eight_closed_runs_one_interrupted_with_exact_unsent_suffix' or

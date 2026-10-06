@@ -59,6 +59,9 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
         later = by_id['solar-decide-native-fresh2-p0']
         self.assertEqual((later['timing']['requests'], later['timing']['totalSeconds']),
                          (60, 413.03287796))
+        first = by_id['solar-decide-native-fresh1-p0']
+        self.assertEqual((first['timing']['requests'], first['timing']['totalSeconds']),
+                         (60, 467.469690796))
         for run in feed['runs']:
             self.assertEqual(run['records'], 60)
             self.assertEqual(run['valid'], 59 if run is final else 60)
@@ -68,7 +71,7 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
             self.assertIsNone(run['cost']['actualUsd'])
             self.assertIsNone(run['cost']['estimatedUsd'])
             self.assertIsNone(run['timing']['inferenceSeconds'])
-            if run['id'].startswith('solar-decide-native-fresh2') or run['id'].startswith('solar-decide-native-fresh3'):
+            if run['id'].startswith('solar-decide-native-'):
                 self.assertEqual(run['timing']['requests'], run['valid'])
                 self.assertIsNotNone(run['timing']['totalSeconds'])
                 self.assertIsNone(run['timing']['medianSeconds'])
