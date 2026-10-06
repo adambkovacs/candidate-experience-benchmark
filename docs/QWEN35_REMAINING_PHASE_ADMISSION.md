@@ -51,3 +51,7 @@ The existing controller already exposes the useful pieces: `phaseInfo`, `stageRo
 Do not admit `fresh1/P2` if the current suffix ends with fewer than eight saved records, a new unknown outcome, a control failure, missing hashes, or an unreviewed terminal. Root must first record the new disposition and may prepare another continuation only for positions proven never sent. Failed or unknown positions remain unreplayed.
 
 Later phases can count as individually complete when their own smoke and development gates pass. The configuration still carries the fresh1/P0 caveat in every report: one unknown position, no clean-repeat credit, no repaired output, and no claim of 60 observed P0 classifications. References remain outside inference, and scoring remains an offline step.
+
+## Receipt provenance
+
+Successor receipts carry `unknown_ids: ["DEV-052"]` and `clean_repeat_credit: false` as provenance of the interrupted predecessor. These fields do not describe failures in a later stage. Later-stage outcomes must be read from that stage's own saved records, terminal and host audit. The runtime route audit checks only the exact Qwen3.5 4B family; hosted availability of a different Qwen size does not block this configuration.
