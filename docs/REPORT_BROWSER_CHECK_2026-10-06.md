@@ -47,3 +47,7 @@ Keyboard selection of the native resource dropdown remains unverified: locator H
 The integrated chart in `7b308d14` was checked on the local site in the in-app browser. All nine comparisons render, with changed-answer counts separate from gained/lost full matches and an explicit 60-review denominator. Desktop shows three pass columns. At a 390-by-844 viewport, the chart is about 320 pixels wide and stacks the pass groups; document scroll width equals client width (375 pixels). The visible mobile rows and labels do not clip. No console errors were captured. The temporary viewport was reset.
 
 This is local rendering evidence, not deployment verification. The chart has no interactive control beyond its source link. Its stylesheet disables animations and transitions under reduced motion; the broader site's keyboard and motion checks remain open.
+
+## Liquid paired findings publication
+
+[Pages run 37534957568](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37534957568) succeeded for `26dfa073`. The live Liquid findings feed, combined analysis JSON and analysis JavaScript matched that commit byte for byte. This publishes the nine paired calculations and their explanation. The chart integration in the following commit was still deploying at this check.
