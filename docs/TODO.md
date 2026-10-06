@@ -2,6 +2,9 @@
 
 ## Additional OpenRouter funding, 6 October 2026
 
+- DeepSeek DEV-051–060 continuation is now live on original handle 26250 using OpenRouter, after root review, the fresh live gate and a $0.630784 conservative child reservation. Price-ceiling successor 9f47ecac preserves all ten requests; no completed review is replayed. Root owns terminal reconciliation and publication.
+- Parallel preparation: gemini_high_hosted_prepare owns Gemini 3.1 Pro Preview high repeat2/3; qwen_host_successor_review owns Qwen3.6 35B A3B thinking-on hosted fresh-series admission. Neither preparation has permission to allocate or dispatch; root owns admission. Read-only audit confirmed Gemini 3.7 Flash high already has all six repeat phases, so it is not queued again.
+
 - Root approved and committed the DeepSeek authority bridge in f88b42f5. Live admission found one changed field: input price decreased from $0.055/M to $0.021421/M; model, provider, reasoning and reserve were unchanged. No allocation or inference occurred. qwen_host_successor_review owns a successor that accepts prices within the unchanged ceiling and records the live rate. next_hosted_admission_audit owns read-only prioritization of the next independent hosted configurations.
 
 - User authorized an additional $10. Root owns versioned activation of the $22.38 OpenRouter cap and the same $10 once in overlapping authority, earmarked for OpenRouter. The pending $0.55 proposal is superseded, not added. No other provider receives new authority.
