@@ -6,7 +6,7 @@ The E4B thinking-on fresh2/P2 interruption is fully accounted: the eight previou
 
 Jev P0 and P1 each have three full passes. P0 scores 54/53/52 and P1 scores 54/53/54; invalid distributions remain failures. P2 fresh1 and fresh3 each have 60 valid responses and score 54/60. The interrupted middle composite has 57 valid, one invalid and two unknown positions, with 50 all-four matches. It is not a clean pass. The updated report is included in `a8640dc0` and its publication is verified above.
 
-Qwen3.5 thinking-on has two of nine clean full phases. A later P2 smoke retained an invalid output, and a P1 smoke stopped during host sleep with DEV-003 unknown. Neither smoke admitted a full pass. The independently reviewed successor has admitted the fresh2/P0 three-record smoke on handle 95256. The full pass awaits raw-response inspection. Battery use is enabled, with sleep checks active.
+Qwen3.5 thinking-on has two of nine clean full phases. A later P2 smoke retained an invalid output, and a P1 smoke stopped during host sleep with DEV-003 unknown. Neither smoke admitted a full pass. The independently reviewed successor has completed the fresh2/P0 smoke with three valid answers and a passed host audit. Root inspected raw responses and admitted the 60-review development pass, running on handle 4810. Battery use is enabled, with sleep checks active.
 
 The DeepSeek route recheck found the exact `open-inference/fp4` provider and model, but its live price exceeds the frozen price ceiling, so admission refused before inference. The ten-request conservative reserve is `$0.630784`; the separate authority has `$0.083836340` free. No cap changed and no model request was sent. [Route audit](../results/route-audits/deepseek-route-recheck-20261006-1320/audit.json).
 
