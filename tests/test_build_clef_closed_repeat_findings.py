@@ -31,15 +31,48 @@ def test_all_declared_cells_and_interrupted_boundaries():
                for cell in data['cells'] if cell['status'] == 'complete')
     assert len(data['cleanRepeatFlips']) == 6
     assert len(data['matchedPromptDifferences']) == 5
+    assert len(data['promptComparisonExclusions']) == 4
     assert all(len(cell['fieldMetrics']) == 4 for cell in data['cells'])
     assert all(cell['inputTokensObserved'] > 0 for cell in data['cells']
                if cell['valid'])
+
+
+def test_matched_prompt_correctness_transitions_keep_full_denominators():
+    data = report.build()
+    pairs = {(item['repeat'], item['left'], item['right']): item
+             for item in data['matchedPromptDifferences']}
+    assert set(pairs) == {
+        ('fresh1', 'P0', 'P1'), ('fresh2', 'P0', 'P1'),
+        ('fresh2', 'P0', 'P2'), ('fresh2', 'P1', 'P2'),
+        ('fresh3', 'P0', 'P1')}
+    assert (pairs['fresh1', 'P0', 'P1']['becameAllFourCorrectIds'],
+            pairs['fresh1', 'P0', 'P1']['lostAllFourCorrectIds']) == (
+                ['DEV-056'], ['DEV-013', 'DEV-014'])
+    assert (pairs['fresh2', 'P0', 'P2']['becameAllFourCorrectIds'],
+            pairs['fresh2', 'P0', 'P2']['lostAllFourCorrectIds']) == (
+                [], ['DEV-013', 'DEV-014', 'DEV-018', 'DEV-035'])
+    for pair in pairs.values():
+        assert pair['denominator'] == pair['sharedValidDenominator'] == 60
+        assert pair['excludedInvalidOrUnknownIds'] == []
+        assert pair['gainedAllFour'] == len(pair['becameAllFourCorrectIds'])
+        assert pair['lostAllFour'] == len(pair['lostAllFourCorrectIds'])
+        assert pair['rightAllFour'] - pair['leftAllFour'] == (
+            pair['gainedAllFour'] - pair['lostAllFour'])
+    excluded = data['promptComparisonExclusions']
+    assert {(item['repeat'], item['left'], item['right']) for item in excluded} == {
+        ('fresh1', 'P0', 'P2'), ('fresh1', 'P1', 'P2'),
+        ('fresh3', 'P0', 'P2'), ('fresh3', 'P1', 'P2')}
+    assert all(item['comparisonDenominator'] is None for item in excluded)
+    assert all(item['runOutcomes']['P2']['unknownOutcome'] == 1 for item in excluded)
+    assert [item['runOutcomes']['P2']['neverSent'] for item in excluded] == [0, 0, 59, 59]
 
 
 def test_saved_feed_exact_and_source_bound():
     data = report.build()
     saved = json.loads((report.ROOT / report.OUTPUT).read_bytes())
     assert saved == data
+    assert (report.ROOT / report.OUTPUT).read_bytes() == (
+        report.ROOT / 'public-site/clef-closed-repeat-findings.json').read_bytes()
     assert 'actualChargedUsd' not in json.dumps(data)
     assert str(report.SNAPSHOT) in data['sourceBindings']
     assert str(report.QUOTA) in data['sourceBindings']

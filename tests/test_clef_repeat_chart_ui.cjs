@@ -66,3 +66,15 @@ test('mobile and reduced-motion rules remain scoped to the component', () => {
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(css, /\.clef-repeat-scroll:focus-visible/);
 });
+
+
+test('prompt comparisons distinguish gains from losses and refuse inconsistent totals', async () => {
+  const { html } = await render();
+  assert.match(html, /Did the added instructions improve the answers/);
+  assert.match(html, /Pass 1: P0 → P1<\/th><td>1 \/ 60<\/td><td>2 \/ 60/);
+  assert.match(html, /Pass 2: P0 → P2<\/th><td>0 \/ 60<\/td><td>4 \/ 60/);
+  assert.match(html, /Four pairs involving interrupted P2 runs are excluded/);
+  const broken = structuredClone(report);
+  broken.matchedPromptDifferences[0].gainedAllFour += 1;
+  assert.equal((await render(broken)).html, '<p>Fallback evidence text</p>');
+});

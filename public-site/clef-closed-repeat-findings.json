@@ -1565,9 +1565,21 @@
   "kind": "clef-closed-repeat-findings-public-v1",
   "matchedPromptDifferences": [
     {
+      "allFourDelta": -1,
       "anyFieldChanged": 4,
+      "becameAllFourCorrectIds": [
+        "DEV-056"
+      ],
       "denominator": 60,
+      "excludedInvalidOrUnknownIds": [],
+      "gainedAllFour": 1,
       "left": "P0",
+      "leftAllFour": 53,
+      "lostAllFour": 2,
+      "lostAllFourCorrectIds": [
+        "DEV-013",
+        "DEV-014"
+      ],
       "perFieldChanged": {
         "follow_up_needed": 0,
         "sentiment": 2,
@@ -1575,12 +1587,27 @@
         "testimonial_potential": 1
       },
       "repeat": "fresh1",
-      "right": "P1"
+      "right": "P1",
+      "rightAllFour": 52,
+      "sharedValidDenominator": 60
     },
     {
+      "allFourDelta": -2,
       "anyFieldChanged": 5,
+      "becameAllFourCorrectIds": [
+        "DEV-056"
+      ],
       "denominator": 60,
+      "excludedInvalidOrUnknownIds": [],
+      "gainedAllFour": 1,
       "left": "P0",
+      "leftAllFour": 53,
+      "lostAllFour": 3,
+      "lostAllFourCorrectIds": [
+        "DEV-013",
+        "DEV-014",
+        "DEV-035"
+      ],
       "perFieldChanged": {
         "follow_up_needed": 1,
         "sentiment": 2,
@@ -1588,12 +1615,26 @@
         "testimonial_potential": 1
       },
       "repeat": "fresh2",
-      "right": "P1"
+      "right": "P1",
+      "rightAllFour": 51,
+      "sharedValidDenominator": 60
     },
     {
+      "allFourDelta": -4,
       "anyFieldChanged": 6,
+      "becameAllFourCorrectIds": [],
       "denominator": 60,
+      "excludedInvalidOrUnknownIds": [],
+      "gainedAllFour": 0,
       "left": "P0",
+      "leftAllFour": 53,
+      "lostAllFour": 4,
+      "lostAllFourCorrectIds": [
+        "DEV-013",
+        "DEV-014",
+        "DEV-018",
+        "DEV-035"
+      ],
       "perFieldChanged": {
         "follow_up_needed": 1,
         "sentiment": 2,
@@ -1601,12 +1642,24 @@
         "testimonial_potential": 2
       },
       "repeat": "fresh2",
-      "right": "P2"
+      "right": "P2",
+      "rightAllFour": 49,
+      "sharedValidDenominator": 60
     },
     {
+      "allFourDelta": -2,
       "anyFieldChanged": 3,
+      "becameAllFourCorrectIds": [],
       "denominator": 60,
+      "excludedInvalidOrUnknownIds": [],
+      "gainedAllFour": 0,
       "left": "P1",
+      "leftAllFour": 51,
+      "lostAllFour": 2,
+      "lostAllFourCorrectIds": [
+        "DEV-018",
+        "DEV-056"
+      ],
       "perFieldChanged": {
         "follow_up_needed": 0,
         "sentiment": 2,
@@ -1614,12 +1667,27 @@
         "testimonial_potential": 1
       },
       "repeat": "fresh2",
-      "right": "P2"
+      "right": "P2",
+      "rightAllFour": 49,
+      "sharedValidDenominator": 60
     },
     {
+      "allFourDelta": -2,
       "anyFieldChanged": 5,
+      "becameAllFourCorrectIds": [
+        "DEV-056"
+      ],
       "denominator": 60,
+      "excludedInvalidOrUnknownIds": [],
+      "gainedAllFour": 1,
       "left": "P0",
+      "leftAllFour": 53,
+      "lostAllFour": 3,
+      "lostAllFourCorrectIds": [
+        "DEV-013",
+        "DEV-014",
+        "DEV-035"
+      ],
       "perFieldChanged": {
         "follow_up_needed": 1,
         "sentiment": 2,
@@ -1627,16 +1695,121 @@
         "testimonial_potential": 1
       },
       "repeat": "fresh3",
-      "right": "P1"
+      "right": "P1",
+      "rightAllFour": 51,
+      "sharedValidDenominator": 60
     }
   ],
   "model": "clef",
+  "promptComparisonExclusions": [
+    {
+      "comparisonDenominator": null,
+      "left": "P0",
+      "reason": "At least one run lacks 60 valid answers; no clean paired prompt comparison.",
+      "repeat": "fresh1",
+      "right": "P2",
+      "runOutcomes": {
+        "P0": {
+          "invalidOutput": 0,
+          "neverSent": 0,
+          "serviceError": 0,
+          "status": "complete",
+          "unknownOutcome": 0,
+          "valid": 60
+        },
+        "P2": {
+          "invalidOutput": 0,
+          "neverSent": 0,
+          "serviceError": 0,
+          "status": "interrupted_composite",
+          "unknownOutcome": 1,
+          "valid": 59
+        }
+      }
+    },
+    {
+      "comparisonDenominator": null,
+      "left": "P1",
+      "reason": "At least one run lacks 60 valid answers; no clean paired prompt comparison.",
+      "repeat": "fresh1",
+      "right": "P2",
+      "runOutcomes": {
+        "P1": {
+          "invalidOutput": 0,
+          "neverSent": 0,
+          "serviceError": 0,
+          "status": "complete",
+          "unknownOutcome": 0,
+          "valid": 60
+        },
+        "P2": {
+          "invalidOutput": 0,
+          "neverSent": 0,
+          "serviceError": 0,
+          "status": "interrupted_composite",
+          "unknownOutcome": 1,
+          "valid": 59
+        }
+      }
+    },
+    {
+      "comparisonDenominator": null,
+      "left": "P0",
+      "reason": "At least one run lacks 60 valid answers; no clean paired prompt comparison.",
+      "repeat": "fresh3",
+      "right": "P2",
+      "runOutcomes": {
+        "P0": {
+          "invalidOutput": 0,
+          "neverSent": 0,
+          "serviceError": 0,
+          "status": "complete",
+          "unknownOutcome": 0,
+          "valid": 60
+        },
+        "P2": {
+          "invalidOutput": 0,
+          "neverSent": 59,
+          "serviceError": 0,
+          "status": "interrupted_provider",
+          "unknownOutcome": 1,
+          "valid": 0
+        }
+      }
+    },
+    {
+      "comparisonDenominator": null,
+      "left": "P1",
+      "reason": "At least one run lacks 60 valid answers; no clean paired prompt comparison.",
+      "repeat": "fresh3",
+      "right": "P2",
+      "runOutcomes": {
+        "P1": {
+          "invalidOutput": 0,
+          "neverSent": 0,
+          "serviceError": 0,
+          "status": "complete",
+          "unknownOutcome": 0,
+          "valid": 60
+        },
+        "P2": {
+          "invalidOutput": 0,
+          "neverSent": 59,
+          "serviceError": 0,
+          "status": "interrupted_provider",
+          "unknownOutcome": 1,
+          "valid": 0
+        }
+      }
+    }
+  ],
   "referenceStatus": "Frozen provisional v0.2 key; the owner confirmed human checks of all 60 reviews on 2026-10-02. Scores measure agreement with that key.",
   "scoreMeaning": "Exact four-label agreement with the frozen proposed key; interrupted cells have no clean 60-record score.",
   "sourceBindings": {
     "data/pilot/inputs.jsonl": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
     "data/pilot/proposed_labels.jsonl": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
     "docs/CLEF_FINDINGS_2026-10-02.md": "60f6abe72249beec00d31dce72fbea72d0174ed57572a3d0ae8af05472ab7a64",
+    "docs/CLEF_PROMPT_CORRECTNESS_TRANSITIONS_2026-10-07.md": "4a106ca39575e1d10ac35ffddb52099e8b864ee44c43f4dd569fda8628646cad",
     "docs/LABELING_GUIDE.md": "870a280d4b8073eaca7240f36027f758eacef5a16be31941366095d00c6de925",
     "docs/REFERENCE_REVIEW_V1.md": "3ddaa67e94b4ee13a5bb551405070b7d4582322396ef9aa36b787047efcffa36",
     "results/clef-native-v1/clef-billing-source.md": "384290c0f7bbae457c0c7eeb0eb8062aa1c02010f7ab2da6663d99bdc7739d15",
@@ -1714,7 +1887,7 @@
     "results/clef-native-v1/repeat-continuation-v1/fresh2-p0-grants/clef-development-grant.json": "8a9e4c031a6dab307b3f54efb7f9013da6cf8a0ef4dd2d529ea7644d8d8d7d08",
     "results/clef-native-v1/repeat-continuation-v1/remaining-grants/clef-fresh1-p1-development-grant.json": "0448148b75b5ee0f0ec1dc7fbe01f69873467cc9275b5c70694dab6deee81fcf",
     "results/clef-native-v1/repeat-continuation-v1/remaining-grants/clef-fresh3-p0-development-grant.json": "976d51ad68bc8993eddc5c5930405380926187cad4601f1f015f7357ae621aec",
-    "scripts/build_clef_closed_repeat_findings.py": "2c426d64b1d55b47a30004e5d126444e5d405b111bd3bc362deda1762549e9ec",
+    "scripts/build_clef_closed_repeat_findings.py": "99dd09b78056f877b183df711d4720813b2d650ed1b794aa09abf8bc36437e09",
     "scripts/clef_native_fresh2_p0.py": "2da4a9e9ad140969be480b9d3b20011bf52985bda7b2bcacb6eafc05de37f685",
     "scripts/clef_native_full_p0.py": "3207b385e8e517c227b5a927d147f505286b263f11fd6038a81ec540c3779ca7",
     "scripts/clef_native_p2_exact_unsent_v1.py": "ca964f58e5584a74a1d00404e44a863b9c46d70b84d95fc5fd1e49067a28247f",
@@ -1724,11 +1897,12 @@
     "scripts/development_benchmark.py": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d",
     "scripts/jev_benchmark.py": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22",
     "scripts/jev_native_prompt_variants_v1.py": "48ba1ad98ac7c085de87e1ddfb1b15f8083bb3d6a57786d708915c6d4981ccd7",
-    "tests/test_build_clef_closed_repeat_findings.py": "994f2351bc027328bf6cb62293cb1787597c4645a8921e26634f0900d21732ed"
+    "tests/test_build_clef_closed_repeat_findings.py": "b2328313fd293de509205cb69300fe1627214c2967558f953c904357bb432f83"
   },
   "sourceLinks": {
     "modelPricing": "https://developers.cloudflare.com/workers-ai/models/clef/",
     "priorClefFindings": "docs/CLEF_FINDINGS_2026-10-02.md",
+    "promptCorrectnessTransitions": "docs/CLEF_PROMPT_CORRECTNESS_TRANSITIONS_2026-10-07.md",
     "referenceKey": "data/pilot/proposed_labels.jsonl",
     "referenceReview": "docs/REFERENCE_REVIEW_V1.md"
   }

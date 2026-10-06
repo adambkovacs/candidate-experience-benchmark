@@ -69,7 +69,37 @@
     return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>1 unknown · 59 not sent</span></div>`;
   }
 
-  function render(cell) {
+  function promptChanges(report, cell) {
+    const pairs = report.matchedPromptDifferences;
+    if (!Array.isArray(pairs) || pairs.length !== 5) throw new Error('Missing prompt comparisons');
+    const seen = new Set();
+    const rows = pairs.map(p => {
+      const key = `${p.repeat}:${p.left}:${p.right}`;
+      if (!passes.includes(p.repeat) || !prompts.includes(p.left) || !prompts.includes(p.right) ||
+          prompts.indexOf(p.left) >= prompts.indexOf(p.right) || seen.has(key) ||
+          cell(p.left, p.repeat).status !== 'complete' || cell(p.right, p.repeat).status !== 'complete' ||
+          p.leftAllFour !== cell(p.left, p.repeat).matchedAllFour ||
+          p.rightAllFour !== cell(p.right, p.repeat).matchedAllFour ||
+          p.sharedValidDenominator !== 60 || !integer(p.gainedAllFour) || !integer(p.lostAllFour) ||
+          !Array.isArray(p.becameAllFourCorrectIds) || !Array.isArray(p.lostAllFourCorrectIds) ||
+          p.becameAllFourCorrectIds.length !== p.gainedAllFour ||
+          p.lostAllFourCorrectIds.length !== p.lostAllFour ||
+          p.rightAllFour - p.leftAllFour !== p.gainedAllFour - p.lostAllFour) {
+        throw new Error('Invalid prompt comparison');
+      }
+      seen.add(key);
+      return `<tr><th scope="row">Pass ${passes.indexOf(p.repeat) + 1}: ${p.left} → ${p.right}</th>` +
+        `<td>${p.gainedAllFour} / 60</td><td>${p.lostAllFour} / 60</td></tr>`;
+    }).join('');
+    return `<details><summary>Did the added instructions improve the answers?</summary>` +
+      `<p>These pairs returned all 60 answers. A gain means all four labels now match the reference; a loss means they matched before but no longer do. An answer can change and still be wrong.</p>` +
+      `<div class="clef-repeat-scroll" role="region" aria-label="Clef prompt gains and losses" tabindex="0">` +
+      `<table><caption class="clef-repeat-sr-only">Reviews gaining or losing four-label agreement</caption>` +
+      `<thead><tr><th scope="col">Prompt change</th><th scope="col">Became correct</th><th scope="col">Became incorrect</th></tr></thead><tbody>${rows}</tbody></table></div>` +
+      `<p>Four pairs involving interrupted P2 runs are excluded from this table. Their missing outcomes remain in the run grid above.</p></details>`;
+  }
+
+  function render(cell, report) {
     const rows = prompts.map(p => `<tr><th scope="row"><span class="clef-repeat-prompt">${p}</span><span>${label[p]}</span></th>` +
       passes.map(r => { const c = cell(p, r); return `<td>${c.status === 'complete' ? scored(c) : interrupted(c)}</td>`; }).join('') + '</tr>').join('');
     return `<figure class="clef-repeat-chart" aria-labelledby="clef-repeat-title">` +
@@ -83,13 +113,14 @@
       `<div class="clef-repeat-notes"><p><strong>P0 stayed fixed.</strong> Each pass scored 53/60, with no changed answers across passes.</p>` +
       `<p><strong>P1 changed once.</strong> Scores were 52/60, then 51/60 twice; one follow-up decision changed from the first pass.</p>` +
       `<p><strong>Only one P2 run returned all 60 answers.</strong> Pass 2 scored 49/60. The other two were interrupted.</p></div>` +
+      promptChanges(report, cell) +
       `<p class="clef-repeat-source"><a href="${sourceUrl}">Source data and per-run evidence</a></p></figure>`;
   }
 
   fetch(sourceUrl, { cache: 'no-store' }).then(response => {
     if (!response.ok) throw new Error('Clef report unavailable');
     return response.json();
-  }).then(report => { host.innerHTML = render(read(report)); }).catch(() => {
+  }).then(report => { host.innerHTML = render(read(report), report); }).catch(() => {
     /* Keep the server-rendered fallback visible if the report is unavailable or changed. */
   });
 })();

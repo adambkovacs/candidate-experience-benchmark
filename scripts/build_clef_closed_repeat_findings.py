@@ -124,6 +124,22 @@ def compared_predictions(left, right):
             'perFieldChanged': per_field}
 
 
+def compared_all_four(left, right, labels):
+    if sorted(left) != IDS or sorted(right) != IDS:
+        raise ValueError('Correctness changes require exact 60-record clean pairs')
+    gained = [rid for rid in IDS if left[rid] != labels[rid] and right[rid] == labels[rid]]
+    lost = [rid for rid in IDS if left[rid] == labels[rid] and right[rid] != labels[rid]]
+    left_matches = sum(left[rid] == labels[rid] for rid in IDS)
+    right_matches = sum(right[rid] == labels[rid] for rid in IDS)
+    if right_matches - left_matches != len(gained) - len(lost):
+        raise ValueError('Matched correctness transition arithmetic differs')
+    return {'sharedValidDenominator': 60, 'excludedInvalidOrUnknownIds': [],
+            'leftAllFour': left_matches, 'rightAllFour': right_matches,
+            'becameAllFourCorrectIds': gained, 'lostAllFourCorrectIds': lost,
+            'gainedAllFour': len(gained), 'lostAllFour': len(lost),
+            'allFourDelta': right_matches - left_matches}
+
+
 def audit_stage(sources, directory, *, condition, rows, policy, labels,
                 ids=IDS, grant_path=None, controllers=None, grant_stage=None):
     claim = sources.json(directory / 'claim.json')
@@ -263,6 +279,7 @@ def build(root=ROOT):
             raise ValueError('Executed prompt module differs from requested checkout')
     sources.path('docs/REFERENCE_REVIEW_V1.md')
     sources.path('docs/CLEF_FINDINGS_2026-10-02.md')
+    sources.path('docs/CLEF_PROMPT_CORRECTNESS_TRANSITIONS_2026-10-07.md')
     sources.path(BASE / 'clef-billing-source.md')
     labels = checked_labels(sources)
     rows, policy = prep.inputs_and_policy(Path(root))
@@ -349,13 +366,28 @@ def build(root=ROOT):
                 **compared_predictions(clean_predictions[f'{left}/{condition}'],
                                        clean_predictions[f'{right}/{condition}'])})
     prompt_differences = []
+    prompt_exclusions = []
+    by_cell = {(cell['repeat'], cell['condition']): cell for cell in cells}
     for repeat in ('fresh1', 'fresh2', 'fresh3'):
-        conditions = [condition for condition in ('P0', 'P1', 'P2')
-                      if f'{repeat}/{condition}' in clean_predictions]
-        for left, right in combinations(conditions, 2):
+        for left, right in combinations(('P0', 'P1', 'P2'), 2):
+            left_key, right_key = f'{repeat}/{left}', f'{repeat}/{right}'
+            if left_key not in clean_predictions or right_key not in clean_predictions:
+                prompt_exclusions.append({'repeat': repeat, 'left': left, 'right': right,
+                    'comparisonDenominator': None,
+                    'reason': 'At least one run lacks 60 valid answers; no clean paired prompt comparison.',
+                    'runOutcomes': {condition: {
+                        'status': by_cell[(repeat, condition)]['status'],
+                        'valid': by_cell[(repeat, condition)]['valid'],
+                        'invalidOutput': by_cell[(repeat, condition)]['invalidOutput'],
+                        'serviceError': by_cell[(repeat, condition)]['serviceError'],
+                        'unknownOutcome': by_cell[(repeat, condition)]['unknownOutcome'],
+                        'neverSent': by_cell[(repeat, condition)]['neverSent']}
+                        for condition in (left, right)}})
+                continue
+            before, after = clean_predictions[left_key], clean_predictions[right_key]
             prompt_differences.append({'repeat': repeat, 'left': left, 'right': right,
-                **compared_predictions(clean_predictions[f'{repeat}/{left}'],
-                                       clean_predictions[f'{repeat}/{right}'])})
+                **compared_predictions(before, after),
+                **compared_all_four(before, after, labels)})
     return {'kind': 'clef-closed-repeat-findings-public-v1',
             'model': 'clef', 'declaredCells': 9, 'completeCleanCells': 7,
             'interruptedCells': 2, 'referenceStatus':
@@ -366,9 +398,11 @@ def build(root=ROOT):
                 'referenceKey': 'data/pilot/proposed_labels.jsonl',
                 'referenceReview': 'docs/REFERENCE_REVIEW_V1.md',
                 'priorClefFindings': 'docs/CLEF_FINDINGS_2026-10-02.md',
+                'promptCorrectnessTransitions': 'docs/CLEF_PROMPT_CORRECTNESS_TRANSITIONS_2026-10-07.md',
                 'modelPricing': 'https://developers.cloudflare.com/workers-ai/models/clef/'},
             'cells': cells, 'cleanRepeatFlips': repeat_flips,
             'matchedPromptDifferences': prompt_differences,
+            'promptComparisonExclusions': prompt_exclusions,
             'sourceBindings': sources.hashes}
 
 
