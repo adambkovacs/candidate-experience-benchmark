@@ -35,3 +35,9 @@ Pages run [37527766678](https://github.com/adambkovacs/candidate-experience-benc
 On the live page, the resource-use section exposes 304 saved run choices. Selecting `fable51-high` changed the section to that run and displayed 120 input tokens, 186,000 cache-read tokens, 28,275 cache-write tokens, 11,715 output tokens and 3,312 reasoning tokens. Its API-equivalent estimate is $1.19895, with a dated public pricing link and explicit separation from unknown subscription charges. This checks display against the selected published feed, not a new independent pricing audit.
 
 At a 390-by-844 viewport, document width was 375 pixels and the selector was about 320 pixels wide; the screenshot showed readable content and a visible focus outline. The temporary viewport was reset. No console errors were captured before this interaction. Automated ArrowDown/Enter left the selected value unchanged, so keyboard selection is not claimed verified. The prior disclosure-keyboard checks remain separate.
+
+## Historical snapshot labels
+
+A live browser check confirmed that the final DeepSeek low findings render in the hosted-model disclosure, including P0/P1/P2 scores of 58/57/58 and the separate paired-comparison denominators. The page captured no console errors. Two older high-effort entries still sounded like current incomplete totals; commit `755969c2` labels them as historical checkpoints and points to the later results. All 15 analysis UI tests pass. Deployment verification is pending.
+
+Keyboard selection of the native resource dropdown remains unverified: locator Home/Enter left the selected value unchanged, and the browser tool does not support raw CDP key dispatch. This is a test limitation, not evidence that the website's native select is broken. Programmatic selection and displayed pricing were verified in the earlier check.
