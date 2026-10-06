@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Jev P2 third pass closed, 6 October 2026
+
+- Original handle 88263 exited successfully: 60 valid responses, 54/60 all-four matches, $0.006851040 observed cost. Root verified all request/raw-response hashes and strict predictions, reconciled the child, and released only $0.073788960 unused authority. No inference is running.
+- P0/P1/P2 each have three declared attempts; P2 fresh2 remains interrupted (57 valid, one invalid, two unknown). This does not make the requested clean repeat study complete.
+- Pages run 37465810307 failed before deployment because the Jev report verifier compared archived absolute paths across checkouts. authority_reconciliation_v2 owns the portable archived-verifier fix and regression test. The live site retains the previous version. Third-pass report integration remains pending.
+
 ## Report reconciliation, 6 October 2026
 
 - Root rebuilt the Jev and Qwen feeds, including all three Jev P0/P1 passes and the interrupted P2 composite. Combined analysis now checks those values against the raw-evidence report. Publication is pending verification.
