@@ -8,6 +8,12 @@ No further local inference is authorized. Preserve completed local results and m
 
 Use explicitly configured Sol high agents for remaining delegated work. Finish the admitted hosted runs, reconcile the remaining roster, and refresh the complete analysis and public presentation. The private classification-bench work remains separate. [Current assignments](TODO.md) and [copyable goal](APP_GOAL.md).
 
+## Execution checkpoint, 6 October 2026, 21:58 UTC
+
+Solar has three closed full passes (P0/P1/P2), each with 60 valid responses and all-four scores of 55/53/53. Its second baseline pass is active. Clef has seven clean full passes and one interrupted composite; the final P2 pass encountered Cloudflare's daily free quota on its first request. Preserve that saved error and the unsent remainder. Cloudflare work is paused pending a quota reset or account upgrade; the approved project budget and enabled alert do not remove the provider gate. Flash's 58 never-sent reviews and the new Cloudflare Jev study remain pending. No local inference will resume.
+
+Liquid's paired prompt chart is published and its live files match commit `7b308d14`. Remaining work includes the hosted runs above, final combined analysis, full-roster reconciliation and publication checks. See [the current checklist](TODO.md); older checkpoints below retain their historical cutoffs.
+
 ## Execution checkpoint, 6 October 2026, 19:04 UTC
 
 The goal remains active. Its scope, OpenRouter-first routing and approved spending ceiling are unchanged. [TODO.md](TODO.md) holds current owners, process handles and next actions; older dated sections below are historical.
