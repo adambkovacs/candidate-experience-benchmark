@@ -421,6 +421,19 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertIn(analysis.MISTRAL_SECOND_SUFFIX,
                       {item["path"] for item in rebuilt["sources"]})
         cohorts = rebuilt["newerCohorts"]
+        clef_closed = cohorts["clefClosedRepeats"]
+        self.assertEqual((clef_closed["declaredCells"], clef_closed["completeCleanCells"],
+                          clef_closed["interruptedCells"]), (9, 7, 2))
+        self.assertEqual(clef_closed["p0Scores"], [53, 53, 53])
+        self.assertEqual(clef_closed["p0RepeatChanged"], [0, 0, 0])
+        self.assertEqual(clef_closed["p1Scores"], [52, 51, 51])
+        self.assertEqual([pair["changed"] for pair in clef_closed["p1RepeatFlips"]], [1, 1, 0])
+        self.assertEqual(clef_closed["cleanP2"], {"repeat": "fresh2", "valid": 60, "allFour": 49})
+        self.assertEqual([(row["valid"], row["unknownOutcome"], row["neverSent"], row["cleanScore"])
+                          for row in clef_closed["interruptedP2"]],
+                         [(59, 1, 0, None), (0, 1, 59, None)])
+        self.assertTrue({analysis.CLEF_CLOSED, analysis.CLEF_CLOSED_PUBLIC}.issubset(
+            {item["path"] for item in rebuilt["sources"]}))
         e4b = cohorts["e4bInterrupted"]
         self.assertEqual(e4b["score"]["allFour"], 48)
         self.assertEqual(e4b["score"]["valid"], 58)
@@ -679,6 +692,12 @@ class AnalysisRefreshTest(unittest.TestCase):
             check = subprocess.run([sys.executable, str(ROOT / "scripts/build_analysis_refresh.py"),
                                     "--root", str(temp), "--check"], capture_output=True, text=True)
             self.assertEqual(check.returncode, 0, check.stderr)
+            clef_public = temp / analysis.CLEF_CLOSED_PUBLIC
+            original_clef_public = clef_public.read_bytes()
+            clef_public.write_bytes(original_clef_public + b" ")
+            with self.assertRaisesRegex(ValueError, "Clef closed repeat public copy differs"):
+                analysis.build(temp)
+            clef_public.write_bytes(original_clef_public)
             suffix_path = temp / analysis.CLEF_FLASH_P0_SUFFIX / "records.jsonl"
             original_suffix = suffix_path.read_text()
             suffix_path.write_text(original_suffix + " ")

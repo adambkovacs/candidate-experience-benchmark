@@ -146,6 +146,24 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/descriptive interrupted result: 47\/60 all-four matches/);
   assert.doesNotMatch(view.cutoffs,/latest Gemma and DeepSeek continuations remain unscored/);
 });
+test('Clef closed repeats keep clean cells distinct from interrupted P2 evidence', async()=>{
+  const report = JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const view = await renderState(report);
+  assert.match(view.cutoffs,/Clef native, updated repeat record/);
+  assert.match(view.cutoffs,/7 of 9 planned cells have 60 valid answers/);
+  assert.match(view.cutoffs,/P0 scored 53\/60, 53\/60, 53\/60/);
+  assert.match(view.cutoffs,/P1 scored 52\/60, 51\/60, 51\/60/);
+  assert.match(view.cutoffs,/one follow-up decision changed/);
+  assert.match(view.cutoffs,/Only the second P2 pass is clean, at 49\/60/);
+  assert.match(view.cutoffs,/first P2 pass has 59 valid answers, 48 known four-label matches and one unknown outcome/);
+  assert.match(view.cutoffs,/third P2 pass has one unknown outcome and 59 reviews never sent/);
+  assert.match(view.cutoffs,/Neither interrupted P2 pass has a clean 60-answer score/);
+  const changed=structuredClone(report);
+  changed.newerCohorts.clefClosedRepeats.interruptedP2[0].cleanScore=48;
+  const broken=await renderState(changed);
+  assert.equal(broken.cutoffs,'');
+  assert.match(broken.table,/comparison could not be loaded/);
+});
 test('Qwen current repeat narrative distinguishes a stopped smoke from a closed full pass', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
   const current = report.newerCohorts.legacyQwen.qwen17OffRepeat;
@@ -340,7 +358,8 @@ test('findings groups keep all model results and source links available', async(
   const {cutoffs}=await renderState(report);
   const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/details>/g)];
   assert.deepEqual(groups.map(g=>g[1]),['findings-decision','findings-hosted','findings-local']);
-  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[8,12,9]);
+  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[9,12,9]);
+  assert.match(groups[0][2],/clef-closed-repeat-findings.json/);
   assert.match(groups[0][2],/tev-native-full-findings.json/);
   assert.match(groups[1][2],/deepseek-high-remaining6-successor-findings.json/);
   assert.match(groups[2][2],/legacy-qwen-repeats.json/);

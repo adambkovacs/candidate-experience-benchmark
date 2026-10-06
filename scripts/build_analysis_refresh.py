@@ -24,6 +24,8 @@ CLEF_FLASH_P1 = "results/clef-native-v1/clef-flash-p1-findings-public.json"
 CLEF_FLASH_P1_PUBLIC = "public-site/clef-flash-p1-findings.json"
 CLEF_FLASH_P2 = "results/clef-native-v1/clef-flash-p2-findings-public.json"
 CLEF_FLASH_P2_PUBLIC = "public-site/clef-flash-p2-findings.json"
+CLEF_CLOSED = "results/clef-native-v1/clef-closed-repeat-findings-public.json"
+CLEF_CLOSED_PUBLIC = "public-site/clef-closed-repeat-findings.json"
 CLEF_FLASH_P0_PARENT = "results/clef-native-v1/clef-flash/fresh3/P0/development"
 CLEF_FLASH_P0_SUFFIX = "results/clef-native-v1/clef-flash/fresh3/P0/development-suffix-v1"
 MISTRAL_P0_PUBLIC = "public-site/mistral119-fresh1-p0-findings.json"
@@ -60,6 +62,7 @@ SOURCES = (
     "public-site/clef-findings.json",
     "public-site/clef-p0-repeat-findings.json",
     "public-site/clef-p0-third-checkpoint.json",
+    CLEF_CLOSED_PUBLIC,
     MISTRAL_ORIGINAL,
     MISTRAL_FIRST_SUFFIX,
     MISTRAL_SECOND_SUFFIX,
@@ -1014,6 +1017,60 @@ def build(root=ROOT):
         raise ValueError("Expected 60 frozen v0.2 references")
 
     clef_p1 = clef_p1_first_pass(root, labels, bindings)
+    import build_clef_closed_repeat_findings as clef_closed_builder
+    clef_closed = data[CLEF_CLOSED_PUBLIC]
+    if (root / CLEF_CLOSED_PUBLIC).read_bytes() != (root / CLEF_CLOSED).read_bytes():
+        raise ValueError("Clef closed repeat public copy differs from reviewed report")
+    bindings[CLEF_CLOSED] = sha(root / CLEF_CLOSED)
+    clef_sources = clef_closed.get("sourceBindings")
+    if not isinstance(clef_sources, dict) or not clef_sources:
+        raise ValueError("Clef closed repeat source map is missing")
+    for name, digest in clef_sources.items():
+        relative = Path(name)
+        if (not isinstance(name, str) or not name or relative.is_absolute() or
+                ".." in relative.parts or not isinstance(digest, str) or
+                len(digest) != 64 or sha(root / relative) != digest):
+            raise ValueError("Clef closed repeat source hash differs: " + str(name))
+        bindings[name] = digest
+    if clef_closed != clef_closed_builder.build(root):
+        raise ValueError("Clef closed repeats differ from terminal evidence")
+    clef_cells = {(cell["repeat"], cell["condition"]): cell
+                  for cell in clef_closed["cells"]}
+    if (clef_closed.get("kind") != "clef-closed-repeat-findings-public-v1" or
+            clef_closed.get("model") != "clef" or
+            (clef_closed.get("declaredCells"), clef_closed.get("completeCleanCells"),
+             clef_closed.get("interruptedCells")) != (9, 7, 2) or
+            len(clef_cells) != 9 or
+            set(clef_cells) != {(f"fresh{repeat}", f"P{condition}")
+                               for repeat in (1, 2, 3) for condition in (0, 1, 2)}):
+        raise ValueError("Clef closed repeat coverage differs")
+    clef_closed_summary = {
+        "source": CLEF_CLOSED_PUBLIC,
+        "declaredCells": clef_closed["declaredCells"],
+        "completeCleanCells": clef_closed["completeCleanCells"],
+        "interruptedCells": clef_closed["interruptedCells"],
+        "p0Scores": [clef_cells[(f"fresh{repeat}", "P0")]["matchedAllFour"]
+                     for repeat in (1, 2, 3)],
+        "p1Scores": [clef_cells[(f"fresh{repeat}", "P1")]["matchedAllFour"]
+                     for repeat in (1, 2, 3)],
+        "cleanP2": {"repeat": "fresh2", "valid": clef_cells[("fresh2", "P2")]["valid"],
+                    "allFour": clef_cells[("fresh2", "P2")]["matchedAllFour"]},
+        "interruptedP2": [
+            {"repeat": repeat, "valid": clef_cells[(repeat, "P2")]["valid"],
+             "knownAllFourMatches": clef_cells[(repeat, "P2")]["matchedAllFour"],
+             "unknownOutcome": clef_cells[(repeat, "P2")]["unknownOutcome"],
+             "neverSent": clef_cells[(repeat, "P2")]["neverSent"],
+             "cleanScore": None}
+            for repeat in ("fresh1", "fresh3")],
+        "p0RepeatChanged": [row["anyFieldChanged"] for row in clef_closed["cleanRepeatFlips"]
+                            if row["condition"] == "P0"],
+        "p1RepeatFlips": [
+            {"left": row["left"], "right": row["right"],
+             "changed": row["anyFieldChanged"],
+             "changedByField": row["perFieldChanged"]}
+            for row in clef_closed["cleanRepeatFlips"] if row["condition"] == "P1"],
+        "costMeaning": clef_closed["costMeaning"],
+    }
     kev_native_prompts = kev_native_prompt_summary(
         root, data[KEV_NATIVE_PROMPT_PUBLIC], bindings)
     import build_e4b_interruption_findings as e4b_report
@@ -1609,6 +1666,7 @@ def build(root=ROOT):
                 "neverSentIds": e4b["neverSentIds"], "cleanRepeatEligible": False,
                 "status": e4b["status"], "usage": e4b["usage"]},
             "clefP1FirstPass": clef_p1,
+            "clefClosedRepeats": clef_closed_summary,
             "kevNativePrompts": kev_native_prompts,
             "jevNativePrompts": jev_native_prompts,
             "geminiAuthority": gemini_authority,
