@@ -38,6 +38,24 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertTrue(all(not row['changedByField']['follow_up_needed']
                             for row in repeats.values()))
         self.assertEqual(len(qwen["closedCells"]), qwen["completedCleanConditions"])
+        class_audit = qwen["fieldClassAudit"]
+        self.assertEqual(len(class_audit), 9)
+        self.assertEqual(sum(row["cleanComparisonEligible"] for row in class_audit), 8)
+        first_p0 = next(row for row in class_audit if
+                        (row["pass"], row["condition"]) == ("fresh1", "P0"))
+        testimonial_yes = next(row for row in first_p0["fields"]["testimonial_potential"]["classes"]
+                               if row["reference"] == "yes")
+        self.assertEqual(testimonial_yes, {"reference": "yes", "total": 9,
+            "correct": 7, "wrong": 2, "unavailable": 0,
+            "wrongPredictions": {"no": 2}})
+        first_p1 = next(row for row in class_audit if
+                        (row["pass"], row["condition"]) == ("fresh1", "P1"))
+        self.assertEqual((first_p1["valid"], first_p1["unusable"],
+                          first_p1["unusableIds"]), (59, 1, ["DEV-049"]))
+        follow_up_yes = next(row for row in first_p1["fields"]["follow_up_needed"]["classes"]
+                             if row["reference"] == "yes")
+        self.assertEqual((follow_up_yes["total"], follow_up_yes["unavailable"]), (35, 1))
+        self.assertEqual(qwen["interruptedP1"]["unusableIds"], ["DEV-049"])
         self.assertTrue({"fresh1/P0", "fresh1/P2", "fresh2/P0", "fresh2/P1", "fresh2/P2", "fresh3/P2"}.issubset(qwen["closedCells"]))
         self.assertEqual(next(row["allFour"] for row in qwen["closedPhases"]
                               if row["pass"] == "fresh2" and row["condition"] == "P2"), 56)
@@ -78,6 +96,16 @@ class AnalysisRefreshTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "differs from closed evidence"):
             analysis.hosted_fresh_summary(ROOT, changed, {})
 
+    def test_hosted_qwen_class_audit_rejects_inconsistent_confusion(self):
+        import build_deepseek_high_remaining7_price_findings as hosted_builder
+        changed = json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text())
+        qwen = next(item for item in changed["series"] if "qwen36" in item["configuration"])
+        qwen["passes"]["fresh1"]["P0"]["score"]["confusionCounts"][
+            "testimonial_potential"]["yes"]["no"] += 1
+        with patch.object(hosted_builder, "build", return_value=changed):
+            with self.assertRaisesRegex(ValueError, "reference class denominator differs|field confusion differs"):
+                analysis.hosted_fresh_summary(ROOT, changed, {})
+
     def test_hosted_fresh_projection_accepts_additional_rebuilt_closed_cells(self):
         import build_deepseek_high_remaining7_price_findings as hosted_builder
         future = copy.deepcopy(json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text()))
@@ -96,6 +124,8 @@ class AnalysisRefreshTest(unittest.TestCase):
             result = analysis.hosted_fresh_summary(ROOT, future, {})
         self.assertEqual(result["qwen36On"]["completedCleanConditions"], previous_qwen_count + 1)
         self.assertIn(f"{added_pass}/{added_condition}", result["qwen36On"]["closedCells"])
+        self.assertEqual(len(result["qwen36On"]["fieldClassAudit"]),
+                         len(result["qwen36On"]["closedPhases"]) + 1)
         self.assertTrue({("fresh2", "P1", 1), ("fresh2", "P2", 3)}.issubset({
             (row["pass"], row["to"], row["allFourDelta"])
             for row in result["qwen36On"]["matchedPromptComparisons"]}))

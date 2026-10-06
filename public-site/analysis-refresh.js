@@ -75,6 +75,7 @@
           !hosted.qwen36On?.closedCells?.includes('fresh1/P2') ||
           !Array.isArray(hosted.qwen36On?.matchedPromptComparisons) ||
           !Array.isArray(hosted.qwen36On?.closedPhases) ||
+          !Array.isArray(hosted.qwen36On?.fieldClassAudit) ||
           hosted.qwen36On?.interruptedP1?.cleanComparisonEligible !== false ||
           hosted.deepseekHigh?.intrinsicInvalidCount !== 1 ||
           !hosted.deepseekHigh?.closedCells?.includes('fresh1/P0') ||
@@ -137,6 +138,28 @@
       const hostedPhases = item => item.closedPhases.map(phase => `${esc(passName(phase.pass))}, ${esc(promptName(phase.condition))}: ${esc(phase.allFour)}/60 matches, ${esc(phase.valid)}/60 usable answers`).join('; ');
       const hostedPairs = item => item.matchedPromptComparisons.length ? item.matchedPromptComparisons.map(pair => `${esc(passName(pair.pass))}, ${esc(promptName(pair.to))} versus base task: ${esc(pair.allFourDelta>0?'+':'')}${esc(pair.allFourDelta)} matches`).join('; ') : 'No same-pass comparison with the base task is available yet.';
       const qwenRepeatText = Object.entries(hosted.qwen36On.repeatability || {}).map(([condition, row]) => `${esc(promptName(condition))}: at least one label changed on ${esc(row.changedReviewIds.length)}/${esc(row.denominator)} reviews across ${esc(row.passCount)} complete passes`).join('; ');
+      const qwenClassRows = hosted.qwen36On.fieldClassAudit;
+      const qwenBaseAudit = qwenClassRows.find(row => row.pass === 'fresh1' && row.condition === 'P0');
+      const qwenTestimonialYes = qwenBaseAudit?.fields?.testimonial_potential?.classes?.find(row => row.reference === 'yes');
+      const qwenInterruptedAudit = qwenClassRows.find(row => row.pass === 'fresh1' && row.condition === 'P1');
+      if (!qwenTestimonialYes || !qwenInterruptedAudit ||
+          qwenClassRows.length !== hosted.qwen36On.closedPhases.length + 1 ||
+          qwenInterruptedAudit.cleanComparisonEligible !== false ||
+          qwenInterruptedAudit.valid !== hosted.qwen36On.interruptedP1.valid ||
+          qwenInterruptedAudit.unusableIds.join(',') !== hosted.qwen36On.interruptedP1.unusableIds.join(',') ||
+          qwenClassRows.some(row => row.denominator !== 60 || row.valid + row.unusable !== 60 ||
+            !['sentiment','follow_up_needed','serious_concern_reported','testimonial_potential'].every(field =>
+              row.fields?.[field]?.denominator === 60 && Array.isArray(row.fields[field].classes))))
+        throw Error('Incomplete hosted Qwen class audit');
+      const qwenFieldCell = field => {
+        const errors = field.classes.filter(item => item.wrong || item.unavailable).map(item => {
+          const wrong = Object.entries(item.wrongPredictions).map(([label, count]) => `${esc(label.replaceAll('_', ' '))} ${esc(count)}`).join(', ');
+          return `${esc(item.reference.replaceAll('_', ' '))}: ${esc(item.correct)}/${esc(item.total)} matched${item.wrong ? `, ${esc(item.wrong)} wrong (${wrong})` : ''}${item.unavailable ? `, ${esc(item.unavailable)} unavailable` : ''}`;
+        });
+        return `<strong>${esc(field.correct)}/60</strong><small>${errors.length ? errors.join('; ') : 'No wrong or unavailable answers'}</small>`;
+      };
+      const qwenClassTable = `<details><summary>See errors by field and reference label</summary><div class="table-wrap" tabindex="0" role="region" aria-label="Qwen field errors by pass and prompt"><table><caption>Qwen3.6 field results across nine planned runs</caption><thead><tr><th scope="col">Pass and prompt</th><th scope="col">Usable answers</th><th scope="col">Sentiment</th><th scope="col">Follow-up</th><th scope="col">Serious concern</th><th scope="col">Testimonial</th></tr></thead><tbody>${qwenClassRows.map(row => `<tr><th scope="row">${esc(passName(row.pass))}, ${esc(promptName(row.condition))}${row.cleanComparisonEligible ? '' : ' (interrupted)'}</th><td>${esc(row.valid)}/60${row.unusable ? `<small>${esc(row.unusableIds.join(', '))} unavailable</small>` : ''}</td>${['sentiment','follow_up_needed','serious_concern_reported','testimonial_potential'].map(field => `<td>${qwenFieldCell(row.fields[field])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></details>`;
+      const qwenClassText = `In the first base-task run, testimonial potential matched ${esc(qwenTestimonialYes.correct)}/${esc(qwenTestimonialYes.total)} reference yes reviews; ${esc(qwenTestimonialYes.wrongPredictions.no || 0)} were labeled no despite ${esc(qwenBaseAudit.fields.testimonial_potential.correct)}/60 field matches and ${esc(hosted.qwen36On.scores.P0.allFour)}/60 all-four matches. The interrupted first classifier-instruction run has ${esc(qwenInterruptedAudit.valid)}/60 usable answers; ${esc(qwenInterruptedAudit.unusableIds.join(', '))} is unavailable. The table keeps scores out of 60 and shows errors by reference class; class denominators are the numbers of reviews with each reference label.`;
       const highSuccessor = report.newerCohorts.deepseekHighSuccessor;
       const highSuccessorText = highSuccessor ? highSuccessor.publishedClosedStages.map(stage => {
         const p = highSuccessor.phases[stage];
@@ -191,7 +214,7 @@
         <li><strong>Clef Flash P2:</strong> The three decision-rule passes scored ${Object.values(flashP2.passes).map(p=>esc(p.allFour)).join(', ')} out of 60, with 60 valid answers each. None of the labels, native probabilities or vendor confidence values changed across repeats. In the matched first-pass comparison, the score moved from 45 with the base task to 47 with classifier instructions, then 46 with decision rules. P2 gained a full match on DEV-058 versus P1, but lost matches on DEV-027 and DEV-032. Each P2 pass used ${esc(Number(flashP2.inputTokensPerPass.fresh1).toLocaleString('en-US'))} input tokens, giving a published-price estimate of $${esc(flashP2.inputPriceEstimateUsdPerPass.fresh1)}. Provider bills and pure inference times are unavailable. <a href="./clef-flash-p2-findings.json">Read the P2 results and prompt comparisons</a>.</li>
 </ul></details><details class="findings-group" id="findings-hosted"><summary><span>Hosted language models</span><small>Gemini, Qwen, DeepSeek, Gemma and Mistral: scores and failed outputs</small></summary><ul>
         <li><strong>Gemini 3.1 Pro Preview, high effort:</strong> ${esc(gemini.completedConditions)}/9 condition and pass combinations are closed. All 60 answers were valid in each. All-four scores across the original pass and two repeats are ${geminiScores}. At least one answer changed across repeats on ${geminiChanges} reviews, even where score totals stayed the same. Matched changes from P0 are ${geminiDeltas} full matches. The added prompt instructions gave no consistent score gain on these 60 synthetic reviews. <a href="./gemini-repeats.json">Read the source-bound Gemini report</a>.</li>
-        <li><strong>Hosted Qwen3.6 with thinking enabled:</strong> ${esc(hosted.qwen36On.completedCleanConditions)} of ${esc(hosted.qwen36On.plannedConditions)} planned runs are complete${qwenUsability}: ${hostedPhases(hosted.qwen36On)}. Same-pass comparisons: ${hostedPairs(hosted.qwen36On)}. The first classifier-instruction run was interrupted and is excluded from these comparisons. ${qwenRepeatText ? `Repeat changes: ${qwenRepeatText}.` : ''} These are repeated classifications of the same reviews, not additional cases; the interrupted pass does not count toward stability. <a href="./additional-hosted-fresh-repeats.json">See the saved results</a>.</li>
+        <li><strong>Hosted Qwen3.6 with thinking enabled:</strong> ${esc(hosted.qwen36On.completedCleanConditions)} of ${esc(hosted.qwen36On.plannedConditions)} planned runs are complete${qwenUsability}: ${hostedPhases(hosted.qwen36On)}. Same-pass comparisons: ${hostedPairs(hosted.qwen36On)}. The first classifier-instruction run was interrupted and is excluded from these comparisons. ${qwenRepeatText ? `Repeat changes: ${qwenRepeatText}.` : ''} These are repeated classifications of the same reviews, not additional cases; the interrupted pass does not count toward stability. <a href="./additional-hosted-fresh-repeats.json">See the saved results</a>.<p>${qwenClassText}</p>${qwenClassTable}</li>
         ${highSuccessorHtml}
         ${lowRevisedHtml}
         ${lowFinalHtml}

@@ -138,6 +138,9 @@ def hosted_fresh_summary(root, published, bindings):
                    item.get("from") == "P0" and item.get("to") == "P2"]
     qwen_closed = [(name, condition) for name, phases in qwen["passes"].items()
                    for condition, phase in phases.items() if phase["status"] == "completed"]
+    qwen_accounted = [(name, condition) for name, phases in qwen["passes"].items()
+                      for condition, phase in phases.items()
+                      if phase["status"] in ("completed", "completed_interrupted_composite")]
     deepseek_closed = [(name, condition) for name, phases in deepseek["passes"].items()
                        for condition, phase in phases.items()
                        if phase["status"].startswith("completed")]
@@ -150,6 +153,66 @@ def hosted_fresh_summary(root, published, bindings):
                  "invalidIds": item["passes"][name][condition]["score"]["invalidIds"],
                  "denominator": item["passes"][name][condition]["score"]["denominator"]}
                 for name, condition in cells]
+
+    label_path = "data/pilot/proposed_labels.jsonl"
+    if label_path not in bindings:
+        raise ValueError("Hosted class audit lacks bound reference labels")
+    label_rows = [json.loads(line) for line in (root / label_path).read_text().splitlines()]
+    if ([row.get("id") for row in label_rows] !=
+            [f"DEV-{number:03d}" for number in range(1, 61)]):
+        raise ValueError("Hosted class audit reference membership differs")
+    reference_counts = {field: Counter(row["proposed_labels"][field]
+                                       for row in label_rows) for field in FIELDS}
+
+    def qwen_field_class_audit():
+        result = []
+        for name, condition in qwen_accounted:
+            phase = qwen["passes"][name][condition]
+            score = phase["score"]
+            valid = score["valid"]
+            if (score["denominator"] != 60 or not 0 <= valid <= 60 or
+                    len(score["invalidIds"]) != 60 - valid or
+                    sum(score["outcomes"].values()) != 60 or
+                    score["outcomes"].get("ok") != valid):
+                raise ValueError("Hosted Qwen class audit coverage differs")
+            fields = {}
+            for field in FIELDS:
+                confusion = score["confusionCounts"][field]
+                classes = []
+                predicted = Counter()
+                correct = 0
+                for label, total in sorted(reference_counts[field].items()):
+                    choices = confusion.get(label, {})
+                    if (not isinstance(choices, dict) or
+                            any(prediction not in reference_counts[field] or
+                                type(count) is not int or count <= 0
+                                for prediction, count in choices.items())):
+                        raise ValueError("Hosted Qwen confusion labels or counts differ")
+                    observed = sum(choices.values())
+                    if observed > total:
+                        raise ValueError("Hosted Qwen reference class denominator differs")
+                    predicted.update(choices)
+                    matched = choices.get(label, 0)
+                    correct += matched
+                    classes.append({"reference": label, "total": total,
+                        "correct": matched, "wrong": observed - matched,
+                        "unavailable": total - observed,
+                        "wrongPredictions": {prediction: count for prediction, count
+                                             in sorted(choices.items()) if prediction != label}})
+                if (set(confusion) - set(reference_counts[field]) or
+                        sum(row["correct"] + row["wrong"] for row in classes) != valid or
+                        dict(predicted) != score["predictedClassCounts"][field] or
+                        correct != score["fields"][field]):
+                    raise ValueError("Hosted Qwen field confusion differs from score")
+                fields[field] = {"correct": correct, "denominator": 60,
+                                 "classes": classes}
+            result.append({"pass": name, "condition": condition,
+                           "status": phase["status"], "cleanComparisonEligible":
+                           phase["status"] == "completed", "denominator": 60,
+                           "valid": valid, "unusable": 60 - valid,
+                           "unusableIds": score["invalidIds"],
+                           "outcomes": score["outcomes"], "fields": fields})
+        return result
 
     def matched_comparisons(item, allowed_statuses):
         compared = []
@@ -260,6 +323,7 @@ def hosted_fresh_summary(root, published, bindings):
             "plannedConditions": qwen["plannedConditions"],
             "closedCells": [f"{name}/{condition}" for name, condition in qwen_closed],
             "closedPhases": closed_phase_summaries(qwen, qwen_closed),
+            "fieldClassAudit": qwen_field_class_audit(),
             "matchedPromptComparisons": qwen_pairs,
             "repeatability": qwen_repeats,
             "pass": "fresh1", "scores": {name: {"allFour": qpasses[name]["score"]["allFour"],
@@ -269,6 +333,7 @@ def hosted_fresh_summary(root, published, bindings):
             "interruptedP1": {"status": interrupted["status"],
                 "valid": interrupted["score"]["valid"],
                 "allFour": interrupted["score"]["allFour"],
+                "unusableIds": interrupted["score"]["invalidIds"],
                 "cleanComparisonEligible": False},
             "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},
         "deepseekHigh": {"completedConditions": deepseek["completedConditions"],

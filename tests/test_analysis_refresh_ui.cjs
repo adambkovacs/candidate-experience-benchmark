@@ -284,6 +284,14 @@ test('hosted findings compare Qwen prompts and retain different DeepSeek invalid
   assert.match(view.cutoffs,/54\/60/);
   assert.match(view.cutoffs,/56\/60/);
   assert.match(view.cutoffs,/first classifier-instruction run was interrupted and is excluded/);
+  assert.match(view.cutoffs,/testimonial potential matched 7\/9 reference yes reviews; 2 were labeled no/);
+  assert.match(view.cutoffs,/despite 58\/60 field matches and 54\/60 all-four matches/);
+  assert.match(view.cutoffs,/See errors by field and reference label/);
+  assert.match(view.cutoffs,/role="region" aria-label="Qwen field errors by pass and prompt"/);
+  assert.match(view.cutoffs,/Qwen3\.6 field results across nine planned runs/);
+  assert.match(view.cutoffs,/yes: 7\/9 matched, 2 wrong \(no 2\)/);
+  assert.match(view.cutoffs,/first classifier-instruction run has 59\/60 usable answers; DEV-049 is unavailable/);
+  assert.match(view.cutoffs,/yes: 34\/35 matched, 1 unavailable/);
   assert.match(view.cutoffs,/DeepSeek high, original-control snapshot/);
   assert.match(view.cutoffs,/The later results appear above/);
   assert.match(view.cutoffs,/first revised-price checkpoint/);
@@ -291,6 +299,8 @@ test('hosted findings compare Qwen prompts and retain different DeepSeek invalid
   assert.match(view.cutoffs,/DEV-030/);
   assert.match(view.cutoffs,/DEV-006/);
   assert.match(view.cutoffs,/Equal totals do not mean the same reviews had usable answers/);
+  delete report.newerCohorts.hostedFresh.qwen36On.fieldClassAudit;
+  assert.match(await render(report),/could not be loaded/);
 });
 
 test('low continuation keeps unknown outcome and smoke costs separate', async()=>{
@@ -356,7 +366,7 @@ test('Tev findings distinguish stable repeats from matching reference answers', 
 test('findings groups keep all model results and source links available', async()=>{
   const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
   const {cutoffs}=await renderState(report);
-  const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/details>/g)];
+  const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/ul><\/details>/g)];
   assert.deepEqual(groups.map(g=>g[1]),['findings-decision','findings-hosted','findings-local']);
   assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[9,12,9]);
   assert.match(groups[0][2],/clef-closed-repeat-findings.json/);
