@@ -9,3 +9,11 @@ Checked the [public report](https://adambkovacs.github.io/candidate-experience-b
 - Reduced-motion emulation was cleared afterward.
 
 These are bounded checks. The browser's read-only DOM interface did not expose `document.getAnimations()`, so this check does not establish that every animation stops. Full keyboard navigation, visual focus, all responsive breakpoints and motion across every interactive chart remain to be checked. Earlier 390-by-844 viewport checks are recorded in [the checklist](TODO.md).
+
+## Later analysis publication check
+
+The publication repair in `67e5356a` passed GitHub Pages run [37522399801](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37522399801). The live DeepSeek high continuation feed, combined analysis JSON and analysis JavaScript matched that commit byte for byte. This verifies the repaired three-stage high report; the newer five-stage report and low P1 update were still awaiting deployment when checked.
+
+In the in-app browser, the rendered analysis showed Liquid's nine complete runs, P0/P1/P2 scores of 43/43/43, 42/44/42 and 41/41/41, and zero/three/zero reviews with changed labels. It also showed 3,637,332 development input tokens and $0.14549328 in development charges, excluding smoke tests. The high continuation retained its provider failure and truncated-answer qualifications. No console errors were captured during this check.
+
+This was a content and loading check. It does not replace the remaining keyboard, responsive-layout and motion checks above. The detailed cohort list is long; verifying its numbers does not establish that its navigation or presentation meets the final design goal.
