@@ -1,5 +1,9 @@
 # Analysis refresh, 5 October 2026
 
+## Addendum, 6 October: interrupted Qwen3.5 pass
+
+The first new P0 pass has 44 valid answers, seven invalid answers, one unknown outcome and eight never-sent reviews. It supplies no full-pass score, paired prompt effect or repeat estimate. Earlier completed comparisons remain unchanged. The [interruption report](QWEN35_P0_INTERRUPTION_2026-10-06.md) binds the saved evidence; the combined report exposes this partial coverage separately. Hibernation during the unknown request makes its client timeout unsuitable as inference latency.
+
 The combined [analysis feed](../public-site/analysis-refresh.json) now includes four source-bound checkpoints: three Clef Flash P1 passes, three P2 passes, an interrupted Mistral 119B fresh1 P0 run and Clef's first P1 pass. It binds the public projection and its reviewed source files by SHA-256. Earlier cohort cutoffs remain separate.
 
 ## Clef Flash P1

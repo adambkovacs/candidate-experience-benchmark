@@ -43,6 +43,16 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
     assert.equal(series.passes.fresh1.P0.score.denominator, 60);
     assert.ok(series.passes.fresh1.P0.score.outcomes.invalid_output > 0);
   }
+  const qwen35 = payload.series.find(row => row.configuration === 'qwen3.5-4b-sdk-thinking-on');
+  assert.equal(qwen35.completedConditions, 0);
+  assert.equal(qwen35.partialPasses.length, 1);
+  assert.equal(qwen35.passes.fresh1.P0, undefined);
+  elements.get('repeat-config').value = qwen35.configuration;
+  elements.get('repeat-config').change();
+  assert.match(elements.get('repeat-chart').innerHTML, /Stopped: 44 valid, 7 invalid, 1 unknown, 8 unsent; no score/);
+  assert.match(elements.get('repeat-lead').textContent, /DEV-052 has an unknown outcome/);
+  assert.match(elements.get('repeat-usage-body').innerHTML, /Host sleep overlaps the unknown request/);
+  assert.equal((elements.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 0);
   const qwen17 = payload.series.find(row => row.configuration === 'qwen3-1.7b-sdk-thinking-off');
   qwen17.passes.fresh1.P0.powerObservation = {source:'ac', basis:'matching_pre_post_checks'};
   qwen17.passes.fresh1.P1.powerObservation = {source:'ac', basis:'pre_stage_only'};

@@ -24,6 +24,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         empty["missingPasses"] = [{"pass": name, "condition": condition,
                                     "status": "not_in_closed_snapshot"}
                                    for name in empty["passes"] for condition in analysis.CONDITIONS]
+        empty["partialPasses"] = []
         empty["pairwiseFlips"] = []
         empty["changesAcrossThreePasses"] = {}
         result = analysis.qwen35_repeat_summary(empty)
@@ -82,6 +83,34 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertEqual(len(result["conditions"]["P0"]["pairwiseFlips"]), 3)
         self.assertEqual(result["conditions"]["P0"]["changesAcrossThreePasses"],
                          closed["changesAcrossThreePasses"]["P0"])
+
+    def test_qwen35_partial_projection_rejects_overlap_and_count_drift(self):
+        report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
+        series = next(s for s in report["series"]
+                      if s["configuration"] == "qwen3.5-4b-sdk-thinking-on")
+        projected = analysis.qwen35_repeat_summary(series)
+        self.assertEqual(projected["completedConditions"], 0)
+        self.assertEqual(projected["partialPasses"][0]["unknownStartedIds"], ["DEV-052"])
+        self.assertEqual(len(projected["partialPasses"][0]["neverSentIds"]), 8)
+        self.assertNotIn("score", projected["partialPasses"][0])
+
+        overlap = copy.deepcopy(series)
+        overlap["passes"]["fresh1"]["P0"] = {"completionStatus": "complete"}
+        overlap["completedConditions"] = 1
+        overlap["missingPasses"] = [item for item in overlap["missingPasses"]
+                                     if (item["pass"], item["condition"]) != ("fresh1", "P0")]
+        with self.assertRaisesRegex(ValueError, "partial source or counts differ"):
+            analysis.qwen35_repeat_summary(overlap)
+
+        drift = copy.deepcopy(series)
+        drift["partialPasses"][0]["valid"] = 45
+        with self.assertRaisesRegex(ValueError, "partial source or counts differ"):
+            analysis.qwen35_repeat_summary(drift)
+
+        unsent = copy.deepcopy(series)
+        unsent["partialPasses"][0]["neverSentIds"][0] = "DEV-052"
+        with self.assertRaisesRegex(ValueError, "partial source or counts differ"):
+            analysis.qwen35_repeat_summary(unsent)
 
     def test_published_feed_rebuilds_from_bound_sources(self):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())

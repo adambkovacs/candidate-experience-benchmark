@@ -14,7 +14,9 @@ The seven historical P0-only configurations include a separate partial Antigravi
 
 A condition cell is **accounted / valid / nonvalid** and links to its primary evidence. Each condition has a 60-review target. A never-sent review is outside the accounted count. An attempted review with unknown response outcome can appear in a normalized public view, as marked below. "Positions accounted" means three 60-position views. The 70 retained ambiguous subscription attempts are counted as attempted positions, not observed predictions; pairing still requires a separate audit. `n/a` means no admitted full public condition view; linked smoke or partial evidence can still exist. The historical first-pass export has 53 prompt comparisons: 44 audited pair entries (39 hosted/subscription and five local historical pairs), plus nine separate observational Gemini comparisons. These categories remain separate; pair eligibility follows the [individual paired reports](../results/prompt-comparison-v1-2026-09-24/paired-reports/) and [local pair reports](../results/local-prompt-pairs-v1/).
 
-## Later execution coverage, updated 5 October 2026
+## Later execution coverage, updated 6 October 2026
+
+Qwen3.5 4B thinking-on remains **0/9 completed phases**. Its first fresh P0 pass saved 44 valid and seven invalid answers, retains DEV-052 as unknown, and leaves DEV-053–060 unsent. [Interruption evidence](QWEN35_P0_INTERRUPTION_2026-10-06.md). Historical Qwen3.5 results below are a separate cohort.
 
 These counts distinguish completed 60-review passes, descriptive results with failures, and interrupted work. A fresh pass requires its own dispatch; a failed answer stays in its original 60-review denominator. Historical first passes count only where an explicit protocol audit admits them. Smokes and unfinished dispatches cannot fill a completed pass. The [current goals](CURRENT_GOALS.md), [remaining-roster audit](REMAINING_ROSTER_2026-09-29.md) and [current checklist](TODO.md) keep the broader queue visible.
 

@@ -261,6 +261,108 @@ def closed_stage(root, plan, config_id, repeat, condition, name, bind, review_na
     return records, raw, evidence
 
 
+def qwen35_interruption(root, plan, bind):
+    """Reconcile the stopped first P0 stage without giving it a full-pass score."""
+    config_id, repeat, condition = 'qwen3.5-4b-sdk-thinking-on', 'fresh1', 'P0'
+    phase = f'{config_id}/{repeat}/{condition}'
+    folder = BASE / phase
+    files = {key: folder / name for key, name in {
+        'admission': 'development.root-review.json',
+        'claim': 'development.claim.json',
+        'completion': 'development.completion.json',
+        'raw': 'development.raw.jsonl',
+        'records': 'development.records.jsonl',
+        'journal': 'development.journal.jsonl',
+        'hostAudit': 'interruption.host-audit.json',
+        'rootReview': 'interruption.root-review.json',
+    }.items()}
+    evidence = {key: {'path': str(path), 'sha256': bind(path)} for key, path in files.items()}
+    admission = json.loads(file_at(root, files['admission']).read_text())
+    claim = json.loads(file_at(root, files['claim']).read_text())
+    completion = json.loads(file_at(root, files['completion']).read_text())
+    host = json.loads(file_at(root, files['hostAudit']).read_text())
+    review = json.loads(file_at(root, files['rootReview']).read_text())
+    config = plan['configurations'][config_id]
+    never_sent = list(IDS[52:])
+    if (admission.get('kind') != 'root-reviewed-legacy-qwen-stage-v1' or
+            admission.get('approved') is not True or admission.get('phase') != phase or
+            admission.get('stage') != 'development' or
+            admission.get('reference_labels_read') is not False or
+            claim.get('phase') != phase or claim.get('stage') != 'development' or
+            claim.get('receipt_sha256') != evidence['admission']['sha256'] or
+            claim.get('plan_sha256') != MANIFEST_SHA or
+            claim.get('controller_sha256') != plan['controller_sha256'] or
+            completion.get('phase') != phase or completion.get('stage') != 'development' or
+            completion.get('status') != 'stopped' or
+            completion.get('reason') != 'Prediction exceeded 600000ms; cancellation requested' or
+            completion.get('attempted') != 52 or completion.get('saved') != 51 or
+            completion.get('invalid') != 7 or
+            completion.get('raw_sha256') != evidence['raw']['sha256'] or
+            completion.get('records_sha256') != evidence['records']['sha256'] or
+            completion.get('journal_sha256') != evidence['journal']['sha256'] or
+            host.get('schema') != 'qwen35-interruption-host-audit-v1' or
+            host.get('same_boot') is not True or
+            host.get('sleep_count_changed') is not True or
+            host.get('before', {}).get('boot') != host.get('after', {}).get('boot') or
+            host.get('after', {}).get('sleep_wakes') !=
+                host.get('before', {}).get('sleep_wakes', -1) + 1 or
+            not any('Low Power Sleep' in event for event in host.get('stage_events', [])) or
+            review.get('schema') != 'qwen35-interruption-root-review-v1' or
+            review.get('terminal_exit_code') != 1 or
+            review.get('completion_sha256') != evidence['completion']['sha256'] or
+            review.get('host_audit_sha256') != evidence['hostAudit']['sha256'] or
+            review.get('saved') != 51 or review.get('valid') != 44 or
+            review.get('invalid') != 7 or
+            review.get('unknown_ids') != ['DEV-052'] or
+            review.get('never_sent_ids') != never_sent or
+            review.get('reference_labels_read') is not False or
+            review.get('clean_repeat_eligible') is not False or
+            review.get('replay_authorized') is not False):
+        raise ValueError('Qwen3.5 interruption receipt differs')
+    raw = read_rows(root, files['raw'])
+    records = read_rows(root, files['records'])
+    journal = read_rows(root, files['journal'])
+    if len(raw) != 52 or len(records) != 51 or len(journal) != 104:
+        raise ValueError('Qwen3.5 interruption membership differs')
+    requests = config['conditions'][condition]['requests']
+    invalid = 0
+    for index, rid in enumerate(IDS[:51]):
+        wire, saved = raw[index], records[index]
+        started, finished = journal[2 * index:2 * index + 2]
+        request = requests[index]
+        if (wire.get('id') != rid or saved.get('id') != rid or
+                wire.get('attempt_id') != saved.get('attempt_id') or
+                started.get('event') != 'started' or finished.get('event') != 'finished' or
+                started.get('id') != rid or finished.get('id') != rid or
+                started.get('attempt_id') != wire.get('attempt_id') or
+                finished.get('attempt_id') != wire.get('attempt_id') or
+                started.get('request_sha256') != request['sha256'] or
+                saved.get('request_sha256') != request['sha256'] or
+                saved.get('reference_labels_read') is not False):
+            raise ValueError(f'Qwen3.5 saved identity differs: {rid}')
+        decision = classify_sdk(wire, config, request)
+        if saved.get('decision') != decision or finished.get('status') != decision['status']:
+            raise ValueError(f'Qwen3.5 saved decision differs: {rid}')
+        invalid += decision['status'] == 'invalid_output'
+        if decision['status'] not in ('ok', 'invalid_output'):
+            raise ValueError(f'Qwen3.5 saved outcome differs: {rid}')
+    unknown_start, unknown_end = journal[102:]
+    if (invalid != 7 or raw[51].get('id') != 'DEV-052' or
+            unknown_start.get('event') != 'started' or
+            unknown_end.get('event') != 'stopped_unknown' or
+            unknown_start.get('id') != 'DEV-052' or
+            unknown_end.get('id') != 'DEV-052' or
+            raw[51].get('attempt_id') != unknown_start.get('attempt_id') or
+            unknown_end.get('attempt_id') != unknown_start.get('attempt_id') or
+            unknown_start.get('request_sha256') != requests[51]['sha256'] or
+            raw[51].get('code') != 'PREDICTION_TIMEOUT'):
+        raise ValueError('Qwen3.5 unknown attempt differs')
+    return {'pass': repeat, 'condition': condition, 'status': 'stopped_unknown',
+            'attempted': 52, 'saved': 51, 'valid': 44, 'invalid': 7,
+            'unknownStartedIds': ['DEV-052'], 'neverSentIds': never_sent,
+            'cleanRepeatEligible': False, 'evidence': evidence}
+
+
 def successor_smoke(root, plan, config_id, repeat, condition, bind,
                     require_development_review=True):
     """Bind a terminal SDK smoke and its separately approved successor admission."""
@@ -674,6 +776,7 @@ def build(root=ROOT):
         passes = {repeat: {} for repeat in PASSES}
         parsed = {}
         missing = []
+        partial = []
         successor_used = False
         for scheduled in config['schedule']:
             repeat = scheduled['name']
@@ -716,6 +819,13 @@ def build(root=ROOT):
                     continue
                 completion = json.loads(file_at(root, completion_file).read_text())
                 if completion.get('status') != 'completed':
+                    if (config_id == 'qwen3.5-4b-sdk-thinking-on' and
+                            repeat == 'fresh1' and condition == 'P0' and
+                            completion.get('status') == 'stopped'):
+                        interrupted = qwen35_interruption(root, plan, bind)
+                        missing.append(interrupted)
+                        partial.append(interrupted)
+                        continue
                     missing.append({'pass': repeat, 'condition': condition,
                                     'status': 'not_in_closed_snapshot'})
                     continue
@@ -795,7 +905,7 @@ def build(root=ROOT):
                            labels[rid][field] for rid in IDS).items())) for field in FIELDS},
                        'denominator': 60, 'plannedConditions': 9,
                        'completedConditions': sum(len(group) for group in passes.values()),
-                       'missingPasses': missing, 'partialPasses': [], 'passes': passes,
+                       'missingPasses': missing, 'partialPasses': partial, 'passes': passes,
                        'threePassSummary': by_condition, 'pairwiseFlips': flips,
                        'changesAcrossThreePasses': across,
                        'historicalStatus': 'observational_not_part_of_fresh_matched_three',

@@ -187,6 +187,19 @@ test('Qwen3.5 summary shows only closed phases and supported comparisons', async
   assert.match(view.cutoffs,/P0 across three passes: 9\/59 reviews valid in all three changed at least one label/);
   assert.match(view.cutoffs,/local hardware and electricity cost and pure inference time were not measured/);
 });
+test('Qwen3.5 interrupted P0 remains a separate unscored partial in analysis', async()=>{
+  const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
+  const q35 = report.newerCohorts.legacyQwen.qwen35Repeat;
+  assert.equal(q35.completedConditions, 0);
+  assert.equal(q35.partialPasses.length, 1);
+  const view = await renderState(report);
+  assert.match(view.cutoffs,/Qwen3.5 4B SDK, thinking on:<\/strong> 0\/9 full phases are closed/);
+  assert.match(view.cutoffs,/Fresh1 P0 stopped after 52 attempts: 51 saved responses \(44 valid, 7 invalid\), DEV-052 with an unknown outcome, and 8 reviews never sent/);
+  assert.match(view.cutoffs,/It has no full-pass score/);
+  assert.match(view.cutoffs,/host slept during the unknown request/);
+  assert.match(view.cutoffs,/QWEN35_P0_INTERRUPTION_2026-10-06.md/);
+  assert.doesNotMatch(view.cutoffs,/fresh1 P0: \d+\/60 all-four matches/);
+});
 test('unavailable or malformed analysis links the report instead of showing invented results', async()=>{
   assert.match(await render(null,false),/could not be loaded/);
   assert.match(await render({}),/could not be loaded/);

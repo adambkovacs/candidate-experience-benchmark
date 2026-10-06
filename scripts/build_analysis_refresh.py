@@ -130,7 +130,7 @@ def qwen17_off_repeat_summary(series):
 
 
 def qwen35_repeat_summary(series):
-    """Project only closed Qwen3.5 phases; keep unavailable comparisons absent."""
+    """Project closed scores and source-bound unscored Qwen3.5 interruptions."""
     names = ("fresh1", "fresh2", "fresh3")
     passes = series.get("passes", {})
     if (series.get("plannedConditions") != 9 or set(passes) != set(names) or
@@ -144,6 +144,34 @@ def qwen35_repeat_summary(series):
             len(missing) != len(expected_missing) or
             {(item.get("pass"), item.get("condition")) for item in missing} != expected_missing):
         raise ValueError("Qwen3.5 missing phases differ")
+    partial = series.get("partialPasses", [])
+    if not isinstance(partial, list) or len(partial) > 1:
+        raise ValueError("Qwen3.5 partial coverage differs")
+    bound = {item.get("path"): item.get("sha256") for item in series.get("sourceBindings", [])}
+    for item in partial:
+        slot = (item.get("pass"), item.get("condition"))
+        unknown = item.get("unknownStartedIds")
+        unsent = item.get("neverSentIds")
+        evidence = item.get("evidence")
+        if (slot != ("fresh1", "P0") or slot not in expected_missing or
+                item not in missing or item.get("status") != "stopped_unknown" or
+                item.get("attempted") != 52 or item.get("saved") != 51 or
+                item.get("valid") != 44 or item.get("invalid") != 7 or
+                unknown != ["DEV-052"] or
+                unsent != [f"DEV-{i:03d}" for i in range(53, 61)] or
+                item.get("cleanRepeatEligible") is not False or
+                "score" in item or
+                item["saved"] != item["valid"] + item["invalid"] or
+                item["attempted"] != item["saved"] + len(unknown) or
+                item["attempted"] + len(unsent) != 60 or
+                not isinstance(evidence, dict) or
+                set(evidence) != {"admission", "claim", "completion", "raw",
+                                  "records", "journal", "hostAudit", "rootReview"} or
+                any(not isinstance(source, dict) or bound.get(source.get("path")) != source.get("sha256")
+                    for source in evidence.values())):
+            raise ValueError("Qwen3.5 partial source or counts differ")
+    if any(item.get("status") == "stopped_unknown" and item not in partial for item in missing):
+        raise ValueError("Qwen3.5 stopped phase is not projected")
     conditions = {}
     for condition in CONDITIONS:
         closed = []
@@ -189,7 +217,7 @@ def qwen35_repeat_summary(series):
                              for condition in ("P1", "P2") if condition in first}
     return {"completedConditions": completed, "plannedConditions": 9,
             "conditions": conditions, "matchedP0AllFourDeltas": matched,
-            "missingPasses": missing}
+            "missingPasses": missing, "partialPasses": partial}
 
 
 def _class_hits(root, public_report, labels, bindings):
