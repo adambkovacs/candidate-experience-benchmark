@@ -18,6 +18,16 @@ async function renderState(payload, ok=true) {
   return {table:target.innerHTML,summary:summary.innerHTML,cutoffs:cutoffs.innerHTML};
 }
 async function render(payload, ok=true) { return (await renderState(payload,ok)).table; }
+function isolateQwen35P0History(q35) {
+  q35.completedConditions = 0;
+  for (const condition of Object.values(q35.conditions)) {
+    condition.completedPasses = 0;
+    condition.passes = [];
+    condition.pairwiseFlips = [];
+    condition.changesAcrossThreePasses = null;
+  }
+  q35.matchedP0AllFourDeltas = {};
+}
 test('latest effort table uses source ranges, changed-review counts and nine-run costs', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
   const html = await render(report);
@@ -190,6 +200,7 @@ test('Qwen3.5 summary shows only closed phases and supported comparisons', async
 test('Qwen3.5 interrupted P0 remains a separate unscored partial in analysis', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
   const q35 = report.newerCohorts.legacyQwen.qwen35Repeat;
+  isolateQwen35P0History(q35);
   assert.equal(q35.completedConditions, 0);
   assert.equal(q35.partialPasses.length, 1);
   delete q35.descriptiveComposites;
@@ -204,6 +215,7 @@ test('Qwen3.5 interrupted P0 remains a separate unscored partial in analysis', a
 test('Qwen3.5 descriptive composite shows fixed-60 result without clean credit', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
   const q35 = report.newerCohorts.legacyQwen.qwen35Repeat;
+  isolateQwen35P0History(q35);
   const composite = q35.descriptiveComposites?.[0] || {
     pass:'fresh1',condition:'P0',status:'completed_interrupted_composite',
     score:{denominator:60,allFour:47,valid:51,outcomes:{invalid_output:8,unknown_started:1,never_sent:0}}

@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('legacy_qwen_findings',
@@ -147,7 +148,8 @@ class LegacyQwenFindingsTests(unittest.TestCase):
                     root, plan, 'fresh1', 'P2', findings.binder(root)[0])
 
     def test_qwen35_stopped_p0_is_source_bound_and_unscored(self):
-        report = findings.build(ROOT)
+        with mock.patch.object(findings, 'qwen35_successor_phase', return_value=None):
+            report = findings.build(ROOT)
         series = next(row for row in report['series']
                       if row['configuration'] == 'qwen3.5-4b-sdk-thinking-on')
         self.assertEqual(series['completedConditions'], 0)

@@ -15,6 +15,8 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
+Qwen3.5 4B thinking-on completed its first P2 pass: **50/60 all-four matches**, with 51 valid responses and nine invalid outputs. DEV-030 was the only valid response that differed from the frozen reference. Its interrupted P0 result remains descriptive, so this is not a clean paired prompt comparison or a completed repeatability study. The run used 303,294 tokens; pure inference time and local cost are unavailable. [P2 findings](docs/QWEN35_P2_FIRST_PASS_2026-10-06.md).
+
 Qwen3.5 4B thinking-on matched all four reference fields on **47/60** reviews in its first new P0 pass, or **47/51** among valid answers. The pass was interrupted by low-power sleep; a separate continuation sent only the eight remaining reviews. Combined results retain 51 valid answers, eight invalid answers and one unknown outcome. This descriptive result is not a clean repeat. The sleep-spanning timeout cannot measure inference time. [Interruption evidence](docs/QWEN35_P0_INTERRUPTION_2026-10-06.md).
 
 Clef's first classifier-instruction (P1) pass scored **52/60**, compared with **53/60** for its matched base-task pass. Four reviews changed an answer; one gained a full match and two lost one. All 60 responses were valid. This is one prompt comparison; two further P1 passes are still required. Reported usage was 144,694 input tokens and zero output tokens, with a $0.03472656 published-price estimate rather than a provider bill. [First P1 findings](docs/CLEF_P1_FIRST_PASS_2026-10-05.md).

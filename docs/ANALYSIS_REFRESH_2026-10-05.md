@@ -1,5 +1,10 @@
 # Analysis refresh, 5 October 2026
 
+## Qwen3.5 P2 update, 6 October 2026
+
+Qwen3.5 4B thinking-on completed its first P2 pass: **50/60 all-four matches**, with 51 valid responses and nine invalid outputs. DEV-030 was the only valid response that differed from the frozen reference. Its interrupted P0 result remains descriptive, so this is not a clean paired prompt comparison or a completed repeatability study. The run used 303,294 tokens; pure inference time and local cost are unavailable. [P2 findings](QWEN35_P2_FIRST_PASS_2026-10-06.md).
+
+
 ## Addendum, 6 October: interrupted Qwen3.5 pass
 
 The first new P0 pass and its completed eight-review continuation have 51 valid answers, eight invalid answers and one unknown outcome. The descriptive all-four score is 47/60, or 47/51 among valid answers. The unknown and invalid positions stay in the fixed denominator; this result supplies no clean-repeat estimate or paired prompt effect. Earlier completed comparisons remain unchanged. The [interruption report](QWEN35_P0_INTERRUPTION_2026-10-06.md) binds the saved evidence; the combined report exposes this partial coverage separately. Hibernation during the unknown request makes its client timeout unsuitable as inference latency.

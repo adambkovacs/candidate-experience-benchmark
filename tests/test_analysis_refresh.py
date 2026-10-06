@@ -15,6 +15,21 @@ SPEC.loader.exec_module(analysis)
 
 
 class AnalysisRefreshTest(unittest.TestCase):
+    def _qwen35_p0_only_series(self):
+        report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
+        series = copy.deepcopy(next(s for s in report["series"]
+                               if s["configuration"] == "qwen3.5-4b-sdk-thinking-on"))
+        series["passes"] = {name: {} for name in ("fresh1", "fresh2", "fresh3")}
+        series["completedConditions"] = 0
+        present = {(row["pass"], row["condition"]) for row in series["missingPasses"]}
+        series["missingPasses"].extend(
+            {"pass": repeat, "condition": condition, "status": "not_in_closed_snapshot"}
+            for repeat in series["passes"] for condition in analysis.CONDITIONS
+            if (repeat, condition) not in present)
+        series["pairwiseFlips"] = []
+        series["changesAcrossThreePasses"] = {}
+        return series
+
     def test_qwen35_projection_waits_for_closed_phases_and_matching_repeats(self):
         report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
         empty = copy.deepcopy(next(s for s in report["series"]
@@ -86,9 +101,7 @@ class AnalysisRefreshTest(unittest.TestCase):
                          closed["changesAcrossThreePasses"]["P0"])
 
     def test_qwen35_partial_projection_rejects_overlap_and_count_drift(self):
-        report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
-        series = next(s for s in report["series"]
-                      if s["configuration"] == "qwen3.5-4b-sdk-thinking-on")
+        series = self._qwen35_p0_only_series()
         projected = analysis.qwen35_repeat_summary(series)
         self.assertEqual(projected["completedConditions"], 0)
         self.assertEqual(projected["partialPasses"][0]["unknownStartedIds"], ["DEV-052"])
@@ -114,9 +127,7 @@ class AnalysisRefreshTest(unittest.TestCase):
             analysis.qwen35_repeat_summary(unsent)
 
     def test_qwen35_descriptive_projection_keeps_clean_coverage_zero(self):
-        report = json.loads((ROOT / "public-site/legacy-qwen-repeats.json").read_text())
-        series = copy.deepcopy(next(s for s in report["series"]
-                               if s["configuration"] == "qwen3.5-4b-sdk-thinking-on"))
+        series = self._qwen35_p0_only_series()
         partial = series["partialPasses"][0]
         exemplar = partial["evidence"]["completion"]
         keys = ("claim", "journal", "raw", "records", "completion", "review",

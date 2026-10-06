@@ -6021,7 +6021,7 @@
       },
       "qwen17RepeatStudyComplete": true,
       "qwen35Repeat": {
-        "completedConditions": 0,
+        "completedConditions": 1,
         "conditions": {
           "P0": {
             "changesAcrossThreePasses": null,
@@ -6037,9 +6037,60 @@
           },
           "P2": {
             "changesAcrossThreePasses": null,
-            "completedPasses": 0,
+            "completedPasses": 1,
             "pairwiseFlips": [],
-            "passes": []
+            "passes": [
+              {
+                "pass": "fresh1",
+                "score": {
+                  "allFour": 50,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 51,
+                    "sentiment": 51,
+                    "serious_concern_reported": 50,
+                    "testimonial_potential": 51
+                  },
+                  "invalidIds": [
+                    "DEV-005",
+                    "DEV-006",
+                    "DEV-013",
+                    "DEV-015",
+                    "DEV-018",
+                    "DEV-022",
+                    "DEV-028",
+                    "DEV-057",
+                    "DEV-058"
+                  ],
+                  "outcomes": {
+                    "invalid_output": 9,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 51
+                  },
+                  "valid": 51
+                },
+                "usage": {
+                  "actualCostUsd": null,
+                  "clientRequestSecondsTotal": 4845.770510167,
+                  "inferenceSeconds": null,
+                  "modelLoadSeconds": null,
+                  "requestCount": 60,
+                  "timeBasis": "client_observed_wall_clock",
+                  "tokens": {
+                    "input_tokens": 161670,
+                    "output_tokens": 141624,
+                    "reasoning_output_tokens": null,
+                    "total_tokens": 303294
+                  }
+                }
+              }
+            ]
           }
         },
         "descriptiveComposites": [
@@ -6345,11 +6396,6 @@
             "status": "completed_interrupted_composite"
           },
           {
-            "condition": "P2",
-            "pass": "fresh1",
-            "status": "not_in_closed_snapshot"
-          },
-          {
             "condition": "P1",
             "pass": "fresh1",
             "status": "not_in_closed_snapshot"
@@ -6448,7 +6494,7 @@
       },
       "remainingConfigurations": {
         "qwen3.5-4b-sdk-thinking-on": {
-          "completedConditions": 0,
+          "completedConditions": 1,
           "plannedConditions": 9
         }
       },
@@ -8237,7 +8283,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "7918cbb6f4ba5434801763263fe3749616331c945693eac2b2d486e427950516"
+      "sha256": "3a80bebb076d6b96015a5addb673934d37deffa183100fefea77bccc94ae0f1c"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",
