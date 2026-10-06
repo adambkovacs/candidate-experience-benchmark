@@ -66,7 +66,8 @@ def usage(input_tokens, output_tokens, reported_requests=60):
 
 def row(family, model, returned_model, provider, stages, stage, scores, input_tokens,
         output_tokens, charge, projection_path, projection_sha, report_path, *,
-        valid=60, unknown_upper_bound='0', result_status=None):
+        valid=60, unknown_upper_bound='0', result_status=None,
+        client_elapsed_available=None, client_elapsed_ns_sum=None):
     if stage not in stages or len(stage.split('/')) != 2:
         raise ValueError('Unexpected native stage')
     repeat, condition = stage.split('/')
@@ -84,6 +85,15 @@ def row(family, model, returned_model, provider, stages, stage, scores, input_to
         raise ValueError('Complete native run has unknown-cost attempt')
     if valid < 60 and not unknown:
         raise ValueError('Interrupted native run lacks retained unknown bound')
+    if (client_elapsed_available is None) != (client_elapsed_ns_sum is None):
+        raise ValueError('Partial native client timing differs')
+    if client_elapsed_available is not None:
+        if (type(client_elapsed_available) is not int or
+                client_elapsed_available != valid or
+                type(client_elapsed_ns_sum) is not int or client_elapsed_ns_sum < 0):
+            raise ValueError('Native client timing coverage differs')
+    client_seconds = (None if client_elapsed_ns_sum is None else
+                      float(Decimal(client_elapsed_ns_sum) / Decimal(1_000_000_000)))
     if not projection_path.parts or any(part in PRIVATE_NAMES for part in projection_path.parts):
         raise ValueError('Private source path cannot be published')
     if len(projection_sha) != 64 or any(ch not in '0123456789abcdef' for ch in projection_sha):
@@ -100,10 +110,13 @@ def row(family, model, returned_model, provider, stages, stage, scores, input_to
         'resultStatus': result_status or ('First pass only; later Solar repeats are separate. '
                          'The linked report has source-backed paired changes.' if family == 'solar-decide'
                          else 'Closed native-choice repeat. The linked report has source-backed paired and repeat comparisons.'),
-        'timing': {'kind': 'record', 'requests': 0, 'totalRequests': 60,
-                   'medianSeconds': None, 'p95Seconds': None, 'totalSeconds': None,
+        'timing': {'kind': 'record', 'requests': client_elapsed_available or 0,
+                   'totalRequests': 60, 'medianSeconds': None, 'p95Seconds': None,
+                   'totalSeconds': client_seconds,
                    'inferenceSeconds': None, 'inferenceReportedRequests': 0,
-                   'note': 'No public client-duration series or server inference duration is available for this run.'},
+                   'note': ('Client request elapsed sum covers returned answers only. It includes transport and service time, not isolated inference time; per-request percentiles are unavailable.'
+                            if client_elapsed_available is not None else
+                            'No public client-duration series or server inference duration is available for this run.')},
         'tokens': usage(input_tokens, output_tokens, valid),
         'cost': {'actualUsd': None, 'knownUsd': amount(charge, stage + '/cost'),
                  'estimatedUsd': None, 'unknownUpperBoundUsd': unknown,
@@ -221,6 +234,8 @@ def build(root=ROOT):
                         item['known_development_cost_usd'], full_projection,
                         full_digest, SOLAR_FULL, valid=valid,
                         unknown_upper_bound='0.10485760' if final else '0',
+                        client_elapsed_available=item['client_elapsed_available'],
+                        client_elapsed_ns_sum=item['client_elapsed_ns_sum_known_responses'],
                         result_status=('Interrupted after 59 usable answers; DEV-009 has no usable answer and retains a separate unknown-cost bound. This is not a clean 60-answer repeat.'
                                        if final else 'Closed native-choice repeat. The linked report has source-backed paired and repeat comparisons.')))
 
@@ -284,11 +299,11 @@ def main():
     rendered = json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + '\n'
     if args.action == 'write':
         path.write_text(rendered)
-        print(f'Wrote {OUTPUT} with {len(result["runs"])} closed runs')
+        print(f'Wrote {OUTPUT} with {len(result["runs"])} run views')
     elif not path.exists() or path.read_text() != rendered:
         raise SystemExit('Supplemental native run feed is stale')
     else:
-        print(f'Verified {OUTPUT} with {len(result["runs"])} closed runs')
+        print(f'Verified {OUTPUT} with {len(result["runs"])} run views')
 
 
 if __name__ == '__main__':
