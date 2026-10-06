@@ -433,6 +433,11 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertIn(analysis.GEMINI_AUTHORITY_PUBLIC,
                       {item["path"] for item in rebuilt["sources"]})
         solar = rebuilt["newerCohorts"]["solarFullSeries"]
+        solar_sources = [item["path"] for item in rebuilt["sources"]
+                         if "solar-decide" in item["path"]]
+        self.assertFalse(any(path.endswith(("smoke.raw.jsonl", "smoke.parsed.jsonl",
+                                           "smoke.attempts.jsonl", "smoke.journal.jsonl"))
+                             for path in solar_sources))
         self.assertEqual(len(solar["stages"]), 9)
         self.assertEqual(sum(stage["valid_answers"] for stage in solar["stages"]), 539)
         self.assertEqual(sum(stage["valid_answers"] == 60 for stage in solar["stages"]), 8)

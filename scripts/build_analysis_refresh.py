@@ -1199,7 +1199,11 @@ def build(root=ROOT):
     solar_full_receipt = read(root, str(solar_full_builder.RECEIPT), bindings)
     read(root, str(solar_full_builder.PROJECTION), bindings)
     for name, digest in solar_full_receipt['source_sha256'].items():
-        if name.endswith(solar_first_builder.PRIVATE_SUFFIXES):
+        if name.endswith(solar_first_builder.PRIVATE_SUFFIXES + (
+                'smoke.raw.jsonl', 'smoke.parsed.jsonl',
+                'smoke.attempts.jsonl', 'smoke.journal.jsonl')):
+            # The full builder verifies present private bytes; public exports
+            # retain their receipt hashes without requiring those files.
             continue
         if sha(root / name) != digest:
             raise ValueError('Solar full-series public source differs: ' + name)
