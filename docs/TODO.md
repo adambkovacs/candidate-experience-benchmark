@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Offline budget test added, 6 October 2026, 09:35 UTC
+
+The DeepSeek fourth-price test now runs the complete ten-record continuation with temporary child and shared-authority ledgers and a fake transport. It verifies exact ordered IDs, paired reservations and settlements, simulated charges of $0.010, and one $0.25 hold. All 15 focused tests pass in root's rerun. Review: APPROVE, no confirmed findings in this test change. This closes the earlier budget-path coverage gap; it does not establish live provider availability or authorize dispatch.
+
+Qwen3.5 P2 handle 13132 remains live, with 25 responses saved (19 valid) at this checkpoint. `remaining_action_audit` owns correction of stale Qwen and Mistral entries in the remaining-roster document. Root owns execution and commits; no real budget ledger changed.
+
 ## DeepSeek continuation reviewed, 6 October 2026, 09:31 UTC
 
 The [fourth-price controller](../scripts/deepseek_low_fourth_price_suffix_v1.py) and its [unapproved manifest](../results/repeatability-v1/deepseek-low-fresh3-v2/fourth-price-suffix-051-060-v1/manifest.json) passed independent review and 14 offline tests. Verdict: APPROVE. RESIDUAL: the focused tests stop at the live gate rather than exercising a successful request against temporary budget ledgers; the inherited atomic budget implementation was inspected. This is a test coverage gap, not a confirmed execution defect.

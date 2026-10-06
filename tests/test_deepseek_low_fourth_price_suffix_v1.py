@@ -1,5 +1,6 @@
 from copy import deepcopy
 from decimal import Decimal
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -161,3 +162,77 @@ def test_bound_runner_reaches_live_gate_before_child_key_or_claim(tmp_path, mani
         child.assert_not_called()
         key.assert_not_called()
         claim.assert_not_called()
+
+
+def test_bound_runner_completes_suffix_with_temporary_atomic_budgets(
+        tmp_path, manifest_value):
+    base = tmp_path / 'fourth'
+    base.mkdir()
+    manifest_path = base / 'manifest.json'
+    manifest_path.write_text(json.dumps(manifest_value) + '\n')
+    master = tmp_path / 'master.jsonl'
+    budget = base / 'budget.json'
+    s.prior.partitions.allocate(master, budget, [{
+        'id': s.PARTITION_ID, 'cap_usd': str(s.CHILD_CAP),
+        'model': s.admission.MODEL, 'provider': s.admission.PROVIDER,
+        'reasoning': 'low'}])
+    child_path = base / f'budget-{s.PARTITION_ID}.jsonl'
+    authority = tmp_path / 'authority.jsonl'
+    authority.write_text(json.dumps({
+        'event': 'authority', 'kind': 'postapproval-paid-work-v1',
+        'cap_usd': str(s.prior.AUTHORITY_CAP),
+        'decision_key': s.prior.AUTHORITY_DECISION_KEY,
+        'approval_sha256': s.prior.AUTHORITY_APPROVAL_SHA}) + '\n')
+    authority_head = hashlib.sha256(authority.read_bytes()).hexdigest()
+    model, endpoint = s.route_context()
+    sent = []
+
+    def fake_transport(payload, token, timeout, raw, rid, attempt, request_sha):
+        assert token == 'offline-test-key'
+        assert timeout == 300
+        assert s.digest(json.dumps(payload, sort_keys=True)) == request_sha
+        sent.append(rid)
+        s.paid.durable(raw, {'id': rid, 'attempt_id': attempt,
+                             'request_sha256': request_sha})
+        return {'usage': {'cost': '0.001'}, 'model': s.admission.MODEL,
+                'provider': 'OpenInference'}
+
+    with patch.object(s, 'BASE', base), patch.object(s, 'MANIFEST', manifest_path), \
+         patch.object(s.admission, 'MASTER', master), \
+         patch.object(s.prior, 'AUTHORITY', authority), \
+         patch.object(s, 'verify', return_value=manifest_value), \
+         patch.object(s, 'live_controls', return_value=(model, endpoint)), \
+         patch.object(s.prior.paid, 'load_key', return_value='offline-test-key'), \
+         patch.object(s.prior.transport, 'fetch_recorded', side_effect=fake_transport), \
+         patch.object(s.prior.prior, '_body_result', return_value=('ok', {}, None, 'stop')):
+        source = s.global_hold_source(budget)
+        review = base / 'suffix.root-review.json'
+        review.write_text(json.dumps({
+            'schema': s.SCHEMA + '-root-review', 'approved': True,
+            'reviewer': '/root', 'manifest_sha256': s.sha(manifest_path),
+            'controller_sha256': s.sha(s.__file__),
+            'prior_terminal_sha256': s.prior.PRIOR_TERMINAL_SHA,
+            'budget_manifest_sha256': s.sha(budget),
+            'partition_id': s.PARTITION_ID,
+            'child_cap_usd': str(s.CHILD_CAP), 'ids': s.IDS,
+            'request_sha256': [item['request_sha256']
+                               for item in manifest_value['requests']],
+            'global_authority_head_sha256': authority_head,
+            'global_hold_source_sha256': source}) + '\n')
+        assert s.run(review, budget) == {'completed': True, 'count': 10}
+
+    assert sent == s.IDS
+    events = [json.loads(line) for line in child_path.read_text().splitlines()]
+    reserves = [event for event in events if event['event'] == 'reserve']
+    settles = [event for event in events if event['event'] == 'settle']
+    assert [event['record_id'] for event in reserves] == s.IDS
+    assert len(settles) == 10
+    assert {event['attempt_id'] for event in reserves} == {
+        event['attempt_id'] for event in settles}
+    assert all(Decimal(event['usd']) == s.RESERVE for event in reserves)
+    assert sum((Decimal(event['usd']) for event in settles), Decimal(0)) == Decimal('0.010')
+    assert [json.loads(line)['id'] for line in
+            (base / 'suffix.records.jsonl').read_text().splitlines()] == s.IDS
+    holds = [json.loads(line) for line in authority.read_text().splitlines()]
+    assert holds[1:] == [{'event': 'hold', 'id': s.PARTITION_ID,
+                           'source_sha256': source, 'usd': str(s.CHILD_CAP)}]
