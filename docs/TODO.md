@@ -1,5 +1,15 @@
 # Current work checklist
 
+## Latest instructions and assignments, 6 October 2026
+
+- Root: record the hosted-only scope, integrate closed findings, verify publication, and reconcile the final roster. No new local inference; unfinished local-only work is now excluded by the user.
+- `deepseek_recovery`: finish the already-running final low-effort P0 pass, close its ledger and report. Latest owner observation: 48/60 responses saved. The missing earlier P0 receipt was reconstructed from existing evidence without inference: 59 valid, 57/60 all-field matches.
+- `gemini_recovery`: Solar's exact two unsent smoke requests passed independent review at `515ef0d1`. Prepare fresh allocation and stage receipts for root inspection; no full-series admission yet.
+- `qwen_recovery`: verify Cloudflare access and configure the requested budget alert under the newly approved separate $10 ceiling. Prepare the remaining Clef/Flash admission changes. No Cloudflare inference until the versioned authority and runner cap are ready.
+- Liquid, Tev and DeepSeek high execution is closed. Tev and high deployment jobs succeeded; exact live asset verification remains to be completed. Grouped findings UI is deploying at `a079b01b`.
+- Mistral remains blocked by repeated upstream capacity errors. Preserve the failures; do not repeatedly retry the same positions.
+- Final work: close admitted runs, resolve hosted specialist dispositions, finish the funded Cloudflare work, update the analysis across prompts/repeats/fields/costs and failures, and verify the public site. The goal is not complete.
+
 ## Current checkpoint, 06 October 2026, 20:28 UTC
 
 - Tev's nine-run findings are implemented and source-bound. All 540 development answers were valid; P0/P1/P2 scored 45/44/44 in every pass, with no label changes between repeats. P1 and P2 changed six reviews despite equal scores. Development cost was $0.151342128. Root's shared analysis integration passes a clean archive check with 1,104 bindings, three report tests and 14 UI tests; independent review is underway.

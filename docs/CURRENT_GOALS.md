@@ -1,5 +1,13 @@
 # Current objectives and direction
 
+## Scope update, 6 October 2026: hosted completion and Cloudflare approval
+
+The user approved a separate Cloudflare budget of up to $10 for the remaining tests and live runs, and requested a budget alert. Alert configuration and the versioned runner authority still need verification before dispatch. OpenRouter retains its cumulative $22.38 ceiling; this is not an increase to that provider's cap.
+
+No further local inference is authorized. Preserve completed local results and mark unfinished local-only configurations as excluded by the user's revised scope. OpenRouter remains the default; worthwhile exact Cloudflare decision-model routes may be considered when unavailable there. Do not substitute model sizes or replay attempted requests.
+
+Use explicitly configured Sol high agents for remaining delegated work. Finish the admitted hosted runs, reconcile the remaining roster, and refresh the complete analysis and public presentation. The private classification-bench work remains separate. [Current assignments](TODO.md) and [copyable goal](APP_GOAL.md).
+
 ## Execution checkpoint, 6 October 2026, 19:04 UTC
 
 The goal remains active. Its scope, OpenRouter-first routing and approved spending ceiling are unchanged. [TODO.md](TODO.md) holds current owners, process handles and next actions; older dated sections below are historical.
