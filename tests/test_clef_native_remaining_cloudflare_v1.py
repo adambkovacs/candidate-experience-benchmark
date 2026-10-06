@@ -9,7 +9,16 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import clef_native_remaining_cloudflare_v1 as adapter
+import clef_native_remaining_cloudflare_v2 as inventory_bridge
 import clef_native_preparation as prep
+
+
+@pytest.fixture(autouse=True)
+def historical_inventory_after_new_stage():
+    # The baseline auditor is frozen to historical completions. The versioned
+    # bridge admits declared later completions without changing that baseline.
+    with inventory_bridge.historical_inventory():
+        yield
 
 
 def fixture(tmp_path):
