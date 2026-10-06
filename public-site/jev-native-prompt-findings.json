@@ -375,6 +375,62 @@
     {
       "path": "scripts/openrouter_jev_p2_fresh2_suffix_v1.py",
       "sha256": "6068c38b6ed18bcb48f89b4f2d114523ffdc48d5909571b9f4d047eca145fa2b"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1.json",
+      "sha256": "d86133a0debf93da450009806ecc3b07463ff882822630cb74d9d55762d1db26"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/context-estimate.proposed.json",
+      "sha256": "341b73df1ae842ba8742991e095205fa408fffd0f3c48bc40f73780434dd2efd"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/provider-context-proof.json",
+      "sha256": "84d35be2349a4bbe06a225e7c601e47dbd9a3e8e3ea5d7d12cbdb0b56de3e71f"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/smoke-inspection.json",
+      "sha256": "21337338826b09ff9e59e35130a1d7b3d33d2dff3544301f87c8c35c32c7406c"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3.root-review.json",
+      "sha256": "34e2af0906ffd2612db1c9d0691684417ee33d31b7e14ef0ac87dc34526dec3c"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3.budget.json",
+      "sha256": "8ba31e759efc67cac1ff8919d6c52d0652f75bd095aad89c1f1539d562791c64"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3.budget-jev-openrouter-native-p2-choice-v1-fresh3-full-v1.jsonl",
+      "sha256": "a17f3030c2405b2ebd37f22b43672aed7492697b210f6077babdf172d72a746f"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/review-receipt.json",
+      "sha256": "34e2af0906ffd2612db1c9d0691684417ee33d31b7e14ef0ac87dc34526dec3c"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/attempts.jsonl",
+      "sha256": "5564843b8eb2978cdfbd5fc781b025edb47f2f1943290a049dc9f5e59e88ade3"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/endpoint-catalog.json",
+      "sha256": "3ed79c4b675486844d51c950cc03bda32282b91fc88ee222029de912f2693af5"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/completion.json",
+      "sha256": "835fa4e10e24666fc864e1533294210e5d644056f829f61b48262045deba393f"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/budget-reconciliation.json",
+      "sha256": "dd4e30f5a26f35031ec26397828aac5aa9c1f4886dc2f833b502720a8727cabe"
+    },
+    {
+      "path": "results/route-audits/jev-authority-v2-20261006/p2-fresh3-after-timeout-v1/proposal.json",
+      "sha256": "b283f4f426e438ed2efd2130b6ba64e883ed1d32a3a9a6cb9755b9c68cef1f94"
+    },
+    {
+      "path": "scripts/openrouter_jev_p2_fresh3_after_timeout_v1.py",
+      "sha256": "94d26e7a27d68704390ee62976f42c51f765e68e7ee1df0702fa83187cb68685"
     }
   ],
   "passes": {
@@ -493,6 +549,28 @@
         "inputTokens": 46207,
         "outputTokens": 3166,
         "clientSeconds": 10.295085001
+      },
+      "fresh3": {
+        "status": "complete",
+        "score": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 54,
+          "fields": {
+            "sentiment": 57,
+            "follow_up_needed": 58,
+            "serious_concern_reported": 57,
+            "testimonial_potential": 58
+          }
+        },
+        "outcomes": {
+          "valid": 60
+        },
+        "knownCostUsd": "0.006851040",
+        "unknownUpperBoundUsd": "0",
+        "inputTokens": 163120,
+        "outputTokens": 11176,
+        "clientSeconds": 35.909151751
       }
     },
     "P0": {
@@ -2341,6 +2419,387 @@
             "DEV-027",
             "DEV-028",
             "DEV-029",
+            "DEV-053",
+            "DEV-055",
+            "DEV-057"
+          ]
+        }
+      }
+    },
+    "P2fresh1fresh3": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fourFieldVectorChangedIds": [
+        "DEV-030"
+      ],
+      "fields": {
+        "sentiment": {
+          "choiceChangedIds": [
+            "DEV-030"
+          ],
+          "probabilityChangedIds": [
+            "DEV-001",
+            "DEV-004",
+            "DEV-005",
+            "DEV-009",
+            "DEV-011",
+            "DEV-013",
+            "DEV-017",
+            "DEV-018",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-040",
+            "DEV-052",
+            "DEV-053",
+            "DEV-055",
+            "DEV-057",
+            "DEV-060"
+          ],
+          "confidenceChangedIds": [
+            "DEV-001",
+            "DEV-004",
+            "DEV-005",
+            "DEV-009",
+            "DEV-013",
+            "DEV-014",
+            "DEV-016",
+            "DEV-017",
+            "DEV-018",
+            "DEV-025",
+            "DEV-027",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-039",
+            "DEV-040",
+            "DEV-042",
+            "DEV-045",
+            "DEV-053",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-060"
+          ]
+        },
+        "follow_up_needed": {
+          "choiceChangedIds": [],
+          "probabilityChangedIds": [
+            "DEV-004",
+            "DEV-012",
+            "DEV-013",
+            "DEV-025",
+            "DEV-035",
+            "DEV-036",
+            "DEV-042",
+            "DEV-043",
+            "DEV-054",
+            "DEV-056",
+            "DEV-060"
+          ],
+          "confidenceChangedIds": [
+            "DEV-004",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-022",
+            "DEV-025",
+            "DEV-029",
+            "DEV-035",
+            "DEV-036",
+            "DEV-039",
+            "DEV-041",
+            "DEV-049",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-059"
+          ]
+        },
+        "serious_concern_reported": {
+          "choiceChangedIds": [],
+          "probabilityChangedIds": [
+            "DEV-006",
+            "DEV-009",
+            "DEV-013",
+            "DEV-021",
+            "DEV-022",
+            "DEV-025",
+            "DEV-029",
+            "DEV-030",
+            "DEV-032",
+            "DEV-044",
+            "DEV-046",
+            "DEV-047",
+            "DEV-049",
+            "DEV-053",
+            "DEV-058"
+          ],
+          "confidenceChangedIds": [
+            "DEV-005",
+            "DEV-006",
+            "DEV-009",
+            "DEV-013",
+            "DEV-021",
+            "DEV-022",
+            "DEV-025",
+            "DEV-029",
+            "DEV-030",
+            "DEV-032",
+            "DEV-039",
+            "DEV-041",
+            "DEV-043",
+            "DEV-046",
+            "DEV-049",
+            "DEV-050",
+            "DEV-053",
+            "DEV-055",
+            "DEV-058"
+          ]
+        },
+        "testimonial_potential": {
+          "choiceChangedIds": [],
+          "probabilityChangedIds": [
+            "DEV-010",
+            "DEV-014",
+            "DEV-016",
+            "DEV-029",
+            "DEV-040",
+            "DEV-053",
+            "DEV-055",
+            "DEV-057"
+          ],
+          "confidenceChangedIds": [
+            "DEV-004",
+            "DEV-005",
+            "DEV-010",
+            "DEV-014",
+            "DEV-016",
+            "DEV-024",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-040",
+            "DEV-053",
+            "DEV-055",
+            "DEV-057"
+          ]
+        }
+      }
+    },
+    "P1P2fresh3": {
+      "denominator": 60,
+      "excludedIds": [],
+      "fourFieldVectorChangedIds": [
+        "DEV-030"
+      ],
+      "fields": {
+        "sentiment": {
+          "choiceChangedIds": [
+            "DEV-030"
+          ],
+          "probabilityChangedIds": [
+            "DEV-001",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-008",
+            "DEV-009",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-014",
+            "DEV-017",
+            "DEV-018",
+            "DEV-020",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-030",
+            "DEV-032",
+            "DEV-043",
+            "DEV-044",
+            "DEV-047",
+            "DEV-050",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "confidenceChangedIds": [
+            "DEV-001",
+            "DEV-004",
+            "DEV-005",
+            "DEV-006",
+            "DEV-009",
+            "DEV-013",
+            "DEV-017",
+            "DEV-018",
+            "DEV-021",
+            "DEV-025",
+            "DEV-026",
+            "DEV-027",
+            "DEV-029",
+            "DEV-030",
+            "DEV-032",
+            "DEV-035",
+            "DEV-037",
+            "DEV-039",
+            "DEV-042",
+            "DEV-045",
+            "DEV-047",
+            "DEV-053",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-057",
+            "DEV-059",
+            "DEV-060"
+          ]
+        },
+        "follow_up_needed": {
+          "choiceChangedIds": [],
+          "probabilityChangedIds": [
+            "DEV-004",
+            "DEV-005",
+            "DEV-011",
+            "DEV-013",
+            "DEV-015",
+            "DEV-022",
+            "DEV-025",
+            "DEV-027",
+            "DEV-029",
+            "DEV-031",
+            "DEV-032",
+            "DEV-035",
+            "DEV-036",
+            "DEV-043",
+            "DEV-044",
+            "DEV-049",
+            "DEV-052",
+            "DEV-054",
+            "DEV-056",
+            "DEV-059",
+            "DEV-060"
+          ],
+          "confidenceChangedIds": [
+            "DEV-004",
+            "DEV-005",
+            "DEV-008",
+            "DEV-011",
+            "DEV-012",
+            "DEV-013",
+            "DEV-015",
+            "DEV-022",
+            "DEV-027",
+            "DEV-029",
+            "DEV-035",
+            "DEV-036",
+            "DEV-037",
+            "DEV-039",
+            "DEV-043",
+            "DEV-044",
+            "DEV-047",
+            "DEV-049",
+            "DEV-052",
+            "DEV-054",
+            "DEV-055",
+            "DEV-056",
+            "DEV-059"
+          ]
+        },
+        "serious_concern_reported": {
+          "choiceChangedIds": [],
+          "probabilityChangedIds": [
+            "DEV-011",
+            "DEV-013",
+            "DEV-021",
+            "DEV-022",
+            "DEV-025",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-036",
+            "DEV-041",
+            "DEV-043",
+            "DEV-044",
+            "DEV-045",
+            "DEV-046",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-053",
+            "DEV-056"
+          ],
+          "confidenceChangedIds": [
+            "DEV-006",
+            "DEV-008",
+            "DEV-009",
+            "DEV-011",
+            "DEV-013",
+            "DEV-021",
+            "DEV-022",
+            "DEV-025",
+            "DEV-029",
+            "DEV-030",
+            "DEV-031",
+            "DEV-032",
+            "DEV-036",
+            "DEV-039",
+            "DEV-041",
+            "DEV-043",
+            "DEV-044",
+            "DEV-046",
+            "DEV-047",
+            "DEV-048",
+            "DEV-049",
+            "DEV-050",
+            "DEV-051",
+            "DEV-052",
+            "DEV-053",
+            "DEV-054",
+            "DEV-056"
+          ]
+        },
+        "testimonial_potential": {
+          "choiceChangedIds": [],
+          "probabilityChangedIds": [
+            "DEV-001",
+            "DEV-004",
+            "DEV-005",
+            "DEV-010",
+            "DEV-014",
+            "DEV-020",
+            "DEV-024",
+            "DEV-026",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-053",
+            "DEV-055",
+            "DEV-057"
+          ],
+          "confidenceChangedIds": [
+            "DEV-001",
+            "DEV-010",
+            "DEV-013",
+            "DEV-014",
+            "DEV-020",
+            "DEV-024",
+            "DEV-027",
+            "DEV-028",
+            "DEV-029",
+            "DEV-040",
             "DEV-053",
             "DEV-055",
             "DEV-057"

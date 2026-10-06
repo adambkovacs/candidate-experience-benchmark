@@ -225,7 +225,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertFalse(composite["cleanRepeatCredit"])
         self.assertEqual(composite["neverSent"], 0)
         self.assertEqual(composite["unknownUpperBoundUsd"], "0.002688000")
-        self.assertEqual(projected["conditions"]["P2"]["completePasses"], 1)
+        self.assertEqual(projected["conditions"]["P2"]["completePasses"], 2)
         p1 = projected["conditions"]["P1"]["passes"]["fresh2"]
         self.assertEqual((p1["score"]["valid"], p1["score"]["allFour"]), (59, 53))
         self.assertEqual(p1["outcomes"]["invalid_native_distribution"], 1)
@@ -284,7 +284,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 287)
+        self.assertEqual(len(rebuilt["sources"]), 301)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")

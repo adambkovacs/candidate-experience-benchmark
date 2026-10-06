@@ -74,7 +74,8 @@ function fixture() {
       },
       P2: {
         fresh1: pass('complete', 60, 54, {valid: 60}, 163120, '0.006851040', 32.84),
-        fresh2: parent
+        fresh2: parent,
+        fresh3: pass('complete', 60, 54, {valid: 60}, 163120, '0.006851040', 35.91)
       }
     },
     continuations: {P2fresh2tail: tail},
@@ -87,7 +88,9 @@ function fixture() {
       P1P2fresh1: comparison(60, [], ['DEV-013'], 32, 27),
       P1P2fresh2shared: comparison(17,
         Array.from({length: 43}, (_, index) => `DEV-${String(index + 18).padStart(3, '0')}`),
-        ['DEV-013'], 9, 8)
+        ['DEV-013'], 9, 8),
+      P2fresh1fresh3: comparison(60, [], ['DEV-030'], 20, 17),
+      P1P2fresh3: comparison(60, [], ['DEV-030'], 20, 17)
     }
   };
 }
@@ -143,6 +146,20 @@ test('keeps interrupted P2 out of complete score cards and preserves parent coun
   assert.match(target.innerHTML, /50\/60 all-four figure is interrupted coverage, not a clean repeat or ranking result/);
   assert.doesNotMatch(target.innerHTML, /class="condition-score">15/);
   assert.doesNotMatch(target.innerHTML, /class="condition-score">50/);
+});
+
+test('shows distinct P2 pass 3 without granting pass 2 clean-repeat credit', async () => {
+  const {target, errors} = await render();
+  assert.deepEqual(errors, []);
+  assert.match(target.innerHTML, /P2 pass 3 completed separately/);
+  assert.match(target.innerHTML, /All 60 responses were valid, with 54\/60 all-four matches/);
+  assert.match(target.innerHTML, /1\/60 answer vectors changed \(DEV-030\)/);
+  assert.match(target.innerHTML, /interrupted P2 pass 2 remains ineligible as a clean repeat/);
+  assert.match(target.innerHTML, /P2 Pass 3/);
+  const missing = fixture();
+  delete missing.passes.P2.fresh3;
+  const failed = await render(missing);
+  assert.match(failed.target.innerHTML, /role="alert"/);
 });
 
 test('derives changed values from an internally consistent fixture', async () => {

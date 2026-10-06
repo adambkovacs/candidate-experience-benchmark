@@ -64,6 +64,18 @@ class JevNativePromptFindingsTests(unittest.TestCase):
         self.assertEqual(combined['knownCostUsd'], '0.006622434')
         self.assertEqual(combined['unknownUpperBoundUsd'], '0.002688000')
         self.assertEqual(value['comparisons']['P1P2fresh2CompositeShared']['denominator'], 56)
+        third = passes['P2']['fresh3']
+        self.assertEqual((third['status'], third['score']['valid'], third['score']['allFour']),
+                         ('complete', 60, 54))
+        self.assertEqual(third['outcomes'], {'valid': 60})
+        self.assertEqual((third['knownCostUsd'], third['unknownUpperBoundUsd']),
+                         ('0.006851040', '0'))
+        self.assertEqual(value['comparisons']['P2fresh1fresh3']['denominator'], 60)
+        self.assertEqual(value['comparisons']['P2fresh1fresh3']['fourFieldVectorChangedIds'],
+                         ['DEV-030'])
+        self.assertEqual(value['comparisons']['P1P2fresh3']['denominator'], 60)
+        self.assertEqual(value['comparisons']['P1P2fresh3']['fourFieldVectorChangedIds'],
+                         ['DEV-030'])
 
     def test_archived_receipt_never_queries_live_budget_identity(self):
         with patch.object(report.full, 'budget_identity', side_effect=AssertionError('live budget read')):
@@ -79,6 +91,30 @@ class JevNativePromptFindingsTests(unittest.TestCase):
         self.assertIn('P1 fresh3 is the third attempted full pass',
                       report.OUTPUT.read_text())
         self.assertIn('P0 fresh3:', report.OUTPUT.read_text())
+        self.assertIn('P2 fresh3: 54/60 all-four', report.OUTPUT.read_text())
+        self.assertIn('P2 fresh2 is interrupted and does not count as a clean repeat',
+                      report.OUTPUT.read_text())
+
+    def test_p2_fresh3_receipt_uses_archived_predecessor_and_rejects_proposal_tamper(self):
+        plans = report.frozen.build_plan(report.ROOT)
+        with patch.object(report.bridge.suffix, 'inspect_parent',
+                          side_effect=AssertionError('operational parent read')), \
+             patch.object(report.bridge, 'verify_tail',
+                          side_effect=AssertionError('operational tail read')):
+            value = report.build()
+        self.assertEqual(value['passes']['P2']['fresh3']['score']['valid'], 60)
+        prior = report.archived_p2_fresh3_proof(plans, value['passes']['P2']['fresh2'],
+                                                value['continuations']['P2fresh2tail'])
+        with tempfile.TemporaryDirectory() as temp:
+            proposal = Path(temp) / 'proposal.json'
+            changed = json.loads(report.p2_successor.PROPOSAL.read_text())
+            changed['predecessor_proof']['valid_count'] = 58
+            proposal.write_text(json.dumps(changed) + '\n')
+            with patch.object(report.p2_successor, 'PROPOSAL', proposal):
+                with self.assertRaisesRegex(ValueError, 'offline proposal differs'):
+                    report.verified_v2_full(report.CONFIGS['P2'], 'fresh3',
+                        plans[report.CONFIGS['P2']]['requests'], {},
+                        predecessor_proof=prior)
 
     def test_raw_response_drift_fails_before_scoring(self):
         config = report.CONFIGS['P1']

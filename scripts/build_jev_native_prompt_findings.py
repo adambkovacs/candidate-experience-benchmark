@@ -15,6 +15,7 @@ import openrouter_native_variants_full_v1 as full
 import openrouter_native_variants_plan as frozen
 import openrouter_native_variants_v2 as smoke
 import openrouter_jev_authority_v2 as bridge
+import openrouter_jev_p2_fresh3_after_timeout_v1 as p2_successor
 
 BASE = ROOT / 'results/route-audits/jev-native-full-v1-20261006'
 REFERENCES = ROOT / 'data/pilot/proposed_labels.jsonl'
@@ -480,7 +481,49 @@ def verified_tail(truth, plans):
     return item, parsed, [source(path) for path in files]
 
 
-def verified_v2_full(config, stage, requests, truth, invalid_id=None):
+def archived_p2_fresh3_proof(plans, parent_item, tail_item):
+    """Rebuild the interrupted predecessor without live master or authority reads."""
+    config = CONFIGS['P2']
+    manifest = archived_tail_manifest(plans)
+    tail = full.paths(TAIL_BASE, config, bridge.TAIL_STAGE)
+    budget = json.loads(tail['budget'].read_text())
+    child = tail['budget'].parent / (tail['budget'].stem + '-' + bridge.TAIL_PARTITION + '.jsonl')
+    require(budget['partitions'][0]['child_ledger'] ==
+            json.loads((tail['stage'] / 'budget-reconciliation.json').read_text())['child_ledger'],
+            'P2 fresh3 tail child identity differs')
+    known = Decimal(parent_item['knownCostUsd']) + Decimal(tail_item['knownCostUsd'])
+    unknown = Decimal(parent_item['unknownUpperBoundUsd']) + Decimal(tail_item['unknownUpperBoundUsd'])
+    require(parent_item['outcomes'] == {'valid': 17, 'unknown_cost_http_429': 1,
+                                       'never_sent': 42} and
+            tail_item['outcomes'] == {'valid': 40, 'invalid_native_distribution': 1,
+                                      'unknown_cost_transport_timeout': 1} and
+            known == Decimal('0.006622434') and unknown == Decimal('0.002688000'),
+            'P2 fresh3 interrupted predecessor outcomes differ')
+    parent = manifest['parent_evidence']
+    proof = {'schema': p2_successor.SCHEMA + '-predecessor-proof',
+             'configuration_id': config, 'prior_stage': 'fresh2',
+             'status': 'interrupted_all_60_attempted', 'clean_repeat_credit': False,
+             'total_positions': 60, 'valid_count': 57,
+             'intrinsic_invalid_ids': ['DEV-040'],
+             'unknown_charge_ids': ['DEV-018', 'DEV-060'], 'never_sent_ids': [],
+             'parent_evidence': parent,
+             'parent_terminal_sha256': sha(BASE / config / 'fresh2/terminal-public.json'),
+             'parent_reconciliation_sha256': sha(BASE / config / 'fresh2/budget-reconciliation.json'),
+             'tail_manifest_sha256': sha(tail['manifest']),
+             'tail_review_sha256': sha(tail['receipt']),
+             'tail_terminal_sha256': sha(tail['stage'] / 'terminal-public.json'),
+             'tail_attempts_sha256': sha(tail['stage'] / 'attempts.jsonl'),
+             'tail_unknown_evidence_sha256': sha(tail['stage'] / 'unknown-cost-evidence.jsonl'),
+             'tail_reconciliation_sha256': sha(tail['stage'] / 'budget-reconciliation.json'),
+             'tail_child_sha256': sha(child),
+             'known_actual_cost_usd': str(known),
+             'retained_unknown_upper_bound_usd': str(unknown),
+             'reference_labels_read': False}
+    return proof
+
+
+def verified_v2_full(config, stage, requests, truth, invalid_id=None,
+                     predecessor_proof=None):
     """Verify one closed v2 full pass from immutable inputs through reconciliation."""
     manifest, original_manifest_sha = bridge._source_bound(config)
     request_set_sha = decision.sha(decision.canonical(requests))
@@ -513,10 +556,46 @@ def verified_v2_full(config, stage, requests, truth, invalid_id=None):
     core = bridge._full_core(config)
     context_sha = core.context_proof(config, manifest, base=bridge.BASE)
     inspection_sha = core.smoke_inspection(config, manifest, base=bridge.BASE)
-    prior = core.predecessor(config, stage, manifest, base=bridge.BASE)
+    prior = (predecessor_proof if predecessor_proof is not None else
+             core.predecessor(config, stage, manifest, base=bridge.BASE))
+    if predecessor_proof is not None:
+        require(config == CONFIGS['P2'] and stage == 'fresh3',
+                'Unexpected substituted full-pass predecessor')
     expected = core.expected_receipt(config, stage, manifest, p['budget'],
                                      context_sha, inspection_sha, prior, hold_source,
                                      base=bridge.BASE)
+    if predecessor_proof is not None:
+        proposal_path = p2_successor.PROPOSAL
+        proposal = json.loads(proposal_path.read_text())
+        expected_proposal = {
+            'schema': p2_successor.SCHEMA + '-offline-proposal',
+            'status': 'proposed_not_admitted', 'configuration_id': config,
+            'stage': stage, 'inference_performed': False,
+            'new_authority_hold_or_budget_allocation': False,
+            'clean_repeat_credit': False,
+            'original_manifest_sha256': original_manifest_sha,
+            'v2_manifest_sha256': sha(p['manifest']),
+            'frozen_request_set_sha256': manifest['request_set_sha256'],
+            'frozen_core_sha256': sha(full.__file__),
+            'bridge_sha256': sha(bridge.__file__),
+            'wrapper_sha256': sha(p2_successor.__file__),
+            'authority_module_sha256': sha(bridge.authority_v2.__file__),
+            'context_proof_sha256': context_sha,
+            'smoke_inspection_sha256': inspection_sha,
+            'predecessor_proof': prior,
+            'predecessor_proof_sha256': decision.sha(decision.canonical(prior)),
+            'global_authority_cap_usd': '10.00', 'master_cap_usd': '12.38',
+            'whole_pass_bound_usd': manifest['whole_pass_bound_usd'],
+            'required_before_run': ['new exact child allocation', 'root-reviewed fresh3 receipt',
+                                    'live route, context, smoke, authority and master checks']}
+        require(proposal == expected_proposal and
+                proposal_path.read_bytes() == (json.dumps(expected_proposal, indent=2,
+                    ensure_ascii=False) + '\n').encode(),
+                'P2 fresh3 offline proposal differs from archived sources')
+        expected.update({
+            'fresh3_after_timeout_wrapper_sha256': sha(p2_successor.__file__),
+            'fresh3_after_timeout_proposal_sha256': sha(proposal_path),
+            'fresh3_after_timeout_predecessor_sha256': decision.sha(decision.canonical(prior))})
     receipt = json.loads(p['receipt'].read_text())
     head = receipt.get('global_authority_head_sha256')
     require(isinstance(head, str) and len(head) == 64 and
@@ -565,6 +644,8 @@ def verified_v2_full(config, stage, requests, truth, invalid_id=None):
              p['budget'], child, directory / 'review-receipt.json',
              directory / 'attempts.jsonl', directory / 'endpoint-catalog.json',
              directory / 'completion.json', directory / 'budget-reconciliation.json']
+    if predecessor_proof is not None:
+        files.extend([p2_successor.PROPOSAL, Path(p2_successor.__file__)])
     return item, parsed, [source(path) for path in files]
 
 
@@ -705,6 +786,22 @@ def build(base=BASE, refs_path=REFERENCES):
         'clientSeconds': result['passes']['P2']['fresh2']['clientSeconds'] + tail_item['clientSeconds']}}
     result['comparisons']['P1P2fresh2CompositeShared'] = compare(
         private['P1']['fresh2'], combined, ids)
+    predecessor = archived_p2_fresh3_proof(plans, result['passes']['P2']['fresh2'],
+                                           tail_item)
+    p2_third, p2_third_parsed, p2_third_sources = verified_v2_full(
+        CONFIGS['P2'], 'fresh3', plans[CONFIGS['P2']]['requests'], truth,
+        predecessor_proof=predecessor)
+    require(p2_third['knownCostUsd'] == '0.006851040' and
+            p2_third['score']['valid'] == 60 and
+            p2_third['outcomes'] == {'valid': 60},
+            'P2 fresh3 verified score or provider cost differs')
+    result['passes']['P2']['fresh3'] = p2_third
+    private['P2']['fresh3'] = p2_third_parsed
+    result['sourceBindings'].extend(p2_third_sources)
+    result['comparisons']['P2fresh1fresh3'] = compare(
+        private['P2']['fresh1'], private['P2']['fresh3'], ids)
+    result['comparisons']['P1P2fresh3'] = compare(
+        private['P1']['fresh3'], private['P2']['fresh3'], ids)
     result['sourceBindings'] = list({item['path']: item for item in result['sourceBindings']}.values())
     return result
 
@@ -717,6 +814,8 @@ def render(report):
     paired = report['comparisons']['P1P2fresh1']
     repeat = report['comparisons']['P1repeat']
     second_to_third = report['comparisons']['P1fresh2fresh3']
+    p2_first_to_third = report['comparisons']['P2fresh1fresh3']
+    p1_p2_third = report['comparisons']['P1P2fresh3']
     shared = report['comparisons']['P1P2fresh2shared']
     composite_shared = report['comparisons']['P1P2fresh2CompositeShared']
     p0_repeat12 = report['comparisons']['P0fresh1fresh2']
@@ -735,7 +834,7 @@ def render(report):
         '| --- | --- | ---: | ---: | ---: | ---: | ---: |',
     ]
     for condition in ('P0', 'P1', 'P2'):
-        for stage in full.PASSES if condition in ('P0', 'P1') else STAGES:
+        for stage in full.PASSES:
             item = passes[condition][stage]
             outcome = item['outcomes']
             lines.append(f"| {condition} | {stage} | {item['score']['valid']} | "
@@ -757,6 +856,7 @@ def render(report):
               'P1 fresh2: ' + counts(p1['fresh2']) + '. DEV-056 returned HTTP 200 and a native probability distribution that does not sum to one. Its known provider cost remains counted; it is excluded from answer scoring.',
               'P1 fresh3: ' + counts(p1['fresh3']) + '. All 60 responses were valid and the child allocation was reconciled.',
               'P2 fresh1: ' + counts(p2['fresh1']) + '.',
+              'P2 fresh3: ' + counts(p2['fresh3']) + '. This is a separately admitted full pass after the interrupted fresh2; all 60 responses were valid and the child allocation was reconciled.',
               'The original P2 fresh2 stage has 17 valid responses and 15 all-four matches among those 17. DEV-018 received HTTP 429 with an unknown charge bounded at $0.001344000. At that stage, DEV-019 through DEV-060 were never sent. Its original terminal record and 17-valid/42-unsent counters remain intact.',
               f"The separate DEV-019 through DEV-060 continuation attempted all 42 positions: {tail['score']['valid']} valid, one invalid, and one timeout with unknown cost. DEV-040 returned HTTP 200, but its native sentiment probabilities sum to 0.99. DEV-060 timed out without a response; its full $0.001344000 reserve remains an unknown-charge upper bound. The continuation has {tail['score']['allFour']}/42 all-four matches, with only its 40 valid answers scored.",
               f"Together, the stopped parent and stopped continuation cover all 60 original positions: {composite['score']['valid']} valid, one invalid, two unknown-cost attempts, and no never-sent positions. The {composite['score']['allFour']}/60 all-four figure is an interrupted composite accounting value. It is not a clean P2 fresh2 repeat or a repaired DEV-018/DEV-060 observation.", '',
@@ -777,11 +877,13 @@ def render(report):
               '. Vendor confidence changes: ' +
               ', '.join(f"{key} {len(repeat['fields'][key]['confidenceChangedIds'])}/59" for key in KEYS) + '.',
               f"P1 fresh3 is the third attempted full pass. Across fresh2 and fresh3, {len(second_to_third['fourFieldVectorChangedIds'])}/{second_to_third['denominator']} shared valid answer vectors changed ({', '.join(second_to_third['fourFieldVectorChangedIds'])}); DEV-056 remains excluded because fresh2 was invalid. Fresh1 and fresh3 differ at DEV-013 across 60 shared valid records. The three P1 passes have 60, 59, and 60 valid outcomes respectively.",
+              f"P2 fresh1 and fresh3 each have 60 valid responses and {p2['fresh1']['score']['allFour']}/60 and {p2['fresh3']['score']['allFour']}/60 all-four matches. Their answer vectors changed at {len(p2_first_to_third['fourFieldVectorChangedIds'])}/60 records ({', '.join(p2_first_to_third['fourFieldVectorChangedIds']) or 'none'}). This compares two completed passes; the interrupted fresh2 remains a separate, ineligible observation.",
+              f"In matched fresh3 passes, P1 and P2 changed {len(p1_p2_third['fourFieldVectorChangedIds'])}/60 answer vectors ({', '.join(p1_p2_third['fourFieldVectorChangedIds']) or 'none'}). Their all-four counts were {p1['fresh3']['score']['allFour']}/60 and {p2['fresh3']['score']['allFour']}/60. These are paired observations under different native instructions, not a causal estimate.",
               f"The original fresh2 parent cross-condition comparison is restricted to {shared['denominator']} shared valid records. With the stopped continuation included, P1 fresh2 and the interrupted P2 composite share {composite_shared['denominator']} valid positions; {len(composite_shared['fourFieldVectorChangedIds'])} four-field vectors differ ({', '.join(composite_shared['fourFieldVectorChangedIds'])}). DEV-018, DEV-040, DEV-056, and DEV-060 are excluded. This comparison remains conditional on the two interrupted P2 stages.", '',
               '## Cost and timing', '',
     ]
     for condition in ('P0', 'P1', 'P2'):
-        for stage in full.PASSES if condition in ('P0', 'P1') else STAGES:
+        for stage in full.PASSES:
             item = passes[condition][stage]
             lines.append(f"- {condition} {stage}: known provider cost ${item['knownCostUsd']}; "
                          f"unknown-charge bound ${item['unknownUpperBoundUsd']}; "
@@ -795,8 +897,8 @@ def render(report):
                      f"client-observed request time {item['clientSeconds']:.3f} seconds.")
     lines += ['', 'Client time includes network and local work. Provider token totals exclude DEV-018 and DEV-060 because neither attempt returned usage. Client time includes the DEV-060 timeout.', '',
               '## Evidence and limits', '',
-              'The offline builder verifies frozen requests, the provisional reference SHA, proposed manifests, archived and v2 root receipts, context and smoke reviews, exact saved request bytes, raw responses, terminal records, child-ledger events, and reconciled known and unknown costs. The tail receipt binds the original 60 requests, stopped parent, versioned bridge, and authority module. The builder reconstructs receipt identity from saved budget files and does not read or change the live master budget.', '',
-              'The P2 fresh2 composite combines two interrupted stages and preserves both unknown-charge bounds. P0 and P1 each have three attempted full passes. P2 fresh3 is outside this report, so the native repeatability matrix remains incomplete. The earlier three-record Jev P0 smoke remains separate from these new full passes.', '',
+              'The offline builder verifies frozen requests, the provisional reference SHA, proposed manifests, archived and v2 root receipts, context and smoke reviews, exact saved request bytes, raw responses, terminal records, child-ledger events, and reconciled known and unknown costs. The tail receipt binds the original 60 requests, stopped parent, versioned bridge, and authority module. The P2 fresh3 receipt also binds its distinct wrapper, offline proposal, and reconstructed interrupted predecessor. The builder reconstructs receipt identity from saved budget files and does not read or change the live master budget.', '',
+              'The P2 fresh2 composite combines two interrupted stages and preserves both unknown-charge bounds. P0, P1, and P2 each have three attempted full passes, but P2 fresh2 is interrupted and does not count as a clean repeat. The earlier three-record Jev P0 smoke remains separate from these full passes.', '',
               '## Sources', '',
               '- [Offline verifier and renderer](../scripts/build_jev_native_prompt_findings.py)',
               '- [Verifier tests](../tests/test_build_jev_native_prompt_findings.py)',
@@ -811,6 +913,12 @@ def render(report):
               '- [P1 fresh3 completion](../results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p1-choice-v1/fresh3/completion.json)',
               '- [P1 fresh3 cost reconciliation](../results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p1-choice-v1/fresh3/budget-reconciliation.json)',
               '- [P2 fresh1 raw attempts](../results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh1/attempts.jsonl)',
+              '- [P2 fresh3 wrapper](../scripts/openrouter_jev_p2_fresh3_after_timeout_v1.py)',
+              '- [P2 fresh3 offline proposal](../results/route-audits/jev-authority-v2-20261006/p2-fresh3-after-timeout-v1/proposal.json)',
+              '- [P2 fresh3 root receipt](../results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3.root-review.json)',
+              '- [P2 fresh3 raw attempts](../results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/attempts.jsonl)',
+              '- [P2 fresh3 completion](../results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/completion.json)',
+              '- [P2 fresh3 cost reconciliation](../results/route-audits/jev-authority-v2-20261006/jev-openrouter-native-p2-choice-v1/fresh3/budget-reconciliation.json)',
               '- [P2 fresh2 raw attempts](../results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/attempts.jsonl)',
               '- [P2 fresh2 terminal record](../results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/terminal-public.json)',
               '- [P2 fresh2 cost reconciliation](../results/route-audits/jev-native-full-v1-20261006/jev-openrouter-native-p2-choice-v1/fresh2/budget-reconciliation.json)',

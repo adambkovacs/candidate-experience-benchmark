@@ -87,6 +87,7 @@
       validatePass(report.passes[condition]?.[stage], 'complete')));
     validatePass(report.passes.P2?.fresh1, 'complete');
     validatePass(report.passes.P2?.fresh2, 'stopped');
+    validatePass(report.passes.P2?.fresh3, 'complete');
     validateInterrupted(report);
     validateComparison(report.comparisons?.P0fresh1fresh2, 60);
     validateComparison(report.comparisons?.P0fresh2fresh3, 59);
@@ -96,6 +97,8 @@
     validateComparison(report.comparisons?.P1P2fresh1, 60);
     validateComparison(report.comparisons?.P1P2fresh2shared,
       Math.min(report.passes.P1.fresh2.score.valid, report.passes.P2.fresh2.score.valid));
+    validateComparison(report.comparisons?.P2fresh1fresh3, 60);
+    validateComparison(report.comparisons?.P1P2fresh3, 60);
   };
 
   const uniqueCount = (comparison, name) => new Set(fields.flatMap(([key]) =>
@@ -121,6 +124,7 @@
     const p1Second = report.passes.P1.fresh2;
     const p1Third = report.passes.P1.fresh3;
     const p2First = report.passes.P2.fresh1;
+    const p2Third = report.passes.P2.fresh3;
     const stopped = report.passes.P2.fresh2;
     const tail = report.continuations.P2fresh2tail;
     const combined = report.composites.P2fresh2;
@@ -128,6 +132,8 @@
     const p0Third = report.comparisons.P0fresh2fresh3;
     const repeat = report.comparisons.P1repeat;
     const prompt = report.comparisons.P1P2fresh1;
+    const p2Repeat = report.comparisons.P2fresh1fresh3;
+    const thirdMatched = report.comparisons.P1P2fresh3;
     const repeatProbability = uniqueCount(repeat, 'probabilityChangedIds');
     const repeatConfidence = uniqueCount(repeat, 'confidenceChangedIds');
     const promptProbability = uniqueCount(prompt, 'probabilityChangedIds');
@@ -144,7 +150,8 @@
       ['P0', 'Pass 1', p0.fresh1], ['P0', 'Pass 2', p0.fresh2], ['P0', 'Pass 3', p0.fresh3],
       ['P1', 'Pass 1', p1First], ['P1', 'Pass 2', p1Second], ['P1', 'Pass 3', p1Third],
       ['P2', 'Pass 1', p2First], ['P2', 'Stopped pass 2 parent', stopped],
-      ['P2', 'Stopped pass 2 tail', tail], ['P2', 'Interrupted pass 2 composite', combined]
+      ['P2', 'Stopped pass 2 tail', tail], ['P2', 'Interrupted pass 2 composite', combined],
+      ['P2', 'Pass 3', p2Third]
     ].map(([condition, stage, item]) => `<tr><th scope="row">${esc(condition)} ${esc(stage)}</th>` +
       `<td>${esc(integer(item.inputTokens))}</td><td>${esc(integer(item.outputTokens))}</td>` +
       `<td>${esc(money(item.knownCostUsd))}</td><td>${esc(money(item.unknownUpperBoundUsd))}</td>` +
@@ -163,6 +170,10 @@
       `<article class="analysis-caveat"><h3>P2 pass 2 remains interrupted</h3><p>The original parent saved ${esc(stopped.score.valid)} valid responses, retained ${esc(stopped.outcomes.unknown_cost_http_429)} HTTP 429 attempt with an unknown charge, and left ${esc(stopped.outcomes.never_sent)} positions unsent. ` +
       `A separate continuation attempted those 42 positions: ${esc(tail.score.valid)} valid, ${esc(tail.outcomes.invalid_native_distribution)} invalid DEV-040, and ${esc(tail.outcomes.unknown_cost_transport_timeout)} timed-out DEV-060 with an unknown charge. ` +
       `The combined accounting covers all 60 positions: ${esc(combined.score.valid)} valid, ${esc(combined.outcomes.invalid_native_distribution)} invalid, ${esc(combined.outcomes.unknown_cost_http_429 + combined.outcomes.unknown_cost_transport_timeout)} unknown-cost attempts, and ${esc(combined.neverSent)} unsent. Its ${esc(combined.score.allFour)}/60 all-four figure is interrupted coverage, not a clean repeat or ranking result. The parent counts remain preserved.</p></article>` +
+      `<article class="analysis-caveat"><h3>P2 pass 3 completed separately</h3><p>All ${esc(p2Third.score.valid)} responses were valid, with ${esc(p2Third.score.allFour)}/60 all-four matches. ` +
+      `Against completed P2 pass 1, ${esc(p2Repeat.fourFieldVectorChangedIds.length)}/${esc(p2Repeat.denominator)} answer vectors changed (${esc(p2Repeat.fourFieldVectorChangedIds.join(', ') || 'none')}). ` +
+      `Matched P1 and P2 pass 3 results differed on ${esc(thirdMatched.fourFieldVectorChangedIds.length)}/${esc(thirdMatched.denominator)} answer vectors (${esc(thirdMatched.fourFieldVectorChangedIds.join(', ') || 'none')}). ` +
+      `The interrupted P2 pass 2 remains ineligible as a clean repeat.</p></article>` +
       `<details><summary>Labels and distributions changed in different ways</summary>` +
       `<div class="table-wrap" tabindex="0" role="region" aria-label="Jev P1 repeat changes by field, scroll horizontally on small screens"><table>` +
       `<caption>Changes across ${esc(repeat.denominator)} reviews valid in both P1 passes</caption><thead><tr><th scope="col">Field</th><th scope="col">Answer changes</th><th scope="col">Probability changes</th><th scope="col">Confidence changes</th></tr></thead><tbody>${comparisonRows}</tbody></table></div>` +

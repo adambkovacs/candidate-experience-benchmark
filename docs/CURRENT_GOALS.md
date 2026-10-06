@@ -2,7 +2,7 @@
 
 ## Jev and Qwen reconciliation, 6 October 2026
 
-Jev P0 and P1 each have three full passes. P0 scores 54/53/52 out of 60; P1 scores 54/53/54. Invalid distributions remain failures. The second P2 pass and its continuation together account for all 60 attempts: 57 valid, one invalid and two unknown, with 50 all-four matches. It remains interrupted. The third P2 pass is prepared for review and has not run. Updated report publication is pending.
+Jev P0 and P1 each have three full passes. P0 scores 54/53/52 out of 60; P1 scores 54/53/54. Invalid distributions remain failures. The second P2 pass and its continuation together account for all 60 attempts: 57 valid, one invalid and two unknown, with 50 all-four matches. It remains interrupted. The third P2 pass returned 60 valid answers and scored 54/60; its classifications differ from the first P2 pass on DEV-030 despite the equal totals. Updated report publication is pending.
 
 Qwen3.5 has two closed full phases out of nine. Its next P2 smoke produced an invalid output; the subsequent P1 smoke stopped during host sleep, leaving DEV-003 unknown. Neither smoke admitted a full pass. Battery use is enabled, but sleep checks remain active.
 
