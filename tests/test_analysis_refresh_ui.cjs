@@ -266,7 +266,9 @@ test('hosted findings compare Qwen prompts and retain different DeepSeek invalid
   assert.match(view.cutoffs,/54\/60/);
   assert.match(view.cutoffs,/56\/60/);
   assert.match(view.cutoffs,/first classifier-instruction run was interrupted and is excluded/);
-  assert.match(view.cutoffs,/DeepSeek V4\.1 Flash, high effort/);
+  assert.match(view.cutoffs,/DeepSeek high, original-control snapshot/);
+  assert.match(view.cutoffs,/The later results appear above/);
+  assert.match(view.cutoffs,/first revised-price checkpoint/);
   assert.match(view.cutoffs,/57\/60/);
   assert.match(view.cutoffs,/DEV-030/);
   assert.match(view.cutoffs,/DEV-006/);
