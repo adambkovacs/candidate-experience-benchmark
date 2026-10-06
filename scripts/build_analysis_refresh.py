@@ -31,6 +31,7 @@ KEV_NATIVE_PROMPT_PUBLIC = "public-site/kev-native-prompt-findings.json"
 JEV_NATIVE_PROMPT_PUBLIC = "public-site/jev-native-prompt-findings.json"
 GEMINI_AUTHORITY_PUBLIC = "public-site/gemini-repeats.json"
 HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
+LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
 SOURCES = (
     "public-site/e4b-interruption-findings.json",
     "public-site/sonnet55-fresh-matched3.json",
@@ -63,6 +64,7 @@ SOURCES = (
     JEV_NATIVE_PROMPT_PUBLIC,
     GEMINI_AUTHORITY_PUBLIC,
     HOSTED_FRESH_PUBLIC,
+    LOW_REVISED_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
 EFFORTS = ("low", "medium", "high", "xhigh")
@@ -1013,6 +1015,11 @@ def build(root=ROOT):
     gemini_authority = gemini_authority_summary(
         root, data[GEMINI_AUTHORITY_PUBLIC], bindings)
     hosted_fresh = hosted_fresh_summary(root, data[HOSTED_FRESH_PUBLIC], bindings)
+    import build_deepseek_low_remaining6_price_v2_findings as low_revised_builder
+    low_revised = data[LOW_REVISED_PUBLIC]
+    if low_revised != low_revised_builder.build(root):
+        raise ValueError('Revised-price DeepSeek low report differs from closed evidence')
+    bind_report_sources(root, low_revised, bindings, 'Revised-price DeepSeek low')
 
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
@@ -1541,6 +1548,8 @@ def build(root=ROOT):
             "jevNativePrompts": jev_native_prompts,
             "geminiAuthority": gemini_authority,
             "hostedFresh": hosted_fresh,
+            "deepseekLowRevisedPrice": {"source": LOW_REVISED_PUBLIC,
+                                        **low_revised['series'][0]},
             "qwen27": {"source": "public-site/qwen27-final-descriptive-findings.json",
                         "seriesCount": len(qwen["series"]),
                         "cleanMatchedThreeEligible": qwen["cleanMatchedThreeEligible"]},

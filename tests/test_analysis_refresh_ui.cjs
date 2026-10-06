@@ -272,3 +272,14 @@ test('hosted findings compare Qwen prompts and retain different DeepSeek invalid
   assert.match(view.cutoffs,/DEV-006/);
   assert.match(view.cutoffs,/Equal totals do not mean the same reviews had usable answers/);
 });
+
+test('low continuation keeps unknown outcome and smoke costs separate', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const view=await renderState(report);
+  assert.match(view.cutoffs,/57\/60 reviews matched all four reference labels/);
+  assert.match(view.cutoffs,/59 valid answers and one provider failure at DEV-005, whose cost is unknown/);
+  assert.match(view.cutoffs,/0\.030564226637/);
+  assert.match(view.cutoffs,/Smoke costs are excluded/);
+  report.newerCohorts.deepseekLowRevisedPrice.cleanMatchedRepeatEligible=true;
+  assert.match(await render(report),/could not be loaded/);
+});

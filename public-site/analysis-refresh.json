@@ -3113,6 +3113,123 @@
       "seriesCount": 1,
       "source": "public-site/deepseek-low-final-suffix-findings.json"
     },
+    "deepseekLowRevisedPrice": {
+      "cleanMatchedRepeatEligible": false,
+      "completedSuffixCount": 55,
+      "condition": "P2",
+      "developmentKnownCostUsd": "0.030564226637",
+      "developmentUnknownCostUpperBoundUsd": "0.06905856",
+      "displayName": "DeepSeek V4.1 Flash low, revised-price P2 continuation",
+      "effort": "low",
+      "limitations": [
+        "The original DEV-005 provider failure has unknown cost and no usable prediction.",
+        "The DEV-006–060 continuation was a separately funded, closed child. The combined 60 positions are descriptive, not a clean uninterrupted repeat.",
+        "Private raw responses are not present in a clean checkout; the projection records hashes checked against the retained private attempts at creation."
+      ],
+      "method": "descriptive_interrupted_phase_plus_closed_suffix",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "pass": "fresh2",
+      "predecessorUnknownCostId": "DEV-005",
+      "provider": "OpenInference fp4",
+      "score": {
+        "allFour": 57,
+        "confusionCounts": {
+          "follow_up_needed": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 23
+            },
+            "yes": {
+              "insufficient_information": 1,
+              "yes": 34
+            }
+          },
+          "sentiment": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "mixed": {
+              "mixed": 8
+            },
+            "negative": {
+              "negative": 31
+            },
+            "neutral": {
+              "neutral": 8
+            },
+            "positive": {
+              "positive": 11
+            }
+          },
+          "serious_concern_reported": {
+            "insufficient_information": {
+              "insufficient_information": 4,
+              "no": 2
+            },
+            "no": {
+              "no": 28
+            },
+            "yes": {
+              "yes": 25
+            }
+          },
+          "testimonial_potential": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 49
+            },
+            "yes": {
+              "yes": 9
+            }
+          }
+        },
+        "denominator": 60,
+        "fields": {
+          "follow_up_needed": 58,
+          "sentiment": 59,
+          "serious_concern_reported": 57,
+          "testimonial_potential": 59
+        },
+        "invalidIds": [
+          "DEV-005"
+        ],
+        "outcomes": {
+          "ok": 59,
+          "service_error": 1
+        },
+        "predictedClassCounts": {
+          "follow_up_needed": {
+            "insufficient_information": 2,
+            "no": 23,
+            "yes": 34
+          },
+          "sentiment": {
+            "insufficient_information": 1,
+            "mixed": 8,
+            "negative": 31,
+            "neutral": 8,
+            "positive": 11
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 4,
+            "no": 30,
+            "yes": 25
+          },
+          "testimonial_potential": {
+            "insufficient_information": 1,
+            "no": 49,
+            "yes": 9
+          }
+        },
+        "valid": 59
+      },
+      "seriesId": "openrouter-paid-deepseek-v41-flash-low-remaining6-price-v2",
+      "source": "public-site/deepseek-low-remaining6-price-v2-findings.json"
+    },
     "e4bInterrupted": {
       "cleanRepeatEligible": false,
       "neverSentIds": [],
@@ -10677,6 +10794,10 @@
       "sha256": "ab856fca91fcff7aa3e81749c0bdeaef63f0cd9af20475fdefb0a6b0e691290b"
     },
     {
+      "path": "public-site/deepseek-low-remaining6-price-v2-findings.json",
+      "sha256": "e45c23c22e875fe5e12c6f8d3dfc9af32ca7f34243fdbdbdd49cfb9e7e17b088"
+    },
+    {
       "path": "public-site/deepseek-low-third-interruption-findings.json",
       "sha256": "d00e5100c085160e126956db8f4335a944859d6bf9b7a527cb84ebb7d2b9b60e"
     },
@@ -12155,6 +12276,26 @@
     {
       "path": "results/repeatability-v1/deepseek-low-fresh3-v2/second-interruption-continuation-v1/phase-03-suffix.public.json",
       "sha256": "8d2814c5c58f695f7741897fdbf7db2308e4344d5b95c8bfe5b25dbf283f5346"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/execution-adapter-v1/fresh2/manifest.json",
+      "sha256": "448adb7d28d2062a6f3052771695555dc0e95000904b0c7fe9863b83dbf65e7e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/execution-adapter-v1/fresh2/manifest.json",
+      "sha256": "fd0c10eff71362881ddbd8d7259b047841f342cafb6ad4f6c4799367b2bddfcc"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/fresh2-p2-development-cost-correction.json",
+      "sha256": "0ce222350d5d62a2867f6519852d9728896d1894ddcf1758a36dcee5199dc129"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/fresh2-p2-sanitized-projection-v1.json",
+      "sha256": "639d49c6e6b011c11d3497831164f9bd3cf51a4cc07e6fd4cd5a7126c4198c62"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-remaining6-price-v2/unsent-continuation-v1/fresh2-p2-suffix-closure-audit.json",
+      "sha256": "949aeaf753e5e0e47fe05fcf0195f9ad2267eba3294d4f79517025cb0b48ace4"
     },
     {
       "path": "results/repeatability-v1/gemini31-high-authority-v2/budget.json",
@@ -14037,6 +14178,10 @@
       "sha256": "cdbeb68a66b15585a1d243a5bfb3e9668f7000e37fcf2beadb9c3ca8567ecc93"
     },
     {
+      "path": "scripts/build_deepseek_low_remaining6_price_v2_findings.py",
+      "sha256": "4dca2451f4740f49b40eec02416bcd11aafbc5bc8635fb6af0e400433628810e"
+    },
+    {
       "path": "scripts/build_gemma26_fresh3_checkpoint.py",
       "sha256": "53a002f0b3fa937e95ecdca26fcf41de893d52ed3e1ba1538029a0c5e77028ef"
     },
@@ -14227,6 +14372,10 @@
     {
       "path": "tests/test_build_deepseek_high_remaining7_price_findings.py",
       "sha256": "89db98e1fb063b86ff40db9b06753aa6c27ed87ccfcf2214b9c17b0a23a98c52"
+    },
+    {
+      "path": "tests/test_build_deepseek_low_remaining6_price_v2_findings.py",
+      "sha256": "5877510c91a6e36fd453a11d56a57b4a98ee3edc37ff1b17768fe084ca877e0d"
     },
     {
       "path": "tests/test_deepseek_high_fresh_repeat_study.py",
