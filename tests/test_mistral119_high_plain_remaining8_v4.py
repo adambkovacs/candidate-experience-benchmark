@@ -251,6 +251,16 @@ def test_sequential_capacity_patch_is_present_without_dispatch():
 
 
 def test_clean_git_archive_verifies_without_private_historical_smokes(tmp_path):
+    if not (ROOT / '.git').exists():
+        # An archive-based CI checkout is already the isolated fixture.
+        assert not (ROOT / 'results/mistral119-recovery-prep-v1/high-smoke.jsonl').exists()
+        result = subprocess.run([sys.executable,
+            'scripts/mistral119_high_plain_remaining8_v4_execution.py', 'verify'],
+            cwd=ROOT, env=dict(os.environ, PYTHONPATH=str(ROOT / 'scripts')),
+            text=True, capture_output=True)
+        assert result.returncode == 0, result.stderr
+        assert proposal.sha(proposal.MANIFEST) in result.stdout
+        return
     archive = tmp_path / 'repo.tar'
     with archive.open('wb') as out:
         subprocess.run(['git', 'archive', '--format=tar', 'HEAD'], cwd=ROOT,
