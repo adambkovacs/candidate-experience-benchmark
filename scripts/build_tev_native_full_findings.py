@@ -112,7 +112,8 @@ def prepare(root=ROOT):
                str(BASE / 'manifest.json'): sha(root / BASE / 'manifest.json'),
                str(BASE / 'terminal-reconciliation.json'): sha(root / BASE / 'terminal-reconciliation.json'),
                str(BASE / ('budget-' + full.PARTITION_ID + '.jsonl')): sha(full.CHILD),
-               'data/pilot/proposed_labels.jsonl': sha(root / 'data/pilot/proposed_labels.jsonl')}
+               'data/pilot/proposed_labels.jsonl': sha(root / 'data/pilot/proposed_labels.jsonl'),
+               'docs/CLEF_FINDINGS_2026-10-02.md': sha(root / 'docs/CLEF_FINDINGS_2026-10-02.md')}
     for stage in stages:
         for name, digest in stage['source_sha256'].items():
             sources[str(source_paths(stage['stage'])[name])] = digest
@@ -283,12 +284,15 @@ def build(root=ROOT):
             'unused_allocation_released_usd': terminal['unused_allocation_released_usd']},
         'cost_scope': 'Known model inference charge from provider token usage; excludes local client work. Development cost excludes 24 in-child smoke calls; child total includes them.',
         'confidence_note': 'Native provider confidence and probabilities describe these answers. Threshold counts use the same 60 records per run; they are not calibrated or externally validated.',
-        'reference_status': 'Frozen provisional development labels; no independent adjudication.',
+        'reference_status': 'Frozen provisional v0.2 development labels. The project owner confirmed human checks of all 60 reviews on 2026-10-02; this is agreement with that key, not independently adjudicated ground truth.',
+        'reference_context_source': {'path': 'docs/CLEF_FINDINGS_2026-10-02.md',
+            'sha256': sha(root / 'docs/CLEF_FINDINGS_2026-10-02.md')},
         'verification_boundary': 'The public checker verifies a preparation-time receipt, checked source hashes, token prices and offline scores. If private raw files are absent, it cannot independently decode those response bytes.',
         'source_bindings': {'projection_sha256': sha(root / PROJECTION),
             'projection_receipt_sha256': sha(root / RECEIPT),
             'terminal_reconciliation_sha256': sha(root / BASE / 'terminal-reconciliation.json'),
-            'reference_sha256': sha(root / 'data/pilot/proposed_labels.jsonl')}}
+            'reference_sha256': sha(root / 'data/pilot/proposed_labels.jsonl'),
+            'reference_context_sha256': sha(root / 'docs/CLEF_FINDINGS_2026-10-02.md')}}
 
 
 def check(root=ROOT):
