@@ -1,0 +1,35 @@
+/* Compact editorial comparison. Paired bars share one labelled review scale. */
+#liquid-prompt-chart { max-width: 1120px; margin: 32px auto; color: var(--ink, #1a2332); font-family: var(--sans, system-ui, sans-serif); }
+.liquid-prompt-chart__figure { margin: 0; padding: clamp(22px, 3vw, 36px); border: 1px solid var(--line, #ccd6e2); border-top: 4px solid var(--teal, #1565c0); background: var(--paper, #fbfcfe); }
+.liquid-prompt-chart__heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .8fr); gap: 7px 28px; align-items: end; }
+.liquid-prompt-chart__kicker { grid-column: 1 / -1; margin: 0; color: var(--teal, #1565c0); font: 600 11px/1.4 var(--mono, monospace); letter-spacing: .1em; text-transform: uppercase; }
+.liquid-prompt-chart__heading h3 { margin: 0; font: 700 clamp(24px, 2.5vw, 34px)/1.12 var(--display, Georgia, serif); letter-spacing: -.035em; }
+.liquid-prompt-chart__heading > p:last-child { max-width: 45ch; margin: 0; color: var(--muted, #4b586b); font-size: 14px; line-height: 1.5; }
+.liquid-prompt-chart__legend { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 25px 0 3px; padding-top: 16px; border-top: 1px solid var(--line, #ccd6e2); color: var(--muted, #4b586b); font-size: 12px; }
+.liquid-prompt-chart__legend span { display: inline-flex; align-items: center; gap: 7px; }
+.liquid-prompt-chart__swatch { display: inline-block; width: 14px; height: 8px; }
+.liquid-prompt-chart__swatch--loss { background: #a34830; }
+.liquid-prompt-chart__swatch--gain { background: #1565c0; }
+.liquid-prompt-chart__axis { margin: 0 0 15px; color: var(--muted, #4b586b); font: 11px/1.4 var(--mono, monospace); text-align: right; }
+.liquid-prompt-chart__groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.liquid-prompt-chart__groups section { min-width: 0; border-top: 2px solid var(--line, #ccd6e2); }
+.liquid-prompt-chart__groups h4 { margin: 10px 0 5px; font: 700 16px/1.3 var(--display, Georgia, serif); }
+.liquid-prompt-chart__groups ol { margin: 0; padding: 0; list-style: none; }
+.liquid-prompt-chart__row { padding: 12px 0 13px; border-top: 1px solid var(--line, #ccd6e2); }
+.liquid-prompt-chart__row:first-child { border-top: 0; }
+.liquid-prompt-chart__row-label { display: grid; gap: 1px; min-height: 49px; font-size: 12px; line-height: 1.35; }
+.liquid-prompt-chart__row-label strong { font-weight: 600; }
+.liquid-prompt-chart__row-label > span { color: var(--muted, #4b586b); }
+.liquid-prompt-chart__bars { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 11px; margin: 9px 0 6px; }
+.liquid-prompt-chart__bars > span { display: flex; align-items: stretch; min-width: 0; background: #e8edf3; }
+.liquid-prompt-chart__negative { justify-content: flex-end; border-right: 1px solid #7d8998; }
+.liquid-prompt-chart__negative i { background: #a34830; }
+.liquid-prompt-chart__positive i { background: #1565c0; }
+.liquid-prompt-chart__values { display: flex; justify-content: space-between; gap: 8px; margin: 0; color: var(--muted, #4b586b); font-size: 11px; line-height: 1.4; }
+.liquid-prompt-chart__values span:last-child { text-align: right; }
+.liquid-prompt-chart__figure figcaption { margin-top: 20px; padding-top: 13px; border-top: 1px solid var(--line, #ccd6e2); color: var(--muted, #4b586b); font-size: 12px; line-height: 1.5; }
+.liquid-prompt-chart__figure a { color: var(--teal, #1565c0); text-underline-offset: .2em; }
+.liquid-prompt-chart__unavailable { padding: 20px; border: 1px solid var(--line, #ccd6e2); }
+@media (max-width: 900px) { .liquid-prompt-chart__groups { grid-template-columns: 1fr; gap: 9px; } .liquid-prompt-chart__groups ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; } .liquid-prompt-chart__row { border-top: 0; } }
+@media (max-width: 650px) { .liquid-prompt-chart__heading { grid-template-columns: 1fr; } .liquid-prompt-chart__groups ol { display: block; } .liquid-prompt-chart__row { border-top: 1px solid var(--line, #ccd6e2); } .liquid-prompt-chart__row:first-child { border-top: 0; } }
+@media (prefers-reduced-motion: reduce) { #liquid-prompt-chart *, #liquid-prompt-chart *::before, #liquid-prompt-chart *::after { animation: none !important; transition: none !important; } }
