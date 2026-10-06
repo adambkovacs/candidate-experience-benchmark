@@ -1,11 +1,14 @@
 # Current work checklist
 
-## Analysis and publication checkpoint, 6 October 2026
+## Current checkpoint, 6 October 2026
 
-- Jev report portability fix published successfully in Pages 37466895531; root byte-verified five public assets against 048f7753 and inspected desktop/mobile content.
-- Jev P2 fresh3 findings are committed/pushed 37728da8; Pages 37468351522 is pending. Both complete P2 passes score 54/60 but differ at DEV-030.
-- E4B composite is verified from saved raw evidence: 48/60 all-four, 58 valid, 2 unknown, 0 unsent. Reporter, repeat UI and combined analysis are being checked in a clean archive before publication. Root owns remaining integration after the agent reached model capacity.
-- No inference is running. Qwen3.5 later phases need a reviewed continuation after its host-interrupted smoke; wider roster blockers and scope remain unchanged.
+- Publication is verified: Pages run [37469516388](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37469516388) succeeded for `a8640dc0`. Live `e4b-interruption-findings.json`, `repeats.js` and `analysis-refresh.json` match the committed files byte for byte.
+- Jev P0 and P1 each have three full passes. P0 scores 54/53/52 and P1 scores 54/53/54. P2 fresh1 and fresh3 each have 60 valid responses and 54/60 matches; the interrupted middle composite has 57 valid, one invalid, two unknown and 50/60 matches. It has no clean-pass credit.
+- E4B thinking-on fresh2/P2 accounts for all 60 positions: 58 valid, two earlier unknown, zero unsent and 48/60 descriptive all-four matches. The eight-review suffix is valid 8/8, with 7/8 matches. This remains an interrupted composite outside clean repeat coverage.
+- Qwen3.5 thinking-on has 2/9 clean phases. Its later P2 smoke produced an invalid output; its P1 smoke stopped during host sleep with DEV-003 unknown. The independently reviewed successor is running the fresh2/P0 three-record smoke on handle 95256. Root owns raw-response inspection and any later full-pass admission.
+- DeepSeek's exact `open-inference/fp4` route exists, but current pricing exceeds the frozen ceiling. The ten-request conservative reserve is `$0.630784`, against `$0.083836340` free in the separate authority. Admission refused before inference; no cap changed. See the [route audit](../results/route-audits/deepseek-route-recheck-20261006-1320/audit.json).
+
+The dated entries below record earlier checkpoints and ownership. Their running, pending-publication and route-availability statements are historical, not current instructions.
 
 ## E4B suffix closed, 6 October 2026
 

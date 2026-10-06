@@ -1,14 +1,14 @@
 # Current objectives and direction
 
-## E4B continuation accounted for, 6 October 2026
+## Current verified status, 6 October 2026
 
-The eight never-sent E4B thinking-on fresh2/P2 reviews finished on battery without a host sleep transition. All eight responses are valid; seven matched all four references. The full interrupted pass now has 58 valid responses, two earlier unknown outcomes and no unsent reviews, with a descriptive score of 48/60. It remains outside clean repeat coverage. [Accounting and source evidence](../public-site/e4b-interruption-findings.json).
+The E4B thinking-on fresh2/P2 interruption is fully accounted: the eight previously unsent reviews returned valid answers, seven of eight matched all four references, and the interrupted 60-position composite has 58 valid responses, two earlier unknown outcomes, no unsent reviews and 48/60 descriptive all-four matches. It remains outside clean repeat coverage. Pages run [37469516388](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37469516388) succeeded for commit `a8640dc0`; live `e4b-interruption-findings.json`, `repeats.js` and `analysis-refresh.json` match the committed bytes. [Published accounting](../public-site/e4b-interruption-findings.json).
 
-## Jev and Qwen reconciliation, 6 October 2026
+Jev P0 and P1 each have three full passes. P0 scores 54/53/52 and P1 scores 54/53/54; invalid distributions remain failures. P2 fresh1 and fresh3 each have 60 valid responses and score 54/60. The interrupted middle composite has 57 valid, one invalid and two unknown positions, with 50 all-four matches. It is not a clean pass. The updated report is included in `a8640dc0` and its publication is verified above.
 
-Jev P0 and P1 each have three full passes. P0 scores 54/53/52 out of 60; P1 scores 54/53/54. Invalid distributions remain failures. The second P2 pass and its continuation together account for all 60 attempts: 57 valid, one invalid and two unknown, with 50 all-four matches. It remains interrupted. The third P2 pass returned 60 valid answers and scored 54/60; its classifications differ from the first P2 pass on DEV-030 despite the equal totals. Updated report publication is pending.
+Qwen3.5 thinking-on has two of nine clean full phases. A later P2 smoke retained an invalid output, and a P1 smoke stopped during host sleep with DEV-003 unknown. Neither smoke admitted a full pass. The independently reviewed successor has admitted the fresh2/P0 three-record smoke on handle 95256. The full pass awaits raw-response inspection. Battery use is enabled, with sleep checks active.
 
-Qwen3.5 has two closed full phases out of nine. Its next P2 smoke produced an invalid output; the subsequent P1 smoke stopped during host sleep, leaving DEV-003 unknown. Neither smoke admitted a full pass. Battery use is enabled, but sleep checks remain active.
+The DeepSeek route recheck found the exact `open-inference/fp4` provider and model, but its live price exceeds the frozen price ceiling, so admission refused before inference. The ten-request conservative reserve is `$0.630784`; the separate authority has `$0.083836340` free. No cap changed and no model request was sent. [Route audit](../results/route-audits/deepseek-route-recheck-20261006-1320/audit.json).
 
 ## Native prompt update, 6 October 2026
 
