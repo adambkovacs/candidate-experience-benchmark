@@ -63,3 +63,9 @@ Pages run [37535467966](https://github.com/adambkovacs/candidate-experience-benc
 On the live page, reduced-motion emulation applied to 140 chart descendants. Every checked element had no animation and a zero-second transition; the root scroll behavior was `auto`. The override was cleared afterward. This verifies the Liquid chart, not every animation elsewhere on the site.
 
 Native keyboard input focused “Skip to content” on the first Tab. Return moved to `#main`, and the next Tab focused “See what we found” inside the main content. The earlier resource selector check remains separate.
+
+## Decision-model controls and Clef update, 7 October
+
+On the local integrated page, a Solar first-pass deep link selected the correct run in the comparison, resource and individual-run controls. The resource panel showed 441,340 input tokens, 240 output tokens and $0.022067 in known development charges. Unmeasured request and server durations remained unavailable. Selecting Liquid's second pass in the prompt control displayed P0/P1/P2 scores of 43/44/41 out of 60, with all three linked to that same pass. These checks verify the new controls; they do not add desktop-wide or mobile-wide coverage.
+
+The rendered decision-model findings also include the updated Clef evidence: seven full runs, unchanged P0 labels, one changed P1 follow-up decision, and two interrupted P2 runs shown separately. The source-backed JSON link remains available. This was a local rendering check after `a5f9b9b5`; publication verification for that edition is pending.
