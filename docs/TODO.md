@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Public report browser checks, 6 October 2026
+
+Root checked the published report at a 390 × 844 viewport: no horizontal page overflow, the six main navigation links were present, selecting the hosted Qwen repeat study worked, and Tab from the model selector focused the study-details summary. No console errors were reported in this bounded check. The normal viewport was restored. This is not full mobile, keyboard or reduced-motion coverage; those remaining checks stay open. The rendered report still reflected the last deployed cohort while the newer Qwen closure deployment was in progress.
+
 ## Third Qwen pass and DeepSeek low launched, 6 October 2026
 
 - Qwen fresh2/P0 is closed and pushed in `0c2dfa9a`: 60 valid answers, 53/60 all-four matches. Second-pass P0/P1/P2 scores are 53/54/56. The new report still needs deployment verification. Root inspected fresh3/P2 smoke (original 67883, terminal success) and launched full development on original 40515.
