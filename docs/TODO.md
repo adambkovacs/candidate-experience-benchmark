@@ -2,6 +2,8 @@
 
 ## Additional OpenRouter funding, 6 October 2026
 
+- Root approved and committed the DeepSeek authority bridge in f88b42f5. Live admission found one changed field: input price decreased from $0.055/M to $0.021421/M; model, provider, reasoning and reserve were unchanged. No allocation or inference occurred. qwen_host_successor_review owns a successor that accepts prices within the unchanged ceiling and records the live rate. next_hosted_admission_audit owns read-only prioritization of the next independent hosted configurations.
+
 - User authorized an additional $10. Root owns versioned activation of the $22.38 OpenRouter cap and the same $10 once in overlapping authority, earmarked for OpenRouter. The pending $0.55 proposal is superseded, not added. No other provider receives new authority.
 - qwen_host_successor_review owns the offline budget amendment implementation and the separate DeepSeek bridge required by its frozen $12.38 checks. DeepSeek's price continuation is reviewed and committed in 9069c285. Root verified that the account top-up is available; The reviewed ledger amendment is activated and pushed in f67403df (10 tests passed); dispatch awaits the separate bridge review and a fresh exact-route check. The bridge must retain historical cap checks against the frozen original ledger prefix while spending against the full current ledger.
 - OpenRouter is the default where model identity and required interface are available. Quantization/runtime differences are separate configurations, not reasons to keep work local. Current catalogue lacks Qwen3.5 4B and Gemma E4B; larger Qwen sizes are not substitutes. The current local pass is preserved; no additional local pass starts pending the battery preference.
