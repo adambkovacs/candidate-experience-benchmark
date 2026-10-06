@@ -2,7 +2,7 @@
 
 ## OpenRouter priority and additional authorization, 6 October 2026
 
-The user authorized an additional $10 for OpenRouter. The cumulative OpenRouter ceiling is now $22.38. The same $10 expands the overlapping postapproval allowance once, earmarked for OpenRouter only; this supersedes the pending $0.55 proposal. Existing charges and unresolved reservations remain counted. Ledger implementation and activation are pending; no new paid requests are admitted by this documentation alone.
+The user authorized an additional $10 for OpenRouter. The cumulative OpenRouter ceiling is now $22.38. The same $10 expands the overlapping postapproval allowance once, earmarked for OpenRouter only; this supersedes the pending $0.55 proposal. Existing charges and unresolved reservations remain counted. The reviewed ledger amendment is activated: the OpenRouter ceiling is $22.38 and the overlapping authority retains its original $10 pool plus a separate $10 OpenRouter-only pool. Existing ledger prefixes and reservations are preserved. Each run still requires its own allocation and admission.
 
 OpenRouter takes priority wherever the requested model and required interface are available. A different quantization, provider or runtime is recorded as a separate hosted configuration, not a reason to continue local inference. Local exceptions require absence of the model or required native interface. A fresh public catalogue check found Qwen3.5 9B and larger variants, but no Qwen3.5 4B or Gemma E4B; those sizes must not be silently substituted. The current Qwen pass remains live; no additional local pass starts pending the user's battery preference. [Catalogue audit](../results/route-audits/hosted-priority-20261006/audit.json).
 
