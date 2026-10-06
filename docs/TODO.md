@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Verified checkpoint, 06 October 2026, 10:53 UTC
+
+- Root: Jev OpenRouter fresh1 P1 and P2 are closed, raw-verified and budget-reconciled: each 60 valid answers and 54/60 all-four matches. P1 fresh2 is terminal with 59 valid, DEV-056 invalid and 53/60 all-four matches. P2 fresh2 stopped at DEV-018 with HTTP 429 after 17 valid answers; DEV-019–060 are never sent. The full $0.001344 unknown-charge bound is retained and its child is reconciled. No failed request was replayed. Earlier reconciliation helper attempts failed on method lookup before ledger mutation; the corrected call succeeded.
+- Root: Qwen3.5 fresh1/P1 remains live on original handle 92736, verified this checkpoint. Battery execution is enabled.
+- qwen35_successor_report: Kev P1/P2 findings and website panel are implemented and independently verified (six Python and five UI tests); combined analysis/docs integration is underway. Publication remains pending.
+- native_variant_admission_audit: prepare only the 42 never-sent Jev P2 reviews as a separately reviewed continuation. New P0 adapter is offline-prepared; e4b_unsent_prepare reviews it. No new Jev dispatch is admitted while the separate authority cap cannot cover its conservative reserve. The request to raise $10 to $10.36 remains unanswered.
+
 ## Verified checkpoint, 6 October 2026, 10:33 UTC
 
 - Publication: Qwen3.5 P2 findings in e9b49905 are live. Pages run [37449776179](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37449776179) succeeded. Live legacy-Qwen and combined-analysis feeds match committed bytes (SHA-256 `3a80bebb076d6b96015a5addb673934d37deffa183100fefea77bccc94ae0f1c` and `c2f3a3d219f23a0af94317892d7ad4f94d29645b2fd846016271e37eee51d622`). Public browser text renders 1/9 and the 50/60 P2 result; this does not claim a new mobile or visual review.
