@@ -15,7 +15,7 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
-Solar Decide's first three prompt runs scored **55/53/53 out of 60**, all with valid answers. The last two prompts had equal totals but changed decisions on **six reviews**. Their combined development charge was **$0.067881**, excluding smoke tests. Repeats are still underway. [Solar field scores and paired comparisons](public-site/solar-decide-first-pass-findings.json).
+Solar Decide's first three prompt runs scored **55/53/53 out of 60**, all with valid answers. The last two prompts had equal totals but changed decisions on **six reviews**. Their combined development charge was **$0.067881**, excluding smoke tests. The nine planned passes have now ended: eight have 60 valid responses, while the final decision-rule pass has 59 and one preserved timeout. Full-series analysis is being added; the linked findings below cover the first pass only. [Solar first-pass field scores and paired comparisons](public-site/solar-decide-first-pass-findings.json) · [Final continuation evidence](results/solar-decide-native-full-v1/final-p2-unsent-v1/terminal-closure.json).
 
 DeepSeek V4.1 Flash at low effort has closed its final three prompt passes: **58/60** for the base task, **57/60** with classifier instructions and **58/60** with decision rules. The base task and classifier version each lost one answer to truncation, on different reviews. Among the 59 reviews valid for both the base task and decision rules, one sentiment label changed despite identical all-four totals. [Final passes and paired changes](public-site/deepseek-low-fresh3-findings.json).
 
