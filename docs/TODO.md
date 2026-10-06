@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Eight-record Qwen3.5 continuation running, 6 October 2026, 08:25 UTC
+
+Commit `21f19ed5` is pushed. Seventeen Python report tests, eleven UI checks and four suffix tests passed. Root review: APPROVE; no remaining BLOCKING findings. RESIDUAL: two older admission tests assume completed smoke evidence is absent. The new continuation retains the completed smoke and permits only DEV-053–060; DEV-052 remains unknown. Fresh all-60 rendered-prompt/token checks, artifact identity, host state and exact OpenRouter route absence passed. Handle 41371 is live and DEV-053 has started. Root owns dispatch and closure; the implementation agent is preparing only a design note for subsequent phases. Pages job 37435857145 is in progress. Do not stage live suffix output or replay its claimed stage.
+
 ## Qwen3.5 P0 interrupted by low-power sleep, 6 October 2026
 
 Handle 35256 is terminal (exit 1), and LM Studio reports the model idle. The run saved 51 responses: 44 valid and seven invalid. DEV-052 was started and remains unknown after the 600-second prediction cancellation; DEV-053–060 were never sent. Completion hashes and ordered IDs are verified. The [host audit](../results/repeatability-v1/legacy-qwen-fresh3-v1/qwen3.5-4b-sdk-thinking-on/fresh1/P0/interruption.host-audit.json) records Low Power Sleep at 1% battery on 5 October, followed by hibernation wake on 6 October. Sleep count changed from 92 to 93 without a reboot. The timeout spans that sleep and is not an inference-time measurement.
