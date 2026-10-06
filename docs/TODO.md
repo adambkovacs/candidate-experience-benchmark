@@ -1,6 +1,14 @@
 # Current work checklist
 
-## Current checkpoint, 6 October 2026, 20:06 UTC
+## Current checkpoint, 06 October 2026, 20:20 UTC
+
+- Tev has completed all nine P0/P1/P2 development passes: 540 valid answers plus 24 in-child smoke answers. Its sealed child records $0.158083086 known cost and zero unknown charges. Root independently verified the sealed ledger and master reconciliation and released the unused $0.841916914 authority allocation. Agent `gemini_recovery` owns the standalone findings report and the subsequent Solar reserve audit.
+- DeepSeek high has closed all six scheduled successor stages. Final third P0 scored 58/60 with 58 valid answers; DEV-006 and DEV-030 remain truncated. Root is publishing the six-stage report and shared analysis. The sealed successor cost is $0.177694419446, with zero new unknown charges; root released its unused $0.572305580554 authority allocation. Historical provider failures remain preserved separately.
+- DeepSeek low third P2 is active under agent `deepseek_recovery`; 23/60 attempts were saved at the latest owner check. Third P0 follows its separately inspected smoke. Completed work is not being replayed.
+- Mistral high remains unadmitted. Agent `qwen_recovery` repaired the historical private-file dependency; independent review found the new archive regression test itself assumed a Git checkout. That test repair and re-review are underway. No new paid Mistral request has been sent.
+- Remaining work includes the Mistral series, Solar and other specialist routes, separately funded Cloudflare work, complete roster reconciliation, analysis integration and final website checks. No local inference was started. The benchmark remains unfinished.
+
+## Earlier checkpoint, 6 October 2026, 20:06 UTC
 
 - Tev's first and second P0/P1/P2 passes and third P0 are closed: 420 valid answers. First and second scores are 45/44/44; third P0 also scored 45/60. Third P1 smoke is next, then its full pass and third P2. Agent `gemini_recovery` owns execution and the later native report.
 - DeepSeek high final P0 remains running on original handle 98644. Agent `qwen_recovery` also owns an offline Mistral plan for eight unopened stages with separately inspected smokes; failed first P0 and its two never-sent smoke positions remain separate. No Mistral allocation or request has been made.
