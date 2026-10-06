@@ -1,6 +1,14 @@
 # Current work checklist
 
-## Current checkpoint, 6 October 2026: hosted work after reconciliation
+## Current checkpoint, 6 October 2026, after the status update
+
+- Liquid d1 has five closed full phases: fresh1/P0/P1/P2 score 43/42/41 and fresh2/P0/P1 score 43/44, each with 60 valid answers. Root inspected fresh2/P2 smoke; the agent launched its full pass on original handle 67046. Agent `deepseek_recovery` owns execution and portable exports. Root verified the P0 export against raw evidence and ran its three passing tests. Public analysis integration remains pending.
+- DeepSeek low fresh2/P0 closed with 59 valid answers and one retained length-invalid output at DEV-013; all-four agreement is 57/60. Known development cost is $0.032199822671. Root inspected fresh2/P1's three smoke responses and authorized its full pass. Agent `gemini_recovery` owns that series; four full phases remain after the closed P0.
+- DeepSeek high fresh2/P0 was confirmed live on original handle 46646 with 55 saved responses and DEV-056 started. Agent `qwen_recovery` owns closure and the four later full phases. This count is a checkpoint, not a completion claim.
+- Pages run [37515653313](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37515653313) succeeded for `a1329e33`. Root matched the live combined analysis JSON, analysis JavaScript and revised-price DeepSeek low findings JSON to that commit byte for byte.
+- Next work: finish these hosted series; prepare Mistral's exact-unsent continuation; resolve Tev's hosted interface and remaining specialist coverage; finish Cloudflare funding and roster reconciliation; incorporate newly closed results into the analysis and report. No local inference was restarted.
+
+## Earlier checkpoint, 6 October 2026: hosted work after reconciliation
 
 - Liquid first-pass P0/P1/P2 are closed with 60 valid answers each and all-four totals 43/42/41. Fresh2/P0 smoke passed root inspection; its full stage is admitted. Native repeat stability is not yet established.
 - Revised-price DeepSeek low P2 is integrated into combined analysis and public findings as 57/60 all-four, 59 valid and DEV-005 provider failure with unknown cost. The corrected development subtotal excludes smoke costs. Independent review approved the integration; 16 Python and 10 UI tests passed, and the analysis rebuild verifies 918 source bindings.
