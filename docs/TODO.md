@@ -1,6 +1,14 @@
 # Current work checklist
 
-## Current checkpoint, 06 October 2026, 20:20 UTC
+## Current checkpoint, 06 October 2026, 20:28 UTC
+
+- Tev's nine-run findings are implemented and source-bound. All 540 development answers were valid; P0/P1/P2 scored 45/44/44 in every pass, with no label changes between repeats. P1 and P2 changed six reviews despite equal scores. Development cost was $0.151342128. Root's shared analysis integration passes a clean archive check with 1,104 bindings, three report tests and 14 UI tests; independent review is underway.
+- DeepSeek low third P2 closed with 60 valid answers, 58/60 all-four matches and $0.0230379678 known development cost. Root decoded and accepted the final P0 smoke unchanged; agent `deepseek_recovery` launched the final full pass on original handle 5771. It remains running, not credited as complete.
+- Mistral's newly admitted high-effort P1 smoke attempted only DEV-001 and stopped on provider HTTP 429. DEV-002/003 and all development work were not sent. The full $0.04177920 unknown bound is retained; the sealed child and master reconciliation are archived in `101eeab1`. Root independently released only the unused $0.70822080 authority allocation. Remaining Mistral work is provider-blocked, not excluded or complete.
+- Solar audit `30776774` identifies a $0.07864320 gap between its historical one-context unknown reserve and the conservative four-question bound. Agent `gemini_recovery` is preparing a separately reviewed risk-hold amendment and exact-unsent continuation offline. No Solar request or accounting amendment has been sent/applied.
+- DeepSeek high final report is pushed in `fac3b279`; publication verification remains pending. Full roster reconciliation, specialist routing, separately funded Cloudflare runs and final presentation checks remain unfinished. No local inference was started.
+
+## Earlier checkpoint, 06 October 2026, 20:20 UTC
 
 - Tev has completed all nine P0/P1/P2 development passes: 540 valid answers plus 24 in-child smoke answers. Its sealed child records $0.158083086 known cost and zero unknown charges. Root independently verified the sealed ledger and master reconciliation and released the unused $0.841916914 authority allocation. Agent `gemini_recovery` owns the standalone findings report and the subsequent Solar reserve audit.
 - DeepSeek high has closed all six scheduled successor stages. Final third P0 scored 58/60 with 58 valid answers; DEV-006 and DEV-030 remain truncated. The six-stage report and shared analysis are independently approved and pushed in `fac3b279`; Pages run 37525978382 is queued. The preceding low-P1 publication 37523956124 succeeded and its three public assets were verified byte for byte. The sealed successor cost is $0.177694419446, with zero new unknown charges; root released its unused $0.572305580554 authority allocation. Historical provider failures remain preserved separately.
