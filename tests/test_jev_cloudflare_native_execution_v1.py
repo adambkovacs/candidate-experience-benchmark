@@ -67,6 +67,11 @@ class JevCloudflareNativeExecutionTests(unittest.TestCase):
 
     def consume(self, ready, directory, original=None):
         request = directory / 'app-bridge' / f"{ready['attempt_id']}.request.json"
+        execution.record_timing(request, 1_797_000_000_000, 1_797_000_000_025,
+                                25, 'date_now_wall',
+                                'outer_returned_original_saved' if original is not None
+                                else 'outer_tool_exception',
+                                base=self.base, authority_path=self.authority)
         if original is not None:
             execution.durable_file(request.with_name(
                 ready['attempt_id'] + '.tool-result.original.json'), original)
@@ -104,6 +109,13 @@ class JevCloudflareNativeExecutionTests(unittest.TestCase):
         self.assertEqual([record['id'] for record in records], list(prep.SMOKE_IDS))
         self.assertEqual(records[0]['published_input_cost_estimate_usd'], '0.000021')
         self.assertIsNone(records[0]['actual_charge_usd'])
+        self.assertEqual(records[0]['client_mcp_round_trip_ms'], 25)
+        raw = execution.read_jsonl(directory / 'raw.jsonl')[0]
+        self.assertEqual(raw['provider_server_timing_status'], 'unavailable')
+        self.assertIsNone(raw['provider_server_duration_ms'])
+        self.assertEqual(raw['client_timing_scope'], 'client_mcp_round_trip')
+        self.assertTrue(raw['started_at_utc'].endswith('Z'))
+        self.assertTrue(raw['ended_at_utc'].endswith('Z'))
         self.assertTrue(all(record['reference_labels_read'] is False for record in records))
         self.assertEqual(Decimal(completion['stage_hold_usd']), prep.reservation_usd(3))
         with self.assertRaisesRegex(ValueError, 'terminal'):
@@ -127,11 +139,33 @@ class JevCloudflareNativeExecutionTests(unittest.TestCase):
         self.assertEqual(execution.read_jsonl(directory / 'raw.jsonl')[0]
                          ['original_tool_result_sha256'], prep.sha(original_path.read_bytes()))
 
+    def test_provider_4006_stops_with_client_timing_and_unknown_charge(self):
+        self.admit()
+        directory = execution.stage_dir('fresh1', 'P0', 'smoke', self.base)
+        ready = self.prepare(directory)
+        provider = {'status': 400, 'success': False,
+                    'errors': [{'code': 4006, 'message': 'Daily quota exhausted'}],
+                    'messages': [], 'result': None}
+        result = self.consume(ready, directory,
+                              {'content': [{'type': 'text', 'text': json.dumps(provider)}]})
+        self.assertEqual(result['status'], 'service_error')
+        self.assertEqual(result['stage_status'], 'stopped')
+        record = execution.read_jsonl(directory / 'records.jsonl')[0]
+        self.assertEqual(record['client_mcp_round_trip_ms'], 25)
+        self.assertEqual(record['provider_server_timing_status'], 'unavailable')
+        self.assertIsNone(record['provider_server_duration_ms'])
+        self.assertEqual(record['charge_status'], 'unknown_reserved')
+        self.assertEqual(execution.read_json(directory / 'completion.json')['never_sent'],
+                         list(prep.SMOKE_IDS[1:]))
+
     def test_unknown_tool_exception_stops_without_replay(self):
         self.admit()
         directory = execution.stage_dir('fresh1', 'P0', 'smoke', self.base)
         ready = self.prepare(directory)
         request = directory / 'app-bridge' / f"{ready['attempt_id']}.request.json"
+        execution.record_timing(request, 1_797_000_000_000, 1_797_000_000_025,
+                                25, 'date_now_wall', 'outer_tool_exception',
+                                base=self.base, authority_path=self.authority)
         execution.mark_unknown(request, base=self.base, authority_path=self.authority)
         result = execution.consume(request, base=self.base,
                                    authority_path=self.authority)
@@ -140,6 +174,26 @@ class JevCloudflareNativeExecutionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'terminal'):
             self.prepare(directory)
         self.assertEqual(len(execution.read_jsonl(self.authority)), 2)
+        timing = execution.read_json(request.with_name(ready['attempt_id'] + '.timing.json'))
+        self.assertEqual(timing['outcome'], 'outer_tool_exception')
+        self.assertEqual(timing['client_mcp_round_trip_ms'], 25)
+
+    def test_original_save_failure_keeps_timing_and_prevents_replay(self):
+        self.admit()
+        directory = execution.stage_dir('fresh1', 'P0', 'smoke', self.base)
+        ready = self.prepare(directory)
+        request = directory / 'app-bridge' / f"{ready['attempt_id']}.request.json"
+        execution.record_timing(request, 1_797_000_000_000, 1_797_000_000_025,
+                                25, 'date_now_wall',
+                                'outer_returned_original_save_failed',
+                                base=self.base, authority_path=self.authority)
+        timing = execution.read_json(request.with_name(ready['attempt_id'] + '.timing.json'))
+        self.assertEqual(timing['outcome'], 'outer_returned_original_save_failed')
+        self.assertEqual(timing['provider_server_timing_status'], 'unavailable')
+        with self.assertRaisesRegex(ValueError, 'unresolved attempt'):
+            self.prepare(directory)
+        with self.assertRaisesRegex(ValueError, 'Exactly one original'):
+            execution.consume(request, base=self.base, authority_path=self.authority)
 
     def test_saved_original_is_required_before_next_request(self):
         self.admit()

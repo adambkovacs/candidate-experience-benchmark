@@ -29,6 +29,16 @@ function harness({ outer = { content: [{ type: 'text', text: '{"status":200}' }]
         events.push('mark-unknown');
         return { exit_code: 0, output: 'outcome_unknown_no_replay' };
       }
+      if (cmd.includes(' record-timing ')) {
+        assert.ok(cmd.includes('--start-ms '));
+        assert.ok(cmd.includes('--end-ms '));
+        assert.ok(cmd.includes('--duration-ms '));
+        assert.ok(cmd.includes('--clock '));
+        const outcome = cmd.match(/--outcome ([a-z_]+)/)?.[1];
+        assert.ok(outcome);
+        events.push('timing:' + outcome);
+        return { exit_code: 0, output: 'timing saved' };
+      }
       assert.ok(cmd.includes(' consume '));
       assert.ok(events.includes('save-original') || events.includes('mark-unknown'));
       events.push('consume');
@@ -50,7 +60,7 @@ function harness({ outer = { content: [{ type: 'text', text: '{"status":200}' }]
     },
   };
   return { events, run: () => dispatchOne({ tools,
-    store: () => events.push('store-recovery'),
+    store: (key) => events.push(key.startsWith('jev_timing_') ? 'store-timing' : 'store-recovery'),
     text: () => events.push('done'), directory, accountId,
     cwd: '/tmp/jev-test' }) };
 }
@@ -58,8 +68,8 @@ function harness({ outer = { content: [{ type: 'text', text: '{"status":200}' }]
 test('original result is saved before parser; exactly one POST', async () => {
   const h = harness();
   await h.run();
-  assert.deepEqual(h.events, ['prepare', 'post', 'store-recovery',
-    'save-original', 'consume', 'done']);
+  assert.deepEqual(h.events, ['prepare', 'post', 'store-timing', 'store-recovery',
+    'save-original', 'timing:outer_returned_original_saved', 'consume', 'done']);
 });
 
 test('prepare rejection makes no POST', async () => {
@@ -71,11 +81,13 @@ test('prepare rejection makes no POST', async () => {
 test('ambiguous tool exception closes unknown without retry', async () => {
   const h = harness({ throwPost: true });
   await h.run();
-  assert.deepEqual(h.events, ['prepare', 'post', 'mark-unknown', 'consume', 'done']);
+  assert.deepEqual(h.events, ['prepare', 'post', 'store-timing',
+    'timing:outer_tool_exception', 'mark-unknown', 'consume', 'done']);
 });
 
 test('failed durable save retains recovery store and prevents consume', async () => {
   const h = harness({ throwSave: true });
-  await assert.rejects(h.run(), /save failed/);
-  assert.deepEqual(h.events, ['prepare', 'post', 'store-recovery', 'save-original']);
+  await assert.rejects(h.run(), /save failed; timing saved/);
+  assert.deepEqual(h.events, ['prepare', 'post', 'store-timing', 'store-recovery',
+    'save-original', 'timing:outer_returned_original_save_failed']);
 });

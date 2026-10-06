@@ -7,6 +7,7 @@ same versioned set makes at most one POST after a durable dispatch claim.
 
 import argparse
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from decimal import Decimal
 import fcntl
 import json
@@ -50,6 +51,10 @@ def verify_saved_originals(directory, raw_rows):
         attempt = item.get('attempt_id')
         if not isinstance(attempt, str) or not ATTEMPT_PATTERN.fullmatch(attempt):
             raise ValueError('Raw attempt identity changed')
+        timing_path = bridge_dir / f'{attempt}.timing.json'
+        if (item.get('timing_file') != timing_path.name or
+                prep.sha(timing_path.read_bytes()) != item.get('timing_sha256')):
+            raise ValueError('Saved client timing changed')
         saved_hash = item.get('original_tool_result_sha256')
         saved_name = item.get('original_tool_result_file')
         if saved_hash is None:
@@ -403,6 +408,56 @@ def event_id(value):
     return value.get('id'), value.get('attempt_id')
 
 
+def timing_value(attempt, start_ms, end_ms, duration_ms, clock, outcome):
+    if (not isinstance(attempt, str) or not ATTEMPT_PATTERN.fullmatch(attempt) or
+            any(type(value) is not int or value < 0 for value in
+                (start_ms, end_ms, duration_ms)) or
+            start_ms < 1_600_000_000_000 or end_ms < 1_600_000_000_000 or
+            start_ms > 4_000_000_000_000 or end_ms > 4_000_000_000_000 or
+            clock not in ('performance_now_monotonic', 'date_now_wall') or
+            outcome not in ('outer_returned_original_saved',
+                            'outer_returned_original_save_failed',
+                            'outer_tool_exception')):
+        raise ValueError('Invalid measured client timing')
+    if clock == 'date_now_wall' and duration_ms != max(0, end_ms - start_ms):
+        raise ValueError('Wall-clock duration differs from timestamps')
+    def stamp(value):
+        return datetime.fromtimestamp(value / 1000, timezone.utc).isoformat(
+            timespec='milliseconds').replace('+00:00', 'Z')
+    return {'kind': KIND + '-timing', 'attempt_id': attempt,
+            'scope': 'client_mcp_round_trip',
+            'includes': 'connected_app_tool_and_transport',
+            'started_at_utc': stamp(start_ms), 'ended_at_utc': stamp(end_ms),
+            'started_epoch_ms': start_ms, 'ended_epoch_ms': end_ms,
+            'client_mcp_round_trip_ms': duration_ms, 'duration_clock': clock,
+            'outcome': outcome,
+            'provider_server_timing_status': 'unavailable',
+            'provider_server_duration_ms': None}
+
+
+def record_timing(request_path, start_ms, end_ms, duration_ms, clock, outcome,
+                  *, base=BASE, plan_path=PLAN, authority_path=AUTHORITY):
+    request_path = Path(request_path)
+    directory = request_path.parent.parent
+    with operator_lock(directory):
+        _, _, _, claim = checked_claim(directory, base=base,
+            plan_path=plan_path, authority_path=authority_path)
+        ready = read_json(request_path)
+        attempt = ready.get('attempt_id')
+        if (not isinstance(attempt, str) or not ATTEMPT_PATTERN.fullmatch(attempt) or
+                request_path.name != attempt + '.request.json' or
+                ready.get('stage') != claim['stage'] or
+                read_json(request_path.with_name(attempt + '.dispatch.json')) != {
+                    'kind': KIND + '-dispatch-claim', 'attempt_id': attempt,
+                    'request_sha256': ready.get('request_sha256'),
+                    'account_id_sha256': claim['account_id_sha256']}):
+            raise ValueError('Timing request lacks exact dispatch claim')
+        value = timing_value(attempt, start_ms, end_ms, duration_ms, clock, outcome)
+        path = request_path.with_name(attempt + '.timing.json')
+        durable_file(path, value)
+        return prep.sha(path.read_bytes())
+
+
 def prepare(directory, account_id, *, base=BASE, plan_path=PLAN,
             authority_path=AUTHORITY):
     if not isinstance(account_id, str) or not ACCOUNT_PATTERN.fullmatch(account_id):
@@ -464,8 +519,10 @@ def mark_unknown(request_path, *, base=BASE, plan_path=PLAN,
                       authority_path=authority_path)
         ready = read_json(request_path)
         attempt = ready['attempt_id']
+        timing = read_json(request_path.with_name(attempt + '.timing.json'))
         if (request_path.name != attempt + '.request.json' or
                 not (request_path.parent / f'{attempt}.dispatch.json').exists() or
+                timing.get('outcome') != 'outer_tool_exception' or
                 any((request_path.parent / f'{attempt}{suffix}').exists() for suffix in
                     ('.tool-result.original.json', '.tool-call-error.json'))):
             raise ValueError('Unknown marker cannot replace a saved outcome')
@@ -515,8 +572,20 @@ def consume(request_path, *, base=BASE, plan_path=PLAN, authority_path=AUTHORITY
             raise ValueError('Durable reservation differs')
         original_path = request_path.with_name(attempt + '.tool-result.original.json')
         error_path = request_path.with_name(attempt + '.tool-call-error.json')
+        timing_path = request_path.with_name(attempt + '.timing.json')
+        timing = read_json(timing_path)
+        if timing != timing_value(attempt, timing.get('started_epoch_ms'),
+                                  timing.get('ended_epoch_ms'),
+                                  timing.get('client_mcp_round_trip_ms'),
+                                  timing.get('duration_clock'), timing.get('outcome')):
+            raise ValueError('Client/MCP timing evidence differs')
         if original_path.exists() == error_path.exists():
             raise ValueError('Exactly one original result or unknown marker required')
+        if original_path.exists() and timing['outcome'] not in (
+                'outer_returned_original_saved', 'outer_returned_original_save_failed'):
+            raise ValueError('Original result and timing outcome differ')
+        if error_path.exists() and timing['outcome'] != 'outer_tool_exception':
+            raise ValueError('Unknown marker and timing outcome differ')
         if original_path.exists() and original_path.stat().st_size > MAX_RESULT_BYTES:
             raise ValueError('Saved original result too large; no replay')
         if error_path.exists() and read_json(error_path) != {
@@ -574,6 +643,14 @@ def consume(request_path, *, base=BASE, plan_path=PLAN, authority_path=AUTHORITY
                     if type(tokens) is int else None)
         append(directory / 'raw.jsonl', {'id': ready['id'], 'attempt_id': attempt,
             'request_sha256': ready['request_sha256'],
+            'timing_file': timing_path.name,
+            'timing_sha256': prep.sha(timing_path.read_bytes()),
+            'started_at_utc': timing['started_at_utc'],
+            'ended_at_utc': timing['ended_at_utc'],
+            'client_mcp_round_trip_ms': timing['client_mcp_round_trip_ms'],
+            'client_timing_scope': timing['scope'],
+            'provider_server_timing_status': timing['provider_server_timing_status'],
+            'provider_server_duration_ms': None,
             'original_tool_result_sha256': original_hash,
             'original_tool_result_file': original_path.name if original_hash else None,
             'http_status': envelope['status'] if envelope else None,
@@ -582,6 +659,9 @@ def consume(request_path, *, base=BASE, plan_path=PLAN, authority_path=AUTHORITY
         append(directory / 'records.jsonl', {'id': ready['id'], 'attempt_id': attempt,
             'request_sha256': ready['request_sha256'], 'status': status, 'reason': reason,
             'parsed': parsed, 'usage': usage,
+            'client_mcp_round_trip_ms': timing['client_mcp_round_trip_ms'],
+            'provider_server_timing_status': 'unavailable',
+            'provider_server_duration_ms': None,
             'published_input_cost_estimate_usd': estimate,
             'actual_charge_usd': None, 'charge_status': 'unknown_reserved',
             'reservation_usd': str(prep.reservation_usd(1)),
@@ -631,6 +711,13 @@ def main():
     ready.add_argument('--account-id', required=True)
     failed = sub.add_parser('mark-unknown')
     failed.add_argument('request', type=Path)
+    measured = sub.add_parser('record-timing')
+    measured.add_argument('request', type=Path)
+    measured.add_argument('--start-ms', type=int, required=True)
+    measured.add_argument('--end-ms', type=int, required=True)
+    measured.add_argument('--duration-ms', type=int, required=True)
+    measured.add_argument('--clock', required=True)
+    measured.add_argument('--outcome', required=True)
     finish = sub.add_parser('consume')
     finish.add_argument('request', type=Path)
     args = parser.parse_args()
@@ -644,6 +731,9 @@ def main():
     elif args.command == 'mark-unknown':
         mark_unknown(args.request)
         print('outcome_unknown_no_replay')
+    elif args.command == 'record-timing':
+        print(record_timing(args.request, args.start_ms, args.end_ms,
+                            args.duration_ms, args.clock, args.outcome))
     else:
         print(json.dumps(consume(args.request), separators=(',', ':')))
 
