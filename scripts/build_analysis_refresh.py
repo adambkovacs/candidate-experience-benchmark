@@ -1562,7 +1562,7 @@ def build(root=ROOT):
     estimated_total = sum((Decimal(by_effort[e]["usage"]["developmentApiEquivalentUsd"])
                            for e in EFFORTS), Decimal(0))
     return {
-        "schema": "analysis-refresh-v1", "generatedAt": "2026-10-05",
+        "schema": "analysis-refresh-v1", "generatedAt": "2026-10-06",
         "method": "Offline descriptive synthesis of published feeds and sanitized Sonnet record evidence",
         "reference": {"version": "0.2", "reviews": 60,
                       "status": sonnet["referenceStatus"],

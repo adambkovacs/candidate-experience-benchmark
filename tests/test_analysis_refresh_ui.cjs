@@ -292,6 +292,9 @@ test('Liquid findings show repeat counts without claiming confidence calibration
   assert.match(view.cutoffs,/Liquid d1, native decision interface/);
   assert.match(view.cutoffs,/reviews changed at least one label/);
   assert.match(view.cutoffs,/not proven probabilities of being correct/);
+  assert.match(view.cutoffs,/retain 32\/60 decisions: 31 match and 1 does not/);
+  assert.match(view.cutoffs,/other 28 would need review/);
+  assert.match(view.cutoffs,/not validated on new reviews/);
   assert.match(view.cutoffs,/liquid-d1-native-full-findings.json/);
 });
 
