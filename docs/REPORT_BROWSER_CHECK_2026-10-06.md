@@ -89,3 +89,5 @@ At a 390 by 844 viewport, the page's content and scroll widths both measured 375
 The local report displays all nine Solar stage rows and nine prompt-pair rows. The interrupted final P2 shows 59/60 returned answers, 52/60 all-field matches, one missing response, 59/60 usage coverage, $0.02277075 known development cost and a separate $0.10485760 possible-charge bound. Its source link describes 59 outputs, and the comparison note says 59 shared answers. The client-duration sum is labeled separately from unavailable server inference time.
 
 At a 390 by 844 viewport, page client and scroll widths both measured 375 pixels. Both new Solar tables kept their 760-pixel contents in 256-pixel scroll regions with keyboard focus targets. The temporary viewport was reset. These checks cover the local integration; publication remains pending.
+
+The Solar score table also passed native keyboard navigation: Tab focused its named scroll region, and Right moved its horizontal position to 80 pixels at the mobile viewport. The region has no animation and a zero-second transition. The viewport override was cleared afterward.
