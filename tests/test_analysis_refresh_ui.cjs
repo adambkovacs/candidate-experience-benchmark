@@ -89,7 +89,10 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/interrupted single pass, not a completed repeat result/);
   assert.match(view.cutoffs,/Mistral 119B fresh1 P0 attempted all 60 reviews: 55 were valid and 5 failed/);
   assert.match(view.cutoffs,/Its other required conditions remain unfinished/);
-  assert.match(view.cutoffs,/DeepSeek low has a separate interrupted result/);
+  assert.match(view.cutoffs,/DeepSeek: failures change the comparison/);
+  assert.match(view.cutoffs,/58\/60.*57\/60.*53\/60/);
+  assert.match(view.cutoffs,/56 valid/);
+  assert.match(view.cutoffs,/DEEPSEEK_LOW_FINAL_SUFFIX_FINDINGS_2026-10-06\.md/);
   assert.match(view.cutoffs,/href="\.\/gemma26-p2-repeat-findings\.json"/);
   assert.match(view.cutoffs,/href="\.\/gemma26-fresh3-p1-interrupted-checkpoint\.json"/);
   assert.match(view.cutoffs,/href="\.\/clef-p0-repeat-findings\.json"/);
@@ -122,7 +125,7 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/58 valid and 2 invalid/);
   assert.match(view.cutoffs,/5 valid and 55 invalid/);
   assert.match(view.cutoffs,/separate from hosted Qwen 27B/);
-  assert.match(view.cutoffs,/Qwen3\.5 4B SDK, thinking on:<\/strong> 2\/9 full phases are closed/);
+  assert.match(view.cutoffs,/Qwen3\.5 4B SDK, thinking on:<\/strong> 3\/9 full phases are closed/);
   assert.match(view.cutoffs,/fresh1 P1: 47\/60 all-four matches, 51\/60 valid answers, 9 invalid or failed/);
   assert.match(view.cutoffs,/fresh1 P2: 50\/60 all-four matches, 51\/60 valid answers, 9 invalid or failed/);
   assert.match(view.cutoffs,/descriptive interrupted result: 47\/60 all-four matches/);

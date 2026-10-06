@@ -1,6 +1,17 @@
 # Current work checklist
 
+## Latest execution and publication checkpoint, 6 October 2026
+
+- OpenRouter-first routing and the additional $10 are activated in AGENTS.md, APP_GOAL.md and the versioned ledgers. Cumulative OpenRouter ceiling: $22.38. The same grant is counted once across overlapping authority.
+- Gemini high repeat2/P1 and hosted Qwen3.6 thinking-on fresh1/P0 processes have exited successfully. `hosted_closed_audit` owns independent counts, hashes, strict-output and cost verification. Root owns subsequent smoke inspection and dispatch. Do not restart either completed command.
+- Local Qwen3.5 4B fresh2/P0 is closed, verified and archived in `abad20dd`: 52 valid, eight invalid, 48/60 all-four matches, 3/9 full phases closed. Its model is unloaded; no further local phase starts pending battery preference.
+- DeepSeek final ten reviews are closed and verified in `a002196e`. The full P2 descriptive score is 53/60; invalid and failed historical responses remain. Root owns the prepared report, combined analysis, tests and publication. These website changes are not yet published.
+
+Earlier entries below are dated history, not current running-process instructions.
+
 ## Additional OpenRouter funding, 6 October 2026
+
+- DeepSeek original handle 26250 exited zero. DEV-051–060 are all valid and all ten match all four references; cost $0.004464008007, 25,205 input and 3,125 output tokens. Root verified request/raw bindings and strict predictions, sealed/reconciled the child, and archived closed evidence in a002196e. Full P2 composite remains 56 valid, one invalid and three prior failed outcomes; analysis/publication are pending. The overlapping authority still conservatively holds the initial reservation.
 
 - DeepSeek DEV-051–060 continuation is now live on original handle 26250 using OpenRouter, after root review, the fresh live gate and a $0.630784 conservative child reservation. Price-ceiling successor 9f47ecac preserves all ten requests; no completed review is replayed. Root owns terminal reconciliation and publication.
 - Parallel preparation: gemini_high_hosted_prepare owns Gemini 3.1 Pro Preview high repeat2/3; qwen_host_successor_review owns Qwen3.6 35B A3B thinking-on hosted fresh-series admission. Neither preparation has permission to allocate or dispatch; root owns admission. Read-only audit confirmed Gemini 3.7 Flash high already has all six repeat phases, so it is not queued again.

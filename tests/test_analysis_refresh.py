@@ -22,8 +22,8 @@ class AnalysisRefreshTest(unittest.TestCase):
         series = next(row for row in report["series"]
                       if row["configuration"] == "qwen3.5-4b-sdk-thinking-on")
         projected = analysis.qwen35_repeat_summary(series)
-        self.assertEqual(projected["completedConditions"], 2)
-        self.assertEqual(sum(len(row["passes"]) for row in projected["conditions"].values()), 2)
+        self.assertEqual(projected["completedConditions"], 3)
+        self.assertEqual(sum(len(row["passes"]) for row in projected["conditions"].values()), 3)
         missing = {(row["pass"], row["condition"]): row for row in projected["missingPasses"]}
         p1, p2 = missing["fresh2", "P1"], missing["fresh2", "P2"]
         self.assertEqual((p1["status"], p1["saved"], p1["unknownStartedIds"]),
@@ -284,7 +284,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         expected = json.loads((ROOT / analysis.OUTPUT).read_text())
         rebuilt = analysis.build(ROOT)
         self.assertEqual(rebuilt, expected)
-        self.assertEqual(len(rebuilt["sources"]), 362)
+        self.assertEqual(len(rebuilt["sources"]), 373)
         self.assertEqual(rebuilt["claude"]["totalConfigurations"], 21)
         self.assertEqual(rebuilt["claude"]["allThreePassPromptGainCount"], {"P1": 0, "P2": 0})
         self.assertEqual(rebuilt["sonnet55"]["developmentApiEquivalentUsd"], "3.5429424")

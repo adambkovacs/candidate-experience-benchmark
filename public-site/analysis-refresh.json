@@ -2501,22 +2501,617 @@
       "valid": 60
     },
     "deepseekLow": {
+      "cleanMatchedThreeEligible": false,
       "completedConditions": [
         2
       ],
+      "firstPassScores": {
+        "P0": {
+          "allFour": 58,
+          "confusionCounts": {
+            "follow_up_needed": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 24
+              },
+              "yes": {
+                "insufficient_information": 1,
+                "yes": 33
+              }
+            },
+            "sentiment": {
+              "insufficient_information": {
+                "insufficient_information": 2
+              },
+              "mixed": {
+                "mixed": 8
+              },
+              "negative": {
+                "negative": 31
+              },
+              "neutral": {
+                "neutral": 7
+              },
+              "positive": {
+                "positive": 11
+              }
+            },
+            "serious_concern_reported": {
+              "insufficient_information": {
+                "insufficient_information": 4,
+                "no": 1
+              },
+              "no": {
+                "no": 29
+              },
+              "yes": {
+                "yes": 25
+              }
+            },
+            "testimonial_potential": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 49
+              },
+              "yes": {
+                "yes": 9
+              }
+            }
+          },
+          "denominator": 60,
+          "fields": {
+            "follow_up_needed": 58,
+            "sentiment": 59,
+            "serious_concern_reported": 58,
+            "testimonial_potential": 59
+          },
+          "invalidIds": [
+            "DEV-030"
+          ],
+          "outcomes": {
+            "invalid_output": 1,
+            "ok": 59
+          },
+          "predictedClassCounts": {
+            "follow_up_needed": {
+              "insufficient_information": 2,
+              "no": 24,
+              "yes": 33
+            },
+            "sentiment": {
+              "insufficient_information": 2,
+              "mixed": 8,
+              "negative": 31,
+              "neutral": 7,
+              "positive": 11
+            },
+            "serious_concern_reported": {
+              "insufficient_information": 4,
+              "no": 30,
+              "yes": 25
+            },
+            "testimonial_potential": {
+              "insufficient_information": 1,
+              "no": 49,
+              "yes": 9
+            }
+          },
+          "valid": 59
+        },
+        "P1": {
+          "allFour": 57,
+          "confusionCounts": {
+            "follow_up_needed": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 24
+              },
+              "yes": {
+                "insufficient_information": 1,
+                "yes": 34
+              }
+            },
+            "sentiment": {
+              "insufficient_information": {
+                "insufficient_information": 2
+              },
+              "mixed": {
+                "mixed": 8
+              },
+              "negative": {
+                "negative": 31
+              },
+              "neutral": {
+                "negative": 1,
+                "neutral": 7
+              },
+              "positive": {
+                "positive": 11
+              }
+            },
+            "serious_concern_reported": {
+              "insufficient_information": {
+                "insufficient_information": 5,
+                "no": 1
+              },
+              "no": {
+                "no": 29
+              },
+              "yes": {
+                "yes": 25
+              }
+            },
+            "testimonial_potential": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 50
+              },
+              "yes": {
+                "no": 1,
+                "yes": 8
+              }
+            }
+          },
+          "denominator": 60,
+          "fields": {
+            "follow_up_needed": 59,
+            "sentiment": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 59
+          },
+          "invalidIds": [],
+          "outcomes": {
+            "ok": 60
+          },
+          "predictedClassCounts": {
+            "follow_up_needed": {
+              "insufficient_information": 2,
+              "no": 24,
+              "yes": 34
+            },
+            "sentiment": {
+              "insufficient_information": 2,
+              "mixed": 8,
+              "negative": 32,
+              "neutral": 7,
+              "positive": 11
+            },
+            "serious_concern_reported": {
+              "insufficient_information": 5,
+              "no": 30,
+              "yes": 25
+            },
+            "testimonial_potential": {
+              "insufficient_information": 1,
+              "no": 51,
+              "yes": 8
+            }
+          },
+          "valid": 60
+        },
+        "P2": {
+          "allFour": 53,
+          "confusionCounts": {
+            "follow_up_needed": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "insufficient_information": 1,
+                "no": 22
+              },
+              "yes": {
+                "insufficient_information": 1,
+                "yes": 31
+              }
+            },
+            "sentiment": {
+              "insufficient_information": {
+                "insufficient_information": 2
+              },
+              "mixed": {
+                "mixed": 8
+              },
+              "negative": {
+                "negative": 28
+              },
+              "neutral": {
+                "neutral": 7
+              },
+              "positive": {
+                "positive": 11
+              }
+            },
+            "serious_concern_reported": {
+              "insufficient_information": {
+                "insufficient_information": 5,
+                "no": 1
+              },
+              "no": {
+                "insufficient_information": 1,
+                "no": 27
+              },
+              "yes": {
+                "yes": 22
+              }
+            },
+            "testimonial_potential": {
+              "insufficient_information": {
+                "insufficient_information": 1
+              },
+              "no": {
+                "no": 46
+              },
+              "yes": {
+                "yes": 9
+              }
+            }
+          },
+          "denominator": 60,
+          "fields": {
+            "follow_up_needed": 54,
+            "sentiment": 56,
+            "serious_concern_reported": 54,
+            "testimonial_potential": 56
+          },
+          "invalidIds": [
+            "DEV-039",
+            "DEV-040",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "outcomes": {
+            "invalid_output": 1,
+            "ok": 56,
+            "service_error": 3
+          },
+          "predictedClassCounts": {
+            "follow_up_needed": {
+              "insufficient_information": 3,
+              "no": 22,
+              "yes": 31
+            },
+            "sentiment": {
+              "insufficient_information": 2,
+              "mixed": 8,
+              "negative": 28,
+              "neutral": 7,
+              "positive": 11
+            },
+            "serious_concern_reported": {
+              "insufficient_information": 6,
+              "no": 28,
+              "yes": 22
+            },
+            "testimonial_potential": {
+              "insufficient_information": 1,
+              "no": 46,
+              "yes": 9
+            }
+          },
+          "valid": 56
+        }
+      },
       "latestInterruptedOutcomes": {
         "invalid_output": 1,
-        "never_sent": 10,
-        "ok": 46,
+        "ok": 56,
         "service_error": 3
       },
       "latestInterruptedPhase": "fresh1/P2",
-      "latestInterruptedScore": null,
+      "latestInterruptedScore": {
+        "allFour": 53,
+        "confusionCounts": {
+          "follow_up_needed": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "insufficient_information": 1,
+              "no": 22
+            },
+            "yes": {
+              "insufficient_information": 1,
+              "yes": 31
+            }
+          },
+          "sentiment": {
+            "insufficient_information": {
+              "insufficient_information": 2
+            },
+            "mixed": {
+              "mixed": 8
+            },
+            "negative": {
+              "negative": 28
+            },
+            "neutral": {
+              "neutral": 7
+            },
+            "positive": {
+              "positive": 11
+            }
+          },
+          "serious_concern_reported": {
+            "insufficient_information": {
+              "insufficient_information": 5,
+              "no": 1
+            },
+            "no": {
+              "insufficient_information": 1,
+              "no": 27
+            },
+            "yes": {
+              "yes": 22
+            }
+          },
+          "testimonial_potential": {
+            "insufficient_information": {
+              "insufficient_information": 1
+            },
+            "no": {
+              "no": 46
+            },
+            "yes": {
+              "yes": 9
+            }
+          }
+        },
+        "denominator": 60,
+        "fields": {
+          "follow_up_needed": 54,
+          "sentiment": 56,
+          "serious_concern_reported": 54,
+          "testimonial_potential": 56
+        },
+        "invalidIds": [
+          "DEV-039",
+          "DEV-040",
+          "DEV-049",
+          "DEV-050"
+        ],
+        "outcomes": {
+          "invalid_output": 1,
+          "ok": 56,
+          "service_error": 3
+        },
+        "predictedClassCounts": {
+          "follow_up_needed": {
+            "insufficient_information": 3,
+            "no": 22,
+            "yes": 31
+          },
+          "sentiment": {
+            "insufficient_information": 2,
+            "mixed": 8,
+            "negative": 28,
+            "neutral": 7,
+            "positive": 11
+          },
+          "serious_concern_reported": {
+            "insufficient_information": 6,
+            "no": 28,
+            "yes": 22
+          },
+          "testimonial_potential": {
+            "insufficient_information": 1,
+            "no": 46,
+            "yes": 9
+          }
+        },
+        "valid": 56
+      },
+      "neverSent": 0,
+      "observedUsage": {
+        "clientRequestSecondsTotal": 4176.688540835938,
+        "clientRequestTimingCount": 60,
+        "completion_tokens": {
+          "missingCount": 3,
+          "observedCount": 57,
+          "observedSum": 25527
+        },
+        "observedCostCount": 57,
+        "observedCostUsd": "0.017093728007",
+        "prompt_tokens": {
+          "missingCount": 3,
+          "observedCount": 57,
+          "observedSum": 144657
+        },
+        "reasoning_tokens": {
+          "missingCount": 50,
+          "observedCount": 10,
+          "observedSum": 2782
+        },
+        "timingKind": "client_http_duration_not_provider_inference",
+        "total_tokens": {
+          "missingCount": 50,
+          "observedCount": 10,
+          "observedSum": 28330
+        },
+        "unknownCostCount": 3
+      },
       "plannedConditions": [
         9
       ],
+      "priorSource": "public-site/deepseek-low-third-interruption-findings.json",
+      "promptComparisons": [
+        {
+          "allFourDifference": -1,
+          "fieldDifferences": {
+            "follow_up_needed": 1,
+            "sentiment": 0,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 0
+          },
+          "fixedDenominator": 60,
+          "from": "P0",
+          "sharedValidChanges": {
+            "denominator": 59,
+            "excludedIds": [
+              "DEV-030"
+            ],
+            "follow_up_needed": {
+              "caseIds": [],
+              "changed": 0,
+              "rate": 0.0
+            },
+            "fourFieldVector": {
+              "caseIds": [
+                "DEV-014"
+              ],
+              "changed": 1,
+              "rate": 0.01694915254237288
+            },
+            "from": "P0",
+            "pass": "fresh1",
+            "sentiment": {
+              "caseIds": [],
+              "changed": 0,
+              "rate": 0.0
+            },
+            "serious_concern_reported": {
+              "caseIds": [],
+              "changed": 0,
+              "rate": 0.0
+            },
+            "testimonial_potential": {
+              "caseIds": [
+                "DEV-014"
+              ],
+              "changed": 1,
+              "rate": 0.01694915254237288
+            },
+            "to": "P1"
+          },
+          "to": "P1"
+        },
+        {
+          "allFourDifference": -5,
+          "fieldDifferences": {
+            "follow_up_needed": -4,
+            "sentiment": -3,
+            "serious_concern_reported": -4,
+            "testimonial_potential": -3
+          },
+          "fixedDenominator": 60,
+          "from": "P0",
+          "sharedValidChanges": {
+            "denominator": 55,
+            "excludedIds": [
+              "DEV-030",
+              "DEV-039",
+              "DEV-040",
+              "DEV-049",
+              "DEV-050"
+            ],
+            "follow_up_needed": {
+              "caseIds": [
+                "DEV-013"
+              ],
+              "changed": 1,
+              "rate": 0.01818181818181818
+            },
+            "fourFieldVector": {
+              "caseIds": [
+                "DEV-006",
+                "DEV-013"
+              ],
+              "changed": 2,
+              "rate": 0.03636363636363636
+            },
+            "sentiment": {
+              "caseIds": [],
+              "changed": 0,
+              "rate": 0.0
+            },
+            "serious_concern_reported": {
+              "caseIds": [
+                "DEV-006",
+                "DEV-013"
+              ],
+              "changed": 2,
+              "rate": 0.03636363636363636
+            },
+            "testimonial_potential": {
+              "caseIds": [],
+              "changed": 0,
+              "rate": 0.0
+            }
+          },
+          "to": "P2"
+        },
+        {
+          "allFourDifference": -4,
+          "fieldDifferences": {
+            "follow_up_needed": -5,
+            "sentiment": -3,
+            "serious_concern_reported": -5,
+            "testimonial_potential": -3
+          },
+          "fixedDenominator": 60,
+          "from": "P1",
+          "sharedValidChanges": {
+            "denominator": 56,
+            "excludedIds": [
+              "DEV-039",
+              "DEV-040",
+              "DEV-049",
+              "DEV-050"
+            ],
+            "follow_up_needed": {
+              "caseIds": [
+                "DEV-013"
+              ],
+              "changed": 1,
+              "rate": 0.017857142857142856
+            },
+            "fourFieldVector": {
+              "caseIds": [
+                "DEV-006",
+                "DEV-013",
+                "DEV-014",
+                "DEV-030"
+              ],
+              "changed": 4,
+              "rate": 0.07142857142857142
+            },
+            "sentiment": {
+              "caseIds": [
+                "DEV-030"
+              ],
+              "changed": 1,
+              "rate": 0.017857142857142856
+            },
+            "serious_concern_reported": {
+              "caseIds": [
+                "DEV-006",
+                "DEV-013",
+                "DEV-030"
+              ],
+              "changed": 3,
+              "rate": 0.05357142857142857
+            },
+            "testimonial_potential": {
+              "caseIds": [
+                "DEV-014"
+              ],
+              "changed": 1,
+              "rate": 0.017857142857142856
+            }
+          },
+          "to": "P2"
+        }
+      ],
+      "scoredConditions": 3,
       "seriesCount": 1,
-      "source": "public-site/deepseek-low-third-interruption-findings.json"
+      "source": "public-site/deepseek-low-final-suffix-findings.json"
     },
     "e4bInterrupted": {
       "cleanRepeatEligible": false,
@@ -6932,13 +7527,75 @@
       },
       "qwen17RepeatStudyComplete": true,
       "qwen35Repeat": {
-        "completedConditions": 2,
+        "completedConditions": 3,
         "conditions": {
           "P0": {
             "changesAcrossThreePasses": null,
-            "completedPasses": 0,
+            "completedPasses": 1,
             "pairwiseFlips": [],
-            "passes": []
+            "passes": [
+              {
+                "pass": "fresh2",
+                "score": {
+                  "allFour": 48,
+                  "denominator": 60,
+                  "fields": {
+                    "follow_up_needed": 52,
+                    "sentiment": 51,
+                    "serious_concern_reported": 50,
+                    "testimonial_potential": 51
+                  },
+                  "invalidIds": [
+                    "DEV-002",
+                    "DEV-005",
+                    "DEV-013",
+                    "DEV-015",
+                    "DEV-020",
+                    "DEV-022",
+                    "DEV-048",
+                    "DEV-058"
+                  ],
+                  "invalidReasonIds": {
+                    "non_json": [
+                      "DEV-002",
+                      "DEV-005",
+                      "DEV-013",
+                      "DEV-015",
+                      "DEV-020",
+                      "DEV-022",
+                      "DEV-048",
+                      "DEV-058"
+                    ]
+                  },
+                  "outcomes": {
+                    "invalid_output": 8,
+                    "isolation_violation": 0,
+                    "never_sent": 0,
+                    "other_error": 0,
+                    "refusal": 0,
+                    "service_error": 0,
+                    "timeout": 0,
+                    "unknown_started": 0,
+                    "valid": 52
+                  },
+                  "valid": 52
+                },
+                "usage": {
+                  "actualCostUsd": null,
+                  "clientRequestSecondsTotal": 4631.087849917,
+                  "inferenceSeconds": null,
+                  "modelLoadSeconds": null,
+                  "requestCount": 60,
+                  "timeBasis": "client_observed_wall_clock",
+                  "tokens": {
+                    "input_tokens": 95670,
+                    "output_tokens": 131533,
+                    "reasoning_output_tokens": null,
+                    "total_tokens": 227203
+                  }
+                }
+              }
+            ]
           },
           "P1": {
             "changesAcrossThreePasses": null,
@@ -7232,7 +7889,9 @@
             "status": "completed_interrupted_composite"
           }
         ],
-        "matchedP0AllFourDeltas": {},
+        "matchedP0AllFourDeltas": {
+          "fresh2": {}
+        },
         "missingPasses": [
           {
             "cleanRepeatEligible": false,
@@ -7588,11 +8247,6 @@
             "valid": 2
           },
           {
-            "condition": "P0",
-            "pass": "fresh2",
-            "status": "not_in_closed_snapshot"
-          },
-          {
             "condition": "P1",
             "pass": "fresh3",
             "status": "not_in_closed_snapshot"
@@ -7671,7 +8325,7 @@
       },
       "remainingConfigurations": {
         "qwen3.5-4b-sdk-thinking-on": {
-          "completedConditions": 2,
+          "completedConditions": 3,
           "plannedConditions": 9
         }
       },
@@ -9427,6 +10081,10 @@
       "sha256": "38e86c02ae4117a504244cdb622f2539cab3428cd53adf8222bf583d102b520f"
     },
     {
+      "path": "public-site/deepseek-low-final-suffix-findings.json",
+      "sha256": "ab856fca91fcff7aa3e81749c0bdeaef63f0cd9af20475fdefb0a6b0e691290b"
+    },
+    {
       "path": "public-site/deepseek-low-third-interruption-findings.json",
       "sha256": "d00e5100c085160e126956db8f4335a944859d6bf9b7a527cb84ebb7d2b9b60e"
     },
@@ -9476,7 +10134,7 @@
     },
     {
       "path": "public-site/legacy-qwen-repeats.json",
-      "sha256": "4838646967949acca3f5f728e3eec282e3b6b0a81947685af49ababc39ebd229"
+      "sha256": "c05ecd27ee797c1fed81e0e989891ee1c64df15327b15dfae489b6f285c0c9f7"
     },
     {
       "path": "public-site/mistral119-fresh1-p0-findings.json",
@@ -9789,6 +10447,46 @@
     {
       "path": "results/local-prompt-tail-v3/gemma4-e4b-sdk-thinking-on/P2/development.jsonl",
       "sha256": "a18091f41c39cdb1778fafadce68d6b49d45f2e3075753522573c4424df95b07"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/closure.root-review.json",
+      "sha256": "988a75191e407db1de51b6fcb67898c0d6baae4994c2cd4e1dc3272883ecbfa3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/manifest.json",
+      "sha256": "b487dd96c0de2157eb5b0462145681dadb659e852009eb9de6fcf899b5ea99e8"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.claim.json",
+      "sha256": "5564401a813b22319a742140e8a4e43cb337d7314f5ac01877742a60fd919ea0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.journal.jsonl",
+      "sha256": "cc4d64a8851ae9d96029e0f3ded0877887344df7e3f0439aef01f22ac56109e6"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.raw.jsonl",
+      "sha256": "426466c47de6e31aa0bd6be146c7b5eff8e0a06e862f2559cd7b3432bee86526"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.records.jsonl",
+      "sha256": "9c3d0c9f4745f35d378503b9adad957393d248829583a8052c81f2d9f076bfe2"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.root-review.json",
+      "sha256": "b9b734af47c1fda6b8a2bd8cafd4b44850fe4671d4dcb2b1f8e68f24e048f29d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.records.jsonl",
+      "sha256": "9fe7eb8063ed991392b607ace8b4d75f7ee041285246341d0906bc8f2542edd3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.records.jsonl",
+      "sha256": "4ef72edf721212048136e67c0fc0e1b61f08a61403cb13f6312bcea616772ab0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/second-interruption-continuation-v1/phase-03-suffix.public.json",
+      "sha256": "8d2814c5c58f695f7741897fdbf7db2308e4344d5b95c8bfe5b25dbf283f5346"
     },
     {
       "path": "results/repeatability-v1/gemma26-on-fresh-matched3-v2/fresh1/P0/development.attempts.jsonl",

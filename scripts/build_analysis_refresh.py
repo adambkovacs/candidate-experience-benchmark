@@ -40,6 +40,7 @@ SOURCES = (
     "public-site/qwen27-final-descriptive-findings.json",
     "public-site/legacy-qwen-repeats.json",
     "public-site/deepseek-low-third-interruption-findings.json",
+    "public-site/deepseek-low-final-suffix-findings.json",
     "public-site/gemma26-second-continuation-findings.json",
     "public-site/gemma26-postabort-findings.json",
     "public-site/gemma26-p2-repeat-findings.json",
@@ -838,6 +839,13 @@ def build(root=ROOT):
     qwen = data["public-site/qwen27-final-descriptive-findings.json"]
     legacy_qwen = data["public-site/legacy-qwen-repeats.json"]
     deepseek = data["public-site/deepseek-low-third-interruption-findings.json"]
+    import build_deepseek_low_final_suffix_findings as deepseek_final_builder
+    deepseek_final = data["public-site/deepseek-low-final-suffix-findings.json"]
+    if deepseek_final != deepseek_final_builder.build(root):
+        raise ValueError("DeepSeek final suffix differs from closed evidence")
+    for item in deepseek_final["sourceBindings"]:
+        bindings[item["path"]] = item["sha256"]
+    deepseek_latest = deepseek_final["series"][0]
     gemma = data["public-site/gemma26-second-continuation-findings.json"]
     gemma_postabort = data["public-site/gemma26-postabort-findings.json"]
     gemma_p2_repeat = data["public-site/gemma26-p2-repeat-findings.json"]
@@ -1348,13 +1356,20 @@ def build(root=ROOT):
                 "observedKnownCostUsd": mistral_p0["usage"]["observedKnownCostUsd"],
                 "unknownChargeUpperBoundUsd": mistral_p0["usage"]["unknownChargeUpperBoundUsd"],
                 "cleanRepeatabilityClaim": False},
-            "deepseekLow": {"source": "public-site/deepseek-low-third-interruption-findings.json",
+            "deepseekLow": {"source": "public-site/deepseek-low-final-suffix-findings.json",
+                            "priorSource": "public-site/deepseek-low-third-interruption-findings.json",
+                            "scoredConditions": 3,
+                            "neverSent": 0,
+                            "cleanMatchedThreeEligible": False,
+                            "firstPassScores": deepseek_latest["historicalFirstPass"],
+                            "promptComparisons": deepseek_latest["withinPassComparisons"],
+                            "observedUsage": deepseek_latest["p2ObservedUsage"],
                             "seriesCount": len(deepseek["series"]),
                             "completedConditions": [item["completedConditions"] for item in deepseek["series"]],
                             "plannedConditions": [item["plannedConditions"] for item in deepseek["series"]],
                             "latestInterruptedPhase": deepseek["series"][0]["thirdInterruptionCheckpoint"]["phase"],
-                            "latestInterruptedOutcomes": deepseek["series"][0]["thirdInterruptionCheckpoint"]["outcomes"],
-                            "latestInterruptedScore": deepseek["series"][0]["thirdInterruptionCheckpoint"]["score"]},
+                            "latestInterruptedOutcomes": deepseek_latest["finalP2Outcomes"],
+                            "latestInterruptedScore": deepseek_latest["historicalFirstPass"]["P2"]},
             "gemma26": {"source": "public-site/gemma26-fresh3-p1-interrupted-checkpoint.json",
                         "priorP0Source": "public-site/gemma26-fresh3-p0-checkpoint.json",
                         "p0Checkpoint": gemma_p0["conditions"]["P0"],

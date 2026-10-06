@@ -44,7 +44,9 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
     assert.ok(series.passes.fresh1.P0.score.outcomes.invalid_output > 0);
   }
   const qwen35 = payload.series.find(row => row.configuration === 'qwen3.5-4b-sdk-thinking-on');
-  assert.equal(qwen35.completedConditions, 2);
+  assert.equal(qwen35.completedConditions, 3);
+  assert.equal(qwen35.passes.fresh2.P0.score.allFour, 48);
+  assert.equal(qwen35.passes.fresh2.P0.score.valid, 52);
   assert.equal(qwen35.partialPasses.length, 1);
   assert.equal(qwen35.passes.fresh1.P0, undefined);
   assert.equal(qwen35.passes.fresh1.P1.score.allFour, 47);
@@ -60,7 +62,7 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
     const composite = qwen35.descriptiveComposites[0];
     assert.match(elements.get('repeat-chart').innerHTML, new RegExp(`Descriptive interrupted: ${composite.score.allFour}/60 matches`));
     assert.match(elements.get('repeat-lead').textContent, /DEV-052 remains unknown and no reviews remain unsent/);
-    assert.match(elements.get('repeat-summary').textContent, /2\/9 clean phases are closed/);
+    assert.match(elements.get('repeat-summary').textContent, /3\/9 clean phases are closed/);
     assert.doesNotMatch(elements.get('repeat-summary').textContent, /no final results/i);
     assert.match(elements.get('repeat-usage-body').innerHTML, /59 saved, 1 unknown, 0 unsent/);
     assert.doesNotMatch(elements.get('repeat-chart').innerHTML, /8 unsent/);
@@ -69,7 +71,7 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
     assert.match(elements.get('repeat-lead').textContent, /DEV-052 has an unknown outcome/);
     assert.match(elements.get('repeat-usage-body').innerHTML, /Host sleep overlaps the unknown request/);
   }
-  assert.equal((elements.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 2);
+  assert.equal((elements.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 3);
   const qwen17 = payload.series.find(row => row.configuration === 'qwen3-1.7b-sdk-thinking-off');
   qwen17.passes.fresh1.P0.powerObservation = {source:'ac', basis:'matching_pre_post_checks'};
   qwen17.passes.fresh1.P1.powerObservation = {source:'ac', basis:'pre_stage_only'};

@@ -4,9 +4,19 @@
 
 The user authorized an additional $10 for OpenRouter. The cumulative OpenRouter ceiling is now $22.38. The same $10 expands the overlapping postapproval allowance once, earmarked for OpenRouter only; this supersedes the pending $0.55 proposal. Existing charges and unresolved reservations remain counted. The reviewed ledger amendment is activated: the OpenRouter ceiling is $22.38 and the overlapping authority retains its original $10 pool plus a separate $10 OpenRouter-only pool. Existing ledger prefixes and reservations are preserved. Each run still requires its own allocation and admission.
 
-OpenRouter takes priority wherever the requested model and required interface are available. A different quantization, provider or runtime is recorded as a separate hosted configuration, not a reason to continue local inference. Local exceptions require absence of the model or required native interface. A fresh public catalogue check found Qwen3.5 9B and larger variants, but no Qwen3.5 4B or Gemma E4B; those sizes must not be silently substituted. The current Qwen pass remains live; no additional local pass starts pending the user's battery preference. [Catalogue audit](../results/route-audits/hosted-priority-20261006/audit.json).
+OpenRouter takes priority wherever the requested model and required interface are available. A different quantization, provider or runtime is recorded as a separate hosted configuration, not a reason to continue local inference. Local exceptions require absence of the model or required native interface. A fresh public catalogue check found Qwen3.5 9B and larger variants, but no Qwen3.5 4B or Gemma E4B; those sizes must not be silently substituted. The local Qwen3.5 4B fresh2/P0 pass is now closed and its LM Studio model is unloaded. No additional local pass starts pending the user's battery preference. [Catalogue audit](../results/route-audits/hosted-priority-20261006/audit.json).
 
 The updated [app goal text](APP_GOAL.md) and AGENTS.md supersede older routing and cap wording in the historical checkpoints below.
+
+## Latest hosted execution checkpoint, 6 October 2026
+
+DeepSeek DEV-051–060 is closed and verified: ten valid answers, all ten matching all four references, with $0.004464008007 observed charges. The full interrupted P2 composite now scores 53/60, with 56 valid, one invalid and three failed outcomes; none remain unsent. Its report update is prepared but not yet published. [Findings](DEEPSEEK_LOW_FINAL_SUFFIX_FINDINGS_2026-10-06.md).
+
+The local Qwen3.5 4B fresh2/P0 pass is archived in `abad20dd`: 52 valid, eight invalid, and 48/60 all-four matches. Clean full-phase coverage is now 3/9. The model is unloaded; no further local pass has started.
+
+Gemini 3.1 Pro Preview high repeat2/P1 and hosted Qwen3.6 35B A3B thinking-on fresh1/P0 ran concurrently on OpenRouter. Both original processes exited successfully; independent closure checks are pending. Their reserved children remain open for subsequent declared phases. Root owns dispatch, and `hosted_closed_audit` owns the read-only evidence check. No score or completion credit is inferred solely from process exit.
+
+The following checkpoints retain their original cutoffs; this entry supersedes their running and funding statements.
 
 ## Current verified status, 6 October 2026
 

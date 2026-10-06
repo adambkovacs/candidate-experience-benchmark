@@ -1,0 +1,726 @@
+{
+  "schema": "deepseek-low-final-suffix-findings-v1",
+  "series": [
+    {
+      "seriesId": "openrouter-paid-deepseek-v41-flash-low-descriptive-continuation-v2",
+      "displayName": "DeepSeek V4.1 Flash · OpenInference fp4 · reasoning low · interrupted descriptive continuation",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "effort": "low",
+      "provider": "open-inference/fp4",
+      "method": "descriptive_continuation_not_clean_matched_three",
+      "cleanMatchedThreeEligible": false,
+      "denominator": 60,
+      "referenceClassCounts": {
+        "sentiment": {
+          "positive": 11,
+          "negative": 31,
+          "neutral": 8,
+          "insufficient_information": 2,
+          "mixed": 8
+        },
+        "follow_up_needed": {
+          "no": 24,
+          "yes": 35,
+          "insufficient_information": 1
+        },
+        "serious_concern_reported": {
+          "no": 29,
+          "insufficient_information": 6,
+          "yes": 25
+        },
+        "testimonial_potential": {
+          "yes": 9,
+          "no": 50,
+          "insufficient_information": 1
+        }
+      },
+      "historicalFirstPass": {
+        "P0": {
+          "denominator": 60,
+          "valid": 59,
+          "allFour": 58,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 58,
+            "serious_concern_reported": 58,
+            "testimonial_potential": 59
+          },
+          "outcomes": {
+            "ok": 59,
+            "invalid_output": 1
+          },
+          "invalidIds": [
+            "DEV-030"
+          ],
+          "confusionCounts": {
+            "sentiment": {
+              "positive": {
+                "positive": 11
+              },
+              "negative": {
+                "negative": 31
+              },
+              "neutral": {
+                "neutral": 7
+              },
+              "insufficient_information": {
+                "insufficient_information": 2
+              },
+              "mixed": {
+                "mixed": 8
+              }
+            },
+            "follow_up_needed": {
+              "no": {
+                "no": 24
+              },
+              "yes": {
+                "yes": 33,
+                "insufficient_information": 1
+              },
+              "insufficient_information": {
+                "insufficient_information": 1
+              }
+            },
+            "serious_concern_reported": {
+              "no": {
+                "no": 29
+              },
+              "insufficient_information": {
+                "no": 1,
+                "insufficient_information": 4
+              },
+              "yes": {
+                "yes": 25
+              }
+            },
+            "testimonial_potential": {
+              "yes": {
+                "yes": 9
+              },
+              "no": {
+                "no": 49
+              },
+              "insufficient_information": {
+                "insufficient_information": 1
+              }
+            }
+          },
+          "predictedClassCounts": {
+            "sentiment": {
+              "positive": 11,
+              "negative": 31,
+              "neutral": 7,
+              "insufficient_information": 2,
+              "mixed": 8
+            },
+            "follow_up_needed": {
+              "no": 24,
+              "yes": 33,
+              "insufficient_information": 2
+            },
+            "serious_concern_reported": {
+              "no": 30,
+              "yes": 25,
+              "insufficient_information": 4
+            },
+            "testimonial_potential": {
+              "yes": 9,
+              "no": 49,
+              "insufficient_information": 1
+            }
+          }
+        },
+        "P1": {
+          "denominator": 60,
+          "valid": 60,
+          "allFour": 57,
+          "fields": {
+            "sentiment": 59,
+            "follow_up_needed": 59,
+            "serious_concern_reported": 59,
+            "testimonial_potential": 59
+          },
+          "outcomes": {
+            "ok": 60
+          },
+          "invalidIds": [],
+          "confusionCounts": {
+            "sentiment": {
+              "positive": {
+                "positive": 11
+              },
+              "negative": {
+                "negative": 31
+              },
+              "neutral": {
+                "neutral": 7,
+                "negative": 1
+              },
+              "insufficient_information": {
+                "insufficient_information": 2
+              },
+              "mixed": {
+                "mixed": 8
+              }
+            },
+            "follow_up_needed": {
+              "no": {
+                "no": 24
+              },
+              "yes": {
+                "yes": 34,
+                "insufficient_information": 1
+              },
+              "insufficient_information": {
+                "insufficient_information": 1
+              }
+            },
+            "serious_concern_reported": {
+              "no": {
+                "no": 29
+              },
+              "insufficient_information": {
+                "no": 1,
+                "insufficient_information": 5
+              },
+              "yes": {
+                "yes": 25
+              }
+            },
+            "testimonial_potential": {
+              "yes": {
+                "yes": 8,
+                "no": 1
+              },
+              "no": {
+                "no": 50
+              },
+              "insufficient_information": {
+                "insufficient_information": 1
+              }
+            }
+          },
+          "predictedClassCounts": {
+            "sentiment": {
+              "positive": 11,
+              "negative": 32,
+              "neutral": 7,
+              "insufficient_information": 2,
+              "mixed": 8
+            },
+            "follow_up_needed": {
+              "no": 24,
+              "yes": 34,
+              "insufficient_information": 2
+            },
+            "serious_concern_reported": {
+              "no": 30,
+              "yes": 25,
+              "insufficient_information": 5
+            },
+            "testimonial_potential": {
+              "yes": 8,
+              "no": 51,
+              "insufficient_information": 1
+            }
+          }
+        },
+        "P2": {
+          "denominator": 60,
+          "valid": 56,
+          "allFour": 53,
+          "fields": {
+            "sentiment": 56,
+            "follow_up_needed": 54,
+            "serious_concern_reported": 54,
+            "testimonial_potential": 56
+          },
+          "outcomes": {
+            "ok": 56,
+            "invalid_output": 1,
+            "service_error": 3
+          },
+          "invalidIds": [
+            "DEV-039",
+            "DEV-040",
+            "DEV-049",
+            "DEV-050"
+          ],
+          "confusionCounts": {
+            "sentiment": {
+              "positive": {
+                "positive": 11
+              },
+              "negative": {
+                "negative": 28
+              },
+              "neutral": {
+                "neutral": 7
+              },
+              "insufficient_information": {
+                "insufficient_information": 2
+              },
+              "mixed": {
+                "mixed": 8
+              }
+            },
+            "follow_up_needed": {
+              "no": {
+                "no": 22,
+                "insufficient_information": 1
+              },
+              "yes": {
+                "yes": 31,
+                "insufficient_information": 1
+              },
+              "insufficient_information": {
+                "insufficient_information": 1
+              }
+            },
+            "serious_concern_reported": {
+              "no": {
+                "no": 27,
+                "insufficient_information": 1
+              },
+              "insufficient_information": {
+                "insufficient_information": 5,
+                "no": 1
+              },
+              "yes": {
+                "yes": 22
+              }
+            },
+            "testimonial_potential": {
+              "yes": {
+                "yes": 9
+              },
+              "no": {
+                "no": 46
+              },
+              "insufficient_information": {
+                "insufficient_information": 1
+              }
+            }
+          },
+          "predictedClassCounts": {
+            "sentiment": {
+              "positive": 11,
+              "negative": 28,
+              "neutral": 7,
+              "insufficient_information": 2,
+              "mixed": 8
+            },
+            "follow_up_needed": {
+              "no": 22,
+              "yes": 31,
+              "insufficient_information": 3
+            },
+            "serious_concern_reported": {
+              "no": 28,
+              "insufficient_information": 6,
+              "yes": 22
+            },
+            "testimonial_potential": {
+              "yes": 9,
+              "no": 46,
+              "insufficient_information": 1
+            }
+          }
+        }
+      },
+      "finalP2Outcomes": {
+        "ok": 56,
+        "invalid_output": 1,
+        "service_error": 3
+      },
+      "finalSuffix": {
+        "ids": [
+          "DEV-051",
+          "DEV-052",
+          "DEV-053",
+          "DEV-054",
+          "DEV-055",
+          "DEV-056",
+          "DEV-057",
+          "DEV-058",
+          "DEV-059",
+          "DEV-060"
+        ],
+        "valid": 10,
+        "allFour": 10,
+        "score": {
+          "denominator": 10,
+          "valid": 10,
+          "allFour": 10,
+          "fields": {
+            "sentiment": 10,
+            "follow_up_needed": 10,
+            "serious_concern_reported": 10,
+            "testimonial_potential": 10
+          },
+          "outcomes": {
+            "ok": 10
+          },
+          "invalidIds": [],
+          "confusionCounts": {
+            "sentiment": {
+              "negative": {
+                "negative": 5
+              },
+              "positive": {
+                "positive": 1
+              },
+              "neutral": {
+                "neutral": 2
+              },
+              "mixed": {
+                "mixed": 2
+              }
+            },
+            "follow_up_needed": {
+              "yes": {
+                "yes": 5
+              },
+              "no": {
+                "no": 5
+              }
+            },
+            "serious_concern_reported": {
+              "yes": {
+                "yes": 6
+              },
+              "no": {
+                "no": 3
+              },
+              "insufficient_information": {
+                "insufficient_information": 1
+              }
+            },
+            "testimonial_potential": {
+              "no": {
+                "no": 9
+              },
+              "yes": {
+                "yes": 1
+              }
+            }
+          },
+          "predictedClassCounts": {
+            "sentiment": {
+              "negative": 5,
+              "positive": 1,
+              "neutral": 2,
+              "mixed": 2
+            },
+            "follow_up_needed": {
+              "yes": 5,
+              "no": 5
+            },
+            "serious_concern_reported": {
+              "yes": 6,
+              "no": 3,
+              "insufficient_information": 1
+            },
+            "testimonial_potential": {
+              "no": 9,
+              "yes": 1
+            }
+          }
+        },
+        "observedCostUsd": "0.004464008007",
+        "tokens": {
+          "prompt_tokens": 25205,
+          "completion_tokens": 3125,
+          "total_tokens": 28330
+        },
+        "clientRequestSecondsTotal": 147.78009945897793
+      },
+      "withinPassComparisons": [
+        {
+          "from": "P0",
+          "to": "P1",
+          "fixedDenominator": 60,
+          "allFourDifference": -1,
+          "fieldDifferences": {
+            "sentiment": 0,
+            "follow_up_needed": 1,
+            "serious_concern_reported": 1,
+            "testimonial_potential": 0
+          },
+          "sharedValidChanges": {
+            "pass": "fresh1",
+            "from": "P0",
+            "to": "P1",
+            "denominator": 59,
+            "excludedIds": [
+              "DEV-030"
+            ],
+            "sentiment": {
+              "changed": 0,
+              "caseIds": [],
+              "rate": 0.0
+            },
+            "follow_up_needed": {
+              "changed": 0,
+              "caseIds": [],
+              "rate": 0.0
+            },
+            "serious_concern_reported": {
+              "changed": 0,
+              "caseIds": [],
+              "rate": 0.0
+            },
+            "testimonial_potential": {
+              "changed": 1,
+              "caseIds": [
+                "DEV-014"
+              ],
+              "rate": 0.01694915254237288
+            },
+            "fourFieldVector": {
+              "changed": 1,
+              "caseIds": [
+                "DEV-014"
+              ],
+              "rate": 0.01694915254237288
+            }
+          }
+        },
+        {
+          "from": "P0",
+          "to": "P2",
+          "fixedDenominator": 60,
+          "allFourDifference": -5,
+          "fieldDifferences": {
+            "sentiment": -3,
+            "follow_up_needed": -4,
+            "serious_concern_reported": -4,
+            "testimonial_potential": -3
+          },
+          "sharedValidChanges": {
+            "denominator": 55,
+            "excludedIds": [
+              "DEV-030",
+              "DEV-039",
+              "DEV-040",
+              "DEV-049",
+              "DEV-050"
+            ],
+            "sentiment": {
+              "changed": 0,
+              "caseIds": [],
+              "rate": 0.0
+            },
+            "follow_up_needed": {
+              "changed": 1,
+              "caseIds": [
+                "DEV-013"
+              ],
+              "rate": 0.01818181818181818
+            },
+            "serious_concern_reported": {
+              "changed": 2,
+              "caseIds": [
+                "DEV-006",
+                "DEV-013"
+              ],
+              "rate": 0.03636363636363636
+            },
+            "testimonial_potential": {
+              "changed": 0,
+              "caseIds": [],
+              "rate": 0.0
+            },
+            "fourFieldVector": {
+              "changed": 2,
+              "caseIds": [
+                "DEV-006",
+                "DEV-013"
+              ],
+              "rate": 0.03636363636363636
+            }
+          }
+        },
+        {
+          "from": "P1",
+          "to": "P2",
+          "fixedDenominator": 60,
+          "allFourDifference": -4,
+          "fieldDifferences": {
+            "sentiment": -3,
+            "follow_up_needed": -5,
+            "serious_concern_reported": -5,
+            "testimonial_potential": -3
+          },
+          "sharedValidChanges": {
+            "denominator": 56,
+            "excludedIds": [
+              "DEV-039",
+              "DEV-040",
+              "DEV-049",
+              "DEV-050"
+            ],
+            "sentiment": {
+              "changed": 1,
+              "caseIds": [
+                "DEV-030"
+              ],
+              "rate": 0.017857142857142856
+            },
+            "follow_up_needed": {
+              "changed": 1,
+              "caseIds": [
+                "DEV-013"
+              ],
+              "rate": 0.017857142857142856
+            },
+            "serious_concern_reported": {
+              "changed": 3,
+              "caseIds": [
+                "DEV-006",
+                "DEV-013",
+                "DEV-030"
+              ],
+              "rate": 0.05357142857142857
+            },
+            "testimonial_potential": {
+              "changed": 1,
+              "caseIds": [
+                "DEV-014"
+              ],
+              "rate": 0.017857142857142856
+            },
+            "fourFieldVector": {
+              "changed": 4,
+              "caseIds": [
+                "DEV-006",
+                "DEV-013",
+                "DEV-014",
+                "DEV-030"
+              ],
+              "rate": 0.07142857142857142
+            }
+          }
+        }
+      ],
+      "p2ObservedUsage": {
+        "prompt_tokens": {
+          "observedCount": 57,
+          "missingCount": 3,
+          "observedSum": 144657
+        },
+        "completion_tokens": {
+          "observedCount": 57,
+          "missingCount": 3,
+          "observedSum": 25527
+        },
+        "total_tokens": {
+          "observedCount": 10,
+          "missingCount": 50,
+          "observedSum": 28330
+        },
+        "reasoning_tokens": {
+          "observedCount": 10,
+          "missingCount": 50,
+          "observedSum": 2782
+        },
+        "observedCostUsd": "0.017093728007",
+        "observedCostCount": 57,
+        "unknownCostCount": 3,
+        "clientRequestSecondsTotal": 4176.688540835938,
+        "clientRequestTimingCount": 60,
+        "timingKind": "client_http_duration_not_provider_inference"
+      },
+      "remainingFullRepeatPhases": [
+        {
+          "pass": "fresh2",
+          "condition": "P2",
+          "status": "terminal_public_snapshot_pending"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P0",
+          "status": "terminal_public_snapshot_pending"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P1",
+          "status": "terminal_public_snapshot_pending"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P1",
+          "status": "terminal_public_snapshot_pending"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P2",
+          "status": "terminal_public_snapshot_pending"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P0",
+          "status": "terminal_public_snapshot_pending"
+        }
+      ],
+      "limitations": [
+        "P2 combines the original interrupted phase with three separate continuations; it is descriptive, not a clean matched repeat.",
+        "The four nonvalid positions remain in the fixed 60-review denominator.",
+        "Token sums include only fields present in the saved public projection and final suffix. Historical total and reasoning token fields were not projected.",
+        "Three earlier service errors have unknown charges, excluded from observed cost totals."
+      ]
+    }
+  ],
+  "sourceBindings": [
+    {
+      "path": "public-site/deepseek-low-third-interruption-findings.json",
+      "sha256": "d00e5100c085160e126956db8f4335a944859d6bf9b7a527cb84ebb7d2b9b60e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/second-interruption-continuation-v1/phase-03-suffix.public.json",
+      "sha256": "8d2814c5c58f695f7741897fdbf7db2308e4344d5b95c8bfe5b25dbf283f5346"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/closure.root-review.json",
+      "sha256": "988a75191e407db1de51b6fcb67898c0d6baae4994c2cd4e1dc3272883ecbfa3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/manifest.json",
+      "sha256": "b487dd96c0de2157eb5b0462145681dadb659e852009eb9de6fcf899b5ea99e8"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.root-review.json",
+      "sha256": "b9b734af47c1fda6b8a2bd8cafd4b44850fe4671d4dcb2b1f8e68f24e048f29d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.claim.json",
+      "sha256": "5564401a813b22319a742140e8a4e43cb337d7314f5ac01877742a60fd919ea0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.journal.jsonl",
+      "sha256": "cc4d64a8851ae9d96029e0f3ded0877887344df7e3f0439aef01f22ac56109e6"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.raw.jsonl",
+      "sha256": "426466c47de6e31aa0bd6be146c7b5eff8e0a06e862f2559cd7b3432bee86526"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/current-price-authority-v3-051-060/prompt-ceiling-v4/suffix.records.jsonl",
+      "sha256": "9c3d0c9f4745f35d378503b9adad957393d248829583a8052c81f2d9f076bfe2"
+    },
+    {
+      "path": "data/pilot/proposed_labels.jsonl",
+      "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-01-development.records.jsonl",
+      "sha256": "9fe7eb8063ed991392b607ace8b4d75f7ee041285246341d0906bc8f2542edd3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-low-fresh3-v2/phase-02-development.records.jsonl",
+      "sha256": "4ef72edf721212048136e67c0fc0e1b61f08a61403cb13f6312bcea616772ab0"
+    }
+  ],
+  "publicVerificationLimit": "The final DEV-051 to DEV-060 request and raw response evidence is tracked in the public repository at commit a002196e. Earlier private request and raw response history remains available only through public projections and source hashes."
+}

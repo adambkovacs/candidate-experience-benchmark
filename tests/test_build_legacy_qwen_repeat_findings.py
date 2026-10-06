@@ -480,7 +480,10 @@ class LegacyQwenFindingsTests(unittest.TestCase):
                     self.assertEqual(bindings[item['path']], item['sha256'])
 
     def test_qwen35_stopped_p0_is_source_bound_and_unscored(self):
-        with mock.patch.object(findings, 'qwen35_successor_phase', return_value=None):
+        # Isolate the historical interruption from every later completed route.
+        with mock.patch.object(findings, 'qwen35_successor_phase', return_value=None), \
+                mock.patch.object(findings, 'qwen35_continuation_phase', return_value=None), \
+                mock.patch.object(findings, 'qwen35_host_continuation_phase', return_value=None):
             report = findings.build(ROOT)
         series = next(row for row in report['series']
                       if row['configuration'] == 'qwen3.5-4b-sdk-thinking-on')

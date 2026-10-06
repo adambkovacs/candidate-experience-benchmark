@@ -30,7 +30,7 @@
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
   };
   const sonnet55Url = './sonnet55-fresh-matched3.json';
-  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './gemma26-postabort-findings.json', './gemma26-p2-repeat-findings.json', './gemma26-fresh3-p0-checkpoint.json', './gemma26-fresh3-p1-interrupted-checkpoint.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './legacy-qwen-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json', sonnet55Url];
+  const feedUrls = ['./typesafe-repeats.json', './hosted-v2-repeats.json', './gemma26-continuation-findings.json', './gemma26-second-continuation-findings.json', './gemma26-postabort-findings.json', './gemma26-p2-repeat-findings.json', './gemma26-fresh3-p0-checkpoint.json', './gemma26-fresh3-p1-interrupted-checkpoint.json', './kev-native-repeats.json', './repeats.json', './hosted-repeats.json', './claude-repeats.json', './claude-roster-repeats.json', './gemini-repeats.json', './haiku-fresh-matched3.json', './laya-repeats.json', './semif-repeats.json', './semif-generated-repeats.json', './small-local-repeats.json', './legacy-qwen-repeats.json', './e4b-interruption-findings.json', './anyjev-raw-repeats.json', './anyjev-l0-repeats.json', './anyjev-l1-repeats.json', './anyjev-l2-repeats.json', './anyjev-generated-repeats.json', './openjev-native-repeats.json', './openjev-generated-repeats.json', './alex-native-repeats.json', './codex-fresh-repeats.json', './deepseek-fresh-repeats.json', './additional-hosted-fresh-repeats.json', './qwen36-off-second-interruption-findings.json', './qwen27-interrupted-continuation-findings.json', './qwen27-second-continuation-findings.json', './qwen27-final-descriptive-findings.json', './deepseek-low-continuation-repeats.json', './deepseek-low-third-interruption-findings.json', './deepseek-low-final-suffix-findings.json', sonnet55Url];
   const sonnet55Series = report => {
     const efforts=['low','medium','high','xhigh'],passes=['pass1','pass2','pass3'],conditions=['P0','P1','P2'];
     if (report?.schema !== 'claude-sonnet55-fresh-matched3-findings-v1' || report.model !== 'claude-sonnet-5-5' || report.plannedCells !== 36 || report.denominatorPerCell !== 60 ||
@@ -92,6 +92,8 @@
   const analysisRefreshUrl = './analysis-refresh.json';
   const clefThirdUrl = './clef-p0-third-checkpoint.json';
   const deepseekThirdUrl = './deepseek-low-third-interruption-findings.json';
+  const deepseekFinalUrl = './deepseek-low-final-suffix-findings.json';
+  const deepseekFinalSchema = 'deepseek-low-final-suffix-findings-v1';
   const deepseekThirdSchema = 'deepseek-low-third-interruption-findings-v1';
   const validBindings = bindings => Array.isArray(bindings) && bindings.length > 0 &&
     bindings.every(item => typeof item?.path === 'string' && !/private|account|secret|ledger/i.test(item.path) &&
@@ -895,6 +897,41 @@
           throw Error('Invalid Gemma26 fresh3 P1 interrupted checkpoint');
         return {series: [], gemmaP1Checkpoint: payload};
       }
+      if (url === deepseekFinalUrl) {
+        const item = payload?.series?.[0], score = item?.historicalFirstPass?.P2;
+        const usage = item?.p2ObservedUsage;
+        const metrics = ['prompt_tokens', 'completion_tokens', 'total_tokens', 'reasoning_tokens'];
+        if (payload?.schema !== deepseekFinalSchema || payload.series?.length !== 1 ||
+            item?.seriesId !== 'openrouter-paid-deepseek-v41-flash-low-descriptive-continuation-v2' ||
+            item?.model !== 'deepseek/deepseek-v4.1-flash' || item?.effort !== 'low' ||
+            item?.provider !== 'open-inference/fp4' ||
+            item?.method !== 'descriptive_continuation_not_clean_matched_three' ||
+            item?.cleanMatchedThreeEligible !== false || item?.denominator !== 60 ||
+            score?.denominator !== 60 || score?.valid !== 56 || score?.allFour !== 53 ||
+            Object.keys(fields).filter(key => key !== 'allFour').some(key =>
+              !Number.isInteger(score?.fields?.[key]) || score.fields[key] < 0 || score.fields[key] > 56) ||
+            JSON.stringify(score?.outcomes) !== JSON.stringify({ok:56, invalid_output:1, service_error:3}) ||
+            JSON.stringify(item.finalP2Outcomes) !== JSON.stringify(score.outcomes) ||
+            JSON.stringify(score.invalidIds) !== JSON.stringify(['DEV-039','DEV-040','DEV-049','DEV-050']) ||
+            item.historicalFirstPass.P0?.allFour !== 58 || item.historicalFirstPass.P1?.allFour !== 57 ||
+            JSON.stringify(item.finalSuffix?.ids) !== JSON.stringify(idsFrom(51)) ||
+            item.finalSuffix?.valid !== 10 || item.finalSuffix?.allFour !== 10 ||
+            item.remainingFullRepeatPhases?.length !== 6 ||
+            metrics.some(key => !Number.isInteger(usage?.[key]?.observedCount) ||
+              usage[key].observedCount < 0 || usage[key].observedCount > 60 ||
+              usage[key].missingCount !== 60 - usage[key].observedCount ||
+              !Number.isInteger(usage[key].observedSum) || usage[key].observedSum < 0) ||
+            usage?.observedCostCount !== 57 || usage?.unknownCostCount !== 3 ||
+            !Number.isFinite(Number(usage.observedCostUsd)) || Number(usage.observedCostUsd) < 0 ||
+            usage.clientRequestTimingCount !== 60 || !Number.isFinite(usage.clientRequestSecondsTotal) ||
+            usage.clientRequestSecondsTotal < 0 || usage.timingKind !== 'client_http_duration_not_provider_inference' ||
+            !validBindings(payload.sourceBindings) ||
+            !['public-site/deepseek-low-third-interruption-findings.json', 'suffix.raw.jsonl',
+              'suffix.records.jsonl', 'closure.root-review.json', 'data/pilot/proposed_labels.jsonl'].every(name =>
+              payload.sourceBindings.some(binding => binding.path === name || binding.path.endsWith('/' + name))))
+          throw Error('Invalid DeepSeek final suffix findings');
+        return {series: [], deepseekFinal: payload};
+      }
       if (url === deepseekThirdUrl) {
         if (payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) return payload;
         const only = payload?.series?.[0];
@@ -929,8 +966,8 @@
       }
       return payload;
     });
-    }).catch(error => url === sonnet55Url ? {series: []} : Promise.reject(error));
-    if (url !== sonnet55Url || typeof setTimeout !== 'function') return load;
+    }).catch(error => url === sonnet55Url || url === deepseekFinalUrl ? {series: []} : Promise.reject(error));
+    if ((url !== sonnet55Url && url !== deepseekFinalUrl) || typeof setTimeout !== 'function') return load;
     let timer;
     const timeout=new Promise(resolve => {timer=setTimeout(() => resolve({series: []}),3000);});
     return Promise.race([load,timeout]).finally(() => clearTimeout(timer));
@@ -1030,6 +1067,27 @@
           'Fresh pass 3 P0 has 60 valid responses; its earlier P0 checkpoint remains selectable.',
           'Fresh pass 3 P1 combines the 58 valid saved responses before the DEV-059 timeout and a separately sent DEV-060 response. DEV-059 remains a service failure, not a replayed answer.',
           'All nine phases have fixed-60 scores. Earlier failures and interrupted timing prevent a clean matched-three series.']});
+    }
+    const deepseekFinalReport = payloads.find(payload => payload?.deepseekFinal)?.deepseekFinal;
+    if (deepseekFinalReport) {
+      const detail = deepseekFinalReport.series[0];
+      const index = loadedSeries.findIndex(item => item.schema === deepseekThirdSchema && item.seriesId === detail.seriesId);
+      if (index >= 0) {
+        const prior = loadedSeries[index];
+        if (JSON.stringify(detail.historicalFirstPass.P0) === JSON.stringify(prior.passes.fresh1.P0.score) &&
+            JSON.stringify(detail.historicalFirstPass.P1) === JSON.stringify(prior.passes.fresh1.P1.score)) {
+          loadedSeries[index] = {...prior, displayName: 'DeepSeek low · final P2 descriptive continuation',
+            completedConditions: 3, finalSuffixDetail: detail,
+            sourceBindings: deepseekFinalReport.sourceBindings,
+            publicVerificationLimit: deepseekFinalReport.publicVerificationLimit,
+            interpretation: detail.limitations,
+            missingPasses: detail.remainingFullRepeatPhases,
+            passes: {...prior.passes, fresh1: {...prior.passes.fresh1,
+              P2: {status: 'completed_interrupted_composite', score: detail.historicalFirstPass.P2}}},
+            withinPassPromptDeltas: detail.withinPassComparisons.filter(pair => pair.from === 'P0').map(pair =>
+              ({pass: 'fresh1', from: pair.from, to: pair.to, allFour: pair.allFourDifference, fields: pair.fieldDifferences}))};
+        }
+      }
     }
     const hasDeepseekLowContinuation = loadedSeries.some(s => s?.seriesId === deepseekLowContinuationId);
     const series = loadedSeries.filter(s => !(hasDeepseekLowContinuation &&
@@ -1199,6 +1257,7 @@
       const gemmaP0Family = gemmaP0Checkpoint || gemmaP1Checkpoint;
       const gemmaPostabort = isGemmaPostabort(data) || gemmaP0Family;
       const deepseekThird = isDeepseekThird(data);
+      const deepseekFinal = deepseekThird && Boolean(data.finalSuffixDetail);
       const nativeOpenJev = isNativeOpenJev(data);
       const generatedOpenJev = isGeneratedOpenJev(data);
       const generatedSemIf = isGeneratedSemIf(data);
@@ -1249,6 +1308,8 @@
         ? `<p class="analysis-caveat">Fresh pass 3 P0 and P1 now have fixed-60 scores. P0 still includes one failed request; the later requests were sent separately. These combined results describe interrupted runs, not two new uninterrupted passes.</p><p><a href="${qwen27SecondUrl}">Read the source-bound results</a> · <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN27_V2_SECOND_CONTINUATION_FINDINGS_2026-10-01.md">Read what changed</a></p><details><summary>How these runs were completed</summary><p>The original P0 failure at ${esc(data.cutoffDetail.originalP0FailedId)} was not retried. The P1 result combines separate sends only for xhigh; medium P1 ran as its own full stage. Each original failure retains a ${money(data.cutoffDetail.originalP0UnknownCostUpperBoundUsd)} possible charge, which is not a reported charge. Request times include transport and service overhead.</p></details>`
         : qwen27Final
         ? `<p class="analysis-caveat">The scores compare each 60-comment run with provisional reference labels. Answer-change counts use only comments with valid answers in every compared pass. Fresh pass 3 P0 combined separate sends; xhigh P1 did too. Medium P1 ran as a full stage after the interruption. This is a descriptive comparison, not a clean three-pass test.</p><p><a href="${qwen27FinalUrl}">Read the source-bound results</a> · <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/QWEN27_V2_FINAL_DESCRIPTIVE_FINDINGS_2026-10-01.md">Read the findings</a></p><details><summary>Why fresh pass 3 was interrupted</summary><p>The original P0 service error at ${esc(data.originalP0FailedId)} was not retried. Later unsent comments were completed separately. Its possible charge is bounded at ${money(data.originalP0UnknownCostUpperBoundUsd)}, which is not an observed charge. Request durations include client and service overhead; provider-reported reasoning tokens are a separate diagnostic.</p></details>`
+        : deepseekFinal
+        ? `<p class="analysis-caveat">Fresh pass 1 P2 has a descriptive 53/60 all-four score: 56 valid responses, one invalid response, three preserved service failures and zero unsent comments. P0/P1/P2 scores are 58/57/53. Three phases are scored, while the historical clean completion count stays 2 of 9. Later repeat phases have no full scores in this feed. This is not a clean matched-three series.</p><p><a href="${deepseekFinalUrl}">Read the final suffix evidence and source hashes</a> · <a href="${deepseekThirdUrl}">Read the earlier DEV-050 cutoff</a></p><p>${esc(data.publicVerificationLimit)}</p>`
         : deepseekThird
         ? `<p class="analysis-caveat">Fresh pass 1 P2 stopped at DEV-050. It has 46 valid responses, one invalid response, three service errors and ten comments not sent. No P2 score exists. Earlier interruption cutoffs remain separate entries; this is not a clean matched-three series.</p><p><a href="${deepseekThirdUrl}">Read this public cutoff and its source hashes</a></p>`
         : '') + (data.interpretation || []).map(text => `<p>${esc(text)}</p>`).join('');
@@ -1299,6 +1360,8 @@
         ? `Qwen 27B ${data.cutoffDetail.configurationId.endsWith('medium') ? 'medium' : 'xhigh'}: fresh pass 3 P0 matched all four reference decisions for ${data.cutoffDetail.conditions.P0.score.allFour} of 60 comments, and P1 for ${data.cutoffDetail.conditions.P1.score.allFour} of 60. P0 has one preserved service error. These are completed interrupted runs; the earlier matched-run results remain separate.`
         : qwen27Cutoff
         ? `Qwen 27B ${data.cutoffDetail.configurationId.endsWith('medium') ? 'medium' : 'xhigh'}: ${data.completedConditions} of 2 fresh pass 3 phases have final scores at this cutoff. P0 has ${data.cutoffDetail.validSaved} valid saved responses and ${data.cutoffDetail.neverSentAfterContinuation.length} unsent comments. P1 has ${data.cutoffDetail.laterP1.saved} saved responses and ${data.cutoffDetail.laterP1.neverSent} unsent comments; it has no score.`
+        : deepseekFinal
+        ? 'DeepSeek low: three scored descriptive phases, with P0/P1/P2 all-four scores of 58/57/53 out of 60. P2 has 56 valid responses, one invalid, three service failures and zero unsent. Historical clean completion remains 2 of 9; this is not a clean matched-three series.'
         : deepseekThird
         ? 'DeepSeek low: 2 of 9 phases have final scores at the third interruption cutoff. Fresh pass 1 P2 has 46 valid responses, one invalid response, three service errors and ten unsent comments; it has no score.'
         : gemmaContinuation
@@ -1330,6 +1393,8 @@
         ? `This entry covers only fresh pass 3 P0 and P1. P0 preserves the original service error at ${data.cutoffDetail.originalP0FailedId}. The other P0 responses and P1 responses fill all planned comment positions across separate dispatches. No failed request was replayed. The earlier clean hosted phases and the first interruption cutoff remain separate. Scores compare with provisional references. Request durations include client and service overhead.`
         : qwen27Cutoff
         ? `Fresh pass 3 P0: ${data.cutoffDetail.validSaved} valid saved responses, one preserved service error at ${data.cutoffDetail.originalFailedId}, and ${data.cutoffDetail.neverSentAfterContinuation.length} not sent. Fresh pass 3 P1: ${data.cutoffDetail.laterP1.saved} saved and ${data.cutoffDetail.laterP1.neverSent} not sent; no score. This is an interrupted cutoff, separate from earlier hosted repeat evidence.`
+        : deepseekFinal
+        ? 'Fresh pass 1 P2 combines the original interrupted phase and three continuations. The final DEV-051 to DEV-060 suffix has ten valid responses; the earlier invalid answer and three failures remain in the fixed-60 score. Later repeat phases have no full scores in this feed. Observed usage excludes missing fields and unknown charges. Reference labels are provisional; client HTTP duration includes network and service overhead.'
         : deepseekThird
         ? 'Fresh pass 1 P2 stopped after DEV-050: 46 valid saved responses, one invalid answer at DEV-039, service errors at DEV-040, DEV-049 and DEV-050, and DEV-051 to DEV-060 not sent. It has no score. DEV-050 timing is a client HTTP duration, not pure model inference time. Private provider error bytes cannot be rechecked from the public feed.'
         : gemmaContinuation
@@ -1416,7 +1481,7 @@
           const score = partial || !closed(phase) ? null : phase.score;
           const n = score ? valueOf(score,field) : null;
           const stopped = deepseekLowContinuation && p === 'fresh1' && c === 'P2';
-          const thirdStop = deepseekThird && p === 'fresh1' && c === 'P2';
+          const thirdStop = deepseekThird && !deepseekFinal && p === 'fresh1' && c === 'P2';
           const qwen27P0Stop = qwen27Cutoff && c === 'P0' && !data.cutoffDetail.score;
           const qwen27P1Stop = qwen27Cutoff && c === 'P1';
           const gemmaStop = gemmaContinuation && p === 'fresh2' && c === 'P0';
@@ -1535,6 +1600,11 @@
         if (gemmaPostabort && p === 'fresh3' && c === 'P2') {
           const u = data.postabortDetail.compositeUsage;
           return `<tr><th scope="row">P2</th><td>Fresh pass 3 (closed interrupted composite)</td><td>60 attempted<br><small>58 valid, 2 preserved service failures</small></td><td>${number(u.tokenAvailability.prompt_tokens.reportedSum)} reported<br><small>${u.tokenAvailability.prompt_tokens.reportedCount}/60 requests</small></td><td>${number(u.tokenAvailability.completion_tokens.reportedSum)} reported<br><small>${u.tokenAvailability.completion_tokens.reportedCount}/60 requests</small></td><td>${money(u.reportedKnownCostUsd)} known<br><small>${u.missingCostCount} requests have unknown cost; not a complete bill</small></td><td>Unavailable</td><td>${u.clientRequestSecondsTotal.toFixed(1)}<br><small>Summed client request time; not inference time</small></td></tr>`;
+        }
+        if (deepseekFinal && p === 'fresh1' && c === 'P2') {
+          const u = data.finalSuffixDetail.p2ObservedUsage;
+          const metric = key => `${number(u[key].observedSum)} observed<br><small>${u[key].observedCount}/60 reported; ${u[key].missingCount} missing</small>`;
+          return `<tr><th scope="row">P2</th><td>Fresh pass 1 (descriptive composite)</td><td>60 attempted<br><small>56 valid, 1 invalid, 3 service failures, 0 unsent</small></td><td>${metric('prompt_tokens')}<br><small>Total tokens: ${metric('total_tokens')}</small></td><td>${metric('completion_tokens')}<br><small>Reasoning: ${metric('reasoning_tokens')}</small></td><td>${money(u.observedCostUsd)} observed<br><small>${u.observedCostCount}/60 reported; ${u.unknownCostCount} unknown charges; not a complete bill</small></td><td>Unavailable</td><td>${u.clientRequestSecondsTotal.toFixed(1)}<br><small>${u.clientRequestTimingCount}/60 client HTTP durations; not provider inference time</small></td></tr>`;
         }
         if (deepseekThird && p === 'fresh1' && c === 'P2')
           return '<tr><th scope="row">P2</th><td>Fresh pass 1 (stopped, unscored)</td><td>50 attempted<br><small>46 valid, 1 invalid, 3 service errors, 10 unsent</small></td><td>Unavailable</td><td>Unavailable</td><td>Unavailable in this cutoff</td><td>Unavailable</td><td>Client HTTP time only for DEV-050; see public cutoff</td></tr>';
