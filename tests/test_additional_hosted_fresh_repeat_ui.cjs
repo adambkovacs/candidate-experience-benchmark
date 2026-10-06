@@ -10,6 +10,7 @@ const schema = 'additional-hosted-fresh-repeat-findings-v1';
 const qwen = 'openrouter-paid-qwen36-35b-a3b-off';
 const low = 'openrouter-paid-deepseek-v41-flash-low';
 const on = 'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2';
+const high = 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price';
 const ids = ['repeat-results', 'repeat-config', 'repeat-field', 'repeat-condition',
   'repeat-condition-label', 'repeat-interpretation', 'repeat-lead', 'repeat-chart',
   'repeat-delta-title', 'repeat-delta-intro', 'repeat-deltas', 'repeat-flips',
@@ -107,6 +108,18 @@ test('published hosted ON P1 composite is visible without clean repeat credit', 
   assert.match(ui.get('repeat-chart').innerHTML, /52 out of 60/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-049 remains an unknown timeout/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /no clean repeat credit/);
+  assert.match(ui.get('repeat-lead').textContent, /1 of 9/);
+});
+
+test('published DeepSeek high P0 retains its billed invalid and excludes live P1', async () => {
+  const published = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'public-site',
+    'additional-hosted-fresh-repeats.json'), 'utf8'));
+  const ui = await render(published, 200, `${high}-fresh-matched3`);
+  assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${high}-fresh-matched3"`));
+  assert.match(ui.get('repeat-chart').innerHTML, /57 out of 60/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-030 as an invalid/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /not repaired or replayed/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /P1 and later phases are not included/);
   assert.match(ui.get('repeat-lead').textContent, /1 of 9/);
 });
 

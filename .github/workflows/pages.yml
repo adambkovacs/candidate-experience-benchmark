@@ -109,8 +109,9 @@ jobs:
           python3 -m unittest tests.test_build_codex_fresh_repeat_findings -q
           python3 scripts/build_deepseek_fresh_repeat_findings.py --output public-site/deepseek-fresh-repeats.json --check
           python3 -m unittest tests.test_build_deepseek_fresh_repeat_findings tests.test_additional_hosted_fresh_repeat_findings -q
-          python3 scripts/build_qwen36_on_hosted_authority_v2_findings.py --output public-site/additional-hosted-fresh-repeats.json --check
+          python3 scripts/build_deepseek_high_authority_v3_findings.py --output public-site/additional-hosted-fresh-repeats.json --check
           python3 -m unittest tests.test_build_qwen36_on_hosted_authority_v2_findings -q
+          python3 -m unittest tests.test_build_deepseek_high_authority_v3_findings -q
           python3 scripts/build_deepseek_low_interruption_findings.py --check
           python3 -m unittest tests.test_build_deepseek_low_interruption_findings -q
           python3 scripts/build_qwen36_off_continuation_findings.py --output public-site/qwen36-off-continuation-findings.json --check

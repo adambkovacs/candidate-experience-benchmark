@@ -58,9 +58,14 @@ class QwenHostedFindingsTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'source hash differs'):
                 report.build(ROOT)
 
-    def test_published_report_rebuilds(self):
+    def test_published_report_preserves_qwen_and_prior_series(self):
         published = json.loads((ROOT / 'public-site/additional-hosted-fresh-repeats.json').read_text())
-        self.assertEqual(published, report.build(ROOT))
+        base = report.build(ROOT)
+        self.assertEqual(published['series'][:len(base['series'])], base['series'])
+        self.assertEqual(published['availableConfigurations'][:len(base['availableConfigurations'])],
+                         base['availableConfigurations'])
+        self.assertEqual(published['sourceBindings'][:len(base['sourceBindings'])],
+                         base['sourceBindings'])
 
 
 if __name__ == '__main__':
