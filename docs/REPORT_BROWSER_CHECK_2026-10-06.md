@@ -73,3 +73,9 @@ The rendered decision-model findings also include the updated Clef evidence: sev
 ## Clef repeat grid
 
 The integrated local Clef grid renders seven scored runs and two visibly interrupted runs, with explicit 60-review denominators. At a 390-by-844 viewport, the table remains inside a 284-pixel horizontal scroll region; the document width remains equal to its 375-pixel client width. The region has a keyboard focus target. No browser console errors were captured, and the temporary viewport was reset. Three component tests cover score/interruption separation, changed-data fallback, and scoped mobile/reduced-motion rules. Native Right-arrow input moved the focused table scroll region horizontally. Under reduced-motion emulation, all 94 chart elements had no animation and zero-second transitions. The media override was cleared afterward.
+
+## Qwen field-error details, 7 October 2026
+
+The new Qwen field-error disclosure opens in the local report and retains all nine planned runs, including DEV-049 as unavailable in the interrupted first P1. The first P0 shows testimonial agreement of 7/9 reference yes cases separately from 58/60 field agreement. Labels display as ordinary words, including "insufficient information".
+
+At a 390 by 844 viewport, the page's content and scroll widths both measured 375 pixels. The table's 760-pixel content stayed inside its 256-pixel scroll region. The region accepted keyboard focus and a native Right key moved its horizontal scroll position. The temporary viewport was reset afterward. These are local rendering checks, not confirmation of the pending Pages deployment.
