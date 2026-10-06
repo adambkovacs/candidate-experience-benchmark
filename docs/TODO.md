@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Roster counts reconciled, 6 October 2026, 09:40 UTC
+
+Root finalized the [remaining roster](REMAINING_ROSTER_2026-09-29.md) against the published reports. Five legacy Qwen configurations have all nine phases closed. Qwen3.5 thinking-on retains its separate interrupted P0 composite and live P2; neither is counted as a completed clean phase. Mistral none has one fully accounted P0 descriptive composite (55 valid, five failed, 40/60 all-four matches), with no clean-repeat credit; high remains unstarted. P1's failed smoke remains visible. Counts and local links were checked. The agent's specialist action inventory is unfinished and is not claimed as delivered; root retains that task. No new request or budget entry was made.
+
 ## Offline budget test added, 6 October 2026, 09:35 UTC
 
 The DeepSeek fourth-price test now runs the complete ten-record continuation with temporary child and shared-authority ledgers and a fake transport. It verifies exact ordered IDs, paired reservations and settlements, simulated charges of $0.010, and one $0.25 hold. All 15 focused tests pass in root's rerun. Review: APPROVE, no confirmed findings in this test change. This closes the earlier budget-path coverage gap; it does not establish live provider availability or authorize dispatch.
