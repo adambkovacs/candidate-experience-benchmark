@@ -868,7 +868,7 @@
       "provider": "akashml/fp8",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 7,
+      "completedConditions": 8,
       "conditionOrder": [
         "P0",
         "P1",
@@ -1778,6 +1778,116 @@
               "unknownCostCount": 0,
               "requestSecondsTotal": null
             }
+          },
+          "P1": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 57,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "ok": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "positive": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 28,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 5,
+                    "no": 1
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 8,
+                    "no": 1
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 31,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 29,
+                  "insufficient_information": 6,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 8,
+                  "no": 51,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "tokens": {
+                "prompt_tokens": 96450,
+                "completion_tokens": 67064
+              },
+              "knownCostUsd": "0.0668346",
+              "actualCostUsd": "0.0668346",
+              "unknownCostCount": 0,
+              "requestSecondsTotal": null
+            }
           }
         }
       },
@@ -1786,11 +1896,6 @@
           "pass": "fresh1",
           "condition": "P1",
           "status": "interrupted_descriptive"
-        },
-        {
-          "pass": "fresh3",
-          "condition": "P1",
-          "status": "not_started"
         }
       ],
       "threePassSummary": {},
@@ -2910,6 +3015,58 @@
         {
           "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/development.responses.jsonl",
           "sha256": "115464ef642b8bd9c047c2608631c0f24ac77f8d8f91800eb4c141f2a38a6d12"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/closure.review.json",
+          "sha256": "e42e6bbcb24e0e4acc0189f8b109a278c8dbf845b890f8a207e17857acfa5c10"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh3-p1-closure.jsonl",
+          "sha256": "1a090b9cf72a4e8c948e14d1800c653a08b92f274364b8b601a1b9af81a0acb4"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.claim.json",
+          "sha256": "2d79ae3515fd801852e761b9a518cf7da2c7dd8f55a8114698764b148581e5d7"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.root-review.json",
+          "sha256": "3de78cb13f842e295b2d09a895ff90be9720fa914cfc4eff187cf42c3e3c0026"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke-inspection.json",
+          "sha256": "101430df1e9bb75852b802e6b95aaac39a7d9431747704ecb5cc1d30d31eae0b"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.journal.jsonl",
+          "sha256": "e763e27d671b2556c475724693718e7ffce85f5f82b1c718fe19ec60748ef912"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.attempts.jsonl",
+          "sha256": "3e02f3c9e3e886c70a9e9b697f80bcb414a5f6557fbfc560db4d922cfd3e2697"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.responses.jsonl",
+          "sha256": "6a186679a16c741ada3fa62a10d08a49e42658401a0a808feda0499e8aac5026"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.claim.json",
+          "sha256": "3a65f98ac200c74f3eca6ff9234237ef608a7496ff61b3d12e7a502ad49e966c"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.root-review.json",
+          "sha256": "9b450157a3378110f8d30d8dbcd01b13f5bdffe041d5351b8f56f8c6553eb8aa"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.journal.jsonl",
+          "sha256": "6e64d283251e25847bdf84f9f14b7ea632ea164576050492fe8f7bf526aa691c"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.attempts.jsonl",
+          "sha256": "2e7d39ebd3807c2aa1bd3db7604041953f232135bfaa4bfb53a5038ddd29f00b"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.responses.jsonl",
+          "sha256": "610aad7996c37a0f96d7eca5c4b5f372383e47d8e54843db7dacba48cc607e66"
         }
       ],
       "publicVerificationLimit": "Six private historical Qwen controls remain hash-declared in the frozen plan; this public report scores only independently closed current-authority phases. The interrupted P1 composite remains descriptive.",
@@ -5107,6 +5264,58 @@
     {
       "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P0/development.responses.jsonl",
       "sha256": "115464ef642b8bd9c047c2608631c0f24ac77f8d8f91800eb4c141f2a38a6d12"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/closure.review.json",
+      "sha256": "e42e6bbcb24e0e4acc0189f8b109a278c8dbf845b890f8a207e17857acfa5c10"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh3-p1-closure.jsonl",
+      "sha256": "1a090b9cf72a4e8c948e14d1800c653a08b92f274364b8b601a1b9af81a0acb4"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.claim.json",
+      "sha256": "2d79ae3515fd801852e761b9a518cf7da2c7dd8f55a8114698764b148581e5d7"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.root-review.json",
+      "sha256": "3de78cb13f842e295b2d09a895ff90be9720fa914cfc4eff187cf42c3e3c0026"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke-inspection.json",
+      "sha256": "101430df1e9bb75852b802e6b95aaac39a7d9431747704ecb5cc1d30d31eae0b"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.journal.jsonl",
+      "sha256": "e763e27d671b2556c475724693718e7ffce85f5f82b1c718fe19ec60748ef912"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.attempts.jsonl",
+      "sha256": "3e02f3c9e3e886c70a9e9b697f80bcb414a5f6557fbfc560db4d922cfd3e2697"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/smoke.responses.jsonl",
+      "sha256": "6a186679a16c741ada3fa62a10d08a49e42658401a0a808feda0499e8aac5026"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.claim.json",
+      "sha256": "3a65f98ac200c74f3eca6ff9234237ef608a7496ff61b3d12e7a502ad49e966c"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.root-review.json",
+      "sha256": "9b450157a3378110f8d30d8dbcd01b13f5bdffe041d5351b8f56f8c6553eb8aa"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.journal.jsonl",
+      "sha256": "6e64d283251e25847bdf84f9f14b7ea632ea164576050492fe8f7bf526aa691c"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.attempts.jsonl",
+      "sha256": "2e7d39ebd3807c2aa1bd3db7604041953f232135bfaa4bfb53a5038ddd29f00b"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P1/development.responses.jsonl",
+      "sha256": "610aad7996c37a0f96d7eca5c4b5f372383e47d8e54843db7dacba48cc607e66"
     },
     {
       "path": "scripts/build_deepseek_high_authority_v3_findings.py",
