@@ -32,6 +32,7 @@ JEV_NATIVE_PROMPT_PUBLIC = "public-site/jev-native-prompt-findings.json"
 GEMINI_AUTHORITY_PUBLIC = "public-site/gemini-repeats.json"
 HOSTED_FRESH_PUBLIC = "public-site/additional-hosted-fresh-repeats.json"
 HIGH_SUCCESSOR_PUBLIC = "public-site/deepseek-high-remaining6-successor-findings.json"
+TEV_PUBLIC = "public-site/tev-native-full-findings.json"
 LIQUID_PUBLIC = "public-site/liquid-d1-native-full-findings.json"
 LOW_P1_SUCCESSOR_PUBLIC = "public-site/deepseek-low-p1-successor-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
@@ -70,6 +71,7 @@ SOURCES = (
     LOW_REVISED_PUBLIC,
     LOW_P1_SUCCESSOR_PUBLIC,
     LIQUID_PUBLIC,
+    TEV_PUBLIC,
     HIGH_SUCCESSOR_PUBLIC,
     "data/pilot/proposed_labels.jsonl",
 )
@@ -1044,6 +1046,20 @@ def build(root=ROOT):
         raise ValueError('Liquid report differs from closed evidence')
     bind_report_sources(root, liquid, bindings, 'Liquid native decision results')
 
+    import build_tev_native_full_findings as tev_builder
+    tev = data[TEV_PUBLIC]
+    if tev != tev_builder.build(root):
+        raise ValueError('Tev report differs from closed evidence')
+    tev_receipt = read(root, str(tev_builder.RECEIPT), bindings)
+    read(root, str(tev_builder.PROJECTION), bindings)
+    for name, digest in tev_receipt['source_sha256'].items():
+        # Private response files remain bound by the public receipt, not bundled.
+        if name.endswith(('raw.jsonl', 'attempts.jsonl', 'parsed.jsonl')):
+            continue
+        if sha(root / name) != digest:
+            raise ValueError('Tev public source differs: ' + name)
+        bindings[name] = digest
+
     sonnet = data["public-site/sonnet55-fresh-matched3.json"]
     public_report = data["public-site/sonnet55-fresh-matched3-evidence/report.json"]
     if (sonnet["completedCells"] != 36 or sonnet["plannedCells"] != 36 or
@@ -1564,6 +1580,7 @@ def build(root=ROOT):
         "newerCohorts": {
             "deepseekHighSuccessor": {"source": HIGH_SUCCESSOR_PUBLIC, **high_successor},
             "liquidNative": {"source": LIQUID_PUBLIC, **liquid},
+            "tevNative": {"source": TEV_PUBLIC, **tev},
             "e4bInterrupted": {"source": e4b_source,
                 "score": e4b["descriptiveScore"], "unknownIds": e4b["unknownIds"],
                 "neverSentIds": e4b["neverSentIds"], "cleanRepeatEligible": False,

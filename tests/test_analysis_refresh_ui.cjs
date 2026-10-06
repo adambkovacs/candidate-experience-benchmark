@@ -317,3 +317,15 @@ test('low P1 usable-answer agreement retains all three failed outcomes', async()
   report.newerCohorts.deepseekLowP1Successor.cleanFullPhase=true;
   assert.match(await render(report),/could not be loaded/);
 });
+
+test('Tev findings distinguish stable repeats from matching reference answers', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const view=await renderState(report);
+  assert.match(view.cutoffs,/Tev decision model/);
+  assert.match(view.cutoffs,/P0: 45, 45, 45 out of 60/);
+  assert.match(view.cutoffs,/P1: 44, 44, 44 out of 60/);
+  assert.match(view.cutoffs,/No labels changed between repeats of the same prompt/);
+  assert.match(view.cutoffs,/changed six compared with classifier instructions/);
+  assert.match(view.cutoffs,/0\.151342128/);
+  assert.match(view.cutoffs,/not calibrated probabilities/);
+});
