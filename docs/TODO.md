@@ -1,5 +1,9 @@
 # Current work checklist
 
+## Admission tests repaired; hosted access checked, 6 October 2026, 09:12 UTC
+
+Commit `3c958872` removes two stale test assumptions that historical run folders remain empty; all 43 admission/continuation tests pass. Production controllers and frozen evidence are unchanged. Qwen3.5 P2 handle 13132 remains live (nine saved at this checkpoint, seven valid and two invalid). The report agent is preparing validation for completed successor phases without exporting live output. The DeepSeek wrapper remains offline and its exact route is blocked by the 08:59 snapshot. A separate authorized read-only Cloudflare route could not read the model catalog (HTTP 403), so current Clef access and quota are still unverified. No paid request, reservation or credential change occurred.
+
 ## DeepSeek route unavailable again, 6 October 2026, 08:59 UTC
 
 Root archived a fresh public catalog response: the exact `open-inference/fp4` endpoint now reports status -2 and changed prices. This supersedes the earlier 08:43 available observation. [Audit and raw snapshots](HOSTED_ROUTE_CHECK_2026-10-06.md) are saved; no child allocation, global hold or inference was made. The price-wrapper agent is finishing offline fixes only. Qwen3.5 P2 continues under handle 13132; its GPU lock remains exclusive.
