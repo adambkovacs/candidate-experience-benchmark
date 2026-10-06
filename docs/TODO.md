@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Jev P0/P1 three-pass execution, 06 October 2026, 12:31 UTC
+
+- P0 now has three terminal full passes: 60/60/59 valid responses. The third retains DEV-040 as an invalid probability distribution. Each pass has $0.005890920 observed cost. Root verified all raw/request bindings and reconciled all children. The third pass's authority hold remains encumbered because the frozen release verifier requires all-valid outcomes; no output was repaired.
+- P1 has three terminal full passes: 60/59/60 valid, each $0.006405000 observed cost. P2 fresh2 accounts for all 60 positions as an interrupted composite, but P2 fresh3 remains unsent. authority_reconciliation_v2 owns a separate predecessor wrapper for that third pass, without changing frozen runner code.
+- No inference is running. jev_authority_v2_bridge owns the expanded native P0/P1/P2 report and renderer; jev_v2_activation_review owns Qwen combined-analysis compatibility. Root owns publication and the next reviewed admission. Existing private active ledgers are not staged.
+
+
 ## Jev P1 repeat closure and P0 admission, 06 October 2026, 12:27 UTC
 
 - P1 fresh3 finished with 60 valid responses, zero invalid and $0.006405000 observed cost. Root checked all 60 request and response hashes and strict parsed decisions, then reconciled the child. P1 now has three full passes with 60/59/60 valid responses. Updated scores and repeat comparisons are being calculated by jev_authority_v2_bridge.
