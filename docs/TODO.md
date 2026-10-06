@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Publication verified, 6 October 2026, 10:08 UTC
+
+[Pages run 37447299000](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37447299000) succeeded for `92d07574`. Live `kev-native-repeats.json` matches the committed feed, SHA-256 `3f8b95ae790a8252fe2bb7a6823a8ee8196a245bf37bd4fb4f5944cb2b0e0fa9`; live HTML also matches, SHA-256 `4dc84f169a20b7201adc6b96bf6b0bda1fef81d6ceee703d5d07be1d06a5e3c0`. This verifies publication bytes, not a new browser visual inspection. The earlier failed deployment is preserved.
+
+Qwen3.5 P2 is still running, last counted at 56 saved and 49 valid. Independent native-v2 review requested changes for a BLOCKING request-binding gap between manifest verification and dispatch. The implementer owns the fix and zero-spend regression. No native smoke is admitted and no paid request was sent.
+
 ## Gemma continuation prepared; native review underway, 6 October 2026, 10:05 UTC
 
 Root re-reviewed the E4B continuation after the live prompt/token preflight fix: APPROVE, no confirmed remaining findings. Six tests passed in root's run; the implementer then added and passed a seventh test for all eight successful fixture responses. The exact DEV-053–060 manifest is frozen as `offline_prepared_unapproved`, SHA `ce0ff9227691fff4be38cfba9f2e3e1372d528778062be640c60dbfd0fe4b6dc`. No runtime preflight, model load or inference has occurred for it. Qwen3.5 retains the GPU lock; later admission must verify hosted absence, the loaded model, current host and root receipt.
