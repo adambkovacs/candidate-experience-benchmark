@@ -22,6 +22,10 @@ Analysis follow-up: the Qwen3.6 field/class error summary and Clef gained/lost f
 
 The independently reviewed plain Mistral high fresh1/P2 smoke sent DEV-001 once and received HTTP 429. DEV-002/003 and development remain unsent. The $0.04177920 unknown-charge bound is retained; no failed request is replayed. Root and independent reviews passed all seven focused tests before dispatch.
 
+Publication correction: Pages run 37545806903 failed because 34 required public Solar receipts were not tracked. Commit `3d71f608` archives those closed receipts; `27762c29` removes private smoke-file dependencies from the combined public report while retaining their hash verification when present. The real Git archive passes all three report builders. The earlier copied-source portability fixture did not establish Git completeness. Integrated publication remains pending the corrected deployment.
+
+A broader Node sweep passed 350 of 351 tests. The one failure is a historical E4B fixture that assumes a continuation closure is absent although that closure was committed on 1 October. It is outside Pages CI and unrelated to Solar. Keep the frozen runtime/evidence unchanged; use an isolated fixture in a separately reviewed test update.
+
 No further local inference will run. Final work remains: finish the available hosted specialist runs, reconcile unavailable routes and failures, update the combined findings, and verify publication and website controls.
 
 ## Preparation checkpoint, 6 October 2026, 20:59 UTC
