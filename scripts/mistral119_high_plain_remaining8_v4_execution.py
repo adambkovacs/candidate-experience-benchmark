@@ -70,7 +70,7 @@ def live_controls(plan, condition):
     if (plan.get('configuration_id') != CONFIG or
             (plan.get('fresh_pass'), condition) not in proposal.PHASES):
         raise ValueError('Stage outside eight unopened plain Mistral stages')
-    saved = old.route_snapshot()
+    saved = proposal.portable_route(proposal.portable_sources())
     catalog = paid.fetch('/models', timeout=120)
     endpoint_path = '/models/' + quote(old.study.MODEL, safe='/') + '/endpoints'
     endpoints = paid.fetch(endpoint_path, timeout=120)

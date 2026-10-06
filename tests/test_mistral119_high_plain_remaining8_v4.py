@@ -3,7 +3,10 @@ from copy import deepcopy
 from decimal import Decimal
 import io
 import json
+import os
 from pathlib import Path
+import shutil
+import subprocess
 import sys
 from types import SimpleNamespace
 from unittest import mock
@@ -34,8 +37,8 @@ def test_exact_eight_stages_exclude_interrupted_p0():
 @pytest.mark.parametrize('repeat,condition', proposal.PHASES)
 def test_only_provider_tag_changes_in_frozen_requests(repeat, condition):
     actual = proposal.plan_data(repeat)['conditions'][condition]
-    frozen = proposal.old.study.verify(proposal.old.OLD_CONFIG, repeat,
-        proposal.sha(proposal.original_path(repeat)))['conditions'][condition]
+    frozen = proposal.portable_original(repeat,
+        proposal.portable_sources())['conditions'][condition]
     for phase, count in (('smoke', 3), ('development', 60)):
         assert len(actual[phase]) == count
         for changed, original in zip(actual[phase], frozen[phase]):
@@ -168,7 +171,7 @@ def test_real_temp_child_mock_http_smoke_settles_or_stops_without_replay(tmp_pat
     folder = tmp_path / 'fresh1/P1'
     folder.mkdir(parents=True)
     review_path = folder / 'smoke.root-review.json'
-    saved_route = proposal.old.route_snapshot()
+    saved_route = proposal.portable_route(proposal.portable_sources())
     model, endpoint = saved_route['model'], saved_route['selected_endpoint']
     answer = {'sentiment': 'positive', 'follow_up_needed': 'no',
               'serious_concern_reported': 'no', 'testimonial_potential': 'no'}
@@ -245,3 +248,31 @@ def test_sequential_capacity_patch_is_present_without_dispatch():
     assert core.execute.__code__.co_filename == str(Path(executor.__file__))
     assert 'insufficient_capacity' in core.execute.__code__.co_consts
     assert proposal.verify() == proposal.sha(proposal.MANIFEST)
+
+
+def test_clean_git_archive_verifies_without_private_historical_smokes(tmp_path):
+    archive = tmp_path / 'repo.tar'
+    with archive.open('wb') as out:
+        subprocess.run(['git', 'archive', '--format=tar', 'HEAD'], cwd=ROOT,
+                       stdout=out, check=True)
+    clean = tmp_path / 'clean'
+    clean.mkdir()
+    subprocess.run(['tar', '-xf', str(archive), '-C', str(clean)], check=True)
+    candidate = [
+        'scripts/mistral119_high_plain_remaining8_v4.py',
+        'scripts/mistral119_high_plain_remaining8_v4_execution.py',
+        'tests/test_mistral119_high_plain_remaining8_v4.py',
+    ] + [str(proposal.BASE.relative_to(ROOT) / name) for name in (
+        'source-proof.json', 'proposal.json', 'fresh1/manifest.json',
+        'fresh2/manifest.json', 'fresh3/manifest.json')]
+    for name in candidate:
+        target = clean / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / name, target)
+    assert not (clean / 'results/mistral119-recovery-prep-v1/high-smoke.jsonl').exists()
+    env = dict(os.environ, PYTHONPATH=str(clean / 'scripts'))
+    result = subprocess.run([sys.executable,
+        'scripts/mistral119_high_plain_remaining8_v4_execution.py', 'verify'],
+        cwd=clean, env=env, text=True, capture_output=True)
+    assert result.returncode == 0, result.stderr
+    assert proposal.sha(proposal.MANIFEST) in result.stdout
