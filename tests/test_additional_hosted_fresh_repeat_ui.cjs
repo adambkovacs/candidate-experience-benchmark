@@ -11,6 +11,7 @@ const qwen = 'openrouter-paid-qwen36-35b-a3b-off';
 const low = 'openrouter-paid-deepseek-v41-flash-low';
 const on = 'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2';
 const high = 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price';
+const revisedHigh = `${high}-remaining7-price-v1`;
 const ids = ['repeat-results', 'repeat-config', 'repeat-field', 'repeat-condition',
   'repeat-condition-label', 'repeat-interpretation', 'repeat-lead', 'repeat-chart',
   'repeat-delta-title', 'repeat-delta-intro', 'repeat-deltas', 'repeat-flips',
@@ -122,6 +123,16 @@ test('published DeepSeek high retains its billed invalid and includes only close
   assert.match(ui.get('repeat-interpretation').innerHTML, /not repaired or replayed/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /Later phases appear below only after/);
   assert.match(ui.get('repeat-lead').textContent, new RegExp(`${published.series.find(s => s.configuration === high).completedConditions} of 9`));
+});
+
+test('revised-price DeepSeek P2 is selectable without cross-configuration prompt credit', async () => {
+  const published = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'public-site',
+    'additional-hosted-fresh-repeats.json'), 'utf8'));
+  const ui = await render(published, 200, `${revisedHigh}-fresh-repeat`);
+  assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${revisedHigh}-fresh-repeat"`));
+  assert.match(ui.get('repeat-chart').innerHTML, /58 out of 60/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /do not form a matched prompt comparison/);
+  assert.match(ui.get('repeat-lead').textContent, /different price controls/);
 });
 
 test('open phases cannot expose stale scores, derived values, tokens, costs or durations', async () => {

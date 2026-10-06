@@ -1,5 +1,12 @@
 # Current work checklist
 
+## Closed hosted phases, 6 October 2026
+
+- [DeepSeek high revised-price fresh1/P2](../results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/closure.review.json) is closed after 60 valid responses: 58/60 all-four matches, $0.03250234680 known development cost, and $0.001118700 smoke cost. Its immutable child snapshot accounts for 63 exact settlements. The revised price controls define a separate configuration from the earlier P0/P1 results. The fresh2/P2 original 43018 stopped at DEV-027 after 26 completed requests and a saved HTTP 429 service error. DEV-028–060 were never sent. Its cost and interruption accounting are under a separate audit; no request is replayed or scored as a closed phase.
+- [Qwen thinking-on fresh3/P2](../results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/closure.review.json) is closed with 60 valid responses, 54/60 all-four matches, and $0.0660117 known development cost. Its immutable cumulative child snapshot has 315 matched settlements and $0.3495425 accounted. Root inspected fresh3/P0 smoke and launched full development on original handle 5160; P0 and P1 remain open.
+- The [hosted feed](../public-site/additional-hosted-fresh-repeats.json), [combined analysis](../public-site/analysis-refresh.json), and report source now include both closures. Publication and live byte verification remain pending.
+- DeepSeek low's reviewed exact-unsent successor has a separate $0.35 child. Fresh2/P2 smoke is running on original handle 44547 for DEV-006–008; the earlier DEV-001–005 outcomes remain preserved. No continuation result is credited. Root owns execution and reconciliation.
+
 ## Public report browser checks, 6 October 2026
 
 Root checked the published report at a 390 × 844 viewport: no horizontal page overflow, the six main navigation links were present, selecting the hosted Qwen repeat study worked, and Tab from the model selector focused the study-details summary. No console errors were reported in this bounded check. The normal viewport was restored. This is not full mobile, keyboard or reduced-motion coverage; those remaining checks stay open. The rendered report still reflected the last deployed cohort while the newer Qwen closure deployment was in progress.

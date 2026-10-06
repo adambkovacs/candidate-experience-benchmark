@@ -105,7 +105,7 @@ def bind_report_sources(root, report, bindings, label):
 
 def hosted_fresh_summary(root, published, bindings):
     """Project only independently closed hosted cells from the rebuilt report."""
-    import build_deepseek_high_authority_v3_findings as hosted_builder
+    import build_deepseek_high_remaining7_price_findings as hosted_builder
 
     if published != hosted_builder.build(root):
         raise ValueError("Hosted fresh report differs from closed evidence")
@@ -113,6 +113,7 @@ def hosted_fresh_summary(root, published, bindings):
     series = {item["configuration"]: item for item in published["series"]}
     qwen = series["openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2"]
     deepseek = series["openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price"]
+    priced = series.get(hosted_builder.CONFIG)
     qpasses = qwen["passes"]["fresh1"]
     base, rules, interrupted = (qpasses[name] for name in ("P0", "P2", "P1"))
     delta = qwen["withinPassPromptDeltas"]
@@ -184,6 +185,29 @@ def hosted_fresh_summary(root, published, bindings):
                 {"ok": 59, "invalid_output": 1} or
             dscore["invalidIds"] != ["DEV-030"]):
         raise ValueError("Hosted DeepSeek high first pass differs")
+    priced_summary = None
+    if priced is not None:
+        priced_closed = [(name, condition) for name, phases in priced["passes"].items()
+                         for condition, phase in phases.items()
+                         if phase["status"].startswith("completed")]
+        if (priced["configuration"] != hosted_builder.CONFIG or
+                priced["originalConfiguration"] != deepseek["configuration"] or
+                priced["method"] != "separate-price-control-continuation" or
+                priced["denominator"] != 60 or
+                priced["completedConditions"] != len(priced_closed) or
+                priced["cleanMatchedThreeEligible"] is not False or
+                not priced_closed or priced_closed[0] != ("fresh1", "P2")):
+            raise ValueError("Hosted DeepSeek revised-price series differs")
+        priced_summary = {
+            "configuration": hosted_builder.CONFIG,
+            "originalConfiguration": deepseek["configuration"],
+            "completedConditions": len(priced_closed),
+            "plannedConditions": priced["plannedConditions"],
+            "closedCells": [f"{name}/{condition}" for name, condition in priced_closed],
+            "closedPhases": closed_phase_summaries(priced, priced_closed),
+            "cleanMatchedThreeEligible": False,
+            "comparisonWithOriginalConfigurationEligible": False,
+        }
     return {
         "source": HOSTED_FRESH_PUBLIC,
         "qwen36On": {"completedCleanConditions": qwen["completedConditions"],
@@ -210,6 +234,7 @@ def hosted_fresh_summary(root, published, bindings):
             "denominator": 60, "invalidIds": dscore["invalidIds"],
             "intrinsicInvalidCount": dscore["outcomes"]["invalid_output"],
             "firstP0AloneSupportsPromptComparison": False},
+        "deepseekHighRevisedPrice": priced_summary,
     }
 
 

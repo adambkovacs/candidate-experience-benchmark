@@ -29,7 +29,7 @@ class AnalysisRefreshTest(unittest.TestCase):
         self.assertFalse(qwen["interruptedP1"]["cleanComparisonEligible"])
         self.assertFalse(qwen["cleanMatchedThreeEligible"])
         self.assertEqual(len(qwen["closedCells"]), qwen["completedCleanConditions"])
-        self.assertTrue({"fresh1/P0", "fresh1/P2", "fresh2/P0", "fresh2/P1", "fresh2/P2"}.issubset(qwen["closedCells"]))
+        self.assertTrue({"fresh1/P0", "fresh1/P2", "fresh2/P0", "fresh2/P1", "fresh2/P2", "fresh3/P2"}.issubset(qwen["closedCells"]))
         self.assertEqual(next(row["allFour"] for row in qwen["closedPhases"]
                               if row["pass"] == "fresh2" and row["condition"] == "P2"), 56)
         self.assertTrue({("fresh1", "P2", 2), ("fresh2", "P1", 1),
@@ -45,6 +45,11 @@ class AnalysisRefreshTest(unittest.TestCase):
             "allFour": {"P0": 57, "P1": 57},
             "invalidIds": {"P0": ["DEV-030"], "P1": ["DEV-006"]},
             "denominator": 60}])
+        revised = result["deepseekHighRevisedPrice"]
+        self.assertIn("fresh1/P2", revised["closedCells"])
+        self.assertEqual((revised["closedPhases"][0]["valid"],
+                          revised["closedPhases"][0]["allFour"]), (60, 58))
+        self.assertFalse(revised["comparisonWithOriginalConfigurationEligible"])
         self.assertIn("results/repeatability-v1/deepseek-high-authority-v3/"
                       "fresh1/P0/closure.root-review.json", bindings)
         self.assertTrue(any("closure-ledger-snapshot.jsonl" in path or
@@ -65,7 +70,7 @@ class AnalysisRefreshTest(unittest.TestCase):
             analysis.hosted_fresh_summary(ROOT, changed, {})
 
     def test_hosted_fresh_projection_accepts_additional_rebuilt_closed_cells(self):
-        import build_deepseek_high_authority_v3_findings as hosted_builder
+        import build_deepseek_high_remaining7_price_findings as hosted_builder
         future = copy.deepcopy(json.loads((ROOT / analysis.HOSTED_FRESH_PUBLIC).read_text()))
         qwen = next(item for item in future["series"] if "qwen36" in item["configuration"])
         deepseek = next(item for item in future["series"] if "high-authority-v3" in item["configuration"])

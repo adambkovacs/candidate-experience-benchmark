@@ -868,7 +868,7 @@
       "provider": "akashml/fp8",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 5,
+      "completedConditions": 6,
       "conditionOrder": [
         "P0",
         "P1",
@@ -1556,7 +1556,119 @@
             }
           }
         },
-        "fresh3": {}
+        "fresh3": {
+          "P2": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 54,
+              "fields": {
+                "sentiment": 57,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 58,
+                "testimonial_potential": 58
+              },
+              "outcomes": {
+                "ok": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 30,
+                    "neutral": 1
+                  },
+                  "neutral": {
+                    "neutral": 6,
+                    "positive": 2
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 28,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 5,
+                    "no": 1
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 7,
+                    "no": 2
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 13,
+                  "negative": 30,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 29,
+                  "insufficient_information": 6,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 7,
+                  "no": 52,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "tokens": {
+                "prompt_tokens": 151830,
+                "completion_tokens": 63399
+              },
+              "knownCostUsd": "0.0660117",
+              "actualCostUsd": "0.0660117",
+              "unknownCostCount": 0,
+              "requestSecondsTotal": null
+            }
+          }
+        }
       },
       "missingPasses": [
         {
@@ -1572,11 +1684,6 @@
         {
           "pass": "fresh3",
           "condition": "P1",
-          "status": "not_started"
-        },
-        {
-          "pass": "fresh3",
-          "condition": "P2",
           "status": "not_started"
         }
       ],
@@ -2589,6 +2696,62 @@
         {
           "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh2/P0/development.responses.jsonl",
           "sha256": "faab02e0884b43f5b06fc6faab42ca522a8ede56f3c35e1271ebc416ca55dd52"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/closure.review.json",
+          "sha256": "f2b63ebbcf047558915bf2541018dc2021fc484821370781377837e12be40ddf"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/manifest.json",
+          "sha256": "c5c7a5554b9788ee6cee65f718657043e6d65f9497f01ea0ee294b3a369fd6ef"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh3-p2-closure.jsonl",
+          "sha256": "35a724ae6145f506e31e1d1cc2212bd223f8abd7e179f995c66f1d62fbf0c47a"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.claim.json",
+          "sha256": "74480af651b26e6bf5877bd4f3b06d2e025a6d28bdd93fda8b6982e8ed26f6fa"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.root-review.json",
+          "sha256": "ca9007d78e66b5a379c9c6fcb22d188d7afa57dba950eb43ea16d0e7b24e9522"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke-inspection.json",
+          "sha256": "d440dd55d6d081d451768211c532a26acc87df763a2940d0fac8ad53507cfb9a"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.journal.jsonl",
+          "sha256": "b94ed32a8e65c916bf2008b4c7ebda1928f44d3d28a9b93e3422d880813efcd8"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.attempts.jsonl",
+          "sha256": "14537b98afdef698e1bccc7b2403b80b129021258e24dd62808ca31eb4b8b49e"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.responses.jsonl",
+          "sha256": "3039b15848117715029a33fa10e539a6efc0a055fce93148c7375c0790b3782e"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.claim.json",
+          "sha256": "4a91bd72cf73f5eb5f0dbecc52f2d9956889929881b6c8d510bf3d2b825385a5"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.root-review.json",
+          "sha256": "08be4b6dd73cd770d7c39e9a1d2722e76fcd613b3c9e56876fb7ac99b644d0bc"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.journal.jsonl",
+          "sha256": "bbf47128d280b5a9c061694e486368f932d7d8e9db1634e9790225d090e3b0d7"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.attempts.jsonl",
+          "sha256": "a513c6cafde48daaa58e183208e474848f9fad7b7dc245af5b31d015c97b2dcc"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.responses.jsonl",
+          "sha256": "d1055fc88bf25315c8767ef2eda03526860c1aa774bf11e36419fab73aa5b04a"
         }
       ],
       "publicVerificationLimit": "Six private historical Qwen controls remain hash-declared in the frozen plan; this public report scores only independently closed current-authority phases. The interrupted P1 composite remains descriptive.",
@@ -3196,12 +3359,302 @@
         "Provisional v0.2 references are not independent accuracy evidence.",
         "Other phases are excluded until independently closed and source-bound."
       ]
+    },
+    {
+      "schema": "additional-hosted-fresh-repeat-findings-v1",
+      "configuration": "openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1",
+      "originalConfiguration": "openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price",
+      "seriesId": "openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1-fresh-repeat",
+      "displayName": "DeepSeek V4.1 Flash · OpenInference fp4 · high · revised price controls",
+      "method": "separate-price-control-continuation",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "effort": "high",
+      "provider": "open-inference/fp4",
+      "denominator": 60,
+      "plannedConditions": 7,
+      "completedConditions": 1,
+      "cleanMatchedThreeEligible": false,
+      "cleanCompletedConditions": 1,
+      "conditionOrder": [
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "passOrder": [
+        "fresh1",
+        "fresh2",
+        "fresh3"
+      ],
+      "passes": {
+        "fresh1": {
+          "P2": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 58,
+              "fields": {
+                "sentiment": 59,
+                "follow_up_needed": 59,
+                "serious_concern_reported": 59,
+                "testimonial_potential": 60
+              },
+              "outcomes": {
+                "ok": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 7,
+                    "negative": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 34,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 29
+                  },
+                  "insufficient_information": {
+                    "no": 1,
+                    "insufficient_information": 5
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 9
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 11,
+                  "negative": 32,
+                  "neutral": 7,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 34,
+                  "insufficient_information": 2
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "yes": 25,
+                  "insufficient_information": 5
+                },
+                "testimonial_potential": {
+                  "yes": 9,
+                  "no": 50,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "tokens": {
+                "prompt_tokens": 151117,
+                "completion_tokens": 19504
+              },
+              "knownCostUsd": "0.03250234680",
+              "actualCostUsd": "0.03250234680",
+              "unknownCostCount": 0,
+              "requestSecondsTotal": null
+            }
+          }
+        }
+      },
+      "missingPasses": [
+        {
+          "pass": "fresh2",
+          "condition": "P2",
+          "status": "not_published"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P0",
+          "status": "not_published"
+        },
+        {
+          "pass": "fresh2",
+          "condition": "P1",
+          "status": "not_published"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P1",
+          "status": "not_published"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P2",
+          "status": "not_published"
+        },
+        {
+          "pass": "fresh3",
+          "condition": "P0",
+          "status": "not_published"
+        }
+      ],
+      "threePassSummary": {},
+      "pairwiseFlips": [],
+      "changesAcrossThreePasses": {},
+      "withinPassPromptDeltas": [],
+      "pairedDeltaSpread": {},
+      "historicalPassUsed": false,
+      "sourceBindings": [
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/closure.review.json",
+          "sha256": "530df8c266096c6f5988b9c594399b360732dd54f670d9ea7041c98fb0af6266"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-manifest.json",
+          "sha256": "0cb79dd3d3657299e084c72b1e9c3025b62c0f7291ec8d9185698b11550884b3"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/public-route.json",
+          "sha256": "3306f1ce88b638546c8761ac0026e87c05ff1338e8802dddbc3ab5e78ead27d3"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/manifest.json",
+          "sha256": "f970b73289609cd2b5eb6782fd01f340a348332cffbb6d5dce45892a11f21a7e"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/root-review.json",
+          "sha256": "27fc7ec12ca1475f3882baf7e3da16ce804042239b1746fdf1b83b932da5ef94"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/manifest.json",
+          "sha256": "2a1b3221d34f8d74e11bca43755418ca0225701b04318276cf6eb99a42ecbcda"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/budget.json",
+          "sha256": "1744b2c1f3fa91742f9b525b41771dbc6a427eb80e5c19f046a2962a06292a68"
+        },
+        {
+          "path": "scripts/deepseek_high_remaining7_price_v1.py",
+          "sha256": "c3525e13e4e68a5b78c005b7ff562d8034ed3c41f1f1c6bc48cd38a15f1979b4"
+        },
+        {
+          "path": "scripts/deepseek_high_remaining7_execution_v1.py",
+          "sha256": "9c1b512fdd6b542e7d39488712812fba8aed67c537a6acb2d23bf55ee9bbe33c"
+        },
+        {
+          "path": "scripts/deepseek_high_fresh_repeat_execution.py",
+          "sha256": "98fccd291757b1f3c8c1e8a66513132d7bdb1513510755fc2e511282457e0156"
+        },
+        {
+          "path": "scripts/deepseek_high_v3_closure_bridge.py",
+          "sha256": "619ff8b5eb96374063a8245339ab505043adf9b9889b1395786563a5cdc34295"
+        },
+        {
+          "path": "data/pilot/proposed_labels.jsonl",
+          "sha256": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.claim.json",
+          "sha256": "a3a01ba84ee0c17f5ce772dbb05d76716817135b2b15ccba5bd3c96d9c19e328"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.root-review.json",
+          "sha256": "b4570b8c81ce2ef37d853abd603935638bcf7626a7a156a80ca752721c15fb41"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.journal.jsonl",
+          "sha256": "1dd02d79c5b9572ccda0a8709f8162e8ee1acc9887f0d2c41a7a94dd2ca26667"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.attempts.jsonl",
+          "sha256": "b9501a9f0d36b59ff15502e1bd1be444467ffded2f89ee313e815afe261ae390"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.responses.jsonl",
+          "sha256": "753606bc10d04557f199b4525a62e03dc92f469dc92b92f7d3b6122074bcaed0"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.claim.json",
+          "sha256": "fadefe2cd02db8d3e00339b12671cedb716644b0dfe19aaffdc6e1c818973a23"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.root-review.json",
+          "sha256": "4006861c608b7c015bf9f4a914950103cb00910a70eb56c2b15dda41ebeb3502"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.journal.jsonl",
+          "sha256": "6f7700f982635b629622da319a5c859adbd90c3461715e30112d5c461711cfec"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.attempts.jsonl",
+          "sha256": "842f53c135940120f22ff1fdda8470ac859158546179ba79a73113391a4bb019"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.responses.jsonl",
+          "sha256": "038aa660811190039a466589b3d5c0d5e5641da762763cfc8b2a8d7b35aac25d"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke-inspection.json",
+          "sha256": "bce179c092eaad75ee7207b1421e7254247928ce15843eccec47190bdf220f2e"
+        },
+        {
+          "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/closure-ledger-snapshot.jsonl",
+          "sha256": "751dd68152ae0444bfa9bd4720dedc4cbe2444e740b1d46021c0d9fc6b703c49"
+        },
+        {
+          "path": "scripts/build_deepseek_high_remaining7_price_findings.py",
+          "sha256": "c1747f5e0fb017dd765bce1efc1226195be6796f850d349c6ae07d977c9ffe08"
+        },
+        {
+          "path": "tests/test_build_deepseek_high_remaining7_price_findings.py",
+          "sha256": "27adc2539f35f1f0a62cc217d034590679686cef48b83eefc9ecd1050d28bb37"
+        }
+      ],
+      "limitations": [
+        "This price-control configuration begins with fresh1/P2; old current-price P0/P1 remain a separate series.",
+        "The same 60 synthetic development reviews recur in each pass.",
+        "Provisional v0.2 references are not independent accuracy evidence.",
+        "Only independently closed phases with immutable child-ledger snapshots appear."
+      ]
     }
   ],
   "availableConfigurations": [
     "openrouter-paid-deepseek-v41-flash-low",
     "openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2",
-    "openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price"
+    "openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price",
+    "openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1"
   ],
   "missingSeries": [],
   "sourceBindings": [
@@ -4390,6 +4843,62 @@
       "sha256": "faab02e0884b43f5b06fc6faab42ca522a8ede56f3c35e1271ebc416ca55dd52"
     },
     {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/closure.review.json",
+      "sha256": "f2b63ebbcf047558915bf2541018dc2021fc484821370781377837e12be40ddf"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/manifest.json",
+      "sha256": "c5c7a5554b9788ee6cee65f718657043e6d65f9497f01ea0ee294b3a369fd6ef"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh3-p2-closure.jsonl",
+      "sha256": "35a724ae6145f506e31e1d1cc2212bd223f8abd7e179f995c66f1d62fbf0c47a"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.claim.json",
+      "sha256": "74480af651b26e6bf5877bd4f3b06d2e025a6d28bdd93fda8b6982e8ed26f6fa"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.root-review.json",
+      "sha256": "ca9007d78e66b5a379c9c6fcb22d188d7afa57dba950eb43ea16d0e7b24e9522"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke-inspection.json",
+      "sha256": "d440dd55d6d081d451768211c532a26acc87df763a2940d0fac8ad53507cfb9a"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.journal.jsonl",
+      "sha256": "b94ed32a8e65c916bf2008b4c7ebda1928f44d3d28a9b93e3422d880813efcd8"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.attempts.jsonl",
+      "sha256": "14537b98afdef698e1bccc7b2403b80b129021258e24dd62808ca31eb4b8b49e"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/smoke.responses.jsonl",
+      "sha256": "3039b15848117715029a33fa10e539a6efc0a055fce93148c7375c0790b3782e"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.claim.json",
+      "sha256": "4a91bd72cf73f5eb5f0dbecc52f2d9956889929881b6c8d510bf3d2b825385a5"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.root-review.json",
+      "sha256": "08be4b6dd73cd770d7c39e9a1d2722e76fcd613b3c9e56876fb7ac99b644d0bc"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.journal.jsonl",
+      "sha256": "bbf47128d280b5a9c061694e486368f932d7d8e9db1634e9790225d090e3b0d7"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.attempts.jsonl",
+      "sha256": "a513c6cafde48daaa58e183208e474848f9fad7b7dc245af5b31d015c97b2dcc"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh3/P2/development.responses.jsonl",
+      "sha256": "d1055fc88bf25315c8767ef2eda03526860c1aa774bf11e36419fab73aa5b04a"
+    },
+    {
       "path": "scripts/build_deepseek_high_authority_v3_findings.py",
       "sha256": "92d6a210b639a4a2660c8a57bc5c0a8b2b61a3c20d4ed60fdc240e580c49ebc5"
     },
@@ -4612,6 +5121,102 @@
     {
       "path": "results/repeatability-v1/deepseek-high-authority-v3/fresh1/P1/closure-ledger-snapshot.jsonl",
       "sha256": "d92782fa593159c526aec0a3d4e3fefa5b20cde72e4c7f7a60ee3e5309108a59"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/closure.review.json",
+      "sha256": "530df8c266096c6f5988b9c594399b360732dd54f670d9ea7041c98fb0af6266"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-manifest.json",
+      "sha256": "0cb79dd3d3657299e084c72b1e9c3025b62c0f7291ec8d9185698b11550884b3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/public-route.json",
+      "sha256": "3306f1ce88b638546c8761ac0026e87c05ff1338e8802dddbc3ab5e78ead27d3"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/manifest.json",
+      "sha256": "f970b73289609cd2b5eb6782fd01f340a348332cffbb6d5dce45892a11f21a7e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/root-review.json",
+      "sha256": "27fc7ec12ca1475f3882baf7e3da16ce804042239b1746fdf1b83b932da5ef94"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/manifest.json",
+      "sha256": "2a1b3221d34f8d74e11bca43755418ca0225701b04318276cf6eb99a42ecbcda"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/budget.json",
+      "sha256": "1744b2c1f3fa91742f9b525b41771dbc6a427eb80e5c19f046a2962a06292a68"
+    },
+    {
+      "path": "scripts/deepseek_high_remaining7_price_v1.py",
+      "sha256": "c3525e13e4e68a5b78c005b7ff562d8034ed3c41f1f1c6bc48cd38a15f1979b4"
+    },
+    {
+      "path": "scripts/deepseek_high_remaining7_execution_v1.py",
+      "sha256": "9c1b512fdd6b542e7d39488712812fba8aed67c537a6acb2d23bf55ee9bbe33c"
+    },
+    {
+      "path": "scripts/deepseek_high_v3_closure_bridge.py",
+      "sha256": "619ff8b5eb96374063a8245339ab505043adf9b9889b1395786563a5cdc34295"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.claim.json",
+      "sha256": "a3a01ba84ee0c17f5ce772dbb05d76716817135b2b15ccba5bd3c96d9c19e328"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.root-review.json",
+      "sha256": "b4570b8c81ce2ef37d853abd603935638bcf7626a7a156a80ca752721c15fb41"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.journal.jsonl",
+      "sha256": "1dd02d79c5b9572ccda0a8709f8162e8ee1acc9887f0d2c41a7a94dd2ca26667"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.attempts.jsonl",
+      "sha256": "b9501a9f0d36b59ff15502e1bd1be444467ffded2f89ee313e815afe261ae390"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke.responses.jsonl",
+      "sha256": "753606bc10d04557f199b4525a62e03dc92f469dc92b92f7d3b6122074bcaed0"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.claim.json",
+      "sha256": "fadefe2cd02db8d3e00339b12671cedb716644b0dfe19aaffdc6e1c818973a23"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.root-review.json",
+      "sha256": "4006861c608b7c015bf9f4a914950103cb00910a70eb56c2b15dda41ebeb3502"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.journal.jsonl",
+      "sha256": "6f7700f982635b629622da319a5c859adbd90c3461715e30112d5c461711cfec"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.attempts.jsonl",
+      "sha256": "842f53c135940120f22ff1fdda8470ac859158546179ba79a73113391a4bb019"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/development.responses.jsonl",
+      "sha256": "038aa660811190039a466589b3d5c0d5e5641da762763cfc8b2a8d7b35aac25d"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/smoke-inspection.json",
+      "sha256": "bce179c092eaad75ee7207b1421e7254247928ce15843eccec47190bdf220f2e"
+    },
+    {
+      "path": "results/repeatability-v1/deepseek-high-remaining7-price-v1/execution-adapter-v1/fresh1/P2/closure-ledger-snapshot.jsonl",
+      "sha256": "751dd68152ae0444bfa9bd4720dedc4cbe2444e740b1d46021c0d9fc6b703c49"
+    },
+    {
+      "path": "scripts/build_deepseek_high_remaining7_price_findings.py",
+      "sha256": "c1747f5e0fb017dd765bce1efc1226195be6796f850d349c6ae07d977c9ffe08"
+    },
+    {
+      "path": "tests/test_build_deepseek_high_remaining7_price_findings.py",
+      "sha256": "27adc2539f35f1f0a62cc217d034590679686cef48b83eefc9ecd1050d28bb37"
     }
   ]
 }

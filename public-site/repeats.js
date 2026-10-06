@@ -106,7 +106,8 @@
     'openrouter-paid-qwen36-35b-a3b-off': 'openrouter-paid-qwen36-35b-a3b-off-fresh-matched3-v2',
     'openrouter-paid-deepseek-v41-flash-low': 'openrouter-paid-deepseek-v41-flash-low-fresh-matched3-v2',
     'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2': 'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2-fresh-matched3',
-    'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price': 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-fresh-matched3'
+    'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price': 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-fresh-matched3',
+    'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1': 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1-fresh-repeat'
   };
   Promise.all([...feedUrls.map(url => {
     const load=Promise.resolve().then(() => fetch(url, {cache: 'no-store'})).then(r => {
@@ -370,7 +371,8 @@
           !(payload && !payload.schema && Array.isArray(payload.series) && payload.series.length === 0) &&
           (payload?.schema !== 'additional-hosted-fresh-repeat-findings-v1' || !Array.isArray(payload.series) ||
            payload.series.some(s => s?.schema !== 'additional-hosted-fresh-repeat-findings-v1' ||
-             s.method !== 'fresh-matched-three' || additionalHostedIds[s.configuration] !== s.seriesId) ||
+             s.method !== (s.configuration === 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1' ? 'separate-price-control-continuation' : 'fresh-matched-three') ||
+             additionalHostedIds[s.configuration] !== s.seriesId) ||
            new Set(payload.series.map(s => s.seriesId)).size !== payload.series.length))
         throw Error('Invalid additional hosted fresh repeat results');
       if (url === './qwen36-off-second-interruption-findings.json') {
@@ -1105,7 +1107,9 @@
     const isFreshCodex = s => s.schema === 'codex-fresh-repeat-findings-v1' && s.method === 'fresh-matched-three';
     const isFreshSonnet = s => s.schema === 'claude-sonnet55-fresh-matched3-series-v1' && s.method === 'fresh-matched-three';
     const isFreshHosted = s => (s.schema === 'deepseek-fresh-repeat-findings-v1' ||
-      s.schema === 'additional-hosted-fresh-repeat-findings-v1' || s.schema === 'hosted-v2-fresh-repeat-findings-v1') && s.method === 'fresh-matched-three';
+      s.schema === 'additional-hosted-fresh-repeat-findings-v1' || s.schema === 'hosted-v2-fresh-repeat-findings-v1') &&
+      (s.method === 'fresh-matched-three' || (s.schema === 'additional-hosted-fresh-repeat-findings-v1' &&
+        s.method === 'separate-price-control-continuation'));
     const isQwenContinuation = s => s.schema === qwenContinuationSchema &&
       s.method === 'descriptive-continuation-after-two-service-errors';
     const isDeepseekLowContinuation = s => s.schema === deepseekLowContinuationSchema &&
@@ -1251,6 +1255,8 @@
         data.schema === 'additional-hosted-fresh-repeat-findings-v1';
       const deepseekHighCurrent = data.configuration === 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price' &&
         data.schema === 'additional-hosted-fresh-repeat-findings-v1';
+      const deepseekHighRevised = data.configuration === 'openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1' &&
+        data.method === 'separate-price-control-continuation';
       const qwenContinuation = isQwenContinuation(data);
       const deepseekLowContinuation = isDeepseekLowContinuation(data);
       const gemmaContinuation = isGemmaContinuation(data);
@@ -1286,7 +1292,7 @@
       const closed = phase => gemmaContinuation || gemmaSecond || gemmaPostabort ? phase?.status === 'completed' || phase?.status === 'completed_interrupted'
         : qwenContinuation || deepseekLowContinuation || qwen27Cutoff || qwen27Second || qwen27Final || deepseekThird ? phase?.status === 'completed' || phase?.status === 'closed_with_service_error' || phase?.status === 'completed_interrupted_composite'
         : qwenOnComposite ? phase?.status === 'completed' || phase?.status === 'completed_interrupted_composite'
-        : deepseekHighCurrent ? phase?.status === 'completed_with_intrinsic_invalid'
+        : deepseekHighCurrent || deepseekHighRevised ? phase?.status === 'completed' || phase?.status === 'completed_with_intrinsic_invalid'
         : freshCodex || freshHosted ? phase?.status === 'completed'
         : freshSonnet ? phase?.completionStatus === 'complete'
         : generatedOpenJev || generatedSemIf || generatedAnyJev ? phase?.completionStatus === 'complete'
@@ -1310,6 +1316,8 @@
         ? `<p class="analysis-caveat">In fresh pass 1, P0 returned 60 valid responses and scored 54/60 against provisional references. P1 combines 48 original valid answers and 11 separately sent valid answers; DEV-049 remains an unknown timeout. Its 52/60 fixed-denominator score is descriptive and earns no clean repeat credit. The $0.0299008 unknown-charge bound is separate from observed charges.</p><p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/p1-unsent-continuation-v1/closure.review.json">Read the closure review</a></p>`
         : deepseekHighCurrent
         ? '<p class="analysis-caveat">This is a separate current-price, reasoning-high OpenInference fp4 route. Fresh pass 1 P0 sent all 60 requests and retained DEV-030 as an invalid, length-truncated billed output. The fixed-60 score is 57/60 against provisional references, with 59 valid responses. The invalid output was not repaired or replayed. Later phases appear below only after their saved responses and charges have been checked.</p><p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/repeatability-v1/deepseek-high-authority-v3/fresh1/P0/closure.root-review.json">Read the P0 closure review</a></p>'
+        : deepseekHighRevised
+        ? '<p class="analysis-caveat">The changed price ceilings define a separate DeepSeek high configuration. Its first closed phase is fresh pass 1 P2: 60 valid answers and 58/60 all-four matches. Earlier P0 and P1 results stay in the original configuration and do not form a matched prompt comparison with this P2 result.</p>'
         : (qwenContinuation
         ? '<p class="analysis-caveat"><strong>Descriptive continuation after two service errors:</strong> Fresh pass 1 P0 retains DEV-006 and fresh pass 3 P1 retains DEV-031. Each phase has 59 valid outputs and one HTTP 429 service error among 60 comments. The unsent requests ran later without replaying either failed request. This is not a clean matched-three series. Scores keep all 60 comments; answer-change rates use only comments with answers in the required format in both passes.</p>'
         : deepseekLowContinuation
@@ -1423,7 +1431,9 @@
         ' The paired P2 comparison uses 57 comments with valid answers in all three passes; DEV-005, DEV-006 and DEV-007 are excluded from answer-change counts but remain in each fixed-60 score.';
       if (freshCodex) document.getElementById('repeat-lead').textContent += ' Each series schedules three fresh Codex subscription passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. The requested model and CLI version are recorded; the served model identity and revision, effective seed and attributable subscription cost are unavailable. Request time includes client overhead.';
       if (freshSonnet) document.getElementById('repeat-lead').textContent += ' This separate Sonnet 5.5 study plans three passes per prompt version. Only closed 60-comment development phases have scores; smoke results and unfinished attempts are excluded. The original low-effort pass 1 P0 guard failure was retained and admitted offline, not replayed. Client request duration includes overhead; pure inference time and actual subscription cost are unavailable.';
-      if (freshHosted) document.getElementById('repeat-lead').textContent += ' This series schedules three fresh hosted passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. Costs are provider-reported charges; request durations include network and service overhead, not pure inference time. Smoke usage is separate.';
+      if (freshHosted) document.getElementById('repeat-lead').textContent += deepseekHighRevised
+        ? ' This revised-price configuration schedules seven remaining phases. Earlier P0 and P1 results use different price controls and are separate. Only closed development phases are scored. Costs are provider-reported charges; smoke usage is separate.'
+        : ' This series schedules three fresh hosted passes. Earlier results remain separate and are not pass one. Only closed development phases are scored. Costs are provider-reported charges; request durations include network and service overhead, not pure inference time. Smoke usage is separate.';
       if (qwenContinuation) {
         const accounting = qwenDispatchOrder.map(([pass, condition]) => data.passes[pass]?.[condition])
           .filter(phase => closed(phase) && phase.budgetAccountingCumulative).pop()?.budgetAccountingCumulative;

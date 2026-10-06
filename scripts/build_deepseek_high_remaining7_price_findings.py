@@ -241,8 +241,40 @@ def verified_closure(repeat, condition, prior_attempts):
     return evidence(repeat, condition, snapshot)
 
 
-def build():
-    report = previous.build(ROOT)
+def verified_closure_in_root(root, repeat, condition, prior_attempts):
+    """Verify a copied tree by byte identity with the fully audited closure."""
+    folder = folder_for(repeat, condition)
+    copied_receipt = root / relative(folder / 'closure.review.json')
+    original_receipt = folder / 'closure.review.json'
+    if not copied_receipt.is_file() or not original_receipt.is_file() or \
+            sha(copied_receipt) != sha(original_receipt):
+        raise ValueError('Copied price-v1 closure receipt differs')
+    receipt = json.loads(copied_receipt.read_text())
+    sources = required_sources(repeat, condition)
+    if set(receipt.get('source_bindings', ())) != set(sources):
+        raise ValueError('Copied price-v1 closure source set differs')
+    for name in sources:
+        copied = root / name
+        if not copied.is_file() or sha(copied) != receipt['source_bindings'][name]:
+            raise ValueError('Copied price-v1 closure source differs: ' + name)
+    return verified_closure(repeat, condition, prior_attempts)
+
+
+def reporter_bindings(root):
+    items = []
+    for path in (ROOT / 'scripts/build_deepseek_high_remaining7_price_findings.py',
+                 ROOT / 'tests/test_build_deepseek_high_remaining7_price_findings.py'):
+        name = relative(path)
+        digest = sha(path)
+        if sha(root / name) != digest:
+            raise ValueError('Copied price-v1 reporter source differs: ' + name)
+        items.append({'path': name, 'sha256': digest})
+    return items
+
+
+def build(root=ROOT):
+    root = Path(root).resolve()
+    report = previous.build(root)
     if any(item.get('configuration') == CONFIG for item in report['series']):
         raise ValueError('Price-control configuration duplicates prior series')
     phases = {}
@@ -250,13 +282,15 @@ def build():
     prior_attempts = []
     found_gap = False
     for repeat, condition in adapter.proposal.PHASES:
-        folder = folder_for(repeat, condition)
+        folder = root / relative(folder_for(repeat, condition))
         if not (folder / 'closure.review.json').exists():
             found_gap = True
             continue
         if found_gap:
             raise ValueError('Price-v1 closure skips an earlier phase')
-        result = verified_closure(repeat, condition, prior_attempts)
+        result = (verified_closure(repeat, condition, prior_attempts)
+                  if root == ROOT.resolve() else
+                  verified_closure_in_root(root, repeat, condition, prior_attempts))
         prior_attempts.extend(result['smoke'] + result['development'])
         score = result['score']
         development = result['development']
@@ -271,16 +305,14 @@ def build():
                            'unknownCostCount': 0, 'requestSecondsTotal': None}}
         phases.setdefault(repeat, {})[condition] = phase
         receipt = folder / 'closure.review.json'
-        bindings.append({'path': relative(receipt), 'sha256': sha(receipt)})
+        bindings.append({'path': str(receipt.relative_to(root)), 'sha256': sha(receipt)})
         for name, digest in json.loads(receipt.read_text())['source_bindings'].items():
             item = {'path': name, 'sha256': digest}
             if item not in bindings:
                 bindings.append(item)
     if not prior_attempts:
         return report
-    for path in (ROOT / 'scripts/build_deepseek_high_remaining7_price_findings.py',
-                 ROOT / 'tests/test_build_deepseek_high_remaining7_price_findings.py'):
-        bindings.append({'path': relative(path), 'sha256': sha(path)})
+    bindings.extend(reporter_bindings(root))
     complete = len(prior_attempts) // 63
     series = {'schema': 'additional-hosted-fresh-repeat-findings-v1',
         'configuration': CONFIG,

@@ -12,8 +12,8 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 import build_deepseek_high_remaining7_price_findings as report
 
 
-def test_no_receipt_keeps_prior_public_series_unchanged(tmp_path):
-    with mock.patch.object(report, 'folder_for', return_value=tmp_path):
+def test_no_receipt_keeps_prior_public_series_unchanged():
+    with mock.patch.object(report, 'folder_for', return_value=ROOT / 'results/no-price-v1-closure-test'):
         assert report.build() == report.previous.build(ROOT)
 
 
@@ -78,3 +78,28 @@ def test_smoke_inspection_must_bind_saved_evidence(tmp_path):
     with pytest.raises(ValueError, match='binding changed'):
         report.inspected_smoke(tmp_path, {'manifest_sha256': 'x',
             'journal_sha256': 'b', 'attempts_sha256': 'c', 'responses_sha256': 'd'})
+
+
+def test_closed_first_phase_retains_full_denominator_and_price_identity():
+    closed = report.verified_closure('fresh1', 'P2', [])
+    assert closed['score']['denominator'] == 60
+    assert (closed['score']['valid'], closed['score']['allFour']) == (60, 58)
+    assert closed['known_development_cost_usd'] == '0.03250234680'
+    series = next(item for item in report.build()['series']
+                  if item['configuration'] == report.CONFIG)
+    assert series['originalConfiguration'] == report.adapter.prior.CONFIG
+    assert series['completedConditions'] >= 1
+    assert series['passes']['fresh1']['P2']['score']['allFour'] == 58
+
+
+def test_copied_reporter_source_must_match_executing_builder(tmp_path):
+    names = [item['path'] for item in report.reporter_bindings(ROOT)]
+    for name in names:
+        copied = tmp_path / name
+        copied.parent.mkdir(parents=True, exist_ok=True)
+        copied.write_bytes((ROOT / name).read_bytes())
+    assert report.reporter_bindings(tmp_path) == report.reporter_bindings(ROOT)
+    with (tmp_path / names[0]).open('ab') as handle:
+        handle.write(b'\n')
+    with pytest.raises(ValueError, match='reporter source differs'):
+        report.reporter_bindings(tmp_path)
