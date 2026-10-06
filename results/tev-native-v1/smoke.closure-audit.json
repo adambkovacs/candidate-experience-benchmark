@@ -1,0 +1,104 @@
+{
+  "schema": "tev-openrouter-native-three-choice-smoke-closure-v1",
+  "status": "three_record_smoke_closed",
+  "plan_sha256": "fc2af11349cbb0770f9ce5edbdfdb7bb76384d9f2a878a2199ab80577ead1451",
+  "root_review_sha256": "f16bf0810be4fe27c377ced5c6b30482642299f529d19b5e9aa6c6308e9cd710",
+  "budget_manifest_sha256": "b88aa4dbda9f7858682f2cbcf512aae88d1e2a75182e98253dd005ec0c96a8e7",
+  "smoke_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "attempts": 3,
+  "valid_native_responses": 3,
+  "provider_failures": 0,
+  "unknown_cost_attempts": 0,
+  "known_actual_usd": "0.000816018",
+  "unknown_upper_bound_usd": "0",
+  "full_phase_admitted": false,
+  "reference_labels_sent": false,
+  "records": [
+    {
+      "id": "DEV-001",
+      "request_sha256": "ef7bb132ded74a63daf8d8c70e0ab9c0cb18ac016a065403cc3bbbf1ce137dd1",
+      "response_sha256": "629052d122e674388309f19d0eb74f06b4bcb4a76243b965fc213b9d94224e53",
+      "returned_model": "togethercomputer/tev1-4b-experimental-20260923",
+      "returned_provider": "Together",
+      "input_tokens": 6515,
+      "output_tokens": 8,
+      "actual_cost_usd": "0.00027363",
+      "prediction": {
+        "sentiment": "mixed",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "yes"
+      },
+      "probabilities_present": true,
+      "confidence_present": true
+    },
+    {
+      "id": "DEV-002",
+      "request_sha256": "d06cdd4418417fa24129e8202c32170619d25bfeb9ad415da0e1331c08f12299",
+      "response_sha256": "27375172f1f0f74dfa5bfc5369c8303d5227f0af0c320258e3a00ad35442dfdb",
+      "returned_model": "togethercomputer/tev1-4b-experimental-20260923",
+      "returned_provider": "Together",
+      "input_tokens": 6411,
+      "output_tokens": 8,
+      "actual_cost_usd": "0.000269262",
+      "prediction": {
+        "sentiment": "positive",
+        "follow_up_needed": "no",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "yes"
+      },
+      "probabilities_present": true,
+      "confidence_present": true
+    },
+    {
+      "id": "DEV-003",
+      "request_sha256": "6d4f0d0dbef3cabd72ab31dfe5bb99857ebb3452e168be1995e7fcd6c25e402f",
+      "response_sha256": "4749ed0f347c799a272b1a5d78d488c74971ab8fbf017b0a39409d9b68d9e6a9",
+      "returned_model": "togethercomputer/tev1-4b-experimental-20260923",
+      "returned_provider": "Together",
+      "input_tokens": 6503,
+      "output_tokens": 8,
+      "actual_cost_usd": "0.000273126",
+      "prediction": {
+        "sentiment": "negative",
+        "follow_up_needed": "yes",
+        "serious_concern_reported": "no",
+        "testimonial_potential": "no"
+      },
+      "probabilities_present": true,
+      "confidence_present": true
+    }
+  ],
+  "evidence_sha256": {
+    "smoke.raw.jsonl": "61c270be6f90df2c774edb11f8ee66c495316f59f8498b53de22208d4bff914e",
+    "smoke.attempts.jsonl": "f2d753f41cdd7fd8a5ccc88dc7a10789cdb373fdd5d1bd80d5d4b6423cd46e76",
+    "smoke.parsed.jsonl": "3f9e6de79073abb5b3788f60e6c88bbd481f50eae573cedca16037714ae5370a",
+    "smoke.journal.jsonl": "285407b607cf7a5d4f7e21ed75281176edcf1147318f4e0849072e56aec8f429"
+  },
+  "child_ledger_snapshot_sha256": "6846b53b1102253050a0f895caee8a2cd7559e44e19cec70be8ae13f8b235c6e",
+  "source_sha256": {
+    "scripts/tev_native_v1.py": "85df6c9d360ad9f8657eeb52917eb0701f63d22c8c74f1b68bce21a49b6ba641",
+    "scripts/tev_smoke_v1.py": "6db49e8d00bdc4f6a2de393df07c05f8c1cb2dc15a372b402ae77092acf9353f",
+    "scripts/jev_benchmark.py": "022536130a463d0f02958e6d9929c2d66dd351b9ae7f2154cfd1f2e02c16cc22",
+    "scripts/jev_native_prompt_variants_v1.py": "48ba1ad98ac7c085de87e1ddfb1b15f8083bb3d6a57786d708915c6d4981ccd7",
+    "scripts/openrouter_decision_smoke.py": "3d6d01f2679740ffea0520efe0ff2cb2e9b3bfab7ffa4b4a061dc50f2648ea52",
+    "scripts/development_benchmark.py": "587ad2789deed2598eae24cfeb81e49eb44c23b7b002ec1c089d8e63bee0317d",
+    "scripts/openrouter_paid_benchmark.py": "d64adfc9b3b423b70c8d4f9e6a87e1ffad6cbcbf62394dc461be53f46513dca7",
+    "scripts/openrouter_authority_release_v4.py": "f1054a1617912697764aa50d9e098e23ba55cc523f13dc5ef9a062b1a1d17781",
+    "scripts/openrouter_budget_v4.py": "a4432ac67862c189775f4204c41e1a41c56bfb4d8d0dc5126a49573e43f58747",
+    "scripts/paid_budget_partitions_v4.py": "65fa6c5037662380d288815f788ba59d87e918e747edf388a3cb45e6edbe63ed",
+    "scripts/paid_budget_partitions_v3.py": "eac0543a2e3d3e9f0aa4f9950b6f1fab486b71127eb6ec96da09c1361b6e3eab",
+    "scripts/postapproval_authority_v3.py": "c2683ab76cfd463262083677e5814520d00b5c835306b303810159edb1a9e51c",
+    "scripts/postapproval_authority_v2.py": "b7819f5da4a002f7f50ace810e61e6e5095299e14f5b2ef20533a3e4d4967cc4",
+    "scripts/openrouter_budget_amendment_v3.py": "b712daa5505c6de5eaa890edeed28d93fef6c414330a7a75bb05dec2278073da",
+    "scripts/openrouter_budget_v3.py": "b7e853c84040559542c8620fca548403bb0c7f96e3d5c47d91bd6aec0701d510",
+    "scripts/openrouter_budget_v2.py": "1a09cef7f206ed79c54c544475e724de7869e584f01c5bd647b22e1785c68188",
+    "results/route-audits/tev-public-20261006-evening/audit.json": "4e717dfd793b79429ba26ac0a5fa7c82cff6ffde875c6138e5bf2bcfcbecd0c1",
+    "results/route-audits/tev-public-20261006-evening/endpoints.json": "b9169a925534d76369ae0123c2b7318afd06ef73a3d2fa2f17386328d7ac0c89"
+  },
+  "probability_interpretation": "optional reported fields retained; no calibration or native probability claim"
+}
