@@ -108,7 +108,8 @@ test('published hosted ON P1 composite is visible without clean repeat credit', 
   assert.match(ui.get('repeat-chart').innerHTML, /52 out of 60/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-049 remains an unknown timeout/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /no clean repeat credit/);
-  assert.match(ui.get('repeat-lead').textContent, /1 of 9/);
+  assert.match(ui.get('repeat-chart').innerHTML, /56 out of 60/);
+  assert.match(ui.get('repeat-lead').textContent, /2 of 9/);
 });
 
 test('published DeepSeek high P0 retains its billed invalid and excludes live P1', async () => {

@@ -14,6 +14,10 @@ from development_benchmark import KEYS, valid
 ROOT = Path(__file__).resolve().parents[1]
 BASE = Path('results/repeatability-v1/qwen36-on-hosted-authority-v3-v2')
 CONT = BASE / 'p1-unsent-continuation-v1'
+REMAINING = BASE / 'remaining-hosted-v1'
+REMAINING_STAGES = (('fresh1', 'P2'), ('fresh2', 'P1'), ('fresh2', 'P2'),
+                    ('fresh2', 'P0'), ('fresh3', 'P2'), ('fresh3', 'P0'),
+                    ('fresh3', 'P1'))
 CONFIG = 'openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2'
 SERIES = CONFIG + '-fresh-matched3'
 MODEL = 'qwen/qwen3.6-35b-a3b'
@@ -60,8 +64,8 @@ def rows(root, relative):
     return [json.loads(line) for line in raw.splitlines()]
 
 
-def stage(root, folder, requests, ids, bindings):
-    paths = {kind: folder / ('development.' + kind + '.jsonl') for kind in
+def stage(root, folder, requests, ids, bindings, phase='development'):
+    paths = {kind: folder / (phase + '.' + kind + '.jsonl') for kind in
              ('attempts', 'responses', 'journal')}
     for path in paths.values():
         bind(root, path, bindings)
@@ -99,6 +103,136 @@ def stage(root, folder, requests, ids, bindings):
     if indexed:
         raise ValueError('Qwen unexpected raw response exists')
     return attempts, known
+
+
+def closed_remaining_stage(root, execution, repeat, condition, labels, bindings):
+    folder = REMAINING / CONFIG / repeat / condition
+    receipt_path = folder / 'closure.review.json'
+    if not file(root, receipt_path).exists():
+        return None
+    receipt = json.loads(file(root, receipt_path).read_text())
+    bind(root, receipt_path, bindings)
+    metrics = receipt.get('metrics') or {}
+    checks = receipt.get('checks') or {}
+    sources = receipt.get('source_bindings') or {}
+    plan_path = REMAINING / CONFIG / repeat / 'manifest.json'
+    plan = json.loads(file(root, plan_path).read_text())
+    original_plan_path = BASE / repeat / 'manifest.json'
+    original = json.loads(file(root, original_plan_path).read_text())
+    bind(root, plan_path, bindings, execution['plans_sha256'][repeat])
+    bind(root, original_plan_path, bindings, execution['source_bindings']['original_plan_' + repeat]['sha256'])
+    if (plan.get('configuration_id') != CONFIG or plan.get('fresh_pass') != repeat or
+            plan.get('conditions') != original.get('conditions') or
+            plan.get('reference_labels_read') is not False or
+            (repeat, condition) not in REMAINING_STAGES or
+            receipt.get('schema') != 'qwen36-on-remaining-hosted-phase-closure-v1' or
+            receipt.get('verdict') != 'APPROVE' or
+            (receipt.get('configuration_id'), receipt.get('fresh_pass'),
+             receipt.get('condition'), receipt.get('phase')) !=
+            (CONFIG, repeat, condition, 'development') or
+            not all(checks.get(key) is True for key in (
+                'frozen_successor_plan_and_execution_verified',
+                'smoke_and_development_verified_by_private_runner',
+                'sixty_ordered_requests_and_raw_strict_outputs_valid',
+                'terminal_phase_completed',
+                'one_matching_reserve_and_settlement_per_attempt')) or
+            checks.get('reference_labels_read_during_inference') is not False or
+            sources.get('ledger_snapshot', {}).get('path') != str(
+                REMAINING / f'budget-at-{repeat}-{condition.lower()}-closure.jsonl')):
+        raise ValueError('Qwen remaining hosted closure identity or controls differ')
+    required = {'execution_manifest': REMAINING / 'execution-manifest.json',
+                repeat + '_plan': plan_path,
+                'budget_manifest': REMAINING / 'budget.json',
+                'ledger_snapshot': REMAINING / f'budget-at-{repeat}-{condition.lower()}-closure.jsonl',
+                'smoke_claim': folder / 'smoke.claim.json',
+                'smoke_root_review': folder / 'smoke.root-review.json',
+                'smoke_inspection': folder / 'smoke-inspection.json',
+                'smoke_journal': folder / 'smoke.journal.jsonl',
+                'smoke_attempts': folder / 'smoke.attempts.jsonl',
+                'smoke_responses': folder / 'smoke.responses.jsonl',
+                'development_claim': folder / 'development.claim.json',
+                'development_root_review': folder / 'development.root-review.json',
+                'development_journal': folder / 'development.journal.jsonl',
+                'development_attempts': folder / 'development.attempts.jsonl',
+                'development_responses': folder / 'development.responses.jsonl',
+                'reference_labels': LABELS,
+                'controller': Path('scripts/qwen36_on_remaining_hosted_v1.py'),
+                'verifier': Path('scripts/qwen27_fresh_repeat_execution.py')}
+    if set(sources) != set(required):
+        raise ValueError('Qwen remaining hosted closure source set differs')
+    for name, path in required.items():
+        if sources[name].get('path') != str(path):
+            raise ValueError('Qwen remaining hosted closure source path differs')
+        bind(root, path, bindings, sources[name]['sha256'])
+    snapshot = rows(root, required['ledger_snapshot'])
+    if not snapshot or snapshot[0] != {'event': 'budget', 'cap_usd': '1.00'}:
+        raise ValueError('Qwen remaining hosted child snapshot differs')
+    attempts_by_phase = {}
+    costs = {}
+    for phase, expected_ids in (('smoke', IDS[:3]), ('development', IDS)):
+        requests = plan['conditions'][condition][phase]
+        attempts, cost = stage(root, folder, requests, expected_ids, bindings,
+                               phase=phase)
+        claim = json.loads(file(root, folder / (phase + '.claim.json')).read_text())
+        events = rows(root, folder / (phase + '.journal.jsonl'))
+        if ((claim.get('configuration_id'), claim.get('fresh_pass'),
+             claim.get('condition'), claim.get('phase')) !=
+            (CONFIG, repeat, condition, phase) or
+                claim.get('manifest_sha256') != sha(file(root, plan_path)) or
+                events[-1].get('event') != 'phase_completed' or
+                (events[-1].get('configuration_id'), events[-1].get('fresh_pass'),
+                 events[-1].get('condition'), events[-1].get('phase')) !=
+                (CONFIG, repeat, condition, phase) or
+                events[-1].get('request_count') != len(expected_ids) or
+                events[-1].get('attempt_ids') != [a['attempt_id'] for a in attempts]):
+            raise ValueError('Qwen remaining hosted phase closure differs')
+        for attempt in attempts:
+            body = attempt['raw_response']
+            choices = body.get('choices')
+            if not isinstance(choices, list) or len(choices) != 1:
+                raise ValueError('Qwen remaining hosted strict output differs')
+            choice = choices[0]
+            message = choice.get('message') or {}
+            if ((attempt.get('configuration_id'), attempt.get('fresh_pass'),
+                 attempt.get('condition'), attempt.get('phase')) !=
+                (CONFIG, repeat, condition, phase) or
+                    attempt['status'] != 'ok' or attempt.get('billing_ok') is not True or
+                    attempt.get('reference_labels_read') is not False or
+                    choice.get('finish_reason') != 'stop' or
+                    any(message.get(key) for key in ('refusal', 'tool_calls', 'function_call')) or
+                    choice.get('error') or
+                    json.loads(message['content']) != attempt['prediction'] or
+                    Decimal(str(body['usage']['cost'])) != Decimal(attempt['observed_cost_usd']) or
+                    body.get('provider') != plan['provider_name'] or
+                    attempt.get('returned_model') != body.get('model')):
+                raise ValueError('Qwen remaining hosted strict output differs')
+            reserves = [event for event in snapshot if event.get('event') == 'reserve'
+                        and event.get('attempt_id') == attempt['attempt_id']]
+            settles = [event for event in snapshot if event.get('event') == 'settle'
+                       and event.get('attempt_id') == attempt['attempt_id']]
+            if (len(reserves) != 1 or len(settles) != 1 or
+                    reserves[0].get('record_id') != attempt['id'] or
+                    Decimal(reserves[0]['usd']) != Decimal(attempt['reserved_cost_usd']) or
+                    Decimal(settles[0]['usd']) != Decimal(attempt['observed_cost_usd'])):
+                raise ValueError('Qwen remaining hosted settlement differs')
+        attempts_by_phase[phase] = attempts
+        costs[phase] = cost
+    score = existing.score(attempts_by_phase['development'], labels, IDS)
+    if (metrics.get('smoke_attempts') != 3 or metrics.get('development_attempts') != 60 or
+            metrics.get('valid_records') != 60 or metrics.get('invalid_records') != 0 or
+            metrics.get('all_four_denominator') != 60 or
+            metrics.get('all_four_matches') != score['allFour'] or
+            metrics.get('development_observed_cost_usd') != str(costs['development']) or
+            metrics.get('smoke_observed_cost_usd') != str(costs['smoke']) or
+            metrics.get('smoke_plus_development_observed_cost_usd') !=
+            str(costs['smoke'] + costs['development']) or
+            metrics.get('child_events_at_closure') != len(snapshot) or
+            metrics.get('child_reservations_at_closure') !=
+            sum(event.get('event') == 'reserve' for event in snapshot) or
+            metrics.get('child_settlements_at_closure') !=
+            sum(event.get('event') == 'settle' for event in snapshot)):
+        raise ValueError('Qwen remaining hosted closure metrics differ')
+    return attempts_by_phase['development'], costs['development'], score
 
 
 def build(root=ROOT):
@@ -204,6 +338,7 @@ def build(root=ROOT):
               'method': 'fresh-matched-three', 'model': MODEL, 'effort': 'on',
               'provider': PROVIDER, 'denominator': 60, 'plannedConditions': 9,
               'completedConditions': 1, 'conditionOrder': ['P0', 'P1', 'P2'],
+              'cleanMatchedThreeEligible': False,
               'passOrder': ['fresh1', 'fresh2', 'fresh3'],
               'passes': {'fresh1': {
                   'P0': {'status': 'completed', 'score': p0_score, 'usage': usage(p0, p0_cost)},
@@ -224,6 +359,48 @@ def build(root=ROOT):
                               'The 52/60 P1 agreement is descriptive and earns no clean repeat credit.',
                               'Provisional v0.2 references are not independent accuracy evidence.',
                               'The $0.0299008 unknown-charge bound is retained separately from known charges.']}
+    remaining_execution_path = REMAINING / 'execution-manifest.json'
+    remaining_execution = json.loads(file(root, remaining_execution_path).read_text())
+    bind(root, remaining_execution_path, bindings)
+    if (remaining_execution.get('schema') != 'qwen36-on-remaining-hosted-v1-execution' or
+            remaining_execution.get('configuration_id') != CONFIG or
+            remaining_execution.get('clean_matched_three_eligible') is not False or
+            remaining_execution.get('predecessor', {}).get('p1_composite') !=
+            'descriptive_59_valid_1_unknown' or
+            [(item.get('fresh_pass'), item.get('condition'))
+             for item in remaining_execution.get('schedule', [])] != list(REMAINING_STAGES) or
+            remaining_execution.get('partition_id') != 'qwen36-on-remaining-hosted-v1'):
+        raise ValueError('Qwen remaining hosted execution identity differs')
+    found_gap = False
+    for repeat, condition in REMAINING_STAGES:
+        result = closed_remaining_stage(root, remaining_execution, repeat, condition,
+                                        labels, bindings)
+        if result is None:
+            found_gap = True
+            continue
+        if found_gap:
+            raise ValueError('Qwen remaining hosted closure skips a prior stage')
+        attempts, cost, score = result
+        series['passes'][repeat][condition] = {
+            'status': 'completed', 'score': score, 'usage': usage(attempts, cost)}
+        series['completedConditions'] += 1
+        series['missingPasses'] = [item for item in series['missingPasses']
+                                   if (item['pass'], item['condition']) != (repeat, condition)]
+    if 'P2' in series['passes']['fresh1']:
+        p2_score = series['passes']['fresh1']['P2']['score']
+        series['withinPassPromptDeltas'].append({
+            'pass': 'fresh1', 'from': 'P0', 'to': 'P2', 'denominator': 60,
+            'allFour': p2_score['allFour'] - p0_score['allFour'],
+            'fields': {key: p2_score['fields'][key] - p0_score['fields'][key]
+                       for key in KEYS},
+            'scope': 'descriptive matched first pass; interrupted P1 excluded'})
+    series['publicVerificationLimit'] = (
+        'Six private historical Qwen controls remain hash-declared in the frozen plan; '
+        'this public report scores only independently closed current-authority phases. '
+        'The interrupted P1 composite remains descriptive.')
+    series['limitations'].append(
+        'Remaining hosted phases use a separate child; each published phase binds its '
+        'closure receipt and immutable child-ledger snapshot.')
     old['series'].append(series)
     old['availableConfigurations'].append(CONFIG)
     for item in bindings:

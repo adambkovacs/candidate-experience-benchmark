@@ -868,12 +868,13 @@
       "provider": "akashml/fp8",
       "denominator": 60,
       "plannedConditions": 9,
-      "completedConditions": 1,
+      "completedConditions": 2,
       "conditionOrder": [
         "P0",
         "P1",
         "P2"
       ],
+      "cleanMatchedThreeEligible": false,
       "passOrder": [
         "fresh1",
         "fresh2",
@@ -1107,6 +1108,117 @@
               "requestSecondsTotal": null
             },
             "unknownChargeUpperBoundUsd": "0.0299008"
+          },
+          "P2": {
+            "status": "completed",
+            "score": {
+              "denominator": 60,
+              "valid": 60,
+              "allFour": 56,
+              "fields": {
+                "sentiment": 58,
+                "follow_up_needed": 60,
+                "serious_concern_reported": 57,
+                "testimonial_potential": 59
+              },
+              "outcomes": {
+                "ok": 60
+              },
+              "invalidIds": [],
+              "confusionCounts": {
+                "sentiment": {
+                  "positive": {
+                    "positive": 11
+                  },
+                  "negative": {
+                    "negative": 31
+                  },
+                  "neutral": {
+                    "neutral": 6,
+                    "positive": 1,
+                    "negative": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 2
+                  },
+                  "mixed": {
+                    "mixed": 8
+                  }
+                },
+                "follow_up_needed": {
+                  "no": {
+                    "no": 24
+                  },
+                  "yes": {
+                    "yes": 35
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                },
+                "serious_concern_reported": {
+                  "no": {
+                    "no": 28,
+                    "insufficient_information": 1
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 4,
+                    "no": 2
+                  },
+                  "yes": {
+                    "yes": 25
+                  }
+                },
+                "testimonial_potential": {
+                  "yes": {
+                    "yes": 8,
+                    "no": 1
+                  },
+                  "no": {
+                    "no": 50
+                  },
+                  "insufficient_information": {
+                    "insufficient_information": 1
+                  }
+                }
+              },
+              "predictedClassCounts": {
+                "sentiment": {
+                  "positive": 12,
+                  "negative": 32,
+                  "neutral": 6,
+                  "insufficient_information": 2,
+                  "mixed": 8
+                },
+                "follow_up_needed": {
+                  "no": 24,
+                  "yes": 35,
+                  "insufficient_information": 1
+                },
+                "serious_concern_reported": {
+                  "no": 30,
+                  "insufficient_information": 5,
+                  "yes": 25
+                },
+                "testimonial_potential": {
+                  "yes": 8,
+                  "no": 51,
+                  "insufficient_information": 1
+                }
+              }
+            },
+            "usage": {
+              "requestCount": 60,
+              "startedRequestCount": 60,
+              "tokens": {
+                "prompt_tokens": 151830,
+                "completion_tokens": 61822
+              },
+              "knownCostUsd": "0.0644868",
+              "actualCostUsd": "0.0644868",
+              "unknownCostCount": 0,
+              "requestSecondsTotal": null
+            }
           }
         },
         "fresh2": {},
@@ -1117,11 +1229,6 @@
           "pass": "fresh1",
           "condition": "P1",
           "status": "interrupted_descriptive"
-        },
-        {
-          "pass": "fresh1",
-          "condition": "P2",
-          "status": "not_started"
         },
         {
           "pass": "fresh2",
@@ -1157,13 +1264,28 @@
       "threePassSummary": {},
       "pairwiseFlips": [],
       "changesAcrossThreePasses": {},
-      "withinPassPromptDeltas": [],
+      "withinPassPromptDeltas": [
+        {
+          "pass": "fresh1",
+          "from": "P0",
+          "to": "P2",
+          "denominator": 60,
+          "allFour": 2,
+          "fields": {
+            "sentiment": 0,
+            "follow_up_needed": 0,
+            "serious_concern_reported": 0,
+            "testimonial_potential": 1
+          },
+          "scope": "descriptive matched first pass; interrupted P1 excluded"
+        }
+      ],
       "pairedDeltaSpread": {},
       "historicalPassUsed": false,
       "sourceBindings": [
         {
           "path": "scripts/build_qwen36_on_hosted_authority_v2_findings.py",
-          "sha256": "f46e70f41afc409a7f586151619bb662af0e70a7a5c9053cbddeebe3f0bf5dec"
+          "sha256": "4360234a425be93e5bc15c3b8412116de098c8d4fa6392a8642e2cef33d27e4a"
         },
         {
           "path": "scripts/build_additional_hosted_fresh_repeat_findings.py",
@@ -1920,15 +2042,84 @@
         {
           "path": "data/pilot/pairs.json",
           "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/execution-manifest.json",
+          "sha256": "b34eb5b78493eb8cb4017a24cd401b9848836964d0615311bb46fc0e95aca337"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/closure.review.json",
+          "sha256": "729f17705cbe6449cf89d52f3cf991f87465852786166a90bf4d518b056f5673"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/manifest.json",
+          "sha256": "21be43189feeec14921a8adea02456a8f8a9bd6aa8c6bfcb6fe980f3e0682283"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget.json",
+          "sha256": "5b37f436241ba86ab971e3928443829eb2bf3d83948e6bb0264da6411abd0346"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh1-p2-closure.jsonl",
+          "sha256": "d91642e465e277fa4218f5a581a6ee960dfa5d3b13957e890af07618b3289be9"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.claim.json",
+          "sha256": "7cffdde19b7fe12d2f6407865bbc408ccf97a81877f609ddd141efb587b1e054"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.root-review.json",
+          "sha256": "3061a9f4e5e93cffd6f5d8474da6bc798324c14fcd35b237d61d999dcdd444c6"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke-inspection.json",
+          "sha256": "4e8caa8dc1cf768192247172645a0d100f96112a55e11ea1db4c5b240bd00d54"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.journal.jsonl",
+          "sha256": "86c0ee29c5373cb5e7448f854c258dd8f4a52af7036d7e6258ecc089785d1847"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.attempts.jsonl",
+          "sha256": "d9f404974ae49e27a94c9cf93a1705035cd33a2045d83f61293e6cf225d9653c"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.responses.jsonl",
+          "sha256": "fcb272977b0fc5e0784f081eadb02edb27aa9b1cb858ed3eeb4bf9b3efb50f63"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.claim.json",
+          "sha256": "7a93e7a61dc339217b71183c28a269239316ef52df115afed89c9cda63717a63"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.root-review.json",
+          "sha256": "9560f4b48a4b0e67d3844a4f01e8cc5d5a7e782c44cc3d0304075d2aafec8abc"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.journal.jsonl",
+          "sha256": "127389514dcb786390748f5e215ad6d6d4f6de0ca739ac032779820fa5477977"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.attempts.jsonl",
+          "sha256": "a74db14a6cc928799e164b3184bbb78e89ef71bafd9af617b0926d2bdc19d79d"
+        },
+        {
+          "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.responses.jsonl",
+          "sha256": "12c9811bea482c965e6108c5acd5e211eb006f651f83c3ec84aa321a05457462"
+        },
+        {
+          "path": "scripts/qwen36_on_remaining_hosted_v1.py",
+          "sha256": "9f2829a5be307e32925f67c3a0c3f486a4fe0c5e90272084a7855f987e0eb0ca"
         }
       ],
-      "publicVerificationLimit": "Six private historical Qwen controls remain hash-declared in the frozen plan; this public report scores only the source-bound current-authority P0 and P1 evidence.",
+      "publicVerificationLimit": "Six private historical Qwen controls remain hash-declared in the frozen plan; this public report scores only independently closed current-authority phases. The interrupted P1 composite remains descriptive.",
       "limitations": [
         "The same 60 synthetic development records recur in every pass.",
         "P1 combines 48 original valid answers and 11 separately sent valid answers; DEV-049 remains an unknown timeout.",
         "The 52/60 P1 agreement is descriptive and earns no clean repeat credit.",
         "Provisional v0.2 references are not independent accuracy evidence.",
-        "The $0.0299008 unknown-charge bound is retained separately from known charges."
+        "The $0.0299008 unknown-charge bound is retained separately from known charges.",
+        "Remaining hosted phases use a separate child; each published phase binds its closure receipt and immutable child-ledger snapshot."
       ]
     },
     {
@@ -1943,6 +2134,7 @@
       "denominator": 60,
       "plannedConditions": 9,
       "completedConditions": 1,
+      "cleanCompletedConditions": 0,
       "conditionOrder": [
         "P0",
         "P1",
@@ -2074,42 +2266,42 @@
         {
           "pass": "fresh1",
           "condition": "P1",
-          "status": "not_started"
+          "status": "not_published"
         },
         {
           "pass": "fresh1",
           "condition": "P2",
-          "status": "not_started"
+          "status": "not_published"
         },
         {
           "pass": "fresh2",
           "condition": "P0",
-          "status": "not_started"
+          "status": "not_published"
         },
         {
           "pass": "fresh2",
           "condition": "P1",
-          "status": "not_started"
+          "status": "not_published"
         },
         {
           "pass": "fresh2",
           "condition": "P2",
-          "status": "not_started"
+          "status": "not_published"
         },
         {
           "pass": "fresh3",
           "condition": "P0",
-          "status": "not_started"
+          "status": "not_published"
         },
         {
           "pass": "fresh3",
           "condition": "P1",
-          "status": "not_started"
+          "status": "not_published"
         },
         {
           "pass": "fresh3",
           "condition": "P2",
-          "status": "not_started"
+          "status": "not_published"
         }
       ],
       "threePassSummary": {},
@@ -2121,11 +2313,11 @@
       "sourceBindings": [
         {
           "path": "scripts/build_deepseek_high_authority_v3_findings.py",
-          "sha256": "70d42bc3f62c7b458aa04aaa953bbb49e10708e1e991d79764493777bf7485a3"
+          "sha256": "92d6a210b639a4a2660c8a57bc5c0a8b2b61a3c20d4ed60fdc240e580c49ebc5"
         },
         {
           "path": "scripts/build_qwen36_on_hosted_authority_v2_findings.py",
-          "sha256": "f46e70f41afc409a7f586151619bb662af0e70a7a5c9053cbddeebe3f0bf5dec"
+          "sha256": "4360234a425be93e5bc15c3b8412116de098c8d4fa6392a8642e2cef33d27e4a"
         },
         {
           "path": "results/repeatability-v1/deepseek-high-authority-v3/execution-manifest.json",
@@ -2376,7 +2568,7 @@
         "P0 completed all 60 requests. DEV-030 returned a length-truncated, billed output and remains invalid.",
         "The 57/60 four-field score keeps DEV-030 in the denominator.",
         "Provisional v0.2 references are not independent accuracy evidence.",
-        "P1 and later phases are excluded until independently closed."
+        "Other phases are excluded until independently closed and source-bound."
       ]
     }
   ],
@@ -2605,7 +2797,7 @@
     },
     {
       "path": "scripts/build_qwen36_on_hosted_authority_v2_findings.py",
-      "sha256": "f46e70f41afc409a7f586151619bb662af0e70a7a5c9053cbddeebe3f0bf5dec"
+      "sha256": "4360234a425be93e5bc15c3b8412116de098c8d4fa6392a8642e2cef33d27e4a"
     },
     {
       "path": "scripts/build_additional_hosted_fresh_repeat_findings.py",
@@ -3344,8 +3536,76 @@
       "sha256": "76d95b62990700a0338dd71e34c4bf7698d727deef69a344783f853f92b606da"
     },
     {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/execution-manifest.json",
+      "sha256": "b34eb5b78493eb8cb4017a24cd401b9848836964d0615311bb46fc0e95aca337"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/closure.review.json",
+      "sha256": "729f17705cbe6449cf89d52f3cf991f87465852786166a90bf4d518b056f5673"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/manifest.json",
+      "sha256": "21be43189feeec14921a8adea02456a8f8a9bd6aa8c6bfcb6fe980f3e0682283"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget.json",
+      "sha256": "5b37f436241ba86ab971e3928443829eb2bf3d83948e6bb0264da6411abd0346"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/budget-at-fresh1-p2-closure.jsonl",
+      "sha256": "d91642e465e277fa4218f5a581a6ee960dfa5d3b13957e890af07618b3289be9"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.claim.json",
+      "sha256": "7cffdde19b7fe12d2f6407865bbc408ccf97a81877f609ddd141efb587b1e054"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.root-review.json",
+      "sha256": "3061a9f4e5e93cffd6f5d8474da6bc798324c14fcd35b237d61d999dcdd444c6"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke-inspection.json",
+      "sha256": "4e8caa8dc1cf768192247172645a0d100f96112a55e11ea1db4c5b240bd00d54"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.journal.jsonl",
+      "sha256": "86c0ee29c5373cb5e7448f854c258dd8f4a52af7036d7e6258ecc089785d1847"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.attempts.jsonl",
+      "sha256": "d9f404974ae49e27a94c9cf93a1705035cd33a2045d83f61293e6cf225d9653c"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/smoke.responses.jsonl",
+      "sha256": "fcb272977b0fc5e0784f081eadb02edb27aa9b1cb858ed3eeb4bf9b3efb50f63"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.claim.json",
+      "sha256": "7a93e7a61dc339217b71183c28a269239316ef52df115afed89c9cda63717a63"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.root-review.json",
+      "sha256": "9560f4b48a4b0e67d3844a4f01e8cc5d5a7e782c44cc3d0304075d2aafec8abc"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.journal.jsonl",
+      "sha256": "127389514dcb786390748f5e215ad6d6d4f6de0ca739ac032779820fa5477977"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.attempts.jsonl",
+      "sha256": "a74db14a6cc928799e164b3184bbb78e89ef71bafd9af617b0926d2bdc19d79d"
+    },
+    {
+      "path": "results/repeatability-v1/qwen36-on-hosted-authority-v3-v2/remaining-hosted-v1/openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2/fresh1/P2/development.responses.jsonl",
+      "sha256": "12c9811bea482c965e6108c5acd5e211eb006f651f83c3ec84aa321a05457462"
+    },
+    {
+      "path": "scripts/qwen36_on_remaining_hosted_v1.py",
+      "sha256": "9f2829a5be307e32925f67c3a0c3f486a4fe0c5e90272084a7855f987e0eb0ca"
+    },
+    {
       "path": "scripts/build_deepseek_high_authority_v3_findings.py",
-      "sha256": "70d42bc3f62c7b458aa04aaa953bbb49e10708e1e991d79764493777bf7485a3"
+      "sha256": "92d6a210b639a4a2660c8a57bc5c0a8b2b61a3c20d4ed60fdc240e580c49ebc5"
     },
     {
       "path": "results/repeatability-v1/deepseek-high-authority-v3/execution-manifest.json",
