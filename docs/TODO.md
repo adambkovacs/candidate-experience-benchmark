@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Publication fixture repaired, 6 October 2026, 09:58 UTC
+
+Pages run 37445559463 failed because three new Qwen reporter tests read the uncommitted live development receipt. Root replaced that dependency with explicitly synthetic development receipts derived from committed smoke evidence. All 15 reporter tests pass both in the working tree and in a clean Git archive with only the proposed test overlaid. Review: APPROVE; the confirmed BLOCKING clean-checkout failure is resolved without committing live run files. No published score or inference request changed. A new deployment must still succeed before the Kev wording change is called published.
+
+Gemma E4B successor review found a BLOCKING missing live render/token preflight. The implementation now measures all 60 frozen P2 prompts and revalidates the eight pending requests before claim. Root's focused rerun is underway; the manifest remains unfrozen and no execution is admitted.
+
 ## Kev reference-review wording corrected, 6 October 2026, 09:49 UTC
 
 The Kev builder and feed now record the owner's 2 October confirmation that all 60 labels were human-reviewed, while retaining frozen provisional v0.2 labels and unchanged scores. JSON comparison confirms only `referenceStatus` changed. Combined analysis still verifies against all 130 source hashes. Of 27 combined reporter tests, one historical hosted-v2 export test failed at a pre-existing missing phase-closure file; no Kev test failed. The old hosted-v2 builder also fails its current-tree interrupted predecessor gate. Those historical builders and feeds were restored unchanged; their archival refresh needs a separately versioned approach. Root review of the two-line Kev change: APPROVE, no findings. Publication is pending.

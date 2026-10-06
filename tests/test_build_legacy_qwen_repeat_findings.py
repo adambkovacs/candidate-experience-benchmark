@@ -35,9 +35,6 @@ class LegacyQwenFindingsTests(unittest.TestCase):
         source_paths.append(phase / 'smoke-inspection.json')
         smoke_review = json.loads((ROOT / phase / 'smoke.root-review.json').read_text())
         source_paths.append(Path(smoke_review['candidate_file']))
-        development_review = json.loads((ROOT / phase / 'development.root-review.json').read_text())
-        source_paths.extend((phase / 'development.claim.json', phase / 'development.root-review.json',
-                             Path(development_review['candidate_file'])))
         for relative in dict.fromkeys(source_paths):
             destination = root / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -45,6 +42,23 @@ class LegacyQwenFindingsTests(unittest.TestCase):
 
         template = json.loads((ROOT / phase / 'smoke.raw.jsonl').read_text().splitlines()[0])
         config = plan['configurations']['qwen3.5-4b-sdk-thinking-on']
+        # Synthetic development receipts derive only from committed smoke evidence.
+        # Never depend on the live development folder being present in a checkout.
+        development_review = copy.deepcopy(smoke_review)
+        candidate_path = phase / 'fixture-development-candidate.json'
+        development_review.update(stage='development', ids=list(findings.IDS),
+            request_sha256=[r['sha256'] for r in config['conditions']['P2']['requests']],
+            candidate_file=str(candidate_path))
+        development_review.pop('candidate_sha256', None)
+        candidate = copy.deepcopy(development_review)
+        candidate.update(approved=False, authorized_by_root=False, reviewer=None, reviewed_utc=None)
+        (root / candidate_path).write_text(json.dumps(candidate) + '\n')
+        development_review['candidate_sha256'] = findings.sha(root / candidate_path)
+        review_path = root / phase / 'development.root-review.json'
+        review_path.write_text(json.dumps(development_review) + '\n')
+        claim = json.loads((ROOT / phase / 'smoke.claim.json').read_text())
+        claim.update(stage='development', receipt_sha256=findings.sha(review_path))
+        (root / phase / 'development.claim.json').write_text(json.dumps(claim) + '\n')
         raw, records, journal = [], [], []
         for index, rid in enumerate(findings.IDS):
             request = config['conditions']['P2']['requests'][index]
