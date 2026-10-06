@@ -188,7 +188,7 @@ class JevNativePromptFindingsTests(unittest.TestCase):
             report.verify_prompt_delta(broken)
 
     def test_tail_raw_timeout_and_invalid_are_kept_out_of_scoring(self):
-        manifest = report.bridge.verify_tail()
+        manifest = report.archived_tail_manifest(report.frozen.build_plan(report.ROOT))
         stage = report.full.paths(report.TAIL_BASE, report.CONFIGS['P2'],
                                   report.bridge.TAIL_STAGE)['stage']
         requests = report.frozen.build_plan(report.ROOT)[report.CONFIGS['P2']]['requests'][18:]
@@ -211,7 +211,7 @@ class JevNativePromptFindingsTests(unittest.TestCase):
                                       expected_requests=requests)
 
     def test_tail_v2_receipt_tamper_is_rejected(self):
-        manifest = report.bridge.verify_tail()
+        manifest = report.archived_tail_manifest(report.frozen.build_plan(report.ROOT))
         original = report.full.paths(report.TAIL_BASE, report.CONFIGS['P2'],
                                      report.bridge.TAIL_STAGE)
         with tempfile.TemporaryDirectory() as temp:
@@ -233,6 +233,36 @@ class JevNativePromptFindingsTests(unittest.TestCase):
                 copied['receipt'].write_text(json.dumps(receipt) + '\n')
                 with self.assertRaisesRegex(ValueError, 'Tail root receipt differs'):
                     report.tail_receipt(manifest)
+
+    def test_tail_manifest_and_receipt_survive_checkout_relocation(self):
+        config = report.CONFIGS['P2']
+        plans = report.frozen.build_plan(report.ROOT)
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            historical = root / report.BASE_RELATIVE
+            tail = root / report.TAIL_RELATIVE
+            historical.mkdir(parents=True)
+            tail.mkdir(parents=True)
+            shutil.copy2(report.BASE / (config + '.json'), historical / (config + '.json'))
+            shutil.copytree(report.BASE / config, historical / config)
+            shutil.copy2(report.TAIL_BASE / (config + '.json'), tail / (config + '.json'))
+            shutil.copytree(report.TAIL_BASE / config, tail / config)
+            with patch.object(report, 'BASE', historical), \
+                 patch.object(report, 'TAIL_BASE', tail), \
+                 patch.object(report.bridge.suffix, 'inspect_parent',
+                              side_effect=AssertionError('operational parent path read')):
+                manifest = report.archived_tail_manifest(plans)
+                self.assertEqual(manifest['ids'], report.full.IDS[18:])
+                _, child, archived_child, _, receipt = report.tail_receipt(manifest)
+                self.assertTrue(child.is_file())
+                self.assertNotEqual(str(child), archived_child)
+                self.assertEqual(receipt['partition_id'], report.bridge.TAIL_PARTITION)
+                saved = tail / (config + '.json')
+                changed = json.loads(saved.read_text())
+                changed['parent_evidence']['parent_source_sha256']['attempts.jsonl'] = '0' * 64
+                saved.write_text(json.dumps(changed) + '\n')
+                with self.assertRaisesRegex(ValueError, 'Archived tail manifest differs'):
+                    report.archived_tail_manifest(plans)
 
     def test_p1_fresh3_v2_evidence_tamper_is_rejected(self):
         config = report.CONFIGS['P1']

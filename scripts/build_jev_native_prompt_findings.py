@@ -299,6 +299,74 @@ def verify_p0_prompt_delta(p0_requests, plans):
             require(a == b, 'P0 and ' + condition + ' prompt controls differ')
 
 
+def archived_tail_manifest(plans):
+    """Rebuild the tail plan from frozen requests and archived parent evidence."""
+    config = CONFIGS['P2']
+    suffix = bridge.suffix
+    original = plans[config]
+    requests = original['requests'][18:]
+    parent_dir = full.paths(BASE, config, 'fresh2')['stage']
+    parent_manifest = jev.verify(config, base=BASE)
+    _, child, archived_child, old_root, _, _, _ = archived_receipt(
+        config, 'fresh2', parent_manifest, BASE)
+    hashes = {name: sha(parent_dir / name) for name in suffix.PINNED if name != 'child_ledger'}
+    hashes['child_ledger'] = sha(child)
+    require(hashes == suffix.PINNED and
+            archived_root(archived_child, BASE_RELATIVE / config / child.name,
+                          'Tail parent child ledger') == old_root,
+            'Tail parent pinned sources differ')
+    parent_parsed = parse_attempts(parent_manifest, parent_dir, 18,
+                                   unknown_id='DEV-018', expected_requests=original['requests'])
+    parent_reconciliation = json.loads((parent_dir / 'budget-reconciliation.json').read_text())
+    known, unknown = check_child(child, archived_child, old_root,
+                                 parent_manifest['passes'][1]['partition_id'],
+                                 parent_parsed, parent_reconciliation,
+                                 parent_dir / 'unknown-cost-evidence.jsonl')
+    require(known == Decimal('0.001940694') and unknown == suffix.BOUND and
+            Counter(parent_parsed['statuses'].values()) ==
+            Counter({'valid': 17, 'unknown_cost_http_429': 1}) and
+            not (parent_dir / 'completion.json').exists(),
+            'Tail parent raw outcome or closure differs')
+    parent = {'manifest_sha256': sha(full.paths(BASE, config)['manifest']),
+              'parent_source_sha256': hashes,
+              'parent_child_ledger_path': archived_child,
+              'known_actual_cost_usd': str(known),
+              'unknown_charge_upper_bound_usd': str(unknown),
+              'valid_prefix_ids': full.IDS[:17], 'unknown_attempted_id': suffix.UNKNOWN,
+              'never_sent_ids': suffix.IDS}
+    old = parent_manifest
+    expected = {'schema': bridge.TAIL_SCHEMA + '-offline-plan',
+        'status': 'proposed_not_admitted', 'inference_performed': False,
+        'reference_labels_read': False, 'configuration_id': config,
+        'route': 'jev', 'condition': 'P2', 'model': old['model'],
+        'provider': old['provider'], 'provider_tag': old['provider_tag'],
+        'returned_model': old['returned_model'], 'context_tokens': old['context_tokens'],
+        'request_set_sha256': decision.sha(decision.canonical(requests)),
+        'ids': suffix.IDS, 'request_sha256': [x['payload_sha256'] for x in requests],
+        'per_request_full_context_bound_usd': str(suffix.BOUND),
+        'whole_pass_bound_usd': str(suffix.TAIL_BOUND),
+        'budget_master_cap_usd': '12.38', 'global_authority_cap_usd': '10.00',
+        'passes': [{'stage': bridge.TAIL_STAGE, 'partition_id': bridge.TAIL_PARTITION,
+                    'status': 'proposed_not_admitted'}],
+        'original_manifest_sha256': sha(full.paths(BASE, config)['manifest']),
+        'original_request_set_sha256': original['requests_sha256'],
+        'original_request_sha256': [x['payload_sha256'] for x in original['requests']],
+        'parent_evidence': parent, 'parent_terminal_status': 'stopped_http_429',
+        'attempted_unknown_id': suffix.UNKNOWN, 'continuation_is_clean_repeat': False,
+        'frozen_execution_core_sha256': sha(full.__file__),
+        'frozen_execution_adapter_sha256': sha(jev.__file__),
+        'frozen_suffix_proposal_sha256': sha(suffix.__file__),
+        'bridge_sha256': sha(bridge.__file__),
+        'authority_module_sha256': sha(bridge.authority_v2.__file__)}
+    manifest_path = full.paths(TAIL_BASE, config)['manifest']
+    manifest = json.loads(manifest_path.read_text())
+    require(manifest == expected and
+            manifest_path.read_bytes() == (json.dumps(expected, indent=2,
+                ensure_ascii=False) + '\n').encode(),
+            'Archived tail manifest differs from frozen requests or parent')
+    return manifest
+
+
 def tail_receipt(manifest):
     """Rebuild the v2 root receipt from saved paths, without opening master."""
     config = CONFIGS['P2']
@@ -327,7 +395,12 @@ def tail_receipt(manifest):
     core = bridge._tail_core()
     context_sha = core.context_proof(config, manifest, base=TAIL_BASE)
     inspection_sha = core.smoke_inspection(config, manifest, base=TAIL_BASE)
-    prior = core.predecessor(config, bridge.TAIL_STAGE, manifest, base=TAIL_BASE)
+    parent = manifest['parent_evidence']
+    prior = {'parent_terminal_sha256': parent['parent_source_sha256']['terminal-public.json'],
+             'parent_attempts_sha256': parent['parent_source_sha256']['attempts.jsonl'],
+             'parent_child_sha256': parent['parent_source_sha256']['child_ledger'],
+             'attempted_unknown_id': bridge.suffix.UNKNOWN,
+             'continuation_ids': bridge.suffix.IDS, 'clean_repeat_credit': False}
     expected = core.expected_receipt(config, bridge.TAIL_STAGE, manifest, p['budget'],
                                      context_sha, inspection_sha, prior, hold_source,
                                      base=TAIL_BASE)
@@ -344,7 +417,7 @@ def tail_receipt(manifest):
 def verified_tail(truth, plans):
     """Project the attempted 42 only after validating source and billing chain."""
     config = CONFIGS['P2']
-    manifest = bridge.verify_tail()
+    manifest = archived_tail_manifest(plans)
     original = plans[config]
     expected_requests = original['requests'][18:]
     require(manifest['ids'] == [x['id'] for x in expected_requests] == full.IDS[18:] and
