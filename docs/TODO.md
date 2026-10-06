@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Additional OpenRouter funding, 6 October 2026
+
+- User authorized an additional $10. Root owns versioned activation of the $22.38 OpenRouter cap and the same $10 once in overlapping authority, earmarked for OpenRouter. The pending $0.55 proposal is superseded, not added. No other provider receives new authority.
+- qwen_host_successor_review owns the offline budget amendment implementation. DeepSeek's price continuation is reviewed and committed in 9069c285; dispatch awaits ledger activation and fresh route/account checks.
+- OpenRouter is the default where model identity and required interface are available. Quantization/runtime differences are separate configurations, not reasons to keep work local. Current catalogue lacks Qwen3.5 4B and Gemma E4B; larger Qwen sizes are not substitutes. The current local pass is preserved; no additional local pass starts pending the battery preference.
+
 ## Battery and hosted continuation, 6 October 2026
 
 - Qwen fresh2/P0 remains on its original live handle 4810. The user raised battery drain; no further local pass will start until they answer whether to continue local execution. Preserve the running pass and all saved responses.
