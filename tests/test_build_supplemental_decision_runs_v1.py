@@ -44,13 +44,15 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
                              (previous['id'], previous['sourceRecordsUrl'],
                               previous['evidenceUrl']))
         final = by_id['solar-decide-native-fresh3-p2']
-        self.assertEqual((final['records'], final['valid'], final['complete'],
-                          final['pairedEligible']), (60, 59, False, False))
+        self.assertEqual((final['records'], final['savedResponses'], final['valid'],
+                          final['complete'], final['pairedEligible']),
+                         (60, 59, 59, False, False))
         self.assertEqual((final['tokens']['reportedRequests'],
                           final['tokens']['totalRequests'], final['tokens']['complete']),
                          (59, 60, False))
         self.assertEqual(final['cost']['unknownUpperBoundUsd'], 0.1048576)
         self.assertIn('DEV-009', final['resultStatus'])
+        self.assertIn('original run and its continuation', final['resultStatus'])
         self.assertEqual((final['timing']['requests'], final['timing']['totalRequests'],
                           final['timing']['totalSeconds'], final['timing']['inferenceSeconds']),
                          (59, 60, 473.12019091, None))
@@ -60,6 +62,7 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
         for run in feed['runs']:
             self.assertEqual(run['records'], 60)
             self.assertEqual(run['valid'], 59 if run is final else 60)
+            self.assertEqual(run['savedResponses'], run['valid'])
             self.assertEqual(run['complete'], run is not final)
             self.assertTrue(run['sourceOnlyDetails'])
             self.assertIsNone(run['cost']['actualUsd'])

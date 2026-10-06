@@ -105,7 +105,8 @@ def row(family, model, returned_model, provider, stages, stage, scores, input_to
         'model': model, 'returnedModel': returned_model, 'provider': provider,
         'interface': 'four native Choice questions', 'effort': 'not applicable',
         'surface': 'OpenRouter native Choice', 'condition': condition,
-        'complete': valid == 60, 'records': 60, 'valid': valid,
+        'complete': valid == 60, 'records': 60,
+        'savedResponses': valid, 'valid': valid,
         'metrics': {'all_four': all_four, **fields}, 'pairedEligible': valid == 60,
         'resultStatus': result_status or ('First pass only; later Solar repeats are separate. '
                          'The linked report has source-backed paired changes.' if family == 'solar-decide'
@@ -236,7 +237,7 @@ def build(root=ROOT):
                         unknown_upper_bound='0.10485760' if final else '0',
                         client_elapsed_available=item['client_elapsed_available'],
                         client_elapsed_ns_sum=item['client_elapsed_ns_sum_known_responses'],
-                        result_status=('Interrupted after 59 usable answers; DEV-009 has no usable answer and retains a separate unknown-cost bound. This is not a clean 60-answer repeat.'
+                        result_status=('The original run and its continuation returned 59 usable answers. DEV-009 has no returned answer and retains a separate unknown-cost bound. This is not a clean 60-answer repeat.'
                                        if final else 'Closed native-choice repeat. The linked report has source-backed paired and repeat comparisons.')))
 
     if (liquid.get('kind') != 'liquid-d1-native-full-findings-v1' or
