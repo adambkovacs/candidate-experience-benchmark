@@ -6,7 +6,7 @@ The requested Clef, Clef Flash and Luna Decisions wave has finished all 1,620 pl
 
 The [new findings](CLEF_OPENROUTER_FINDINGS.md) and public model selectors include all 27 stages. No label changed across repeat passes on shared usable reviews. Known charges for the entire wave, including smokes, total $0.58613166; a separate $0.02359296 possible-charge bound remains reserved. These costs use the existing OpenRouter authority. Child ledgers are sealed; unused overlapping authority holds have not yet been released.
 
-Code, evidence, README and analysis are committed and pushed. Publication verification is in progress; use [the current checklist](TODO.md) for the final deployment checkpoint. This completes the new three-model execution wave, not every remaining item in the overall benchmark. Earlier direct Cloudflare failures and the remaining roster gaps stay in the [completion audit](COMPLETION_GAP_AUDIT_2026-10-07.md).
+Code, evidence, README and analysis are committed and pushed. Publication succeeded in [Pages run 37595271620](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37595271620); seven live assets match commit `e80d7357` byte for byte. See [the current checklist](TODO.md) for the verified deployment checkpoint. This completes the new three-model execution wave, not every remaining item in the overall benchmark. Earlier direct Cloudflare failures and the remaining roster gaps stay in the [completion audit](COMPLETION_GAP_AUDIT_2026-10-07.md).
 
 ## OpenRouter decision-model approval, 7 October 2026
 
