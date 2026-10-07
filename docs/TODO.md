@@ -20,7 +20,7 @@ This section is the current checklist. Dated checkpoints below preserve history 
 
 ### Analysis
 
-- **Implemented, reviewed and published:** selected-pair per-field agreement/confusion tables are committed in `ac153e71`. The broader first-P0 cohort review module is mounted, with synchronized category selection and clearly scoped totals. Root verified 20 combined module tests. Presentation claims and the final analysis reconciliation are being checked independently before release.
+- **Implemented, reviewed and published:** selected-pair per-field agreement/confusion tables are committed in `ac153e71`. The broader first-P0 cohort review module is mounted, with synchronized category selection and clearly scoped totals. Root verified 20 combined module tests. Presentation claims passed independent review. The [final descriptive analysis reconciliation](ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md) is complete and source-checked; publication and rendered verification remain separate gates.
 
 - **Complete offline:** the [21-pair agreement/deferral study](../results/native-agreement-policy-v1/README.md), committed in `b9902d7a`, reports 33–53 accepted reviews out of 60 and 0–4 retained disagreements across pairs. Root independently recounted all pair IDs. No preferred deployment pair or validation-set gain is claimed.
 - **Complete offline:** [reference sensitivity](../results/reference-sensitivity-v1/README.md), committed in `6d286e78`, evaluates seven scenarios using only the existing v0.3 proposal across 637 extended entries and a separate seven-native cohort. Root reviewed the implementation and independently recounted all 4,459 extended scenario/run scores. These are hypothetical changes, not adopted corrections.
