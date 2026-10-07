@@ -15,6 +15,22 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
+The expanded explorer lets you choose **decision models, general-purpose LLMs, or all models**, then inspect a saved run and its source report. The [coverage audit](docs/DEEP_DIVE_COVERAGE_2026-10-07.md) accounts for 1,004 selectable run entries, including repeats and partial runs; these reuse the same 60 reviews and are not independent test sets. Some added entries currently link to their detailed report while individual-answer integration continues.
+
+The new [review comparison](results/disputed-reviews-v1/README.md) shows all 60 comments and the exact first-pass answers from seven native decision models. Filter for potential testimonials or a particular decision field to see which models disagreed with the frozen reference. That view deliberately uses one pass per model, so a model with more repeat runs does not receive extra weight.
+
+Four findings are useful when planning a classification pilot:
+
+- **More instructions did not consistently help.** Clef's three prompt versions scored 54, 51 and 49 out of 60 in every OpenRouter pass. Flash improved with classifier instructions. The effect depends on the exact setup. [Prompt comparisons](docs/CLEF_OPENROUTER_FINDINGS.md).
+- **Consistent answers can still disagree with the reference.** Perplexity scored 54/60 in all nine runs, with identical answers across repeats of each prompt. Repeatability and reference agreement measure different things. [Perplexity evidence](results/perplexity-decider-v1/full-v2/findings.json).
+- **Overall scores hide different mistakes.** Only nine reviews are reference-positive testimonials; answering “no” every time already matches 50/60 testimonial labels. In the first native P0 comparison, Tev found all nine positives but added three false positives. [Field-level analysis](results/analysis-native-cohort-v1/README.md).
+- **Some disagreements concern the task boundary or ambiguous references.** All seven models in the review panel disagreed on the off-topic restaurant comment and the unclear accessibility-resolution comment. Read the text and individual answers before treating these as proven model defects. [Review examples and exact answers](results/disputed-reviews-v1/README.md).
+
+These observations describe 60 synthetic reviews with human-checked, provisional references. They do not establish performance on new candidates' feedback or prove that model architecture caused a difference.
+
+<details>
+<summary>Detailed model findings and historical checkpoints</summary>
+
 Perplexity Decider completed all nine prompt/repeat runs through OpenRouter: **540 of 540 development responses were valid**, and every run matched all four reference answers on **54/60 reviews**. Repeats were identical within each prompt. The base task and decision rules produced identical labels; classifier instructions changed two decisions on the off-topic restaurant review without changing the total. Development calls cost **$0.14296**; including smoke tests, the observed total was **$0.15010**. [Exact results and costs](results/perplexity-decider-v1/full-v2/findings.json).
 
 The [six-model first-pass analysis](results/analysis-native-cohort-v1/README.md) compares field errors, testimonial detection and observed costs. Solar scored 55/60 overall, while Tev found all nine reference-positive testimonials with three extra positives. The same overall score can therefore conceal different practical tradeoffs. Remaining Mistral execution was excluded at the owner's request; its historical results remain available.
@@ -120,6 +136,8 @@ Across the [17 Claude configurations reviewed on 28 September](docs/CLAUDE_REPEA
 The [six additional fresh Codex comparisons](docs/CODEX_FRESH_REPEAT_FINDINGS_2026-09-29.md) are complete: three passes for each of three prompt versions. Neither added-instruction prompt improved all-four agreement in every pass for any of the six configurations. Classifier instructions switched between a gain and a loss in four configurations. These 3,240 responses still describe the same 60 reviews, not 3,240 independent cases.
 
 The [DeepSeek Flash reasoning-off repeats](docs/DEEPSEEK_FRESH_REPEAT_FINDINGS_2026-09-29.md) completed all nine runs. The original prompt scored 48–49/60, classifier guidance 45–47/60, and the decision-tree prompt 43–46/60. Both added-instruction prompts scored lower in every matched pass, although testimonial agreement improved. The complete series including smoke tests cost $0.02913576 in observed provider charges.
+
+</details>
 
 ## What the models decide
 
