@@ -3,8 +3,8 @@
 ## Latest scope and execution checkpoint, 7 October 2026
 
 - Mistral: user-excluded from further execution. Preserve all historical results, failures and unknown-cost bounds. Older Mistral pending items below are superseded.
-- Perplexity Decider: nine stages closed, 540/540 development responses and 27/27 smokes valid, $0.15009588 known combined cost and no unknown charges. Each stage matches all four reference fields on 54/60 reviews. The approved projection/findings and tests are pushed in `c6d59d6f`. Both budget children are sealed; exact authority-hold release and public-site integration remain.
-- Presentation: add actual frequently disputed reviews/testimonial examples, with field-level model answers, eligible-model denominators and explanations of reference ambiguity. Keep cross-model disagreement distinct from repeat instability. Layout clarification is pending; no new design has been implemented.
+- Perplexity Decider: nine stages closed, 540/540 development responses and 27/27 smokes valid, $0.15009588 known combined cost and no unknown charges. Each stage matches all four reference fields on 54/60 reviews. The approved projection/findings and tests are pushed in `c6d59d6f`. Both budget children are sealed, and root applied and independently verified both exact unused authority releases. Supplemental integration is pushed in `28112edf`; combined analysis and redesigned public presentation are in progress.
+- Presentation: add actual frequently disputed reviews/testimonial examples, with field-level model answers, eligible-model denominators and explanations of reference ambiguity. Keep cross-model disagreement distinct from repeat instability. The user approved the proposed layout and requested deep-dive access to all saved results with relevant filters and comparisons. Owner `visual_references_oct7` is implementing navigation and disputed-review exploration; root owns combined analysis and release verification.
 
 ## Follow-up work requested 7 October 2026
 

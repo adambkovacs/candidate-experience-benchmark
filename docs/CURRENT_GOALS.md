@@ -4,9 +4,9 @@
 
 The user explicitly removed Mistral from remaining execution. Send no further Mistral requests. Preserve its completed results, failed attempts and unresolved cost bounds; classify unfinished Mistral configurations as user-excluded, not pending or completed. This supersedes older Mistral capacity-blocker and next-run instructions.
 
-The presentation must highlight the actual reviews/testimonial examples that repeatedly tripped models, with per-field disagreements, distinct-configuration denominators, exact sources and reference ambiguities. Keep within-model repeat flips separate from cross-model disagreement. Decision-only, general-LLM and combined views remain requested. The precise layout is being clarified with the user; no website implementation is credited by this scope update.
+The presentation must highlight the actual reviews/testimonial examples that repeatedly tripped models, with per-field disagreements, distinct-configuration denominators, exact sources and reference ambiguities. Keep within-model repeat flips separate from cross-model disagreement. Decision-only, general-LLM and combined views remain requested. The user subsequently approved the proposed five-part layout and requested deep-dive access to all saved results with relevant filters and comparisons. Implementation is authorized; preserve source access and existing deep links.
 
-The full copyable objective is [APP_GOAL.md](APP_GOAL.md). The desktop goal is still blocked and points to an older attachment; replace its objective with the repository goal or a pointer to that file, then resume through the app.
+The full copyable objective is [APP_GOAL.md](APP_GOAL.md). The user replaced the old attachment-based objective with the repository goal and resumed the desktop goal on 7 October 2026.
 
 ## Analysis and presentation follow-up, 7 October 2026
 

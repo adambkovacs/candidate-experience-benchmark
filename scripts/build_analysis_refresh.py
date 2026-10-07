@@ -42,7 +42,9 @@ LOW_FRESH3_PUBLIC = "public-site/deepseek-low-fresh3-findings.json"
 LOW_P1_SUCCESSOR_PUBLIC = "public-site/deepseek-low-p1-successor-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
 OPENROUTER_DECISIONS = "results/clef-openrouter-v1/findings-v1/findings.json"
+PERPLEXITY_FINDINGS = "results/perplexity-decider-v1/full-v2/findings.json"
 SOURCES = (
+    PERPLEXITY_FINDINGS,
     OPENROUTER_DECISIONS,
     SOLAR_FIRST_PUBLIC,
     SOLAR_FULL_PUBLIC,
@@ -1175,6 +1177,24 @@ def build(root=ROOT):
         raise ValueError('DeepSeek high successor report differs from closed evidence')
     bind_report_sources(root, high_successor, bindings, 'DeepSeek high successor')
 
+    import build_supplemental_decision_runs_v1 as supplemental_builder
+    def bind_perplexity(path, expected):
+        actual = sha(root / path)
+        if actual != expected:
+            raise ValueError('Perplexity public source differs: ' + str(path))
+        bindings[str(path)] = actual
+        return actual
+    supplemental_builder.perplexity_runs(root, bind_perplexity)
+    perplexity = dict(data[PERPLEXITY_FINDINGS])
+    perplexity_projection = json.loads((root / supplemental_builder.PERPLEXITY_PROJECTION).read_text())
+    first = {stage['stage'].split('/')[1]: {row['id']: row['prediction'] for row in stage['records']}
+             for stage in perplexity_projection['stages'] if stage['stage'].startswith('fresh1/')}
+    perplexity['firstPassPromptChanges'] = {
+        target: [{'id': rid, 'fields': [field for field in first['P0'][rid]
+                                      if first['P0'][rid][field] != first[target][rid][field]]}
+                 for rid in sorted(first['P0']) if first['P0'][rid] != first[target][rid]]
+        for target in ('P1', 'P2')}
+
     import build_clef_openrouter_findings as decision_builder
     openrouter_decisions = decision_builder.check(root)
     if data[OPENROUTER_DECISIONS] != openrouter_decisions:
@@ -1734,7 +1754,7 @@ def build(root=ROOT):
     estimated_total = sum((Decimal(by_effort[e]["usage"]["developmentApiEquivalentUsd"])
                            for e in EFFORTS), Decimal(0))
     return {
-        "schema": "analysis-refresh-v1", "generatedAt": "2026-10-06",
+        "schema": "analysis-refresh-v1", "generatedAt": "2026-10-07",
         "method": "Offline descriptive synthesis of published feeds and sanitized Sonnet record evidence",
         "reference": {"version": "0.2", "reviews": 60,
                       "status": sonnet["referenceStatus"],
@@ -1757,6 +1777,7 @@ def build(root=ROOT):
                        for row in claude_rows) for condition in ("P1", "P2")},
                    "comparability": "Within each saved series only. Historical first passes and later repeats can use different CLI versions; fresh Sonnet 5.5 v2 is a separate route and model. Do not pool reviews or score differences across series."},
         "newerCohorts": {
+            "perplexityDecider": {"source": PERPLEXITY_FINDINGS, **perplexity},
             "openrouterDecisions": {"source": OPENROUTER_DECISIONS, **openrouter_decisions},
             "deepseekHighSuccessor": {"source": HIGH_SUCCESSOR_PUBLIC, **high_successor},
             "solarFirstPass": {"source": SOLAR_FIRST_PUBLIC, **solar_first},

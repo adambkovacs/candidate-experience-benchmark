@@ -368,7 +368,7 @@ test('findings groups keep all model results and source links available', async(
   const {cutoffs}=await renderState(report);
   const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/ul><\/details>/g)];
   assert.deepEqual(groups.map(g=>g[1]),['findings-decision','findings-hosted','findings-local']);
-  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[10,12,9]);
+  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[11,12,9]);
   assert.match(groups[0][2],/clef-closed-repeat-findings.json/);
   assert.match(groups[0][2],/tev-native-full-findings.json/);
   assert.match(groups[1][2],/deepseek-high-remaining6-successor-findings.json/);
@@ -415,4 +415,25 @@ test('OpenRouter Flash interrupted pass retains the 60-review denominator', asyn
   assert.match(cutoffs,/third pass has 59\/60 usable answers, DEV-039 remains unknown/);
   assert.match(cutoffs,/repeat changes compare only shared usable answers/);
   assert.match(cutoffs,/excluding smoke tests and unresolved possible charges/);
+});
+
+
+test('Perplexity shows all passes, observed development cost and bounded prompt changes', async () => {
+  const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
+  const html = (await renderState(report)).cutoffs;
+  assert.match(html, /Perplexity Decider/);
+  assert.match(html, /0\.14295744/);
+  assert.match(html, /not 540 different examples/);
+  assert.match(html, /DEV-029/);
+});
+
+
+test('Perplexity narrative refuses changed stability or score evidence', async () => {
+  const original = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
+  for (const change of [r => {r.newerCohorts.perplexityDecider.repeat_identical_by_condition.P1 = false;}, r => {r.newerCohorts.perplexityDecider.scores[0].all_four_correct = 53;}]) {
+    const report = structuredClone(original); change(report);
+    const rendered = await renderState(report);
+    assert.equal(rendered.cutoffs, '');
+    assert.match(rendered.table, /could not be loaded/);
+  }
 });
