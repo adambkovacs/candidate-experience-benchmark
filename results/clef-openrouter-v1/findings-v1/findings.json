@@ -197,8 +197,9 @@
   "distinct_from": "Cloudflare direct native route",
   "evidence": {
     "cost": "Observed response cost for included development attempts only; smoke and child allocation are separate.",
+    "input_read_limit": "The frozen Clef route plan records a provider warning that roughly the first 2K state tokens may be read. Feedback is first and at most 206 characters; full policy receipt is not proven. Observed billed input tokens do not establish which state text the model used.",
     "private_raw_validation": "Performed during preparation; a clean checkout can verify archived hashes and the public projection but cannot independently decode absent private responses.",
-    "projection_receipt_sha256": "4c945836c6550ce52696bb7d8ebc71c5c27fb4371e5ff5267546032eb5654605",
+    "projection_receipt_sha256": "98bb56d94f28d96cd1618152df667861a51ed4806ab83b818db14e54be107b40",
     "timing": "Sum of measured client request elapsed time, not provider processing time or whole-stage wall time."
   },
   "included_stages": [
@@ -225,6 +226,10 @@
     {
       "model_key": "clef-flash",
       "stage": "fresh1/P2"
+    },
+    {
+      "model_key": "luna-decisions",
+      "stage": "fresh1/P0"
     }
   ],
   "reference_status": "Frozen provisional v0.2 labels, owner-confirmed human review on 2026-10-02; no versioned correction.",
@@ -1453,6 +1458,212 @@
       "observed_output_tokens": 0,
       "provider_failures": 0,
       "stage": "fresh1/P2",
+      "status": "closed_60",
+      "unknown_cost_attempts": 0,
+      "valid_answers": 60
+    },
+    {
+      "all_four_correct": 49,
+      "all_four_correct_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "attempted": 60,
+      "client_request_elapsed_ns_count": 60,
+      "client_request_elapsed_ns_sum": 23660274667,
+      "confidence_note": "Provider-reported confidence and chosen-label probability are separate values; 60 development records do not establish calibration.",
+      "denominator": 60,
+      "fields": {
+        "follow_up_needed": {
+          "chosen_probability_mean": 0.9046666666666667,
+          "confusion_reference_by_predicted": {
+            "insufficient_information": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 24,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 1,
+              "no": 0,
+              "yes": 34
+            }
+          },
+          "correct": 58,
+          "denominator": 60,
+          "reported_confidence_mean": 0.8573333333333333,
+          "reported_confidence_mean_when_wrong": 0.5,
+          "wrong_with_chosen_probability_at_least_0_9_ids": [
+            "DEV-029"
+          ],
+          "wrong_with_reported_confidence_at_least_0_9_ids": []
+        },
+        "sentiment": {
+          "chosen_probability_mean": 0.8524999999999999,
+          "confusion_reference_by_predicted": {
+            "insufficient_information": {
+              "insufficient_information": 1,
+              "mixed": 1,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 0
+            },
+            "mixed": {
+              "insufficient_information": 0,
+              "mixed": 8,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 0
+            },
+            "negative": {
+              "insufficient_information": 1,
+              "mixed": 0,
+              "negative": 30,
+              "neutral": 0,
+              "positive": 0
+            },
+            "neutral": {
+              "insufficient_information": 0,
+              "mixed": 1,
+              "negative": 2,
+              "neutral": 5,
+              "positive": 0
+            },
+            "positive": {
+              "insufficient_information": 0,
+              "mixed": 1,
+              "negative": 0,
+              "neutral": 0,
+              "positive": 10
+            }
+          },
+          "correct": 54,
+          "denominator": 60,
+          "reported_confidence_mean": 0.8156666666666667,
+          "reported_confidence_mean_when_wrong": 0.35000000000000003,
+          "wrong_with_chosen_probability_at_least_0_9_ids": [],
+          "wrong_with_reported_confidence_at_least_0_9_ids": []
+        },
+        "serious_concern_reported": {
+          "chosen_probability_mean": 0.9191666666666667,
+          "confusion_reference_by_predicted": {
+            "insufficient_information": {
+              "insufficient_information": 2,
+              "no": 4,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 29,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 0,
+              "yes": 25
+            }
+          },
+          "correct": 56,
+          "denominator": 60,
+          "reported_confidence_mean": 0.8808333333333334,
+          "reported_confidence_mean_when_wrong": 0.435,
+          "wrong_with_chosen_probability_at_least_0_9_ids": [
+            "DEV-029"
+          ],
+          "wrong_with_reported_confidence_at_least_0_9_ids": [
+            "DEV-029"
+          ]
+        },
+        "testimonial_potential": {
+          "chosen_probability_mean": 0.9646666666666667,
+          "confusion_reference_by_predicted": {
+            "insufficient_information": {
+              "insufficient_information": 0,
+              "no": 1,
+              "yes": 0
+            },
+            "no": {
+              "insufficient_information": 0,
+              "no": 50,
+              "yes": 0
+            },
+            "yes": {
+              "insufficient_information": 0,
+              "no": 3,
+              "yes": 6
+            }
+          },
+          "correct": 56,
+          "denominator": 60,
+          "reported_confidence_mean": 0.9476666666666667,
+          "reported_confidence_mean_when_wrong": 0.8724999999999999,
+          "wrong_with_chosen_probability_at_least_0_9_ids": [
+            "DEV-029",
+            "DEV-053"
+          ],
+          "wrong_with_reported_confidence_at_least_0_9_ids": [
+            "DEV-029"
+          ]
+        }
+      },
+      "invalid_answers": 0,
+      "model_key": "luna-decisions",
+      "observed_input_tokens": 133523,
+      "observed_known_cost_usd": "0.0133523",
+      "observed_output_tokens": 0,
+      "provider_failures": 0,
+      "stage": "fresh1/P0",
       "status": "closed_60",
       "unknown_cost_attempts": 0,
       "valid_answers": 60

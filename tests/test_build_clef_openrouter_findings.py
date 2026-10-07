@@ -8,6 +8,7 @@ import unittest
 from scripts import build_clef_openrouter_findings as findings
 from scripts import clef_openrouter_native_v1 as route
 from scripts import clef_openrouter_full_v1 as full
+from scripts import clef_openrouter_luna_full_v2 as luna_full
 from scripts.development_benchmark import ROOT
 
 
@@ -20,7 +21,8 @@ class ClefOpenRouterFindingsTests(unittest.TestCase):
         paths = set(findings.SOURCE_FILES) | {
             str(findings.PROJECTION), str(findings.RECEIPT), str(findings.OUTPUT)}
         paths.update(name for name in receipt['source_sha256']
-                     if name.endswith('smoke.root-inspection.json'))
+                     if name.endswith('smoke.root-inspection.json') or
+                     name in findings.luna_composite_sources())
         for name in paths:
             src, dst = ROOT / name, root / name
             dst.parent.mkdir(parents=True, exist_ok=True)
@@ -69,6 +71,21 @@ class ClefOpenRouterFindingsTests(unittest.TestCase):
         target = root / private
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text('changed\n')
+        with self.assertRaisesRegex(ValueError, 'Bound source changed'):
+            findings.check(root)
+
+    def test_luna_composite_lineage_is_bound_separately(self):
+        result = findings.check(ROOT)
+        self.assertIn({'model_key': 'luna-decisions', 'stage': 'fresh1/P0'},
+                      result['included_stages'])
+        self.assertEqual(findings.smoke_inspection_path(ROOT, 'luna-decisions', 'fresh1/P0'),
+                         luna_full.REVIEW)
+        receipt = findings.read_json(ROOT / findings.RECEIPT)
+        self.assertIn(str(luna_full.REVIEW), receipt['source_sha256'])
+        self.assertIn(str(luna_full.PLAN), receipt['source_sha256'])
+        root = self.isolated_public_copy()
+        review = root / luna_full.REVIEW
+        review.write_text(review.read_text() + ' ')
         with self.assertRaisesRegex(ValueError, 'Bound source changed'):
             findings.check(root)
 

@@ -18,6 +18,8 @@ from jev_benchmark import parse_response
 import clef_openrouter_native_v1 as route
 import clef_openrouter_full_v1 as full
 import clef_openrouter_smoke_v1 as smoke
+import clef_openrouter_luna_smoke_v2 as luna_smoke
+import clef_openrouter_luna_full_v2 as luna_full
 import openrouter_decision_smoke as native
 
 BASE = route.BASE / 'findings-v1'
@@ -32,9 +34,23 @@ SOURCE_FILES = ('scripts/build_clef_openrouter_findings.py',
                 'docs/CLEF_OPENROUTER_FINDINGS.md',
                 'scripts/clef_openrouter_full_v1.py',
                 'scripts/clef_openrouter_native_v1.py', 'scripts/clef_openrouter_smoke_v1.py',
+                'scripts/jev_native_prompt_variants_v1.py',
                 'scripts/jev_benchmark.py',
                 'scripts/development_benchmark.py', 'scripts/openrouter_decision_smoke.py',
                 str(route.PLAN), str(full.PLAN), str(full.REVIEW), str(LABELS))
+LUNA_COMPOSITE = ('luna-decisions', 'fresh1/P0')
+LUNA_SUFFIX_FILES = ('budget.json', 'root-review.json', 'smoke.claim.json',
+                     'smoke.journal.jsonl', 'smoke.raw.jsonl', 'smoke.attempts.jsonl',
+                     'smoke.parsed.jsonl', 'smoke.reconciliation.json',
+                     'budget-clef-openrouter-v1-luna-decisions-fresh1-p0-smoke-dev002-003-v2.jsonl')
+
+
+def luna_composite_sources():
+    return ('scripts/clef_openrouter_luna_smoke_v2.py',
+            'scripts/clef_openrouter_luna_full_v2.py',
+            str(luna_smoke.PLAN), str(luna_full.PLAN), str(luna_full.REVIEW),
+            *(str(luna_smoke.PARENT / name) for name in luna_smoke.PARENT_FILES),
+            *(str(luna_smoke.BASE / name) for name in LUNA_SUFFIX_FILES))
 
 
 def sha(data):
@@ -66,6 +82,8 @@ def stage_paths(key, stage):
 
 
 def smoke_inspection_path(root, key, stage):
+    if (key, stage) == LUNA_COMPOSITE:
+        return luna_full.REVIEW
     newer = full.stage_dir(root, key, stage)
     folder = newer if (newer / 'smoke.claim.json').exists() else smoke.stage_dir(root, key, stage)
     return folder.relative_to(root) / 'smoke.root-inspection.json'
@@ -110,8 +128,14 @@ def private_stage(root, plan, full_sha, route_sha, key, stage):
                 'reference_labels_sent': False}
     if any(claim.get(k) != v for k, v in expected.items()):
         raise ValueError('Development claim differs from frozen plan')
-    if claim.get('smoke_inspection_sha256') != full.verify_smoke_inspection(
-            root, key, stage, route_sha, full_sha):
+    if (key, stage) == LUNA_COMPOSITE:
+        wrapper_plan, _ = luna_full.verify(root)
+        if wrapper_plan['common_full_plan_sha256'] != full_sha:
+            raise ValueError('Luna wrapper does not bind the common full plan')
+        inspection_sha = luna_full.verify_composite_review(root)
+    else:
+        inspection_sha = full.verify_smoke_inspection(root, key, stage, route_sha, full_sha)
+    if claim.get('smoke_inspection_sha256') != inspection_sha:
         raise ValueError('Development claim does not bind inspected smoke')
     # A completed journal has one opening event, two events per request and one close.
     ids = list(route.IDS)
@@ -261,6 +285,7 @@ def report(projection, truth, receipt_sha):
             'comparisons': comparisons(stages, truth),
             'evidence': {'projection_receipt_sha256': receipt_sha,
                          'private_raw_validation': 'Performed during preparation; a clean checkout can verify archived hashes and the public projection but cannot independently decode absent private responses.',
+                         'input_read_limit': 'The frozen Clef route plan records a provider warning that roughly the first 2K state tokens may be read. Feedback is first and at most 206 characters; full policy receipt is not proven. Observed billed input tokens do not establish which state text the model used.',
                          'timing': 'Sum of measured client request elapsed time, not provider processing time or whole-stage wall time.',
                          'cost': 'Observed response cost for included development attempts only; smoke and child allocation are separate.'}}
 
@@ -270,6 +295,8 @@ def source_hashes(root, selected):
     for key, stage in selected:
         names.extend(str(path) for path in stage_paths(key, stage).values())
         names.append(str(smoke_inspection_path(root, key, stage)))
+        if (key, stage) == LUNA_COMPOSITE:
+            names.extend(luna_composite_sources())
     return {name: sha((root / name).read_bytes()) for name in names}
 
 
@@ -311,6 +338,9 @@ def check(root):
     expected = set(SOURCE_FILES)
     for key, stage in selected:
         expected.update(str(p) for p in stage_paths(key, stage).values())
+        if (key, stage) == LUNA_COMPOSITE:
+            expected.update(luna_composite_sources())
+            continue
         # The selected inspection location is recorded in the receipt because
         # historical first-pass smokes live outside full-v1.
         candidates = [str((full.BASE / key / stage / 'smoke.root-inspection.json')),
@@ -325,7 +355,8 @@ def check(root):
         path = root / name
         if path.exists() and sha(path.read_bytes()) != value:
             raise ValueError('Bound source changed: ' + name)
-        if (name in SOURCE_FILES or name.endswith('smoke.root-inspection.json')) and not path.exists():
+        if (name in SOURCE_FILES or name in luna_composite_sources() or
+                name.endswith('smoke.root-inspection.json')) and not path.exists():
             raise ValueError('Required public source absent: ' + name)
     truth = labels(root)
     result = report(projection, truth, sha(canonical(receipt)))
