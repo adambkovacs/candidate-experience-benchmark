@@ -1,0 +1,1113 @@
+{
+  "schema": "cross-category-plan-v1",
+  "sourceSha256": {
+    "public-site/data-provider-errors-v1.json": "52d827b39690291be224523b7e493657706ea746a2dea30fe88f4b62c2c2f1b7",
+    "public-site/data.json": "5cc6b65ea0c6196bfa58bbed2ccf0414e4bf64b831a5c7ef86a2e21fb3d4bd2f",
+    "public-site/extended-cases-v1.json": "e16af5c959c905b515b84c9f486a0ee55e959b0db8b64adfebaf047923c210b9",
+    "public-site/extended-run-catalog-v1.json": "9ff0cf652d8504fc978fe69c193c70b0be822a3f2d4aef16be552d197e045412",
+    "public-site/disputed-reviews-v1.json": "ab37fb651771a0b578fe83424b6fa930e66d1d31dd1e52daf0bca9c9620ec4a2",
+    "public-site/supplemental-decision-runs-v1.json": "d8cd70c74d0c7f9bd2f4bab0385f2ed95fe0ebf6b3ea92a5ab11ce6ae9aa6d20",
+    "data/pilot/inputs.jsonl": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+    "data/pilot/proposed_labels.jsonl": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "docs/REPORT_CATEGORY_REVIEW_2026-10-02.md": "f5a64401821e7e9d716b5848211aca6430c67328cb67fbb3d1bf1e32f534f15e",
+    "docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md": "acb3911ac476e5efde965b63d88f51d861c4bf84800bc23eecc8038844d15ba9",
+    "docs/ANYJEV_CALIBRATION_NEXT_ADMISSION_2026-09-28.md": "68446654b2fab56ef64216a4ed83ff848595854d6a7099cefdbe08955ab6cb18"
+  },
+  "selectionRule": {
+    "historical": "All P0 general-LLM rows in data-provider-errors-v1, except the explicit Sonnet recovery composite",
+    "declared": "All general-LLM P0 rows with repeatPass fresh1 or pass1 in extended-run-catalog-v1",
+    "native": "All seven fresh1/P0 runs in disputed-reviews-v1",
+    "categoryEvidence": "docs/REPORT_CATEGORY_REVIEW_2026-10-02.md",
+    "adaptedExceptionEvidence": [
+      "docs/ANYJEV_L1_REPEAT_FINDINGS_2026-09-29.md",
+      "docs/ANYJEV_CALIBRATION_NEXT_ADMISSION_2026-09-28.md"
+    ],
+    "noScoreSelection": true
+  },
+  "counts": {
+    "historicalGeneral": 117,
+    "declaredGeneral": 32,
+    "native": 7,
+    "excludedP0Rows": 211,
+    "excludedHistorical": 9,
+    "excludedCatalog": 202
+  },
+  "exclusions": [
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "rules-v1",
+      "reason": "category: rules"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "alex-openjev08",
+      "reason": "category: task-fine-tuned"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "laya-english-expanded-cpu",
+      "reason": "category: dedicated-decision"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "laya-typed-expanded-cpu",
+      "reason": "category: dedicated-decision"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "laya-multilingual-expanded-cpu",
+      "reason": "category: dedicated-decision"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "alex-openjev4b",
+      "reason": "category: task-fine-tuned"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "anyjev-qwen06-l2",
+      "reason": "category: development-fold-fitted-adapter"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "sonnet5-low-with-retry",
+      "reason": "recovery composite of sonnet5-low-first-pass; original failure retained"
+    },
+    {
+      "source": "public-site/data-provider-errors-v1.json",
+      "runId": "typesafe-jev113-v2",
+      "reason": "category: dedicated-decision"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-alex-openjev08-native-p0-v1-fresh1-p0",
+      "reason": "category: task-fine-tuned"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-alex-openjev08-native-p0-v1-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-alex-openjev08-native-p0-v1-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-alex-openjev4b-native-p0-v1-fresh1-p0",
+      "reason": "category: task-fine-tuned"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-alex-openjev4b-native-p0-v1-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-alex-openjev4b-native-p0-v1-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-generated-fresh-three-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-generated-fresh-three-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-l0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-l0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-l1-direct-native-cv5-fresh1-p0",
+      "reason": "category: development-fold-fitted-adapter"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-l1-direct-native-cv5-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-l1-direct-native-cv5-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-native-l2-outer-cv5-hf517-adapter-v1-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-native-l2-outer-cv5-hf517-adapter-v1-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-raw-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-anyjev-qwen06-raw-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-cloudflare-clef-direct-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-cloudflare-clef-direct-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-cloudflare-clef-flash-direct-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-high-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-high-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-low-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-low-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-medium-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-medium-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-xhigh-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-luna-xhigh-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-high-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-high-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-low-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-low-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-medium-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-medium-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-xhigh-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-sol-xhigh-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-high-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-high-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-low-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-low-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-medium-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-medium-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-xhigh-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-5.6-terra-xhigh-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-high-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-high-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-low-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-low-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-medium-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-medium-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-xhigh-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-astra-xhigh-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-high-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-high-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-low-batch10-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-low-batch10-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-medium-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-medium-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-xhigh-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-luna-xhigh-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-high-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-high-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-low-batch10-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-low-batch10-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-medium-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-medium-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-xhigh-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-codex-gpt-6-sol-xhigh-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-high-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-high-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-low-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-low-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-medium-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-medium-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-xhigh-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-fable51-xhigh-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini31-pro-preview-high-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini31-pro-preview-high-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini31-pro-preview-low-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini31-pro-preview-low-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini36-flash-low-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini36-flash-low-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini36-flash-medium-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini36-flash-medium-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini37-flash-high-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini37-flash-high-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini37-flash-low-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini37-flash-low-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini37-flash-medium-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini37-flash-medium-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini38-flash-medium-p0-openrouter-v3-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini38-flash-medium-p0-openrouter-v3-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini38-low-p0-openrouter-v2-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemini38-low-p0-openrouter-v2-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemma4-e2b-sdk-thinking-off-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemma4-e2b-sdk-thinking-off-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemma4-e2b-sdk-thinking-on-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemma4-e2b-sdk-thinking-on-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemma4-e4b-sdk-thinking-off-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-gemma4-e4b-sdk-thinking-off-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-haiku45-fresh-matched3-batch10-pass2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-haiku45-fresh-matched3-batch10-pass3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-kev-openrouter-native-p0-fresh1-p0",
+      "reason": "category: dedicated-decision"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-kev-openrouter-native-p0-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-laya-english-expanded-cpu-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-laya-english-expanded-cpu-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-laya-multilingual-expanded-cpu-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-laya-multilingual-expanded-cpu-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-laya-typed-expanded-cpu-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-laya-typed-expanded-cpu-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-adaptive-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-adaptive-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-fixed-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-fixed-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-generated-off-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-generated-off-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-generated-on-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-generated-on-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-thinking-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openjev-thinking-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-deepseek-v41-flash-high-authority-v3-current-price-remaining7-price-v1-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-deepseek-v41-flash-low-remaining6-price-v2-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-deepseek-v41-flash-low-remaining6-price-v2-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-deepseek-v41-flash-off-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-deepseek-v41-flash-off-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-26b-a4b-off-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-26b-a4b-off-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-26b-a4b-on-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-26b-a4b-on-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-31b-off-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-31b-off-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-31b-on-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-gemma4-31b-on-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-mistral-small32-24b-venice-not-applicable-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-mistral-small32-24b-venice-not-applicable-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen3.8-27b-medium-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen3.8-27b-medium-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen3.8-27b-off-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen3.8-27b-off-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen3.8-27b-xhigh-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen3.8-27b-xhigh-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen36-35b-a3b-off-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen36-35b-a3b-off-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-openrouter-paid-qwen36-35b-a3b-on-authority-v3-hosted-v2-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-high-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-high-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-low-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-low-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-medium-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-medium-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-xhigh-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus5-xhigh-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-high-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-high-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-low-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-low-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-medium-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-medium-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-xhigh-batch10-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-opus55-xhigh-batch10-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-0.6b-q4km-nonthinking-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-0.6b-q4km-nonthinking-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-0.6b-sdk-thinking-off-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-0.6b-sdk-thinking-off-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-0.6b-sdk-thinking-on-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-0.6b-sdk-thinking-on-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-1.7b-sdk-thinking-off-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-1.7b-sdk-thinking-off-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-1.7b-sdk-thinking-on-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3-1.7b-sdk-thinking-on-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-qwen3.5-4b-sdk-thinking-on-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-direct-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-direct-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-generated-fresh-v1-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-generated-fresh-v1-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-serial-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-serial-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-shared-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-semif-shared-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-high-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-high-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-low-first-pass-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-low-first-pass-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-medium-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-medium-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-xhigh-phase2-batch10-p0-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet5-xhigh-phase2-batch10-p0-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-high-pass2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-high-pass3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-low-pass2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-low-pass3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-medium-pass2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-medium-pass3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-xhigh-pass2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-sonnet55-xhigh-pass3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-typesafe-jev113-native-prompts-fresh1-p0",
+      "reason": "category: dedicated-decision"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-typesafe-jev113-native-prompts-fresh2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-typesafe-jev113-native-prompts-fresh3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-typesafe-jev113-v2-repeat2-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    },
+    {
+      "source": "public-site/extended-run-catalog-v1.json",
+      "runId": "extended-typesafe-jev113-v2-repeat3-p0",
+      "reason": "later repeat pass; not a first P0 pass"
+    }
+  ],
+  "controlsFields": [
+    "route",
+    "routeBasis",
+    "surface",
+    "provider",
+    "interface",
+    "interfaceBasis",
+    "condition",
+    "effort",
+    "protocolId",
+    "sourceFamily",
+    "requestPattern",
+    "observedRequestCount",
+    "declaredBatchSize",
+    "batchNote",
+    "promptText",
+    "promptNote",
+    "cost",
+    "timing"
+  ],
+  "analysis": "Exact per-case vectors, fixed-60 outcomes, and seven paired native comparisons for every eligible general configuration. No pooled family score."
+}
