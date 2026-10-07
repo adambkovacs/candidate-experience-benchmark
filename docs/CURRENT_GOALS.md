@@ -1,5 +1,13 @@
 # Current objectives and direction
 
+## OpenRouter decision-model completion, 7 October 2026
+
+The requested Clef, Clef Flash and Luna Decisions wave has finished all 1,620 planned development positions across P0/P1/P2 and three passes. There are 1,619 usable responses; Flash fresh3/P2 DEV-039 remains a provider HTTP 429 with an unresolved charge bound. Only its 21 unsent successors were continued. Clef and Luna each returned 540 valid responses. No local inference was used.
+
+The [new findings](CLEF_OPENROUTER_FINDINGS.md) and public model selectors include all 27 stages. No label changed across repeat passes on shared usable reviews. Known charges for the entire wave, including smokes, total $0.58613166; a separate $0.02359296 possible-charge bound remains reserved. These costs use the existing OpenRouter authority. Child ledgers are sealed; unused overlapping authority holds have not yet been released.
+
+Code, evidence, README and analysis are committed and pushed. Publication verification is in progress; use [the current checklist](TODO.md) for the final deployment checkpoint. This completes the new three-model execution wave, not every remaining item in the overall benchmark. Earlier direct Cloudflare failures and the remaining roster gaps stay in the [completion audit](COMPLETION_GAP_AUDIT_2026-10-07.md).
+
 ## OpenRouter decision-model approval, 7 October 2026
 
 The user explicitly approved OpenRouter for Clef and Luna Decisions. Clef Flash follows the same OpenRouter-first routing already requested. This is a specific exception to the GPT subscription-only rule for `openai/gpt-6-luna-decisions`; other GPT and Claude models retain their subscription routing. The cumulative OpenRouter ceiling remains $22.38, with no new spending authority.
