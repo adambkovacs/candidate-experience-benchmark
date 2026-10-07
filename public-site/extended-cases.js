@@ -10,27 +10,28 @@
     sentiment: 'Sentiment', follow_up_needed: 'Follow-up needed',
     serious_concern_reported: 'Serious concern', testimonial_potential: 'Testimonial potential'
   };
-  let cachedFeed;
+  const cachedFeeds = new Map();
 
   function validate(data) {
-    if (!data || data.schema !== 'extended-cases-v1' || !Array.isArray(data.cases) ||
+    if (!data || !['extended-cases-v1', 'additional-cases-v1'].includes(data.schema) || !Array.isArray(data.cases) ||
         data.cases.length !== 60 || !Array.isArray(data.runs) || !data.coverage) {
-      throw new Error('Extended case feed has an unexpected format');
+      throw new Error('Case feed has an unexpected format');
     }
     return data;
   }
 
   function load(url = 'extended-cases-v1.json') {
-    if (!cachedFeed) {
-      cachedFeed = fetch(url).then(response => {
+    if (!cachedFeeds.has(url)) {
+      const pending = fetch(url).then(response => {
         if (!response.ok) throw new Error(`Case feed request failed (${response.status})`);
         return response.json();
       }).then(validate).catch(error => {
-        cachedFeed = undefined;
+        cachedFeeds.delete(url);
         throw error;
       });
+      cachedFeeds.set(url, pending);
     }
-    return cachedFeed;
+    return cachedFeeds.get(url);
   }
 
   function runLabel(run) {
@@ -131,7 +132,10 @@
       return;
     }
     const run = initial.run;
-    const header = element('p', 'The same 60 development reviews · human-checked provisional labels v0.2. Each choice is one saved run, including its prompt, pass, and route.');
+    const comparisonScope = data.schema === 'additional-cases-v1'
+      ? `The comparison chooser includes ${data.runs.length} first-pass and native runs.`
+      : `The comparison chooser includes ${data.runs.length} report-backed repeat and continuation runs.`;
+    const header = element('p', `The same 60 development reviews · human-checked provisional labels v0.2. Each choice is one saved run, including its prompt, pass, and route. ${comparisonScope}`);
     const runNames = element('p', undefined, 'extended-case-run-names');
     const sourceLinks = element('div', undefined, 'extended-case-sources');
     container.append(header, runNames, sourceLinks);

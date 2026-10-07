@@ -24,8 +24,8 @@
   <script defer src="./liquid-prompt-chart.js?v=20261006-liquid-pairs"></script>
   <script defer src="./model-categories.js?v=20261007-decision-runs"></script>
   <script defer src="./outcome-chart.js?v=20261005-lineage"></script>
-  <script defer src="./extended-cases.js?v=20261007-source-bound-cases"></script>
-  <script defer src="./app.js?v=20261007-openrouter-decisions"></script>
+  <script defer src="./extended-cases.js?v=20261007-additional-cases"></script>
+  <script defer src="./app.js?v=20261007-additional-cases"></script>
   <script defer src="./report-navigation.js?v=20261007-cohorts"></script>
   <script defer src="./disputed-reviews.js?v=20261007-seven-native"></script>
   <script defer src="./agreement-policy.js?v=20261007-pairs"></script>
@@ -106,7 +106,7 @@
         <p class="outcome-x-label">Valid answers / 60</p>
       </div>
       <ul class="outcome-legend" aria-label="Point colors"><li><span class="outcome-swatch general" aria-hidden="true"></span>General LLM</li><li><span class="outcome-swatch tuned" aria-hidden="true"></span>Task-fine-tuned LLM</li><li><span class="outcome-swatch decision" aria-hidden="true"></span>Dedicated decision model</li><li><span class="outcome-swatch rules" aria-hidden="true"></span>Rules baseline</li><li><span class="outcome-swatch mixed" aria-hidden="true"></span>Mixed or unknown</li></ul>
-      <p class="outcome-explainer">Both axes count the same 60 fictional comments. A point can hold several exact setups; its number shows how many. Only closed 60-record runs appear in the chart. They come from the <a href="./data-provider-errors-v1.json">main feed</a>, <a href="./sonnet55-fresh-matched3.json">Sonnet first passes</a>, <a href="./clef-findings.json">Clef first passes</a>, <a href="./supplemental-decision-runs-v1.json">native decision-model feed</a>, and <a href="./extended-run-catalog-v1.json">report-backed repeat and continuation catalog</a>. The catalog links saved stage reports; individual predictions are not bundled for every stage. Partial runs remain in the <a href="#inspect">run explorer</a>. Read the prompt and repeat comparisons in <a href="#analysis-update">Latest results</a> and <a href="#repeat-analysis">Repeat tests</a>. Agreement uses a provisional reference, not an independent measure of deployment quality.</p>
+      <p class="outcome-explainer">Both axes count the same 60 fictional comments. A point can hold several exact setups; its number shows how many. Only closed 60-record runs appear in the chart. They come from the <a href="./data-provider-errors-v1.json">main feed</a>, <a href="./sonnet55-fresh-matched3.json">Sonnet first passes</a>, <a href="./clef-findings.json">Clef first passes</a>, <a href="./supplemental-decision-runs-v1.json">native decision-model feed</a>, and <a href="./extended-run-catalog-v1.json">report-backed repeat and continuation catalog</a>. Open <a href="#inspect">Run detail</a> to inspect the 60 review positions for any saved run, including failed or unanswered positions. The <a href="./extended-cases-v1.json">extended case feed</a> and <a href="./additional-cases-v1.json">first-pass and native case feed</a> link each answer to saved public evidence. Partial runs retain their original status and denominator. Read the prompt and repeat comparisons in <a href="#analysis-update">Latest results</a> and <a href="#repeat-analysis">Repeat tests</a>. Agreement uses a provisional reference, not an independent measure of deployment quality.</p>
     </div>
     <aside class="outcome-detail" aria-labelledby="outcome-point-title">
       <h3 id="outcome-point-title" aria-live="polite">Loading saved runs…</h3><p id="outcome-point-count"></p>

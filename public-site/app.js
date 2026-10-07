@@ -474,10 +474,11 @@
   function renderCases(run) {
     const all = state.data.cases.filter(item => item.configuration === run.id);
     const panel = $('#case-panel');
-    if (run.sourceFamily && globalThis.BenchmarkExtendedCases) {
+    if ((run.sourceFamily || run.sourceOnlyDetails) && globalThis.BenchmarkExtendedCases) {
       const requestedRun = run.id;
+      const caseFeed = run.sourceFamily ? './extended-cases-v1.json' : './additional-cases-v1.json';
       panel.innerHTML = '<p class="loading">Loading saved answers for this run…</p>';
-      globalThis.BenchmarkExtendedCases.load('./extended-cases-v1.json').then(feed => {
+      globalThis.BenchmarkExtendedCases.load(caseFeed).then(feed => {
         if (state.selectedId === requestedRun) globalThis.BenchmarkExtendedCases.render(panel, feed, requestedRun);
       }).catch(error => {
         if (state.selectedId !== requestedRun) return;
