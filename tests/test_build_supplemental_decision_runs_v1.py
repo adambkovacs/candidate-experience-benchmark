@@ -23,13 +23,18 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
         feed = self.expected
         self.assertEqual((feed['schema'], feed['denominator'], len(feed['runs'])),
                          ('supplemental-decision-runs-v1', 60,
-                          27 + len(subject.clef_builder.check(ROOT)['stages'])))
+                          36 + len(subject.clef_builder.check(ROOT)['stages'])))
         self.assertEqual(len({run['id'] for run in feed['runs']}), len(feed['runs']))
+        previous_rows = json.dumps(feed['runs'][:54], sort_keys=True, separators=(',', ':'),
+                                   ensure_ascii=False).encode()
+        self.assertEqual(hashlib.sha256(previous_rows).hexdigest(),
+                         'dbac96568f1f1f7e9c4f118b04a0bd211c2049f6b096b3eba328916942aa4d94')
         self.assertEqual({run['model'] for run in feed['runs']},
                          {'upstage/solar-decide', 'liquid/d1',
                           'togethercomputer/tev1-4b-experimental',
                           'cloudflare/clef', 'cloudflare/clef-flash',
-                          'openai/gpt-6-luna-decisions'})
+                          'openai/gpt-6-luna-decisions',
+                          'perplexity/pplx-decider-v1-27b'})
         by_id = {run['id']: run for run in feed['runs']}
         self.assertEqual([by_id[f'solar-decide-native-fresh1-{prompt}']['metrics']['all_four']
                           for prompt in ('p0', 'p1', 'p2')], [55, 53, 53])
@@ -46,6 +51,16 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
                          'openai/gpt-6-luna-decisions-20261006')
         self.assertEqual([by_id[f'luna-decisions-openrouter-native-fresh1-{prompt}']['metrics']['all_four']
                           for prompt in ('p0', 'p1', 'p2')], [49, 51, 49])
+        perplexity = [by_id[f'perplexity-decider-native-{repeat}-{prompt}']
+                      for repeat in ('fresh1', 'fresh2', 'fresh3')
+                      for prompt in ('p0', 'p1', 'p2')]
+        self.assertEqual([run['metrics']['all_four'] for run in perplexity], [54] * 9)
+        self.assertEqual({run['returnedModel'] for run in perplexity},
+                         {'perplexity/pplx-decider-v1-27b-20261001'})
+        self.assertEqual({run['provider'] for run in perplexity}, {'Perplexity'})
+        self.assertEqual(sum(run['cost']['knownUsd'] for run in perplexity), 0.14295744)
+        self.assertTrue(all(run['timing']['requests'] == 0 and
+                            run['timing']['totalSeconds'] is None for run in perplexity))
         flash_final = by_id['clef-flash-openrouter-native-fresh3-p2']
         self.assertEqual((flash_final['records'], flash_final['valid'], flash_final['savedResponses'],
                           flash_final['complete'], flash_final['metrics']['all_four']),
@@ -118,6 +133,9 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
                  subject.solar_builder.PROJECTION, subject.solar_builder.RECEIPT,
                  subject.solar_full_builder.PROJECTION, subject.solar_full_builder.RECEIPT,
                  subject.tev_builder.PROJECTION, subject.tev_builder.RECEIPT,
+                 subject.PERPLEXITY_PROJECTION, subject.PERPLEXITY_FINDINGS,
+                 subject.PERPLEXITY_ROUTE_PLAN, subject.PERPLEXITY_FULL_PLAN,
+                 subject.PERPLEXITY_LABELS,
                  Path('public-site/data-provider-errors-v1.json'),
                  Path('scripts/build_supplemental_decision_runs_v1.py')]
         paths += [Path('results/liquid-d1-native-v1/full-v1') / stage /
@@ -170,6 +188,32 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
             path.write_text(json.dumps(value))
             with self.builder_stubs(), self.assertRaisesRegex(ValueError, 'projection differs'):
                 subject.build(root)
+
+    def test_perplexity_public_sources_work_without_private_raw(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for path in (subject.PERPLEXITY_PROJECTION, subject.PERPLEXITY_FINDINGS,
+                         subject.PERPLEXITY_ROUTE_PLAN, subject.PERPLEXITY_FULL_PLAN,
+                         subject.PERPLEXITY_LABELS):
+                target = root / path
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / path, target)
+            self.assertEqual(len(subject.perplexity_runs(root)), 9)
+            self.assertFalse((root / 'results/perplexity-decider-v1/full-v2/decider').exists())
+
+    def test_perplexity_changed_prediction_rejected_after_digest_update(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = self.small_copy(temp)
+            projection_path = root / subject.PERPLEXITY_PROJECTION
+            findings_path = root / subject.PERPLEXITY_FINDINGS
+            projection = json.loads(projection_path.read_text())
+            findings = json.loads(findings_path.read_text())
+            projection['stages'][0]['records'][0]['prediction']['sentiment'] = 'negative'
+            projection_path.write_text(json.dumps(projection))
+            findings['projection_sha256'] = subject.sha(projection_path)
+            findings_path.write_text(json.dumps(findings))
+            with self.assertRaisesRegex(ValueError, 'score or stage cost differs'):
+                subject.perplexity_runs(root)
 
     def test_duplicate_clef_stage_is_rejected(self):
         with tempfile.TemporaryDirectory() as temp:

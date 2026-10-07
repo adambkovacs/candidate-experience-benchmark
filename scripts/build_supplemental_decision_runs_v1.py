@@ -7,7 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from development_benchmark import ROOT
+from development_benchmark import ROOT, VALUES
 import build_liquid_d1_native_full_aggregate as liquid_builder
 import build_solar_decide_native_first_pass_findings as solar_builder
 import build_solar_decide_native_full_findings as solar_full_builder
@@ -21,6 +21,13 @@ SOLAR_FULL = Path('public-site/solar-decide-full-findings.json')
 LIQUID = Path('public-site/liquid-d1-native-full-findings.json')
 TEV = Path('public-site/tev-native-full-findings.json')
 CLEF_OPENROUTER = clef_builder.OUTPUT
+PERPLEXITY_PROJECTION = Path('results/perplexity-decider-v1/full-v2/public-projection.json')
+PERPLEXITY_FINDINGS = Path('results/perplexity-decider-v1/full-v2/findings.json')
+PERPLEXITY_ROUTE_PLAN = Path('results/perplexity-decider-v1/plan.json')
+PERPLEXITY_FULL_PLAN = Path('results/perplexity-decider-v1/full-v2/plan.json')
+PERPLEXITY_LABELS = Path('data/pilot/proposed_labels.jsonl')
+PERPLEXITY_MODEL = 'perplexity/pplx-decider-v1-27b'
+PERPLEXITY_RETURNED = 'perplexity/pplx-decider-v1-27b-20261001'
 BASE_URL = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/'
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
 PASSES = ('fresh1', 'fresh2', 'fresh3')
@@ -134,6 +141,137 @@ def verify_report(root, path, expected):
     if saved != expected:
         raise ValueError(f'Published native report differs from closed sources: {path}')
     return saved
+
+
+def canonical_sha(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'),
+                                     ensure_ascii=False).encode()).hexdigest()
+
+
+def perplexity_runs(root, source=None):
+    """Use only committed public artifacts; private raw remains outside Git."""
+    root = Path(root).resolve()
+    if source is None:
+        def source(path, expected):
+            actual = sha(root / path)
+            if actual != expected:
+                raise ValueError(f'Perplexity public source differs: {path}')
+            return actual
+    projection = load(root, PERPLEXITY_PROJECTION)
+    findings = load(root, PERPLEXITY_FINDINGS)
+    route_plan = load(root, PERPLEXITY_ROUTE_PLAN)
+    full_plan = load(root, PERPLEXITY_FULL_PLAN)
+    labels_path = root / PERPLEXITY_LABELS
+    labels = [json.loads(line) for line in labels_path.read_text().splitlines() if line.strip()]
+    ids = [f'DEV-{index:03}' for index in range(1, 61)]
+    if ([item.get('id') for item in labels] != ids or
+            findings.get('schema') != 'perplexity-decider-native-findings-v1' or
+            projection.get('schema') != 'perplexity-decider-native-public-projection-v1' or
+            projection.get('model') != PERPLEXITY_MODEL or
+            projection.get('returned_model') != PERPLEXITY_RETURNED or
+            projection.get('provider') != 'Perplexity' or
+            projection.get('reference_labels_sent') is not False or
+            projection.get('private_raw_checked_at_prepare') is not True or
+            findings.get('reference_status') != 'proposed_labels_not_final_adjudication' or
+            findings.get('reference_sha256') != {str(PERPLEXITY_LABELS): sha(labels_path)} or
+            findings.get('projection_sha256') != source(PERPLEXITY_PROJECTION,
+                                                        findings.get('projection_sha256')) or
+            projection.get('route_plan_sha256') != canonical_sha(route_plan) or
+            projection.get('full_plan_sha256') != canonical_sha(full_plan) or
+            route_plan.get('models', {}).get('decider', {}).get('model') != PERPLEXITY_MODEL or
+            route_plan['models']['decider'].get('expected_returned_model') != PERPLEXITY_RETURNED or
+            full_plan.get('models', {}).get('decider', {}).get('stages') != list(NINE) or
+            findings.get('development_stages_closed') != 9 or
+            findings.get('development_valid') != 540 or findings.get('development_planned') != 540 or
+            findings.get('smoke_valid') != 27 or
+            findings.get('unknown_cost_upper_bound_usd') != '0' or
+            len(projection.get('stages', [])) != 9 or len(findings.get('scores', [])) != 9 or
+            findings.get('repeat_identical_by_condition') != {condition: True for condition in CONDITIONS}):
+        raise ValueError('Perplexity public source identity or coverage differs')
+    source(PERPLEXITY_FINDINGS, sha(root / PERPLEXITY_FINDINGS))
+    source(PERPLEXITY_ROUTE_PLAN, sha(root / PERPLEXITY_ROUTE_PLAN))
+    source(PERPLEXITY_FULL_PLAN, sha(root / PERPLEXITY_FULL_PLAN))
+    source(PERPLEXITY_LABELS, sha(labels_path))
+    refs = {item['id']: item['proposed_labels'] for item in labels}
+    charges = Decimal(0)
+    smokes = Decimal(0)
+    runs = []
+    predictions = {}
+    for stage, item, score in zip(NINE, projection['stages'], findings['scores']):
+        condition = stage.split('/')[1]
+        expected_requests = route_plan['models']['decider']['requests'][condition]
+        records = item.get('records')
+        if (item.get('stage') != stage or item.get('status') != 'closed' or
+                item.get('development_count') != 60 or item.get('smoke_count') != 3 or
+                not isinstance(records, list) or [record.get('id') for record in records] != ids or
+                score.get('stage') != stage or score.get('denominator') != 60 or
+                score.get('valid') != 60 or
+                [request.get('id') for request in expected_requests] != ids or
+                item.get('smoke_inspection_sha256') !=
+                item.get('source_sha256', {}).get(
+                    str((Path('results/perplexity-decider-v1/decider/fresh1/P0') if stage == 'fresh1/P0'
+                         else Path('results/perplexity-decider-v1/full-v2/decider') / stage) /
+                        'smoke.root-inspection.json'))):
+            raise ValueError(f'Perplexity closed stage differs: {stage}')
+        stage_cost = Decimal(0)
+        input_tokens = output_tokens = 0
+        predictions[stage] = {}
+        for record, request in zip(records, expected_requests):
+            prediction = record.get('prediction')
+            if (set(record) != {'id', 'prediction', 'input_tokens', 'output_tokens',
+                                'actual_cost_usd', 'request_sha256', 'response_sha256'} or
+                    record.get('request_sha256') != request['payload_sha256'] or
+                    not isinstance(prediction, dict) or set(prediction) != set(FIELDS) or
+                    any(prediction[field] not in VALUES[field] for field in FIELDS) or
+                    type(record.get('input_tokens')) is not int or record['input_tokens'] < 0 or
+                    type(record.get('output_tokens')) is not int or record['output_tokens'] < 0 or
+                    not isinstance(record.get('response_sha256'), str) or
+                    len(record['response_sha256']) != 64 or
+                    any(ch not in '0123456789abcdef' for ch in record['response_sha256'])):
+                raise ValueError(f'Perplexity public record differs: {stage}/{record.get("id")}')
+            charge = Decimal(str(record['actual_cost_usd']))
+            if charge != Decimal(record['input_tokens']) * Decimal('0.00000004'):
+                raise ValueError(f'Perplexity known cost differs: {stage}/{record["id"]}')
+            stage_cost += charge
+            input_tokens += record['input_tokens']
+            output_tokens += record['output_tokens']
+            predictions[stage][record['id']] = prediction
+        fields = {field: sum(predictions[stage][ident][field] == refs[ident][field]
+                             for ident in ids) for field in FIELDS}
+        all_four = sum(all(predictions[stage][ident][field] == refs[ident][field]
+                           for field in FIELDS) for ident in ids)
+        mismatches = [ident for ident in ids if any(predictions[stage][ident][field] != refs[ident][field]
+                                                    for field in FIELDS)]
+        if (score.get('field_correct') != fields or score.get('all_four_correct') != all_four or
+                score.get('mismatch_ids') != mismatches or
+                Decimal(str(item.get('known_development_cost_usd'))) != stage_cost):
+            raise ValueError(f'Perplexity public score or stage cost differs: {stage}')
+        smoke_cost = Decimal(str(item.get('known_smoke_cost_usd')))
+        if smoke_cost <= 0:
+            raise ValueError(f'Perplexity smoke charge differs: {stage}')
+        charges += stage_cost
+        smokes += smoke_cost
+        scores = {'all_four': all_four, **fields}
+        runs.append(row('perplexity-decider', PERPLEXITY_MODEL, PERPLEXITY_RETURNED,
+                        'Perplexity', NINE, stage, scores, input_tokens, output_tokens,
+                        str(stage_cost), PERPLEXITY_PROJECTION,
+                        findings['projection_sha256'], PERPLEXITY_FINDINGS,
+                        result_status='Closed Perplexity native Choice run. Scores compare with provisional reference labels; linked records support prompt and repeat comparisons.'))
+    if (any(predictions[f'fresh1/{condition}'] != predictions[f'{repeat}/{condition}']
+            for condition in CONDITIONS for repeat in PASSES[1:]) or
+            Decimal(str(findings.get('known_development_cost_usd'))) != charges or
+            Decimal(str(findings.get('known_smoke_cost_usd'))) != smokes or
+            Decimal(str(findings.get('known_total_cost_usd'))) != charges + smokes):
+        raise ValueError('Perplexity repeat or cost totals differ')
+    sealed = projection.get('sealed_budget_children', {})
+    if (Decimal(str(sealed.get('initial_smoke', {}).get('known_actual_usd'))) !=
+            Decimal(str(projection['stages'][0]['known_smoke_cost_usd'])) or
+            Decimal(str(sealed.get('full_v2', {}).get('known_actual_usd'))) !=
+            charges + smokes - Decimal(str(projection['stages'][0]['known_smoke_cost_usd'])) or
+            sealed['initial_smoke'].get('unknown_upper_bound_usd') != '0' or
+            sealed['full_v2'].get('unknown_upper_bound_usd') != '0'):
+        raise ValueError('Perplexity sealed budget attestation differs')
+    return runs
 
 
 def build(root=ROOT):
@@ -347,12 +485,14 @@ def build(root=ROOT):
                                        if interrupted else
                                        'Closed OpenRouter native Choice run. The linked report shows its exact source evidence and available paired or repeat comparisons.')))
 
+    runs.extend(perplexity_runs(root, source))
+
     ids = [item['id'] for item in runs]
     existing_ids = {item['id'] for item in load(root, Path('public-site/data-provider-errors-v1.json'))['runs']}
-    if len(ids) != 27 + len(clef['stages']) or len(set(ids)) != len(ids) or set(ids) & existing_ids:
+    if len(ids) != 36 + len(clef['stages']) or len(set(ids)) != len(ids) or set(ids) & existing_ids:
         raise ValueError('Supplemental native run ID collision or missing run')
     if sum(1 for item in runs if item['repeatPass'] == 'fresh1') != (
-            9 + sum(item['stage'].startswith('fresh1/') for item in clef['stages'])):
+            12 + sum(item['stage'].startswith('fresh1/') for item in clef['stages'])):
         raise ValueError('First-pass coverage differs')
     return {'schema': 'supplemental-decision-runs-v1', 'denominator': 60,
             'runs': runs, 'sources': [{'path': path, 'sha256': digest}

@@ -42,6 +42,11 @@ test('purpose can overlap while training lineage remains source-backed and separ
   assert.equal(classify({configuration:'clef-flash-prepared'}).category, 'decision');
   assert.equal(classify({configuration:'kev-4b-native'}).category, 'decision');
   assert.equal(classify({configuration:'kev-4b-native'}).trainingLineage, 'fitted_head');
+  const perplexity = classify({id:'perplexity-decider-native-fresh1-p0',model:'perplexity/pplx-decider-v1-27b'});
+  assert.equal(perplexity.category, 'decision');
+  assert.equal(perplexity.interfaceKind, 'native');
+  assert.equal(perplexity.trainingLineage, 'unknown');
+  assert.equal(perplexity.source, 'https://openrouter.ai/perplexity/pplx-decider-v1-27b');
 });
 
 test('saved-run category and interface filters retain the fixed 60-record scope', () => {
