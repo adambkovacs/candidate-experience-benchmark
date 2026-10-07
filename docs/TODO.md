@@ -2,6 +2,8 @@
 
 ## Latest scope and execution checkpoint, 7 October 2026
 
+- Corrected release `b5a1fa56` is pushed. A final integration review found that model-pair evidence links could inherit filters that hid the requested review; the fix clears those four filters, retains the selected cohort/pair and passes six policy tests plus independent review. Cancellation was requested for earlier deployment `37613783208`; successor [37614197446](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37614197446) is pending. Do not claim the case extension or pair panel live until the successor succeeds and live bytes match.
+
 - Release `6d286e78` is pushed. [Pages run 37613783208](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37613783208) is building; live publication is not yet verified. The committed-only archive check passed after its temporary Git index was restored to include the five originally tracked files that match ignore rules. No source validation was weakened. Root also ran the integrated 216-test UI suite successfully.
 - [Reference sensitivity](../results/reference-sensitivity-v1/README.md) is committed in `6d286e78`: seven hypothetical scenarios drawn only from the existing v0.3 proposal, across 637 extended entries and a separate seven-native cohort. Root reviewed the implementation, ran four tests and independently recounted all 4,459 extended scenario/run scores. Frozen labels and published scores are unchanged. Public interactive presentation is in progress.
 
