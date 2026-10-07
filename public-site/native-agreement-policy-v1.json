@@ -1,0 +1,5043 @@
+{
+  "schema": "native-agreement-policy-v1",
+  "scope": "Seven exact OpenRouter native Choice fresh1/P0 configurations, 60 fictional development reviews",
+  "reference_status": "Frozen proposed_labels v0.2, human-checked with disputed cases; agreement is not truth",
+  "policy": "For each pair, accept the four-field vector only if both saved valid predictions are identical; otherwise defer human review. The reference is used only after that decision to score accepted cases.",
+  "policy_origin": "fixed_before_calculation; all 21 pairs reported without pair selection",
+  "inference_requests": 0,
+  "denominator": 60,
+  "source_sha256": {
+    "public-site/disputed-reviews-v1.json": "ab37fb651771a0b578fe83424b6fa930e66d1d31dd1e52daf0bca9c9620ec4a2",
+    "public-site/supplemental-decision-runs-v1.json": "d8cd70c74d0c7f9bd2f4bab0385f2ed95fe0ebf6b3ea92a5ab11ce6ae9aa6d20",
+    "data/pilot/inputs.jsonl": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
+    "data/pilot/proposed_labels.jsonl": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "results/clef-openrouter-v1/findings-v1/public-projection.json": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6",
+    "results/liquid-d1-native-v1/full-v1/fresh1/P0/development.public.json": "be428da40efef67a9db9bc8334f176c45f235fdbd02af8c128d93f188d61dbb9",
+    "results/perplexity-decider-v1/full-v2/findings.json": "3b738756fb63ce4406f9eba18f759ee09708d50f57ffaf4d2d8ee05eafb67ef5",
+    "results/perplexity-decider-v1/full-v2/public-projection.json": "0afd1a31adc6171cd013170b456be2c26b4480a8e1eb873493c5c423ebad7035",
+    "results/solar-decide-native-full-v1/execution-adapter-v2/first-pass.public-projection.json": "52c2ef28b7156d1846e7ccef962a8318e6c5ae6d708a1b7782ee45d4472afb41",
+    "results/tev-native-v1/full-v1/public-projection.json": "0a90f0ef00ee699910ada1826ec2d23834e936301bb90df8e6826082fd43e732"
+  },
+  "cost_basis": "Sum of both saved known development charges for all 60 requests per run, only when every record charge reconciles. Excludes smoke, uncertain invoices, deployment and human review of deferred cases.",
+  "components": [
+    {
+      "id": "liquid-d1-native-fresh1-p0",
+      "model": "liquid/d1",
+      "display_name": "Liquid D1",
+      "all_four_correct": 43,
+      "denominator": 60,
+      "all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058"
+      ],
+      "field_correct": {
+        "sentiment": 49,
+        "follow_up_needed": 55,
+        "serious_concern_reported": 57,
+        "testimonial_potential": 58
+      },
+      "field_error_ids": {
+        "sentiment": [
+          "DEV-005",
+          "DEV-013",
+          "DEV-027",
+          "DEV-031",
+          "DEV-032",
+          "DEV-037",
+          "DEV-039",
+          "DEV-046",
+          "DEV-054",
+          "DEV-056",
+          "DEV-060"
+        ],
+        "follow_up_needed": [
+          "DEV-029",
+          "DEV-035",
+          "DEV-036",
+          "DEV-056",
+          "DEV-059"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029",
+          "DEV-030"
+        ],
+        "testimonial_potential": [
+          "DEV-027",
+          "DEV-029"
+        ]
+      },
+      "known_development_cost_usd": "0.01568912",
+      "source_path": "results/liquid-d1-native-v1/full-v1/fresh1/P0/development.public.json",
+      "source_sha256": "be428da40efef67a9db9bc8334f176c45f235fdbd02af8c128d93f188d61dbb9"
+    },
+    {
+      "id": "tev1-4b-native-fresh1-p0",
+      "model": "togethercomputer/tev1-4b-experimental",
+      "display_name": "Tev 1 4B",
+      "all_four_correct": 45,
+      "denominator": 60,
+      "all_four_correct_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "field_correct": {
+        "sentiment": 51,
+        "follow_up_needed": 57,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 56
+      },
+      "field_error_ids": {
+        "sentiment": [
+          "DEV-001",
+          "DEV-013",
+          "DEV-018",
+          "DEV-022",
+          "DEV-024",
+          "DEV-027",
+          "DEV-029",
+          "DEV-030",
+          "DEV-057"
+        ],
+        "follow_up_needed": [
+          "DEV-004",
+          "DEV-029",
+          "DEV-030"
+        ],
+        "serious_concern_reported": [
+          "DEV-029",
+          "DEV-044",
+          "DEV-046",
+          "DEV-057"
+        ],
+        "testimonial_potential": [
+          "DEV-002",
+          "DEV-020",
+          "DEV-028",
+          "DEV-029"
+        ]
+      },
+      "known_development_cost_usd": "0.016342872",
+      "source_path": "results/tev-native-v1/full-v1/public-projection.json",
+      "source_sha256": "0a90f0ef00ee699910ada1826ec2d23834e936301bb90df8e6826082fd43e732"
+    },
+    {
+      "id": "solar-decide-native-fresh1-p0",
+      "model": "upstage/solar-decide",
+      "display_name": "Solar Decide",
+      "all_four_correct": 55,
+      "denominator": 60,
+      "all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "field_correct": {
+        "sentiment": 56,
+        "follow_up_needed": 58,
+        "serious_concern_reported": 57,
+        "testimonial_potential": 58
+      },
+      "field_error_ids": {
+        "sentiment": [
+          "DEV-013",
+          "DEV-027",
+          "DEV-029",
+          "DEV-030"
+        ],
+        "follow_up_needed": [
+          "DEV-006",
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029",
+          "DEV-030"
+        ],
+        "testimonial_potential": [
+          "DEV-027",
+          "DEV-029"
+        ]
+      },
+      "known_development_cost_usd": "0.02206700",
+      "source_path": "results/solar-decide-native-full-v1/execution-adapter-v2/first-pass.public-projection.json",
+      "source_sha256": "52c2ef28b7156d1846e7ccef962a8318e6c5ae6d708a1b7782ee45d4472afb41"
+    },
+    {
+      "id": "clef-openrouter-native-fresh1-p0",
+      "model": "cloudflare/clef",
+      "display_name": "Clef",
+      "all_four_correct": 54,
+      "denominator": 60,
+      "all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "field_correct": {
+        "sentiment": 56,
+        "follow_up_needed": 59,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 58
+      },
+      "field_error_ids": {
+        "sentiment": [
+          "DEV-029",
+          "DEV-053",
+          "DEV-054",
+          "DEV-056"
+        ],
+        "follow_up_needed": [
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029",
+          "DEV-030",
+          "DEV-053"
+        ],
+        "testimonial_potential": [
+          "DEV-029",
+          "DEV-053"
+        ]
+      },
+      "known_development_cost_usd": "0.03184656",
+      "source_path": "results/clef-openrouter-v1/findings-v1/public-projection.json",
+      "source_sha256": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6"
+    },
+    {
+      "id": "clef-flash-openrouter-native-fresh1-p0",
+      "model": "cloudflare/clef-flash",
+      "display_name": "Clef Flash",
+      "all_four_correct": 45,
+      "denominator": 60,
+      "all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-057",
+        "DEV-060"
+      ],
+      "field_correct": {
+        "sentiment": 50,
+        "follow_up_needed": 57,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 57
+      },
+      "field_error_ids": {
+        "sentiment": [
+          "DEV-005",
+          "DEV-017",
+          "DEV-018",
+          "DEV-020",
+          "DEV-025",
+          "DEV-027",
+          "DEV-029",
+          "DEV-035",
+          "DEV-044",
+          "DEV-056"
+        ],
+        "follow_up_needed": [
+          "DEV-029",
+          "DEV-035",
+          "DEV-059"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029",
+          "DEV-030",
+          "DEV-033"
+        ],
+        "testimonial_potential": [
+          "DEV-020",
+          "DEV-029",
+          "DEV-058"
+        ]
+      },
+      "known_development_cost_usd": "0.01194246",
+      "source_path": "results/clef-openrouter-v1/findings-v1/public-projection.json",
+      "source_sha256": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6"
+    },
+    {
+      "id": "luna-decisions-openrouter-native-fresh1-p0",
+      "model": "openai/gpt-6-luna-decisions",
+      "display_name": "Luna Decisions",
+      "all_four_correct": 49,
+      "denominator": 60,
+      "all_four_correct_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "field_correct": {
+        "sentiment": 54,
+        "follow_up_needed": 58,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 56
+      },
+      "field_error_ids": {
+        "sentiment": [
+          "DEV-001",
+          "DEV-013",
+          "DEV-029",
+          "DEV-030",
+          "DEV-056",
+          "DEV-057"
+        ],
+        "follow_up_needed": [
+          "DEV-029",
+          "DEV-041"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-022",
+          "DEV-029",
+          "DEV-030"
+        ],
+        "testimonial_potential": [
+          "DEV-001",
+          "DEV-014",
+          "DEV-029",
+          "DEV-053"
+        ]
+      },
+      "known_development_cost_usd": "0.0133523",
+      "source_path": "results/clef-openrouter-v1/findings-v1/public-projection.json",
+      "source_sha256": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6"
+    },
+    {
+      "id": "perplexity-decider-native-fresh1-p0",
+      "model": "perplexity/pplx-decider-v1-27b",
+      "display_name": "Perplexity Decider V1 27B",
+      "all_four_correct": 54,
+      "denominator": 60,
+      "all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "field_correct": {
+        "sentiment": 59,
+        "follow_up_needed": 58,
+        "serious_concern_reported": 57,
+        "testimonial_potential": 59
+      },
+      "field_error_ids": {
+        "sentiment": [
+          "DEV-013"
+        ],
+        "follow_up_needed": [
+          "DEV-029",
+          "DEV-035"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029",
+          "DEV-030"
+        ],
+        "testimonial_potential": [
+          "DEV-028"
+        ]
+      },
+      "known_development_cost_usd": "0.01542736",
+      "source_path": "results/perplexity-decider-v1/full-v2/public-projection.json",
+      "source_sha256": "0afd1a31adc6171cd013170b456be2c26b4480a8e1eb873493c5c423ebad7035"
+    }
+  ],
+  "pairs": [
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "tev1-4b-native-fresh1-p0",
+      "accepted_count": 33,
+      "accepted_ids": [
+        "DEV-003",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-058"
+      ],
+      "accepted_all_four_correct": 33,
+      "accepted_all_four_correct_ids": [
+        "DEV-003",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-058"
+      ],
+      "accepted_all_four_error_count": 0,
+      "accepted_all_four_error_ids": [],
+      "deferred_count": 27,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-013",
+        "DEV-018",
+        "DEV-020",
+        "DEV-022",
+        "DEV-024",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-044",
+        "DEV-046",
+        "DEV-054",
+        "DEV-056",
+        "DEV-057",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "mixed": {
+            "mixed": 6,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "mixed": 0,
+            "negative": 17,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 4,
+            "positive": 0
+          },
+          "positive": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 6
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 14,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 19
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 18,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 14
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 27,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 6
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.032031992"
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "solar-decide-native-fresh1-p0",
+      "accepted_count": 43,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058"
+      ],
+      "accepted_all_four_correct": 43,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058"
+      ],
+      "accepted_all_four_error_count": 0,
+      "accepted_all_four_error_ids": [],
+      "deferred_count": 17,
+      "deferred_ids": [
+        "DEV-005",
+        "DEV-006",
+        "DEV-013",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-046",
+        "DEV-054",
+        "DEV-056",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "mixed": {
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "mixed": 0,
+            "negative": 20,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 6,
+            "positive": 0
+          },
+          "positive": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 21,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 22
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 26,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 15
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 35,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 8
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.03775612"
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "clef-openrouter-native-fresh1-p0",
+      "accepted_count": 45,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-030",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058"
+      ],
+      "accepted_all_four_correct": 42,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058"
+      ],
+      "accepted_all_four_error_count": 3,
+      "accepted_all_four_error_ids": [
+        "DEV-006",
+        "DEV-030",
+        "DEV-054"
+      ],
+      "deferred_count": 15,
+      "deferred_ids": [
+        "DEV-005",
+        "DEV-013",
+        "DEV-027",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-046",
+        "DEV-053",
+        "DEV-056",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "mixed": {
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "mixed": 0,
+            "negative": 21,
+            "neutral": 1,
+            "positive": 0
+          },
+          "neutral": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 7,
+            "positive": 0
+          },
+          "positive": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 9
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 20,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 25
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 2,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 25,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 16
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 38,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 7
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-054"
+        ],
+        "follow_up_needed": [],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-030"
+        ],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.04753568"
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "accepted_count": 40,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-030",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-057",
+        "DEV-059"
+      ],
+      "accepted_all_four_correct": 36,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-057"
+      ],
+      "accepted_all_four_error_count": 4,
+      "accepted_all_four_error_ids": [
+        "DEV-005",
+        "DEV-006",
+        "DEV-030",
+        "DEV-059"
+      ],
+      "deferred_count": 20,
+      "deferred_ids": [
+        "DEV-013",
+        "DEV-017",
+        "DEV-018",
+        "DEV-020",
+        "DEV-025",
+        "DEV-027",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-044",
+        "DEV-046",
+        "DEV-054",
+        "DEV-056",
+        "DEV-058",
+        "DEV-060"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 1,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 6,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 16,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 7,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 20,
+            "yes": 0
+          },
+          "yes": {
+            "no": 1,
+            "yes": 19
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 2,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 23,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 13
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 32,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 8
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-005"
+        ],
+        "follow_up_needed": [
+          "DEV-059"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-030"
+        ],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.02763158"
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "accepted_count": 38,
+      "accepted_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-058"
+      ],
+      "accepted_all_four_correct": 37,
+      "accepted_all_four_correct_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-058"
+      ],
+      "accepted_all_four_error_count": 1,
+      "accepted_all_four_error_ids": [
+        "DEV-006"
+      ],
+      "deferred_count": 22,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-005",
+        "DEV-013",
+        "DEV-014",
+        "DEV-022",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-041",
+        "DEV-046",
+        "DEV-053",
+        "DEV-054",
+        "DEV-056",
+        "DEV-057",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "mixed": {
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "mixed": 0,
+            "negative": 19,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 5,
+            "positive": 0
+          },
+          "positive": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 7
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 17,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 21
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 22,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 14
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 33,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 5
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [
+          "DEV-006"
+        ],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.02904142"
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "perplexity-decider-native-fresh1-p0",
+      "accepted_count": 46,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-030",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058"
+      ],
+      "accepted_all_four_correct": 42,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-033",
+        "DEV-034",
+        "DEV-038",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058"
+      ],
+      "accepted_all_four_error_count": 4,
+      "accepted_all_four_error_ids": [
+        "DEV-006",
+        "DEV-013",
+        "DEV-030",
+        "DEV-035"
+      ],
+      "deferred_count": 14,
+      "deferred_ids": [
+        "DEV-005",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-036",
+        "DEV-037",
+        "DEV-039",
+        "DEV-046",
+        "DEV-054",
+        "DEV-056",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "mixed": {
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "mixed": 0,
+            "negative": 22,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 7,
+            "positive": 1
+          },
+          "positive": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 9
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 21,
+            "yes": 0
+          },
+          "yes": {
+            "no": 1,
+            "yes": 24
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 2,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 26,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 16
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 38,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 8
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-013"
+        ],
+        "follow_up_needed": [
+          "DEV-035"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-030"
+        ],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.03111648"
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "solar-decide-native-fresh1-p0",
+      "accepted_count": 45,
+      "accepted_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 44,
+      "accepted_all_four_correct_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 1,
+      "accepted_all_four_error_ids": [
+        "DEV-013"
+      ],
+      "deferred_count": 15,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-004",
+        "DEV-006",
+        "DEV-018",
+        "DEV-020",
+        "DEV-022",
+        "DEV-024",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-044",
+        "DEV-046",
+        "DEV-057"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 26,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 4,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 6
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 16,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 29
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 20,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 23
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 39,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 6
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-013"
+        ],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.038409872"
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "clef-openrouter-native-fresh1-p0",
+      "accepted_count": 42,
+      "accepted_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 41,
+      "accepted_all_four_correct_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 1,
+      "accepted_all_four_error_ids": [
+        "DEV-029"
+      ],
+      "deferred_count": 18,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-004",
+        "DEV-006",
+        "DEV-013",
+        "DEV-018",
+        "DEV-020",
+        "DEV-022",
+        "DEV-024",
+        "DEV-027",
+        "DEV-028",
+        "DEV-030",
+        "DEV-044",
+        "DEV-046",
+        "DEV-053",
+        "DEV-054",
+        "DEV-056",
+        "DEV-057"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 24,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 4,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 5
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 14,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 27
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 18,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 21
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 36,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 5
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-029"
+        ],
+        "follow_up_needed": [
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-029"
+        ],
+        "testimonial_potential": [
+          "DEV-029"
+        ]
+      },
+      "known_two_run_development_cost_usd": "0.048189432"
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "accepted_count": 39,
+      "accepted_ids": [
+        "DEV-003",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-018",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-026",
+        "DEV-027",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 36,
+      "accepted_all_four_correct_ids": [
+        "DEV-003",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 3,
+      "accepted_all_four_error_ids": [
+        "DEV-018",
+        "DEV-027",
+        "DEV-029"
+      ],
+      "deferred_count": 21,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-013",
+        "DEV-017",
+        "DEV-020",
+        "DEV-022",
+        "DEV-024",
+        "DEV-025",
+        "DEV-028",
+        "DEV-030",
+        "DEV-033",
+        "DEV-035",
+        "DEV-044",
+        "DEV-046",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 5,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 21,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 4,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 6
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 14,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 24
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 18,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 18
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 31,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 7
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-018",
+          "DEV-027",
+          "DEV-029"
+        ],
+        "follow_up_needed": [
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-029"
+        ],
+        "testimonial_potential": [
+          "DEV-029"
+        ]
+      },
+      "known_two_run_development_cost_usd": "0.028285332"
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "accepted_count": 42,
+      "accepted_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 40,
+      "accepted_all_four_correct_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 2,
+      "accepted_all_four_error_ids": [
+        "DEV-013",
+        "DEV-029"
+      ],
+      "deferred_count": 18,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-004",
+        "DEV-006",
+        "DEV-014",
+        "DEV-018",
+        "DEV-020",
+        "DEV-022",
+        "DEV-024",
+        "DEV-027",
+        "DEV-028",
+        "DEV-030",
+        "DEV-041",
+        "DEV-044",
+        "DEV-046",
+        "DEV-053",
+        "DEV-056",
+        "DEV-057"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 24,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 4,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 4
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 14,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 27
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 18,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 21
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 37,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 4
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-013",
+          "DEV-029"
+        ],
+        "follow_up_needed": [
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-029"
+        ],
+        "testimonial_potential": [
+          "DEV-029"
+        ]
+      },
+      "known_two_run_development_cost_usd": "0.029695172"
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "perplexity-decider-native-fresh1-p0",
+      "accepted_count": 44,
+      "accepted_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 43,
+      "accepted_all_four_correct_ids": [
+        "DEV-003",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 1,
+      "accepted_all_four_error_ids": [
+        "DEV-028"
+      ],
+      "deferred_count": 16,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-004",
+        "DEV-006",
+        "DEV-013",
+        "DEV-018",
+        "DEV-020",
+        "DEV-022",
+        "DEV-024",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-035",
+        "DEV-044",
+        "DEV-046",
+        "DEV-057"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 25,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 4,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 7
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 16,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 28
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 20,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 22
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 37,
+            "yes": 1
+          },
+          "yes": {
+            "no": 0,
+            "yes": 6
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": [
+          "DEV-028"
+        ]
+      },
+      "known_two_run_development_cost_usd": "0.031770232"
+    },
+    {
+      "left": "solar-decide-native-fresh1-p0",
+      "right": "clef-openrouter-native-fresh1-p0",
+      "accepted_count": 52,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 52,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 0,
+      "accepted_all_four_error_ids": [],
+      "deferred_count": 8,
+      "deferred_ids": [
+        "DEV-006",
+        "DEV-013",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-053",
+        "DEV-054",
+        "DEV-056"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 28,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 6,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 9
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 21,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 31
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 26,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 23
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 45,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 7
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.05391356"
+    },
+    {
+      "left": "solar-decide-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "accepted_count": 44,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-057",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 44,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-057",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 0,
+      "accepted_all_four_error_ids": [],
+      "deferred_count": 16,
+      "deferred_ids": [
+        "DEV-005",
+        "DEV-006",
+        "DEV-013",
+        "DEV-017",
+        "DEV-018",
+        "DEV-020",
+        "DEV-025",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-033",
+        "DEV-035",
+        "DEV-044",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "mixed": {
+            "mixed": 5,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "mixed": 0,
+            "negative": 23,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 6,
+            "positive": 0
+          },
+          "positive": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 19,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 25
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 22,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 19
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 36,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 8
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.03400946"
+    },
+    {
+      "left": "solar-decide-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "accepted_count": 49,
+      "accepted_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 48,
+      "accepted_all_four_correct_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 1,
+      "accepted_all_four_error_ids": [
+        "DEV-013"
+      ],
+      "deferred_count": 11,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-006",
+        "DEV-014",
+        "DEV-022",
+        "DEV-027",
+        "DEV-029",
+        "DEV-030",
+        "DEV-041",
+        "DEV-053",
+        "DEV-056",
+        "DEV-057"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 27,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 5,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 7
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 19,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 30
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 24,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 23
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 44,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 5
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-013"
+        ],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.03541930"
+    },
+    {
+      "left": "solar-decide-native-fresh1-p0",
+      "right": "perplexity-decider-native-fresh1-p0",
+      "accepted_count": 53,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 53,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 0,
+      "accepted_all_four_error_ids": [],
+      "deferred_count": 7,
+      "deferred_ids": [
+        "DEV-006",
+        "DEV-013",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-035"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 29,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 6,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 9
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 21,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 32
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 0,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 26,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 24
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 45,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 8
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.03749436"
+    },
+    {
+      "left": "clef-openrouter-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "accepted_count": 47,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-056",
+        "DEV-057",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 43,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-013",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-057",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 4,
+      "accepted_all_four_error_ids": [
+        "DEV-006",
+        "DEV-029",
+        "DEV-030",
+        "DEV-056"
+      ],
+      "deferred_count": 13,
+      "deferred_ids": [
+        "DEV-005",
+        "DEV-017",
+        "DEV-018",
+        "DEV-020",
+        "DEV-025",
+        "DEV-027",
+        "DEV-033",
+        "DEV-035",
+        "DEV-044",
+        "DEV-053",
+        "DEV-054",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 5,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 23,
+            "neutral": 1,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 8,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 9
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 19,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 27
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 3,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 22,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 19
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 39,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 7
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-029",
+          "DEV-056"
+        ],
+        "follow_up_needed": [
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029",
+          "DEV-030"
+        ],
+        "testimonial_potential": [
+          "DEV-029"
+        ]
+      },
+      "known_two_run_development_cost_usd": "0.04378902"
+    },
+    {
+      "left": "clef-openrouter-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "accepted_count": 50,
+      "accepted_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 48,
+      "accepted_all_four_correct_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-035",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 2,
+      "accepted_all_four_error_ids": [
+        "DEV-006",
+        "DEV-029"
+      ],
+      "deferred_count": 10,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-013",
+        "DEV-014",
+        "DEV-022",
+        "DEV-030",
+        "DEV-041",
+        "DEV-053",
+        "DEV-054",
+        "DEV-056",
+        "DEV-057"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 27,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 5,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 8
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 19,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 30
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 2,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 24,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 22
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 43,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 6
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-029"
+        ],
+        "follow_up_needed": [
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029"
+        ],
+        "testimonial_potential": [
+          "DEV-029"
+        ]
+      },
+      "known_two_run_development_cost_usd": "0.04519886"
+    },
+    {
+      "left": "clef-openrouter-native-fresh1-p0",
+      "right": "perplexity-decider-native-fresh1-p0",
+      "accepted_count": 53,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 51,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-055",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 2,
+      "accepted_all_four_error_ids": [
+        "DEV-006",
+        "DEV-030"
+      ],
+      "deferred_count": 7,
+      "deferred_ids": [
+        "DEV-013",
+        "DEV-028",
+        "DEV-029",
+        "DEV-035",
+        "DEV-053",
+        "DEV-054",
+        "DEV-056"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 28,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 7,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 9
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 21,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 32
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 2,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 26,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 22
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 45,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 8
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-030"
+        ],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.04727392"
+    },
+    {
+      "left": "clef-flash-openrouter-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "accepted_count": 40,
+      "accepted_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-029",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 38,
+      "accepted_all_four_correct_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-028",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 2,
+      "accepted_all_four_error_ids": [
+        "DEV-006",
+        "DEV-029"
+      ],
+      "deferred_count": 20,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-005",
+        "DEV-013",
+        "DEV-014",
+        "DEV-017",
+        "DEV-018",
+        "DEV-020",
+        "DEV-022",
+        "DEV-025",
+        "DEV-027",
+        "DEV-030",
+        "DEV-033",
+        "DEV-035",
+        "DEV-041",
+        "DEV-044",
+        "DEV-053",
+        "DEV-056",
+        "DEV-057",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 5,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 22,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 5,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 7
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 15,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 24
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 2,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 18,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 18
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 34,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 5
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [
+          "DEV-029"
+        ],
+        "follow_up_needed": [
+          "DEV-029"
+        ],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-029"
+        ],
+        "testimonial_potential": [
+          "DEV-029"
+        ]
+      },
+      "known_two_run_development_cost_usd": "0.02529476"
+    },
+    {
+      "left": "clef-flash-openrouter-native-fresh1-p0",
+      "right": "perplexity-decider-native-fresh1-p0",
+      "accepted_count": 45,
+      "accepted_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-030",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-057",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 43,
+      "accepted_all_four_correct_ids": [
+        "DEV-001",
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-014",
+        "DEV-015",
+        "DEV-016",
+        "DEV-019",
+        "DEV-021",
+        "DEV-022",
+        "DEV-023",
+        "DEV-024",
+        "DEV-026",
+        "DEV-031",
+        "DEV-032",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-041",
+        "DEV-042",
+        "DEV-043",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-053",
+        "DEV-054",
+        "DEV-055",
+        "DEV-057",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 2,
+      "accepted_all_four_error_ids": [
+        "DEV-006",
+        "DEV-030"
+      ],
+      "deferred_count": 15,
+      "deferred_ids": [
+        "DEV-005",
+        "DEV-013",
+        "DEV-017",
+        "DEV-018",
+        "DEV-020",
+        "DEV-025",
+        "DEV-027",
+        "DEV-028",
+        "DEV-029",
+        "DEV-033",
+        "DEV-035",
+        "DEV-044",
+        "DEV-056",
+        "DEV-058",
+        "DEV-059"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "mixed": {
+            "mixed": 5,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "mixed": 0,
+            "negative": 24,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 7,
+            "positive": 0
+          },
+          "positive": {
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 9
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 18,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 27
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 2,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 21,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 19
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 37,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 8
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [
+          "DEV-006",
+          "DEV-030"
+        ],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.02736982"
+    },
+    {
+      "left": "luna-decisions-openrouter-native-fresh1-p0",
+      "right": "perplexity-decider-native-fresh1-p0",
+      "accepted_count": 48,
+      "accepted_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-006",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_correct": 47,
+      "accepted_all_four_correct_ids": [
+        "DEV-002",
+        "DEV-003",
+        "DEV-004",
+        "DEV-005",
+        "DEV-007",
+        "DEV-008",
+        "DEV-009",
+        "DEV-010",
+        "DEV-011",
+        "DEV-012",
+        "DEV-015",
+        "DEV-016",
+        "DEV-017",
+        "DEV-018",
+        "DEV-019",
+        "DEV-020",
+        "DEV-021",
+        "DEV-023",
+        "DEV-024",
+        "DEV-025",
+        "DEV-026",
+        "DEV-027",
+        "DEV-031",
+        "DEV-032",
+        "DEV-033",
+        "DEV-034",
+        "DEV-036",
+        "DEV-037",
+        "DEV-038",
+        "DEV-039",
+        "DEV-040",
+        "DEV-042",
+        "DEV-043",
+        "DEV-044",
+        "DEV-045",
+        "DEV-046",
+        "DEV-047",
+        "DEV-048",
+        "DEV-049",
+        "DEV-050",
+        "DEV-051",
+        "DEV-052",
+        "DEV-054",
+        "DEV-055",
+        "DEV-058",
+        "DEV-059",
+        "DEV-060"
+      ],
+      "accepted_all_four_error_count": 1,
+      "accepted_all_four_error_ids": [
+        "DEV-006"
+      ],
+      "deferred_count": 12,
+      "deferred_ids": [
+        "DEV-001",
+        "DEV-013",
+        "DEV-014",
+        "DEV-022",
+        "DEV-028",
+        "DEV-029",
+        "DEV-030",
+        "DEV-035",
+        "DEV-041",
+        "DEV-053",
+        "DEV-056",
+        "DEV-057"
+      ],
+      "accepted_field_confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 27,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 5,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 7
+          }
+        },
+        "follow_up_needed": {
+          "no": {
+            "no": 18,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 30
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 23,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 22
+          }
+        },
+        "testimonial_potential": {
+          "no": {
+            "no": 42,
+            "yes": 0
+          },
+          "yes": {
+            "no": 0,
+            "yes": 6
+          }
+        }
+      },
+      "accepted_field_error_ids": {
+        "sentiment": [],
+        "follow_up_needed": [],
+        "serious_concern_reported": [
+          "DEV-006"
+        ],
+        "testimonial_potential": []
+      },
+      "known_two_run_development_cost_usd": "0.02877966"
+    }
+  ]
+}

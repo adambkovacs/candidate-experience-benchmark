@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FEED = Path("public-site/disputed-reviews-v1.json")
 RUNS = Path("public-site/supplemental-decision-runs-v1.json")
 OUTPUT = Path("results/native-agreement-policy-v1")
+PUBLIC_OUTPUT = Path("public-site/native-agreement-policy-v1.json")
 FIELDS = disputed.FIELDS
 
 
@@ -238,6 +239,7 @@ def main() -> None:
     files = {
         ROOT / OUTPUT / "findings.json": json.dumps(result, indent=2, ensure_ascii=False) + "\n",
         ROOT / OUTPUT / "README.md": readme(result),
+        ROOT / PUBLIC_OUTPUT: json.dumps(result, indent=2, ensure_ascii=False) + "\n",
     }
     if args.check:
         for path, content in files.items():
