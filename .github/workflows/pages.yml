@@ -23,6 +23,10 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      # Historical report timings were frozen under Python 3.14.
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
       - name: Check static public bundle
         run: |
           test -f public-site/index.html
