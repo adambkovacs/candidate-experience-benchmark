@@ -6,7 +6,7 @@ This section is the current checklist. Dated checkpoints below preserve history 
 
 ### Publication and presentation
 
-- **Latest verified release:** deployment [37662104425](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37662104425) succeeded for `0bf03b9f`. Root fetched and byte-verified seven changed assets: HTML, app and unified case inspector, cohort-review JS/CSS and per-field comparison JS/CSS. Unified A/B across all 1,004 saved entries, the broader cohort-review panel and per-field confusion tables are now published. This supersedes the older failed deployment status below. Rendered interaction checks remain separate. No Vercel migration is needed at this checkpoint.
+- **Latest verified release:** deployment [37663741601](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37663741601) succeeded for `6387eb19`. Root fetched and byte-verified ten live assets: report HTML, presentation HTML/JS/CSS, app, unified case inspector, cohort-review JS/CSS and per-field comparison JS/CSS. The final cost finding, unified A/B across all 1,004 saved entries, broader cohort-review panel, per-field tables and ten-slide presentation preview are published. No Vercel migration is needed. Rendered acceptance remains separate.
 
 - **Owners and activity:** the presentation, independent review, deployment diagnosis and analysis reconciliation agents have finished their assigned work. Root is verifying publication and closing the release checklist. No new inference is running. Ruflo save-back and retrieval through a second fresh isolated process are verified.
 
@@ -35,7 +35,7 @@ This section is the current checklist. Dated checkpoints below preserve history 
 - **Unavailable on verified allowed routes:** Fastino GLiNER-2.5-Decide, Alibaba decision-model preview and Nace Drex. The [public-catalog recheck at 16:51–16:53 UTC](ROUTE_RECHECK_LATEST_2026-10-07.md) found no new exact allowed route. Keep their zero-attempt status and concrete route evidence; absence is not completion.
 - **User-excluded:** remaining Mistral execution, remaining local-only inference and the cancelled DeepSeek download. Preserve historical results and unresolved charges.
 
-The dated [post-restart audit](COMPLETION_AUDIT_AFTER_RESTART_2026-10-07.md) preserves the earlier state. Analysis and implementation are now complete for the saved evidence. Remaining release gates are the final report update in deployment `37663741601`, the [rendered checks](PUBLIC_RELEASE_CHECK_2026-10-07.md), and an explicit disposition for the three unavailable models above. No new model call is required for the analysis or presentation. The goal is active, verified through the goal API on 7 October.
+The dated [post-restart audit](COMPLETION_AUDIT_AFTER_RESTART_2026-10-07.md) preserves the earlier state. Analysis and implementation are now complete for the saved evidence. Remaining release gates are the [rendered checks](PUBLIC_RELEASE_CHECK_2026-10-07.md), and an explicit disposition for the three unavailable models above. No new model call is required for the analysis or presentation. The goal is active, verified through the goal API on 7 October.
 
 ## Earlier follow-up checkpoint, 7 October 2026 (superseded by the latest scope above)
 

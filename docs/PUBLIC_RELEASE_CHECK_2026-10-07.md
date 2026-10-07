@@ -16,3 +16,5 @@ Save pass/fail observations and exact reproduction steps. Fix reachable feature 
 ## Published preview checkpoint
 
 Deployment [37663310311](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37663310311) succeeded for `1a92880f`. Root verified the live presentation HTML, JavaScript and CSS against that commit. Nine automated presentation tests and independent factual/code review passed. These checks do not complete the rendered checklist above. A human check was requested on 7 October because the browser tool rejected navigation and prohibited alternate-browser workarounds.
+
+Final report deployment [37663741601](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37663741601) succeeded for `6387eb19`. Root verified ten live assets against that commit: report HTML; presentation HTML, JS and CSS; app and unified inspector JS; cohort-review JS/CSS; cross-category JS/CSS. All ten matched. Publication is verified; the eight rendered checks above remain open.
