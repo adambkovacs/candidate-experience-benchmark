@@ -1,5 +1,12 @@
 # Remaining benchmark roster, 6 October 2026
 
+## Jev routing update, 7 October 2026, after restart
+
+The user directed Jev work to the existing TypeSafe API and OpenRouter, superseding the additional Cloudflare Jev comparison. Do not dispatch further Cloudflare Jev requests. Its unsent smoke successors and development phases are user-excluded; preserve DEV-001's saved balance failure and unresolved charge reservation. This route is no longer a completion blocker. Do not move or relabel its historical evidence as TypeSafe/OpenRouter results.
+
+The [repeat audit](JEV_KEV_REPEAT_COMPLETION_AUDIT_2026-10-07.md) already accounts for three OpenRouter Jev attempts in each of P0/P1/P2, with no unsent review remaining. Preserve the invalid and unknown outcomes; this routing correction does not require duplicate runs or an undeclared fourth pass. Existing direct TypeSafe results remain in the evidence archive. This instruction concerns Jev; it does not decide the separate direct Cloudflare Clef/Flash suffixes.
+
+
 Updated on 7 October 2026 after the Solar continuation and the separate plain Mistral P2 smoke. Earlier execution details remain dated evidence. This is an execution inventory for the existing 60 synthetic reviews, not a new experiment plan or admission receipt. A closed 60-position phase can contain invalid or failed outputs; a smoke, manifest, running process or attempted suffix is not a closed full phase. An interrupted composite can account for every position without becoming a clean matched repeat. The [standing goal](CURRENT_GOALS.md#standing-objective), [current checklist](TODO.md), [frozen roster accounting](MVP_ROSTER_ACCOUNTING.md) and linked source-bound results define these boundaries. The original 163-entry cohort remains 76 scheduled, 62 excluded and 25 blocked after the hosted-first amendment; later model/route configurations sit outside that denominator. Historical local runs do not fill a separately declared hosted configuration.
 
 ## Current scope override, 7 October 2026

@@ -1,5 +1,12 @@
 # Current objectives and direction
 
+## Jev routing update, 7 October 2026, after restart
+
+The user directed Jev work to the existing TypeSafe API and OpenRouter, superseding the additional Cloudflare Jev comparison. Do not dispatch further Cloudflare Jev requests. Its unsent smoke successors and development phases are user-excluded; preserve DEV-001's saved balance failure and unresolved charge reservation. This route is no longer a completion blocker. Do not move or relabel its historical evidence as TypeSafe/OpenRouter results.
+
+The [repeat audit](JEV_KEV_REPEAT_COMPLETION_AUDIT_2026-10-07.md) already accounts for three OpenRouter Jev attempts in each of P0/P1/P2, with no unsent review remaining. Preserve the invalid and unknown outcomes; this routing correction does not require duplicate runs or an undeclared fourth pass. Existing direct TypeSafe results remain in the evidence archive. This instruction concerns Jev; it does not decide the separate direct Cloudflare Clef/Flash suffixes.
+
+
 ## User scope update, 7 October 2026: Mistral excluded
 
 The user explicitly removed Mistral from remaining execution. Send no further Mistral requests. Preserve its completed results, failed attempts and unresolved cost bounds; classify unfinished Mistral configurations as user-excluded, not pending or completed. This supersedes older Mistral capacity-blocker and next-run instructions.

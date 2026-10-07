@@ -1,5 +1,12 @@
 # Remaining execution recheck, 7 October 2026
 
+## Jev routing update, 7 October 2026, after restart
+
+The user directed Jev work to the existing TypeSafe API and OpenRouter, superseding the additional Cloudflare Jev comparison. Do not dispatch further Cloudflare Jev requests. Its unsent smoke successors and development phases are user-excluded; preserve DEV-001's saved balance failure and unresolved charge reservation. This route is no longer a completion blocker. Do not move or relabel its historical evidence as TypeSafe/OpenRouter results.
+
+The [repeat audit](JEV_KEV_REPEAT_COMPLETION_AUDIT_2026-10-07.md) already accounts for three OpenRouter Jev attempts in each of P0/P1/P2, with no unsent review remaining. Preserve the invalid and unknown outcomes; this routing correction does not require duplicate runs or an undeclared fourth pass. Existing direct TypeSafe results remain in the evidence archive. This instruction concerns Jev; it does not decide the separate direct Cloudflare Clef/Flash suffixes.
+
+
 This is a read-only scope and admission check. It makes no allocation, model request, or change to a saved result. The latest [goal](APP_GOAL.md) excludes further Mistral and local inference, prefers OpenRouter where the exact model and interface exist, and keeps changed hosts as separate configurations. The [OpenRouter Clef, Flash and Luna wave](CURRENT_GOALS.md#openrouter-decision-model-completion-7-october-2026) has all 27 declared stages accounted; Flash fresh3/P2 still contains one provider failure. Those results do not rewrite earlier direct Cloudflare attempts.
 
 ## Direct Cloudflare routes
