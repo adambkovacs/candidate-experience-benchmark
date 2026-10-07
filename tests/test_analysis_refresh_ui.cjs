@@ -404,3 +404,15 @@ test('OpenRouter native scores keep hosted routes and observed costs separate', 
     assert.ok(cutoffs.includes('$'+cost.toFixed(4)));
   }
 });
+
+test('OpenRouter Flash interrupted pass retains the 60-review denominator', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const cohort=report.newerCohorts.openrouterDecisions;
+  const base=cohort.stages.find(row=>row.model_key==='clef-flash' && row.stage==='fresh1/P2');
+  cohort.stages=cohort.stages.filter(row=>!(row.model_key==='clef-flash' && row.stage==='fresh3/P2'));
+  cohort.stages.push({...base,stage:'fresh3/P2',status:'interrupted',valid_answers:59,all_four_correct:45});
+  const {cutoffs}=await renderState(report);
+  assert.match(cutoffs,/third pass has 59\/60 usable answers, DEV-039 remains unknown/);
+  assert.match(cutoffs,/repeat changes compare only shared usable answers/);
+  assert.match(cutoffs,/excluding smoke tests and unresolved possible charges/);
+});

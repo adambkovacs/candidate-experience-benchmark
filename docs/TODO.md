@@ -1,11 +1,11 @@
 # Current work checklist
 
-## OpenRouter execution checkpoint, 7 October 2026, 08:10 UTC
+## OpenRouter execution checkpoint, 7 October 2026, 08:26 UTC
 
 - Clef: all nine declared OpenRouter development runs finished, with 540 valid answers. Its sealed full-series child records $0.32524536 in known charges and no unknown charges; smoke requests are included in that child total.
 - Luna Decisions: all nine runs finished, with 540 valid answers. P0/P1/P2 scored 49/51/49 in each pass. Root independently verified all 106 terminal-audit file bindings. Its sealed full-series child records $0.1362978 known and no unknown charges, including later smoke requests.
-- Clef Flash: eight full runs and 38 answers in final P2 are saved. DEV-039 hit a provider HTTP 429; its $0.02359296 possible-charge bound remains reserved. Only the 21 unsent reviews are eligible for the reviewed continuation. No completed or failed review is replayed.
-- Report and selectors: the seven-run first checkpoint is committed. The final expansion, analysis review and publication are in progress. See [the findings](CLEF_OPENROUTER_FINDINGS.md) for the verified report cutoff.
+- Clef Flash: the exact 21 unsent reviews finished successfully and are archived in `56449416`. Final P2 has 59 usable answers and one preserved HTTP 429 at DEV-039. Across all nine planned runs, 539 of 540 answers are usable. The $0.02359296 possible-charge bound remains reserved. The continuation cost $0.00488124; no completed or failed review was replayed.
+- Report and selectors: the seven-run first checkpoint was pushed, but Pages run 37593132863 failed before deployment because confidence averages differed slightly between Python versions. The previous published site remains live. A deterministic calculation fix, the final 27-stage expansion and independent publication checks are in progress. See [the findings](CLEF_OPENROUTER_FINDINGS.md) for the verified report cutoff.
 
 This supersedes the live-run status below. The remaining project gaps are tracked separately in [the completion audit](COMPLETION_GAP_AUDIT_2026-10-07.md); these new hosted runs do not erase earlier route failures.
 
