@@ -1,5 +1,11 @@
 # Current objectives and direction
 
+## OpenRouter decision-model approval, 7 October 2026
+
+The user explicitly approved OpenRouter for Clef and Luna Decisions. Clef Flash follows the same OpenRouter-first routing already requested. This is a specific exception to the GPT subscription-only rule for `openai/gpt-6-luna-decisions`; other GPT and Claude models retain their subscription routing. The cumulative OpenRouter ceiling remains $22.38, with no new spending authority.
+
+Live exact-model catalogs confirm `cloudflare/clef`, `cloudflare/clef-flash` and `openai/gpt-6-luna-decisions`. Prepare separate hosted configurations, inspect three-record smokes, and run the declared prompt/repeat phases only within the locked budget. Preserve direct Cloudflare attempts, including the new DEV-002 quota failure, as separate evidence. Catalog availability is not a successful inference result. [Clef](https://openrouter.ai/cloudflare/clef) · [Clef Flash](https://openrouter.ai/cloudflare/clef-flash) · [Luna Decisions](https://openrouter.ai/openai/gpt-6-luna-decisions).
+
 ## Scope update, 6 October 2026: hosted completion and Cloudflare approval
 
 The user approved a separate Cloudflare budget of up to $10 for the remaining tests and live runs, and requested a budget alert. The account-wide $10 email alert is enabled and verified. The separately reviewed project ledger includes a $0.259584 historical upper bound and enforces the inclusive $10 cap; the alert alone does not stop spending. OpenRouter retains its cumulative $22.38 ceiling; this is not an increase to that provider's cap.
