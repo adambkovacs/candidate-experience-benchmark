@@ -310,16 +310,28 @@ def build(root=ROOT):
                 'luna-decisions': 'luna-decisions-openrouter'}
     for chosen, item, public in zip(clef['included_stages'], clef['stages'], projected['stages']):
         key, stage = chosen['model_key'], chosen['stage']
+        interrupted = key == 'clef-flash' and stage == 'fresh3/P2'
+        valid = 59 if interrupted else 60
         if (key not in families or item.get('model_key') != key or item.get('stage') != stage or
                 public.get('model_key') != key or public.get('stage') != stage or
-                item.get('status') != 'closed_60' or public.get('status') != 'closed_60' or
-                item.get('attempted') != 60 or item.get('valid_answers') != 60 or
-                item.get('invalid_answers') != 0 or item.get('provider_failures') != 0 or
-                item.get('unknown_cost_attempts') != 0 or
+                item.get('status') != ('interrupted_with_exact_unsent_suffix_59' if interrupted else 'closed_60') or
+                public.get('status') != item.get('status') or
+                item.get('attempted') != 60 or
+                item.get('valid_answers') != valid or item.get('unsent') != 0 or
+                item.get('invalid_answers') != 0 or
+                item.get('provider_failures') != (1 if interrupted else 0) or
+                item.get('unknown_cost_attempts') != (1 if interrupted else 0) or
+                item.get('unknown_cost_upper_bound_usd') != ('0.02359296' if interrupted else '0') or
                 [record.get('id') for record in public.get('records', [])] !=
-                [f'DEV-{index:03}' for index in range(1, 61)] or
-                item.get('client_request_elapsed_ns_count') != 60):
-            raise ValueError('OpenRouter Clef stage is not a closed 60-answer run')
+                ([f'DEV-{index:03}' for index in range(1, 39)] +
+                 [f'DEV-{index:03}' for index in range(40, 61)] if interrupted else
+                 [f'DEV-{index:03}' for index in range(1, 61)]) or
+                item.get('client_request_elapsed_ns_count') != valid):
+            raise ValueError('OpenRouter Clef stage coverage differs')
+        if interrupted and (item.get('provider_failure_ids') != ['DEV-039'] or
+                            item.get('unknown_cost_ids') != ['DEV-039'] or
+                            item.get('original_unsent_ids') != [f'DEV-{index:03}' for index in range(40, 61)]):
+            raise ValueError('OpenRouter Flash interruption differs')
         spec = clef_builder.route.MODELS[key]
         scores = {'all_four': item['all_four_correct'],
                   **{field: item['fields'][field]['correct'] for field in FIELDS}}
@@ -328,9 +340,12 @@ def build(root=ROOT):
                         NINE, stage, scores, item['observed_input_tokens'],
                         item['observed_output_tokens'], item['observed_known_cost_usd'],
                         clef_projection, sources[str(clef_projection)], CLEF_OPENROUTER,
-                        client_elapsed_available=60,
+                        valid=valid, unknown_upper_bound=item['unknown_cost_upper_bound_usd'],
+                        client_elapsed_available=valid,
                         client_elapsed_ns_sum=item['client_request_elapsed_ns_sum'],
-                        result_status='Closed OpenRouter native Choice run. The linked report shows its exact source evidence and available paired or repeat comparisons.'))
+                        result_status=('Final prompt run combines 38 original answers with 21 exact never-sent continuation answers. DEV039 remains a provider failure with unknown cost; 59 of 60 positions have usable answers.'
+                                       if interrupted else
+                                       'Closed OpenRouter native Choice run. The linked report shows its exact source evidence and available paired or repeat comparisons.')))
 
     ids = [item['id'] for item in runs]
     existing_ids = {item['id'] for item in load(root, Path('public-site/data-provider-errors-v1.json'))['runs']}

@@ -22,7 +22,8 @@ class ClefOpenRouterFindingsTests(unittest.TestCase):
             str(findings.PROJECTION), str(findings.RECEIPT), str(findings.OUTPUT)}
         paths.update(name for name in receipt['source_sha256']
                      if name.endswith('smoke.root-inspection.json') or
-                     name in findings.luna_composite_sources())
+                     name in findings.luna_composite_sources() or
+                     name in findings.flash_composite_public_sources())
         for name in paths:
             src, dst = ROOT / name, root / name
             dst.parent.mkdir(parents=True, exist_ok=True)
@@ -43,8 +44,11 @@ class ClefOpenRouterFindingsTests(unittest.TestCase):
                          dict(zip(findings.KEYS, (56, 59, 56, 58))))
         self.assertEqual({k: by['clef-flash']['fields'][k]['correct'] for k in findings.KEYS},
                          dict(zip(findings.KEYS, (50, 57, 56, 57))))
+        self.assertEqual(len(result['stages']), 27)
         for comparison in result['comparisons']:
-            self.assertEqual(comparison['shared_valid_denominator'], 60)
+            self.assertEqual(comparison['shared_valid_denominator'],
+                             59 if comparison['model_key'] == 'clef-flash' and
+                             'fresh3/P2' in (comparison['from_stage'], comparison['to_stage']) else 60)
         self.assertNotIn('Cloudflare direct', result['route'])
 
     def test_public_checkout_and_tampered_projection(self):
@@ -63,6 +67,15 @@ class ClefOpenRouterFindingsTests(unittest.TestCase):
             for record in stage['records']:
                 self.assertTrue(record['id'].startswith('DEV-'))
                 self.assertFalse({'feedback', 'user_id', 'response_base64', 'raw_response'} & set(record))
+
+    def test_probability_mean_has_exact_cross_python_value(self):
+        projection = findings.read_json(ROOT / findings.PROJECTION)
+        first = next(stage for stage in projection['stages'] if
+                     stage['model_key'] == 'clef' and stage['stage'] == 'fresh1/P0')
+        values = [record['confidence']['follow_up_needed']['chosen_probability']
+                  for record in first['records']]
+        self.assertEqual(len(values), 60)
+        self.assertEqual(findings.stable_mean(values), 0.9160183333333334)
 
     def test_present_private_file_must_match_immutable_hash(self):
         root = self.isolated_public_copy()
@@ -89,6 +102,20 @@ class ClefOpenRouterFindingsTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Bound source changed'):
             findings.check(root)
 
+    def test_flash_composite_keeps_unknown_and_original_unsent_distinct(self):
+        result = findings.check(ROOT)
+        stage = next(s for s in result['stages'] if
+                     (s['model_key'], s['stage']) == findings.FLASH_INTERRUPTED)
+        self.assertEqual(stage['status'], 'interrupted_with_exact_unsent_suffix_59')
+        self.assertEqual((stage['attempted'], stage['valid_answers'], stage['provider_failures'],
+                          stage['unknown_cost_attempts'], stage['unsent'], stage['denominator']),
+                         (60, 59, 1, 1, 0, 60))
+        self.assertEqual(stage['unknown_cost_upper_bound_usd'], '0.02359296')
+        self.assertEqual(stage['provider_failure_ids'], ['DEV-039'])
+        self.assertEqual(stage['original_unsent_ids'], [f'DEV-{i:03}' for i in range(40, 61)])
+        self.assertEqual(len(next(s for s in findings.read_json(ROOT / findings.PROJECTION)['stages']
+                                  if (s['model_key'], s['stage']) == findings.FLASH_INTERRUPTED)['records']), 59)
+
     def test_interrupted_or_incomplete_journal_is_rejected(self):
         source = ROOT / full.BASE / 'clef/fresh1/P0/development.raw.jsonl'
         if not source.exists():
@@ -113,7 +140,7 @@ class ClefOpenRouterFindingsTests(unittest.TestCase):
             plan = findings.read_json(ROOT / route.PLAN)
             _, route_sha = route.verify(ROOT)
             _, full_sha = full.verify(ROOT)
-            with self.assertRaisesRegex(ValueError, 'not a closed 60-record'):
+            with self.assertRaisesRegex(ValueError, 'closure or interruption differs'):
                 findings.private_stage(root, plan, full_sha, route_sha, 'clef', 'fresh1/P0')
 
     def test_comparison_counts_gains_losses_and_record_flips(self):

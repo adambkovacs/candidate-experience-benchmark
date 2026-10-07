@@ -44,6 +44,14 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
         self.assertEqual(by_id['luna-decisions-openrouter-native-fresh1-p0']['metrics']['all_four'], 49)
         self.assertEqual(by_id['luna-decisions-openrouter-native-fresh1-p0']['returnedModel'],
                          'openai/gpt-6-luna-decisions-20261006')
+        self.assertEqual([by_id[f'luna-decisions-openrouter-native-fresh1-{prompt}']['metrics']['all_four']
+                          for prompt in ('p0', 'p1', 'p2')], [49, 51, 49])
+        flash_final = by_id['clef-flash-openrouter-native-fresh3-p2']
+        self.assertEqual((flash_final['records'], flash_final['valid'], flash_final['savedResponses'],
+                          flash_final['complete'], flash_final['metrics']['all_four']),
+                         (60, 59, 59, False, 45))
+        self.assertEqual(flash_final['cost']['unknownUpperBoundUsd'], 0.02359296)
+        self.assertIn('DEV039', flash_final['resultStatus'])
         self.assertEqual(sum(run['cost']['knownUsd'] for run in feed['runs']
                              if run['id'].startswith('solar-decide-native-fresh1')), 0.067881)
         old = json.loads((ROOT / subject.OUTPUT).read_text())
@@ -75,9 +83,9 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
                          (60, 467.469690796))
         for run in feed['runs']:
             self.assertEqual(run['records'], 60)
-            self.assertEqual(run['valid'], 59 if run is final else 60)
+            self.assertEqual(run['valid'], 59 if run in (final, flash_final) else 60)
             self.assertEqual(run['savedResponses'], run['valid'])
-            self.assertEqual(run['complete'], run is not final)
+            self.assertEqual(run['complete'], run not in (final, flash_final))
             self.assertTrue(run['sourceOnlyDetails'])
             self.assertIsNone(run['cost']['actualUsd'])
             self.assertIsNone(run['cost']['estimatedUsd'])
@@ -163,7 +171,7 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
             with self.builder_stubs(), self.assertRaisesRegex(ValueError, 'projection differs'):
                 subject.build(root)
 
-    def test_future_closed_clef_repeat_adds_one_distinct_run(self):
+    def test_duplicate_clef_stage_is_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
             root = self.small_copy(temp)
             report_path = root / subject.CLEF_OPENROUTER
@@ -174,24 +182,23 @@ class SupplementalDecisionRunsTests(unittest.TestCase):
             receipt = json.loads(receipt_path.read_text())
             extra = json.loads(json.dumps(next(item for item in report['stages']
                                                if item['model_key'] == 'clef' and item['stage'] == 'fresh1/P0')))
-            extra['stage'] = 'fresh2/P0'
+            extra['stage'] = 'fresh1/P0'
             report['stages'].append(extra)
-            report['included_stages'].append({'model_key': 'clef', 'stage': 'fresh2/P0'})
+            report['included_stages'].append({'model_key': 'clef', 'stage': 'fresh1/P0'})
             public = json.loads(json.dumps(next(item for item in projection['stages']
                                                 if item['model_key'] == 'clef' and item['stage'] == 'fresh1/P0')))
-            public['stage'] = 'fresh2/P0'
+            public['stage'] = 'fresh1/P0'
             projection['stages'].append(public)
-            receipt['included_stages'].append({'model_key': 'clef', 'stage': 'fresh2/P0'})
+            receipt['included_stages'].append({'model_key': 'clef', 'stage': 'fresh1/P0'})
             receipt['projection_sha256'] = subject.clef_builder.sha(subject.clef_builder.canonical(projection))
             report['evidence']['projection_receipt_sha256'] = subject.clef_builder.sha(
                 subject.clef_builder.canonical(receipt))
             for path, value in ((report_path, report), (projection_path, projection),
                                 (receipt_path, receipt)):
                 path.write_text(json.dumps(value))
-            with self.builder_stubs(), mock.patch.object(subject.clef_builder, 'check', return_value=report):
-                feed = subject.build(root)
-            self.assertEqual(len(feed['runs']), len(self.expected['runs']) + 1)
-            self.assertIn('clef-openrouter-native-fresh2-p0', {run['id'] for run in feed['runs']})
+            with self.builder_stubs(), mock.patch.object(subject.clef_builder, 'check', return_value=report), \
+                    self.assertRaisesRegex(ValueError, 'collision'):
+                subject.build(root)
 
     def test_final_projection_and_unknown_bound_cannot_be_cleaned_by_copy(self):
         with tempfile.TemporaryDirectory() as temp:

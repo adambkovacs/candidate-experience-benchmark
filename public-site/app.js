@@ -47,12 +47,15 @@
       'luna-decisions-openrouter':['openai/gpt-6-luna-decisions','openai/gpt-6-luna-decisions-20261006','OpenAI']};
     for (const run of report.runs) {
       const match = /^(solar-decide|liquid-d1|tev1-4b|clef-openrouter|clef-flash-openrouter|luna-decisions-openrouter)-native-fresh([123])-p([012])$/.exec(run?.id || '');
-      const interrupted = run.id === 'solar-decide-native-fresh3-p2';
+      const interrupted = run.id === 'solar-decide-native-fresh3-p2' ||
+        run.id === 'clef-flash-openrouter-native-fresh3-p2';
+      const expectedValid = run.id === 'solar-decide-native-fresh3-p2' ? 59 :
+        run.id === 'clef-flash-openrouter-native-fresh3-p2' ? 59 : 60;
       if (!match || seen.has(run.id) || run.condition !== `P${match[3]}` ||
           run.repeatPass !== `fresh${match[2]}` ||
           run.experimentId !== `${match[1]}-native-fresh${match[2]}-p0` ||
           run.parentBaselineId !== (match[3] === '0' ? null : run.experimentId) ||
-          run.complete !== !interrupted || run.records !== 60 || run.valid !== (interrupted ? 59 : 60) || run.savedResponses !== (interrupted ? 59 : 60) ||
+          run.complete !== !interrupted || run.records !== 60 || run.valid !== expectedValid || run.savedResponses !== expectedValid ||
           run.pairedEligible !== !interrupted ||
           run.tokens?.reportedRequests !== run.valid || run.tokens?.totalRequests !== 60 ||
           run.tokens?.complete !== !interrupted ||
@@ -69,8 +72,9 @@
         if (run.model !== model || run.returnedModel !== returned || run.provider !== provider ||
             run.surface !== 'OpenRouter native Choice' ||
             run.protocolId !== `${match[1]}-native-choice-v1` ||
-            run.cost?.unknownUpperBoundUsd !== 0 || run.cost?.actualUsd !== null ||
-            run.timing?.requests !== 60 || !Number.isFinite(run.timing?.totalSeconds)) return [];
+            run.cost?.unknownUpperBoundUsd !== (interrupted ? 0.02359296 : 0) ||
+            run.cost?.actualUsd !== null || run.timing?.requests !== expectedValid ||
+            !Number.isFinite(run.timing?.totalSeconds)) return [];
       }
       seen.add(run.id);
     }

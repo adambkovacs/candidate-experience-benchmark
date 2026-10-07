@@ -20,6 +20,7 @@ import clef_openrouter_full_v1 as full
 import clef_openrouter_smoke_v1 as smoke
 import clef_openrouter_luna_smoke_v2 as luna_smoke
 import clef_openrouter_luna_full_v2 as luna_full
+import clef_openrouter_flash_p2_exact21_v1 as flash_suffix
 import openrouter_decision_smoke as native
 
 BASE = route.BASE / 'findings-v1'
@@ -39,6 +40,7 @@ SOURCE_FILES = ('scripts/build_clef_openrouter_findings.py',
                 'scripts/development_benchmark.py', 'scripts/openrouter_decision_smoke.py',
                 str(route.PLAN), str(full.PLAN), str(full.REVIEW), str(LABELS))
 LUNA_COMPOSITE = ('luna-decisions', 'fresh1/P0')
+FLASH_INTERRUPTED = ('clef-flash', 'fresh3/P2')
 LUNA_SUFFIX_FILES = ('budget.json', 'root-review.json', 'smoke.claim.json',
                      'smoke.journal.jsonl', 'smoke.raw.jsonl', 'smoke.attempts.jsonl',
                      'smoke.parsed.jsonl', 'smoke.reconciliation.json',
@@ -53,12 +55,36 @@ def luna_composite_sources():
             *(str(luna_smoke.BASE / name) for name in LUNA_SUFFIX_FILES))
 
 
+def flash_composite_sources():
+    parent = full.BASE / 'clef-flash'
+    return ('scripts/clef_openrouter_flash_p2_exact21_v1.py',
+            str(flash_suffix.PLAN), str(flash_suffix.PROOF),
+            str(parent / 'full-budget.json'), str(parent / 'full-reconciliation.json'),
+            str(parent / 'full-budget-clef-openrouter-v1-clef-flash-all-nine-development.jsonl'),
+            *(str(flash_suffix.BASE / name) for name in
+              ('budget.json', 'root-review.json', 'development.claim.json',
+               'development.journal.jsonl', 'development.raw.jsonl',
+               'development.attempts.jsonl', 'development.parsed.jsonl',
+               'reconciliation.json', 'terminal-public.json',
+               'budget-clef-openrouter-v1-clef-flash-fresh3-p2-dev040-060-exact-v1.jsonl')))
+
+
+def flash_composite_public_sources():
+    return tuple(name for name in flash_composite_sources() if not name.endswith(
+        ('development.raw.jsonl', 'development.attempts.jsonl')))
+
+
 def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
 def canonical(value):
     return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()
+
+
+def stable_mean(values):
+    """Keep report bytes identical across Python versions' float summation paths."""
+    return float(sum((Decimal(str(value)) for value in values), Decimal(0)) / Decimal(len(values)))
 
 
 def read_json(path):
@@ -114,6 +140,99 @@ def optional_answers(body, prediction):
     return result
 
 
+def flash_suffix_records(root, plan):
+    folder = root / flash_suffix.BASE
+    public = read_json(folder / 'terminal-public.json')
+    suffix_plan, suffix_sha = flash_suffix.verify(root, require_private=True)
+    if (public.get('kind') != 'clef-openrouter-flash-p2-exact21-terminal-public-v1' or
+            public.get('plan_sha256') != suffix_sha or
+            public.get('request_ids') != list(flash_suffix.IDS) or
+            public.get('valid_count') != 21 or public.get('unknown_count') != 0 or
+            public.get('parent_unknown_id') != 'DEV-039' or
+            public.get('parent_unknown_preserved') is not True):
+        raise ValueError('Flash suffix terminal proof differs')
+    expected_names = {'budget.json', 'root-review.json', 'development.claim.json',
+                      'development.journal.jsonl', 'development.raw.jsonl',
+                      'development.attempts.jsonl', 'development.parsed.jsonl',
+                      'reconciliation.json'}
+    if set(public.get('source_file_sha256', {})) != expected_names:
+        raise ValueError('Flash suffix terminal source list differs')
+    for name, digest in public['source_file_sha256'].items():
+        if sha((folder / name).read_bytes()) != digest:
+            raise ValueError('Flash suffix terminal source differs')
+    claim = read_json(folder / 'development.claim.json')
+    journal = rows(folder / 'development.journal.jsonl')
+    raw = rows(folder / 'development.raw.jsonl')
+    attempts = rows(folder / 'development.attempts.jsonl')
+    parsed = rows(folder / 'development.parsed.jsonl')
+    reconciliation = read_json(folder / 'reconciliation.json')
+    child = folder / 'budget-clef-openrouter-v1-clef-flash-fresh3-p2-dev040-060-exact-v1.jsonl'
+    ledger = rows(child)
+    if (claim.get('kind') != 'clef-openrouter-flash-p2-exact21-claim-v1' or
+            claim.get('plan_sha256') != suffix_sha or
+            claim.get('root_review_sha256') != sha((folder / 'root-review.json').read_bytes()) or
+            claim.get('budget_manifest_sha256') != sha((folder / 'budget.json').read_bytes()) or
+            claim.get('request_ids') != list(flash_suffix.IDS) or
+            claim.get('reference_labels_sent') is not False or
+            len(journal) != 44 or journal[0].get('event') != 'stage_started' or
+            journal[0].get('plan_sha256') != suffix_sha or
+            journal[-1].get('event') != 'stage_completed' or journal[-1].get('count') != 21 or
+            len(raw) != 21 or len(attempts) != 21 or len(parsed) != 21 or
+            len(ledger) != 44 or ledger[-1].get('event') != 'partition_closed' or
+            reconciliation.get('child_sha256') != sha(child.read_bytes()) or
+            public.get('child_sha256') != sha(child.read_bytes()) or
+            reconciliation.get('plan_sha256') != suffix_sha or
+            reconciliation.get('parent_unknown_id') != 'DEV-039' or
+            reconciliation.get('parent_unknown_upper_bound_usd') != str(route.bound('clef-flash', 1)) or
+            reconciliation.get('valid_count') != 21):
+        raise ValueError('Flash suffix closure differs')
+    requests = suffix_plan['parent']['exact_requests']
+    records = []
+    for i, rid in enumerate(flash_suffix.IDS):
+        request, original, attempt, saved = requests[i], raw[i], attempts[i], parsed[i]
+        intent, started = journal[1 + 2*i:3 + 2*i]
+        reserve, settle = ledger[1 + 2*i:3 + 2*i]
+        wire = base64.b64decode(original['response_base64'], validate=True)
+        body = json.loads(wire)
+        prediction = full.validate_returned('clef-flash', body)
+        cost = native.response_cost(body)
+        aid = started.get('attempt_id')
+        elapsed = original.get('client_request_elapsed_ns')
+        if (request['id'] != rid or original.get('id') != rid or attempt.get('id') != rid or
+                saved.get('id') != rid or intent.get('event') != 'request_intent' or
+                intent.get('id') != rid or intent.get('payload_sha256') != request['payload_sha256'] or
+                started.get('event') != 'request_started' or started.get('id') != rid or
+                not aid or any(x.get('attempt_id') != aid for x in (original, attempt, saved, reserve, settle)) or
+                original.get('payload_sha256') != request['payload_sha256'] or
+                original.get('response_sha256') != sha(wire) or original.get('http_status') != 200 or
+                attempt.get('status') != 'ok' or attempt.get('cost_unknown') is not False or
+                saved.get('prediction') != prediction or
+                saved.get('input_tokens') != body['usage']['input_tokens'] or
+                saved.get('output_tokens') != body['usage']['output_tokens'] or
+                cost is None or cost < 0 or cost > route.bound('clef-flash', 1) or
+                Decimal(saved['actual_cost_usd']) != cost or
+                Decimal(attempt['actual_cost_usd']) != cost or
+                reserve.get('event') != 'reserve' or
+                reserve.get('record_id') != f'fresh3/P2:exact-unsent:{rid}' or
+                Decimal(reserve['usd']) != route.bound('clef-flash', 1) or
+                settle.get('event') != 'settle' or Decimal(settle['usd']) != cost or
+                type(elapsed) is not int or elapsed < 0):
+            raise ValueError('Flash suffix response, journal, or settlement differs')
+        records.append({'id': rid, 'prediction': prediction,
+                        'confidence': optional_answers(body, prediction),
+                        'input_tokens': saved['input_tokens'],
+                        'output_tokens': saved['output_tokens'],
+                        'actual_cost_usd': str(cost),
+                        'client_request_elapsed_ns': elapsed,
+                        'request_sha256': request['payload_sha256'],
+                        'response_sha256': original['response_sha256']})
+    if (sum((Decimal(r['actual_cost_usd']) for r in records), Decimal(0)) !=
+            Decimal(reconciliation['known_actual_usd']) or
+            public.get('actual_cost_usd') != reconciliation['known_actual_usd']):
+        raise ValueError('Flash suffix known cost differs')
+    return records
+
+
 def private_stage(root, plan, full_sha, route_sha, key, stage):
     paths = stage_paths(key, stage)
     claim = read_json(root / paths['claim.json'])
@@ -137,14 +256,21 @@ def private_stage(root, plan, full_sha, route_sha, key, stage):
         inspection_sha = full.verify_smoke_inspection(root, key, stage, route_sha, full_sha)
     if claim.get('smoke_inspection_sha256') != inspection_sha:
         raise ValueError('Development claim does not bind inspected smoke')
+    interrupted = (key, stage) == FLASH_INTERRUPTED
+    if interrupted:
+        flash_suffix.verify(root, require_private=True)
+    completed = 38 if interrupted else 60
+    attempted = 39 if interrupted else 60
     # A completed journal has one opening event, two events per request and one close.
     ids = list(route.IDS)
-    if (len(journal) != 122 or journal[0].get('event') != 'stage_started' or
+    if (len(journal) != 2 * attempted + 2 or journal[0].get('event') != 'stage_started' or
             journal[0].get('full_plan_sha256') != full_sha or
-            journal[-1].get('event') != 'stage_completed' or journal[-1].get('count') != 60 or
-            len(raw) != 60 or len(attempts) != 60 or len(parsed) != 60):
-        raise ValueError('Development phase is not a closed 60-record run')
-    for i, rid in enumerate(ids):
+            journal[-1].get('event') != ('stage_stopped' if interrupted else 'stage_completed') or
+            (not interrupted and journal[-1].get('count') != 60) or
+            (interrupted and journal[-1].get('id') != 'DEV-039') or
+            len(raw) != attempted or len(attempts) != attempted or len(parsed) != completed):
+        raise ValueError('Development phase closure or interruption differs')
+    for i, rid in enumerate(ids[:attempted]):
         intent, started = journal[1 + 2*i:3 + 2*i]
         if (intent.get('event') != 'request_intent' or intent.get('id') != rid or
                 started.get('event') != 'request_started' or started.get('id') != rid or
@@ -153,7 +279,8 @@ def private_stage(root, plan, full_sha, route_sha, key, stage):
     requests = plan['models'][key]['requests'][stage.split('/')[1]]
     records = []
     for i, (rid, request, original, attempt, saved, started) in enumerate(zip(
-            ids, requests, raw, attempts, parsed, journal[2:-1:2])):
+            ids[:completed], requests[:completed], raw[:completed], attempts[:completed],
+            parsed, journal[2:-1:2])):
         wire = base64.b64decode(original['response_base64'], validate=True)
         body = json.loads(wire)
         prediction = full.validate_returned(key, body)
@@ -184,13 +311,40 @@ def private_stage(root, plan, full_sha, route_sha, key, stage):
                         'client_request_elapsed_ns': elapsed,
                         'request_sha256': request['payload_sha256'],
                         'response_sha256': original['response_sha256']})
+    if interrupted:
+        failure = raw[38]
+        failed_attempt = attempts[38]
+        wire = base64.b64decode(failure['response_base64'], validate=True)
+        if (failure.get('id') != 'DEV-039' or failed_attempt.get('id') != 'DEV-039' or
+                failure.get('http_status') != 429 or
+                failure.get('payload_sha256') != requests[38]['payload_sha256'] or
+                failure.get('response_sha256') != sha(wire) or
+                failure.get('attempt_id') != failed_attempt.get('attempt_id') or
+                failed_attempt.get('status') != 'unknown_cost' or
+                failed_attempt.get('cost_unknown') is not True or
+                Decimal(failed_attempt['reserved_cost_usd']) != route.bound(key, 1) or
+                type(failure.get('client_request_elapsed_ns')) is not int or
+                failure['client_request_elapsed_ns'] < 0):
+            raise ValueError('Flash DEV039 provider failure differs')
+        records.extend(flash_suffix_records(root, plan))
+        return {'model_key': key, 'stage': stage,
+                'status': 'interrupted_with_exact_unsent_suffix_59',
+                'records': records, 'provider_failure_ids': ['DEV-039'],
+                'unknown_cost_ids': ['DEV-039'],
+                'unknown_cost_upper_bound_usd': str(route.bound(key, 1)),
+                'original_unsent_ids': ids[39:],
+                'provider_failure_client_elapsed_ns': failure['client_request_elapsed_ns']}
     return {'model_key': key, 'stage': stage, 'status': 'closed_60', 'records': records}
 
 
 def summarize_stage(stage, truth):
     records = stage['records']
-    if len(records) != 60 or [r['id'] for r in records] != list(route.IDS):
-        raise ValueError('Public projection does not contain 60 ordered answers')
+    interrupted = stage['status'] == 'interrupted_with_exact_unsent_suffix_59'
+    expected_count = 59 if interrupted else 60
+    expected_ids = list(route.IDS[:38]) + list(route.IDS[39:]) if interrupted else list(route.IDS)
+    if (len(records) != expected_count or
+            [r['id'] for r in records] != expected_ids):
+        raise ValueError('Public projection does not contain expected ordered answers')
     fields = {}
     for key in KEYS:
         confusion = {reference: {predicted: 0 for predicted in VALUES[key]}
@@ -222,25 +376,38 @@ def summarize_stage(stage, truth):
                 high_probability_wrong.append(rid)
         fields[key] = {'correct': sum(confusion[v][v] for v in VALUES[key]),
                        'denominator': 60, 'confusion_reference_by_predicted': confusion,
-                       'reported_confidence_mean': sum(confidences) / 60,
-                       'chosen_probability_mean': sum(chosen_probabilities) / 60,
+                       'reported_confidence_mean': stable_mean(confidences),
+                       'chosen_probability_mean': stable_mean(chosen_probabilities),
                        'reported_confidence_mean_when_wrong': (
-                           sum(incorrect_confidences) / len(incorrect_confidences)
+                           stable_mean(incorrect_confidences)
                            if incorrect_confidences else None),
                        'wrong_with_reported_confidence_at_least_0_9_ids': high_wrong,
                        'wrong_with_chosen_probability_at_least_0_9_ids': high_probability_wrong}
     all_four = [r['id'] for r in records if r['prediction'] == truth[r['id']]]
-    return {'model_key': stage['model_key'], 'stage': stage['stage'], 'status': stage['status'],
-            'attempted': 60, 'valid_answers': 60, 'invalid_answers': 0,
-            'provider_failures': 0, 'unknown_cost_attempts': 0,
+    result = {'model_key': stage['model_key'], 'stage': stage['stage'], 'status': stage['status'],
+            'attempted': 60, 'valid_answers': expected_count,
+            'invalid_answers': 0,
+            'provider_failures': 1 if interrupted else 0,
+            'unknown_cost_attempts': 1 if interrupted else 0,
+            'unknown_cost_upper_bound_usd': stage.get('unknown_cost_upper_bound_usd', '0'),
+            'unsent': 0,
             'all_four_correct': len(all_four), 'denominator': 60,
             'all_four_correct_ids': all_four, 'fields': fields,
             'observed_input_tokens': sum(r['input_tokens'] for r in records),
             'observed_output_tokens': sum(r['output_tokens'] for r in records),
             'observed_known_cost_usd': str(sum((Decimal(r['actual_cost_usd']) for r in records), Decimal(0))),
             'client_request_elapsed_ns_sum': sum(r['client_request_elapsed_ns'] for r in records),
-            'client_request_elapsed_ns_count': 60,
-            'confidence_note': 'Provider-reported confidence and chosen-label probability are separate values; 60 development records do not establish calibration.'}
+            'client_request_elapsed_ns_count': expected_count,
+            'confidence_note': 'Provider-reported confidence and chosen-label probability are separate values; these development records do not establish calibration.'}
+    if interrupted:
+        if (stage.get('provider_failure_ids') != ['DEV-039'] or
+                stage.get('unknown_cost_ids') != ['DEV-039'] or
+                stage.get('original_unsent_ids') != list(route.IDS[39:])):
+            raise ValueError('Interrupted Flash record identities differ')
+        result.update({'provider_failure_ids': ['DEV-039'], 'unknown_cost_ids': ['DEV-039'],
+                       'original_unsent_ids': list(route.IDS[39:]),
+                       'provider_failure_client_elapsed_ns': stage['provider_failure_client_elapsed_ns']})
+    return result
 
 
 def comparisons(stages, truth):
@@ -297,6 +464,8 @@ def source_hashes(root, selected):
         names.append(str(smoke_inspection_path(root, key, stage)))
         if (key, stage) == LUNA_COMPOSITE:
             names.extend(luna_composite_sources())
+        if (key, stage) == FLASH_INTERRUPTED:
+            names.extend(flash_composite_sources())
     return {name: sha((root / name).read_bytes()) for name in names}
 
 
@@ -341,6 +510,8 @@ def check(root):
         if (key, stage) == LUNA_COMPOSITE:
             expected.update(luna_composite_sources())
             continue
+        if (key, stage) == FLASH_INTERRUPTED:
+            expected.update(flash_composite_sources())
         # The selected inspection location is recorded in the receipt because
         # historical first-pass smokes live outside full-v1.
         candidates = [str((full.BASE / key / stage / 'smoke.root-inspection.json')),
@@ -356,6 +527,7 @@ def check(root):
         if path.exists() and sha(path.read_bytes()) != value:
             raise ValueError('Bound source changed: ' + name)
         if (name in SOURCE_FILES or name in luna_composite_sources() or
+                name in flash_composite_public_sources() or
                 name.endswith('smoke.root-inspection.json')) and not path.exists():
             raise ValueError('Required public source absent: ' + name)
     truth = labels(root)
