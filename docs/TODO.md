@@ -2,11 +2,14 @@
 
 ## Latest scope and execution checkpoint, 7 October 2026
 
+- Publication: Perplexity supplemental integration at `28112edf` deployed successfully in [Pages run 37605927388](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37605927388). Root fetched and byte-verified `app.js`, `model-categories.js` and `supplemental-decision-runs-v1.json` against that commit. Combined analysis commit `d068ac46` is in the next deployment, [37606442960](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37606442960); live verification remains.
+- Deep-dive coverage: the read-only inventory found 367 selectable runs and at least 317 additional completed repeat cells in dedicated reports. Owner `completion_and_models_oct7` is preparing an explicit, source-bound extended catalog; owner `visual_references_oct7` will connect it to the shared filters. Existing report-only results are preserved. Unified all-results coverage is not complete yet.
+
 - Mistral: user-excluded from further execution. Preserve all historical results, failures and unknown-cost bounds. Older Mistral pending items below are superseded.
 - Perplexity Decider: nine stages closed, 540/540 development responses and 27/27 smokes valid, $0.15009588 known combined cost and no unknown charges. Each stage matches all four reference fields on 54/60 reviews. The approved projection/findings and tests are pushed in `c6d59d6f`. Both budget children are sealed, and root applied and independently verified both exact unused authority releases. Supplemental integration is pushed in `28112edf`; combined analysis and redesigned public presentation are in progress.
 - Presentation: add actual frequently disputed reviews/testimonial examples, with field-level model answers, eligible-model denominators and explanations of reference ambiguity. Keep cross-model disagreement distinct from repeat instability. The user approved the proposed layout and requested deep-dive access to all saved results with relevant filters and comparisons. Owner `visual_references_oct7` is implementing navigation and disputed-review exploration; root owns combined analysis and release verification.
 
-## Follow-up work requested 7 October 2026
+## Earlier follow-up checkpoint, 7 October 2026 (superseded by the latest scope above)
 
 - Completion and new-model audit: recorded in `COMPLETION_RECHECK_2026-10-07.md`. Perplexity Decider's first three-review smoke passed: three HTTP 200 responses, exact dated model and provider, valid choices, and $0.00077032 observed charge. Root independently inspected the raw responses. The separate nine-stage executor passed six offline tests and independent review; its $0.25 child and earmarked OpenRouter authority hold are admitted. First P0 development is running. Owner `completion_and_models_oct7` executes; independent reviewer `analysis_angles_oct7` has root-delegated authority to inspect subsequent smoke responses and sign with its own identity before each development stage. No completed full series is credited yet.
 - Liquid D1: nine passes already complete. Reuse the evidence and make it easier to find.
