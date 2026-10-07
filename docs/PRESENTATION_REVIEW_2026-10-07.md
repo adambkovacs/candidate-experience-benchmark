@@ -43,3 +43,21 @@ The bounded implementation is a redesign of the first results passage and reuse 
 ## Acceptance check before publication
 
 Use the current static build and test desktop, 390 px mobile, keyboard selection, reduced motion, deep links and no-JavaScript fallback. Reconcile every displayed count against source-bound JSON and saved run IDs. Check category overlap, 59-valid examples, partial runs, tied chart coordinates and empty filters. Have a reader unfamiliar with P0/P1/P2 explain what each exhibit shows from its heading and caption alone.
+
+
+## HELM follow-up: report and possible meetup presentation
+
+The user asked specifically about HELM's value for presenting the findings and mentioned a possible meetup talk. The earlier review put too much weight on avoiding visual noise. HELM also offers useful information hierarchy for a projected presentation: one decision question per screen, room-distance readability, a deliberate density budget and evidence labels that survive a change of visual style. Its [ABOUT document](https://github.com/PolymathWizard/BHIL-HELM-Sci-Fi-Visualizer/blob/main/ABOUT.md) describes those principles, reduced-motion support and a self-contained HTML artifact. The repository distinguishes its working starter from illustrative concept renders. These are design references, not measured usability evidence for this benchmark.
+
+Apply the information hierarchy to the report now. A possible presenter view can reuse the same frozen data later, with large text, keyboard-controlled reveals and a direct link into the detailed explorer. This is a proposed presentation direction, not a completed deliverable or confirmation of the meetup's date, duration or audience.
+
+Suggested exhibits, using verified evidence:
+
+1. Show one candidate comment and the four decisions. Reveal the reference and selected model answers after the audience reads the comment.
+2. Show the 60-review by selected-model disagreement matrix. Highlight a difficult comment and open its exact field-level answers. Keep each review's weight separate from its repeat passes.
+3. Show prompt versions as paired gains and losses, then reveal which reviews changed. Use the same selected configuration and matched inputs.
+4. Show the three repeat scores alongside label flips, so equal totals do not imply identical answers.
+5. Show observed cost against agreement within a declared comparable subset. Keep subscription price equivalents and missing timing separate.
+6. End with what these results suggest testing in a real workflow and what this synthetic study cannot establish.
+
+HELM-inspired movement should reveal a comparison, maintain the selected review between views, or explain a transition. A high-contrast presentation skin is worth prototyping separately from the reading view. It must preserve synthetic-data labeling, exact denominators, reference ambiguity and source access. No HELM code or assets have been copied in this follow-up.
