@@ -1,5 +1,9 @@
 # Remaining execution recheck, 7 October 2026
 
+## Latest scope override
+
+The user has now excluded all unfinished direct Cloudflare Jev, Clef and Clef Flash work. Their OpenRouter/TypeSafe evidence remains separate and accounted; preserve historical direct failures and unknown-charge reservations. Earlier pending-scope questions below are superseded, not requests to resume those suffixes. See [current objective](APP_GOAL.md).
+
 ## Jev routing update, 7 October 2026, after restart
 
 The user directed Jev work to the existing TypeSafe API and OpenRouter, superseding the additional Cloudflare Jev comparison. Do not dispatch further Cloudflare Jev requests. Its unsent smoke successors and development phases are user-excluded; preserve DEV-001's saved balance failure and unresolved charge reservation. This route is no longer a completion blocker. Do not move or relabel its historical evidence as TypeSafe/OpenRouter results.

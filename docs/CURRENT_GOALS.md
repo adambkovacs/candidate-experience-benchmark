@@ -1,5 +1,10 @@
 # Current objectives and direction
 
+## Release scope update, 7 October 2026, presentation required
+
+The user confirmed the existing 60 reviews are the full current-release dataset. Further dataset expansion is future work. Finish analysis, integrate the completed improvements, fix publication and implement the meetup presentation and approved visual storytelling. The [full objective](APP_GOAL.md) now makes these required deliverables. All unfinished direct Cloudflare Jev, Clef and Clef Flash runs are user-excluded; retain their historical attempts and unknown-charge bounds. Use existing TypeSafe/OpenRouter Jev evidence and accounted OpenRouter Clef/Flash studies without duplicate runs. GitHub Pages remains preferred; Vercel is authorized as a fallback without new hosting charges. Use explicit GPT-6.1 Sol high subagents for the current independent implementation/review lanes and deterministic scripts for bookkeeping.
+
+
 ## Jev routing update, 7 October 2026, after restart
 
 The user directed Jev work to the existing TypeSafe API and OpenRouter, superseding the additional Cloudflare Jev comparison. Do not dispatch further Cloudflare Jev requests. Its unsent smoke successors and development phases are user-excluded; preserve DEV-001's saved balance failure and unresolved charge reservation. This route is no longer a completion blocker. Do not move or relabel its historical evidence as TypeSafe/OpenRouter results.
