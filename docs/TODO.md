@@ -2,7 +2,7 @@
 
 ## Latest scope and execution checkpoint, 7 October 2026
 
-- Publication: Perplexity supplemental integration at `28112edf` deployed successfully in [Pages run 37605927388](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37605927388). Root fetched and byte-verified `app.js`, `model-categories.js` and `supplemental-decision-runs-v1.json` against that commit. Combined analysis commit `d068ac46` is in the next deployment, [37606442960](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37606442960); live verification remains.
+- Publication: Perplexity supplemental integration at `28112edf` deployed successfully in [Pages run 37605927388](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37605927388). Root fetched and byte-verified `app.js`, `model-categories.js` and `supplemental-decision-runs-v1.json` against that commit. Combined analysis commit `d068ac46` deployed successfully in [37606442960](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37606442960). Root fetched the live analysis JavaScript and JSON and verified both byte for byte against that commit.
 - Deep-dive coverage: the read-only inventory found 367 selectable runs and at least 317 additional completed repeat cells in dedicated reports. Owner `completion_and_models_oct7` is preparing an explicit, source-bound extended catalog; owner `visual_references_oct7` will connect it to the shared filters. Existing report-only results are preserved. Unified all-results coverage is not complete yet.
 
 - Mistral: user-excluded from further execution. Preserve all historical results, failures and unknown-cost bounds. Older Mistral pending items below are superseded.
