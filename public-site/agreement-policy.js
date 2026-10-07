@@ -66,6 +66,9 @@
 
   function reviewUrl(id) {
     const address = new URL(location.href);
+    for (const key of ['reviewSubset', 'reviewModel', 'reviewField', 'reviewSearch']) {
+      address.searchParams.delete(key);
+    }
     address.searchParams.set('review', id);
     address.hash = 'review-evidence';
     return address.pathname + address.search + address.hash;

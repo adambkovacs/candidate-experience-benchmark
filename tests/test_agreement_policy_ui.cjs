@@ -73,3 +73,16 @@ test('review deep links retain report query and target the existing case view', 
   assert.equal(policy.reviewUrl('DEV-029'),
     '/?cohort=decision&review=DEV-029#review-evidence');
 });
+
+
+test('evidence link clears filters that could hide its requested review', () => {
+  context.location.href = 'https://example.test/?cohort=decision&reviewSubset=testimonial&reviewModel=clef&reviewField=sentiment&reviewSearch=unrelated&agreementPair=liquid%3A%3Atev#agreement-policy';
+  const target = new URL(policy.reviewUrl('DEV-002'), 'https://example.test');
+  assert.equal(target.searchParams.get('review'), 'DEV-002');
+  for (const key of ['reviewSubset', 'reviewModel', 'reviewField', 'reviewSearch']) {
+    assert.equal(target.searchParams.has(key), false);
+  }
+  assert.equal(target.searchParams.get('cohort'), 'decision');
+  assert.equal(target.searchParams.get('agreementPair'), 'liquid::tev');
+  assert.equal(target.hash, '#review-evidence');
+});
