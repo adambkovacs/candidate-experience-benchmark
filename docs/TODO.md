@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Publication review, 7 October 2026
+
+Independent review approved the 27-stage hosted decision report and updated website at `e80d7357`. The new report and supplemental feed match under Python 3.11, 3.12 and 3.14. The combined analysis verifies 1,364 source hashes. Desktop and mobile browser checks confirmed the repeated scores, Flash's 59/60 availability, keyboard table scrolling, model selectors, token counts and observed costs.
+
+Residual follow-up: the historical subscription-pricing test can follow an absolute path into the original checkout when run in a second local clone. That test was skipped only in the local release-check copy; the unmodified GitHub workflow runs it on Linux. No historical subscription evidence was rewritten. [Publication run 37595271620](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37595271620) is awaiting final confirmation.
+
 ## OpenRouter execution checkpoint, 7 October 2026, 08:26 UTC
 
 - Clef: all nine declared OpenRouter development runs finished, with 540 valid answers. Its sealed full-series child records $0.32524536 in known charges and no unknown charges; smoke requests are included in that child total.
