@@ -1,3 +1,5 @@
+Current release scope update, 8 October 2026: the user deferred Fastino GLiNER-2.5-Decide, Alibaba decision-model-preview and Nace Drex. Preserve their zero-attempt, untested status and route evidence; they do not block this release. Browser verification is explicitly authorized. The remaining objective below is unchanged.
+
 Complete and publish the Candidate Experience Feedback Benchmark, including the finished analysis, public results website, full results explorer and meetup presentation view.
 
 Follow docs/APP_GOAL.md, docs/CURRENT_GOALS.md and docs/TODO.md, updating them to match this goal and the user's latest instructions. This goal supersedes conflicting historical scope and routing decisions. Continue from saved work and evidence; do not restart completed experiments or rebuild working components unnecessarily.

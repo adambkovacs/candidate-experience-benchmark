@@ -1,5 +1,11 @@
 # Current objectives and direction
 
+## User scope update, 8 October 2026: unavailable models deferred
+
+The user explicitly deferred Fastino GLiNER-2.5-Decide, Alibaba `decision-model-preview` and Nace Drex from the current release. All three retain zero attempts and remain untested. Preserve the [7 October route recheck](ROUTE_RECHECK_LATEST_2026-10-07.md) and earlier availability evidence; deferral does not establish a working route or a completed benchmark. These three models no longer block the current release. Future execution requires the user to reopen their scope and exact route, interface, access, price and budget checks before dispatch.
+
+The user also permitted browser verification on 8 October. The [rendered acceptance checks](PUBLIC_RELEASE_CHECK_2026-10-07.md) passed on the deployed report and presentation on 8 October, separately from source tests and deployed-byte verification. The existing 60 reviews remain the full current-release dataset. See the [current checklist](TODO.md#latest-scope-and-execution-checkpoint-7-october-2026) and [execution dispositions](EXECUTION_DISPOSITIONS_2026-10-07.md).
+
 ## Release scope update, 7 October 2026, presentation required
 
 The user confirmed the existing 60 reviews are the full current-release dataset. Further dataset expansion is future work. Finish analysis, integrate the completed improvements, fix publication and implement the meetup presentation and approved visual storytelling. The [full objective](APP_GOAL.md) now makes these required deliverables. All unfinished direct Cloudflare Jev, Clef and Clef Flash runs are user-excluded; retain their historical attempts and unknown-charge bounds. Use existing TypeSafe/OpenRouter Jev evidence and accounted OpenRouter Clef/Flash studies without duplicate runs. GitHub Pages remains preferred; Vercel is authorized as a fallback without new hosting charges. Use explicit GPT-6.1 Sol high subagents for the current independent implementation/review lanes and deterministic scripts for bookkeeping.

@@ -1,5 +1,7 @@
 # Analysis release reconciliation, 7 October 2026
 
+Release update, 8 October: publication and [rendered acceptance](PUBLIC_RELEASE_CHECK_2026-10-07.md) passed, and the user deferred the three unavailable models. These close the release gates described as pending in the historical audit below; its evidence counts and analytical conclusions are unchanged.
+
 The saved evidence supports the requested descriptive analysis on the complete current dataset of 60 synthetic reviews. The current website source integrates the general/native comparison, broader difficult-review view, selected-pair field tables, agreement/deferral policy and hypothetical reference sensitivity. Root has added a concise latest-cohort deck conclusion; its independent factual and implementation review passed with nine tests. Rendered verification remains pending. The report should preserve the updated Clef, Flash and Perplexity interpretation below. Publication and rendered verification are separate gates; this audit does not declare the goal complete.
 
 ## Scope and denominator reconciliation
