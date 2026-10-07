@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path('results/cross-category-v1')
+PUBLIC_OUTPUT = Path('public-site/cross-category-v1.json')
 BASE = Path('public-site/data-provider-errors-v1.json')
 BASE_SOURCE = Path('public-site/data.json')
 EXTENDED = Path('public-site/extended-cases-v1.json')
@@ -510,14 +511,42 @@ def findings(data: dict) -> str:
     return '\n'.join(lines)
 
 
+def public_projection(data: dict, dataset_sha: str, plan_sha: str, findings_sha: str) -> dict:
+    """Small public selector input; the reviewed dataset remains the full record."""
+    projected = []
+    for row in data['runs']:
+        projected.append({key: row[key] for key in (
+            'runId', 'category', 'stratum', 'repeatPass', 'complete', 'savedResponses',
+            'model', 'sourceUrl', 'sourceSha256', 'sourceCaseKey', 'runEvidenceLeadUrl',
+            'sourceReportUrl', 'sourceReportSha256', 'controls', 'scores', 'outcomes',
+            'pairedWithNative',
+        ) if key in row} | {'cases': [{key: case[key] for key in
+                                    ('id', 'status', 'prediction', 'differentFields', 'allFourMatch')}
+                                   for case in row['cases']]})
+    return {'schema': 'cross-category-public-v1', 'scope': data['scope'],
+            'inferenceRequests': 0, 'counts': data['counts'],
+            'selectionRule': data['selectionRule'],
+            'sourceSha256': {**data['sourceSha256'], str(OUT / 'dataset.json'): dataset_sha,
+                             str(OUT / 'plan.json'): plan_sha,
+                             str(OUT / 'findings.md'): findings_sha},
+            'cases': data['cases'], 'caseSummaries': data['caseSummaries'], 'runs': projected,
+            'limits': data['limits']}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true', help='Verify saved output bytes')
     args = parser.parse_args()
     dataset, report, plan = build()
-    files = {ROOT / OUT / 'dataset.json': json.dumps(dataset, indent=2, ensure_ascii=False) + '\n',
-             ROOT / OUT / 'plan.json': json.dumps(plan, indent=2, ensure_ascii=False) + '\n',
-             ROOT / OUT / 'findings.md': report}
+    dataset_text = json.dumps(dataset, indent=2, ensure_ascii=False) + '\n'
+    plan_text = json.dumps(plan, indent=2, ensure_ascii=False) + '\n'
+    projection = public_projection(dataset, sha256(dataset_text.encode()).hexdigest(),
+                                   sha256(plan_text.encode()).hexdigest(),
+                                   sha256(report.encode()).hexdigest())
+    files = {ROOT / OUT / 'dataset.json': dataset_text,
+             ROOT / OUT / 'plan.json': plan_text,
+             ROOT / OUT / 'findings.md': report,
+             ROOT / PUBLIC_OUTPUT: json.dumps(projection, separators=(',', ':'), ensure_ascii=False) + '\n'}
     for path, content in files.items():
         if args.check:
             require(path.is_file() and path.read_text() == content, f'Stale or absent: {path}')
