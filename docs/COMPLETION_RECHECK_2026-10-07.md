@@ -1,5 +1,7 @@
 # Completion recheck, 7 October 2026
 
+> Historical checkpoint. Later on 7 October, the user excluded remaining Mistral execution and Perplexity completed all nine declared development stages. Its findings and combined analysis are published. For the remaining Cloudflare route gates and current assignments, use [remaining execution recheck](REMAINING_EXECUTION_RECHECK_2026-10-07.md) and [TODO](TODO.md). The dated observations below are retained as history, not current dispatch instructions.
+
 Read-only cutoff: 09:11 UTC. This note makes no model request, allocation or scope change. The [current goal](CURRENT_GOALS.md#standing-objective) uses the existing 60 reviews, preserves failed attempts and excludes further local inference under the [6 October update](CURRENT_GOALS.md#scope-update-6-october-2026-hosted-completion-and-cloudflare-approval). The OpenRouter ceiling remains $22.38.
 
 ## Confirmed work and remaining execution

@@ -1,5 +1,7 @@
 # Completion-gap audit, 7 October 2026
 
+> Historical checkpoint. Later on 7 October, the user excluded remaining Mistral execution and Perplexity completed all nine declared development stages. Its findings and combined analysis are published. For the remaining Cloudflare route gates and current assignments, use [remaining execution recheck](REMAINING_EXECUTION_RECHECK_2026-10-07.md) and [TODO](TODO.md). The dated observations below are retained as history, not current dispatch instructions.
+
 The original inventory below uses a 6 October, 22:06 UTC source cutoff. A dated update after the table records later Solar and Mistral outcomes. This audit does not admit a request, allocate money, or reclassify a failed attempt. The [current goal](CURRENT_GOALS.md#scope-update-6-october-2026-hosted-completion-and-cloudflare-approval) requires hosted completion where the exact route and interface are available, excludes further local inference, and keeps changed hosts as separate configurations. Use the [current checklist](TODO.md#live-publication-and-admission-6-october-2026) for newer execution status.
 
 ## Original 163-entry cohort
