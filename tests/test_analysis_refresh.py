@@ -15,6 +15,7 @@ analysis = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(analysis)
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_legacy_qwen_repeat_findings as legacy_qwen_findings
+import build_clef_openrouter_findings as openrouter_decisions
 
 
 class AnalysisRefreshTest(unittest.TestCase):
@@ -727,6 +728,12 @@ class AnalysisRefreshTest(unittest.TestCase):
                 shutil.copyfile(ROOT / name, target)
             clef_third = json.loads((ROOT / "public-site/clef-p0-third-checkpoint.json").read_text())
             for name in clef_third["sourceSha256"]:
+                target = temp / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / name, target)
+            decision_receipt = json.loads((ROOT / openrouter_decisions.RECEIPT).read_text())
+            for name in openrouter_decisions.flash_composite_public_sources():
+                self.assertIn(name, decision_receipt["source_sha256"])
                 target = temp / name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(ROOT / name, target)
