@@ -1,10 +1,12 @@
 # Current work checklist
 
-## OpenRouter decision runs, 7 October 2026, 07:36 UTC
+## OpenRouter decision runs, 7 October 2026, 07:48 UTC
 
 The user approved OpenRouter for Clef, Clef Flash and Luna Decisions under the existing $22.38 cap. Clef and Flash each completed three valid smoke responses; root inspected the saved answers. Observed charges were $0.00159072 and $0.00059652. Luna returned one HTTP 200 response costing $0.0002233, but the parser rejected its dated model ID, `openai/gpt-6-luna-decisions-20261006`. The response and original parser failure are preserved in commit `7b281d0c`; the two later smoke records were not sent. All three smoke budgets are sealed, with no unknown charges.
 
-At 07:44 UTC, Clef and Clef Flash each completed their first 60-review P0 pass on OpenRouter. Observed charges were $0.03184656 and $0.01194246; each reported 132,694 input tokens and zero output tokens. Both P1 smokes passed inspection and their P1 full passes are running. Owner `hosted_final_roster` is continuing the nine declared stages for each model under the existing $0.75 and $0.40 child limits. Owner `qwen_recovery` is admitting the separately reviewed Luna continuation for only DEV-002–003; the original DEV-001 response remains preserved. Root owns Luna full admission and publication. The analysis owner is preparing a separate hosted-route report from closed stages only.
+Clef and Clef Flash each completed their first P0, P1 and P2 full passes on OpenRouter, with 60 valid responses per pass. The two later passes per condition remain. Their first P0 observed charges were $0.03184656 and $0.01194246; each reported 132,694 input tokens and zero output tokens. Owner `hosted_final_roster` is continuing the nine declared stages per model under the existing $0.75 and $0.40 child limits.
+
+Luna's exact DEV-002–003 smoke continuation succeeded, costing $0.0004436. Its sealed evidence is archived in `cad29b73`; the original DEV-001 parser failure remains preserved. Root inspected the raw responses and approved the composite gate. Owner `qwen_recovery` started the first 60-review P0 pass through the reviewed dated-model wrapper on handle `74494`, under a separate $0.75 full-series child. The analysis owner is preparing a report from closed stages only. Root owns review and publication.
 
 The latest direct Cloudflare Clef request still returned quota error 4006 after the daily reset. DEV-001 and DEV-002 remain unknown; DEV-003–060 remain unsent on that route. No Flash continuation was sent. Its closed evidence is archived in `156964d1`. New Clef work now uses OpenRouter; preserve the direct-route history separately. Luna's OpenRouter approval supersedes the earlier Cloudflare-only wording.
 
