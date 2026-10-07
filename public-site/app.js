@@ -36,15 +36,22 @@
   };
   function supplementalDecisionRuns(report, existing = []) {
     if (report?.schema !== 'supplemental-decision-runs-v1' || report.denominator !== 60 ||
-        !Array.isArray(report.runs) || report.runs.length !== 27 ||
+        !Array.isArray(report.runs) || report.runs.length < 27 || report.runs.length > 54 ||
         !Array.isArray(report.sources) || !report.sources.length ||
         report.sources.some(s => typeof s.path !== 'string' || !/^[a-f0-9]{64}$/.test(s.sha256 || ''))) return [];
     const seen = new Set(existing.map(r => r.id));
     const fields = ['all_four','sentiment','follow_up_needed','serious_concern_reported','testimonial_potential'];
+    const historical = ['solar-decide','liquid-d1','tev1-4b'];
+    const openRouterModels = {'clef-openrouter':['cloudflare/clef','cloudflare/clef','Cloudflare'],
+      'clef-flash-openrouter':['cloudflare/clef-flash','cloudflare/clef-flash','Cloudflare'],
+      'luna-decisions-openrouter':['openai/gpt-6-luna-decisions','openai/gpt-6-luna-decisions-20261006','OpenAI']};
     for (const run of report.runs) {
-      const match = /^(solar-decide|liquid-d1|tev1-4b)-native-fresh([123])-p([012])$/.exec(run?.id || '');
+      const match = /^(solar-decide|liquid-d1|tev1-4b|clef-openrouter|clef-flash-openrouter|luna-decisions-openrouter)-native-fresh([123])-p([012])$/.exec(run?.id || '');
       const interrupted = run.id === 'solar-decide-native-fresh3-p2';
       if (!match || seen.has(run.id) || run.condition !== `P${match[3]}` ||
+          run.repeatPass !== `fresh${match[2]}` ||
+          run.experimentId !== `${match[1]}-native-fresh${match[2]}-p0` ||
+          run.parentBaselineId !== (match[3] === '0' ? null : run.experimentId) ||
           run.complete !== !interrupted || run.records !== 60 || run.valid !== (interrupted ? 59 : 60) || run.savedResponses !== (interrupted ? 59 : 60) ||
           run.pairedEligible !== !interrupted ||
           run.tokens?.reportedRequests !== run.valid || run.tokens?.totalRequests !== 60 ||
@@ -57,7 +64,18 @@
           run.timing?.inferenceSeconds !== null || run.sourceOnlyDetails !== true ||
           !url(run.sourceRecordsUrl) || !url(run.evidenceUrl) ||
           !/^[a-f0-9]{64}$/.test(run.sourceRecordSha256 || '')) return [];
+      if (openRouterModels[match[1]]) {
+        const [model, returned, provider] = openRouterModels[match[1]];
+        if (run.model !== model || run.returnedModel !== returned || run.provider !== provider ||
+            run.surface !== 'OpenRouter native Choice' ||
+            run.protocolId !== `${match[1]}-native-choice-v1` ||
+            run.cost?.unknownUpperBoundUsd !== 0 || run.cost?.actualUsd !== null ||
+            run.timing?.requests !== 60 || !Number.isFinite(run.timing?.totalSeconds)) return [];
+      }
       seen.add(run.id);
+    }
+    for (const family of historical) for (const pass of [1,2,3]) for (const prompt of [0,1,2]) {
+      if (!seen.has(`${family}-native-fresh${pass}-p${prompt}`)) return [];
     }
     return report.runs;
   }

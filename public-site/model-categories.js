@@ -46,6 +46,9 @@
       category = 'decision'; categoriesForRun = ['decision']; interfaceKind = 'native'; source = 'https://huggingface.co/convaiinnovations/laya';
     } else if (/typesafe.*jev|\bjev-1\.13|\bjev native/.test(combined)) {
       category = 'decision'; categoriesForRun = ['decision']; interfaceKind = 'native'; source = 'https://typesafe.ai/blog/introducing-system-one-models-and-jev';
+    } else if (/^(clef|clef-flash|luna-decisions)-openrouter-native-/.test(id)) {
+      category = 'decision'; categoriesForRun = ['decision']; interfaceKind = 'native';
+      source = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/clef-openrouter-v1/findings-v1/findings.json';
     } else if (/\bclef(?:-|\b)/.test(combined)) {
       category = 'decision'; categoriesForRun = ['decision']; interfaceKind = 'native'; source = 'https://blog.cloudflare.com/clef-decision-models/';
     } else if (/solar-decide|liquid-d1|tev1-4b/.test(combined)) {

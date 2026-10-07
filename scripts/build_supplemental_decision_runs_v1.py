@@ -12,6 +12,7 @@ import build_liquid_d1_native_full_aggregate as liquid_builder
 import build_solar_decide_native_first_pass_findings as solar_builder
 import build_solar_decide_native_full_findings as solar_full_builder
 import build_tev_native_full_findings as tev_builder
+import build_clef_openrouter_findings as clef_builder
 
 
 OUTPUT = Path('public-site/supplemental-decision-runs-v1.json')
@@ -19,6 +20,7 @@ SOLAR = Path('public-site/solar-decide-first-pass-findings.json')
 SOLAR_FULL = Path('public-site/solar-decide-full-findings.json')
 LIQUID = Path('public-site/liquid-d1-native-full-findings.json')
 TEV = Path('public-site/tev-native-full-findings.json')
+CLEF_OPENROUTER = clef_builder.OUTPUT
 BASE_URL = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/'
 FIELDS = ('sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential')
 PASSES = ('fresh1', 'fresh2', 'fresh3')
@@ -140,8 +142,10 @@ def build(root=ROOT):
     solar_full = verify_report(root, SOLAR_FULL, solar_full_builder.build(root))
     liquid = verify_report(root, LIQUID, liquid_builder.build(root))
     tev = verify_report(root, TEV, tev_builder.build(root))
+    clef = verify_report(root, CLEF_OPENROUTER, clef_builder.check(root))
     sources = {str(path): sha(root / path) for path in
-               (SOLAR, SOLAR_FULL, LIQUID, TEV, Path('public-site/data-provider-errors-v1.json'),
+               (SOLAR, SOLAR_FULL, LIQUID, TEV, CLEF_OPENROUTER,
+                Path('public-site/data-provider-errors-v1.json'),
                 Path('scripts/build_supplemental_decision_runs_v1.py'))}
     runs = []
 
@@ -283,11 +287,57 @@ def build(root=ROOT):
                         NINE, stage, scores, item['input_tokens'], item['output_tokens'],
                         item['known_actual_usd'], tev_projection, tev_digest, TEV))
 
+    if (clef.get('schema') != 'clef-openrouter-closed-stage-findings-v1' or
+            clef.get('route') != 'OpenRouter native Decisions' or
+            clef.get('distinct_from') != 'Cloudflare direct native route' or
+            len(clef.get('stages', [])) != len(clef.get('included_stages', [])) or
+            not clef['stages']):
+        raise ValueError('OpenRouter Clef closed-stage report differs')
+    clef_projection = clef_builder.PROJECTION
+    clef_receipt = clef_builder.RECEIPT
+    projected = load(root, clef_projection)
+    receipt = load(root, clef_receipt)
+    if (receipt.get('projection_sha256') != clef_builder.sha(clef_builder.canonical(projected)) or
+            clef['evidence']['projection_receipt_sha256'] !=
+            clef_builder.sha(clef_builder.canonical(receipt)) or
+            projected.get('schema') != 'clef-openrouter-public-projection-v1' or
+            len(projected.get('stages', [])) != len(clef['stages'])):
+        raise ValueError('OpenRouter Clef public projection differs')
+    sources[str(clef_projection)] = sha(root / clef_projection)
+    sources[str(clef_receipt)] = sha(root / clef_receipt)
+    families = {'clef': 'clef-openrouter',
+                'clef-flash': 'clef-flash-openrouter',
+                'luna-decisions': 'luna-decisions-openrouter'}
+    for chosen, item, public in zip(clef['included_stages'], clef['stages'], projected['stages']):
+        key, stage = chosen['model_key'], chosen['stage']
+        if (key not in families or item.get('model_key') != key or item.get('stage') != stage or
+                public.get('model_key') != key or public.get('stage') != stage or
+                item.get('status') != 'closed_60' or public.get('status') != 'closed_60' or
+                item.get('attempted') != 60 or item.get('valid_answers') != 60 or
+                item.get('invalid_answers') != 0 or item.get('provider_failures') != 0 or
+                item.get('unknown_cost_attempts') != 0 or
+                [record.get('id') for record in public.get('records', [])] !=
+                [f'DEV-{index:03}' for index in range(1, 61)] or
+                item.get('client_request_elapsed_ns_count') != 60):
+            raise ValueError('OpenRouter Clef stage is not a closed 60-answer run')
+        spec = clef_builder.route.MODELS[key]
+        scores = {'all_four': item['all_four_correct'],
+                  **{field: item['fields'][field]['correct'] for field in FIELDS}}
+        runs.append(row(families[key], spec['model'],
+                        clef_builder.full.RETURNED_MODEL[key], spec['provider'],
+                        NINE, stage, scores, item['observed_input_tokens'],
+                        item['observed_output_tokens'], item['observed_known_cost_usd'],
+                        clef_projection, sources[str(clef_projection)], CLEF_OPENROUTER,
+                        client_elapsed_available=60,
+                        client_elapsed_ns_sum=item['client_request_elapsed_ns_sum'],
+                        result_status='Closed OpenRouter native Choice run. The linked report shows its exact source evidence and available paired or repeat comparisons.'))
+
     ids = [item['id'] for item in runs]
     existing_ids = {item['id'] for item in load(root, Path('public-site/data-provider-errors-v1.json'))['runs']}
-    if len(ids) != 27 or len(set(ids)) != 27 or set(ids) & existing_ids:
+    if len(ids) != 27 + len(clef['stages']) or len(set(ids)) != len(ids) or set(ids) & existing_ids:
         raise ValueError('Supplemental native run ID collision or missing run')
-    if sum(1 for item in runs if item['repeatPass'] == 'fresh1') != 9:
+    if sum(1 for item in runs if item['repeatPass'] == 'fresh1') != (
+            9 + sum(item['stage'].startswith('fresh1/') for item in clef['stages'])):
         raise ValueError('First-pass coverage differs')
     return {'schema': 'supplemental-decision-runs-v1', 'denominator': 60,
             'runs': runs, 'sources': [{'path': path, 'sha256': digest}
