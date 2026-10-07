@@ -1,0 +1,7 @@
+# Clef Cloudflare continuation stopped on 7 October 2026
+
+The reviewed Clef fresh3/P2 continuation sent only DEV-002 after 00:00 UTC. Cloudflare returned error 4006, saying the account had used its daily free allocation of 10,000 neurons. The connected account and exact Clef route were visible in read-only checks, but those checks did not establish inference quota. [Cloudflare's pricing page](https://developers.cloudflare.com/workers-ai/platform/pricing/) describes the free allocation and reset.
+
+The original tool response is saved privately. The runner closed with one unknown outcome and a full $0.015729 request reservation. DEV-003–060 were never sent. The earlier DEV-001 unknown outcome remains separate, so this P2 pass has zero usable answers, two unknown outcomes and 58 unsent reviews. It has no clean repeat score. The [sanitized terminal record](../results/clef-native-v1/cloudflare-budget-v1/clef-p2-exact59-v1/terminal-public.json) binds the closed evidence by SHA-256 without publishing the private tool response.
+
+The [authority snapshot](../results/clef-native-v1/cloudflare-budget-v1/clef-p2-exact59-v1/authority-after-exact59-interruption.jsonl) holds $7.070241 under the separate $10 Cloudflare cap, leaving $2.929759 unheld. This is conservative reservation accounting, not an invoice or a refund. No Flash grant or request followed. Further Cloudflare inference is stopped; any OpenRouter Clef work needs its own reviewed configuration and accounting.
