@@ -1,0 +1,98 @@
+{
+  "account_binding": {
+    "connected_account_count": 1,
+    "matched_existing_cloudflare_authority_account_sha256": "785f8836b4eca14fb2bed7716b4214ae99168c0d7ae6f526d08d30f550af08fc",
+    "raw_account_id_saved": false
+  },
+  "controller_path": "scripts/jev_cloudflare_native_execution_v2.py",
+  "created_at_utc": "2026-10-07T10:50:07Z",
+  "dispatcher_path": "scripts/jev_cloudflare_dispatcher_v2.js",
+  "kind": "jev-cloudflare-native-smoke-admission-candidate-v1",
+  "model_route": "typesafe/jev",
+  "no_allocation_or_post": true,
+  "price_observations": [
+    {
+      "bytes": 202920,
+      "raw_sha256": "596ca1cd44babfed500de83a45ff7f1e6d8cd977a933c7e3558e442f9376fc93"
+    },
+    {
+      "bytes": 202920,
+      "raw_sha256": "9fb01cb3f3065d7c60f11dfbd0e118fc938b10abb61ee41404c260532ca45524"
+    },
+    {
+      "bytes": 202920,
+      "raw_sha256": "fd0f6509a7740043820505f92258e6685a72a3f8dbd4caf226dfc5a8f0a53837"
+    }
+  ],
+  "price_snapshot_sha256": "5fc8362765347acf6f748296e90a2511c42e42b9eb8981a36994d1ce29410430",
+  "proposed_grant_fields_except_root_approval": {
+    "account_id_sha256": "785f8836b4eca14fb2bed7716b4214ae99168c0d7ae6f526d08d30f550af08fc",
+    "controller_sha256": "9ea959bb208764bd43282a7ea2c4da058da15ae6736df1a755b448c9c25a13c2",
+    "dispatcher_sha256": "daceed3991bd85ca6ab8841c43d245c69d5cd5f6251d923db88e5b75cf49955e",
+    "full_context_hold_usd": "0.004032",
+    "kind": "jev-cloudflare-native-execution-v2-stage-grant",
+    "plan_sha256": "f59943ac8279ca86497c957cfe7b4f88696b84683b555bc384d4909468cda31d",
+    "price_snapshot_sha256": "5fc8362765347acf6f748296e90a2511c42e42b9eb8981a36994d1ce29410430",
+    "prior_completion_sha256": null,
+    "published_input_usd_per_million": "0.042",
+    "retry_policy": "never_replay_unknown",
+    "shared_authority_cap_usd": "10.00",
+    "shared_authority_head_sha256": "897912fa5da544c415d77af9a309822be90e54d0d7aab328519fafdc657e1454",
+    "smoke_review_sha256": null,
+    "stage": "jev/fresh1/P0/smoke",
+    "transport": "mcp__codex_apps__cloudflare_execute"
+  },
+  "published_model_facts": {
+    "context_tokens": 32000,
+    "input_unit": "1M tokens",
+    "input_usd_per_million": "0.042",
+    "model": "typesafe/jev",
+    "output_unit": "1M tokens",
+    "output_usd_per_million": "0.00",
+    "source_url": "https://developers.cloudflare.com/ai/models/typesafe/jev/"
+  },
+  "read_only_discovery": {
+    "jev_post_attempted": false,
+    "remaining_quota_get_available": false,
+    "workers_ai_schema_for_jev": "error 6002 Model schema not found; not treated as an inference denial",
+    "workers_ai_search_for_jev": "empty result; third-party route availability remains unproven"
+  },
+  "record_ids": [
+    "DEV-001",
+    "DEV-002",
+    "DEV-003"
+  ],
+  "request_count_max": 3,
+  "rest_endpoint": "POST /accounts/{account_id}/ai/run",
+  "root_admission_required": [
+    "Obtain independent v2 controller, test, price observation and candidate review.",
+    "Root sign an exact stage grant using the connected account ID privately; never put the ID in this packet.",
+    "At admit, freshly verify the published semantic price snapshot, controller and dispatcher hashes, exact plan, account binding, stage absence and exclusive-lock authority headroom.",
+    "Allocate only the $0.004032 smoke hold before any POST; preserve a quota 4006 or any failure as the attempted outcome and do not replay it."
+  ],
+  "shared_authority_snapshot": {
+    "authority_head_sha256": "897912fa5da544c415d77af9a309822be90e54d0d7aab328519fafdc657e1454",
+    "cap_usd": "10.00",
+    "hold_absent_at_snapshot": true,
+    "hold_id": "cloudflare-only-jev-fresh1-p0-smoke",
+    "hold_usd": "0.004032",
+    "reserved_including_historical_usd": "7.070241",
+    "stage_absent_at_snapshot": true,
+    "unreserved_at_snapshot_usd": "2.929759"
+  },
+  "source_urls": {
+    "model": "https://developers.cloudflare.com/ai/models/typesafe/jev/",
+    "model_schema_scope": "https://developers.cloudflare.com/api/resources/ai/subresources/models/subresources/schema/methods/get/",
+    "model_search_scope": "https://developers.cloudflare.com/api/resources/ai/subresources/models/methods/list/"
+  },
+  "stage": "jev/fresh1/P0/smoke",
+  "status": "offline_prepared_pending_independent_review_and_root_grant",
+  "transport": "mcp__codex_apps__cloudflare_execute",
+  "unknown_until_smoke": [
+    "Jev route inference access on this account",
+    "returned model version",
+    "current Jev-specific provider quota",
+    "actual charge; published input-price estimate only"
+  ],
+  "updated_at_utc": "2026-10-07T10:52:32Z"
+}
