@@ -19,12 +19,14 @@ The expanded explorer lets you choose **decision models, general-purpose LLMs, o
 
 The new [review comparison](results/disputed-reviews-v1/README.md) shows all 60 comments and the exact first-pass answers from seven native decision models. Filter for potential testimonials or a particular decision field to see which models disagreed with the frozen reference. That view deliberately uses one pass per model, so a model with more repeat runs does not receive extra weight.
 
-Four findings are useful when planning a classification pilot:
+Five findings are useful when planning a classification pilot:
 
 - **More instructions did not consistently help.** Clef's three prompt versions scored 54, 51 and 49 out of 60 in every OpenRouter pass. Flash improved with classifier instructions. The effect depends on the exact setup. [Prompt comparisons](docs/CLEF_OPENROUTER_FINDINGS.md).
 - **Consistent answers can still disagree with the reference.** Perplexity scored 54/60 in all nine runs, with identical answers across repeats of each prompt. Repeatability and reference agreement measure different things. [Perplexity evidence](results/perplexity-decider-v1/full-v2/findings.json).
 - **Overall scores hide different mistakes.** Only nine reviews are reference-positive testimonials; answering “no” every time already matches 50/60 testimonial labels. In the first native P0 comparison, Tev found all nine positives but added three false positives. [Field-level analysis](results/analysis-native-cohort-v1/README.md).
 - **Some disagreements concern the task boundary or ambiguous references.** All seven models in the review panel disagreed on the off-topic restaurant comment and the unclear accessibility-resolution comment. Read the text and individual answers before treating these as proven model defects. [Review examples and exact answers](results/disputed-reviews-v1/README.md).
+
+- **Two models agreeing does not guarantee a correct answer.** An offline rule that accepts only identical four-field answers would retain 33–53 of the 60 reviews, depending on the pair, with 0–4 retained reference disagreements. The remaining reviews would need human review. All 21 pairs are reported; none is selected as a validated production choice. [Agreement and review workload](results/native-agreement-policy-v1/README.md).
 
 These observations describe 60 synthetic reviews with human-checked, provisional references. They do not establish performance on new candidates' feedback or prove that model architecture caused a difference.
 
