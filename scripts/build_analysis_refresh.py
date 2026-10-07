@@ -41,7 +41,9 @@ LIQUID_PUBLIC = "public-site/liquid-d1-native-full-findings.json"
 LOW_FRESH3_PUBLIC = "public-site/deepseek-low-fresh3-findings.json"
 LOW_P1_SUCCESSOR_PUBLIC = "public-site/deepseek-low-p1-successor-findings.json"
 LOW_REVISED_PUBLIC = "public-site/deepseek-low-remaining6-price-v2-findings.json"
+OPENROUTER_DECISIONS = "results/clef-openrouter-v1/findings-v1/findings.json"
 SOURCES = (
+    OPENROUTER_DECISIONS,
     SOLAR_FIRST_PUBLIC,
     SOLAR_FULL_PUBLIC,
     "public-site/e4b-interruption-findings.json",
@@ -1173,6 +1175,20 @@ def build(root=ROOT):
         raise ValueError('DeepSeek high successor report differs from closed evidence')
     bind_report_sources(root, high_successor, bindings, 'DeepSeek high successor')
 
+    import build_clef_openrouter_findings as decision_builder
+    openrouter_decisions = decision_builder.check(root)
+    if data[OPENROUTER_DECISIONS] != openrouter_decisions:
+        raise ValueError('OpenRouter decision report differs from audited projection')
+    decision_receipt = read(root, str(decision_builder.RECEIPT), bindings)
+    read(root, str(decision_builder.PROJECTION), bindings)
+    private_development = tuple('development.' + name for name in decision_builder.DEVELOPMENT_FILES)
+    for name, digest in decision_receipt['source_sha256'].items():
+        if name.endswith(private_development):
+            continue
+        if sha(root / name) != digest:
+            raise ValueError('OpenRouter decision public source differs: ' + name)
+        bindings[name] = digest
+
     import build_liquid_d1_native_full_aggregate as liquid_builder
     liquid = data[LIQUID_PUBLIC]
     if liquid != liquid_builder.build(root):
@@ -1741,6 +1757,7 @@ def build(root=ROOT):
                        for row in claude_rows) for condition in ("P1", "P2")},
                    "comparability": "Within each saved series only. Historical first passes and later repeats can use different CLI versions; fresh Sonnet 5.5 v2 is a separate route and model. Do not pool reviews or score differences across series."},
         "newerCohorts": {
+            "openrouterDecisions": {"source": OPENROUTER_DECISIONS, **openrouter_decisions},
             "deepseekHighSuccessor": {"source": HIGH_SUCCESSOR_PUBLIC, **high_successor},
             "solarFirstPass": {"source": SOLAR_FIRST_PUBLIC, **solar_first},
             "solarFullSeries": {"source": SOLAR_FULL_PUBLIC, **solar_full},

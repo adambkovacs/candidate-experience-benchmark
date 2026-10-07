@@ -368,7 +368,7 @@ test('findings groups keep all model results and source links available', async(
   const {cutoffs}=await renderState(report);
   const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/ul><\/details>/g)];
   assert.deepEqual(groups.map(g=>g[1]),['findings-decision','findings-hosted','findings-local']);
-  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[9,12,9]);
+  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[10,12,9]);
   assert.match(groups[0][2],/clef-closed-repeat-findings.json/);
   assert.match(groups[0][2],/tev-native-full-findings.json/);
   assert.match(groups[1][2],/deepseek-high-remaining6-successor-findings.json/);
@@ -390,4 +390,17 @@ test('findings groups keep all model results and source links available', async(
   assert.match(cutoffs,/aria-label="Solar prompt gains and losses"/);
   assert.match(cutoffs,/solar-decide-full-findings.json/);
   assert.equal((cutoffs.match(/<th scope="row">[^<]*\(interrupted\)<\/th>/g)||[]).length >= 1,true);
+});
+
+test('OpenRouter native scores keep hosted routes and observed costs separate', async()=>{
+  const report=JSON.parse(fs.readFileSync(path.join(site,'analysis-refresh.json'),'utf8'));
+  const {cutoffs}=await renderState(report);
+  assert.match(cutoffs,/OpenRouter decision results by prompt and pass/);
+  assert.match(cutoffs,/separate from the earlier direct Cloudflare runs/);
+  assert.match(cutoffs,/excluding smoke tests/);
+  for(const key of ['clef','clef-flash','luna-decisions']) {
+    const runs=report.newerCohorts.openrouterDecisions.stages.filter(row=>row.model_key===key);
+    const cost=runs.reduce((sum,row)=>sum+Number(row.observed_known_cost_usd),0);
+    assert.ok(cutoffs.includes('$'+cost.toFixed(4)));
+  }
 });
