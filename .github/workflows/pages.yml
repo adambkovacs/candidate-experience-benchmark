@@ -41,6 +41,10 @@ jobs:
           node --check public-site/extended-cases.js
           node --test tests/test_extended_cases_ui.cjs tests/test_agreement_policy_ui.cjs
           node --check public-site/agreement-policy.js
+          python3 scripts/analyze_reference_sensitivity_v1.py --check
+          python3 -m unittest tests.test_reference_sensitivity_v1 -q
+          node --check public-site/reference-sensitivity.js
+          node --test tests/test_reference_sensitivity_ui.cjs
           python3 -m unittest tests.test_disputed_reviews_v1 tests.test_extended_run_catalog_v1 -q
           node --check public-site/report-navigation.js
           node --check public-site/disputed-reviews.js
