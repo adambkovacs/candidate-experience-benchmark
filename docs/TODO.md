@@ -6,6 +6,8 @@ This section is the current checklist. Dated checkpoints below preserve history 
 
 ### Publication and presentation
 
+- **Latest verified release:** deployment [37662104425](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37662104425) succeeded for `0bf03b9f`. Root fetched and byte-verified seven changed assets: HTML, app and unified case inspector, cohort-review JS/CSS and per-field comparison JS/CSS. Unified A/B across all 1,004 saved entries, the broader cohort-review panel and per-field confusion tables are now published. This supersedes the older failed deployment status below. Rendered interaction checks remain separate. No Vercel migration is needed at this checkpoint.
+
 - **Current owners:** `meetup_presentation` builds the presentation; `review_analysis_modules` independently reviews finished cohort/per-field modules; `deployment_diagnosis` investigates the Pages failures and fallback. All three use GPT-6.1 Sol high. Root integrates, updates scope and publishes. No new inference is running.
 
 - **Published and byte-verified:** Perplexity's nine stages and combined findings; the category/navigation update at `6a9df88a`, with 1,004 selectable saved run identities (367 original and 637 added, including 25 partial entries). These are an evidence inventory, not independent experiments. [Verified deployment 37609102277](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37609102277).
@@ -18,7 +20,7 @@ This section is the current checklist. Dated checkpoints below preserve history 
 
 ### Analysis
 
-- **Implemented and reviewed, publication pending:** selected-pair per-field agreement/confusion tables are committed in `ac153e71`. The broader first-P0 cohort review module is mounted, with synchronized category selection and clearly scoped totals. Root verified 20 combined module tests. Presentation claims and the final analysis reconciliation are being checked independently before release.
+- **Implemented, reviewed and published:** selected-pair per-field agreement/confusion tables are committed in `ac153e71`. The broader first-P0 cohort review module is mounted, with synchronized category selection and clearly scoped totals. Root verified 20 combined module tests. Presentation claims and the final analysis reconciliation are being checked independently before release.
 
 - **Complete offline:** the [21-pair agreement/deferral study](../results/native-agreement-policy-v1/README.md), committed in `b9902d7a`, reports 33–53 accepted reviews out of 60 and 0–4 retained disagreements across pairs. Root independently recounted all pair IDs. No preferred deployment pair or validation-set gain is claimed.
 - **Complete offline:** [reference sensitivity](../results/reference-sensitivity-v1/README.md), committed in `6d286e78`, evaluates seven scenarios using only the existing v0.3 proposal across 637 extended entries and a separate seven-native cohort. Root reviewed the implementation and independently recounted all 4,459 extended scenario/run scores. These are hypothetical changes, not adopted corrections.
