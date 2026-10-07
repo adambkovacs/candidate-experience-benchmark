@@ -1,5 +1,11 @@
 # Current work checklist
 
+## Latest scope and execution checkpoint, 7 October 2026
+
+- Mistral: user-excluded from further execution. Preserve all historical results, failures and unknown-cost bounds. Older Mistral pending items below are superseded.
+- Perplexity Decider: nine stages closed, 540/540 development responses and 27/27 smokes valid, $0.15009588 known combined cost and no unknown charges. Each stage matches all four reference fields on 54/60 reviews. The approved projection/findings and tests are pushed in `c6d59d6f`. Both budget children are sealed; exact authority-hold release and public-site integration remain.
+- Presentation: add actual frequently disputed reviews/testimonial examples, with field-level model answers, eligible-model denominators and explanations of reference ambiguity. Keep cross-model disagreement distinct from repeat instability. Layout clarification is pending; no new design has been implemented.
+
 ## Follow-up work requested 7 October 2026
 
 - Completion and new-model audit: recorded in `COMPLETION_RECHECK_2026-10-07.md`. Perplexity Decider's first three-review smoke passed: three HTTP 200 responses, exact dated model and provider, valid choices, and $0.00077032 observed charge. Root independently inspected the raw responses. The separate nine-stage executor passed six offline tests and independent review; its $0.25 child and earmarked OpenRouter authority hold are admitted. First P0 development is running. Owner `completion_and_models_oct7` executes; independent reviewer `analysis_angles_oct7` has root-delegated authority to inspect subsequent smoke responses and sign with its own identity before each development stage. No completed full series is credited yet.

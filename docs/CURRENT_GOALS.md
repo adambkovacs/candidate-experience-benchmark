@@ -1,10 +1,18 @@
 # Current objectives and direction
 
+## User scope update, 7 October 2026: Mistral excluded
+
+The user explicitly removed Mistral from remaining execution. Send no further Mistral requests. Preserve its completed results, failed attempts and unresolved cost bounds; classify unfinished Mistral configurations as user-excluded, not pending or completed. This supersedes older Mistral capacity-blocker and next-run instructions.
+
+The presentation must highlight the actual reviews/testimonial examples that repeatedly tripped models, with per-field disagreements, distinct-configuration denominators, exact sources and reference ambiguities. Keep within-model repeat flips separate from cross-model disagreement. Decision-only, general-LLM and combined views remain requested. The precise layout is being clarified with the user; no website implementation is credited by this scope update.
+
+The full copyable objective is [APP_GOAL.md](APP_GOAL.md). The desktop goal is still blocked and points to an older attachment; replace its objective with the repository goal or a pointer to that file, then resume through the app.
+
 ## Analysis and presentation follow-up, 7 October 2026
 
 The user requested an explicit completion audit, stronger analysis and three clear comparison views: dedicated decision models, general-purpose LLMs and all models. Use the existing category taxonomy, preserve overlapping category labels and expose route/interface differences. The report should connect findings to exact saved runs, show field-specific errors, paired prompt gains/losses, repeat changes and comparable cost measures. Do not present observational associations as model-family or architecture causation.
 
-Liquid D1 is already complete across nine declared stages; no duplicate run is requested. Perplexity Decider V1 27B is newly requested and its exact OpenRouter route is verified. Its offline plan and reviewed smoke admission are the next execution step within the unchanged budget. See [completion recheck](COMPLETION_RECHECK_2026-10-07.md), [analysis coverage review](ANALYSIS_COVERAGE_REVIEW_2026-10-07.md) and [presentation review](PRESENTATION_REVIEW_2026-10-07.md). The presentation review proposes a focused redesign, not a published change.
+Liquid D1 is already complete across nine declared stages; no duplicate run is requested. Perplexity Decider V1 27B is newly requested and its exact OpenRouter route is verified. Its nine stages have now completed; the independently reviewed source-bound findings were pushed in `c6d59d6f`. Website integration and authority-hold reconciliation remain. See the current checklist for the verified cutoff. See [completion recheck](COMPLETION_RECHECK_2026-10-07.md), [analysis coverage review](ANALYSIS_COVERAGE_REVIEW_2026-10-07.md) and [presentation review](PRESENTATION_REVIEW_2026-10-07.md). The presentation review proposes a focused redesign, not a published change.
 
 ## OpenRouter decision-model completion, 7 October 2026
 
