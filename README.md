@@ -15,7 +15,7 @@ This project compares their responses to the same 60 fictional reviews, complain
 
 ## Explore the findings
 
-The expanded explorer lets you choose **decision models, general-purpose LLMs, or all models**, then inspect a saved run and its source report. The [coverage audit](docs/DEEP_DIVE_COVERAGE_2026-10-07.md) accounts for 1,004 selectable run entries, including repeats and partial runs; these reuse the same 60 reviews and are not independent test sets. All 637 added entries now include individual answers or explicit failed/unsent outcomes. Another 77 original or supplemental entries still link to their source reports while inline-answer integration continues.
+The expanded explorer lets you choose **decision models, general-purpose LLMs, or all models**, then inspect a saved run and its source report. The [coverage audit](docs/DEEP_DIVE_COVERAGE_2026-10-07.md) accounts for 1,004 selectable run entries, including repeats and partial runs; these reuse the same 60 reviews and are not independent test sets. All 1,004 entries now include individual answers or explicit invalid, failed, unknown or unsent outcomes across the same 60 review positions. Each entry retains its source evidence and run identity.
 
 The new [review comparison](results/disputed-reviews-v1/README.md) shows all 60 comments and the exact first-pass answers from seven native decision models. Filter for potential testimonials or a particular decision field to see which models disagreed with the frozen reference. That view deliberately uses one pass per model, so a model with more repeat runs does not receive extra weight.
 
