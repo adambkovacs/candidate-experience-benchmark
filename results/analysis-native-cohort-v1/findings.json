@@ -1,0 +1,1475 @@
+{
+  "schema": "analysis-native-cohort-v1",
+  "scope": "Six exact fresh1/P0 OpenRouter native Choice configurations, same 60 development records; offline scoring only",
+  "inputs_sha256": {
+    "public-site/supplemental-decision-runs-v1.json": "b09aab70181d5e05b53f0be4272ba5f495c7012cd318d09c41a75f12472ba09a",
+    "data/pilot/proposed_labels.jsonl": "440fa16759473b6d4ff52fe7e7296e5f2dfca0a58f5df26f20aef0daafed1464",
+    "results/clef-openrouter-v1/findings-v1/public-projection.json": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6",
+    "results/liquid-d1-native-v1/full-v1/fresh1/P0/development.public.json": "be428da40efef67a9db9bc8334f176c45f235fdbd02af8c128d93f188d61dbb9",
+    "results/solar-decide-native-full-v1/execution-adapter-v2/first-pass.public-projection.json": "52c2ef28b7156d1846e7ccef962a8318e6c5ae6d708a1b7782ee45d4472afb41",
+    "results/tev-native-v1/full-v1/public-projection.json": "0a90f0ef00ee699910ada1826ec2d23834e936301bb90df8e6826082fd43e732"
+  },
+  "denominator": 60,
+  "reference_status": "Frozen proposed_labels v0.2; human-checked with disputed cases, not ground truth",
+  "runs": [
+    {
+      "id": "liquid-d1-native-fresh1-p0",
+      "model": "liquid/d1",
+      "provider": "Liquid",
+      "surface": "OpenRouter native Choice",
+      "source_url": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/liquid-d1-native-v1/full-v1/fresh1/P0/development.public.json",
+      "source_sha256": "be428da40efef67a9db9bc8334f176c45f235fdbd02af8c128d93f188d61dbb9",
+      "known_development_cost_usd": "0.01568912",
+      "valid": 60,
+      "all_four_matches": 43,
+      "field_matches": {
+        "sentiment": 49,
+        "follow_up_needed": 55,
+        "serious_concern_reported": 57,
+        "testimonial_potential": 58
+      },
+      "confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 1,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 23,
+            "neutral": 8,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 7,
+            "positive": 1
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 1,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 24,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 4,
+            "yes": 31
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 3,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 29,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 25
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 50,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 8
+          }
+        }
+      },
+      "yes_class": {
+        "follow_up_needed": {
+          "true_positive": 31,
+          "reference_yes": 35,
+          "predicted_yes": 31,
+          "recall": 0.8857142857142857,
+          "precision": 1.0
+        },
+        "serious_concern_reported": {
+          "true_positive": 25,
+          "reference_yes": 25,
+          "predicted_yes": 25,
+          "recall": 1.0,
+          "precision": 1.0
+        },
+        "testimonial_potential": {
+          "true_positive": 8,
+          "reference_yes": 9,
+          "predicted_yes": 8,
+          "recall": 0.8888888888888888,
+          "precision": 1.0
+        }
+      }
+    },
+    {
+      "id": "tev1-4b-native-fresh1-p0",
+      "model": "togethercomputer/tev1-4b-experimental",
+      "provider": "Together",
+      "surface": "OpenRouter native Choice",
+      "source_url": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/tev-native-v1/full-v1/public-projection.json",
+      "source_sha256": "0a90f0ef00ee699910ada1826ec2d23834e936301bb90df8e6826082fd43e732",
+      "known_development_cost_usd": "0.016342872",
+      "valid": 60,
+      "all_four_matches": 45,
+      "field_matches": {
+        "sentiment": 51,
+        "follow_up_needed": 57,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 56
+      },
+      "confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 2,
+            "negative": 29,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 1,
+            "neutral": 5,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 3,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 8
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 23,
+            "yes": 1
+          },
+          "yes": {
+            "insufficient_information": 1,
+            "no": 0,
+            "yes": 34
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 5,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 1,
+            "no": 28,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 2,
+            "no": 0,
+            "yes": 23
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 47,
+            "yes": 3
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 9
+          }
+        }
+      },
+      "yes_class": {
+        "follow_up_needed": {
+          "true_positive": 34,
+          "reference_yes": 35,
+          "predicted_yes": 35,
+          "recall": 0.9714285714285714,
+          "precision": 0.9714285714285714
+        },
+        "serious_concern_reported": {
+          "true_positive": 23,
+          "reference_yes": 25,
+          "predicted_yes": 23,
+          "recall": 0.92,
+          "precision": 1.0
+        },
+        "testimonial_potential": {
+          "true_positive": 9,
+          "reference_yes": 9,
+          "predicted_yes": 12,
+          "recall": 1.0,
+          "precision": 0.75
+        }
+      }
+    },
+    {
+      "id": "solar-decide-native-fresh1-p0",
+      "model": "upstage/solar-decide",
+      "provider": "Upstage",
+      "surface": "OpenRouter native Choice",
+      "source_url": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/solar-decide-native-full-v1/execution-adapter-v2/first-pass.public-projection.json",
+      "source_sha256": "52c2ef28b7156d1846e7ccef962a8318e6c5ae6d708a1b7782ee45d4472afb41",
+      "known_development_cost_usd": "0.022067",
+      "valid": 60,
+      "all_four_matches": 55,
+      "field_matches": {
+        "sentiment": 56,
+        "follow_up_needed": 58,
+        "serious_concern_reported": 57,
+        "testimonial_potential": 58
+      },
+      "confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 1,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 31,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 6,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 24,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 1,
+            "no": 0,
+            "yes": 34
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 3,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 29,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 25
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 50,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 8
+          }
+        }
+      },
+      "yes_class": {
+        "follow_up_needed": {
+          "true_positive": 34,
+          "reference_yes": 35,
+          "predicted_yes": 34,
+          "recall": 0.9714285714285714,
+          "precision": 1.0
+        },
+        "serious_concern_reported": {
+          "true_positive": 25,
+          "reference_yes": 25,
+          "predicted_yes": 25,
+          "recall": 1.0,
+          "precision": 1.0
+        },
+        "testimonial_potential": {
+          "true_positive": 8,
+          "reference_yes": 9,
+          "predicted_yes": 8,
+          "recall": 0.8888888888888888,
+          "precision": 1.0
+        }
+      }
+    },
+    {
+      "id": "clef-openrouter-native-fresh1-p0",
+      "model": "cloudflare/clef",
+      "provider": "Cloudflare",
+      "surface": "OpenRouter native Choice",
+      "source_url": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/clef-openrouter-v1/findings-v1/public-projection.json",
+      "source_sha256": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6",
+      "known_development_cost_usd": "0.03184656",
+      "valid": 60,
+      "all_four_matches": 54,
+      "field_matches": {
+        "sentiment": 56,
+        "follow_up_needed": 59,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 58
+      },
+      "confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 29,
+            "neutral": 2,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 8,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 24,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 35
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 3,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 28,
+            "yes": 1
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 25
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 50,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 8
+          }
+        }
+      },
+      "yes_class": {
+        "follow_up_needed": {
+          "true_positive": 35,
+          "reference_yes": 35,
+          "predicted_yes": 35,
+          "recall": 1.0,
+          "precision": 1.0
+        },
+        "serious_concern_reported": {
+          "true_positive": 25,
+          "reference_yes": 25,
+          "predicted_yes": 26,
+          "recall": 1.0,
+          "precision": 0.9615384615384616
+        },
+        "testimonial_potential": {
+          "true_positive": 8,
+          "reference_yes": 9,
+          "predicted_yes": 8,
+          "recall": 0.8888888888888888,
+          "precision": 1.0
+        }
+      }
+    },
+    {
+      "id": "clef-flash-openrouter-native-fresh1-p0",
+      "model": "cloudflare/clef-flash",
+      "provider": "Cloudflare",
+      "surface": "OpenRouter native Choice",
+      "source_url": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/clef-openrouter-v1/findings-v1/public-projection.json",
+      "source_sha256": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6",
+      "known_development_cost_usd": "0.01194246",
+      "valid": 60,
+      "all_four_matches": 45,
+      "field_matches": {
+        "sentiment": 50,
+        "follow_up_needed": 57,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 57
+      },
+      "confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 1,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 7,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 1
+          },
+          "negative": {
+            "insufficient_information": 0,
+            "mixed": 2,
+            "negative": 25,
+            "neutral": 4,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 0,
+            "negative": 0,
+            "neutral": 8,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 24,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 2,
+            "yes": 33
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 3,
+            "no": 3,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 1,
+            "no": 28,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 25
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 48,
+            "yes": 2
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 9
+          }
+        }
+      },
+      "yes_class": {
+        "follow_up_needed": {
+          "true_positive": 33,
+          "reference_yes": 35,
+          "predicted_yes": 33,
+          "recall": 0.9428571428571428,
+          "precision": 1.0
+        },
+        "serious_concern_reported": {
+          "true_positive": 25,
+          "reference_yes": 25,
+          "predicted_yes": 25,
+          "recall": 1.0,
+          "precision": 1.0
+        },
+        "testimonial_potential": {
+          "true_positive": 9,
+          "reference_yes": 9,
+          "predicted_yes": 11,
+          "recall": 1.0,
+          "precision": 0.8181818181818182
+        }
+      }
+    },
+    {
+      "id": "luna-decisions-openrouter-native-fresh1-p0",
+      "model": "openai/gpt-6-luna-decisions",
+      "provider": "OpenAI",
+      "surface": "OpenRouter native Choice",
+      "source_url": "https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/clef-openrouter-v1/findings-v1/public-projection.json",
+      "source_sha256": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6",
+      "known_development_cost_usd": "0.0133523",
+      "valid": 60,
+      "all_four_matches": 49,
+      "field_matches": {
+        "sentiment": 54,
+        "follow_up_needed": 58,
+        "serious_concern_reported": 56,
+        "testimonial_potential": 56
+      },
+      "confusion_reference_rows": {
+        "sentiment": {
+          "insufficient_information": {
+            "insufficient_information": 1,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "mixed": {
+            "insufficient_information": 0,
+            "mixed": 8,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 0
+          },
+          "negative": {
+            "insufficient_information": 1,
+            "mixed": 0,
+            "negative": 30,
+            "neutral": 0,
+            "positive": 0
+          },
+          "neutral": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 2,
+            "neutral": 5,
+            "positive": 0
+          },
+          "positive": {
+            "insufficient_information": 0,
+            "mixed": 1,
+            "negative": 0,
+            "neutral": 0,
+            "positive": 10
+          }
+        },
+        "follow_up_needed": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 24,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 1,
+            "no": 0,
+            "yes": 34
+          }
+        },
+        "serious_concern_reported": {
+          "insufficient_information": {
+            "insufficient_information": 2,
+            "no": 4,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 29,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 0,
+            "yes": 25
+          }
+        },
+        "testimonial_potential": {
+          "insufficient_information": {
+            "insufficient_information": 0,
+            "no": 1,
+            "yes": 0
+          },
+          "no": {
+            "insufficient_information": 0,
+            "no": 50,
+            "yes": 0
+          },
+          "yes": {
+            "insufficient_information": 0,
+            "no": 3,
+            "yes": 6
+          }
+        }
+      },
+      "yes_class": {
+        "follow_up_needed": {
+          "true_positive": 34,
+          "reference_yes": 35,
+          "predicted_yes": 34,
+          "recall": 0.9714285714285714,
+          "precision": 1.0
+        },
+        "serious_concern_reported": {
+          "true_positive": 25,
+          "reference_yes": 25,
+          "predicted_yes": 25,
+          "recall": 1.0,
+          "precision": 1.0
+        },
+        "testimonial_potential": {
+          "true_positive": 6,
+          "reference_yes": 9,
+          "predicted_yes": 6,
+          "recall": 0.6666666666666666,
+          "precision": 1.0
+        }
+      }
+    }
+  ],
+  "all_four_errors_by_case": [
+    {
+      "id": "DEV-001",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-002",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-004",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "follow_up_needed"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-005",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-006",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "serious_concern_reported"
+        ],
+        "solar-decide-native-fresh1-p0": [
+          "follow_up_needed",
+          "serious_concern_reported"
+        ],
+        "clef-openrouter-native-fresh1-p0": [
+          "serious_concern_reported"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "serious_concern_reported"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "serious_concern_reported"
+        ]
+      },
+      "error_count": 5
+    },
+    {
+      "id": "DEV-013",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "solar-decide-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 4
+    },
+    {
+      "id": "DEV-014",
+      "models_with_error": {
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-017",
+      "models_with_error": {
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-018",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-020",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "testimonial_potential"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-022",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "serious_concern_reported"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-024",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-025",
+      "models_with_error": {
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-027",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment",
+          "testimonial_potential"
+        ],
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "solar-decide-native-fresh1-p0": [
+          "sentiment",
+          "testimonial_potential"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 4
+    },
+    {
+      "id": "DEV-028",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-029",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "follow_up_needed",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ],
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ],
+        "solar-decide-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ],
+        "clef-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 6
+    },
+    {
+      "id": "DEV-030",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "serious_concern_reported"
+        ],
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed"
+        ],
+        "solar-decide-native-fresh1-p0": [
+          "sentiment",
+          "serious_concern_reported"
+        ],
+        "clef-openrouter-native-fresh1-p0": [
+          "serious_concern_reported"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "serious_concern_reported"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "serious_concern_reported"
+        ]
+      },
+      "error_count": 6
+    },
+    {
+      "id": "DEV-031",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-032",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-033",
+      "models_with_error": {
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "serious_concern_reported"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-035",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "follow_up_needed"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-036",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "follow_up_needed"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-037",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-039",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-041",
+      "models_with_error": {
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "follow_up_needed"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-044",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "serious_concern_reported"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-046",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "tev1-4b-native-fresh1-p0": [
+          "serious_concern_reported"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-053",
+      "models_with_error": {
+        "clef-openrouter-native-fresh1-p0": [
+          "sentiment",
+          "serious_concern_reported",
+          "testimonial_potential"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-054",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "clef-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-056",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment",
+          "follow_up_needed"
+        ],
+        "clef-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 4
+    },
+    {
+      "id": "DEV-057",
+      "models_with_error": {
+        "tev1-4b-native-fresh1-p0": [
+          "sentiment",
+          "serious_concern_reported"
+        ],
+        "luna-decisions-openrouter-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-058",
+      "models_with_error": {
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "testimonial_potential"
+        ]
+      },
+      "error_count": 1
+    },
+    {
+      "id": "DEV-059",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "follow_up_needed"
+        ],
+        "clef-flash-openrouter-native-fresh1-p0": [
+          "follow_up_needed"
+        ]
+      },
+      "error_count": 2
+    },
+    {
+      "id": "DEV-060",
+      "models_with_error": {
+        "liquid-d1-native-fresh1-p0": [
+          "sentiment"
+        ]
+      },
+      "error_count": 1
+    }
+  ],
+  "pairwise": [
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "tev1-4b-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 27,
+      "field_disagreements": {
+        "sentiment": 18,
+        "follow_up_needed": 6,
+        "serious_concern_reported": 5,
+        "testimonial_potential": 4
+      },
+      "both_all_four_match": 33
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "solar-decide-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 17,
+      "field_disagreements": {
+        "sentiment": 13,
+        "follow_up_needed": 5,
+        "serious_concern_reported": 0,
+        "testimonial_potential": 0
+      },
+      "both_all_four_match": 43
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "clef-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 15,
+      "field_disagreements": {
+        "sentiment": 11,
+        "follow_up_needed": 4,
+        "serious_concern_reported": 1,
+        "testimonial_potential": 2
+      },
+      "both_all_four_match": 42
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 20,
+      "field_disagreements": {
+        "sentiment": 16,
+        "follow_up_needed": 2,
+        "serious_concern_reported": 1,
+        "testimonial_potential": 3
+      },
+      "both_all_four_match": 36
+    },
+    {
+      "left": "liquid-d1-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 22,
+      "field_disagreements": {
+        "sentiment": 15,
+        "follow_up_needed": 5,
+        "serious_concern_reported": 1,
+        "testimonial_potential": 4
+      },
+      "both_all_four_match": 37
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "solar-decide-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 15,
+      "field_disagreements": {
+        "sentiment": 6,
+        "follow_up_needed": 3,
+        "serious_concern_reported": 5,
+        "testimonial_potential": 4
+      },
+      "both_all_four_match": 44
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "clef-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 18,
+      "field_disagreements": {
+        "sentiment": 11,
+        "follow_up_needed": 2,
+        "serious_concern_reported": 6,
+        "testimonial_potential": 4
+      },
+      "both_all_four_match": 41
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 21,
+      "field_disagreements": {
+        "sentiment": 13,
+        "follow_up_needed": 4,
+        "serious_concern_reported": 6,
+        "testimonial_potential": 3
+      },
+      "both_all_four_match": 36
+    },
+    {
+      "left": "tev1-4b-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 18,
+      "field_disagreements": {
+        "sentiment": 6,
+        "follow_up_needed": 3,
+        "serious_concern_reported": 6,
+        "testimonial_potential": 6
+      },
+      "both_all_four_match": 40
+    },
+    {
+      "left": "solar-decide-native-fresh1-p0",
+      "right": "clef-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 8,
+      "field_disagreements": {
+        "sentiment": 7,
+        "follow_up_needed": 1,
+        "serious_concern_reported": 1,
+        "testimonial_potential": 2
+      },
+      "both_all_four_match": 52
+    },
+    {
+      "left": "solar-decide-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 16,
+      "field_disagreements": {
+        "sentiment": 11,
+        "follow_up_needed": 3,
+        "serious_concern_reported": 1,
+        "testimonial_potential": 3
+      },
+      "both_all_four_match": 44
+    },
+    {
+      "left": "solar-decide-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 11,
+      "field_disagreements": {
+        "sentiment": 6,
+        "follow_up_needed": 2,
+        "serious_concern_reported": 1,
+        "testimonial_potential": 4
+      },
+      "both_all_four_match": 48
+    },
+    {
+      "left": "clef-openrouter-native-fresh1-p0",
+      "right": "clef-flash-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 13,
+      "field_disagreements": {
+        "sentiment": 10,
+        "follow_up_needed": 2,
+        "serious_concern_reported": 2,
+        "testimonial_potential": 3
+      },
+      "both_all_four_match": 43
+    },
+    {
+      "left": "clef-openrouter-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 10,
+      "field_disagreements": {
+        "sentiment": 7,
+        "follow_up_needed": 1,
+        "serious_concern_reported": 2,
+        "testimonial_potential": 2
+      },
+      "both_all_four_match": 48
+    },
+    {
+      "left": "clef-flash-openrouter-native-fresh1-p0",
+      "right": "luna-decisions-openrouter-native-fresh1-p0",
+      "shared_valid": 60,
+      "prediction_vector_disagreements": 20,
+      "field_disagreements": {
+        "sentiment": 13,
+        "follow_up_needed": 3,
+        "serious_concern_reported": 2,
+        "testimonial_potential": 5
+      },
+      "both_all_four_match": 38
+    }
+  ],
+  "oracle_union": {
+    "matches": 58,
+    "denominator": 60,
+    "meaning": "Hindsight ceiling: per case, select any configuration that matched all four reference fields; not a deployable ensemble"
+  },
+  "reference_majority_baseline": {
+    "fields": {
+      "sentiment": {
+        "choice": "negative",
+        "reference_count": 31,
+        "reference_total": 60
+      },
+      "follow_up_needed": {
+        "choice": "yes",
+        "reference_count": 35,
+        "reference_total": 60
+      },
+      "serious_concern_reported": {
+        "choice": "no",
+        "reference_count": 29,
+        "reference_total": 60
+      },
+      "testimonial_potential": {
+        "choice": "no",
+        "reference_count": 50,
+        "reference_total": 60
+      }
+    },
+    "all_four_matches": 6,
+    "meaning": "Always output each field's modal frozen reference label; hindsight description, not a learned or deployable rule"
+  },
+  "observed_development_cost_frontier": {
+    "run_ids": [
+      "solar-decide-native-fresh1-p0",
+      "clef-flash-openrouter-native-fresh1-p0",
+      "luna-decisions-openrouter-native-fresh1-p0"
+    ],
+    "meaning": "Pareto frontier among these six runs only: maximize all-four matches, minimize known development charges; excludes smoke and unknown invoice effects"
+  }
+}
