@@ -2,6 +2,9 @@
 
 ## Latest scope and execution checkpoint, 7 October 2026
 
+- Explorer release candidate: the linked views and 60-review/seven-native-model detail panel are committed in `fa6f53ea`; the independently approved 637-row extended catalog is committed in `72b6e6a0`. Together they expose 1,004 saved run identities, including 25 partial entries. This is an evidence inventory, not 1,004 independent experiments. Root verified both builders, 13 focused Python tests and 11 focused UI tests; the UI owner also reports the full 368-test Node suite passing and desktop/mobile checks. Publication verification remains.
+- Case-level coverage: extended rows currently expose scores, resources and linked source reports. Owner `visual_references_oct7` is preparing source-bound per-review joins where committed public predictions exist; report links alone do not complete the requested case-level deep dive. Cloudflare Jev admission preparation is owned by `completion_and_models_oct7`; no new POST is authorized by this checkpoint.
+
 - Accounting follow-up: root prepared eight conditional unused-allocation releases for the sealed OpenRouter Clef, Clef Flash and Luna children. Independent review is pending; the live authority ledger is unchanged. Known charges and the unresolved Flash bound must remain retained. Owner `analysis_angles_oct7` reviews; root applies only verified receipts.
 - Release review: the new review explorer passed independent review and browser checks for the nine reference-positive testimonial examples and synchronized category filters. Broader Node UI testing exposed four fixture/compatibility failures; owner `visual_references_oct7` has fixes under verification. The extended run catalog remains under independent source/route/cost/count review and is not yet published.
 
