@@ -1,5 +1,14 @@
 # Current work checklist
 
+## OpenRouter execution checkpoint, 7 October 2026, 08:10 UTC
+
+- Clef: all nine declared OpenRouter development runs finished, with 540 valid answers. Its sealed full-series child records $0.32524536 in known charges and no unknown charges; smoke requests are included in that child total.
+- Luna Decisions: all nine runs finished, with 540 valid answers. P0/P1/P2 scored 49/51/49 in each pass. Root independently verified all 106 terminal-audit file bindings. Its sealed full-series child records $0.1362978 known and no unknown charges, including later smoke requests.
+- Clef Flash: eight full runs and 38 answers in final P2 are saved. DEV-039 hit a provider HTTP 429; its $0.02359296 possible-charge bound remains reserved. Only the 21 unsent reviews are eligible for the reviewed continuation. No completed or failed review is replayed.
+- Report and selectors: the seven-run first checkpoint is committed. The final expansion, analysis review and publication are in progress. See [the findings](CLEF_OPENROUTER_FINDINGS.md) for the verified report cutoff.
+
+This supersedes the live-run status below. The remaining project gaps are tracked separately in [the completion audit](COMPLETION_GAP_AUDIT_2026-10-07.md); these new hosted runs do not erase earlier route failures.
+
 ## OpenRouter decision runs, 7 October 2026, 07:48 UTC
 
 The user approved OpenRouter for Clef, Clef Flash and Luna Decisions under the existing $22.38 cap. Clef and Flash each completed three valid smoke responses; root inspected the saved answers. Observed charges were $0.00159072 and $0.00059652. Luna returned one HTTP 200 response costing $0.0002233, but the parser rejected its dated model ID, `openai/gpt-6-luna-decisions-20261006`. The response and original parser failure are preserved in commit `7b281d0c`; the two later smoke records were not sent. All three smoke budgets are sealed, with no unknown charges.
