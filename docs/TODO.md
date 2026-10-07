@@ -1,5 +1,13 @@
 # Current work checklist
 
+## Follow-up work requested 7 October 2026
+
+- Completion and new-model audit: drafted in `COMPLETION_RECHECK_2026-10-07.md`; exact Perplexity Decider route verified, no inference yet. Owner `completion_and_models_oct7` is preparing a new source-bound offline plan and tests. No allocation precedes independent review.
+- Liquid D1: nine passes already complete. Reuse the evidence and make it easier to find.
+- Analysis: `ANALYSIS_COVERAGE_REVIEW_2026-10-07.md` identifies verified findings and missing joined case-level comparisons, error concentration and reference sensitivity. No new causal claim or pooled repeat sample is justified.
+- Presentation: `PRESENTATION_REVIEW_2026-10-07.md` proposes decision-model, general-LLM and all-model views with consistent selection and evidence links. Product implementation has not started; the proposed design needs review.
+- Goal text: the stale local-inference fallback in the standing paragraph was removed to match the user's no-local instruction. The desktop goal remains marked blocked and cannot be resumed through the exposed goal API.
+
 ## Publication review, 7 October 2026
 
 Independent review approved the 27-stage hosted decision report and updated website at `e80d7357`. The new report and supplemental feed match under Python 3.11, 3.12 and 3.14. The combined analysis verifies 1,364 source hashes. Desktop and mobile browser checks confirmed the repeated scores, Flash's 59/60 availability, keyboard table scrolling, model selectors, token counts and observed costs.
