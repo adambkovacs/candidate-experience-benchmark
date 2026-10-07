@@ -32,6 +32,8 @@ jobs:
           test -f public-site/index.html
           test -f public-site/data.json
           test -z "$(find public-site -type l -print)"
+          node --check public-site/meetup-presentation.js
+          node --test tests/test_presentation_ui.cjs
           node --check public-site/reader.js
           python3 scripts/build_disputed_reviews_v1.py --check
           python3 scripts/build_extended_run_catalog_v1.py check

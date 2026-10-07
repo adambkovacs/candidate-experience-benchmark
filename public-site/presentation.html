@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Candidate experience feedback benchmark: an evidence-led presentation of 60 synthetic reviews, model disagreements, prompts, repeats and costs.">
+  <title>Candidate feedback, four decisions | Presentation</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./meetup-presentation.css">
+  <script defer src="./meetup-presentation.js"></script>
+</head>
+<body class="meetup-deck">
+  <a class="deck-skip" href="#deck-stage">Skip to presentation</a>
+  <header class="deck-header">
+    <a class="deck-brand" href="./index.html">Candidate experience<br><strong>Feedback benchmark</strong></a>
+    <span class="deck-badge">Development preview · 60 synthetic reviews</span>
+    <a href="./index.html#explore">Full results explorer ↗</a>
+  </header>
+  <main id="deck-stage" tabindex="-1">
+    <section class="deck-slide" id="opening" aria-labelledby="opening-title"><p class="deck-kicker">Candidate experience feedback benchmark</p><h1 id="opening-title">One comment.<br>Four decisions.</h1><p class="deck-lede">Can we trust a model to read candidate feedback the same way twice?</p><p>The study uses 60 fictional development reviews and a frozen, human-checked provisional reference.</p><p><a href="./index.html#method">Read the method and reference limits</a></p><div data-slide-content="opening"></div></section>
+    <section class="deck-slide" id="task" aria-labelledby="task-title"><p class="deck-kicker">01 / The task</p><h2 id="task-title">Read the comment before the answer.</h2><div data-slide-content="task"><p><a href="./disputed-reviews-v1.json">Read the saved reviews and reference answers</a></p></div></section>
+    <section class="deck-slide" id="disagreement" aria-labelledby="disagreement-title"><p class="deck-kicker">02 / Model disagreement</p><h2 id="disagreement-title">A helpful interview can still split the models.</h2><div data-slide-content="disagreement"><p><a href="./index.html#review-evidence">Open the difficult-review comparison</a></p></div></section>
+    <section class="deck-slide" id="boundary" aria-labelledby="boundary-title"><p class="deck-kicker">03 / Reference boundaries</p><h2 id="boundary-title">The task's scope changes the answer.</h2><div data-slide-content="boundary"><p><a href="./disputed-reviews-v1.json">Inspect the off-topic examples</a></p></div></section>
+    <section class="deck-slide" id="prompts" aria-labelledby="prompts-title"><p class="deck-kicker">04 / Prompt changes</p><h2 id="prompts-title">A prompt can gain matches and lose others.</h2><div data-slide-content="prompts"><p><a href="./index.html#explore">Inspect saved prompt comparisons</a></p></div></section>
+    <section class="deck-slide" id="decision-cohort" aria-labelledby="decision-cohort-title"><p class="deck-kicker">05 / Latest native decision models</p><h2 id="decision-cohort-title">Stable repeats can still disagree with the reference.</h2><div data-slide-content="decision-cohort"><p><a href="./supplemental-decision-runs-v1.json">Read the latest native decision-model results</a></p></div></section>
+    <section class="deck-slide" id="repeatability" aria-labelledby="repeatability-title"><p class="deck-kicker">06 / Repeatability</p><h2 id="repeatability-title">Equal scores can hide different answers.</h2><div data-slide-content="repeatability"><p><a href="./codex-fresh-repeats.json">Read the fresh three-pass study</a></p></div></section>
+    <section class="deck-slide" id="cost" aria-labelledby="cost-title"><p class="deck-kicker">07 / Cost and quality</p><h2 id="cost-title">Compare the bill alongside the answers.</h2><div data-slide-content="cost"><p><a href="./index.html#inspect">Inspect recorded cost, tokens and timing</a></p></div></section>
+    <section class="deck-slide" id="implications" aria-labelledby="implications-title"><p class="deck-kicker">08 / Practical implications</p><h2 id="implications-title">Test the decisions your team will act on.</h2><div data-slide-content="implications"><p>Agree on the labels. Inspect disagreements. Repeat the same inputs. Price the complete workflow.</p><p><a href="./index.html#method">Study method</a></p></div></section>
+    <section class="deck-slide" id="limits" aria-labelledby="limits-title"><p class="deck-kicker">09 / Limits and next steps</p><h2 id="limits-title">These 60 reviews are a development test.</h2><div data-slide-content="limits"><p>They cannot establish real-world hiring performance. Repeated passes evaluate the same reviews, not new candidates.</p><p><a href="./index.html">Read the report and all saved evidence</a></p></div></section>
+  </main>
+  <p class="deck-load-status" id="deck-load-status" role="status">Loading the saved evidence. Source links remain available below each question.</p>
+  <noscript><p class="deck-load-status">This presentation needs JavaScript to load its charts and saved answers. The questions and source links above remain readable. <a href="./index.html">Open the report</a> for the full study.</p></noscript>
+  <nav class="deck-controls" aria-label="Presentation navigation" hidden>
+    <button type="button" id="deck-previous" aria-label="Previous reveal or slide">← Previous</button>
+    <label for="deck-chapter">Slide<select id="deck-chapter"></select></label>
+    <span id="deck-progress" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" id="deck-next">Reveal →</button>
+  </nav>
+  <footer class="deck-footer"><span>← → or Space: move through reveals · Home / End: first / last slide</span><a href="https://github.com/PolymathWizard/BHIL-HELM-Sci-Fi-Visualizer">Information design inspiration: HELM</a></footer>
+</body>
+</html>
