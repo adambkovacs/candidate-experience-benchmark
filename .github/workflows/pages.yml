@@ -44,6 +44,10 @@ jobs:
           node --check public-site/extended-cases.js
           node --test tests/test_extended_cases_ui.cjs tests/test_agreement_policy_ui.cjs
           node --check public-site/agreement-policy.js
+          python3 scripts/analyze_cross_category_v1.py --check
+          python3 -m unittest tests.test_cross_category_v1 -q
+          node --check public-site/cross-category.js
+          node --test tests/test_cross_category_ui.cjs
           python3 scripts/analyze_reference_sensitivity_v1.py --check
           python3 -m unittest tests.test_reference_sensitivity_v1 -q
           node --check public-site/reference-sensitivity.js
