@@ -1,5 +1,13 @@
 # Current work checklist
 
+## OpenRouter decision runs, 7 October 2026, 07:36 UTC
+
+The user approved OpenRouter for Clef, Clef Flash and Luna Decisions under the existing $22.38 cap. Clef and Flash each completed three valid smoke responses; root inspected the saved answers. Observed charges were $0.00159072 and $0.00059652. Luna returned one HTTP 200 response costing $0.0002233, but the parser rejected its dated model ID, `openai/gpt-6-luna-decisions-20261006`. The response and original parser failure are preserved in commit `7b281d0c`; the two later smoke records were not sent. All three smoke budgets are sealed, with no unknown charges.
+
+Owner `qwen_recovery` is preparing explicit dated-version validation of Luna's saved first response and a continuation for only DEV-002–003. Owner `hosted_final_roster` is preparing the full OpenRouter executor, with a separate budget per model and nine declared prompt/pass stages. Root owns admission, raw-response inspection and publication. No full OpenRouter Clef/Flash/Luna stage has started yet.
+
+The latest direct Cloudflare Clef request still returned quota error 4006 after the daily reset. DEV-001 and DEV-002 remain unknown; DEV-003–060 remain unsent on that route. No Flash continuation was sent. Its closed evidence is archived in `156964d1`. New Clef work now uses OpenRouter; preserve the direct-route history separately. Luna's OpenRouter approval supersedes the earlier Cloudflare-only wording.
+
 ## Live publication and admission, 6 October 2026
 
 DeepSeek low's final report is now published: [Pages run 37529618355](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37529618355) succeeded for `3664dce0`, and root verified exact live bytes for the standalone report, combined analysis and analysis JavaScript.
