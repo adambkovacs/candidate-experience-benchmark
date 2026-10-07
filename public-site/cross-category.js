@@ -19,6 +19,14 @@
     general_no_valid_output: 'General output unusable or absent',
   };
   const fields = ['sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential'];
+  const fieldLabels = {sentiment:'Sentiment', follow_up_needed:'Follow-up needed',
+    serious_concern_reported:'Serious concern reported', testimonial_potential:'Testimonial potential'};
+  const fieldChoices = {sentiment:['positive', 'negative', 'mixed', 'neutral', 'insufficient_information'],
+    follow_up_needed:['yes', 'no', 'insufficient_information'],
+    serious_concern_reported:['yes', 'no', 'insufficient_information'],
+    testimonial_potential:['yes', 'no', 'insufficient_information']};
+  const choiceLabel = value => value === 'insufficient_information' ? 'Insufficient information' :
+    value === 'no_valid_output' ? 'No valid output' : value[0].toUpperCase() + value.slice(1);
 
   function pairTally(general, native) {
     const byId = new Map(native.cases.map(row => [row.id, row]));
@@ -34,6 +42,36 @@
     return tally;
   }
 
+  function fieldSummary(references, run, field) {
+    const choices = fieldChoices[field];
+    if (!choices || references.length !== run.cases.length) throw Error('Field comparison positions changed');
+    const columns = [...choices, 'no_valid_output'];
+    const matrix = Object.fromEntries(choices.map(reference =>
+      [reference, Object.fromEntries(columns.map(prediction => [prediction, 0]))]));
+    const statuses = {};
+    let matches = 0, valid = 0;
+    references.forEach((reference, index) => {
+      const actual = reference.reference[field];
+      const answer = run.cases[index];
+      const prediction = answer.prediction === null ? 'no_valid_output' : answer.prediction?.[field];
+      if (!Object.hasOwn(matrix, actual) || !columns.includes(prediction)) {
+        throw Error('Field comparison label changed');
+      }
+      matrix[actual][prediction]++;
+      if (prediction === 'no_valid_output') statuses[answer.status] = (statuses[answer.status] || 0) + 1;
+      else { valid++; matches += Number(actual === prediction); }
+    });
+    const positive = field === 'sentiment' ? null : {
+      truePositive: matrix.yes.yes,
+      predictedYes: choices.reduce((count,reference) => count + matrix[reference].yes, 0),
+      referenceYesValid: columns.filter(value => value !== 'no_valid_output')
+        .reduce((count,prediction) => count + matrix.yes[prediction], 0),
+      referenceYesUnusable: matrix.yes.no_valid_output,
+    };
+    return {field, choices, columns, matrix, statuses, matches, valid,
+      total:references.length, positive};
+  }
+
   function validate(data) {
     if (data?.schema !== 'cross-category-public-v1' || data.inferenceRequests !== 0 ||
         data.counts?.historicalGeneral !== 117 || data.counts?.declaredGeneral !== 32 ||
@@ -47,7 +85,7 @@
     }
     if (!data.cases.every((row, index) => row.id === ids[index] &&
         typeof row.feedback === 'string' && row.feedback &&
-        row.reference && fields.every(field => typeof row.reference[field] === 'string'))) {
+        row.reference && fields.every(field => fieldChoices[field].includes(row.reference[field])))) {
       throw Error('Cross-category reference cases changed');
     }
     const seen = new Set();
@@ -62,12 +100,13 @@
             (typeof row.allFourMatch === 'boolean' || row.allFourMatch === null) &&
             (row.allFourMatch === null ? row.differentFields === null && row.prediction === null :
               Array.isArray(row.differentFields) && row.prediction &&
-              fields.every(field => typeof row.prediction[field] === 'string') &&
+              fields.every(field => fieldChoices[field].includes(row.prediction[field])) &&
               JSON.stringify(row.differentFields) === JSON.stringify(fields.filter(field =>
                 row.prediction[field] !== data.cases[index].reference[field])) &&
               row.allFourMatch === (row.differentFields.length === 0))) ||
           run.scores.valid !== run.cases.filter(row => row.allFourMatch !== null).length ||
           run.scores.all_four !== run.cases.filter(row => row.allFourMatch === true).length ||
+          fields.some(field => run.scores[field] !== fieldSummary(data.cases, run, field).matches) ||
           Object.values(run.outcomes).reduce((sum, value) => sum + value, 0) !== 60) {
         throw Error('Cross-category run or fixed-60 status changed');
       }
@@ -147,7 +186,41 @@
       <p class="cross-basis">Reported and reconciled known charges can describe the same requests; do not add those rows. General cost basis: ${esc(general.controls.cost.basis)} Native cost basis: ${esc(native.controls.cost.basis)} General timing basis: ${esc(general.controls.timing.basis)} Native timing basis: ${esc(native.controls.timing.basis)} Historical route labels can be broad. Client times use different request patterns and are not a shared inference-speed measure.</p>`;
   }
 
-  function renderPair(general, native) {
+  function rate(numerator, denominator, reason) {
+    return denominator ? `${(numerator / denominator * 100).toFixed(1)}% (${numerator}/${denominator})` :
+      `Unavailable (${reason})`;
+  }
+
+  function renderFieldRun(summary, run, role) {
+    const totals = Object.fromEntries(summary.columns.map(column => [column,
+      summary.choices.reduce((count, reference) => count + summary.matrix[reference][column], 0)]));
+    const unusable = summary.total - summary.valid;
+    const statuses = Object.entries(summary.statuses).map(([status,count]) =>
+      `${count} ${status.replaceAll('_', ' ')}`).join(', ');
+    const positive = summary.positive;
+    return `<section class="cross-field-run"><h5>${esc(role)} · ${esc(run.model)}</h5>
+      <p class="cross-field-coverage"><strong>${summary.matches}/${summary.total}</strong> match the provisional reference · ${summary.valid}/${summary.total} usable · ${unusable}/${summary.total} no valid output${unusable ? ` (${esc(statuses)})` : ''}.</p>
+      <div class="cross-matrix-wrap" role="region" aria-label="${esc(role)} ${esc(fieldLabels[summary.field])} confusion table" tabindex="0"><table>
+      <caption>${esc(role)} ${esc(fieldLabels[summary.field])}: provisional reference by saved answer, all ${summary.total} reviews.</caption>
+      <thead><tr><th scope="col">Reference</th>${summary.columns.map(column => `<th scope="col">${esc(choiceLabel(column))}</th>`).join('')}<th scope="col">Total</th></tr></thead>
+      <tbody>${summary.choices.map(reference => `<tr><th scope="row">${esc(choiceLabel(reference))}</th>${summary.columns.map(column => `<td>${summary.matrix[reference][column]}</td>`).join('')}<td>${summary.columns.reduce((count,column) => count + summary.matrix[reference][column], 0)}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><th scope="row">All references</th>${summary.columns.map(column => `<td>${totals[column]}</td>`).join('')}<td>${summary.total}</td></tr></tfoot></table></div>
+      ${positive ? `<dl class="cross-positive"><div><dt>Yes precision</dt><dd>${rate(positive.truePositive, positive.predictedYes, 'no saved yes predictions')}</dd></div><div><dt>Yes recall, valid subset</dt><dd>${rate(positive.truePositive, positive.referenceYesValid, 'no reference yes with valid output')}</dd></div></dl>
+      <p class="cross-field-note">Recall uses ${positive.referenceYesValid} reference-yes reviews with a valid output. Another ${positive.referenceYesUnusable} reference-yes reviews had no valid output and are excluded from that rate. Precision uses all ${positive.predictedYes} saved yes predictions, including any against an insufficient-information reference.</p>` : ''}</section>`;
+  }
+
+  function renderFields(references, general, native) {
+    return `<details class="cross-fields"><summary>Field matches and confusion tables</summary>
+      <div class="cross-fields-inner"><p>Counts use all 60 reviews. Rows are provisional reference labels; columns are saved answers. Insufficient information stays separate from no, and unusable outputs have their own column.</p>
+      ${fields.map(field => {
+        const left = fieldSummary(references, general, field);
+        const right = fieldSummary(references, native, field);
+        return `<details class="cross-field"><summary><span>${esc(fieldLabels[field])}</span><span>General ${left.matches}/60 · Native ${right.matches}/60</span></summary>
+          <div class="cross-field-grid">${renderFieldRun(left, general, 'General')}${renderFieldRun(right, native, 'Native')}</div></details>`;
+      }).join('')}</div></details>`;
+  }
+
+  function renderPair(general, native, references) {
     const tally = pairTally(general, native);
     const pieces = Object.entries(outcomeLabels).map(([key, label]) =>
       `<span class="cross-segment cross-${key}" style="width:${tally[key].length / 60 * 100}%" title="${esc(label)}: ${tally[key].length}"></span>`).join('');
@@ -158,6 +231,7 @@
       <div class="cross-legend">${Object.entries(outcomeLabels).map(([key, label]) => `<span><i class="cross-key cross-${key}"></i>${esc(label)}</span>`).join('')}</div>
       <div class="cross-outcome-wrap"><table><caption>Exact paired outcomes on the same 60 review IDs. Unusable general outputs have their own row.</caption><thead><tr><th scope="col">Outcome</th><th scope="col">Reviews</th><th scope="col">Exact IDs</th></tr></thead><tbody>${Object.entries(outcomeLabels).map(([key, label]) => `<tr><th scope="row">${esc(label)}</th><td>${tally[key].length}</td><td class="cross-ids">${linkedIds(tally[key])}</td></tr>`).join('')}</tbody></table></div>
       <div id="cross-case-detail" class="cross-case-detail" aria-live="polite"></div>
+      ${renderFields(references, general, native)}
       <div class="cross-provenance"><p>Saved answer sources: <a href="${esc(general.sourceUrl)}" target="_blank" rel="noopener noreferrer">general case projection ↗</a> · <a href="${esc(native.sourceUrl)}" target="_blank" rel="noopener noreferrer">native projection ↗</a>.</p>${general.runEvidenceLeadUrl ? `<p>The general run's <a href="${esc(general.runEvidenceLeadUrl)}" target="_blank" rel="noopener noreferrer">record lead ↗</a> may cover only one probe or batch; the complete 60-vector source is keyed by <code>${esc(general.sourceCaseKey)}</code> in the public case projection.</p>` : ''}<p><a href="${github}results/cross-category-v1/dataset.json">Full source-bound dataset and four-field predictions ↗</a> · <a href="${github}results/cross-category-v1/plan.json">selection and exclusions ↗</a>.</p></div>
       <details class="cross-controls"><summary>Compare route, effort, batch and accounting</summary>${controlsTable(general, native)}</details>`;
   }
@@ -193,7 +267,7 @@
         generalInput.innerHTML = strata[cohort].map(row => `<option value="${esc(row.runId)}">${esc(row.model)} · ${esc(row.runId)}</option>`).join('');
         generalInput.value = general.runId;
         nativeInput.value = native.runId;
-        pair.innerHTML = renderPair(general, native);
+        pair.innerHTML = renderPair(general, native, data.cases);
         pair.querySelector('#cross-case-detail').innerHTML = renderCase(data, general, native, selectedCase);
         if (writeUrl) {
           const url = new URL(location.href);
@@ -225,6 +299,7 @@
     }
   }
 
-  globalThis.BenchmarkCrossCategory = Object.freeze({validate, pairTally, reviewUrl, renderPair, renderCase, renderDifficult});
+  globalThis.BenchmarkCrossCategory = Object.freeze({validate, pairTally, fieldSummary,
+    renderFields, reviewUrl, renderPair, renderCase, renderDifficult});
   init();
 })();

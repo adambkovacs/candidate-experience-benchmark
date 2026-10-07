@@ -57,6 +57,9 @@ test('invalid status, missing pair or changed source fails closed', () => {
   const wrongScore = clone(feed);
   wrongScore.runs[0].scores.all_four++;
   assert.throws(() => ui.validate(wrongScore), /run or fixed-60/);
+  const wrongField = clone(feed);
+  wrongField.runs[0].scores.sentiment++;
+  assert.throws(() => ui.validate(wrongField), /run or fixed-60/);
   const wrongPair = clone(feed);
   const general = wrongPair.runs.find(run => run.category === 'general-llm');
   general.pairedWithNative[feed.runs[0].runId].both_match++;
@@ -69,7 +72,7 @@ test('invalid status, missing pair or changed source fails closed', () => {
 test('selected pair displays five outcomes, exact IDs and separate accounting bases', () => {
   const native = feed.runs.find(run => run.category === 'dedicated-decision');
   const general = feed.runs.find(run => run.runId === 'sonnet5-low-first-pass');
-  const html = ui.renderPair(general, native);
+  const html = ui.renderPair(general, native, feed.cases);
   assert.match(html, /Of 60 reviews:/);
   assert.match(html, /Both miss reference/);
   assert.match(html, /General output unusable or absent/);
@@ -81,6 +84,8 @@ test('selected pair displays five outcomes, exact IDs and separate accounting ba
   assert.match(html, /may cover only one probe or batch/);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);
   assert.match(html, /data-cross-case="DEV-001"/);
+  assert.match(html, /Field matches and confusion tables/);
+  assert.match(html, /General 59\/60 · Native 49\/60/);
   assert.doesNotMatch(html, /href="\/?\?[^\"]*review=DEV-001/);
   const tally = ui.pairTally(general, native);
   for (const id of Object.values(tally).flat()) assert.match(html, new RegExp(id));
@@ -91,9 +96,53 @@ test('untimed Liquid run retains 60 valid outputs and a zero duration-record cou
   const general = feed.runs.find(run => run.runId === 'sonnet5-low-first-pass');
   assert.equal(native.scores.valid, 60);
   assert.equal(native.controls.observedRequestCount, 0);
-  const html = ui.renderPair(general, native);
+  const html = ui.renderPair(general, native, feed.cases);
   assert.match(html, /Requests with recorded duration<\/th><td>[^<]*<\/td><td>0<\/td>/);
   assert.match(html, /No public client-duration series or server inference duration is available/);
+});
+
+test('field tables retain all 60 positions, missing answers and insufficient information', () => {
+  const general = feed.runs.find(run => run.runId === 'qwen3-0.6b-sdk-thinking-on');
+  const native = feed.runs.find(run => run.runId === 'liquid-d1-native-fresh1-p0');
+  const followUp = ui.fieldSummary(feed.cases, general, 'follow_up_needed');
+  assert.equal(followUp.matches, 25);
+  assert.equal(followUp.valid, 31);
+  assert.equal(followUp.matrix.yes.no_valid_output, 16);
+  assert.equal(followUp.matrix.insufficient_information.no_valid_output +
+    followUp.columns.filter(column => column !== 'no_valid_output')
+      .reduce((count, column) => count + followUp.matrix.insufficient_information[column], 0), 1);
+  assert.equal(followUp.statuses.invalid_output, 29);
+  assert.deepEqual(JSON.parse(JSON.stringify(followUp.positive)), {
+    truePositive:17, predictedYes:19, referenceYesValid:19, referenceYesUnusable:16,
+  });
+  const concern = ui.fieldSummary(feed.cases, general, 'serious_concern_reported');
+  assert.equal(concern.matrix.insufficient_information.yes, 1);
+  assert.equal(concern.positive.truePositive, 10);
+  assert.equal(concern.positive.predictedYes, 13);
+  const html = ui.renderFields(feed.cases, general, native);
+  assert.match(html, /<details class="cross-fields">/);
+  assert.equal((html.match(/class="cross-field"/g) || []).length, 4);
+  assert.equal((html.match(/class="cross-matrix-wrap" role="region"/g) || []).length, 8);
+  assert.match(html, /General 25\/60 · Native 55\/60/);
+  assert.match(html, /25\/60<\/strong> match the provisional reference · 31\/60 usable · 29\/60 no valid output \(29 invalid output\)/);
+  assert.match(html, /Insufficient information<\/th>/);
+  assert.match(html, /No valid output<\/th>/);
+  assert.match(html, /Yes precision<\/dt><dd>89\.5% \(17\/19\)/);
+  assert.match(html, /Yes recall, valid subset<\/dt><dd>89\.5% \(17\/19\)/);
+  assert.match(html, /Another 16 reference-yes reviews had no valid output and are excluded from that rate/);
+});
+
+test('positive rates are unavailable when the relevant yes denominator is zero', () => {
+  const references = feed.cases.map(row => ({...row,
+    reference:{...row.reference, follow_up_needed:'no'}}));
+  const run = clone(feed.runs.find(row => row.runId === 'liquid-d1-native-fresh1-p0'));
+  run.cases.forEach(row => {row.prediction.follow_up_needed = 'no';});
+  const summary = ui.fieldSummary(references, run, 'follow_up_needed');
+  assert.equal(summary.positive.predictedYes, 0);
+  assert.equal(summary.positive.referenceYesValid, 0);
+  const html = ui.renderFields(references, run, run);
+  assert.match(html, /Yes precision<\/dt><dd>Unavailable \(no saved yes predictions\)/);
+  assert.match(html, /Yes recall, valid subset<\/dt><dd>Unavailable \(no reference yes with valid output\)/);
 });
 
 test('an exact case shows both selected predictions and the reference inline', () => {
