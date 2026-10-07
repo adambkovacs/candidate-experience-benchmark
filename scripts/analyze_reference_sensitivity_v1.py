@@ -22,6 +22,7 @@ REVIEW = Path('docs/REFERENCE_REVIEW_V1.md')
 GUIDE = Path('docs/LABELING_GUIDE.md')
 REFERENCES = Path('data/pilot/proposed_labels.jsonl')
 OUTPUT = Path('results/reference-sensitivity-v1')
+PUBLIC_OUTPUT = Path('public-site/reference-sensitivity-v1.json')
 FIELDS = disputed_builder.FIELDS
 ALTERNATIVES = (
     ('DEV-006', 'serious_concern_reported', 'insufficient_information', 'no', 'proposed_revision'),
@@ -246,13 +247,128 @@ Run `python3 scripts/analyze_reference_sensitivity_v1.py` to regenerate the outp
 """
 
 
+def public_projection(result: dict, findings_sha256: str, root: Path = ROOT) -> dict:
+    """Small, source-bound index for browsing deltas without fetching full evidence."""
+    extended_bytes = (root / EXTENDED).read_bytes()
+    require(sha256(extended_bytes).hexdigest() == result['source_sha256'][str(EXTENDED)],
+            'Extended case source changed while building public index')
+    native_bytes = (root / NATIVE).read_bytes()
+    require(sha256(native_bytes).hexdigest() == result['source_sha256'][str(NATIVE)],
+            'Seven-native source changed while building public index')
+    extended = json.loads(extended_bytes)
+    sources = {source['id']: source for source in result['extended_run_sources']}
+    require(len(sources) == result['extended_run_count'] == len(extended['runs']),
+            'Public sensitivity run source count changed')
+    scenarios = result['scenarios']
+    runs = []
+    for run in extended['runs']:
+        ident = run['runId']
+        source = sources[ident]
+        require(source['source_report_url'] == run['sourceReportUrl'] and
+                source['source_report_sha256'] == run['sourceReportSha256'],
+                f'{ident}: public source identity changed')
+        results = [next(row for row in scenario['extended_run_deltas'] if row['id'] == ident)
+                   for scenario in scenarios]
+        require(all(row['saved_scores']['all_four'] == run['scores']['all_four'] and
+                    row['valid'] == run['scores']['valid'] for row in results),
+                f'{ident}: public baseline score changed')
+        singleton = {scenario['changed_ids'][0]: row['score_deltas']
+                     for scenario, row in zip(scenarios[:3], results[:3])}
+        require(all(
+            all(row['score_deltas'][field] == sum(singleton[case_id][field]
+                                                 for case_id in scenario['changed_ids'])
+                for field in ('all_four', *FIELDS))
+            for scenario, row in zip(scenarios[3:], results[3:])),
+            f'{ident}: combined delta is not the sum of distinct cases')
+        case_effects = {}
+        for scenario in scenarios[:3]:
+            row = next(item for item in scenario['extended_run_deltas'] if item['id'] == ident)
+            require(len(row['changed_case_effects']) == 1,
+                    f'{ident}: singleton sensitivity case absent')
+            effect = row['changed_case_effects'][0]
+            field = next(item['field'] for item in scenario['changed_labels'])
+            detail = effect['field_effects'].get(field)
+            case_effects[effect['id']] = {
+                'status': effect['status'],
+                'prediction': effect['prediction'][field] if effect['prediction'] else None,
+                'saved_match': detail['saved_match'] if detail else None,
+                'hypothetical_match': detail['hypothetical_match'] if detail else None,
+                'all_four_delta': effect['all_four_delta'],
+            }
+        runs.append({
+            'id': ident, 'model': run['model'], 'condition': run['condition'],
+            'repeat_pass': run['repeatPass'], 'surface': run['surface'],
+            'valid': run['scores']['valid'], 'saved_all_four': run['scores']['all_four'],
+            'saved_field_scores': {field: run['scores'][field] for field in FIELDS},
+            'source_report_url': source['source_report_url'],
+            'source_report_sha256': source['source_report_sha256'],
+            'case_effects': case_effects,
+            'single_case_deltas': {
+                scenario['changed_ids'][0]: {
+                    'all_four': row['score_deltas']['all_four'],
+                    scenario['changed_labels'][0]['field']:
+                        row['score_deltas'][scenario['changed_labels'][0]['field']],
+                }
+                for scenario, row in zip(scenarios[:3], results[:3])
+            },
+        })
+    native_sources = {source['id']: source for source in result['native_seven_run_sources']}
+    native_models = json.loads(native_bytes)['models']
+    native = []
+    for model in native_models:
+        ident = model['id']
+        source = native_sources[ident]
+        require(source['source_sha256'] == model['source_sha256'] and
+                source['source_path'] == model['source_path'],
+                f'{ident}: native source identity changed')
+        rows = [next(row for row in scenario['native_seven_run_deltas'] if row['id'] == ident)
+                for scenario in scenarios]
+        require(all(row['saved_scores']['all_four'] == model['all_four_matches']
+                    for row in rows), f'{ident}: native baseline score changed')
+        require(all(
+            row['score_deltas']['all_four'] == sum(
+                rows[index]['score_deltas']['all_four']
+                for index, single in enumerate(scenarios[:3])
+                if single['changed_ids'][0] in scenario['changed_ids'])
+            for scenario, row in zip(scenarios[3:], rows[3:])),
+            f'{ident}: native combined delta is not additive')
+        native.append({
+            'id': ident, 'display_name': model['display_name'],
+            'saved_all_four': model['all_four_matches'],
+            'source_path': source['source_path'], 'source_sha256': source['source_sha256'],
+            'single_case_deltas': {scenario['changed_ids'][0]: row['score_deltas']['all_four']
+                                   for scenario, row in zip(scenarios[:3], rows[:3])},
+        })
+    return {
+        'schema': 'reference-sensitivity-public-v1',
+        'reference_status': result['reference_status'],
+        'meaning': result['meaning'],
+        'findings_path': str(OUTPUT / 'findings.json'),
+        'findings_sha256': findings_sha256,
+        'source_sha256': result['source_sha256'],
+        'denominator_per_run': result['denominator_per_run'],
+        'alternatives': result['alternatives'],
+        'scenario_summaries': [
+            {'id': scenario['id'], 'changed_ids': scenario['changed_ids'],
+             'extended_summary': scenario['extended_summary'],
+             'native_seven_summary': scenario['native_seven_summary']}
+            for scenario in scenarios
+        ],
+        'extended_runs': runs,
+        'native_seven_runs': native,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='Compare generated bytes without writing')
     args = parser.parse_args()
     result = analysis()
-    files = {ROOT / OUTPUT / 'findings.json': json.dumps(result, indent=2, ensure_ascii=False) + '\n',
-             ROOT / OUTPUT / 'README.md': readme(result)}
+    findings = json.dumps(result, indent=2, ensure_ascii=False) + '\n'
+    projection = public_projection(result, sha256(findings.encode()).hexdigest())
+    files = {ROOT / OUTPUT / 'findings.json': findings,
+             ROOT / OUTPUT / 'README.md': readme(result),
+             ROOT / PUBLIC_OUTPUT: json.dumps(projection, separators=(',', ':'), ensure_ascii=False) + '\n'}
     if args.check:
         for path, content in files.items():
             require(path.read_text() == content, f'Generated sensitivity output differs: {path}')

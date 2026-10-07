@@ -1,4 +1,5 @@
 import json
+from hashlib import sha256
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
@@ -71,6 +72,30 @@ class ReferenceSensitivityTests(unittest.TestCase):
             path.write_text(json.dumps(proposal))
             with self.assertRaisesRegex(ValueError, 'Documented alternative labels changed'):
                 sensitivity.reviewed_alternatives(revision_path=path)
+
+    def test_public_index_is_compact_and_reconstructs_every_scenario(self):
+        findings = json.dumps(self.result, indent=2, ensure_ascii=False) + '\n'
+        public = sensitivity.public_projection(self.result, sha256(findings.encode()).hexdigest())
+        self.assertEqual(public['findings_sha256'], sha256(findings.encode()).hexdigest())
+        self.assertEqual(len(public['extended_runs']), 637)
+        self.assertEqual(len(public['native_seven_runs']), 7)
+        self.assertLess(len(json.dumps(public, separators=(',', ':')).encode()), 750_000)
+        full = {scenario['id']: {row['id']: row for row in scenario['extended_run_deltas']}
+                for scenario in self.result['scenarios']}
+        native = {scenario['id']: {row['id']: row for row in scenario['native_seven_run_deltas']}
+                  for scenario in self.result['scenarios']}
+        for scenario in public['scenario_summaries']:
+            selected = scenario['changed_ids']
+            for run in public['extended_runs']:
+                expected = full[scenario['id']][run['id']]['score_deltas']
+                self.assertEqual(sum(run['single_case_deltas'][case]['all_four']
+                                     for case in selected), expected['all_four'])
+                for field in sensitivity.FIELDS:
+                    self.assertEqual(sum(run['single_case_deltas'][case].get(field, 0)
+                                         for case in selected), expected[field])
+            for run in public['native_seven_runs']:
+                self.assertEqual(sum(run['single_case_deltas'][case] for case in selected),
+                                 native[scenario['id']][run['id']]['score_deltas']['all_four'])
 
 
 if __name__ == '__main__':
