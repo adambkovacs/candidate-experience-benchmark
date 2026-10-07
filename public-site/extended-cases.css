@@ -1,0 +1,92 @@
+#case-panel .extended-case-run-names {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.6;
+  border-left: 3px solid var(--teal);
+  padding-left: 13px;
+  margin: 15px 0;
+}
+
+#case-panel .extended-case-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0 0 20px;
+  font-size: 11px;
+}
+
+#case-panel .extended-case-sources a {
+  color: var(--teal);
+  text-underline-offset: 3px;
+}
+
+#case-panel .extended-case-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  border-block: 1px solid var(--line);
+  padding: 18px 0;
+}
+
+#case-panel .extended-case-controls label { min-width: 0; }
+#case-panel .extended-case-controls label:last-child { grid-column: 1 / -1; }
+#case-panel .extended-case-controls select,
+#case-panel .extended-case-controls input { width: 100%; }
+
+#case-panel [role="status"] {
+  color: var(--muted);
+  font-size: 11px;
+  margin: 15px 0;
+}
+
+#case-panel .extended-case-list { display: grid; gap: 9px; }
+#case-panel .extended-case {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: #fffdf7;
+  padding: 0 14px;
+}
+
+#case-panel .extended-case summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 13px 2px;
+}
+
+#case-panel .extended-case[open] summary { border-bottom: 1px solid var(--line); }
+#case-panel .extended-case p { margin: 15px 0; overflow-wrap: anywhere; }
+#case-panel .extended-case table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 11px;
+  margin-bottom: 16px;
+}
+
+#case-panel .extended-case th,
+#case-panel .extended-case td {
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 5px;
+}
+
+#case-panel .extended-case thead th { color: var(--muted); font-weight: 700; }
+#case-panel .extended-case tbody th { font-weight: 600; }
+
+@media (max-width: 700px) {
+  #case-panel .extended-case-controls { grid-template-columns: 1fr; }
+  #case-panel .extended-case-controls label:last-child { grid-column: auto; }
+  #case-panel .extended-case { padding: 0 9px; }
+  #case-panel .extended-case th,
+  #case-panel .extended-case td { padding: 7px 3px; font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #case-panel .extended-case,
+  #case-panel .extended-case summary { scroll-behavior: auto; transition: none; }
+}

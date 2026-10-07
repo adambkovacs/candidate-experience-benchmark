@@ -474,6 +474,19 @@
   function renderCases(run) {
     const all = state.data.cases.filter(item => item.configuration === run.id);
     const panel = $('#case-panel');
+    if (run.sourceFamily && globalThis.BenchmarkExtendedCases) {
+      const requestedRun = run.id;
+      panel.innerHTML = '<p class="loading">Loading saved answers for this run…</p>';
+      globalThis.BenchmarkExtendedCases.load('./extended-cases-v1.json').then(feed => {
+        if (state.selectedId === requestedRun) globalThis.BenchmarkExtendedCases.render(panel, feed, requestedRun);
+      }).catch(error => {
+        if (state.selectedId !== requestedRun) return;
+        const source = url(run.sourceRecordsUrl);
+        panel.innerHTML = `<p class="empty-state">Saved answers could not be loaded. The source report remains available.</p>${source ? `<a class="detail-evidence" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Read the run report ↗</a>` : ''}`;
+        console.error('Extended case feed error:', error);
+      });
+      return;
+    }
     if (!all.length) {
       const source=url(run.sourceRecordsUrl);
       panel.innerHTML=run.sourceFamily
