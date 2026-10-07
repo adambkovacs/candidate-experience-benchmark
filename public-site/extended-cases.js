@@ -10,14 +10,109 @@
     sentiment: 'Sentiment', follow_up_needed: 'Follow-up needed',
     serious_concern_reported: 'Serious concern', testimonial_potential: 'Testimonial potential'
   };
+  const CHOICES = {sentiment: ['positive', 'negative', 'mixed', 'neutral', 'insufficient_information'],
+    follow_up_needed: ['yes', 'no', 'insufficient_information'],
+    serious_concern_reported: ['yes', 'no', 'insufficient_information'],
+    testimonial_potential: ['yes', 'no', 'insufficient_information']};
+  const BASE_URL = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/';
   const cachedFeeds = new Map();
 
   function validate(data) {
-    if (!data || !['extended-cases-v1', 'additional-cases-v1'].includes(data.schema) || !Array.isArray(data.cases) ||
+    if (!data || !['extended-cases-v1', 'additional-cases-v1', 'unified-cases-v1'].includes(data.schema) || !Array.isArray(data.cases) ||
         data.cases.length !== 60 || !Array.isArray(data.runs) || !data.coverage) {
       throw new Error('Case feed has an unexpected format');
     }
     return data;
+  }
+
+  function sameReference(a, b) {
+    return a.id === b.id && a.feedback === b.feedback &&
+      FIELDS.every(field => a.reference?.[field] === b.reference?.[field]);
+  }
+
+  function checkedCases(runId, rows, canonical, expected, allowInvalidRaw = false) {
+    if (!Array.isArray(rows) || rows.length !== 60) throw new Error(`${runId}: expected 60 case positions`);
+    const byId = new Map();
+    const scores = {valid:0, all_four:0, ...Object.fromEntries(FIELDS.map(field => [field, 0]))};
+    rows.forEach(row => {
+      if (byId.has(row.id) || !canonical.has(row.id) || typeof row.status !== 'string' || !row.status) {
+        throw new Error(`${runId}: duplicate, unknown, or unlabelled case position`);
+      }
+      const valid = row.status === 'ok' || row.status === 'valid';
+      const prediction = valid ? row.prediction : null;
+      if (valid && (!prediction || typeof prediction !== 'object' || Array.isArray(prediction) ||
+          Object.keys(prediction).length !== FIELDS.length ||
+          FIELDS.some(field => !CHOICES[field].includes(prediction[field])))) {
+        throw new Error(`${runId}/${row.id}: invalid four-field answer`);
+      }
+      if (valid) {
+        scores.valid += 1;
+        const reference = canonical.get(row.id).reference;
+        scores.all_four += Number(FIELDS.every(field => prediction[field] === reference[field]));
+        FIELDS.forEach(field => { scores[field] += Number(prediction[field] === reference[field]); });
+      } else if (!allowInvalidRaw && row.prediction !== null) {
+        throw new Error(`${runId}/${row.id}: invalid outcome has a projected answer`);
+      }
+      byId.set(row.id, {id:row.id, status:row.status,
+        prediction:prediction ? Object.fromEntries(FIELDS.map(field => [field, prediction[field]])) : null});
+    });
+    if (byId.size !== 60 || FIELDS.concat(['valid', 'all_four']).some(field =>
+        scores[field] !== expected[field])) throw new Error(`${runId}: case score differs from saved run`);
+    return Array.from(canonical.keys(), id => byId.get(id));
+  }
+
+  function combine(base, extended, additional) {
+    validate(extended); validate(additional);
+    if (base?.denominator !== 60 || !Array.isArray(base.runs) || !Array.isArray(base.cases)) {
+      throw new Error('Main saved-run feed has an unexpected format');
+    }
+    const cases = extended.cases;
+    const canonical = new Map(cases.map(item => [item.id, item]));
+    if (canonical.size !== 60 || additional.cases.length !== 60 ||
+        new Set(additional.cases.map(item => item.id)).size !== 60 ||
+        additional.cases.some(item => !canonical.has(item.id) || !sameReference(item, canonical.get(item.id)))) {
+      throw new Error('Case feeds disagree on the 60 reviews or provisional references');
+    }
+    const baseRows = new Map();
+    base.cases.forEach(item => {
+      const reference = canonical.get(item.id);
+      if (!reference || item.feedback !== reference.feedback ||
+          FIELDS.some(field => item.reference?.[field] !== reference.reference[field])) {
+        throw new Error('Main feed review or reference differs from case feeds');
+      }
+      if (!baseRows.has(item.configuration)) baseRows.set(item.configuration, []);
+      baseRows.get(item.configuration).push(item);
+    });
+    const baseRuns = base.runs.filter(run => baseRows.has(run.id));
+    if (baseRuns.length !== 290 || baseRows.size !== 290) {
+      throw new Error('Main saved-run identities do not reconcile');
+    }
+    const mainUrl = BASE_URL + 'public-site/data-provider-errors-v1.json';
+    const normalizedBase = baseRuns.map(run => {
+      if (!run.evidenceUrl?.startsWith(BASE_URL)) throw new Error(`${run.id}: source link unavailable`);
+      return {runId:run.id, sourceStage:run.id, model:run.model, effort:run.effort,
+        condition:run.condition, repeatPass:null, provider:run.provider || null,
+        surface:run.surface, referenceVersion:'0.2', sourceReportUrl:mainUrl,
+        sourceReportLabel:'public run feed', sourceReportSha256:null,
+        sourceRecordUrl:run.evidenceUrl, sourceRecordSha256:null,
+        sourceRecordParts:[{url:run.evidenceUrl, sha256:null}],
+        scores:{valid:run.valid, ...run.metrics},
+        cases:checkedCases(run.id, baseRows.get(run.id), canonical,
+          {valid:run.valid, ...run.metrics}, true)};
+    });
+    const joined = [...normalizedBase, ...extended.runs, ...additional.runs].map(run =>
+      ({...run, cases:checkedCases(run.runId, run.cases, canonical, run.scores)}));
+    const ids = new Set();
+    joined.forEach(run => {
+      if (!run.runId || ids.has(run.runId)) throw new Error('Case feeds contain a repeated run identity');
+      ids.add(run.runId);
+      if (!run.sourceReportUrl?.startsWith(BASE_URL) || !run.sourceRecordUrl?.startsWith(BASE_URL)) {
+        throw new Error(`${run.runId}: public evidence link unavailable`);
+      }
+    });
+    if (joined.length !== 1004) throw new Error('Saved-run case coverage is incomplete');
+    return {schema:'unified-cases-v1', cases, runs:joined,
+      coverage:{catalogRuns:1004, caseRuns:1004, reportOnlyRuns:0, gaps:[]}};
   }
 
   function load(url = 'extended-cases-v1.json') {
@@ -35,8 +130,8 @@
   }
 
   function runLabel(run) {
-    return [run.model, run.effort, run.condition, run.repeatPass, run.surface,
-      run.sourceStage].filter(Boolean).join(' · ');
+    return [...new Set([run.model, run.effort, run.condition, run.repeatPass, run.surface,
+      run.sourceStage, run.runId].filter(Boolean))].join(' · ');
   }
 
   function statusLabel(status) {
@@ -132,10 +227,12 @@
       return;
     }
     const run = initial.run;
-    const comparisonScope = data.schema === 'additional-cases-v1'
+    const comparisonScope = data.schema === 'unified-cases-v1'
+      ? `The comparison chooser includes all ${data.runs.length} saved runs.`
+      : data.schema === 'additional-cases-v1'
       ? `The comparison chooser includes ${data.runs.length} first-pass and native runs.`
       : `The comparison chooser includes ${data.runs.length} report-backed repeat and continuation runs.`;
-    const header = element('p', `The same 60 development reviews · human-checked provisional labels v0.2. Each choice is one saved run, including its prompt, pass, and route. ${comparisonScope}`);
+    const header = element('p', `The same 60 development reviews · human-checked provisional labels v0.2. Each choice is one saved run, including its prompt, pass, and route. ${comparisonScope} Different routes and controls are separate configurations; an A/B difference does not establish a causal model effect.`);
     const runNames = element('p', undefined, 'extended-case-run-names');
     const sourceLinks = element('div', undefined, 'extended-case-sources');
     container.append(header, runNames, sourceLinks);
@@ -185,7 +282,7 @@
     const list = element('div', undefined, 'extended-case-list');
     container.append(controls, count, list);
     function appendSources(label, selectedRun) {
-      const report = element('a', `${label} run report`);
+      const report = element('a', `${label} ${selectedRun.sourceReportLabel || 'run report'}`);
       report.href = selectedRun.sourceReportUrl;
       report.target = '_blank';
       report.rel = 'noopener noreferrer';
@@ -217,7 +314,8 @@
         const card = element('details', undefined, 'extended-case');
         const summary = element('summary', `${item.id} · ${selected.compareRun && item.outcomeDiffers
           ? item.betweenFields.length ? differenceLabel(item.betweenFields.length, 'A/B ')
-            : 'A/B answer availability differs'
+            : Boolean(item.prediction) !== Boolean(item.comparisonPrediction)
+              ? 'A/B answer availability differs' : 'A/B saved statuses differ'
           : item.prediction === null
           ? `no valid answer (${statusLabel(item.status)})`
           : item.differingFields.length
@@ -264,5 +362,5 @@
     update();
   }
 
-  return { FIELDS, validate, load, view, runLabel, comparisonOptions, render };
+  return { FIELDS, validate, load, combine, view, runLabel, comparisonOptions, render };
 });

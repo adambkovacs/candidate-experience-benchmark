@@ -471,23 +471,9 @@
   function caseCard(item) {
     return `<article class="case-card"><div class="case-head"><span>RECORD ${esc(item.id || '—')}</span><span>${esc(readableValue(item.status || ''))}</span></div><blockquote>${esc(item.feedback || 'Comment unavailable')}</blockquote><div class="case-result"><div><strong>REFERENCE</strong><span>${esc(caseValue(item.reference))}</span></div><div><strong>MODEL OUTPUT</strong><span>${esc(caseValue(item.prediction))}</span></div></div>${Array.isArray(item.different_fields) && item.different_fields.length ? `<p class="note">Decisions that differ: ${esc(item.different_fields.map(key => decisionLabels[key] || readableValue(key)).join(', '))}</p>` : ''}</article>`;
   }
-  function renderCases(run) {
+  function renderCasesLegacy(run) {
     const all = state.data.cases.filter(item => item.configuration === run.id);
     const panel = $('#case-panel');
-    if ((run.sourceFamily || run.sourceOnlyDetails) && globalThis.BenchmarkExtendedCases) {
-      const requestedRun = run.id;
-      const caseFeed = run.sourceFamily ? './extended-cases-v1.json' : './additional-cases-v1.json';
-      panel.innerHTML = '<p class="loading">Loading saved answers for this run…</p>';
-      globalThis.BenchmarkExtendedCases.load(caseFeed).then(feed => {
-        if (state.selectedId === requestedRun) globalThis.BenchmarkExtendedCases.render(panel, feed, requestedRun);
-      }).catch(error => {
-        if (state.selectedId !== requestedRun) return;
-        const source = url(run.sourceRecordsUrl);
-        panel.innerHTML = `<p class="empty-state">Saved answers could not be loaded. The source report remains available.</p>${source ? `<a class="detail-evidence" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Read the run report ↗</a>` : ''}`;
-        console.error('Extended case feed error:', error);
-      });
-      return;
-    }
     if (!all.length) {
       const source=url(run.sourceRecordsUrl);
       panel.innerHTML=run.sourceFamily
@@ -516,6 +502,43 @@
       $('#case-select').value=String(requestedIndex);
       $('#case-current').innerHTML=caseCard(matches[requestedIndex]);
     }
+  }
+  let unifiedCasePromise;
+  function unifiedCaseFeed() {
+    if (!unifiedCasePromise) {
+      unifiedCasePromise=Promise.all([
+        globalThis.BenchmarkExtendedCases.load('./extended-cases-v1.json'),
+        globalThis.BenchmarkExtendedCases.load('./additional-cases-v1.json')
+      ]).then(([extended,additional]) => globalThis.BenchmarkExtendedCases.combine(state.data,extended,additional))
+        .catch(error => {unifiedCasePromise=null;throw error;});
+    }
+    return unifiedCasePromise;
+  }
+  function renderCases(run) {
+    if (!globalThis.BenchmarkExtendedCases) return renderCasesLegacy(run);
+    const panel=$('#case-panel'),requestedRun=run.id;
+    panel.innerHTML='<p class="loading">Loading saved answers for this run…</p>';
+    unifiedCaseFeed().then(feed => {
+      if (state.selectedId === requestedRun) globalThis.BenchmarkExtendedCases.render(panel,feed,requestedRun);
+    }).catch(error => {
+      if (state.selectedId !== requestedRun) return;
+      if (state.data.cases.some(item => item.configuration === requestedRun)) renderCasesLegacy(run);
+      else {
+        const ownFeed=run.sourceFamily ? './extended-cases-v1.json'
+          : run.sourceOnlyDetails ? './additional-cases-v1.json' : null;
+        const showSource=() => {
+          if (state.selectedId !== requestedRun) return;
+          const source=url(run.sourceRecordsUrl);
+          panel.innerHTML=`<p class="empty-state">Saved answers could not be loaded. The public source remains available.</p>${source ? `<a class="detail-evidence" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Read the saved source ↗</a>` : ''}`;
+        };
+        if (ownFeed) globalThis.BenchmarkExtendedCases.load(ownFeed)
+          .then(feed => {
+            if (state.selectedId === requestedRun) globalThis.BenchmarkExtendedCases.render(panel,feed,requestedRun);
+          }).catch(showSource);
+        else showSource();
+      }
+      console.error('Unified case feed error:',error);
+    });
   }
   function resourceSection(title,rows,note) {return `<section class="resource-group"><h5>${esc(title)}</h5><dl class="data-list">${rows.join('')}</dl>${note ? `<p class="note">${esc(note)}</p>` : ''}</section>`;}
   function timingRows(timing,run) {
