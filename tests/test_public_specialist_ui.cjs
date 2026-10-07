@@ -30,12 +30,13 @@ function fixture() {
   return {ui: context.__overview, elements};
 }
 
-test('ranking defaults to all routes and points to saved specialist outcomes', () => {
+test('the all-model ranking can show every route and saved specialist outcome', () => {
   assert.match(html, /<select id="overview-surface"><option value="all">All routes<\/option>/);
-  assert.match(html, /id="overview-specialists"[^>]*>See local specialists/);
+  assert.match(html, /id="overview-specialists"[^>]*>See local routes/);
   assert.match(html, /A complete run saved a result for all 60 comments/);
   assert.doesNotMatch(html, /id="overview-hosted"/);
   const {ui, elements} = fixture();
+  ui.state.cohort = 'all';
   ui.renderOverview();
   assert.match(elements['#overview-count'].textContent, /4 of 4 complete P0 runs shown/);
   assert.match(elements['#overview-rows'].innerHTML, /semif-direct/);
@@ -45,9 +46,10 @@ test('ranking defaults to all routes and points to saved specialist outcomes', (
 
 test('local route filter keeps complete specialists including invalid outcomes', () => {
   const {ui, elements} = fixture();
+  ui.state.cohort = 'all';
   elements['#overview-surface'].value = 'local';
   ui.renderOverview();
-  assert.match(elements['#overview-count'].textContent, /2 of 2 complete local specialist P0 runs shown/);
+  assert.match(elements['#overview-count'].textContent, /2 of 2 complete local P0 runs shown/);
   assert.match(elements['#overview-rows'].innerHTML, /semif-direct/);
   assert.match(elements['#overview-rows'].innerHTML, /laya-expanded/);
   assert.doesNotMatch(elements['#overview-rows'].innerHTML, /hosted/);
@@ -56,4 +58,17 @@ test('local route filter keeps complete specialists including invalid outcomes',
   ui.renderOverview();
   assert.match(elements['#overview-count'].textContent, /2 of 2 complete hosted \/ API P0 runs shown/);
   assert.doesNotMatch(elements['#overview-rows'].innerHTML, /semif-direct/);
+});
+
+test('report-backed local routes do not appear under hosted results', () => {
+  const {ui, elements} = fixture();
+  ui.state.cohort = 'all';
+  ui.state.data.runs.push({id:'extended-local-stage',condition:'P0',complete:true,records:60,valid:60,
+    metrics:{all_four:41},surface:'Local native MPS',model:'Local model',sourceFamily:'local-repeats'});
+  elements['#overview-surface'].value = 'local';
+  ui.renderOverview();
+  assert.match(elements['#overview-rows'].innerHTML,/extended-local-stage/);
+  elements['#overview-surface'].value = 'hosted';
+  ui.renderOverview();
+  assert.doesNotMatch(elements['#overview-rows'].innerHTML,/extended-local-stage/);
 });

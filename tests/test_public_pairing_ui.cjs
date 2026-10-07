@@ -193,7 +193,7 @@ test('incomplete run keeps its fixed-denominator count as an explicit partial ta
   assert.match(conditionGrid(), /All four match · NOT A FINAL SCORE/);
   ui.renderLedger();
   assert.match(ledger(), /42<\/strong><small> \/ 60 · partial tally, not final<\/small>/);
-  assert.match(ledger(), /59 \/ 60 saved · 1 missing/);
+  assert.match(ledger(), /59 \/ 60 saved · 1 without a saved response/);
 });
 
 test('resource and individual-run pickers contain the same saved runs and selection', () => {

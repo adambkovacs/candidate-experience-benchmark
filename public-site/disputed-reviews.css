@@ -1,0 +1,45 @@
+.disputed-reviews { padding-block: clamp(45px,6vw,85px); background: var(--paper); border-block: 1px solid var(--line); }
+.disputed-reviews .section-intro { margin-bottom: 28px; }
+.disputed-reviews .section-intro h2 { max-width: 22ch; }
+.disputed-reviews-shell { display: grid; grid-template-columns: minmax(300px,.82fr) minmax(0,1.4fr); gap: 0; border: 1px solid var(--line); background: #fff; }
+.disputed-review-list-panel { min-width: 0; border-right: 1px solid var(--line); }
+.disputed-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; padding: 22px; border-bottom: 1px solid var(--line); background: #f4f8fc; }
+.disputed-controls label { display: grid; gap: 6px; min-width: 0; color: var(--ink); font-size: 12px; font-weight: 600; line-height: 1.35; }
+.disputed-controls input,.disputed-controls select { min-width: 0; width: 100%; min-height: 40px; padding: 7px 9px; border: 1px solid #adbfd0; border-radius: 2px; background: #fff; color: var(--ink); font-size: 13px; font-weight: 400; }
+.disputed-count { margin: 0; padding: 13px 22px; border-bottom: 1px solid var(--line); color: var(--muted); font: 500 12px/1.5 var(--mono); }
+.disputed-list { max-height: 690px; overflow-y: auto; scrollbar-color: #a6b9cc transparent; }
+.disputed-list button { display: block; width: 100%; padding: 15px 22px 16px; border: 0; border-bottom: 1px solid var(--line); border-left: 4px solid transparent; border-radius: 0; background: #fff; color: var(--ink); text-align: left; cursor: pointer; }
+.disputed-list button:hover { background: #f3f7fb; }
+.disputed-list button[aria-pressed="true"] { border-left-color: var(--teal); background: var(--teal-pale); }
+.disputed-list-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font: 600 12px/1.5 var(--mono); }
+.disputed-list-meta span { color: var(--teal); white-space: nowrap; }
+.disputed-excerpt { display: -webkit-box; overflow: hidden; margin: 5px 0; font-size: 14px; line-height: 1.43; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.disputed-list small { color: var(--muted); font-size: 11px; line-height: 1.4; }
+.disputed-empty { margin: 0; padding: 25px 22px; color: var(--muted); }
+.disputed-detail { min-width: 0; padding: clamp(23px,3vw,38px); }
+.disputed-detail-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 7px 20px; }
+.disputed-detail-head .eyebrow { margin: 0; }
+.disputed-share { color: var(--teal); font-size: 12px; font-weight: 600; }
+.disputed-detail blockquote { margin: 20px 0 13px; padding: 0; border: 0; color: var(--ink); font: 400 clamp(20px,2vw,29px)/1.28 var(--quote); }
+.disputed-case-note { margin: 0 0 22px; color: var(--muted); font-size: 13px; }
+.disputed-answer-wrap { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); }
+.disputed-answer-wrap table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 12px; }
+.disputed-answer-wrap caption { padding: 11px 13px; caption-side: top; background: #f4f8fc; color: var(--muted); text-align: left; font-size: 12px; line-height: 1.4; }
+.disputed-answer-wrap th,.disputed-answer-wrap td { padding: 9px 10px; border: 1px solid var(--line); vertical-align: top; }
+.disputed-answer-wrap thead th { background: #e9f1f8; color: var(--ink); text-align: left; font-size: 11px; line-height: 1.2; }
+.disputed-answer-wrap tbody th { min-width: 120px; text-align: left; font-weight: 600; }
+.disputed-answer-wrap tbody th small { display: block; max-width: 180px; margin-top: 3px; color: var(--muted); font: 400 10px/1.35 var(--mono); overflow-wrap: anywhere; }
+.disputed-answer-wrap tbody td { overflow-wrap: anywhere; }
+.disputed-answer-wrap code { font: 500 11px/1.3 var(--mono); }
+.disputed-answer-wrap .reference { background: #eaf3e9; }
+.disputed-answer-wrap .focused { box-shadow: inset 3px 0 var(--teal); }
+.disputed-answer-wrap .differs { background: #fff3e8; }
+.diff-word { display: block; margin-top: 3px; color: #875022; font-size: 10px; font-weight: 700; }
+.disputed-sources { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 12px; font-size: 12px; }
+.disputed-sources summary { color: var(--teal); font-weight: 700; cursor: pointer; }
+.disputed-sources ul { padding-left: 18px; }
+.disputed-sources li { margin-block: 7px; overflow-wrap: anywhere; }
+.disputed-sources code { display: block; color: var(--muted); font: 10px/1.4 var(--mono); }
+.disputed-method { max-width: 110ch; margin: 19px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+@media (max-width: 950px) { .disputed-reviews-shell { grid-template-columns: 1fr; } .disputed-review-list-panel { border-right: 0; border-bottom: 1px solid var(--line); } .disputed-list { max-height: 340px; } }
+@media (max-width: 540px) { .disputed-controls { grid-template-columns: 1fr; padding: 15px; } .disputed-detail { padding: 18px; } .disputed-list button { padding-inline: 16px; } }

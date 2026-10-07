@@ -1,7 +1,10 @@
 (() => {
   'use strict';
   const $ = selector => document.querySelector(selector);
-  const state = {data:null,pricing:null,selectedId:null,experiments:new Map(),pairSelection:new Map(),overviewAll:false};
+  const query=typeof location==='undefined'||typeof URL==='undefined' ? {get:()=>null,has:()=>false} : new URL(location.href).searchParams;
+  const requestedCohort=query.get('cohort');
+  const initialCohort=['decision','general','all'].includes(requestedCohort) ? requestedCohort : query.has('run') ? 'all' : 'decision';
+  const state = {data:null,pricing:null,selectedId:null,experiments:new Map(),pairSelection:new Map(),overviewAll:false,cohort:initialCohort,customCategory:''};
   const optionalPricing = () => {
     const load=Promise.resolve().then(() => fetch('./subscription-price-estimates.json',{cache:'no-store'}))
       .then(response => response.ok ? response.json() : null).catch(() => null);
@@ -34,6 +37,43 @@
     return Promise.race([load, new Promise(resolve => {timer=setTimeout(() => resolve(null),3000);})])
       .finally(() => clearTimeout(timer));
   };
+  const optionalExtendedRuns = () => {
+    const load=Promise.resolve().then(()=>fetch('./extended-run-catalog-v1.json',{cache:'no-store'}))
+      .then(response=>response.ok ? response.json() : null).catch(()=>null);
+    if(typeof setTimeout!=='function') return load;
+    let timer;
+    return Promise.race([load,new Promise(resolve=>{timer=setTimeout(()=>resolve(null),8000);})])
+      .finally(()=>clearTimeout(timer));
+  };
+  function extendedCatalogRuns(report,existing=[]){
+    const prefix='https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/';
+    if(report?.schema!=='extended-run-catalog-v1'||!Number.isInteger(report.runCount)||
+      !Array.isArray(report.runs)||report.runs.length!==report.runCount||report.runs.length<1||report.runs.length>2000||
+      !report.sourceSha256||typeof report.sourceSha256!=='object'||
+      Object.entries(report.sourceSha256).some(([path,hash])=>!path.startsWith('public-site/')||!/^[a-f0-9]{64}$/.test(hash))) return [];
+    const seen=new Set(existing.map(run=>run.id));
+    const fields=['all_four','sentiment','follow_up_needed','serious_concern_reported','testimonial_potential'];
+    for(const run of report.runs){
+      const source=typeof run?.sourceRecordsUrl==='string'&&run.sourceRecordsUrl.startsWith(prefix)
+        ? run.sourceRecordsUrl.slice(prefix.length) : null;
+      if(typeof run?.id!=='string'||!run.id.startsWith('extended-')||seen.has(run.id)||
+        typeof run.model!=='string'||!run.model||!['P0','P1','P2'].includes(run.condition)||
+        typeof run.experimentId!=='string'||!run.experimentId||
+        typeof run.repeatPass!=='string'||!run.repeatPass||
+        typeof run.sourceFamily!=='string'||!run.sourceFamily||
+        typeof run.sourceStage!=='string'||!run.sourceStage||
+        run.sourceOnlyDetails!==true||run.records!==60||
+        !Number.isInteger(run.valid)||run.valid<0||run.valid>60||
+        (run.savedResponses!==null&&(!Number.isInteger(run.savedResponses)||run.savedResponses<run.valid||run.savedResponses>60))||
+        typeof run.complete!=='boolean'||
+        fields.some(field=>!Number.isInteger(run.metrics?.[field])||run.metrics[field]<0||run.metrics[field]>run.valid)||
+        !source||report.sourceSha256[source]!==run.sourceRecordSha256||
+        typeof run.evidenceUrl!=='string'||!run.evidenceUrl.startsWith(prefix)||
+        !run.timing||!run.tokens||!run.cost) return [];
+      seen.add(run.id);
+    }
+    return report.runs;
+  }
   function supplementalDecisionRuns(report, existing = []) {
     if (report?.schema !== 'supplemental-decision-runs-v1' || report.denominator !== 60 ||
         !Array.isArray(report.runs) || report.runs.length < 27 || report.runs.length > 63 ||
@@ -99,9 +139,16 @@
   const url = value => {try {const parsed = new URL(value);return ['https:','http:'].includes(parsed.protocol) ? parsed.href : null;} catch {return null;}};
   const has = value => n(value) !== null;
   const complete = run => run.complete === true && n(run.records) === 60;
-  const savedResponses = run => run.savedResponses ?? run.records;
+  const localRun = run => run.surface === 'Local / specialist' || /^Local\b/i.test(run.surface || '') || run.provider === 'local';
+  const savedResponses = run => run.sourceFamily ? run.savedResponses : run.savedResponses ?? run.records;
   const missing = run => n(savedResponses(run)) === null ? 'Unavailable' : count(Math.max(0, 60 - n(savedResponses(run))));
-  const tallyNote = run => complete(run) ? '' : `Partial tally: ${count(savedResponses(run))} of 60 saved, ${missing(run)} without a saved response; not a final score.`;
+  const savedSummary = run => has(savedResponses(run)) ? `${count(savedResponses(run))} / 60 saved` : 'saved-response count unavailable';
+  const missingSummary = run => has(savedResponses(run)) ? ` · ${missing(run)} without a saved response` : '';
+  const savedTag = run => has(savedResponses(run)) ? `${count(savedResponses(run))} / 60 SAVED` : 'SAVED-RESPONSE COUNT UNAVAILABLE';
+  const missingTag = run => has(savedResponses(run)) ? ` · ${missing(run)} WITHOUT A SAVED RESPONSE` : '';
+  const tallyNote = run => complete(run) ? '' : has(savedResponses(run))
+    ? `Partial tally: ${count(savedResponses(run))} of 60 saved, ${missing(run)} without a saved response; not a final score.`
+    : 'Partial tally: saved-response count unavailable; not a final score.';
   const metricName = {all_four:'All four match',sentiment:'Sentiment matches',follow_up_needed:'Follow-up matches',serious_concern_reported:'Serious concern matches',testimonial_potential:'Testimonial matches',valid:'Valid responses'};
   const score = run => $('#metric').value === 'valid' ? run.valid : run.metrics?.[$('#metric').value];
   const inferenceTime = timing => n(timing?.inferenceSeconds) !== null && n(timing?.inferenceReportedRequests) > 0 ? duration(timing.inferenceSeconds) : 'Unavailable';
@@ -302,18 +349,20 @@
   function renderOverview() {
     const condition=$('#overview-condition').value;
     const route=$('#overview-surface').value;
-    const runs=state.data.runs.filter(r=>r.condition===condition && complete(r) && n(r.metrics?.all_four)!==null && (route==='all' || (route==='local' ? r.surface==='Local / specialist' : r.surface!=='Local / specialist'))).sort((a,b)=>n(b.metrics.all_four)-n(a.metrics.all_four) || label(a).localeCompare(label(b)) || a.id.localeCompare(b.id));
+    const category=state.customCategory || (state.cohort==='all' ? '' : state.cohort);
+    const runs=state.data.runs.filter(r=>r.condition===condition && complete(r) && n(r.metrics?.all_four)!==null && (!category || modelType(r).categories.includes(category)) && (route==='all' || (route==='local' ? localRun(r) : !localRun(r)))).sort((a,b)=>n(b.metrics.all_four)-n(a.metrics.all_four) || label(a).localeCompare(label(b)) || a.id.localeCompare(b.id));
     const visible=state.overviewAll ? runs : runs.slice(0,8);
     const jev=runs.find(r=>r.id==='typesafe-jev113-v2' || r.nativeInstructionComparison === true);
     const fallback=state.data.runs.find(r=>r.id==='typesafe-jev113-v2');
-    const reference=route==='local' ? null : !state.overviewAll && jev && !visible.includes(jev) ? jev : !state.overviewAll && !jev && fallback ? fallback : null;
+    const reference=route==='local' ? null : !state.overviewAll && jev && !visible.includes(jev) ? jev : !state.overviewAll && !jev && fallback && (!category || modelType(fallback).categories.includes(category)) ? fallback : null;
     const row=(run,referenceRow=false)=>{
       const validText=has(run.valid) ? `${count(run.valid)} / 60 answers in the required format` : 'Required-format answers unavailable';
       return `<button type="button" class="overview-row${run.id===state.selectedId?' selected':''}${referenceRow?' reference':''}" data-overview-run="${esc(run.id)}" aria-label="Inspect ${esc(label(run))}, ${esc(run.condition)}, ${esc(run.metrics?.all_four)} of 60 matches, ${esc(validText)}"><span class="overview-row-name"><strong>${esc(run.model)}</strong><small>${esc([run.effort,run.surface,run.condition,run.id].filter(Boolean).join(' · '))}</small>${referenceRow ? `<em>${run.condition === condition ? 'Jev comparison row outside the first eight' : 'Jev P0 for context · different prompt version'}</em>` : ''}</span><span class="overview-row-track" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,n(run.metrics.all_four)/60*100))}%"></span></span><strong class="overview-row-score">${esc(run.metrics.all_four)} / 60</strong><small class="overview-row-cost">${esc(validText)} · ${esc(costSummary(run))}</small></button>`;
     };
     const extra=reference && !visible.includes(reference) ? row(reference,true) : '';
-    const routeLabel=route==='local' ? 'local specialist ' : route==='hosted' ? 'hosted / API ' : '';
-    $('#overview-count').textContent=`${state.overviewAll ? runs.length : Math.min(8,runs.length)} of ${runs.length} complete ${routeLabel}${condition} runs shown${extra ? reference.condition === condition ? ', plus Jev for comparison' : ', plus Jev P0 for context' : ''}.`;
+    const routeLabel=route==='local' ? 'local ' : route==='hosted' ? 'hosted / API ' : '';
+    const cohortLabel=category ? `${globalThis.BenchmarkCategories?.categories?.[category]||category} ` : '';
+    $('#overview-count').textContent=`${state.overviewAll ? runs.length : Math.min(8,runs.length)} of ${runs.length} complete ${routeLabel}${cohortLabel}${condition} runs shown${extra ? reference.condition === condition ? ', plus Jev for comparison' : ', plus Jev P0 for context' : ''}.`;
     $('#overview-rows').innerHTML=visible.map(r=>row(r)).join('')+extra || '<p class="empty-state">No complete runs match these settings.</p>';
     $('#overview-rows').querySelectorAll('[data-overview-run]').forEach(button=>button.addEventListener('click',()=>selectRun(button.dataset.overviewRun,true)));
     const toggle=$('#overview-toggle');toggle.hidden=runs.length<=8;toggle.textContent=state.overviewAll?'Show first eight':'Show all complete runs';toggle.setAttribute('aria-expanded',String(state.overviewAll));
@@ -336,7 +385,7 @@
       }
       const value = score(run);
       const status = complete(run) ? 'COMPLETE' : 'PARTIAL TALLY';
-      return `<button type="button" class="condition-card" data-condition-run="${esc(run.id)}" aria-pressed="${run.id === state.selectedId}"><span class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">${status} · ${esc(count(savedResponses(run)))} / 60 SAVED${complete(run) ? '' : ` · ${esc(missing(run))} WITHOUT A SAVED RESPONSE`}</span></span><span class="condition-score">${has(value) ? esc(value) : '—'}<small> / 60</small></span><span class="condition-track" aria-hidden="true"><span style="width:${has(value) ? Math.max(0,Math.min(100,n(value)/60*100)) : 0}%"></span></span><span class="condition-meta">${esc(metricName[chosen])}${complete(run) ? '' : ' · NOT A FINAL SCORE'} · ${esc(run.id)}</span></button>`;
+      return `<button type="button" class="condition-card" data-condition-run="${esc(run.id)}" aria-pressed="${run.id === state.selectedId}"><span class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">${status} · ${esc(savedTag(run))}${complete(run) ? '' : esc(missingTag(run))}</span></span><span class="condition-score">${has(value) ? esc(value) : '—'}<small> / 60</small></span><span class="condition-track" aria-hidden="true"><span style="width:${has(value) ? Math.max(0,Math.min(100,n(value)/60*100)) : 0}%"></span></span><span class="condition-meta">${esc(metricName[chosen])}${complete(run) ? '' : ' · NOT A FINAL SCORE'} · ${esc(run.id)}</span></button>`;
     }).join('');
     $('#condition-grid').querySelectorAll('[data-condition-run]').forEach(button => button.addEventListener('click',() => selectRun(button.dataset.conditionRun,true)));
     const nonpaired = runs.some(r => r.pairedEligible === false);
@@ -409,7 +458,7 @@
     const runs = visibleRuns();
     $('#result-count').textContent = `${runs.length} shown / ${state.data.runs.length} saved runs`;
     $('#score-heading').textContent = `${metricName[$('#metric').value].toUpperCase()} / 60`;
-    $('#comparison-list').innerHTML = runs.length ? runs.map(r => `<button type="button" class="comparison-row${r.id === state.selectedId ? ' selected' : ''}" data-run="${esc(r.id)}" aria-label="Inspect ${esc(label(r))}, ${esc(r.condition)}"><span class="run-name">${esc(r.model)}<span class="run-meta">${esc([modelType(r).categoryLabel,modelType(r).trainingLabel,modelType(r).interfaceLabel,r.effort,r.surface,complete(r)?null:`partial tally · ${count(r.records)} / 60 saved · ${missing(r)} missing`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(r.id)}</span></span><span>${esc(r.condition)}</span><span class="metric-value"><strong>${has(r.valid) ? esc(r.valid) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally'}</small></span><span class="metric-value"><strong>${has(score(r)) ? esc(score(r)) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally, not final'}</small></span><span class="run-runtime"><span>In ${esc(count(runTokens(r).input))} · Out ${esc(count(runTokens(r).output))}</span><small>Reasoning ${esc(count(runTokens(r).reasoning))} · ${esc(costSummary(r))}</small>${n(r.cost?.unknownUpperBoundUsd) > 0 ? `<small>Possible extra charge ≤ ${esc(money(r.cost.unknownUpperBoundUsd))}</small>` : ''}<small>Inference ${esc(inferenceTime(r.timing))}${providerGenerationTime(r.timing) ? ` · Provider generation ${esc(providerGenerationTime(r.timing))}` : ''}</small></span></button>`).join('') : '<p class="empty-state">No runs match these filters. Clear the search or show runs with missing records.</p>';
+    $('#comparison-list').innerHTML = runs.length ? runs.map(r => `<button type="button" class="comparison-row${r.id === state.selectedId ? ' selected' : ''}" data-run="${esc(r.id)}" aria-label="Inspect ${esc(label(r))}, ${esc(r.condition)}"><span class="run-name">${esc(r.model)}<span class="run-meta">${esc([modelType(r).categoryLabel,modelType(r).trainingLabel,modelType(r).interfaceLabel,r.effort,r.surface,complete(r)?null:`partial tally · ${savedSummary(r)}${missingSummary(r)}`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(r.id)}</span></span><span>${esc(r.condition)}</span><span class="metric-value"><strong>${has(r.valid) ? esc(r.valid) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally'}</small></span><span class="metric-value"><strong>${has(score(r)) ? esc(score(r)) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally, not final'}</small></span><span class="run-runtime"><span>In ${esc(count(runTokens(r).input))} · Out ${esc(count(runTokens(r).output))}</span><small>Reasoning ${esc(count(runTokens(r).reasoning))} · ${esc(costSummary(r))}</small>${n(r.cost?.unknownUpperBoundUsd) > 0 ? `<small>Possible extra charge ≤ ${esc(money(r.cost.unknownUpperBoundUsd))}</small>` : ''}<small>Inference ${esc(inferenceTime(r.timing))}${providerGenerationTime(r.timing) ? ` · Provider generation ${esc(providerGenerationTime(r.timing))}` : ''}</small></span></button>`).join('') : '<p class="empty-state">No runs match these filters. Clear the search or show runs with missing records.</p>';
     $('#comparison-list').querySelectorAll('[data-run]').forEach(button => button.addEventListener('click',() => selectRun(button.dataset.run,true)));
   }
   const decisionLabels = {sentiment:'Sentiment',follow_up_needed:'Follow-up needed',serious_concern_reported:'Serious concern reported',testimonial_potential:'Testimonial potential'};
@@ -427,7 +476,9 @@
     const panel = $('#case-panel');
     if (!all.length) {
       const source=url(run.sourceRecordsUrl);
-      panel.innerHTML=run.sourceOnlyDetails
+      panel.innerHTML=run.sourceFamily
+        ? `<p class="empty-state">This report-backed stage records the same 60-comment test. Individual predictions are not bundled in this explorer; the linked public report identifies the stage and its available evidence.</p>${source ? `<a class="detail-evidence" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Read the stage report and its source links ↗</a>` : ''}`
+        : run.sourceOnlyDetails
         ? `<p class="empty-state">This explorer has not loaded individual predictions for this run. The ${esc(count(savedResponses(run)))} recorded outputs are available in the source file; the linked report records its SHA-256 hash.</p>${source ? `<a class="detail-evidence" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Read the individual source records ↗</a>` : '<p class="note">The public record link is unavailable for this run.</p>'}`
         : '<p class="empty-state">No individual comments are available for this run.</p>';
       return;
@@ -501,7 +552,7 @@
     $('#compare-run-select').value=Array.from($('#compare-run-select').options).some(option=>option.value===id) ? id : '';
     const evidence=url(run.evidenceUrl);
     const trainingEvidence=url(modelType(run).trainingSource);
-    $('#run-detail').innerHTML=`<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([run.effort,run.surface,run.condition].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${complete(run)?'':' partial'}">${complete(run)?'COMPLETE':'PARTIAL TALLY'} · ${esc(count(savedResponses(run)))} / 60 SAVED${complete(run) ? '' : ` · ${esc(missing(run))} WITHOUT A SAVED RESPONSE · NOT FINAL`} · ${has(run.valid) ? `${esc(count(run.valid))} / 60 VALID` : 'VALID COUNT UNAVAILABLE'}</span></div><div class="detail-stats"><div class="detail-stat"><span>${complete(run) ? 'VALID / 60' : 'PARTIAL TALLY: VALID / 60'}</span><strong>${has(run.valid)?esc(run.valid):'—'}</strong><small>Responses in the required format</small></div><div class="detail-stat"><span>${complete(run) ? 'ALL FOUR MATCH / 60' : 'PARTIAL TALLY: ALL FOUR MATCH / 60'}</span><strong>${has(metrics.all_four)?esc(metrics.all_four):'—'}</strong><small>All decisions match the reference</small></div><div class="detail-stat"><span>${complete(run) ? 'SENTIMENT MATCHES / 60' : 'PARTIAL TALLY: SENTIMENT MATCHES / 60'}</span><strong>${has(metrics.sentiment)?esc(metrics.sentiment):'—'}</strong><small>Matches the saved reference</small></div><div class="detail-stat"><span>INPUT TOKENS</span><strong>${esc(count(tokens.input))}</strong><small>${tokens.complete === false ? 'Known usage only' : 'Reported usage'}</small></div></div><div class="detail-lower"><div><h4>${complete(run) ? 'Scores and resource use' : 'Recorded tallies and resource use'}</h4>${complete(run) ? '' : `<p class="note">${esc(tallyNote(run))}</p>`}<dl class="data-list">${dataRow(`${complete(run) ? '' : 'Partial tally: '}Sentiment matches / 60`,count(metrics.sentiment))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Follow-up matches / 60`,count(metrics.follow_up_needed))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Serious concern matches / 60`,count(metrics.serious_concern_reported))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Testimonial matches / 60`,count(metrics.testimonial_potential))}</dl>${timingRows(timing,run)}${tokenRows(tokens,run)}${costRows(cost,run)}${run.resultStatus ? `<p class="note">Result status: ${esc(run.resultStatus)}</p>` : ''}${comparisonNote(run)}${trainingEvidence ? `<a class="detail-evidence" href="${esc(trainingEvidence)}" target="_blank" rel="noopener noreferrer">Read the training-lineage source ↗</a>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Read the source report ↗</a>` : ''}</div><div><h4>Individual comments</h4><div id="case-panel"></div></div></div>`;
+    $('#run-detail').innerHTML=`<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([run.effort,run.surface,run.condition].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${complete(run)?'':' partial'}">${complete(run)?'COMPLETE':'PARTIAL TALLY'} · ${esc(savedTag(run))}${complete(run) ? '' : `${esc(missingTag(run))} · NOT FINAL`} · ${has(run.valid) ? `${esc(count(run.valid))} / 60 VALID` : 'VALID COUNT UNAVAILABLE'}</span></div><div class="detail-stats"><div class="detail-stat"><span>${complete(run) ? 'VALID / 60' : 'PARTIAL TALLY: VALID / 60'}</span><strong>${has(run.valid)?esc(run.valid):'—'}</strong><small>Responses in the required format</small></div><div class="detail-stat"><span>${complete(run) ? 'ALL FOUR MATCH / 60' : 'PARTIAL TALLY: ALL FOUR MATCH / 60'}</span><strong>${has(metrics.all_four)?esc(metrics.all_four):'—'}</strong><small>All decisions match the reference</small></div><div class="detail-stat"><span>${complete(run) ? 'SENTIMENT MATCHES / 60' : 'PARTIAL TALLY: SENTIMENT MATCHES / 60'}</span><strong>${has(metrics.sentiment)?esc(metrics.sentiment):'—'}</strong><small>Matches the saved reference</small></div><div class="detail-stat"><span>INPUT TOKENS</span><strong>${esc(count(tokens.input))}</strong><small>${tokens.complete === false ? 'Known usage only' : 'Reported usage'}</small></div></div><div class="detail-lower"><div><h4>${complete(run) ? 'Scores and resource use' : 'Recorded tallies and resource use'}</h4>${complete(run) ? '' : `<p class="note">${esc(tallyNote(run))}</p>`}<dl class="data-list">${dataRow(`${complete(run) ? '' : 'Partial tally: '}Sentiment matches / 60`,count(metrics.sentiment))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Follow-up matches / 60`,count(metrics.follow_up_needed))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Serious concern matches / 60`,count(metrics.serious_concern_reported))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Testimonial matches / 60`,count(metrics.testimonial_potential))}</dl>${timingRows(timing,run)}${tokenRows(tokens,run)}${costRows(cost,run)}${run.resultStatus ? `<p class="note">Result status: ${esc(run.resultStatus)}</p>` : ''}${comparisonNote(run)}${trainingEvidence ? `<a class="detail-evidence" href="${esc(trainingEvidence)}" target="_blank" rel="noopener noreferrer">Read the training-lineage source ↗</a>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Read the source report ↗</a>` : ''}</div><div><h4>Individual comments</h4><div id="case-panel"></div></div></div>`;
     renderCases(run);renderFieldComparison(run);renderUsage(run);renderLedger();renderOverview();renderExperiment();
     if (scroll) $('#inspect').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
   }
@@ -545,17 +596,23 @@
       const response=await fetch('./data-provider-errors-v1.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
       const data=await response.json();if(!Array.isArray(data.runs)||n(data.denominator)!==60)throw new Error('Invalid public data');
       state.data={...data,runs:data.runs.filter(r => r?.id && ['P0','P1','P2'].includes(r.condition)),cases:Array.isArray(data.cases)?data.cases:[],roster:Array.isArray(data.roster)?data.roster:[]};
-      const [pricing,sonnet55,clef,decisionRuns]=await Promise.all([optionalPricing(),optionalSonnet55(),optionalClef(),optionalDecisionRuns()]);
+      const [pricing,sonnet55,clef,decisionRuns,extendedRuns]=await Promise.all([optionalPricing(),optionalSonnet55(),optionalClef(),optionalDecisionRuns(),optionalExtendedRuns()]);
       if (pricing?.schema === 'subscription-price-estimates-v1' && pricing.runs && typeof pricing.runs === 'object') state.pricing=pricing;
       state.data.runs.push(...sonnet55FirstPassRuns(sonnet55).filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
       const clefRuns=clefFirstPassRuns(clef);
       state.data.runs.push(...clefRuns.filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
       renderClefFirstPass(clefRuns,clef);
       state.data.runs.push(...supplementalDecisionRuns(decisionRuns,state.data.runs));
+      const catalogRuns=extendedCatalogRuns(extendedRuns,state.data.runs);
+      state.data.runs.push(...catalogRuns);
+      const catalogStatus=$('#extended-run-status');
+      if(catalogStatus) catalogStatus.innerHTML=catalogRuns.length
+        ? `${catalogRuns.length} additional report-backed stages are available in the chart and run explorer. <a href="./extended-run-catalog-v1.json">View their source-bound catalog</a>.`
+        : 'Report-backed repeat and continuation stages could not be loaded or verified. Their <a href="#repeat-analysis">separate reports remain available below</a>; the chart and run explorer are incomplete.';
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;
       groups();renderExperimentSelect();renderModelSelect();renderSectionRunPickers();
       ['#overview-condition','#overview-surface'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));
-      $('#overview-specialists').addEventListener('click',()=>{$('#overview-surface').value='local';state.overviewAll=true;renderOverview();});
+      $('#overview-specialists').addEventListener('click',()=>{$('#overview-surface').value='local';globalThis.BenchmarkReportNavigation?.setCohort('all');state.overviewAll=true;renderOverview();});
       $('#overview-toggle').addEventListener('click',()=>{state.overviewAll=!state.overviewAll;renderOverview();});
       $('#compare-search').addEventListener('input',renderModelSelect);
       $('#compare-run-select').addEventListener('change',event=>{if(event.target.value)selectRun(event.target.value,false);});
@@ -578,7 +635,18 @@
       }
       $('#clear-run-filters')?.addEventListener('click', () => {
         for (const id of ['#search','#condition-filter','#surface-filter','#family-filter','#effort-filter','#category-filter','#training-filter','#interface-filter']) { const control=$(id); if(control) control.value=''; }
-        $('#include-incomplete').checked=false; renderLedger();
+        $('#include-incomplete').checked=false; globalThis.BenchmarkReportNavigation?.setCohort('all'); renderLedger();
+      });
+      globalThis.addEventListener('benchmark:cohortchange',event=>{
+        state.cohort=event.detail.cohort;state.customCategory=event.detail.category||'';state.overviewAll=false;
+        const chosen=state.data.runs.find(run=>run.id===state.selectedId);
+        const category=state.customCategory || (state.cohort==='all' ? '' : state.cohort);
+        if(!event.detail.initial && chosen && category && !modelType(chosen).categories.includes(category)){
+          const replacement=state.data.runs.find(run=>run.condition===chosen.condition && complete(run) && modelType(run).categories.includes(category)) ||
+            state.data.runs.find(run=>complete(run) && modelType(run).categories.includes(category));
+          if(replacement){selectRun(replacement.id,false);return;}
+        }
+        renderOverview();
       });
       $('#experiment-select').addEventListener('change',() => {const group=state.experiments.get($('#experiment-select').value)||[];const lead=group.find(r=>r.condition==='P0')||group[0];if(lead)selectRun(lead.id,false);else renderExperiment();});
       $('#metric').addEventListener('change',() => {renderExperiment();renderLedger();if(state.selectedId)selectRun(state.selectedId,false);});
