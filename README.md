@@ -19,7 +19,7 @@ The expanded explorer lets you choose **decision models, general-purpose LLMs, o
 
 The new [review comparison](results/disputed-reviews-v1/README.md) shows all 60 comments and the exact first-pass answers from seven native decision models. Filter for potential testimonials or a particular decision field to see which models disagreed with the frozen reference. That view deliberately uses one pass per model, so a model with more repeat runs does not receive extra weight.
 
-The [release reconciliation](docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md) maps the current evidence, denominators, findings and limits. A [meetup presentation preview](https://adambkovacs.github.io/candidate-experience-benchmark/presentation.html) is being published from the same saved results; rendered verification remains pending.
+The [release reconciliation](docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md) maps the current evidence, denominators, findings and limits. A [meetup presentation preview](https://adambkovacs.github.io/candidate-experience-benchmark/presentation.html) is published from the same saved results; final desktop, mobile and keyboard verification remains pending.
 
 Five findings are useful when planning a classification pilot:
 

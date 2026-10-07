@@ -12,3 +12,7 @@ This checks the public release required by [the goal](APP_GOAL.md). Record the d
 8. Follow source links from a difficult review, a prompt comparison, a repeat example and a cost example. Confirm the selected run and review resolve, the displayed values match their stated source and unavailable inference measurements are not presented as observed speed.
 
 Save pass/fail observations and exact reproduction steps. Fix reachable feature failures before final publication sign-off. Do not remove the presentation preview label or declare visual verification complete until the required checks have evidence.
+
+## Published preview checkpoint
+
+Deployment [37663310311](https://github.com/adambkovacs/candidate-experience-benchmark/actions/runs/37663310311) succeeded for `1a92880f`. Root verified the live presentation HTML, JavaScript and CSS against that commit. Nine automated presentation tests and independent factual/code review passed. These checks do not complete the rendered checklist above. A human check was requested on 7 October because the browser tool rejected navigation and prohibited alternate-browser workarounds.
