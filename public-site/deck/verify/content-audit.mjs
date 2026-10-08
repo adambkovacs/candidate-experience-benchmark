@@ -14,10 +14,10 @@ import { join } from 'node:path';
 import { SITE, REPO, arg, serve, launch, openDeck, listSlides, showFully, settle, table } from './lib.mjs';
 
 const pagePath = arg('page', 'presentation.html');
-const MAIN = 18;
-const BEATS = [1, 1, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8]; // slide -> beat in outline section 2b
+const MAIN = 19;
+const BEATS = [1, 1, 2, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8]; // slide -> beat in outline section 2b
 const COPY_MAX = 75;
-const COPY_EXCEPTIONS = {};
+const COPY_EXCEPTIONS = { monday: 'closing slide also carries the @ruvector/typesafe line the lead asked for (rUv speaks next)' };
 const files = new Map();
 const load = async path => {
   if (!files.has(path)) files.set(path, path.endsWith('.json') ? JSON.parse(await readFile(join(SITE, path), 'utf8')) : await readFile(join(REPO, path), 'utf8'));

@@ -30,7 +30,7 @@ Every number is agreement with the frozen provisional v0.2 reference on the same
 
 ## 2. Run of show
 
-Clock is the start time of each beat. Word budgets are for spoken notes only; measured counts are in section 7. The spoken ceiling is 1,700 words; v3 measures 1,674, so the talk lands at about 14:35 with the three audience moments and a 0:25 buffer. The cut order in section 6 frees about a minute more.
+Clock is the start time of each beat. Word budgets are for spoken notes only; measured counts are in section 7. The spoken ceiling is 1,700 words; v3.1 measures 1,684, so the talk lands at about 14:35 with the three audience moments and a 0:25 buffer. The cut order in section 6 frees about a minute more.
 
 | Beat | Clock | Length | Slides | On the slide (at most 75 words of copy) plus the visual | Engagement | Budget | Sources for every number |
 |-|-|-|-|-|-|-|-|
@@ -71,7 +71,9 @@ Proof one: the gap is five reviews. [bars] Jev matched the key on all four field
 
 Now cost. [cards] A Jev pass over all 60 reviews cost about six tenths of a cent, and that's a known provider charge from the OpenRouter pass. The Opus pass was about 22 cents, and that one is an API-equivalent estimate. So that's roughly four to forty times the spend for five more matches. And credit where it's due: Jev caught all 25 reviews where the key flags a serious concern, including the one I read you. But on that review Jev said nobody needed to follow up, at 0.49 confidence.
 
-Typed output fixes the format. It doesn't fix the decision. These models mostly gave the same answer every time, so a wrong answer is the same wrong answer at scale, with no variance to warn you. Miss that report, or publish the wrong testimonial, and the candidate tells X and Reddit how they were treated, it trends, and good luck with building your brilliant startup without being able to hire good people willing to work for you. You get a typed answer at a fraction of a cent, and you give up the last few percent.
+And the general models taught me a few things. More effort didn't buy matches: Gemini 3.1 Pro at high effort cost four times as much and matched one fewer. They were the ones that answered can't tell on the soup. And the frontier models mostly gave the same answers, wrong ones included, so a second frontier model is a weak check.
+
+Typed output fixes the format. It doesn't fix the decision. These models mostly gave the same answer every time, so a wrong answer is the same wrong answer at scale, with no variance to warn you. Miss that report, or publish the wrong testimonial, and the candidate tells X and Reddit how they were treated, it trends, and good luck with building your brilliant startup without being able to hire good people willing to work for you.
 [/notes]
 
 [notes beat=5]
@@ -99,7 +101,7 @@ The rule. Agree or defer. Two cheap models on every review, accept only identica
 
 I fixed the rule before computing any pair, then looked at all 21 pairs of the seven decision models. Five pairs let zero errors through. [S15 sorts] Solar Decide plus Perplexity Decider agreed on 53 and sent 7 to a person, for under four cents for both, and I picked it after seeing all 21, so it's an example. It deferred the soup, the three disputed labels and the 0.96 testimonial, and both got the harassment review right, so the rule overrules Jev's miss.
 
-Zero errors on these 60 is not zero errors on the next 60. And agreement only helps when the models fail differently: six of the 21 pairs accepted the soup with the same wrong answer. A second frontier model is a weak check for the same reason: seven models from three vendors gave one identical answer set, differing from our key only on the three disputed labels.
+Zero errors on these 60 is not zero errors on the next 60. And agreement only helps when the models fail differently: six of the 21 pairs accepted the soup with the same wrong answer.
 
 The rule is two cheap models that agree. [S15 re-sorts] Across 853 costed pairs, Qwen 27B low plus Gemma 26B thinking-on accepted 58 with zero errors and deferred 2, for about seven cents observed, though other Gemma passes let one error through.
 
@@ -224,12 +226,12 @@ Produced by `scripts/count-notes.ts` (bun) over the `[notes beat=N]` blocks, wit
 | 1 Cold open and answer | 121 | 125 |
 | 2 Bio | 56 | 55 |
 | 3 Decision models and the launch wave | 144 | 145 |
-| 4 What we did and proof 1 | 333 | 335 |
+| 4 What we did and proof 1 | 375 | 375 |
 | 5 Proof 2 | 270 | 270 |
 | 6 Proof 3 | 270 | 280 |
-| 7 The rule | 296 | 300 |
+| 7 The rule | 264 | 300 |
 | 8 The tool and the Monday recipe | 184 | 185 |
-| Total | 1,674 | 1,695 |
+| Total | 1,684 | 1,735 |
 
 ## 8. Integrated from 01b, and what is still open
 
@@ -287,6 +289,7 @@ Still open after v2.1:
 | v3, 13-deck-brief-review.md | The twelve-word cap is revoked: `content-audit.mjs` check 4 now fails a main slide over 75 words of `[data-copy]`. Every main slide carries its talking point as full sentences in Adam's register, quoting the site where the review said so. Three main slides added: S4 What a decision model is (beat 3), S6 What we did and S9 Why five reviews matter (beat 4). The prompt slide (now S14) has three columns: a longer prompt, a majority vote, fine-tuning. Engagement prompts are on screen on S2, S10 and S16. Ledes on A1, A2, A3, A9; new headlines on A11 and A12. Beat 3 adds the decision-model paragraph and the Vercel line. Beat 4 is reordered so the test comes before proof 1, and the typed-output paragraph moves to S9. Beat 6 drops the 0.71 aside and the repeated per-review-gate sentence, and adds the vote, fine-tuning and second-opinion sentences. Stage directions renumbered for the 18-slide deck. Spoken total 1,674. |
 | v3, Adam's slide feedback (00-adam-brief.md, c6a7d921) | Applied: meta captions removed ("the orange point", "one of 60 synthetic reviews"); the rainbow glyph off the byline, the bio and the flip-card backs; the orange portrait, Chief AI Strategist and the Agentics Foundation lines on S3, with the talent-intelligence line dropped from the slide and from beat 2; the explanatory sublines under the cost cards removed; the launch-wave caption names what the small ticks are; S12 says how to read a card; "gate" is defined on S13 and A4; S18 and its notes are in the first person; the A19 survey cards stay off the main deck; eyebrows use a colon instead of a middle dot. Not applied in this pass, pending the lead: removing the source footers and the replay badges, the A6, A7 and A10 to A12 rework, and the classification-bench status update. |
 | v3, review corrections | The review's suggested S12 footer, "five of Jev's six misses are in this set", is true of the site's six (which include DEV-056) but the deck's six are exactly Jev's six misses, so the slide says that. The review's "about 40 models" is the bound "39 hosted and subscription setups" (docs/FINDINGS.md). P0 is described as the base task, because P0 already carries the rubric (docs/FINDINGS.md). The review's "200 labels per class" is "around 200 labels", as 07 §6 words it. |
+| v3.1, lead rulings and Adam's slide feedback | 19 main slides: S9 "What the general models taught us" is new (Gemini effort pair, 89 of 113 on the soup, 44 runs from 7 families with one answer set, 31 of 50 against 11 of 202 unchanged groups), so the slides numbered S9 to S18 above are now S10 to S19. Source footers and replay pills are hidden on screen and stay in the DOM as provenance; the rainbow rail and ladder are hidden; card rails are neutral; labels and blue text moved to paper white or ink-200. Title carries "Agentics Foundation Meetup, Budapest, 8 October 2026"; bio uses the lead's titles; the cost headline states $0.006 and $0.22 with no known/estimate tags; the harness slide states its current state; the close carries the @ruvector/typesafe line. Appendix cut to 15: A6 cost, A11 rare classes, A12 general pairs (moved to S9) and A19 survey cards removed; A7 limits rewritten as plain facts; the 21-pairs table gets a purpose sentence. Beat 4 adds the general-models paragraph and drops the "last few percent" sentence; beat 7 drops the frontier-check sentence, now on S9. Spoken total 1,684. |
 
 ## 10. Script output
 
@@ -295,15 +298,15 @@ $ bun run scripts/count-notes.ts docs/talk/05-session-outline.md
 beat 1: 121
 beat 2: 56
 beat 3: 144
-beat 4: 333
+beat 4: 375
 beat 5: 270
 beat 6: 270
-beat 7: 296
+beat 7: 264
 beat 8: 184
-total: 1674
+total: 1684
 
 $ bun run ~/.claude/skills/anti-slop/scripts/audit-slop.ts docs/talk/05-session-outline.md
-Total Words: 12071
+Total Words: 12081
 Slop Instances: 0
 NO-SLOP Score: 100.0%
 

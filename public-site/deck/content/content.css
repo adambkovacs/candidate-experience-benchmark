@@ -524,3 +524,32 @@
 .c-fix-figs { grid-template-columns: 300px minmax(0, 1fr); }
 .c-s11 .c-stairs { margin-top: 40px; }
 .c-s7 .c-prompt { max-width: 860px; background: var(--ink); }
+
+/* v3 batch 3 (Adam's slide feedback, lead rulings): no visible source lines, no replay pills, no rainbow motif,
+   neutral rails, no blue text on navy for body copy and labels. Footers stay in the DOM as machine-readable provenance. */
+.reveal .slides section .d-source { display: none !important; }
+.c-replay-badge { display: none !important; }
+.d-rail, .d-ladder { display: none !important; }
+.c-card, .c-cost, .c-questions div, .c-fix, .c-hard { border-top-color: var(--ink-600) !important; }
+.c-label, .c-legend, .c-foot, .d-eyebrow, .c-mx figcaption span, .c-mx-score small, .c-mx-grid > i, .c-hard footer, .c-hard-key span, .c-hard-key i,
+.c-key > span, .c-key small, .c-front li span, .c-jev li span, .c-queue-head, .c-node small, .c-tread span, .c-index h3, .c-qr figcaption,
+.c-histo-inset figcaption, .c-hbar small, .c-callout small, .c-keep, .c-gate-legend, .c-tick, .c-qual, .c-cell-note, .c-axis { color: var(--ink-200) !important; }
+.c-punch, .c-ask, .c-s12 h2 em, .c-prompt small, .c-ask small, .c-bio .c-bio-links, .c-index a, .d-title h1 em, .c-gate-readout { color: var(--paper) !important; }
+.c-prompt { border-color: var(--ink-300); }
+/* Hard-six cards: each answer under its question. */
+.c-hard-key b::before { display: block; font: 500 16px/1.2 var(--mono); letter-spacing: .06em; text-transform: none; color: var(--ink-200); }
+.c-hard-key b:nth-of-type(1)::before { content: 'Sentiment?'; }
+.c-hard-key b:nth-of-type(2)::before { content: 'Follow up?'; }
+.c-hard-key b:nth-of-type(3)::before { content: 'Serious concern?'; }
+.c-hard-key b:nth-of-type(4)::before { content: 'Testimonial?'; }
+.c-hard-key i { display: none; }
+.c-hard-key { gap: 6px 18px; }
+/* S9 general models */
+.c-gm h2 { font-size: 54px; max-width: 34ch; }
+.c-gm-list { margin-top: 30px; }
+.c-gm-list li { font-size: 30px; color: var(--paper); padding: 16px 0; }
+.reveal .slides section.c-a h2 + .c-say { margin-top: 10px; }
+.c-hard-key > span { display: none; }
+.c-hard-key { flex-wrap: nowrap; gap: 0 14px; }
+.c-hard-key b:nth-of-type(2)::before { content: 'Follow-up?'; }
+.c-hard-key b:nth-of-type(3)::before { content: 'Concern?'; }
