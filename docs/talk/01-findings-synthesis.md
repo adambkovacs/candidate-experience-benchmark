@@ -71,7 +71,7 @@ Opus 5.5 high (first pass) matched five of Jev's six misses and kept all 54 of J
 | Serious concern | 3/60 | 53 | 1 (DEV-029, conf 0.91) | 7 (5) |
 | Testimonial | 2/60 | 54 | 1 (DEV-027, conf 0.96) | 6 (5) |
 
-Wrong-case confidences, P0: sentiment DEV-013 0.33, DEV-027 0.71, DEV-029 0.46, DEV-030 0.53; follow-up DEV-029 0.84, DEV-059 0.49; serious concern DEV-006 0.71, DEV-029 0.91, DEV-030 0.59; testimonial DEV-027 0.96, DEV-029 0.88. Provider confidence and selected-option probability are different numbers (DEV-029 serious concern: 0.91 confidence, 0.94 option probability). Pooled over Jev's 720 field answers in three prompt stages, both are close to calibrated on average (expected calibration error 0.011 for confidence, 0.015 for option probability; `docs/talk/scripts/s08_confidence.py`), yet these single answers are confidently wrong.
+Wrong-case confidences, P0: sentiment DEV-013 0.33, DEV-027 0.71, DEV-029 0.46, DEV-030 0.53; follow-up DEV-029 0.84, DEV-059 0.49; serious concern DEV-006 0.71, DEV-029 0.91, DEV-030 0.59; testimonial DEV-027 0.96, DEV-029 0.88. Provider confidence and selected-option probability are different numbers (DEV-029 serious concern: 0.91 confidence, 0.94 option probability). Pooled over Jev's 720 field answers in three prompt stages on these 60 reviews, both are close to calibrated on average (expected calibration error 0.011 for confidence, 0.015 for option probability; `docs/talk/scripts/s08_confidence.py`; descriptive-only, because the pooled answers share the same 60 texts), yet these single answers are confidently wrong.
 
 Other decision models show the same pattern: Solar Decide first-P0 sentiment at ≥0.9 retains 31/60 including 3 errors (DEV-013, DEV-027, DEV-030); at ≥0.99 retains 16 including 2 errors. Tev first-P0 sentiment at ≥0.9 retains 41/60 including 4 errors. Clef's first P0 misses DEV-029 on follow-up, serious concern and testimonial with provider confidence at least 0.9.
 
@@ -249,9 +249,9 @@ Histogram of mismatching-model counts across the 60 reviews: 26 reviews with 0, 
 | Liquid d1 | 43 | $0.01568912 |
 | Tev 1 4B | 45 | $0.016342872 |
 | Solar Decide | 55 | $0.02206700 |
-| Clef | 54 | $0.03184656 (list-price input estimate; 132,694 input tokens, 0 output) |
+| Clef | 54 | $0.03184656 (known provider charge via OpenRouter, `docs/talk/06-cost-check.md`; 132,694 input tokens, 0 output) |
 
-Frontier (no other run both cheaper and at least as good): Flash, Luna, Perplexity, Solar. Perplexity's 54 at $0.0154 removes Clef's 54 at $0.0318 from the frontier. Full nine-run series charges: Perplexity $0.14296, Tev $0.151342128, Solar $0.20325475 (plus one $0.10485760 unknown-charge bound), Luna $0.1304487, Clef Flash $0.11649969 (plus $0.02359296 bound), Clef $0.31128624 (estimate).
+Frontier (no other run both cheaper and at least as good): Flash, Luna, Perplexity, Solar. Perplexity's 54 at $0.0154 removes Clef's 54 at $0.0318 from the frontier. Full nine-run series charges: Perplexity $0.14296, Tev $0.151342128, Solar $0.20325475 (plus one $0.10485760 unknown-charge bound), Luna $0.1304487, Clef Flash $0.11649969 (plus $0.02359296 bound), Clef $0.31128624 (known provider charge, `docs/talk/06-cost-check.md`).
 
 Gemini effort example (same 11,227 input tokens, batch of 10): Gemini 3.1 Pro low 56/60, 3,417 output tokens, $0.063458; high 55/60, 19,531 output tokens, $0.256826. Gemini 3.7 Flash low 57/60, $0.02167275; medium 56/60, $0.0559665. Sonnet 5.5 xhigh used 2.47x low's output tokens across nine cells (83,131 vs 33,653) without a consistent gain.
 
@@ -259,7 +259,7 @@ Jev: $0.00589 per 60-review pass (OpenRouter known charge; direct route is a tok
 
 **Sources.** `docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md` (component table and frontier), `public-site/native-agreement-policy-v1.json`, `results/clef-openrouter-v1/findings-v1/findings.json` (`stages`), `docs/FINDINGS.md` ("Higher effort can cost more without adding matches"), `docs/ANALYSIS_REFRESH_2026-10-02.md`, `public-site/subscription-price-estimates.json`.
 
-**Why it matters.** The entire 60-review decision-model study cost about $1.20 across seven models and 63 runs ($1.2013: known charges plus Clef's $0.3113 list-price estimate), plus up to $0.13 in unknown-charge bounds (Solar $0.1049, Clef Flash $0.0236). Cost is not the constraint; deciding what to do with the deferred 10% is.
+**Why it matters.** The entire 60-review decision-model study cost about $1.20 across seven models and 63 runs ($1.2013 in known provider charges, Clef included, per `docs/talk/06-cost-check.md`), plus up to $0.13 in unknown-charge bounds (Solar $0.1049, Clef Flash $0.0236). Cost is not the constraint; deciding what to do with the deferred 10% is.
 
 **Confidence.** solid for observed charges; descriptive-only for frontier membership (seven runs, one pass each).
 
@@ -312,7 +312,7 @@ Gemini effort pair (Insight 14) is also slide-safe: 3.1 Pro low 56/60 $0.063458 
 - **Not causal.** No prompt effect, effort effect, architecture effect or model-family effect is established. Paired comparisons are audited for pairing, not randomized. Say "in these saved runs".
 - **Not real-world accuracy.** 60 synthetic, AI-written, concern-enriched reviews. Nothing here estimates performance on real candidate feedback, prevalence of concerns, or demographic fairness.
 - **Reference is provisional.** Human-checked on 2 October 2026, still v0.2, three labels disputed, one proposed correction (DEV-006) not adopted. Say "matched the provisional reference", never "accurate" or "correct" without that qualifier.
-- **Missing cost is unknown, not zero.** Subscription CLI runs have API-equivalent estimates, not bills. Jev direct is a token-price estimate. Clef/Flash/Luna charges are input-tariff estimates with zero output tokens. Local runs have no per-run cost. Do not put Jev's estimate and Gemini's observed charge on one scatter as if they were the same quantity.
+- **Missing cost is unknown, not zero.** Subscription CLI runs have API-equivalent estimates, not bills. Jev direct is a token-price estimate. Clef, Clef Flash and Luna charges are known provider charges billed through OpenRouter, with zero output tokens (`docs/talk/06-cost-check.md`), not input-tariff estimates. Local runs have no per-run cost. Do not put Jev's estimate and Gemini's observed charge on one scatter as if they were the same quantity.
 - **No speed ranking across surfaces.** Client request time includes network, CLI, batch and operator handoff. Jev's old "2.2 minutes" was 61 client requests including a failure. Pure inference time is unavailable for every surface. Never say "Jev is faster".
 - **No pooling.** 1,004 selectable run entries reuse the same 60 reviews. Do not say "60,240 reviews" or "1,004 experiments". Do not add counts from different cohorts.
 - **Do not count invalid outputs out.** Every score is out of 60 with invalid, failed and unsent positions retained. Do not quote "47/51 among valid" without the fixed-denominator figure beside it.
@@ -338,7 +338,7 @@ Gemini effort pair (Insight 14) is also slide-safe: 3.1 Pro low 56/60 $0.063458 
 
 Proposed answer, grounded in this set and stated as a policy to test, not a validated result.
 
-**Single-model confidence is not the gate.** On Jev P0, no threshold below 0.97 removes the DEV-027 testimonial error, and no threshold below 0.92 removes the DEV-029 serious-concern error. Reaching 0.9 on sentiment zeroes Jev's sentiment errors but withholds 13 of 60 reviews, 9 of which were right. Solar at 0.99 still retains two sentiment errors in 16 retained answers. Provider "confidence" and selected-option probability disagree (0.91 vs 0.94 on the same answer); Jev's are calibrated on average (expected calibration error 0.011) but not on these reviews. Threshold policy therefore buys coverage loss faster than error removal on this data.
+**Single-model confidence is not the gate.** On Jev P0, no threshold below 0.97 removes the DEV-027 testimonial error, and no threshold below 0.92 removes the DEV-029 serious-concern error. Reaching 0.9 on sentiment zeroes Jev's sentiment errors but withholds 13 of 60 reviews, 9 of which were right. Solar at 0.99 still retains two sentiment errors in 16 retained answers. Provider "confidence" and selected-option probability disagree (0.91 vs 0.94 on the same answer); Jev's confidence is calibrated on average on these 60 reviews (expected calibration error 0.011, descriptive-only), still 0.96 on a wrong testimonial. Threshold policy therefore buys coverage loss faster than error removal on this data.
 
 **Agreement is the gate that worked here.** The fixed rule "accept only when two independent decision models return the identical four-field answer, otherwise defer" produced five zero-error accepted sets among 21 pairs:
 
@@ -373,7 +373,7 @@ Sources: `public-site/native-agreement-policy-v1.json`, `public-site/jev-confide
 
 - **Real feedback.** Only 60 synthetic, concern-enriched reviews exist; the 340 planned validation, ordinary and challenge records were never generated. Nothing here estimates performance, prevalence or fairness on real candidate text.
 - **Reference truth.** The key is v0.2, human-checked but still provisional. DEV-013 and DEV-030 sentiment need human adjudication. DEV-006 has a proposed but unadopted correction. Until a versioned v0.3 is adopted, every one-point difference is inside the label noise.
-- **Calibration.** No model's confidence or option probability has demonstrated calibration. The threshold tables are retrospective counts, not reliability curves on held-out data.
+- **Calibration.** No model's confidence or option probability has demonstrated calibration on held-out or real data; Jev's expected calibration error of 0.011 is descriptive-only, measured on the same 60 reviews. The threshold tables are retrospective counts, not reliability curves on held-out data.
 - **Inference time.** Pure server inference latency is unavailable on every surface. Client request time mixes network, batch size, CLI and operator time. No speed claim is possible.
 - **Cost on a real workflow.** Observed charges cover 60 reviews. Human review cost of deferred cases, subscription quota, local hardware and operator time are not measured. The agreement-policy cost excludes the human queue entirely.
 - **Causality.** No controlled experiment isolates prompt wording, reasoning effort, model family or interface type. Serving revision, seed, hidden retries and provider routing are unobserved.
@@ -384,4 +384,6 @@ Sources: `public-site/native-agreement-policy-v1.json`, `public-site/jev-confide
 
 ---
 
-Corrections 2026-10-08: DEV-029 "mixed" sentiment came from four decision models, not five; five of 21 agreement pairs (not four) kept zero accepted errors, Liquid + Solar added; the seven-model study total is $1.2013 including Clef's list-price estimate, plus up to $0.13 unknown, not "under $1.20"; Opus 5.5 high has three P0 passes (59, 58, 58), not one; the 16 error-retaining agreement pairs erred on 12 reviews, not only DEV-006, DEV-029 and DEV-030 (section 6); Jev's confidence is calibrated on average (expected calibration error 0.011 over 720 field answers), not uncalibrated, while still wrong at 0.96 (DEV-027 testimonial) and 0.91 (DEV-029 serious concern, answered "no").
+Corrections 2026-10-08: DEV-029 "mixed" sentiment came from four decision models, not five; five of 21 agreement pairs (not four) kept zero accepted errors, Liquid + Solar added; the seven-model study total is $1.2013 in known charges, plus up to $0.13 unknown, not "under $1.20"; Opus 5.5 high has three P0 passes (59, 58, 58), not one; the 16 error-retaining agreement pairs erred on 12 reviews, not only DEV-006, DEV-029 and DEV-030 (section 6); Jev's confidence is calibrated on average on these 60 reviews (expected calibration error 0.011 over 720 field answers, descriptive-only), not uncalibrated, while still wrong at 0.96 (DEV-027 testimonial) and 0.91 (DEV-029 serious concern, answered "no").
+
+Corrections 2026-10-08, second pass: Clef's $0.03184656 per pass and $0.31128624 nine-run series, and the Clef Flash and Luna charges, are known provider charges billed through OpenRouter, not estimates (`docs/talk/06-cost-check.md` section 1; insight 14 and section 4); every calibration statement now says "on these 60 reviews" and descriptive-only, and section 6 no longer says Jev is calibrated "but not on these reviews", which contradicted an ECE measured on these reviews (insight 3, sections 6 and 7).
