@@ -108,7 +108,7 @@ test('partial rows never contribute scores, and malformed closed rows fail close
 });
 
 test('markup has accessible controls, axes, source caveat, and reduced-motion rule', () => {
-  const html = fs.readFileSync(path.join(root, 'public-site/index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(root, 'public-site/explore.html'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'public-site/outcome-chart.css'), 'utf8');
   for (const id of ['outcome-chart', 'outcome-condition', 'outcome-category', 'outcome-coordinate', 'outcome-run', 'outcome-plot', 'outcome-run-detail']) {
     assert.match(html, new RegExp(`id="${id}"`));

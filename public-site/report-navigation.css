@@ -1,22 +1,21 @@
-.report-lens { padding-block: clamp(44px, 5vw, 72px); border-block: 1px solid var(--line); background: #f3f7fb; }
+/* Results chapter opener. Token-based so it reads on the navy shell or on paper. */
+.report-lens { padding-block: clamp(44px, 5vw, 72px); border-block: 1px solid var(--line); background: transparent; }
 .report-lens .section-intro { margin-bottom: 25px; }
 .report-lens .section-intro h2 { max-width: 19ch; }
-.report-cohort-controls { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0; border: 1px solid #aebfd1; background: var(--paper); }
-.report-cohort-controls button { min-height: 106px; padding: 19px 23px 20px; text-align: left; border: 0; border-right: 1px solid var(--line); border-top: 4px solid transparent; border-radius: 0; background: transparent; color: var(--ink); cursor: pointer; transition: background .18s ease; }
-.report-cohort-controls button:last-child { border-right: 0; }
-.report-cohort-controls button:hover { background: #ecf3fa; }
-.report-cohort-controls button[aria-pressed="true"] { border-top-color: var(--teal); background: var(--teal-pale); }
-.report-cohort-controls strong { display: block; font: 700 clamp(17px,1.7vw,21px)/1.2 var(--display); letter-spacing: -.025em; }
+.report-cohort-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.report-cohort-controls button { position: relative; min-height: 106px; padding: 20px 22px; text-align: left; border: 1px solid var(--line); border-radius: 16px; background: rgba(140, 192, 255, .03); color: var(--ink); cursor: pointer; transition: background-color .3s cubic-bezier(.22,1,.36,1), border-color .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.32,.72,0,1); }
+.report-cohort-controls button:hover { background: var(--teal-pale); transform: translateY(-2px); }
+.report-cohort-controls button:active { transform: scale(.985); }
+.report-cohort-controls button[aria-pressed="true"] { border-color: var(--teal); background: var(--teal-pale); box-shadow: inset 0 3px 0 var(--teal); }
+.report-cohort-controls strong { display: block; font: 700 clamp(17px, 1.7vw, 21px)/1.2 var(--display); letter-spacing: -.025em; }
 .report-cohort-controls span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.4; }
-.report-lens-count { margin: 19px 0 2px; color: var(--ink); font: 600 14px/1.5 var(--mono); }
+.report-lens-count { margin: 19px 0 2px; color: var(--ink); font: 600 14px/1.5 var(--mono); font-variant-numeric: tabular-nums; }
 .report-lens-note { max-width: 100ch; margin: 0; color: var(--muted); font-size: 13px; }
 .report-source-status { margin: 9px 0 0; color: var(--muted); font-size: 12px; }
 .report-route { display: flex; flex-wrap: wrap; gap: 0 22px; margin-top: 25px; padding-top: 15px; border-top: 1px solid var(--line); }
 .report-route a { padding-block: 8px; color: var(--teal); font-size: 13px; font-weight: 600; }
 @media (max-width: 720px) {
-  .report-cohort-controls { grid-template-columns: 1fr; }
-  .report-cohort-controls button { min-height: 75px; border-top: 0; border-left: 4px solid transparent; border-right: 0; border-bottom: 1px solid var(--line); padding: 13px 17px; }
-  .report-cohort-controls button:last-child { border-bottom: 0; }
-  .report-cohort-controls button[aria-pressed="true"] { border-top: 0; border-left-color: var(--teal); }
+  .report-cohort-controls { grid-template-columns: 1fr; gap: 8px; }
+  .report-cohort-controls button { min-height: 75px; padding: 14px 17px; }
 }
-@media (prefers-reduced-motion: reduce) { .report-cohort-controls button { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .report-cohort-controls button { transition: none; } .report-cohort-controls button:hover { transform: none; } }

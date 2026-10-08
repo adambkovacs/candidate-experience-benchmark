@@ -87,7 +87,7 @@ test('saved-run category and interface filters retain the fixed 60-record scope'
 });
 
 test('both public views load the shared mapping before rendering category controls', () => {
-  const html = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(site, 'explore.html'), 'utf8');
   const repeats = fs.readFileSync(path.join(site, 'repeats.js'), 'utf8');
   assert.ok(html.indexOf('model-categories.js') < html.indexOf('app.js'));
   assert.ok(html.indexOf('model-categories.js') < html.indexOf('repeats.js'));

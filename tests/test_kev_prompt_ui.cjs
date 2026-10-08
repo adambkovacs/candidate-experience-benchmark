@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const source = fs.readFileSync('public-site/kev-prompts.js', 'utf8');
-const page = fs.readFileSync('public-site/index.html', 'utf8');
+const page = fs.readFileSync('public-site/explore.html', 'utf8');
 const fields = {
   sentiment: [53, 54],
   follow_up_needed: [58, 53],

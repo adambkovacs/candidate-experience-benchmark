@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
-const html = fs.readFileSync(path.join(root, 'public-site', 'index.html'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'public-site', 'explore.html'), 'utf8');
 const source = fs.readFileSync(path.join(root, 'public-site', 'app.js'), 'utf8');
 
 function fixture() {

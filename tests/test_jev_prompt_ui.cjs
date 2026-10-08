@@ -5,7 +5,7 @@ const {spawnSync} = require('node:child_process');
 const vm = require('node:vm');
 
 const source = fs.readFileSync('public-site/jev-prompts.js', 'utf8');
-const page = fs.readFileSync('public-site/index.html', 'utf8');
+const page = fs.readFileSync('public-site/explore.html', 'utf8');
 const fieldScores = {
   sentiment: 56,
   follow_up_needed: 58,

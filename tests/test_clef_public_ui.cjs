@@ -57,7 +57,7 @@ test('partial or changed source evidence cannot become a scored Clef row', () =>
 });
 
 test('public section links source, describes one pass, and separates provider confidence', () => {
-  const html = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(site, 'explore.html'), 'utf8');
   assert.match(html, /id="clef-first-pass-results"/);
   assert.match(html, /one closed P0 pass/);
   assert.match(html, /provider's separate “confidence” field/);

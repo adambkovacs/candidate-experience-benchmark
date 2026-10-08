@@ -41,7 +41,7 @@ test('latest effort table uses source ranges, changed-review counts and nine-run
   }
   // Current editorial claims must be reviewed if the source cohort changes.
   assert.ok(Object.values(report.sonnet55.byEffort.xhigh.conditions).every(c=>c.scores.length===3&&c.scores.every(n=>n===58)));
-  const page=fs.readFileSync(path.join(site,'index.html'),'utf8');
+  const page=fs.readFileSync(path.join(site,'explore.html'),'utf8');
   assert.match(page,/estimates are not subscription charges/);
   assert.match(page,/same 60 reviews/);
 });
