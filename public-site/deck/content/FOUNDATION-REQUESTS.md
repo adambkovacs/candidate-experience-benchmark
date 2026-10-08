@@ -38,10 +38,8 @@ Components (matrices, review cards, sorter, gate) are built from feeds and must 
 - `clearProps: 'all'` removes the whole `style` attribute, including inline custom properties such as `--at` and `--y` that position shapes. The content layer clears only the properties GSAP owns.
 - Handing GSAP an element on a hidden slide (`display: none`) for a transform makes it re-parent the node to measure it, then put it back before the next element sibling. A `<mark>` followed only by text ends up at the end of the paragraph. The content layer never passes marks to GSAP's transform parser.
 
-## 7. Source links used (for remapping)
+## 7. Source links (remapped)
 
-`public-site/site/LINK-MAP.md` did not exist when this deck was built, so every source line links the JSON feed itself, relative to `public-site/`. No `index.html` anchors are used.
-
-Feeds linked: `findings.json`, `disputed-reviews-v1.json`, `native-agreement-policy-v1.json`, `jev-confidence-findings.json`, `jev-native-prompt-findings.json`, `claude-roster-repeats.json`, `sonnet55-fresh-matched3.json`, `extended-run-catalog-v1.json`, `data.json`, `subscription-price-estimates.json`, `cross-category-v1.json`, `deep-insights-v1.json`, `supplemental-decision-runs-v1.json`, `reference-sensitivity-v1.json`.
+Resolved. Every source link now points at the report page that shows that evidence, using the targets in `public-site/site/LINK-MAP.md`. The link text still names the JSON feed. Map used: disputed reviews to `explore.html#review-evidence` (S9 to `index.html#hard-reviews`); deep insights to `index.html#controls` (calibration), `#rule` (agreement), `#limits` (A7) or `#deep-insights`; `findings.json` to `explore.html#jev`, `#cost-analysis` or `method.html#findings`; Jev prompt passes to `explore.html#jev-prompt-analysis`; Jev confidence to `index.html#controls`; repeat feeds to `index.html#gap` (S2) or `explore.html#repeat-analysis`; supplemental runs to `explore.html#clef-first-pass` or `#outcome-chart`; the rest to their named panels (`#agreement-policy`, `#reference-sensitivity`, `#cross-category`, `#outcome-chart`, `#explore`, `index.html#gap`).
 
 Doc citations (`data-doc`, checked by `content-audit.mjs`) point at `docs/talk/*.md`, `docs/FINDINGS.md` and `docs/CLEF_OPENROUTER_FINDINGS.md`, which are not served by the site.

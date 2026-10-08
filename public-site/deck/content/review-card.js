@@ -1,6 +1,7 @@
 /* Review cards: saved answers from disputed-reviews-v1.json replayed against the frozen reference.
    data-c="flip"   S8: seven model cards face down; step 1 auto-plays the flips, step 2 shows the extra row.
-   data-c="wall"   S9: six hard-review cards, one per step, each auto-plays in under 3 seconds.
+   data-c="wall"   S9: six review cards, one per step, each auto-plays in about 3 seconds. data-reveal="DEV-..,.." sets the
+                   click order (the order the notes speak them); the grid keeps the source order.
    data-c="replay" A13-A18: one review, seven model rows; step 1 lands the rows one by one.
    Review text is never animated; trigger phrases are wrapped in <mark> without changing the text. */
 (() => {
@@ -97,7 +98,18 @@
   }
 
   // ---------- S9: wall ----------
+  // Cards in click order: data-reveal names every card once, or the grid order is used.
+  function revealOrder(el) {
+    const cards = [...el.querySelectorAll('.c-hard')];
+    const ids = (el.dataset.reveal || '').split(',').filter(Boolean);
+    if (!ids.length) return cards;
+    const seq = ids.map(id => cards.find(c => c.dataset.reviewId === id));
+    if (seq.some(c => !c) || new Set(seq).size !== cards.length) throw new Error(`data-reveal must name each of the ${cards.length} cards once`);
+    return seq;
+  }
+
   async function buildWall(el) {
+    revealOrder(el);
     const { models } = await DeckData.feed('disputed-reviews-v1.json');
     await Promise.all([...el.querySelectorAll('.c-hard')].map(async card => {
       const { review, answers } = await DeckData.answers(card.dataset.reviewId);
@@ -110,12 +122,12 @@
   }
 
   function renderWall(el, step, { animate }) {
-    const cards = [...el.querySelectorAll('.c-hard')];
+    const cards = revealOrder(el);
     C.kill(el);
     C.badge(el.closest('section'), step >= 1);
     cards.forEach((card, i) => card.classList.toggle('is-shown', i < step));
     gsap.set(cards, { clearProps: 'opacity,transform' });
-    el.querySelectorAll('.c-hard .c-tile, .c-hard .c-tile i, .c-hard-key').forEach(n => gsap.set(n, { clearProps: 'opacity,visibility,transform,clipPath,backgroundColor' }));
+    el.querySelectorAll('.c-hard .c-tile, .c-hard .c-tile i, .c-hard-key, .c-hard header, .c-hard .c-opened').forEach(n => gsap.set(n, { clearProps: 'opacity,visibility,transform,clipPath,backgroundColor' }));
     // Never hand a <mark> to GSAP's transform parser: on a hidden slide it re-parents the node to measure it and puts it
     // back before the next element sibling, which moves a mark followed only by text to the end of the review.
     el.querySelectorAll('.c-mark').forEach(n => n.style.removeProperty('background-size'));
@@ -124,10 +136,12 @@
     const card = cards[step - 1];
     const marks = card.querySelectorAll('.c-mark'), key = card.querySelector('.c-hard-key');
     const tiles = card.querySelectorAll('.c-tile'), diffs = card.querySelectorAll('.c-tile i.is-diff');
-    const counters = card.querySelectorAll('[data-countup]');
+    const counters = card.querySelectorAll('[data-countup]'), labels = card.querySelectorAll('header, .c-opened');
     card.classList.add('is-playing');
     const tl = C.timeline(el, { onComplete: () => card.classList.remove('is-playing') });
-    tl.fromTo(card, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }) // text appears, never moves
+    // The card fades up in place: the quoted review text appears and never moves. Only the labels above it travel.
+    tl.fromTo(card, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power2.out' })
+      .fromTo(labels, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', stagger: 0.08, clearProps: 'opacity,transform' }, 0)
       .fromTo(marks, { backgroundSize: '0% 0.2em' }, { backgroundSize: '100% 0.2em', duration: 0.45, ease: 'power2.out', stagger: 0.15 }, 0.35)
       .fromTo(key, { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'power3.out' }, 0.8)
       .fromTo(tiles, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out', stagger: 0.12 }, 1.1)

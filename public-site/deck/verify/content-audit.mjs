@@ -5,6 +5,8 @@
 // 2. Unbound digits: any digit on a slide outside a bound element and outside the label allowlist below fails.
 // 3. Notes: the main deck's speaker notes, per beat, must equal docs/talk/05-session-outline.md section 2b verbatim.
 // 4. Copy: words in [data-copy] per main slide (the outline's max-12 rule), reported; slides over 12 fail unless listed.
+// 5. Source links: every link out of the deck targets a report page from site/LINK-MAP.md (index, explore, method)
+//    and an id that exists on that page; links straight to a .json feed fail.
 // Usage: node content-audit.mjs [--page presentation.html]
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -160,8 +162,22 @@ try {
   console.log('\n4. On-slide copy words per main slide ([data-copy]; eyebrows, data labels, review text and source lines excluded)');
   console.log(table(['slide', 'id', 'words', 'result'], copyRows));
 
+  const deckHtml = await readFile(join(SITE, pagePath), 'utf8');
+  const links = [...deckHtml.matchAll(/<a href="([^"#]*)(?:#([^"]*))?"/g)].filter(([, file]) => file && !file.startsWith('#'));
+  const linkRows = new Map();
+  for (const [, file, id] of links) {
+    const page = file.replace(/^\.\//, '');
+    const key = `${page}#${id ?? ''}`;
+    if (linkRows.has(key)) { linkRows.get(key)[1]++; continue; }
+    let ok = /^(index|explore|method)\.html$/.test(page);
+    if (ok && id) ok = (await readFile(join(SITE, page), 'utf8')).includes(`id="${id}"`);
+    linkRows.set(key, [key, 1, ok ? 'PASS' : 'FAIL']);
+  }
+  console.log('\n5. Source links out of the deck (target page and id must exist; raw .json links fail)');
+  console.log(table(['target', 'links', 'result'], [...linkRows.values()]));
+
   for (const p of problems) console.log(`  FAIL ${p}`);
-  const failed = rows.some(r => r[6] === 'FAIL') || unbound.length || noteRows.some(r => r[3] === 'FAIL') || copyRows.some(r => r[3] === 'FAIL') || problems.length;
+  const failed = rows.some(r => r[6] === 'FAIL') || unbound.length || noteRows.some(r => r[3] === 'FAIL') || copyRows.some(r => r[3] === 'FAIL') || [...linkRows.values()].some(r => r[2] === 'FAIL') || problems.length;
   console.log(failed ? '\nRESULT: FAIL' : '\nRESULT: PASS');
   process.exitCode = failed ? 1 : 0;
 } finally {

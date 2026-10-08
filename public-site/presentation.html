@@ -26,7 +26,7 @@
           <figcaption>DEV-059 · one of <span data-source="disputed-reviews-v1.json#review_denominator">60</span> synthetic reviews · <b>the orange point</b></figcaption>
         </figure>
         <p class="d-byline"><span class="d-ladder" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>Adam Kovacs · AI Enablement Academy · 8 October 2026</span></p>
-        <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-059].feedback · synthetic review, frozen reference v0.2</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-059].feedback · synthetic review, frozen reference v0.2</footer>
         <aside class="notes">
           <p>So, this is one of the 60 candidate reviews. [read S1] "Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me." Is that a serious concern? Does someone need to follow up? Everyone here got both right in two seconds, and that gut answer is what Kahneman calls System One. TypeSafe borrowed that name for Jev, a model that gives you a typed answer in one pass, and I wanted to know how far it carries when the decision matters.</p>
         </aside>
@@ -55,7 +55,7 @@
           <p class="c-axis" aria-hidden="true"><span>0</span><span>all 60 reviews</span></p>
         </div>
         <p class="c-punch fragment fade-up" data-copy>Buy a rule.</p>
-        <footer class="d-source"><b>Source</b><a href="./findings.json">findings.json</a> charts.jev · <a href="./jev-native-prompt-findings.json">jev-native-prompt-findings.json</a> passes.P0 · <a href="./claude-roster-repeats.json">claude-roster-repeats.json</a> opus55-high-batch10 · <a href="./sonnet55-fresh-matched3.json">sonnet55-fresh-matched3.json</a> xhigh</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#jev">findings.json</a> charts.jev · <a href="./explore.html#jev-prompt-analysis">jev-native-prompt-findings.json</a> passes.P0 · <a href="./index.html#gap">claude-roster-repeats.json</a> opus55-high-batch10 · <a href="./index.html#gap">sonnet55-fresh-matched3.json</a> xhigh</footer>
         <aside class="notes">
           <p class="c-clicks">[Clicks: 1. "Buy a rule." appears.]</p>
           <p>Hands up if you've shipped an LLM classifier to production. [pause] Keep it up if you check it with a second model. [pause] That gap is this talk.</p>
@@ -117,7 +117,7 @@
           <figure data-c="matrix" data-matrix="qwen" data-delay="0.48"></figure>
         </div>
         <p class="c-legend"><span><i class="c-ramp"></i>all four matched, of 60: 40 to 60</span><span><i class="c-key-empty"></i>blank means no run</span><span><i class="c-key-patch"></i>run completed after an interruption</span><span>columns P0 P1 P2 · rows fresh pass 1 2 3</span></p>
-        <footer class="d-source"><b>Source</b><a href="./jev-native-prompt-findings.json">jev-native-prompt-findings.json</a> · <a href="./claude-roster-repeats.json">claude-roster-repeats.json</a> · <a href="./sonnet55-fresh-matched3.json">sonnet55-fresh-matched3.json</a> · <a href="./extended-run-catalog-v1.json">extended-run-catalog-v1.json</a> · <a href="./data.json">data.json</a> · docs/LABELING_GUIDE.md</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#jev-prompt-analysis">jev-native-prompt-findings.json</a> · <a href="./explore.html#repeat-analysis">claude-roster-repeats.json</a> · <a href="./explore.html#repeat-analysis">sonnet55-fresh-matched3.json</a> · <a href="./explore.html#outcome-chart">extended-run-catalog-v1.json</a> · <a href="./explore.html#explore">data.json</a> · docs/LABELING_GUIDE.md</footer>
         <aside class="notes">
           <p>So, proof one. The gap is five reviews.</p>
           <p>Every model got the same 60 reviews and the same four questions: sentiment, does this need a follow-up, is there a serious concern, and is this a testimonial we could use. Most of these models ran three prompt versions with three fresh passes each, nine runs, and where a cell on the slide is blank, that run doesn't exist. About the answer key: an AI assistant drafted the 60 reviews and the key, people then checked all 60, and three labels are still disputed, which is why I call it provisional.</p>
@@ -140,7 +140,7 @@
             <p class="c-kind"><span data-copy>estimate</span><small>API-equivalent, not a bill</small></p>
           </article>
         </div>
-        <footer class="d-source"><b>Source</b><a href="./jev-native-prompt-findings.json">jev-native-prompt-findings.json</a> passes.P0.fresh1.knownCostUsd · <a href="./subscription-price-estimates.json">subscription-price-estimates.json</a> runs.opus55-high-batch10 · docs/talk/06-cost-check.md</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#jev-prompt-analysis">jev-native-prompt-findings.json</a> passes.P0.fresh1.knownCostUsd · <a href="./index.html#gap">subscription-price-estimates.json</a> runs.opus55-high-batch10 · docs/talk/06-cost-check.md</footer>
         <aside class="notes">
           <p>Now cost. [cards] A Jev pass over all 60 reviews cost about six tenths of a cent, and that's a known provider charge from the OpenRouter pass. The Opus pass was about 22 cents, and that one is an API-equivalent estimate. So that's roughly four to forty times the spend for five more matches.</p>
           <p>And credit where it's due: Jev caught all 25 reviews where the key flags a serious concern, including the one I read you. But on that review Jev said nobody needed to follow up, at 0.49 confidence. And typed output means no made-up labels, and these models mostly gave the same answer every time, so a wrong answer is the same wrong answer at scale, with no variance to warn you. Miss that report, or publish the wrong testimonial, and the candidate tells X and Reddit how they were treated, it trends, and good luck building your brilliant startup without being able to hire people willing to work for you. You get a typed answer at a fraction of a cent, and you give up the last few percent.</p>
@@ -148,10 +148,10 @@
       </section>
 
       <!-- S7 One of the 60 -->
-      <section id="one-of-60" class="d-quote c-s7" data-scene="field" data-scene-highlight="DEV-029">
+      <section id="one-of-60" class="d-quote c-s7" data-scene="field" data-scene-at="1500,500" data-scene-highlight="DEV-029">
         <blockquote data-review="DEV-029">Great soup, tiny portions, wouldn't eat there again.</blockquote>
         <cite>DEV-029 · one of the <span data-source="disputed-reviews-v1.json#review_denominator">60</span> · the orange point</cite>
-        <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-029].feedback</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-029].feedback</footer>
         <aside class="notes">
           <p>So this is another one of the 60. [S7 shows only the text] "Great soup, tiny portions, wouldn't eat there again."</p>
           <p>Seven purpose-built decision models saw this review. Shout how many flagged it as off-topic. [pause, repeat two or three answers for the mic]</p>
@@ -180,7 +180,7 @@
           </div>
           <i class="fragment c-step" aria-hidden="true"></i><i class="fragment c-step" aria-hidden="true"></i>
         </div>
-        <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> DEV-029 answers, fresh1/P0 · <a href="./findings.json">findings.json</a> charts.jev.cases · <a href="./jev-confidence-findings.json">jev-confidence-findings.json</a> · <a href="./cross-category-v1.json">cross-category-v1.json</a> historical first P0</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> DEV-029 answers, fresh1/P0 · <a href="./explore.html#jev">findings.json</a> charts.jev.cases · <a href="./index.html#controls">jev-confidence-findings.json</a> · <a href="./explore.html#cross-category">cross-category-v1.json</a> historical first P0</footer>
         <aside class="notes">
           <p class="c-clicks">[Clicks: 2. The first auto-plays the seven flips, about 13 seconds. The second brings Jev and the general line.]</p>
           <p>[reveal, replay badge on] Zero of seven. Four of them said the sentiment was mixed, no follow-up, no concern, not a testimonial. Solar said negative. Liquid and Perplexity said "can't tell" on the sentiment, and still answered no on follow-up and concern. Jev isn't one of the seven, but its saved answer was the same mixed, no, no, no, and it said no serious concern at 0.91 confidence when the honest answer was "can't tell". And 89 of the 113 general configurations that returned a valid answer said "can't tell" on all four fields.</p>
@@ -188,11 +188,11 @@
         </aside>
       </section>
 
-      <!-- S9 The hard six -->
+      <!-- S9 Six reviews worth pausing on -->
       <section id="hard-six" class="c-s9 c-tight">
         <p class="c-replay-badge">Replay of saved answers, 2026-10</p>
         <div class="c-s9-head">
-          <div><p class="d-eyebrow">Proof 2 · the soup has company</p><h2 data-copy>The hard six.</h2></div>
+          <div><p class="d-eyebrow">Proof 2 · the soup has company</p><h2 data-copy>Six reviews worth pausing on.</h2></div>
           <figure class="c-histo-inset">
             <figcaption>All <span data-source="disputed-reviews-v1.json#review_denominator">60</span> reviews by how many of the <span data-source="disputed-reviews-v1.json#model_denominator">7</span> decision models missed</figcaption>
             <div class="c-histo" data-c="histo">
@@ -207,7 +207,7 @@
             </div>
           </figure>
         </div>
-        <div class="c-wall" data-c="wall">
+        <div class="c-wall" data-c="wall" data-reveal="DEV-030,DEV-006,DEV-013,DEV-029,DEV-027,DEV-059">
           <article class="c-hard" data-review-id="DEV-030" data-marks="I think|Someone said">
             <header><b>DEV-030</b><span class="c-cause">uncertain resolution</span></header>
             <p class="c-hard-text" data-review="DEV-030">The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket.</p>
@@ -240,16 +240,18 @@
           </article>
           <article class="c-hard" data-review-id="DEV-059" data-marks="After the trial shift the manager kept asking me out even after I said no twice.">
             <header><b>DEV-059</b><span class="c-cause">serious concern without a complaint</span></header>
+            <p class="c-opened">the one we opened with</p>
             <p class="c-hard-text" data-review="DEV-059">Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me.</p>
             <p class="c-hard-key"></p><div class="c-tiles"></div>
             <footer><span><b data-count="disputed-reviews-v1.json#reviews[id=DEV-059].answers" data-count-where="all_four_match=true" data-countup data-duration=".6">5</b> of <span data-source="disputed-reviews-v1.json#model_denominator">7</span> models matched</span><span><b data-source="deep-insights-v1.json#hardest_reviews.reviews[id=DEV-059].all_four" data-countup data-duration=".6">713</b> of <span data-source="deep-insights-v1.json#hardest_reviews.run_passes" data-group>1,004</span> run-passes</span></footer>
           </article>
           <i class="fragment c-step" aria-hidden="true"></i><i class="fragment c-step" aria-hidden="true"></i><i class="fragment c-step" aria-hidden="true"></i><i class="fragment c-step" aria-hidden="true"></i><i class="fragment c-step" aria-hidden="true"></i><i class="fragment c-step" aria-hidden="true"></i>
         </div>
-        <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> answers and histogram · <a href="./deep-insights-v1.json">deep-insights-v1.json</a> hardest_reviews · docs/talk/01b-deep-analysis.md §1 · tiles: one per model, bars S F C T, orange differs from key</footer>
+        <footer class="d-source"><b>Source</b><a href="./index.html#hard-reviews">disputed-reviews-v1.json</a> answers and histogram · <a href="./index.html#deep-insights">deep-insights-v1.json</a> hardest_reviews · docs/talk/01b-deep-analysis.md §1 · tiles: one per model, bars S F C T, orange differs from key</footer>
         <aside class="notes">
-          <p class="c-clicks">[Clicks: 6, one per card. Each card plays in under 3 seconds.]</p>
-          <p>And the soup has company. [S9 card wall, one click per card] "Someone said it was fixed, I think": uncertain resolution, and none of the seven decision models got it right. "That thing happened again": vague recurrence, one of seven got it right. "A friend told me they heard": second-hand rumour, two of seven. "Great soup": off-topic, zero of seven. "Really helpful of them" after a cancelled train: kindness during a logistics failure, three of seven. And the harassment review itself: a serious concern with no formal complaint, five of seven. Three of those are the labels a second, AI review of our key disputes. So the misses weren't random, and that's good news, because you can route reviews like these to a person.</p>
+          <p class="c-clicks">[Clicks: 6, one per card, in the order spoken: DEV-030, DEV-006, DEV-013, DEV-029 (soup), DEV-027, DEV-059. Each card plays in about 3 seconds.]</p>
+          <p class="c-direction">[Not the six hardest: DEV-056 (4 of 7 models missed) ranks above DEV-059 (2 of 7). DEV-059 is here because it opened the talk.]</p>
+          <p>And the soup has company. [S9 Six reviews worth pausing on, one click per card] "Someone said it was fixed, I think": uncertain resolution, and none of the seven decision models got it right. "That thing happened again": vague recurrence, one of seven got it right. "A friend told me they heard": second-hand rumour, two of seven. "Great soup": off-topic, zero of seven. "Really helpful of them" after a cancelled train: kindness during a logistics failure, three of seven. And the harassment review itself: a serious concern with no formal complaint, five of seven. Three of those are the labels a second, AI review of our key disputes. So the misses weren't random, and that's good news, because you can route reviews like these to a person.</p>
         </aside>
       </section>
 
@@ -272,7 +274,7 @@
           <i class="fragment c-step" aria-hidden="true"></i>
         </div>
         <p class="c-foot">Pooled gap between confidence and hit rate on these <span data-source="disputed-reviews-v1.json#review_denominator">60</span> reviews, <span data-source="deep-insights-v1.json#calibration.models[model=jev].field_answers">720</span> answers: Jev <b data-source="deep-insights-v1.json#calibration.models[model=jev].ece_confidence">0.011</b>, Clef Flash <b data-source="deep-insights-v1.json#calibration.models[model=clef-flash].ece_confidence">0.358</b>. Descriptive only.</p>
-        <footer class="d-source"><b>Source</b><a href="./jev-confidence-findings.json">jev-confidence-findings.json</a> P0 testimonial · <a href="./deep-insights-v1.json">deep-insights-v1.json</a> calibration · dots: deck/content/jev-testimonial-confidence.json</footer>
+        <footer class="d-source"><b>Source</b><a href="./index.html#controls">jev-confidence-findings.json</a> P0 testimonial · <a href="./index.html#controls">deep-insights-v1.json</a> calibration · dots: deck/content/jev-testimonial-confidence.json</footer>
         <aside class="notes">
           <p class="c-clicks">[Clicks: 1. The gate sweeps from 0.50 to 0.95, about 4 seconds.]</p>
           <p>So, proof three. The number next to the answer.</p>
@@ -306,7 +308,7 @@
           </figure>
         </div>
         <p class="c-foot">Clef route may read only about <span data-doc="docs/CLEF_OPENROUTER_FINDINGS.md|roughly the first 2,000 state tokens">2,000</span> state tokens, so the tree may have been cut off.</p>
-        <footer class="d-source"><b>Source</b><a href="./supplemental-decision-runs-v1.json">supplemental-decision-runs-v1.json</a> clef fresh1 · deck/data/prompt-levels.json tally_39_setups (docs/FINDINGS.md) · docs/CLEF_OPENROUTER_FINDINGS.md</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#clef-first-pass">supplemental-decision-runs-v1.json</a> clef fresh1 · deck/data/prompt-levels.json tally_39_setups (docs/FINDINGS.md) · docs/CLEF_OPENROUTER_FINDINGS.md</footer>
         <aside class="notes">
           <p>The other fix I'd reach for is a longer prompt. I tried plain, then classifier framing, then a full decision tree, and in these saved runs framing scored higher in 15 of 39 setups, the same in 15, lower in 9. Adding the tree on top scored higher in 4, the same in 14, lower in 21. Cloudflare's Clef went 54, 51, 49 in every pass, with one caveat: that route may only read the first 2,000 tokens of state, so the tree may have been cut off. So the fix I'd reach for first was the one I'd trust least.</p>
         </aside>
@@ -329,7 +331,7 @@
           <div class="c-cards"></div>
           <i class="fragment c-step" aria-hidden="true"></i><i class="fragment c-step" aria-hidden="true"></i>
         </div>
-        <footer class="d-source"><b>Source</b><a href="./native-agreement-policy-v1.json">native-agreement-policy-v1.json</a> Solar + Perplexity, fresh1/P0 · <a href="./deep-insights-v1.json">deep-insights-v1.json</a> agreement_rule.qwen_gemma · docs/talk/01b-deep-analysis.md §11</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#agreement-policy">native-agreement-policy-v1.json</a> Solar + Perplexity, fresh1/P0 · <a href="./index.html#rule">deep-insights-v1.json</a> agreement_rule.qwen_gemma · docs/talk/01b-deep-analysis.md §11</footer>
         <aside class="notes">
           <p class="c-clicks">[Clicks: 2. First: Solar + Perplexity stamps land and the 60 cards sort. Second: Qwen + Gemma re-sort.]</p>
           <p>The rule. Agree or defer. Two cheap models on every review, accept only identical answers, send the rest to a person.</p>
@@ -358,7 +360,7 @@
           </div>
         </div>
         <p class="c-ask fragment fade-up" data-copy>One model at <span class="d-num" data-source="jev-confidence-findings.json#conditions.P0.fields.testimonial_potential.wrongCases[id=DEV-027].confidence">0.96</span>, or two cheap models that agree?</p>
-        <footer class="d-source"><b>Source</b><a href="./deep-insights-v1.json">deep-insights-v1.json</a> agreement_rule.native_routing · routing recomputed from <a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> · docs/talk/scripts/s12_escalation_queue.py · docs/talk/01-findings-synthesis.md §6</footer>
+        <footer class="d-source"><b>Source</b><a href="./index.html#rule">deep-insights-v1.json</a> agreement_rule.native_routing · routing recomputed from <a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> · docs/talk/scripts/s12_escalation_queue.py · docs/talk/01-findings-synthesis.md §6</footer>
         <aside class="notes">
           <p class="c-clicks">[Clicks: 1. The two-option question.]</p>
           <p>The rule decides what a model may auto-accept; the escalation lines are the workflow. In a harassment workflow, any review either model flags as a serious concern goes to a person, whatever else the two agree on. Here every pair's flags together caught all 25, though Tev alone missed two and Clef flagged a 26th. The rule's job is the other 35: it auto-accepts 25 and sends 10 to a person.</p>
@@ -434,7 +436,7 @@
             <li><a href="#/a19-blast-radius"><b>A19</b>Blast radius</a></li>
           </ol>
         </nav>
-        <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> · feeds frozen at commit b4bd86c5 · every scored answer is in the public repo</footer>
+        <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> · feeds frozen at commit 29d012ad · every scored answer is in the public repo</footer>
         <aside class="notes">
           <p>This is what I'd do on Monday. Pull 60 of your own cases and label them yourself, before any model sees them. Give every question a "can't tell" option. Run two cheap models and keep only the answers they agree on. Then count how many land in the human queue, and whether the rare cases you care about made it through. Every scored answer is in the public repo, so star it. We're building this together. Thank you.</p>
         </aside>
@@ -496,7 +498,7 @@
             <div class="c-tally-row" style="margin-top: 0"><p class="c-label">Framing to tree</p><div class="c-units"></div><p class="c-parts"><span><b data-part="up" data-source="deck/data/prompt-levels.json#tally_39_setups.P1_to_P2.better">4</b> up</span> · <span><b data-part="same" data-source="deck/data/prompt-levels.json#tally_39_setups.P1_to_P2.same">14</b> same</span> · <span class="is-down"><b data-part="down" data-source="deck/data/prompt-levels.json#tally_39_setups.P1_to_P2.worse">21</b> down</span></p></div>
           </div>
           <p class="c-foot">The tree pushed decision models from "no" to "can't tell" on serious concern. Clef's route may read only the first <span data-doc="docs/CLEF_OPENROUTER_FINDINGS.md|roughly the first 2,000 state tokens">2,000</span> state tokens.</p>
-          <footer class="d-source"><b>Source</b><a href="./supplemental-decision-runs-v1.json">supplemental-decision-runs-v1.json</a> · <a href="./jev-native-prompt-findings.json">jev-native-prompt-findings.json</a> · deck/data/prompt-levels.json (docs/FINDINGS.md) · docs/talk/01b-deep-analysis.md §12.6</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#outcome-chart">supplemental-decision-runs-v1.json</a> · <a href="./explore.html#jev-prompt-analysis">jev-native-prompt-findings.json</a> · deck/data/prompt-levels.json (docs/FINDINGS.md) · docs/talk/01b-deep-analysis.md §12.6</footer>
           <aside class="notes"><p>Q: Cloudflare: Clef reads about 2,000 tokens of state. Was your long prompt truncated? A: Possibly. Your route warning says so, and our notes treat truncation as a constraint, not a cause.</p></aside>
         </section>
 
@@ -533,7 +535,7 @@
             </div>
           </div>
           <p class="c-foot">All retrospective. No abstention was executed; withheld answers are counterfactual.</p>
-          <footer class="d-source"><b>Source</b><a href="./deep-insights-v1.json">deep-insights-v1.json</a> calibration · <a href="./jev-confidence-findings.json">jev-confidence-findings.json</a> P0 thresholds · docs/talk/01b-deep-analysis.md §8</footer>
+          <footer class="d-source"><b>Source</b><a href="./index.html#controls">deep-insights-v1.json</a> calibration · <a href="./index.html#controls">jev-confidence-findings.json</a> P0 thresholds · docs/talk/01b-deep-analysis.md §8</footer>
           <aside class="notes">
             <p>Q: Jev found every serious concern but missed the testimonial. Why? A: It found all 25. Its three misses on that field were "can't tell" reviews it called no. The testimonial miss was the train review, where "cancelled" seems to have outweighed "helpful". TypeSafe's own docs list literal reading as failure mode one.</p>
             <p>Have ready: Jev's confidence versus its option probability differ by 0.016 on average and by more than 0.2 on under 1% of answers, while for Clef Flash they differ on 55%, so threshold on the probability for those models (01b §8).</p>
@@ -569,7 +571,7 @@
                 </div></figure>
             </div>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./reference-sensitivity-v1.json">reference-sensitivity-v1.json</a> scenario_summaries · docs/PILOT_AUDIT.md · docs/REFERENCE_REVIEW_V1.md · README.md</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#reference-sensitivity">reference-sensitivity-v1.json</a> scenario_summaries · docs/PILOT_AUDIT.md · docs/REFERENCE_REVIEW_V1.md · README.md</footer>
           <aside class="notes">
             <p>Q: Isn't your key the weak point? A: Partly, yes. It is v0.2, checked by people, and a separate AI review disputes three labels. Flipping one of them moves 212 runs up and 168 down. When a one-point difference decides a vendor, your label quality is the bottleneck.</p>
             <p>Q: Your key was written by an OpenAI model. Aren't you measuring who thinks like GPT? A: Possibly in part. People checked all 60, and if GPT-style models had a home advantage, OpenAI's own decision model didn't get it: Luna Decisions matched 49. I can't rule out that LLM-written text suits LLMs, which is one reason the key is provisional.</p>
@@ -602,7 +604,7 @@
               <p class="c-stat"><b data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-high-p0-openrouter-v3].correct">55</b>of <span data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-high-p0-openrouter-v3].denominator">60</span> at high effort, $<span data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-high-p0-openrouter-v3].actualUsd" data-round="3">0.257</span></p>
             </div>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./native-agreement-policy-v1.json">native-agreement-policy-v1.json</a> components · <a href="./findings.json">findings.json</a> charts.costAgreement · docs/talk/06-cost-check.md</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#agreement-policy">native-agreement-policy-v1.json</a> components · <a href="./explore.html#cost-analysis">findings.json</a> charts.costAgreement · docs/talk/06-cost-check.md</footer>
           <aside class="notes"><p>Q: What did the whole study cost? A: On OpenRouter, $12.65 across 15,135 saved generations, every one matched to a provider record, plus up to $3.88 of reservations for requests whose cost was never recorded. The direct Cloudflare runs sit under a $0.26 upper bound because Cloudflare's billing endpoint refused the token. TypeSafe direct is an estimate, about six tenths of a cent per pass, because there is no billing API. The Claude, Codex and Gemini subscription runs carry API-equivalent estimates only; the Gemini runs through OpenRouter are known charges inside the $12.65. The seven decision models' nine-run series came to $1.2013 in known charges, plus up to $0.13 of unknown-charge bounds.</p></aside>
         </section>
 
@@ -618,7 +620,7 @@
             <li><b>No speed ranking.</b> Client time mixes network, CLI, batch and operator time.</li>
             <li><b>No pooling</b> of the <span data-source="deep-insights-v1.json#hardest_reviews.run_passes" data-group>1,004</span> run entries into one score.</li>
           </ul>
-          <footer class="d-source"><b>Source</b>docs/talk/01-findings-synthesis.md §4, §7 · <a href="./deep-insights-v1.json">deep-insights-v1.json</a> · feeds frozen at commit b4bd86c5</footer>
+          <footer class="d-source"><b>Source</b>docs/talk/01-findings-synthesis.md §4, §7 · <a href="./index.html#limits">deep-insights-v1.json</a> · feeds frozen at commit 29d012ad</footer>
           <aside class="notes">
             <p>Q: So which model is best? A: I can't rank them. Runs differ in route, batch size, effort and prompt implementation. Several setups reached 59, including a 26B open-weight model, and that describes one pass each.</p>
             <p>Q: Is Jev faster? A: I can't say. Client request time mixes network, CLI, batch and operator time, and pure inference latency isn't available on every surface. TypeSafe and Cloudflare publish their own latency numbers; I didn't measure speed.</p>
@@ -653,7 +655,7 @@
             </div>
           </div>
           <p class="c-legend"><span><i class="c-key-patch"></i>run completed after an interruption</span><span><i class="c-key-empty"></i>blank means no run</span><span>columns P0 P1 P2 · rows fresh pass 1 2 3</span></p>
-          <footer class="d-source"><b>Source</b><a href="./sonnet55-fresh-matched3.json">sonnet55-fresh-matched3.json</a> pairwiseFlips xhigh · <a href="./supplemental-decision-runs-v1.json">supplemental-decision-runs-v1.json</a> · <a href="./deep-insights-v1.json">deep-insights-v1.json</a> determinism</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#repeat-analysis">sonnet55-fresh-matched3.json</a> pairwiseFlips xhigh · <a href="./explore.html#outcome-chart">supplemental-decision-runs-v1.json</a> · <a href="./index.html#deep-insights">deep-insights-v1.json</a> determinism</footer>
           <aside class="notes">
             <p>Q: Why not pay for Opus at 59? A: You can, at about 38 times the estimated spend, and Opus held 58 to 59 over three passes against Jev's 52 to 54. Sonnet scored 58 in all nine cells and still changed two reviews between passes, so the aggregate hides movement on the hard ones.</p>
             <p>Q: Is 54 versus 59 real on 60 reviews? A: It held across three passes each: Jev 54, 53, 52 and Opus 59, 58, 58. On first passes Opus matched five reviews Jev missed and missed none Jev matched. It's still one set of 60 synthetic reviews and a provisional key, so read it as a direction.</p>
@@ -677,7 +679,7 @@
               <p class="c-foot">+ concern and + can't tell: accepted, then routed to a person anyway. The rule was fixed before any pair was computed. No pair is selected. Green rail: zero accepted errors.</p>
             </div>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./native-agreement-policy-v1.json">native-agreement-policy-v1.json</a> pairs · <a href="./deep-insights-v1.json">deep-insights-v1.json</a> native_routing · docs/talk/scripts/s12_escalation_queue.py</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#agreement-policy">native-agreement-policy-v1.json</a> pairs · <a href="./index.html#rule">deep-insights-v1.json</a> native_routing · docs/talk/scripts/s12_escalation_queue.py</footer>
           <aside class="notes">
             <p>Q: Would agree-or-defer hold in production? A: Unknown. The rule was fixed before the pairs were computed but scored on the same 60 reviews used for everything else, and the human review cost of the deferred set is unmeasured. Treat it as a policy to test.</p>
             <p>Q: CTO: with your full policy, how big is the human queue? A: On this set, 35 of 60. Split it the way the workflow does: 25 reviews either model flagged as a serious concern go to a person, and on this set those flags covered all 25 reference concerns for every pair. Of the other 35 reviews the rule auto-accepts 25 and sends 10 to a person, 6 by disagreement and 4 by a "can't tell". The set is concern-heavy by design. On real feedback the share depends on how often concerns happen, which this can't tell you.</p>
@@ -702,7 +704,7 @@
               <p class="c-stat"><b><span data-doc="docs/talk/05-session-outline.md|general at 71% to 84%">71</span>&ndash;<span data-doc="docs/talk/05-session-outline.md|general at 71% to 84%">84</span>%</b>matched by general-model runs.</p>
             </div>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./findings.json">findings.json</a> referenceDistributions · docs/talk/01-findings-synthesis.md insight 9 · docs/talk/01b-deep-analysis.md §12.1</footer>
+          <footer class="d-source"><b>Source</b><a href="./method.html#findings">findings.json</a> referenceDistributions · docs/talk/01-findings-synthesis.md insight 9 · docs/talk/01b-deep-analysis.md §12.1</footer>
           <aside class="notes"><p>Testimonial 9 yes / 50 no / 1 insufficient; all-no scores 50/60. Tev recall 9/9 precision 9/12; Luna recall 6/9 precision 6/6. 01b (corrected): reference "insufficient" cells were answered with some definite label 25% to 31% of the time (the nearest single label, "no", accounts for 21% to 26%); decision runs match those cells at 19% to 45%, general at 71% to 84%.</p></aside>
         </section>
 
@@ -722,7 +724,7 @@
               <p class="c-stat"><b data-count="deep-insights-v1.json#frontier_convergence.disputed_review_ids">3</b>reviews where that set differs from the key: the three disputed labels.</p>
             </div>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./deep-insights-v1.json">deep-insights-v1.json</a> agreement_rule, frontier_convergence · docs/talk/01b-deep-analysis.md §11, §12.2, §12.3</footer>
+          <footer class="d-source"><b>Source</b><a href="./index.html#rule">deep-insights-v1.json</a> agreement_rule, frontier_convergence · docs/talk/01b-deep-analysis.md §11, §12.2, §12.3</footer>
           <aside class="notes">
             <p>Q: Jev isn't in your seven or your pairs. Why? A: The seven were a matched first-pass panel through one route, and Jev's runs sit outside it. I did pair Jev afterwards, post hoc, from the saved answers: Jev + Solar accepted 55 with 1 error, Jev + Perplexity 53 with 1, Jev + Clef 53 with 2. No Jev pair with a purpose-built decision model kept zero errors. Jev + DeepSeek Flash low did, at 54 accepted and 6 deferred for about two cents for both.</p>
             <p>Q: Why not run the same model ten times and vote? A: On the saved answers it barely moved anything. Jev's 2-of-3 majority never beat its best single pass: 54 in five conditions, 53 in one. In 13 of the 15 decision-model groups where voting beat the average pass, the vote was only covering a failed or invalid pass. Across 145 clean general-model groups a majority of three added 0.14 matched reviews per 60 (63 groups better, 43 tied, 39 worse), and accepting only answers a model gave three times running still let 211 errors through, mostly on the three disputed reviews. Published work on reasoning tasks finds the gains flatten by 10 to 20 samples, and when two models both err they agree about 60% of the time. So the second call goes to a different model, prompt or option order, not a second sample.</p>
@@ -741,7 +743,7 @@
             <p class="c-foot"><b data-count="disputed-reviews-v1.json#reviews[id=DEV-030].answers" data-count-where="all_four_match=true">0</b> of <span data-source="disputed-reviews-v1.json#model_denominator">7</span> decision models matched all four fields. Orange: differs from the key.</p>
             <i class="fragment c-step" aria-hidden="true"></i>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-030], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-030], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
           <aside class="notes"><p class="c-clicks">[Clicks: 1. The seven saved answers land one by one.]</p><p>Text: "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket." Reference (sentiment / follow-up / concern / testimonial): neutral/yes/can't tell/no. Seven decision models, first P0 pass: Liquid D1 neutral/yes/no/no (miss); Tev 1 4B can't tell/can't tell/can't tell/no (miss); Solar Decide can't tell/yes/no/no (miss); Clef neutral/yes/no/no (miss); Clef Flash neutral/yes/no/no (miss); Luna Decisions negative/yes/no/no (miss); Perplexity Decider V1 27B neutral/yes/no/no (miss).</p></aside>
         </section>
 
@@ -758,7 +760,7 @@
             <p class="c-foot"><b data-count="disputed-reviews-v1.json#reviews[id=DEV-029].answers" data-count-where="all_four_match=true">0</b> of <span data-source="disputed-reviews-v1.json#model_denominator">7</span> decision models matched all four fields. Orange: differs from the key.</p>
             <i class="fragment c-step" aria-hidden="true"></i>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-029], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-029], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
           <aside class="notes"><p class="c-clicks">[Clicks: 1. The seven saved answers land one by one.]</p><p>Text: "Great soup, tiny portions, wouldn't eat there again." Reference (sentiment / follow-up / concern / testimonial): can't tell/can't tell/can't tell/can't tell. Seven decision models, first P0 pass: Liquid D1 can't tell/no/no/no (miss); Tev 1 4B mixed/no/no/no (miss); Solar Decide negative/no/no/no (miss); Clef mixed/no/no/no (miss); Clef Flash mixed/no/no/no (miss); Luna Decisions mixed/no/no/no (miss); Perplexity Decider V1 27B can't tell/no/no/can't tell (miss).</p></aside>
         </section>
 
@@ -775,7 +777,7 @@
             <p class="c-foot"><b data-count="disputed-reviews-v1.json#reviews[id=DEV-006].answers" data-count-where="all_four_match=true">0</b> of <span data-source="disputed-reviews-v1.json#model_denominator">7</span> decision models matched all four fields. Orange: differs from the key.</p>
             <i class="fragment c-step" aria-hidden="true"></i>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-006], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-006], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
           <aside class="notes"><p class="c-clicks">[Clicks: 1. The seven saved answers land one by one.]</p><p>Text: "Same as last time. That thing happened again and it still isn't sorted." Reference (sentiment / follow-up / concern / testimonial): negative/yes/can't tell/no. Seven decision models, first P0 pass: Liquid D1 negative/yes/no/no (miss); Tev 1 4B negative/yes/can't tell/no; Solar Decide negative/can't tell/no/no (miss); Clef negative/yes/no/no (miss); Clef Flash negative/yes/no/no (miss); Luna Decisions negative/yes/no/no (miss); Perplexity Decider V1 27B negative/yes/no/no (miss).</p></aside>
         </section>
 
@@ -792,7 +794,7 @@
             <p class="c-foot"><b data-count="disputed-reviews-v1.json#reviews[id=DEV-013].answers" data-count-where="all_four_match=true">0</b> of <span data-source="disputed-reviews-v1.json#model_denominator">7</span> decision models matched all four fields. Orange: differs from the key.</p>
             <i class="fragment c-step" aria-hidden="true"></i>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-013], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-013], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
           <aside class="notes"><p class="c-clicks">[Clicks: 1. The seven saved answers land one by one.]</p><p>Text: "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it." Reference (sentiment / follow-up / concern / testimonial): neutral/no/no/no. Seven decision models, first P0 pass: Liquid D1 positive/no/no/no (miss); Tev 1 4B mixed/no/no/no (miss); Solar Decide mixed/no/no/no (miss); Clef neutral/no/no/no; Clef Flash neutral/no/no/no; Luna Decisions mixed/no/no/no (miss); Perplexity Decider V1 27B positive/no/no/no (miss).</p></aside>
         </section>
 
@@ -809,7 +811,7 @@
             <p class="c-foot"><b data-count="disputed-reviews-v1.json#reviews[id=DEV-027].answers" data-count-where="all_four_match=true">0</b> of <span data-source="disputed-reviews-v1.json#model_denominator">7</span> decision models matched all four fields. Orange: differs from the key.</p>
             <i class="fragment c-step" aria-hidden="true"></i>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-027], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-027], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
           <aside class="notes"><p class="c-clicks">[Clicks: 1. The seven saved answers land one by one.]</p><p>Text: "Train got cancelled so they switched me to video with the same interviewers and gave me five mins to catch my breath. Really helpful of them." Reference (sentiment / follow-up / concern / testimonial): positive/no/no/yes. Seven decision models, first P0 pass: Liquid D1 negative/no/no/no (miss); Tev 1 4B mixed/no/no/yes (miss); Solar Decide mixed/no/no/no (miss); Clef positive/no/no/yes; Clef Flash mixed/no/no/yes (miss); Luna Decisions positive/no/no/yes; Perplexity Decider V1 27B positive/no/no/yes.</p></aside>
         </section>
 
@@ -826,7 +828,7 @@
             <p class="c-foot"><b data-count="disputed-reviews-v1.json#reviews[id=DEV-059].answers" data-count-where="all_four_match=true">0</b> of <span data-source="disputed-reviews-v1.json#model_denominator">7</span> decision models matched all four fields. Orange: differs from the key.</p>
             <i class="fragment c-step" aria-hidden="true"></i>
           </div>
-          <footer class="d-source"><b>Source</b><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> reviews[id=DEV-059], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
+          <footer class="d-source"><b>Source</b><a href="./explore.html#review-evidence">disputed-reviews-v1.json</a> reviews[id=DEV-059], seven native models fresh1/P0 · docs/talk/01b-deep-analysis.md §1.4</footer>
           <aside class="notes"><p class="c-clicks">[Clicks: 1. The seven saved answers land one by one.]</p><p>Text: "Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me." Reference (sentiment / follow-up / concern / testimonial): mixed/yes/yes/no. Seven decision models, first P0 pass: Liquid D1 mixed/no/yes/no (miss); Tev 1 4B mixed/yes/yes/no; Solar Decide mixed/yes/yes/no; Clef mixed/yes/yes/no; Clef Flash mixed/no/yes/no (miss); Luna Decisions mixed/yes/yes/no; Perplexity Decider V1 27B mixed/yes/yes/no.</p></aside>
         </section>
         <section id="a19-blast-radius" class="c-a">

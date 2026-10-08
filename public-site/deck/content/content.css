@@ -4,7 +4,8 @@
 
 .reveal .slides section.c-tight { --pad-top: 84px; }
 .reveal .slides section.c-a { --pad-top: 80px; --pad-bottom: 140px; }
-.c-logo { display: block; align-self: flex-start; height: 44px; width: auto; margin: 0 0 32px; }
+/* The lockup at 72px keeps its wordmark readable through a compressed screen share (at 44px it was about 8px tall). */
+.c-logo { display: block; align-self: flex-start; height: 72px; width: auto; margin: 0 0 24px; }
 .c-foot { margin-top: 16px; max-width: none; font: 400 19px/1.45 var(--mono); color: var(--ink-300); }
 .c-foot b { color: var(--ink-200); font-weight: 500; }
 .c-replay-badge { position: absolute; top: 40px; right: 280px; z-index: 3; margin: 0; padding: 7px 14px; border: 2px solid var(--s-amber); border-radius: 999px;
@@ -132,7 +133,8 @@
 .c-general { font: 800 44px/1.15 var(--display); letter-spacing: -.02em; max-width: 20ch; }
 
 /* S9 hard-six wall */
-.c-s9-head { display: flex; align-items: flex-end; justify-content: space-between; }
+.c-s9-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; }
+.c-s9-head h2 { max-width: none; font-size: 68px; white-space: nowrap; }
 .c-s9-head .d-eyebrow { margin-bottom: 20px; }
 .c-histo-inset { margin: 0; width: 430px; }
 .c-histo-inset figcaption { font: 500 16px/1.35 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-300); }
@@ -142,7 +144,7 @@
 .c-hbar span { font: 600 16px/1.2 var(--mono); }
 .c-hbar small { font: 500 16px/1.3 var(--mono); color: var(--ink-300); }
 .c-wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 22px; flex: 1; min-height: 0; margin-top: 18px; }
-.c-hard { display: flex; flex-direction: column; min-height: 0; padding: 14px 22px 14px; background: rgba(251, 252, 254, .045); border-top: 5px solid var(--diff); }
+.c-hard { position: relative; display: flex; flex-direction: column; min-height: 0; padding: 14px 22px 14px; background: rgba(251, 252, 254, .045); border-top: 5px solid var(--diff); }
 .c-hard:not(.is-shown) { background: none; box-shadow: inset 0 0 0 2px var(--ink-700); border-top-color: transparent; }
 .c-hard:not(.is-shown) > * { visibility: hidden; }
 .c-hard header { display: flex; align-items: center; gap: 12px; white-space: nowrap; font: 600 16px/1.2 var(--mono); letter-spacing: .08em; }
@@ -157,6 +159,9 @@
 .c-tile small { display: none; }
 .c-hard footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; font: 500 16px/1.3 var(--mono); color: var(--ink-300); }
 .c-hard footer b { font: 800 26px/1 var(--display); color: var(--paper); }
+/* DEV-059's tab: the review that opened the talk. Amber is the deck's rare-highlight colour, never "differs". */
+.c-opened { position: absolute; top: -16px; right: 20px; margin: 0; max-width: none; padding: 4px 14px; border: 2px solid var(--s-amber); border-radius: 999px;
+  background: var(--ink); font: 600 16px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--s-amber); }
 
 /* S10 gate */
 .c-s10 h2 { font-size: 60px; max-width: 34ch; }
@@ -208,7 +213,7 @@
 .c-s12 h2 { font-size: 60px; max-width: none; }
 .c-sorter { position: relative; flex: 1; min-height: 0; margin-top: 22px; }
 .c-cards { position: absolute; inset: 0; }
-.c-rv { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 8px; width: 116px; height: 50px; padding: 0 10px; border-radius: 8px; overflow: hidden; white-space: nowrap;
+.c-rv { position: absolute; left: 0; top: 0; box-sizing: border-box; display: flex; align-items: center; gap: 8px; width: 116px; height: 50px; padding: 0 10px; border-radius: 8px; overflow: hidden; white-space: nowrap;
   background: var(--ink-800); box-shadow: inset 0 0 0 2px var(--ink-600); font: 500 16px/1 var(--mono); color: var(--ink-200); }
 .c-rv b { font-weight: 500; }
 .c-rv b span { display: none; }
@@ -223,7 +228,7 @@
 .c-zone { position: absolute; top: 0; margin: 0; max-width: none; font: 700 30px/1.2 var(--display); }
 .c-zone b { font-weight: 900; }
 .c-zone small { font: 500 16px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-300); }
-.c-zone-per { left: 1300px; color: var(--diff); }
+.c-zone-per { left: 1310px; color: var(--diff); }
 .c-pair { position: absolute; left: 0; top: 536px; margin: 0; max-width: none; padding: 10px 18px; border: 2px solid var(--s-green); font: 500 20px/1.3 var(--mono); }
 .c-pair b { font: 800 26px var(--display); }
 
