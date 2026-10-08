@@ -114,8 +114,8 @@
       if (links[i]) tl.from(links[i], { scaleX: 0, transformOrigin: '0 50%', duration: 0.3, ease: 'power2.inOut' }, i * 0.32 + 0.25);
     });
     // Overlap, never gap: a gap with no running tween lets "motion finished" checks fire mid-sequence.
-    tl.from(routes, { opacity: 0, y: -18, duration: 0.35, ease: 'power3.out', stagger: 0.12 }, '-=0.1')
-      .from(badge, { opacity: 0, y: 18, duration: 0.4, ease: 'power3.out' }, '-=0.1');
+    tl.from(routes, { opacity: 0, y: -18, duration: 0.35, ease: 'power3.out', stagger: 0.12 }, '-=0.1');
+    if (badge.length) tl.from(badge, { opacity: 0, y: 18, duration: 0.4, ease: 'power3.out' }, '-=0.1');
   }
 
   // ---------- histo: vertical bars, height from each bar's bound count ----------

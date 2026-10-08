@@ -53,7 +53,7 @@ Spoken voice, first person. Bracketed text is a stage direction, not spoken, and
 [notes beat=1]
 So, this is one of the 60 candidate reviews. [read S1] "Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me." Is that a serious concern? Does someone need to follow up? You probably knew both answers by the second line, and that gut answer is what Kahneman calls System One. TypeSafe borrowed that name for Jev, a model that gives you a typed answer in one pass, and I wanted to know how far it carries when the decision matters.
 
-So here's the answer up front. On 60 reviews Jev matched our answer key on all four decisions for 54. General models from a 26B Gemma up to Opus 5.5 matched 58 or 59, at four to forty times the cost. If the decision matters, buy a rule that hands the hard reviews to a person. Hands up if you've shipped an LLM classifier to production. [pause] Keep it up if you check it with a second model. [pause] That gap is this talk.
+So here's the answer up front. On 60 reviews Jev matched our answer key on all four decisions for 54. General models from a 26B Gemma up to Opus 5.5 matched 58 or 59, at four to forty times the cost. If the decision matters, create a rule that hands the hard reviews to a person. Hands up if you've shipped an LLM classifier to production. [pause] Keep it up if you check it with a second model. [pause] That gap is this talk.
 [/notes]
 
 [notes beat=2]
@@ -73,7 +73,7 @@ Proof one: the gap is five reviews. [bars] Jev matched the key on all four field
 
 Now cost. [cards] A Jev pass over all 60 reviews cost about six tenths of a cent. The Opus pass was about 22 cents. So that's roughly four to forty times the spend for five more matches, and at this volume that's pocket change, so the question is which five. Jev caught all 25 reviews where the key flags a serious concern, including the one I read you. But on that review Jev said nobody needed to follow up, at 0.49 confidence.
 
-And the general models taught me a few things. More effort didn't buy more matches: Gemini 3.1 Pro at high effort cost four times as much and matched one fewer. The big models mostly gave each other's answers, wrong ones included, so a second frontier model is a weak check. And run a decision model three times and it mostly gives the same answers, while the general models mostly don't.
+And the general models taught me a few things. More effort didn't buy more matches: Gemini 3.1 Pro at high effort cost four times as much and matched one fewer. The big models mostly gave each other's answers, wrong ones included, so a second frontier model is a weak check. And run a decision model three times and it mostly gives the same answers, while only 11 of 202 general-model setups did.
 
 Typed output fixes the format, and the decision can still be wrong. These models mostly gave the same answer every time, so a wrong answer is the same wrong answer at scale, and nothing warns you. Miss that report, or publish the wrong testimonial, and the candidate tells X and Reddit how they were treated, it trends, and good luck with building your brilliant startup without being able to hire good people willing to work for you.
 [/notes]
@@ -110,15 +110,21 @@ Zero errors on these 60 is not zero errors on the next 60. And agreement only he
 The rule decides what a model may auto-accept; the escalation lines are the workflow. In a harassment workflow, any review either model flags as a serious concern goes to a person, whatever else the two agree on. Here every pair's flags together caught all 25, though Tev alone missed two and Clef flagged a 26th. The rule's job is the other 35: it auto-accepts 25 and sends 10 to a person.
 
 [S17] Hands up for one model at 0.96. [pause] Hands up for two cheap models that agree. [pause]
+
+And this is every pair of the seven decision models, so you can see the rule isn't one lucky pair. Five pairs let zero errors through, and six accepted the soup with the same wrong answer. Zero errors on these 60 is not zero errors on the next 60.
 [/notes]
 
 [notes beat=8]
 So, this benchmark taught me what a runner has to do: count missing answers, reject broken formats, keep labels away from the model, know what each request cost, run it more than once. I pulled those lessons into a tool called classification-bench: your inputs, your labels, and it reports agreement and how often an answer flips between repeats. Where it stands: the pipeline runs offline with more than 400 tests, it has made small real calls through OpenRouter and Cloudflare's Clef, the Claude Code and Codex routes are built but untested live, and we're open-sourcing it, so ask me for early access.
 
 This is what I'd do on Monday. I'd pull 60 of my own cases and label them myself, before any model sees them. I'd give every question a "can't tell" option. I'd run two cheap models and keep only the answers they agree on. Then I'd count how many land in the human queue, and whether the rare cases I care about made it through. Every scored answer is in the public repo, so star it. We're building this together. Thank you.
+
+Thank you. Questions?
 [/notes]
 
 ## 3. Main deck slide list (19 slides) with visual briefs
+
+v4.1 (Adam's edit list, 2026-10-08 15:30): the running order is now 21 main slides: title, about, decision models, launch wave, what we did, the answer, the gap, cost, general models, consequences, the soup, zero of seven, hard six, confidence, fixes, agree or defer, the queue, all 21 pairs (the former backup A9), classification-bench, what should you do, thank you. Backups A2 (open weight), A5 (key), A6 (limits) and A7 (bench detail) are removed. The table below keeps the v4 numbering.
 
 Hero moments: S12 (soup reveal), S14 (the 0.96 dot), S16 (agree or defer). S12 and S14 are "live replay" moments: the slide reads saved JSON and reveals answers one at a time with a small "replay of saved answers, 2026-10" badge, so it feels live and stays honest. S5 is a simple build, not a hero. v3 numbering: three slides were added (S4, S6, S10), so v2 S4 is now S5, v2 S5 and S6 are S7 and S8, and v2 S7 to S16 are S11 to S19.
 

@@ -105,3 +105,31 @@ Collected from the working session on 2026-10-08. Quotes are verbatim (typos kep
 > use /adam-voice and /anti-slop please, the phrasing is really off, and remember my original initial request [restated in full; see the top of this file] [...] but animation and presentation shouldn't go and hurt information
 
 [Conductor's note: the deck was built under a self-imposed "max 12 words of on-slide text per slide" rule from the outline. Adam's verdict says that rule produced cryptic fragments a viewer cannot follow without the speaker, and that the slides should carry the talking points and the site's explanations explicitly.]
+
+## Edits on deck v4 (2026-10-08 15:30)
+
+> i'm looking at /Users/adamkovacs/lanes/cxb-talk/public-site/presentation.html and it shows errors, the /Users/adamkovacs/lanes/cxb-talk/public-site/presentation-offline.html no errors shown
+>
+> re "If the decision matters, buy a rule that hands the hard reviews to a person." on slide 2, edit so it's not buy a rule, create a rule
+> slide 2  should come after slide 6
+> on slide 9 "More effort didn't buy more matches, and the big models give each other's answers, wrong ones included." this shoul'd say"More effort didn't buy more matches. More effort didn't buy more matches either.  The big models gave the same answers, wrong ones included. Multiple runs proved non-deterministic outcomes."
+> On slide 10: "Typed output fixes the format, and the decision can still be wrong." is this about the differences in po p1 and p2? If yes it should show the explanation what was the difference between the prompts, what changed.
+> On slide 13, what are the orange bars? On this slide "Four of these are judgment calls and two are plain misses, and the reason is on each card." should say instead "Four of these are judgment calls and two are plain misses" . On this slide we also still have a pill saying "the one we opened with" this needs to be removed.
+> slide 14 only says dev-027, it should list what is the questions and what were the labels or keys, to give the confidence scores context regarding what are they about.
+> on slide 16 this is irrelevant, edit : "s + P, Solar Decide and Perplexity Decider, $O.037 for both runs, an example I picked after seeing all 21 pairs" so it only says "s + P, Solar Decide and Perplexity Decider, $O.037 for both runs", and "Q + G, Qwen 27B and Gemma 26B, $O.069 for both runs, and that was one run. Other Gemma runs let one error through." to say "Q + G, Qwen 27B and Gemma 26B, $O.069 for both runs. Other Gemma runs let one error through." remove this "We tried every pair of the seven decision models, 21 pairs. Five let zero errors through, and six accepted the soup with the same wrong answer. Zero errors on these 60 isn't zero on the next 60."
+> on slide 17 remove "That queue is the price of zero accepted errors on this set. " keep the rest of that sentence
+> slide 18, remove: "Today it runs offline with 433 tests, and agree-or-defer, per-label metrics and how much a disputed label moves the score are built. OpenRouter and Cloudflare routes are live, Claude Code and Codex are built and not yet run live, and we're open-sourcing it. Ask me for early access." and remove "live
+> dashed means built, not yet run live" , also remove "being open-sourced"
+> slide 19, edit "What I'd do on Monday." to "What should you do", and remove "Every scored answer is in the public repo. Reuven Cohen's free local classifier, @ruvector/typesafe, could be the off-topic filter in front of the four questions. I haven't measured its accuracy."
+> slide 20 remove "Hosted decision models, one card each." and instead say "It's cheap to experiment"
+> remove slide 21, we dont need it
+> slide 22, remove "The tree pushed decision models from "no" to "can't tell" on serious concern. Clef's route may read only the first 2,000 state tokens." and remove "run completed after an interruption
+> blank means no run
+> columns P0 P1 P2, rows fresh pass 1 2 3" also do a better job at explaning "P0 to P1 / 15 up, 15 same, 9 down / P0 to P2 / 7 up, 16 same, 16 down / P1 to P2 / 4 up, 14 same, 21 down" because if we add up eg 16+16+7 that is not the total amount of questions or runs.
+> slide 23 remove the answers columns, and remove "1192 of 2156 Clef Flash answers: confidence and option probability differ by more than 0.2." and fix the table on the right  and the table labels and text around it because they overlap and cant be read
+> remove slide 24, and 25, and 26
+> slide 28 should come after slide 17
+>
+> and we should have a last slide saying something like Thank you! and also Questions?
+
+[Conductor's notes: slide numbers are the v4 running order at a13c1ab8. Slide 10 is the consequences slide, not the prompt-levels slide; the P0/P1/P2 explanation goes on slide 15 and backup A3. "More effort didn't buy more matches either" is read as "Bigger models didn't buy more matches either". presentation.html opened from file:// cannot fetch its feeds (Chrome blocks fetch on file://), which is why the offline copy exists.]

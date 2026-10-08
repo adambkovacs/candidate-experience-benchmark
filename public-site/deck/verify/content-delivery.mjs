@@ -14,7 +14,7 @@ try {
   await page.locator('.reveal').click({ position: { x: 900, y: 500 } }).catch(() => {});
 
   // Clicker keys: remotes send PageDown / PageUp; keyboards use Space and the arrows.
-  for (const [key, want] of [['PageDown', 'answer/-1'], ['PageDown', 'about/-1'], ['PageUp', 'answer/-1'], ['Space', 'about/-1'], ['ArrowRight', 'decision-models/-1'], ['ArrowLeft', 'about/-1']]) {
+  for (const [key, want] of [['PageDown', 'about/-1'], ['PageDown', 'decision-models/-1'], ['PageUp', 'about/-1'], ['Space', 'decision-models/-1'], ['ArrowRight', 'launch-wave/-1'], ['ArrowLeft', 'decision-models/-1']]) {
     await page.keyboard.press(key); await settle(page);
     const at = await where(page);
     ok(`key ${key} -> ${want}`, at === want, at);
@@ -34,7 +34,7 @@ try {
   await page.evaluate(() => { const s = document.getElementById('monday'); const { h, v } = window.Reveal.getIndices(s); window.Reveal.slide(h, v); });
   await settle(page);
   const links = await page.evaluate(() => [...document.querySelectorAll('#monday .c-index a')].map(a => a.getAttribute('href').slice(2)).filter(id => !document.getElementById(id)));
-  ok('S19 index: all 15 links resolve to slides', links.length === 0 && (await page.locator('#monday .c-index a').count()) === 15, links.join(', ') || '15 of 15');
+  ok('S20 index: all 10 links resolve to slides', links.length === 0 && (await page.locator('#monday .c-index a').count()) === 10, links.join(', ') || '10 of 10');
   await page.locator('#monday .c-index a[href="#/a13-dev-030"]').click();
   await settle(page);
   ok('S15 index: clicking A13 jumps to it', (await where(page)).startsWith('a13-dev-030'), await where(page));
