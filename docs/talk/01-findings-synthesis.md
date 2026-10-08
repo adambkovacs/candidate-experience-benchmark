@@ -30,7 +30,7 @@ Defensible from: `docs/FINDINGS.md`, `docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06
 | --- | ---: | ---: | --- |
 | TypeSafe Jev 1.13, direct native, historical P0 | 60 | 54 | $0.00589092 token-price estimate; not a provider bill |
 | Jev 1.13 via OpenRouter native Choice, P0 fresh1 / fresh2 / fresh3 | 60 / 60 / 59 | 54 / 53 / 52 | $0.005890920 known provider charge per pass |
-| Claude Opus 5.5, high effort, batch of 10, P0 | 60 | 59 | $0.222052 API-equivalent estimate of subscription CLI usage |
+| Claude Opus 5.5, high effort, batch of 10, P0 | 60 | 59 (three P0 passes: 59, 58, 58) | $0.222052 API-equivalent estimate of subscription CLI usage |
 | Claude Sonnet 5.5, xhigh, every one of nine P0/P1/P2 cells | 60 | 58 | nine-cell estimate $1.1070244 |
 | Gemma 4 26B A4B, thinking on, OpenRouter P0 | 59 | 59 | $0.02114858 observed |
 | Qwen3.8 27B, low effort, OpenRouter P0 | 60 | 59 | $0.0492372 observed |
@@ -42,7 +42,7 @@ Field scores for Jev direct P0: sentiment 56, follow-up 58, serious concern 57, 
 
 **Why it matters.** Five reviews out of 60 is the difference between 90% and 98%. In a workflow that escalates harassment reports, that gap is the whole product.
 
-**Confidence.** solid for the Jev and Sonnet repeats; descriptive-only for single-pass Opus 5.5 and Gemma rows.
+**Confidence.** solid for the Jev and Sonnet repeats; Opus 5.5 high has three P0 passes (59, 58, 58; `public-site/claude-roster-repeats.json`); descriptive-only for the single-pass Gemma row.
 
 ### Insight 2. Jev's wrong answers are not random; they cluster on the hard, disputed and off-topic reviews
 
@@ -50,7 +50,7 @@ Field scores for Jev direct P0: sentiment 56, follow-up 58, serious concern 57, 
 
 **Numbers.** Jev direct P0 disagreed on DEV-006, DEV-013, DEV-027, DEV-029, DEV-030, DEV-059. Of these, DEV-006, DEV-013 and DEV-030 are the three reviews where the reference itself is disputed (`docs/REFERENCE_REVIEW_V1.md`). DEV-029 is the off-topic soup review. DEV-027 and DEV-059 are clear errors under the guide. Among 39 audited hosted/subscription P0 configurations, DEV-013 drew 30 disagreements, DEV-030 drew 28 and DEV-006 drew 26.
 
-Opus 5.5 high matched five of Jev's six misses and kept all 54 of Jev's matches; the two shared one miss. Gemma 26B thinking-on matched all six Jev misses but returned one invalid output on a review Jev got right.
+Opus 5.5 high (first pass) matched five of Jev's six misses and kept all 54 of Jev's matches; the two shared one miss. Gemma 26B thinking-on matched all six Jev misses but returned one invalid output on a review Jev got right.
 
 **Sources.** `docs/FINDINGS.md` ("Jev's six disagreements need different explanations", "Disagreements cluster around three ambiguous reviews"), `public-site/findings.json` (`charts.jev.overlap`).
 
@@ -119,7 +119,7 @@ Other decision models show the same pattern: Solar Decide first-P0 sentiment at 
 
 ### Insight 7. Requiring two decision models to agree gives you a zero-error accepted set, at the price of a human queue
 
-**Headline.** Accept only when two models return the identical four-field answer; defer the rest. Four of 21 pairs retained zero reference errors; coverage ranged from 33 to 53 of 60.
+**Headline.** Accept only when two models return the identical four-field answer; defer the rest. Five of 21 pairs retained zero reference errors; coverage ranged from 33 to 53 of 60.
 
 **Numbers (seven native fresh1/P0 runs, all 21 pairs, policy fixed before calculation).**
 
@@ -130,6 +130,7 @@ Other decision models show the same pattern: Solar Decide first-P0 sentiment at 
 | Solar + Clef | 52 | 0 | 8 | $0.05391356 |
 | Clef + Luna | 50 | 2 (DEV-006, DEV-029) | 10 | $0.04519886 |
 | Solar + Clef Flash | 44 | 0 | 16 | $0.03400946 |
+| Liquid + Solar | 43 | 0 | 17 | $0.03775612 |
 | Clef + Clef Flash | 47 | 4 | 13 | $0.04378902 |
 | Liquid + Tev | 33 | 0 | 27 | $0.032031992 |
 
@@ -171,7 +172,7 @@ Range over all 21 pairs: accepted 33 to 53, accepted errors 0 to 4. Human review
 
 **Concrete cases (seven native fresh1/P0 models, `public-site/disputed-reviews-v1.json`).**
 
-- **DEV-029, off-topic.** Text: "Great soup, tiny portions, wouldn't eat there again." Reference: insufficient_information on all four fields. 0 of 7 decision models matched; five of them labeled sentiment "mixed" and answered no / no / no on the other fields. Jev direct P0 did the same (mixed / no / no / no). Perplexity came closest (insufficient on sentiment and testimonial, "no" on the other two). Among general LLMs, 89 of 113 valid historical P0 configurations and 13 of 28 declared fresh configurations matched the full reference. A System 1 classifier answered the question it was asked; it did not notice the question did not apply.
+- **DEV-029, off-topic.** Text: "Great soup, tiny portions, wouldn't eat there again." Reference: insufficient_information on all four fields. 0 of 7 decision models matched; four of them (Tev, Clef, Clef Flash, Luna) labeled sentiment "mixed" and answered no / no / no on the other fields; Solar said negative / no / no / no and Liquid insufficient / no / no / no. Jev direct P0 did the same (mixed / no / no / no). Perplexity came closest (insufficient on sentiment and testimonial, "no" on the other two). Among general LLMs, 89 of 113 valid historical P0 configurations and 13 of 28 declared fresh configurations matched the full reference. A System 1 classifier answered the question it was asked; it did not notice the question did not apply.
 - **DEV-030, uncertain resolution.** Text: "The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket." Reference: neutral / yes / insufficient_information / no. 0 of 7 matched. Every model gave serious concern "no" or "insufficient"; sentiment ranged across neutral, negative and insufficient. Only 19 of 109 valid historical general configurations matched. The reference itself is flagged "needs human" on sentiment.
 - **DEV-006, vague recurrence.** Text: "Same as last time. That thing happened again and it still isn't sorted." Reference: negative / yes / insufficient_information / no. 6 of 7 missed; all six said serious concern "no". The reference reviewer proposes "no" is correct under the guide. The models may be right and the key wrong.
 - **DEV-013, rumour plus neutral own experience.** Text: "A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it." Reference: neutral. Models split three ways: positive (Liquid, Perplexity), mixed (Tev, Solar, Luna), neutral (Clef, Clef Flash). 30 of 39 hosted configurations disagreed with the reference.
@@ -258,7 +259,7 @@ Jev: $0.00589 per 60-review pass (OpenRouter known charge; direct route is a tok
 
 **Sources.** `docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md` (component table and frontier), `public-site/native-agreement-policy-v1.json`, `results/clef-openrouter-v1/findings-v1/findings.json` (`stages`), `docs/FINDINGS.md` ("Higher effort can cost more without adding matches"), `docs/ANALYSIS_REFRESH_2026-10-02.md`, `public-site/subscription-price-estimates.json`.
 
-**Why it matters.** The entire 60-review decision-model study cost under $1.20 across seven models and 63 runs. Cost is not the constraint; deciding what to do with the deferred 10% is.
+**Why it matters.** The entire 60-review decision-model study cost about $1.20 across seven models and 63 runs ($1.2013: known charges plus Clef's $0.3113 list-price estimate), plus up to $0.13 in unknown-charge bounds (Solar $0.1049, Clef Flash $0.0236). Cost is not the constraint; deciding what to do with the deferred 10% is.
 
 **Confidence.** solid for observed charges; descriptive-only for frontier membership (seven runs, one pass each).
 
@@ -287,7 +288,7 @@ Jev: $0.00589 per 60-review pass (OpenRouter known charge; direct route is a tok
 | 5 | Jev serious-concern recall | 25/25 reference-positive serious concerns matched | `docs/FINDINGS.md` |
 | 6 | Jev confidently wrong | DEV-027 testimonial wrong at confidence 0.96; DEV-029 serious concern wrong at 0.91 | `public-site/jev-confidence-findings.json` |
 | 7 | Jev sentiment at ≥0.9 | retains 47/60, 0 wrong, withholds 13 (9 of them correct) | `public-site/jev-confidence-findings.json` |
-| 8 | Opus 5.5 high P0 | 60 valid, 59/60; $0.222052 API-equivalent estimate | `results/comparison/REPORT.md`, `public-site/subscription-price-estimates.json` |
+| 8 | Opus 5.5 high P0 | 60 valid, 59/60 first pass (three P0 passes: 59, 58, 58); $0.222052 API-equivalent estimate | `results/comparison/REPORT.md`, `public-site/subscription-price-estimates.json`, `public-site/claude-roster-repeats.json` |
 | 9 | Sonnet 5.5 xhigh | 58/60 in all nine cells; 2,160/2,160 valid | `public-site/sonnet55-fresh-matched3.json`, `docs/ANALYSIS_REFRESH_2026-10-02.md` |
 | 10 | Gemma 4 26B thinking-on P0 | 59 valid, 59/60, $0.02114858 observed | `public-site/findings.json` `charts.costAgreement` |
 | 11 | Rules baseline | 10/60 | `results/comparison/REPORT.md` row `rules-v1` |
@@ -339,13 +340,14 @@ Proposed answer, grounded in this set and stated as a policy to test, not a vali
 
 **Single-model confidence is not the gate.** On Jev P0, no threshold below 0.97 removes the DEV-027 testimonial error, and no threshold below 0.92 removes the DEV-029 serious-concern error. Reaching 0.9 on sentiment zeroes Jev's sentiment errors but withholds 13 of 60 reviews, 9 of which were right. Solar at 0.99 still retains two sentiment errors in 16 retained answers. Provider "confidence" and selected-option probability disagree (0.91 vs 0.94 on the same answer), and neither is calibrated. Threshold policy therefore buys coverage loss faster than error removal on this data.
 
-**Agreement is the gate that worked here.** The fixed rule "accept only when two independent decision models return the identical four-field answer, otherwise defer" produced four zero-error accepted sets among 21 pairs:
+**Agreement is the gate that worked here.** The fixed rule "accept only when two independent decision models return the identical four-field answer, otherwise defer" produced five zero-error accepted sets among 21 pairs:
 
 | Pair | Accepted | Deferred | Deferral rate | Two-run charge per 60 |
 | --- | ---: | ---: | ---: | ---: |
 | Solar + Perplexity | 53 | 7 | 11.7% | $0.0375 |
 | Solar + Clef | 52 | 8 | 13.3% | $0.0539 |
 | Solar + Clef Flash | 44 | 16 | 26.7% | $0.0340 |
+| Liquid + Solar | 43 | 17 | 28.3% | $0.0378 |
 | Liquid + Tev | 33 | 27 | 45.0% | $0.0320 |
 
 The seven reviews Solar + Perplexity deferred are DEV-006, DEV-013, DEV-027, DEV-028, DEV-029, DEV-030 and DEV-035: the three disputed labels, the off-topic review, the testimonial and two follow-up/testimonial boundary cases. The pairs that retained errors did so on DEV-006 and DEV-030, the disputed labels, and on DEV-029, the off-topic case. So a second model catches disagreement; it does not catch shared blind spots on off-topic input.
@@ -379,3 +381,7 @@ Sources: `public-site/native-agreement-policy-v1.json`, `public-site/jev-confide
 - **Shared blind spots.** All seven decision models missed DEV-029 and DEV-030. The benchmark cannot say how often real input is off-topic or indeterminate, which is what decides the deferral rate.
 - **Native vs generated.** Native Choice heads had almost no format failures; generated JSON had many. Whether that holds for longer or multilingual input is untested.
 - **Scope cuts.** Direct Cloudflare Jev/Clef/Flash repeats, remaining Mistral execution and further local inference were removed from scope on 6 and 7 October. Three requested models were never available. Their absence is not a result.
+
+---
+
+Corrections 2026-10-08: DEV-029 "mixed" sentiment came from four decision models, not five; five of 21 agreement pairs (not four) kept zero accepted errors, Liquid + Solar added; the seven-model study total is $1.2013 including Clef's list-price estimate, plus up to $0.13 unknown, not "under $1.20"; Opus 5.5 high has three P0 passes (59, 58, 58), not one.
