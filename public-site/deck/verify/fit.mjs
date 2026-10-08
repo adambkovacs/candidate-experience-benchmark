@@ -44,6 +44,8 @@ function inspect() {
       if (!el.classList.contains('split-w') && (el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1)) issues.push(`clipped overflow: ${name(el)}`);
     }
     if (text && chrome.some(c => hits(r, c))) issues.push(`under controls or slide number: ${name(el)}`);
+    // Screen-shared over Zoom, small type smears; nothing on a slide goes below 16px at the 1080 design size.
+    if (text && parseFloat(cs.fontSize) < 16) issues.push(`text below 16px (${cs.fontSize}): ${name(el)}`);
   }
   return [...new Set(issues)];
 }

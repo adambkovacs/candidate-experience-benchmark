@@ -11,7 +11,7 @@ const pagePath = arg('page', 'presentation-v2.html');
 const NUMBER_TEXT = /^-?(\d{1,3}(,\d{3})+|\d+)(\.\d+)?$/; // "54", "140,260", "0.03749436"; never "5,4"
 const feeds = new Map();
 const feed = async name => {
-  if (!/^[\w.-]+\.json$/.test(name)) throw new Error(`invalid feed name ${name}`);
+  if (!/^(?:[\w-]+\/)*[\w.-]+\.json$/.test(name)) throw new Error(`invalid feed name ${name}`);
   if (!feeds.has(name)) feeds.set(name, JSON.parse(await readFile(join(SITE, name), 'utf8')));
   return feeds.get(name);
 };
@@ -44,6 +44,20 @@ async function checkNumber(item) {
   return [String(value), NUMBER_TEXT.test(item.text) && Number(item.text.replace(/,/g, '')) === want];
 }
 
+async function checkText(item) {
+  const [name, path] = item.source.split('#');
+  const value = resolvePath(await feed(name), path ?? '');
+  if (typeof value !== 'string' && typeof value !== 'number') return [String(JSON.stringify(value)), false];
+  return [String(value), item.text === (item.raw ? String(value) : say(value))];
+}
+
+// The figure the background points form (data-scene-number) must equal its feed value.
+async function checkScene(item) {
+  const [name, path] = item.source.split('#');
+  const value = resolvePath(await feed(name), path ?? '');
+  return [String(value), Number.isFinite(Number(value)) && Number(item.text) === Number(value)];
+}
+
 async function checkReview(item) {
   const found = resolvePath(await feed('disputed-reviews-v1.json'), `reviews[id=${item.review}]`);
   return [short(found?.feedback ?? 'missing'), Boolean(found) && item.text === found.feedback.trim()];
@@ -73,7 +87,11 @@ function collect(index) {
   };
   return [
     ...[...root.querySelectorAll('[data-source]')].map(el => ({ kind: 'number', slide: label(el), source: el.dataset.source, round: el.dataset.round, text: el.textContent.trim() })),
-    ...[...root.querySelectorAll('[data-review]:not(.d-replay)')].map(el => ({ kind: 'review', slide: label(el),
+    ...[...root.querySelectorAll('[data-text-source]')].map(el => ({ kind: 'text', slide: label(el), source: el.dataset.textSource, raw: el.hasAttribute('data-raw'), text: el.textContent.trim() })),
+    // The scene attributes sit on the slide itself, which querySelectorAll on that slide would skip.
+    ...[root, ...root.querySelectorAll('[data-scene-number-source]')].filter(el => el.matches?.('[data-scene-number-source]'))
+      .map(el => ({ kind: 'scene', slide: label(el), source: el.dataset.sceneNumberSource, text: el.dataset.sceneNumber })),
+    ...[...root.querySelectorAll('[data-review]:not(.d-replay):not(.d-live)')].map(el => ({ kind: 'review', slide: label(el),
       source: `disputed-reviews-v1.json#reviews[id=${el.dataset.review}].feedback`, review: el.dataset.review, text: el.textContent.trim() })),
     ...[...root.querySelectorAll('.d-replay')].map(el => ({ kind: 'replay', slide: label(el), source: `${el.dataset.replay}#reviews[id=${el.dataset.review}] replay`,
       feed: el.dataset.replay, review: el.dataset.review, fields: el.dataset.fields || 'sentiment,follow_up_needed,serious_concern_reported,testimonial_potential',
@@ -102,7 +120,7 @@ try {
   problems.push(...print.problems.map(p => `print ${p}`));
   await print.context.close();
 
-  const check = { number: checkNumber, review: checkReview, replay: checkReplay };
+  const check = { number: checkNumber, text: checkText, scene: checkScene, review: checkReview, replay: checkReplay };
   for (const [mode, items] of [['live', seen], ['print', printed]]) {
     for (const item of items) {
       const [expected, ok] = await check[item.kind](item);
@@ -112,7 +130,7 @@ try {
   if (!seen.some(item => item.kind === 'number')) problems.push('no data-source elements found on any slide');
 
   const count = (items, kind) => items.filter(item => item.kind === kind).length;
-  const summary = items => `${count(items, 'number')} numbers, ${count(items, 'review')} reviews, ${count(items, 'replay')} replays`;
+  const summary = items => ['number', 'text', 'scene', 'review', 'replay'].map(kind => `${count(items, kind)} ${kind}`).join(', ');
   console.log(`\nnumbers.mjs · ${pagePath} · live: ${summary(seen)} · print: ${summary(printed)}\n`);
   console.log(table(['mode', 'slide', 'source', 'shown', 'feed value', 'result'], rows));
   for (const p of problems) console.log(`  FAIL ${p}`);

@@ -1,5 +1,7 @@
 /* Source-bound data layer. Every number on a slide resolves from a public-site JSON feed.
-   Bind with data-source="<feed>.json#<path>". Path grammar: dot keys, [3] indexes, ["0.9"] quoted keys, [key=value,key2=value2] finds.
+   Bind with data-source="<feed>.json#<path>" (numbers) or data-text-source (labels). Feeds are paths under public-site/,
+   for example findings.json or deck/data/answer.json. Path grammar: dot keys, [3] indexes, ["0.9"] quoted keys,
+   [key=value,key2=value2] finds.
    Failures are loud: an alert status line, an orange outline on the element, and console.error. */
 (() => {
   'use strict';
@@ -25,7 +27,8 @@
 
   // ponytail: loads only the feeds a deck references; extended-cases-v1.json is 6.7 MB, so nothing preloads "just in case".
   function feed(name) {
-    if (!/^[\w.-]+\.json$/.test(name)) return Promise.reject(new Error(`invalid feed name "${name}"`));
+    // Directory segments allow no dots, so ".." can never climb out of public-site/.
+    if (!/^(?:[\w-]+\/)*[\w.-]+\.json$/.test(name)) return Promise.reject(new Error(`invalid feed name "${name}"`));
     if (!cache.has(name)) {
       cache.set(name, fetch(new URL(name, base)).then(response => {
         if (!response.ok) throw new Error(`${name} returned HTTP ${response.status}`);
@@ -85,6 +88,21 @@
     }
   }
 
+  // Labels from feeds (a model's answer, a model name). Shown through readable() unless data-raw is set.
+  async function bindText(el) {
+    try {
+      const value = await get(el.dataset.textSource);
+      if (typeof value !== 'string' && typeof value !== 'number') throw new Error(`not text: ${JSON.stringify(value)}`);
+      el.textContent = el.dataset.display = el.hasAttribute('data-raw') ? String(value) : readable(value);
+      el.classList.remove('is-unbound');
+      announce(el);
+    } catch (error) {
+      el.textContent = '?';
+      el.classList.add('is-unbound');
+      report(`${el.dataset.textSource}: ${error.message}`);
+    }
+  }
+
   async function review(id) {
     const found = resolve(await feed('disputed-reviews-v1.json'), `reviews[id=${id}]`);
     return { id: found.id, feedback: found.feedback, reference: found.reference };
@@ -100,15 +118,19 @@
     }
   }
 
-  // "@feed.json#path" on data-scene-highlight resolves to a list of review IDs for the background lattice.
-  async function bindHighlight(section) {
+  // "@feed.json#path" on a scene attribute resolves from the feed: data-scene-highlight to a list of review IDs,
+  // data-scene-number to the figure the points form. The source stays in data-scene-*-source for numbers.mjs.
+  async function bindScene(section, key) {
+    const source = section.dataset[key].slice(1);
     try {
-      const ids = await get(section.dataset.sceneHighlight.slice(1));
-      if (!Array.isArray(ids)) throw new Error('expected a list of review IDs');
-      section.dataset.sceneHighlight = ids.join(',');
+      const value = await get(source);
+      if (key === 'sceneHighlight' && !Array.isArray(value)) throw new Error('expected a list of review IDs');
+      if (key === 'sceneNumber' && !Number.isFinite(Number(value))) throw new Error(`not a number: ${JSON.stringify(value)}`);
+      section.dataset[`${key}Source`] = source;
+      section.dataset[key] = Array.isArray(value) ? value.join(',') : String(value);
       announce(section);
     } catch (error) {
-      report(`scene highlight ${section.dataset.sceneHighlight}: ${error.message}`);
+      report(`scene ${source}: ${error.message}`);
     }
   }
 
@@ -159,7 +181,7 @@
   // Safety net: a slide with bound numbers always names its feeds.
   function ensureFooters(root) {
     root.querySelectorAll('.slides section:not(.stack)').forEach(slide => {
-      const sources = [...slide.querySelectorAll('[data-source]')].map(el => el.dataset.source.split('#')[0]);
+      const sources = [...slide.querySelectorAll('[data-source], [data-text-source]')].map(el => (el.dataset.source || el.dataset.textSource).split('#')[0]);
       if (!sources.length || slide.querySelector(':scope > .d-source')) return;
       const links = [...new Set(sources)].map(name => `<a href="${new URL(name, base).href}">${name}</a>`).join(' · ');
       slide.insertAdjacentHTML('beforeend', `<footer class="d-source"><b>Source</b>${links}</footer>`);
@@ -170,8 +192,10 @@
     ensureFooters(root);
     return Promise.all([
       ...[...root.querySelectorAll('[data-source]')].map(bindNumber),
-      ...[...root.querySelectorAll('[data-review]:not(.d-replay)')].map(bindReview),
-      ...[...root.querySelectorAll('[data-scene-highlight^="@"]')].map(bindHighlight),
+      ...[...root.querySelectorAll('[data-text-source]')].map(bindText),
+      ...[...root.querySelectorAll('[data-review]:not(.d-replay):not(.d-live)')].map(bindReview),
+      ...[...root.querySelectorAll('[data-scene-highlight^="@"]')].map(el => bindScene(el, 'sceneHighlight')),
+      ...[...root.querySelectorAll('[data-scene-number^="@"]')].map(el => bindScene(el, 'sceneNumber')),
     ]).then(() => { if (!failures.size) document.documentElement.dataset.deckData = 'ready'; });
   }
 

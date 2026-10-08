@@ -57,7 +57,8 @@ export async function openDeck(browser, url, { width = 1920, height = 1080, redu
 export async function settle(page) {
   await page.waitForFunction(() => {
     const tweening = window.gsap?.globalTimeline.getChildren(true, true, false).some(t => t.isActive());
-    const css = document.getAnimations().some(a => a.playState === 'running');
+    // Infinite loops (the live-replay caret blink) never finish, so they do not count as motion still settling.
+    const css = document.getAnimations().some(a => a.playState === 'running' && a.effect?.getTiming().iterations !== Infinity);
     return !tweening && !css && window.DeckScene?.settled !== false;
   }, null, { timeout: 6000, polling: 100 }).catch(() => {});
   await page.waitForTimeout(50);

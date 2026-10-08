@@ -1,5 +1,5 @@
 /* Boot. Normal view navigates immediately and binds data as it arrives.
-   Print view (?print-pdf) waits for data so every PDF page carries the real, source-bound numbers. */
+   Print view (?print-pdf) waits for data and the static scene SVGs, so every PDF page carries the real numbers. */
 (() => {
   'use strict';
   const { Reveal, DeckData, DeckMotion, DeckScene } = window;
@@ -23,7 +23,8 @@
   const progress = () => document.querySelector('.reveal .progress')?.style.setProperty('--p', Reveal.getProgress().toFixed(4));
   ['ready', 'slidechanged', 'fragmentshown', 'fragmenthidden'].forEach(type => Reveal.on(type, progress));
   const prepared = DeckData.ready.then(() => DeckMotion.prepare());
-  if (print) prepared.finally(() => Reveal.initialize(config));
+  const sceneReady = DeckScene.start(Reveal); // in print view: resolves once every static scene SVG is drawn
+  if (print) Promise.all([prepared, sceneReady]).finally(() => Reveal.initialize(config));
   else {
     Reveal.initialize(config);
     prepared.then(() => (Reveal.isReady() ? afterData() : Reveal.on('ready', afterData)));
@@ -35,6 +36,5 @@
     const [, id, step] = /^#\/([^/]+)\/(\d+)$/.exec(initialHash) || [];
     if (id && Reveal.getCurrentSlide()?.id === id) { const { h, v } = Reveal.getIndices(); Reveal.slide(h, v, Number(step)); }
   }
-  DeckScene.start(Reveal);
   window.DeckReady = prepared.then(() => (Reveal.isReady() ? true : new Promise(resolve => Reveal.on('ready', () => resolve(true)))));
 })();
