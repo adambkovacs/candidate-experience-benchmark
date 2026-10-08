@@ -115,9 +115,9 @@ And this is every pair of the seven decision models, so you can see the rule isn
 [/notes]
 
 [notes beat=8]
-So, this benchmark taught me what a runner has to do: count missing answers, reject broken formats, keep labels away from the model, know what each request cost, run it more than once. I pulled those lessons into a tool called classification-bench: your inputs, your labels, and it reports agreement and how often an answer flips between repeats. Where it stands: the pipeline runs offline with more than 400 tests, it has made small real calls through OpenRouter and Cloudflare's Clef, the Claude Code and Codex routes are built but untested live, and we're open-sourcing it, so ask me for early access.
+So, this benchmark taught me what a runner has to do: count missing answers, reject broken formats, keep labels away from the model, know what each request cost, run it more than once. I pulled those lessons into a tool called classification-bench: your inputs, your labels, and it reports agreement and how often an answer flips between repeats. Where it stands: the pipeline runs offline with more than 400 tests, it has made small real calls through OpenRouter and Cloudflare's Clef, and the Claude Code and Codex routes are built but untested live.
 
-This is what I'd do on Monday. I'd pull 60 of my own cases and label them myself, before any model sees them. I'd give every question a "can't tell" option. I'd run two cheap models and keep only the answers they agree on. Then I'd count how many land in the human queue, and whether the rare cases I care about made it through. Every scored answer is in the public repo, so star it. We're building this together. Thank you.
+This is what I'd do on Monday. I'd pull 60 of my own cases and label them myself, before any model sees them. I'd give every question a "can't tell" option. I'd run two cheap models and keep only the answers they agree on. Then I'd count how many land in the human queue, and whether the rare cases I care about made it through. We're building this together. Thank you.
 
 Thank you. Questions?
 [/notes]
