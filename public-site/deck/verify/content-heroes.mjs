@@ -79,7 +79,7 @@ const state = {
     const dots = [...s.querySelectorAll('.c-dot')];
     return { gate: s.querySelector('.c-gate-value').textContent, held: dots.filter(d => d.classList.contains('is-held')).length,
       heroKept: !s.querySelector('.c-dot.is-hero').classList.contains('is-held'), heroConf: s.querySelector('.c-dot.is-hero').dataset.conf,
-      below: dots.filter(d => Number(d.dataset.conf) < 0.95).length, line: getComputedStyle(s.querySelector('.c-gate-line')).opacity };
+      below: dots.filter(d => Number(d.dataset.conf) < 0.9).length, line: getComputedStyle(s.querySelector('.c-gate-line')).opacity };
   }),
   s12: page => page.evaluate(() => {
     const s = document.getElementById('agree-or-defer');
@@ -111,7 +111,7 @@ try {
   ok(`${mode}: S13 entry shows six cards, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.shown === 6 && st.textsExact && st.marksInPlace && r.seconds < ENTRY_MAX, JSON.stringify(st));
 
   r = await enter(page, 'still-wrong'); st = await state.s10(page);
-  ok(`${mode}: S14 entry lands the cutoff at 0.95, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.gate === '0.95' && st.held === st.below && st.heroKept && st.line === '1' && r.seconds < ENTRY_MAX, JSON.stringify(st));
+  ok(`${mode}: S14 entry lands the cutoff at 0.90, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.gate === '0.90' && st.held === st.below && st.heroKept && st.line === '1' && r.seconds < ENTRY_MAX, JSON.stringify(st));
   await shoot(`${mode.replace(/ /g, '-')}-s14-entry`);
 
   r = await enter(page, 'agree-or-defer'); st = await state.s12(page);

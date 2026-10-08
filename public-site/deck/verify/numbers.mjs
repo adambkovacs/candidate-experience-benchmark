@@ -7,7 +7,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { SITE, arg, serve, launch, openDeck, listSlides, showFully, settle, table } from './lib.mjs';
 
-const pagePath = arg('page', 'presentation-v2.html');
+const pagePath = arg('page', 'presentation.html');
 const NUMBER_TEXT = /^-?(\d{1,3}(,\d{3})+|\d+)(\.\d+)?$/; // "54", "140,260", "0.03749436"; never "5,4"
 const feeds = new Map();
 const feed = async name => {

@@ -578,3 +578,12 @@
    pixels taller than the line box; the padding keeps them inside the box (fit.mjs). */
 .reveal .slides section > h2:first-child, .reveal .slides section > .d-eyebrow + h2 { padding-top: 6px; }
 .c-flagged { padding-top: 6px; }
+
+/* v4 round 3: plain progress bar instead of the ladder motif; the "opened with" tag is text, not a pill; four queue bands. */
+.reveal .progress::before { background: var(--ink-300); }
+.c-opened { border: none; background: none; padding: 0; right: 20px; top: 12px; }
+.c-band { margin-top: 12px; }
+.c-band-head { font-size: 22px; }
+.c-band-head b { font-size: 36px; }
+.c-band-cards { grid-template-columns: repeat(13, 36px); gap: 6px; margin-top: 6px; }
+.c-band-cards i { height: 22px; }
