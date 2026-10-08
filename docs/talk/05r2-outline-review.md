@@ -1,6 +1,6 @@
 # 05r2 Outline review: delta re-review of 05-session-outline.md v2
 
-Reviewer: independent reviewer agent, the same one that wrote 05r. Date: 2026-10-08. Reviewed: `05-session-outline.md` v2 at commit `3b00c31e`.
+Reviewer: independent reviewer agent, the same one that wrote 05r. Date: 2026-10-08. Reviewed: `05-session-outline.md` v2 at commit `2fac1ed1`, the latest outline commit. That commit changed beat 7, S13, A10, Q&A 14 and the changelog after the first v2 commit, `3b00c31e`. This review covers the current text.
 
 Scope:
 - the 11 blocking findings from 05r, checked in the text itself, not in the changelog
@@ -10,13 +10,13 @@ Scope:
 
 Method: I re-ran `s02_confusion.py`, `s07_repeatability.py`, `s08_confidence.py`, `s09_quirks.py`, `s11_agreement_general.py` and `s12_escalation_queue.py` with `python3 -I`. I also read `public-site/deck/data/*.json` and `jev-confidence-findings.json`, and recomputed the pass sensitivity and the Jev pairs directly from `common.load_all()`. **(rc)** marks a reviewer-computed number.
 
-The inherited errors in 01 and 02 are already fixed in `05528718`, `0bbe06f6` and `29b5712f`. v2's section 6 and section 8 still list them as open; see R1.
+The inherited errors in 01 and 02 are already fixed in `05528718`, `0bbe06f6` and `29b5712f`. v2's section 6 and section 8 still list the 02 day count as open; see R1.
 
 ---
 
 ## Verdict: REVISE
 
-Two blocking items remain. Both sit in proof 3, beat 6 and slide S10, and each is a one- or two-sentence fix. Once those lines change, v2 is fit for stage. A diff check of beat 6, §1 proof 3 and S10 is enough; it does not need another full review.
+Three blocking items remain, and each is a one- or two-sentence fix. Two sit in proof 3 (beat 6 and slide S10). One sits in the rule beat's new escalation paragraph (beat 7, S13 and Q&A 14). Once those lines change, v2 is fit for stage. A diff check of beat 6, beat 7's last paragraph, §1 proof 3, S10, S13 and Q&A 14 is enough; it does not need another full review.
 
 All 11 v1 blocking findings are fixed in the text. Every other new number reproduces from the scripts and feeds, except one small appendix slip (R6).
 
@@ -50,6 +50,19 @@ Edits:
 - S10 headline: "Close to its hit rate here. Still 0.96 on a wrong testimonial."
 - Last line of beat 6: "A confidence that tracks its hit rate on average is still not a per-review gate."
 
+**N3. The new escalation paragraph says concerns reach a person "regardless of which model you use". In the policy, the models are what flag them.**
+- v2 beat 7, commit `2fac1ed1`: "In a harassment workflow the 25 serious concerns reach a person regardless of which model you use, so the model's job is the other 35".
+- S13: "25 serious concerns to a person regardless of model".
+
+Policy line 3 sends a review to escalation when *either model* answers serious concern = yes. In production no answer key says which reviews are concerns, so the escalation queue is only as good as the models' concern flags. On this set the either-model flag caught all 25 reference concerns for all 21 pairs **(rc)**, which is why the count comes out at 25. That is a result, not a given: Tev alone missed DEV-044 and DEV-046, and Clef flagged a 26th review, DEV-053. "Regardless of model" takes the model out of the most business-critical decision in the talk.
+
+Q&A 14 also miscounts the split: "sends 10 to a person, 7 by disagreement and the rest by a 'can't tell'". Of the 10 non-concern reviews sent to a person, 6 come from disagreement and 4 from a "can't tell" **(rc)**. The seventh deferred review, DEV-035, is itself a serious concern, so it sits in the 25.
+
+Edits:
+- Beat 7: "In a harassment workflow, any review either model flags as a serious concern goes to a person, whatever else the two agree on. On this set every pair's flags together caught all 25 concerns, though Tev alone missed two, so that is the check to watch. The rule's job is the other 35, and on this set it auto-accepts 25 of those cleanly and sends 10 to a person."
+- S13 band label: "25 flagged serious concerns, to a person".
+- Q&A 14: "sends 10 to a person, 6 by disagreement and 4 by a 'can't tell'".
+
 ---
 
 ## The 11 v1 blocking findings, checked in the text
@@ -63,7 +76,7 @@ Edits:
 | B5 thesis contradiction | Fixed | §1 says "most of Jev's six misses sat on reviews a person would pause on, but two were plain errors". "Whole product" is gone. DEV-059 threads through cleanly |
 | B6 speed claim | Fixed | No speed or "faster" claim in the notes; Q&A 4 says speed was not measured |
 | B7 false S5 taxonomy | Fixed | S5 and the taxonomy paragraph are cut |
-| B8 rule beat (a to d) | Fixed | Beat 7 says the rule was written "before computing a single pair". It says the example was "picked after seeing all 21", "five pairs let zero errors through" and "six of the 21 pairs gave the soup the same wrong answer". It gives the queue as "from 7 to 35 of 60". `s12_escalation_queue.py` and `s12_full_policy_routing.py` agree at 35 |
+| B8 rule beat (a to d) | Fixed. The new split wording introduces N3 | Beat 7 says the rule was written "before computing a single pair". It says the example was "picked after seeing all 21", "five pairs let zero errors through" and "six of the 21 pairs gave the soup the same wrong answer". The queue is now split the workflow way: 25 concerns, then 25 auto-accepted and 10 to a person among the other 35. Both `s12` scripts agree at 35 |
 | B9 unmeasured calibration claim | Replaced, but the replacement introduces N1 and N2 | See above |
 | B10 small spoken errors | Fixed | "Four of them said the sentiment was mixed"; five zero-error pairs; DEV-030 quoted verbatim; "forty setups" removed, so only 113 is spoken; "frontier" applies only to Claude, GPT and Gemini |
 | B11 no buffer | Fixed | See the timing section: about 13:55 at mixed rates, 1:05 buffer |
@@ -89,12 +102,13 @@ Edits:
 | Decision runs 19% to 45%, general 71% to 84% on reference-insufficient cells | A11 | 01b §12.1 | As stated in 01b; not re-derived |
 | Jev 54, 53, 52 and Opus 59, 58, 58 | beat 4, S2, S5 | `jev-native-prompt-findings.json`; `claude-roster-repeats.json` | Reproduces |
 | About 38 times for Opus | Q&A 5 | 0.222052 / 0.00589092 = 37.7 | Reproduces |
-| Queue 35 of 60; Clef + Perplexity 33; range 32 to 42 | beat 7, S13, A10, Q&A 14 | both `s12` scripts | Reproduces |
+| Queue 35 of 60; range 32 to 42 across pairs | A10, Q&A 14 | both `s12` scripts | Reproduces |
+| Split: 25 concerns, then 25 auto-accepted and 10 to a person among the other 35 | beat 7, S13, A10, Q&A 14 | both `s12` scripts; either-model concern flag covers all 25 for every pair **(rc)** | Reproduces. Q&A 14's "7 by disagreement" should be 6, with 4 by "can't tell" (N3) |
 | Deck feeds | S2, S4, S5, S9, S11 | `public-site/deck/data/` | Values match. The pointer `prompt-levels.json` `jev_openrouter.P0` should be `models.jev_openrouter.P0`. Perplexity's 1 October row is `verified: false` (R3) |
 
 ## Timing
 
-My counter gives 1,569 words; the project counter gives 1,558. The 11-word difference is all in beat 7 and does not matter. The estimate uses 140 wpm for narrative and 130 to 135 for number-dense beats, plus non-speech costs:
+The current file has 1,569 words on both the project counter and mine. The estimate uses 140 wpm for narrative and 130 to 135 for number-dense beats, plus non-speech costs:
 - moment 1: 25 s
 - moment 2: 35 s
 - moment 3: 15 s
@@ -139,7 +153,7 @@ The anti-slop scan is clean: no em dashes, curly quotes or emoji, and no Tier 2 
 
 ## Residual items, not blocking
 
-- **R1. Stale rows.** Section 6 "Inherited errors in 01 and 02" and section 8's "Fix the inherited errors" are already done. Delete the risk row and the open item, and cite `05528718`, `0bbe06f6` and `29b5712f`.
+- **R1. Stale rows.** Section 6's "Inherited errors in 02" row and section 8's "Fix 02 Part C" item are already done: 02 now says sixteen days (`29b5712f`). Delete both, and cite `05528718`, `0bbe06f6` and `29b5712f`.
 - **R2. Key-checker wording.** Beat 4 and A5 say "a person checked all 60", and beat 4 adds "review by review". Q&A 2 and 12 say "people". The source (`README.md` line 171) says the owner "confirmed people checked all 60 reviews". Use "people checked all 60" everywhere.
 - **R3. Perplexity's 1 October date.** `timeline.json` marks it `verified: false`, so under S4's own "verified entries only" rule the "Perplexity ticks in the same week" build cannot be drawn. The verified Perplexity row is the 7 October OpenRouter listing. Say "Perplexity's within the week, by press reports", or drop Perplexity from the spoken line.
 - **R4. "44 run-passes from seven families"** (beat 7). They are seven models from three vendors, and 34 of the 44 are OpenAI GPT models (`s09` Q7b). They also agree on the three reviews where our key is in doubt. Say "seven models from three vendors gave one identical answer set, and it differs from our key only on the three labels we're not sure of."
