@@ -172,17 +172,39 @@ test('a focused horizontal table keeps arrow keys for native scrolling',()=>{
   }
 });
 
-test('markup has source fallbacks and scoped mobile, motion and print styles',() => {
+test('the rebuilt deck page has an id, speaker notes and a replay badge on every main slide that replays saved answers',() => {
   const html=fs.readFileSync(path.join(site,'presentation.html'),'utf8');
-  const css=fs.readFileSync(path.join(site,'meetup-presentation.css'),'utf8');
-  for(const id of deck.ids)assert.ok(html.includes(`id="${id}"`));
-  assert.match(html,/<noscript>/);
-  assert.match(html,/aria-live="polite"/);
-  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
-  assert.match(css,/@media\(max-width:760px\)/);
-  assert.match(css,/@media print/);
-  assert.match(css,/\.meetup-deck \[hidden\]/);
-  assert.ok(!html.includes('href="./presentation.css"'));
+  const [main,appendix]=html.split('<section id="appendix">');
+  assert.ok(appendix,'appendix stack missing');
+  const chunks=main.split(/(?=<section\b)/).slice(1);
+  assert.ok(chunks.length>=15,`expected at least 15 main slides, found ${chunks.length}`);
+  const ids=chunks.map(c => (/^<section\s+id="([^"]+)"/.exec(c)||[])[1]);
+  assert.ok(ids.every(Boolean),'every main slide needs an id');
+  assert.equal(new Set(ids).size,ids.length);
+  chunks.forEach((c,i) => {
+    assert.match(c,/<aside class="notes">/,`${ids[i]} has no speaker notes`);
+    if(/data-c="(flip|replay)"/.test(c))assert.match(c,/c-replay-badge/,`${ids[i]} reveals saved answers without the replay badge`);
+  });
+  assert.ok(chunks.some(c => c.includes('c-replay-badge')));
+});
+
+test('appendix index links resolve to appendix section ids',() => {
+  const html=fs.readFileSync(path.join(site,'presentation.html'),'utf8');
+  const [main,appendix]=html.split('<section id="appendix">');
+  const appendixIds=new Set([...appendix.matchAll(/<section id="([^"]+)"/g)].map(m => m[1]));
+  const links=[...main.matchAll(/<nav class="c-index"[\s\S]*?<\/nav>/g)].flatMap(n => [...n[0].matchAll(/href="#\/([^"]+)"/g)].map(m => m[1]));
+  assert.ok(links.length>=19);
+  for(const id of links)assert.ok(appendixIds.has(id),`index link #/${id} has no section`);
+  assert.ok([...appendixIds].every(id => links.includes(id)),'an appendix slide is missing from the index');
+});
+
+test('the deck loads nothing from the network',() => {
+  const html=fs.readFileSync(path.join(site,'presentation.html'),'utf8');
+  assert.doesNotMatch(html,/<(?:script|link|img|source)\b[^>]*\b(?:src|href)=["'](?:https?:)?\/\//i);
+  assert.doesNotMatch(html,/fonts\.(?:googleapis|gstatic)\.com/);
+  for(const f of ['deck/deck.css','deck/content/content.css']) {
+    assert.doesNotMatch(fs.readFileSync(path.join(site,f),'utf8'),/@import|url\(\s*["']?(?:https?:)?\/\//i,`${f} pulls a remote resource`);
+  }
 });
 
 test('a failed feed keeps the source fallback readable and reports the exact unavailable file',async () => {
