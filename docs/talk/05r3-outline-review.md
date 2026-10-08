@@ -41,6 +41,7 @@ The "brilliant startup" line stays unless Adam says otherwise.
 | Q&A 19 "Claude, Codex and Gemini ran on subscriptions" | Fixed: "The Claude, Codex and Gemini subscription runs carry API-equivalent estimates only; the Gemini runs through OpenRouter are known charges inside the $12.65." |
 | A12 "seven families", A7 "person-checked" | Already in v2.3: "seven models across three vendors", "checked by people" |
 | S9 auto-play length | Fixed: the S9 brief and the deck motion rule both say "each card's auto-play capped at about 3 seconds" |
+| Q&A 20, majority voting (lead request) | Added from 07 §3 and `s13_majority_vote.py`, re-run here. Jev's 2-of-3 majority is 54 in five conditions and 53 in one (OpenRouter P0: 54, 53, 52), never above its best pass **(rc)**. 13 of the 15 decision groups where the vote beat the average pass had a pass with fewer than 60 valid answers **(rc)**. The 145 clean general groups gain +0.14 reviews per 60. Self-unanimity lets 211 errors through, 154 of them on DEV-013, DEV-030 and DEV-006. The 10-to-20-sample plateau is stated as a reasoning-task result (Wang et al.), and the 60% figure is Kim et al., both as cited in 07 §3.1 |
 | S5 feed pointer `extended-cases-v1.json` | Confirmed. All nine Gemma 4 26B thinking-on fresh cells (fresh1 to fresh3, P0 to P2) are in `public-site/extended-cases-v1.json`, the file `common.py` loads for the 637 extended runs. Run metadata sits in `extended-run-catalog-v1.json` |
 
 ## Checks carried forward
@@ -73,7 +74,7 @@ The "brilliant startup" line stays unless Adam says otherwise.
 | 8 | 178 |
 | **Total** | **1,585** |
 
-`audit-slop.ts`: 10,107 total words, 0 slop instances, NO-SLOP score 100.0%.
+`audit-slop.ts`: 10,322 total words, 0 slop instances, NO-SLOP score 100.0%. Q&A 20 adds no spoken words.
 
 Timing estimate, with the three audience moments and about 20 seconds of card-wall animation at the 3-second cap:
 
