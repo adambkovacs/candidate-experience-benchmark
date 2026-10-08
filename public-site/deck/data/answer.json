@@ -1,0 +1,59 @@
+{
+  "generated_from": "public-site feeds; see each entry's file and json_path",
+  "generated_at": "2026-10-08",
+  "jev_all_four": {
+    "value": 54,
+    "of": 60,
+    "file": "public-site/findings.json",
+    "json_path": "charts.jev.correct",
+    "note": "Jev 1.13 direct P0, run typesafe-jev113-v2. A separate offline rescore (docs/FINDINGS.md) gives 55; the published charts keep the frozen v0.2 reference."
+  },
+  "opus55_high": {
+    "value": 59,
+    "of": 60,
+    "file": "public-site/findings.json",
+    "json_path": "charts.jev.comparators[2].correct",
+    "note": "Claude Opus 5.5 high effort, batch of 10, P0, 60 valid."
+  },
+  "sonnet55_xhigh": {
+    "value": 58,
+    "of": 60,
+    "cells": 9,
+    "file": "public-site/sonnet55-fresh-matched3.json",
+    "json_path": "threePassSummary.xhigh.{P0,P1,P2}.allFour.values",
+    "note": "All nine P0/P1/P2 x pass cells are 58. Not in findings.json."
+  },
+  "gemma4_26b_on": {
+    "value": 59,
+    "of": 60,
+    "valid": 59,
+    "file": "public-site/findings.json",
+    "json_path": "charts.costAgreement.rows[12].correct",
+    "note": "Gemma 4 26B A4B, thinking on, OpenRouter P0. 59 valid, one invalid."
+  },
+  "qwen38_27b_low": {
+    "value": 59,
+    "of": 60,
+    "file": "public-site/findings.json",
+    "json_path": "charts.costAgreement.rows[15].correct",
+    "note": "Qwen3.8 27B, low effort, OpenRouter P0."
+  },
+  "jev_cost_known_usd": {
+    "value": 0.00589092,
+    "file": "public-site/jev-native-prompt-findings.json",
+    "json_path": "passes.P0.fresh1.knownCostUsd (string \"0.005890920\")",
+    "note": "Known provider charge for the OpenRouter native Jev P0 pass. The direct TypeSafe run is a token-price estimate of the same figure (docs/talk/01-findings-synthesis.md row 2), not a bill. Direct feed row typesafe-jev113-v2 in results/comparison/REPORT.md shows a different partial 0.002123688."
+  },
+  "opus_cost_estimate_usd": {
+    "value": 0.222052,
+    "file": "public-site/subscription-price-estimates.json",
+    "json_path": "runs.opus55-high-batch10.estimateUsd (string \"0.222052\")",
+    "note": "API-equivalent estimate of subscription CLI usage, not a charge. actualSubscriptionChargeUsd is null."
+  },
+  "jev_serious_concern_recall": {
+    "value": "25/25",
+    "file": "public-site/findings.json",
+    "json_path": "derived: referenceDistributions.serious_concern_reported.yes = 25; charts.jev.fieldErrors[2].confusions has no entry with reference \"yes\"",
+    "note": "Not stored as a number in any feed. Markdown statement: docs/talk/01-findings-synthesis.md line 20."
+  }
+}
