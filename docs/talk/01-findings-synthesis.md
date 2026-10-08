@@ -71,7 +71,7 @@ Opus 5.5 high (first pass) matched five of Jev's six misses and kept all 54 of J
 | Serious concern | 3/60 | 53 | 1 (DEV-029, conf 0.91) | 7 (5) |
 | Testimonial | 2/60 | 54 | 1 (DEV-027, conf 0.96) | 6 (5) |
 
-Wrong-case confidences, P0: sentiment DEV-013 0.33, DEV-027 0.71, DEV-029 0.46, DEV-030 0.53; follow-up DEV-029 0.84, DEV-059 0.49; serious concern DEV-006 0.71, DEV-029 0.91, DEV-030 0.59; testimonial DEV-027 0.96, DEV-029 0.88. Provider confidence and selected-option probability are different numbers (DEV-029 serious concern: 0.91 confidence, 0.94 option probability). Neither has demonstrated calibration.
+Wrong-case confidences, P0: sentiment DEV-013 0.33, DEV-027 0.71, DEV-029 0.46, DEV-030 0.53; follow-up DEV-029 0.84, DEV-059 0.49; serious concern DEV-006 0.71, DEV-029 0.91, DEV-030 0.59; testimonial DEV-027 0.96, DEV-029 0.88. Provider confidence and selected-option probability are different numbers (DEV-029 serious concern: 0.91 confidence, 0.94 option probability). Pooled over Jev's 720 field answers in three prompt stages, both are close to calibrated on average (expected calibration error 0.011 for confidence, 0.015 for option probability; `docs/talk/scripts/s08_confidence.py`), yet these single answers are confidently wrong.
 
 Other decision models show the same pattern: Solar Decide first-P0 sentiment at ≥0.9 retains 31/60 including 3 errors (DEV-013, DEV-027, DEV-030); at ≥0.99 retains 16 including 2 errors. Tev first-P0 sentiment at ≥0.9 retains 41/60 including 4 errors. Clef's first P0 misses DEV-029 on follow-up, serious concern and testimonial with provider confidence at least 0.9.
 
@@ -338,7 +338,7 @@ Gemini effort pair (Insight 14) is also slide-safe: 3.1 Pro low 56/60 $0.063458 
 
 Proposed answer, grounded in this set and stated as a policy to test, not a validated result.
 
-**Single-model confidence is not the gate.** On Jev P0, no threshold below 0.97 removes the DEV-027 testimonial error, and no threshold below 0.92 removes the DEV-029 serious-concern error. Reaching 0.9 on sentiment zeroes Jev's sentiment errors but withholds 13 of 60 reviews, 9 of which were right. Solar at 0.99 still retains two sentiment errors in 16 retained answers. Provider "confidence" and selected-option probability disagree (0.91 vs 0.94 on the same answer), and neither is calibrated. Threshold policy therefore buys coverage loss faster than error removal on this data.
+**Single-model confidence is not the gate.** On Jev P0, no threshold below 0.97 removes the DEV-027 testimonial error, and no threshold below 0.92 removes the DEV-029 serious-concern error. Reaching 0.9 on sentiment zeroes Jev's sentiment errors but withholds 13 of 60 reviews, 9 of which were right. Solar at 0.99 still retains two sentiment errors in 16 retained answers. Provider "confidence" and selected-option probability disagree (0.91 vs 0.94 on the same answer); Jev's are calibrated on average (expected calibration error 0.011) but not on these reviews. Threshold policy therefore buys coverage loss faster than error removal on this data.
 
 **Agreement is the gate that worked here.** The fixed rule "accept only when two independent decision models return the identical four-field answer, otherwise defer" produced five zero-error accepted sets among 21 pairs:
 
@@ -384,4 +384,4 @@ Sources: `public-site/native-agreement-policy-v1.json`, `public-site/jev-confide
 
 ---
 
-Corrections 2026-10-08: DEV-029 "mixed" sentiment came from four decision models, not five; five of 21 agreement pairs (not four) kept zero accepted errors, Liquid + Solar added; the seven-model study total is $1.2013 including Clef's list-price estimate, plus up to $0.13 unknown, not "under $1.20"; Opus 5.5 high has three P0 passes (59, 58, 58), not one; the 16 error-retaining agreement pairs erred on 12 reviews, not only DEV-006, DEV-029 and DEV-030 (section 6).
+Corrections 2026-10-08: DEV-029 "mixed" sentiment came from four decision models, not five; five of 21 agreement pairs (not four) kept zero accepted errors, Liquid + Solar added; the seven-model study total is $1.2013 including Clef's list-price estimate, plus up to $0.13 unknown, not "under $1.20"; Opus 5.5 high has three P0 passes (59, 58, 58), not one; the 16 error-retaining agreement pairs erred on 12 reviews, not only DEV-006, DEV-029 and DEV-030 (section 6); Jev's confidence is calibrated on average (expected calibration error 0.011 over 720 field answers), not uncalibrated, while still wrong at 0.96 (DEV-027 testimonial) and 0.91 (DEV-029 serious concern, answered "no").
