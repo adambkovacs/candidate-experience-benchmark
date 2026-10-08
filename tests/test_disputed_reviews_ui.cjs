@@ -49,7 +49,7 @@ test('hashes, answer differences and review links cannot silently drift',()=>{
 });
 
 test('the review panel states its limited cohort and links original evidence',()=>{
-  const html=fs.readFileSync(path.join(root,'public-site/index.html'),'utf8');
+  const html=fs.readFileSync(path.join(root,'public-site/explore.html'),'utf8');
   assert.match(html,/seven native decision models/i);
   assert.match(html,/does not combine repeat passes or cover every model/i);
   assert.match(html,/id="disputed-search"/);

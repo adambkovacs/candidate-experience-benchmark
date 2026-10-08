@@ -74,7 +74,7 @@ test('advanced category changes keep chart, explorer and overview choice coheren
 });
 
 test('markup routes readers to source evidence and does not call all reports a single cohort',()=>{
-  const html=fs.readFileSync(path.join(root,'public-site/index.html'),'utf8');
+  const html=fs.readFileSync(path.join(root,'public-site/explore.html'),'utf8');
   assert.match(html,/id="report-cohort"/);
   for(const anchor of ['outcome-chart','run-ranking','review-evidence','analysis-update','inspect']) assert.match(html,new RegExp(`href="#${anchor}"`));
   assert.ok(html.indexOf('id="outcome-chart"')<html.indexOf('id="run-ranking"'));

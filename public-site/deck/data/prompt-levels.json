@@ -1,0 +1,123 @@
+{
+  "generated_from": "docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md; docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md; docs/FINDINGS.md",
+  "generated_at": "2026-10-08",
+  "unit": "all-four reference matches out of 60; arrays are pass 1, 2, 3",
+  "models": {
+    "clef": {
+      "name": "Cloudflare Clef",
+      "source": "docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md",
+      "P0": [
+        54,
+        54,
+        54
+      ],
+      "P1": [
+        51,
+        51,
+        51
+      ],
+      "P2": [
+        49,
+        49,
+        49
+      ]
+    },
+    "luna": {
+      "name": "OpenAI Luna Decisions",
+      "source": "docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md",
+      "P0": [
+        49,
+        49,
+        49
+      ],
+      "P1": [
+        51,
+        51,
+        51
+      ],
+      "P2": [
+        49,
+        49,
+        49
+      ]
+    },
+    "clef_flash": {
+      "name": "Cloudflare Clef Flash",
+      "source": "docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md",
+      "P0": [
+        45,
+        45,
+        45
+      ],
+      "P1": [
+        47,
+        47,
+        47
+      ],
+      "P2": [
+        46,
+        46,
+        45
+      ],
+      "note": "Final P2 pass is 45 after one provider failure (59 usable answers)."
+    },
+    "solar": {
+      "name": "Upstage Solar Decide",
+      "source": "docs/ANALYSIS_RELEASE_RECONCILIATION_2026-10-07.md",
+      "P0": [
+        55,
+        53,
+        54
+      ],
+      "P1": [
+        53,
+        52,
+        51
+      ],
+      "P2": [
+        53,
+        52,
+        52
+      ],
+      "note": "Final P2 pass is an interrupted composite; the doc still reports 52."
+    },
+    "jev_openrouter": {
+      "name": "TypeSafe Jev 1.13 via OpenRouter native Choice",
+      "source": "docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md; public-site/jev-native-prompt-findings.json (passes.<P>.fresh<n>.score.allFour)",
+      "P0": [
+        54,
+        53,
+        52
+      ],
+      "P1": [
+        54,
+        53,
+        54
+      ],
+      "P2": [
+        54,
+        null,
+        54
+      ],
+      "note": "P2 pass 2 was interrupted (null). The interrupted composite scores 50/60 and is not a clean repeat."
+    }
+  },
+  "tally_39_setups": {
+    "source": "docs/FINDINGS.md section 'More instructions did not consistently improve agreement' (39 audited hosted and subscription setups)",
+    "P0_to_P1": {
+      "better": 15,
+      "same": 15,
+      "worse": 9
+    },
+    "P0_to_P2": {
+      "better": 7,
+      "same": 16,
+      "worse": 16
+    },
+    "P1_to_P2": {
+      "better": 4,
+      "same": 14,
+      "worse": 21
+    }
+  }
+}

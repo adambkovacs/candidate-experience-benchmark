@@ -51,7 +51,7 @@ class ReaderStoryTests(unittest.TestCase):
         assert (len(second_matches - first_matches), len(first_matches - second_matches)) == (4, 1)
         assert {row["id"] for row in evidence["changes"]} == changed
 
-        page = (ROOT / "public-site/index.html").read_text()
+        page = (ROOT / "public-site/explore.html").read_text()
         repeat = chapter(page, "story-repeat")
         assert "In one repeated Gemma test, 11 of 60 comments got different answers" in repeat
         assert "36 to 39 out of 60" in repeat
@@ -83,7 +83,7 @@ class ReaderStoryTests(unittest.TestCase):
                   sum(row["delta"] < 0 for row in rows))
         assert counts == (comparison["improved"], comparison["tied"], comparison["worsened"]) == (4, 14, 21)
 
-        page = (ROOT / "public-site/index.html").read_text()
+        page = (ROOT / "public-site/explore.html").read_text()
         specialist = chapter(page, "story-specialist")
         prompts = chapter(page, "story-prompts")
         assert "Jev matched 54 of the 60 comments" in specialist
@@ -101,7 +101,7 @@ class ReaderStoryTests(unittest.TestCase):
         assert "case=${id}#inspect" in reader_js
 
     def test_repeat_source_notes_remain_complete_and_findable(self):
-        page = (ROOT / "public-site/index.html").read_text()
+        page = (ROOT / "public-site/explore.html").read_text()
         start = page.index('<section class="evidence-notes"')
         end = page.index('</div></div></section>', start) + len('</div></div></section>')
         library = page[start:end]

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Deck lab | Motion and layouts</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../vendor/reveal/reset.css">
+  <link rel="stylesheet" href="../vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="../deck.css">
+</head>
+<body>
+  <!-- Verification fixture, not talk content: every motion tool and the remaining layout primitives on real feeds.
+       Run: node fit.mjs --page deck/verify/lab.html && node numbers.mjs --page deck/verify/lab.html -->
+  <div class="reveal" role="region" aria-label="Deck lab: motion toolkit and layout primitives">
+    <div id="deck-scene" aria-hidden="true"></div>
+    <div class="slides">
+
+      <section id="lab-statement" class="d-statement" data-scene="field">
+        <p class="d-eyebrow">Lab · statement · split-text · field scene</p>
+        <p class="d-line" data-split>Equal scores can hide <em>different answers.</em></p>
+        <p class="d-lede" data-split="line">A masked line rises from behind a clean cut.</p>
+      </section>
+
+      <section id="lab-milestone" class="d-big-number" data-scene="number" data-scene-at="1150,500"
+               data-scene-number="@findings.json#charts.jev.correct" data-scene-highlight="@findings.json#charts.jev.disagreementCaseIds">
+        <p class="d-eyebrow">Lab · milestone · 60 reviews resolve into the score</p>
+        <p class="d-caption" style="margin-top: auto; max-width: 15ch"><span data-source="findings.json#charts.jev.correct">–</span> of <span data-source="findings.json#charts.jev.denominator">–</span> reviews matched on all four decisions. The orange six did not.</p>
+        <aside class="notes">Each point is one review. Jev's matches form the figure; its six misses sit underneath in orange.</aside>
+      </section>
+
+      <section id="lab-live-soup" class="d-two-column">
+        <p class="d-eyebrow">Lab · live replay · the soup review</p>
+        <div class="d-live" data-review="DEV-029" data-model="Jev 1.13" data-route="TypeSafe direct API · prompt P0"
+             data-answer="findings.json#charts.jev.cases[id=DEV-029].prediction"
+             data-probability="jev-confidence-findings.json#conditions.P0.fields.{field}.wrongCases[id=DEV-029].selectedChoiceProbability"
+             data-probability-label="p(chosen)"
+             data-latency="data-provider-errors-v1.json#runs[id=typesafe-jev113-v2].timing.medianSeconds"
+             data-latency-label="median request in this run, client-observed" data-compare></div>
+        <footer class="d-source"><b>Source</b><a href="../../findings.json">findings.json</a> · <a href="../../jev-confidence-findings.json">jev-confidence-findings.json</a> · <a href="../../data-provider-errors-v1.json">data-provider-errors-v1.json</a> · replay, not a live call</footer>
+      </section>
+
+      <section id="lab-live-confident" class="d-two-column">
+        <p class="d-eyebrow">Lab · live replay · probabilities saved only for wrong answers</p>
+        <div class="d-live" data-review="DEV-027" data-model="Jev 1.13" data-route="TypeSafe direct API · prompt P0"
+             data-answer="findings.json#charts.jev.cases[id=DEV-027].prediction"
+             data-probability="jev-confidence-findings.json#conditions.P0.fields.{field}.wrongCases[id=DEV-027].selectedChoiceProbability"
+             data-probability-label="p(chosen)" data-compare></div>
+      </section>
+
+      <section id="lab-quote" class="d-quote">
+        <p class="d-eyebrow">Lab · quote bound to disputed-reviews-v1.json</p>
+        <blockquote data-review="DEV-027">–</blockquote>
+        <cite>DEV-027 · synthetic review</cite>
+      </section>
+
+      <section id="lab-replay" class="d-table">
+        <p class="d-eyebrow">Lab · replay · saved answers step in, differing cells flip</p>
+        <h2>Seven native models, one review.</h2>
+        <div class="d-replay" data-replay="disputed-reviews-v1.json" data-review="DEV-027" data-fields="sentiment,testimonial_potential"></div>
+        <footer class="d-source"><b>Source</b><a href="../../disputed-reviews-v1.json">disputed-reviews-v1.json</a> · reviews[id=DEV-027].answers</footer>
+      </section>
+
+      <section id="lab-timeline" class="d-timeline">
+        <p class="d-eyebrow">Lab · timeline · line draws to each event</p>
+        <h2>After Jev, everyone shipped one.</h2>
+        <ol class="d-track">
+          <li class="d-event is-key" style="--at:0"><time>2026-09-15</time><strong>Jev</strong><span>TypeSafe, early access</span></li>
+          <li class="d-event fragment" data-side="above" style="--at:.32"><time>09-22</time><strong>Solar Decide</strong><span>Upstage beta</span></li>
+          <li class="d-event fragment" style="--at:.73"><time>10-01</time><strong>Clef, Decider, Strands</strong><span>Three makers, one day</span></li>
+          <li class="d-event fragment" data-side="above" style="--at:1"><time>10-06</time><strong>Decisions API</strong><span>OpenAI public beta</span></li>
+        </ol>
+        <footer class="d-source"><b>Source</b>docs/talk/02-landscape.md · Part C (lab sample)</footer>
+      </section>
+
+      <section id="lab-grid" class="d-grid-3">
+        <p class="d-eyebrow">Lab · grid-3 · staggered cards · bound numbers</p>
+        <h2>Three numbers, three feeds.</h2>
+        <div class="d-cards" data-stagger>
+          <article class="d-card" style="--rail: var(--s-purple)"><span class="d-num" data-source="findings.json#charts.jev.correct" data-countup>–</span><h3>Jev all-four</h3><p>of 60 reviews, direct P0</p></article>
+          <article class="d-card" style="--rail: var(--s-sky)"><span class="d-num" data-source="native-agreement-policy-v1.json#pairs[left=solar-decide-native-fresh1-p0,right=perplexity-decider-native-fresh1-p0].accepted_count" data-countup>–</span><h3>Two-model agreement</h3><p>accepted with zero errors</p></article>
+          <article class="d-card" style="--rail: var(--s-red)"><span class="d-num" data-source="jev-confidence-findings.json#conditions.P0.fields.sentiment.thresholds[&quot;0.9&quot;].retained" data-countup>–</span><h3>Confidence ≥ 0.9</h3><p>sentiment decisions kept</p></article>
+        </div>
+      </section>
+
+      <section id="lab-chart" class="d-chart-frame">
+        <p class="d-eyebrow">Lab · chart frame · agreement pairs from DeckData helpers</p>
+        <h2>21 pairs, accepted reviews.</h2>
+        <figure class="d-frame">
+          <div class="d-frame-head"><span>Accepted reviews per model pair, of 60</span><span>Best pair: <span data-source="native-agreement-policy-v1.json#pairs[left=solar-decide-native-fresh1-p0,right=perplexity-decider-native-fresh1-p0].accepted_count">–</span></span></div>
+          <div class="d-plot" id="lab-pairs"></div>
+          <figcaption>Each bar is one pair of native models; a review is accepted only when both agree on all four fields.</figcaption>
+        </figure>
+      </section>
+
+      <section id="lab-closing" class="d-closing" data-scene="mark" data-scene-image="../assets/aea-icon-transparent.svg">
+        <div class="d-rail" aria-hidden="true"></div>
+        <img class="d-logo" src="../assets/aea-logo-horizontal-transparent-white.svg" alt="AI Enablement Academy">
+        <p class="d-eyebrow">Lab · closing · the 60 reviews assemble into the mark</p>
+        <h2>Test the decisions your team will act on.</h2>
+        <p class="d-contact"><span>aienablement.academy</span></p>
+      </section>
+
+    </div>
+  </div>
+  <script src="../vendor/reveal/reveal.js"></script>
+  <script src="../vendor/reveal/plugin/notes.js"></script>
+  <script src="../vendor/gsap/gsap.min.js"></script>
+  <script src="../data.js"></script>
+  <script src="../motion.js"></script>
+  <script src="../scene-shapes.js"></script>
+  <script src="../scene.js"></script>
+  <script src="../deck.js"></script>
+  <script>
+    // Lab-only chart: bars from DeckData.agreementPairs(), staggered in with DeckMotion.
+    Promise.all([DeckData.agreementPairs(), window.DeckReady]).then(([pairs]) => {
+      const plot = document.getElementById('lab-pairs');
+      const w = 1000 / pairs.length;
+      plot.innerHTML = `<svg viewBox="0 0 1000 400" preserveAspectRatio="none" role="img" aria-label="Accepted reviews for ${pairs.length} model pairs">${pairs.map((p, i) => {
+        const h = p.accepted_count / p.denominator * 400;
+        return `<rect x="${(i * w + w * .18).toFixed(1)}" y="${(400 - h).toFixed(1)}" width="${(w * .64).toFixed(1)}" height="${h.toFixed(1)}" fill="${i ? '#5e9ce8' : '#fbc02d'}"><title>${p.leftName} + ${p.rightName}: ${p.accepted_count}</title></rect>`;
+      }).join('')}</svg>`;
+      plot.dataset.stagger = 'rect';
+      if (Reveal.getCurrentSlide()?.contains(plot)) DeckMotion.stagger(plot);
+    }).catch(error => DeckData.report(`lab chart: ${error.message}`));
+  </script>
+</body>
+</html>
