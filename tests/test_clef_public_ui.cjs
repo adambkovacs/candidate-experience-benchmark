@@ -60,7 +60,7 @@ test('public section links source, describes one pass, and separates provider co
   const html = fs.readFileSync(path.join(site, 'explore.html'), 'utf8');
   assert.match(html, /id="clef-first-pass-results"/);
   assert.match(html, /one closed P0 pass/);
-  assert.match(html, /provider's separate “confidence” field/);
+  assert.match(html, /provider's separate "confidence" field/);
   assert.match(html, /clef-findings\.json/);
   assert.match(html, /CLEF_FINDINGS_2026-10-02\.md/);
 });
