@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Do models like Jev get it right when correctness is business-critical? A source-bound talk on 60 synthetic candidate reviews and four decisions.">
+  <title>Correctness, decided | Talk</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./deck/vendor/reveal/reset.css">
+  <link rel="stylesheet" href="./deck/vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="./deck/deck.css">
+</head>
+<body>
+  <div class="reveal" role="region" aria-label="Presentation: Do models like Jev get it right when correctness is business-critical?">
+    <div id="deck-scene" aria-hidden="true"></div>
+    <div class="slides">
+
+      <!-- TEST SLIDE 1 (throwaway): title, split-text headline, three.js lattice with Jev's six misses lit. -->
+      <section id="title" class="d-title" data-scene="lattice" data-scene-highlight="@findings.json#charts.jev.disagreementCaseIds">
+        <div class="d-rail" aria-hidden="true"></div>
+        <p class="d-eyebrow">Candidate feedback benchmark · 60 reviews · 4 decisions</p>
+        <h1 data-split>Do models like Jev get it right when correctness is <em>business-critical?</em></h1>
+        <p class="d-byline"><span class="d-ladder" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>Adam Kovacs · AI Enablement Academy</span></p>
+        <aside class="notes">Test slide. The lattice is the 60 reviews; the orange points are the six reviews where Jev's P0 answer missed the reference on at least one field (findings.json charts.jev.disagreementCaseIds).</aside>
+      </section>
+
+      <!-- TEST SLIDE 2 (throwaway): big number bound to findings.json, count-up, staggered field ledger, source footer. -->
+      <section id="jev-all-four" class="d-big-number">
+        <p class="d-eyebrow">TypeSafe Jev 1.13 · direct API · prompt P0</p>
+        <div class="d-body">
+          <div>
+            <p class="d-figure"><span class="d-num" data-source="findings.json#charts.jev.correct" data-countup>–</span><span class="d-unit">/<span data-source="findings.json#charts.jev.denominator">–</span></span></p>
+            <p class="d-caption">reviews where all four decisions matched the human-checked reference</p>
+          </div>
+          <dl class="d-stats" data-stagger>
+            <div class="d-stat"><dt>Sentiment</dt><dd><span data-source="findings.json#charts.jev.fieldErrors[field=sentiment].correct" data-countup>–</span><small>/60</small></dd></div>
+            <div class="d-stat"><dt>Follow-up needed</dt><dd><span data-source="findings.json#charts.jev.fieldErrors[field=follow_up_needed].correct" data-countup>–</span><small>/60</small></dd></div>
+            <div class="d-stat"><dt>Serious concern</dt><dd><span data-source="findings.json#charts.jev.fieldErrors[field=serious_concern_reported].correct" data-countup>–</span><small>/60</small></dd></div>
+            <div class="d-stat"><dt>Testimonial potential</dt><dd><span data-source="findings.json#charts.jev.fieldErrors[field=testimonial_potential].correct" data-countup>–</span><small>/60</small></dd></div>
+          </dl>
+        </div>
+        <footer class="d-source"><b>Source</b><a href="./findings.json">findings.json</a> · charts.jev · run typesafe-jev113-v2 · 60 synthetic reviews, frozen reference v0.2</footer>
+        <aside class="notes">Test slide. Every number here is bound to findings.json and checked by deck/verify/numbers.mjs.</aside>
+      </section>
+
+      <!-- APPENDIX: vertical stack for Q&A backup slides. Press Down from the divider. Add backup slides as siblings. -->
+      <section id="appendix">
+        <section id="appendix-divider" class="d-statement" data-scene="field">
+          <p class="d-eyebrow">Appendix</p>
+          <p class="d-line">Backup slides for questions.</p>
+          <p class="d-lede">Press Down to step through them. Press Right to leave the appendix.</p>
+          <aside class="notes">Structural scaffold, not talk content.</aside>
+        </section>
+        <section id="appendix-template" class="d-two-column">
+          <p class="d-eyebrow">Backup · template</p>
+          <h2>One backup answer per slide.</h2>
+          <div class="d-cols">
+            <p>Each backup slide sits under the appendix divider, so it never interrupts the main sequence.</p>
+            <p class="d-muted">Link to it during Q&amp;A with its hash, for example #/appendix-template.</p>
+          </div>
+          <aside class="notes">Structural scaffold, not talk content.</aside>
+        </section>
+      </section>
+
+    </div>
+  </div>
+  <noscript><p style="color:#fbfcfe;font:18px/1.5 sans-serif;padding:24px">This presentation needs JavaScript to load its source-bound numbers. <a href="./index.html" style="color:#9cc3f2">Open the report</a>.</p></noscript>
+  <script src="./deck/vendor/reveal/reveal.js"></script>
+  <script src="./deck/vendor/reveal/plugin/notes.js"></script>
+  <script src="./deck/vendor/gsap/gsap.min.js"></script>
+  <script src="./deck/data.js"></script>
+  <script src="./deck/motion.js"></script>
+  <script src="./deck/scene.js"></script>
+  <script src="./deck/deck.js"></script>
+</body>
+</html>
