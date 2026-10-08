@@ -1,6 +1,37 @@
 {
   "agreement_rule": {
-    "beat_definition": "0 accepted errors, at least 53 accepted, and a lower two-run charge than $0.03749436",
+    "beat_definition": "0 accepted errors, at least as many accepted as Solar + Perplexity (53), and a lower two-run charge than $0.03749436",
+    "best_beating": {
+      "accepted": 57,
+      "accepted_error_ids": [],
+      "accepted_errors": 0,
+      "charge_basis": "observed or known provider charges",
+      "deferred": 3,
+      "deferred_ids": [
+        "DEV-005",
+        "DEV-006",
+        "DEV-030"
+      ],
+      "run_a": {
+        "category": "general",
+        "condition": "P0",
+        "effort": "low",
+        "label": "DeepSeek V4.1 Flash low effort fresh1",
+        "model": "deepseek/deepseek-v4.1-flash",
+        "pass": "fresh1",
+        "run_id": "extended-openrouter-paid-deepseek-v41-flash-low-fresh1-p0"
+      },
+      "run_b": {
+        "category": "general",
+        "condition": "P0",
+        "effort": "on",
+        "label": "Gemma 4 26B thinking on fresh1",
+        "model": "google/gemma-4-26b-a4b-it",
+        "pass": "fresh1",
+        "run_id": "extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0"
+      },
+      "two_run_charge_usd": 0.03674717
+    },
     "budget_answers": [
       {
         "accepted": 54,
@@ -907,52 +938,66 @@
       {
         "format": "count",
         "label": [
-          "Solar + Perplexity accepted"
+          "Solar + Perplexity accepted, with ",
+          {
+            "format": "count",
+            "path": "agreement_rule.solar_perplexity.accepted_errors"
+          },
+          " errors"
         ],
         "of": "agreement_rule.denominator",
         "share": null,
         "value": "agreement_rule.solar_perplexity.accepted"
       },
       {
-        "format": "count",
+        "format": "usd",
         "label": [
-          "Solar + Perplexity accepted errors"
+          "Solar + Perplexity two-run charge"
         ],
         "of": null,
         "share": null,
-        "value": "agreement_rule.solar_perplexity.accepted_errors"
+        "value": "agreement_rule.solar_perplexity.two_run_charge_usd"
       },
       {
         "format": "count",
         "label": [
-          "Qwen 27B low + Gemma 26B on accepted, with ",
+          {
+            "format": "text",
+            "path": "agreement_rule.best_beating.run_a.label"
+          },
+          " + ",
+          {
+            "format": "text",
+            "path": "agreement_rule.best_beating.run_b.label"
+          },
+          " accepted, with ",
           {
             "format": "count",
-            "path": "agreement_rule.qwen_gemma.accepted_errors"
+            "path": "agreement_rule.best_beating.accepted_errors"
           },
           " errors"
         ],
         "of": "agreement_rule.denominator",
         "share": null,
-        "value": "agreement_rule.qwen_gemma.accepted"
+        "value": "agreement_rule.best_beating.accepted"
       },
       {
         "format": "usd",
         "label": [
-          "Qwen 27B low + Gemma 26B on two-run charge"
+          "Its two-run charge"
         ],
         "of": null,
         "share": null,
-        "value": "agreement_rule.qwen_gemma.two_run_charge_usd"
+        "value": "agreement_rule.best_beating.two_run_charge_usd"
       },
       {
         "format": "count",
         "label": [
-          "Charged pairs that beat Solar + Perplexity on coverage and price"
+          "Charged pairs with no accepted errors that accept more reviews than Solar + Perplexity at a lower charge"
         ],
         "of": "agreement_rule.charged_cross_pairs",
         "share": null,
-        "value": "agreement_rule.pairs_beating_solar_perplexity"
+        "value": "agreement_rule.pairs_more_and_cheaper"
       },
       {
         "format": "count",
@@ -1198,6 +1243,7 @@
       }
     ],
     "pairs_beating_solar_perplexity": 35,
+    "pairs_more_and_cheaper": 23,
     "qwen_gemma": {
       "accepted": 58,
       "accepted_error_ids": [],

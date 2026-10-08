@@ -59,6 +59,11 @@ class DeepInsightsTest(unittest.TestCase):
         self.assertEqual((by_pass["fresh3"]["accepted"], by_pass["fresh3"]["accepted_errors"]), (59, 1))
         self.assertIsNone(by_pass["fresh2"]["two_run_charge_usd"])
         self.assertEqual((rule["pairs_beating_solar_perplexity"], rule["charged_cross_pairs"]), (35, 853))
+        self.assertEqual(rule["pairs_more_and_cheaper"], 23)
+        best, sp = rule["best_beating"], rule["solar_perplexity"]
+        self.assertGreater(best["accepted"], sp["accepted"])
+        self.assertLess(best["two_run_charge_usd"], sp["two_run_charge_usd"])
+        self.assertEqual(best["accepted_errors"], 0)
 
     def test_corrections_dated_8_october(self):
         values = {item["id"]: item["values"] for item in self.feed["corrections"]["items"]}

@@ -34,7 +34,7 @@
   // One bound number: the value attribute holds the raw feed value so a number audit can compare it.
   function num(data, path, format = 'count', feed = FEED) {
     const value = get(data, path);
-    return `<data class="di-num" value="${esc(value ?? '')}" data-source="${feed}#${esc(path)}">${esc(fmt(value, format))}</data>`;
+    return `<data class="di-num${format === 'text' ? ' di-text' : ''}" value="${esc(value ?? '')}" data-source="${feed}#${esc(path)}">${esc(fmt(value, format))}</data>`;
   }
 
   const prose = (data, parts) => parts.map(part => typeof part === 'string' ? esc(part) : num(data, part.path, part.format)).join('');
