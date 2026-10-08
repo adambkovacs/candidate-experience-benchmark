@@ -2,11 +2,11 @@
 
 Speaker: Adam Kovacs. Date: 2026-10-08. Format: 15 minutes plus Q&A. Audience: agentic builders, engineers and AI-curious people, mixed seniority, some non-engineers. Delivery: Adam's laptop over Zoom to a TV, AEA branding, saved answers replayed from JSON with an honest "replay" badge, no live inference.
 
-Version 2.1, written 2026-10-08 after the independent reviews in 05r-outline-review.md and 05r2-outline-review.md (verdict REVISE, then delta) and the computed insights in 01b-deep-analysis.md. Every 05r blocking finding is addressed; the changelog in section 9 says how. v1 stays in git history (commit 4093b84a).
+Version 2.2, written 2026-10-08 after the independent reviews in 05r-outline-review.md and 05r2-outline-review.md (verdict REVISE, then delta) and the computed insights in 01b-deep-analysis.md. Every 05r blocking finding is addressed; the changelog in section 9 says how. v1 stays in git history (commit 4093b84a).
 
 Skeleton: one answer, three proofs, one rule, one call to action. Everything else lives in the appendix for Q&A. The System 1 / System 2 idea is the spine: it opens the talk, explains every proof, and names the rule.
 
-Every number is agreement with the frozen provisional v0.2 reference on the same 60 synthetic reviews. "Matched" always means "matched that reference", never "accurate". Costs carry the label the deck feed gives them today (`public-site/deck/data/answer.json`): "known provider charge", "observed charge" or "API-equivalent estimate". A cost-checker lane is resolving actual provider charges into 06-cost-check.md; that file did not exist when v2 was written, so 06 may relabel some costs and the deck should re-read the feed before export.
+Every number is agreement with the frozen provisional v0.2 reference on the same 60 synthetic reviews. "Matched" always means "matched that reference", never "accurate". Costs carry the labels resolved in 06-cost-check.md (commit 0bd7b0fd) against provider generation records: every OpenRouter-routed run quoted on a slide is a known provider charge, including Clef and Jev via OpenRouter; Jev direct on TypeSafe stays an estimate because TypeSafe has no billing API; Claude, Codex and Gemini subscription runs carry API-equivalent estimates only.
 
 ## 1. The answer and the three proofs
 
@@ -85,21 +85,21 @@ And the soup has company. [S9 card wall, one click per card] "Someone said it wa
 [notes beat=6]
 So, proof three. The number next to the answer.
 
-Jev returns a confidence with every answer. On these 60 reviews, Jev's confidence tracked how often it was right: pooled over 720 answers the average gap was 0.011, while Clef Flash's was 0.358. [S10, replay badge] And Jev was still 0.96 confident that the review where the train got cancelled and the interviewers switched to video was negative and not a testimonial, and the key says the opposite. On sentiment, a 0.9 gate threw away nine good answers to catch four bad ones, and on the testimonial field the same gate still let it through. In fairness, that gate would have caught the harassment follow-up miss, which sat at 0.49. Jev's ten least-confident reviews include seven of the ten hardest, and the soup is one of them, but only because of the sentiment field. On follow-up, concern and testimonial, the fields where you'd act, it said no at 0.84 to 0.91. So the number can tell you a review is hard. It can't tell you which answer to distrust. A confidence that tracks its hit rate on average is still not a per-review gate.
+On these 60 reviews, Jev's confidence tracked how often it was right: pooled over 720 answers the average gap was 0.011, while Clef Flash's was 0.358. [S10, replay badge] And Jev was still 0.96 confident that the cancelled-train review was negative and not a testimonial, and the key says the opposite. On sentiment, a 0.9 gate threw away nine good answers to catch four bad ones, and on the testimonial field the same gate still let it through. In fairness, that gate would have caught the harassment follow-up miss at 0.49. Jev's ten least-confident reviews include seven of the ten hardest, the soup among them, but only through the sentiment field. On follow-up, concern and testimonial, the fields where you'd act, it said no at 0.84 to 0.91. So the number can tell you a review is hard. It can't tell you which answer to distrust. A confidence that tracks its hit rate on average is still not a per-review gate.
 
-The other fix I'd reach for is a longer prompt. I tried plain, then classifier framing, then a full decision tree, and in these saved runs the framing step scored higher in 15 of 39 setups, the same in 15, lower in 9. Adding the tree on top scored higher in 4, the same in 14, lower in 21. Cloudflare's Clef went 54, 51, 49 in every pass, with one caveat: that route may only read the first 2,000 tokens of state, so the tree may have been cut off. So the fix I'd reach for first was the one I'd trust least.
+The other fix I'd reach for is a longer prompt. I tried plain, then classifier framing, then a full decision tree, and in these saved runs framing scored higher in 15 of 39 setups, the same in 15, lower in 9. Adding the tree on top scored higher in 4, the same in 14, lower in 21. Cloudflare's Clef went 54, 51, 49 in every pass, with one caveat: that route may only read the first 2,000 tokens of state, so the tree may have been cut off. So the fix I'd reach for first was the one I'd trust least.
 [/notes]
 
 [notes beat=7]
 The rule. Agree or defer. Two cheap models on every review, accept only identical answers, send the rest to a person.
 
-I fixed the rule before computing any pair, then looked at all 21 pairs of the seven decision models. Five pairs let zero errors through. [S12 sorts] The pair on the slide, Solar Decide plus Perplexity Decider, agreed on 53 and sent 7 to a person, for under four cents for both, and I picked it after seeing all 21, so treat it as an example. It deferred the soup, the three disputed labels and the 0.96 testimonial, and both got the harassment review right, so the rule overrules Jev's miss.
+I fixed the rule before computing any pair, then looked at all 21 pairs of the seven decision models. Five pairs let zero errors through. [S12 sorts] Solar Decide plus Perplexity Decider agreed on 53 and sent 7 to a person, for under four cents for both, and I picked it after seeing all 21, so it's an example. It deferred the soup, the three disputed labels and the 0.96 testimonial, and both got the harassment review right, so the rule overrules Jev's miss.
 
-Zero errors on these 60 is not zero errors on the next 60. And agreement only helps when the models fail differently: six of the 21 pairs accepted the soup with the same wrong answer. Same reason a second frontier model is a weak check: seven models from three vendors gave one identical answer set, and it differs from our key only on the three disputed labels.
+Zero errors on these 60 is not zero errors on the next 60. And agreement only helps when the models fail differently: six of the 21 pairs accepted the soup with the same wrong answer. A second frontier model is a weak check for the same reason: seven models from three vendors gave one identical answer set, differing from our key only on the three disputed labels.
 
 The rule is two cheap models that agree. [S12 re-sorts] Across 853 costed pairs, Qwen 27B low plus Gemma 26B thinking-on accepted 58 with zero errors and deferred 2, for about seven cents observed, though other Gemma passes let one error through.
 
-The rule decides what a model may auto-accept, and the escalation lines are the workflow. In a harassment workflow, any review either model flags as a serious concern goes to a person, whatever else the two agree on. On this set every pair's flags together caught all 25, though Tev alone missed two and Clef flagged a 26th. The rule's job is the other 35: it auto-accepts 25 cleanly and sends 10 to a person.
+The rule decides what a model may auto-accept; the escalation lines are the workflow. In a harassment workflow, any review either model flags as a serious concern goes to a person, whatever else the two agree on. Here every pair's flags together caught all 25, though Tev alone missed two and Clef flagged a 26th. The rule's job is the other 35: it auto-accepts 25 and sends 10 to a person.
 
 [S13] Hands up for one model at 0.96. [pause] Hands up for two cheap models that agree. [pause]
 [/notes]
@@ -145,7 +145,7 @@ Motion rules for the whole deck: one idea moves per slide; every hero has a stat
 | A3 | Prompt levels P0 / P1 / P2 | Five decision models, every pass, from the feed, drawn as the S5 nine-cell glyph. 39-setup tally all three steps: plain to framing 15/15/9, plain to tree 7/16/16, framing to tree 4/14/21. "In these saved runs." Clef truncation caveat. 01b: P2 pushes decision models from "no" to "insufficient" on serious concern. | `prompt-levels.json`; 01b §12.6 |
 | A4 | Confidence and calibration | Pooled gap between confidence and hit rate per native model, descriptive-only on 60 texts (Jev 0.011, Liquid 0.035, Tev 0.047, Luna 0.074, Solar 0.145, Clef 0.217, Clef Flash 0.358). Confidence versus option probability differ by more than 0.2 on 55% of Flash answers. Jev per-field retrospective thresholds. Hard-10 overlap table. All retrospective; no abstention executed. | 01b §8; `jev-confidence-findings.json` |
 | A5 | Who wrote the key, and how fragile it is | An OpenAI assistant drafted the 60 reviews and the key; people checked all 60 on 2 October 2026; a separate AI review disputes three labels. Flipping DEV-006 alone: 212 runs up, 168 down, 257 unchanged of 637. All three flipped: per-run deltas from minus 3 to plus 3. | `docs/PILOT_AUDIT.md`; `README.md` line 171; `docs/REFERENCE_REVIEW_V1.md`; `reference-sensitivity-v1.json` `scenario_summaries` |
-| A6 | Cost table, seven decision models | Known charge per 60 one-review requests: Clef Flash $0.012, Luna $0.013, Perplexity $0.015, Liquid $0.016, Tev $0.016, Solar $0.022, Clef $0.032 (estimate). Nine-run series: $1.2013 including a Clef estimate, plus up to $0.13 unknown charge, which is unknown rather than zero. Gemini effort pair: low 56/60 at $0.063, high 55/60 at $0.257. | 01 insight 14; 05r R8 |
+| A6 | Cost table, seven decision models | Known charge per 60 one-review requests: Clef Flash $0.012, Luna $0.013, Perplexity $0.015, Liquid $0.016, Tev $0.016, Solar $0.022, Clef $0.032. All seven are known provider charges billed through OpenRouter (06-cost-check.md; Clef was wrongly called an estimate before). Nine-run series: $1.2013 known, plus up to $0.13 of unknown-charge bounds for requests whose outcome was never recorded, which is unknown rather than zero. Gemini effort pair: low 56/60 at $0.063, high 55/60 at $0.257. | 01 insight 14; 05r R8 |
 | A7 | Limits and the claims we do not make | Not a leaderboard. Not causal. Not real-world accuracy (60 synthetic reviews, 340 planned never generated). Key is provisional v0.2, AI-drafted, person-checked, three labels disputed. Missing cost is unknown, not zero. No speed ranking. No pooling of 1,004 run entries. Batch, route and effort differ between runs. Frozen commit SHA printed here. | 01 §4, §7 |
 | A8 | classification-bench detail | Works: offline end to end, 272 tests, OpenRouter one route, Clef 42 of 42 valid. Wired, not live: Claude Code, Codex, Liquid, Solar, Qwen. Not built: OpenAI Decisions, unlabeled runs, several report items. Being open-sourced; release date not set. | 04 §2, §3 |
 | A9 | Equal scores hide different answers | Drawn with the S5 nine-cell glyph. Sonnet 5.5 xhigh 58/60 in all nine cells, changed DEV-006 and DEV-030 between passes. 01b: 31 of 50 decision groups changed nothing in three passes versus 11 of 202 general groups; general models flip the hard reviews. | 01 insight 5; 01b §12.4 |
@@ -184,6 +184,7 @@ Held as spoken answers, not slides: the rules baseline (10/60, 01 insight 13) an
 | 16 | Opus ran ten reviews per request and Jev one. Fair? | Not identical. Batch, route and effort all differ, which is why I don't rank. It's on the limits slide. | A7 |
 | 17 | Cloudflare: Clef reads about 2,000 tokens of state. Was your long prompt truncated? | Possibly. Your route warning says so, and our notes treat truncation as a constraint, not a cause. | A3; `docs/CLEF_OPENROUTER_FINDINGS.md` |
 | 18 | Decision models don't hallucinate, so isn't the risk gone? | A typed head can't invent a label, and on this set 31 of 50 decision-model groups gave identical answers across three passes, so one failure class is gone. The other stays: Perplexity Decider matched 54 of 60 in all nine runs with the same errors every time, so a wrong answer is the same wrong answer at scale, with no variance to warn you. Miss a harassment report or publish the wrong testimonial and the candidate tells X and Reddit how they were treated. | 01 insight 6; 01b §12.4; A10 |
+| 19 | What did the whole study cost? | On OpenRouter, $12.65 across 15,135 saved generations, every one matched to a provider record, plus up to $3.88 of reservations for requests whose cost was never recorded. The direct Cloudflare runs sit under a $0.26 upper bound because Cloudflare's billing endpoint refused the token. TypeSafe direct is an estimate, about six tenths of a cent per pass, because there is no billing API. Claude, Codex and Gemini ran on subscriptions, so those are API-equivalent estimates only. | 06-cost-check.md §4, §5 |
 
 Two more to have ready: Jev's confidence versus its option probability differ by 0.016 on average and by more than 0.2 on under 1% of answers, while for Clef Flash they differ on 55%, so threshold on the probability for those models (01b §8). And hosted Jev drift: Cloudflare's board saw 20 choices change in twelve days with scores unchanged and no version change (02 B1 and E8).
 
@@ -203,7 +204,7 @@ Two more to have ready: Jev's confidence versus its option probability differ by
 | Name soup | Jev, Kev, Tev, Clef, Luna and Laya sound alike over Zoom. Spoken names are limited to Jev, Opus, Sonnet, Gemma, Qwen, Solar, Perplexity, Liquid and Clef. |
 | QR code | Test it from the back row on the venue TV. The handle is adambkovacs, easy to mistype, so the URL is also printed in full. |
 | Early-access promise | Adam confirmed classification-bench is being open-sourced. Until the repo is public, "early access" means Adam grants collaborator access by hand; do not show the private URL. |
-| Cost labels change after 06-cost-check.md lands | Re-read `answer.json` before export and replace "known charge" or "estimate" wording on S6, S12 and A6 to match. |
+| Cost labels drift from 06-cost-check.md | 06 landed in 0bd7b0fd and v2.2 follows it. Before deck export, confirm `answer.json` carries the same labels (Jev via OpenRouter known, Jev direct estimate, Clef known). |
 
 ## 7. Word count per beat, and the audit
 
@@ -216,10 +217,10 @@ Produced by `scripts/count-notes.ts` (bun) over the `[notes beat=N]` blocks, wit
 | 3 The launch wave | 64 | 120 |
 | 4 Proof 1 | 308 | 265 |
 | 5 Proof 2 | 264 | 285 |
-| 6 Proof 3 | 293 | 300 |
-| 7 The rule | 307 | 300 |
+| 6 Proof 3 | 268 | 300 |
+| 7 The rule | 296 | 300 |
 | 8 The tool and the Monday recipe | 178 | 180 |
-| Total | 1,596 | 1,550 |
+| Total | 1,560 | 1,550 |
 
 ## 8. Integrated from 01b, and what is still open
 
@@ -228,7 +229,7 @@ Integrated into v2: calibration table and hard-10 overlap (§8) in proof 3 and A
 Inherited errors in 01 and 02 were fixed in commits 05528718, 0bbe06f6 and 29b5712f, and Jev's pairs are in 01b §11 Table B, so neither is open.
 
 Still open after v2.1:
-- 06-cost-check.md may relabel costs; re-read `answer.json` before deck export.
+- `answer.json` still calls the Jev direct figure a token-price estimate of the OpenRouter charge, which matches 06; confirm no feed still labels Clef an estimate before deck export.
 - Confirm the bio line "read the pile of candidate feedback" is one Adam is happy to say; 03 has no count behind it, so v2 uses no number.
 
 ## 9. Changelog: 05r findings and how v2 handles them
@@ -263,6 +264,8 @@ Still open after v2.1:
 | v2.1, 05r2 N3 | Beat 7, S13 and Q&A 14: concerns go to a person when either model flags them; every pair's flags together caught all 25 on this set, Tev alone missed two. Q&A 14 split corrected to 6 by disagreement and 4 by "can't tell". Applied although the lead's brief listed only N1 and N2, because it is a factual correction in the delta review. |
 | v2.1, residuals | A11 quotes the corrected 01b figure, any definite label 25% to 31%, with the nearest-label 21% to 26% in parentheses (R6 plus the 01b correction); Q&A 13 uses the 01b pair pool (R9); "35 other pairs had more coverage at lower cost" replaces "beat" (R5); "seven models from three vendors" (R4); "people checked all 60" everywhere (R2); Perplexity "by press reports" (R3); Perplexity's soup answer "no on follow-up and concern" (R7); "on the testimonial field the same gate still let it through" (R8); S10 kept dots filled, withheld hollow, DEV-027 filled with a red ring (R10); `models.jev_openrouter.P0` pointer (R11); "vendors kept telling me" (R12); stale open items removed from sections 6 and 8 (R1); beat 7 trimmed by about 60 words; three "So" openers dropped. |
 | v2.1, lead additions | N3 uses the reviewer's exact line ("whatever else the two agree on"; Tev missed DEV-044 and DEV-046, Clef flagged DEV-053) in beat 7, S13 and A10. 01b corrections applied: A11 quotes any-definite-label 25% to 31% with nearest-label 21% to 26% in parentheses; "235 of 373" was not used anywhere. Blast-radius line added to beat 4 in Adam's words, budget-neutral against cuts in beats 3, 4, 6, 7 and 8; Q&A 18 added with the Perplexity example. S9 is now the hard-six card wall with trigger phrases, cause labels, reference answers, matched counters and a per-click motion brief; the histogram is an inset; beat 5 speaks one sentence per card; appendix A13 to A18 hold the per-field answers of all seven decision models for each hard review. |
+| v2.2, costs | 06-cost-check.md (0bd7b0fd) applied: every OpenRouter-routed run on a slide is a known provider charge, Clef included ($0.03184656, previously called an estimate); Jev via OpenRouter $0.00589092 per P0 pass is known; Jev direct on TypeSafe stays an estimate; subscription runs stay API-equivalent estimates. Header, A6, the risk row and the open item updated. Q&A 19 added: OpenRouter $12.65 across 15,135 saved generations plus up to $3.88 unknown-cost reservations, Cloudflare direct under a $0.26 upper bound, TypeSafe direct an estimate, Claude, Codex and Gemini on subscriptions. |
+| v2.2, words | Trimmed to the 1,560 budget from beats 6 and 7 only, by shortening sentences; the Qwen + Gemma re-sort and every reviewer line stay. Items 1 to 3 of the lead's v2.2 brief (blast radius and Q&A 18, hard-six card wall with A13 to A18, A11 both ranges) were already in the uncommitted v2.1 working tree and are unchanged. |
 | v2.1, agreed improvements | (a) Repeat design said once in beat 4; S5 is one nine-cell matrix per model, the deck's signature glyph, reused on A3 and A9, with updated feed pointers. (b) S8 is one click that auto-plays the seven flips plus one click for Jev and the general line; S12 stays at two clicks; motion rules updated. (c) Four-questions strip with label vocabulary added to S5. |
 
 ## 10. Script output
@@ -274,13 +277,13 @@ beat 2: 61
 beat 3: 64
 beat 4: 308
 beat 5: 264
-beat 6: 293
-beat 7: 307
+beat 6: 268
+beat 7: 296
 beat 8: 178
-total: 1596
+total: 1560
 
 $ bun run ~/.claude/skills/anti-slop/scripts/audit-slop.ts docs/talk/05-session-outline.md
-Total Words: 9342
+Total Words: 9598
 Slop Instances: 0
 NO-SLOP Score: 100.0%
 
