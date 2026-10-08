@@ -102,4 +102,6 @@ Collected from the working session on 2026-10-08. Quotes are verbatim (typos kep
 
 [Event facts fetched from the Luma page on 2026-10-08: Agentics Foundation Meetup, Budapest, 8 October, Craft's office in Krausz Palace; Adam's slot 18:20 to 18:40 between Dragan Spiridonov's "Agentic QE in Production" and Balazs Kemenes; Reuven "rUv" Cohen speaks at 19:00 on Edge AI; panel at 19:20 moderated by Klara Hermesz with Adam on it. Audience: people building, deploying, evaluating or governing agentic systems: engineers, product people, founders, researchers, QE practitioners, AI adoption leaders. Virtual ticket on Zoom covers the talks. Free, volunteer-run, all talks in English.]
 
+> use /adam-voice and /anti-slop please, the phrasing is really off, and remember my original initial request [restated in full; see the top of this file] [...] but animation and presentation shouldn't go and hurt information
+
 [Conductor's note: the deck was built under a self-imposed "max 12 words of on-slide text per slide" rule from the outline. Adam's verdict says that rule produced cryptic fragments a viewer cannot follow without the speaker, and that the slides should carry the talking points and the site's explanations explicitly.]
