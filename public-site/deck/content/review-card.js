@@ -1,7 +1,7 @@
 /* Review cards: saved answers from disputed-reviews-v1.json replayed against the frozen reference.
-   data-c="flip"   S8: seven model cards face down; step 1 auto-plays the flips, step 2 shows the extra row.
-   data-c="wall"   S9: six review cards, one per step, each auto-plays in about 3 seconds. data-reveal="DEV-..,.." sets the
-                   click order (the order the notes speak them); the grid keeps the source order.
+   data-c="flip"   S12: seven model cards, all face up; on entry they flip in turn (about 1.5 s). No clicks.
+   data-c="wall"   S13: six review cards, all shown; on entry they fade up in data-reveal order (the order the notes speak
+                   them, about 1.2 s). The grid keeps the source order. No clicks.
    data-c="replay" A13-A18: one review, seven model rows; step 1 lands the rows one by one.
    Review text is never animated; trigger phrases are wrapped in <mark> without changing the text. */
 (() => {
@@ -69,31 +69,30 @@
     }
   }
 
-  // Bound numbers never change text mid-animation (print pages and numbers.mjs read them); progress shows in pips.
+  // Final state always: every card face up, the tally and the extra row shown. On entry the seven flip in turn (about 1.5 s).
   function renderFlip(el, step, { animate }) {
     const inner = [...el.querySelectorAll('.c-flip-in')];
     const pips = [...el.querySelectorAll('.c-pip')];
     const tally = el.querySelector('.c-flagged'), extra = el.querySelectorAll('.c-flip-extra');
     C.kill(el);
-    C.badge(el.closest('section'), step >= 1);
-    gsap.set(inner, { rotationY: step >= 1 ? 180 : 0 });
-    pips.forEach(p => p.classList.toggle('is-on', step >= 1));
-    gsap.set(pips.map(p => p.querySelector('b')), { clearProps: 'transform' }); // an interrupted fuse falls back to the class
-    gsap.set(tally, { autoAlpha: step >= 1 ? 1 : 0, scale: 1 }); // a step-1 sequence cut short must not leave the tally scaled
-    gsap.set(extra, { autoAlpha: step >= 2 ? 1 : 0, y: 0 });
-    if (!animate || step === 0) return;
-    if (step === 2) return C.timeline(el).fromTo(extra, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.25 });
-    // Step 1: each pip fills like a fuse, then its card flips (1.8 s per card). No idle gaps, so "motion done" means done.
-    gsap.set(inner, { rotationY: 0 }); gsap.set(tally, { autoAlpha: 0 });
+    C.badge(el.closest('section'), true);
+    gsap.set(inner, { rotationY: 180 });
+    pips.forEach(p => p.classList.add('is-on'));
+    gsap.set(pips.map(p => p.querySelector('b')), { clearProps: 'transform' });
+    gsap.set(tally, { autoAlpha: 1, scale: 1 });
+    gsap.set(extra, { autoAlpha: 1, y: 0 });
+    if (!animate) return;
+    gsap.set(inner, { rotationY: 0 }); gsap.set(tally, { autoAlpha: 0 }); gsap.set(extra, { autoAlpha: 0 });
     pips.forEach(p => p.classList.remove('is-on'));
     const fills = pips.map(p => p.querySelector('b'));
     gsap.set(fills, { scaleX: 0 });
     const tl = C.timeline(el);
     inner.forEach((card, i) => {
-      tl.to(fills[i], { scaleX: 1, duration: i ? 1.1 : 0.3, ease: 'none' })
-        .to(card, { rotationY: 180, duration: 0.7, ease: 'power3.inOut' });
+      tl.to(fills[i], { scaleX: 1, duration: 0.12, ease: 'none' }, i * 0.16)
+        .to(card, { rotationY: 180, duration: 0.6, ease: 'power3.inOut' }, i * 0.16 + 0.08);
     });
-    tl.fromTo(tally, { autoAlpha: 0, scale: 1.25 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power3.out' })
+    tl.fromTo(tally, { autoAlpha: 0, scale: 1.25 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'power3.out' }, 1.4)
+      .fromTo(extra, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out', stagger: 0.1 }, 1.5)
       .add(() => { pips.forEach(p => p.classList.add('is-on')); gsap.set(fills, { clearProps: 'transform' }); });
   }
 
@@ -121,34 +120,17 @@
     }));
   }
 
+  // Final state always: all six cards shown. On entry they fade up in the spoken order, about 1.2 s in all.
   function renderWall(el, step, { animate }) {
     const cards = revealOrder(el);
     C.kill(el);
-    C.badge(el.closest('section'), step >= 1);
-    cards.forEach((card, i) => card.classList.toggle('is-shown', i < step));
+    C.badge(el.closest('section'), true);
+    cards.forEach(card => card.classList.add('is-shown'));
     gsap.set(cards, { clearProps: 'opacity,transform' });
     el.querySelectorAll('.c-hard .c-tile, .c-hard .c-tile i, .c-hard-key, .c-hard header, .c-hard .c-opened').forEach(n => gsap.set(n, { clearProps: 'opacity,visibility,transform,clipPath,backgroundColor' }));
-    // Never hand a <mark> to GSAP's transform parser: on a hidden slide it re-parents the node to measure it and puts it
-    // back before the next element sibling, which moves a mark followed only by text to the end of the review.
     el.querySelectorAll('.c-mark').forEach(n => n.style.removeProperty('background-size'));
-    el.querySelectorAll('.c-hard').forEach(card => card.classList.remove('is-playing'));
-    if (!animate || step === 0) return;
-    const card = cards[step - 1];
-    const marks = card.querySelectorAll('.c-mark'), key = card.querySelector('.c-hard-key');
-    const tiles = card.querySelectorAll('.c-tile'), diffs = card.querySelectorAll('.c-tile i.is-diff');
-    const counters = card.querySelectorAll('[data-countup]'), labels = card.querySelectorAll('header, .c-opened');
-    card.classList.add('is-playing');
-    const tl = C.timeline(el, { onComplete: () => card.classList.remove('is-playing') });
-    // The card fades up in place: the quoted review text appears and never moves. Only the labels above it travel.
-    tl.fromTo(card, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power2.out' })
-      .fromTo(labels, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', stagger: 0.08, clearProps: 'opacity,transform' }, 0)
-      .fromTo(marks, { backgroundSize: '0% 0.2em' }, { backgroundSize: '100% 0.2em', duration: 0.45, ease: 'power2.out', stagger: 0.15 }, 0.35)
-      .fromTo(key, { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'power3.out' }, 0.8)
-      .fromTo(tiles, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out', stagger: 0.12 }, 1.1)
-      .fromTo(diffs, { backgroundColor: 'rgba(251,252,254,.18)', scaleY: 0.2 }, { backgroundColor: '#f57c00', scaleY: 1, duration: 0.25, ease: 'power2.out', stagger: 0.04, clearProps: 'opacity,visibility,transform,clipPath,backgroundColor' }, 1.35)
-      .add(() => counters.forEach(n => window.DeckMotion.countUp(n)), '>')
-      .to({}, { duration: Number(counters[0]?.dataset.duration ?? 0.6) }); // keep the timeline alive while the counters run
-    if (tl.duration() > MAX_CARD + 0.6) tl.timeScale(tl.duration() / MAX_CARD);
+    if (!animate) return;
+    C.timeline(el).fromTo(cards, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out', stagger: 0.14, clearProps: 'opacity,transform' });
   }
 
   // ---------- A13-A18: replay table ----------

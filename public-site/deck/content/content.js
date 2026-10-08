@@ -9,7 +9,6 @@
   const SITE = new URL('../../', document.currentScript.src); // public-site/
   const FIELDS = ['sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential'];
   const FIELD_LABEL = { sentiment: 'Sentiment', follow_up_needed: 'Follow-up', serious_concern_reported: 'Concern', testimonial_potential: 'Testimonial' };
-  const files = new Map();
   const defs = {};
 
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -17,12 +16,11 @@
   const html = s => document.createRange().createContextualFragment(s);
   const still = () => DeckMotion.still();
 
-  // Any JSON file under public-site by relative path (deck/data/..., deck/content/...). Top-level feeds go through DeckData.feed.
+  // Any JSON file under public-site by relative path (deck/data/..., deck/content/...), through DeckData.feed so the offline
+  // bake's inlined copies serve it too.
   function file(path) {
-    if (/^[\w.-]+\.json$/.test(path)) return DeckData.feed(path);
-    if (!/^deck\/(data|content)\/[\w.-]+\.json$/.test(path)) return Promise.reject(new Error(`unexpected data file "${path}"`));
-    if (!files.has(path)) files.set(path, fetch(new URL(path, SITE)).then(r => { if (!r.ok) throw new Error(`${path} returned HTTP ${r.status}`); return r.json(); }));
-    return files.get(path);
+    if (!/^(?:deck\/(?:data|content)\/)?[\w.-]+\.json$/.test(path)) return Promise.reject(new Error(`unexpected data file "${path}"`));
+    return DeckData.feed(path);
   }
   async function value(spec) { const [path, jsonPath] = spec.split('#'); return DeckData.resolve(await file(path), jsonPath); }
 

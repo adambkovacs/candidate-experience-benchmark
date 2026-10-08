@@ -5,7 +5,8 @@
 // 2. Unbound digits: any digit on a slide outside a bound element and outside the label allowlist below fails.
 // 3. Notes: the main deck's speaker notes, per beat, must equal docs/talk/05-session-outline.md section 2b verbatim.
 // 4. Copy: words in [data-copy] per main slide, reported; slides over COPY_MAX fail unless listed. v3 revoked the old
-//    twelve-word cap (it produced cryptic fragments, docs/talk/13-deck-brief-review.md); about 70 words keeps slides readable.
+//    twelve-word cap (it produced cryptic fragments, docs/talk/13-deck-brief-review.md); v4 raised the cap to 110 so every
+//    slide can carry its full talking point (Adam's rule: information first), and fit.mjs guards the layout.
 // 5. Source links: every link out of the deck targets a report page from site/LINK-MAP.md (index, explore, method)
 //    and an id that exists on that page; links straight to a .json feed fail.
 // Usage: node content-audit.mjs [--page presentation.html]
@@ -16,7 +17,7 @@ import { SITE, REPO, arg, serve, launch, openDeck, listSlides, showFully, settle
 const pagePath = arg('page', 'presentation.html');
 const MAIN = 19;
 const BEATS = [1, 1, 2, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8]; // slide -> beat in outline section 2b
-const COPY_MAX = 75;
+const COPY_MAX = 110;
 const COPY_EXCEPTIONS = { monday: 'closing slide also carries the @ruvector/typesafe line the lead asked for (rUv speaks next)' };
 const files = new Map();
 const load = async path => {
@@ -103,7 +104,7 @@ const LABELS = [/\bDEV-\d{3}\b/g, /\b[Pp][012]\b/g, /\bA\d{1,2}\b/g, /\bJev 1\.1
   /\bQwen3\.8 27B\b/g, /\bQwen 27B\b/g, /\bQwen 35B\b/g, /\bA4B\b/g, /\bgpt-6-luna\b/g, /\bd1-3B\b/g, /\bKev [49]B\b/g, /\bTev1? ?1? ?4B\b/g, /\bTev 1 4B\b/g, /\bDecider 2B\b/g, /\bNimble 9B v2\b/g,
   /\bV1 27B\b/g, /\bv0\.2(\.1)?\b/g, /\bv1\b/g, /\bApache-2\.0\b/g, /\bRTX PRO 6000\b/g, /\b\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December|Sep|Oct)( \d{4})?\b/g,
   /\b20\d\d\b/g, /\bGemini 3\.1\b/g, /\bLiquid D1\b/g, /\bd1\b/g, /\bfresh1\b/g, /\bbatch 10\b/g, /\b[a-f0-9]{7,8}\b/g, /\bDecision Index v0\.2\.1\b/g, /\bfour-field\b/g, /\bpass [123]\b/gi, /\bProof [123]\b/g, /\baxis 44 to 60\b/g,
-  /\b0\.[579](?= (gate|keeps))/g, /\bmore than 0\.2\b/g, /\bGemini 3\.1\b/g, /\bSystem [12]\b/g];
+  /\b0\.[579](?= (gate|cutoff|keeps))/g, /\bmore than 0\.2\b/g, /\bGemini 3\.1\b/g, /\bSystem [12]\b/g];
 const residue = text => LABELS.reduce((t, re) => t.replace(re, ' '), text).match(/\d[\d.,]*/g) ?? [];
 
 function beatsFromOutline(md) {

@@ -12,15 +12,7 @@
   const cache = new Map();
   const failures = new Set();
 
-  // Offline copy: other scripts (content.js) fetch deck/data and deck/content JSON directly, so serve inlined feeds to them too.
-  const inlined = new Map([...document.querySelectorAll('script[type="application/json"][data-feed]')].map(s => [new URL(s.dataset.feed, base).href, s]));
-  if (inlined.size) {
-    const realFetch = window.fetch;
-    window.fetch = (input, init) => {
-      const block = inlined.get(typeof input === 'string' ? input : input.url ?? String(input));
-      return block ? Promise.resolve(new Response(block.textContent, { headers: { 'Content-Type': 'application/json' } })) : realFetch(input, init);
-    };
-  }
+  // Every JSON file the deck reads goes through feed() below (content.js included), so the offline bake needs no fetch shim.
 
   function report(message) {
     failures.add(message);

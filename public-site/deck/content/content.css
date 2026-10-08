@@ -553,3 +553,28 @@
 .c-hard-key { flex-wrap: nowrap; gap: 0 14px; }
 .c-hard-key b:nth-of-type(2)::before { content: 'Follow-up?'; }
 .c-hard-key b:nth-of-type(3)::before { content: 'Concern?'; }
+
+/* v4 final pass (docs/talk/sprint): information before animation. Every main slide is complete on entry; motion is entrance
+   choreography under about two seconds. Kicker eyebrows are hidden, blue accents on navy become orange or paper. */
+.d-eyebrow { display: none !important; }
+.c-policy li::before, .c-recipe li::before { color: var(--s-orange); }
+.c-node.is-run { border-color: var(--s-orange); }
+.c-s13 h2 { font-size: 44px; max-width: none; }
+.c-s13-body { margin-top: 30px; }
+.c-s13 .c-policy li { font-size: 28px; padding: 11px 0; }
+/* Launch wave: one tick per launch day, labelled with the models and the date, on two alternating rows under the line. */
+.c-s4 .d-track { margin-top: 40px; }
+.c-s4 h2 { font-size: 48px; }
+.c-s4 .c-say { font-size: 23px; }
+.c-wtick { position: absolute; left: calc(var(--at) * 100%); top: 50%; width: 4px; height: 22px; margin: -11px 0 0 -2px; background: none; list-style: none; opacity: 0; }
+.c-wtick::before { content: ''; position: absolute; inset: 0; background: var(--ink-200); }
+.c-wtick.is-on { opacity: 1; }
+.c-wtick span { position: absolute; left: 8px; top: calc(146px + var(--row, 0) * 42px); white-space: nowrap; font: 500 17px/1.2 var(--mono); color: var(--ink-200); }
+.c-wtick span small { display: block; font: 500 16px/1.25 var(--mono); color: var(--ink-300); }
+.c-wtick.is-right span { left: auto; right: 8px; text-align: right; }
+.c-wtick::after { content: ''; position: absolute; left: 1px; top: 22px; width: 2px; height: calc(120px + var(--row, 0) * 42px); background: var(--ink-700); }
+
+/* With the eyebrows hidden a headline sits on the content-box edge, and its inline number spans have a content area a few
+   pixels taller than the line box; the padding keeps them inside the box (fit.mjs). */
+.reveal .slides section > h2:first-child, .reveal .slides section > .d-eyebrow + h2 { padding-top: 6px; }
+.c-flagged { padding-top: 6px; }

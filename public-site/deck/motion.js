@@ -198,7 +198,7 @@
     if (now) {
       if (latency) countUp(latency, true);
       if (track) gsap.set(track, { scaleX: 1 });
-      return rows.forEach(r => { const num = r.querySelector('.d-live-p [data-source]'); if (num) countUp(num, true); gsap.set(r.querySelector('.d-live-meter i'), { clearProps: 'transform' }); });
+      return rows.forEach(r => { const num = r.querySelector('.d-live-p [data-source]'); if (num) countUp(num, true); const meter = r.querySelector('.d-live-meter i'); if (meter) gsap.set(meter, { clearProps: 'transform' }); });
     }
     const wait = Math.min(1.6, Math.max(0.6, Number(latency?.dataset.value) || 0.8));
     const tl = gsap.timeline();
@@ -219,7 +219,12 @@
     slide.querySelectorAll('[data-split]').forEach(el => headline(el, now));
     slide.querySelectorAll('[data-countup]').forEach(el => hiddenFragment(el) || countUp(el, now));
     slide.querySelectorAll('[data-stagger]').forEach(el => hiddenFragment(el) || stagger(el, now));
-    slide.querySelectorAll('.d-track').forEach(track => { if (!now) gsap.set(track, { '--progress': 0 }); drawTimeline(track, now); });
+    slide.querySelectorAll('.d-track').forEach(track => {
+      if (!now) gsap.set(track, { '--progress': 0 });
+      drawTimeline(track, now);
+      // Events that are not fragments land as the line reaches them, so the slide is complete in about a second.
+      track.querySelectorAll('.d-event:not(.fragment)').forEach(ev => now ? dropEvent(ev, true) : gsap.delayedCall(.9 * (parseFloat(getComputedStyle(ev).getPropertyValue('--at')) || 0), () => dropEvent(ev)));
+    });
     slide.querySelectorAll('.d-replay').forEach(host => tally(host, true));
     slide.querySelectorAll('.d-live').forEach(host => typeIn(host, now));
   }

@@ -1,5 +1,7 @@
-// Click-through of the hero sequences (S8 flips, S9 card wall, S10 gate, S12 sort) as a presenter would drive them.
-// For each click: counts animation frames until motion settles, then asserts the final state from the DOM.
+// Entry and click-through of the hero sequences (S12 flips, S13 card wall, S14 gate, S16 sort) as a presenter would see them.
+// v4: every hero is complete on entry (information before animation); only the S16 re-sort keeps a click. For each entry or
+// click: counts animation frames until motion settles, asserts the final state from the DOM, and requires entry motion to land
+// in under about two seconds.
 // Modes: default (motion), --reduced-motion (final states must land with no animation),
 //        --no-webgl (Chromium with WebGL disabled: scene slides must show the static SVG composition).
 // Usage: node content-heroes.mjs [--reduced-motion] [--no-webgl] [--shots <dir>]
@@ -22,6 +24,21 @@ async function arrive(page, id) {
   await page.evaluate(id => { const s = document.getElementById(id); const { h, v } = window.Reveal.getIndices(s); window.Reveal.slide(h, v, -1); }, id);
   await idle(page);
 }
+// Enter `id` from the slide before it with a frame counter running; returns frames and seconds until motion ended.
+async function enter(page, id) {
+  await page.evaluate(id => { const s = document.getElementById(id); const { h, v } = window.Reveal.getIndices(s); window.Reveal.slide(h - 1, 0); }, id);
+  await idle(page);
+  await page.evaluate(() => {
+    const chain = (window.__chain = (window.__chain ?? 0) + 1);
+    window.__frames = 0; window.__t0 = performance.now();
+    const tick = () => { if (window.__chain !== chain) return; window.__frames++; requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    window.Reveal.next();
+  });
+  await idle(page);
+  return page.evaluate(() => { window.__chain++; return { frames: window.__frames, seconds: (performance.now() - window.__t0) / 1000 }; });
+}
+const ENTRY_MAX = 4.6; // seconds as the runner measures them: the GSAP timelines are under 2.2 s, the rest is Reveal's slide transition and SwiftShader frame time
 
 // Stricter than lib.mjs settle(): also waits for GSAP timelines (an auto-play sequence is a timeline), up to 20 s.
 async function idle(page) {
@@ -85,30 +102,23 @@ try {
   else ok('motion: WebGL scene canvas present', scene.canvas, scene.svgs);
   for (const id of ['title', 'one-of-60']) { await arrive(page, id); await shoot(`${noWebgl ? 'nowebgl' : reduced ? 'reduced' : 'motion'}-${id}`); }
 
-  await arrive(page, 'zero-of-seven');
-  let r = await click(page); let st = await state.s8(page);
-  ok(`${mode}: S8 click 1 flips all seven, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.flipped === 7 && st.pips === 7 && st.tally === '1' && st.badge && st.extra === '0,0', JSON.stringify(st));
-  await shoot(`${mode.replace(/ /g, '-')}-s8-step1`);
-  r = await click(page); st = await state.s8(page);
-  ok(`${mode}: S8 click 2 shows Jev and the general line, ${r.frames} frames`, st.extra === '1,1' && st.headline === '0 of 7 decision models.', JSON.stringify(st));
+  let r = await enter(page, 'zero-of-seven'); let st = await state.s8(page);
+  ok(`${mode}: S12 entry flips all seven and shows Jev and the general line, ${r.frames} frames in ${r.seconds.toFixed(1)} s`,
+    st.flipped === 7 && st.pips === 7 && st.tally === '1' && st.badge && st.extra === '1,1,1' && st.headline === '0 of 7 decision models matched the key.' && r.seconds < ENTRY_MAX, JSON.stringify(st));
+  await shoot(`${mode.replace(/ /g, '-')}-s12-entry`);
 
-  await arrive(page, 'hard-six');
-  let frames = 0, secs = 0;
-  for (let i = 0; i < 6; i++) { r = await click(page); frames += r.frames; secs = Math.max(secs, r.seconds); }
-  st = await state.s9(page);
-  ok(`${mode}: S9 six clicks show six cards, longest click ${secs.toFixed(1)} s, ${frames} frames`, st.shown === 6 && st.textsExact && st.marksInPlace && secs < 3.6, JSON.stringify(st));
+  r = await enter(page, 'hard-six'); st = await state.s9(page);
+  ok(`${mode}: S13 entry shows six cards, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.shown === 6 && st.textsExact && st.marksInPlace && r.seconds < ENTRY_MAX, JSON.stringify(st));
 
-  await arrive(page, 'still-wrong');
-  r = await click(page); st = await state.s10(page);
-  ok(`${mode}: S10 gate sweeps to 0.95, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.gate === '0.95' && st.held === st.below && st.heroKept && st.line === '1', JSON.stringify(st));
-  await shoot(`${mode.replace(/ /g, '-')}-s10-step1`);
+  r = await enter(page, 'still-wrong'); st = await state.s10(page);
+  ok(`${mode}: S14 entry lands the cutoff at 0.95, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.gate === '0.95' && st.held === st.below && st.heroKept && st.line === '1' && r.seconds < ENTRY_MAX, JSON.stringify(st));
+  await shoot(`${mode.replace(/ /g, '-')}-s14-entry`);
 
-  await arrive(page, 'agree-or-defer');
+  r = await enter(page, 'agree-or-defer'); st = await state.s12(page);
+  ok(`${mode}: S16 entry is sorted by Solar + Perplexity, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.person === 7 && st.split === 7 && st.a && st.pair === 'a' && r.seconds < ENTRY_MAX, JSON.stringify(st));
   r = await click(page); st = await state.s12(page);
-  ok(`${mode}: S12 click 1 sorts Solar + Perplexity, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.person === 7 && st.split === 7 && st.a && st.pair === 'a', JSON.stringify(st));
-  r = await click(page); st = await state.s12(page);
-  ok(`${mode}: S12 click 2 re-sorts Qwen + Gemma, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.person === 2 && st.split === 2 && st.b && st.pair === 'b', JSON.stringify(st));
-  await shoot(`${mode.replace(/ /g, '-')}-s12-step2`);
+  ok(`${mode}: S16 click 1 re-sorts Qwen + Gemma, ${r.frames} frames in ${r.seconds.toFixed(1)} s`, st.person === 2 && st.split === 2 && st.b && st.pair === 'b', JSON.stringify(st));
+  await shoot(`${mode.replace(/ /g, '-')}-s16-step1`);
 
   for (const p of deck.problems) ok(`${mode}: console`, false, p);
   console.log(`\ncontent-heroes.mjs · ${mode}${deck.ignored.readPixels ? ` · ignored ${deck.ignored.readPixels} SwiftShader ReadPixels messages` : ''}\n`);

@@ -1,6 +1,7 @@
 /* Hero components.
-   gate   S10: 60 Jev testimonial answers as dots at their confidence, sorted; step 1 sweeps a gate from 0.50 to 0.95.
-   sorter S12: 60 review cards; step 1 sorts them by the Solar + Perplexity rule, step 2 re-sorts with Qwen + Gemma.
+   gate   S14: 60 Jev testimonial answers as dots at their confidence, sorted; the gate at 0.95 is the final state and sweeps
+          up from 0.50 on entry (about 1.7 s). No clicks.
+   sorter S16: 60 review cards sorted by the Solar + Perplexity rule on entry; step 1 re-sorts with Qwen + Gemma.
    queue  S13: the full policy routes all 60 into three bands; computed from the saved answers and checked against the feed. */
 (() => {
   'use strict';
@@ -8,7 +9,7 @@
   const NS = 'http://www.w3.org/2000/svg';
 
   // ---------- S10 gate ----------
-  const G = { w: 1664, h: 520, x0: 96, x1: 1640, top: 24, bottom: 470, lo: 0.4, hi: 1, from: 0.5, to: 0.95, sweep: 3.4 };
+  const G = { w: 1664, h: 520, x0: 96, x1: 1640, top: 24, bottom: 470, lo: 0.4, hi: 1, from: 0.5, to: 0.95, sweep: 1.2 };
   const gy = c => G.top + (1 - (c - G.lo) / (G.hi - G.lo)) * (G.bottom - G.top);
   const gx = i => G.x0 + 22 + i * ((G.x1 - G.x0 - 44) / 59);
 
@@ -49,18 +50,16 @@
     C.badge(el.closest('section'), true);
     gsap.set(dots, { clearProps: 'opacity' });
     el.querySelectorAll('.c-dot .c-core').forEach(c => gsap.set(c, { clearProps: 'transform' }));
-    gsap.set([lineG, readout], { autoAlpha: step >= 1 ? 1 : 0 });
-    gate(el, step >= 1 ? G.to : 0);
+    gsap.set([lineG, readout], { autoAlpha: 1 });
+    gate(el, G.to);
     if (!animate) return;
-    if (step === 0) {
-      // Each answer rises from the axis to its confidence, left to right.
-      return C.timeline(el).from([...dots].map(d => d.querySelector('.c-core')), { y: (i, t) => G.bottom - gy(Number(t.parentNode.dataset.conf)), opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.012, clearProps: 'transform,opacity' });
-    }
+    // Each answer rises from the axis to its confidence, left to right; the gate sweeps up behind them.
     const state = { v: G.from };
     gate(el, G.from);
     C.timeline(el)
-      .fromTo([lineG, readout], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35 })
-      .to(state, { v: G.to, duration: G.sweep, ease: 'none', onUpdate: () => gate(el, state.v) }, 0.35)
+      .from([...dots].map(d => d.querySelector('.c-core')), { y: (i, t) => G.bottom - gy(Number(t.parentNode.dataset.conf)), opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.012, clearProps: 'transform,opacity' }, 0)
+      .fromTo([lineG, readout], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.5)
+      .to(state, { v: G.to, duration: G.sweep, ease: 'none', onUpdate: () => gate(el, state.v) }, 0.5)
       .add(() => gate(el, G.to));
   }
 
@@ -91,7 +90,9 @@
     });
   }
 
-  function renderSorter(el, step, { animate, from }) {
+  // Visual state is one ahead of the click count: the slide enters sorted by pair A, one click re-sorts by pair B.
+  function renderSorter(el, click, { animate, from: fromClick }) {
+    const step = Math.min(click + 1, 2), from = fromClick === undefined ? undefined : Math.min(fromClick + 1, 2);
     const cards = [...el.querySelectorAll('.c-rv')];
     const stamps = el.querySelectorAll('.c-st');
     const labels = { 1: el.querySelectorAll('.c-when-a'), 2: el.querySelectorAll('.c-when-b') };
@@ -119,10 +120,10 @@
       gsap.set(labels[1], { autoAlpha: 1 });
       tl.to(labels[1], { autoAlpha: 0, duration: 0.3 }).fromTo(stamps, { scaleX: 0 }, { scaleX: 1, duration: 0.25, stagger: 0.004, ease: 'power2.out' }, 0.1);
     }
-    tl.to({}, { duration: 0.15 }).add(() => cards.forEach(c => c.classList.toggle('is-split', c.dataset[key] === 'defer')))
-      .to({}, { duration: 0.45 })
+    tl.to({}, { duration: 0.1 }).add(() => cards.forEach(c => c.classList.toggle('is-split', c.dataset[key] === 'defer')))
+      .to({}, { duration: 0.3 })
       .add(() => cards.forEach((c, i) => c.classList.toggle('is-person', Boolean(boxes[i].person))))
-      .to(cards, { x: (i) => boxes[i].x, y: (i) => boxes[i].y, width: (i) => boxes[i].w, duration: 1.1, ease: 'power3.inOut', stagger: 0.008 })
+      .to(cards, { x: (i) => boxes[i].x, y: (i) => boxes[i].y, width: (i) => boxes[i].w, duration: 0.9, ease: 'power3.inOut', stagger: 0.006 })
       .fromTo(labels[step], { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.12, clearProps: 'transform' }, '-=0.35')
       .add(() => labels[step].forEach(n => n.querySelectorAll('[data-countup]').forEach(x => window.DeckMotion.countUp(x))), '<');
   }

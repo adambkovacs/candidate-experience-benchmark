@@ -49,9 +49,12 @@
       entries.forEach(e => labelled.add(e));
       ev.style.setProperty('--at', at(entries[0].date).toFixed(4));
     });
-    const ticks = tl.entries.filter(e => e.verified && !labelled.has(e) && Date.parse(e.date) >= start && Date.parse(e.date) <= end);
-    const k = {}; // same-day launches stack upward
-    el.insertAdjacentHTML('beforeend', ticks.map(e => `<li class="c-wtick" style="--at:${at(e.date).toFixed(4)};--k:${(k[e.date] = (k[e.date] ?? -1) + 1)}" title="${C.esc(`${e.date} · ${e.maker} · ${e.model}`)}" aria-hidden="true"></li>`).join(''));
+    // Model launches only (hosted or open weights); wrappers, serving tools and gateway listings are not launches.
+    const ticks = tl.entries.filter(e => e.verified && !labelled.has(e) && (e.kind === 'hosted' || e.kind === 'open-weights') && Date.parse(e.date) >= start && Date.parse(e.date) <= end);
+    const byDay = new Map();
+    ticks.forEach(e => byDay.set(e.date, [...(byDay.get(e.date) ?? []), e]));
+    const short = d => { const [, m, day] = d.split('-'); return `${Number(day)} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(m) - 1]}`; };
+    el.insertAdjacentHTML('beforeend', [...byDay].map(([date, list], i) => `<li class="c-wtick${at(date) > 0.8 ? ' is-right' : ''}" style="--at:${at(date).toFixed(4)};--row:${(i + 1) % 2}" aria-hidden="true"><span>${C.esc(list.map(e => e.model).join(', '))}<small>${short(date)}</small></span></li>`).join(''));
     el.dataset.days = String(Math.round((end - start) / DAY));
   }
   function renderWave(el, step, { animate, from }) {
