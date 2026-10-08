@@ -16,7 +16,8 @@ import { SITE, REPO, arg, serve, launch, openDeck, listSlides, showFully, settle
 
 const pagePath = arg('page', 'presentation.html');
 const MAIN = 21;
-const BEATS = [1, 2, 3, 3, 4, 1, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8]; // slide -> beat in outline section 2b
+const BEATS = [1, 2, 3, 3, 4, 1, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8]; // main slide -> beat in outline section 2b
+// Main slides are every slide outside the #appendix stack, in deck order; the thank-you slide closes the deck after the appendix.
 const COPY_MAX = 110;
 const COPY_EXCEPTIONS = {};
 const files = new Map();
@@ -129,9 +130,13 @@ try {
   }
   // Notes and copy, from the live DOM.
   const deck = await live.page.evaluate(() => window.Reveal.getSlides().map(s => ({ id: s.id,
+    appendix: Boolean(s.closest('#appendix')),
     notes: [...s.querySelectorAll('aside.notes p:not(.c-clicks):not(.c-direction)')].map(p => p.textContent).join(' '),
     copy: [...s.querySelectorAll('[data-copy]')].map(el => el.textContent).join(' ') })));
   problems.push(...live.problems.map(p => `live ${p}`));
+  const main = deck.filter(s => !s.appendix);
+  if (main.length !== MAIN) problems.push(`expected ${MAIN} main slides outside #appendix, found ${main.length}`);
+  if (deck.at(-1)?.id !== 'thanks') problems.push(`last slide is ${deck.at(-1)?.id}, expected thanks`);
   await live.context.close();
 
   const print = await openDeck(browser, `${server.origin}/${pagePath}?print-pdf`);
@@ -150,7 +155,7 @@ try {
 
   const outline = beatsFromOutline(await load('docs/talk/05-session-outline.md'));
   const byBeat = {};
-  deck.slice(0, MAIN).forEach((s, i) => { byBeat[BEATS[i]] = norm(`${byBeat[BEATS[i]] ?? ''} ${s.notes}`); });
+  main.forEach((s, i) => { byBeat[BEATS[i]] = norm(`${byBeat[BEATS[i]] ?? ''} ${s.notes}`); });
   const noteRows = Object.keys(outline).map(b => [b, outline[b].split(' ').length, (byBeat[b] ?? '').split(' ').length, outline[b] === byBeat[b] ? 'PASS' : 'FAIL']);
   console.log('\n3. Speaker notes against outline 2b (verbatim, whitespace-normalised)');
   console.log(table(['beat', 'outline words', 'deck words', 'result'], noteRows));
@@ -161,7 +166,7 @@ try {
   }
 
   const words = t => norm(t).split(' ').filter(Boolean).length;
-  const copyRows = deck.slice(0, MAIN).map((s, i) => [`S${i + 1}`, s.id, words(s.copy), words(s.copy) <= COPY_MAX ? 'PASS' : COPY_EXCEPTIONS[s.id] ? `OVER (${COPY_EXCEPTIONS[s.id]})` : 'FAIL']);
+  const copyRows = main.map((s, i) => [`S${i + 1}`, s.id, words(s.copy), words(s.copy) <= COPY_MAX ? 'PASS' : COPY_EXCEPTIONS[s.id] ? `OVER (${COPY_EXCEPTIONS[s.id]})` : 'FAIL']);
   console.log(`\n4. On-slide copy words per main slide, at most ${COPY_MAX} ([data-copy]; eyebrows, data labels, review text and source lines excluded)`);
   console.log(table(['slide', 'id', 'words', 'result'], copyRows));
 

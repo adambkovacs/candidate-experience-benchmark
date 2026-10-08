@@ -124,7 +124,7 @@ Thank you. Questions?
 
 ## 3. Main deck slide list (19 slides) with visual briefs
 
-v4.1 (Adam's edit list, 2026-10-08 15:30): the running order is now 21 main slides: title, about, decision models, launch wave, what we did, the answer, the gap, cost, general models, consequences, the soup, zero of seven, hard six, confidence, fixes, agree or defer, the queue, all 21 pairs (the former backup A9), classification-bench, what should you do, thank you. Backups A2 (open weight), A5 (key), A6 (limits) and A7 (bench detail) are removed. The table below keeps the v4 numbering.
+v4.1 (Adam's edit list, 2026-10-08 15:30): the running order is now 21 main slides: title, about, decision models, launch wave, what we did, the answer, the gap, cost, general models, consequences, the soup, zero of seven, hard six, confidence, fixes, agree or defer, the queue, all 21 pairs (the former backup A9), classification-bench, what should you do, thank you. The thank-you slide sits after the ten appendix slides, so it is the last slide, 31 of 31. Backups A2 (open weight), A5 (key), A6 (limits) and A7 (bench detail) are removed. The table below keeps the v4 numbering.
 
 Hero moments: S12 (soup reveal), S14 (the 0.96 dot), S16 (agree or defer). S12 and S14 are "live replay" moments: the slide reads saved JSON and reveals answers one at a time with a small "replay of saved answers, 2026-10" badge, so it feels live and stays honest. S5 is a simple build, not a hero. v3 numbering: three slides were added (S4, S6, S10), so v2 S4 is now S5, v2 S5 and S6 are S7 and S8, and v2 S7 to S16 are S11 to S19.
 

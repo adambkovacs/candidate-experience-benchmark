@@ -19,6 +19,10 @@ try {
     const at = await where(page);
     ok(`key ${key} -> ${want}`, at === want, at);
   }
+  // End jumps to the last slide: the thank-you slide closes the deck after the appendix stack.
+  await page.keyboard.press('End'); await settle(page);
+  const last = await page.evaluate(() => `${window.Reveal.getCurrentSlide().id} ${window.Reveal.getSlidePastCount() + 1}/${window.Reveal.getTotalSlides()}`);
+  ok('key End -> thanks, slide 31 of 31', last === 'thanks 31/31', last);
 
   // Hash jumps: an appendix slide, and the sorter at its one click (Qwen + Gemma, restored after the data loads).
   for (const [hash, want] of [['#/a10-pairs', 'a10-pairs/-1'], ['#/agree-or-defer/1', 'agree-or-defer/0']]) {
