@@ -51,6 +51,7 @@ try {
       mainCards: q('[data-di-mount="cards"] > .di-card').length, moreCards: q('[data-di-mount="more"] .di-card').length,
       options: q('#di-pair option').length, selected: document.querySelector('#di-pair').selectedOptions[0].textContent,
       routing, circles: q('.di-chart circle').length, hardest: q('.di-hardest > li').length, corrections: q('.di-corrections > li').length,
+      qualifier: (document.querySelector('#deep-insights').innerText.match(/On these 60 reviews, Jev's confidence is calibrated on average/g) || []).length,
       tables: q('table').length, busy: document.querySelector('[data-di-mount="changed"]').getAttribute('aria-busy'),
       bound: [...q('[data-source]')].map(el => ({ source: el.dataset.source, value: el.getAttribute('value') })),
     };
@@ -68,6 +69,7 @@ try {
   if (!r.routing.includes('Reaches a person | 35')) fail(`routing ${r.routing.join(' | ')}`);
   if (r.circles < 8 || r.hardest !== 10 || r.corrections !== feeds['deep-insights-v1.json'].corrections.count) fail(`chart/hardest/corrections ${r.circles}/${r.hardest}/${r.corrections}`);
   if (r.busy !== 'false') fail('aria-busy not cleared');
+  if (r.qualifier !== 2) fail(`calibration qualifier appears ${r.qualifier} times, expected 2`);
   await page.selectOption('#di-pair', 'general:0');
   const general = await page.textContent('.di-pair caption');
   if (!/Qwen3\.8 27B/.test(general)) fail(`general pair not shown: ${general}`);
@@ -78,7 +80,7 @@ try {
   if (overflow > 0) fail(`horizontal overflow at 390px: ${overflow}px`);
   if (errors.length) fail(`console errors: ${errors.join(' | ')}`);
   console.log(JSON.stringify({ ok: true, mainCards: r.mainCards, moreCards: r.moreCards, explorerOptions: r.options, defaultPair: r.selected,
-    routing: r.routing, chartCircles: r.circles, hardest: r.hardest, corrections: r.corrections, tables: r.tables,
+    routing: r.routing, calibrationQualifier: r.qualifier, chartCircles: r.circles, hardest: r.hardest, corrections: r.corrections, tables: r.tables,
     boundNumbersAudited: audited, consoleErrors: errors.length, mobileOverflowPx: overflow, screenshot: SHOT }, null, 1));
 } finally {
   await browser.close();

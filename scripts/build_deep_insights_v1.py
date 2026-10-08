@@ -74,7 +74,7 @@ def run_ref(r):
 
 
 def block(title, implication, tag, note, scripts, feeds, key_numbers, **data):
-    return {"title": title, "implication": implication, "confidence": {"tag": tag, "note": note},
+    return {"title": segments(title), "implication": implication, "confidence": {"tag": tag, "note": note},
             "scripts": [script(s) for s in scripts], "feeds": feeds, "key_numbers": key_numbers, **data}
 
 
@@ -287,7 +287,8 @@ def calibration(g08):
              for r in sorted(jev_first, key=lambda r: r["id"]) for f in F if r["prediction"][f] != ref[r["id"]][f] and r["conf"][f] >= 0.9]
     index = {m["model"]: i for i, m in enumerate(models)}
     p = "calibration."
-    return block("On these reviews, Jev's confidence is calibrated on average and still confidently wrong on two of them",
+    return block("On these {denominator} reviews, Jev's confidence is calibrated on average (expected calibration error {" + p + f"models[{index['jev']}].ece_confidence|ece"
+                 + "}, descriptive-only) and still {" + p + "jev_confident_wrong.answers[0].confidence|conf} on a wrong testimonial",
                  "If a vendor exposes two numbers, threshold on the option probability, and expect even the best-calibrated model to be confident about the wrong field on off-topic input.",
                  "descriptive-only", "Answers pooled across stages come from the same development reviews, so they are not independent. No abstention policy was run, and the two confident errors are anecdotal.",
                  ["s08_confidence"], ["results/openjev/typesafe-development-v2-reconciled.jsonl", "results/clef-openrouter-v1/findings-v1/public-projection.json"],
@@ -422,7 +423,7 @@ def corrections(pol, dr, sup, g07, cal, fc, ic):
          "correct": segments("Opus 5.5 high has {passes} P0 passes: {scores[0]}, {scores[1]} and {scores[2]} of {of}.", f"{base}[4].values."),
          "values": {"scores": opus[4], "passes": len(opus[1]), "of": len(g07["IDS"])}, "source": script("s07_repeatability")},
         {"id": "jev-calibration", "said": "Jev's confidence is not calibrated, and it called the soup review a serious concern at 0.91.",
-         "correct": segments("On these {reviews} reviews, Jev's confidence is calibrated on average (expected calibration error {ece|ece} over {field_answers} pooled field answers that share the same {reviews} texts; descriptive-only) and still confidently wrong on {confident_wrong[0].id|text} testimonial ({confident_wrong[0].confidence|conf}) and on {confident_wrong[1].id|text} serious concern ({confident_wrong[1].confidence|conf}), where it answered \"no\" and the reference is insufficient information.", f"{base}[5].values."),
+         "correct": segments("On these {reviews} reviews, Jev's confidence is calibrated on average (expected calibration error {ece|ece} over {field_answers} pooled field answers that share the same {reviews} texts; descriptive-only) and still {confident_wrong[0].confidence|conf} on a wrong testimonial ({confident_wrong[0].id|text}) and {confident_wrong[1].confidence|conf} on {confident_wrong[1].id|text} serious concern, where it answered \"no\" and the reference is insufficient information.", f"{base}[5].values."),
          "values": {"ece": jev["ece_confidence"], "field_answers": jev["field_answers"], "confident_wrong": wrong, "reviews": len(g07["IDS"])}, "confidence_tag": "descriptive-only",
          "source": script("s08_confidence")},
         {"id": "miss-only-disputed", "said": "235 of 373 strong run-passes miss nothing outside the three disputed labels.",

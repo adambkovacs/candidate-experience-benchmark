@@ -64,7 +64,7 @@
     const numbers = block.key_numbers.map(k => `<li><span class="di-kn-label">${prose(data, k.label)}</span>
       <span class="di-kn-value">${num(data, k.value, k.format)}${k.of ? ` <span class="di-of">of ${num(data, k.of)}</span>` : ''}${k.share ? ` <span class="di-share">(${num(data, k.share, 'pct')})</span>` : ''}</span></li>`).join('');
     return `<article class="di-card" aria-labelledby="di-${id}-title">
-      <h3 id="di-${id}-title">${esc(block.title)}</h3>
+      <h3 id="di-${id}-title">${prose(data, block.title)}</h3>
       <ul class="di-kn">${numbers}</ul>
       <p class="di-implication"><strong>Implication:</strong> ${esc(block.implication)}</p>
       <p class="di-meta"><span class="di-tag di-tag--${esc(block.confidence.tag)}">${esc(TAG[block.confidence.tag] || block.confidence.tag)}</span> ${esc(block.confidence.note)}</p>
@@ -207,7 +207,7 @@
         <blockquote><p>${esc(r.text)}</p></blockquote>
         <p class="di-sub">Reference: ${esc(ref)}. Most missed field: ${esc(FIELD[r.driving_field])}. Most common wrong answer, given ${num(data, `${p}.most_common_wrong_count`)} times: ${esc(r.most_common_wrong_answer ? answer(r.most_common_wrong_answer) : 'none')}.</p></li>`;
     }).join('');
-    mount('hardest').innerHTML = `<h3>${esc(block.title)}</h3><p>${esc(block.implication)}</p><ol class="di-hardest">${items}</ol>${sourceLine(block)}`;
+    mount('hardest').innerHTML = `<h3>${prose(data, block.title)}</h3><p>${esc(block.implication)}</p><ol class="di-hardest">${items}</ol>${sourceLine(block)}`;
   }
 
   function corrections(data) {

@@ -1394,7 +1394,9 @@
       },
       "two_run_charge_usd": 0.03749436
     },
-    "title": "Some cheap general LLM pairs accepted more reviews than Solar + Perplexity at a lower charge",
+    "title": [
+      "Some cheap general LLM pairs accepted more reviews than Solar + Perplexity at a lower charge"
+    ],
     "top_zero_error_pairs": [
       {
         "accepted": 58,
@@ -2097,7 +2099,24 @@
     "scripts": [
       "docs/talk/scripts/s08_confidence.py"
     ],
-    "title": "On these reviews, Jev's confidence is calibrated on average and still confidently wrong on two of them"
+    "title": [
+      "On these ",
+      {
+        "format": "count",
+        "path": "denominator"
+      },
+      " reviews, Jev's confidence is calibrated on average (expected calibration error ",
+      {
+        "format": "ece",
+        "path": "calibration.models[0].ece_confidence"
+      },
+      ", descriptive-only) and still ",
+      {
+        "format": "conf",
+        "path": "calibration.jev_confident_wrong.answers[0].confidence"
+      },
+      " on a wrong testimonial"
+    ]
   },
   "claim_rules": [
     "Every number describes saved run-passes on one provisional reference, and the feed ranks no model.",
@@ -2310,27 +2329,27 @@
             "format": "count",
             "path": "corrections.items[5].values.reviews"
           },
-          " texts; descriptive-only) and still confidently wrong on ",
-          {
-            "format": "text",
-            "path": "corrections.items[5].values.confident_wrong[0].id"
-          },
-          " testimonial (",
+          " texts; descriptive-only) and still ",
           {
             "format": "conf",
             "path": "corrections.items[5].values.confident_wrong[0].confidence"
           },
-          ") and on ",
+          " on a wrong testimonial (",
           {
             "format": "text",
-            "path": "corrections.items[5].values.confident_wrong[1].id"
+            "path": "corrections.items[5].values.confident_wrong[0].id"
           },
-          " serious concern (",
+          ") and ",
           {
             "format": "conf",
             "path": "corrections.items[5].values.confident_wrong[1].confidence"
           },
-          "), where it answered \"no\" and the reference is insufficient information."
+          " on ",
+          {
+            "format": "text",
+            "path": "corrections.items[5].values.confident_wrong[1].id"
+          },
+          " serious concern, where it answered \"no\" and the reference is insufficient information."
         ],
         "id": "jev-calibration",
         "said": "Jev's confidence is not calibrated, and it called the soup review a serious concern at 0.91.",
@@ -2671,7 +2690,9 @@
     "scripts": [
       "docs/talk/scripts/s10_cost.py"
     ],
-    "title": "The cheapest gate-clearing pass failed the insufficient-information gate when its configuration ran again",
+    "title": [
+      "The cheapest gate-clearing pass failed the insufficient-information gate when its configuration ran again"
+    ],
     "unknown_cost_rule": "Unknown-cost run-passes stay unknown and are never plotted at zero."
   },
   "denominator": 60,
@@ -4095,7 +4116,9 @@
     ],
     "stable_but_wrong_count": 42,
     "stable_threshold": 55,
-    "title": "Decision models repeated their answers across passes; most general LLM configurations changed some",
+    "title": [
+      "Decision models repeated their answers across passes; most general LLM configurations changed some"
+    ],
     "unstable_hard_overlap": {
       "count": 8,
       "hardest": [
@@ -4312,7 +4335,9 @@
     "strong_min_all_four": 57,
     "strong_run_passes": 373,
     "strong_valid": 60,
-    "title": "The strongest runs often return identical answer sets",
+    "title": [
+      "The strongest runs often return identical answer sets"
+    ],
     "top_set_sizes": [
       44,
       32,
@@ -4648,7 +4673,9 @@
     "scripts": [
       "docs/talk/scripts/s01_difficulty.py"
     ],
-    "title": "The ten hardest reviews"
+    "title": [
+      "The ten hardest reviews"
+    ]
   },
   "insufficient_collapse": {
     "confidence": {
@@ -4948,7 +4975,9 @@
       "docs/talk/scripts/s02_confusion.py",
       "docs/talk/scripts/s06_rare_classes.py"
     ],
-    "title": "Decision models answered most \"insufficient information\" cells with a definite label"
+    "title": [
+      "Decision models answered most \"insufficient information\" cells with a definite label"
+    ]
   },
   "prompt_direction": {
     "confidence": {
@@ -5266,7 +5295,9 @@
         "worse": 127
       }
     },
-    "title": "Prompt revisions moved labels in different directions for each model class",
+    "title": [
+      "Prompt revisions moved labels in different directions for each model class"
+    ],
     "triplet_definition": "One configuration-pass with P0, P1 and P2 all saved"
   },
   "reference_status": "Frozen proposed labels v0.2, provisional; DEV-006, DEV-013 and DEV-030 are disputed.",
@@ -5495,7 +5526,9 @@
         "size": "Gemma4 31B"
       }
     ],
-    "title": "Thinking hurt Qwen 1.7B in every pair and helped Qwen 4B in every pair"
+    "title": [
+      "Thinking hurt Qwen 1.7B in every pair and helped Qwen 4B in every pair"
+    ]
   },
   "source_sha256": {
     "data/pilot/inputs.jsonl": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",

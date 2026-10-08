@@ -40,7 +40,8 @@ class DeepInsightsTest(unittest.TestCase):
                 for key in ("value", "of", "share"):
                     if item[key]:
                         resolve(self.feed, item[key])
-        for part in self.feed["what_changed"]["segments"] + [s for i in self.feed["corrections"]["items"] for s in i["correct"]]:
+        titles = [s for b in self.feed.values() if isinstance(b, dict) and "title" in b for s in b["title"]]
+        for part in titles + self.feed["what_changed"]["segments"] + [s for i in self.feed["corrections"]["items"] for s in i["correct"]]:
             if not isinstance(part, str):
                 self.assertIsNotNone(resolve(self.feed, part["path"]), part)
 
