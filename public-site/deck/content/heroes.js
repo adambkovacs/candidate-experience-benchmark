@@ -1,6 +1,7 @@
 /* Hero components.
-   gate   S10: 60 Jev testimonial answers as dots at their confidence, sorted; step 1 sweeps a gate from 0.50 to 0.95.
-   sorter S12: 60 review cards; step 1 sorts them by the Solar + Perplexity rule, step 2 re-sorts with Qwen + Gemma.
+   gate   S14: 60 Jev testimonial answers as dots at their confidence, sorted; the cutoff at 0.9 is the final state and sweeps
+          up from 0.50 on entry (about 1.7 s). No clicks.
+   sorter S16: 60 review cards sorted by the Solar + Perplexity rule on entry; step 1 re-sorts with Qwen + Gemma.
    queue  S13: the full policy routes all 60 into three bands; computed from the saved answers and checked against the feed. */
 (() => {
   'use strict';
@@ -8,7 +9,7 @@
   const NS = 'http://www.w3.org/2000/svg';
 
   // ---------- S10 gate ----------
-  const G = { w: 1664, h: 520, x0: 96, x1: 1640, top: 24, bottom: 470, lo: 0.4, hi: 1, from: 0.5, to: 0.95, sweep: 3.4 };
+  const G = { w: 1664, h: 520, x0: 96, x1: 1640, top: 24, bottom: 470, lo: 0.4, hi: 1, from: 0.5, to: 0.9, sweep: 1.2 };
   const gy = c => G.top + (1 - (c - G.lo) / (G.hi - G.lo)) * (G.bottom - G.top);
   const gx = i => G.x0 + 22 + i * ((G.x1 - G.x0 - 44) / 59);
 
@@ -49,18 +50,16 @@
     C.badge(el.closest('section'), true);
     gsap.set(dots, { clearProps: 'opacity' });
     el.querySelectorAll('.c-dot .c-core').forEach(c => gsap.set(c, { clearProps: 'transform' }));
-    gsap.set([lineG, readout], { autoAlpha: step >= 1 ? 1 : 0 });
-    gate(el, step >= 1 ? G.to : 0);
+    gsap.set([lineG, readout], { autoAlpha: 1 });
+    gate(el, G.to);
     if (!animate) return;
-    if (step === 0) {
-      // Each answer rises from the axis to its confidence, left to right.
-      return C.timeline(el).from([...dots].map(d => d.querySelector('.c-core')), { y: (i, t) => G.bottom - gy(Number(t.parentNode.dataset.conf)), opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.012, clearProps: 'transform,opacity' });
-    }
+    // Each answer rises from the axis to its confidence, left to right; the gate sweeps up behind them.
     const state = { v: G.from };
     gate(el, G.from);
     C.timeline(el)
-      .fromTo([lineG, readout], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35 })
-      .to(state, { v: G.to, duration: G.sweep, ease: 'none', onUpdate: () => gate(el, state.v) }, 0.35)
+      .from([...dots].map(d => d.querySelector('.c-core')), { y: (i, t) => G.bottom - gy(Number(t.parentNode.dataset.conf)), opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.012, clearProps: 'transform,opacity' }, 0)
+      .fromTo([lineG, readout], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.5)
+      .to(state, { v: G.to, duration: G.sweep, ease: 'none', onUpdate: () => gate(el, state.v) }, 0.5)
       .add(() => gate(el, G.to));
   }
 
@@ -91,7 +90,9 @@
     });
   }
 
-  function renderSorter(el, step, { animate, from }) {
+  // Visual state is one ahead of the click count: the slide enters sorted by pair A, one click re-sorts by pair B.
+  function renderSorter(el, click, { animate, from: fromClick }) {
+    const step = Math.min(click + 1, 2), from = fromClick === undefined ? undefined : Math.min(fromClick + 1, 2);
     const cards = [...el.querySelectorAll('.c-rv')];
     const stamps = el.querySelectorAll('.c-st');
     const labels = { 1: el.querySelectorAll('.c-when-a'), 2: el.querySelectorAll('.c-when-b') };
@@ -119,10 +120,10 @@
       gsap.set(labels[1], { autoAlpha: 1 });
       tl.to(labels[1], { autoAlpha: 0, duration: 0.3 }).fromTo(stamps, { scaleX: 0 }, { scaleX: 1, duration: 0.25, stagger: 0.004, ease: 'power2.out' }, 0.1);
     }
-    tl.to({}, { duration: 0.15 }).add(() => cards.forEach(c => c.classList.toggle('is-split', c.dataset[key] === 'defer')))
-      .to({}, { duration: 0.45 })
+    tl.to({}, { duration: 0.1 }).add(() => cards.forEach(c => c.classList.toggle('is-split', c.dataset[key] === 'defer')))
+      .to({}, { duration: 0.3 })
       .add(() => cards.forEach((c, i) => c.classList.toggle('is-person', Boolean(boxes[i].person))))
-      .to(cards, { x: (i) => boxes[i].x, y: (i) => boxes[i].y, width: (i) => boxes[i].w, duration: 1.1, ease: 'power3.inOut', stagger: 0.008 })
+      .to(cards, { x: (i) => boxes[i].x, y: (i) => boxes[i].y, width: (i) => boxes[i].w, duration: 0.9, ease: 'power3.inOut', stagger: 0.006 })
       .fromTo(labels[step], { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.12, clearProps: 'transform' }, '-=0.35')
       .add(() => labels[step].forEach(n => n.querySelectorAll('[data-countup]').forEach(x => window.DeckMotion.countUp(x))), '<');
   }
@@ -131,18 +132,19 @@
   async function buildQueue(el) {
     const [a, b] = el.dataset.models.split(',');
     const data = await DeckData.feed('disputed-reviews-v1.json');
-    const band = { concern: [], clean: [], person: [] };
+    // The site's split: the rule defers disagreements first; of the agreed reviews, a flagged concern escalates, then a can't tell.
+    const band = { defer: [], concern: [], clarify: [], clean: [] };
     for (const r of data.reviews) {
       const p = [a, b].map(id => r.answers.find(x => x.model_id === id)?.prediction ?? {});
-      const differ = C.FIELDS.some(f => p[0][f] !== p[1][f]);
-      if (p.some(x => x.serious_concern_reported === 'yes')) band.concern.push(r.id);
-      else if (differ || p.some(x => C.FIELDS.some(f => x[f] === 'insufficient_information'))) band.person.push(r.id);
+      if (C.FIELDS.some(f => p[0][f] !== p[1][f])) band.defer.push(r.id);
+      else if (p.some(x => x.serious_concern_reported === 'yes')) band.concern.push(r.id);
+      else if (p.some(x => C.FIELDS.some(f => x[f] === 'insufficient_information'))) band.clarify.push(r.id);
       else band.clean.push(r.id);
     }
     // The routing must reproduce the published counts, or the slide says so loudly.
     const routing = await DeckData.get(el.dataset.routing);
-    if (band.concern.length !== routing.concern_any || band.clean.length !== routing.accepted_no_routing
-      || band.concern.length + band.person.length !== routing.reaches_person) throw new Error(`queue routing ${JSON.stringify(Object.values(band).map(x => x.length))} does not match ${el.dataset.routing}`);
+    if (band.defer.length !== routing.deferred || band.concern.length !== routing.escalated_beyond_deferral || band.clarify.length !== routing.clarification_beyond_deferral
+      || band.clean.length !== routing.accepted_no_routing || band.defer.length + band.concern.length + band.clarify.length !== routing.reaches_person) throw new Error(`queue routing ${JSON.stringify(Object.values(band).map(x => x.length))} does not match ${el.dataset.routing}`);
     for (const [name, list] of Object.entries(band)) {
       el.querySelector(`[data-band="${name}"] .c-band-cards`).innerHTML = list.sort().map(id => `<i title="${id}"></i>`).join('');
     }
@@ -156,8 +158,8 @@
     if (!animate) return;
     const tl = C.timeline(el);
     el.querySelectorAll('.c-band').forEach((b, k) => {
-      tl.fromTo(b.querySelector('.c-band-head'), { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.45, ease: 'power3.out' }, 0.2 + k * 0.7)
-        .fromTo(b.querySelectorAll('.c-band-cards i'), { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.4, ease: 'power3.out', stagger: 0.018 }, 0.3 + k * 0.7);
+      tl.fromTo(b.querySelector('.c-band-head'), { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' }, 0.15 + k * 0.42)
+        .fromTo(b.querySelectorAll('.c-band-cards i'), { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.35, ease: 'power3.out', stagger: 0.012 }, 0.25 + k * 0.42);
     });
   }
 

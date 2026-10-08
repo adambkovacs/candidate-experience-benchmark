@@ -8,7 +8,7 @@ import { REPO, arg, serve, launch, openDeck, listSlides, showFully, settle, tabl
 
 const VIEWPORTS = [[1920, 1080], [1366, 768], [1280, 720], [1440, 900]];
 const reducedMotion = process.argv.includes('--reduced-motion') ? 'reduce' : 'no-preference';
-const pagePath = arg('page', 'presentation-v2.html');
+const pagePath = arg('page', 'presentation.html');
 const out = resolve(arg('out', join(REPO, 'docs/talk/screenshots')));
 const stem = pagePath.replace(/\.html$/, '').replace(/[/\\]/g, '-');
 

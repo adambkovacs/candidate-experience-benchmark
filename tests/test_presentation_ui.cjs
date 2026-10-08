@@ -26,7 +26,7 @@ test('slide ids are unique and every in-deck link points at a real slide', () =>
   assert.ok(sectionIds.length >= 30, `only ${sectionIds.length} sections`);
   assert.equal(new Set(sectionIds).size, sectionIds.length, 'duplicate section id');
   const links = [...html.matchAll(/href="#\/([^"/]+)"/g)].map(m => m[1]);
-  assert.ok(links.length >= 19, `only ${links.length} deck links`);
+  assert.ok(links.length >= 10, `only ${links.length} deck links`); // v4.1 appendix has 10 slides
   for (const id of links) assert.ok(sectionIds.includes(id), `link #/${id} has no slide`);
 });
 

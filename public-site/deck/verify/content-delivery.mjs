@@ -14,14 +14,14 @@ try {
   await page.locator('.reveal').click({ position: { x: 900, y: 500 } }).catch(() => {});
 
   // Clicker keys: remotes send PageDown / PageUp; keyboards use Space and the arrows.
-  for (const [key, want] of [['PageDown', 'answer/-1'], ['PageDown', 'answer/0'], ['PageUp', 'answer/-1'], ['Space', 'answer/0'], ['ArrowRight', 'about/-1'], ['ArrowLeft', 'answer/0']]) {
+  for (const [key, want] of [['PageDown', 'about/-1'], ['PageDown', 'decision-models/-1'], ['PageUp', 'about/-1'], ['Space', 'decision-models/-1'], ['ArrowRight', 'launch-wave/-1'], ['ArrowLeft', 'decision-models/-1']]) {
     await page.keyboard.press(key); await settle(page);
     const at = await where(page);
     ok(`key ${key} -> ${want}`, at === want, at);
   }
 
-  // Hash jumps: an appendix slide, and a hero at its second step (restored after the data loads).
-  for (const [hash, want] of [['#/a10-pairs', 'a10-pairs/-1'], ['#/agree-or-defer/1', 'agree-or-defer/1']]) {
+  // Hash jumps: an appendix slide, and the sorter at its one click (Qwen + Gemma, restored after the data loads).
+  for (const [hash, want] of [['#/a10-pairs', 'a10-pairs/-1'], ['#/agree-or-defer/1', 'agree-or-defer/0']]) {
     const p2 = await openDeck(browser, `${server.origin}/presentation.html${hash}`);
     await settle(p2.page);
     const at = await where(p2.page);
@@ -34,22 +34,22 @@ try {
   await page.evaluate(() => { const s = document.getElementById('monday'); const { h, v } = window.Reveal.getIndices(s); window.Reveal.slide(h, v); });
   await settle(page);
   const links = await page.evaluate(() => [...document.querySelectorAll('#monday .c-index a')].map(a => a.getAttribute('href').slice(2)).filter(id => !document.getElementById(id)));
-  ok('S15 index: all 19 links resolve to slides', links.length === 0 && (await page.locator('#monday .c-index a').count()) === 19, links.join(', ') || '19 of 19');
+  ok('S20 index: all 10 links resolve to slides', links.length === 0 && (await page.locator('#monday .c-index a').count()) === 10, links.join(', ') || '10 of 10');
   await page.locator('#monday .c-index a[href="#/a13-dev-030"]').click();
   await settle(page);
   ok('S15 index: clicking A13 jumps to it', (await where(page)).startsWith('a13-dev-030'), await where(page));
 
   // Speaker view: S opens the notes window with the current slide's notes and a timer.
-  await page.evaluate(() => { const s = document.getElementById('zero-of-seven'); const { h, v } = window.Reveal.getIndices(s); window.Reveal.slide(h, v); });
+  await page.evaluate(() => { const s = document.getElementById('agree-or-defer'); const { h, v } = window.Reveal.getIndices(s); window.Reveal.slide(h, v); });
   await settle(page);
   const [popup] = await Promise.all([page.context().waitForEvent('page', { timeout: 10000 }), page.keyboard.press('s')]);
   await popup.waitForLoadState('load');
-  await popup.waitForFunction(() => /Zero of seven/.test(document.querySelector('.speaker-controls-notes')?.textContent ?? ''), null, { timeout: 15000 }).catch(() => {});
+  await popup.waitForFunction(() => /The rule is agree or defer/.test(document.querySelector('.speaker-controls-notes')?.textContent ?? ''), null, { timeout: 15000 }).catch(() => {});
   const view = await popup.evaluate(() => {
     const text = (document.querySelector('.speaker-controls-notes')?.textContent ?? '').replace(/\s+/g, ' ').trim();
-    return { spoken: /Zero of seven\. Four of them said/.test(text), clicks: /\[Clicks: 2\./.test(text), timer: (document.querySelector('.speaker-controls-time')?.textContent ?? '').trim().slice(0, 40) };
+    return { spoken: /The rule is agree or defer\. Two cheap models/.test(text), clicks: /\[Clicks: 1\./.test(text), timer: (document.querySelector('.speaker-controls-time')?.textContent ?? '').trim().slice(0, 40) };
   });
-  ok('speaker view: notes for S8 with click count, and a timer', view.spoken && view.clicks && Boolean(view.timer), JSON.stringify(view));
+  ok('speaker view: notes for S16 with click count, and a timer', view.spoken && view.clicks && Boolean(view.timer), JSON.stringify(view));
   await popup.close();
 
   for (const p of deck.problems) ok('console', false, p);

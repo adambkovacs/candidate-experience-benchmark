@@ -1,0 +1,464 @@
+[
+  {
+    "n": 1,
+    "id": "title",
+    "h": 0,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Do | models | like | Jev | get | it | right | when | correctness | is | business-critical? | Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me. | Is this a serious concern? Does someone need to follow up? You probably knew both answers by the second line. That gut call is what Kahneman calls System 1, and TypeSafe borrowed the name for Jev. I wanted to know how far it carries when the decision matters. Each dot is one of the | 60 | reviews, and the orange one is this review. | Adam Kovacs, Chief AI Strategist, AI Enablement Academy | Agentics Foundation Meetup, Budapest, 8 October 2026"
+      }
+    ],
+    "notes": "So, this is one of the 60 candidate reviews. [read S1] \"Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me.\" Is that a serious concern? Does someone need to follow up? You probably knew both answers by the second line, and that gut answer is what Kahneman calls System One. TypeSafe borrowed that name for Jev, a model that gives you a typed answer in one pass, and I wanted to know how far it carries when the decision matters."
+  },
+  {
+    "n": 2,
+    "id": "about",
+    "h": 1,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "I'm Adam Kovacs. | Co-founder and Chief AI Strategist, AI Enablement Academy | Co-founding Member and International Ambassador, Agentics Foundation | Executive Director, OPEN Talent Society | Before this, I spent six years in recruiting at Amazon. | I build hands-on AI training for teams, and open benchmarks on recruiting problems like this one. | github.com/adambkovacs"
+      }
+    ],
+    "notes": "Quick bit about me. I'm Adam, co-founder and Chief AI Strategist of the AI Enablement Academy, and before that I spent six years in recruiting at Amazon. I read a lot of candidate feedback there. Vendors kept telling me their classifier was accurate, and Amazon taught me to build the measure before trusting the tool."
+  },
+  {
+    "n": 3,
+    "id": "decision-models",
+    "h": 2,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "A decision model takes text and a typed question, and returns one of your options with a probability in one pass. | System 1: the quick gut call | It works when the answer is one of a short list and each question asks about one thing. It can't invent a label. | Is a harassment report a serious concern? Jev caught all | 25 | . | System 2: stopping to ask if it's the right question | It takes your words literally and can't say why it answered. It won't tell you when the question doesn't fit. | \"Train got cancelled... Really helpful of them.\" Is that a testimonial?"
+      }
+    ],
+    "notes": "So, a decision model. You send it text and a typed question with your options, and you get back one of those options and a probability, in one pass. It can't invent a label and it can't explain itself. That's System One. The \"wait, is this even the right question?\" check is System Two, and you build that yourself."
+  },
+  {
+    "n": 4,
+    "id": "launch-wave",
+    "h": 3,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Jev shipped on | 15 September | . By | 7 October | , Cloudflare, AWS, Perplexity and OpenAI had each shipped a decision model of their own. | They take your text and typed questions and return one option, and most of them work the same way. Within a day of launch, nearly | 13 | % of paid teams on Vercel's AI Gateway were using Jev. Credit to TypeSafe: they published a page listing where Jev fails. Most vendors don't. | 15 Sep | Jev 1.13 | TypeSafe | 1 Oct | Clef, Strands Decider | Cloudflare and AWS, same day | 7 Oct | Perplexity Decider | listed on OpenRouter | 6 Oct | OpenAI Decisions | public beta | Solar Decide | 22 Sep | Kev 1.0, Span-01, Nimble 9B | 24 Sep | Kev-9B v2 | 30 Sep | d1 with vision | 5 Oct | d1-3B and d1-omni-600M | 7 Oct"
+      }
+    ],
+    "notes": "[The slide draws verified entries only. Perplexity's 1 October date rests on press reports and is unverified in timeline.json, so the slide shows its verified 7 October OpenRouter listing.]\n          Jev launched on 15 September, and credit to TypeSafe: they published a page listing where Jev fails, and most vendors don't. Within a day, nearly 13% of paid teams on Vercel's AI Gateway were using it. [the timeline draws on entry] About two weeks later, on 1 October, Cloudflare and AWS shipped decision models on the same day, Perplexity's was listed on OpenRouter on 7 October, and OpenAI's Decisions API had gone to public beta the day before, on 6 October."
+  },
+  {
+    "n": 5,
+    "id": "what-we-did",
+    "h": 4,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Every model got the same | 60 | fictional reviews and four questions about each. Matched means all four answers agree with our key. | How was the experience? | sentiment, negative, positive, neutral, mixed, can't tell | Does someone need to follow up? | follow-up, yes, no, can't tell | Does it report a serious concern? | concern, harassment, discrimination or a privacy breach; a bad experience alone doesn't count, yes, no, can't tell | Could it work as a testimonial? | testimonial, yes, no, can't tell | An AI assistant drafted the reviews and the key, and people checked all | 60 | . Three labels are still disputed. | P0 is the plain task. P1 tells the model it's a classifier. P2 adds step-by-step instructions for deciding. | 39 | general models and settings ran all three prompts, most of them three times from scratch, next to the seven decision models and Jev."
+      }
+    ],
+    "notes": "So, the test. Every model got the same 60 reviews and the same four questions: sentiment, does this need a follow-up, is there a serious concern, and is this a testimonial we could use. P0 is the plain task, P1 tells the model it's a classifier, P2 adds step-by-step instructions for deciding, and most of these models ran each version three times from scratch. About the answer key: an AI assistant drafted the 60 reviews and the key, people then checked all 60, and three labels are still disputed, which is why I call it provisional."
+  },
+  {
+    "n": 6,
+    "id": "answer",
+    "h": 5,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "On | 60 | test reviews, Jev matched our answer key on all four decisions for | 54 | . General models from Gemma 26B up to Opus 5.5 matched | 58 | or | 59 | , | at four to forty times the cost. | Jev 1.13 | direct API, first pass, plain prompt | 5 | reviews Opus matched and Jev missed | 54 | OpenRouter, three passes: | 54 | , | 53 | , | 52 | Opus 5.5 | high effort, ten reviews per request | 59 | three passes: | 59 | , | 58 | , | 58 | 0 | all 60 reviews | Matched means agreeing with our answer key on all four. Three of the key's labels are still disputed. | If the decision matters, create a rule that hands the hard reviews to a person. | Show of hands | Hands up if you've shipped an LLM classifier. Keep it up if a second model checks it."
+      }
+    ],
+    "notes": "So here's the answer up front. On 60 reviews Jev matched our answer key on all four decisions for 54. General models from a 26B Gemma up to Opus 5.5 matched 58 or 59, at four to forty times the cost. If the decision matters, create a rule that hands the hard reviews to a person. Hands up if you've shipped an LLM classifier to production. [pause] Keep it up if you check it with a second model. [pause] That gap is this talk."
+  },
+  {
+    "n": 7,
+    "id": "nine-runs",
+    "h": 6,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Every run shows the same gap: Jev matched | 52 | to | 54 | of | 60 | , and Opus 5.5 matched | 58 | or | 59 | . | Each grid is one model. Columns are the prompt versions P0, P1 and P2, rows are three fresh passes, and a blank cell means that run doesn't exist. | Jev 1.13 | via OpenRouter, native | 54 | P0, pass 1 | P0 | P1 | P2 | 54 | 54 | 54 | 53 | 53 | stopped | 52 | 54 | 54 | Opus 5.5 | high effort, batch 10 | 59 | P0, pass 1 | P0 | P1 | P2 | 59 | 59 | 59 | 58 | 59 | 58 | 58 | 58 | 58 | Sonnet 5.5 | xhigh effort | 58 | P0, pass 1 | P0 | P1 | P2 | 58 | 58 | 58 | 58 | 58 | 58 | 58 | 58 | 58 | Gemma 4 26B | A4B, thinking on | 59 | P0, pass 1 | P0 | P1 | P2 | 59 | 58 | 57 | 56 | 58 | 56 | 58 | 57 | 56 | Qwen3.8 27B | low effort, one pass each | 59 | P0, pass 1 | P0 | P1 | P2 | 59 | 56 | 53 | all four matched, of 60: 40 to 60 | blank means no run | Sonnet 5.5 matched | 58 | in all nine runs. Gemma 26B and Qwen 27B, both free to download, each matched | 59 | on their first pass."
+      }
+    ],
+    "notes": "Proof one: the gap is five reviews. [bars] Jev matched the key on all four fields for 54, 53 and 52 of 60 over three passes. Opus 5.5 at high effort matched 59, 58 and 58, Sonnet 5.5 matched 58 nine times, and a 26B Gemma and a 27B Qwen, both free to download, each matched 59."
+  },
+  {
+    "n": 8,
+    "id": "pass-cost",
+    "h": 7,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "A Jev pass over all | 60 | reviews cost $ | 0.006 | , and an Opus pass about $ | 0.22 | . Opus matched five more reviews, and at this volume that's pocket change, so the question is which five. | Jev | , OpenRouter P0 pass | $ | 0.006 | Opus 5.5 high | , ten reviews per request | $ | 0.22 | Jev caught all | 25 | reviews the key flags as a serious concern. On the harassment review that opened the talk, it still said nobody needed to follow up, at | 0.49 | confidence."
+      }
+    ],
+    "notes": "Now cost. [cards] A Jev pass over all 60 reviews cost about six tenths of a cent. The Opus pass was about 22 cents. So that's roughly four to forty times the spend for five more matches, and at this volume that's pocket change, so the question is which five. Jev caught all 25 reviews where the key flags a serious concern, including the one I read you. But on that review Jev said nobody needed to follow up, at 0.49 confidence."
+  },
+  {
+    "n": 9,
+    "id": "general-models",
+    "h": 8,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "More effort didn't buy more matches. Bigger models didn't buy more matches either. The big models gave the same answers, wrong ones included. Multiple runs proved non-deterministic outcomes. | Gemini 3.1 Pro matched | 56 | of | 60 | at low effort for $ | 0.063 | , and | 55 | at high effort for $ | 0.257 | . | 44 | runs from | 7 | models across three vendors gave exactly the same answers. | 31 | of | 50 | decision-model setups gave identical answers across three runs. | 11 | of | 202 | general-model setups did."
+      }
+    ],
+    "notes": "And the general models taught me a few things. More effort didn't buy more matches: Gemini 3.1 Pro at high effort cost four times as much and matched one fewer. The big models mostly gave each other's answers, wrong ones included, so a second frontier model is a weak check. And run a decision model three times and it mostly gives the same answers, while only 11 of 202 general-model setups did."
+  },
+  {
+    "n": 10,
+    "id": "consequences",
+    "h": 9,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Typed output fixes the format, and the decision can still be wrong. | Perplexity Decider matched | 54 | of | 60 | in all nine runs, with the same six misses. A model that gives the same wrong answer every time never shows you it's wrong. | Miss a harassment report and the candidate posts about it on X and Reddit. Hiring gets a lot harder after that."
+      }
+    ],
+    "notes": "Typed output fixes the format, and the decision can still be wrong. These models mostly gave the same answer every time, so a wrong answer is the same wrong answer at scale, and nothing warns you. Miss that report, or publish the wrong testimonial, and the candidate tells X and Reddit how they were treated, it trends, and good luck with building your brilliant startup without being able to hire good people willing to work for you."
+  },
+  {
+    "n": 11,
+    "id": "one-of-60",
+    "h": 10,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Great soup, tiny portions, wouldn't eat there again. | Shout it out | Seven decision models read this review. How many of them flagged it as off-topic?"
+      }
+    ],
+    "notes": "So this is another one of the 60. [S11 shows only the text] \"Great soup, tiny portions, wouldn't eat there again.\"\n          Seven decision models read this review. Shout how many of them flagged it as off-topic. [pause, repeat two or three answers for the mic]"
+  },
+  {
+    "n": 12,
+    "id": "zero-of-seven",
+    "h": 11,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Great soup, tiny portions, wouldn't eat there again. | 0 | of | 7 | decision models matched the key. | Key | Sentiment | can't tell | Follow-up | can't tell | Concern | can't tell | Testimonial | can't tell | Tev | saved answer | Tev | Sentiment | mixed | Follow-up | no | Concern | no | Testimonial | no | Clef | saved answer | Clef | Sentiment | mixed | Follow-up | no | Concern | no | Testimonial | no | Clef Flash | saved answer | Clef Flash | Sentiment | mixed | Follow-up | no | Concern | no | Testimonial | no | Luna | saved answer | Luna | Sentiment | mixed | Follow-up | no | Concern | no | Testimonial | no | Solar | saved answer | Solar | Sentiment | negative | Follow-up | no | Concern | no | Testimonial | no | Liquid | saved answer | Liquid | Sentiment | can't tell | Follow-up | no | Concern | no | Testimonial | no | Perplexity | saved answer | Perplexity | Sentiment | can't tell | Follow-up | no | Concern | no | Testimonial | can't tell | Jev 1.13 is not one of the seven. Its saved answer: | Sentiment | mixed | Follow-up | no | Concern | no | Testimonial | no | It gave the same wrong answer: no serious concern, at | 0.91 | confidence. | 89 | of the | 113 | general-model configurations with a valid answer said can't tell on all four. | The models answered the question on the form and didn't notice it didn't apply. Asking \"is this even the right question?\" is System 2, and it isn't in the model."
+      }
+    ],
+    "notes": "[S12, the seven flip on entry] Zero of seven. Four of them said the sentiment was mixed, no follow-up, no concern, not a testimonial. Solar said negative. Liquid and Perplexity said \"can't tell\" on the sentiment, and still answered no on follow-up and concern. Jev isn't one of the seven, but its saved answer was the same mixed, no, no, no, and it said no serious concern at 0.91 confidence when the honest answer was \"can't tell\". And 89 of the 113 general configurations that returned a valid answer said \"can't tell\" on all four fields.\n          The classifier answered the question on the form, and it did not notice the form didn't apply, which is the slower move Kahneman calls System Two: wait, is this even the right question?"
+  },
+  {
+    "n": 13,
+    "id": "hard-six",
+    "h": 12,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Four of these are judgment calls and two are plain misses. | These are exactly the six reviews Jev's first pass missed, and three carry labels a second review of our key disputes. The misses weren't random, so you can route reviews like these to a person. Under each card: the key's four answers, then seven tiles, one per decision model, with its four answers as squares. An orange square is an answer that differs from the key. | All | 60 | reviews by how many of the | 7 | decision models missed | 26 | 0 | 15 | 1 | 12 | 2 | 1 | 3 | 2 | 4 | 1 | 5 | 1 | 6 | 2 | 7 | DEV-030 | fixed, I think | The accessibility issue from the assessment has been dealt with, | I think | . | Someone said | it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket. | neutral | yes | can't tell | no | 0 | of | 7 | models matched | 144 | of | 1,004 | runs matched | DEV-029 | off-topic | Great soup | , tiny portions, wouldn't eat there again. | can't tell | can't tell | can't tell | can't tell | 0 | of | 7 | models matched | 661 | of | 1,004 | runs matched | DEV-006 | it happened again | Same as last time. | That thing happened again | and it still isn't sorted. | negative | yes | can't tell | no | 1 | of | 7 | models matched | 262 | of | 1,004 | runs matched | DEV-013 | a friend heard a rumour | A friend told me they heard | this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it. | neutral | no | no | no | 2 | of | 7 | models matched | 287 | of | 1,004 | runs matched | DEV-027 | kind words, cancelled train | Train got cancelled | so they switched me to video with the same interviewers and gave me five mins to catch my breath. | Really helpful of them | . | positive | no | no | yes | 3 | of | 7 | models matched | 800 | of | 1,004 | runs matched | DEV-059 | serious concern, no complaint | Nice staff. | After the trial shift the manager kept asking me out even after I said no twice. | I've asked the recruiter to stop him contacting me. | mixed | yes | yes | no | 5 | of | 7 | models matched | 713 | of | 1,004 | runs matched"
+      }
+    ],
+    "notes": "[Not the six hardest: DEV-056 (4 of 7 models missed) ranks above DEV-059 (2 of 7). DEV-059 is here because it opened the talk.]\n          And five more reviews split the models the same way. [S13, all six cards on screen] \"Someone said it was fixed, I think\": uncertain resolution, and none of the seven decision models got it right. \"That thing happened again\": vague recurrence, one of seven got it right. \"A friend told me they heard\": second-hand rumour, two of seven. \"Great soup\": off-topic, zero of seven. \"Really helpful of them\" after a cancelled train: kindness during a logistics failure, three of seven. And the harassment review itself: a serious concern with no formal complaint, five of seven. Three of those are the labels a second review of our key, done by AI, disputes. So the misses weren't random, and that's good news, because you can route reviews like these to a person."
+  },
+  {
+    "n": 14,
+    "id": "still-wrong",
+    "h": 13,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Every answer comes with a confidence score. On these | 60 | reviews Jev's score tracked how often it was right, and it was still | 0.96 | confident on a wrong testimonial. | Jev 1.13 P0, testimonial field, | 60 | answers sorted by confidence | cutoff | 0.90 | 0.5 | 0.7 | 0.9 | 1.0 | 0.9 cutoff keeps | 54 | of | 60 | 0.7 keeps | 58 | 0.5 keeps | 58 | DEV-027, the train review: key, then Jev's answer | Sentiment? key | positive | , Jev | negative | at | 0.71 | Follow-up? key | no | , Jev | no | Serious concern? key | no | , Jev | no | Testimonial? key | yes | , Jev | no | at | 0.96 | DEV-029, the soup | Not a testimonial, at | 0.88 | . Key: can't tell. | kept | withheld | wrong answer (red: DEV-027) | A 0.9 cutoff keeps only answers at that confidence or above. It keeps | 54 | of | 60 | here, the wrong one included, though it would have caught the harassment follow-up miss at | 0.49 | . A low score marks a hard review. A high score doesn't mean the answer is right. | How far each model's confidence sat from how often it was right, over | 720 | answers on these | 60 | reviews, smaller is better: Jev | 0.011 | , Clef Flash | 0.358 | . It describes these reviews and doesn't predict the next batch."
+      }
+    ],
+    "notes": "Proof three is the number next to the answer.\n          On these 60 reviews, Jev's confidence tracked how often it was right: pooled over 720 answers the average gap was 0.011, while Clef Flash's was 0.358. And Jev called the cancelled-train review not a testimonial at 0.96, and the key says the opposite. On sentiment, a 0.9 cutoff threw away nine good answers to catch four bad ones. On the testimonial field the same cutoff still let the train review through. In fairness, that cutoff would have caught the harassment follow-up miss at 0.49. Jev's ten least-confident reviews include seven of the ten hardest, the soup among them, but only through the sentiment field. On follow-up, concern and testimonial, the fields where you'd act, it said no at 0.84 to 0.91. So a low score marks a hard review, and a high score doesn't mean the answer is right."
+  },
+  {
+    "n": 15,
+    "id": "more-instructions",
+    "h": 14,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "The obvious fixes didn't reliably help. | A longer prompt | P0 is the plain task: the rubric and the answer schema. P1 adds a classifier role and the rule to use only the feedback as evidence. P2 keeps P1 and adds a numbered procedure: is the text usable, then each field in turn. The procedure lowered | 21 | of | 39 | setups. | Clef, matched of | 60 | , same every pass | 54 | P0 | 51 | P1 | 49 | P2 | 39 | saved setups | P0 to P1, adding framing | 15 | up | , | 15 | same | , | 9 | down | P1 to P2, adding the tree | 4 | up | , | 14 | same | , | 21 | down | A majority vote | Voting Jev's three passes never beat its best single pass. A vote of three gave strong general models | 0.14 | more matches out of | 60 | . That's nothing, so ask a different model instead. | Fine-tuning | It starts paying off around | 200 | labels, and we have | 9 | testimonials. | Cloudflare's Clef may only read the first | 2,000 | tokens, so it might never have seen the whole set of instructions."
+      }
+    ],
+    "notes": "The first fix I'd reach for is a longer prompt. In these saved runs, adding classifier framing scored higher in 15 of 39 setups, the same in 15, lower in 9, and adding the tree on top scored higher in 4, the same in 14, lower in 21. Cloudflare's Clef went 54, 51, 49 in every pass, though that route may only read the first 2,000 tokens of state. I voted Jev's three passes, and the majority never beat its best single pass. Fine-tuning starts paying off around 200 labels, and we've got 9 testimonials. And when two models are both wrong, they pick the same wrong answer 60% of the time, so the second opinion has to come from a different model."
+  },
+  {
+    "n": 16,
+    "id": "agree-or-defer",
+    "h": 15,
+    "v": 0,
+    "fragments": 1,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Agree or defer. | Run two cheap models that make different mistakes. Accept a review only when both give the same four answers. Send the rest to a person. | 53 | accepted, | 0 | disagreed with the key | 7 | to a person | S + P, Solar Decide and Perplexity Decider, | $ | 0.037 | for both runs | 001 | 002 | 003 | 004 | 005 | DEV- | 006 | disputed key | 007 | 008 | 009 | 010 | 011 | 012 | DEV- | 013 | disputed key | 014 | 015 | 016 | 017 | 018 | 019 | 020 | 021 | 022 | 023 | 024 | 025 | 026 | DEV- | 027 | train testimonial | DEV- | 028 | DEV- | 029 | soup | DEV- | 030 | disputed key | 031 | 032 | 033 | 034 | DEV- | 035 | 036 | 037 | 038 | 039 | 040 | 041 | 042 | 043 | 044 | 045 | 046 | 047 | 048 | 049 | 050 | 051 | 052 | 053 | 054 | 055 | 056 | 057 | 058 | 059 | 060"
+      },
+      {
+        "step": 1,
+        "text": "Agree or defer. | Run two cheap models that make different mistakes. Accept a review only when both give the same four answers. Send the rest to a person. | 58 | accepted, | 0 | disagreed with the key | 2 | to a person | Q + G, Qwen 27B and Gemma 26B, | $ | 0.069 | for both runs. | Other Gemma runs let one error through. | 001 | 002 | 003 | 004 | DEV- | 005 | 006 | 007 | 008 | 009 | 010 | 011 | 012 | DEV- | 013 | disputed key | 014 | 015 | 016 | 017 | 018 | 019 | 020 | 021 | 022 | 023 | 024 | 025 | 026 | 027 | 028 | 029 | 030 | 031 | 032 | 033 | 034 | 035 | 036 | 037 | 038 | 039 | 040 | 041 | 042 | 043 | 044 | 045 | 046 | 047 | 048 | 049 | 050 | 051 | 052 | 053 | 054 | 055 | 056 | 057 | 058 | 059 | 060"
+      }
+    ],
+    "notes": "[Clicks: 1. The slide enters sorted by Solar + Perplexity; the click re-sorts by Qwen + Gemma.]\n          The rule is agree or defer. Two cheap models on every review, accept only identical answers, send the rest to a person.\n          I fixed the rule before computing any pair, then looked at all 21 pairs of the seven decision models. Five pairs let zero errors through. [S16 is sorted on entry] Solar Decide plus Perplexity Decider agreed on 53 and sent 7 to a person, for under four cents for both, and I picked it after seeing all 21, so it's an example. It deferred the soup, the three disputed labels and the 0.96 testimonial, and both got the harassment review right, so the rule overrules Jev's miss.\n          Zero errors on these 60 is not zero errors on the next 60. And agreement only helps when the models fail differently: six of the 21 pairs accepted the soup with the same wrong answer.\n          [S16 re-sorts] Across 853 costed pairs, Qwen 27B low plus Gemma 26B thinking-on accepted 58 with zero errors and deferred 2, for about seven cents, though other Gemma passes let one error through."
+  },
+  {
+    "n": 17,
+    "id": "queue",
+    "h": 16,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "The rule says what a model may auto-accept. The escalation lines say who reads the rest. | Run two decision models on every review. | Auto-accept only when all four answers are identical. | If either model flags a serious concern, a person reads it. | If either model says can't tell, a person reads it. | Keep the confidence score for the record, and don't use it to decide. | Solar + Perplexity, all | 60 | reviews, | 35 | reach a person | 7 | the two models disagreed, to a person | 24 | agreed, a serious concern was flagged, to a person | 4 | agreed, one said can't tell, to a person | 25 | auto-accepted | We put a lot of serious concerns in this set on purpose, so a normal pile would make a shorter queue. | Show of hands | One model at | 0.96 | confidence, or two cheap models that agree?"
+      }
+    ],
+    "notes": "The rule decides what a model may auto-accept; the escalation lines are the workflow. In a harassment workflow, any review either model flags as a serious concern goes to a person, whatever else the two agree on. Here every pair's flags together caught all 25, though Tev alone missed two and Clef flagged a 26th. The rule's job is the other 35: it auto-accepts 25 and sends 10 to a person.\n          [S17] Hands up for one model at 0.96. [pause] Hands up for two cheap models that agree. [pause]"
+  },
+  {
+    "n": 18,
+    "id": "a10-pairs",
+    "h": 17,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "All | 21 | pairs and the human queue. | This table shows every pair of two decision models, so you can see the rule isn't one lucky pair. | Pair, fresh1/P0 | Accep­ted | Errors | Defer­red | + con­cern | + can't tell | To a person | Two runs | Liquid + Tev | 33 | 0 | 27 | 14 | 1 | 42 | $ | 0.0320 | Liquid + Solar | 43 | 0 | 17 | 15 | 2 | 34 | $ | 0.0378 | Liquid + Clef | 45 | 3 | 15 | 16 | 2 | 33 | $ | 0.0475 | Liquid + Clef Flash | 40 | 4 | 20 | 13 | 2 | 35 | $ | 0.0276 | Liquid + Luna | 38 | 1 | 22 | 14 | 1 | 37 | $ | 0.0290 | Liquid + Perplexity | 46 | 4 | 14 | 16 | 2 | 32 | $ | 0.0311 | Tev + Solar | 45 | 1 | 15 | 23 | 3 | 41 | $ | 0.0384 | Tev + Clef | soup accepted | 42 | 1 | 18 | 21 | 3 | 42 | $ | 0.0482 | Tev + Clef Flash | soup accepted | 39 | 3 | 21 | 18 | 2 | 41 | $ | 0.0283 | Tev + Luna | soup accepted | 42 | 2 | 18 | 21 | 3 | 42 | $ | 0.0297 | Tev + Perplexity | 44 | 1 | 16 | 22 | 3 | 41 | $ | 0.0318 | Solar + Clef | 52 | 0 | 8 | 23 | 4 | 35 | $ | 0.0539 | Solar + Clef Flash | 44 | 0 | 16 | 19 | 3 | 38 | $ | 0.0340 | Solar + Luna | 49 | 1 | 11 | 23 | 3 | 37 | $ | 0.0354 | Solar + Perplexity | 53 | 0 | 7 | 24 | 4 | 35 | $ | 0.0375 | Clef + Clef Flash | soup accepted | 47 | 4 | 13 | 19 | 3 | 35 | $ | 0.0438 | Clef + Luna | soup accepted | 50 | 2 | 10 | 22 | 3 | 35 | $ | 0.0452 | Clef + Perplexity | 53 | 2 | 7 | 22 | 4 | 33 | $ | 0.0473 | Clef Flash + Luna | soup accepted | 40 | 2 | 20 | 18 | 2 | 40 | $ | 0.0253 | Clef Flash + Perplexity | 45 | 2 | 15 | 19 | 3 | 37 | $ | 0.0274 | Luna + Perplexity | 48 | 1 | 12 | 22 | 3 | 37 | $ | 0.0288 | 5 | pairs let zero errors through. | 6 | pairs accepted the soup with the same wrong answer. | 32 | to | 42 | of | 60 | reach a person under the full policy, by pair. | Solar + Perplexity: | 7 | deferred, | 24 | escalated for a concern, | 4 | for a can't tell; | 35 | reach a person. Solar sits in four of the five zero-error pairs. | + concern and + can't tell: accepted, then routed to a person anyway. The rule was fixed before any pair was computed. No pair is selected. Green rail: zero accepted errors."
+      }
+    ],
+    "notes": "And this is every pair of the seven decision models, so you can see the rule isn't one lucky pair. Five pairs let zero errors through, and six accepted the soup with the same wrong answer. Zero errors on these 60 is not zero errors on the next 60.\n            Q: Would agree-or-defer hold in production? A: Unknown. The rule was fixed before the pairs were computed but scored on the same 60 reviews used for everything else, and the human review cost of the deferred set is unmeasured. Treat it as a policy to test.\n            Q: CTO: with your full policy, how big is the human queue? A: On this set, 35 of 60. Split it the way the workflow does: 25 reviews either model flagged as a serious concern go to a person, and on this set those flags covered all 25 reference concerns for every pair. Of the other 35 reviews the rule auto-accepts 25 and sends 10 to a person, 6 by disagreement and 4 by a \"can't tell\". The set is concern-heavy by design. On real feedback the share depends on how often concerns happen, which this can't tell you."
+  },
+  {
+    "n": 19,
+    "id": "classification-bench",
+    "h": 18,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "classification-bench runs this test on your own cases, labels and questions. | Bring any model through an OpenRouter key, or Claude Code and Codex on the subscription you already have. | Bring data | your inputs, your labels | Plan | models, prompts, passes | Run | stays inside your budget | Evaluate | agreement, answer changes | Report | per label, per pass | OpenRouter | Cloudflare Clef | Claude Code | Codex | Liquid / Solar / Qwen"
+      }
+    ],
+    "notes": "So, this benchmark taught me what a runner has to do: count missing answers, reject broken formats, keep labels away from the model, know what each request cost, run it more than once. I pulled those lessons into a tool called classification-bench: your inputs, your labels, and it reports agreement and how often an answer flips between repeats. Where it stands: the pipeline runs offline with more than 400 tests, it has made small real calls through OpenRouter and Cloudflare's Clef, and the Claude Code and Codex routes are built but untested live."
+  },
+  {
+    "n": 20,
+    "id": "monday",
+    "h": 19,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "What should you do | I'd pull | 60 | of my own cases and label them myself, before any model sees them. | I'd give every question a can't-tell option. | I'd run two cheap models and keep only what they agree on. | I'd count how many land in the human queue, and check the rare cases I care about got through. | github.com/adambkovacs/ | candidate-experience-benchmark | Appendix | A1 | A2 | A3 | A4 | A5 | A6 | A7 | A8 | A9 | A10"
+      }
+    ],
+    "notes": "This is what I'd do on Monday. I'd pull 60 of my own cases and label them myself, before any model sees them. I'd give every question a \"can't tell\" option. I'd run two cheap models and keep only the answers they agree on. Then I'd count how many land in the human queue, and whether the rare cases I care about made it through. We're building this together. Thank you."
+  },
+  {
+    "n": 21,
+    "id": "thanks",
+    "h": 20,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Thank you! | Questions? | Adam Kovacs, Chief AI Strategist, AI Enablement Academy | Agentics Foundation Meetup, Budapest, 8 October 2026"
+      }
+    ],
+    "notes": "Thank you. Questions?"
+  },
+  {
+    "n": 22,
+    "id": "a1-hosted",
+    "h": 21,
+    "v": 0,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "It's cheap to experiment | All five take your text plus typed questions with the options you supply, and return one option per question with a probability, in one pass, with no text to parse. | TypeSafe | Jev 1.13 | $ | 0.042 | / M input | Early access | No changelog | Publishes a failure-mode page | OpenAI | Decisions on gpt-6-luna | $ | 0.10 | / M input | Public beta | Has a refusal type | Perplexity | Decider | $ | 0.02 | / M input | Apache-2.0 (v1) | Liquid AI | d1 | $ | 0.04 | / M input | Price per blog methodology | Upstage | Solar Decide | beta | Price unverified"
+      }
+    ],
+    "notes": "Jev ($0.042/M input, early access, no changelog, publishes a failure-mode page), OpenAI Decisions on gpt-6-luna ($0.10/M, public beta, refusal type), Perplexity Decider ($0.02/M, Apache-2.0 v1), Liquid d1 ($0.04/M per blog methodology), Solar Decide (beta, price unverified)."
+  },
+  {
+    "n": 23,
+    "id": "a3-prompt-levels",
+    "h": 21,
+    "v": 1,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Prompt levels P0, P1, P2, every pass, in these saved runs. | P0 is the plain task: the rubric and the answer schema. P1 adds a classifier role and the rule to use only the feedback as evidence. P2 keeps P1 and adds a numbered procedure: is the text usable, then each field in turn. Columns are prompt versions, rows are fresh passes. | Jev 1.13 | via OpenRouter, native | 54 | P0, pass 1 | P0 | P1 | P2 | 54 | 54 | 54 | 53 | 53 | stopped | 52 | 54 | 54 | Clef | Cloudflare, native | 54 | P0, pass 1 | P0 | P1 | P2 | 54 | 51 | 49 | 54 | 51 | 49 | 54 | 51 | 49 | Luna Decisions | OpenAI, native | 49 | P0, pass 1 | P0 | P1 | P2 | 49 | 51 | 49 | 49 | 51 | 49 | 49 | 51 | 49 | Clef Flash | Cloudflare, native | 45 | P0, pass 1 | P0 | P1 | P2 | 45 | 47 | 46 | 45 | 47 | 46 | 45 | 47 | 45 | Solar Decide | Upstage, native | 55 | P0, pass 1 | P0 | P1 | P2 | 55 | 53 | 53 | 53 | 52 | 52 | 54 | 51 | 52 | Each row below counts the | 39 | model setups that ran both prompt versions: how many matched more of the | 60 | reviews on all four answers, how many matched the same number, and how many matched fewer. | P0 to P1, | 39 | setups | 15 | up | , | 15 | same | , | 9 | down | P0 to P2, | 39 | setups | 7 | up | , | 16 | same | , | 16 | down | P1 to P2, | 39 | setups | 4 | up | , | 14 | same | , | 21 | down"
+      }
+    ],
+    "notes": "Q: Cloudflare: Clef reads about 2,000 tokens of state. Was your long prompt truncated? A: Possibly. Your route warning says so, and our notes treat truncation as a constraint, not a cause."
+  },
+  {
+    "n": 24,
+    "id": "a4-calibration",
+    "h": 21,
+    "v": 2,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Confidence and calibration, on these | 60 | reviews. | Gap between confidence and hit rate, lower is closer | Model | Gap | Of its 10 least-confident, in the hardest 10 | Jev | 0.011 | 7 | Liquid | 0.035 | 2 | Tev | 0.047 | 4 | Luna | 0.074 | 5 | Solar | 0.145 | 3 | Clef | 0.217 | 4 | Clef Flash | 0.358 | 4 | Jev P0: answers kept at or above a cutoff | Field | 0.5 | 0.7 | 0.9 | Sentiment | 57 | 55 | 47 | Follow-up | 58 | 58 | 52 | Concern | 59 | 57 | 53 | Testimonial | 58 | 58 | 54 | 7 | of Jev's | 10 | least-confident reviews are among the | 10 | hardest. | These are worked out afterwards. No answer was actually withheld."
+      }
+    ],
+    "notes": "Q: Jev found every serious concern but missed the testimonial. Why? A: It found all 25. Its three misses on that field were \"can't tell\" reviews it called no. The testimonial miss was the train review, where \"cancelled\" seems to have outweighed \"helpful\". TypeSafe's own docs list literal reading as failure mode one.\n            Have ready: Jev's confidence versus its option probability differ by 0.016 on average and by more than 0.2 on under 1% of answers, while for Clef Flash they differ on 55%, so threshold on the probability for those models (01b §8)."
+  },
+  {
+    "n": 25,
+    "id": "a9-equal-scores",
+    "h": 21,
+    "v": 3,
+    "fragments": 0,
+    "steps": [
+      {
+        "step": 0,
+        "text": "Equal scores hide different answers. | Sonnet 5.5 | xhigh effort | 58 | P0, pass 1 | P0 | P1 | P2 | 58 | 58 | 58 | 58 | 58 | 58 | 58 | 58 | 58 | Perplexity Decider | V1 27B, native | 54 | P0, pass 1 | P0 | P1 | P2 | 54 | 54 | 54 | 54 | 54 | 54 | 54 | 54 | 54 | 58 | in every Sonnet 5.5 xhigh cell, and it still changed DEV-006 and DEV-030 between passes. | 31 | of | 50 | decision-model groups changed nothing across three passes. | 11 | of | 202 | general-model groups did the same. | Perplexity Decider matched | 54 | of | 60 | in all nine runs, with the same six misses every time. A model that gives the same wrong answer every time never shows you it's wrong. | blank means no run | columns P0 P1 P2, rows fresh pass 1 2 3"
+      }
+    ],
+    "notes": "Q: Why not pay for Opus at 59? A: You can, at about 38 times the estimated spend, and Opus held 58 to 59 over three passes against Jev's 52 to 54. Sonnet scored 58 in all nine cells and still changed two reviews between passes, so the aggregate hides movement on the hard ones.\n            Q: Is 54 versus 59 real on 60 reviews? A: It held across three passes each: Jev 54, 53, 52 and Opus 59, 58, 58. On first passes Opus matched five reviews Jev missed and missed none Jev matched. It's still one set of 60 synthetic reviews and a provisional key, so read it as a direction.\n            Q: Decision models don't hallucinate, so isn't the risk gone? A: A typed head can't invent a label, and on this set 31 of 50 decision-model groups gave identical answers across three passes, so one failure class is gone. The other stays: Perplexity Decider matched 54 of 60 in all nine runs with the same errors every time, so a wrong answer is the same wrong answer at scale, with no variance to warn you. Miss a harassment report or publish the wrong testimonial and the candidate tells X and Reddit how they were treated."
+  },
+  {
+    "n": 26,
+    "id": "a13-dev-030",
+    "h": 21,
+    "v": 4,
+    "fragments": 1,
+    "steps": [
+      {
+        "step": 0,
+        "text": "DEV-030: uncertain resolution. | The accessibility issue from the assessment has been dealt with, | I think | . | Someone said | it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | neutral | yes | can't tell | no | 0 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      },
+      {
+        "step": 1,
+        "text": "DEV-030: uncertain resolution. | The accessibility issue from the assessment has been dealt with, | I think | . | Someone said | it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | neutral | yes | can't tell | no | Liquid D1 | neutral | yes | no | no | miss | Tev 1 4B | can't tell | can't tell | can't tell | no | miss | Solar Decide | can't tell | yes | no | no | miss | Clef | neutral | yes | no | no | miss | Clef Flash | neutral | yes | no | no | miss | Luna Decisions | negative | yes | no | no | miss | Perplexity Decider V1 27B | neutral | yes | no | no | miss | 0 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      }
+    ],
+    "notes": "[Clicks: 1. The seven saved answers land one by one.]Text: \"The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket.\" Reference (sentiment / follow-up / concern / testimonial): neutral/yes/can't tell/no. Seven decision models, first P0 pass: Liquid D1 neutral/yes/no/no (miss); Tev 1 4B can't tell/can't tell/can't tell/no (miss); Solar Decide can't tell/yes/no/no (miss); Clef neutral/yes/no/no (miss); Clef Flash neutral/yes/no/no (miss); Luna Decisions negative/yes/no/no (miss); Perplexity Decider V1 27B neutral/yes/no/no (miss)."
+  },
+  {
+    "n": 27,
+    "id": "a14-dev-029",
+    "h": 21,
+    "v": 5,
+    "fragments": 1,
+    "steps": [
+      {
+        "step": 0,
+        "text": "DEV-029: off-topic. | Great soup | , tiny portions, wouldn't eat there again. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | can't tell | can't tell | can't tell | can't tell | 0 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      },
+      {
+        "step": 1,
+        "text": "DEV-029: off-topic. | Great soup | , tiny portions, wouldn't eat there again. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | can't tell | can't tell | can't tell | can't tell | Liquid D1 | can't tell | no | no | no | miss | Tev 1 4B | mixed | no | no | no | miss | Solar Decide | negative | no | no | no | miss | Clef | mixed | no | no | no | miss | Clef Flash | mixed | no | no | no | miss | Luna Decisions | mixed | no | no | no | miss | Perplexity Decider V1 27B | can't tell | no | no | can't tell | miss | 0 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      }
+    ],
+    "notes": "[Clicks: 1. The seven saved answers land one by one.]Text: \"Great soup, tiny portions, wouldn't eat there again.\" Reference (sentiment / follow-up / concern / testimonial): can't tell/can't tell/can't tell/can't tell. Seven decision models, first P0 pass: Liquid D1 can't tell/no/no/no (miss); Tev 1 4B mixed/no/no/no (miss); Solar Decide negative/no/no/no (miss); Clef mixed/no/no/no (miss); Clef Flash mixed/no/no/no (miss); Luna Decisions mixed/no/no/no (miss); Perplexity Decider V1 27B can't tell/no/no/can't tell (miss)."
+  },
+  {
+    "n": 28,
+    "id": "a15-dev-006",
+    "h": 21,
+    "v": 6,
+    "fragments": 1,
+    "steps": [
+      {
+        "step": 0,
+        "text": "DEV-006: vague recurrence. | Same as last time. | That thing happened again | and it still isn't sorted. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | negative | yes | can't tell | no | 1 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      },
+      {
+        "step": 1,
+        "text": "DEV-006: vague recurrence. | Same as last time. | That thing happened again | and it still isn't sorted. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | negative | yes | can't tell | no | Liquid D1 | negative | yes | no | no | miss | Tev 1 4B | negative | yes | can't tell | no | match | Solar Decide | negative | can't tell | no | no | miss | Clef | negative | yes | no | no | miss | Clef Flash | negative | yes | no | no | miss | Luna Decisions | negative | yes | no | no | miss | Perplexity Decider V1 27B | negative | yes | no | no | miss | 1 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      }
+    ],
+    "notes": "[Clicks: 1. The seven saved answers land one by one.]Text: \"Same as last time. That thing happened again and it still isn't sorted.\" Reference (sentiment / follow-up / concern / testimonial): negative/yes/can't tell/no. Seven decision models, first P0 pass: Liquid D1 negative/yes/no/no (miss); Tev 1 4B negative/yes/can't tell/no; Solar Decide negative/can't tell/no/no (miss); Clef negative/yes/no/no (miss); Clef Flash negative/yes/no/no (miss); Luna Decisions negative/yes/no/no (miss); Perplexity Decider V1 27B negative/yes/no/no (miss)."
+  },
+  {
+    "n": 29,
+    "id": "a16-dev-013",
+    "h": 21,
+    "v": 7,
+    "fragments": 1,
+    "steps": [
+      {
+        "step": 0,
+        "text": "DEV-013: second-hand rumour. | A friend told me they heard | this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | neutral | no | no | no | 2 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      },
+      {
+        "step": 1,
+        "text": "DEV-013: second-hand rumour. | A friend told me they heard | this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | neutral | no | no | no | Liquid D1 | positive | no | no | no | miss | Tev 1 4B | mixed | no | no | no | miss | Solar Decide | mixed | no | no | no | miss | Clef | neutral | no | no | no | match | Clef Flash | neutral | no | no | no | match | Luna Decisions | mixed | no | no | no | miss | Perplexity Decider V1 27B | positive | no | no | no | miss | 2 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      }
+    ],
+    "notes": "[Clicks: 1. The seven saved answers land one by one.]Text: \"A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it.\" Reference (sentiment / follow-up / concern / testimonial): neutral/no/no/no. Seven decision models, first P0 pass: Liquid D1 positive/no/no/no (miss); Tev 1 4B mixed/no/no/no (miss); Solar Decide mixed/no/no/no (miss); Clef neutral/no/no/no; Clef Flash neutral/no/no/no; Luna Decisions mixed/no/no/no (miss); Perplexity Decider V1 27B positive/no/no/no (miss)."
+  },
+  {
+    "n": 30,
+    "id": "a17-dev-027",
+    "h": 21,
+    "v": 8,
+    "fragments": 1,
+    "steps": [
+      {
+        "step": 0,
+        "text": "DEV-027: kindness during a logistics failure. | Train got cancelled | so they switched me to video with the same interviewers and gave me five mins to catch my breath. | Really helpful of them | . | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | positive | no | no | yes | 3 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      },
+      {
+        "step": 1,
+        "text": "DEV-027: kindness during a logistics failure. | Train got cancelled | so they switched me to video with the same interviewers and gave me five mins to catch my breath. | Really helpful of them | . | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | positive | no | no | yes | Liquid D1 | negative | no | no | no | miss | Tev 1 4B | mixed | no | no | yes | miss | Solar Decide | mixed | no | no | no | miss | Clef | positive | no | no | yes | match | Clef Flash | mixed | no | no | yes | miss | Luna Decisions | positive | no | no | yes | match | Perplexity Decider V1 27B | positive | no | no | yes | match | 3 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      }
+    ],
+    "notes": "[Clicks: 1. The seven saved answers land one by one.]Text: \"Train got cancelled so they switched me to video with the same interviewers and gave me five mins to catch my breath. Really helpful of them.\" Reference (sentiment / follow-up / concern / testimonial): positive/no/no/yes. Seven decision models, first P0 pass: Liquid D1 negative/no/no/no (miss); Tev 1 4B mixed/no/no/yes (miss); Solar Decide mixed/no/no/no (miss); Clef positive/no/no/yes; Clef Flash mixed/no/no/yes (miss); Luna Decisions positive/no/no/yes; Perplexity Decider V1 27B positive/no/no/yes."
+  },
+  {
+    "n": 31,
+    "id": "a18-dev-059",
+    "h": 21,
+    "v": 9,
+    "fragments": 1,
+    "steps": [
+      {
+        "step": 0,
+        "text": "DEV-059: serious concern without a complaint. | Nice staff. | After the trial shift the manager kept asking me out even after I said no twice. | I've asked the recruiter to stop him contacting me. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | mixed | yes | yes | no | 5 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      },
+      {
+        "step": 1,
+        "text": "DEV-059: serious concern without a complaint. | Nice staff. | After the trial shift the manager kept asking me out even after I said no twice. | I've asked the recruiter to stop him contacting me. | Saved answer, first P0 pass | Sentiment | Follow-up | Serious concern | Testimonial | All four | Key | mixed | yes | yes | no | Liquid D1 | mixed | no | yes | no | miss | Tev 1 4B | mixed | yes | yes | no | match | Solar Decide | mixed | yes | yes | no | match | Clef | mixed | yes | yes | no | match | Clef Flash | mixed | no | yes | no | miss | Luna Decisions | mixed | yes | yes | no | match | Perplexity Decider V1 27B | mixed | yes | yes | no | match | 5 | of | 7 | decision models matched all four fields. Orange: differs from the key."
+      }
+    ],
+    "notes": "[Clicks: 1. The seven saved answers land one by one.]Text: \"Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me.\" Reference (sentiment / follow-up / concern / testimonial): mixed/yes/yes/no. Seven decision models, first P0 pass: Liquid D1 mixed/no/yes/no (miss); Tev 1 4B mixed/yes/yes/no; Solar Decide mixed/yes/yes/no; Clef mixed/yes/yes/no; Clef Flash mixed/no/yes/no (miss); Luna Decisions mixed/yes/yes/no; Perplexity Decider V1 27B mixed/yes/yes/no."
+  }
+]

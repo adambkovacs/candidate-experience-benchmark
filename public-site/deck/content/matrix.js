@@ -64,7 +64,7 @@
       if (!COMPLETE.has(status)) cell.classList.add('is-patched');
       const v = Number(n.textContent);
       cell.style.setProperty('--fill', colour(v));
-      cell.classList.toggle('is-light', v >= 56);
+      cell.classList.toggle('is-light', v >= 54);
     }
   }
 

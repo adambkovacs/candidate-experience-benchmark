@@ -12,6 +12,8 @@
   const cache = new Map();
   const failures = new Set();
 
+  // Every JSON file the deck reads goes through feed() below (content.js included), so the offline bake needs no fetch shim.
+
   function report(message) {
     failures.add(message);
     document.documentElement.dataset.deckData = 'error';
@@ -29,6 +31,12 @@
   function feed(name) {
     // Directory segments allow no dots, so ".." can never climb out of public-site/.
     if (!/^(?:[\w-]+\/)*[\w.-]+\.json$/.test(name)) return Promise.reject(new Error(`invalid feed name "${name}"`));
+    if (!cache.has(name)) {
+      // Offline build: presentation-offline.html inlines feeds (see verify/bake-offline.mjs), because Chrome blocks fetch() on file://.
+      const block = document.querySelector(`script[type="application/json"][data-feed="${name}"]`);
+      const inline = window.__DECK_FEEDS?.[name] ?? (block && JSON.parse(block.textContent));
+      if (inline) cache.set(name, Promise.resolve(inline));
+    }
     if (!cache.has(name)) {
       cache.set(name, fetch(new URL(name, base)).then(response => {
         if (!response.ok) throw new Error(`${name} returned HTTP ${response.status}`);

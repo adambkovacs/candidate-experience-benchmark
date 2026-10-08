@@ -150,6 +150,7 @@
     const host = document.getElementById('deck-scene');
     if (!host) return fallback();
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return fallback('reduced motion');
+    if (location.protocol === 'file:') return fallback('file:// cannot load ES modules'); // offline copy: static scene
     if (/print-pdf|receiver/i.test(location.search)) return fallback(/receiver/i.test(location.search) ? 'speaker view' : 'print view');
     let webglOk = false;
     try { const c = document.createElement('canvas'); webglOk = Boolean(c.getContext('webgl2') || c.getContext('webgl')); } catch { webglOk = false; }
