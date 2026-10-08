@@ -35,7 +35,7 @@
       <!-- S2 The answer -->
       <section id="answer" class="c-s2">
         <p class="d-eyebrow">The answer · all four decisions matched the key</p>
-        <h2 data-copy>Jev <span class="d-num" data-source="findings.json#charts.jev.correct">54</span> of <span class="d-num" data-source="findings.json#charts.jev.denominator">60</span>. General models <span class="d-num" data-source="sonnet55-fresh-matched3.json#threePassSummary.xhigh.P0.allFour.values[0]">58</span> to <span class="d-num" data-source="findings.json#charts.jev.comparators[id=opus55-high-batch10].correct">59</span>.</h2>
+        <h2 data-copy>Jev <span class="d-num" data-source="findings.json#charts.jev.correct">54</span> of <span class="d-num" data-source="findings.json#charts.jev.denominator">60</span>. Opus and Sonnet <span class="d-num" data-source="sonnet55-fresh-matched3.json#threePassSummary.xhigh.P0.allFour.values[0]">58</span> to <span class="d-num" data-source="findings.json#charts.jev.comparators[id=opus55-high-batch10].correct">59</span>.</h2>
         <div class="c-bars" data-c="bars" data-max="60">
           <div class="c-bar-row is-jev">
             <p class="c-bar-name">Jev 1.13<small>direct API, P0</small></p>
@@ -95,7 +95,7 @@
         <aside class="notes">
           <p class="c-clicks">[Clicks: 3. 1 October pair, then Perplexity, then OpenAI.]</p>
           <p class="c-direction">[The slide draws verified entries only. Perplexity's 1 October date rests on press reports and is unverified in timeline.json, so the slide shows its verified 7 October OpenRouter listing.]</p>
-          <p>So, where did all this come from? Jev launched on 15 September, and credit to TypeSafe: they published a page listing where Jev fails, and almost nobody does that. [timeline builds] About two weeks later, on 1 October, Cloudflare and AWS shipped decision models on the same day, Perplexity's landed that week by press reports, and OpenAI's Decisions API went to public beta on 6 October.</p>
+          <p>So, where did all this come from? Jev launched on 15 September, and credit to TypeSafe: they published a page listing where Jev fails, and almost nobody does that. [timeline builds] About two weeks later, on 1 October, Cloudflare and AWS shipped decision models on the same day, Perplexity's was listed on OpenRouter on 7 October, and OpenAI's Decisions API had gone to public beta the day before, on 6 October.</p>
         </aside>
       </section>
 
@@ -278,7 +278,7 @@
         <aside class="notes">
           <p class="c-clicks">[Clicks: 1. The gate sweeps from 0.50 to 0.95, about 4 seconds.]</p>
           <p>So, proof three. The number next to the answer.</p>
-          <p>On these 60 reviews, Jev's confidence tracked how often it was right: pooled over 720 answers the average gap was 0.011, while Clef Flash's was 0.358. [S10, replay badge] And Jev was still 0.96 confident that the cancelled-train review was negative and not a testimonial, and the key says the opposite. On sentiment, a 0.9 gate threw away nine good answers to catch four bad ones, and on the testimonial field the same gate still let it through. In fairness, that gate would have caught the harassment follow-up miss at 0.49. Jev's ten least-confident reviews include seven of the ten hardest, the soup among them, but only through the sentiment field. On follow-up, concern and testimonial, the fields where you'd act, it said no at 0.84 to 0.91. So the number can tell you a review is hard. It can't tell you which answer to distrust. A confidence that tracks its hit rate on average is still not a per-review gate.</p>
+          <p>On these 60 reviews, Jev's confidence tracked how often it was right: pooled over 720 answers the average gap was 0.011, while Clef Flash's was 0.358. [S10, replay badge] And Jev called the cancelled-train review not a testimonial at 0.96, and the key says the opposite. Its sentiment confidence on that same review was 0.71. On sentiment, a 0.9 gate threw away nine good answers to catch four bad ones, and on the testimonial field the same gate still let it through. In fairness, that gate would have caught the harassment follow-up miss at 0.49. Jev's ten least-confident reviews include seven of the ten hardest, the soup among them, but only through the sentiment field. On follow-up, concern and testimonial, the fields where you'd act, it said no at 0.84 to 0.91. So the number can tell you a review is hard. It can't tell you which answer to distrust. A confidence that tracks its hit rate on average is still not a per-review gate.</p>
         </aside>
       </section>
 
@@ -597,8 +597,8 @@
               </tbody>
             </table>
             <div>
-              <p class="c-stat"><b>$<span data-doc="docs/talk/05-session-outline.md|nine-run series came to $1.2013 in known charges">1.2013</span></b>known, for all nine runs of the seven models.</p>
-              <p class="c-stat"><b>$<span data-doc="docs/talk/05-session-outline.md|plus up to $0.13 of unknown-charge bounds">0.13</span></b>more at most, for requests whose charge was never recorded. Unknown, not zero.</p>
+              <p class="c-stat"><b>$<span data-source="deck/data/answer.json#seven_model_known_charge_usd.value" data-doc="docs/talk/05-session-outline.md|nine-run series came to $1.2013 in known charges">1.2013</span></b>known, for all nine runs of the seven models.</p>
+              <p class="c-stat"><b>$<span data-source="deck/data/answer.json#seven_model_unknown_bound_usd.value" data-round="2" data-doc="docs/talk/05-session-outline.md|plus up to $0.13 of unknown-charge bounds">0.13</span></b>more at most, for requests whose charge was never recorded. Unknown, not zero.</p>
               <p class="c-label" style="margin-top: 34px">More effort, same model · Gemini 3.1 Pro preview, P0</p>
               <p class="c-stat"><b data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-low-p0-openrouter-v3].correct">56</b>of <span data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-low-p0-openrouter-v3].denominator">60</span> at low effort, $<span data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-low-p0-openrouter-v3].actualUsd" data-round="3">0.063</span></p>
               <p class="c-stat"><b data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-high-p0-openrouter-v3].correct">55</b>of <span data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-high-p0-openrouter-v3].denominator">60</span> at high effort, $<span data-source="findings.json#charts.costAgreement.rows[id=gemini31-pro-preview-high-p0-openrouter-v3].actualUsd" data-round="3">0.257</span></p>
@@ -639,7 +639,7 @@
           </div>
           <p class="c-foot"><span class="d-badge" style="--rail: var(--s-sky)">being open-sourced</span> Release date not set.</p>
           <footer class="d-source"><b>Source</b>docs/talk/04-harness.md §2, §3 · classification-bench at a1e9879</footer>
-          <aside class="notes"><p>Q: Can I run this on my own task? A: Yes, with classification-bench. It runs offline today with 433 tests and has made small live calls through two routes. It is being open-sourced; ask me for early access.</p></aside>
+          <aside class="notes"><p>Q: Can I run this on my own task? A: Yes, with classification-bench. It runs offline today with more than 400 tests collected (433, with 44 skipped in that environment) and has made small live calls through two routes. It is being open-sourced; ask me for early access.</p></aside>
         </section>
 
         <section id="a9-equal-scores" class="c-a">
