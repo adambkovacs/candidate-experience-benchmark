@@ -350,7 +350,7 @@ Proposed answer, grounded in this set and stated as a policy to test, not a vali
 | Liquid + Solar | 43 | 17 | 28.3% | $0.0378 |
 | Liquid + Tev | 33 | 27 | 45.0% | $0.0320 |
 
-The seven reviews Solar + Perplexity deferred are DEV-006, DEV-013, DEV-027, DEV-028, DEV-029, DEV-030 and DEV-035: the three disputed labels, the off-topic review, the testimonial and two follow-up/testimonial boundary cases. The pairs that retained errors did so on DEV-006 and DEV-030, the disputed labels, and on DEV-029, the off-topic case. So a second model catches disagreement; it does not catch shared blind spots on off-topic input.
+The seven reviews Solar + Perplexity deferred are DEV-006, DEV-013, DEV-027, DEV-028, DEV-029, DEV-030 and DEV-035: the three disputed labels, the off-topic review, the testimonial and two follow-up/testimonial boundary cases. The 16 pairs that retained errors did so on 12 reviews: DEV-005, DEV-006, DEV-013, DEV-018, DEV-027, DEV-028, DEV-029, DEV-030, DEV-035, DEV-054, DEV-056 and DEV-059. Most retained errors sit on the disputed labels and the off-topic case (DEV-006 in 10 pairs, DEV-029 and DEV-030 in 6 each, DEV-013 in 4); each of the other eight reviews appears in one pair. So a second model catches disagreement; it does not catch shared blind spots, which concentrate on the disputed and off-topic reviews.
 
 **Field-specific asymmetry.** For the escalation field, the cost of a miss and a false alarm are not symmetric. Jev matched all 25 serious-concern = yes references; its three misses on that field were "insufficient_information" references it labeled "no". Clef Flash and Tev each missed some positives. A workflow should route serious_concern = yes to review regardless of confidence, and treat any "insufficient_information" from any model as an automatic human queue (the labeling guide already defines this as clarification_review).
 
@@ -384,4 +384,4 @@ Sources: `public-site/native-agreement-policy-v1.json`, `public-site/jev-confide
 
 ---
 
-Corrections 2026-10-08: DEV-029 "mixed" sentiment came from four decision models, not five; five of 21 agreement pairs (not four) kept zero accepted errors, Liquid + Solar added; the seven-model study total is $1.2013 including Clef's list-price estimate, plus up to $0.13 unknown, not "under $1.20"; Opus 5.5 high has three P0 passes (59, 58, 58), not one.
+Corrections 2026-10-08: DEV-029 "mixed" sentiment came from four decision models, not five; five of 21 agreement pairs (not four) kept zero accepted errors, Liquid + Solar added; the seven-model study total is $1.2013 including Clef's list-price estimate, plus up to $0.13 unknown, not "under $1.20"; Opus 5.5 high has three P0 passes (59, 58, 58), not one; the 16 error-retaining agreement pairs erred on 12 reviews, not only DEV-006, DEV-029 and DEV-030 (section 6).
