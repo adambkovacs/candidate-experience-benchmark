@@ -39,7 +39,8 @@ export async function openDeck(browser, url, { width = 1920, height = 1080, redu
   const ignored = { readPixels: 0 };
   page.on('console', msg => {
     if (msg.type() !== 'error' && msg.type() !== 'warning') return;
-    // Headless GL reports a readback stall whenever Playwright screenshots a WebGL canvas. The harness causes it, not the deck.
+    // Headless Chromium's software GL (SwiftShader) logs a readback stall for any WebGL canvas it composites or screenshots.
+    // It is a GL driver diagnostic, not a deck error. Not verified on a real GPU.
     if (/GL Driver Message .*GPU stall due to ReadPixels/.test(msg.text())) { ignored.readPixels++; return; }
     problems.push(`console.${msg.type()}: ${msg.text()}`);
   });

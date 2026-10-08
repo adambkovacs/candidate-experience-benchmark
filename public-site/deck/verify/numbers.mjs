@@ -1,5 +1,6 @@
 // Source-binding check: every element with data-source="<feed>.json#<path>" must show exactly the feed's value.
 // Expected values are resolved here in Node from the JSON files on disk, independently of deck/data.js.
+// Also checks review text bound with data-review and every cell of replays built from disputed-reviews-v1.json.
 // Runs twice: live (each slide visited, fragments stepped, count-ups finished) and ?print-pdf (what the PDF shows).
 // Usage: node numbers.mjs [--page presentation-v2.html]
 import { readFile } from 'node:fs/promises';
@@ -7,6 +8,7 @@ import { join } from 'node:path';
 import { SITE, arg, serve, launch, openDeck, listSlides, showFully, settle, table } from './lib.mjs';
 
 const pagePath = arg('page', 'presentation-v2.html');
+const NUMBER_TEXT = /^-?(\d{1,3}(,\d{3})+|\d+)(\.\d+)?$/; // "54", "140,260", "0.03749436"; never "5,4"
 const feeds = new Map();
 const feed = async name => {
   if (!/^[\w.-]+\.json$/.test(name)) throw new Error(`invalid feed name ${name}`);
@@ -29,18 +31,55 @@ function resolvePath(root, path) {
   return node;
 }
 
-async function expected(source, round) {
-  const [name, path] = source.split('#');
+const say = value => value === undefined || value === null ? 'No answer'
+  : value === 'insufficient_information' ? 'Insufficient info' : String(value).replace(/_/g, ' ');
+const short = text => (text.length > 44 ? `${text.slice(0, 41)}...` : text);
+
+async function checkNumber(item) {
+  const [name, path] = item.source.split('#');
   const value = resolvePath(await feed(name), path ?? '');
   const number = Number(value);
-  if (value === undefined || value === null || typeof value === 'boolean' || value === '' || !Number.isFinite(number)) return { error: `feed value is ${JSON.stringify(value)}` };
-  return { number: round === undefined ? number : Number(number.toFixed(Number(round))), raw: value };
+  if (value === undefined || value === null || typeof value === 'boolean' || value === '' || !Number.isFinite(number)) return [String(JSON.stringify(value)), false];
+  const want = item.round === undefined ? number : Number(number.toFixed(Number(item.round)));
+  return [String(value), NUMBER_TEXT.test(item.text) && Number(item.text.replace(/,/g, '')) === want];
 }
 
-const collect = page => page.evaluate(() => [...document.querySelectorAll('[data-source]')].map(el => ({
-  source: el.dataset.source, round: el.dataset.round, text: el.textContent.trim(),
-  slide: el.closest('section:not(.stack)')?.id || '(outside any slide)',
-})));
+async function checkReview(item) {
+  const found = resolvePath(await feed('disputed-reviews-v1.json'), `reviews[id=${item.review}]`);
+  return [short(found?.feedback ?? 'missing'), Boolean(found) && item.text === found.feedback.trim()];
+}
+
+async function checkReplay(item) {
+  const data = await feed(item.feed);
+  if (data.schema !== 'disputed-reviews-v1') return ['not checked: only disputed-reviews-v1 replays are verified', null];
+  const found = resolvePath(data, `reviews[id=${item.review}]`);
+  if (!found) return ['review missing', false];
+  const fields = item.fields.split(',');
+  const names = new Map(data.models.map(m => [m.id, m.display_name]));
+  const want = [['Reference', ...fields.map(f => say(found.reference[f]))],
+    ...found.answers.map(a => [names.get(a.model_id) ?? a.model_id, ...fields.map(f => say(a.prediction?.[f]))])];
+  return [`${want.length} rows x ${fields.length + 1} cells`, JSON.stringify(want) === JSON.stringify(item.rows)];
+}
+
+// Runs in the page: everything source-bound inside one root (a slide, or the whole print document).
+function collect(index) {
+  const root = index === null ? document : window.Reveal.getSlides()[index];
+  const label = el => {
+    const s = el.closest('section:not(.stack)');
+    if (!s) return '(outside any slide)';
+    if (s.id) return s.id;
+    const { h, v } = window.Reveal.getIndices(s);
+    return `slide-${h}-${v ?? 0}`;
+  };
+  return [
+    ...[...root.querySelectorAll('[data-source]')].map(el => ({ kind: 'number', slide: label(el), source: el.dataset.source, round: el.dataset.round, text: el.textContent.trim() })),
+    ...[...root.querySelectorAll('[data-review]:not(.d-replay)')].map(el => ({ kind: 'review', slide: label(el),
+      source: `disputed-reviews-v1.json#reviews[id=${el.dataset.review}].feedback`, review: el.dataset.review, text: el.textContent.trim() })),
+    ...[...root.querySelectorAll('.d-replay')].map(el => ({ kind: 'replay', slide: label(el), source: `${el.dataset.replay}#reviews[id=${el.dataset.review}] replay`,
+      feed: el.dataset.replay, review: el.dataset.review, fields: el.dataset.fields || 'sentiment,follow_up_needed,serious_concern_reported,testimonial_potential',
+      rows: [...el.querySelectorAll('tbody tr')].map(tr => [...tr.cells].map(c => c.textContent.trim())), text: `${el.querySelectorAll('tbody tr').length} rows` })),
+  ];
+}
 
 const server = await serve();
 const browser = await launch();
@@ -49,10 +88,9 @@ const problems = [];
 try {
   const live = await openDeck(browser, `${server.origin}/${pagePath}`);
   const seen = [];
-  for (const slide of await listSlides(live.page)) {
+  for (const [index, slide] of (await listSlides(live.page)).entries()) {
     await showFully(live.page, slide);
-    const here = await live.page.evaluate(id => [...document.getElementById(id).querySelectorAll('[data-source]')].length, slide.id);
-    if (here) seen.push(...(await collect(live.page)).filter(item => item.slide === slide.id));
+    seen.push(...await live.page.evaluate(collect, index));
   }
   problems.push(...live.problems.map(p => `live ${p}`));
   await live.context.close();
@@ -60,22 +98,23 @@ try {
   const print = await openDeck(browser, `${server.origin}/${pagePath}?print-pdf`);
   await print.page.waitForFunction(() => document.querySelectorAll('.pdf-page').length > 0, null, { timeout: 20000 });
   await settle(print.page);
-  const printed = await collect(print.page);
+  const printed = await print.page.evaluate(collect, null);
   problems.push(...print.problems.map(p => `print ${p}`));
   await print.context.close();
 
+  const check = { number: checkNumber, review: checkReview, replay: checkReplay };
   for (const [mode, items] of [['live', seen], ['print', printed]]) {
     for (const item of items) {
-      const want = await expected(item.source, item.round);
-      const shown = Number(item.text.replace(/[,  \s]/g, ''));
-      const ok = !want.error && item.text !== '' && Number.isFinite(shown) && shown === want.number;
-      rows.push([mode, item.slide, item.source, item.text, want.error ?? String(want.raw), ok ? 'PASS' : 'FAIL']);
+      const [expected, ok] = await check[item.kind](item);
+      rows.push([mode, item.slide, item.source, short(item.text), expected, ok === null ? 'UNCHECKED' : ok ? 'PASS' : 'FAIL']);
     }
   }
-  if (!seen.length) problems.push('no data-source elements found on any slide');
+  if (!seen.some(item => item.kind === 'number')) problems.push('no data-source elements found on any slide');
 
-  console.log(`\nnumbers.mjs · ${pagePath} · ${seen.length} bound numbers live, ${printed.length} in print view\n`);
-  console.log(table(['mode', 'slide', 'data-source', 'shown', 'feed value', 'result'], rows));
+  const count = (items, kind) => items.filter(item => item.kind === kind).length;
+  const summary = items => `${count(items, 'number')} numbers, ${count(items, 'review')} reviews, ${count(items, 'replay')} replays`;
+  console.log(`\nnumbers.mjs · ${pagePath} · live: ${summary(seen)} · print: ${summary(printed)}\n`);
+  console.log(table(['mode', 'slide', 'source', 'shown', 'feed value', 'result'], rows));
   for (const p of problems) console.log(`  FAIL ${p}`);
   const failed = rows.some(r => r[5] === 'FAIL') || problems.length;
   console.log(failed ? '\nRESULT: FAIL' : '\nRESULT: PASS');

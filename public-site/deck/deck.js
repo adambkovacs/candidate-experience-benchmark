@@ -18,6 +18,7 @@
     hideInactiveCursor: true,
     plugins: [window.RevealNotes],
   };
+  const initialHash = location.hash; // read before Reveal normalises it
   DeckMotion.wire(Reveal);
   const progress = () => document.querySelector('.reveal .progress')?.style.setProperty('--p', Reveal.getProgress().toFixed(4));
   ['ready', 'slidechanged', 'fragmentshown', 'fragmenthidden'].forEach(type => Reveal.on(type, progress));
@@ -25,7 +26,14 @@
   if (print) prepared.finally(() => Reveal.initialize(config));
   else {
     Reveal.initialize(config);
-    prepared.then(() => (Reveal.isReady() ? Reveal.sync() : Reveal.on('ready', () => Reveal.sync())));
+    prepared.then(() => (Reveal.isReady() ? afterData() : Reveal.on('ready', afterData)));
+  }
+  // Replay rows are built from data after Reveal first reads the hash, so a reload on "#/slide/3" lands on step 0.
+  // Once the rows exist, restore the step, unless the presenter has already moved to another slide.
+  function afterData() {
+    Reveal.sync();
+    const [, id, step] = /^#\/([^/]+)\/(\d+)$/.exec(initialHash) || [];
+    if (id && Reveal.getCurrentSlide()?.id === id) { const { h, v } = Reveal.getIndices(); Reveal.slide(h, v, Number(step)); }
   }
   DeckScene.start(Reveal);
   window.DeckReady = prepared.then(() => (Reveal.isReady() ? true : new Promise(resolve => Reveal.on('ready', () => resolve(true)))));

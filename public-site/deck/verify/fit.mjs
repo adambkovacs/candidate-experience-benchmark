@@ -95,7 +95,7 @@ try {
   console.log(table(header, rows));
   console.log(`\nPDF (?print-pdf): ${pdfState.pages} pages (expected up to ${expectedPages} with fragment steps), unbound numbers: ${pdfState.unbound} -> ${pdfFile}`);
   console.log(`Screenshots: ${out}`);
-  if (readPixels) console.log(`Ignored ${readPixels} headless 'GPU stall due to ReadPixels' GL messages caused by screenshot readback.`);
+  if (readPixels) console.log(`Ignored ${readPixels} headless SwiftShader 'GPU stall due to ReadPixels' messages (GL driver diagnostics, not deck errors).`);
   for (const [key, issues] of results) for (const issue of issues) console.log(`  FAIL ${key}: ${issue}`);
   for (const p of problems) console.log(`  FAIL ${p}`);
   const failed = [...results.values()].some(i => i.length) || problems.length;
