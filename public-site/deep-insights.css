@@ -1,16 +1,19 @@
-/* Recomputed findings section, scoped to .deep-insights. Designed for the light paper plate the page sets on the
-   section (background, width and padding come from the page). Colours read the page's --ink/--muted/--line/--teal/--paper. */
+/* Recomputed findings section, scoped to .deep-insights.
+   Default and data-surface="ink" or "dark": light text for the Ink Navy canvas; the page owns width, padding and background.
+   With no data-surface the section paints its own navy surface. data-surface="paper" or "light" reads the page's light vars. */
 .deep-insights {
-  --di-ink: var(--ink, #1a2332);
-  --di-muted: var(--muted, #4b586b);
-  --di-line: var(--line, #d3dce7);
-  --di-link: var(--teal, #1565c0);
-  --di-accent: var(--teal, #1565c0);
-  --di-paper: var(--paper, #fbfcfe);
-  --di-tint: rgba(26, 35, 50, .035);
-  --di-tint-strong: rgba(26, 35, 50, .07);
-  --di-series-a: #2e7d32;
-  --di-series-b: #d84315;
+  --di-ink: #fbfcfe;
+  --di-muted: #b8c3d4;
+  --di-line: rgba(251, 252, 254, .16);
+  --di-link: #90caf9;
+  --di-accent: #1e88e5;
+  --di-focus: #29b6f6;
+  --di-paper: rgba(251, 252, 254, .045);
+  --di-field: #1a2332;
+  --di-tint: rgba(251, 252, 254, .045);
+  --di-tint-strong: rgba(251, 252, 254, .085);
+  --di-series-a: #66bb6a;
+  --di-series-b: #ffa726;
   --di-red: #e53935;
   --di-orange: #f57c00;
   --di-yellow: #fbc02d;
@@ -24,10 +27,12 @@
   color: var(--di-ink);
   font: 400 16px/1.55 var(--di-sans);
 }
-/* Optional dark plate: set data-surface="dark" on the section. */
-.deep-insights[data-surface="dark"] {
-  --di-ink: #fbfcfe; --di-muted: #b8c3d4; --di-line: rgba(251, 252, 254, .16); --di-link: #90caf9; --di-paper: #1a2332;
-  --di-tint: rgba(251, 252, 254, .045); --di-tint-strong: rgba(251, 252, 254, .085); --di-series-a: #66bb6a; --di-series-b: #ffa726;
+.deep-insights:not([data-surface]) { background: #1a2332; }
+.deep-insights:not([data-surface]) .deep-insights__inner { max-width: 1200px; margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 48px); }
+.deep-insights[data-surface="paper"], .deep-insights[data-surface="light"] {
+  --di-ink: var(--ink, #1a2332); --di-muted: var(--muted, #4b586b); --di-line: var(--line, #d3dce7); --di-link: var(--teal, #1565c0);
+  --di-accent: var(--teal, #1565c0); --di-focus: var(--teal, #1565c0); --di-paper: var(--paper, #fbfcfe); --di-field: var(--paper, #fbfcfe);
+  --di-tint: rgba(26, 35, 50, .035); --di-tint-strong: rgba(26, 35, 50, .07); --di-series-a: #2e7d32; --di-series-b: #d84315;
 }
 .deep-insights *, .deep-insights *::before, .deep-insights *::after { box-sizing: border-box; }
 .deep-insights h2, .deep-insights h3 { font-family: var(--di-display); color: var(--di-ink); letter-spacing: -.01em; }
@@ -36,7 +41,7 @@
 .deep-insights p { margin: 0 0 12px; }
 .deep-insights a { color: var(--di-link); text-underline-offset: 3px; }
 .deep-insights a:focus-visible, .deep-insights select:focus-visible, .deep-insights summary:focus-visible,
-.deep-insights [tabindex="0"]:focus-visible { outline: 2px solid var(--di-accent); outline-offset: 3px; border-radius: 2px; }
+.deep-insights [tabindex="0"]:focus-visible { outline: 2px solid var(--di-focus); outline-offset: 3px; border-radius: 2px; }
 .deep-insights code { font: 500 .86em/1 var(--di-mono); color: var(--di-ink); }
 .deep-insights__eyebrow { margin: 0 0 10px; color: var(--di-muted); font: 600 12px/1.3 var(--di-mono); letter-spacing: .08em; text-transform: uppercase; }
 .deep-insights__eyebrow::before { content: ''; display: inline-block; width: 28px; height: 3px; margin: 0 10px 3px 0; vertical-align: middle;
@@ -90,7 +95,7 @@
   margin-bottom: 32px; padding: clamp(18px, 3vw, 30px); border: 1px solid var(--di-line); border-radius: 6px; background: var(--di-paper); }
 .deep-insights__explorer label { font-weight: 600; }
 .deep-insights__explorer select { width: 100%; max-width: 640px; min-height: 44px; margin: 6px 0 14px; padding: 8px 10px; border: 1px solid var(--di-line);
-  border-radius: 4px; background: var(--di-paper); color: var(--di-ink); font: 500 14px/1.3 var(--di-sans); }
+  border-radius: 4px; background: var(--di-field); color: var(--di-ink); font: 500 14px/1.3 var(--di-sans); }
 .deep-insights .di-pair { max-width: 640px; }
 .deep-insights .di-pair caption { color: var(--di-ink); font: 650 17px/1.3 var(--di-display); }
 .deep-insights .di-ids { font-size: 14px; line-height: 1.9; }

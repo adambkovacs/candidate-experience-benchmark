@@ -212,7 +212,7 @@
 
   function corrections(data) {
     const items = data.corrections.items.map(item => `<li><p class="di-said"><span>Said</span> <s>${esc(item.said)}</s></p>
-      <p class="di-correct"><span>Corrected</span> ${prose(data, item.correct)}</p><p class="di-source">Source: <code>${esc(item.source)}</code></p></li>`).join('');
+      <p class="di-correct"><span>Corrected</span> ${prose(data, item.correct)}</p><p class="di-source">${item.confidence_tag ? `<span class="di-tag di-tag--${esc(item.confidence_tag)}">${esc(TAG[item.confidence_tag] || item.confidence_tag)}</span> ` : ''}Source: <code>${esc(item.source)}</code></p></li>`).join('');
     mount('corrections').innerHTML = `<h3>Corrections dated ${num(data, 'corrections.date', 'date')}</h3><ol class="di-corrections">${items}</ol>`;
   }
 

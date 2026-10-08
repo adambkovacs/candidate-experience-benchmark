@@ -1779,7 +1779,12 @@
       {
         "format": "ece",
         "label": [
-          "Jev expected calibration error (pooled provider confidence)"
+          "Jev expected calibration error on these ",
+          {
+            "format": "count",
+            "path": "denominator"
+          },
+          " reviews (pooled provider confidence)"
         ],
         "of": null,
         "share": null,
@@ -2092,7 +2097,7 @@
     "scripts": [
       "docs/talk/scripts/s08_confidence.py"
     ],
-    "title": "Jev's confidence is calibrated on average and still confidently wrong on two reviews"
+    "title": "On these reviews, Jev's confidence is calibrated on average and still confidently wrong on two of them"
   },
   "claim_rules": [
     "Every number describes saved run-passes on one provisional reference, and the feed ranks no model.",
@@ -2204,27 +2209,33 @@
       },
       {
         "correct": [
-          "Known provider charges total ",
+          "The study cost ",
           {
             "format": "usd:4",
             "path": "corrections.items[3].values.total_usd"
           },
-          " over ",
+          " in known provider charges over ",
           {
             "format": "count",
             "path": "corrections.items[3].values.runs"
           },
-          " runs, plus up to ",
+          " runs, Clef's ",
+          {
+            "format": "usd:4",
+            "path": "corrections.items[3].values.clef_known_usd"
+          },
+          " included, plus up to ",
           {
             "format": "usd:2",
             "path": "corrections.items[3].values.unknown_upper_bound_usd"
           },
-          " in unknown-charge bounds."
+          " unknown."
         ],
         "id": "seven-model-cost",
         "said": "The whole seven-model study cost under $1.20.",
-        "source": "public-site/supplemental-decision-runs-v1.json",
+        "source": "public-site/supplemental-decision-runs-v1.json; docs/talk/06-cost-check.md section 1",
         "values": {
+          "clef_known_usd": 0.31128624,
           "runs": 63,
           "total_usd": 1.201282228,
           "unknown_by_model_usd": {
@@ -2277,6 +2288,7 @@
         }
       },
       {
+        "confidence_tag": "descriptive-only",
         "correct": [
           "On these ",
           {
@@ -2293,7 +2305,12 @@
             "format": "count",
             "path": "corrections.items[5].values.field_answers"
           },
-          " field answers) and still confidently wrong on ",
+          " pooled field answers that share the same ",
+          {
+            "format": "count",
+            "path": "corrections.items[5].values.reviews"
+          },
+          " texts; descriptive-only) and still confidently wrong on ",
           {
             "format": "text",
             "path": "corrections.items[5].values.confident_wrong[0].id"

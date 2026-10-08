@@ -66,6 +66,9 @@ class DeepInsightsTest(unittest.TestCase):
         self.assertEqual(values["zero-error-pairs"]["pairs"], 5)
         self.assertEqual(round(values["seven-model-cost"]["total_usd"], 4), 1.2013)
         self.assertEqual(round(values["seven-model-cost"]["unknown_upper_bound_usd"], 2), 0.13)
+        self.assertEqual(values["seven-model-cost"]["clef_known_usd"], 0.31128624)
+        jev_item = next(i for i in self.feed["corrections"]["items"] if i["id"] == "jev-calibration")
+        self.assertEqual(jev_item["confidence_tag"], "descriptive-only")
         self.assertEqual(values["opus-passes"]["scores"], [59, 58, 58])
         self.assertEqual(values["jev-calibration"]["ece"], 0.011)
         self.assertEqual([(a["id"], a["confidence"], a["prediction"]) for a in values["jev-calibration"]["confident_wrong"]],

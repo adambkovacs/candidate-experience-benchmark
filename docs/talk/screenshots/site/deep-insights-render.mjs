@@ -1,5 +1,5 @@
 // Render check for the recomputed-findings section. Run from the repo root:
-//   node docs/talk/screenshots/site/deep-insights-render.mjs
+//   node docs/talk/screenshots/site/deep-insights-render.mjs [ink|paper]   (default ink, the shell's dark mount)
 // Writes public-site/deep-insights-test.html from the section snippet, serves public-site/ with
 // python3 -m http.server, checks the panel in Chromium, screenshots it, then deletes the test page.
 import { spawn } from 'node:child_process';
@@ -16,7 +16,8 @@ try { ({ chromium } = require('playwright')); } catch {
   ({ chromium } = require(resolve(SITE, 'deck/verify/node_modules/playwright'))); // ponytail: reuse the deck verifier's install
 }
 const PAGE = resolve(SITE, 'deep-insights-test.html');
-const SHOT = resolve(REPO, 'docs/talk/screenshots/site/deep-insights.jpg');
+const SURFACE = process.argv[2] || 'ink';
+const SHOT = resolve(REPO, `docs/talk/screenshots/site/deep-insights${SURFACE === 'ink' ? '' : `-${SURFACE}`}.jpg`);
 const PORT = 8000 + Math.floor(Math.random() * 900);
 const feeds = {
   'deep-insights-v1.json': JSON.parse(readFileSync(resolve(SITE, 'deep-insights-v1.json'), 'utf8')),
@@ -27,11 +28,12 @@ const fail = message => { throw Error(message); };
 
 writeFileSync(PAGE, `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deep insights render check</title><link rel="stylesheet" href="./deep-insights.css"><script defer src="./deep-insights.js"></script>
-<style>/* stand-in for site-redesign's paper plate on the dark page */
+<style>/* stand-in for site-redesign's shell: Ink Navy canvas, light page vars, ink mount transparent, paper mount a light plate */
+:root{--ink:#1a2332;--muted:#4b586b;--line:#d3dce7;--teal:#1565c0;--paper:#fbfcfe}
 body{margin:0;padding:32px 16px;background:#1a2332}
-#deep-insights[data-surface="paper"]{--ink:#1a2332;--muted:#4b586b;--line:#d3dce7;--teal:#1565c0;--paper:#fbfcfe;
-max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,56px);border-radius:20px;background:var(--paper)}</style></head>
-<body>${readFileSync(resolve(SITE, 'deep-insights-section.html'), 'utf8').replace('<section class="section deep-insights"', '<section data-surface="paper" class="section deep-insights"')}</body></html>`);
+#deep-insights{max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,56px);background:transparent}
+#deep-insights[data-surface="paper"]{border-radius:20px;background:var(--paper)}</style></head>
+<body>${readFileSync(resolve(SITE, 'deep-insights-section.html'), 'utf8').replace('<section class="section deep-insights"', `<section data-surface="${SURFACE}" class="section deep-insights"`)}</body></html>`);
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1', '--directory', SITE], { stdio: 'ignore' });
 const browser = await chromium.launch();
 try {
