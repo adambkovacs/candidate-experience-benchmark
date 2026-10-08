@@ -71,8 +71,41 @@ Estimate: about one day to wire and test, plus the one-off ONNX build.
 
 ## 3. Feasibility smoke
 
-SMOKE_PLACEHOLDER
+A smoke test ran on 2026-10-08, inside the 15 minute budget, with no network inference and no money.
+
+**Setup.** The 0.2.0 tarball is 48.8 MB (130 MB unpacked), under the 100 MB limit. It installed into a scratch folder with `pnpm add` and loaded the bundled macOS arm64 native binary. No model was fetched. The package has no runtime dependencies and the published binary carries only the hash test embedder (`hash-bow-256@test-double`), so a real-embedding run was not possible without the source build in section 1. The package printed its own warning: "its answers are not meaningful for real text".
+
+**Run.** The first 5 reviews from `data/pilot/inputs.jsonl` (DEV-001 to DEV-005), four `choice` questions per review with no examples. Options were the labeling guide values: sentiment with 5 labels, then yes / no / insufficient_information for follow-up, serious concern and testimonial. Gold is `proposed_labels.jsonl`, which is AI-reviewed and not human validated.
+
+| Review | Got (sent / follow / concern / testimonial) | Gold |
+| --- | --- | --- |
+| DEV-001 | insufficient / insufficient / insufficient / insufficient | positive / no / no / yes |
+| DEV-002 | insufficient / no / no / no | positive / no / no / no |
+| DEV-003 | insufficient / yes / yes / yes | negative / yes / no / no |
+| DEV-004 | insufficient / insufficient / insufficient / insufficient | neutral / no / no / no |
+| DEV-005 | insufficient / insufficient / insufficient / insufficient | insufficient / no / no / no |
+
+5 of 20 fields matched gold. Latency was 0 to 2 ms per review, and the hashing makes that number meaningless for a real embedder.
+
+Raw output for the first review, truncated by the script at 420 characters per review:
+
+```
+DEV-001 2ms
+raw  {"follow_up_needed":{"choice":"insufficient_information","probabilities":{"insufficient_information":0.33333334,"no":0.33333334,"yes":0.33333334},"confidence":0.19945142,"abstain":0.4016458,"calibrated":false,"head":"nearest-prototype","model":"hash-bow-256@test-double","temperature":1},"sentiment":{"choice":"insufficient_information","probabilities":{"insufficient_information":0.2,"mixed":0.2,"negative":0.2,"neutral...
+```
+
+Sentiment probabilities were exactly 0.2 for all five labels on every review. The hash embedder shares no tokens between a review and the label words, so the head had nothing to rank and the tie broke to `insufficient_information`. The 5 matches are the result of ties and a few token overlaps, not classification. They say nothing about the real embedder.
+
+**What this proves.** The API shape works as documented, runs offline in milliseconds and returns `choice`, `probabilities`, `confidence`, `abstain`, `calibrated: false`, `head` and `model` per field. It does not measure accuracy. A real measurement needs the source build with `--features native-onnx` and about 130 MB of weights. That was out of budget and out of the no-large-download rule, so it was not attempted. The scratch folder was deleted after the run.
 
 ## 4. Verdict
 
-VERDICT_PLACEHOLDER
+**Verdict: complement, not alternative. Do not add it as a fifth decision model in the benchmark.**
+
+1. **Not an alternative for the four fields.** There is no LLM and no logits. Meaning comes only from embedding similarity, and the README says negation barely moves it. Our hard cases are resolved versus unresolved issues (follow_up_needed), negated or hypothetical concerns (serious_concern_reported) and implied criticism (sentiment). These are the cases it is weakest on. Zero-shot `choice` runs at 35 to 48% on intent benchmarks, and our task sits below that difficulty ceiling.
+2. **Not trainable at our scale.** The probe head needs 4 or more examples per option. `insufficient_information` has 2, 1, 6 and 1 items across the four fields, so the class the demo cares about cannot be learned or calibrated. Calibration needs about 100 labels per question, or about 20 with cross-fit. We have 60 labels in total and they are AI-reviewed, not human validated.
+3. **Published build cannot be evaluated.** The npm 0.2.0 binary ships only the hash embedder, as the smoke shows. Judging it fairly costs a source build plus model weights, about a day of work by the section 2 estimate, for a model that the sections above predict will lose. The release was also published past its own accuracy and calibration gates.
+4. **Where it does fit: the relevance gate in front of the other models.** The remedies doc (07-remedies.md, section 3) proposes a relevance-first question so that off-topic text gets its own route instead of reusing `insufficient_information`. The soup review is the motivating miss. The package's `abstain` mass ranks off-topic input well (AUROC 0.90 to 0.97, CLINC150), at zero cost per call, deterministic, and without a network. A local gate would sit before Jev or any paid model and skip them for clear off-topic text. The `catchAll` threshold must be tuned on the development split only and does not transfer, so treat it as a pre-filter that routes to a general LLM, never as a final answer.
+5. **Second possible use: a difficulty router.** Low `confidence` and high `abstain` could send hard reviews to a stronger model. This is a cascade, which 07-remedies.md already records as a post-hoc configuration, so it is not new work for the benchmark.
+
+**Recommendation for the talk.** Say one line: a local, free, deterministic classifier exists in the ruvector monorepo, and it is a candidate relevance gate, not a replacement for the decision models. Do not show accuracy numbers for it, because we have none that mean anything. Before any claim on the stage, run the source build with real embeddings on the 20 off-topic controls from the remedies plan (07-remedies.md, row 2) and report gate recall and false alarms.
