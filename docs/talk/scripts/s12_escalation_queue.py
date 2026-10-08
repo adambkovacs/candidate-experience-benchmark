@@ -42,6 +42,17 @@ for pr in pol["pairs"]:
             if c: acc_concern.add(rid)
             if i: acc_insuff.add(rid)
     queue = deferred | acc_concern | acc_insuff
+    concern_any = {rid for rid in ids for m in (L, R) if flags(m, rid)[0]}
+    non_concern = set(ids) - concern_any
+    if "solar" in L + R and "perplexity" in L + R:
+        print("Solar + Perplexity routing (reconciles with s12_full_policy_routing.py):")
+        print(f"  deferred by disagreement {len(deferred)} {sorted(deferred)}")
+        print(f"  serious_concern = yes from either model {len(concern_any)}; insufficient from either model "
+              f"{len({rid for rid in ids for m in (L, R) if flags(m, rid)[1]})}; union reaching a person {len(queue)} of 60")
+        print(f"  accepted with no routing {len(set(pr['accepted_ids']) - acc_concern - acc_insuff)}; accepted but escalated for concern "
+              f"{len(acc_concern)}; accepted but routed for clarification {len(acc_insuff - acc_concern)}")
+        print(f"  non-concern reviews {len(non_concern)}: auto-accepted clean {len(non_concern & set(pr['accepted_ids']) - acc_insuff)}, "
+              f"to a person {len(non_concern & queue)} {sorted(non_concern & queue)}")
     if pr["accepted_all_four_error_count"] == 0: zero_err += 1
     if soup in pr["accepted_ids"] and soup in pr["accepted_all_four_error_ids"]: soup_wrong_accepted += 1
     rows.append((names[L], names[R], pr["accepted_count"], pr["accepted_all_four_error_count"],

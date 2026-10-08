@@ -99,7 +99,7 @@ Zero errors on these 60 is not zero errors on the next 60. And agreement only he
 
 So the rule is two cheap models that agree, whatever their category. [S12 re-sorts] Across 853 costed pairs, Qwen 27B at low effort plus Gemma 26B with thinking on accepted 58 with zero errors and deferred 2, for about seven cents observed, and 35 pairs beat Solar plus Perplexity on coverage and cost, none with a decision model in it. On other Gemma passes that pair let one error through, so it's one draw.
 
-The rule decides what the model may auto-accept. A harassment workflow sends every serious concern to a person regardless, and on this set that takes the Solar plus Perplexity queue from 7 to 35 of 60, because 25 of the 60 reviews carry a concern by design. That cost exists with or without a model.
+The agreement rule decides what a model may auto-accept, and the escalation lines are the workflow. In a harassment workflow the 25 serious concerns reach a person regardless of which model you use, so the model's job is the other 35, and on this set the rule auto-accepts 25 of those cleanly and sends 10 to a person. That cost exists with or without a model.
 
 [S13] Hands up for one model at 0.96. [pause] Hands up for two cheap models that agree. [pause]
 [/notes]
@@ -130,7 +130,7 @@ Data feeds are files under `public-site/deck/data/` unless stated; each entry th
 | S10 | 0.96 and still wrong (hero, replay) | Testimonial field only. Sixty dots placed by Jev's confidence. A threshold line sweeps from 0.5 to 0.95; dots below it turn hollow. One red hollow-ringed dot at 0.96 stays lit throughout, labelled DEV-027. A footnote shows the ECE pair: Jev 0.011, Clef Flash 0.358. | "The gate kept the embarrassing one." | `jev-confidence-findings.json` testimonial `wrongCases` and thresholds; 01b §8 calibration table |
 | S11 | More instructions, no reliable gain | Three steps for Clef: 54, 51, 49, each with a small drop. Beside it the 39-setup tally in two rows: plain to framing 15 / 15 / 9, framing to tree 4 / 14 / 21. Footnote: "Clef route may read only about 2,000 state tokens". | "The thing I'd do first didn't reliably help." | `prompt-levels.json` `models.clef`, `tally_39_setups` |
 | S12 | Agree or defer (hero) | Sixty cards in a grid. Two stamps land on each; matching cards slide left into "accepted 53, 0 disagreed with the key", mismatching cards slide right into "a person, 7". Price tag "$0.037 known charge, both runs". Second click re-sorts with the Qwen + Gemma pair: 58 left, 2 right, "$0.069 observed, one draw". | "That's the whole rule, and I could build it tomorrow." | `native-agreement-policy-v1.json` pair Solar + Perplexity; 01b §11 Table A row 1 |
-| S13 | The policy and the queue | Static five lines of policy. A counter beside line 3: "queue on this set: 7, then 35 of 60 with escalation". Last click: the two-option question. | "Which would I trust?" | `docs/talk/scripts/s12_escalation_queue.py` output; 01 §6 policy lines |
+| S13 | The policy and the queue | Static five lines of policy. Beside them a 60-card strip in three bands: 25 serious concerns to a person regardless of model, 25 auto-accepted cleanly, 10 to a person by disagreement or "can't tell". Last click: the two-option question. | "Which would I trust?" | `docs/talk/scripts/s12_escalation_queue.py` and the reviewer's `s12_full_policy_routing.py`, which agree; 01 §6 policy lines |
 | S14 | classification-bench | Pipeline diagram: bring data, plan, run, evaluate, report. Two routes lit (OpenRouter, Clef), three amber (Claude Code, Codex, Liquid / Solar / Qwen). Badge: "being open-sourced". | "This person is not overselling." | 04 §2, §3, §7 |
 | S15 | Monday | Four lines of the recipe and a QR code to github.com/adambkovacs/candidate-experience-benchmark. Print the frozen commit short SHA in the footer. | An easy next step. | 03 §2; frozen commit to be set at deck export |
 
@@ -145,11 +145,11 @@ Motion rules for the whole deck: one idea moves per slide; every hero has a stat
 | A3 | Prompt levels P0 / P1 / P2 | Five decision models, every pass, from the feed. 39-setup tally all three steps: plain to framing 15/15/9, plain to tree 7/16/16, framing to tree 4/14/21. "In these saved runs." Clef truncation caveat. 01b: P2 pushes decision models from "no" to "insufficient" on serious concern. | `prompt-levels.json`; 01b §12.6 |
 | A4 | Confidence and calibration | Pooled ECE per native model (Jev 0.011, Liquid 0.035, Tev 0.047, Luna 0.074, Solar 0.145, Clef 0.217, Clef Flash 0.358). Confidence versus option probability differ by more than 0.2 on 55% of Flash answers. Jev per-field retrospective thresholds. Hard-10 overlap table. All retrospective; no abstention executed. | 01b §8; `jev-confidence-findings.json` |
 | A5 | Who wrote the key, and how fragile it is | An OpenAI assistant drafted the 60 reviews and the key; a person checked all 60 on 2 October 2026; a separate AI review disputes three labels. Flipping DEV-006 alone: 212 runs up, 168 down, 257 unchanged of 637. All three flipped: per-run deltas from minus 3 to plus 3. | `docs/PILOT_AUDIT.md`; `README.md` line 171; `docs/REFERENCE_REVIEW_V1.md`; `reference-sensitivity-v1.json` `scenario_summaries` |
-| A6 | Cost table, seven decision models | Known charge per 60 one-review requests: Clef Flash $0.012, Luna $0.013, Perplexity $0.015, Liquid $0.016, Tev $0.016, Solar $0.022, Clef $0.032 (estimate). Nine-run series: about $1.20 including one estimate, plus up to $0.13 unknown charge, not zero. Gemini effort pair: low 56/60 at $0.063, high 55/60 at $0.257. | 01 insight 14; 05r R8 |
+| A6 | Cost table, seven decision models | Known charge per 60 one-review requests: Clef Flash $0.012, Luna $0.013, Perplexity $0.015, Liquid $0.016, Tev $0.016, Solar $0.022, Clef $0.032 (estimate). Nine-run series: $1.2013 including a Clef estimate, plus up to $0.13 unknown charge, which is unknown rather than zero. Gemini effort pair: low 56/60 at $0.063, high 55/60 at $0.257. | 01 insight 14; 05r R8 |
 | A7 | Limits and the claims we do not make | Not a leaderboard. Not causal. Not real-world accuracy (60 synthetic reviews, 340 planned never generated). Key is provisional v0.2, AI-drafted, person-checked, three labels disputed. Missing cost is unknown, not zero. No speed ranking. No pooling of 1,004 run entries. Batch, route and effort differ between runs. Frozen commit SHA printed here. | 01 §4, §7 |
 | A8 | classification-bench detail | Works: offline end to end, 272 tests, OpenRouter one route, Clef 42 of 42 valid. Wired, not live: Claude Code, Codex, Liquid, Solar, Qwen. Not built: OpenAI Decisions, unlabeled runs, several report items. Being open-sourced; release date not set. | 04 §2, §3 |
 | A9 | Equal scores hide different answers | Sonnet 5.5 xhigh 58/60 in all nine cells, changed DEV-006 and DEV-030 between passes. 01b: 31 of 50 decision groups changed nothing in three passes versus 11 of 202 general groups; general models flip the hard reviews. | 01 insight 5; 01b §12.4 |
-| A10 | All 21 pairs and the queue | Full table from the script: accepted, accepted errors, deferred, accepted-with-concern, accepted-with-can't-tell, human queue. Range 32 to 42 of 60 under the full policy. Five zero-error pairs; Solar sits in four of them. Six pairs accepted the soup with the same wrong answer. No pair selected. | `docs/talk/scripts/s12_escalation_queue.py`; `native-agreement-policy-v1.json` |
+| A10 | All 21 pairs and the queue | Full table from the script: accepted, accepted errors, deferred, accepted-with-concern, accepted-with-can't-tell, human queue. Union reaching a person ranges 32 to 42 of 60 under the full policy. For Solar + Perplexity: 25 concerns from either model, 7 "can't tell", 7 deferred, union 35; of the 35 non-concern reviews, 25 auto-accepted and 10 to a person. Five zero-error pairs; Solar sits in four of them. Six pairs accepted the soup with the same wrong answer. No pair selected. | `docs/talk/scripts/s12_escalation_queue.py`; `native-agreement-policy-v1.json` |
 | A11 | Rare classes and the "can't tell" collapse | Testimonial 9 yes / 50 no / 1 insufficient; all-no scores 50/60. Tev recall 9/9 precision 9/12; Luna recall 6/9 precision 6/6. 01b: reference "insufficient" is answered as a definite label 22% to 26% of the time; decision runs match those cells at 19% to 45%, general at 71% to 84%. | 01 insight 9; 01b §12.1 |
 | A12 | Agreement with general models, and frontier convergence | 853 costed pairs: Qwen 27B low + Gemma 26B on, 58/0/2, $0.0686 observed; Gemma 31B off + DeepSeek Flash low, 55/0/5, $0.0207; 35 pairs dominate Solar + Perplexity. Same model twice is not a second opinion (Qwen 35B off agrees with itself on 9 wrong answers). 44 run-passes from seven families share one identical answer set missing exactly the three disputed reviews. | 01b §11, §12.2, §12.3 |
 
@@ -172,7 +172,7 @@ Held as spoken answers, not slides: the rules baseline (10/60, 01 insight 13) an
 | 11 | TypeSafe engineer: did you ask a separate relevance question first? Your docs say to split judgments. | No, and that's a fair hit. Every model got the same four questions with a "can't tell" option. A relevance check up front is cheap and I'd expect it to help on the soup. That's the next run. | 02 A3; A7 |
 | 12 | Your key was written by an OpenAI model. Aren't you measuring who thinks like GPT? | Possibly in part. People checked all 60, and if GPT-style models had a home advantage, OpenAI's own decision model didn't get it: Luna Decisions matched 49. I can't rule out that LLM-written text suits LLMs, which is one reason the key is provisional. | A5; `prompt-levels.json` `luna` |
 | 13 | Jev isn't in your seven or your pairs. Why? | The seven were a matched first-pass panel through one route, and Jev's runs sit outside it. The answers are public, so pairing Jev offline is a small analysis with no new inference, and I haven't done it yet. | A10; 05r R13 |
-| 14 | CTO: with your full policy, how big is the human queue? | On this set, 35 of 60: the 7 deferred, plus 24 accepted reviews carrying a serious concern, plus 4 accepted "can't tell" answers. The set is concern-heavy by design, 25 of 60. On real feedback the share depends on how often concerns happen, which this can't tell you. | A10; `s12_escalation_queue.py` |
+| 14 | CTO: with your full policy, how big is the human queue? | On this set, 35 of 60. Split it the way the workflow does: 25 serious concerns reach a person whatever model you run, and of the other 35 reviews the rule auto-accepts 25 and sends 10 to a person, 7 by disagreement and the rest by a "can't tell". The set is concern-heavy by design. On real feedback the share depends on how often concerns happen, which this can't tell you. | A10; `s12_escalation_queue.py` |
 | 15 | Is 54 versus 59 real on 60 reviews? | It held across three passes each: Jev 54, 53, 52 and Opus 59, 58, 58. On first passes Opus matched five reviews Jev missed and missed none Jev matched. It's still one set of 60 synthetic reviews and a provisional key, so read it as a direction. | A9; 01 insight 2 |
 | 16 | Opus ran ten reviews per request and Jev one. Fair? | Not identical. Batch, route and effort all differ, which is why I don't rank. It's on the limits slide. | A7 |
 | 17 | Cloudflare: Clef reads about 2,000 tokens of state. Was your long prompt truncated? | Possibly. Your route warning says so, and our notes treat truncation as a constraint, not a cause. | A3; `docs/CLEF_OPENROUTER_FINDINGS.md` |
@@ -192,7 +192,7 @@ Two more to have ready: Jev's confidence versus its option probability differ by
 | Other vendors in the room (Cloudflare, Perplexity, OpenAI, AWS, Together) | Same collegial rule as for TypeSafe: credit what they publish, no "beats", no "better than". Clef truncation and Luna's 49 are stated as saved-run facts with their caveats. Q&A 17 is ready. |
 | A number is challenged | Every number has a feed path or doc path in sections 2 and 3. Reply with the path and the confidence tag from 01 or 01b (solid, descriptive-only, anecdotal). |
 | Numbers moving before the talk | Freeze a commit before deck export, print the short SHA on A7 and S15, and re-run `count-notes.ts`, `audit-slop.ts` and `s12_escalation_queue.py` after any change. |
-| Inherited errors in 01 and 02 | 01 insight 10 ("five mixed"), 01 §6 ("four zero-error pairs"), 01 insight 14 ("under $1.20") and 02 Part C ("twenty-two days") still carry v1's errors. Fix them so site, notes and deck agree. |
+| Inherited errors in 02 | 01 was corrected in commit 05528718 (four said mixed, five zero-error pairs, $1.2013 including a Clef estimate plus up to $0.13 unknown, Opus 5.5 high passes 59/58/58) and v2 uses those values. 02 Part C still says "twenty-two days"; fix it so site, notes and deck agree. |
 | Name soup | Jev, Kev, Tev, Clef, Luna and Laya sound alike over Zoom. Spoken names are limited to Jev, Opus, Sonnet, Gemma, Qwen, Solar, Perplexity, Liquid and Clef. |
 | QR code | Test it from the back row on the venue TV. The handle is adambkovacs, easy to mistype, so the URL is also printed in full. |
 | Early-access promise | Adam confirmed classification-bench is being open-sourced. Until the repo is public, "early access" means Adam grants collaborator access by hand; do not show the private URL. |
@@ -210,9 +210,9 @@ Produced by `scripts/count-notes.ts` (bun) over the `[notes beat=N]` blocks, wit
 | 4 Proof 1 | 243 | 265 |
 | 5 Proof 2 | 263 | 285 |
 | 6 Proof 3 | 268 | 300 |
-| 7 The rule | 326 | 300 |
+| 7 The rule | 337 | 300 |
 | 8 The tool and the Monday recipe | 182 | 180 |
-| Total | 1,558 | 1,550 |
+| Total | 1,569 | 1,550 |
 
 ## 8. Integrated from 01b, and what is still open
 
@@ -221,7 +221,7 @@ Integrated into v2: calibration table and hard-10 overlap (§8) in proof 3 and A
 Still open after v2:
 - Pair Jev offline with each of the seven (05r R13). Label it post hoc and descriptive if run.
 - 06-cost-check.md may relabel costs; re-read `answer.json` before deck export.
-- Fix the inherited errors in 01 and 02 listed in section 6.
+- Fix 02 Part C ("twenty-two days"); 01 is already corrected.
 - Confirm the bio line "read the pile of candidate feedback" is one Adam is happy to say; 03 has no count behind it, so v2 uses no number.
 
 ## 9. Changelog: 05r findings and how v2 handles them
@@ -235,7 +235,7 @@ Still open after v2:
 | B5 thesis contradiction | The answer now says most of Jev's six misses sat on reviews a person would pause on, two were plain errors, one a harassment report marked no follow-up. The "whole product" sentence is gone; DEV-059 opens the talk and threads through proofs 1 and 3 and the rule. |
 | B6 speed claim | "You get speed and price" replaced by "a typed answer at a fraction of a cent". |
 | B7 false taxonomy slide | S5 and the taxonomy paragraph are cut. The launch-wave beat is the timeline slide only, 60 seconds. |
-| B8 rule beat holes | Beat 7 says the rule was written before the pairs were computed, that Adam looked at all 21 and picked an example not a winner, that five pairs had zero accepted errors, that six pairs accepted the soup with the same wrong answer, and that the full policy takes the queue from 7 to 35 of 60. The count comes from `docs/talk/scripts/s12_escalation_queue.py`. |
+| B8 rule beat holes | Beat 7 says the rule was written before the pairs were computed, that Adam looked at all 21 and picked an example not a winner, that five pairs had zero accepted errors, that six pairs accepted the soup with the same wrong answer, and that the full policy takes the queue from 7 to 35 of 60. The count comes from `docs/talk/scripts/s12_escalation_queue.py` and reconciles exactly with the reviewer's `s12_full_policy_routing.py` (commit 05528718): 25 concerns from either model, 7 can't-tell, 7 deferred, union 35, accepted clean 25, escalated 24, clarification 4, range 32 to 42 across the 21 pairs. |
 | B9 unmeasured calibration claim | Replaced with 01b §8's measured result: Jev ECE 0.011 against Clef Flash 0.358, still 0.96 on a wrong testimonial, and seven of ten least-confident reviews in the hard ten. |
 | B10 smaller number errors | Four said mixed; five zero-error pairs; DEV-030 quoted verbatim; "117 general-model configurations" and "89 of the 113 that returned a valid answer" used consistently; "frontier" reserved for Claude, GPT and Gemini. |
 | B11 no buffer | Notes cut to the measured total in section 7; S5 removed; bio shortened; moment 3 is a two-option show of hands; buffer is about 1:10 at the stated rates. |
@@ -261,18 +261,20 @@ beat 3: 94
 beat 4: 243
 beat 5: 263
 beat 6: 268
-beat 7: 326
+beat 7: 337
 beat 8: 182
-total: 1558
+total: 1569
 
 $ bun run ~/.claude/skills/anti-slop/scripts/audit-slop.ts docs/talk/05-session-outline.md
-Total Words: 7584
+Total Words: 7856
 Slop Instances: 0
 NO-SLOP Score: 100.0%
 
-$ python3 -I docs/talk/scripts/s12_escalation_queue.py | head -4
+$ python3 -I docs/talk/scripts/s12_escalation_queue.py | head -6
+Solar + Perplexity routing (reconciles with s12_full_policy_routing.py):
+  deferred by disagreement 7 ['DEV-006', 'DEV-013', 'DEV-027', 'DEV-028', 'DEV-029', 'DEV-030', 'DEV-035']
+  serious_concern = yes from either model 25; insufficient from either model 7; union reaching a person 35 of 60
+  accepted with no routing 25; accepted but escalated for concern 24; accepted but routed for clarification 4
+  non-concern reviews 35: auto-accepted clean 25, to a person 10 ['DEV-005', 'DEV-006', 'DEV-013', 'DEV-022', 'DEV-027', 'DEV-028', 'DEV-029', 'DEV-030', 'DEV-048', 'DEV-060']
 pairs: 21  zero-accepted-error pairs: 5  pairs accepting soup with wrong answer: 6
-pair | accepted | acc.errors | deferred | accepted+concern | accepted+insufficient | human queue /60 | soup accepted
-Clef + Perplexity Decider V1 27B | 53 | 2 | 7 | 22 | 4 | 33 | False
-Solar Decide + Perplexity Decider V1 27B | 53 | 0 | 7 | 24 | 4 | 35 | False
 ```
