@@ -13,6 +13,12 @@ cd public-site && python3 -m http.server 8080
 # open http://localhost:8080/presentation-v2.html
 ```
 
+**Present with no server (file://):** open `public-site/presentation-offline.html` directly from disk. It is `presentation.html` plus every data feed inlined as `<script type="application/json" data-feed="...">` blocks, which `data.js` reads before it tries `fetch()`. The 3D background falls back to the static SVG scene there, because Chrome also blocks ES-module imports on `file://`. It is a generated artifact: rebuild it after any deck change, and before the talk.
+
+```bash
+node public-site/deck/verify/bake-offline.mjs
+```
+
 Everything is vendored, so this works offline. See `VENDOR.md` for versions and SHA-256 hashes.
 
 | Key | Action |

@@ -12,6 +12,16 @@
   const cache = new Map();
   const failures = new Set();
 
+  // Offline copy: other scripts (content.js) fetch deck/data and deck/content JSON directly, so serve inlined feeds to them too.
+  const inlined = new Map([...document.querySelectorAll('script[type="application/json"][data-feed]')].map(s => [new URL(s.dataset.feed, base).href, s]));
+  if (inlined.size) {
+    const realFetch = window.fetch;
+    window.fetch = (input, init) => {
+      const block = inlined.get(typeof input === 'string' ? input : input.url ?? String(input));
+      return block ? Promise.resolve(new Response(block.textContent, { headers: { 'Content-Type': 'application/json' } })) : realFetch(input, init);
+    };
+  }
+
   function report(message) {
     failures.add(message);
     document.documentElement.dataset.deckData = 'error';
@@ -29,6 +39,12 @@
   function feed(name) {
     // Directory segments allow no dots, so ".." can never climb out of public-site/.
     if (!/^(?:[\w-]+\/)*[\w.-]+\.json$/.test(name)) return Promise.reject(new Error(`invalid feed name "${name}"`));
+    if (!cache.has(name)) {
+      // Offline build: presentation-offline.html inlines feeds (see verify/bake-offline.mjs), because Chrome blocks fetch() on file://.
+      const block = document.querySelector(`script[type="application/json"][data-feed="${name}"]`);
+      const inline = window.__DECK_FEEDS?.[name] ?? (block && JSON.parse(block.textContent));
+      if (inline) cache.set(name, Promise.resolve(inline));
+    }
     if (!cache.has(name)) {
       cache.set(name, fetch(new URL(name, base)).then(response => {
         if (!response.ok) throw new Error(`${name} returned HTTP ${response.status}`);
