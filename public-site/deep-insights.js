@@ -18,6 +18,7 @@
   function fmt(value, format = 'count') {
     if (value === null || value === undefined || value === '') return 'unavailable';
     if (format === 'text') return String(value);
+    if (format === 'date') return new Date(`${value}T00:00:00Z`).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'});
     const n = Number(value);
     if (format === 'pct') return `${(n * 100).toFixed(1)}%`;
     if (format === 'ece') return n.toFixed(3);
@@ -60,12 +61,12 @@
 
   function card(data, id, extra = '') {
     const block = data[id];
-    const numbers = block.key_numbers.map(k => `<li><span class="di-kn-label">${esc(k.label)}</span>
+    const numbers = block.key_numbers.map(k => `<li><span class="di-kn-label">${prose(data, k.label)}</span>
       <span class="di-kn-value">${num(data, k.value, k.format)}${k.of ? ` <span class="di-of">of ${num(data, k.of)}</span>` : ''}${k.share ? ` <span class="di-share">(${num(data, k.share, 'pct')})</span>` : ''}</span></li>`).join('');
     return `<article class="di-card" aria-labelledby="di-${id}-title">
       <h3 id="di-${id}-title">${esc(block.title)}</h3>
       <ul class="di-kn">${numbers}</ul>
-      <p class="di-implication"><strong>What it means:</strong> ${esc(block.implication)}</p>
+      <p class="di-implication"><strong>Implication:</strong> ${esc(block.implication)}</p>
       <p class="di-meta"><span class="di-tag di-tag--${esc(block.confidence.tag)}">${esc(TAG[block.confidence.tag] || block.confidence.tag)}</span> ${esc(block.confidence.note)}</p>
       ${extra}${sourceLine(block)}
     </article>`;
@@ -118,7 +119,7 @@
         num(native, `${p}.deferred_count`, 'count', NATIVE), num(native, `${p}.known_two_run_development_cost_usd`, 'usd', NATIVE)];
       deferredIds = pair.deferred_ids;
       errorIds = pair.accepted_all_four_error_ids;
-      note = 'Seven native decision models, first pass, base prompt. Known charges for both 60-review runs.';
+      note = 'Seven native decision models, first pass, base prompt. Known charges for both runs.';
       const r = data.agreement_rule.native_routing.findIndex(x => x.left === pair.left && x.right === pair.right);
       if (r >= 0) routing = routingTable(data, r);
     } else {
@@ -178,7 +179,7 @@
       const p = `calibration.reliability_bins.${key}[${i}]`;
       return `<tr><th scope="row">${esc(label)}</th><td>${num(data, `${p}.lower`, 'text')} to ${num(data, `${p}.upper`, 'text')}</td><td>${num(data, `${p}.n`)}</td><td>${num(data, `${p}.mean_confidence`, 'conf')}</td><td>${num(data, `${p}.accuracy`, 'pct')}</td></tr>`;
     }).join('')).join('');
-    mount('calibration').innerHTML = `<h3>Does the confidence number mean what it says?</h3>
+    mount('calibration').innerHTML = `<h3>Stated confidence against the share that matched</h3>
       <div class="di-chart"><svg viewBox="0 0 320 256" role="img" aria-labelledby="di-cal-title di-cal-desc">
         <title id="di-cal-title">Reliability of provider confidence, Jev and Clef Flash</title>
         <desc id="di-cal-desc">Each point is a confidence bin, all fields and stages pooled. Points on the diagonal mean the stated confidence matched the share of answers that agreed with the reference. Jev sits near the diagonal; Clef Flash sits far above it, so its confidence understates how often it matched.</desc>
@@ -210,10 +211,9 @@
   }
 
   function corrections(data) {
-    const date = new Date(`${data.corrections.date}T00:00:00Z`).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'});
     const items = data.corrections.items.map(item => `<li><p class="di-said"><span>Said</span> <s>${esc(item.said)}</s></p>
       <p class="di-correct"><span>Corrected</span> ${prose(data, item.correct)}</p><p class="di-source">Source: <code>${esc(item.source)}</code></p></li>`).join('');
-    mount('corrections').innerHTML = `<h3>Corrections dated ${esc(date)}</h3><ol class="di-corrections">${items}</ol>`;
+    mount('corrections').innerHTML = `<h3>Corrections dated ${num(data, 'corrections.date', 'date')}</h3><ol class="di-corrections">${items}</ol>`;
   }
 
   async function load(path) {
@@ -234,7 +234,7 @@
       hardest(data);
       corrections(data);
     } catch (error) {
-      changed.innerHTML = `<p>The recomputed findings could not be checked here. <a href="./${FEED}">Open the data file</a>.</p>`;
+      changed.innerHTML = `<p>This page could not load or check the recomputed findings. <a href="./${FEED}">Open the data file</a>.</p>`;
       console.error('Deep insights source error:', error);
     } finally {
       changed.setAttribute('aria-busy', 'false');

@@ -151,7 +151,7 @@
     },
     "charged_zero_error_pairs": 423,
     "confidence": {
-      "note": "Exact counts, retrospective on the same 60 development reviews. Any ranking of pairs is descriptive-only; no pair is a recommended configuration.",
+      "note": "Counts are exact and look back at the same development reviews. Any ranking of pairs is descriptive-only, and no pair is a recommended configuration.",
       "tag": "solid"
     },
     "denominator": 60,
@@ -906,42 +906,59 @@
     "key_numbers": [
       {
         "format": "count",
-        "label": "Solar + Perplexity accepted",
+        "label": [
+          "Solar + Perplexity accepted"
+        ],
         "of": "agreement_rule.denominator",
         "share": null,
         "value": "agreement_rule.solar_perplexity.accepted"
       },
       {
         "format": "count",
-        "label": "Solar + Perplexity accepted errors",
+        "label": [
+          "Solar + Perplexity accepted errors"
+        ],
         "of": null,
         "share": null,
         "value": "agreement_rule.solar_perplexity.accepted_errors"
       },
       {
         "format": "count",
-        "label": "Qwen 27B low + Gemma 26B on accepted, 0 errors",
+        "label": [
+          "Qwen 27B low + Gemma 26B on accepted, with ",
+          {
+            "format": "count",
+            "path": "agreement_rule.qwen_gemma.accepted_errors"
+          },
+          " errors"
+        ],
         "of": "agreement_rule.denominator",
         "share": null,
         "value": "agreement_rule.qwen_gemma.accepted"
       },
       {
         "format": "usd",
-        "label": "Qwen 27B low + Gemma 26B on two-run charge",
+        "label": [
+          "Qwen 27B low + Gemma 26B on two-run charge"
+        ],
         "of": null,
         "share": null,
         "value": "agreement_rule.qwen_gemma.two_run_charge_usd"
       },
       {
         "format": "count",
-        "label": "Charged pairs that beat Solar + Perplexity on coverage and price",
+        "label": [
+          "Charged pairs that beat Solar + Perplexity on coverage and price"
+        ],
         "of": "agreement_rule.charged_cross_pairs",
         "share": null,
         "value": "agreement_rule.pairs_beating_solar_perplexity"
       },
       {
         "format": "count",
-        "label": "Full policy: Solar + Perplexity reviews that reach a person",
+        "label": [
+          "Full policy: Solar + Perplexity reviews that reach a person"
+        ],
         "of": "agreement_rule.denominator",
         "share": null,
         "value": "agreement_rule.full_policy_routing.rows[3].count"
@@ -1377,7 +1394,7 @@
       },
       "two_run_charge_usd": 0.03749436
     },
-    "title": "The agreement rule works with two cheap general LLMs, not only with decision models",
+    "title": "Some cheap general LLM pairs accepted more reviews than Solar + Perplexity at a lower charge",
     "top_zero_error_pairs": [
       {
         "accepted": 58,
@@ -1713,13 +1730,14 @@
       ]
     ],
     "confidence": {
-      "note": "60 texts; pooled stages are not independent; no abstention policy was executed. The two confident errors are anecdotal.",
+      "note": "Answers pooled across stages come from the same development reviews, so they are not independent. No abstention policy was run, and the two confident errors are anecdotal.",
       "tag": "descriptive-only"
     },
     "feeds": [
       "results/openjev/typesafe-development-v2-reconciled.jsonl",
       "results/clef-openrouter-v1/findings-v1/public-projection.json"
     ],
+    "gap_threshold": 0.2,
     "hardest_count": 10,
     "hardest_ids": [
       "DEV-030",
@@ -1760,35 +1778,49 @@
     "key_numbers": [
       {
         "format": "ece",
-        "label": "Jev expected calibration error (pooled provider confidence)",
+        "label": [
+          "Jev expected calibration error (pooled provider confidence)"
+        ],
         "of": null,
         "share": null,
         "value": "calibration.models[0].ece_confidence"
       },
       {
         "format": "count",
-        "label": "Jev field answers",
+        "label": [
+          "Jev field answers"
+        ],
         "of": null,
         "share": null,
         "value": "calibration.models[0].field_answers"
       },
       {
         "format": "ece",
-        "label": "Clef Flash expected calibration error",
+        "label": [
+          "Clef Flash expected calibration error"
+        ],
         "of": null,
         "share": null,
         "value": "calibration.models[5].ece_confidence"
       },
       {
         "format": "count",
-        "label": "Clef Flash answers where confidence and option probability differ by more than 0.2",
+        "label": [
+          "Clef Flash answers where confidence and option probability differ by more than ",
+          {
+            "format": "text",
+            "path": "calibration.gap_threshold"
+          }
+        ],
         "of": "calibration.models[5].gap_answers",
         "share": "calibration.models[5].gap_over_0_2_share",
         "value": "calibration.models[5].gap_over_0_2"
       },
       {
         "format": "count",
-        "label": "Jev's 10 least-confident reviews that are among the 10 hardest",
+        "label": [
+          "Jev's least-confident reviews that are among the hardest"
+        ],
         "of": "calibration.hardest_count",
         "share": null,
         "value": "calibration.models[0].least_confident_hard_overlap"
@@ -2060,14 +2092,14 @@
     "scripts": [
       "docs/talk/scripts/s08_confidence.py"
     ],
-    "title": "Jev's confidence behaves like a probability on average and is still confidently wrong"
+    "title": "Jev's confidence is calibrated on average and still confidently wrong on two reviews"
   },
   "claim_rules": [
-    "Not a leaderboard: every number describes saved run-passes on one provisional reference.",
-    "Not causal: prompts, effort and thinking are described, not credited.",
-    "Missing cost is unknown, not zero; provider charges and API-equivalent estimates are never mixed.",
-    "No speed claims.",
-    "Run-passes reuse the same 60 reviews and are not independent samples."
+    "Every number describes saved run-passes on one provisional reference, and the feed ranks no model.",
+    "Prompts, effort and thinking are described as observed, with no causal claim.",
+    "A missing cost stays unknown and never counts as zero; provider charges and API-equivalent estimates stay separate.",
+    "The feed makes no speed claims.",
+    "Run-passes reuse the same 60 reviews, so they are not independent samples."
   ],
   "corrections": {
     "count": 8,
@@ -2172,12 +2204,7 @@
       },
       {
         "correct": [
-          "Known charges plus Clef's list-price estimate (",
-          {
-            "format": "usd:4",
-            "path": "corrections.items[3].values.clef_list_price_estimate_usd"
-          },
-          ") total ",
+          "Known provider charges total ",
           {
             "format": "usd:4",
             "path": "corrections.items[3].values.total_usd"
@@ -2198,7 +2225,6 @@
         "said": "The whole seven-model study cost under $1.20.",
         "source": "public-site/supplemental-decision-runs-v1.json",
         "values": {
-          "clef_list_price_estimate_usd": 0.31128624,
           "runs": 63,
           "total_usd": 1.201282228,
           "unknown_by_model_usd": {
@@ -2252,7 +2278,12 @@
       },
       {
         "correct": [
-          "Jev's confidence is calibrated on average (expected calibration error ",
+          "On these ",
+          {
+            "format": "count",
+            "path": "corrections.items[5].values.reviews"
+          },
+          " reviews, Jev's confidence is calibrated on average (expected calibration error ",
           {
             "format": "ece",
             "path": "corrections.items[5].values.ece"
@@ -2262,7 +2293,7 @@
             "format": "count",
             "path": "corrections.items[5].values.field_answers"
           },
-          " field answers) but confidently wrong on ",
+          " field answers) and still confidently wrong on ",
           {
             "format": "text",
             "path": "corrections.items[5].values.confident_wrong[0].id"
@@ -2307,7 +2338,8 @@
             }
           ],
           "ece": 0.011,
-          "field_answers": 720
+          "field_answers": 720,
+          "reviews": 60
         }
       },
       {
@@ -2570,32 +2602,45 @@
       ],
       "qualifying_charged_run_passes": 22
     },
-    "implication": "Never select a configuration from one pass; require the gate to hold across three passes before it counts.",
+    "implication": "Select a configuration only after the gate holds across three passes.",
     "key_numbers": [
       {
         "format": "count",
-        "label": "Observed or known-charge frontier points",
+        "label": [
+          "Observed or known-charge frontier points"
+        ],
         "of": "cost_frontier.run_passes.observed_or_known",
         "share": null,
         "value": "cost_frontier.frontier_points"
       },
       {
         "format": "count",
-        "label": "Cheapest gate-clearing pass, all four fields",
+        "label": [
+          "Cheapest gate-clearing pass, all four fields"
+        ],
         "of": "cost_frontier.denominator",
         "share": null,
         "value": "cost_frontier.gate.passes[0].all_four"
       },
       {
         "format": "usd",
-        "label": "Its charge for 60 reviews",
+        "label": [
+          "Its charge for ",
+          {
+            "format": "count",
+            "path": "denominator"
+          },
+          " reviews"
+        ],
         "of": null,
         "share": null,
         "value": "cost_frontier.gate.passes[0].usd"
       },
       {
         "format": "count",
-        "label": "Same configuration, fresh pass 1",
+        "label": [
+          "Same configuration, first fresh pass"
+        ],
         "of": "cost_frontier.denominator",
         "share": null,
         "value": "cost_frontier.gate.passes[1].all_four"
@@ -2609,13 +2654,13 @@
     "scripts": [
       "docs/talk/scripts/s10_cost.py"
     ],
-    "title": "The cheapest pass that clears every gate was a single draw, not a stable configuration",
+    "title": "The cheapest gate-clearing pass failed the insufficient-information gate when its configuration ran again",
     "unknown_cost_rule": "Unknown-cost run-passes stay unknown and are never plotted at zero."
   },
   "denominator": 60,
   "determinism": {
     "confidence": {
-      "note": "Exact counts over 252 configurations with three passes each. The serving-stack explanation is descriptive-only.",
+      "note": "Counts are exact over every configuration with three passes. Any serving-stack explanation is descriptive-only.",
       "tag": "solid"
     },
     "configurations": {
@@ -2628,32 +2673,45 @@
       "public-site/extended-cases-v1.json",
       "public-site/additional-cases-v1.json"
     ],
-    "implication": "A decision model gives a fixed wrong list you can audit once; a general LLM gives a different wrong list each batch, so monitoring must count per-review flips, not totals.",
+    "implication": "A decision model gives a fixed wrong list you can audit once; a general LLM gives a different wrong list each batch, so monitoring should count per-review flips, since totals can stay flat while answers change.",
     "key_numbers": [
       {
         "format": "count",
-        "label": "Decision configurations with no changed answer across three passes",
+        "label": [
+          "Decision configurations with no changed answer across three passes"
+        ],
         "of": "determinism.configurations.decision",
         "share": null,
         "value": "determinism.zero_change.decision"
       },
       {
         "format": "count",
-        "label": "General configurations with no changed answer",
+        "label": [
+          "General configurations with no changed answer"
+        ],
         "of": "determinism.configurations.general",
         "share": null,
         "value": "determinism.zero_change.general"
       },
       {
         "format": "count",
-        "label": "Perfectly stable configurations at 55 or better (all general LLMs)",
+        "label": [
+          "Perfectly stable configurations at ",
+          {
+            "format": "count",
+            "path": "determinism.stable_threshold"
+          },
+          " or better, all general LLMs"
+        ],
         "of": null,
         "share": null,
         "value": "determinism.stable_at_55_or_better"
       },
       {
         "format": "count",
-        "label": "Most-flipped reviews that are also among the 10 hardest",
+        "label": [
+          "Most-flipped reviews that are also among the hardest"
+        ],
         "of": "determinism.unstable_hard_overlap.of",
         "share": null,
         "value": "determinism.unstable_hard_overlap.count"
@@ -4019,7 +4077,8 @@
       }
     ],
     "stable_but_wrong_count": 42,
-    "title": "Decision models repeated the same answers across passes; general LLMs mostly did not",
+    "stable_threshold": 55,
+    "title": "Decision models repeated their answers across passes; most general LLM configurations changed some",
     "unstable_hard_overlap": {
       "count": 8,
       "hardest": [
@@ -4067,7 +4126,7 @@
   "frontier_convergence": {
     "all_run_passes": 1004,
     "confidence": {
-      "note": "Exact equality of full 60-review answer sets. The shared misses are the three disputed reference labels.",
+      "note": "Counts use exact equality of full answer sets. The shared misses are the three disputed reference labels.",
       "tag": "solid"
     },
     "disputed_review_ids": [
@@ -4081,39 +4140,59 @@
       "public-site/extended-cases-v1.json",
       "public-site/additional-cases-v1.json"
     ],
-    "implication": "A second frontier model is not an independent check on the reviews that matter most; a second opinion has to buy different failures, not more strength.",
+    "implication": "Pick a second model that fails on different reviews; two strong models that share an answer set accept the same disputed answers together.",
     "key_numbers": [
       {
         "format": "count",
-        "label": "Strong run-passes (60 valid, all four fields matched on at least 57)",
+        "label": [
+          "Strong run-passes (",
+          {
+            "format": "count",
+            "path": "frontier_convergence.strong_valid"
+          },
+          " valid, all four fields matched on at least ",
+          {
+            "format": "count",
+            "path": "frontier_convergence.strong_min_all_four"
+          },
+          ")"
+        ],
         "of": "frontier_convergence.all_run_passes",
         "share": null,
         "value": "frontier_convergence.strong_run_passes"
       },
       {
         "format": "count",
-        "label": "Distinct full answer sets among them",
+        "label": [
+          "Distinct full answer sets among them"
+        ],
         "of": "frontier_convergence.strong_run_passes",
         "share": null,
         "value": "frontier_convergence.distinct_answer_sets"
       },
       {
         "format": "count",
-        "label": "Run-passes sharing the single largest answer set",
+        "label": [
+          "Run-passes sharing the single largest answer set"
+        ],
         "of": "frontier_convergence.strong_run_passes",
         "share": null,
         "value": "frontier_convergence.largest_set.run_passes"
       },
       {
         "format": "count",
-        "label": "Model families in that one set",
+        "label": [
+          "Model families in that one set"
+        ],
         "of": null,
         "share": null,
         "value": "frontier_convergence.largest_set.family_count"
       },
       {
         "format": "count",
-        "label": "Strong run-passes that miss only disputed labels",
+        "label": [
+          "Strong run-passes that miss only disputed labels"
+        ],
         "of": "frontier_convergence.strong_run_passes",
         "share": null,
         "value": "frontier_convergence.miss_only_disputed.run_passes"
@@ -4212,9 +4291,11 @@
     "scripts": [
       "docs/talk/scripts/s09_quirks.py"
     ],
-    "strong_definition": "60 valid answers and all four fields matching on at least 57 of 60 reviews",
+    "strong_definition": "60 valid answers and at least 57 of 60 all-four matches",
+    "strong_min_all_four": 57,
     "strong_run_passes": 373,
-    "title": "At the top, models do not just score alike, they answer alike",
+    "strong_valid": 60,
+    "title": "The strongest runs often return identical answer sets",
     "top_set_sizes": [
       44,
       32,
@@ -4224,7 +4305,7 @@
   "generated_at": "2026-10-08",
   "hardest_reviews": {
     "confidence": {
-      "note": "Exact match counts over all run-passes with a fixed denominator; invalid output counts as a non-match.",
+      "note": "Match counts are exact over all run-passes with a fixed denominator, and invalid output counts as a non-match.",
       "tag": "solid"
     },
     "feeds": [
@@ -4232,7 +4313,7 @@
       "data/pilot/inputs.jsonl",
       "data/pilot/proposed_labels.jsonl"
     ],
-    "implication": "The hardest reviews are the disputed, off-topic and boundary cases; that is where a human queue earns its cost.",
+    "implication": "The hardest reviews are the disputed, off-topic and boundary cases, so the human queue should cover them first.",
     "key_numbers": [],
     "reviews": [
       {
@@ -4554,7 +4635,7 @@
   },
   "insufficient_collapse": {
     "confidence": {
-      "note": "Exact counts over saved answers. The decision vs general split is a working category split, so the comparison is descriptive-only.",
+      "note": "Counts are exact over saved answers. The decision vs general split is a working category split, so the comparison is descriptive-only.",
       "tag": "solid"
     },
     "denominators": "valid_answers counts valid answers on reference-insufficient cells; cell_denominator = reference cells x run-passes, with invalid or missing answers kept as unavailable.",
@@ -4811,28 +4892,36 @@
     "key_numbers": [
       {
         "format": "count",
-        "label": "Decision models, follow-up: definite answer where the reference says insufficient",
+        "label": [
+          "Decision models, follow-up: definite answer where the reference says insufficient"
+        ],
         "of": "insufficient_collapse.fields.follow_up_needed.decision.valid_answers",
         "share": "insufficient_collapse.fields.follow_up_needed.decision.definite_share_of_valid",
         "value": "insufficient_collapse.fields.follow_up_needed.decision.definite"
       },
       {
         "format": "count",
-        "label": "General LLMs, follow-up",
+        "label": [
+          "General LLMs, follow-up"
+        ],
         "of": "insufficient_collapse.fields.follow_up_needed.general.valid_answers",
         "share": "insufficient_collapse.fields.follow_up_needed.general.definite_share_of_valid",
         "value": "insufficient_collapse.fields.follow_up_needed.general.definite"
       },
       {
         "format": "count",
-        "label": "Decision models, serious concern",
+        "label": [
+          "Decision models, serious concern"
+        ],
         "of": "insufficient_collapse.fields.serious_concern_reported.decision.valid_answers",
         "share": "insufficient_collapse.fields.serious_concern_reported.decision.definite_share_of_valid",
         "value": "insufficient_collapse.fields.serious_concern_reported.decision.definite"
       },
       {
         "format": "count",
-        "label": "General LLMs, serious concern",
+        "label": [
+          "General LLMs, serious concern"
+        ],
         "of": "insufficient_collapse.fields.serious_concern_reported.general.valid_answers",
         "share": "insufficient_collapse.fields.serious_concern_reported.general.definite_share_of_valid",
         "value": "insufficient_collapse.fields.serious_concern_reported.general.definite"
@@ -4846,7 +4935,7 @@
   },
   "prompt_direction": {
     "confidence": {
-      "note": "Exact within-configuration description of saved runs; not a causal prompt effect.",
+      "note": "This describes saved runs within each configuration and makes no causal claim about prompts.",
       "tag": "solid"
     },
     "feeds": [
@@ -4855,32 +4944,40 @@
       "public-site/additional-cases-v1.json"
     ],
     "identical_across_three_prompts": 6,
-    "implication": "Regression-test the label distribution after a prompt change, not only the score.",
+    "implication": "After a prompt change, regression-test the label distribution as well as the score.",
     "key_numbers": [
       {
         "format": "count",
-        "label": "P1 to P2: triplets that got worse",
+        "label": [
+          "P1 to P2: triplets that got worse"
+        ],
         "of": "prompt_direction.steps.P1->P2.triplets",
         "share": null,
         "value": "prompt_direction.steps.P1->P2.worse"
       },
       {
         "format": "count",
-        "label": "P1 to P2: triplets that got better",
+        "label": [
+          "P1 to P2: triplets that got better"
+        ],
         "of": "prompt_direction.steps.P1->P2.triplets",
         "share": null,
         "value": "prompt_direction.steps.P1->P2.better"
       },
       {
         "format": "signed",
-        "label": "General LLMs, sentiment \"mixed\" per triplet, P0 to P2",
+        "label": [
+          "General LLMs, sentiment \"mixed\" per triplet, P0 to P2"
+        ],
         "of": null,
         "share": null,
         "value": "prompt_direction.label_shift.general.rows[2].delta_per_triplet"
       },
       {
         "format": "signed",
-        "label": "Decision models, serious concern \"insufficient\" per triplet, P0 to P2",
+        "label": [
+          "Decision models, serious concern \"insufficient\" per triplet, P0 to P2"
+        ],
         "of": null,
         "share": null,
         "value": "prompt_direction.label_shift.decision.rows[10].delta_per_triplet"
@@ -5152,15 +5249,15 @@
         "worse": 127
       }
     },
-    "title": "A prompt revision has a direction, and it differs by model class",
+    "title": "Prompt revisions moved labels in different directions for each model class",
     "triplet_definition": "One configuration-pass with P0, P1 and P2 all saved"
   },
   "reference_status": "Frozen proposed labels v0.2, provisional; DEV-006, DEV-013 and DEV-030 are disputed.",
   "schema": "deep-insights-v1",
-  "scope": "Recomputation of saved predictions for the 60 fictional development reviews; no inference was run.",
+  "scope": "The talk's analysis scripts recomputed saved predictions for the 60 fictional development reviews and made no model calls.",
   "size_thinking": {
     "confidence": {
-      "note": "Exact tallies of same-surface, same-condition, same-pass pairs; any family-level reading is descriptive-only.",
+      "note": "Tallies are exact over same-surface, same-condition, same-pass pairs; any family-level reading is descriptive-only.",
       "tag": "solid"
     },
     "feeds": [
@@ -5171,21 +5268,27 @@
     "key_numbers": [
       {
         "format": "count",
-        "label": "Qwen 1.7B pairs where thinking hurt",
+        "label": [
+          "Qwen 1.7B pairs where thinking hurt"
+        ],
         "of": "size_thinking.sizes[1].pairs",
         "share": null,
         "value": "size_thinking.sizes[1].hurts"
       },
       {
         "format": "count",
-        "label": "Gemma E2B pairs where thinking helped",
+        "label": [
+          "Gemma E2B pairs where thinking helped"
+        ],
         "of": "size_thinking.sizes[5].pairs",
         "share": null,
         "value": "size_thinking.sizes[5].helps"
       },
       {
         "format": "count",
-        "label": "Qwen3.6 35B pairs where thinking helped",
+        "label": [
+          "Qwen3.6 35B pairs where thinking helped"
+        ],
         "of": "size_thinking.sizes[4].pairs",
         "share": null,
         "value": "size_thinking.sizes[4].helps"
@@ -5375,7 +5478,7 @@
         "size": "Gemma4 31B"
       }
     ],
-    "title": "Thinking changes sign between Qwen 1.7B and 4B"
+    "title": "Thinking hurt Qwen 1.7B in every pair and helped Qwen 4B in every pair"
   },
   "source_sha256": {
     "data/pilot/inputs.jsonl": "bd79e602f45f6aff78796ebdca4f2d0b1585c48665b6b8a9af1fe0b5e52d2b9e",
@@ -5421,7 +5524,12 @@
   "what_changed": {
     "date": "2026-10-08",
     "segments": [
-      "On 8 October 2026 every number in this section was recomputed from the saved answers of ",
+      "On ",
+      {
+        "format": "date",
+        "path": "generated_at"
+      },
+      " the talk's analysis scripts recomputed every number in this section from the saved answers of ",
       {
         "format": "count",
         "path": "frontier_convergence.all_run_passes"
@@ -5431,12 +5539,12 @@
         "format": "count",
         "path": "denominator"
       },
-      " reviews; no model was called again. The recomputation corrected ",
+      " reviews, without new model calls. The recomputation corrected ",
       {
         "format": "count",
         "path": "corrections.count"
       },
-      " earlier statements, listed at the end of this section, and added five findings: decision models answered most \"insufficient information\" cells with a definite label, the strongest models share identical answer sets, two cheap general LLMs make the agreement rule work, decision models repeat their errors while general LLMs move them, and Jev's confidence is calibrated on average yet still confidently wrong."
+      " earlier statements, listed at the end of this section, and produced the five findings in the cards below."
     ]
   }
 }

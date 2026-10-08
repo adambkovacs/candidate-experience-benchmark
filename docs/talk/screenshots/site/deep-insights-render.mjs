@@ -27,7 +27,11 @@ const fail = message => { throw Error(message); };
 
 writeFileSync(PAGE, `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deep insights render check</title><link rel="stylesheet" href="./deep-insights.css"><script defer src="./deep-insights.js"></script>
-<style>body{margin:0;background:#1a2332}</style></head><body>${readFileSync(resolve(SITE, 'deep-insights-section.html'), 'utf8')}</body></html>`);
+<style>/* stand-in for site-redesign's paper plate on the dark page */
+body{margin:0;padding:32px 16px;background:#1a2332}
+#deep-insights[data-surface="paper"]{--ink:#1a2332;--muted:#4b586b;--line:#d3dce7;--teal:#1565c0;--paper:#fbfcfe;
+max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,56px);border-radius:20px;background:var(--paper)}</style></head>
+<body>${readFileSync(resolve(SITE, 'deep-insights-section.html'), 'utf8').replace('<section class="section deep-insights"', '<section data-surface="paper" class="section deep-insights"')}</body></html>`);
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1', '--directory', SITE], { stdio: 'ignore' });
 const browser = await chromium.launch();
 try {

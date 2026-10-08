@@ -79,7 +79,7 @@ def block(title, implication, tag, note, scripts, feeds, key_numbers, **data):
 
 
 def kn(label, value, of=None, fmt="count", share_path=None):
-    return {"label": label, "value": value, "of": of, "format": fmt, "share": share_path}
+    return {"label": segments(label), "value": value, "of": of, "format": fmt, "share": share_path}
 
 
 def segments(template, base=""):
@@ -119,7 +119,7 @@ def insufficient_collapse(g02, g06):
     p = "insufficient_collapse.fields."
     return block("Decision models answered most \"insufficient information\" cells with a definite label",
                  "Treat insufficient information as its own detection task with its own recall; the four-field total hides this gap on exactly the reviews that need a person.",
-                 "solid", "Exact counts over saved answers. The decision vs general split is a working category split, so the comparison is descriptive-only.",
+                 "solid", "Counts are exact over saved answers. The decision vs general split is a working category split, so the comparison is descriptive-only.",
                  ["s02_confusion", "s06_rare_classes"], ["public-site/data.json", "public-site/extended-cases-v1.json", "public-site/additional-cases-v1.json"],
                  [kn("Decision models, follow-up: definite answer where the reference says insufficient", p + "follow_up_needed.decision.definite", p + "follow_up_needed.decision.valid_answers", share_path=p + "follow_up_needed.decision.definite_share_of_valid"),
                   kn("General LLMs, follow-up", p + "follow_up_needed.general.definite", p + "follow_up_needed.general.valid_answers", share_path=p + "follow_up_needed.general.definite_share_of_valid"),
@@ -136,16 +136,16 @@ def frontier_convergence(g09, disputed):
     misses = [i for i in g09["IDS"] if any(members[0].pred(i)[f] != ref[i][f] for f in FIELDS)]
     inside = sorted(((list(ms), n) for ms, n in wrong_sets.items() if set(ms) <= disputed), key=lambda x: (-x[1], x[0]))
     p = "frontier_convergence."
-    return block("At the top, models do not just score alike, they answer alike",
-                 "A second frontier model is not an independent check on the reviews that matter most; a second opinion has to buy different failures, not more strength.",
-                 "solid", "Exact equality of full 60-review answer sets. The shared misses are the three disputed reference labels.",
+    return block("The strongest runs often return identical answer sets",
+                 "Pick a second model that fails on different reviews; two strong models that share an answer set accept the same disputed answers together.",
+                 "solid", "Counts use exact equality of full answer sets. The shared misses are the three disputed reference labels.",
                  ["s09_quirks"], ["public-site/data.json", "public-site/extended-cases-v1.json", "public-site/additional-cases-v1.json"],
-                 [kn("Strong run-passes (60 valid, all four fields matched on at least 57)", p + "strong_run_passes", p + "all_run_passes"),
+                 [kn("Strong run-passes ({frontier_convergence.strong_valid} valid, all four fields matched on at least {frontier_convergence.strong_min_all_four})", p + "strong_run_passes", p + "all_run_passes"),
                   kn("Distinct full answer sets among them", p + "distinct_answer_sets", p + "strong_run_passes"),
                   kn("Run-passes sharing the single largest answer set", p + "largest_set.run_passes", p + "strong_run_passes"),
                   kn("Model families in that one set", p + "largest_set.family_count"),
                   kn("Strong run-passes that miss only disputed labels", p + "miss_only_disputed.run_passes", p + "strong_run_passes")],
-                 strong_definition="60 valid answers and all four fields matching on at least 57 of 60 reviews",
+                 strong_definition="60 valid answers and at least 57 of 60 all-four matches", strong_valid=strong[0].valid_count(), strong_min_all_four=min(r.all_four(ref) for r in strong),
                  all_run_passes=len(g09["runs"]), strong_run_passes=len(strong), distinct_answer_sets=len(sets),
                  top_set_sizes=[n for _, n in sets.most_common(3)],
                  largest_set={"run_passes": top_n, "all_four": members[0].all_four(ref), "misses": misses,
@@ -201,14 +201,14 @@ def agreement_rule(g11, g12):
             "reference_serious_concern_yes": g12["ref_sc"]}
     assert len(D) + len(S - D) + len(I - D) - len((S & I) - D) == len(D | S | I)
     p = "agreement_rule."
-    return block("The agreement rule works with two cheap general LLMs, not only with decision models",
+    return block("Some cheap general LLM pairs accepted more reviews than Solar + Perplexity at a lower charge",
                  "Pick a pair for complementary failures and price, and budget for the deferred reviews; agreement still cannot catch a blind spot both models share.",
-                 "solid", "Exact counts, retrospective on the same 60 development reviews. Any ranking of pairs is descriptive-only; no pair is a recommended configuration.",
+                 "solid", "Counts are exact and look back at the same development reviews. Any ranking of pairs is descriptive-only, and no pair is a recommended configuration.",
                  ["s11_agreement_general", "s12_full_policy_routing"],
                  ["public-site/native-agreement-policy-v1.json", "public-site/disputed-reviews-v1.json", "public-site/data.json", "public-site/extended-cases-v1.json"],
                  [kn("Solar + Perplexity accepted", p + "solar_perplexity.accepted", p + "denominator"),
                   kn("Solar + Perplexity accepted errors", p + "solar_perplexity.accepted_errors"),
-                  kn("Qwen 27B low + Gemma 26B on accepted, 0 errors", p + "qwen_gemma.accepted", p + "denominator"),
+                  kn("Qwen 27B low + Gemma 26B on accepted, with {agreement_rule.qwen_gemma.accepted_errors} errors", p + "qwen_gemma.accepted", p + "denominator"),
                   kn("Qwen 27B low + Gemma 26B on two-run charge", p + "qwen_gemma.two_run_charge_usd", fmt="usd"),
                   kn("Charged pairs that beat Solar + Perplexity on coverage and price", p + "pairs_beating_solar_perplexity", p + "charged_cross_pairs"),
                   kn("Full policy: Solar + Perplexity reviews that reach a person", p + "full_policy_routing.rows[3].count", p + "denominator")],
@@ -236,20 +236,21 @@ def determinism(g07):
             stable_wrong.append({"family": k[0], "configuration": k[1], "effort": k[2], "condition": k[3], "passes": len(rs),
                                  "category": rs[0].category, "all_four": scores[0], "fixed_wrong": len(wrong), "fixed_wrong_ids": wrong})
     stable_wrong.sort(key=lambda r: (-r["all_four"], r["family"], r["configuration"], r["condition"]))
-    strong = [r for r in stable_wrong if r["all_four"] >= 55]
+    threshold = 55
+    strong = [r for r in stable_wrong if r["all_four"] >= threshold]
     top10, hard10 = g07["top10"], g07["hard10"]
     overlap = sorted(set(top10) & set(hard10))
     p = "determinism."
-    return block("Decision models repeated the same answers across passes; general LLMs mostly did not",
-                 "A decision model gives a fixed wrong list you can audit once; a general LLM gives a different wrong list each batch, so monitoring must count per-review flips, not totals.",
-                 "solid", "Exact counts over 252 configurations with three passes each. The serving-stack explanation is descriptive-only.",
+    return block("Decision models repeated their answers across passes; most general LLM configurations changed some",
+                 "A decision model gives a fixed wrong list you can audit once; a general LLM gives a different wrong list each batch, so monitoring should count per-review flips, since totals can stay flat while answers change.",
+                 "solid", "Counts are exact over every configuration with three passes. Any serving-stack explanation is descriptive-only.",
                  ["s07_repeatability"], ["public-site/data.json", "public-site/extended-cases-v1.json", "public-site/additional-cases-v1.json"],
                  [kn("Decision configurations with no changed answer across three passes", p + "zero_change.decision", p + "configurations.decision"),
                   kn("General configurations with no changed answer", p + "zero_change.general", p + "configurations.general"),
-                  kn("Perfectly stable configurations at 55 or better (all general LLMs)", p + "stable_at_55_or_better"),
-                  kn("Most-flipped reviews that are also among the 10 hardest", p + "unstable_hard_overlap.count", p + "unstable_hard_overlap.of")],
+                  kn("Perfectly stable configurations at {determinism.stable_threshold} or better, all general LLMs", p + "stable_at_55_or_better"),
+                  kn("Most-flipped reviews that are also among the hardest", p + "unstable_hard_overlap.count", p + "unstable_hard_overlap.of")],
                  configurations={c: len(rows) for c, rows in cats.items()}, configurations_total=len(results), zero_change=zero,
-                 stable_at_55_or_better=len(strong), stable_at_55_categories=dict(Counter(r["category"] for r in strong)),
+                 stable_threshold=threshold, stable_at_55_or_better=len(strong), stable_at_55_categories=dict(Counter(r["category"] for r in strong)),
                  unstable_hard_overlap={"count": len(overlap), "of": 10, "ids": overlap, "top_unstable": top10, "hardest": hard10,
                                         "jaccard": round(len(overlap) / len(set(top10) | set(hard10)), 2)},
                  stable_but_wrong_count=len(stable_wrong), stable_but_wrong=stable_wrong)
@@ -258,7 +259,7 @@ def determinism(g07):
 def calibration(g08):
     ref, by_model, F = g08["ref"], g08["by_model"], g08["F"]
     ece, chosen, bin_of, BINS = g08["ece"], g08["chosen_prob"], g08["bin_of"], g08["BINS"]
-    models, bins = [], {}
+    models, bins, gap = [], {}, 0.2  # gap: the |confidence - option probability| cut s08 uses
     for m in g08["MODELS"]:
         recs = by_model[m]
         pairs = [(r["conf"][f], r["prediction"][f] == ref[r["id"]][f]) for r in recs for f in F if r["conf"][f] is not None]
@@ -267,7 +268,7 @@ def calibration(g08):
         first = [r for r in recs if r["stage"] == g08["first_stage"](m)]
         minc = {r["id"]: min(r["conf"][f] for f in F) for r in first}
         low10 = sorted(minc, key=lambda i: (minc[i], i))[:10]
-        big = sum(1 for g in gaps if abs(g) > 0.2)
+        big = sum(1 for g in gaps if abs(g) > gap)
         models.append({"model": m, "field_answers": len(pairs), "ece_confidence": round(ece(pairs), 3), "ece_chosen_probability": round(ece(cp), 3),
                        "mean_confidence": round(sum(s for s, _ in pairs) / len(pairs), 3), "accuracy": round(sum(c for _, c in pairs) / len(pairs), 3),
                        "gap_over_0_2": big, "gap_answers": len(gaps), "gap_over_0_2_share": share(big, len(gaps)),
@@ -286,17 +287,17 @@ def calibration(g08):
              for r in sorted(jev_first, key=lambda r: r["id"]) for f in F if r["prediction"][f] != ref[r["id"]][f] and r["conf"][f] >= 0.9]
     index = {m["model"]: i for i, m in enumerate(models)}
     p = "calibration."
-    return block("Jev's confidence behaves like a probability on average and is still confidently wrong",
+    return block("Jev's confidence is calibrated on average and still confidently wrong on two reviews",
                  "If a vendor exposes two numbers, threshold on the option probability, and expect even the best-calibrated model to be confident about the wrong field on off-topic input.",
-                 "descriptive-only", "60 texts; pooled stages are not independent; no abstention policy was executed. The two confident errors are anecdotal.",
+                 "descriptive-only", "Answers pooled across stages come from the same development reviews, so they are not independent. No abstention policy was run, and the two confident errors are anecdotal.",
                  ["s08_confidence"], ["results/openjev/typesafe-development-v2-reconciled.jsonl", "results/clef-openrouter-v1/findings-v1/public-projection.json"],
                  [kn("Jev expected calibration error (pooled provider confidence)", p + f"models[{index['jev']}].ece_confidence", fmt="ece"),
                   kn("Jev field answers", p + f"models[{index['jev']}].field_answers"),
                   kn("Clef Flash expected calibration error", p + f"models[{index['clef-flash']}].ece_confidence", fmt="ece"),
-                  kn("Clef Flash answers where confidence and option probability differ by more than 0.2", p + f"models[{index['clef-flash']}].gap_over_0_2",
+                  kn("Clef Flash answers where confidence and option probability differ by more than {calibration.gap_threshold|text}", p + f"models[{index['clef-flash']}].gap_over_0_2",
                      p + f"models[{index['clef-flash']}].gap_answers", share_path=p + f"models[{index['clef-flash']}].gap_over_0_2_share"),
-                  kn("Jev's 10 least-confident reviews that are among the 10 hardest", p + f"models[{index['jev']}].least_confident_hard_overlap", p + "hardest_count")],
-                 bins_definition=[[lo, min(hi, 1.0)] for lo, hi in BINS], models=models, reliability_bins=bins,
+                  kn("Jev's least-confident reviews that are among the hardest", p + f"models[{index['jev']}].least_confident_hard_overlap", p + "hardest_count")],
+                 gap_threshold=gap, bins_definition=[[lo, min(hi, 1.0)] for lo, hi in BINS], models=models, reliability_bins=bins,
                  jev_confident_wrong={"stage": g08["first_stage"]("jev"), "threshold": 0.9, "confidence_tag": "anecdotal", "answers": wrong},
                  hardest_ids=g08["hard10"], hardest_count=len(g08["hard10"]))
 
@@ -313,9 +314,9 @@ def prompt_direction(g03):
              "delta_per_triplet": round((c2[f][lab] - c0[f][lab]) / trips, 2)} for f in FIELDS for lab in g03["common"].LABELS[f]]}
     find = lambda cat, f, lab: next(i for i, r in enumerate(shift[cat]["rows"]) if (r["field"], r["label"]) == (f, lab))  # noqa: E731
     p = "prompt_direction."
-    return block("A prompt revision has a direction, and it differs by model class",
-                 "Regression-test the label distribution after a prompt change, not only the score.",
-                 "solid", "Exact within-configuration description of saved runs; not a causal prompt effect.",
+    return block("Prompt revisions moved labels in different directions for each model class",
+                 "After a prompt change, regression-test the label distribution as well as the score.",
+                 "solid", "This describes saved runs within each configuration and makes no causal claim about prompts.",
                  ["s03_prompt_versions"], ["public-site/data.json", "public-site/extended-cases-v1.json", "public-site/additional-cases-v1.json"],
                  [kn("P1 to P2: triplets that got worse", p + "steps.P1->P2.worse", p + "steps.P1->P2.triplets"),
                   kn("P1 to P2: triplets that got better", p + "steps.P1->P2.better", p + "steps.P1->P2.triplets"),
@@ -333,9 +334,9 @@ def size_thinking(g05):
                "testimonial_delta": int(r[9].split("/")[3])} for r in g05["rows"] if r[0] == "Qwen 1.7B"]
     idx = {s["size"]: i for i, s in enumerate(sizes)}
     p = "size_thinking."
-    return block("Thinking changes sign between Qwen 1.7B and 4B",
+    return block("Thinking hurt Qwen 1.7B in every pair and helped Qwen 4B in every pair",
                  "The thinking switch is model- and size-specific; test it per configuration instead of assuming more reasoning helps.",
-                 "solid", "Exact tallies of same-surface, same-condition, same-pass pairs; any family-level reading is descriptive-only.",
+                 "solid", "Tallies are exact over same-surface, same-condition, same-pass pairs; any family-level reading is descriptive-only.",
                  ["s05_size"], ["public-site/data.json", "public-site/extended-cases-v1.json"],
                  [kn("Qwen 1.7B pairs where thinking hurt", p + f"sizes[{idx['Qwen 1.7B']}].hurts", p + f"sizes[{idx['Qwen 1.7B']}].pairs"),
                   kn("Gemma E2B pairs where thinking helped", p + f"sizes[{idx['Gemma4 E2B']}].helps", p + f"sizes[{idx['Gemma4 E2B']}].pairs"),
@@ -353,14 +354,14 @@ def cost_frontier(g10):
                "testimonial_tp_fp_fn": list(s[6:9]), "insufficient_cells": s[9], "cost_kind": s[1], "usd": s[2]}
               for s in sorted(same, key=lambda s: (s[0].pass_ != "original", s[0].pass_))]
     p = "cost_frontier."
-    return block("The cheapest pass that clears every gate was a single draw, not a stable configuration",
-                 "Never select a configuration from one pass; require the gate to hold across three passes before it counts.",
+    return block("The cheapest gate-clearing pass failed the insufficient-information gate when its configuration ran again",
+                 "Select a configuration only after the gate holds across three passes.",
                  "solid", "Charges are exact and source-bound; frontier membership is descriptive-only; the gate-clearing pass is one pass, so the selection is anecdotal.",
                  ["s10_cost"], ["public-site/data.json", "public-site/extended-run-catalog-v1.json", "public-site/supplemental-decision-runs-v1.json", "public-site/subscription-price-estimates.json"],
                  [kn("Observed or known-charge frontier points", p + "frontier_points", p + "run_passes.observed_or_known"),
                   kn("Cheapest gate-clearing pass, all four fields", p + "gate.passes[0].all_four", p + "denominator"),
-                  kn("Its charge for 60 reviews", p + "gate.passes[0].usd", fmt="usd"),
-                  kn("Same configuration, fresh pass 1", p + "gate.passes[1].all_four", p + "denominator")],
+                  kn("Its charge for {denominator} reviews", p + "gate.passes[0].usd", fmt="usd"),
+                  kn("Same configuration, first fresh pass", p + "gate.passes[1].all_four", p + "denominator")],
                  denominator=60, run_passes={"observed_or_known": len(A), "estimate": len(B), "unknown": len(C)},
                  frontier_points=len(front), frontier=front,
                  gate={"definition": "serious concern recall 25 of 25 with 0 false positives, and all 10 reference insufficient_information cells matched",
@@ -377,8 +378,8 @@ def hardest_reviews(g01, disputed, off_topic, dr):
                 "field_matches": {f: d[rid][f] for f in FIELDS}, "reference": g01["ref"][rid], "text": texts[rid], "driving_field": drive[rid][4],
                 "most_common_wrong_answer": drive[rid][5].split("/") if drive[rid][5] else None, "most_common_wrong_count": drive[rid][6],
                 "disputed_reference": rid in disputed, "off_topic": rid in off_topic} for rank, rid in enumerate(order[:10], 1)]
-    return block("The ten hardest reviews", "The hardest reviews are the disputed, off-topic and boundary cases; that is where a human queue earns its cost.",
-                 "solid", "Exact match counts over all run-passes with a fixed denominator; invalid output counts as a non-match.",
+    return block("The ten hardest reviews", "The hardest reviews are the disputed, off-topic and boundary cases, so the human queue should cover them first.",
+                 "solid", "Match counts are exact over all run-passes with a fixed denominator, and invalid output counts as a non-match.",
                  ["s01_difficulty"], ["public-site/disputed-reviews-v1.json", "data/pilot/inputs.jsonl", "data/pilot/proposed_labels.jsonl"], [],
                  run_passes=N, reviews=reviews)
 
@@ -392,7 +393,6 @@ def corrections(pol, dr, sup, g07, cal, fc, ic):
     assert all(r["cost"]["knownUsd"] is not None and r["cost"]["unknownUpperBoundUsd"] is not None for r in sup["runs"]), \
         "every native run must carry a known charge or estimate and an explicit unknown-cost bound"
     known = round(sum(r["cost"]["knownUsd"] for r in sup["runs"]), 9)
-    clef = round(sum(r["cost"]["knownUsd"] for r in sup["runs"] if r["model"] == "cloudflare/clef"), 9)
     unknown = {m: round(sum(r["cost"]["unknownUpperBoundUsd"] for r in sup["runs"] if r["model"] == m), 9) for m in sorted({r["model"] for r in sup["runs"]})}
     opus = next(x for x in g07["results"] if x[0][0] == "opus-5.5" and x[0][2] == "high" and x[0][3] == "P0")
     jev = next(m for m in cal["models"] if m["model"] == "jev")
@@ -413,8 +413,8 @@ def corrections(pol, dr, sup, g07, cal, fc, ic):
                     "review_ids": sorted({i for p in erring for i in p["accepted_all_four_error_ids"]})},
          "source": "public-site/native-agreement-policy-v1.json"},
         {"id": "seven-model-cost", "said": "The whole seven-model study cost under $1.20.",
-         "correct": segments("Known charges plus Clef's list-price estimate ({clef_list_price_estimate_usd|usd:4}) total {total_usd|usd:4} over {runs} runs, plus up to {unknown_upper_bound_usd|usd:2} in unknown-charge bounds.", f"{base}[3].values."),
-         "values": {"total_usd": known, "runs": len(sup["runs"]), "clef_list_price_estimate_usd": clef,
+         "correct": segments("Known provider charges total {total_usd|usd:4} over {runs} runs, plus up to {unknown_upper_bound_usd|usd:2} in unknown-charge bounds.", f"{base}[3].values."),
+         "values": {"total_usd": known, "runs": len(sup["runs"]),
                     "unknown_upper_bound_usd": round(sum(unknown.values()), 9),
                     "unknown_by_model_usd": {m: v for m, v in unknown.items() if v}},
          "source": "public-site/supplemental-decision-runs-v1.json"},
@@ -422,8 +422,8 @@ def corrections(pol, dr, sup, g07, cal, fc, ic):
          "correct": segments("Opus 5.5 high has {passes} P0 passes: {scores[0]}, {scores[1]} and {scores[2]} of {of}.", f"{base}[4].values."),
          "values": {"scores": opus[4], "passes": len(opus[1]), "of": len(g07["IDS"])}, "source": script("s07_repeatability")},
         {"id": "jev-calibration", "said": "Jev's confidence is not calibrated, and it called the soup review a serious concern at 0.91.",
-         "correct": segments("Jev's confidence is calibrated on average (expected calibration error {ece|ece} over {field_answers} field answers) but confidently wrong on {confident_wrong[0].id|text} testimonial ({confident_wrong[0].confidence|conf}) and on {confident_wrong[1].id|text} serious concern ({confident_wrong[1].confidence|conf}), where it answered \"no\" and the reference is insufficient information.", f"{base}[5].values."),
-         "values": {"ece": jev["ece_confidence"], "field_answers": jev["field_answers"], "confident_wrong": wrong},
+         "correct": segments("On these {reviews} reviews, Jev's confidence is calibrated on average (expected calibration error {ece|ece} over {field_answers} field answers) and still confidently wrong on {confident_wrong[0].id|text} testimonial ({confident_wrong[0].confidence|conf}) and on {confident_wrong[1].id|text} serious concern ({confident_wrong[1].confidence|conf}), where it answered \"no\" and the reference is insufficient information.", f"{base}[5].values."),
+         "values": {"ece": jev["ece_confidence"], "field_answers": jev["field_answers"], "confident_wrong": wrong, "reviews": len(g07["IDS"])},
          "source": script("s08_confidence")},
         {"id": "miss-only-disputed", "said": "235 of 373 strong run-passes miss nothing outside the three disputed labels.",
          "correct": segments("{run_passes} of {of} strong run-passes miss nothing outside the three disputed labels; {top3} counts only the three most common miss sets.", f"{base}[6].values."),
@@ -454,12 +454,12 @@ def build():
     ic = insufficient_collapse(g["s02_confusion"], g["s06_rare_classes"])
     feed = {
         "schema": "deep-insights-v1", "generated_at": GENERATED_AT, "denominator": 60,
-        "scope": "Recomputation of saved predictions for the 60 fictional development reviews; no inference was run.",
+        "scope": "The talk's analysis scripts recomputed saved predictions for the 60 fictional development reviews and made no model calls.",
         "reference_status": "Frozen proposed labels v0.2, provisional; DEV-006, DEV-013 and DEV-030 are disputed.",
-        "claim_rules": ["Not a leaderboard: every number describes saved run-passes on one provisional reference.",
-                        "Not causal: prompts, effort and thinking are described, not credited.",
-                        "Missing cost is unknown, not zero; provider charges and API-equivalent estimates are never mixed.",
-                        "No speed claims.", "Run-passes reuse the same 60 reviews and are not independent samples."],
+        "claim_rules": ["Every number describes saved run-passes on one provisional reference, and the feed ranks no model.",
+                        "Prompts, effort and thinking are described as observed, with no causal claim.",
+                        "A missing cost stays unknown and never counts as zero; provider charges and API-equivalent estimates stay separate.",
+                        "The feed makes no speed claims.", "Run-passes reuse the same 60 reviews, so they are not independent samples."],
         "insufficient_collapse": ic, "frontier_convergence": fc, "calibration": cal,
         "agreement_rule": agreement_rule(g["s11_agreement_general"], g["s12_full_policy_routing"]),
         "determinism": determinism(g["s07_repeatability"]),
@@ -470,12 +470,9 @@ def build():
         "corrections": corrections(pol, dr, sup, g["s07_repeatability"], cal, fc, ic),
     }
     feed["what_changed"] = {"date": GENERATED_AT, "segments": segments(
-        "On 8 October 2026 every number in this section was recomputed from the saved answers of {frontier_convergence.all_run_passes} "
-        "run-passes on the same {denominator} reviews; no model was called again. The recomputation corrected {corrections.count} "
-        "earlier statements, listed at the end of this section, and added five findings: decision models answered most "
-        "\"insufficient information\" cells with a definite label, the strongest models share identical answer sets, two cheap "
-        "general LLMs make the agreement rule work, decision models repeat their errors while general LLMs move them, and "
-        "Jev's confidence is calibrated on average yet still confidently wrong.")}
+        "On {generated_at|date} the talk's analysis scripts recomputed every number in this section from the saved answers of "
+        "{frontier_convergence.all_run_passes} run-passes on the same {denominator} reviews, without new model calls. The recomputation "
+        "corrected {corrections.count} earlier statements, listed at the end of this section, and produced the five findings in the cards below.")}
     feed["source_sha256"] = {rel: hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() for rel in sorted(READ)}
     return feed
 
