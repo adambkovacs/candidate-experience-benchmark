@@ -68,4 +68,30 @@ Collected from the working session on 2026-10-08. Quotes are verbatim (typos kep
 
 > this is a horrible ai slop sounding mess this presentations. I'm also looking at it at many times I ask myself, wtf do you mean? maybe more words from the website and the talking points should be explicit on the presentation. use a fable agent to review the presentation and compare it to my original needs and what I said
 
+## Slide-by-slide feedback on the first deployed deck (verbatim, numbers are his slide numbers)
+
+> 1. wtf is this almost on every slide: "Sourcedisputed-reviews-v1.json reviews[id=DEV-059].feedback · synthetic review, frozen reference v0.2", remove everywhere pls
+> 1. remove the use of the colored triangle looking logo from my name, overuse
+> 1. out of context meta comments everywhere: like:"DEV-059 · one of 60 synthetic reviews · the orange point", in general this one point and the aggressive use of a dot . everywhere
+> 2. wtf do you want to say here: "Buy a rule.", also we have random sources again listed on the bottom that dont bring value: "Sourcefindings.json charts.jev · jev-native-prompt-findings.json passes.P0 · claude-roster-repeats.json opus55-high-batch10 · sonnet55-fresh-matched3.json xhigh"
+> 3. use my orange background image please, add more details on my bio, my position at the academy (Chief AI Strategist), I'm also International Ambassador of the Agentics Foundation, nobody in this crowds cares about talent intelligence, and again overuse of the rainbows
+> 4. on launch wave again, useless meta comments, like "Grey ticks: the other verified launches in the same window. Unverified dates are not drawn." and sources listed. on that graph we have random lines that don't mean anything, what was released there, what does it mean?
+> 5. here we dont have any explanation of what we did in this experiment, no explanation of system 1 models, etc etc, shit I requested. Here i also noticed that due to the color use, accessibility and readability is many times not the best (dark blue background, blue letters etc.). we start to show pass results without explaining what were the passes, what we asked, what we've run, p0 p1 p2 mean nothing at this stage
+> 6. these comments on prices are not needed: "known charge billed by the provider estimate API-equivalent, not a bill", and again sources at the bottom not needed
+> 7. wtf are we trying to say with this: "DEV-029 · one of the 60 · the orange point" useless metacomment, with sources again
+> 8. overuse of rainbow logo on cards
+> 9. the keys are just answers, people won't remember what was the question that is keyed, also the orange bars mean nothing, what information are they delivering?. in general with all slides i'm not always clear what information are we trying to convey and what tools are using to get that information through
+> 10. a lot of slop metacomments here as well
+> 12. i dont even understand wtf are we trying to say here. like what the fuck is "Agree: accept. Disagree: a person."
+> 15. cringe as fuck this slide 15, in this whole presentation we're not treating our audience as adults, and we're mansplaining shit.
+> 16. shit metacomments again: "Where a price is published, it is per input token, with free output. Prices as published when the landscape was checked."
+> 17. makes no fucking sense slide 17
+> 19. wtf do you mean "Gap between confidence and hit rate, all prompt stages and passes pooled", wtf are gates? what gates?
+> 22. this whole section and around it is probably not needed, all sort of stupid comments around pricing, known not known, just fucking present the facts
+> 23. the classification bench if work in progress, its already updated
+> 25. to 27. unclear wtf are we trying to achieve here and communicate here,
+> 31. meta comments and you use these fucking pills saying replay of saved answers on many slides
+> 34. not sure how are these relevant for us now, this is not about interview results, or ai making hiring decisions
+> use fable to fix
+
 [Conductor's note: the deck was built under a self-imposed "max 12 words of on-slide text per slide" rule from the outline. Adam's verdict says that rule produced cryptic fragments a viewer cannot follow without the speaker, and that the slides should carry the talking points and the site's explanations explicitly.]
