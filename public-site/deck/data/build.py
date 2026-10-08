@@ -72,6 +72,10 @@ sc_yes = fj["referenceDistributions"]["serious_concern_reported"]["yes"]
 sc_missed = sum(c["count"] for c in sc["confusions"] if c["reference"] == "yes")
 assert (sc_yes, sc_missed) == (25, 0)
 assert (jev["correct"], opus["correct"], gemma["correct"], qwen["correct"]) == (54, 59, 59, 59)
+# Seven-model nine-run series, docs/talk/06-cost-check.md section 1 (known charges) and section 4 (bounds are reservations).
+SERIES = [0.31128624, 0.11649969, 0.1304487, 0.14295744, 0.20325475, 0.15134213, 0.14549328]
+BOUNDS = [0.02359296, 0.1048576]
+assert round(sum(SERIES), 4) == 1.2013 and round(sum(BOUNDS), 4) == 0.1285
 F = "public-site/findings.json"
 dump("answer.json", {
     "generated_from": "public-site feeds; see each entry's file and json_path",
@@ -96,6 +100,12 @@ dump("answer.json", {
     "jev_serious_concern_recall": {"value": "25/25", "file": F,
                                    "json_path": f"derived: referenceDistributions.serious_concern_reported.yes = 25; charts.jev.fieldErrors[{sc_idx}].confusions has no entry with reference \"yes\"",
                                    "note": "Not stored as a number in any feed. Markdown statement: docs/talk/01-findings-synthesis.md line 20."},
+    "seven_model_known_charge_usd": {"value": 1.2013, "file": "docs/talk/06-cost-check.md",
+                                     "json_path": "section 1, nine-run series table: sum of the seven model rows (0.31128624 + 0.11649969 + 0.1304487 + 0.14295744 + 0.20325475 + 0.15134213 + 0.14549328 = 1.20128223)",
+                                     "note": "Known provider charges, Clef included. Not stored in a JSON feed; the sum is asserted in build.py."},
+    "seven_model_unknown_bound_usd": {"value": 0.1285, "file": "docs/talk/06-cost-check.md",
+                                      "json_path": "section 1 notes: Clef Flash 0.02359296 + Solar Decide 0.1048576 unknown bounds = 0.1284506",
+                                      "note": "Reservations for requests whose charge was never recorded: bounds, not charges, and not zero. The slide shows it rounded to 0.13 (data-round 2)."},
 })
 
 # ---- prompt-levels.json (S12, A3) -----------------------------------------
