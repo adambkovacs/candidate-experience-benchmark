@@ -255,7 +255,7 @@ The model is called **d1** (not "D1" or "LFM-D1"). Three artefacts:
 | 10-07 | d1-3B and d1-omni-600M open weights | Liquid AI | [Liquid blog](https://www.liquid.ai/blog/d1-open) |
 | 10-07 | Decider V1.1 27B on OpenRouter, $0.02/M | Perplexity | [OpenRouter listing](https://openrouter.ai/models?output_modalities=decisions) |
 
-Twenty-two days from Jev's launch to Cloudflare, Perplexity and AWS all shipping on the same day; twenty-one days to OpenAI's public beta.
+Sixteen days from Jev's launch to Cloudflare and AWS shipping on the same day (Perplexity's date is secondary-sourced; verified within the week); twenty-one days to OpenAI's public beta.
 
 ---
 
