@@ -50,7 +50,7 @@ test('hashes, answer differences and review links cannot silently drift',()=>{
 
 test('the review panel states its limited cohort and links original evidence',()=>{
   const html=fs.readFileSync(path.join(root,'public-site/explore.html'),'utf8');
-  assert.match(source,/of 60 reviews, seven decision models each/);
+  assert.match(source,/of 60 reviews`\}, seven decision models each/);
   assert.match(source,/insufficient_information:"Can't tell"/);
   assert.doesNotMatch(source,/provisional|frozen reference/i);
   assert.match(html,/id="disputed-search"/);

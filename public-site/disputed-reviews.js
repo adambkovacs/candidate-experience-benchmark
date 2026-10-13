@@ -8,6 +8,8 @@
   const valueLabels={positive:'Positive',negative:'Negative',neutral:'Neutral',mixed:'Mixed',yes:'Yes',no:'No',insufficient_information:"Can't tell"};
   const label=value=>valueLabels[value]||String(value??'').replaceAll('_',' ');
   const sourcePrefix='https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/';
+  // Site-wide model names from site/labels.js; node tests fall back to the feed's display name.
+  const modelName=model=>globalThis.BM_LABEL?globalThis.BM_LABEL.model(model.id):model.display_name;
   let source=null,selected=null;
 
   function validate(data){
@@ -69,16 +71,16 @@
     const referenceCells=fields.map(field=>`<td><code>${esc(label(review.reference[field]))}</code></td>`).join('');
     const rows=review.answers.map(answer=>{
       const model=modelById.get(answer.model_id);
-      return `<tr${focus===model.id?' class="focused"':''}><th scope="row"><a href="${esc(model.source_url)}" target="_blank" rel="noopener noreferrer">${esc(model.display_name)} ↗</a><small>${esc(model.id)} · <a href="?run=${encodeURIComponent(model.id)}#inspect">Run detail →</a></small></th>${fields.map(field=>`<td${answer.different_fields.includes(field)?' class="differs"':''}><code>${esc(label(answer.prediction[field]))}</code>${answer.different_fields.includes(field)?'<span class="diff-word">Differs</span>':''}</td>`).join('')}</tr>`;
+      return `<tr${focus===model.id?' class="focused"':''}><th scope="row"><a href="${esc(model.source_url)}" target="_blank" rel="noopener noreferrer">${esc(modelName(model))} ↗</a><small><code>${esc(model.id)}</code>, <a href="?run=${encodeURIComponent(model.id)}#inspect">Run detail →</a></small></th>${fields.map(field=>`<td${answer.different_fields.includes(field)?' class="differs"':''}><code>${esc(label(answer.prediction[field]))}</code>${answer.different_fields.includes(field)?'<span class="diff-word">Differs</span>':''}</td>`).join('')}</tr>`;
     }).join('');
-    $('disputed-detail').innerHTML=`<div class="disputed-detail-head"><h3>${esc(review.id)}</h3><a href="${esc(reviewUrl(review.id))}" class="disputed-share">Link to this review ↗</a></div><blockquote>${esc(review.feedback)}</blockquote><p class="disputed-case-note">${review.models_with_any_mismatch} of ${review.eligible_model_count} decision models differ from the reference on at least one decision.${review.off_topic?' The reference treats this restaurant review as off-topic.':''}${review.id==='DEV-030'?' This label is disputed: whether the accessibility issue needs reassessment is a judgment call.':''}</p><div class="disputed-answer-wrap"><table><caption>Saved answers. Differs marks an answer that does not match the reference.</caption><thead><tr><th scope="col">Model</th>${fieldNames.map(name=>`<th scope="col">${esc(name)}</th>`).join('')}</tr></thead><tbody><tr class="reference"><th scope="row">Reference</th>${referenceCells}</tr>${rows}</tbody></table></div><details class="disputed-sources"><summary>Source files</summary><p><a href="${esc(source.inputs_url)}" target="_blank" rel="noopener noreferrer">Original comments ↗</a> · <a href="${esc(source.references_url)}" target="_blank" rel="noopener noreferrer">Reference answers ↗</a> · <a href="${esc(source.rubric_url)}" target="_blank" rel="noopener noreferrer">Labelling guide ↗</a></p></details>`;
+    $('disputed-detail').innerHTML=`<div class="disputed-detail-head"><h3>${esc(review.id)}</h3><a href="${esc(reviewUrl(review.id))}" class="disputed-share">Link to this review ↗</a></div><blockquote>${esc(review.feedback)}</blockquote><p class="disputed-case-note">${review.models_with_any_mismatch} of ${review.eligible_model_count} decision models differ from the reference on at least one decision.${review.off_topic?' The reference treats this restaurant review as off-topic.':''}${review.id==='DEV-030'?' This label is disputed: whether the accessibility issue needs reassessment is a judgment call.':''}</p><div class="disputed-answer-wrap"><table><caption>Saved answers. Differs marks an answer that does not match the reference.</caption><thead><tr><th scope="col">Model</th>${fieldNames.map(name=>`<th scope="col">${esc(name)}</th>`).join('')}</tr></thead><tbody><tr class="reference"><th scope="row">Reference</th>${referenceCells}</tr>${rows}</tbody></table></div><details class="disputed-sources"><summary>Source files</summary><p><a href="${esc(source.inputs_url)}" target="_blank" rel="noopener noreferrer">Original comments ↗</a>, <a href="${esc(source.references_url)}" target="_blank" rel="noopener noreferrer">Reference answers ↗</a>, <a href="${esc(source.rubric_url)}" target="_blank" rel="noopener noreferrer">Labelling guide ↗</a></p></details>`;
   }
   function render(){
     if(!source) return;
     const choice=settings(),rows=filterReviews(source,choice);
     if(!rows.some(row=>row.id===selected)) selected=rows[0]?.id||null;
-    $('disputed-count').textContent=`${rows.length} of 60 reviews, seven decision models each${choice.model?', selected model highlighted':''}.`;
-    $('disputed-list').innerHTML=rows.length?rows.map(review=>`<button type="button" data-review="${esc(review.id)}" aria-pressed="${review.id===selected}"><span class="disputed-list-meta"><strong>${esc(review.id)}</strong><span>${review.models_with_any_mismatch} / 7 differ</span></span><span class="disputed-excerpt">${esc(review.feedback)}</span><small>${review.reference_testimonial_positive?'Testimonial: yes · ':''}${review.off_topic?'Off-topic · ':''}${review.distinct_fields_with_mismatch} of 4 decisions differ</small></button>`).join(''):'<p class="disputed-empty">No reviews match these filters.</p>';
+    $('disputed-count').textContent=`${rows.length===60?'60 reviews':`${rows.length} of 60 reviews`}, seven decision models each.`;
+    $('disputed-list').innerHTML=rows.length?rows.map(review=>`<button type="button" data-review="${esc(review.id)}" aria-pressed="${review.id===selected}"><span class="disputed-list-meta"><strong>${esc(review.id)}</strong><span>${review.models_with_any_mismatch} / 7 differ</span></span><span class="disputed-excerpt">${esc(review.feedback)}</span><small>${[review.reference_testimonial_positive&&'Testimonial: yes',review.off_topic&&'Off-topic',`${review.distinct_fields_with_mismatch} of 4 decisions differ`].filter(Boolean).join(', ')}</small></button>`).join(''):'<p class="disputed-empty">No reviews match these filters.</p>';
     $('disputed-list').querySelectorAll('[data-review]').forEach(button=>button.addEventListener('click',()=>{selected=button.dataset.review;history.replaceState(null,'',reviewUrl(selected));render();}));
     const review=rows.find(row=>row.id===selected);
     if(review) renderDetail(review,choice.model);
@@ -89,7 +91,7 @@
       const response=await fetch('./disputed-reviews-v1.json',{cache:'no-store'});
       if(!response.ok) throw Error(`HTTP ${response.status}`);
       source=validate(await response.json());
-      $('disputed-model').innerHTML='<option value="">All seven models</option>'+source.models.map(model=>`<option value="${esc(model.id)}">${esc(model.display_name)}</option>`).join('');
+      $('disputed-model').innerHTML='<option value="">All seven models</option>'+source.models.map(model=>`<option value="${esc(model.id)}">${esc(modelName(model))}</option>`).join('');
       const query=new URL(location.href).searchParams;
       if(['all','any','testimonial','off-topic'].includes(query.get('reviewSubset'))) $('disputed-subset').value=query.get('reviewSubset');
       if(source.models.some(model=>model.id===query.get('reviewModel'))) $('disputed-model').value=query.get('reviewModel');

@@ -89,7 +89,7 @@ test('both additional hosted series are separate from historical results and sho
   const row = usageRow(ui, 'P0', 'Fresh pass 1');
   assert.match(row, /1,234/);
   assert.match(row, /456/);
-  assert.match(row, /\$0\.01234/);
+  assert.match(row, /\$0\.0123/);
   assert.match(row, /87\.6/);
   ui.select(`${low}-fresh-matched3-v2`);
   assert.match(ui.get('repeat-chart').innerHTML, /46 out of 60/);
@@ -108,7 +108,7 @@ test('published hosted ON P1 composite is visible without clean repeat credit', 
   assert.match(ui.get('repeat-chart').innerHTML, /54 out of 60/);
   assert.match(ui.get('repeat-chart').innerHTML, /52 out of 60/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-049 timed out with no answer/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /plus up to \$0\.0299008 unrecorded for the timeout/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /plus up to \$0\.0299 unrecorded for the timeout/);
   assert.match(ui.get('repeat-chart').innerHTML, /56 out of 60/);
   assert.match(ui.get('repeat-lead').textContent, new RegExp(`${published.series.find(s => s.configuration === on).completedConditions} of 9`));
 });

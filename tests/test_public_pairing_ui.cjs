@@ -84,8 +84,8 @@ test('audited view exposes pair counts, changed feedback, evidence, and temporal
   assert.match(html, /58 \/ 60/);
   assert.match(html, /role="status" aria-live="polite" aria-atomic="true"/);
   assert.match(html, /reviews with changed outputs/);
-  assert.match(html, /BEFORE · P0/);
-  assert.match(html, /AFTER · P1/);
+  assert.match(html, /BEFORE, P0/);
+  assert.match(html, /AFTER, P1/);
   assert.match(html, /negative/);
   assert.match(html, /positive/);
   assert.match(html, /href="https:\/\/example\.org\/audit\.json"/);
@@ -104,7 +104,7 @@ test('pair and changed-review selectors navigate without changing experiment or 
   panel().change({target: {id: 'pair-select', value: 'P0_to_P2'}});
   assert.match(panel().innerHTML, /56 \/ 60/);
   assert.match(panel().innerHTML, /REVIEW DEV-009/);
-  assert.match(panel().innerHTML, /AFTER · P2/);
+  assert.match(panel().innerHTML, /AFTER, P2/);
   assert.equal(focused(), '#pair-select');
   panel().change({target: {id: 'pair-select', value: 'P1_to_P2'}});
   assert.match(panel().innerHTML, /No changed review is listed/);
@@ -188,12 +188,12 @@ test('incomplete run keeps its fixed-denominator count as an explicit partial ta
   ui.state.data = {runs: [partial], promptComparisons: [], roster: []};
   ui.state.experiments = new Map([['model-a', [partial]]]);
   ui.renderExperiment();
-  assert.match(conditionGrid(), /Partial · 59 of 60 saved · 1 without a saved answer/);
+  assert.match(conditionGrid(), /Partial, 59 of 60 saved, 1 without a saved answer/);
   assert.match(conditionGrid(), /42<small> \/ 60<\/small>/);
-  assert.match(conditionGrid(), /All four match · no final score/);
+  assert.match(conditionGrid(), /All four match, no final score/);
   ui.renderLedger();
-  assert.match(ledger(), /42<\/strong><small> \/ 60 · partial tally, not final<\/small>/);
-  assert.match(ledger(), /59 \/ 60 saved · 1 without a saved response/);
+  assert.match(ledger(), /42<\/strong><small> \/ 60, partial tally, not final<\/small>/);
+  assert.match(ledger(), /59 \/ 60 saved, 1 without a saved response/);
 });
 
 test('resource and individual-run pickers contain the same saved runs and selection', () => {
@@ -206,7 +206,7 @@ test('resource and individual-run pickers contain the same saved runs and select
   ui.renderSectionRunPickers();
   assert.equal(usagePicker.innerHTML, inspectPicker.innerHTML);
   assert.match(usagePicker.innerHTML, /model-a/);
-  assert.match(usagePicker.innerHTML, /model-b · partial/);
+  assert.match(usagePicker.innerHTML, /value="model-b">[^<]*, partial</);
   assert.equal(usagePicker.value, 'model-b');
   assert.equal(inspectPicker.value, 'model-b');
 });

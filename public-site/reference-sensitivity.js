@@ -16,6 +16,12 @@
   const runDelta = (run, selected, field) => sum(selected, id => run.single_case_deltas[id][field] || 0);
   const allFourDelta = (run, selected) => sum(selected, id => run.single_case_deltas[id].all_four);
   const sign = value => value > 0 ? `+${value}` : String(value);
+  // Readable run names come from site/labels.js; the fallback keeps node tests working without it.
+  const runName = run => globalThis.BM_LABEL ? globalThis.BM_LABEL.run(run) : String(run.model);
+  const passName = pass => String(pass).replace(/^fresh(\d)$/, 'fresh pass $1').replace(/^repeat(\d)$/, 'repeat $1').replace(/^pass(\d)$/, 'pass $1');
+  const runLabel = run => `${runName(run)}, ${run.condition}, ${passName(run.repeat_pass)}`;
+  // A strong decision-model run opens the panel: Jev 1.13 on TypeSafe, first pass with the plain prompt, 54 of 60.
+  const defaultRun = 'extended-typesafe-jev113-native-prompts-fresh1-p0';
 
   function validate(data) {
     if (data?.schema !== 'reference-sensitivity-public-v1' ||
@@ -142,10 +148,10 @@
       const fieldDelta = run.single_case_deltas[id][alternative.field];
       return `<li><a href="${esc(runCaseUrl(run.id, id))}">${id} in this run</a>: ${esc(alternative.field.replaceAll('_', ' '))} ${esc(alternative.saved)} → ${esc(alternative.alternative)}. Saved answer: ${esc(effect.prediction ?? `none (${String(effect.status).replaceAll('_', ' ')})`)}. Decision change ${sign(fieldDelta)}; all-four change ${sign(effect.all_four_delta)}.</li>`;
     }).join('');
-    return `<p class="sensitivity-run-name"><strong>${esc(run.model)}</strong> · ${esc(run.condition)} · ${esc(run.repeat_pass)} · ${esc(run.surface)}</p>
-      <div class="sensitivity-score"><strong>${run.saved_all_four}/60 → ${run.saved_all_four + allFour}/60</strong><span>All four decisions · ${sign(allFour)} under the alternative key · ${run.valid}/60 valid answers</span></div>
+    return `<p class="sensitivity-run-name"><strong>${esc(runLabel(run))}</strong><br><code>${esc(run.model)}</code></p>
+      <div class="sensitivity-score"><strong>${run.saved_all_four}/60 → ${run.saved_all_four + allFour}/60</strong><span>All four decisions, ${sign(allFour)} under the alternative key, ${run.valid}/60 valid answers</span></div>
       <div class="sensitivity-table-wrap"><table><caption>Published score and score under the alternative key</caption><thead><tr><th scope="col">Decision</th><th scope="col">Published</th><th scope="col">Alternative key</th><th scope="col">Delta</th></tr></thead><tbody>${fieldRows}</tbody></table></div>
-      ${selected.length ? `<h4>Affected reviews</h4><ul class="sensitivity-cases">${affected}</ul>` : '<p>No alternative label applied.</p>'}
+      ${selected.length ? `<h4>Affected reviews</h4><ul class="sensitivity-cases">${affected}</ul>` : ''}
       <p class="sensitivity-source"><a href="${esc(run.source_report_url)}" target="_blank" rel="noopener noreferrer">Run report ↗</a></p>`;
   }
 
@@ -163,32 +169,32 @@
       const response = await fetch('./reference-sensitivity-v1.json', {cache: 'no-store'});
       if (!response.ok) throw Error(`HTTP ${response.status}`);
       const data = validate(await response.json());
-      mount.innerHTML = `<div class="section-intro"><h2 id="reference-sensitivity-title">What if three disputed labels changed?</h2><p>Three reference labels are disputed: DEV-006, DEV-013 and DEV-030. Here every saved answer is rescored against the alternative label for each, with no new model calls. Published scores keep the original labels.</p></div>
-        <div class="sensitivity-shell"><fieldset class="sensitivity-controls"><legend>Alternative labels</legend>${data.alternatives.map(item => `<label><input type="checkbox" value="${item.id}"><span><strong>${item.id}</strong> · ${esc(item.field.replaceAll('_', ' '))}: ${esc(item.saved)} → ${esc(item.alternative)} <small>${item.decision_status === 'needs_human' ? 'Open, needs a person to decide' : 'Proposed revision, not adopted'}</small></span></label>`).join('')}</fieldset>
+      mount.innerHTML = `<div class="section-intro"><h2 id="reference-sensitivity-title">What if three disputed labels changed?</h2><p>Three reference labels are disputed: DEV-006, DEV-013 and DEV-030.</p></div>
+        <div class="sensitivity-shell"><fieldset class="sensitivity-controls"><legend>Alternative labels</legend>${data.alternatives.map(item => `<label><input type="checkbox" value="${item.id}"><span><strong>${item.id}</strong>, ${esc(item.field.replaceAll('_', ' '))}: ${esc(item.saved.replaceAll('_', ' '))} → ${esc(item.alternative.replaceAll('_', ' '))} <small>${item.decision_status === 'needs_human' ? 'Open, needs a person to decide' : 'Proposed revision, not adopted'}</small></span></label>`).join('')}</fieldset>
         <p id="sensitivity-status" class="sensitivity-status" role="status" aria-live="polite"></p>
         <div class="sensitivity-columns"><div><h3>One saved run</h3><label for="sensitivity-search">Model or run</label><input id="sensitivity-search" type="search" placeholder="Search 637 runs" autocomplete="off"><label for="sensitivity-run">Saved run</label><select id="sensitivity-run"></select><div id="sensitivity-run-detail" aria-live="polite"></div></div>
         <div><h3>The seven decision models</h3><div id="sensitivity-native"></div></div></div></div>
-        <p class="sensitivity-method">Invalid or unsent answers stay misses under every key. <a href="${sourceRoot}docs/REFERENCE_REVIEW_V1.md" target="_blank" rel="noopener noreferrer">Reference review ↗</a> · <a href="${sourceRoot}data/pilot/reference-revisions/v0.3.json" target="_blank" rel="noopener noreferrer">Dated proposal ↗</a> · <a href="${sourceRoot}${esc(data.findings_path)}" target="_blank" rel="noopener noreferrer">Full findings ↗</a></p>`;
+        <p class="sensitivity-method">Invalid or unsent answers stay misses under every key.</p>`;
       const checks = [...mount.querySelectorAll('input[type="checkbox"]')];
       const search = mount.querySelector('#sensitivity-search');
       const selector = mount.querySelector('#sensitivity-run');
       const status = mount.querySelector('#sensitivity-status');
       const runDetail = mount.querySelector('#sensitivity-run-detail');
       const native = mount.querySelector('#sensitivity-native');
-      let selectedRun = data.extended_runs[0].id;
+      let selectedRun = (data.extended_runs.find(run => run.id === defaultRun) || data.extended_runs[0]).id;
       function render() {
         const selected = checks.filter(input => input.checked).map(input => input.value);
         const query = search.value.trim().toLowerCase();
         const visible = data.extended_runs.filter(run =>
-          `${run.id} ${run.model} ${run.condition} ${run.repeat_pass} ${run.surface}`.toLowerCase().includes(query));
+          `${run.id} ${run.model} ${runLabel(run)} ${run.condition} ${run.repeat_pass} ${run.surface}`.toLowerCase().includes(query));
         if (!visible.some(run => run.id === selectedRun)) selectedRun = visible[0]?.id || '';
-        selector.innerHTML = visible.map(run => `<option value="${esc(run.id)}">${esc(run.model)} · ${esc(run.condition)} · ${esc(run.repeat_pass)} · ${esc(run.surface)}</option>`).join('');
+        selector.innerHTML = visible.map(run => `<option value="${esc(run.id)}">${esc(runLabel(run))}</option>`).join('');
         selector.disabled = visible.length === 0;
         selector.value = selectedRun;
         const scenario = data.scenario_summaries.find(item => item.id === selectedId(selected));
         status.textContent = selected.length ?
           `Across ${scenario.extended_summary.run_count} saved runs, ${scenario.extended_summary.improved_runs} score higher on all four under this key, ${scenario.extended_summary.declined_runs} lower and ${scenario.extended_summary.unchanged_runs} the same.` :
-          'Original labels: these are the published scores.';
+          '';
         const run = data.extended_runs.find(item => item.id === selectedRun);
         runDetail.innerHTML = run ? detail(run, selected, data.alternatives) : '<p>No run matches this search.</p>';
         native.innerHTML = nativeTable(data.native_seven_runs, selected);

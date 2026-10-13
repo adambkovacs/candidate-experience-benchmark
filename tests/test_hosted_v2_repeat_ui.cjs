@@ -86,7 +86,7 @@ test('hosted v2 series are separate from historical results and show closed evid
   const row = usageRow(ui, 'P0', 'Fresh pass 1');
   assert.match(row, /1,234/);
   assert.match(row, /456/);
-  assert.match(row, /\$0\.01234/);
+  assert.match(row, /\$0\.0123/);
   assert.match(row, /87\.6/);
   ui.select('qwen27-fresh-matched3-v2-xhigh');
   assert.match(ui.get('repeat-chart').innerHTML, /46 out of 60/);

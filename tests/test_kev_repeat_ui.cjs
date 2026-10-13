@@ -28,7 +28,7 @@ test('Kev usage and confidence retain definitions and real numbers', async () =>
   const el = await render();
   assert.match(el('repeat-usage-body').innerHTML, /111,986/);
   assert.match(el('repeat-usage-body').innerHTML, /17,350/);
-  assert.match(el('repeat-usage-body').innerHTML, /0\.00470341/);
+  assert.match(el('repeat-usage-body').innerHTML, /0\.0047/);
   assert.match(el('repeat-interpretation').innerHTML, /Reported confidence/);
   assert.match(el('repeat-interpretation').innerHTML, /confidence of 0\.7 or higher/);
   assert.match(el('repeat-flips').innerHTML, /0 \/ 60 changed/);
@@ -48,8 +48,8 @@ test('interrupted Kev usage separates known charges and unknown bound', async ()
   assert.match(el('repeat-lead').textContent,/59 valid responses, 1 unknown outcome and 0 comments not sent/);
   const usage=el('repeat-usage-body').innerHTML;
   assert.match(usage,/110,115/); assert.match(usage,/17,062/);
-  assert.match(usage,/60 attempted/); assert.match(usage,/0.00462483/);
-  assert.match(usage,/plus up to \$0\.00034406 unrecorded/); assert.match(usage,/60.4 timeout/);
+  assert.match(usage,/60 attempted/); assert.match(usage,/0.0046/);
+  assert.match(usage,/plus up to \$0\.0003 unrecorded/); assert.match(usage,/60.4 timeout/);
 });
 test('incomplete Kev cannot expose a three-pass range or incomplete pair', async () => {
   const feed=structuredClone(saved);

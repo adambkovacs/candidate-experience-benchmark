@@ -120,7 +120,7 @@ test('repeat explorer shows all four efforts and nine cells per effort without s
   }
   ui.select('low');
   assert.match(ui.get('repeat-lead').textContent, /guard failure was kept and scored offline without a replay/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /API-rate estimate from saved usage/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /API-rate price from saved usage/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Public rate ↗/);
   assert.match(ui.get('repeat-flips').innerHTML, /Pairwise changes between completed passes are listed below/);
   assert.match(ui.get('repeat-flips').innerHTML, /Pass 1 to Pass 2/);
@@ -152,8 +152,8 @@ test('closed Sonnet scores retain missing usage without claiming complete tokens
   const ui = await renderRepeats(partial);
   const usage = ui.get('repeat-usage-body').innerHTML;
   assert.match(usage, /Known usage for 5 of 6 requests/);
-  assert.match(usage, /1 request without priced usage; full estimate unknown/);
-  assert.match(usage, /6 requests without priced usage; full estimate unknown/);
+  assert.match(usage, /1 request without priced usage; full API-rate price unknown/);
+  assert.match(usage, /6 requests without priced usage; full API-rate price unknown/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter /g) || []).length, 9);
 });
 

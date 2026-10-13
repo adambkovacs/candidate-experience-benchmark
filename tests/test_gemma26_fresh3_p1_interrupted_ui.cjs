@@ -51,7 +51,7 @@ test('latest Gemma entry shows nine descriptive scores and P1 paired changes', a
   for (const id of [latestId, p0Id,
     feeds['./gemma26-postabort-findings.json'].seriesId])
     assert.ok(page.includes(`value="${id}"`), id);
-  assert.match(page, /interrupted P1 checkpoint \(9 of 9\)/);
+  assert.match(page, /9 of 9 stages, P1 interrupted/);
   assert.match(ui.get('repeat-summary').textContent, /all 9 planned phases/);
   assert.match(ui.get('repeat-summary').textContent, /58, 58 and 57/);
   assert.match(ui.get('repeat-summary').textContent, /60, 60 and 59/);
@@ -65,7 +65,7 @@ test('latest Gemma entry shows nine descriptive scores and P1 paired changes', a
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-059/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /gemma26-fresh3-p1-interrupted-checkpoint\.json/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /Earlier P0 checkpoint/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.01941923<br><small>59\/60 reported; DEV-059 charge unknown/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.0194<br><small>59\/60 reported; DEV-059 charge unknown/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /96,727 reported/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /DEV-059 charge unknown/);
   ui.get('repeat-field').value = 'serious_concern_reported';

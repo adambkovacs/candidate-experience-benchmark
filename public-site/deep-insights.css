@@ -146,3 +146,35 @@
 .deep-insights__explorer, .deep-insights__calibration, .deep-insights__hardest, .deep-insights__corrections { border-radius: 14px; }
 .deep-insights__changed { border-left-width: 3px; background: none; }
 }
+
+/* Fix 2: four findings as prose cards in Read's own system (navy page, n800 cards like .finding-figure).
+   Unlayered on purpose so these rules sit beside site.css and win on specificity. */
+.deep-insights { --di-series-a: var(--blue-300, #5e9ce8); --di-series-b: var(--diff, #f57c00); }
+.deep-insights .deep-insights__changed:empty, .deep-insights .deep-insights__more:empty { display: none; }
+.deep-insights .deep-insights__cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5, 24px); margin: var(--s-6, 32px) 0 var(--s-6, 32px); }
+.deep-insights .di-finding { min-width: 0; padding: clamp(24px, 3vw, 36px); border-radius: var(--r-3, 14px); background: var(--n800, #20293c); }
+.deep-insights .di-finding h3 { max-width: 30ch; margin: 0 0 var(--s-4, 16px); color: var(--paper, #fbfcfe); font: var(--t-h3, 700 22px/1.25 sans-serif); }
+.deep-insights .di-finding p { max-width: 62ch; margin: 0; color: var(--n200, #c2cad9); font: var(--t-body, 400 17px/1.65 sans-serif); }
+.deep-insights .di-finding .di-num { color: var(--paper, #fbfcfe); font-family: inherit; font-weight: 600; font-variant-numeric: tabular-nums; }
+.deep-insights .deep-insights__explorer, .deep-insights .deep-insights__calibration { padding: clamp(24px, 3vw, 36px); border: 0; border-radius: var(--r-3, 14px); background: var(--n800, #20293c); }
+.deep-insights .deep-insights__explorer h3, .deep-insights .deep-insights__calibration h3 { margin-top: 0; color: var(--paper, #fbfcfe); }
+.deep-insights .deep-insights__explorer select { background: var(--n900, #1a2332); border-color: var(--n600, #3a4763); }
+.deep-insights figure.di-chart { margin: var(--s-4, 16px) 0; }
+.deep-insights .di-chart figcaption { max-width: 52ch; margin-top: var(--s-4, 16px); color: var(--n200, #c2cad9); font: var(--t-small, 400 15px/1.55 sans-serif); }
+.deep-insights .di-chart figcaption .di-num { color: var(--paper, #fbfcfe); }
+.deep-insights .di-series-a circle { fill: var(--di-series-a); fill-opacity: 1; stroke: var(--n800, #20293c); stroke-width: 1; }
+.deep-insights .di-series-b circle { fill: var(--n800, #20293c); fill-opacity: 1; stroke: var(--di-series-b); stroke-width: 1.75; }
+.deep-insights .di-series-b polyline { stroke: var(--di-series-b); stroke-dasharray: 6 3; }
+.deep-insights .di-diagonal { stroke: var(--n200, #c2cad9); stroke-width: 1.25; stroke-dasharray: 4 4; }
+@media (max-width: 860px) {
+  .deep-insights .deep-insights__cards { grid-template-columns: minmax(0, 1fr); }
+}
+.deep-insights .di-routing td:nth-child(3) { color: var(--n200, #c2cad9); font-weight: 400; font-size: 13px; line-height: 1.6; }
+.deep-insights .di-routing .di-total th, .deep-insights .di-routing .di-total td { border-top: 1px solid var(--n300, #93a0bb); }
+.deep-insights .di-id { white-space: nowrap; color: inherit; font: inherit; }
+@media (max-width: 720px) {
+  .deep-insights .di-routing thead { display: none; }
+  .deep-insights .di-routing tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; border-bottom: 1px solid var(--di-line); }
+  .deep-insights .di-routing th, .deep-insights .di-routing td { border: 0; }
+  .deep-insights .di-routing td:nth-child(3) { grid-column: 1 / -1; padding-top: 0; }
+}

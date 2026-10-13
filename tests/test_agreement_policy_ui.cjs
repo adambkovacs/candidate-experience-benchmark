@@ -50,8 +50,8 @@ test('pair display shows accepted coverage, retained errors, deferrals and exact
   assert.match(html, new RegExp(`Accepted with an error`));
   assert.match(html, new RegExp(`${pair.deferred_count} deferred for human review`));
   const cost = pair.known_two_run_development_cost_usd;
-  assert.ok(html.includes(`Charge for both 60-review runs: <strong>${cost === null ? 'Unknown' : '$' + cost}</strong>`));
-  assert.match(html, /human review time is not priced/i);
+  assert.ok(html.includes(`Charge for both 60-review runs: <strong>${cost === null ? 'Unknown' : '$' + Number(cost).toFixed(4)}</strong>`));
+  assert.doesNotMatch(html, /human review time is not priced|·/i);
   assert.doesNotMatch(html, /provisional|retrospective/i);
   assert.ok(html.includes(`review=${pair.accepted_all_four_error_ids[0]}`));
   assert.ok(html.includes(`review=${pair.deferred_ids[0]}`));

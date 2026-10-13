@@ -77,3 +77,25 @@
   .bm-controls label { flex: 1 1 100%; }
   .bm-quote { font-size: 16px; }
 }
+
+/* fix2: tables outside a mount (Method) get the same rules; numeric headers sit over their numbers. */
+.bm-scroll > .bm-table { --bm-text: var(--ink, #fbfcfe); --bm-muted: var(--muted, #93a0bb); --bm-rule: var(--line, #2b3650); --bm-head-rule: var(--line, #2b3650); }
+.bm-table th.bm-num { text-align: right !important; font-family: inherit; }
+.bm-table code.bm-id { display: block; font: 400 12px/1.4 var(--f-mono, ui-monospace, monospace); color: var(--bm-muted); white-space: nowrap; }
+.bm-table .bm-gen { border-left: 1px solid var(--bm-rule); }
+.bm-table .bm-gen ~ .bm-gen { border-left: 0; }
+
+/* Earlier analyses: one closed block at the end of Explore. */
+.earlier-analyses { margin-top: var(--s-8, 48px); border-top: 1px solid var(--line, #d5dae3); }
+.earlier-analyses > summary { cursor: pointer; list-style: none; padding: var(--s-6, 32px) 0; display: grid; gap: 6px; }
+.earlier-analyses > summary::-webkit-details-marker { display: none; }
+.earlier-analyses > summary .earlier-title { font: 600 clamp(24px, 3vw, 32px)/1.2 var(--f-display, Archivo, sans-serif); color: var(--ink, inherit); }
+.earlier-analyses > summary .earlier-title::after { content: " +"; color: var(--muted, #5b6478); font-weight: 400; }
+.earlier-analyses[open] > summary .earlier-title::after { content: " \2212"; }
+.earlier-analyses > summary .earlier-intro { color: var(--muted, #5b6478); font-size: 16px; max-width: 64ch; }
+
+/* Read: the takeaway subtitle was near the background colour; steps are numbered once, by CSS. */
+.reader-takeaways > div > p { color: var(--fg, #e6ebf3); opacity: .86; }
+.next-downloads { margin-top: var(--s-6, 32px); color: var(--fg, inherit); }
+.bm-hard th, .bm-hard td { padding: 8px 7px; }
+.bm-hard thead th { white-space: normal; vertical-align: bottom; }

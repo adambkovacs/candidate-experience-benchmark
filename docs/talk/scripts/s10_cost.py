@@ -11,17 +11,10 @@ from collections import Counter, defaultdict
 ref = common.reference()
 runs = common.load_all()
 SUB = common.load_json("public-site/subscription-price-estimates.json")
-JEV = common.load_json("public-site/jev-native-prompt-findings.json")["passes"]
 F = common.FIELDS
 
 
 def cost(r):
-    # Jev OpenRouter native-prompt stages: jev-native-prompt-findings reports knownCostUsd (provider charge);
-    # the extended catalog files the same amount under estimatedUsd. The findings feed wins here; flagged in the report.
-    if r.family == "jev" and "native-prompts" in r.run_id and r.condition in JEV and r.pass_ in JEV[r.condition]:
-        st = JEV[r.condition][r.pass_]
-        if st["status"] == "complete":
-            return "known", float(st["knownCostUsd"])
     k, v = common.run_cost(r)
     if k != "unknown":
         return k, v
@@ -31,10 +24,6 @@ def cost(r):
     key = f"{exp}:{r.pass_}:{r.condition}"
     if key in SUB["repeatPhases"] and SUB["repeatPhases"][key].get("estimateUsd"):
         return "estimate", float(SUB["repeatPhases"][key]["estimateUsd"])
-    if r.family == "jev" and r.feed == "extended" and r.condition in JEV and r.pass_ in JEV[r.condition]:
-        st = JEV[r.condition][r.pass_]
-        if st["status"] == "complete":
-            return "known", float(st["knownCostUsd"])
     return "unknown", None
 
 
@@ -76,7 +65,8 @@ def table(rows_in, title, limit=None):
 
 
 def frontier(rows_in):
-    pts = sorted(((v, r.all_four(ref), r, k) for r, k, v in rows_in), key=lambda x: (x[0], -x[1]))
+    # Only passes with all 60 answers valid can sit on the frontier: a partial pass's charge is not a 60-review price.
+    pts = sorted(((v, r.all_four(ref), r, k) for r, k, v in rows_in if r.valid_count() == 60), key=lambda x: (x[0], -x[1]))
     best = -1
     out = []
     for v, af, r, k in pts:
@@ -160,4 +150,7 @@ if __name__ == "__main__":
     # self-check: frontier must be monotone in all-four and cost
     fr = frontier(A)
     assert all(fr[i][2] < fr[i + 1][2] and fr[i][3] < fr[i + 1][3] for i in range(len(fr) - 1))
+    assert all(p[0].valid_count() == 60 for p in fr), "frontier holds only passes with 60 valid answers"
+    assert any(r.run_id == "extended-typesafe-jev113-native-prompts-fresh2-p2" and k == "known" for r, k, v in A), \
+        "the stopped Jev P2 pass keeps its known charge; it is only kept off the frontier"
     assert all(s[3] + s[5] == 25 for s in stats), "TP+FN must equal 25 positives"

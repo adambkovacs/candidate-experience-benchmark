@@ -71,7 +71,7 @@ test('latest Gemma composite has seven fixed-60 scores while older cutoffs remai
   assert.match(ui.get('repeat-lead').textContent, /never sent and have no scores/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /gemma26-postabort-findings\.json/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /60 attempted<br><small>58 valid, 2 preserved service failures/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.02230691<br><small>2 requests have unknown cost/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.0223<br><small>2 requests have unknown cost/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /2 requests have unknown cost/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /149,117 reported/);
   ui.get('repeat-field').value = 'sentiment';

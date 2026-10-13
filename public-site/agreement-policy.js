@@ -8,6 +8,10 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char =>
     ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
   const pairKey = pair => `${pair.left}::${pair.right}`;
+  // Site-wide names and money from site/labels.js; node tests fall back to the feed name and the same four-decimal rule.
+  const L = globalThis.BM_LABEL;
+  const modelName = model => L ? L.model(model.id) : model.display_name;
+  const usd = value => L ? L.usd(value) : `$${Number(value).toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 4})}`;
   const sameIds = (actual, expected) => Array.isArray(actual) &&
     actual.length === expected.length && new Set(actual).size === actual.length &&
     actual.every((id, index) => id === expected[index]);
@@ -81,7 +85,7 @@
   }
 
   function pairLabel(pair, models) {
-    return `${models.get(pair.left).display_name} + ${models.get(pair.right).display_name}`;
+    return `${modelName(models.get(pair.left))} and ${modelName(models.get(pair.right))}`;
   }
 
   function renderPair(pair, models) {
@@ -108,14 +112,14 @@
       <p class="agreement-legend"><span class="agreement-key correct"></span>Accepted, reference match <span class="agreement-key error"></span>Accepted error <span class="agreement-key deferred"></span>Deferred</p>
       <div class="agreement-id-grid"><div><h4>Accepted errors <span>${errors}</span></h4><p>Both models gave the same four answers and at least one differs from the reference.</p><div class="agreement-id-list">${idLinks(pair.accepted_all_four_error_ids)}</div></div>
       <div><h4>Deferred reviews <span>${deferred}</span></h4><p>The two models differed on at least one decision, so these reviews go to a person.</p><div class="agreement-id-list">${idLinks(pair.deferred_ids)}</div></div></div>
-      <p class="agreement-cost">Charge for both 60-review runs: <strong>${cost === null ? 'Unknown' : `$${esc(cost)}`}</strong>. Both models ran on all 60 reviews, deferred ones included, and human review time is not priced.</p>
-      <p class="agreement-source-links">Saved answers: <a href="${esc(source(left))}" target="_blank" rel="noopener noreferrer">${esc(left.display_name)} ↗</a> · <a href="${esc(source(right))}" target="_blank" rel="noopener noreferrer">${esc(right.display_name)} ↗</a>. <a href="./native-agreement-policy-v1.json">All 21 pair outcomes (JSON)</a></p>`;
+      <p class="agreement-cost">Charge for both 60-review runs: <strong>${cost === null ? 'Unknown' : esc(usd(cost))}</strong>.</p>
+      <p class="agreement-source-links">Saved answers: <a href="${esc(source(left))}" target="_blank" rel="noopener noreferrer">${esc(modelName(left))} ↗</a>, <a href="${esc(source(right))}" target="_blank" rel="noopener noreferrer">${esc(modelName(right))} ↗</a>. <a href="./native-agreement-policy-v1.json">All 21 pair outcomes (JSON)</a></p>`;
   }
 
   function renderTable(data, models, selectedKey) {
     return `<div class="agreement-table-wrap"><table><caption>All 21 pairs. Fewer accepted errors can come from more deferrals.</caption>
       <thead><tr><th scope="col">Pair</th><th scope="col">Accepted / 60</th><th scope="col">Accepted reference matches</th><th scope="col">Accepted errors</th><th scope="col">Deferred</th><th scope="col">Charge, both runs</th></tr></thead>
-      <tbody>${data.pairs.map(pair => `<tr${pairKey(pair) === selectedKey ? ' class="selected"' : ''}><th scope="row"><button type="button" data-pair="${esc(pairKey(pair))}" aria-current="${pairKey(pair) === selectedKey ? 'true' : 'false'}">${esc(pairLabel(pair, models))}</button></th><td>${pair.accepted_count}</td><td>${pair.accepted_all_four_correct}</td><td>${pair.accepted_all_four_error_count}</td><td>${pair.deferred_count}</td><td>${pair.known_two_run_development_cost_usd === null ? 'Unknown' : `$${esc(pair.known_two_run_development_cost_usd)}`}</td></tr>`).join('')}</tbody></table></div>`;
+      <tbody>${data.pairs.map(pair => `<tr${pairKey(pair) === selectedKey ? ' class="selected"' : ''}><th scope="row"><button type="button" data-pair="${esc(pairKey(pair))}" aria-current="${pairKey(pair) === selectedKey ? 'true' : 'false'}">${esc(pairLabel(pair, models))}</button></th><td>${pair.accepted_count}</td><td>${pair.accepted_all_four_correct}</td><td>${pair.accepted_all_four_error_count}</td><td>${pair.deferred_count}</td><td>${pair.known_two_run_development_cost_usd === null ? 'Unknown' : esc(usd(pair.known_two_run_development_cost_usd))}</td></tr>`).join('')}</tbody></table></div>`;
   }
 
   async function init() {
@@ -129,7 +133,7 @@
       let selected = data.pairs.find(pair => pairKey(pair) === params.get('agreementPair')) || data.pairs[0];
       mount.innerHTML = `<div class="section-intro"><h2 id="agreement-policy-title">Two models can agree and still be wrong.</h2><p>We paired the seven decision models on their first base-prompt pass, 21 pairs in all. A pair's answer is accepted only when both models give the same four decisions, and every other review goes to a person. The reference then scores what was accepted.</p></div>
         <div class="agreement-shell"><div class="agreement-controls"><label for="agreement-pair">Pair</label><select id="agreement-pair">${data.pairs.map(pair => `<option value="${esc(pairKey(pair))}">${esc(pairLabel(pair, models))}</option>`).join('')}</select></div><div id="agreement-detail" class="agreement-detail" aria-live="polite"></div><div id="agreement-all-pairs"></div></div>
-        <p class="agreement-method"><a href="./disputed-reviews-v1.json">Seven-model answers (JSON)</a> · <a href="method.html#method">Method</a></p>`;
+        <p class="agreement-method"><a href="./disputed-reviews-v1.json">Seven-model answers (JSON)</a>, <a href="method.html#method">Method</a></p>`;
       const selector = mount.querySelector('#agreement-pair');
       const detail = mount.querySelector('#agreement-detail');
       const table = mount.querySelector('#agreement-all-pairs');

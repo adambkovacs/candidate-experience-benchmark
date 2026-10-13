@@ -73,8 +73,8 @@ class ExtendedRunCatalogTests(unittest.TestCase):
         self.assertEqual(codex['timing']['totalRequests'], 6)
         jev = next(row for row in rows if row['sourceFamily'] == 'jev-native-prompt-findings'
                    and row['repeatPass'] == 'fresh1' and row['condition'] == 'P0')
-        self.assertIsNone(jev['cost']['knownUsd'])
-        self.assertAlmostEqual(jev['cost']['estimatedUsd'], 0.005890920)
+        self.assertAlmostEqual(jev['cost']['knownUsd'], 0.005890920)
+        self.assertIsNone(jev['cost']['estimatedUsd'])
         typesafe_repeat = next(row for row in rows if row['sourceFamily'] == 'typesafe-repeats'
                                and row['repeatPass'] == 'repeat2' and row['condition'] == 'P0')
         self.assertIsNone(typesafe_repeat['cost']['knownUsd'])
@@ -82,6 +82,34 @@ class ExtendedRunCatalogTests(unittest.TestCase):
         kev = next(row for row in rows if row['sourceFamily'] == 'kev-native-repeats'
                    and row['repeatPass'] == 'fresh1')
         self.assertIsNotNone(kev['cost']['knownUsd'])
+
+    def test_jev_prompt_passes_are_openrouter_known_charges(self):
+        # Charges from each pass's budget-reconciliation.json under
+        # results/route-audits/jev-{authority-v2,native-full-v1}-20261006.
+        expected = {('P0', 'fresh1'): (0.00589092, 0.0), ('P0', 'fresh2'): (0.00589092, 0.0),
+                    ('P0', 'fresh3'): (0.00589092, 0.0), ('P1', 'fresh1'): (0.006405, 0.0),
+                    ('P1', 'fresh2'): (0.006405, 0.0), ('P1', 'fresh3'): (0.006405, 0.0),
+                    ('P2', 'fresh1'): (0.00685104, 0.0), ('P2', 'fresh2'): (0.001940694, 0.001344),
+                    ('P2', 'fresh3'): (0.00685104, 0.0)}
+        rows = {(row['condition'], row['repeatPass']): row for row in self.catalog['runs']
+                if row['sourceFamily'] == 'jev-native-prompt-findings'}
+        self.assertEqual(set(rows), set(expected))
+        for key, (known, unknown) in expected.items():
+            row = rows[key]
+            self.assertEqual(row['surface'], 'OpenRouter native Choice')
+            self.assertEqual(row['provider'], 'TypeSafe')
+            self.assertAlmostEqual(row['cost']['knownUsd'], known)
+            self.assertIsNone(row['cost']['estimatedUsd'])
+            self.assertAlmostEqual(row['cost']['unknownUpperBoundUsd'], unknown)
+        self.assertEqual([rows['P0', p]['metrics']['all_four'] for p in ('fresh1', 'fresh2', 'fresh3')],
+                         [54, 53, 52])
+        # The v2 repeats called api.typesafe.ai directly and recorded no charge.
+        direct = [row for row in self.catalog['runs'] if row['sourceFamily'] == 'typesafe-repeats']
+        self.assertEqual(len(direct), 6)
+        for row in direct:
+            self.assertEqual(row['surface'], 'TypeSafe native Choice API')
+            self.assertIsNone(row['cost']['knownUsd'])
+            self.assertIsNotNone(row['cost']['estimatedUsd'])
 
     def test_missing_token_and_unknown_charge_are_retained(self):
         row = next(row for row in self.catalog['runs']

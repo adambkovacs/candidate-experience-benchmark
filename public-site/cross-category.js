@@ -9,7 +9,11 @@
     ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
   const sourceUrl = value => typeof value === 'string' && value.startsWith(github) &&
     !/[?#]/.test(value.slice(github.length));
-  const stratumLabel = value => value === 'historical-first-P0' ? 'Earlier first pass, base prompt' :
+  // Readable names from site/labels.js; node tests without it fall back to the slug and the same money rule.
+  const L = globalThis.BM_LABEL;
+  const name = run => L ? L.run({model: run.model, id: run.runId, effort: run.controls?.effort, surface: run.controls?.route}) : String(run.model);
+  const usd = value => L ? L.usd(value) : `$${Number(value).toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 4})}`;
+  const stratumLabel = value =>value === 'historical-first-P0' ? 'Earlier first pass, base prompt' :
     value === 'declared-fresh1-P0' ? 'Fresh first pass, base prompt' : 'Decision model, first pass';
   const outcomeLabels = {
     both_match: 'Both match reference',
@@ -150,21 +154,22 @@
     const generalCase = general.cases.find(row => row.id === id);
     const nativeCase = native.cases.find(row => row.id === id);
     const answer = (label, row) => `<div class="cross-case-answer"><h5>${esc(label)} <span>${esc(String(row.status ?? '').replaceAll('_', ' '))}</span></h5>${row.prediction ? `<dl>${fields.map(field => `<div><dt>${esc(field.replaceAll('_', ' '))}</dt><dd>${esc(choiceLabel(row.prediction[field]))}${row.differentFields.includes(field) ? ' <em>differs</em>' : ''}</dd></div>`).join('')}</dl>` : '<p>No usable answer.</p>'}</div>`;
-    return `<div class="cross-case-heading"><h4>${esc(id)}</h4><p>${esc(review.feedback)}</p></div><div class="cross-case-grid">${answer('Reference', {status:'', prediction:review.reference, differentFields:[]})}${answer(`General · ${general.model}`, generalCase)}${answer(`Native · ${native.model}`, nativeCase)}</div><p class="cross-case-source"><a href="${github}results/cross-category-v1/dataset.json">Full dataset ↗</a> · <a href="${esc(reviewUrl(id))}">${esc(id)} across the seven decision models ↗</a></p>`;
+    return `<div class="cross-case-heading"><h4>${esc(id)}</h4><p>${esc(review.feedback)}</p></div><div class="cross-case-grid">${answer('Reference', {status:'', prediction:review.reference, differentFields:[]})}${answer(`General: ${name(general)}`, generalCase)}${answer(`Decision model: ${name(native)}`, nativeCase)}</div><p class="cross-case-source"><a href="${github}results/cross-category-v1/dataset.json">Full dataset ↗</a>, <a href="${esc(reviewUrl(id))}">${esc(id)} across the seven decision models ↗</a></p>`;
   }
 
   function number(value) {
     return value === null || value === undefined ? 'Unknown' : String(value);
   }
 
-  function money(value) {
-    return value === null || value === undefined ? 'Unknown' : `$${value}`;
+  // dagger marks an API-rate equivalent; the page explains the mark once.
+  function money(value, dagger = '') {
+    return value === null || value === undefined ? 'Unknown' : `${usd(value)}${dagger}`;
   }
 
   function controlsTable(general, native) {
     const rows = [
-      ['Model', general.model, native.model],
-      ['Pass', `${stratumLabel(general.stratum)} · ${general.repeatPass}`, 'Decision model, first pass'],
+      ['Model', name(general), name(native)],
+      ['Pass', `${stratumLabel(general.stratum)}, ${general.repeatPass}`, 'Decision model, first pass'],
       ['Prompt', 'P0', 'P0'],
       ['Route', general.controls.route || 'Unknown', native.controls.route || 'Unknown'],
       ['Interface', general.controls.interface, native.controls.interface],
@@ -172,17 +177,16 @@
       ['Request pattern', general.controls.requestPattern || 'Unknown', native.controls.requestPattern || 'Unknown'],
       ['Requests with recorded duration', number(general.controls.observedRequestCount), number(native.controls.observedRequestCount)],
       ['Batch size', number(general.controls.declaredBatchSize), number(native.controls.declaredBatchSize)],
-      ['Charge as reported', money(general.controls.cost.observedUsd), money(native.controls.cost.observedUsd)],
+      ['Charge reported by the provider', money(general.controls.cost.observedUsd), money(native.controls.cost.observedUsd)],
       ['Charge after reconciliation', money(general.controls.cost.knownUsd), money(native.controls.cost.knownUsd)],
-      ['API-rate estimate', money(general.controls.cost.estimatedUsd), money(native.controls.cost.estimatedUsd)],
-      ['Unrecorded charge, upper bound', money(general.controls.cost.unknownUpperBoundUsd), money(native.controls.cost.unknownUpperBoundUsd)],
+      ['Cost at API rates', money(general.controls.cost.estimatedUsd, '†'), money(native.controls.cost.estimatedUsd, '†')],
+      ['Failed requests, at most', money(general.controls.cost.unknownUpperBoundUsd), money(native.controls.cost.unknownUpperBoundUsd)],
       ['Timing method', general.controls.timing.kind || 'Unknown', native.controls.timing.kind || 'Unknown'],
       ['Median request seconds', number(general.controls.timing.medianSeconds), number(native.controls.timing.medianSeconds)],
     ];
     return `<div class="cross-controls-wrap"><table><caption>Route, batch, cost and timing for both runs</caption>
       <thead><tr><th scope="col">Setting</th><th scope="col">General run</th><th scope="col">Decision model</th></tr></thead>
-      <tbody>${rows.map(([label, left, right]) => `<tr><th scope="row">${esc(label)}</th><td>${esc(left)}</td><td>${esc(right)}</td></tr>`).join('')}</tbody></table></div>
-      <p class="cross-basis">Cost basis, general run: ${esc(general.controls.cost.basis)} Decision model: ${esc(native.controls.cost.basis)} Timing basis, general run: ${esc(general.controls.timing.basis)} Decision model: ${esc(native.controls.timing.basis)}</p>`;
+      <tbody>${rows.map(([label, left, right]) => `<tr><th scope="row">${esc(label)}</th><td>${esc(left)}</td><td>${esc(right)}</td></tr>`).join('')}</tbody></table></div>`;
   }
 
   function rate(numerator, denominator, reason) {
@@ -197,8 +201,8 @@
     const statuses = Object.entries(summary.statuses).map(([status,count]) =>
       `${count} ${status.replaceAll('_', ' ')}`).join(', ');
     const positive = summary.positive;
-    return `<section class="cross-field-run"><h5>${esc(role)} · ${esc(run.model)}</h5>
-      <p class="cross-field-coverage"><strong>${summary.matches}/${summary.total}</strong> match the reference · ${summary.valid}/${summary.total} usable · ${unusable}/${summary.total} no valid output${unusable ? ` (${esc(statuses)})` : ''}.</p>
+    return `<section class="cross-field-run"><h5>${esc(role)}: ${esc(name(run))}</h5>
+      <p class="cross-field-coverage"><strong>${summary.matches}/${summary.total}</strong> match the reference, ${summary.valid}/${summary.total} usable, ${unusable}/${summary.total} no valid output${unusable ? ` (${esc(statuses)})` : ''}.</p>
       <div class="cross-matrix-wrap" role="region" aria-label="${esc(role)} ${esc(fieldLabels[summary.field])} confusion table" tabindex="0"><table>
       <caption>${esc(role)} ${esc(fieldLabels[summary.field])}: reference label by saved answer, all ${summary.total} reviews</caption>
       <thead><tr><th scope="col">Reference</th>${summary.columns.map(column => `<th scope="col">${esc(choiceLabel(column))}</th>`).join('')}<th scope="col">Total</th></tr></thead>
@@ -214,8 +218,8 @@
       ${fields.map(field => {
         const left = fieldSummary(references, general, field);
         const right = fieldSummary(references, native, field);
-        return `<details class="cross-field"><summary><span>${esc(fieldLabels[field])}</span><span>General ${left.matches}/60 · Native ${right.matches}/60</span></summary>
-          <div class="cross-field-grid">${renderFieldRun(left, general, 'General')}${renderFieldRun(right, native, 'Native')}</div></details>`;
+        return `<details class="cross-field"><summary><span>${esc(fieldLabels[field])}</span><span>General ${left.matches}/60, decision model ${right.matches}/60</span></summary>
+          <div class="cross-field-grid">${renderFieldRun(left, general, 'General')}${renderFieldRun(right, native, 'Decision model')}</div></details>`;
       }).join('')}</div></details>`;
   }
 
@@ -224,14 +228,14 @@
     const pieces = Object.entries(outcomeLabels).map(([key, label]) =>
       `<span class="cross-segment cross-${key}" style="width:${tally[key].length / 60 * 100}%" title="${esc(label)}: ${tally[key].length}"></span>`).join('');
     const aria = Object.entries(outcomeLabels).map(([key, label]) => `${label}: ${tally[key].length}`).join('; ');
-    return `<div class="cross-pair-head"><h3>${esc(general.model)} <span>with</span> ${esc(native.model)}</h3><p>${esc(general.runId)} · ${esc(native.runId)}</p></div>
-      <div class="cross-score"><p><strong>${general.scores.all_four}<span>/60</span></strong>General all-four matches <small>${general.scores.valid}/60 usable</small></p><p><strong>${native.scores.all_four}<span>/60</span></strong>Native all-four matches <small>${native.scores.valid}/60 usable</small></p></div>
+    return `<div class="cross-pair-head"><h3>${esc(name(general))} <span>with</span> ${esc(name(native))}</h3><p><code>${esc(general.runId)}</code> and <code>${esc(native.runId)}</code></p></div>
+      <div class="cross-score"><p><strong>${general.scores.all_four}<span>/60</span></strong>General model, all four decisions matched <small>${general.scores.valid}/60 usable</small></p><p><strong>${native.scores.all_four}<span>/60</span></strong>Decision model, all four decisions matched <small>${native.scores.valid}/60 usable</small></p></div>
       <div class="cross-bar" role="img" aria-label="Of 60 reviews: ${esc(aria)}">${pieces}</div>
       <div class="cross-legend">${Object.entries(outcomeLabels).map(([key, label]) => `<span><i class="cross-key cross-${key}"></i>${esc(label)}</span>`).join('')}</div>
       <div class="cross-outcome-wrap"><table><caption>Outcome for each of the 60 reviews. Unusable general answers get their own row.</caption><thead><tr><th scope="col">Outcome</th><th scope="col">Count</th><th scope="col">Review IDs</th></tr></thead><tbody>${Object.entries(outcomeLabels).map(([key, label]) => `<tr><th scope="row">${esc(label)}</th><td>${tally[key].length}</td><td class="cross-ids">${linkedIds(tally[key])}</td></tr>`).join('')}</tbody></table></div>
       <div id="cross-case-detail" class="cross-case-detail" aria-live="polite"></div>
       ${renderFields(references, general, native)}
-      <div class="cross-provenance"><p>Saved answers: <a href="${esc(general.sourceUrl)}" target="_blank" rel="noopener noreferrer">general run ↗</a> · <a href="${esc(native.sourceUrl)}" target="_blank" rel="noopener noreferrer">decision model ↗</a> · <a href="${github}results/cross-category-v1/dataset.json">full dataset ↗</a> · <a href="${github}results/cross-category-v1/plan.json">how runs were selected ↗</a></p></div>
+      <div class="cross-provenance"><p>Saved answers: <a href="${esc(general.sourceUrl)}" target="_blank" rel="noopener noreferrer">general run ↗</a>, <a href="${esc(native.sourceUrl)}" target="_blank" rel="noopener noreferrer">decision model ↗</a>, <a href="${github}results/cross-category-v1/dataset.json">full dataset ↗</a>, <a href="${github}results/cross-category-v1/plan.json">how runs were selected ↗</a></p></div>
       <details class="cross-controls"><summary>Route, effort, batch and cost</summary>${controlsTable(general, native)}</details>`;
   }
 
@@ -259,8 +263,8 @@
       let general = strata[cohort].find(row => row.runId === params.get('crossGeneral')) || defaultGeneral(cohort);
       let native = natives.find(row => row.runId === params.get('crossNative')) || natives[0];
       let selectedCase = ids.includes(params.get('crossCase')) ? params.get('crossCase') : ids[0];
-      mount.innerHTML = `<div class="section-intro"><h2 id="cross-category-title">General models against decision models, review by review.</h2><p>149 general-model first passes and the seven decision models on OpenRouter, all on the base prompt. Each pairing shows where both match the reference, where only one does, and where an answer was unusable.</p></div>
-        <div class="cross-shell"><div class="cross-selectors"><label for="cross-cohort">General cohort<select id="cross-cohort"><option value="historical-first-P0">Earlier first passes · 117 runs</option><option value="declared-fresh1-P0">Fresh first passes · 32 runs</option></select></label><label for="cross-general">General run<select id="cross-general"></select></label><label for="cross-native">Decision model<select id="cross-native">${natives.map(row => `<option value="${esc(row.runId)}">${esc(row.model)} · ${esc(row.scores.all_four)}/60</option>`).join('')}</select></label></div><div id="cross-pair" aria-live="polite"></div>${renderDifficult(data)}</div>
+      mount.innerHTML = `<div class="section-intro"><h2 id="cross-category-title">General models against decision models, review by review.</h2><p>Decision models against general models, one review at a time, every run on its first pass with the plain prompt.</p></div>
+        <div class="cross-shell"><div class="cross-selectors"><label for="cross-cohort">General cohort<select id="cross-cohort"><option value="historical-first-P0">Earlier first passes, 117 runs</option><option value="declared-fresh1-P0">Fresh first passes, 32 runs</option></select></label><label for="cross-general">General run<select id="cross-general"></select></label><label for="cross-native">Decision model<select id="cross-native">${natives.map(row => `<option value="${esc(row.runId)}">${esc(name(row))}, ${esc(row.scores.all_four)} of 60</option>`).join('')}</select></label></div><div id="cross-pair" aria-live="polite"></div>${renderDifficult(data)}</div>
         <p class="cross-method">The seven decision-model runs leave out the earlier Jev, Kev, Laya and direct Cloudflare runs. <a href="${github}results/cross-category-v1/findings.md">Findings ↗</a></p>`;
       const cohortInput = mount.querySelector('#cross-cohort');
       const generalInput = mount.querySelector('#cross-general');
@@ -268,7 +272,9 @@
       const pair = mount.querySelector('#cross-pair');
       function update(writeUrl) {
         cohortInput.value = cohort;
-        generalInput.innerHTML = strata[cohort].map(row => `<option value="${esc(row.runId)}">${esc(row.model)} · ${esc(row.scores.all_four)}/60 · ${esc(row.runId)}</option>`).join('');
+        // Two setups can share a readable name; the run id tells them apart only then.
+        const seen = strata[cohort].reduce((tally, row) => tally.set(name(row), (tally.get(name(row)) || 0) + 1), new Map());
+        generalInput.innerHTML = strata[cohort].map(row => `<option value="${esc(row.runId)}">${esc(name(row))}, ${esc(row.scores.all_four)} of 60${seen.get(name(row)) > 1 ? `, run ${esc(row.runId)}` : ''}</option>`).join('');
         generalInput.value = general.runId;
         nativeInput.value = native.runId;
         pair.innerHTML = renderPair(general, native, data.cases);

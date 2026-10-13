@@ -81,7 +81,7 @@ test('Gemma second cutoff preserves first cutoff and historical scores', async (
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 6);
   assert.match(ui.get('repeat-chart').innerHTML, /4 valid, 1 service error, 55 unsent; no score/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /60 attempted/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.01974272 unrecorded/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.0197 unrecorded/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown overall/);
   ui.select('gemma26-on-v2-interruption-continuation-v1');
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 5);
@@ -93,7 +93,7 @@ test('DeepSeek third cutoff retains prior cutoff and leaves P2 unscored', async 
   assert.match(ui.get('repeat-results').innerHTML,
     /value="openrouter-paid-deepseek-v41-flash-low-descriptive-continuation-v1"/);
   assert.match(ui.get('repeat-results').innerHTML,
-    /DeepSeek low · third interruption at DEV-050/);
+    /DeepSeek low, third interruption at DEV-050/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 2);
   assert.match(ui.get('repeat-chart').innerHTML,
     /46 valid, 1 invalid, 3 service errors, 10 unsent; no score/);

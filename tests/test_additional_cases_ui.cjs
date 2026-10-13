@@ -107,7 +107,7 @@ test('A/B names distinct saved failures as status differences', () => {
     const walk = node => {if (node.tag === 'summary') summaries.push(node.textContent);
       node.children.forEach(walk);};
     walk(panel);
-    assert.ok(summaries.includes('DEV-001 · A/B saved statuses differ'));
+    assert.ok(summaries.includes('DEV-001, A and B failed in different ways'));
   } finally {
     global.document = originalDocument;
     global.location = originalLocation;

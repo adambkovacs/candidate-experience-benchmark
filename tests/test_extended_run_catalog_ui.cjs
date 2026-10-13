@@ -49,7 +49,7 @@ test('Jev native-prompt rows take the OpenRouter route and known charge from the
   assert.equal(p0.surface,'OpenRouter native Choice');
   assert.equal(p0.cost.knownUsd,0.00589092);
   assert.equal(p0.cost.estimatedUsd,null);
-  assert.equal(context.__costSummary(p0),'$0.00589092');
+  assert.equal(context.__costSummary(p0),'$0.0059');
   const repeat=runs.find(run=>run.id==='extended-typesafe-jev113-v2-repeat2-p0');
   assert.equal(repeat.surface,'TypeSafe native Choice API');
   assert.equal(repeat.cost.knownUsd,null);

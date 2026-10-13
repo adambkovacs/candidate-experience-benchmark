@@ -18,7 +18,7 @@ const elements = ['repeat-results', 'repeat-config', 'repeat-field', 'repeat-con
 
 const clone = value => JSON.parse(JSON.stringify(value));
 const money = value => '$' + Number(value).toLocaleString('en-US',
-  {minimumFractionDigits: 2, maximumFractionDigits: 8});
+  {minimumFractionDigits: 4, maximumFractionDigits: 4});
 
 function historical() {
   return {schema: 'repeat-findings-v1', configuration,
@@ -89,10 +89,10 @@ test('known charges and separate per-request unknown bounds remain distinct', as
   assert.ok(secondRow.includes(money(failedP1.usage.knownCostUsd)));
   assert.ok(firstRow.includes(`plus up to ${money('0.0299008')} unrecorded`));
   assert.ok(secondRow.includes(`plus up to ${money('0.0299008')} unrecorded`));
-  assert.doesNotMatch(secondRow, /plus up to \$0\.0598016/);
+  assert.doesNotMatch(secondRow, /plus up to \$0\.0598/);
   assert.doesNotMatch(cleanRow, /plus up to/);
-  assert.match(ui.get('repeat-lead').textContent, /plus up to \$0\.0299008 unrecorded for each of DEV-006 and DEV-031/);
-  assert.match(ui.get('repeat-lead').textContent, /\(\$0\.0598016 together\)/);
+  assert.match(ui.get('repeat-lead').textContent, /plus up to \$0\.0299 unrecorded for each of DEV-006 and DEV-031/);
+  assert.match(ui.get('repeat-lead').textContent, /\(\$0\.0598 together\)/);
 });
 
 test('latest cumulative charges follow frozen phase order despite object order', async () => {

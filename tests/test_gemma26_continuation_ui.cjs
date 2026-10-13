@@ -82,10 +82,10 @@ test('stopped phase keeps known charges distinct from its unknown bound', async 
   assert.match(stopped, /stopped, unscored/);
   assert.match(stopped, /2 attempted/);
   assert.match(stopped, /1 of 2 reported/);
-  assert.match(stopped, /\$0\.00028017<br>/);
-  assert.match(stopped, /plus up to \$0\.01974272 unrecorded/);
+  assert.match(stopped, /\$0\.0003<br>/);
+  assert.match(stopped, /plus up to \$0\.0197 unrecorded/);
   const firstP2 = usageRow(ui, 'P2', 'Fresh pass 1');
-  assert.match(firstP2, /plus up to \$0\.01974272 unrecorded/);
+  assert.match(firstP2, /plus up to \$0\.0197 unrecorded/);
   const unsent = usageRow(ui, 'P1', 'Fresh pass 3');
   assert.match(unsent, /Not sent/);
   assert.doesNotMatch(ui.get('repeat-usage-body').innerHTML, /NaN|undefined/);

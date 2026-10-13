@@ -119,7 +119,7 @@
     const usage = Object.fromEntries(['P1', 'P2'].map(condition => [condition, totals(report.conditions[condition])]));
     const usageRows = ['P1', 'P2'].map(condition => `<tr><th scope="row">${esc(condition)}</th>` +
       `<td>${esc(integer(usage[condition].input))}</td><td>${esc(integer(usage[condition].output))}</td>` +
-      `<td>$${esc(usage[condition].cost.toFixed(9))}</td>` +
+      `<td>$${esc(usage[condition].cost.toFixed(4))}</td>` +
       `<td>${esc(usage[condition].low.toFixed(1))} to ${esc(usage[condition].high.toFixed(1))} seconds</td></tr>`).join('');
     const passRows = passes.map(pass => `<tr><th scope="row">${esc(passName(pass))}</th>` +
       `<td>${esc(report.conditions.P1.passes[pass].score.allFour)} / 60</td>` +
@@ -143,10 +143,10 @@
       `<details><summary>Tokens, charge and request time</summary>` +
       `<div class="table-wrap" tabindex="0" role="region" aria-label="Kev prompt usage and cost, scroll horizontally on small screens">` +
       `<table><caption>Totals across three passes</caption><thead><tr><th scope="col">Condition</th><th scope="col">Input tokens</th><th scope="col">Output tokens</th><th scope="col">Charge</th><th scope="col">Client time per pass</th></tr></thead><tbody>${usageRows}</tbody></table></div>` +
-      `<p class="small-note">Request time as our client measured it, network included.</p></details>` +
+      `</details>` +
       `<details><summary>What was held constant?</summary><p>${esc(report.nativePromptEquivalence.meaning)} ${esc(report.nativePromptEquivalence.wireEquivalence)}</p>` +
       `</details>` +
-      `<p class="source-links"><a href="./kev-native-prompt-findings.json">Kev prompt data (JSON)</a> · ` +
+      `<p class="source-links"><a href="./kev-native-prompt-findings.json">Kev prompt data (JSON)</a> ` +
       `<a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md">Kev prompt findings</a></p>`;
   }).catch(error => {
     console.error(error);

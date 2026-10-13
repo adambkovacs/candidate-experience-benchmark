@@ -31,9 +31,9 @@ test('the nine cells retain clean scores and separate interruption states', asyn
   for (const [score, count] of [[53, 3], [52, 1], [51, 2], [49, 1]]) {
     assert.equal((html.match(new RegExp(`<strong>${score}<span> \/ 60<\/span><\/strong>`, 'g')) || []).length, count);
   }
-  assert.match(html, /59 valid · 1 unknown/);
+  assert.match(html, /59 valid, 1 unknown/);
   assert.match(html, /48 known four-label matches/);
-  assert.match(html, /1 unknown · 59 not sent/);
+  assert.match(html, /1 unknown, 59 not sent/);
   assert.doesNotMatch(html, /<strong>0<span> \/ 60/);
   assert.equal((html.match(/<strong>Interrupted<\/strong>/g) || []).length, 2);
   assert.match(html, /Clef: seven full runs\. Two interrupted\./);

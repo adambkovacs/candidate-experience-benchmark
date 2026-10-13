@@ -93,12 +93,12 @@ test('fresh Codex usage shows API-equivalent public-rate estimate and unknown ch
       fullSeriesEstimateUsd: null}}};
   const ui = await render(payload, 200, config + '-fresh-matched3', pricing);
   const html = ui.get('repeat-usage-body').innerHTML;
-  assert.match(html, /\$0\.0074333/);
+  assert.match(html, /\$0\.0074/);
   assert.match(html, /Public rate as of 2026-10-02/);
   assert.match(html, /Public rate ↗/);
   assert.match(ui.get('repeat-results').innerHTML, /Reasoning tokens sit inside output and are counted once/);
   assert.match(html, /Cache read: Unknown/);
-  assert.match(html, /Unknown<\/td><td>\$0\.0074333/);
+  assert.match(html, /Unknown<\/td><td>\$0\.0074/);
 });
 
 test('unpriced current rate retains the saved CLI estimate as a separate figure', async () => {
@@ -112,7 +112,7 @@ test('unpriced current rate retains the saved CLI estimate as a separate figure'
   const ui = await render({series: []}, 200, config, pricing, '0.042984');
   const html = ui.get('repeat-usage-body').innerHTML;
   assert.match(html, /Public rate as of 2026-10-02.*cache write duration unknown/);
-  assert.match(html, /Saved CLI API-rate estimate: \$0\.042984/);
+  assert.match(html, /Saved CLI API-rate price: \$0\.0430/);
 });
 
 test('a pending optional price fetch does not hold required repeat results', async () => {

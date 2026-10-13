@@ -189,6 +189,8 @@ def surface_for(family, configuration, provider):
         return 'Google AI Studio'
     if provider in ('Cloudflare', 'Cloudflare connected app'):
         return 'Cloudflare connected app'
+    if family == 'jev-native-prompt-findings':
+        return 'OpenRouter native Choice'  # OpenRouter-routed to TypeSafe; the direct API is typesafe-repeats.
     if provider == 'TypeSafe':
         return 'TypeSafe native Choice API'
     if configuration.startswith('openrouter-paid-') and provider:
@@ -366,11 +368,14 @@ def build(root=ROOT):
         for repeat, cell in passes.items():
             if 'score' not in cell:
                 continue
-            mapped = dict(cell, usage={'cliListPriceEstimateUsd': cell.get('knownCostUsd'),
+            mapped = dict(cell, usage={'knownCostUsd': cell.get('knownCostUsd'),
                                        'input_tokens': cell.get('inputTokens'),
                                        'output_tokens': cell.get('outputTokens'),
                                        'clientRequestSecondsTotal': cell.get('clientSeconds'),
-                                       'unknownCostUpperBoundUsd': cell.get('unknownUpperBoundUsd')})
+                                       'unknownCostUpperBoundUsd': cell.get('unknownUpperBoundUsd'),
+                                       'costNote': 'Known OpenRouter charge: provider-reported usage.cost summed '
+                                                   'over saved responses. The unknown bound is the reservation for '
+                                                   'a request with no recorded charge.'})
             add(rows, root, family, family, 'typesafe-jev113-native-prompts',
                 'jev-1.13.0', None, 'TypeSafe', repeat, condition, mapped)
 

@@ -189,8 +189,8 @@ test('separates answer changes from probabilities, confidence, usage, and timing
   assert.match(target.innerHTML, /152,500/);
   assert.match(target.innerHTML, /140,260/);
   assert.match(target.innerHTML, /163,120/);
-  assert.match(target.innerHTML, /\$0\.006405000/);
-  assert.match(target.innerHTML, /Request time is as our client measured it, network included/);
+  assert.match(target.innerHTML, /\$0\.0064</);
+  assert.match(target.innerHTML, /DEV-018 and DEV-060 returned no usage, so their charges are unknown/);
   assert.match(target.innerHTML, /Findings data \(JSON\)/);
   assert.match(target.innerHTML, /Findings write-up/);
   assert.doesNotMatch(target.innerHTML, /provisional|calibrated probability/i);
@@ -214,7 +214,7 @@ test('page wires one accessible Jev prompt section beside Kev', () => {
   assert.match(page, /<section[^>]+id="jev-prompt-analysis"[^>]+aria-labelledby="jev-prompt-title"/);
   assert.match(page, /<h2 id="jev-prompt-title">[^<]+<\/h2>/);
   assert.match(page, /<a href="#jev-prompt-analysis">[^<]+<\/a>/);
-  assert.match(page, /<script defer src="\.\/jev-prompts\.js\?v=20261006-native-prompts-v1"><\/script>/);
+  assert.match(page, /<script defer src="\.\/jev-prompts\.js\?v=20261013-fix2"><\/script>/);
   assert.ok(page.indexOf('id="kev-prompt-analysis"') < page.indexOf('id="jev-prompt-analysis"'));
   assert.match(page, /<noscript><p class="analysis-caveat" role="alert">/);
 });

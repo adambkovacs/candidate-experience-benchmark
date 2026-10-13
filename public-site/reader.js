@@ -151,7 +151,7 @@
       select.addEventListener('change',show); show();
     } catch (error) {
       select.replaceChildren(new Option('Examples unavailable',''));
-      document.getElementById('story-change-text').textContent = 'The detailed examples could not load. Use the saved-answer source link below.';
+      document.getElementById('story-change-text').textContent = 'The detailed examples did not load.';
     }
   }
   loadChangedExamples();
@@ -236,6 +236,6 @@
       });
     });
   }).catch(() => {
-    document.getElementById('story-prompt-change').textContent = 'The comparison controls could not load. The chart above shows the published P1 to P2 result. Follow the comparison link for source records.';
+    document.getElementById('story-prompt-change').textContent = 'The comparison controls did not load. The chart shows the published P1 to P2 result.';
   });
 })();

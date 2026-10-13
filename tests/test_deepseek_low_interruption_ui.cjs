@@ -82,9 +82,9 @@ test('P2 stays unscored with partial usage and separate unknown bounds', async (
   assert.match(row, /stopped, unscored/);
   assert.match(row, /49 attempted/);
   assert.match(row, /<td>Partial<\/td>/);
-  assert.doesNotMatch(row, /0\.2138112/);
-  assert.match(ui.get('repeat-lead').textContent, /plus up to \$0\.1069056 unrecorded for each of DEV-040 and DEV-049/);
-  assert.match(ui.get('repeat-lead').textContent, /Charges across the two continuations total \$0\.0431191/);
+  assert.doesNotMatch(row, /0\.2138/);
+  assert.match(ui.get('repeat-lead').textContent, /plus up to \$0\.1069 unrecorded for each of DEV-040 and DEV-049/);
+  assert.match(ui.get('repeat-lead').textContent, /Charges across the two continuations total \$0\.0431/);
   assert.match(ui.get('repeat-deltas').innerHTML, /Not completed/);
   assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /P2 Fresh pass 1.*?<meter/);
 });

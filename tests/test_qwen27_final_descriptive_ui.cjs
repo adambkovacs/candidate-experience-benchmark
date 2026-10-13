@@ -43,7 +43,7 @@ test('nine scored phases show ranges and shared-valid changes without hiding int
   assert.match(ui.get('repeat-flips').innerHTML, /3 \/ 59/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-006/);
   assert.match(ui.get('repeat-flips').innerHTML, /1 comment was left out/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.0470016 unrecorded/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.0470 unrecorded/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown overall/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /Why fresh pass 3 was interrupted/);
   ui.select(xhigh);

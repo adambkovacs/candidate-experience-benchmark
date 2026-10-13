@@ -14,7 +14,7 @@
   const esc = value => String(value).replace(/[&<>"']/g,
     character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
   const integer = value => Number(value).toLocaleString('en-US');
-  const money = value => `$${Number(value).toFixed(9)}`;
+  const money = value => `$${Number(value).toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 4})}`;
   const noun = (value, singular, plural = `${singular}s`) => value === 1 ? singular : plural;
   const fail = () => {
     target.setAttribute?.('aria-busy', 'false');
@@ -179,9 +179,9 @@
       `<p>The same label can come back with a different probability, so the three counts differ.</p></details>` +
       `<details><summary>Tokens, charge and request time</summary><div class="table-wrap" tabindex="0" role="region" aria-label="Jev native prompt usage, scroll horizontally on small screens"><table>` +
       `<caption>Usage for each saved pass</caption><thead><tr><th scope="col">Pass</th><th scope="col">Input tokens</th><th scope="col">Output tokens</th><th scope="col">Charge</th><th scope="col">Unrecorded charge, up to</th><th scope="col">Request time</th></tr></thead><tbody>${usageRows}</tbody></table></div>` +
-      `<p class="small-note">Request time is as our client measured it, network included. DEV-018 and DEV-060 returned no usage, so their charges are unknown.</p></details>` +
+      `<p class="small-note">DEV-018 and DEV-060 returned no usage, so their charges are unknown.</p></details>` +
       `<details><summary>What changed between prompts</summary><p>Only the Choice question instructions differ between P0, P1 and P2. Route, parser, labels, record order and comments stay the same.</p></details>` +
-      `<p class="source-links"><a href="./jev-native-prompt-findings.json">Findings data (JSON)</a> · ` +
+      `<p class="source-links"><a href="./jev-native-prompt-findings.json">Findings data (JSON)</a> ` +
       `<a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md">Findings write-up</a></p>`;
   }).catch(error => {
     console.error(error);

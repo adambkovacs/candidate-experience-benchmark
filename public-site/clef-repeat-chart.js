@@ -63,10 +63,10 @@
 
   function interrupted(cell) {
     if (cell.status === 'interrupted_composite') {
-      return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>59 valid · 1 unknown</span>` +
+      return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>59 valid, 1 unknown</span>` +
         `<small>48 known four-label matches</small></div>`;
     }
-    return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>1 unknown · 59 not sent</span></div>`;
+    return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>1 unknown, 59 not sent</span></div>`;
   }
 
   function promptChanges(report, cell) {

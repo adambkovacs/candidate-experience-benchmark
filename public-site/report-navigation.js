@@ -29,7 +29,7 @@
     document.querySelectorAll('#report-cohort [data-cohort]').forEach(button=>button.setAttribute('aria-pressed',String(!customCategory&&button.dataset.cohort===cohort)));
     if(ready){
       const count=savedCount(runs,customCategory||cohort);
-      $('report-lens-count').textContent=`${count} closed saved ${count===1?'run':'runs'} ${customCategory?'in this custom category':'in this view'}.`;
+      $('report-lens-count').textContent=`Showing ${count} ${count===1?'run':'runs'}${customCategory?' in this category':''}.`;
     }
     $('report-lens-note').textContent=customCategory
       ? `Custom category: ${globalThis.BenchmarkCategories?.categories?.[customCategory]||customCategory}. The chart, ranking and run list all use it.`

@@ -85,7 +85,7 @@ test('actual provider tokens, charges, and client duration appear in closed deve
     assert.ok(row.includes(usage.tokens.prompt_tokens.toLocaleString('en-US')), `${condition} prompt tokens`);
     assert.ok(row.includes(usage.tokens.completion_tokens.toLocaleString('en-US')), `${condition} completion tokens`);
     const cost = '$' + Number(usage.actualCostUsd).toLocaleString('en-US',
-      {minimumFractionDigits: 2, maximumFractionDigits: 8});
+      {minimumFractionDigits: 4, maximumFractionDigits: 4});
     assert.ok(row.includes(cost), `${condition} observed provider charge`);
     assert.ok(row.includes(usage.requestSecondsTotal.toFixed(1)), `${condition} client HTTP seconds`);
     assert.match(row, /<td>Unknown<\/td>/, `${condition} has no invented token-price estimate`);

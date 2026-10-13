@@ -21,13 +21,14 @@
   <link rel="stylesheet" href="./styles.css?v=20261005-clef-matrix">
   <link rel="stylesheet" href="./reader.css?v=20261001-reader-v2">
   <link rel="stylesheet" href="./presentation.css?v=20261007-hosted-decisions">
-  <link rel="stylesheet" href="./deep-insights.css?v=20261008">
+  <link rel="stylesheet" href="./deep-insights.css?v=20261013-fix2">
   <link rel="stylesheet" href="./site/site.css?v=20261008-layers">
-  <link rel="stylesheet" href="./site/read.css?v=20261008-layers">
-  <link rel="stylesheet" href="./site/benchmarks.css?v=20261013-bm">
+  <link rel="stylesheet" href="./site/read.css?v=20261013-fix2">
+  <link rel="stylesheet" href="./site/benchmarks.css?v=20261013-fix2">
   <script defer src="./navigation.js?v=20260930-results"></script>
-  <script defer src="./deep-insights.js?v=20261013-bm"></script>
-  <script defer src="./site/benchmarks.js?v=20261013-bm"></script>
+  <script defer src="./site/labels.js?v=20261013-fix2"></script>
+  <script defer src="./deep-insights.js?v=20261013-fix2"></script>
+  <script defer src="./site/benchmarks.js?v=20261013-fix2"></script>
   <script defer src="./site/vendor/gsap/gsap.min.js?v=3.15.0"></script>
   <script defer src="./site/motion.js?v=20261013-bm"></script>
   <script type="module" src="./site/hero.js?v=20261013-bm"></script>
@@ -44,16 +45,15 @@
 <section class="intro section reader-hero" id="overview" aria-labelledby="page-title" data-surface="ink">
   <div class="intro-copy">
     <h1 id="page-title">Jev matched <span class="num" data-source="findings.json#charts.jev.correct">54</span> of <span class="num" data-source="deep-insights-v1.json#denominator">60</span> reviews. <em>The big general models matched <span class="num" data-source="sonnet55-fresh-matched3.json#threePassSummary.xhigh.P0.allFour.values[0]">58</span> or <span class="num" data-source="findings.json#charts.costAgreement.rows[id=openrouter-paid-gemma4-26b-a4b-on].correct">59</span>.</em></h1>
-    <p class="lede">Jev is TypeSafe's decision model. You give it text and a typed question, and it returns one of your options with a probability, in one pass. We gave Jev, seven other decision models and the big general models the same 60 fictional candidate reviews, with four questions about each one. The general models, from Gemma 4 26B up to Opus 5.5, cost <span class="num is-derived" data-derived="F#charts.costAgreement.rows[id=openrouter-paid-gemma4-26b-a4b-on].actualUsd / J#passes.P0.fresh1.knownCostUsd = 3.6">3.6</span> to <span class="num is-derived" data-derived="SP#runs.opus55-high-batch10.estimateUsd / J#passes.P0.fresh1.knownCostUsd = 37.7">37.7</span> times as much per pass. The best of the other decision models, Solar Decide, matched <span class="num" data-source="supplemental-decision-runs-v1.json#runs[id=solar-decide-native-fresh1-p0].metrics.all_four">55</span> on its first pass. Most of Jev's <span class="num" data-source="findings.json#charts.jev.disagreementCaseIds.length">6</span> misses sat on reviews a person would pause on. <span class="num is-derived" data-derived="6 misses minus 3 disputed labels (DI#reference_status) minus the off-topic DEV-029">Two</span> were plain errors, and one of those was a harassment report it marked as needing no follow-up.</p>
+    <p class="lede">Jev is TypeSafe's decision model. You give it text and a typed question, and it returns one of your options with a probability, in one pass. We gave Jev, seven other decision models and the big general models the same 60 fictional candidate reviews, with four questions about each one. The general models, from Gemma 4 26B up to Opus 5.5, cost <span class="num is-derived" data-derived="F#charts.costAgreement.rows[id=openrouter-paid-gemma4-26b-a4b-on].actualUsd / J#passes.P0.fresh1.knownCostUsd = 3.6">3.6</span> to <span class="num is-derived" data-derived="SP#runs.opus55-high-batch10.estimateUsd / J#passes.P0.fresh1.knownCostUsd = 37.7">37.7</span> times as much per pass. The best of the other decision models, Solar Decide, matched <span class="num" data-source="supplemental-decision-runs-v1.json#runs[id=solar-decide-native-fresh1-p0].metrics.all_four">55</span> on its first pass. The cheapest strong result came from a general model: DeepSeek V4.1 Flash with thinking off matched <span class="num" data-source="findings.json#charts.costAgreement.rows[id=openrouter-paid-deepseek-v41-flash-off].correct">54</span> for $<span class="num" data-source="findings.json#charts.costAgreement.rows[id=openrouter-paid-deepseek-v41-flash-off].actualUsd" data-round="4">0.0027</span>, under half the price of a Jev pass, and <span class="num" data-source="extended-run-catalog-v1.json#runs[id=extended-openrouter-paid-deepseek-v41-flash-off-fresh1-p0].metrics.all_four">48</span> when we ran it again. Most of Jev's <span class="num" data-source="findings.json#charts.jev.disagreementCaseIds.length">6</span> misses sat on reviews a person would pause on. <span class="num is-derived" data-derived="6 misses minus 3 disputed labels (DI#reference_status) minus the off-topic DEV-029">Two</span> were plain errors, and one of those was a harassment report it marked as needing no follow-up.</p>
     <p class="hero-thesis">If the decision matters, create a rule that hands the hard reviews to a person.</p>
     <div class="intro-actions"><a class="action" href="#leaderboard">See the leaderboard <span aria-hidden="true">↓</span></a><a class="quiet-link" href="explore.html">Every saved run</a><a class="quiet-link" href="method.html">How we tested</a></div>
   </div>
-  <div class="hero-stage" aria-hidden="true" data-diff="DEV-006,DEV-013,DEV-027,DEV-029,DEV-030,DEV-059" data-diff-source="findings.json#charts.jev.disagreementCaseIds" data-ring="DEV-003">
+  <div class="hero-stage" aria-hidden="true" data-diff="DEV-006,DEV-013,DEV-027,DEV-029,DEV-030,DEV-059" data-diff-source="findings.json#charts.jev.disagreementCaseIds">
     <div class="hero-stage-frame"><img class="hero-fallback" src="./site/hero-lattice.svg" alt="" width="640" height="384"></div>
   </div>
   <div class="hero-key">
     <p><i class="key-dot key-diff" aria-hidden="true"></i>Each dot is one of the 60 reviews. Orange marks the <span class="num" data-source="findings.json#charts.jev.disagreementCaseIds.length">6</span> where Jev's first answers differed from the reference.</p>
-    <p><i class="key-dot key-ring" aria-hidden="true"></i>The ring is DEV-003, the review in the next section.</p>
   </div>
 </section>
 
@@ -90,7 +90,7 @@
   <div class="finding-copy">
     <h2 id="gap-title">The gap is <span class="num is-derived" data-derived="F#charts.costAgreement.rows[id=openrouter-paid-gemma4-26b-a4b-on].correct - F#charts.jev.correct = 5">five</span> reviews.</h2>
     <p>Over three fresh passes, Jev matched <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.score.allFour">54</span>, <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh2.score.allFour">53</span> and <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh3.score.allFour">52</span> of 60. Opus 5.5 at high effort matched <span class="num" data-source="claude-roster-repeats.json#series[configuration=opus55-high-batch10].threePassSummary.P0.allFour.values[0]">59</span>, <span class="num" data-source="claude-roster-repeats.json#series[configuration=opus55-high-batch10].threePassSummary.P0.allFour.values[1]">58</span> and <span class="num" data-source="claude-roster-repeats.json#series[configuration=opus55-high-batch10].threePassSummary.P0.allFour.values[2]">58</span>. Sonnet 5.5 at xhigh matched <span class="num" data-source="sonnet55-fresh-matched3.json#threePassSummary.xhigh.P2.allFour.values[2]">58</span> in all nine cells. The best decision model on its first pass was Solar Decide, at <span class="num" data-source="supplemental-decision-runs-v1.json#runs[id=solar-decide-native-fresh1-p0].metrics.all_four">55</span>.</p>
-    <p>A Jev pass over all 60 reviews cost $<span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.knownCostUsd">0.00589092</span> on OpenRouter. An Opus pass works out to $<span class="num" data-source="subscription-price-estimates.json#runs.opus55-high-batch10.estimateUsd">0.222052</span> at API rates, since Claude ran on a subscription.</p>
+    <p>A Jev pass over all 60 reviews cost <span class="num is-derived" data-derived="J#passes.P0.fresh1.knownCostUsd = 0.00589092 dollars, about six tenths of a cent">six tenths of a cent</span>. An Opus pass costs <span class="num is-derived" data-derived="SP#runs.opus55-high-batch10.estimateUsd = 0.222052 dollars at API prices, about 22 cents">22 cents</span> at API prices.</p>
     <div class="chapter-implication"><p><strong>Jev flagged all <span class="num" data-source="findings.json#referenceDistributions.serious_concern_reported.yes">25</span> reviews the reference marks as a serious concern.</strong> It still answered <span class="bound" data-text-source="findings.json#charts.jev.cases[id=DEV-059].prediction.follow_up_needed">no</span> to "does someone need to follow up?" on this one, where the reference says <span class="bound" data-text-source="findings.json#charts.jev.cases[id=DEV-059].reference.follow_up_needed">yes</span>:</p><blockquote class="review-quote"><span class="bound" data-text-source="findings.json#charts.jev.cases[id=DEV-059].feedback">Nice staff. After the trial shift the manager kept asking me out even after I said no twice. I've asked the recruiter to stop him contacting me.</span></blockquote><p class="review-id">DEV-059 <a href="explore.html?run=typesafe-jev113-v2&amp;case=DEV-059#inspect">Jev's four answers ↗</a></p></div>
   </div>
   <figure class="finding-figure ninecell-set">
@@ -145,13 +145,13 @@
       <h3>Two decision models: Solar Decide + Perplexity Decider</h3>
       <dl class="rule-stats"><div><dt>Accepted</dt><dd><span class="num" data-source="deep-insights-v1.json#agreement_rule.solar_perplexity.accepted">53</span></dd></div><div><dt>Accepted errors</dt><dd><span class="num" data-source="deep-insights-v1.json#agreement_rule.solar_perplexity.accepted_errors">0</span></dd></div><div><dt>To a person</dt><dd><span class="num" data-source="deep-insights-v1.json#agreement_rule.solar_perplexity.deferred">7</span></dd></div></dl>
       <div class="rule-bar" role="img" aria-label="53 accepted, 7 to a person"><i class="accept" style="--n:53"></i><i class="defer" style="--n:7"></i></div>
-      <p>$<span class="num" data-source="deep-insights-v1.json#agreement_rule.solar_perplexity.two_run_charge_usd">0.03749436</span> for both runs over all 60 reviews.</p>
+      <p>$<span class="num" data-source="deep-insights-v1.json#agreement_rule.solar_perplexity.two_run_charge_usd" data-round="4">0.0375</span> for both runs over all 60 reviews.</p>
     </article>
     <article class="rule-pair">
       <h3>Two general models: Qwen3.8 27B low + Gemma 4 26B thinking on</h3>
       <dl class="rule-stats"><div><dt>Accepted</dt><dd><span class="num" data-source="deep-insights-v1.json#agreement_rule.qwen_gemma.accepted">58</span></dd></div><div><dt>Accepted errors</dt><dd><span class="num" data-source="deep-insights-v1.json#agreement_rule.qwen_gemma.accepted_errors">0</span></dd></div><div><dt>To a person</dt><dd><span class="num" data-source="deep-insights-v1.json#agreement_rule.qwen_gemma.deferred">2</span></dd></div></dl>
       <div class="rule-bar" role="img" aria-label="58 accepted, 2 to a person"><i class="accept" style="--n:58"></i><i class="defer" style="--n:2"></i></div>
-      <p>$<span class="num" data-source="deep-insights-v1.json#agreement_rule.qwen_gemma.two_run_charge_usd">0.06854978</span> for both runs. Other passes of this pair accept different counts: with Gemma's second fresh pass, <span class="num" data-source="deep-insights-v1.json#agreement_rule.qwen_gemma_pass_sensitivity[2].accepted_errors">1</span> error got through.</p>
+      <p>$<span class="num" data-source="deep-insights-v1.json#agreement_rule.qwen_gemma.two_run_charge_usd" data-round="4">0.0685</span> for both runs. Other passes of this pair accept different counts: with Gemma's second fresh pass, <span class="num" data-source="deep-insights-v1.json#agreement_rule.qwen_gemma_pass_sensitivity[2].accepted_errors">1</span> error got through.</p>
     </article>
   </div>
   <div class="rule-queue">
@@ -164,8 +164,7 @@
 <section class="section deep-insights" id="deep-insights" aria-labelledby="deep-insights-title" data-surface="ink">
   <div class="deep-insights__inner">
     <header class="deep-insights__intro">
-      <h2 id="deep-insights-title">Five more findings from <span class="num" data-source="deep-insights-v1.json#hardest_reviews.reviews[id=DEV-030].run_passes">1,004</span> run-passes</h2>
-      <p>The analysis scripts reran every count over the saved answers. No model was called again.</p>
+      <h2 id="deep-insights-title">Four more findings from <span class="num" data-source="deep-insights-v1.json#hardest_reviews.reviews[id=DEV-030].run_passes">1,004</span> saved passes</h2>
     </header>
     <div class="deep-insights__changed" data-di-mount="changed" aria-live="polite" aria-busy="true"></div>
     <div class="deep-insights__cards" data-di-mount="cards"></div>
@@ -175,14 +174,14 @@
   </div>
 </section>
 
-<section class="reader-takeaways section" aria-labelledby="takeaway-title" id="team" data-surface="ink"><div><h2 id="takeaway-title">What I'd do on Monday</h2><p>Four steps, and none of them needs a big budget.</p></div><div class="audience-notes"><article><h3>1. Label 60 of your own cases</h3><p>I'd pull 60 of my own cases and label them myself, before any model sees them.</p></article><article><h3>2. Add can't tell</h3><p>I'd give every question a can't-tell option, so a review that doesn't fit has somewhere to go.</p></article><article><h3>3. Run two cheap models</h3><p>I'd run two cheap models and keep only what they agree on.</p></article><article><h3>4. Count the queue</h3><p>I'd count how many land in the human queue, and check the rare cases I care about got through.</p></article></div></section>
+<section class="reader-takeaways section" aria-labelledby="takeaway-title" id="team" data-surface="ink"><div><h2 id="takeaway-title">What should you do</h2><p>Four steps, and none of them needs a big budget.</p></div><div class="audience-notes"><article><h3>Label 60 of your own cases</h3><p>Pull 60 of your own cases and label them yourself before any model sees them.</p></article><article><h3>Add can't tell</h3><p>Give every question a can't-tell option, so a review that doesn't fit has somewhere to go.</p></article><article><h3>Run two cheap models</h3><p>Run two cheap models and keep only what they agree on.</p></article><article><h3>Count the queue</h3><p>Count how many land in the human queue, and check that the rare cases you care about got through.</p></article></div></section>
 
 <section class="section limits" id="limits" aria-labelledby="limits-title" data-surface="ink">
   <div class="section-intro"><h2 id="limits-title">About this test</h2></div>
   <ul class="limit-list">
     <li>The 60 reviews are fictional. An AI assistant wrote them and drafted the reference answers, and a person checked all 60. Three labels are still disputed: <span class="nowrap">DEV-006</span>, <span class="nowrap">DEV-013</span> and <span class="nowrap">DEV-030</span>.</li>
-    <li>Route, interface, batch size, effort and prompt differ across runs, so the order of scores is not an order of models.</li>
-    <li>Every number on this site describes these 60 reviews. Request times include the network and batching, so we make no speed claim, and a missing cost is unknown, never zero.</li>
+    <li>Each row is one setup: the model plus its route, effort and prompt. Change any of those and the score can move.</li>
+    <li>Every number on this site describes these 60 reviews. Request times include the network and batching, so we make no speed claim.</li>
   </ul>
 </section>
 
@@ -193,22 +192,7 @@
     <a class="door" href="method.html"><strong>How the test was run</strong><span>The questions, the scoring, the passes, the disputed labels and what the study cost.</span><span class="door-go" aria-hidden="true">→</span></a>
     <a class="door" href="https://github.com/adambkovacs/candidate-experience-benchmark"><strong>The benchmark on GitHub</strong><span>The reviews, the reference, every saved answer and the scripts.</span><span class="door-go" aria-hidden="true">↗</span></a>
   </div>
-  <h3 id="downloads-title">Sources and downloads</h3>
-  <ul class="source-list" aria-labelledby="downloads-title">
-    <li><a href="./findings.json">findings.json</a> Jev's direct run, the general-model costs and the prompt comparison</li>
-    <li><a href="./jev-native-prompt-findings.json">jev-native-prompt-findings.json</a> Jev's nine passes on OpenRouter</li>
-    <li><a href="./supplemental-decision-runs-v1.json">supplemental-decision-runs-v1.json</a> the seven decision models, every pass</li>
-    <li><a href="./claude-roster-repeats.json">claude-roster-repeats.json</a> Opus 5.5 and the other Claude passes</li>
-    <li><a href="./sonnet55-fresh-matched3.json">sonnet55-fresh-matched3.json</a> Sonnet 5.5 at four effort levels</li>
-    <li><a href="./subscription-price-estimates.json">subscription-price-estimates.json</a> API-rate prices for the subscription runs</li>
-    <li><a href="./deep-insights-v1.json">deep-insights-v1.json</a> the recomputed findings, the rule and calibration</li>
-    <li><a href="./cross-category-v1.json">cross-category-v1.json</a> decision and general models review by review</li>
-    <li><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> all 60 reviews with the seven decision models' answers</li>
-    <li><a href="./native-agreement-policy-v1.json">native-agreement-policy-v1.json</a> all 21 decision-model pairs</li>
-    <li><a href="./deck/data/hard-cases.json">hard-cases.json</a> the reviews that split the decision models</li>
-    <li><a href="https://github.com/adambkovacs/candidate-experience-benchmark">The repository</a> the reviews, the reference, every saved answer and the scripts</li>
-    <li>classification-bench, the tool that ran this test, runs it on your own cases, labels and questions.</li>
-  </ul>
+  <p class="next-downloads" id="downloads-title">Every feed behind these numbers, the reviews, the reference and the scripts are in <a href="method.html#downloads">the downloads on the Method page</a>.</p>
 </section>
 
 </main><footer><img class="footer-logo" src="./site/aea-logo-horizontal-transparent-white.svg" alt="AI Enablement Academy" width="170" height="68" loading="lazy"><p><span class="footer-title">Candidate Experience Feedback Benchmark</span><br>60 fictional reviews, four decisions, every saved answer public.</p><nav aria-label="Footer"><a href="method.html#method">Method</a><a href="https://github.com/adambkovacs/candidate-experience-benchmark">Source repository</a><a href="#top">Back to top ↑</a></nav><span class="footer-rail" aria-hidden="true"></span></footer>

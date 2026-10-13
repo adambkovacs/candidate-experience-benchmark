@@ -54,7 +54,7 @@ test('both new Qwen composites stay separate from historical interrupted cutoffs
   assert.match(ui.get('repeat-chart').innerHTML, /56<small> \/ 60<\/small>/);
   assert.match(ui.get('repeat-deltas').innerHTML, />-1<\/td>/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /59 valid, 1 preserved service error/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.0470016 unrecorded/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.0470 unrecorded/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown overall/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /<details><summary>How these runs were completed/);
   ui.select(xhigh);

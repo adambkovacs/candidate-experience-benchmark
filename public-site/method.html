@@ -22,15 +22,16 @@
   <link rel="stylesheet" href="./presentation.css?v=20261007-hosted-decisions">
   <link rel="stylesheet" href="./deep-insights.css?v=20261008">
   <link rel="stylesheet" href="./site/site.css?v=20261008-layers">
-  <link rel="stylesheet" href="./site/benchmarks.css?v=20261013-bm">
+  <link rel="stylesheet" href="./site/benchmarks.css?v=20261013-fix2">
   <script defer src="./navigation.js?v=20260930-results"></script>
+  <script defer src="./site/labels.js?v=20261013-fix2"></script>
   <script defer src="./deep-insights.js?v=20261013-bm"></script>
 </head>
 <body id="top" class="page-method">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="index.html"><img class="brand-mark" src="./site/aea-icon-transparent.svg" alt="" width="30" height="30"><span>Candidate Experience<br>Feedback Benchmark</span></a>
-  <nav class="main-nav" aria-label="On this page"><a href="#method">The test</a><a href="#passes">Passes</a><a href="#findings">Disputed labels</a><a href="#launch-wave">Launch wave</a><a href="#study-cost">Cost</a><a href="#downloads">Downloads</a></nav>
+  <nav class="main-nav" aria-label="On this page"><a href="#method">The test</a><a href="#roster">Models</a><a href="#passes">Passes</a><a href="#findings">Disputed labels</a><a href="#launch-wave">Launch wave</a><a href="#study-cost">Cost</a><a href="#downloads">Downloads</a></nav>
   <nav class="layer-nav" aria-label="Site sections"><a href="index.html">Read</a><a href="explore.html">Explore</a><a href="method.html" aria-current="page">Method</a></nav>
   <div class="scroll-rail" aria-hidden="true"><span></span></div>
 </header>
@@ -38,7 +39,7 @@
 <section class="method section" id="method" aria-labelledby="method-title" data-surface="ink">
   <div class="section-intro">
     <h1 id="method-title" class="page-title">How the test ran.</h1>
-    <p>We wrote <span class="num" data-source="deep-insights-v1.json#denominator">60</span> short, fictional comments from job candidates and asked every model the same four questions about each one. AI wrote the comments and drafted the reference answers. A person checked all 60, and three labels are still disputed. Every number on this site describes these 60 reviews and nothing wider.</p>
+    <p>We wrote <span class="num" data-source="deep-insights-v1.json#denominator">60</span> short, fictional comments from job candidates and asked every model the same four questions about each one. AI wrote the comments and drafted the reference answers. A person checked all 60, and three labels are still disputed.</p>
   </div>
   <div class="method-body">
     <h2>The four questions</h2>
@@ -48,17 +49,64 @@
       <li><b>Does it report a serious concern?</b> Harassment, discrimination or a privacy breach, for example. A bad experience alone does not count. Can't tell is for a serious issue that is alleged but underspecified.</li>
       <li><b>Could it work as a testimonial?</b> Yes, no, or can't tell.</li>
     </ol>
+    <p id="key-balance">The reference answers lean negative. Of the 60, <span class="num" data-source="findings.json#referenceDistributions.sentiment.negative">31</span> call the experience negative, <span class="num" data-source="findings.json#referenceDistributions.follow_up_needed.yes">35</span> need a follow-up, <span class="num" data-source="findings.json#referenceDistributions.serious_concern_reported.yes">25</span> report a serious concern and <span class="num" data-source="findings.json#referenceDistributions.testimonial_potential.yes">9</span> would work as a testimonial.</p>
+    <div class="bm-scroll"><table class="bm-table" aria-describedby="key-balance">
+      <thead><tr><td rowspan="2"></td><th scope="colgroup" colspan="5">Experience</th><th scope="colgroup" colspan="3">Follow-up</th><th scope="colgroup" colspan="3">Serious concern</th><th scope="colgroup" colspan="3">Testimonial</th></tr>
+      <tr><th scope="col" class="bm-num">Positive</th><th scope="col" class="bm-num">Negative</th><th scope="col" class="bm-num">Mixed</th><th scope="col" class="bm-num">Neutral</th><th scope="col" class="bm-num">Can't tell</th><th scope="col" class="bm-num">Yes</th><th scope="col" class="bm-num">No</th><th scope="col" class="bm-num">Can't tell</th><th scope="col" class="bm-num">Yes</th><th scope="col" class="bm-num">No</th><th scope="col" class="bm-num">Can't tell</th><th scope="col" class="bm-num">Yes</th><th scope="col" class="bm-num">No</th><th scope="col" class="bm-num">Can't tell</th></tr></thead>
+      <tbody><tr><th scope="row">Reference answers</th><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.positive">11</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.negative">31</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.mixed">8</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.neutral">8</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.insufficient_information">2</td><td class="bm-num" data-source="findings.json#referenceDistributions.follow_up_needed.yes">35</td><td class="bm-num" data-source="findings.json#referenceDistributions.follow_up_needed.no">24</td><td class="bm-num" data-source="findings.json#referenceDistributions.follow_up_needed.insufficient_information">1</td><td class="bm-num" data-source="findings.json#referenceDistributions.serious_concern_reported.yes">25</td><td class="bm-num" data-source="findings.json#referenceDistributions.serious_concern_reported.no">29</td><td class="bm-num" data-source="findings.json#referenceDistributions.serious_concern_reported.insufficient_information">6</td><td class="bm-num" data-source="findings.json#referenceDistributions.testimonial_potential.yes">9</td><td class="bm-num" data-source="findings.json#referenceDistributions.testimonial_potential.no">50</td><td class="bm-num" data-source="findings.json#referenceDistributions.testimonial_potential.insufficient_information">1</td></tr></tbody>
+    </table></div>
     <p>The <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/LABELING_GUIDE.md">labelling guide</a> fixes each boundary, and the <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REFERENCE_REVIEW_V1.md">reference review</a> records every label we argued about.</p>
     <h2>How a match is scored</h2>
     <p>A review counts as matched only when all four answers agree with the reference. The denominator is always 60. A missing, failed or malformed answer scores as a miss, so a run that saved 57 usable answers can match at most 57. Explore counts format and agreement separately.</p>
     <h2>Three prompts</h2>
-    <p>P0 is the base task. P1 adds classifier instructions with the label definitions. P2 adds step-by-step decision rules. Decision models received the same instructions inside their native Choice questions. No model saw the reference or another model's answer.</p>
+    <p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/LABELING_GUIDE.md">P0</a> is the base task: the labelling guide's rules, then one line asking for the four answers as JSON. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/prompts/variants-v1/P1-classifier.txt">P1</a> adds classifier instructions with the label definitions. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/prompts/variants-v1/P2-classifier-sop.txt">P2</a> adds step-by-step decision rules on top of P1. Decision models received the same instructions inside their native Choice questions. No model saw the reference or another model's answer.</p>
   </div>
+</section>
+
+<section class="section method-roster" id="roster" aria-labelledby="roster-title" data-surface="ink">
+  <h2 id="roster-title">The models</h2>
+  <p>Decision models first, then general models. Route is how we reached each model, and effort lists the reasoning settings we tested. A dash means we ran it with no effort setting.</p>
+  <div class="bm-scroll"><table class="bm-table">
+    <thead><tr><th scope="col">Model</th><th scope="col">Maker</th><th scope="col">Type</th><th scope="col">Route</th><th scope="col">Effort tested</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jev 1.13</th><td>TypeSafe</td><td>Decision</td><td>OpenRouter, TypeSafe API</td><td>–</td></tr>
+      <tr><th scope="row">Solar Decide</th><td>Upstage</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Clef</th><td>Cloudflare</td><td>Decision</td><td>OpenRouter, Cloudflare direct</td><td>–</td></tr>
+      <tr><th scope="row">Clef Flash</th><td>Cloudflare</td><td>Decision</td><td>OpenRouter, Cloudflare direct</td><td>–</td></tr>
+      <tr><th scope="row">Perplexity Decider 27B</th><td>Perplexity</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Luna Decisions</th><td>OpenAI</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Tev 1 4B</th><td>Together</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Liquid d1</th><td>Liquid AI</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Kev 4B</th><td>Jared Palmer</td><td>Decision</td><td>OpenRouter (SiliconFlow)</td><td>–</td></tr>
+      <tr><th scope="row">Laya (English, typed and multilingual)</th><td>Convai Innovations</td><td>Decision</td><td>Local</td><td>–</td></tr>
+      <tr><th scope="row">OpenJev</th><td>Community</td><td>Decision</td><td>Local</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">SemIf on Qwen3.5 4B</th><td>Community (TheoLeeCJ)</td><td>Decision</td><td>Local</td><td>–</td></tr>
+      <tr><th scope="row">AnyJev on Qwen3 0.6B</th><td>Nokia Applied Research</td><td>Decision</td><td>Local</td><td>–</td></tr>
+      <tr><th scope="row">Opus 5.5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">Sonnet 5.5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">Opus 5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh, max</td></tr>
+      <tr><th scope="row">Sonnet 5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh, max</td></tr>
+      <tr><th scope="row">Fable 5.1</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh, max</td></tr>
+      <tr><th scope="row">Haiku 4.5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>–</td></tr>
+      <tr><th scope="row">GPT-6 Luna, Sol and Astra</th><td>OpenAI</td><td>General</td><td>Codex subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">GPT-5.6 Luna, Sol and Terra</th><td>OpenAI</td><td>General</td><td>Codex subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">Gemini 3.1 Pro</th><td>Google</td><td>General</td><td>Gemini subscription, OpenRouter (Google AI Studio)</td><td>low, high</td></tr>
+      <tr><th scope="row">Gemini 3.6 to 3.8 Flash</th><td>Google</td><td>General</td><td>Gemini subscription, OpenRouter (Google AI Studio)</td><td>low, medium, high</td></tr>
+      <tr><th scope="row">Gemma 4 E2B and E4B</th><td>Google</td><td>General</td><td>Local</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Gemma 4 26B and 31B</th><td>Google</td><td>General</td><td>OpenRouter</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3 0.6B, Qwen3 1.7B and Qwen3.5 4B</th><td>Alibaba</td><td>General</td><td>Local</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3 8B</th><td>Alibaba</td><td>General</td><td>Local, OpenRouter</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3.6 35B A3B</th><td>Alibaba</td><td>General</td><td>OpenRouter</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3.8 27B</th><td>Alibaba</td><td>General</td><td>OpenRouter, local</td><td>thinking off, low, medium, xhigh</td></tr>
+      <tr><th scope="row">DeepSeek V4.1 Flash</th><td>DeepSeek</td><td>General</td><td>OpenRouter</td><td>thinking off, low, high</td></tr>
+      <tr><th scope="row">Mistral Small 3.2 24B and Mistral Small 2603</th><td>Mistral AI</td><td>General</td><td>OpenRouter</td><td>–</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
 <section class="section passes" id="passes" aria-labelledby="passes-title" data-surface="ink">
   <h2 id="passes-title">How many passes, and which ones broke</h2>
-  <p>The site holds <span class="num" data-source="deep-insights-v1.json#hardest_reviews.reviews[id=DEV-030].run_passes">1,004</span> saved run-passes. <span class="num" data-source="deep-insights-v1.json#determinism.configurations_total">252</span> configurations ran each prompt three times with fresh requests: <span class="num" data-source="deep-insights-v1.json#determinism.configurations.decision">50</span> decision-model configurations and <span class="num" data-source="deep-insights-v1.json#determinism.configurations.general">202</span> general ones. In 241 of them every pass returned at least 50 usable answers. The other 11 contain a partial or failed pass: AnyJev generated, Qwen 0.6B on the SDK, SemIf generated P1, OpenJev generated-on P2 pass 3 at 47 usable answers, and Jev's P2 pass 2, which stopped after <span class="num" data-source="jev-native-prompt-findings.json#passes.P2.fresh2.score.valid">17</span> answers on a rate-limit error.</p>
+  <p>The site holds <span class="num" data-source="deep-insights-v1.json#hardest_reviews.reviews[id=DEV-030].run_passes">1,004</span> saved passes. <span class="num" data-source="deep-insights-v1.json#determinism.configurations_total">252</span> configurations ran each prompt three times with fresh requests: <span class="num" data-source="deep-insights-v1.json#determinism.configurations.decision">50</span> decision-model configurations and <span class="num" data-source="deep-insights-v1.json#determinism.configurations.general">202</span> general ones. In 241 of them every pass returned at least 50 usable answers. The other 11 contain a partial or failed pass: AnyJev generated, Qwen 0.6B on the SDK, SemIf generated P1, OpenJev generated-on P2 pass 3 at 47 usable answers, and Jev's P2 pass 2, which stopped after <span class="num" data-source="jev-native-prompt-findings.json#passes.P2.fresh2.score.valid">17</span> answers on a rate-limit error.</p>
   <p>An interrupted pass has no score of its own. Where a continuation finished the remaining reviews, Explore shows the combined result and marks it.</p>
 </section>
 
@@ -103,9 +151,9 @@
 
 <section class="section study-cost" id="study-cost" aria-labelledby="study-cost-title" data-surface="ink">
   <h2 id="study-cost-title">The whole study cost $12.65 on OpenRouter.</h2>
-  <p>OpenRouter billed $12.653729 across 15,135 saved generations. Up to $3.88 more sits in reservations for requests whose id was never saved, mostly failed or interrupted calls. That is a ceiling on what we may owe, never a charge.</p>
-  <p>The seven decision models' full series of nine passes each cost $<span class="num" data-source="deck/data/answer.json#seven_model_known_charge_usd.value">1.2013</span> in known charges, plus up to $<span class="num" data-source="deck/data/answer.json#seven_model_unknown_bound_usd.value">0.1285</span> of unrecorded reservations.</p>
-  <p>A Jev pass through OpenRouter cost $<span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.knownCostUsd">0.00589092</span> for 140,260 input tokens, and it matched 54, 53 and 52 over three passes. On TypeSafe's direct API, Jev scored 54 on its first pass and there is no bill. Claude and Codex ran on subscriptions, so their costs are API-rate equivalents. Every cost on this site is a provider charge, an API-rate equivalent, or unknown. A missing cost is unknown, never zero.</p>
+  <p>OpenRouter billed $12.6537 over 15,135 saved generations, and that total includes the $<span class="num" data-source="deck/data/answer.json#seven_model_known_charge_usd.value">1.2013</span> the seven decision models cost over their series of nine passes each. Failed calls may add up to $3.8837 more.</p>
+  <p>A Jev pass through OpenRouter cost $<span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.knownCostUsd" data-round="4">0.0059</span> for <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.inputTokens">140,260</span> input tokens, and it matched <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.score.allFour">54</span>, <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh2.score.allFour">53</span> and <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh3.score.allFour">52</span> over three passes. On TypeSafe's direct API, Jev scored <span class="num" data-source="data.json#runs[id=typesafe-jev113-v2].metrics.all_four">54</span> on its first pass, and that route sends no bill.</p>
+  <p>† marks an API-rate equivalent: what the same tokens cost at the published price, for routes that sent no bill (the Claude and Codex subscriptions, TypeSafe's direct API and Cloudflare's direct route).</p>
 </section>
 
 <section class="section corrections" id="corrections" aria-labelledby="corrections-title" data-surface="ink">
@@ -115,10 +163,10 @@
 
 <section class="section harness" id="harness" aria-labelledby="harness-title" data-surface="ink">
   <h2 id="harness-title">classification-bench</h2>
-  <p>classification-bench, the tool that ran this test, runs it on your own cases, labels and questions. It saves every request, answer, failure and charge, which is how every number on this site traces back to a saved answer.</p>
+  <p>We rebuilt the scripts that ran this test as classification-bench, one runner that does the same on your own cases, labels and questions and keeps every request, answer, failure and charge. classification-bench is not public yet. Ask Adam for access.</p>
   <details class="method-glossary"><summary>Terms used on this site</summary>
     <dl>
-      <dt>Run-pass</dt><dd>One model, one prompt, one pass over all 60 reviews.</dd>
+      <dt>Pass</dt><dd>One model, one prompt, one pass over all 60 reviews.</dd>
       <dt>Configuration</dt><dd>One model with its route, effort and batch size held fixed.</dd>
       <dt>Decision model</dt><dd>A model built to return one label from a fixed list in a single pass, through a native Choice interface.</dd>
       <dt>Tokens</dt><dd>The pieces of text a provider bills for. Reasoning adds output tokens even when the answer is one word.</dd>
@@ -137,7 +185,7 @@
     <li><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> all 60 reviews with the seven decision models' answers</li>
     <li><a href="./deep-insights-v1.json">deep-insights-v1.json</a> repeatability, calibration, the agreement rule and the corrections</li>
     <li><a href="./native-agreement-policy-v1.json">native-agreement-policy-v1.json</a> all 21 decision-model pairs</li>
-    <li><a href="./deck/data/timeline.json">timeline.json</a> the launch dates above, with their sources</li>
+    <li><a href="./deck/data/timeline.json">timeline.json</a> the launch dates above, each with the link where it was announced</li>
     <li><a href="https://github.com/adambkovacs/candidate-experience-benchmark">The repository</a> the reviews, the reference, every saved answer and the scripts</li>
   </ul>
 </section>

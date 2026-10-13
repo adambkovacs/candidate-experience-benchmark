@@ -177,3 +177,9 @@ but new links should point at the new page directly.
 | `index.html#source-links` | `explore.html#source-links` |
 
 New ids: `index.html` adds `decisions`, `gap`, `hard-reviews`, `controls`, `rule`, `limits`, `team` and `next`. `explore.html` adds `explore-top`, `how-it-works`, `scores` and `sources`. `method.html` adds `harness`.
+
+## Explore layout from 2026-10-13
+
+Explore leads with the benchmark blocks in this order: `#results`, `#decision-matrix`, `#stability`, `#cost-ledger`, `#outcome-chart`, `#hard-matrix`, `#review-evidence`, `#inspect`, `#agreement-policy`, `#reference-sensitivity`, `#sources`.
+The fourteen older panels moved, ids unchanged, into one closed `<details id="earlier-analyses">` at the end of the page: `#report-lens`, `#run-ranking`, `#jev`, `#models`, `#usage`, `#explore`, `#story`, `#cross-category`, `#cohort-reviews`, `#clef-first-pass`, `#analysis-update`, `#analysis-library`, `#scores`, `#how-it-works`.
+Every link in the tables above still resolves: `site/benchmarks.js` opens the closed block when the URL hash names an element inside it. Read's old file list in `#next` became one line that links `method.html#downloads`; the id `downloads-title` stays on that line.

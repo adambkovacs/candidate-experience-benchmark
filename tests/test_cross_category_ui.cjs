@@ -77,16 +77,16 @@ test('selected pair displays five outcomes, exact IDs and separate accounting ba
   assert.match(html, /Both miss reference/);
   assert.match(html, /General output unusable or absent/);
   assert.match(html, /Route, effort, batch and cost/);
-  assert.match(html, /API-rate estimate/);
+  assert.match(html, /Cost at API rates/);
   assert.match(html, /Requests with recorded duration/);
-  assert.match(html, /Unrecorded charge, upper bound/);
-  assert.match(html, /Charge as reported<\/th>.*Charge after reconciliation<\/th>/s);
+  assert.match(html, /Failed requests, at most/);
+  assert.match(html, /Charge reported by the provider<\/th>.*Charge after reconciliation<\/th>/s);
   assert.ok(html.includes(general.sourceUrl) && html.includes(native.sourceUrl));
   assert.doesNotMatch(html, /provisional|do not add those rows|Unavailable</);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);
   assert.match(html, /data-cross-case="DEV-001"/);
   assert.match(html, /Field matches and confusion tables/);
-  assert.match(html, /General 59\/60 · Native 49\/60/);
+  assert.match(html, /General 59\/60, decision model 49\/60/);
   assert.doesNotMatch(html, /href="\/?\?[^\"]*review=DEV-001/);
   const tally = ui.pairTally(general, native);
   for (const id of Object.values(tally).flat()) assert.match(html, new RegExp(id));
@@ -99,7 +99,7 @@ test('untimed Liquid run retains 60 valid outputs and a zero duration-record cou
   assert.equal(native.controls.observedRequestCount, 0);
   const html = ui.renderPair(general, native, feed.cases);
   assert.match(html, /Requests with recorded duration<\/th><td>[^<]*<\/td><td>0<\/td>/);
-  assert.match(html, /No public client-duration series or server inference duration is available/);
+  assert.doesNotMatch(html, /smoke|No public client-duration series/);
 });
 
 test('field tables retain all 60 positions, missing answers and insufficient information', () => {
@@ -124,8 +124,8 @@ test('field tables retain all 60 positions, missing answers and insufficient inf
   assert.match(html, /<details class="cross-fields">/);
   assert.equal((html.match(/class="cross-field"/g) || []).length, 4);
   assert.equal((html.match(/class="cross-matrix-wrap" role="region"/g) || []).length, 8);
-  assert.match(html, /General 25\/60 · Native 55\/60/);
-  assert.match(html, /25\/60<\/strong> match the reference · 31\/60 usable · 29\/60 no valid output \(29 invalid output\)/);
+  assert.match(html, /General 25\/60, decision model 55\/60/);
+  assert.match(html, /25\/60<\/strong> match the reference, 31\/60 usable, 29\/60 no valid output \(29 invalid output\)/);
   assert.match(html, /Can&#39;t tell<\/th>/);
   assert.match(html, /No valid output<\/th>/);
   assert.match(html, /Yes precision<\/dt><dd>89\.5% \(17\/19\)/);
@@ -153,8 +153,8 @@ test('an exact case shows both selected predictions and the reference inline', (
   const html = ui.renderCase(feed, general, native, id);
   assert.match(html, /<h4>DEV-029<\/h4>/);
   assert.match(html, /<h5>Reference /);
-  assert.match(html, /General · claude-sonnet-5/);
-  assert.match(html, /Native · liquid\/d1/);
+  assert.match(html, /General: claude-sonnet-5/);
+  assert.match(html, /Decision model: liquid\/d1/);
   assert.match(html, /follow up needed/);
   assert.match(html, /serious concern reported/);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);

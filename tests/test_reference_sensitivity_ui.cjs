@@ -93,3 +93,13 @@ test('affected case drilldown targets the selected extended run, not the seven-n
   assert.equal(parsed.searchParams.get('compareRun'), null);
   assert.equal(parsed.hash, '#inspect');
 });
+
+test('panel opens on a strong decision-model run and renders without middle dots', () => {
+  const id = source.match(/defaultRun = '([^']+)'/)?.[1];
+  const run = data.extended_runs.find(item => item.id === id);
+  assert.ok(run, 'default run must exist in the feed');
+  assert.ok(run.saved_all_four >= 54, 'default run must be a strong one, never the 3 of 60 local model');
+  const detail = ui.detail(run, [], data.alternatives);
+  assert.doesNotMatch(detail, /·|No alternative label applied/);
+  assert.doesNotMatch(source, /Original labels: these are the published scores|Dated proposal|no new model calls/);
+});

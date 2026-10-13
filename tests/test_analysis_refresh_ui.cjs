@@ -37,7 +37,7 @@ test('latest effort table uses source ranges, changed-review counts and nine-run
   for(const effort of ['low','medium','high','xhigh']) {
     assert.match(html,new RegExp(`<th scope="row">${effort}</th>`));
     const row=report.sonnet55.byEffort[effort];
-    assert.ok(html.includes('$'+Number(row.usage.developmentApiEquivalentUsd).toFixed(3)));
+    assert.ok(html.includes('$'+Number(row.usage.developmentApiEquivalentUsd).toLocaleString("en-US",{minimumFractionDigits:4,maximumFractionDigits:4})+"†"));
   }
   // Current editorial claims must be reviewed if the source cohort changes.
   assert.ok(Object.values(report.sonnet55.byEffort.xhigh.conditions).every(c=>c.scores.length===3&&c.scores.every(n=>n===58)));
@@ -78,19 +78,19 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/DEV-005 and DEV-006/);
   assert.match(view.cutoffs,/The series remains interrupted/);
   assert.match(view.cutoffs,/Clef native P0/);
-  assert.match(view.cutoffs,/third pass has 2 unknown outcomes and 58 reviews that have not been sent/);
-  assert.match(view.cutoffs,/Neither attempt returned a usable answer/);
-  assert.match(view.cutoffs,/CLEF_FLASH_P0_SUFFIX_CHECKPOINT_2026-10-05.md/);
+  assert.match(view.cutoffs,/third pass has 2 unknown outcomes and 58 reviews that were never sent, so it has no third P0 score/);
+  assert.doesNotMatch(view.cutoffs,/Latest checkpoint|At the P0 checkpoint|Latest Clef Flash P0 interruption/);
+  assert.match(view.cutoffs,/Clef Flash scored 45\/60 and 45\/60 on its first two P0 passes/);
   assert.match(view.cutoffs,/53\/60/);
   assert.match(view.cutoffs,/45\/60/);
-  assert.match(view.cutoffs,/At the P0 checkpoint, Clef had 3\/9 planned runs scored/);
-  assert.match(view.cutoffs,/At the P0 checkpoint, Clef Flash had two completed P0 passes, scoring 45\/60 and 45\/60/);
-  assert.match(view.cutoffs,/59 reviews were never sent/);
+  assert.match(view.cutoffs,/Clef scored 53\/60, 53\/60 and 53\/60 across its three P0 passes/);
+  assert.doesNotMatch(view.cutoffs,/Correct classifications on the usable answers/);
+  assert.doesNotMatch(view.cutoffs,/client-observed request time|frozen strict-JSON/);
   assert.match(view.cutoffs,/so it has no third P0 score/);
   assert.match(view.cutoffs,/no changed four-field answer, native probability dictionary or vendor confidence value/);
   assert.match(view.cutoffs,/Clef P1, first pass/);
   assert.match(view.cutoffs,/52\/60 versus 53\/60/);
-  assert.match(view.cutoffs,/0\.03472656/);
+  assert.match(view.cutoffs,/\$0\.0347† at API rates/);
   assert.match(view.cutoffs,/Clef Flash P1/);
   assert.match(view.cutoffs,/All three passes returned 60 valid answers and scored 47\/60/);
   assert.match(view.cutoffs,/Two reviews became all-four matches \(DEV-027 and DEV-044\) and none lost one/);
@@ -124,7 +124,7 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/12\/59 shared-valid reviews changed at least one label across three passes/);
   assert.match(view.cutoffs,/7\/48 shared-valid reviews changed at least one label across three passes/);
   assert.match(view.cutoffs,/All three P2 full passes are complete/);
-  assert.match(view.cutoffs,/Qwen1.7B with thinking disabled, historical first prompt comparison/);
+  assert.match(view.cutoffs,/Qwen1.7B with thinking disabled, earlier first prompt comparison/);
   assert.match(view.cutoffs,/matched all four labels on 28\/25\/32 of 60 reviews/);
   assert.match(view.cutoffs,/gained an all-four match on 4 reviews but lost one on 7, among 59/);
   assert.match(view.cutoffs,/Decision rules gained 9 and lost 5, among 57/);
@@ -179,7 +179,7 @@ test('Qwen current repeat narrative distinguishes a stopped smoke from a closed 
   const partial = await renderState(report);
   assert.match(partial.cutoffs,/8\/9 full phases are closed/);
   assert.match(partial.cutoffs,/P2: 32, 30 all-four matches out of 60; 57, 56 valid answers/);
-  assert.match(partial.cutoffs,/Fresh3 P2 stopped at smoke after 3 saved responses \(2 valid, 1 invalid\); it has no full 60-review score/);
+  assert.match(partial.cutoffs,/The third P2 pass stopped after 3 saved responses \(2 valid, 1 invalid\), so it has no full 60-review score/);
   current.conditions.P2.passes.push(ninth);
   current.conditions.P2.pairwiseFlips = allPairs;
   current.conditions.P2.changesAcrossThreePasses = threePass;
@@ -190,7 +190,7 @@ test('Qwen current repeat narrative distinguishes a stopped smoke from a closed 
   assert.match(complete.cutoffs,/9\/9 full phases are closed/);
   assert.match(complete.cutoffs,/P2: 32, 30, 30 all-four matches out of 60; 57, 56, 55 valid answers/);
   assert.match(complete.cutoffs,/All three P2 full passes are complete/);
-  assert.doesNotMatch(complete.cutoffs,/Fresh3 P2 stopped at smoke/);
+  assert.doesNotMatch(complete.cutoffs,/third P2 pass stopped/);
 });
 test('Qwen3.5 summary shows only closed phases and supported comparisons', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
@@ -207,7 +207,7 @@ test('Qwen3.5 summary shows only closed phases and supported comparisons', async
   q35.completedConditions=1;
   q35.matchedP0AllFourDeltas={fresh1:{}};
   view=await renderState(report);
-  assert.match(view.cutoffs,/fresh1 P0: 22\/60 all-four matches, 59\/60 valid answers, 1 invalid or failed; 83,190 input tokens, 2,498 output tokens, 85,688 total \(500 reasoning tokens within output\); 120.5 seconds/);
+  assert.match(view.cutoffs,/fresh1 P0: 22\/60 all-four matches, 59\/60 valid answers, 1 invalid or failed; 83,190 input tokens, 2,498 output tokens, 85,688 total\./);
   assert.doesNotMatch(view.cutoffs,/fresh1 P1 versus P0/);
   q35.conditions.P1.passes.push({pass:'fresh1',score:{allFour:25,valid:60},
     usage:{clientRequestSecondsTotal:100,tokens:{input_tokens:null,output_tokens:2000,total_tokens:null,reasoning_output_tokens:null}}});
@@ -292,9 +292,9 @@ test('hosted findings compare Qwen prompts and retain different DeepSeek invalid
   assert.match(view.cutoffs,/yes: 7\/9 matched, 2 wrong \(no 2\)/);
   assert.match(view.cutoffs,/first classifier-instruction run has 59\/60 usable answers; DEV-049 is unavailable/);
   assert.match(view.cutoffs,/yes: 34\/35 matched, 1 unavailable/);
-  assert.match(view.cutoffs,/DeepSeek high, original-control snapshot/);
-  assert.match(view.cutoffs,/The later results appear above/);
-  assert.match(view.cutoffs,/first revised-price checkpoint/);
+  assert.match(view.cutoffs,/DeepSeek high, original price controls/);
+  assert.doesNotMatch(view.cutoffs,/The later results appear above|This earlier report contains/);
+  assert.match(view.cutoffs,/DeepSeek high, first revised-price runs/);
   assert.match(view.cutoffs,/57\/60/);
   assert.match(view.cutoffs,/DEV-030/);
   assert.match(view.cutoffs,/DEV-006/);
@@ -308,8 +308,8 @@ test('low continuation keeps unknown outcome and smoke costs separate', async()=
   const view=await renderState(report);
   assert.match(view.cutoffs,/57\/60 reviews matched all four reference labels/);
   assert.match(view.cutoffs,/59 valid answers and one provider failure at DEV-005, whose cost is unknown/);
-  assert.match(view.cutoffs,/0\.030564226637/);
-  assert.match(view.cutoffs,/Smoke costs are excluded/);
+  assert.match(view.cutoffs,/\$0\.0306/);
+  assert.match(view.cutoffs,/This pass cost \$0\.0306\. One request failed, so its cost is unknown\./);
   report.newerCohorts.deepseekLowRevisedPrice.cleanMatchedRepeatEligible=true;
   assert.match(await render(report),/did not load/);
 });
@@ -346,7 +346,7 @@ test('low P1 usable-answer agreement retains all three failed outcomes', async()
   assert.match(view.cutoffs,/All 57 usable answers matched all four reference labels, giving 57\/60/);
   assert.match(view.cutoffs,/DEV-006 and DEV-030/);
   assert.match(view.cutoffs,/DEV-027 failed at the provider/);
-  assert.match(view.cutoffs,/0\.030730605596/);
+  assert.match(view.cutoffs,/This pass cost \$0\.0307\. One request failed, so its cost is unknown\./);
   report.newerCohorts.deepseekLowP1Successor.cleanFullPhase=true;
   assert.match(await render(report),/did not load/);
 });
@@ -359,7 +359,7 @@ test('Tev findings distinguish stable repeats from matching reference answers', 
   assert.match(view.cutoffs,/P1: 44, 44, 44 out of 60/);
   assert.match(view.cutoffs,/No labels changed between repeats of the same prompt/);
   assert.match(view.cutoffs,/changed six compared with classifier instructions/);
-  assert.match(view.cutoffs,/0\.151342128/);
+  assert.match(view.cutoffs,/The nine runs cost \$0\.1513\./);
   assert.match(view.cutoffs,/Field results, confidence thresholds and costs<\/a>/);
 });
 
@@ -368,7 +368,7 @@ test('findings groups keep all model results and source links available', async(
   const {cutoffs}=await renderState(report);
   const groups=[...cutoffs.matchAll(/<details class="findings-group" id="([^"]+)">([\s\S]*?)<\/ul><\/details>/g)];
   assert.deepEqual(groups.map(g=>g[1]),['findings-decision','findings-hosted','findings-local']);
-  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[11,12,9]);
+  assert.deepEqual(groups.map(g=>(g[2].match(/<li>/g)||[]).length),[10,12,9]);
   assert.match(groups[0][2],/clef-closed-repeat-findings.json/);
   assert.match(groups[0][2],/tev-native-full-findings.json/);
   assert.match(groups[1][2],/deepseek-high-remaining6-successor-findings.json/);
@@ -383,8 +383,8 @@ test('findings groups keep all model results and source links available', async(
   assert.match(cutoffs,/final decision-rule run returned 59/);
   assert.match(cutoffs,/DEV-009 timed out and remains missing/);
   assert.match(cutoffs,/59 shared answers; other pairs use 60/);
-  assert.ok(cutoffs.includes(`$${solar.known_development_cost_usd}, excluding smoke tests`));
-  assert.match(cutoffs,/possible charge, unrecorded/);
+  assert.ok(cutoffs.includes(`The nine runs cost $${Number(solar.known_development_cost_usd).toFixed(4)}.`));
+  assert.match(cutoffs,/One request timed out, so its cost is unknown/);
   assert.match(cutoffs,/reduced all-four matches in each pass, by 2, 1, 3/);
   assert.match(cutoffs,/retained 31\/60 answers, including 3 disagreements/);
   assert.match(cutoffs,/aria-label="Solar prompt gains and losses"/);
@@ -397,7 +397,7 @@ test('OpenRouter native scores keep hosted routes and observed costs separate', 
   const {cutoffs}=await renderState(report);
   assert.match(cutoffs,/OpenRouter decision results by prompt and pass/);
   assert.match(cutoffs,/separate from the earlier direct Cloudflare runs/);
-  assert.match(cutoffs,/excluding smoke tests/);
+  assert.doesNotMatch(cutoffs,/smoke/i);
   for(const key of ['clef','clef-flash','luna-decisions']) {
     const runs=report.newerCohorts.openrouterDecisions.stages.filter(row=>row.model_key===key);
     const cost=runs.reduce((sum,row)=>sum+Number(row.observed_known_cost_usd),0);
@@ -413,8 +413,8 @@ test('OpenRouter Flash interrupted pass retains the 60-review denominator', asyn
   cohort.stages.push({...base,stage:'fresh3/P2',status:'interrupted',valid_answers:59,all_four_correct:45});
   const {cutoffs}=await renderState(report);
   assert.match(cutoffs,/third pass has 59\/60 usable answers, DEV-039 remains unknown/);
-  assert.match(cutoffs,/repeat changes compare only shared usable answers/);
-  assert.match(cutoffs,/excluding smoke tests and unresolved possible charges/);
+  assert.doesNotMatch(cutoffs,/Costs cover saved development requests/);
+  assert.doesNotMatch(cutoffs,/billed tokens do not prove/);
 });
 
 
@@ -422,7 +422,7 @@ test('Perplexity shows all passes, observed development cost and bounded prompt 
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
   const html = (await renderState(report)).cutoffs;
   assert.match(html, /Perplexity Decider/);
-  assert.match(html, /0\.14295744/);
+  assert.match(html, /The nine runs cost \$0\.1430\./);
   assert.match(html, /Base-task run<\/a>/);
   assert.match(html, /DEV-029/);
 });

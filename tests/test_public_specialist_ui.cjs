@@ -33,7 +33,7 @@ function fixture() {
 test('the all-model ranking can show every route and saved specialist outcome', () => {
   assert.match(html, /<select id="overview-surface"><option value="all">All routes<\/option>/);
   assert.match(html, /id="overview-specialists"[^>]*>See local routes/);
-  assert.match(html, /Complete means an answer saved for all 60 reviews/);
+  assert.match(html, /One row per setup, best pass first\./);
   assert.doesNotMatch(html, /id="overview-hosted"/);
   const {ui, elements} = fixture();
   ui.state.cohort = 'all';
