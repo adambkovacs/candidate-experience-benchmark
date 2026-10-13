@@ -36,7 +36,7 @@ assert.equal(typeof onReady, 'function');
   assert.match(text('prompt-headline'), /21 of 39/);
   assert.doesNotMatch(text('prompt-headline'), /produced|caused/i);
   assert.match(text('prompt-deck'), /first recorded pass/);
-  assert.match(html('finding-prompts'), /Comparisons verified against the saved answers/);
+  assert.match(html('finding-prompts'), /First-pass prompt comparisons/);
   assert.match(html('finding-prompts'), /39 model setups compared/);
   assert.match(html('finding-prompts'), /Comparison report/);
   assert.match(html('finding-jev'), /DEV-029/);

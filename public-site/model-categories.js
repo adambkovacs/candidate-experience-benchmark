@@ -4,24 +4,24 @@
   const categories = {
     general: 'General-purpose LLM',
     tuned: 'Task-fine-tuned LLM',
-    decision: 'Dedicated classification / decision model',
+    decision: 'Decision model',
     rules: 'Rules baseline',
-    unknown: 'Classification pending source'
+    unknown: 'Category not verified'
   };
   const training = {
     frozen: 'Frozen general-model weights',
     task_finetuned: 'Task-fine-tuned LLM weights',
     fitted_head: 'Trained adapter or decision head',
     rules: 'Rules, no learned model weights',
-    unknown: 'Training lineage not verified'
+    unknown: 'Training not verified'
   };
   const interfaces = {
     generated: 'Generated answer',
-    native: 'Native choices / probabilities',
+    native: 'Native choices and probabilities',
     nli: 'NLI option scoring',
     adapted: 'Fitted decision head',
     rules: 'Rules',
-    unknown: 'Interface pending source'
+    unknown: 'Interface not verified'
   };
   const evidence = {
     general: 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REPORT_CATEGORY_REVIEW_2026-10-02.md',

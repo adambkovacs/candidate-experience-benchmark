@@ -54,8 +54,8 @@ test('source-only Sonnet detail links recorded outputs without claiming comments
   vm.runInNewContext(source, context, {filename:'app.js'});
   context.__sonnet.state.data = {cases:[]};
   context.__sonnet.renderCases(context.__sonnet.sonnet55FirstPassRuns(report)[0]);
-  assert.match(panel.innerHTML, /has not loaded individual predictions/);
-  assert.match(panel.innerHTML, /Read the individual source records/);
+  assert.match(panel.innerHTML, /The 60 saved answers for this run are in its source file/);
+  assert.match(panel.innerHTML, /Source records ↗/);
   assert.doesNotMatch(panel.innerHTML, /No individual comments are available/);
 });
 

@@ -29,7 +29,9 @@ test('two closed native P0 rows keep exact counts, records and source links', ()
   assert.ok(runs.every(run => /^[0-9a-f]{64}$/.test(run.sourceRecordSha256)));
   assert.match(html, /53<small>\/60/);
   assert.match(html, /45<small>\/60/);
-  assert.match(html, /At least one label differed between the models on <strong>12<\/strong> of the same 60 comments/);
+  assert.match(html, /The two models disagreed on at least one label for <strong>12<\/strong> of 60 reviews/);
+  assert.match(html, /direct Cloudflare Workers AI route/);
+  assert.match(html, /later pass through OpenRouter/);
 });
 
 test('price estimates, unknown bounds, tokens and timing remain distinct', () => {
@@ -39,7 +41,8 @@ test('price estimates, unknown bounds, tokens and timing remain distinct', () =>
   assert.deepEqual(Array.from(runs, run => run.cost.estimatedUsd), [0.03184656, 0.01194246]);
   assert.deepEqual(Array.from(runs, run => run.cost.unknownUpperBoundUsd), [0.94374, 0.35394]);
   assert.ok(runs.every(run => run.cost.actualUsd === null && run.timing.inferenceSeconds === null));
-  assert.match(html, /Observed charge unavailable/);
+  assert.match(html, /API-rate estimate <strong>\$0\.03184656<\/strong>/);
+  assert.doesNotMatch(html, /Observed charge unavailable|provisional/);
   assert.doesNotMatch(html, /inference speed|provider billed/);
 });
 
@@ -47,7 +50,7 @@ test('partial or changed source evidence cannot become a scored Clef row', () =>
   const changed = structuredClone(report);
   changed.models.clef.records = 59;
   assert.equal(adapter(changed).runs.length, 0);
-  assert.match(adapter(changed).html, /unavailable from the saved evidence/);
+  assert.match(adapter(changed).html, /Clef first-pass results did not load/);
   const changedHash = structuredClone(report);
   changedHash.sourceSha256['results/clef-native-v1/clef/fresh1/P0/development/records.jsonl'] = 'bad';
   assert.equal(adapter(changedHash).runs.length, 0);

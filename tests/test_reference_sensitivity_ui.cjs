@@ -64,14 +64,14 @@ test('combined per-run and native deltas are sums of the three fixed case effect
   }
   const table = ui.nativeTable(data.native_seven_runs, selected);
   assert.equal((table.match(/<tbody><tr>|<\/tr><tr>/g) || []).length, 7);
-  assert.match(table, /same 60 reviews/);
+  assert.match(table, /seven decision models, first base-prompt pass/);
 });
 
 test('run detail marks hypothetical scores and retains review and source links', () => {
   const run = data.extended_runs[0];
   const detail = ui.detail(run, ['DEV-006', 'DEV-013'], data.alternatives);
-  assert.match(detail, /hypothetical key/);
-  assert.match(detail, /published score remains the saved score/);
+  assert.match(detail, /under the alternative key/);
+  assert.match(detail, /Published score and score under the alternative key/);
   assert.ok(detail.includes(`${run.valid}/60 valid answers`));
   assert.ok(detail.includes(`run=${run.id}&amp;case=DEV-006#inspect`));
   assert.ok(detail.includes(`run=${run.id}&amp;case=DEV-013#inspect`));

@@ -132,7 +132,7 @@ test('native Jev comparison is shown separately without treating it as an eligib
   ui.renderAuditedComparison('typesafe-jev113-v2');
   assert.equal(panel().hidden, false);
   assert.match(panel().innerHTML, /Jev instruction comparison/);
-  assert.match(panel().innerHTML, /native Choice questions, not chat system prompts/);
+  assert.match(panel().innerHTML, /rewrite the native Choice questions/);
   assert.match(panel().innerHTML, /Historical P0 and one pass/);
   assert.match(panel().innerHTML, /58 \/ 60/);
 });
@@ -154,8 +154,8 @@ test('marked hosted Gemini pairs show changed cases with an observational limit'
   ui.state.data = {promptComparisons: [hostedReport()], runs};
   ui.state.experiments = new Map([['model-a', runs]]);
   ui.renderExperiment();
-  assert.match(note(), /Compare changed answers by record below/);
-  assert.match(note(), /Each prompt version was run once/);
+  assert.match(note(), /3 saved runs, one per prompt version/);
+  assert.doesNotMatch(note(), /Compare changed answers|does not establish/);
   assert.equal(panel().hidden, false);
   assert.match(panel().innerHTML, /Hosted prompt comparison/);
   assert.match(panel().innerHTML, /One pass per condition/);

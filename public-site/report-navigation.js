@@ -29,13 +29,11 @@
     document.querySelectorAll('#report-cohort [data-cohort]').forEach(button=>button.setAttribute('aria-pressed',String(!customCategory&&button.dataset.cohort===cohort)));
     if(ready){
       const count=savedCount(runs,customCategory||cohort);
-      $('report-lens-count').textContent=`${count} closed saved ${count===1?'run':'runs'} ${customCategory?'in this custom category':'in this view'} · the same 60 reviews per run`;
+      $('report-lens-count').textContent=`${count} closed saved ${count===1?'run':'runs'} ${customCategory?'in this custom category':'in this view'}.`;
     }
     $('report-lens-note').textContent=customCategory
-      ? `Custom category: ${globalThis.BenchmarkCategories?.categories?.[customCategory]||customCategory}. The chart, ranking and run explorer use this same filter. Choose a view above to reset it.`
-      : cohort==='all'
-      ? 'All models here means the merged saved-run explorer. Prompt, repeat and other report-only evidence remains in the detailed sections below. Each repeat reuses the same 60 reviews.'
-      : 'A model can appear in more than one category. Each run appears once within a view; repeat passes reuse the same 60 reviews.';
+      ? `Custom category: ${globalThis.BenchmarkCategories?.categories?.[customCategory]||customCategory}. The chart, ranking and run list all use it.`
+      : '';
   }
   function syncControls(){
     if(!ready) return;
@@ -71,7 +69,7 @@
     paint();syncControls();
     globalThis.dispatchEvent(new CustomEvent('benchmark:cohortchange',{detail:{cohort,category:customCategory,initial:true}}));
   },{once:true});
-  globalThis.addEventListener('benchmark:saved-runs-error',()=>{$('report-lens-count').textContent='The saved-run view could not load. Source reports remain linked below.';},{once:true});
+  globalThis.addEventListener('benchmark:saved-runs-error',()=>{$('report-lens-count').textContent='The saved runs did not load.';},{once:true});
   globalThis.BenchmarkReportNavigation=Object.freeze({getCohort:()=>cohort,setCohort,savedCount});
   paint();
 })();

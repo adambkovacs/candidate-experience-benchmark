@@ -76,12 +76,13 @@ test('selected pair displays five outcomes, exact IDs and separate accounting ba
   assert.match(html, /Of 60 reviews:/);
   assert.match(html, /Both miss reference/);
   assert.match(html, /General output unusable or absent/);
-  assert.match(html, /Compare route, effort, batch and accounting/);
-  assert.match(html, /Price-derived estimate/);
+  assert.match(html, /Route, effort, batch and cost/);
+  assert.match(html, /API-rate estimate/);
   assert.match(html, /Requests with recorded duration/);
-  assert.match(html, /Possible extra-charge bound/);
-  assert.match(html, /do not add those rows/);
-  assert.match(html, /may cover only one probe or batch/);
+  assert.match(html, /Unrecorded charge, upper bound/);
+  assert.match(html, /Charge as reported<\/th>.*Charge after reconciliation<\/th>/s);
+  assert.ok(html.includes(general.sourceUrl) && html.includes(native.sourceUrl));
+  assert.doesNotMatch(html, /provisional|do not add those rows|Unavailable</);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);
   assert.match(html, /data-cross-case="DEV-001"/);
   assert.match(html, /Field matches and confusion tables/);
@@ -124,12 +125,12 @@ test('field tables retain all 60 positions, missing answers and insufficient inf
   assert.equal((html.match(/class="cross-field"/g) || []).length, 4);
   assert.equal((html.match(/class="cross-matrix-wrap" role="region"/g) || []).length, 8);
   assert.match(html, /General 25\/60 · Native 55\/60/);
-  assert.match(html, /25\/60<\/strong> match the provisional reference · 31\/60 usable · 29\/60 no valid output \(29 invalid output\)/);
-  assert.match(html, /Insufficient information<\/th>/);
+  assert.match(html, /25\/60<\/strong> match the reference · 31\/60 usable · 29\/60 no valid output \(29 invalid output\)/);
+  assert.match(html, /Can&#39;t tell<\/th>/);
   assert.match(html, /No valid output<\/th>/);
   assert.match(html, /Yes precision<\/dt><dd>89\.5% \(17\/19\)/);
   assert.match(html, /Yes recall, valid subset<\/dt><dd>89\.5% \(17\/19\)/);
-  assert.match(html, /Another 16 reference-yes reviews had no valid output and are excluded from that rate/);
+  assert.match(html, /Recall uses the 19 reviews the reference marks yes that have a valid answer; 16 more had no valid answer and are left out/);
 });
 
 test('positive rates are unavailable when the relevant yes denominator is zero', () => {
@@ -150,14 +151,14 @@ test('an exact case shows both selected predictions and the reference inline', (
   const general = feed.runs.find(run => run.runId === 'sonnet5-low-first-pass');
   const id = 'DEV-029';
   const html = ui.renderCase(feed, general, native, id);
-  assert.match(html, /Exact saved answers \/ DEV-029/);
-  assert.match(html, /Provisional reference/);
+  assert.match(html, /<h4>DEV-029<\/h4>/);
+  assert.match(html, /<h5>Reference /);
   assert.match(html, /General · claude-sonnet-5/);
   assert.match(html, /Native · liquid\/d1/);
   assert.match(html, /follow up needed/);
   assert.match(html, /serious concern reported/);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);
-  assert.match(html, /Seven-native context for DEV-029/);
+  assert.match(html, /DEV-029 across the seven decision models/);
 });
 
 test('difficult-case table uses exact valid and eligible denominators', () => {

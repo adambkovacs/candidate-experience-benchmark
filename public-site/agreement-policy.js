@@ -89,33 +89,33 @@
     const errors = pair.accepted_all_four_error_count;
     const deferred = pair.deferred_count;
     const bar = [
-      ['correct', correct, 'Accepted, all four match the provisional reference'],
-      ['error', errors, 'Accepted, at least one field differs from the provisional reference'],
+      ['correct', correct, 'Accepted, all four match the reference'],
+      ['error', errors, 'Accepted, at least one decision differs from the reference'],
       ['deferred', deferred, 'Deferred for human review'],
     ].map(([name, count]) => `<span class="agreement-segment agreement-${name}" style="width:${count / 60 * 100}%"></span>`).join('');
     const left = models.get(pair.left);
     const right = models.get(pair.right);
     const source = model => `${sourceRoot}${model.source_path}`;
     const cost = pair.known_two_run_development_cost_usd;
-    return `<div class="agreement-pair-head"><p class="eyebrow">Selected pair / source order</p><h3>${esc(pairLabel(pair, models))}</h3></div>
+    return `<div class="agreement-pair-head"><h3>${esc(pairLabel(pair, models))}</h3></div>
       <div class="agreement-metrics" aria-label="Selected pair outcomes on 60 reviews">
         <p><strong>${pair.accepted_count}<span>/60</span></strong>Accepted</p>
         <p><strong>${correct}</strong>Accepted, all four match</p>
         <p><strong>${errors}</strong>Accepted with an error</p>
         <p><strong>${deferred}</strong>Deferred for review</p>
       </div>
-      <div class="agreement-bar" role="img" aria-label="Of 60 reviews: ${correct} accepted and all four match the provisional reference; ${errors} accepted with at least one error; ${deferred} deferred for human review">${bar}</div>
+      <div class="agreement-bar" role="img" aria-label="Of 60 reviews: ${correct} accepted and all four match the reference; ${errors} accepted with at least one error; ${deferred} deferred for human review">${bar}</div>
       <p class="agreement-legend"><span class="agreement-key correct"></span>Accepted, reference match <span class="agreement-key error"></span>Accepted error <span class="agreement-key deferred"></span>Deferred</p>
-      <div class="agreement-id-grid"><div><h4>Accepted errors <span>${errors}</span></h4><p>Both models gave the same four answers, but at least one differed from the provisional reference.</p><div class="agreement-id-list">${idLinks(pair.accepted_all_four_error_ids)}</div></div>
-      <div><h4>Deferred reviews <span>${deferred}</span></h4><p>The two full answer vectors differed. This rule sends those comments to a person.</p><div class="agreement-id-list">${idLinks(pair.deferred_ids)}</div></div></div>
-      <p class="agreement-cost">Known charge for both saved 60-review development runs: <strong>${cost === null ? 'unavailable' : `$${esc(cost)}`}</strong>. Both models ran on all 60 comments, including deferred ones. This excludes human review, smoke requests and any invoice difference.</p>
-      <p class="agreement-source-links">Saved answers: <a href="${esc(source(left))}" target="_blank" rel="noopener noreferrer">${esc(left.display_name)} ↗</a> · <a href="${esc(source(right))}" target="_blank" rel="noopener noreferrer">${esc(right.display_name)} ↗</a>. <a href="./native-agreement-policy-v1.json">Download all pair outcomes and source hashes</a>.</p>`;
+      <div class="agreement-id-grid"><div><h4>Accepted errors <span>${errors}</span></h4><p>Both models gave the same four answers and at least one differs from the reference.</p><div class="agreement-id-list">${idLinks(pair.accepted_all_four_error_ids)}</div></div>
+      <div><h4>Deferred reviews <span>${deferred}</span></h4><p>The two models differed on at least one decision, so these reviews go to a person.</p><div class="agreement-id-list">${idLinks(pair.deferred_ids)}</div></div></div>
+      <p class="agreement-cost">Charge for both 60-review runs: <strong>${cost === null ? 'Unknown' : `$${esc(cost)}`}</strong>. Both models ran on all 60 reviews, deferred ones included, and human review time is not priced.</p>
+      <p class="agreement-source-links">Saved answers: <a href="${esc(source(left))}" target="_blank" rel="noopener noreferrer">${esc(left.display_name)} ↗</a> · <a href="${esc(source(right))}" target="_blank" rel="noopener noreferrer">${esc(right.display_name)} ↗</a>. <a href="./native-agreement-policy-v1.json">All 21 pair outcomes (JSON)</a></p>`;
   }
 
   function renderTable(data, models, selectedKey) {
-    return `<div class="agreement-table-wrap"><table><caption>All 21 pairs, in source order. Coverage and errors use the same 60 reviews; lower error counts can reflect more deferrals.</caption>
-      <thead><tr><th scope="col">Pair</th><th scope="col">Accepted / 60</th><th scope="col">Accepted reference matches</th><th scope="col">Accepted errors</th><th scope="col">Deferred</th><th scope="col">Known two-run charge</th></tr></thead>
-      <tbody>${data.pairs.map(pair => `<tr${pairKey(pair) === selectedKey ? ' class="selected"' : ''}><th scope="row"><button type="button" data-pair="${esc(pairKey(pair))}" aria-current="${pairKey(pair) === selectedKey ? 'true' : 'false'}">${esc(pairLabel(pair, models))}</button></th><td>${pair.accepted_count}</td><td>${pair.accepted_all_four_correct}</td><td>${pair.accepted_all_four_error_count}</td><td>${pair.deferred_count}</td><td>${pair.known_two_run_development_cost_usd === null ? 'Unavailable' : `$${esc(pair.known_two_run_development_cost_usd)}`}</td></tr>`).join('')}</tbody></table></div>`;
+    return `<div class="agreement-table-wrap"><table><caption>All 21 pairs. Fewer accepted errors can come from more deferrals.</caption>
+      <thead><tr><th scope="col">Pair</th><th scope="col">Accepted / 60</th><th scope="col">Accepted reference matches</th><th scope="col">Accepted errors</th><th scope="col">Deferred</th><th scope="col">Charge, both runs</th></tr></thead>
+      <tbody>${data.pairs.map(pair => `<tr${pairKey(pair) === selectedKey ? ' class="selected"' : ''}><th scope="row"><button type="button" data-pair="${esc(pairKey(pair))}" aria-current="${pairKey(pair) === selectedKey ? 'true' : 'false'}">${esc(pairLabel(pair, models))}</button></th><td>${pair.accepted_count}</td><td>${pair.accepted_all_four_correct}</td><td>${pair.accepted_all_four_error_count}</td><td>${pair.deferred_count}</td><td>${pair.known_two_run_development_cost_usd === null ? 'Unknown' : `$${esc(pair.known_two_run_development_cost_usd)}`}</td></tr>`).join('')}</tbody></table></div>`;
   }
 
   async function init() {
@@ -127,9 +127,9 @@
       const models = new Map(data.components.map(model => [model.id, model]));
       const params = new URL(location.href).searchParams;
       let selected = data.pairs.find(pair => pairKey(pair) === params.get('agreementPair')) || data.pairs[0];
-      mount.innerHTML = `<div class="section-intro"><p class="eyebrow">Analysis / Fixed agreement rule</p><h2 id="agreement-policy-title">Two models can agree and still be wrong.</h2><p>Retrospective test on the same 60 fictional comments and seven saved first-pass P0 native decision models. One fixed rule accepts a four-field answer only when both models agree on all four fields. It defers every other comment for human review. The provisional reference scores accepted answers after that choice; it does not decide which answers are accepted.</p></div>
-        <div class="agreement-shell"><div class="agreement-controls"><label for="agreement-pair">Inspect a pair</label><select id="agreement-pair">${data.pairs.map(pair => `<option value="${esc(pairKey(pair))}">${esc(pairLabel(pair, models))}</option>`).join('')}</select><p>All 21 pairs are shown below in source order. No pair was selected or tuned as a deployment choice.</p></div><div id="agreement-detail" class="agreement-detail" aria-live="polite"></div><div id="agreement-all-pairs"></div></div>
-        <p class="agreement-method">This is a retrospective 60-review study, not a measured deployment gain. The same comment appears in many pairs, and the 21 rows are not independent samples. A match means agreement with the human-checked provisional reference, which still has disputed cases. The rule does not price human review. <a href="./disputed-reviews-v1.json">Read the seven-model source answers</a> · <a href="method.html#method">Read the benchmark method</a>.</p>`;
+      mount.innerHTML = `<div class="section-intro"><h2 id="agreement-policy-title">Two models can agree and still be wrong.</h2><p>We paired the seven decision models on their first base-prompt pass, 21 pairs in all. A pair's answer is accepted only when both models give the same four decisions, and every other review goes to a person. The reference then scores what was accepted.</p></div>
+        <div class="agreement-shell"><div class="agreement-controls"><label for="agreement-pair">Pair</label><select id="agreement-pair">${data.pairs.map(pair => `<option value="${esc(pairKey(pair))}">${esc(pairLabel(pair, models))}</option>`).join('')}</select></div><div id="agreement-detail" class="agreement-detail" aria-live="polite"></div><div id="agreement-all-pairs"></div></div>
+        <p class="agreement-method"><a href="./disputed-reviews-v1.json">Seven-model answers (JSON)</a> · <a href="method.html#method">Method</a></p>`;
       const selector = mount.querySelector('#agreement-pair');
       const detail = mount.querySelector('#agreement-detail');
       const table = mount.querySelector('#agreement-all-pairs');
@@ -153,7 +153,7 @@
       });
       choose(selected, false);
     } catch (error) {
-      mount.innerHTML = '<div class="section-intro"><p class="eyebrow">Analysis / Fixed agreement rule</p><h2 id="agreement-policy-title">Pair study unavailable</h2><p>The saved pair data could not be checked here. <a href="./native-agreement-policy-v1.json">Open the 21-pair findings</a> or <a href="./disputed-reviews-v1.json">read the source answers</a>.</p></div>';
+      mount.innerHTML = '<div class="section-intro"><h2 id="agreement-policy-title">Two models can agree and still be wrong.</h2><p>The agreement pairs did not load. <a href="./native-agreement-policy-v1.json">All 21 pair outcomes (JSON)</a></p></div>';
       console.error('Agreement policy source error:', error);
     }
   }

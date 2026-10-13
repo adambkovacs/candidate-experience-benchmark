@@ -44,11 +44,11 @@
     if(!chosen) return;
     selectedId=chosen.id;
     const type=chosen.category;
-    $('outcome-run-detail').innerHTML=`<p class="outcome-run-title"><strong>${esc(chosen.model)}</strong><span>${esc(chosen.condition)} · ${esc(chosen.surface||'Route unavailable')}</span></p><dl><div><dt>Valid answers</dt><dd>${chosen.valid} / 60</dd></div><div><dt>All four match</dt><dd>${chosen.metrics.all_four} / 60</dd></div><div><dt>Model category</dt><dd>${esc(type.categoryLabel)}</dd></div><div><dt>Output interface</dt><dd>${esc(type.interfaceLabel)}</dd></div></dl><p class="outcome-run-id">Exact run: ${esc(chosen.id)}</p><div class="outcome-links"><a href="${esc(chosen.chartSourceUrl)}" target="_blank" rel="noopener noreferrer">Open this run's saved source ↗</a><a href="?run=${encodeURIComponent(chosen.id)}#inspect">Inspect this run's comments →</a><a href="#review-evidence">Compare seven native P0 case answers →</a></div>`;
+    $('outcome-run-detail').innerHTML=`<p class="outcome-run-title"><strong>${esc(chosen.model)}</strong><span>${esc(chosen.condition)} · ${esc(chosen.surface||'Route not recorded')}</span></p><dl><div><dt>Valid answers</dt><dd>${chosen.valid} / 60</dd></div><div><dt>All four match</dt><dd>${chosen.metrics.all_four} / 60</dd></div><div><dt>Model category</dt><dd>${esc(type.categoryLabel)}</dd></div><div><dt>Output interface</dt><dd>${esc(type.interfaceLabel)}</dd></div></dl><p class="outcome-run-id">Run ID ${esc(chosen.id)}</p><div class="outcome-links"><a href="${esc(chosen.chartSourceUrl)}" target="_blank" rel="noopener noreferrer">Saved source ↗</a><a href="?run=${encodeURIComponent(chosen.id)}#inspect">Answers by comment →</a><a href="#review-evidence">Seven decision models, review by review →</a></div>`;
   }
   function selectPoint(point){
     $('outcome-point-title').textContent=`${point.valid}/60 valid · ${point.matches}/60 all four match`;
-    $('outcome-point-count').textContent=`${point.runs.length} ${point.runs.length===1?'run':'runs'} at this point. Choose a run to see its source.`;
+    $('outcome-point-count').textContent=`${point.runs.length} ${point.runs.length===1?'run':'runs'} at this point.`;
     const sorted=[...point.runs].sort((a,b)=>String(a.model).localeCompare(String(b.model))||a.id.localeCompare(b.id));
     $('outcome-run').innerHTML=sorted.map(run=>`<option value="${esc(run.id)}">${esc(run.model)} · ${esc(run.condition)} · ${esc(run.id)}</option>`).join('');
     $('outcome-run').value=sorted.some(run=>run.id===selectedId)?selectedId:sorted[0].id;
@@ -58,7 +58,7 @@
   }
   function render(){
     const rows=filtered(),points=group(rows);
-    $('outcome-count').textContent=`${rows.length} closed runs shown at ${points.length} plotted points. ${excluded} partial ${excluded===1?'run is':'runs are'} excluded.`;
+    $('outcome-count').textContent=`${rows.length} closed runs at ${points.length} points. A point's number is how many runs share it. ${excluded} partial ${excluded===1?'run':'runs'} excluded.`;
     $('outcome-coordinate').innerHTML=points.length
       ?points.map(point=>`<option value="${esc(point.key)}">${point.valid}/60 valid · ${point.matches}/60 match · ${point.runs.length} ${point.runs.length===1?'run':'runs'}</option>`).join('')
       :'<option value="">No matching points</option>';
@@ -74,7 +74,7 @@
     if(!points.length){
       selectedId=null;
       $('outcome-point-title').textContent='No closed runs match these filters.';
-      $('outcome-point-count').textContent='Choose another prompt or category.';
+      $('outcome-point-count').textContent='';
       $('outcome-run').innerHTML='';$('outcome-run-detail').innerHTML='';return;
     }
     const selected=points.find(point=>point.runs.some(run=>run.id===selectedId)) || points.find(point=>point.key==='60:0') || points[0];
@@ -98,15 +98,15 @@
       });
       render();
     }catch{
-      $('outcome-count').textContent='Chart unavailable because its saved-run source could not be verified.';
+      $('outcome-count').textContent='The chart did not load.';
       $('outcome-point-title').textContent='Chart unavailable';
-      $('outcome-point-count').textContent='Use the saved-run explorer below to inspect the source records.';
+      $('outcome-point-count').textContent='';
     }
   }
   globalThis.OutcomeChart=Object.freeze({prepare,group});
   globalThis.addEventListener('benchmark:saved-runs-ready',event=>init(event.detail),{once:true});
   globalThis.addEventListener('benchmark:saved-runs-error',()=>{
-    $('outcome-count').textContent='Chart unavailable because the saved-run explorer could not load its source.';
+    $('outcome-count').textContent='The chart did not load.';
     $('outcome-point-title').textContent='Chart unavailable';
   },{once:true});
 })();

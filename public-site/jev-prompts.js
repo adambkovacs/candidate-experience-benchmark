@@ -18,7 +18,7 @@
   const noun = (value, singular, plural = `${singular}s`) => value === 1 ? singular : plural;
   const fail = () => {
     target.setAttribute?.('aria-busy', 'false');
-    target.innerHTML = '<p class="analysis-caveat" role="alert"><strong>Jev prompt results could not be loaded.</strong> The source evidence is unavailable or incomplete.</p>';
+    target.innerHTML = '<p class="analysis-caveat" role="alert"><strong>The Jev prompt results did not load.</strong></p>';
   };
 
   const validatePass = (item, expectedStatus) => {
@@ -149,8 +149,8 @@
     const usageRows = [
       ['P0', 'Pass 1', p0.fresh1], ['P0', 'Pass 2', p0.fresh2], ['P0', 'Pass 3', p0.fresh3],
       ['P1', 'Pass 1', p1First], ['P1', 'Pass 2', p1Second], ['P1', 'Pass 3', p1Third],
-      ['P2', 'Pass 1', p2First], ['P2', 'Stopped pass 2 parent', stopped],
-      ['P2', 'Stopped pass 2 tail', tail], ['P2', 'Interrupted pass 2 composite', combined],
+      ['P2', 'Pass 1', p2First], ['P2', 'Pass 2, stopped', stopped],
+      ['P2', 'Pass 2, second run', tail], ['P2', 'Pass 2, both runs', combined],
       ['P2', 'Pass 3', p2Third]
     ].map(([condition, stage, item]) => `<tr><th scope="row">${esc(condition)} ${esc(stage)}</th>` +
       `<td>${esc(integer(item.inputTokens))}</td><td>${esc(integer(item.outputTokens))}</td>` +
@@ -162,29 +162,27 @@
       `P1 and P2 differed on ${esc(prompt.fourFieldVectorChangedIds.length)} ${noun(prompt.fourFieldVectorChangedIds.length, 'review')}; native probabilities changed on ${esc(promptProbability)} reviews and vendor confidence on ${esc(promptConfidence)}.</p></div>` +
       `<div class="detail-lower">${scoreCard('P0', p0.fresh1, 'Pass 1')}${scoreCard('P1', p1First, 'Pass 1')}${scoreCard('P2', p2First, 'Pass 1')}</div>` +
       `<article class="analysis-caveat"><h3>P0 completed three full passes</h3><p>All-four matches were ${esc(p0.fresh1.score.allFour)}/60, ${esc(p0.fresh2.score.allFour)}/60, and ${esc(p0.fresh3.score.allFour)}/60. ` +
-      `The third pass had ${esc(p0.fresh3.score.valid)} valid responses; DEV-040 had an invalid native distribution. The provider cost for that response remains counted. ` +
-      `Across the first two passes, ${esc(p0Repeat.fourFieldVectorChangedIds.length)}/60 valid answer vectors changed. Across passes 2 and 3, ${esc(p0Third.fourFieldVectorChangedIds.length)}/${esc(p0Third.denominator)} shared valid vectors changed.</p></article>` +
+      `The third pass had ${esc(p0.fresh3.score.valid)} valid responses; DEV-040 had an invalid native distribution. ` +
+      `Between passes 1 and 2, ${esc(p0Repeat.fourFieldVectorChangedIds.length)} of 60 reviews changed at least one answer. Between passes 2 and 3, ${esc(p0Third.fourFieldVectorChangedIds.length)} of the ${esc(p0Third.denominator)} reviews valid in both did.</p></article>` +
       `<article class="analysis-caveat"><h3>P1 completed three full passes</h3><p>All-four matches were ${esc(p1First.score.allFour)}/60, ${esc(p1Second.score.allFour)}/60, and ${esc(p1Third.score.allFour)}/60. ` +
-      `Pass 2 had ${esc(p1Second.score.valid)} valid responses; DEV-056 had an invalid native distribution and its provider cost remains counted. ` +
-      `Among ${esc(repeat.denominator)} reviews valid in both first passes, ${esc(repeat.fourFieldVectorChangedIds.length)} ${noun(repeat.fourFieldVectorChangedIds.length, 'answer vector')} changed. Probability values changed on ${esc(repeatProbability)} reviews and vendor confidence on ${esc(repeatConfidence)}.</p></article>` +
-      `<article class="analysis-caveat"><h3>P2 pass 2 remains interrupted</h3><p>The original parent saved ${esc(stopped.score.valid)} valid responses, retained ${esc(stopped.outcomes.unknown_cost_http_429)} HTTP 429 attempt with an unknown charge, and left ${esc(stopped.outcomes.never_sent)} positions unsent. ` +
-      `A separate continuation attempted those 42 positions: ${esc(tail.score.valid)} valid, ${esc(tail.outcomes.invalid_native_distribution)} invalid DEV-040, and ${esc(tail.outcomes.unknown_cost_transport_timeout)} timed-out DEV-060 with an unknown charge. ` +
-      `The combined accounting covers all 60 positions: ${esc(combined.score.valid)} valid, ${esc(combined.outcomes.invalid_native_distribution)} invalid, ${esc(combined.outcomes.unknown_cost_http_429 + combined.outcomes.unknown_cost_transport_timeout)} unknown-cost attempts, and ${esc(combined.neverSent)} unsent. Its ${esc(combined.score.allFour)}/60 all-four figure is interrupted coverage, not a clean repeat or ranking result. The parent counts remain preserved.</p></article>` +
+      `Pass 2 had ${esc(p1Second.score.valid)} valid responses; DEV-056 had an invalid native distribution. ` +
+      `Among the ${esc(repeat.denominator)} reviews valid in both first passes, ${esc(repeat.fourFieldVectorChangedIds.length)} ${noun(repeat.fourFieldVectorChangedIds.length, 'review')} changed at least one answer. Probability values changed on ${esc(repeatProbability)} reviews and vendor confidence on ${esc(repeatConfidence)}.</p></article>` +
+      `<article class="analysis-caveat"><h3>P2 pass 2 was interrupted</h3><p>P2 pass 2 stopped after ${esc(stopped.score.valid)} valid answers when ${esc(stopped.outcomes.unknown_cost_http_429)} ${noun(stopped.outcomes.unknown_cost_http_429, 'request')} hit a rate limit (HTTP 429), leaving ${esc(stopped.outcomes.never_sent)} reviews unsent. ` +
+      `A second run covered those ${esc(stopped.outcomes.never_sent)}: ${esc(tail.score.valid)} valid, ${esc(tail.outcomes.invalid_native_distribution)} invalid (DEV-040) and ${esc(tail.outcomes.unknown_cost_transport_timeout)} timed out (DEV-060). ` +
+      `Together that is ${esc(combined.score.valid)} valid answers, ${esc(combined.outcomes.invalid_native_distribution)} invalid, ${esc(combined.outcomes.unknown_cost_http_429 + combined.outcomes.unknown_cost_transport_timeout)} requests with unknown charges and ${esc(combined.neverSent)} unsent, and ${esc(combined.score.allFour)} of 60 matching on all four. We do not count it as a clean repeat.</p></article>` +
       `<article class="analysis-caveat"><h3>P2 pass 3 completed separately</h3><p>All ${esc(p2Third.score.valid)} responses were valid, with ${esc(p2Third.score.allFour)}/60 all-four matches. ` +
-      `Against completed P2 pass 1, ${esc(p2Repeat.fourFieldVectorChangedIds.length)}/${esc(p2Repeat.denominator)} answer vectors changed (${esc(p2Repeat.fourFieldVectorChangedIds.join(', ') || 'none')}). ` +
-      `Matched P1 and P2 pass 3 results differed on ${esc(thirdMatched.fourFieldVectorChangedIds.length)}/${esc(thirdMatched.denominator)} answer vectors (${esc(thirdMatched.fourFieldVectorChangedIds.join(', ') || 'none')}). ` +
-      `The interrupted P2 pass 2 remains ineligible as a clean repeat.</p></article>` +
+      `Against P2 pass 1, ${esc(p2Repeat.fourFieldVectorChangedIds.length)} of ${esc(p2Repeat.denominator)} reviews changed an answer (${esc(p2Repeat.fourFieldVectorChangedIds.join(', ') || 'none')}). ` +
+      `P1 and P2 pass 3 differed on ${esc(thirdMatched.fourFieldVectorChangedIds.length)} of ${esc(thirdMatched.denominator)} reviews (${esc(thirdMatched.fourFieldVectorChangedIds.join(', ') || 'none')}).</p></article>` +
       `<details><summary>Labels and distributions changed in different ways</summary>` +
       `<div class="table-wrap" tabindex="0" role="region" aria-label="Jev P1 repeat changes by field, scroll horizontally on small screens"><table>` +
       `<caption>Changes across ${esc(repeat.denominator)} reviews valid in both P1 passes</caption><thead><tr><th scope="col">Field</th><th scope="col">Answer changes</th><th scope="col">Probability changes</th><th scope="col">Confidence changes</th></tr></thead><tbody>${comparisonRows}</tbody></table></div>` +
-      `<p>The same labels can come with different probability values. Vendor confidence is a separate provider value; neither measure is treated as a calibrated probability of correctness.</p></details>` +
-      `<details><summary>Observed tokens, cost, and client time</summary><div class="table-wrap" tabindex="0" role="region" aria-label="Jev native prompt usage, scroll horizontally on small screens"><table>` +
-      `<caption>Measured usage for each saved pass</caption><thead><tr><th scope="col">Pass</th><th scope="col">Input tokens</th><th scope="col">Output tokens</th><th scope="col">Known cost</th><th scope="col">Unknown-charge bound</th><th scope="col">Client time</th></tr></thead><tbody>${usageRows}</tbody></table></div>` +
-      `<p class="small-note">Token totals are provider-reported. Client time includes network and local work; it is not pure inference time. DEV-018 and DEV-060 returned no usage and retain separate unknown-charge bounds.</p></details>` +
-      `<details><summary>Evidence and comparison limits</summary><p>The P0/P1/P2 comparison shares the native route, parser, labels, policy, criteria, record order and feedback. The Choice question instructions differ. These are native prompt analogues, not byte-identical chat prompts.</p>` +
-      `<p>${esc(report.sourceBindings.length)} source ${noun(report.sourceBindings.length, 'binding')} ${report.sourceBindings.length === 1 ? 'covers' : 'cover'} the frozen references, manifests, reviewed receipts, raw attempts, endpoint records and budget reconciliation. The test uses provisional development labels and does not measure performance on new candidate feedback.</p></details>` +
-      `<p class="source-links"><a href="./jev-native-prompt-findings.json">Read the machine-readable evidence</a> · ` +
-      `<a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md">Read the source-bound findings</a></p>`;
+      `<p>The same label can come back with a different probability, so the three counts differ.</p></details>` +
+      `<details><summary>Tokens, charge and request time</summary><div class="table-wrap" tabindex="0" role="region" aria-label="Jev native prompt usage, scroll horizontally on small screens"><table>` +
+      `<caption>Usage for each saved pass</caption><thead><tr><th scope="col">Pass</th><th scope="col">Input tokens</th><th scope="col">Output tokens</th><th scope="col">Charge</th><th scope="col">Unrecorded charge, up to</th><th scope="col">Request time</th></tr></thead><tbody>${usageRows}</tbody></table></div>` +
+      `<p class="small-note">Request time is as our client measured it, network included. DEV-018 and DEV-060 returned no usage, so their charges are unknown.</p></details>` +
+      `<details><summary>What changed between prompts</summary><p>Only the Choice question instructions differ between P0, P1 and P2. Route, parser, labels, record order and comments stay the same.</p></details>` +
+      `<p class="source-links"><a href="./jev-native-prompt-findings.json">Findings data (JSON)</a> · ` +
+      `<a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/JEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md">Findings write-up</a></p>`;
   }).catch(error => {
     console.error(error);
     fail();
