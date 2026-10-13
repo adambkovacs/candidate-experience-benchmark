@@ -108,7 +108,7 @@ test('unusable positions never become answer differences or invented predictions
   const markup = api.detailMarkup(row, 'general', 'https://example.test/?search=old#review-evidence');
   assert.equal((markup.match(/No usable four-field answer saved for this position\./g) || []).length, row.unusable);
   assert.equal((markup.match(/<td colspan="4">/g) || []).length, row.unusable);
-  assert.match(markup, /Frozen proposed reference/);
+  assert.match(markup, /<th scope="row">Reference<\/th>/);
   assert.match(markup, /Saved status/);
   const changed = structuredClone(data);
   const invalid = changed.runs.find(run => run.cases.some(answer => answer.prediction === null));
@@ -144,7 +144,7 @@ test('saved links and review copy stay source-bound and escape comment text', ()
   const row = summary.reviews.find(item => item.review.id === 'DEV-030');
   const markup = api.detailMarkup(row, 'decision', 'https://example.test/');
   assert.match(markup, /docs\/REFERENCE_REVIEW_V1\.md/);
-  assert.match(markup, /needs human adjudication/);
+  assert.match(markup, /sentiment reference is disputed/);
   assert.match(markup, /results\/.*\/.*public-projection\.json|development\.public\.json/);
   const changed = structuredClone(row);
   changed.review.feedback = '<img src=x onerror=alert(1)>';
@@ -190,5 +190,5 @@ test('explicit panel deep links synchronize the shared cohort without erasing ad
 test('filtered review counts identify the whole-cohort denominator for outcome totals', async () => {
   const ui = await mountedPanel('https://example.test/report?reviewCohort=general&reviewCohortSubset=testimonial');
   assert.equal(ui.controls['cohort-review-count'].textContent,
-    '9 of 60 reviews shown · Across all 60 reviews: 32 distinct first-P0 configurations · 1920 run-review positions · 374 differ · 176 unusable.');
+    '9 of 60 reviews shown. 32 distinct first-P0 configurations, 1920 run-review positions, 374 differ from the reference, 176 unusable.');
 });

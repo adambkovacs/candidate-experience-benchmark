@@ -126,7 +126,7 @@ class ReaderStoryTests(unittest.TestCase):
                          if row["id"] == "DEV-003")
         quote = re.search(r"<blockquote>(.*?)</blockquote>", text, re.DOTALL)
         assert quote and html.unescape(quote.group(1)) == f'"{feedback}"'
-        assert "DEV-003" in text and "These are the provisional reference answers" in text
+        assert "DEV-003" in text
         displayed = re.findall(r"<div><span>(.*?)</span><strong>(.*?)</strong></div>", text)
         assert displayed == [
             ("How was the experience?", reference["sentiment"].title()),

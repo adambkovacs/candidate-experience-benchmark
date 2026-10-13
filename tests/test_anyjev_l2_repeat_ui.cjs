@@ -64,10 +64,10 @@ test('L2 feed is optional on 404 while server and schema errors remain visible',
   const missing = await render(null, 404);
   assert.equal(missing.requested.filter(url => url === feedUrl).length, 1);
   assert.match(missing.get('repeat-results').innerHTML, /existing-repeat-fixture/);
-  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
+  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /did not load/);
   for (const [feed, status] of [[null, 500], [{schema: 'wrong'}, 200], [null, 200]]) {
     const broken = await render(feed, status);
-    assert.match(broken.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(broken.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });
 
@@ -75,8 +75,8 @@ for (const closed of [1, 2, 3]) {
   test(`L2 ${closed}-pass view shows only closed P0 scores and honest usage`, async () => {
     const ui = await render(fixture(closed));
     assert.match(ui.get('repeat-lead').textContent, new RegExp(`${closed} of 3 planned native P0 passes`));
-    assert.match(ui.get('repeat-lead').textContent, /historical pass used the staged procedure/);
-    assert.match(ui.get('repeat-lead').textContent, /Client time includes local overhead/);
+    assert.match(ui.get('repeat-lead').textContent, /The first pass used the staged procedure/);
+    assert.match(ui.get('repeat-lead').textContent, /Token totals, inference time and local cost were not measured/);
     assert.match(ui.get('repeat-condition').innerHTML, /Native L2 calibration/);
     assert.doesNotMatch(ui.get('repeat-condition').innerHTML, /P1|P2/);
     assert.match(ui.get('repeat-delta-intro').textContent, /P1 and P2 chat prompt variants do not apply/);
@@ -88,10 +88,10 @@ for (const closed of [1, 2, 3]) {
     assert.match(chart, /Repeat 3/);
     assert.equal((chart.match(/Not completed/g) || []).length, 3 - closed);
     assert.match(ui.get('repeat-usage-body').innerHTML, /120\.3/);
-    assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
+    assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
     assert.doesNotMatch(ui.get('repeat-usage-body').innerHTML, /\$0\.00/);
     assert.equal((ui.get('repeat-usage-body').innerHTML.match(/120\.3/g) || []).length, closed);
-    if (closed < 3) assert.match(chart, /Three-pass range unavailable/);
+    if (closed < 3) assert.match(chart, /No three-pass range until all three passes finish/);
     else assert.match(chart, /Three-pass range: <strong>3–5<\/strong>/);
   });
 }
@@ -103,7 +103,7 @@ test('L2 paired flips use shared-valid fields and native IDs remain plain text',
   const flips = ui.get('repeat-flips').innerHTML;
   assert.match(flips, /Historical pass to Repeat 2: 1 \/ 59 changed/);
   assert.match(flips, /1 \/ 59<\/strong> comparable comments changed/);
-  assert.match(flips, /1 comment was excluded/);
+  assert.match(flips, /1 comment was left out/);
   assert.match(flips, /DEV-001/);
   assert.doesNotMatch(flips, /undefined|#inspect|<a\s/);
 });

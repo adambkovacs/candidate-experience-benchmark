@@ -44,9 +44,9 @@ test('repeat page shows Clef third-P0 coverage and keeps Flash unscored', async 
   const panel = (await render()).get('repeat-clef-third').innerHTML;
   assert.match(panel, /Clef had <strong>3 of 9<\/strong> planned runs scored/);
   assert.match(panel, /53\/60/);
-  assert.match(panel, /at reported precision/);
-  assert.match(panel, /Clef Flash had <strong>2 of 9<\/strong> planned runs scored/);
-  assert.match(panel, /one unknown outcome; 59 reviews were never sent/);
+  assert.match(panel, /no change in any answer, native probability or vendor confidence/);
+  assert.match(panel, /Clef Flash had <strong>2 of 9<\/strong>: <strong>45\/60<\/strong>/);
+  assert.match(panel, /one unknown outcome and 59 reviews were never sent/);
   assert.match(panel, /no third score/);
   assert.match(panel, /href="\.\/clef-p0-third-checkpoint\.json"/);
   assert.doesNotMatch(panel, /free allocation|quota|4006/i);
@@ -56,7 +56,7 @@ test('changed or missing checkpoint cannot display a third score', async () => {
   const altered = structuredClone(checkpoint);
   altered.models['clef-flash'].fresh3P0.score = {allFourCorrect:60};
   const changed = (await render(altered)).get('repeat-clef-third');
-  assert.match(changed.textContent, /checkpoint is unavailable/);
+  assert.match(changed.textContent, /checkpoint did not load/);
   const missing = (await render(null, 404)).get('repeat-clef-third');
-  assert.match(missing.textContent, /checkpoint is unavailable/);
+  assert.match(missing.textContent, /checkpoint did not load/);
 });

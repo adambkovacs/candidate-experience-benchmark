@@ -73,7 +73,7 @@ test('unpublished L0 feed is optional only on 404', async () => {
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
   const broken = await render(null, 500);
-  assert.match(broken.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(broken.get('repeat-results').innerHTML, /Repeat results did not load/);
 });
 
 test('pending L0 third pass shows only completed native P0 scores', async () => {
@@ -84,8 +84,8 @@ test('pending L0 third pass shows only completed native P0 scores', async () => 
   const ui = await render(item);
   assert.match(ui.get('repeat-lead').textContent, /2 of 3 planned native P0 passes/);
   assert.match(ui.get('repeat-lead').textContent, /cyclic option shifts with a content-free prior/);
-  assert.match(ui.get('repeat-lead').textContent, /Agreement uses all 60 comments and provisional references/);
-  assert.match(ui.get('repeat-lead').textContent, /pure inference time and local cost are unavailable/);
+  assert.match(ui.get('repeat-lead').textContent, /Agreement counts all 60 comments; valid output is counted separately/);
+  assert.match(ui.get('repeat-lead').textContent, /local cost was not measured/);
   assert.doesNotMatch(ui.get('repeat-condition').innerHTML, /P1|P2/);
   assert.match(ui.get('repeat-condition').innerHTML, /Native L0 readout/);
   assert.equal(ui.get('repeat-deltas').innerHTML, '');
@@ -95,14 +95,14 @@ test('pending L0 third pass shows only completed native P0 scores', async () => 
   assert.match(ui.get('repeat-lead').textContent, /59\/60 valid responses/);
   assert.doesNotMatch(ui.get('repeat-usage-body').innerHTML, /999\.0/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /125\.5/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
 });
 
 test('closed L0 three-pass range and comparable flips keep native IDs unlinked', async () => {
   const ui = await render(fixture(true));
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>3–5<\/strong> out of 60/);
   assert.match(ui.get('repeat-flips').innerHTML, /1 \/ 59/);
-  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was excluded/);
+  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was left out/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-001/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /#inspect|<a\s/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /not correctness/);

@@ -52,7 +52,7 @@ test('SemIf generated nine closed phases show all three-pass scores, flips and u
   assert.match(ui.get('repeat-lead').textContent, /P0 Fresh pass 3: 52\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P1 Fresh pass 3: 38\/60 valid responses/);
   assert.match(ui.get('repeat-lead').textContent, /P2 Fresh pass 3: 58\/60 valid responses/);
-  assert.match(ui.get('repeat-lead').textContent, /client-observed elapsed time, not isolated inference time/);
+  assert.match(ui.get('repeat-lead').textContent, /Request seconds are summed as our client measured them/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length,
     feed.series[0].completedConditions);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/value="35"[^>]*>35<\/meter>/g) || []).length, 3);
@@ -66,7 +66,7 @@ test('SemIf generated nine closed phases show all three-pass scores, flips and u
   assert.match(ui.get('repeat-deltas').innerHTML, /-9/);
   assert.match(ui.get('repeat-deltas').innerHTML, /2 \/ 37 changed; 37 of 60 comparable; 23 excluded/);
   assert.match(ui.get('repeat-deltas').innerHTML, /6 \/ 52 changed; 52 of 60 comparable; 8 excluded/);
-  assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable/);
+  assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /No three-pass change count/);
   for (const [condition, denominator] of [['P0', 52], ['P1', 38], ['P2', 58]]) {
     ui.condition(condition);
     assert.match(ui.get('repeat-flips').innerHTML,
@@ -94,7 +94,7 @@ test('SemIf generated nine closed phases show all three-pass scores, flips and u
   assert.match(usage, /506\.2/);
   assert.match(usage, /389\.9/);
   assert.match(usage, /385\.3/);
-  assert.match(usage, /Unavailable/);
+  assert.match(usage, /Unknown/);
   assert.doesNotMatch(usage, /\$0\.00/);
   ui.field('sentiment');
   assert.match(ui.get('repeat-chart').innerHTML, /value="46"[^>]*>46<\/meter>/);
@@ -121,6 +121,6 @@ test('malformed or server-failed SemIf feed fails visibly', async () => {
   ];
   for (const [payload, status] of variants) {
     const ui = await render(payload, status);
-    assert.match(ui.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(ui.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

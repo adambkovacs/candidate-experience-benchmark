@@ -113,7 +113,8 @@ test('markup has accessible controls, axes, source caveat, and reduced-motion ru
   for (const id of ['outcome-chart', 'outcome-condition', 'outcome-category', 'outcome-coordinate', 'outcome-run', 'outcome-plot', 'outcome-run-detail']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
-  assert.match(html, /Only closed 60-record runs/);
+  assert.match(html, /answers in the required format, out of 60/);
+  assert.match(html, /A point's number is how many setups share it/);
   assert.match(html, /prefers-reduced-motion|outcome-chart\.css/);
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)/);
   assert.match(css, /@media \(max-width:480px\)/);

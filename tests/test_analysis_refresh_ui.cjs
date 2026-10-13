@@ -42,8 +42,8 @@ test('latest effort table uses source ranges, changed-review counts and nine-run
   // Current editorial claims must be reviewed if the source cohort changes.
   assert.ok(Object.values(report.sonnet55.byEffort.xhigh.conditions).every(c=>c.scores.length===3&&c.scores.every(n=>n===58)));
   const page=fs.readFileSync(path.join(site,'explore.html'),'utf8');
-  assert.match(page,/estimates are not subscription charges/);
-  assert.match(page,/same 60 reviews/);
+  assert.match(page,/id="analysis-refresh-table"/);
+  assert.match(page,/src="\.\/analysis-refresh\.js/);
 });
 test('Gemini authority summary shows closed scores and record changes', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
@@ -58,7 +58,7 @@ test('Gemini authority summary shows closed scores and record changes', async()=
   incomplete.newerCohorts.geminiAuthority.completedConditions = 8;
   const broken = await renderState(incomplete);
   assert.equal(broken.cutoffs, '');
-  assert.match(broken.table,/comparison could not be loaded/);
+  assert.match(broken.table,/comparison did not load/);
 });
 test('analysis page shows Gemma composite, Clef and local Qwen as separate cohorts', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
@@ -101,7 +101,7 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/Mistral 119B fresh1 P0/);
   assert.match(view.cutoffs,/40\/60 records, or 40\/55 among valid answers/);
   assert.match(view.cutoffs,/five failures remain in the denominator/);
-  assert.match(view.cutoffs,/interrupted single pass, not a completed repeat result/);
+  assert.match(view.cutoffs,/It is one interrupted pass/);
   assert.match(view.cutoffs,/Mistral 119B fresh1 P0 attempted all 60 reviews: 55 were valid and 5 failed/);
   assert.match(view.cutoffs,/Its other required conditions remain unfinished/);
   assert.match(view.cutoffs,/DeepSeek: failures change the comparison/);
@@ -143,7 +143,7 @@ test('analysis page shows Gemma composite, Clef and local Qwen as separate cohor
   assert.match(view.cutoffs,/Qwen3\.5 4B SDK, thinking on:<\/strong> 3\/9 full phases are closed/);
   assert.match(view.cutoffs,/fresh1 P1: 47\/60 all-four matches, 51\/60 valid answers, 9 invalid or failed/);
   assert.match(view.cutoffs,/fresh1 P2: 50\/60 all-four matches, 51\/60 valid answers, 9 invalid or failed/);
-  assert.match(view.cutoffs,/descriptive interrupted result: 47\/60 all-four matches/);
+  assert.match(view.cutoffs,/interrupted result: 47\/60 all-four matches/);
   assert.doesNotMatch(view.cutoffs,/latest Gemma and DeepSeek continuations remain unscored/);
 });
 test('Clef closed repeats keep clean cells distinct from interrupted P2 evidence', async()=>{
@@ -162,7 +162,7 @@ test('Clef closed repeats keep clean cells distinct from interrupted P2 evidence
   changed.newerCohorts.clefClosedRepeats.interruptedP2[0].cleanScore=48;
   const broken=await renderState(changed);
   assert.equal(broken.cutoffs,'');
-  assert.match(broken.table,/comparison could not be loaded/);
+  assert.match(broken.table,/comparison did not load/);
 });
 test('Qwen current repeat narrative distinguishes a stopped smoke from a closed full pass', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
@@ -235,7 +235,7 @@ test('Qwen3.5 summary shows only closed phases and supported comparisons', async
   q35.conditions.P0.changesAcrossThreePasses={denominator:59,fourFieldVector:Array(9).fill('synthetic-review')};
   view=await renderState(report);
   assert.match(view.cutoffs,/P0 across three passes: 9\/59 reviews valid in all three changed at least one label/);
-  assert.match(view.cutoffs,/local hardware and electricity cost and pure inference time were not measured/);
+  assert.match(view.cutoffs,/Local hardware cost and inference time were not measured/);
 });
 test('Qwen3.5 interrupted P0 remains a separate unscored partial in analysis', async()=>{
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
@@ -263,17 +263,17 @@ test('Qwen3.5 descriptive composite shows fixed-60 result without clean credit',
   q35.descriptiveComposites=[composite];
   const view = await renderState(report);
   assert.match(view.cutoffs,/Qwen3.5 4B SDK, thinking on:<\/strong> 0\/9 full phases are closed/);
-  assert.match(view.cutoffs,/descriptive interrupted result: 47\/60 all-four matches, 51 valid responses, 8 invalid responses and one unknown outcome at DEV-052/);
+  assert.match(view.cutoffs,/has an interrupted result: 47\/60 all-four matches, 51 valid responses, 8 invalid responses and one unknown outcome at DEV-052/);
   assert.match(view.cutoffs,/none remain unsent/);
-  assert.match(view.cutoffs,/not a clean repeat pass/);
+  assert.doesNotMatch(view.cutoffs,/not a clean repeat pass|descriptive/);
   assert.doesNotMatch(view.cutoffs,/8 reviews never sent/);
 });
 test('unavailable or malformed analysis links the report instead of showing invented results', async()=>{
-  assert.match(await render(null,false),/could not be loaded/);
-  assert.match(await render({}),/could not be loaded/);
+  assert.match(await render(null,false),/did not load/);
+  assert.match(await render({}),/did not load/);
   const report = JSON.parse(fs.readFileSync(path.join(site, 'analysis-refresh.json'), 'utf8'));
   delete report.newerCohorts.clefNativeP0;
-  assert.match(await render(report),/could not be loaded/);
+  assert.match(await render(report),/did not load/);
 });
 
 // Closed hosted phases must remain visible as more phases are published.
@@ -286,7 +286,7 @@ test('hosted findings compare Qwen prompts and retain different DeepSeek invalid
   assert.match(view.cutoffs,/first classifier-instruction run was interrupted and is excluded/);
   assert.match(view.cutoffs,/testimonial potential matched 7\/9 reference yes reviews; 2 were labeled no/);
   assert.match(view.cutoffs,/despite 58\/60 field matches and 54\/60 all-four matches/);
-  assert.match(view.cutoffs,/See errors by field and reference label/);
+  assert.match(view.cutoffs,/<summary>Errors by field and reference label<\/summary>/);
   assert.match(view.cutoffs,/role="region" aria-label="Qwen field errors by pass and prompt"/);
   assert.match(view.cutoffs,/Qwen3\.6 field results across nine planned runs/);
   assert.match(view.cutoffs,/yes: 7\/9 matched, 2 wrong \(no 2\)/);
@@ -300,7 +300,7 @@ test('hosted findings compare Qwen prompts and retain different DeepSeek invalid
   assert.match(view.cutoffs,/DEV-006/);
   assert.match(view.cutoffs,/Equal totals do not mean the same reviews had usable answers/);
   delete report.newerCohorts.hostedFresh.qwen36On.fieldClassAudit;
-  assert.match(await render(report),/could not be loaded/);
+  assert.match(await render(report),/did not load/);
 });
 
 test('low continuation keeps unknown outcome and smoke costs separate', async()=>{
@@ -311,7 +311,7 @@ test('low continuation keeps unknown outcome and smoke costs separate', async()=
   assert.match(view.cutoffs,/0\.030564226637/);
   assert.match(view.cutoffs,/Smoke costs are excluded/);
   report.newerCohorts.deepseekLowRevisedPrice.cleanMatchedRepeatEligible=true;
-  assert.match(await render(report),/could not be loaded/);
+  assert.match(await render(report),/did not load/);
 });
 
 test('Liquid findings show repeat counts without claiming confidence calibration', async()=>{
@@ -319,10 +319,10 @@ test('Liquid findings show repeat counts without claiming confidence calibration
   const view=await renderState(report);
   assert.match(view.cutoffs,/Liquid d1, native decision interface/);
   assert.match(view.cutoffs,/reviews changed at least one label/);
-  assert.match(view.cutoffs,/not proven probabilities of being correct/);
+  assert.match(view.cutoffs,/Liquid results and evidence<\/a>/);
   assert.match(view.cutoffs,/retain 32\/60 decisions: 31 match and 1 does not/);
   assert.match(view.cutoffs,/other 28 would need review/);
-  assert.match(view.cutoffs,/not validated on new reviews/);
+  assert.doesNotMatch(view.cutoffs,/not validated on new reviews|not proven probabilities/);
   assert.match(view.cutoffs,/liquid-d1-native-full-findings.json/);
 });
 
@@ -348,7 +348,7 @@ test('low P1 usable-answer agreement retains all three failed outcomes', async()
   assert.match(view.cutoffs,/DEV-027 failed at the provider/);
   assert.match(view.cutoffs,/0\.030730605596/);
   report.newerCohorts.deepseekLowP1Successor.cleanFullPhase=true;
-  assert.match(await render(report),/could not be loaded/);
+  assert.match(await render(report),/did not load/);
 });
 
 test('Tev findings distinguish stable repeats from matching reference answers', async()=>{
@@ -360,7 +360,7 @@ test('Tev findings distinguish stable repeats from matching reference answers', 
   assert.match(view.cutoffs,/No labels changed between repeats of the same prompt/);
   assert.match(view.cutoffs,/changed six compared with classifier instructions/);
   assert.match(view.cutoffs,/0\.151342128/);
-  assert.match(view.cutoffs,/not calibrated probabilities/);
+  assert.match(view.cutoffs,/Field results, confidence thresholds and costs<\/a>/);
 });
 
 test('findings groups keep all model results and source links available', async()=>{
@@ -384,7 +384,7 @@ test('findings groups keep all model results and source links available', async(
   assert.match(cutoffs,/DEV-009 timed out and remains missing/);
   assert.match(cutoffs,/59 shared answers; other pairs use 60/);
   assert.ok(cutoffs.includes(`$${solar.known_development_cost_usd}, excluding smoke tests`));
-  assert.match(cutoffs,/possible-charge bound, not an observed bill/);
+  assert.match(cutoffs,/possible charge, unrecorded/);
   assert.match(cutoffs,/reduced all-four matches in each pass, by 2, 1, 3/);
   assert.match(cutoffs,/retained 31\/60 answers, including 3 disagreements/);
   assert.match(cutoffs,/aria-label="Solar prompt gains and losses"/);
@@ -423,7 +423,7 @@ test('Perplexity shows all passes, observed development cost and bounded prompt 
   const html = (await renderState(report)).cutoffs;
   assert.match(html, /Perplexity Decider/);
   assert.match(html, /0\.14295744/);
-  assert.match(html, /not 540 different examples/);
+  assert.match(html, /Base-task run<\/a>/);
   assert.match(html, /DEV-029/);
 });
 
@@ -434,6 +434,6 @@ test('Perplexity narrative refuses changed stability or score evidence', async (
     const report = structuredClone(original); change(report);
     const rendered = await renderState(report);
     assert.equal(rendered.cutoffs, '');
-    assert.match(rendered.table, /could not be loaded/);
+    assert.match(rendered.table, /did not load/);
   }
 });

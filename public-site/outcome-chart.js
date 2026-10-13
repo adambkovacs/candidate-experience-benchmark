@@ -58,7 +58,7 @@
   }
   function render(){
     const rows=filtered(),points=group(rows);
-    $('outcome-count').textContent=`${rows.length} closed runs at ${points.length} points. A point's number is how many runs share it. ${excluded} partial ${excluded===1?'run':'runs'} excluded.`;
+    $('outcome-count').textContent=`${rows.length} closed runs at ${points.length} points; ${excluded} partial ${excluded===1?'run':'runs'} excluded.`;
     $('outcome-coordinate').innerHTML=points.length
       ?points.map(point=>`<option value="${esc(point.key)}">${point.valid}/60 valid · ${point.matches}/60 match · ${point.runs.length} ${point.runs.length===1?'run':'runs'}</option>`).join('')
       :'<option value="">No matching points</option>';

@@ -142,13 +142,13 @@
   const localRun = run => run.surface === 'Local / specialist' || /^Local\b/i.test(run.surface || '') || run.provider === 'local';
   const savedResponses = run => run.sourceFamily ? run.savedResponses : run.savedResponses ?? run.records;
   const missing = run => n(savedResponses(run)) === null ? 'Unavailable' : count(Math.max(0, 60 - n(savedResponses(run))));
-  const savedSummary = run => has(savedResponses(run)) ? `${count(savedResponses(run))} / 60 saved` : 'saved-response count unavailable';
+  const savedSummary = run => has(savedResponses(run)) ? `${count(savedResponses(run))} / 60 saved` : 'saved count not recorded';
   const missingSummary = run => has(savedResponses(run)) ? ` · ${missing(run)} without a saved response` : '';
-  const savedTag = run => has(savedResponses(run)) ? `${count(savedResponses(run))} / 60 SAVED` : 'SAVED-RESPONSE COUNT UNAVAILABLE';
-  const missingTag = run => has(savedResponses(run)) ? ` · ${missing(run)} WITHOUT A SAVED RESPONSE` : '';
+  const savedTag = run => has(savedResponses(run)) ? `${count(savedResponses(run))} of 60 saved` : 'Saved count not recorded';
+  const missingTag = run => has(savedResponses(run)) ? ` · ${missing(run)} without a saved answer` : '';
   const tallyNote = run => complete(run) ? '' : has(savedResponses(run))
     ? `Partial tally: ${count(savedResponses(run))} of 60 saved, ${missing(run)} without a saved response; not a final score.`
-    : 'Partial tally: saved-response count unavailable; not a final score.';
+    : 'Partial tally with no saved count; not a final score.';
   const metricName = {all_four:'All four match',sentiment:'Sentiment matches',follow_up_needed:'Follow-up matches',serious_concern_reported:'Serious concern matches',testimonial_potential:'Testimonial matches',valid:'Valid responses'};
   const score = run => $('#metric').value === 'valid' ? run.valid : run.metrics?.[$('#metric').value];
   const inferenceTime = timing => n(timing?.inferenceSeconds) !== null && n(timing?.inferenceReportedRequests) > 0 ? duration(timing.inferenceSeconds) : 'Unavailable';
@@ -209,11 +209,11 @@
       return [{id,parentBaselineId:condition==='P0' ? null : `${configuration}--pass1-p0`,model:'claude-sonnet-5-5',effort,surface:'Claude subscription',condition,
         complete:true,records:60,valid:score.valid,metrics:{all_four:score.allFour,...score.fields},pairedEligible:true,
         resultStatus:'Pass 1 of a three-pass study at this effort.',
-        timing:{kind:'batch',requests:usage.requestCount,medianSeconds:median,p95Seconds:p95,totalSeconds:usage.requestSecondsTotal,inferenceSeconds:null,note:'Request time as our client measured it, network included.'},
+        timing:{kind:'batch',requests:usage.requestCount,medianSeconds:median,p95Seconds:p95,totalSeconds:usage.requestSecondsTotal,inferenceSeconds:null,line:'Request time as our client measured it, network included.'},
         tokens:{input:pricedRequests > 0 ? usage.tokens?.input_tokens ?? null : null,cachedInput:pricedRequests > 0 ? usage.tokens?.cache_read_input_tokens ?? null : null,cacheWrite:pricedRequests > 0 ? usage.tokens?.cache_creation_input_tokens ?? null : null,output:pricedRequests > 0 ? usage.tokens?.output_tokens ?? null : null,reasoning:pricedRequests > 0 ? usage.tokens?.thinking_tokens ?? null : null,reportedRequests:pricedRequests,totalRequests,complete:pricedRequests !== null && pricedRequests === totalRequests},
         cost:{actualUsd:null,estimatedUsd:estimate,
           estimateKind:partialUsage || pricedRequests === null ? 'usage_unavailable' : usage.calculatedApiEquivalentUsd != null ? 'calculated_api_equivalent' : 'cli_list_price',sourceUrl:usage.priceSource || report.pricing?.source || null,
-          note:partialUsage ? `${pricedRequests} of ${totalRequests} requests reported usage, so the run has no full API-rate estimate.` : 'API-rate estimate from saved usage.'},
+          line:partialUsage ? `${pricedRequests} of ${totalRequests} requests reported usage, so the run has no full API-rate estimate.` : 'API-rate estimate from saved usage.'},
         sourceOnlyDetails:true,sourceRecordsUrl,evidenceUrl}];
     }));
   }
@@ -243,10 +243,10 @@
       runs.push({id:`${name}-native-fresh1-p0`,model:name==='clef'?'Cloudflare Clef':'Cloudflare Clef Flash',effort:'not applicable',surface:'Cloudflare Workers AI',condition:'P0',
         complete:true,records:60,valid:item.valid,metrics:{all_four:item.allFourCorrect,...Object.fromEntries(fields.map(field=>[field,item.fields[field].correct]))},
         pairedEligible:false,resultStatus:'First P0 pass on the direct Cloudflare Workers AI route, run before the OpenRouter passes.',
-        timing:{kind:'connected-app',requests:60,inferenceSeconds:null,inferenceReportedRequests:0,note:'Elapsed time includes an operator passing requests through a connected app.'},
+        timing:{kind:'connected-app',requests:60,inferenceSeconds:null,inferenceReportedRequests:0,line:'Elapsed time includes an operator passing requests through a connected app.'},
         tokens:{input:item.observedInputTokens,output:item.observedOutputTokens,reportedRequests:60,totalRequests:60,complete:true},
         cost:{actualUsd:null,knownUsd:null,estimatedUsd:Number(price),estimateKind:'published_input_rate',unknownUpperBoundUsd:Number(hold),
-          sourceUrl:`https://developers.cloudflare.com/workers-ai/models/${name}/`,note:'API-rate estimate from the published input price.'},
+          sourceUrl:`https://developers.cloudflare.com/workers-ai/models/${name}/`,line:'API-rate estimate from the published input price.'},
         sourceOnlyDetails:true,sourceRecordsUrl:source+path,evidenceUrl:source+'public-site/clef-findings.json',sourceRecordSha256:report.sourceSha256[path]});
     }
     return runs;
@@ -272,7 +272,10 @@
       const bj = b[0].includes('typesafe-jev113') ? 0 : 1;
       return aj-bj || label(a[1][0]).localeCompare(label(b[1][0]));
     });
-    select.innerHTML = entries.map(([id,runs]) => `<option value="${esc(id)}">${esc(label(runs.find(r => r.condition === 'P0') || runs[0]))} · ${esc(id)}</option>`).join('');
+    const optionText = ([,runs]) => {const lead=runs.find(r => r.condition === 'P0') || runs[0];return [label(lead),passText(lead)].filter(Boolean).join(' · ');};
+    const seen = entries.reduce((m,e) => m.set(optionText(e),(m.get(optionText(e)) || 0)+1),new Map());
+    // ponytail: the raw id only disambiguates labels that would otherwise repeat
+    select.innerHTML = entries.map(([id,runs]) => `<option value="${esc(id)}">${esc(optionText([id,runs]))}${seen.get(optionText([id,runs])) > 1 ? ` · ${esc(id)}` : ''}</option>`).join('');
     const queryExperiment=new URL(location.href).searchParams.get('experiment');
     select.value = queryExperiment && state.experiments.has(queryExperiment) ? queryExperiment : entries[0]?.[0] || '';
   }
@@ -333,13 +336,13 @@
       'antigravity-gemini-3.7-flash-medium-native-observed-batch10',
       'antigravity-gemini-3.7-flash-high-native-observed-batch10'
     ]);
-    if (blockedAfterP0.has(id)) return {label:'BLOCKED AFTER P0',reason:id.includes('3.1-pro-low') && condition==='P1' ? 'P1 has a separate partial attempt: 40 valid responses, 10 service errors and 10 unattempted comments. There is no complete public P1 run.' : `No complete public ${condition} run followed this Antigravity P0. The native route was blocked; OpenRouter results are separate configurations.`,links:[
+    if (blockedAfterP0.has(id)) return {label:'Blocked after P0',reason:id.includes('3.1-pro-low') && condition==='P1' ? 'P1 has a separate partial attempt: 40 valid responses, 10 service errors and 10 unattempted comments. There is no complete public P1 run.' : `No complete public ${condition} run followed this Antigravity P0. The native route was blocked; OpenRouter results are separate configurations.`,links:[
       {href:'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/PROMPT_COVERAGE_AUDIT_2026-10-02.md',text:'Coverage audit ↗'}
     ]};
     const roster=state.data.roster || [];
     const item=roster.find(r => r.id===id || r.parentBaselineId===id);
-    if (item) return {label:item.disposition==='excluded' ? 'NOT APPLICABLE' : String(item.disposition || 'NO SAVED OUTCOME').toUpperCase(),reason:item.reason || 'No saved outcome.'};
-    return {label:'NO SAVED OUTCOME',reason:'No saved result for this prompt.'};
+    if (item) return {label:item.disposition==='excluded' ? 'Not applicable' : (item.disposition ? String(item.disposition).replace(/_/g,' ').replace(/^./,c=>c.toUpperCase()) : 'No saved outcome'),reason:item.reason || 'No saved outcome.'};
+    return {label:'No saved outcome',reason:'No saved result for this prompt.'};
   }
   function syncUrl() {
     const params=new URL(location.href).searchParams;
@@ -354,21 +357,29 @@
     const route=$('#overview-surface').value;
     const category=state.customCategory || (state.cohort==='all' ? '' : state.cohort);
     const runs=state.data.runs.filter(r=>r.condition===condition && complete(r) && n(r.metrics?.all_four)!==null && (!category || modelType(r).categories.includes(category)) && (route==='all' || (route==='local' ? localRun(r) : !localRun(r)))).sort((a,b)=>n(b.metrics.all_four)-n(a.metrics.all_four) || label(a).localeCompare(label(b)) || a.id.localeCompare(b.id));
-    const visible=state.overviewAll ? runs : runs.slice(0,8);
-    const jev=runs.find(r=>r.id==='typesafe-jev113-v2' || r.nativeInstructionComparison === true);
+    // ponytail: repeat passes of one setup differ only by the fresh/pass/repeat digit in the run id
+    const setupKey=run=>run.id.replace(/(fresh|pass|repeat)\d/i,'$1N');
+    const passNo=run=>Number(/(?:fresh|pass|repeat)(\d)/i.exec(run.repeatPass || run.id)?.[1] || 0);
+    const setups=[...runs.reduce((map,run)=>map.set(setupKey(run),[...(map.get(setupKey(run)) || []),run]),new Map()).values()]
+      .map(setup=>setup.sort((a,b)=>passNo(a)-passNo(b)))
+      .sort((a,b)=>n(b[0].metrics.all_four)-n(a[0].metrics.all_four) || label(a[0]).localeCompare(label(b[0])) || a[0].id.localeCompare(b[0].id));
+    const visible=state.overviewAll ? setups : setups.slice(0,8);
+    const jev=setups.find(setup=>setup.some(r=>r.id==='typesafe-jev113-v2' || r.nativeInstructionComparison === true));
     const fallback=state.data.runs.find(r=>r.id==='typesafe-jev113-v2');
-    const reference=route==='local' ? null : !state.overviewAll && jev && !visible.includes(jev) ? jev : !state.overviewAll && !jev && fallback && (!category || modelType(fallback).categories.includes(category)) ? fallback : null;
-    const row=(run,referenceRow=false)=>{
+    const reference=route==='local' ? null : !state.overviewAll && jev && !visible.includes(jev) ? jev : !state.overviewAll && !jev && fallback && (!category || modelType(fallback).categories.includes(category)) ? [fallback] : null;
+    const row=(setup,referenceRow=false)=>{
+      const run=setup[0];
+      const passes=setup.length>1 ? `${setup.length} passes: ${setup.map(r=>r.metrics.all_four).join(', ')}` : passText(run);
       const validText=has(run.valid) ? `${count(run.valid)} / 60 answers in the required format` : 'Format count not recorded';
-      return `<button type="button" class="overview-row${run.id===state.selectedId?' selected':''}${referenceRow?' reference':''}" data-overview-run="${esc(run.id)}" aria-label="Inspect ${esc(label(run))}, ${esc(run.condition)}, ${esc(run.metrics?.all_four)} of 60 matches, ${esc(validText)}"><span class="overview-row-name"><strong>${esc(run.model)}</strong><small>${esc([effortText(run),run.surface,run.condition,passText(run)].filter(Boolean).join(' · '))}</small>${referenceRow ? `<em>${run.condition === condition ? 'Jev, for comparison' : 'Jev P0, a different prompt version'}</em>` : ''}</span><span class="overview-row-track" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,n(run.metrics.all_four)/60*100))}%"></span></span><strong class="overview-row-score">${esc(run.metrics.all_four)} / 60</strong><small class="overview-row-cost">${esc(validText)} · ${esc(costSummary(run))}</small></button>`;
+      return `<button type="button" class="overview-row${run.id===state.selectedId?' selected':''}${referenceRow?' reference':''}" data-overview-run="${esc(run.id)}" aria-label="Inspect ${esc(label(run))}, ${esc(run.condition)}, ${esc(run.metrics?.all_four)} of 60 matches, ${esc(validText)}"><span class="overview-row-name"><strong>${esc(run.model)}</strong><small>${esc([effortText(run),run.surface,run.condition,passes].filter(Boolean).join(' · '))}</small>${referenceRow ? `<em>${run.condition === condition ? 'Jev, for comparison' : 'Jev P0, a different prompt version'}</em>` : ''}</span><span class="overview-row-track" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,n(run.metrics.all_four)/60*100))}%"></span></span><strong class="overview-row-score">${esc(run.metrics.all_four)} / 60</strong><small class="overview-row-cost">${esc(validText)} · ${esc(costSummary(run))}</small></button>`;
     };
     const extra=reference && !visible.includes(reference) ? row(reference,true) : '';
     const routeLabel=route==='local' ? 'local ' : route==='hosted' ? 'hosted / API ' : '';
-    const cohortLabel=category ? `${globalThis.BenchmarkCategories?.categories?.[category]||category} ` : '';
-    $('#overview-count').textContent=`${state.overviewAll ? runs.length : Math.min(8,runs.length)} of ${runs.length} complete ${routeLabel}${cohortLabel}${condition} runs shown${extra ? reference.condition === condition ? ', plus Jev for comparison' : ', plus Jev P0' : ''}.`;
-    $('#overview-rows').innerHTML=visible.map(r=>row(r)).join('')+extra || '<p class="empty-state">No complete runs match these settings.</p>';
+    const cohortLabel=category ? `${String(globalThis.BenchmarkCategories?.categories?.[category]||category).toLowerCase()} ` : '';
+    $('#overview-count').textContent=`${visible.length} of ${setups.length} complete ${routeLabel}${cohortLabel}${condition} setups shown${extra ? reference[0].condition === condition ? ', plus Jev for comparison' : ', plus Jev P0' : ''}.`;
+    $('#overview-rows').innerHTML=visible.map(setup=>row(setup)).join('')+extra || '<p class="empty-state">No complete runs match these settings.</p>';
     $('#overview-rows').querySelectorAll('[data-overview-run]').forEach(button=>button.addEventListener('click',()=>selectRun(button.dataset.overviewRun,true)));
-    const toggle=$('#overview-toggle');toggle.hidden=runs.length<=8;toggle.textContent=state.overviewAll?'Show first eight':'Show all complete runs';toggle.setAttribute('aria-expanded',String(state.overviewAll));
+    const toggle=$('#overview-toggle');toggle.hidden=setups.length<=8;toggle.textContent=state.overviewAll?'Show first eight':'Show all setups';toggle.setAttribute('aria-expanded',String(state.overviewAll));
   }
   function renderExperiment() {
     const id = $('#experiment-select').value;
@@ -376,7 +387,7 @@
     const runs = state.experiments.get(id) || [];
     const lead = runs.find(r => r.condition === 'P0') || runs[0];
     $('#experiment-title').textContent = lead ? label(lead) : 'No saved result for this setup';
-    $('#experiment-context').textContent = id || '';
+    $('#experiment-context').textContent = lead ? [lead.condition,passText(lead)].filter(Boolean).join(' · ') : '';
     const chosen = $('#metric').value;
     $('#condition-grid').innerHTML = ['P0','P1','P2'].map(condition => {
       const candidates = runs.filter(r => r.condition === condition);
@@ -387,8 +398,8 @@
         return `<div class="condition-card empty"><div class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">${esc(disposition.label)}</span></div><p class="condition-meta">${esc(disposition.reason)}</p>${links}</div>`;
       }
       const value = score(run);
-      const status = complete(run) ? 'COMPLETE' : 'PARTIAL TALLY';
-      return `<button type="button" class="condition-card" data-condition-run="${esc(run.id)}" aria-pressed="${run.id === state.selectedId}"><span class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">${status} · ${esc(savedTag(run))}${complete(run) ? '' : esc(missingTag(run))}</span></span><span class="condition-score">${has(value) ? esc(value) : '—'}<small> / 60</small></span><span class="condition-track" aria-hidden="true"><span style="width:${has(value) ? Math.max(0,Math.min(100,n(value)/60*100)) : 0}%"></span></span><span class="condition-meta">${esc(metricName[chosen])}${complete(run) ? '' : ' · NOT A FINAL SCORE'} · ${esc(run.id)}</span></button>`;
+      const status = complete(run) ? 'Complete' : 'Partial';
+      return `<button type="button" class="condition-card" data-condition-run="${esc(run.id)}" aria-pressed="${run.id === state.selectedId}"><span class="condition-card-header"><span class="condition-code">${condition}</span><span class="condition-tag">${status} · ${esc(savedTag(run))}${complete(run) ? '' : esc(missingTag(run))}</span></span><span class="condition-score">${has(value) ? esc(value) : '—'}<small> / 60</small></span><span class="condition-track" aria-hidden="true"><span style="width:${has(value) ? Math.max(0,Math.min(100,n(value)/60*100)) : 0}%"></span></span><span class="condition-meta">${esc(metricName[chosen])}${complete(run) ? '' : ' · no final score'}${passText(run) ? ` · ${esc(passText(run))}` : ''}</span></button>`;
     }).join('');
     $('#condition-grid').querySelectorAll('[data-condition-run]').forEach(button => button.addEventListener('click',() => selectRun(button.dataset.conditionRun,true)));
     const nonpaired = runs.some(r => r.pairedEligible === false);
@@ -460,7 +471,7 @@
   function renderLedger() {
     const runs = visibleRuns();
     $('#result-count').textContent = `${runs.length} shown / ${state.data.runs.length} saved runs`;
-    $('#score-heading').textContent = `${metricName[$('#metric').value].toUpperCase()} / 60`;
+    $('#score-heading').textContent = `${metricName[$('#metric').value]}, of 60`;
     $('#comparison-list').innerHTML = runs.length ? runs.map(r => `<button type="button" class="comparison-row${r.id === state.selectedId ? ' selected' : ''}" data-run="${esc(r.id)}" aria-label="Inspect ${esc(label(r))}, ${esc(r.condition)}"><span class="run-name">${esc(r.model)}<span class="run-meta">${esc([modelType(r).categoryLabel,modelType(r).trainingLabel,modelType(r).interfaceLabel,effortText(r),r.surface,passText(r),complete(r)?null:`partial tally · ${savedSummary(r)}${missingSummary(r)}`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(r.id)}</span></span><span>${esc(r.condition)}</span><span class="metric-value"><strong>${has(r.valid) ? esc(r.valid) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally'}</small></span><span class="metric-value"><strong>${has(score(r)) ? esc(score(r)) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally, not final'}</small></span><span class="run-runtime"><span>In ${esc(count(runTokens(r).input))} · Out ${esc(count(runTokens(r).output))}</span><small>Reasoning ${esc(count(runTokens(r).reasoning))} · ${esc(costSummary(r))}</small>${n(r.cost?.unknownUpperBoundUsd) > 0 ? `<small>plus up to ${esc(money(r.cost.unknownUpperBoundUsd))} unrecorded</small>` : ''}${inferenceTime(r.timing) !== 'Unavailable' || providerGenerationTime(r.timing) ? `<small>${esc([inferenceTime(r.timing) !== 'Unavailable' ? `Inference ${inferenceTime(r.timing)}` : null,providerGenerationTime(r.timing) ? `Provider generation ${providerGenerationTime(r.timing)}` : null].filter(Boolean).join(' · '))}</small>` : ''}</span></button>`).join('') : '<p class="empty-state">No runs match these filters.</p>';
     $('#comparison-list').querySelectorAll('[data-run]').forEach(button => button.addEventListener('click',() => selectRun(button.dataset.run,true)));
   }
@@ -472,7 +483,7 @@
     return String(value);
   }
   function caseCard(item) {
-    return `<article class="case-card"><div class="case-head"><span>RECORD ${esc(item.id || '—')}</span><span>${esc(readableValue(item.status || ''))}</span></div><blockquote>${esc(item.feedback || 'Comment unavailable')}</blockquote><div class="case-result"><div><strong>REFERENCE</strong><span>${esc(caseValue(item.reference))}</span></div><div><strong>MODEL OUTPUT</strong><span>${esc(caseValue(item.prediction))}</span></div></div>${Array.isArray(item.different_fields) && item.different_fields.length ? `<p class="note">Decisions that differ: ${esc(item.different_fields.map(key => decisionLabels[key] || readableValue(key)).join(', '))}</p>` : ''}</article>`;
+    return `<article class="case-card"><div class="case-head"><span>${esc(item.id || '')}</span><span>${esc(readableValue(item.status || ''))}</span></div><blockquote>${esc(item.feedback || 'Comment unavailable')}</blockquote><div class="case-result"><div><strong>REFERENCE</strong><span>${esc(caseValue(item.reference))}</span></div><div><strong>MODEL OUTPUT</strong><span>${esc(caseValue(item.prediction))}</span></div></div>${Array.isArray(item.different_fields) && item.different_fields.length ? `<p class="note">Decisions that differ: ${esc(item.different_fields.map(key => decisionLabels[key] || readableValue(key)).join(', '))}</p>` : ''}</article>`;
   }
   function renderCasesLegacy(run) {
     const all = state.data.cases.filter(item => item.configuration === run.id);
@@ -546,10 +557,10 @@
   function resourceSection(title,rows,note) {return `<section class="resource-group"><h5>${esc(title)}</h5><dl class="data-list">${rows.join('')}</dl>${note ? `<p class="note">${esc(note)}</p>` : ''}</section>`;}
   function timingRows(timing,run) {
     const basis=timing.kind === 'batch' ? 'One request could include several comments' : timing.kind === 'record' ? 'One request per comment or retry' : 'Request size unavailable';
-    const caution=run.surface === 'Local / specialist' ? 'Timed on our own machine. ' : timing.kind === 'batch' ? 'One batch request covers several comments. ' : '';
+    const caution=localRun(run) ? 'Timed on our own machine. ' : timing.kind === 'batch' ? 'One batch request covers several comments. ' : '';
     const rows=[dataRow('Median client request duration',duration(timing.medianSeconds)),dataRow('Request size',basis),dataRow('Sum of recorded request durations',duration(timing.totalSeconds)),dataRow('95th percentile request duration',duration(timing.p95Seconds)),dataRow('Requests timed',count(timing.requests))];
     if(providerGenerationTime(timing))rows.push(dataRow('Median provider generation duration',providerGenerationTime(timing)));
-    return resourceSection('Technical timing',rows,caution+(timing.note || (timing.complete === false ? 'Timing is incomplete.' : 'Concurrent requests overlap, so the sum runs longer than elapsed time.')));
+    return resourceSection('Technical timing',rows,caution+(timing.line || (timing.complete === false ? 'Timing is incomplete.' : localRun(run) ? '' : 'Request time as our client measured it, network included.')));
   }
   function tokenRows(tokens,run) {
     const partial=tokens.complete === false;
@@ -558,19 +569,19 @@
     rows.push(dataRow('Requests with token usage',n(tokens.reportedRequests) === null ? 'Unavailable' : `${count(tokens.reportedRequests)} / ${count(tokens.totalRequests)}`));
     const coverage=partial ? 'Totals leave out requests that returned no usage. ' : '';
     const definition=priceEntry(run) ? (run.surface === 'Claude subscription' ? 'Claude input excludes separately reported cache reads and writes. ' : 'Codex input includes cached input. ') : '';
-    return resourceSection('Tokens',rows,definition+coverage+(tokens.note || ''));
+    return resourceSection('Tokens',rows,definition+coverage);
   }
   function costRows(cost,run) {
     const price=priceEntry(run);
     const rows=[];
     if (n(cost.actualUsd) !== null) rows.push(dataRow('Charge',money(cost.actualUsd)));
     else if (n(cost.knownUsd) !== null) rows.push(dataRow('Charge',money(cost.knownUsd)));
-    else rows.push(dataRow('Charge','Unknown'));
+    else rows.push(dataRow('Charge',localRun(run) ? 'None, run locally' : 'Unknown'));
     if (price) rows.push(dataRow('API-rate estimate',money(price.estimateUsd)));
     else if (n(cost.estimatedUsd) !== null) rows.push(dataRow(cost.estimateKind === 'known_usage_only' ? 'API-rate estimate for known usage' : 'API-rate estimate',money(cost.estimatedUsd)));
     if (n(cost.unknownUpperBoundUsd) > 0) rows.push(dataRow('Unrecorded charge, up to',money(cost.unknownUpperBoundUsd)));
     const source=price && url(price.rate?.sourceUrl) ? `<p class="note">Public rate checked ${esc(price.rate.checkedDate)} · <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a>.${price.estimateUsd === null ? ' No estimate: '+esc(price.estimateStatus.replace(/_/g,' '))+'.' : ''}</p>` : url(cost.sourceUrl) ? `<p class="note"><a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Model price source ↗</a></p>` : '';
-    return resourceSection('Cost in USD',rows,cost.note || '')+source;
+    return resourceSection('Cost in USD',rows,cost.line || '')+source;
   }
   function renderUsage(run) {
     const timing=run.timing || {},tokens=runTokens(run),cost=runCost(run),price=priceEntry(run);
@@ -580,7 +591,7 @@
     const generation=providerGenerationTime(timing);
     const inferenceNote=inferred === 'Unavailable' ? (n(timing.requests) > 0 ? 'The provider reported no inference time for this run.' : 'No inference or request time was recorded for this run.') : `${count(timing.inferenceReportedRequests)} requests reported server inference time. ${timing.inferenceBasis || ''}`;
     const evidence=url(run.evidenceUrl);
-    $('#usage-summary').innerHTML=`<div class="usage-heading"><h3>${esc(run.model)} <small>${esc(run.condition)} · ${esc(run.id)}</small></h3>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div class="usage-grid"><article><span class="usage-label">Server inference time</span><strong>${esc(inferred)}</strong><p>${esc(inferenceNote)}</p>${generation ? `<dl><div><dt>Provider generation median</dt><dd>${esc(generation)}</dd></div><div><dt>Requests with generation time</dt><dd>${esc(count(timing.providerGenerationReportedRequests))} / ${esc(count(timing.providerGenerationTotalRequests))}</dd></div></dl>${timing.providerGenerationBasis ? `<p>${esc(timing.providerGenerationBasis)}</p>` : ''}` : ''}</article><article><span class="usage-label">Token use</span><dl><div><dt>Input</dt><dd>${esc(count(tokens.input))}</dd></div><div><dt>Cache read</dt><dd>${esc(count(tokens.cachedInput))}</dd></div><div><dt>Cache write</dt><dd>${esc(count(tokens.cacheWrite))}</dd></div><div><dt>Output</dt><dd>${esc(count(tokens.output))}</dd></div><div><dt>Reasoning</dt><dd>${esc(count(tokens.reasoning))}</dd></div></dl><p>${esc(coverage)}. ${tokens.complete === false ? 'Totals cover only requests with usage data.' : ''}</p></article><article><span class="usage-label">Cost</span><dl><div><dt>${esc(actualLabel)}</dt><dd>${esc(observedCost(cost))}</dd></div><div><dt>${cost.estimateKind === 'known_usage_only' ? 'API-rate estimate for known usage' : 'API-rate estimate'}</dt><dd>${esc(money(cost.estimatedUsd))}</dd></div>${n(cost.unknownUpperBoundUsd) > 0 ? `<div><dt>Unrecorded charge, up to</dt><dd>${esc(money(cost.unknownUpperBoundUsd))}</dd></div>` : ''}</dl><p>${price ? 'Reasoning tokens count as output.' : ''}${price && url(price.rate?.sourceUrl) ? ` <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a> (${esc(price.rate.checkedDate)}).` : url(cost.sourceUrl) ? ` <a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a>.` : ''}${price?.estimateUsd === null ? ` No estimate: ${esc(price.estimateStatus.replace(/_/g,' '))}.` : ''}${run.id === 'typesafe-jev113-v2' ? ' The unrecorded amount is the reservation held for one failed request.' : ''}</p></article></div>`;
+    $('#usage-summary').innerHTML=`<div class="usage-heading"><h3>${esc(run.model)} <small>${esc([effortText(run),run.surface,run.condition,passText(run)].filter(Boolean).join(' · '))}</small></h3>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div class="usage-grid"><article><span class="usage-label">Server inference time</span><strong>${esc(inferred)}</strong><p>${esc(inferenceNote)}</p>${generation ? `<dl><div><dt>Provider generation median</dt><dd>${esc(generation)}</dd></div><div><dt>Requests with generation time</dt><dd>${esc(count(timing.providerGenerationReportedRequests))} / ${esc(count(timing.providerGenerationTotalRequests))}</dd></div></dl>${timing.providerGenerationBasis ? `<p>${esc(timing.providerGenerationBasis)}</p>` : ''}` : ''}</article><article><span class="usage-label">Token use</span><dl><div><dt>Input</dt><dd>${esc(count(tokens.input))}</dd></div><div><dt>Cache read</dt><dd>${esc(count(tokens.cachedInput))}</dd></div><div><dt>Cache write</dt><dd>${esc(count(tokens.cacheWrite))}</dd></div><div><dt>Output</dt><dd>${esc(count(tokens.output))}</dd></div><div><dt>Reasoning</dt><dd>${esc(count(tokens.reasoning))}</dd></div></dl><p>${esc(coverage)}. ${tokens.complete === false ? 'Totals cover only requests with usage data.' : ''}</p></article><article><span class="usage-label">Cost</span><dl><div><dt>${esc(actualLabel)}</dt><dd>${esc(observedCost(cost))}</dd></div><div><dt>${cost.estimateKind === 'known_usage_only' ? 'API-rate estimate for known usage' : 'API-rate estimate'}</dt><dd>${esc(money(cost.estimatedUsd))}</dd></div>${n(cost.unknownUpperBoundUsd) > 0 ? `<div><dt>Unrecorded charge, up to</dt><dd>${esc(money(cost.unknownUpperBoundUsd))}</dd></div>` : ''}</dl><p>${price ? 'Reasoning tokens count as output.' : ''}${price && url(price.rate?.sourceUrl) ? ` <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a> (${esc(price.rate.checkedDate)}).` : url(cost.sourceUrl) ? ` <a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a>.` : ''}${price?.estimateUsd === null ? ` No estimate: ${esc(price.estimateStatus.replace(/_/g,' '))}.` : ''}${run.id === 'typesafe-jev113-v2' ? ' The unrecorded amount is the reservation held for one failed request.' : ''}</p></article></div>`;
   }
   function selectRun(id,scroll) {
     const run=state.data.runs.find(r => r.id === id);if (!run)return;
@@ -592,7 +603,7 @@
     $('#compare-run-select').value=Array.from($('#compare-run-select').options).some(option=>option.value===id) ? id : '';
     const evidence=url(run.evidenceUrl);
     const trainingEvidence=url(modelType(run).trainingSource);
-    $('#run-detail').innerHTML=`<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([effortText(run),run.surface,run.condition,passText(run)].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${complete(run)?'':' partial'}">${complete(run)?'COMPLETE':'PARTIAL TALLY'} · ${esc(savedTag(run))}${complete(run) ? '' : `${esc(missingTag(run))} · NOT FINAL`} · ${has(run.valid) ? `${esc(count(run.valid))} / 60 VALID` : 'VALID COUNT UNAVAILABLE'}</span></div><div class="detail-stats"><div class="detail-stat"><span>${complete(run) ? 'VALID / 60' : 'PARTIAL TALLY: VALID / 60'}</span><strong>${has(run.valid)?esc(run.valid):'—'}</strong><small>Responses in the required format</small></div><div class="detail-stat"><span>${complete(run) ? 'ALL FOUR MATCH / 60' : 'PARTIAL TALLY: ALL FOUR MATCH / 60'}</span><strong>${has(metrics.all_four)?esc(metrics.all_four):'—'}</strong><small>All decisions match the reference</small></div><div class="detail-stat"><span>${complete(run) ? 'SENTIMENT MATCHES / 60' : 'PARTIAL TALLY: SENTIMENT MATCHES / 60'}</span><strong>${has(metrics.sentiment)?esc(metrics.sentiment):'—'}</strong><small>Matches the reference</small></div><div class="detail-stat"><span>INPUT TOKENS</span><strong>${esc(count(tokens.input))}</strong><small>${tokens.complete === false ? 'Known usage only' : 'Reported usage'}</small></div></div><div class="detail-lower"><div><h4>${complete(run) ? 'Scores and resource use' : 'Recorded tallies and resource use'}</h4>${complete(run) ? '' : `<p class="note">${esc(tallyNote(run))}</p>`}<dl class="data-list">${dataRow(`${complete(run) ? '' : 'Partial tally: '}Sentiment matches / 60`,count(metrics.sentiment))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Follow-up matches / 60`,count(metrics.follow_up_needed))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Serious concern matches / 60`,count(metrics.serious_concern_reported))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Testimonial matches / 60`,count(metrics.testimonial_potential))}</dl>${timingRows(timing,run)}${tokenRows(tokens,run)}${costRows(cost,run)}${run.resultStatus ? `<p class="note">${esc(run.resultStatus)}</p>` : ''}${comparisonNote(run)}${trainingEvidence ? `<a class="detail-evidence" href="${esc(trainingEvidence)}" target="_blank" rel="noopener noreferrer">Training source ↗</a>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div><h4>Answers by comment</h4><div id="case-panel"></div></div></div>`;
+    $('#run-detail').innerHTML=`<div class="detail-top"><div><h3>${esc(run.model)}</h3><p>${esc([effortText(run),run.surface,run.condition,passText(run)].filter(Boolean).join(' · '))}</p><span class="detail-run-id">${esc(run.id)}</span></div><span class="detail-badge${complete(run)?'':' partial'}">${complete(run)?'Complete':'Partial'} · ${esc(savedTag(run))}${complete(run) ? '' : `${esc(missingTag(run))} · not final`} · ${has(run.valid) ? `${esc(count(run.valid))} of 60 valid` : 'Valid count not recorded'}</span></div><div class="detail-stats"><div class="detail-stat"><span>${complete(run) ? 'Valid, of 60' : 'Partial: valid, of 60'}</span><strong>${has(run.valid)?esc(run.valid):'—'}</strong><small>Responses in the required format</small></div><div class="detail-stat"><span>${complete(run) ? 'All four match, of 60' : 'Partial: all four match, of 60'}</span><strong>${has(metrics.all_four)?esc(metrics.all_four):'—'}</strong><small>All decisions match the reference</small></div><div class="detail-stat"><span>${complete(run) ? 'Sentiment matches, of 60' : 'Partial: sentiment matches, of 60'}</span><strong>${has(metrics.sentiment)?esc(metrics.sentiment):'—'}</strong><small>Matches the reference</small></div><div class="detail-stat"><span>Input tokens</span><strong>${esc(count(tokens.input))}</strong><small>${tokens.complete === false ? 'Known usage only' : 'Reported usage'}</small></div></div><div class="detail-lower"><div><h4>${complete(run) ? 'Scores and resource use' : 'Recorded tallies and resource use'}</h4>${complete(run) ? '' : `<p class="note">${esc(tallyNote(run))}</p>`}<dl class="data-list">${dataRow(`${complete(run) ? '' : 'Partial tally: '}Sentiment matches / 60`,count(metrics.sentiment))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Follow-up matches / 60`,count(metrics.follow_up_needed))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Serious concern matches / 60`,count(metrics.serious_concern_reported))}${dataRow(`${complete(run) ? '' : 'Partial tally: '}Testimonial matches / 60`,count(metrics.testimonial_potential))}</dl>${timingRows(timing,run)}${tokenRows(tokens,run)}${costRows(cost,run)}${run.resultStatus ? `<p class="note">${esc(run.resultStatus)}</p>` : ''}${comparisonNote(run)}${trainingEvidence ? `<a class="detail-evidence" href="${esc(trainingEvidence)}" target="_blank" rel="noopener noreferrer">Training source ↗</a>` : ''}${evidence ? `<a class="detail-evidence" href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div><h4>Answers by comment</h4><div id="case-panel"></div></div></div>`;
     renderCases(run);renderFieldComparison(run);renderUsage(run);renderLedger();renderOverview();renderExperiment();
     if (scroll) $('#inspect').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
   }
@@ -610,7 +621,7 @@
     const query=$('#roster-search').value.toLowerCase().trim();
     const display=item => {
       const missing=missingCondition(item.id,'P1');
-      return missing.label==='BLOCKED AFTER P0' ? {status:'blocked after P0',reason:'The native Antigravity route stopped after P0. P1 and P2 have no complete public run.',audit:missing.links?.[0]?.href} : {status:item.disposition,reason:item.reason};
+      return missing.label==='Blocked after P0' ? {status:'blocked after P0',reason:'The native Antigravity route stopped after P0. P1 and P2 have no complete public run.',audit:missing.links?.[0]?.href} : {status:item.disposition,reason:item.reason};
     };
     const entries=roster.filter(item => {const base=state.data.runs.find(r=>r.id===item.parentBaselineId);return !query || `${item.id} ${base?.model||''} ${display(item).status}`.toLowerCase().includes(query);});
     $('#roster-count').textContent=`${entries.length} of ${roster.length} setups`;

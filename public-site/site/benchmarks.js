@@ -72,8 +72,20 @@
   }
   const score = run => run?.metrics?.all_four ?? -1;
 
-  function leaderboardFull(el, snapshot) {
+  async function leaderboardFull(el, snapshot) {
     const {rows, placed} = configurations(snapshot.runs);
+    // The catalog files Jev's nine prompt passes under TypeSafe with an estimate; they ran on OpenRouter native Choice
+    // and carry a known charge (jev-native-prompt-findings.json). The direct TypeSafe run has no bill.
+    const jev = await feed('jev-native-prompt-findings.json');
+    for (const c of rows) {
+      if (/typesafe-jev113-native-prompts/.test(c.key)) {
+        c.route = 'OpenRouter native Choice';
+        c.costCell = n(jev.passes.P0.fresh1.knownCostUsd, 'jev-native-prompt-findings.json#passes.P0.fresh1.knownCostUsd', usd);
+      } else if (/^typesafe-jev113-v2/.test(c.key)) {
+        c.route = 'TypeSafe direct API';
+        c.costCell = '<span class="bm-none">no bill</span>';
+      }
+    }
     const total = rows.length;
     el.innerHTML = `<div class="bm-controls">
       <label>Model type<select data-f="type"><option value="">All</option><option>Decision</option><option>General</option></select></label>
@@ -98,7 +110,7 @@
         const first = c.cells['P0.1'];
         return `<tr><th scope="row"><span class="bm-model">${esc(shortModel(c.model))}</span><span class="bm-id">${esc(c.key)}</span></th>
           <td>${c.type}</td><td>${esc(c.route)}</td><td>${esc(c.effort)}</td>${passCells(c)}
-          ${FIELDS.map(f => `<td class="bm-num">${first ? metric(first, f) : DASH}</td>`).join('')}<td class="bm-num">${first ? cost(first) : DASH}</td></tr>`;
+          ${FIELDS.map(f => `<td class="bm-num">${first ? metric(first, f) : DASH}</td>`).join('')}<td class="bm-num">${c.costCell || (first ? cost(first) : DASH)}</td></tr>`;
       }).join('');
       el.querySelector('.bm-body').innerHTML = wrap(`<table class="bm-table bm-wide"><thead>
         <tr><th rowspan="2" scope="col">Model and configuration</th><th rowspan="2" scope="col">Type</th><th rowspan="2" scope="col">Route</th><th rowspan="2" scope="col">Effort</th>

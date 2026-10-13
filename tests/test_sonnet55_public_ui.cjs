@@ -116,11 +116,11 @@ test('repeat explorer shows all four efforts and nine cells per effort without s
       report.cells[effort][pass][condition].development.state === 'complete')).length;
     assert.match(ui.get('repeat-summary').textContent, new RegExp(`${complete} of 9`));
     assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter /g) || []).length, complete);
-    assert.match(ui.get('repeat-interpretation').innerHTML, /36 planned development phases/);
+    assert.match(ui.get('repeat-interpretation').innerHTML, /Across four efforts, \d+ of 36 planned runs are complete/);
   }
   ui.select('low');
-  assert.match(ui.get('repeat-lead').textContent, /not replayed/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /API-equivalent calculation from saved usage/);
+  assert.match(ui.get('repeat-lead').textContent, /guard failure was kept and scored offline without a replay/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /API-rate estimate from saved usage/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Public rate ↗/);
   assert.match(ui.get('repeat-flips').innerHTML, /Pairwise changes between completed passes are listed below/);
   assert.match(ui.get('repeat-flips').innerHTML, /Pass 1 to Pass 2/);
@@ -181,7 +181,7 @@ test('unfinished Sonnet cells keep stopped, running and untouched states distinc
   assert.equal((chart.match(/<meter /g) || []).length, 6);
   assert.match(usage, /Pass 1 \(stopped; unscored\)/);
   assert.match(usage, /37 saved records of 60/);
-  assert.match(usage, /Known partial usage for 4 priced requests; not a subscription charge/);
+  assert.match(usage, /Known partial usage for 4 priced requests/);
   assert.match(usage, /Pass 3 \(not started\)/);
 });
 

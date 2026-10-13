@@ -65,7 +65,7 @@ test('Alex feed is optional only when unpublished', async () => {
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
   const broken = await render(null, 500, 'existing-repeat-fixture');
-  assert.match(broken.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(broken.get('repeat-results').innerHTML, /Repeat results did not load/);
 });
 
 test('0.8B first fresh pass renders while 4B remains 0 of 3', async () => {
@@ -75,8 +75,8 @@ test('0.8B first fresh pass renders while 4B remains 0 of 3', async () => {
   assert.match(ui.get('repeat-results').innerHTML, /alex-openjev08-native-p0-v1/);
   assert.match(ui.get('repeat-results').innerHTML, /alex-openjev4b-native-p0-v1/);
   assert.match(ui.get('repeat-lead').textContent, /1 of 3 planned native P0 passes/);
-  assert.match(ui.get('repeat-lead').textContent, /Earlier results are observational and excluded/);
-  assert.match(ui.get('repeat-lead').textContent, /input positions are not billed API tokens/);
+  assert.match(ui.get('repeat-lead').textContent, /Earlier results are not part of the fresh-pass comparison/);
+  assert.match(ui.get('repeat-lead').textContent, /input positions are not billed tokens/);
   assert.match(ui.get('repeat-condition').innerHTML, /Native NLI output/);
   assert.doesNotMatch(ui.get('repeat-condition').innerHTML, /P1|P2/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 1);
@@ -85,7 +85,7 @@ test('0.8B first fresh pass renders while 4B remains 0 of 3', async () => {
   assert.equal(ui.get('repeat-deltas').innerHTML, '');
   assert.match(ui.get('repeat-usage-body').innerHTML, /Native NLI input positions: 123,456/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /86\.3/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
 
   ui.get('repeat-config').value = 'alex-openjev4b-native-p0-v1';
   ui.get('repeat-config').change();

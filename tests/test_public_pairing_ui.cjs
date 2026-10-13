@@ -188,9 +188,9 @@ test('incomplete run keeps its fixed-denominator count as an explicit partial ta
   ui.state.data = {runs: [partial], promptComparisons: [], roster: []};
   ui.state.experiments = new Map([['model-a', [partial]]]);
   ui.renderExperiment();
-  assert.match(conditionGrid(), /PARTIAL TALLY · 59 \/ 60 SAVED · 1 WITHOUT A SAVED RESPONSE/);
+  assert.match(conditionGrid(), /Partial · 59 of 60 saved · 1 without a saved answer/);
   assert.match(conditionGrid(), /42<small> \/ 60<\/small>/);
-  assert.match(conditionGrid(), /All four match · NOT A FINAL SCORE/);
+  assert.match(conditionGrid(), /All four match · no final score/);
   ui.renderLedger();
   assert.match(ledger(), /42<\/strong><small> \/ 60 · partial tally, not final<\/small>/);
   assert.match(ledger(), /59 \/ 60 saved · 1 without a saved response/);
@@ -223,7 +223,7 @@ test('historical Fable card links its separate matched batch series', () => {
   assert.match(conditionGrid(), /one comment per request/);
   assert.match(conditionGrid(), /batch-of-10 prompt series/);
   assert.match(conditionGrid(), /fable51-high-phase2-batch10-p0/);
-  assert.doesNotMatch(conditionGrid(), /NOT APPLICABLE/);
+  assert.doesNotMatch(conditionGrid(), /Not applicable/);
 });
 
 test('each verified historical Claude and Codex counterpart links its own later series', () => {
@@ -279,7 +279,7 @@ test('scheduled Antigravity P0-only rows display their blocked state and partial
   ui.state.experiments = new Map([[id,[historical]]]);
   experiment.value = id;
   ui.renderExperiment();
-  assert.match(conditionGrid(), /BLOCKED AFTER P0/);
+  assert.match(conditionGrid(), /Blocked after P0/);
   assert.match(conditionGrid(), /40 valid responses, 10 service errors and 10 unattempted comments/);
   assert.match(conditionGrid(), /There is no complete public P1 run/);
   assert.match(conditionGrid(), /No complete public P2 run/);

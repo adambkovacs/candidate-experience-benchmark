@@ -17,12 +17,12 @@ async function render(feed = saved) {
 }
 test('Kev shows two scored passes and preserves interrupted status', async () => {
   const el = await render();
-  assert.match(el('repeat-filter-count').textContent, /1 of 1 studies match/);
+  assert.match(el('repeat-filter-count').textContent, /1 of 1 studies\./);
   assert.match(el('repeat-lead').textContent, /2 of 3/);
   assert.equal((el('repeat-chart').innerHTML.match(/<meter /g)||[]).length, 2);
   assert.match(el('repeat-chart').innerHTML, /Interrupted; unscored/);
   assert.doesNotMatch(el('repeat-chart').innerHTML, /Three-pass range: <strong>/);
-  assert.match(el('repeat-delta-intro').textContent, /P1 and P2.*pending/);
+  assert.match(el('repeat-delta-intro').textContent, /P1 and P2 variants have not run/);
 });
 test('Kev usage and confidence retain definitions and real numbers', async () => {
   const el = await render();
@@ -30,13 +30,13 @@ test('Kev usage and confidence retain definitions and real numbers', async () =>
   assert.match(el('repeat-usage-body').innerHTML, /17,350/);
   assert.match(el('repeat-usage-body').innerHTML, /0\.00470341/);
   assert.match(el('repeat-interpretation').innerHTML, /Reported confidence/);
-  assert.match(el('repeat-interpretation').innerHTML, /not calibrated/);
+  assert.match(el('repeat-interpretation').innerHTML, /confidence of 0\.7 or higher/);
   assert.match(el('repeat-flips').innerHTML, /0 \/ 60 changed/);
 });
 test('Kev rejects inconsistent completed counts', async () => {
   const feed=structuredClone(saved);feed.completedPasses=3;
   const el=await render(feed);
-  assert.match(el('repeat-results').innerHTML, /could not be loaded/);
+  assert.match(el('repeat-results').innerHTML, /did not load/);
 });
 
 test('interrupted Kev usage separates known charges and unknown bound', async () => {
@@ -49,7 +49,7 @@ test('interrupted Kev usage separates known charges and unknown bound', async ()
   const usage=el('repeat-usage-body').innerHTML;
   assert.match(usage,/110,115/); assert.match(usage,/17,062/);
   assert.match(usage,/60 attempted/); assert.match(usage,/0.00462483/);
-  assert.match(usage,/Unknown charge up to/); assert.match(usage,/60.4 timeout/);
+  assert.match(usage,/plus up to \$0\.00034406 unrecorded/); assert.match(usage,/60.4 timeout/);
 });
 test('incomplete Kev cannot expose a three-pass range or incomplete pair', async () => {
   const feed=structuredClone(saved);

@@ -94,11 +94,11 @@ test('fresh Codex usage shows API-equivalent public-rate estimate and unknown ch
   const ui = await render(payload, 200, config + '-fresh-matched3', pricing);
   const html = ui.get('repeat-usage-body').innerHTML;
   assert.match(html, /\$0\.0074333/);
-  assert.match(html, /Current public-rate estimate, 2026-10-02/);
+  assert.match(html, /Public rate as of 2026-10-02/);
   assert.match(html, /Public rate ↗/);
-  assert.match(ui.get('repeat-results').innerHTML, /Reasoning tokens are already in output/);
-  assert.match(html, /Cache read: Unavailable/);
-  assert.match(html, /Unavailable<\/td><td>\$0\.0074333/);
+  assert.match(ui.get('repeat-results').innerHTML, /Reasoning tokens sit inside output and are counted once/);
+  assert.match(html, /Cache read: Unknown/);
+  assert.match(html, /Unknown<\/td><td>\$0\.0074333/);
 });
 
 test('unpriced current rate retains the saved CLI estimate as a separate figure', async () => {
@@ -111,8 +111,8 @@ test('unpriced current rate retains the saved CLI estimate as a separate figure'
         sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-6-sol'}}}};
   const ui = await render({series: []}, 200, config, pricing, '0.042984');
   const html = ui.get('repeat-usage-body').innerHTML;
-  assert.match(html, /Current public-rate estimate.*cache write duration unknown/);
-  assert.match(html, /Saved CLI API-equivalent estimate: \$0\.042984/);
+  assert.match(html, /Public rate as of 2026-10-02.*cache write duration unknown/);
+  assert.match(html, /Saved CLI API-rate estimate: \$0\.042984/);
 });
 
 test('a pending optional price fetch does not hold required repeat results', async () => {
@@ -134,12 +134,12 @@ test('six fresh Codex series remain separate from same-ID historical result', as
   assert.match(ui.get('repeat-results').innerHTML, /value="codex-gpt-5\.6-luna-xhigh-fresh-matched3"/);
   assert.match(ui.get('repeat-lead').textContent, /2 of 9 planned prompt\/pass combinations/);
   assert.match(ui.get('repeat-lead').textContent, /Earlier results remain separate and are not pass one/);
-  assert.match(ui.get('repeat-lead').textContent, /served model identity and revision, effective seed and attributable subscription cost are unavailable/);
+  assert.match(ui.get('repeat-lead').textContent, /the served model revision, seed and per-run subscription cost are unknown/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 2);
   assert.match(ui.get('repeat-chart').innerHTML, /Fresh pass 1/);
   assert.match(ui.get('repeat-chart').innerHTML, /Not completed/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /42\.5/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
   ui.select(names[0]);
   assert.match(ui.get('repeat-lead').textContent, /Historical same configuration/);
   assert.doesNotMatch(ui.get('repeat-lead').textContent, /three fresh Codex subscription passes/);
@@ -162,11 +162,11 @@ test('unclosed fresh slots cannot display stale score, usage or inspect links', 
 test('missing unpublished feed is optional; server failure is visible', async () => {
   const missing = await render(null, 404, names[0]);
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
-  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
+  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /did not load/);
   const failed = await render(null, 500, names[0]);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   const malformed = await render({series: [fresh(names[0])]}, 200, names[0]);
-  assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
 });
 
 test('feed-supplied three-pass range and flip counts render without invented values', async () => {

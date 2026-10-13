@@ -39,9 +39,9 @@ test('current Clef matrix renders six condition rows from the analysis feed', as
   const panel = await render();
   const html = panel.innerHTML;
   assert.equal((html.match(/<tr>/g) || []).length, 7); // Header plus six body rows.
-  assert.match(html, /Current Clef native-choice repeat status/);
-  assert.match(html, /all-four matches out of 60 reviews/);
-  assert.match(html, /native choice variant/);
+  assert.match(html, /Clef and Clef Flash, all-four matches by pass/);
+  assert.match(html, /All-four matches out of 60 reviews/);
+  assert.match(html, /\(native choice\)/);
   assert.match(html, /<th scope="row">Clef<\/th><td>P0<\/td>[\s\S]*53\/60[\s\S]*53\/60[\s\S]*53\/60/);
   assert.match(html, /<th scope="row">Clef<\/th><td>P1<\/td>[\s\S]*52\/60[\s\S]*Pending[\s\S]*Pending/);
   assert.match(html, /<th scope="row">Clef<\/th><td>P2<\/td>(?:[\s\S]*Pending){3}/);
@@ -66,12 +66,12 @@ test('latest Flash P0 pass stays interrupted and has no third score', async () =
 
 test('missing or malformed current feed fails visibly', async () => {
   const missing = await render(null, 404);
-  assert.match(missing.textContent, /matrix is unavailable because its analysis feed is missing or changed/);
+  assert.match(missing.textContent, /repeat matrix did not load/);
 
   const malformed = structuredClone(analysis);
   malformed.newerCohorts.latestFlashP0Interruption.score = {allFour:60, denominator:60};
   const changed = await render(malformed);
-  assert.match(changed.textContent, /matrix is unavailable because its analysis feed is missing or changed/);
+  assert.match(changed.textContent, /repeat matrix did not load/);
   assert.equal(changed.innerHTML, '');
 });
 
@@ -81,5 +81,5 @@ test('extra analysis sources preserve matrix and duplicate review IDs fail visib
   assert.match((await render(extended)).innerHTML, /53\/60/);
   const duplicate = structuredClone(analysis);
   duplicate.newerCohorts.latestFlashP0Interruption.neverSentIds[0] = 'DEV-001';
-  assert.match((await render(duplicate)).textContent, /matrix is unavailable/);
+  assert.match((await render(duplicate)).textContent, /repeat matrix did not load/);
 });

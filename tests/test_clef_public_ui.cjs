@@ -62,8 +62,8 @@ test('partial or changed source evidence cannot become a scored Clef row', () =>
 test('public section links source, describes one pass, and separates provider confidence', () => {
   const html = fs.readFileSync(path.join(site, 'explore.html'), 'utf8');
   assert.match(html, /id="clef-first-pass-results"/);
-  assert.match(html, /one closed P0 pass/);
-  assert.match(html, /provider's separate "confidence" field/);
-  assert.match(html, /clef-findings\.json/);
-  assert.match(html, /CLEF_FINDINGS_2026-10-02\.md/);
+  assert.match(html, /One closed base-task pass each on Cloudflare's direct route/);
+  assert.match(html, /runs\[id=clef-openrouter-native-fresh1-p0\]\.metrics\.all_four">54<\/span> of 60/);
+  assert.match(app, /fetch\('\.\/clef-findings\.json'/);
+  assert.match(app, /API-rate estimate <strong>\$\{money\(run\.cost\.estimatedUsd\)\}<\/strong>/);
 });

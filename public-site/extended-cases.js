@@ -215,10 +215,10 @@
     const initial = view(data, runId);
     if (!initial.run) {
       container.append(element('p', initial.gap
-        ? `Individual answers are not available in this case feed: ${initial.gap.reason}.`
-        : 'This saved run is not in the extended case feed.'));
+        ? `No per-review answers were saved for this run: ${initial.gap.reason}.`
+        : 'No per-review answers were saved for this run.'));
       if (initial.gap && initial.gap.sourceReportUrl) {
-        const link = element('a', 'Open the public run report');
+        const link = element('a', 'Run report');
         link.href = initial.gap.sourceReportUrl;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
@@ -228,11 +228,11 @@
     }
     const run = initial.run;
     const comparisonScope = data.schema === 'unified-cases-v1'
-      ? `The comparison chooser includes all ${data.runs.length} saved runs.`
+      ? `All ${data.runs.length} saved runs are available as run B.`
       : data.schema === 'additional-cases-v1'
-      ? `The comparison chooser includes ${data.runs.length} first-pass and native runs.`
-      : `The comparison chooser includes ${data.runs.length} report-backed repeat and continuation runs.`;
-    const header = element('p', `The same 60 development reviews · human-checked provisional labels v0.2. Each choice is one saved run, including its prompt, pass, and route. ${comparisonScope} Different routes and controls are separate configurations; an A/B difference does not establish a causal model effect.`);
+      ? `${data.runs.length} first-pass and native runs are available as run B.`
+      : `${data.runs.length} repeat and continuation runs are available as run B.`;
+    const header = element('p', `Each run is one saved pass with its own prompt and route. ${comparisonScope}`);
     const runNames = element('p', undefined, 'extended-case-run-names');
     const sourceLinks = element('div', undefined, 'extended-case-sources');
     container.append(header, runNames, sourceLinks);
@@ -302,8 +302,7 @@
       const selected = view(data, runId, { query: search.value, mode: mode.value,
         field: field.value, compareRunId: compare.value });
       runNames.textContent = `A · ${runLabel(run)}${selected.compareRun ? `\nB · ${runLabel(selected.compareRun)}` : ''}`;
-      count.textContent = `${selected.cases.length} of ${selected.total} reviews shown${selected.compareRun
-        ? ' · A and B are separate saved runs, not pooled evidence' : ''}`;
+      count.textContent = `${selected.cases.length} of ${selected.total} reviews shown`;
       sourceLinks.replaceChildren();
       appendSources('A', run);
       if (selected.compareRun) appendSources('B', selected.compareRun);

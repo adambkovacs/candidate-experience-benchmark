@@ -102,7 +102,6 @@ main :is(code, kbd, samp) { font-family: var(--f-mono); }
   border: 0; border-bottom: 1px solid var(--n700); border-radius: 0; background: var(--n900); box-shadow: none; backdrop-filter: none;
 }
 .brand { display: flex; flex: none; align-items: center; gap: 10px; color: var(--n200); font: 500 13px/1.25 var(--f-sans); letter-spacing: 0; text-decoration: none; }
-.brand br { display: none; }
 .brand-mark { width: auto; height: 24px; flex: none; }
 .brand:hover { color: var(--paper); }
 .site-header .main-nav { flex: 1 1 auto; min-width: 0; margin: 0; gap: 4px; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; white-space: nowrap; }
@@ -161,14 +160,36 @@ main table { font-variant-numeric: tabular-nums; }
 main :is(td, th) { font-size: 15px; line-height: 1.45; border-left-width: 0; border-right-width: 0; }
 main thead th, main th[scope="col"] { color: var(--muted); font: var(--t-label); letter-spacing: 0; text-transform: none; border-bottom: 1px solid var(--line); }
 main td { border-bottom-color: var(--line); }
+main :is(thead th, tfoot th, tfoot td) { background-color: var(--surface); }
+main caption { background: none; color: var(--muted); font: var(--t-small); text-align: left; }
+/* Review ids: plain mono text, no chip box. */
+main :is(.cross-ids button, .agreement-id-list a) {
+  margin: 0 8px 2px 0; padding: 0; border: 0; border-radius: 0; background: none; color: var(--muted); font: 400 13px/1.6 var(--f-mono);
+}
+main :is(.cross-ids button, .agreement-id-list a):hover { color: var(--ink); text-decoration: underline; }
+main .outcome-detail { border-top: 0; background: var(--cream); border-radius: var(--r-3); }
 main td :is(code, .mono), main td.mono { font-size: 13px; }
 .is-unclipped { overflow: visible !important; }
 :where(main table.has-sticky-head thead) th { position: sticky; top: var(--sticky-top); z-index: 2; background: var(--surface); box-shadow: var(--e-paper); }
-@media (max-width: 640px) {
-  main :is(.table-wrap, .table-scroll, .di-table-wrap, .decision-hosted-table, [class*="table-wrap"], [class*="table-scroll"]) {
-    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent);
-  }
+/* Wide tables scroll inside their wrapper. The right edge fades only while there is more table to scroll:
+   a scroll timeline on a box that cannot scroll is inactive, so --edge stays 100% and nothing is masked. */
+@property --edge { syntax: '<percentage>'; inherits: false; initial-value: 100%; }
+@keyframes edge-reveal { from { --edge: 85%; } 92% { --edge: 85%; } to { --edge: 100%; } }
+main :is(.table-wrap, .di-table-wrap, .bm-scroll, .cross-outcome-wrap, .cross-matrix-wrap, .cross-controls-wrap,
+  .cohort-answer-scroll, .disputed-answer-wrap, .agreement-table-wrap, .clef-repeat-scroll)[class] {
+  overflow-x: auto; max-width: 100%; overscroll-behavior-x: contain;
+  -webkit-mask-image: linear-gradient(90deg, #000 var(--edge), transparent); mask-image: linear-gradient(90deg, #000 var(--edge), transparent);
+  animation: edge-reveal linear both; animation-timeline: scroll(self inline);
 }
+
+/* Stat numerals: one face, one weight, tabular. Row values sit at body size. */
+main :is(.condition-score, .detail-stat strong, .clef-major strong, .repeat-comparison strong, .story-number > strong, .feature-score strong) {
+  font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+}
+main :is(.metric-value strong, .overview-row-score) { font: 600 17px/1.2 var(--f-display); font-variant-numeric: tabular-nums; }
+main .report-cohort-controls strong { font: 700 17px/1.25 var(--f-display); letter-spacing: 0; }
+main :is(.report-source-status, .report-lens-note, .report-route a) { font-size: 13px; }
+main .report-lens-count { font: 500 15px/1.5 var(--f-mono); }
 
 /* Chart frames: on paper no box; on ink one --n800 frame. Axes in the tick face. */
 main svg text { font-family: var(--f-mono); }
@@ -277,8 +298,7 @@ body > footer a { color: var(--paper); text-decoration-color: rgba(156, 195, 242
   :root { --pad: 16px; --gutter: 16px; }
   body { font-size: 16px; }
   .site-header { flex-wrap: wrap; gap: 0 10px; padding: 0 16px; }
-  .site-header .brand span { display: inline; max-width: 14ch; font-size: 13px; }
-  .brand br { display: inline; }
+  .site-header .brand span { display: none; }
   .layer-nav { margin-left: auto; padding-left: 10px; }
   .layer-nav a { padding: 16px 8px 14px; font-size: 14px; }
   .site-header .main-nav { order: 3; flex-basis: 100%; margin: 0 -16px; padding: 0 16px; border-top: 1px solid var(--n700);
@@ -296,7 +316,6 @@ body > footer a { color: var(--paper); text-decoration-color: rgba(156, 195, 242
   body > footer { grid-template-columns: 1fr; justify-items: start; }
   body > footer nav { justify-content: flex-start; }
 }
-@media (max-width: 380px) { .site-header .brand span { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   .main-nav a, .layer-nav a, .study-steps button, .action, .action > span[aria-hidden], .quick-links a, main summary::before { transition: none; }
 }

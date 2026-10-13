@@ -37,9 +37,9 @@ test('renders nine source-derived comparisons with distinct changed and match co
   assert.equal((target.innerHTML.match(/4\/60 changed an answer/g) || []).length, 4);
   assert.equal((target.innerHTML.match(/2 lost a full match/g) || []).length, 3);
   assert.match(target.innerHTML, /1 gained a full match/);
-  assert.match(target.innerHTML, /same 60 development reviews/);
-  assert.match(target.innerHTML, /not 180 independent cases/);
-  assert.match(target.innerHTML, /Read the Liquid findings and source hashes/);
+  assert.match(target.innerHTML, /A review can change an answer without either/);
+  assert.doesNotMatch(target.innerHTML, /provisional|independent|kicker/);
+  assert.match(target.innerHTML, /Liquid findings<\/a>/);
 });
 
 test('zero values stay visible and are not silently replaced', async () => {
@@ -60,11 +60,11 @@ test('zero values stay visible and are not silently replaced', async () => {
 test('missing pair, impossible arithmetic and failed fetch show an unavailable state', async () => {
   const missing = structuredClone(feed);
   delete missing.matched_prompt_comparisons['fresh3/P0_vs_fresh3/P2'];
-  assert.match((await render(missing)).target.innerHTML, /role="alert".*could not be loaded/s);
+  assert.match((await render(missing)).target.innerHTML, /role="alert".*did not load/s);
   const inconsistent = structuredClone(feed);
   inconsistent.matched_prompt_comparisons['fresh1/P0_vs_fresh1/P2'].all_four.right_correct = 60;
-  assert.match((await render(inconsistent)).target.innerHTML, /role="alert".*could not be loaded/s);
-  assert.match((await render(feed, false)).target.innerHTML, /role="alert".*could not be loaded/s);
+  assert.match((await render(inconsistent)).target.innerHTML, /role="alert".*did not load/s);
+  assert.match((await render(feed, false)).target.innerHTML, /role="alert".*did not load/s);
 });
 
 test('does not fetch without its placeholder; CSS covers responsive and reduced-motion states', async () => {

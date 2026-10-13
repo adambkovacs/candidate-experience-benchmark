@@ -71,7 +71,7 @@ test('latest Gemma composite has seven fixed-60 scores while older cutoffs remai
   assert.match(ui.get('repeat-lead').textContent, /never sent and have no scores/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /gemma26-postabort-findings\.json/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /60 attempted<br><small>58 valid, 2 preserved service failures/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.02230691 known/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.02230691<br><small>2 requests have unknown cost/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /2 requests have unknown cost/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /149,117 reported/);
   ui.get('repeat-field').value = 'sentiment';
@@ -90,14 +90,14 @@ test('latest Gemma composite has seven fixed-60 scores while older cutoffs remai
 
 test('optional missing feed preserves cutoff; malformed or failed latest feed fails visibly', async () => {
   const missingComparison = await render(latest, 200, latestId, null, 404);
-  assert.match(missingComparison.get('repeat-flips').innerHTML, /comparison is unavailable/);
+  assert.match(missingComparison.get('repeat-flips').innerHTML, /has no paired P2 comparison/);
   const malformedComparison = await render(latest, 200, latestId,
     {...p2Repeat, allThreeSharedValid: {...p2Repeat.allThreeSharedValid, denominator: 60}});
-  assert.match(malformedComparison.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(malformedComparison.get('repeat-results').innerHTML, /Repeat results did not load/);
   const absent = await render(null, 404, secondId);
   assert.match(absent.get('repeat-summary').textContent, /6 of 9 phases/);
   const failed = await render(null, 500, secondId);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   for (const payload of [
     {...latest, completedConditions: 8},
     {...latest, fresh3P2: {...latest.fresh3P2, score: {...latest.fresh3P2.score,
@@ -106,6 +106,6 @@ test('optional missing feed preserves cutoff; malformed or failed latest feed fa
     {...latest, sourceBindings: [{path: 'private/ledger.json', sha256: 'a'.repeat(64)}]},
   ]) {
     const malformed = await render(payload);
-    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

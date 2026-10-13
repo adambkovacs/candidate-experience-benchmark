@@ -55,14 +55,14 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
     assert.ok(lead.includes(`${condition} ${counts.join(' / ')}`));
   }
   assert.doesNotMatch(lead, /pending/);
-  assert.match(lead, /separate from native AnyJev/);
-  assert.match(lead, /Counts and scores use all 60 reviews, including invalid outputs/);
+  assert.match(lead, /generated JSON control/);
+  assert.match(lead, /Scores count all 60 reviews, invalid outputs included/);
   assert.doesNotMatch(lead, /parser|inference time|private tokenizer/);
   const limits = ui.get('repeat-interpretation').innerHTML;
-  assert.match(limits, /^<details><summary>Protocol and measurement limits<\/summary>/);
+  assert.match(limits, /^<details><summary>Protocol<\/summary>/);
   assert.doesNotMatch(limits, /^<details open/);
   assert.match(limits, /strict parser does not repair fenced JSON/);
-  assert.match(limits, /When none qualify, stability cannot be assessed/);
+  assert.match(limits, /when none qualify, there is no stability figure/);
   assert.match(limits, /historical generated observations are ineligible/);
   assert.match(limits, /private tokenizer/);
   assert.match(limits, /local hardware and electricity cost are unknown/);
@@ -73,14 +73,14 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
   assert.equal((chart.match(/<meter/g) || []).length, feed.completedConditions);
   assert.match(chart, /Three-pass range: <strong>0–0<\/strong> out of 60/);
   assert.match(chart, /Three-pass range: <strong>1–1<\/strong> out of 60/);
-  assert.doesNotMatch(chart, /Three-pass range unavailable/);
+  assert.doesNotMatch(chart, /No three-pass range/);
   assert.match(ui.get('repeat-deltas').innerHTML, /<td>0<\/td>/);
   assert.match(ui.get('repeat-deltas').innerHTML, /<td>\+1<\/td>/);
   assert.match(ui.get('repeat-deltas').innerHTML, /unavailable; none had answers in the required format in both conditions; 0 of 60 comparable; 60 excluded/);
-  assert.match(ui.get('repeat-flips').innerHTML, /No comments had answers in the required format in all three passes/);
+  assert.match(ui.get('repeat-flips').innerHTML, /No comment had a well-formed answer in all three passes, so there is no change count/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /0 \/ 0 changed/);
   ui.condition('P1');
-  assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 comments with answers in the required format in both passes\)/);
+  assert.match(ui.get('repeat-flips').innerHTML, /no count \(0 comments with a well-formed answer in both passes\)/);
   ui.condition('P2');
   assert.match(ui.get('repeat-flips').innerHTML, /0 \/ 30 changed/);
   assert.match(ui.get('repeat-flips').innerHTML, /<strong>0 \/ 30<\/strong> comparable comments changed/);
@@ -94,7 +94,7 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
   assert.match(usage, /159,150/);
   assert.match(usage, /2,664/);
   assert.match(usage, /263\.6/);
-  assert.match(usage, /Unavailable/);
+  assert.match(usage, /Unknown/);
   assert.doesNotMatch(usage, /\$0\.00/);
   ui.field('sentiment');
   assert.match(ui.get('repeat-chart').innerHTML, /value="0"[^>]*aria-label="P0 Fresh pass 1 Sentiment: 0 out of 60"/);
@@ -108,9 +108,9 @@ test('an incomplete phase remains pending without a three-pass result', async ()
   const ui = await render(payload);
   assert.match(ui.get('repeat-lead').textContent, /P0 0 \/ 0 \/ pending/);
   assert.match(ui.get('repeat-lead').textContent, /pending means no full score/);
-  assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range unavailable until all passes finish/);
-  assert.match(ui.get('repeat-flips').innerHTML, /Three-pass changes are unavailable until all passes finish/);
-  assert.match(ui.get('repeat-flips').innerHTML, /unavailable \(0 comments with answers in the required format in both passes\)/);
+  assert.match(ui.get('repeat-chart').innerHTML, /No three-pass range until all three passes finish/);
+  assert.match(ui.get('repeat-flips').innerHTML, /No three-pass change count until all three passes finish/);
+  assert.match(ui.get('repeat-flips').innerHTML, /no count \(0 comments with a well-formed answer in both passes\)/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /0 \/ 0 changed/);
 });
 
@@ -129,6 +129,6 @@ test('optional absence preserves Jev while malformed or failed feeds fail visibl
   ];
   for (const [payload, status] of variants) {
     const ui = await render(payload, status);
-    assert.match(ui.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(ui.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

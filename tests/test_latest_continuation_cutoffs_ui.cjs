@@ -60,7 +60,7 @@ test('Qwen cutoff retains both stages and scores only the closed xhigh P0 compos
   assert.match(ui.get('repeat-chart').innerHTML, /37 valid, 1 service error, 22 unsent; no score/);
   assert.match(ui.get('repeat-chart').innerHTML, /0 saved, 60 unsent; no score/);
   assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /<meter/);
-  assert.match(ui.get('repeat-flips').innerHTML, /Cross-pass answer changes are outside/);
+  assert.match(ui.get('repeat-flips').innerHTML, /no cross-pass answer changes/);
   ui.select(qwenXhigh);
   assert.match(ui.get('repeat-summary').textContent, /1 of 2 fresh pass 3 phases/);
   assert.match(ui.get('repeat-chart').innerHTML, /58<small> \/ 60<\/small>/);
@@ -81,8 +81,8 @@ test('Gemma second cutoff preserves first cutoff and historical scores', async (
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 6);
   assert.match(ui.get('repeat-chart').innerHTML, /4 valid, 1 service error, 55 unsent; no score/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /60 attempted/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown charge up to/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable overall/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.01974272 unrecorded/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown overall/);
   ui.select('gemma26-on-v2-interruption-continuation-v1');
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 5);
   assert.match(ui.get('repeat-chart').innerHTML, /1 valid, 1 service error, 58 unsent; no score/);
@@ -112,12 +112,12 @@ test('malformed new cutoffs fail visibly and an optional 404 leaves earlier evid
   ]) {
     const bad = copy(feeds[url]); mutate(bad);
     const ui = await render({override: {[url]: bad}});
-    assert.match(ui.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(ui.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
   const missing = await render({selected: 'gemma26-on-v2-interruption-continuation-v1',
     status: {'./gemma26-second-continuation-findings.json': 404}});
   assert.match(missing.get('repeat-results').innerHTML,
     /value="gemma26-on-v2-interruption-continuation-v1"/);
   const failed = await render({status: {'./deepseek-low-third-interruption-findings.json': 500}});
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
 });

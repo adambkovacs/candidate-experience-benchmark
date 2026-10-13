@@ -54,8 +54,8 @@ test('both new Qwen composites stay separate from historical interrupted cutoffs
   assert.match(ui.get('repeat-chart').innerHTML, /56<small> \/ 60<\/small>/);
   assert.match(ui.get('repeat-deltas').innerHTML, />-1<\/td>/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /59 valid, 1 preserved service error/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown original charge up to/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable overall/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.0470016 unrecorded/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown overall/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /<details><summary>How these runs were completed/);
   ui.select(xhigh);
   assert.match(ui.get('repeat-summary').textContent, /P0 matched all four.*58 of 60.*P1.*58 of 60/);
@@ -72,12 +72,12 @@ test('malformed new evidence fails visibly while optional 404 retains the first 
     const bad = structuredClone(latest);
     mutate(bad);
     const ui = await render({report: bad});
-    assert.match(ui.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(ui.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
   const missing = await render({selected:
     'openrouter-paid-qwen3.8-27b-medium-interrupted-cutoff-v1', responseStatus: 404});
   assert.match(missing.get('repeat-results').innerHTML,
     /value="openrouter-paid-qwen3.8-27b-medium-interrupted-cutoff-v1"/);
   const failed = await render({responseStatus: 500});
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
 });

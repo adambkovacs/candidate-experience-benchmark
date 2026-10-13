@@ -1,6 +1,6 @@
-/* Read page motion: scroll reveals, count-ups on the Read numbers, the nine-cell glyphs settling in, the hero exit,
-   and a small magnetic pull on the primary action. Timings and easing follow the talk deck (deck/MOTION.md):
-   settle 0.7s, 0.08s apart, 28px rise, power3.out; count-ups 1.4s power2.out ending on the exact text; no overshoot.
+/* Read page motion: scroll reveals, the nine-cell glyphs settling in, and the hero exit. Numbers are complete on
+   entry: no count-ups. Timings and easing follow the talk deck (deck/MOTION.md): settle 0.7s, 0.08s apart, 28px
+   rise, power3.out, no overshoot; nothing takes longer than two seconds.
    All of it is optional. Without this file, without GSAP, or with reduced motion, the page reads the same. */
 (() => {
   'use strict';
@@ -11,7 +11,7 @@
   // Only blocks that start below the first screen are hidden, only by opacity and a short rise, and they never
   // leave the tab order. An IntersectionObserver reads live layout, so late content cannot strand a block.
   const blocks = [
-    '#decisions .section-intro', '.decision-strip li', '#decisions .hero-example', '.part-mark', '.finding-copy', '.finding-figure',
+    '#decisions .section-intro', '.decision-strip li', '#decisions .hero-example', '.finding-copy', '.finding-figure',
     '.rule .section-intro', '.rule-pair', '.rule-queue', '#deep-insights', '.limits .section-intro', '.limit-list li',
     '#team > div:first-child', '#team .audience-notes article', '.door', '.harness-note', 'body > footer'
   ].join(',');
@@ -21,8 +21,6 @@
     if (!list.length) return;
     list.forEach(el => el.classList.remove('js-reveal'));
     gsap.to(list, {opacity: 1, y: 0, duration: instant ? 0 : 0.7, ease: 'power3.out', stagger: instant ? 0 : 0.08, overwrite: true, clearProps: 'opacity,transform'});
-    const rules = list.filter(el => el.matches('.part-mark')).map(el => el.querySelector('i')).filter(Boolean);
-    if (rules.length && !instant) gsap.fromTo(rules, {scaleX: 0, transformOrigin: 'left center'}, {scaleX: 1, duration: 0.9, ease: 'power2.inOut', clearProps: 'transform'});
   };
   hidden.forEach(el => el.classList.add('js-reveal'));
   gsap.set(hidden, {opacity: 0, y: 28});
@@ -69,33 +67,6 @@
     watcher.observe(set);
   }
 
-  // Count-ups end on the exact text. Each number's width is fixed first, so nothing shifts, and screen readers
-  // hear the real value throughout. Measure all, then write all.
-  const counts = [...document.querySelectorAll('[data-countup]')].map(el => {
-    const node = [...el.childNodes].find(child => child.nodeType === 3 && /\d/.test(child.nodeValue));
-    const box = el.getBoundingClientRect();
-    return {el, node, final: node ? parseInt(node.nodeValue.replace(/,/g, ''), 10) : NaN, top: box.top, width: box.width};
-  }).filter(item => Number.isFinite(item.final) && item.top >= fold);
-  for (const {el, node, final, width} of counts) {
-    const original = node.nodeValue;
-    const shown = document.createElement('span');
-    const spoken = document.createElement('span');
-    shown.setAttribute('aria-hidden', 'true');
-    shown.textContent = '0';
-    spoken.className = 'sr-only';
-    spoken.textContent = original;
-    el.style.display = 'inline-block';
-    el.style.minWidth = `${Math.ceil(width)}px`;
-    node.replaceWith(shown, spoken);
-    const counter = {value: 0};
-    const finish = () => { shown.replaceWith(document.createTextNode(original)); spoken.remove(); el.style.minWidth = ''; el.style.display = ''; };
-    pending.set(el, instant => {
-      if (instant || final === 0) return finish();
-      gsap.to(counter, {value: final, duration: 1.4, ease: 'power2.out', onUpdate: () => { shown.textContent = String(Math.round(counter.value)); }, onComplete: finish});
-    });
-    watcher.observe(el);
-  }
-
   // Hero exit: the copy drifts up and dims only after the hero is half gone. A passive listener, no ScrollTrigger:
   // its refresh restored stale scroll positions while panels rendered and sent deep links off target.
   const hero = document.getElementById('overview');
@@ -115,19 +86,4 @@
     paint();
   }
 
-  // Magnetic primary action: a small pull toward the pointer and an even return, no overshoot.
-  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    for (const el of document.querySelectorAll('[data-magnetic]')) {
-      const toX = gsap.quickTo(el, 'x', {duration: 0.5, ease: 'power3.out'});
-      const toY = gsap.quickTo(el, 'y', {duration: 0.5, ease: 'power3.out'});
-      let box = null;
-      el.addEventListener('pointerenter', () => { box = el.getBoundingClientRect(); }, {passive: true});
-      el.addEventListener('pointermove', event => {
-        if (!box) return;
-        toX(((event.clientX - box.left) / box.width - 0.5) * 14);
-        toY(((event.clientY - box.top) / box.height - 0.5) * 10);
-      }, {passive: true});
-      el.addEventListener('pointerleave', () => { box = null; toX(0); toY(0); }, {passive: true});
-    }
-  }
 })();

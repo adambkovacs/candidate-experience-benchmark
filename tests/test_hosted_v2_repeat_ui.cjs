@@ -116,7 +116,7 @@ test('open phases cannot expose stale scores, derived values, tokens, costs or d
   assert.doesNotMatch(ui.get('repeat-deltas').innerHTML, /999/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /999|DEV-999/);
   const row = usageRow(ui, 'P1', 'Fresh pass 1');
-  assert.match(row, /Unavailable/);
+  assert.match(row, /Unknown/);
   assert.doesNotMatch(row, /999|\$999/);
 });
 
@@ -125,7 +125,7 @@ test('optional 404 remains usable, while 500 and malformed feeds fail visibly', 
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
   const failed = await render(null, 500, qwen);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   const good = fixture();
   for (const payload of [
     {}, {...good, schema: 'unexpected'},
@@ -136,6 +136,6 @@ test('optional 404 remains usable, while 500 and malformed feeds fail visibly', 
     {...good, series: [{...good.series[0], configuration: 'unknown'}]},
   ]) {
     const malformed = await render(payload, 200, qwen);
-    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });
