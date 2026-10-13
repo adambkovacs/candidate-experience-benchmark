@@ -193,14 +193,15 @@
     // ponytail: the figure only; the basis is stated once above each list (costBasis).
     const charge=n(cost?.actualUsd) ?? n(cost?.knownUsd);
     if (charge !== null) return money(charge);
-    if (price) return money(price.estimateUsd);
-    if (n(cost?.estimatedUsd) !== null) return money(cost.estimatedUsd)+(cost.estimateKind === 'known_usage_only' ? ' for known usage' : '');
+    // † marks an API-rate equivalent; the note above each list explains it.
+    if (price) return money(price.estimateUsd)+'†';
+    if (n(cost?.estimatedUsd) !== null) return money(cost.estimatedUsd)+'†'+(cost.estimateKind === 'known_usage_only' ? ' for known usage' : '');
     return 'Cost unknown';
   };
   const costBasis = selector => {
     const list=$(selector);
     if (!list || typeof list.insertAdjacentHTML !== 'function' || list.previousElementSibling?.classList?.contains('cost-basis')) return;
-    list.insertAdjacentHTML('beforebegin','<p class="cost-basis">Charges are provider bills. Subscription routes and direct routes without a bill show the API-rate equivalent.</p>');
+    list.insertAdjacentHTML('beforebegin','<p class="cost-basis">Costs are provider bills. A † marks the API-rate equivalent, shown for subscription routes and direct routes without a bill.</p>');
   };
   const providerGenerationTime = timing => n(timing?.providerGenerationSeconds) !== null && n(timing?.providerGenerationReportedRequests) > 0 ? duration(timing.providerGenerationSeconds) : null;
   const experimentId = run => run.parentBaselineId || run.id.replace(/--p[12]$/i,'');
