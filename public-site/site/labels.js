@@ -52,8 +52,12 @@
     return r;
   }
   const run = r => [model(r?.model || r?.id), effort(r?.effort, String(r?.model || '') + ' ' + String(r?.id || '')), route(r?.surface || r?.provider)].filter(Boolean).join(', ');
-  // ponytail: one money rule site-wide, four decimals ($0.0059, $1.2013).
-  const usd = v => v == null || v === '' || !Number.isFinite(Number(v)) ? '' : `$${Number(v).toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 4})}`;
+  // ponytail: one money rule site-wide, rounded to four decimals ($0.0059, $1.2013); under $0.001 keeps two significant digits ($0.00027).
+  const usd = v => {
+    if (v == null || v === '' || !Number.isFinite(Number(v))) return '';
+    const x = Number(v);
+    return x !== 0 && Math.abs(x) < 0.001 ? `$${x.toPrecision(2)}` : `$${x.toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 4})}`;
+  };
   const count = v => Number.isFinite(Number(v)) ? Number(v).toLocaleString('en-US') : String(v ?? '');
   window.BM_LABEL = {model, effort, route, run, usd, count};
 })();

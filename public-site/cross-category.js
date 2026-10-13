@@ -177,7 +177,7 @@
       ['Request pattern', general.controls.requestPattern || 'Unknown', native.controls.requestPattern || 'Unknown'],
       ['Requests with recorded duration', number(general.controls.observedRequestCount), number(native.controls.observedRequestCount)],
       ['Batch size', number(general.controls.declaredBatchSize), number(native.controls.declaredBatchSize)],
-      ['Charge reported by the provider', money(general.controls.cost.observedUsd), money(native.controls.cost.observedUsd)],
+      ['Provider\'s known charge', money(general.controls.cost.observedUsd), money(native.controls.cost.observedUsd)],
       ['Charge after reconciliation', money(general.controls.cost.knownUsd), money(native.controls.cost.knownUsd)],
       ['Cost at API rates', money(general.controls.cost.estimatedUsd, '†'), money(native.controls.cost.estimatedUsd, '†')],
       ['Failed requests, at most', money(general.controls.cost.unknownUpperBoundUsd), money(native.controls.cost.unknownUpperBoundUsd)],

@@ -141,7 +141,7 @@
         <tr>${byPass ? '<th scope="col" class="bm-num">1</th><th scope="col" class="bm-num">2</th><th scope="col" class="bm-num">3</th>'.repeat(3)
           : ['All four', ...FIELD_HEAD].map(h => `<th scope="col" class="bm-num">${h}</th>`).join('')}</tr></thead>
         <tbody>${body}</tbody></table>`,
-        'All four answers matched, out of 60, for each prompt and pass. A dash means we did not run that pass, and a small i marks a pass that stopped early and was finished by a second run. Cost is one P0 pass over the 60 reviews. † marks an API-rate equivalent: what the same tokens cost at the published price, for routes that sent no bill (the Claude and Codex subscriptions, TypeSafe\'s direct API and Cloudflare\'s direct route).')
+        'All four answers matched, out of 60, for each prompt and pass. A dash means we did not run that pass, and a small i marks a pass that stopped early and was finished by a second run. Cost is one P0 pass over the 60 reviews. Charges are the provider\'s known charge for returned answers; smoke tests and unknown charges are excluded. † marks an API-rate equivalent.')
         + (!all && list.length > 40 ? `<button type="button" class="bm-more">Show all ${list.length} configurations</button>` : '');
       el.querySelector('.bm-more')?.addEventListener('click', () => { all = true; draw(); });
       fit(el);
@@ -192,7 +192,7 @@
     const byScore = (a, b) => b.first - a.first;
     const rows = [...decision.sort(byScore), ...general.sort(byScore)].map(r => r.html);
     el.innerHTML = wrap(`<table class="bm-table"><thead><tr><th scope="col">Model</th><th scope="col">Type</th><th scope="col" class="bm-num">P0 passes</th><th scope="col" class="bm-num">P1 passes</th><th scope="col" class="bm-num">P2 passes</th><th scope="col" class="bm-num">Cost of one pass</th></tr></thead><tbody>${rows.join('')}</tbody></table>`,
-      'Each cell is all four answers matched, out of 60, on passes 1, 2 and 3. Jev\'s second P2 pass stopped early, and a small i marks a pass that stopped and was finished by a second run. Gemma, Qwen, Gemini and DeepSeek are shown on the plain prompt, and Qwen3.8 27B at low effort ran it once. Cost is one P0 pass over the 60 reviews. † marks an API-rate equivalent: Claude ran on a subscription that sends no bill, so its cost is what the same tokens cost at the published price.');
+      'Each cell is all four answers matched, out of 60, on passes 1, 2 and 3. Jev\'s second P2 pass stopped early, and a small i marks a pass that stopped and was finished by a second run. Gemma, Qwen, Gemini and DeepSeek are shown on the plain prompt, and Qwen3.8 27B at low effort ran it once. Cost is one P0 pass over the 60 reviews. Charges are the provider\'s known charge for returned answers; smoke tests and unknown charges are excluded. † marks an API-rate equivalent.');
     busy(el, false);
   }
 

@@ -112,6 +112,33 @@ The helpers' test changes are listed in their own reports. All of them keep the 
 
 Section captures taken with `elementHandle.screenshot` show the sticky header painted mid-image. That comes from the capture method, not the page.
 
+## Follow-up: codex gate, verifier residuals and the catalog fix (13:01 to 13:10)
+
+| Finding | Status | What changed |
+|---|---|---|
+| S1, Jev findings timeout | DONE | `app.js` loads `jev-native-prompt-findings.json` with no timeout. `applyJevFindings` is a no-op when the catalog row already has `knownUsd` and an OpenRouter surface, which is now the case. It no longer overwrites `provider`. If the findings feed fails on an old catalog, the rows read "route unknown" and "Cost unknown", never the catalog's TypeSafe estimate. |
+| S3, cost note | DONE | The marker comes from the feed's own field: a charge (`actualUsd` or `knownUsd`) gets no marker, `estimatedUsd` or the subscription price feed gets †, and neither gives "Cost unknown". The note on Read, Explore and Method now reads: "Charges are the provider's known charge for returned answers; smoke tests and unknown charges are excluded. † marks an API-rate equivalent." The cross-category row "Charge reported by the provider" is now "Provider's known charge". |
+| Codex pass 2, "Unknown†" | DONE | A subscription row whose price entry has no estimate shows "Cost unknown" with no dagger. |
+| Codex pass 2, test | DONE | A new test in `tests/test_subscription_price_ui.cjs` pins every branch. A charge shows plain $0.0221. The standalone estimate shows $0.0059† and fails if the dagger is removed. A missing estimate shows "Cost unknown". The Jev guard leaves a fixed row alone and turns a stale row into route and cost unknown. |
+| Catalog alignment | DONE | Provider stays TypeSafe and the route is the surface. The six `typesafe-jev113-v2` repeat rows render their estimate with †. Method says "On TypeSafe's direct API ... that route sends no bill" once. `test_extended_run_catalog_ui.cjs` needed no change. |
+| R1, calibration | DONE | One sentence on the Liquid confidence-threshold example in `analysis-refresh.js` and on the Jev confidence finding in Explore `#jev-analysis`: "Calibration is measured on these 60 reviews only." `test_analysis_refresh_ui.cjs` pins it. |
+| R2, rounding | DONE | `BM_LABEL.usd` already rounds. `toLocaleString` and `toFixed` round, and 0.01941923 renders $0.0194, which is what the Gemma P1 test pins and passes on. Amounts under $0.001 now keep two significant digits ($0.00027, $0.000049). The $0.0193 on the page is Gemma's fresh1 P0 pass (0.01931258), a different run. |
+| Heading skips | DONE | The Clef cards in `app.js` and "39 model setups compared" in `findings.js` are now h3 under their h2. The style rule covers both levels. |
+| Pickers in archived panels | DONE | Zero middle dots in any `<select>` option on all three pages. The 84 options per run picker that carried a run id in brackets now say ", variant N", so no option text contains "--". The remaining "--" and "·" in the page HTML sit in option values, data attributes and the `<title>`, none of which render. |
+| Deep-insights after the rebuild | CHECKED | Every figure in the four findings is bound to the feed. The rebuilt values still match the typed words: 132 of 176 is "three times out of four", 105 of 776 is "about one time in seven", the best pair is still two general models (DeepSeek V4.1 Flash low and Gemma 4 26B on, 57 accepted, $0.0367), and 44 of 373 come from seven families. No sentence on Read or Explore types 853, 423, 35 or 23. |
+
+Verification after the follow-up, at 13:09:
+
+```
+node --test, the 45 pages.yml test files: tests 237, pass 237, fail 0
+node --test tests/test_*_ui.cjs: tests 265, pass 265, fail 0
+build_reader_story --check exit 0; test_reader_story OK; test_deep_insights_v1 OK
+Browser, all three pages at 1440 and 390: 0 console errors, 0 failed requests, scrollWidth = innerWidth,
+  the target words at most once per page, 0 middle dots, no dollar figure past four decimals, no stuck loaders
+```
+
+Cache versions bumped to `20261013-fix2b` for every file changed after the first bump.
+
 ## Who changed what
 
 - **Me:**

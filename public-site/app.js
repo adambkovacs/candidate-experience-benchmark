@@ -45,26 +45,28 @@
     return Promise.race([load,new Promise(resolve=>{timer=setTimeout(()=>resolve(null),8000);})])
       .finally(()=>clearTimeout(timer));
   };
-  const optionalJevFindings = () => {
-    const load=Promise.resolve().then(()=>fetch('./jev-native-prompt-findings.json',{cache:'no-store'}))
-      .then(response=>response.ok ? response.json() : null).catch(()=>null);
-    if(typeof setTimeout!=='function') return load;
-    let timer;
-    return Promise.race([load,new Promise(resolve=>{timer=setTimeout(()=>resolve(null),3000);})])
-      .finally(()=>clearTimeout(timer));
-  };
-  // Catalog defect: build_extended_run_catalog_v1.py labels these OpenRouter passes TypeSafe with an estimate; the findings feed holds the route and known charge.
+  // Required, no timeout: a slow feed must never fall back to a wrong route or cost label.
+  const optionalJevFindings = () => Promise.resolve().then(()=>fetch('./jev-native-prompt-findings.json',{cache:'no-store'}))
+    .then(response=>response.ok ? response.json() : null).catch(()=>null);
+  // Guard for Jev's nine OpenRouter prompt passes. The catalog now carries the OpenRouter surface and the known charge,
+  // so this is a no-op; an older catalog gets the route and charge from the findings feed, and if that feed failed,
+  // the rows say route and cost unknown rather than repeat a wrong label. Provider stays TypeSafe; the route is the surface.
   function applyJevFindings(runs,findings){
-    if(!findings?.passes||!Array.isArray(findings.sourceBindings)||
-      !findings.sourceBindings.some(binding=>/jev-openrouter-native/.test(binding?.path||''))) return;
+    const usable=findings?.passes&&Array.isArray(findings.sourceBindings)&&
+      findings.sourceBindings.some(binding=>/jev-openrouter-native/.test(binding?.path||''));
     for(const run of runs){
       const match=/^extended-typesafe-jev113-native-prompts-(fresh[123])-p([012])$/.exec(run?.id||'');
-      const pass=match ? findings.passes[`P${match[2]}`]?.[match[1]] : null;
-      if(n(pass?.knownCostUsd)===null) continue; // no findings entry: keep the catalog values
-      run.surface='OpenRouter native Choice';
-      run.provider='OpenRouter';
-      run.cost={...run.cost,knownUsd:n(pass.knownCostUsd),estimatedUsd:null,
-        unknownUpperBoundUsd:n(pass.unknownUpperBoundUsd) ?? run.cost?.unknownUpperBoundUsd ?? null};
+      if(!match) continue;
+      if(n(run.cost?.knownUsd)!==null&&/openrouter/i.test(run.surface||'')) continue;
+      const pass=usable ? findings.passes[`P${match[2]}`]?.[match[1]] : null;
+      if(n(pass?.knownCostUsd)!==null){
+        run.surface='OpenRouter native Choice';
+        run.cost={...run.cost,knownUsd:n(pass.knownCostUsd),actualUsd:null,estimatedUsd:null,
+          unknownUpperBoundUsd:n(pass.unknownUpperBoundUsd) ?? run.cost?.unknownUpperBoundUsd ?? null};
+      } else {
+        run.surface='route unknown';
+        run.cost={...run.cost,knownUsd:null,actualUsd:null,estimatedUsd:null};
+      }
     }
   }
   function extendedCatalogRuns(report,existing=[]){
@@ -198,7 +200,7 @@
     if (charge !== null) return money(charge);
     // Jev's TypeSafe route sends no bill; its OpenRouter price belongs to the OpenRouter row.
     if (run.id === 'typesafe-jev113-v2') return 'no bill';
-    if (price) return money(price.estimateUsd)+'†';
+    if (n(price?.estimateUsd) !== null) return money(price.estimateUsd)+'†';
     if (n(cost?.estimatedUsd) !== null) return money(cost.estimatedUsd)+'†'+(cost.estimateKind === 'known_usage_only' ? ' for known usage' : '');
     return 'Cost unknown';
   };
@@ -210,8 +212,13 @@
   const runOptionText = run => [label(run),[run.condition,passText(run)].filter(Boolean).join(' '),complete(run) ? null : 'partial'].filter(Boolean).join(', ');
   // ponytail: the run id only disambiguates option texts that would otherwise repeat
   const runOptions = runs => {
-    const texts=runs.map(runOptionText),seen=texts.reduce((m,t) => m.set(t,(m.get(t) || 0)+1),new Map());
-    return runs.map((run,i) => `<option value="${esc(run.id)}">${esc(seen.get(texts[i]) > 1 ? `${texts[i]} (${run.id})` : texts[i])}</option>`).join('');
+    // Repeated labels get a plain variant number, never the run id.
+    const texts=runs.map(runOptionText),seen=texts.reduce((m,t) => m.set(t,(m.get(t) || 0)+1),new Map()),nth=new Map();
+    return runs.map((run,i) => {
+      const t=texts[i],k=(nth.get(t) || 0)+1;
+      nth.set(t,k);
+      return `<option value="${esc(run.id)}">${esc(seen.get(t) > 1 ? `${t}, variant ${k}` : t)}</option>`;
+    }).join('');
   };
   const modelType = item => globalThis.BenchmarkCategories?.classify(item) || {category:'unknown',categories:['unknown'],categoryLabel:'Category not verified',trainingLineage:'unknown',trainingLabel:'Training not verified',interfaceKind:'unknown',interfaceLabel:'Interface not verified'};
   const hostedPair = id => (state.data.promptComparisons || []).find(item => item.id === id && item.kind === 'hosted-observational' && item.eligible === false);
@@ -291,7 +298,7 @@
     const target=$('#clef-first-pass-results');if(!target)return;
     if (runs.length!==2) {target.innerHTML='<p class="empty-state">The Clef first-pass results did not load.</p>';return;}
     const fields=[['Sentiment','sentiment'],['Follow-up','follow_up_needed'],['Serious concern','serious_concern_reported'],['Testimonial','testimonial_potential']];
-    target.innerHTML=`<div class="clef-comparison">${runs.map(run=>`<article class="clef-model-card"><h4>${esc(run.model)}</h4><p class="clef-major"><strong>${run.metrics.all_four}<small>/60</small></strong><span>reviews with all four decisions matching the reference</span></p><p>${run.valid} of 60 answers in the required format, ${count(run.tokens.input)} input and ${count(run.tokens.output)} output tokens.</p><dl>${fields.map(([label,key])=>`<div><dt>${label}</dt><dd><meter min="0" max="60" value="${run.metrics[key]}" aria-label="${esc(run.model)} ${label}: ${run.metrics[key]} of 60 match">${run.metrics[key]} of 60</meter><strong>${run.metrics[key]}/60</strong></dd></div>`).join('')}</dl><p class="clef-cost"><strong data-source="clef-findings.json#models.${run.id.startsWith('clef-flash') ? 'clef-flash' : 'clef'}.publishedInputPriceEstimateUsd">${money(run.cost.estimatedUsd)}†</strong> for the pass.</p></article>`).join('')}</div><p class="clef-paired">The two models disagreed on at least one label for <strong data-source="clef-findings.json#paired.predictionVectorDisagreementCount">${esc(report.paired.predictionVectorDisagreementCount)}</strong> of 60 reviews. Both ran one plain-prompt pass on Cloudflare's direct route, which sends no bill, so these costs are the published price for the same ${runs[0].tokens.input === runs[1].tokens.input ? `<span data-source="clef-findings.json#models.clef.observedInputTokens">${esc(count(runs[0].tokens.input))}</span> ` : ''}input tokens. OpenRouter charged exactly that for the passes in the results table${Number.isInteger(openRouterScore) ? `, where Clef matched <span data-source="supplemental-decision-runs-v1.json#runs[id=clef-openrouter-native-fresh1-p0].metrics.all_four">${openRouterScore}</span>` : ''}.</p>`;
+    target.innerHTML=`<div class="clef-comparison">${runs.map(run=>`<article class="clef-model-card"><h3>${esc(run.model)}</h3><p class="clef-major"><strong>${run.metrics.all_four}<small>/60</small></strong><span>reviews with all four decisions matching the reference</span></p><p>${run.valid} of 60 answers in the required format, ${count(run.tokens.input)} input and ${count(run.tokens.output)} output tokens.</p><dl>${fields.map(([label,key])=>`<div><dt>${label}</dt><dd><meter min="0" max="60" value="${run.metrics[key]}" aria-label="${esc(run.model)} ${label}: ${run.metrics[key]} of 60 match">${run.metrics[key]} of 60</meter><strong>${run.metrics[key]}/60</strong></dd></div>`).join('')}</dl><p class="clef-cost"><strong data-source="clef-findings.json#models.${run.id.startsWith('clef-flash') ? 'clef-flash' : 'clef'}.publishedInputPriceEstimateUsd">${money(run.cost.estimatedUsd)}†</strong> for the pass.</p></article>`).join('')}</div><p class="clef-paired">The two models disagreed on at least one label for <strong data-source="clef-findings.json#paired.predictionVectorDisagreementCount">${esc(report.paired.predictionVectorDisagreementCount)}</strong> of 60 reviews. Both ran one plain-prompt pass on Cloudflare's direct route, which sends no bill, so these costs are the published price for the same ${runs[0].tokens.input === runs[1].tokens.input ? `<span data-source="clef-findings.json#models.clef.observedInputTokens">${esc(count(runs[0].tokens.input))}</span> ` : ''}input tokens. OpenRouter charged exactly that for the passes in the results table${Number.isInteger(openRouterScore) ? `, where Clef matched <span data-source="supplemental-decision-runs-v1.json#runs[id=clef-openrouter-native-fresh1-p0].metrics.all_four">${openRouterScore}</span>` : ''}.</p>`;
   }
   function groups() {
     state.experiments = new Map();

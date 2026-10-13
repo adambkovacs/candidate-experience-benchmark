@@ -80,7 +80,7 @@ test('selected pair displays five outcomes, exact IDs and separate accounting ba
   assert.match(html, /Cost at API rates/);
   assert.match(html, /Requests with recorded duration/);
   assert.match(html, /Failed requests, at most/);
-  assert.match(html, /Charge reported by the provider<\/th>.*Charge after reconciliation<\/th>/s);
+  assert.match(html, /Provider(?:'|&#39;)s known charge<\/th>.*Charge after reconciliation<\/th>/s);
   assert.ok(html.includes(general.sourceUrl) && html.includes(native.sourceUrl));
   assert.doesNotMatch(html, /provisional|do not add those rows|Unavailable</);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);
