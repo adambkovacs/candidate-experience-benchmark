@@ -64,14 +64,14 @@ test('combined per-run and native deltas are sums of the three fixed case effect
   }
   const table = ui.nativeTable(data.native_seven_runs, selected);
   assert.equal((table.match(/<tbody><tr>|<\/tr><tr>/g) || []).length, 7);
-  assert.match(table, /same 60 reviews/);
+  assert.match(table, /seven decision models, first base-prompt pass/);
 });
 
 test('run detail marks hypothetical scores and retains review and source links', () => {
   const run = data.extended_runs[0];
   const detail = ui.detail(run, ['DEV-006', 'DEV-013'], data.alternatives);
-  assert.match(detail, /hypothetical key/);
-  assert.match(detail, /published score remains the saved score/);
+  assert.match(detail, /under the alternative key/);
+  assert.match(detail, /Published score and score under the alternative key/);
   assert.ok(detail.includes(`${run.valid}/60 valid answers`));
   assert.ok(detail.includes(`run=${run.id}&amp;case=DEV-006#inspect`));
   assert.ok(detail.includes(`run=${run.id}&amp;case=DEV-013#inspect`));
@@ -92,4 +92,14 @@ test('affected case drilldown targets the selected extended run, not the seven-n
   assert.equal(parsed.searchParams.get('case'), 'DEV-030');
   assert.equal(parsed.searchParams.get('compareRun'), null);
   assert.equal(parsed.hash, '#inspect');
+});
+
+test('panel opens on a strong decision-model run and renders without middle dots', () => {
+  const id = source.match(/defaultRun = '([^']+)'/)?.[1];
+  const run = data.extended_runs.find(item => item.id === id);
+  assert.ok(run, 'default run must exist in the feed');
+  assert.ok(run.saved_all_four >= 54, 'default run must be a strong one, never the 3 of 60 local model');
+  const detail = ui.detail(run, [], data.alternatives);
+  assert.doesNotMatch(detail, /·|No alternative label applied/);
+  assert.doesNotMatch(source, /Original labels: these are the published scores|Dated proposal|no new model calls/);
 });

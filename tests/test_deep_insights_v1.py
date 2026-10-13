@@ -58,8 +58,8 @@ class DeepInsightsTest(unittest.TestCase):
         self.assertEqual((by_pass["fresh2"]["accepted"], by_pass["fresh2"]["accepted_errors"]), (57, 1))
         self.assertEqual((by_pass["fresh3"]["accepted"], by_pass["fresh3"]["accepted_errors"]), (59, 1))
         self.assertIsNone(by_pass["fresh2"]["two_run_charge_usd"])
-        self.assertEqual((rule["pairs_beating_solar_perplexity"], rule["charged_cross_pairs"]), (35, 853))
-        self.assertEqual(rule["pairs_more_and_cheaper"], 23)
+        self.assertEqual((rule["pairs_beating_solar_perplexity"], rule["charged_cross_pairs"]), (41, 895))
+        self.assertEqual(rule["pairs_more_and_cheaper"], 25)
         best, sp = rule["best_beating"], rule["solar_perplexity"]
         self.assertGreater(best["accepted"], sp["accepted"])
         self.assertLess(best["two_run_charge_usd"], sp["two_run_charge_usd"])
@@ -88,6 +88,8 @@ class DeepInsightsTest(unittest.TestCase):
         self.assertEqual(f["hardest_reviews"]["reviews"][0]["id"], "DEV-030")
         self.assertEqual(f["prompt_direction"]["steps"]["P1->P2"]["worse"], 127)
         self.assertEqual(f["cost_frontier"]["gate"]["passes"][0]["usd"], 0.00268114)
+        self.assertTrue(all(point["valid"] == 60 for point in f["cost_frontier"]["frontier"]))
+        self.assertEqual(f["cost_frontier"]["run_passes"]["observed_or_known"], 304)
 
 
 if __name__ == "__main__":

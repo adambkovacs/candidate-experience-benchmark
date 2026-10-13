@@ -118,22 +118,22 @@ test('page wires one labelled Kev section, navigation link, and deferred rendere
   assert.match(page, /<section[^>]+id="kev-prompt-analysis"[^>]+aria-labelledby="kev-prompt-title"/);
   assert.match(page, /<h2 id="kev-prompt-title">What changed when Kev received different decision instructions\?<\/h2>/);
   assert.match(page, /<a href="#kev-prompt-analysis">Kev prompt case<\/a>/);
-  assert.match(page, /<script defer src="\.\/kev-prompts\.js\?v=20261006-native-prompts-v1"><\/script>/);
+  assert.match(page, /<script defer src="\.\/kev-prompts\.js\?v=20261013-fix2"><\/script>/);
   assert.match(page, /<noscript><p class="analysis-caveat" role="alert">/);
 });
 
 test('shows zero repeat changes, measured usage, cost, and timing limits', async () => {
   const {target} = await render();
-  assert.match(target.innerHTML, /zero answer, probability-dictionary, and vendor-confidence changes/);
+  assert.match(target.innerHTML, /identical answers, probability dictionaries and vendor confidence on all 60 reviews/);
   assert.match(target.innerHTML, /371,958/);
   assert.match(target.innerHTML, /402,738/);
   assert.match(target.innerHTML, /52,017/);
-  assert.match(target.innerHTML, /\$0\.015622236/);
-  assert.match(target.innerHTML, /client-observed/i);
-  assert.match(target.innerHTML, /not provider inference time/i);
+  assert.match(target.innerHTML, /\$0\.0156</);
+  assert.doesNotMatch(target.innerHTML, /network included/);
+  assert.doesNotMatch(target.innerHTML, /provisional|calibrated/);
   assert.match(target.innerHTML, /<details/);
-  assert.match(target.innerHTML, /Read the source-bound findings/);
-  assert.match(target.innerHTML, /Read the machine-readable evidence/);
+  assert.match(target.innerHTML, /Kev prompt findings<\/a>/);
+  assert.match(target.innerHTML, /Kev prompt data \(JSON\)<\/a>/);
 });
 
 test('renders an accessible error state for incomplete or unavailable evidence', async () => {
@@ -141,7 +141,7 @@ test('renders an accessible error state for incomplete or unavailable evidence',
   broken.conditions.P2.passes.fresh3.score.allFour = 51;
   let result = await render(broken);
   assert.match(result.target.innerHTML, /role="alert"/);
-  assert.match(result.target.textContent || result.target.innerHTML, /could not be loaded/i);
+  assert.match(result.target.textContent || result.target.innerHTML, /did not load/i);
   assert.match(result.errors[0], /Score range mismatch/);
   result = await render(fixture(), false);
   assert.match(result.target.innerHTML, /role="alert"/);

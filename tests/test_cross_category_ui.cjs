@@ -76,16 +76,17 @@ test('selected pair displays five outcomes, exact IDs and separate accounting ba
   assert.match(html, /Of 60 reviews:/);
   assert.match(html, /Both miss reference/);
   assert.match(html, /General output unusable or absent/);
-  assert.match(html, /Compare route, effort, batch and accounting/);
-  assert.match(html, /Price-derived estimate/);
+  assert.match(html, /Route, effort, batch and cost/);
+  assert.match(html, /Cost at API rates/);
   assert.match(html, /Requests with recorded duration/);
-  assert.match(html, /Possible extra-charge bound/);
-  assert.match(html, /do not add those rows/);
-  assert.match(html, /may cover only one probe or batch/);
+  assert.match(html, /Failed requests, at most/);
+  assert.match(html, /Provider(?:'|&#39;)s known charge<\/th>.*Charge after reconciliation<\/th>/s);
+  assert.ok(html.includes(general.sourceUrl) && html.includes(native.sourceUrl));
+  assert.doesNotMatch(html, /provisional|do not add those rows|Unavailable</);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);
   assert.match(html, /data-cross-case="DEV-001"/);
   assert.match(html, /Field matches and confusion tables/);
-  assert.match(html, /General 59\/60 · Native 49\/60/);
+  assert.match(html, /General 59\/60, decision model 49\/60/);
   assert.doesNotMatch(html, /href="\/?\?[^\"]*review=DEV-001/);
   const tally = ui.pairTally(general, native);
   for (const id of Object.values(tally).flat()) assert.match(html, new RegExp(id));
@@ -98,7 +99,7 @@ test('untimed Liquid run retains 60 valid outputs and a zero duration-record cou
   assert.equal(native.controls.observedRequestCount, 0);
   const html = ui.renderPair(general, native, feed.cases);
   assert.match(html, /Requests with recorded duration<\/th><td>[^<]*<\/td><td>0<\/td>/);
-  assert.match(html, /No public client-duration series or server inference duration is available/);
+  assert.doesNotMatch(html, /smoke|No public client-duration series/);
 });
 
 test('field tables retain all 60 positions, missing answers and insufficient information', () => {
@@ -123,13 +124,13 @@ test('field tables retain all 60 positions, missing answers and insufficient inf
   assert.match(html, /<details class="cross-fields">/);
   assert.equal((html.match(/class="cross-field"/g) || []).length, 4);
   assert.equal((html.match(/class="cross-matrix-wrap" role="region"/g) || []).length, 8);
-  assert.match(html, /General 25\/60 · Native 55\/60/);
-  assert.match(html, /25\/60<\/strong> match the provisional reference · 31\/60 usable · 29\/60 no valid output \(29 invalid output\)/);
-  assert.match(html, /Insufficient information<\/th>/);
+  assert.match(html, /General 25\/60, decision model 55\/60/);
+  assert.match(html, /25\/60<\/strong> match the reference, 31\/60 usable, 29\/60 no valid output \(29 invalid output\)/);
+  assert.match(html, /Can&#39;t tell<\/th>/);
   assert.match(html, /No valid output<\/th>/);
   assert.match(html, /Yes precision<\/dt><dd>89\.5% \(17\/19\)/);
   assert.match(html, /Yes recall, valid subset<\/dt><dd>89\.5% \(17\/19\)/);
-  assert.match(html, /Another 16 reference-yes reviews had no valid output and are excluded from that rate/);
+  assert.match(html, /Recall uses the 19 reviews the reference marks yes that have a valid answer; 16 more had no valid answer and are left out/);
 });
 
 test('positive rates are unavailable when the relevant yes denominator is zero', () => {
@@ -150,14 +151,14 @@ test('an exact case shows both selected predictions and the reference inline', (
   const general = feed.runs.find(run => run.runId === 'sonnet5-low-first-pass');
   const id = 'DEV-029';
   const html = ui.renderCase(feed, general, native, id);
-  assert.match(html, /Exact saved answers \/ DEV-029/);
-  assert.match(html, /Provisional reference/);
-  assert.match(html, /General · claude-sonnet-5/);
-  assert.match(html, /Native · liquid\/d1/);
+  assert.match(html, /<h4>DEV-029<\/h4>/);
+  assert.match(html, /<h5>Reference /);
+  assert.match(html, /General: claude-sonnet-5/);
+  assert.match(html, /Decision model: liquid\/d1/);
   assert.match(html, /follow up needed/);
   assert.match(html, /serious concern reported/);
   assert.match(html, /results\/cross-category-v1\/dataset\.json/);
-  assert.match(html, /Seven-native context for DEV-029/);
+  assert.match(html, /DEV-029 across the seven decision models/);
 });
 
 test('difficult-case table uses exact valid and eligible denominators', () => {
@@ -175,4 +176,16 @@ test('review links clear seven-native filters while preserving unrelated context
   context.location.href = 'https://example.test/?cohort=general&crossCase=DEV-030&reviewSubset=disputed&reviewModel=liquid&reviewField=sentiment&reviewSearch=other';
   assert.equal(ui.reviewUrl('DEV-029'), '/?cohort=general&crossCase=DEV-030&review=DEV-029#review-evidence');
   context.location.href = 'https://example.test/?cohort=general';
+});
+
+test('default pairing names the strongest first passes, not the weakest', () => {
+  const top = stratum => Math.max(...feed.runs.filter(run => run.stratum === stratum).map(run => run.scores.all_four));
+  const run = id => feed.runs.find(row => row.runId === id);
+  assert.equal(run('opus55-high-batch10').stratum, 'historical-first-P0');
+  assert.equal(run('opus55-high-batch10').scores.all_four, top('historical-first-P0'));
+  assert.equal(run('extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0').stratum, 'declared-fresh1-P0');
+  assert.equal(run('extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0').scores.all_four, top('declared-fresh1-P0'));
+  assert.equal(run('solar-decide-native-fresh1-p0').scores.all_four, top('native-first-P0'));
+  assert.match(script, /preferredGeneral = \['opus55-high-batch10', 'extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0'\]/);
+  assert.match(script, /sort\(\(a, b\) => b\.scores\.all_four - a\.scores\.all_four\)/);
 });

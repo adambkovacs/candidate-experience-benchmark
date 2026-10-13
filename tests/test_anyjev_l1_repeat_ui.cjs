@@ -73,7 +73,7 @@ test('unpublished L1 feed is optional only on 404', async () => {
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
   const broken = await render(null, 500);
-  assert.match(broken.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(broken.get('repeat-results').innerHTML, /Repeat results did not load/);
 });
 
 test('pending L1 third pass shows only completed native P0 scores', async () => {
@@ -85,7 +85,7 @@ test('pending L1 third pass shows only completed native P0 scores', async () => 
   assert.match(ui.get('repeat-lead').textContent, /2 of 3 planned native P0 passes/);
   assert.match(ui.get('repeat-lead').textContent, /fits calibration separately in five folds/);
   assert.match(ui.get('repeat-lead').textContent, /its own reference labels are excluded/);
-  assert.match(ui.get('repeat-lead').textContent, /Client and pure inference times were not recorded; local cost is unavailable/);
+  assert.match(ui.get('repeat-lead').textContent, /Request time and local cost were not recorded/);
   assert.doesNotMatch(ui.get('repeat-condition').innerHTML, /P1|P2/);
   assert.match(ui.get('repeat-condition').innerHTML, /Native L1 calibration/);
   assert.equal(ui.get('repeat-deltas').innerHTML, '');
@@ -95,7 +95,7 @@ test('pending L1 third pass shows only completed native P0 scores', async () => 
   assert.match(ui.get('repeat-lead').textContent, /59\/60 valid responses/);
   assert.doesNotMatch(ui.get('repeat-usage-body').innerHTML, /999\.0/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /125\.5/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Native input positions: 96,000 \(not billed tokens\)/);
 });
 
@@ -106,8 +106,8 @@ test('closed L1 three-pass range and comparable flips keep native IDs unlinked',
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /undefined/);
   ui.get('repeat-field').value = 'sentiment'; ui.get('repeat-field').change();
   assert.match(ui.get('repeat-flips').innerHTML, /1 \/ 59 changed/);
-  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was excluded/);
+  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was left out/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-001/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /#inspect|<a\s/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not correctness/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not correctness|Provisional v0\.2/);
 });

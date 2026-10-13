@@ -60,9 +60,9 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   assert.match(elements.get('repeat-chart').innerHTML, /<strong>50<small> \/ 60<\/small><\/strong>/);
   if (qwen35.descriptiveComposites?.length) {
     const composite = qwen35.descriptiveComposites[0];
-    assert.match(elements.get('repeat-chart').innerHTML, new RegExp(`Descriptive interrupted: ${composite.score.allFour}/60 matches`));
+    assert.match(elements.get('repeat-chart').innerHTML, new RegExp(`Interrupted: ${composite.score.allFour}/60 matches`));
     assert.match(elements.get('repeat-lead').textContent, /DEV-052 remains unknown and no reviews remain unsent/);
-    assert.match(elements.get('repeat-summary').textContent, /3\/9 clean phases are closed/);
+    assert.match(elements.get('repeat-summary').textContent, /3 of 9 phases finished without interruption/);
     assert.doesNotMatch(elements.get('repeat-summary').textContent, /no final results/i);
     assert.match(elements.get('repeat-usage-body').innerHTML, /59 saved, 1 unknown, 0 unsent/);
     assert.doesNotMatch(elements.get('repeat-chart').innerHTML, /8 unsent/);
@@ -83,7 +83,7 @@ test('legacy Qwen feed exposes all six configurations and only closed scores', a
   assert.match(timing, /Power at matching pre\/post checks: AC/);
   assert.match(timing, /Power at matching pre\/post checks: battery/);
   assert.match(timing, /Power at pre-stage check: AC; end unverified/);
-  assert.match(timing, /Power source unavailable from verified checks/);
+  assert.match(timing, /Power source not recorded/);
   elements.get('repeat-config').value = 'qwen3-0.6b-sdk-thinking-off';
   elements.get('repeat-config').change();
   elements.get('repeat-search').value = 'no-such-model';

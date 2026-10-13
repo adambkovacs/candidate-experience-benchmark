@@ -16,6 +16,12 @@
   const runDelta = (run, selected, field) => sum(selected, id => run.single_case_deltas[id][field] || 0);
   const allFourDelta = (run, selected) => sum(selected, id => run.single_case_deltas[id].all_four);
   const sign = value => value > 0 ? `+${value}` : String(value);
+  // Readable run names come from site/labels.js; the fallback keeps node tests working without it.
+  const runName = run => globalThis.BM_LABEL ? globalThis.BM_LABEL.run(run) : String(run.model);
+  const passName = pass => String(pass).replace(/^fresh(\d)$/, 'fresh pass $1').replace(/^repeat(\d)$/, 'repeat $1').replace(/^pass(\d)$/, 'pass $1');
+  const runLabel = run => `${runName(run)}, ${run.condition}, ${passName(run.repeat_pass)}`;
+  // A strong decision-model run opens the panel: Jev 1.13 on TypeSafe, first pass with the plain prompt, 54 of 60.
+  const defaultRun = 'extended-typesafe-jev113-native-prompts-fresh1-p0';
 
   function validate(data) {
     if (data?.schema !== 'reference-sensitivity-public-v1' ||
@@ -140,13 +146,13 @@
       const alternative = alternatives.find(item => item.id === id);
       const effect = run.case_effects[id];
       const fieldDelta = run.single_case_deltas[id][alternative.field];
-      return `<li><a href="${esc(runCaseUrl(run.id, id))}">${id} in this run</a>: ${esc(alternative.field.replaceAll('_', ' '))} ${esc(alternative.saved)} → ${esc(alternative.alternative)}. Saved answer: ${esc(effect.prediction ?? `unavailable (${effect.status})`)}. Field delta ${sign(fieldDelta)}; all-four delta ${sign(effect.all_four_delta)}.</li>`;
+      return `<li><a href="${esc(runCaseUrl(run.id, id))}">${id} in this run</a>: ${esc(alternative.field.replaceAll('_', ' '))} ${esc(alternative.saved)} → ${esc(alternative.alternative)}. Saved answer: ${esc(effect.prediction ?? `none (${String(effect.status).replaceAll('_', ' ')})`)}. Decision change ${sign(fieldDelta)}; all-four change ${sign(effect.all_four_delta)}.</li>`;
     }).join('');
-    return `<p class="sensitivity-run-name"><strong>${esc(run.model)}</strong> · ${esc(run.condition)} · ${esc(run.repeat_pass)} · ${esc(run.surface)}</p>
-      <div class="sensitivity-score"><strong>${run.saved_all_four}/60 → ${run.saved_all_four + allFour}/60</strong><span>All four fields · ${sign(allFour)} under this hypothetical key · ${run.valid}/60 valid answers</span></div>
-      <div class="sensitivity-table-wrap"><table><caption>Saved score and hypothetical score for this run. The published score remains the saved score.</caption><thead><tr><th scope="col">Field</th><th scope="col">Saved</th><th scope="col">Hypothetical</th><th scope="col">Delta</th></tr></thead><tbody>${fieldRows}</tbody></table></div>
-      ${selected.length ? `<h4>Affected reviews</h4><ul class="sensitivity-cases">${affected}</ul>` : '<p>Select a documented alternative to see affected reviews.</p>'}
-      <p class="sensitivity-source">Run source: <a href="${esc(run.source_report_url)}" target="_blank" rel="noopener noreferrer">open saved report ↗</a></p>`;
+    return `<p class="sensitivity-run-name"><strong>${esc(runLabel(run))}</strong><br><code>${esc(run.model)}</code></p>
+      <div class="sensitivity-score"><strong>${run.saved_all_four}/60 → ${run.saved_all_four + allFour}/60</strong><span>All four decisions, ${sign(allFour)} under the alternative key, ${run.valid}/60 valid answers</span></div>
+      <div class="sensitivity-table-wrap"><table><caption>Published score and score under the alternative key</caption><thead><tr><th scope="col">Decision</th><th scope="col">Published</th><th scope="col">Alternative key</th><th scope="col">Delta</th></tr></thead><tbody>${fieldRows}</tbody></table></div>
+      ${selected.length ? `<h4>Affected reviews</h4><ul class="sensitivity-cases">${affected}</ul>` : ''}
+      <p class="sensitivity-source"><a href="${esc(run.source_report_url)}" target="_blank" rel="noopener noreferrer">Run report ↗</a></p>`;
   }
 
   function nativeTable(runs, selected) {
@@ -154,7 +160,7 @@
       const change = sum(selected, id => run.single_case_deltas[id]);
       return `<tr><th scope="row">${esc(run.display_name)}</th><td>${run.saved_all_four}/60</td><td>${run.saved_all_four + change}/60</td><td>${sign(change)}</td><td><a href="${esc(sourceRoot + run.source_path)}" target="_blank" rel="noopener noreferrer">Source ↗</a></td></tr>`;
     }).join('');
-    return `<div class="sensitivity-table-wrap"><table><caption>Seven native first-P0 runs on the same 60 reviews, shown separately from the extended-run inventory.</caption><thead><tr><th scope="col">Model</th><th scope="col">Saved all-four</th><th scope="col">Hypothetical</th><th scope="col">Delta</th><th scope="col">Evidence</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    return `<div class="sensitivity-table-wrap"><table><caption>The seven decision models, first base-prompt pass</caption><thead><tr><th scope="col">Model</th><th scope="col">Published all-four</th><th scope="col">Alternative key</th><th scope="col">Delta</th><th scope="col">Run</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
   async function init() {
@@ -163,32 +169,32 @@
       const response = await fetch('./reference-sensitivity-v1.json', {cache: 'no-store'});
       if (!response.ok) throw Error(`HTTP ${response.status}`);
       const data = validate(await response.json());
-      mount.innerHTML = `<div class="section-intro"><p class="eyebrow">Analysis / Reference sensitivity</p><h2 id="reference-sensitivity-title">What if three disputed labels changed?</h2><p>This retrospective calculation rescored saved answers against alternatives already documented in the reference review. It made no model calls. The frozen provisional references and published scores have not changed.</p></div>
-        <div class="sensitivity-shell"><fieldset class="sensitivity-controls"><legend>Choose hypothetical alternatives</legend>${data.alternatives.map(item => `<label><input type="checkbox" value="${item.id}"><span><strong>${item.id}</strong> · ${esc(item.field.replaceAll('_', ' '))}: ${esc(item.saved)} → ${esc(item.alternative)} <small>${item.decision_status === 'needs_human' ? 'Unresolved; needs human review' : 'Proposed AI revision; not adopted'}</small></span></label>`).join('')}</fieldset>
+      mount.innerHTML = `<div class="section-intro"><h2 id="reference-sensitivity-title">What if three disputed labels changed?</h2><p>Three reference labels are disputed: DEV-006, DEV-013 and DEV-030.</p></div>
+        <div class="sensitivity-shell"><fieldset class="sensitivity-controls"><legend>Alternative labels</legend>${data.alternatives.map(item => `<label><input type="checkbox" value="${item.id}"><span><strong>${item.id}</strong>, ${esc(item.field.replaceAll('_', ' '))}: ${esc(item.saved.replaceAll('_', ' '))} → ${esc(item.alternative.replaceAll('_', ' '))} <small>${item.decision_status === 'needs_human' ? 'Open, needs a person to decide' : 'Proposed revision, not adopted'}</small></span></label>`).join('')}</fieldset>
         <p id="sensitivity-status" class="sensitivity-status" role="status" aria-live="polite"></p>
-        <div class="sensitivity-columns"><div><h3>Inspect a saved run</h3><label for="sensitivity-search">Find a model or run</label><input id="sensitivity-search" type="search" placeholder="Search 637 runs" autocomplete="off"><label for="sensitivity-run">Saved run</label><select id="sensitivity-run"></select><div id="sensitivity-run-detail" aria-live="polite"></div></div>
-        <div><h3>Seven native decision models</h3><div id="sensitivity-native"></div></div></div></div>
-        <p class="sensitivity-method">These are hypothetical agreement changes on the same 60 fictional development reviews, not corrections, out-of-sample gains, or a preferred model. An invalid or unsent answer stays invalid or unsent. DEV-013 and DEV-030 still need human adjudication; DEV-006 is only a proposed revision. Repeated runs and the separate seven-native cohort reuse the same reviews, so their counts are not independent observations. <a href="${sourceRoot}docs/REFERENCE_REVIEW_V1.md" target="_blank" rel="noopener noreferrer">Reference review ↗</a> · <a href="${sourceRoot}data/pilot/reference-revisions/v0.3.json" target="_blank" rel="noopener noreferrer">Dated proposal ↗</a> · <a href="${sourceRoot}${esc(data.findings_path)}" target="_blank" rel="noopener noreferrer">Full source-bound findings ↗</a></p>`;
+        <div class="sensitivity-columns"><div><h3>One saved run</h3><label for="sensitivity-search">Model or run</label><input id="sensitivity-search" type="search" placeholder="Search 637 runs" autocomplete="off"><label for="sensitivity-run">Saved run</label><select id="sensitivity-run"></select><div id="sensitivity-run-detail" aria-live="polite"></div></div>
+        <div><h3>The seven decision models</h3><div id="sensitivity-native"></div></div></div></div>
+        <p class="sensitivity-method">Invalid or unsent answers stay misses under every key.</p>`;
       const checks = [...mount.querySelectorAll('input[type="checkbox"]')];
       const search = mount.querySelector('#sensitivity-search');
       const selector = mount.querySelector('#sensitivity-run');
       const status = mount.querySelector('#sensitivity-status');
       const runDetail = mount.querySelector('#sensitivity-run-detail');
       const native = mount.querySelector('#sensitivity-native');
-      let selectedRun = data.extended_runs[0].id;
+      let selectedRun = (data.extended_runs.find(run => run.id === defaultRun) || data.extended_runs[0]).id;
       function render() {
         const selected = checks.filter(input => input.checked).map(input => input.value);
         const query = search.value.trim().toLowerCase();
         const visible = data.extended_runs.filter(run =>
-          `${run.id} ${run.model} ${run.condition} ${run.repeat_pass} ${run.surface}`.toLowerCase().includes(query));
+          `${run.id} ${run.model} ${runLabel(run)} ${run.condition} ${run.repeat_pass} ${run.surface}`.toLowerCase().includes(query));
         if (!visible.some(run => run.id === selectedRun)) selectedRun = visible[0]?.id || '';
-        selector.innerHTML = visible.map(run => `<option value="${esc(run.id)}">${esc(run.model)} · ${esc(run.condition)} · ${esc(run.repeat_pass)} · ${esc(run.surface)}</option>`).join('');
+        selector.innerHTML = visible.map(run => `<option value="${esc(run.id)}">${esc(runLabel(run))}</option>`).join('');
         selector.disabled = visible.length === 0;
         selector.value = selectedRun;
         const scenario = data.scenario_summaries.find(item => item.id === selectedId(selected));
         status.textContent = selected.length ?
-          `Hypothetical only; no label applied. Across ${scenario.extended_summary.run_count} saved extended runs: ${scenario.extended_summary.improved_runs} have a higher all-four score, ${scenario.extended_summary.declined_runs} have a lower score, ${scenario.extended_summary.unchanged_runs} do not change. These runs share reviews and are not independent.` :
-          'Frozen provisional key selected. These are the published saved scores; choose an alternative to see a hypothetical rescore.';
+          `Across ${scenario.extended_summary.run_count} saved runs, ${scenario.extended_summary.improved_runs} score higher on all four under this key, ${scenario.extended_summary.declined_runs} lower and ${scenario.extended_summary.unchanged_runs} the same.` :
+          '';
         const run = data.extended_runs.find(item => item.id === selectedRun);
         runDetail.innerHTML = run ? detail(run, selected, data.alternatives) : '<p>No run matches this search.</p>';
         native.innerHTML = nativeTable(data.native_seven_runs, selected);
@@ -198,7 +204,7 @@
       selector.addEventListener('change', () => { selectedRun = selector.value; render(); });
       render();
     } catch (error) {
-      mount.innerHTML = '<div class="section-intro"><p class="eyebrow">Analysis / Reference sensitivity</p><h2 id="reference-sensitivity-title">Sensitivity data unavailable</h2><p>The saved sensitivity index could not be checked here. <a href="./reference-sensitivity-v1.json">Open the public index</a> or <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/reference-sensitivity-v1/findings.json">read the full findings</a>.</p></div>';
+      mount.innerHTML = '<div class="section-intro"><h2 id="reference-sensitivity-title">What if three disputed labels changed?</h2><p>The rescoring data did not load. <a href="./reference-sensitivity-v1.json">Rescoring index (JSON)</a></p></div>';
       console.error('Reference sensitivity source error:', error);
     }
   }

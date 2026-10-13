@@ -84,8 +84,8 @@ test('audited view exposes pair counts, changed feedback, evidence, and temporal
   assert.match(html, /58 \/ 60/);
   assert.match(html, /role="status" aria-live="polite" aria-atomic="true"/);
   assert.match(html, /reviews with changed outputs/);
-  assert.match(html, /BEFORE · P0/);
-  assert.match(html, /AFTER · P1/);
+  assert.match(html, /BEFORE, P0/);
+  assert.match(html, /AFTER, P1/);
   assert.match(html, /negative/);
   assert.match(html, /positive/);
   assert.match(html, /href="https:\/\/example\.org\/audit\.json"/);
@@ -104,7 +104,7 @@ test('pair and changed-review selectors navigate without changing experiment or 
   panel().change({target: {id: 'pair-select', value: 'P0_to_P2'}});
   assert.match(panel().innerHTML, /56 \/ 60/);
   assert.match(panel().innerHTML, /REVIEW DEV-009/);
-  assert.match(panel().innerHTML, /AFTER · P2/);
+  assert.match(panel().innerHTML, /AFTER, P2/);
   assert.equal(focused(), '#pair-select');
   panel().change({target: {id: 'pair-select', value: 'P1_to_P2'}});
   assert.match(panel().innerHTML, /No changed review is listed/);
@@ -132,7 +132,7 @@ test('native Jev comparison is shown separately without treating it as an eligib
   ui.renderAuditedComparison('typesafe-jev113-v2');
   assert.equal(panel().hidden, false);
   assert.match(panel().innerHTML, /Jev instruction comparison/);
-  assert.match(panel().innerHTML, /native Choice questions, not chat system prompts/);
+  assert.match(panel().innerHTML, /rewrite the native Choice questions/);
   assert.match(panel().innerHTML, /Historical P0 and one pass/);
   assert.match(panel().innerHTML, /58 \/ 60/);
 });
@@ -154,8 +154,8 @@ test('marked hosted Gemini pairs show changed cases with an observational limit'
   ui.state.data = {promptComparisons: [hostedReport()], runs};
   ui.state.experiments = new Map([['model-a', runs]]);
   ui.renderExperiment();
-  assert.match(note(), /Compare changed answers by record below/);
-  assert.match(note(), /Each prompt version was run once/);
+  assert.match(note(), /3 saved runs, one per prompt version/);
+  assert.doesNotMatch(note(), /Compare changed answers|does not establish/);
   assert.equal(panel().hidden, false);
   assert.match(panel().innerHTML, /Hosted prompt comparison/);
   assert.match(panel().innerHTML, /One pass per condition/);
@@ -188,12 +188,12 @@ test('incomplete run keeps its fixed-denominator count as an explicit partial ta
   ui.state.data = {runs: [partial], promptComparisons: [], roster: []};
   ui.state.experiments = new Map([['model-a', [partial]]]);
   ui.renderExperiment();
-  assert.match(conditionGrid(), /PARTIAL TALLY · 59 \/ 60 SAVED · 1 WITHOUT A SAVED RESPONSE/);
+  assert.match(conditionGrid(), /Partial, 59 of 60 saved, 1 without a saved answer/);
   assert.match(conditionGrid(), /42<small> \/ 60<\/small>/);
-  assert.match(conditionGrid(), /All four match · NOT A FINAL SCORE/);
+  assert.match(conditionGrid(), /All four match, no final score/);
   ui.renderLedger();
-  assert.match(ledger(), /42<\/strong><small> \/ 60 · partial tally, not final<\/small>/);
-  assert.match(ledger(), /59 \/ 60 saved · 1 without a saved response/);
+  assert.match(ledger(), /42<\/strong><small> \/ 60, partial tally, not final<\/small>/);
+  assert.match(ledger(), /59 \/ 60 saved, 1 without a saved response/);
 });
 
 test('resource and individual-run pickers contain the same saved runs and selection', () => {
@@ -206,7 +206,7 @@ test('resource and individual-run pickers contain the same saved runs and select
   ui.renderSectionRunPickers();
   assert.equal(usagePicker.innerHTML, inspectPicker.innerHTML);
   assert.match(usagePicker.innerHTML, /model-a/);
-  assert.match(usagePicker.innerHTML, /model-b · partial/);
+  assert.match(usagePicker.innerHTML, /value="model-b">[^<]*, partial</);
   assert.equal(usagePicker.value, 'model-b');
   assert.equal(inspectPicker.value, 'model-b');
 });
@@ -223,7 +223,7 @@ test('historical Fable card links its separate matched batch series', () => {
   assert.match(conditionGrid(), /one comment per request/);
   assert.match(conditionGrid(), /batch-of-10 prompt series/);
   assert.match(conditionGrid(), /fable51-high-phase2-batch10-p0/);
-  assert.doesNotMatch(conditionGrid(), /NOT APPLICABLE/);
+  assert.doesNotMatch(conditionGrid(), /Not applicable/);
 });
 
 test('each verified historical Claude and Codex counterpart links its own later series', () => {
@@ -279,7 +279,7 @@ test('scheduled Antigravity P0-only rows display their blocked state and partial
   ui.state.experiments = new Map([[id,[historical]]]);
   experiment.value = id;
   ui.renderExperiment();
-  assert.match(conditionGrid(), /BLOCKED AFTER P0/);
+  assert.match(conditionGrid(), /Blocked after P0/);
   assert.match(conditionGrid(), /40 valid responses, 10 service errors and 10 unattempted comments/);
   assert.match(conditionGrid(), /There is no complete public P1 run/);
   assert.match(conditionGrid(), /No complete public P2 run/);

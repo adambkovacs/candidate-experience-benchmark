@@ -20,7 +20,7 @@
   const passName = value => `Pass ${passes.indexOf(value) + 1}`;
   const fail = () => {
     target.setAttribute?.('aria-busy', 'false');
-    target.innerHTML = '<p class="analysis-caveat" role="alert"><strong>Kev prompt results could not be loaded.</strong> The source evidence is unavailable or incomplete.</p>';
+    target.innerHTML = '<p class="analysis-caveat" role="alert">The Kev prompt results did not load.</p>';
   };
 
   const validateScore = score => {
@@ -119,7 +119,7 @@
     const usage = Object.fromEntries(['P1', 'P2'].map(condition => [condition, totals(report.conditions[condition])]));
     const usageRows = ['P1', 'P2'].map(condition => `<tr><th scope="row">${esc(condition)}</th>` +
       `<td>${esc(integer(usage[condition].input))}</td><td>${esc(integer(usage[condition].output))}</td>` +
-      `<td>$${esc(usage[condition].cost.toFixed(9))}</td>` +
+      `<td>$${esc(usage[condition].cost.toFixed(4))}</td>` +
       `<td>${esc(usage[condition].low.toFixed(1))} to ${esc(usage[condition].high.toFixed(1))} seconds</td></tr>`).join('');
     const passRows = passes.map(pass => `<tr><th scope="row">${esc(passName(pass))}</th>` +
       `<td>${esc(report.conditions.P1.passes[pass].score.allFour)} / 60</td>` +
@@ -129,25 +129,25 @@
     target.setAttribute?.('aria-busy', 'false');
     target.innerHTML = `<div class="analysis-lead"><p><strong>P1 scored ${esc(p1Score.allFour)}/${esc(report.denominator)}; P2 scored ${esc(p2Score.allFour)}/${esc(report.denominator)}.</strong> ` +
       `${esc(firstPair.fourFieldVectorChanges)} of ${esc(report.denominator)} reviews changed at least one answer. ` +
-      `The largest field tradeoff was ${esc(largestLabel.toLowerCase())}: ` +
+      `The biggest field change was ${esc(largestLabel.toLowerCase())}: ` +
       `P1 matched ${esc(p1Score.fields[largestField])} references and P2 matched ${esc(p2Score.fields[largestField])}, ` +
       `a change of ${esc(signed(largestDelta))}.</p></div>` +
       `<div class="detail-lower">${scoreCards}</div>` +
       `<div class="table-wrap" tabindex="0" role="region" aria-label="Kev field score comparison, scroll horizontally on small screens">` +
       `<table><caption>Field agreement in every pass</caption><thead><tr><th scope="col">Field</th><th scope="col">P1</th><th scope="col">P2</th><th scope="col">P2 minus P1</th></tr></thead><tbody>${fieldRows}</tbody></table></div>` +
-      `<p class="analysis-caveat"><strong>Repeat check:</strong> Within P1 and within P2, all three pass pairs had zero answer, probability-dictionary, and vendor-confidence changes across the same 60 reviews.</p>` +
-      `<details><summary>Which seven reviews changed between P1 and P2?</summary><p>${changedIds}</p>` +
+      `<p class="analysis-caveat">Within P1 and within P2, the three passes returned identical answers, probability dictionaries and vendor confidence on all ${esc(report.denominator)} reviews.</p>` +
+      `<details><summary>The ${esc(firstPair.fourFieldVectorChanges)} reviews that changed between P1 and P2</summary><p>${changedIds}</p>` +
       `<div class="table-wrap" tabindex="0" role="region" aria-label="Kev paired prompt results, scroll horizontally on small screens">` +
       `<table><caption>Paired prompt comparison by pass</caption><thead><tr><th scope="col">Pass</th><th scope="col">P1 all four</th><th scope="col">P2 all four</th><th scope="col">Changed reviews</th></tr></thead><tbody>${passRows}</tbody></table></div>` +
-      `<p>The paired passes list the reviews changed under each prompt condition. Native probability dictionaries and vendor confidence are reported separately; neither is treated as a calibrated correctness probability.</p></details>` +
-      `<details><summary>Observed usage, cost, and request time</summary>` +
+      `</details>` +
+      `<details><summary>Tokens, charge and request time</summary>` +
       `<div class="table-wrap" tabindex="0" role="region" aria-label="Kev prompt usage and cost, scroll horizontally on small screens">` +
-      `<table><caption>Totals across three passes</caption><thead><tr><th scope="col">Condition</th><th scope="col">Input tokens</th><th scope="col">Output tokens</th><th scope="col">Observed cost</th><th scope="col">Client time per pass</th></tr></thead><tbody>${usageRows}</tbody></table></div>` +
-      `<p class="small-note">Request time is client-observed and includes network and local work. It is not provider inference time.</p></details>` +
+      `<table><caption>Totals across three passes</caption><thead><tr><th scope="col">Condition</th><th scope="col">Input tokens</th><th scope="col">Output tokens</th><th scope="col">Charge</th><th scope="col">Client time per pass</th></tr></thead><tbody>${usageRows}</tbody></table></div>` +
+      `</details>` +
       `<details><summary>What was held constant?</summary><p>${esc(report.nativePromptEquivalence.meaning)} ${esc(report.nativePromptEquivalence.wireEquivalence)}</p>` +
-      `<p>The 60 reference labels are provisional development labels. These results describe the saved requests and do not estimate performance on new candidate feedback.</p></details>` +
-      `<p class="source-links"><a href="./kev-native-prompt-findings.json">Read the machine-readable evidence</a> · ` +
-      `<a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md">Read the source-bound findings</a></p>`;
+      `</details>` +
+      `<p class="source-links"><a href="./kev-native-prompt-findings.json">Kev prompt data (JSON)</a> ` +
+      `<a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/KEV_NATIVE_PROMPT_FINDINGS_2026-10-06.md">Kev prompt findings</a></p>`;
   }).catch(error => {
     console.error(error);
     fail();

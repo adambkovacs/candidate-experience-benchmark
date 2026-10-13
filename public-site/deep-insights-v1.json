@@ -34,18 +34,21 @@
     },
     "budget_answers": [
       {
-        "accepted": 54,
+        "accepted": 51,
         "accepted_error_ids": [],
         "accepted_errors": 0,
         "charge_basis": "observed or known provider charges",
-        "deferred": 6,
+        "deferred": 9,
         "deferred_ids": [
           "DEV-006",
           "DEV-010",
           "DEV-013",
           "DEV-014",
+          "DEV-027",
+          "DEV-029",
           "DEV-030",
-          "DEV-053"
+          "DEV-053",
+          "DEV-059"
         ],
         "question": "Cheapest pair with 0 accepted errors and at least 50 accepted",
         "run_a": {
@@ -58,15 +61,15 @@
           "run_id": "openrouter-paid-deepseek-v41-flash-off"
         },
         "run_b": {
-          "category": "general",
+          "category": "decision",
           "condition": "P0",
-          "effort": "low",
-          "label": "DeepSeek V4.1 Flash low effort original",
-          "model": "deepseek/deepseek-v4.1-flash",
-          "pass": "original",
-          "run_id": "openrouter-paid-deepseek-v41-flash-low"
+          "effort": "na",
+          "label": "jev-1.13.0 fresh1",
+          "model": "jev-1.13.0",
+          "pass": "fresh1",
+          "run_id": "extended-typesafe-jev113-native-prompts-fresh1-p0"
         },
-        "two_run_charge_usd": 0.01781653
+        "two_run_charge_usd": 0.00857206
       },
       {
         "accepted": 54,
@@ -174,13 +177,13 @@
         "two_run_charge_usd": 0.03720239
       }
     ],
-    "charged_cross_pairs": 853,
-    "charged_runs": 42,
+    "charged_cross_pairs": 895,
+    "charged_runs": 43,
     "charged_runs_by_category": {
-      "decision": 8,
+      "decision": 9,
       "general": 34
     },
-    "charged_zero_error_pairs": 423,
+    "charged_zero_error_pairs": 446,
     "confidence": {
       "note": "Counts are exact and look back at the same development reviews. Any ranking of pairs is descriptive-only, and no pair is a recommended configuration.",
       "tag": "solid"
@@ -590,18 +593,21 @@
         "two_run_charge_usd": 0.074716355
       },
       {
-        "accepted": 54,
+        "accepted": 51,
         "accepted_error_ids": [],
         "accepted_errors": 0,
         "charge_basis": "observed or known provider charges",
-        "deferred": 6,
+        "deferred": 9,
         "deferred_ids": [
           "DEV-006",
           "DEV-010",
           "DEV-013",
           "DEV-014",
+          "DEV-027",
+          "DEV-029",
           "DEV-030",
-          "DEV-053"
+          "DEV-053",
+          "DEV-059"
         ],
         "run_a": {
           "category": "general",
@@ -613,15 +619,15 @@
           "run_id": "openrouter-paid-deepseek-v41-flash-off"
         },
         "run_b": {
-          "category": "general",
+          "category": "decision",
           "condition": "P0",
-          "effort": "low",
-          "label": "DeepSeek V4.1 Flash low effort original",
-          "model": "deepseek/deepseek-v4.1-flash",
-          "pass": "original",
-          "run_id": "openrouter-paid-deepseek-v41-flash-low"
+          "effort": "na",
+          "label": "jev-1.13.0 fresh1",
+          "model": "jev-1.13.0",
+          "pass": "fresh1",
+          "run_id": "extended-typesafe-jev113-native-prompts-fresh1-p0"
         },
-        "two_run_charge_usd": 0.01781653
+        "two_run_charge_usd": 0.00857206
       },
       {
         "accepted": 54,
@@ -1243,8 +1249,8 @@
         "right": "perplexity-decider-native-fresh1-p0"
       }
     ],
-    "pairs_beating_solar_perplexity": 35,
-    "pairs_more_and_cheaper": 23,
+    "pairs_beating_solar_perplexity": 41,
+    "pairs_more_and_cheaper": 25,
     "qwen_gemma": {
       "accepted": 58,
       "accepted_error_ids": [],
@@ -2569,14 +2575,14 @@
         "all_four": 57,
         "category": "general",
         "condition": "P1",
-        "cost_kind": "observed",
+        "cost_kind": "known",
         "effort": "low",
-        "label": "DeepSeek V4.1 Flash low effort original",
+        "label": "DeepSeek V4.1 Flash low effort fresh1",
         "model": "deepseek/deepseek-v4.1-flash",
-        "pass": "original",
-        "run_id": "openrouter-paid-deepseek-v41-flash-low--p1",
-        "usd": 0.00981391,
-        "valid": 58
+        "pass": "fresh1",
+        "run_id": "extended-openrouter-paid-deepseek-v41-flash-low-fresh1-p1",
+        "usd": 0.01165805,
+        "valid": 60
       },
       {
         "all_four": 58,
@@ -2730,8 +2736,8 @@
       }
     ],
     "run_passes": {
-      "estimate": 262,
-      "observed_or_known": 303,
+      "estimate": 261,
+      "observed_or_known": 304,
       "unknown": 439
     },
     "scripts": [
@@ -5589,17 +5595,16 @@
     "docs/talk/scripts/s07_repeatability.py": "8858dffddb55d258517b6f599a664a4ef6acafa70fd95e5dcaef788e3ae4101d",
     "docs/talk/scripts/s08_confidence.py": "75938257f7f0a8d708c9ff78ca6890d00ce9cbdc095893b864d7844e19d523b3",
     "docs/talk/scripts/s09_quirks.py": "eb59592042de1b13dc78aa26ccad2348605fba6b5f914bfa8f5400d2353a2df5",
-    "docs/talk/scripts/s10_cost.py": "cbaa9f53a20c2ea9adb6c63cbff2ab4d23576ad486e6556fdeebbe4367eff8cb",
+    "docs/talk/scripts/s10_cost.py": "7638eee0bff9a582d50052a7613608dbf5fcf7b6afea753cf950d6668d6d2648",
     "docs/talk/scripts/s11_agreement_general.py": "6bcbbbbcef389adefbdfcd644970fce05af1390e1f81489a7e06f00167a781bc",
     "docs/talk/scripts/s12_full_policy_routing.py": "f86a0e4f56892db8e01eb62cb2345cea1fba01c601b76dbd95615e1c1602a273",
     "public-site/additional-cases-v1.json": "abf230bbaffc391784f4916c81c803e7b1d951781b25da03effaee7293dc1f36",
     "public-site/data.json": "5cc6b65ea0c6196bfa58bbed2ccf0414e4bf64b831a5c7ef86a2e21fb3d4bd2f",
     "public-site/disputed-reviews-v1.json": "ab37fb651771a0b578fe83424b6fa930e66d1d31dd1e52daf0bca9c9620ec4a2",
-    "public-site/extended-cases-v1.json": "e16af5c959c905b515b84c9f486a0ee55e959b0db8b64adfebaf047923c210b9",
-    "public-site/extended-run-catalog-v1.json": "9ff0cf652d8504fc978fe69c193c70b0be822a3f2d4aef16be552d197e045412",
-    "public-site/jev-native-prompt-findings.json": "464943a09a6bfe0f73c5d81d1427ec43fcb759167d2a79d7ff3ddaa7c1af23cc",
+    "public-site/extended-cases-v1.json": "fc8330eddc3b946aabfebb128424ab672109eebe2b3be8eaa9b5d576cdc19bcb",
+    "public-site/extended-run-catalog-v1.json": "685ebd0fa946dab9b0005180a22a61fa119804eca0c7992296909c194f132fe9",
     "public-site/native-agreement-policy-v1.json": "ccdf394c56f3ada573ff091fb710ba2d98c1847c82a2654e88e3671d71d2b436",
-    "public-site/reference-sensitivity-v1.json": "b6a9e2fe8ff00dc61518fcb729fc8e04564e07b416060831e89b3bbb9c813419",
+    "public-site/reference-sensitivity-v1.json": "ec6398c6fafe7f36beacc2bd3f27fbafb33f3c7c5c867f6c667e34adcd1366da",
     "public-site/subscription-price-estimates.json": "ce8fbafd6a282ed6331d98e8543eddd2260e9f19e4bb5cbf0badcc2c11b18741",
     "public-site/supplemental-decision-runs-v1.json": "d8cd70c74d0c7f9bd2f4bab0385f2ed95fe0ebf6b3ea92a5ab11ce6ae9aa6d20",
     "results/clef-openrouter-v1/findings-v1/public-projection.json": "81bb51e9d95b92124642d7efa6a546b29873772dd72b400fc2b695409789bae6",

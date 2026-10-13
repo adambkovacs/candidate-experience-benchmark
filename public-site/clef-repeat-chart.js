@@ -63,10 +63,10 @@
 
   function interrupted(cell) {
     if (cell.status === 'interrupted_composite') {
-      return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>59 valid · 1 unknown</span>` +
+      return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>59 valid, 1 unknown</span>` +
         `<small>48 known four-label matches</small></div>`;
     }
-    return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>1 unknown · 59 not sent</span></div>`;
+    return `<div class="clef-repeat-interrupted"><strong>Interrupted</strong><span>1 unknown, 59 not sent</span></div>`;
   }
 
   function promptChanges(report, cell) {
@@ -96,16 +96,15 @@
       `<div class="clef-repeat-scroll" role="region" aria-label="Clef prompt gains and losses" tabindex="0">` +
       `<table><caption class="clef-repeat-sr-only">Reviews gaining or losing four-label agreement</caption>` +
       `<thead><tr><th scope="col">Prompt change</th><th scope="col">Became correct</th><th scope="col">Became incorrect</th></tr></thead><tbody>${rows}</tbody></table></div>` +
-      `<p>Four pairs involving interrupted P2 runs are excluded from this table. Their missing outcomes remain in the run grid above.</p></details>`;
+      `<p>Four pairs with an interrupted P2 run are left out.</p></details>`;
   }
 
   function render(cell, report) {
     const rows = prompts.map(p => `<tr><th scope="row"><span class="clef-repeat-prompt">${p}</span><span>${label[p]}</span></th>` +
       passes.map(r => { const c = cell(p, r); return `<td>${c.status === 'complete' ? scored(c) : interrupted(c)}</td>`; }).join('') + '</tr>').join('');
     return `<figure class="clef-repeat-chart" aria-labelledby="clef-repeat-title">` +
-      `<figcaption><span class="clef-repeat-kicker">Clef · native interface</span>` +
-      `<h3 id="clef-repeat-title">Seven full runs. Two interrupted.</h3>` +
-      `<p>Each score counts reviews where all four answers matched the provisional reference, out of the same 60 reviews.</p></figcaption>` +
+      `<figcaption><h3 id="clef-repeat-title">Clef: seven full runs. Two interrupted.</h3>` +
+      `<p>Each score counts reviews where all four answers matched the reference, out of 60. These passes ran on Cloudflare Workers AI directly; the leaderboard's Clef 54 of 60 is a later OpenRouter pass.</p></figcaption>` +
       `<div class="clef-repeat-scroll" role="region" aria-label="Clef scores by prompt and pass" tabindex="0">` +
       `<table><caption class="clef-repeat-sr-only">Clef four-label matches by prompt and fresh pass</caption>` +
       `<thead><tr><th scope="col">Prompt</th><th scope="col">Pass 1</th><th scope="col">Pass 2</th><th scope="col">Pass 3</th></tr></thead>` +

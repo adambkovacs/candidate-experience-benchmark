@@ -7,7 +7,7 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const app=fs.readFileSync(path.join(root,'public-site/app.js'),'utf8');
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'public-site/extended-run-catalog-v1.json'),'utf8'));
-const adapterSource=app.replace('  init();\n})();','  globalThis.__extendedCatalogRuns=extendedCatalogRuns;\n})();');
+const adapterSource=app.replace('  init();\n})();','  globalThis.__extendedCatalogRuns=extendedCatalogRuns;globalThis.__applyJevFindings=applyJevFindings;globalThis.__costSummary=costSummary;\n})();');
 assert.notEqual(adapterSource,app);
 const context={document:{},URL};
 context.globalThis=context;
@@ -39,4 +39,21 @@ test('every catalog report link points to its declared public source hash',()=>{
     assert.ok(run.sourceRecordsUrl.startsWith(prefix));
     assert.equal(run.sourceRecordSha256,catalog.sourceSha256[run.sourceRecordsUrl.slice(prefix.length)]);
   }
+});
+
+test('Jev native-prompt rows take the OpenRouter route and known charge from the findings feed',()=>{
+  const findings=JSON.parse(fs.readFileSync(path.join(root,'public-site/jev-native-prompt-findings.json'),'utf8'));
+  const runs=structuredClone(catalog).runs;
+  context.__applyJevFindings(runs,findings);
+  const p0=runs.find(run=>run.id==='extended-typesafe-jev113-native-prompts-fresh1-p0');
+  assert.equal(p0.surface,'OpenRouter native Choice');
+  assert.equal(p0.cost.knownUsd,0.00589092);
+  assert.equal(p0.cost.estimatedUsd,null);
+  assert.equal(context.__costSummary(p0),'$0.0059');
+  const repeat=runs.find(run=>run.id==='extended-typesafe-jev113-v2-repeat2-p0');
+  assert.equal(repeat.surface,'TypeSafe native Choice API');
+  assert.equal(repeat.cost.knownUsd,null);
+  const untouched=structuredClone(catalog).runs;
+  context.__applyJevFindings(untouched,null);
+  assert.deepEqual(untouched,structuredClone(catalog).runs);
 });

@@ -51,7 +51,7 @@ test('latest Gemma entry shows nine descriptive scores and P1 paired changes', a
   for (const id of [latestId, p0Id,
     feeds['./gemma26-postabort-findings.json'].seriesId])
     assert.ok(page.includes(`value="${id}"`), id);
-  assert.match(page, /interrupted P1 checkpoint \(9 of 9\)/);
+  assert.match(page, /9 of 9 stages, P1 interrupted/);
   assert.match(ui.get('repeat-summary').textContent, /all 9 planned phases/);
   assert.match(ui.get('repeat-summary').textContent, /58, 58 and 57/);
   assert.match(ui.get('repeat-summary').textContent, /60, 60 and 59/);
@@ -64,8 +64,8 @@ test('latest Gemma entry shows nine descriptive scores and P1 paired changes', a
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-013/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-059/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /gemma26-fresh3-p1-interrupted-checkpoint\.json/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /earlier P0 checkpoint/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.01941923 known/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /Earlier P0 checkpoint/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.0194<br><small>59\/60 reported; DEV-059 charge unknown/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /96,727 reported/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /DEV-059 charge unknown/);
   ui.get('repeat-field').value = 'serious_concern_reported';
@@ -89,7 +89,7 @@ test('absent latest feed keeps P0 cutoff; malformed or failed feed fails visibly
   const absent = await render(null, 404, p0Id);
   assert.match(absent.get('repeat-summary').textContent, /8 of 9 phases/);
   const failed = await render(null, 500, p0Id);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   const sourceFeed = feeds['./gemma26-fresh3-p1-interrupted-checkpoint.json'];
   for (const bad of [
     {...sourceFeed, scoredSeriesConditions: 8},
@@ -98,6 +98,6 @@ test('absent latest feed keeps P0 cutoff; malformed or failed feed fails visibly
         ...sourceFeed.conditions.P1.failureIdsByPass, fresh3: []}}}},
   ]) {
     const malformed = await render(bad);
-    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

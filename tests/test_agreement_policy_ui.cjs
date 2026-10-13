@@ -49,8 +49,10 @@ test('pair display shows accepted coverage, retained errors, deferrals and exact
   assert.match(html, new RegExp(`${pair.accepted_count}<span>/60`));
   assert.match(html, new RegExp(`Accepted with an error`));
   assert.match(html, new RegExp(`${pair.deferred_count} deferred for human review`));
-  assert.match(html, /known charge for both saved 60-review development runs/i);
-  assert.match(html, /excludes human review, smoke requests/i);
+  const cost = pair.known_two_run_development_cost_usd;
+  assert.ok(html.includes(`Charge for both 60-review runs: <strong>${cost === null ? 'Unknown' : '$' + Number(cost).toFixed(4)}</strong>`));
+  assert.doesNotMatch(html, /human review time is not priced|·/i);
+  assert.doesNotMatch(html, /provisional|retrospective/i);
   assert.ok(html.includes(`review=${pair.accepted_all_four_error_ids[0]}`));
   assert.ok(html.includes(`review=${pair.deferred_ids[0]}`));
   assert.ok(html.includes(models.get(pair.left).source_path));
@@ -65,7 +67,7 @@ test('all 21 pairs remain visible in source order, with no ranked winner', () =>
   assert.equal((html.match(/class="selected"/g) || []).length, 1);
   assert.ok(html.indexOf(models.get(data.pairs[0].left).display_name) <
             html.indexOf(models.get(data.pairs.at(-1).right).display_name));
-  assert.match(html, /lower error counts can reflect more deferrals/i);
+  assert.match(html, /fewer accepted errors can come from more deferrals/i);
   assert.doesNotMatch(html, /best pair|winner|recommend/i);
 });
 

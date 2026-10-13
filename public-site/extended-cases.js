@@ -130,9 +130,17 @@
   }
 
   function runLabel(run) {
-    return [...new Set([run.model, run.effort, run.condition, run.repeatPass, run.surface,
-      run.sourceStage, run.runId].filter(Boolean))].join(' · ');
+    // ponytail: site/labels.js gives the readable name; node tests without it see the raw fields.
+    const pass = /(?:fresh|pass)(\d)/.exec(run.repeatPass || '');
+    const stage = [run.condition, pass ? `pass ${pass[1]}` : null].filter(Boolean).join(' ');
+    return globalThis.BM_LABEL
+      ? [globalThis.BM_LABEL.run(run), stage].filter(Boolean).join(', ')
+      : [...new Set([run.model, run.effort, run.condition, run.repeatPass, run.surface,
+        run.sourceStage, run.runId].filter(Boolean))].join(', ');
   }
+  const FIELD_WORDS = {sentiment: 'sentiment', follow_up_needed: 'follow-up', serious_concern_reported: 'serious concern', testimonial_potential: 'testimonial'};
+  const listWords = items => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
+  const fieldWords = fields => listWords(fields.map(field => FIELD_WORDS[field] || String(field).replaceAll('_', ' ')));
 
   function statusLabel(status) {
     const names = {
@@ -145,14 +153,10 @@
     return names[status] || String(status || 'unavailable').replaceAll('_', ' ');
   }
 
-  function differenceLabel(count, prefix = '') {
-    return `${count} ${prefix}field${count === 1 ? '' : 's'} differ${count === 1 ? 's' : ''}`;
-  }
-
   function comparisonOptions(data, runId, selectedRunId = '', search = '') {
     const needle = search.trim().toLocaleLowerCase();
     return data.runs.filter(item => item.runId !== runId &&
-      (!needle || runLabel(item).toLocaleLowerCase().includes(needle) || item.runId === selectedRunId))
+      (!needle || `${runLabel(item)} ${item.model} ${item.runId}`.toLocaleLowerCase().includes(needle) || item.runId === selectedRunId))
       .sort((a, b) => runLabel(a).localeCompare(runLabel(b)));
   }
 
@@ -215,10 +219,10 @@
     const initial = view(data, runId);
     if (!initial.run) {
       container.append(element('p', initial.gap
-        ? `Individual answers are not available in this case feed: ${initial.gap.reason}.`
-        : 'This saved run is not in the extended case feed.'));
+        ? `No per-review answers were saved for this run: ${initial.gap.reason}.`
+        : 'No per-review answers were saved for this run.'));
       if (initial.gap && initial.gap.sourceReportUrl) {
-        const link = element('a', 'Open the public run report');
+        const link = element('a', 'Run report');
         link.href = initial.gap.sourceReportUrl;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
@@ -228,11 +232,11 @@
     }
     const run = initial.run;
     const comparisonScope = data.schema === 'unified-cases-v1'
-      ? `The comparison chooser includes all ${data.runs.length} saved runs.`
+      ? `All ${data.runs.length.toLocaleString('en-US')} saved runs are available as run B.`
       : data.schema === 'additional-cases-v1'
-      ? `The comparison chooser includes ${data.runs.length} first-pass and native runs.`
-      : `The comparison chooser includes ${data.runs.length} report-backed repeat and continuation runs.`;
-    const header = element('p', `The same 60 development reviews · human-checked provisional labels v0.2. Each choice is one saved run, including its prompt, pass, and route. ${comparisonScope} Different routes and controls are separate configurations; an A/B difference does not establish a causal model effect.`);
+      ? `${data.runs.length.toLocaleString('en-US')} first-pass and native runs are available as run B.`
+      : `${data.runs.length.toLocaleString('en-US')} repeat and continuation runs are available as run B.`;
+    const header = element('p', `Each run is one saved pass with its own prompt and route. ${comparisonScope}`);
     const runNames = element('p', undefined, 'extended-case-run-names');
     const sourceLinks = element('div', undefined, 'extended-case-sources');
     container.append(header, runNames, sourceLinks);
@@ -301,9 +305,8 @@
       if (!compare.value && mode.value === 'between') mode.value = 'all';
       const selected = view(data, runId, { query: search.value, mode: mode.value,
         field: field.value, compareRunId: compare.value });
-      runNames.textContent = `A · ${runLabel(run)}${selected.compareRun ? `\nB · ${runLabel(selected.compareRun)}` : ''}`;
-      count.textContent = `${selected.cases.length} of ${selected.total} reviews shown${selected.compareRun
-        ? ' · A and B are separate saved runs, not pooled evidence' : ''}`;
+      runNames.textContent = `A: ${runLabel(run)}${selected.compareRun ? `\nB: ${runLabel(selected.compareRun)}` : ''}`;
+      count.textContent = `${selected.cases.length} of ${selected.total} reviews shown`;
       sourceLinks.replaceChildren();
       appendSources('A', run);
       if (selected.compareRun) appendSources('B', selected.compareRun);
@@ -312,15 +315,15 @@
         ? new URL(location.href).searchParams.get('case') : null;
       selected.cases.forEach(item => {
         const card = element('details', undefined, 'extended-case');
-        const summary = element('summary', `${item.id} · ${selected.compareRun && item.outcomeDiffers
-          ? item.betweenFields.length ? differenceLabel(item.betweenFields.length, 'A/B ')
+        const summary = element('summary', `${item.id}, ${selected.compareRun && item.outcomeDiffers
+          ? item.betweenFields.length ? `A and B differ on ${fieldWords(item.betweenFields)}`
             : Boolean(item.prediction) !== Boolean(item.comparisonPrediction)
-              ? 'A/B answer availability differs' : 'A/B saved statuses differ'
+              ? 'only one of A and B gave a valid answer' : 'A and B failed in different ways'
           : item.prediction === null
           ? `no valid answer (${statusLabel(item.status)})`
           : item.differingFields.length
-            ? differenceLabel(item.differingFields.length)
-            : 'matches reference'}`);
+            ? `differs on ${fieldWords(item.differingFields)}`
+            : 'matches the reference'}`);
         if (item.id === requestedCase) card.open = true;
         card.addEventListener('toggle', () => {
           if (!card.open || typeof history === 'undefined' || typeof URL === 'undefined' || typeof location === 'undefined') return;
@@ -332,8 +335,8 @@
         const table = element('table');
         const head = element('thead');
         const headerRow = element('tr');
-        ['Field', 'Proposed reference', 'A · saved answer',
-          ...(selected.compareRun ? ['B · saved answer'] : [])].forEach(label => headerRow.append(element('th', label)));
+        ['Field', 'Reference', 'Run A answer',
+          ...(selected.compareRun ? ['Run B answer'] : [])].forEach(label => headerRow.append(element('th', label)));
         head.append(headerRow);
         const body = element('tbody');
         FIELDS.forEach(name => {

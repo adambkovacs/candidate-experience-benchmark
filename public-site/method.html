@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1a2332">
-  <meta name="description" content="How the candidate feedback benchmark was run and scored, how costs are labelled, the reference review, and what the results cannot tell you.">
-  <title>Method and limits · Candidate Experience Feedback Benchmark</title>
+  <meta name="description" content="How the candidate feedback benchmark was run: the four questions, how a match is scored, the passes, the disputed labels, the decision-model launch wave and what the study cost.">
+  <title>Method · Candidate Experience Feedback Benchmark</title>
   <link rel="canonical" href="https://adambkovacs.github.io/candidate-experience-benchmark/method.html">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Method and limits · Candidate Experience Feedback Benchmark">
-  <meta property="og:description" content="How the candidate feedback benchmark was run and scored, how costs are labelled, the reference review, and what the results cannot tell you.">
+  <meta property="og:title" content="Method · Candidate Experience Feedback Benchmark">
+  <meta property="og:description" content="How the candidate feedback benchmark was run: the four questions, how a match is scored, the passes, the disputed labels, the decision-model launch wave and what the study cost.">
   <meta property="og:url" content="https://adambkovacs.github.io/candidate-experience-benchmark/method.html">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://adambkovacs.github.io/candidate-experience-benchmark/preview.png">
@@ -17,28 +17,177 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="./site/fonts/archivo-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./site/fonts/ibm-plex-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./styles.css?v=20261005-clef-matrix">
+  <link rel="stylesheet" href="./styles.css?v=20261013-fix2b">
   <link rel="stylesheet" href="./reader.css?v=20261001-reader-v2">
   <link rel="stylesheet" href="./presentation.css?v=20261007-hosted-decisions">
+  <link rel="stylesheet" href="./deep-insights.css?v=20261008">
   <link rel="stylesheet" href="./site/site.css?v=20261008-layers">
+  <link rel="stylesheet" href="./site/benchmarks.css?v=20261013-fix2b">
   <script defer src="./navigation.js?v=20260930-results"></script>
+  <script defer src="./site/labels.js?v=20261013-fix2b"></script>
+  <script defer src="./deep-insights.js?v=20261013-fix2b"></script>
 </head>
 <body id="top" class="page-method">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <a class="brand" href="index.html"><img class="brand-mark" src="./site/aea-icon-transparent.svg" alt="" width="30" height="30"><span>Candidate Experience<br>Feedback Benchmark</span></a>
-  <nav class="main-nav" aria-label="On this page"><a href="#method">Method</a><a href="#findings">Reference review</a><a href="#harness">Tooling</a></nav>
+  <nav class="main-nav" aria-label="On this page"><a href="#method">The test</a><a href="#roster">Models</a><a href="#passes">Passes</a><a href="#findings">Disputed labels</a><a href="#launch-wave">Launch wave</a><a href="#study-cost">Cost</a><a href="#downloads">Downloads</a></nav>
   <nav class="layer-nav" aria-label="Site sections"><a href="index.html">Read</a><a href="explore.html">Explore</a><a href="method.html" aria-current="page">Method</a></nav>
   <div class="scroll-rail" aria-hidden="true"><span></span></div>
 </header>
 <main id="main">
-<section class="method section" id="method" aria-labelledby="method-title" data-surface="ink" data-part="4"><div class="section-intro"><p class="eyebrow">Method and limits</p><h1 id="method-title" class="page-title">How we ran the test, and what it cannot tell you.</h1><p>AI wrote these fictional comments and drafted the reference answers. A person checked all 60 answers; some remain disputed. Historical scores retain the original reference version. The results describe this test set, not performance with real candidates.</p></div><div class="method-columns"><div><h3>How the test was scored</h3><p><strong>Prompt versions:</strong> P0 is the base task; P1 and P2 add different instructions. Every score is out of 60, even when a run saved fewer responses. AI drafted the reference answers; a person checked all of them. Historical scores retain the original reference version.</p><p><strong>Time:</strong> Server inference time appears only when a provider reports it. The technical run detail shows recorded client request durations, their sum and the number of timed requests. Some requests classified one comment; others classified a batch. The sum does not show how long concurrent work took from start to finish. Local times reflect the test machine and workflow.</p><p><strong>Cost:</strong> Reported API charges, price estimates and possible charges without a known bill are labeled separately. Subscription fees are not split across runs. An API price estimate is not an observed charge.</p><div class="source-links"><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/openjev/typesafe-development-v2-reconciled.jsonl" target="_blank" rel="noopener noreferrer">Jev source records ↗</a><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/prompt-comparison-v1-2026-09-24/paired-reports/codex-gpt-5.6-luna-high/evaluation.json" target="_blank" rel="noopener noreferrer">Example prompt comparison report ↗</a></div></div><div class="faq"><h3>Questions you may have</h3><details><summary>What do &quot;model&quot;, &quot;prompt&quot; and &quot;run&quot; mean?</summary><p>The model is the AI system. A prompt is the set of instructions and the comment it receives. A run is one recorded attempt to classify this set of comments using a particular setup.</p></details><details><summary>What are tokens, and why do they matter?</summary><p>Tokens are small pieces of text a model reads or produces. Hosted services often price requests by input and output tokens. Extra reasoning can add output tokens even when the final answer is short.</p></details><details><summary>Did every model process comments in the same way?</summary><p>No. Some calls contained one comment; subscription runs sometimes used batches. Specialist APIs returned choices directly. Local runs used this project's machine. We keep these differences visible because they affect comparisons.</p></details><details><summary>What were the models allowed to see?</summary><p>The comment and the task instructions, including the label definitions. They did not receive the reference answer or another model's previous prediction. We compared outputs with the references afterward.</p></details><details><summary>Does a valid response mean the answer matched?</summary><p>No. Valid means the response followed the format needed for scoring. Agreement is counted separately against the saved reference answers.</p></details><details><summary>Do score changes show that one prompt is better?</summary><p>You can compare saved outcomes, but differences in where and when runs were made, missing records, and other settings make it hard to attribute a score change to the prompt alone. Five earlier local Qwen comparisons lack logs for the base runs. Their <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/results/legacy-local-prompt-pairs-v1/README.md">comparison reports</a> show the saved changes and explain the missing evidence.</p></details><details><summary>Why can a complete run have invalid responses?</summary><p>Complete means a response was saved for each of the 60 comments. Some saved responses did not follow the required format, so they could not be scored.</p></details><details><summary>Why is a price missing?</summary><p>Some services do not report a charge for each run. An unavailable charge does not mean the run was free. Estimates and upper bounds are labeled separately.</p></details><details><summary>Can I use these scores to choose a hiring tool?</summary><p>No. This small fictional set and its provisional answers do not measure performance with real candidates or the effect of using a model in hiring.</p></details></div></div></section>
-<section class="reference-review section" id="findings" aria-labelledby="findings-title" data-surface="ink" data-part="2"><h2 id="findings-title">The reference answers were checked too.</h2><p>A person checked all 60 reference answers. DEV-006 has a proposed serious-concern correction; DEV-013 and DEV-030 remain judgment calls. The charts retain the original answers so historical results remain inspectable.</p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REFERENCE_REVIEW_V1.md">Read the disputed cases and separate rescore →</a></section>
-<section class="section harness" id="harness" aria-labelledby="harness-title" data-surface="ink">
-  <p class="eyebrow">Tooling</p>
-  <h2 id="harness-title">classification-bench</h2>
-  <p>classification-bench, the tool that ran these tests, is being open-sourced. Ask Adam for early access.</p>
-  <p>The <a href="https://github.com/adambkovacs/candidate-experience-benchmark">benchmark repository</a> holds the reviews, the reference, every saved answer and the scripts that build these pages.</p>
+<section class="method section" id="method" aria-labelledby="method-title" data-surface="ink">
+  <div class="section-intro">
+    <h1 id="method-title" class="page-title">How the test ran.</h1>
+    <p>We wrote <span class="num" data-source="deep-insights-v1.json#denominator">60</span> short, fictional comments from job candidates and asked every model the same four questions about each one. AI wrote the comments and drafted the reference answers. A person checked all 60, and three labels are still disputed.</p>
+  </div>
+  <div class="method-body">
+    <h2>The four questions</h2>
+    <ol class="method-questions">
+      <li><b>How was the experience?</b> Positive, negative, mixed, neutral, or can't tell.</li>
+      <li><b>Does someone need to follow up?</b> Yes, no, or can't tell.</li>
+      <li><b>Does it report a serious concern?</b> Harassment, discrimination or a privacy breach, for example. A bad experience alone does not count. Can't tell is for a serious issue that is alleged but underspecified.</li>
+      <li><b>Could it work as a testimonial?</b> Yes, no, or can't tell.</li>
+    </ol>
+    <p id="key-balance">The reference answers lean negative. Of the 60, <span class="num" data-source="findings.json#referenceDistributions.sentiment.negative">31</span> call the experience negative, <span class="num" data-source="findings.json#referenceDistributions.follow_up_needed.yes">35</span> need a follow-up, <span class="num" data-source="findings.json#referenceDistributions.serious_concern_reported.yes">25</span> report a serious concern and <span class="num" data-source="findings.json#referenceDistributions.testimonial_potential.yes">9</span> would work as a testimonial.</p>
+    <div class="bm-scroll"><table class="bm-table" aria-describedby="key-balance">
+      <thead><tr><td rowspan="2"></td><th scope="colgroup" colspan="5">Experience</th><th scope="colgroup" colspan="3">Follow-up</th><th scope="colgroup" colspan="3">Serious concern</th><th scope="colgroup" colspan="3">Testimonial</th></tr>
+      <tr><th scope="col" class="bm-num">Positive</th><th scope="col" class="bm-num">Negative</th><th scope="col" class="bm-num">Mixed</th><th scope="col" class="bm-num">Neutral</th><th scope="col" class="bm-num">Can't tell</th><th scope="col" class="bm-num">Yes</th><th scope="col" class="bm-num">No</th><th scope="col" class="bm-num">Can't tell</th><th scope="col" class="bm-num">Yes</th><th scope="col" class="bm-num">No</th><th scope="col" class="bm-num">Can't tell</th><th scope="col" class="bm-num">Yes</th><th scope="col" class="bm-num">No</th><th scope="col" class="bm-num">Can't tell</th></tr></thead>
+      <tbody><tr><th scope="row">Reference answers</th><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.positive">11</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.negative">31</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.mixed">8</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.neutral">8</td><td class="bm-num" data-source="findings.json#referenceDistributions.sentiment.insufficient_information">2</td><td class="bm-num" data-source="findings.json#referenceDistributions.follow_up_needed.yes">35</td><td class="bm-num" data-source="findings.json#referenceDistributions.follow_up_needed.no">24</td><td class="bm-num" data-source="findings.json#referenceDistributions.follow_up_needed.insufficient_information">1</td><td class="bm-num" data-source="findings.json#referenceDistributions.serious_concern_reported.yes">25</td><td class="bm-num" data-source="findings.json#referenceDistributions.serious_concern_reported.no">29</td><td class="bm-num" data-source="findings.json#referenceDistributions.serious_concern_reported.insufficient_information">6</td><td class="bm-num" data-source="findings.json#referenceDistributions.testimonial_potential.yes">9</td><td class="bm-num" data-source="findings.json#referenceDistributions.testimonial_potential.no">50</td><td class="bm-num" data-source="findings.json#referenceDistributions.testimonial_potential.insufficient_information">1</td></tr></tbody>
+    </table></div>
+    <p>The <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/LABELING_GUIDE.md">labelling guide</a> fixes each boundary, and the <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/REFERENCE_REVIEW_V1.md">reference review</a> records every label we argued about.</p>
+    <h2>How a match is scored</h2>
+    <p>A review counts as matched only when all four answers agree with the reference. The denominator is always 60. A missing, failed or malformed answer scores as a miss, so a run that saved 57 usable answers can match at most 57. Explore counts format and agreement separately.</p>
+    <h2>Three prompts</h2>
+    <p><a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/docs/LABELING_GUIDE.md">P0</a> is the base task: the labelling guide's rules, then one line asking for the four answers as JSON. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/prompts/variants-v1/P1-classifier.txt">P1</a> adds classifier instructions with the label definitions. <a href="https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/prompts/variants-v1/P2-classifier-sop.txt">P2</a> adds step-by-step decision rules on top of P1. Decision models received the same instructions inside their native Choice questions. No model saw the reference or another model's answer.</p>
+  </div>
 </section>
-</main><footer><img class="footer-logo" src="./site/aea-logo-horizontal-transparent-white.svg" alt="AI Enablement Academy" width="170" height="68" loading="lazy"><p><span class="footer-title">Candidate Experience Feedback Benchmark</span><br>An open experiment with 60 fictional comments. Scores show agreement with a provisional reference, not deployment quality.</p><nav aria-label="Footer"><a href="#method">Method and limits</a><a href="https://github.com/adambkovacs/candidate-experience-benchmark">Source repository</a><a href="#top">Back to top ↑</a></nav><span class="footer-rail" aria-hidden="true"></span></footer>
+
+<section class="section method-roster" id="roster" aria-labelledby="roster-title" data-surface="ink">
+  <h2 id="roster-title">The models</h2>
+  <p>Decision models first, then general models. Route is how we reached each model, and effort lists the reasoning settings we tested. A dash means we ran it with no effort setting.</p>
+  <div class="bm-scroll"><table class="bm-table">
+    <thead><tr><th scope="col">Model</th><th scope="col">Maker</th><th scope="col">Type</th><th scope="col">Route</th><th scope="col">Effort tested</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Jev 1.13</th><td>TypeSafe</td><td>Decision</td><td>OpenRouter, TypeSafe API</td><td>–</td></tr>
+      <tr><th scope="row">Solar Decide</th><td>Upstage</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Clef</th><td>Cloudflare</td><td>Decision</td><td>OpenRouter, Cloudflare direct</td><td>–</td></tr>
+      <tr><th scope="row">Clef Flash</th><td>Cloudflare</td><td>Decision</td><td>OpenRouter, Cloudflare direct</td><td>–</td></tr>
+      <tr><th scope="row">Perplexity Decider 27B</th><td>Perplexity</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Luna Decisions</th><td>OpenAI</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Tev 1 4B</th><td>Together</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Liquid d1</th><td>Liquid AI</td><td>Decision</td><td>OpenRouter</td><td>–</td></tr>
+      <tr><th scope="row">Kev 4B</th><td>Jared Palmer</td><td>Decision</td><td>OpenRouter (SiliconFlow)</td><td>–</td></tr>
+      <tr><th scope="row">Laya (English, typed and multilingual)</th><td>Convai Innovations</td><td>Decision</td><td>Local</td><td>–</td></tr>
+      <tr><th scope="row">OpenJev</th><td>Community</td><td>Decision</td><td>Local</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">SemIf on Qwen3.5 4B</th><td>Community (TheoLeeCJ)</td><td>Decision</td><td>Local</td><td>–</td></tr>
+      <tr><th scope="row">AnyJev on Qwen3 0.6B</th><td>Nokia Applied Research</td><td>Decision</td><td>Local</td><td>–</td></tr>
+      <tr><th scope="row">Opus 5.5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">Sonnet 5.5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">Opus 5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh, max</td></tr>
+      <tr><th scope="row">Sonnet 5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh, max</td></tr>
+      <tr><th scope="row">Fable 5.1</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>low, medium, high, xhigh, max</td></tr>
+      <tr><th scope="row">Haiku 4.5</th><td>Anthropic</td><td>General</td><td>Claude subscription</td><td>–</td></tr>
+      <tr><th scope="row">GPT-6 Luna, Sol and Astra</th><td>OpenAI</td><td>General</td><td>Codex subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">GPT-5.6 Luna, Sol and Terra</th><td>OpenAI</td><td>General</td><td>Codex subscription</td><td>low, medium, high, xhigh</td></tr>
+      <tr><th scope="row">Gemini 3.1 Pro</th><td>Google</td><td>General</td><td>Gemini subscription, OpenRouter (Google AI Studio)</td><td>low, high</td></tr>
+      <tr><th scope="row">Gemini 3.6 to 3.8 Flash</th><td>Google</td><td>General</td><td>Gemini subscription, OpenRouter (Google AI Studio)</td><td>low, medium, high</td></tr>
+      <tr><th scope="row">Gemma 4 E2B and E4B</th><td>Google</td><td>General</td><td>Local</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Gemma 4 26B and 31B</th><td>Google</td><td>General</td><td>OpenRouter</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3 0.6B, Qwen3 1.7B and Qwen3.5 4B</th><td>Alibaba</td><td>General</td><td>Local</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3 8B</th><td>Alibaba</td><td>General</td><td>Local, OpenRouter</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3.6 35B A3B</th><td>Alibaba</td><td>General</td><td>OpenRouter</td><td>thinking on and off</td></tr>
+      <tr><th scope="row">Qwen3.8 27B</th><td>Alibaba</td><td>General</td><td>OpenRouter, local</td><td>thinking off, low, medium, xhigh</td></tr>
+      <tr><th scope="row">DeepSeek V4.1 Flash</th><td>DeepSeek</td><td>General</td><td>OpenRouter</td><td>thinking off, low, high</td></tr>
+      <tr><th scope="row">Mistral Small 3.2 24B and Mistral Small 2603</th><td>Mistral AI</td><td>General</td><td>OpenRouter</td><td>–</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="section passes" id="passes" aria-labelledby="passes-title" data-surface="ink">
+  <h2 id="passes-title">How many passes, and which ones broke</h2>
+  <p>The site holds <span class="num" data-source="deep-insights-v1.json#hardest_reviews.reviews[id=DEV-030].run_passes">1,004</span> saved passes. <span class="num" data-source="deep-insights-v1.json#determinism.configurations_total">252</span> configurations ran each prompt three times with fresh requests: <span class="num" data-source="deep-insights-v1.json#determinism.configurations.decision">50</span> decision-model configurations and <span class="num" data-source="deep-insights-v1.json#determinism.configurations.general">202</span> general ones. In 241 of them every pass returned at least 50 usable answers. The other 11 contain a partial or failed pass: AnyJev generated, Qwen 0.6B on the SDK, SemIf generated P1, OpenJev generated-on P2 pass 3 at 47 usable answers, and Jev's P2 pass 2, which stopped after <span class="num" data-source="jev-native-prompt-findings.json#passes.P2.fresh2.score.valid">17</span> answers on a rate-limit error.</p>
+  <p>An interrupted pass has no score of its own. Where a continuation finished the remaining reviews, Explore shows the combined result and marks it.</p>
+</section>
+
+<section class="reference-review section" id="findings" aria-labelledby="findings-title" data-surface="ink">
+  <h2 id="findings-title">Three labels are disputed.</h2>
+  <p>A person checked all 60 reference answers. Three stayed open after a second review.</p>
+  <dl class="method-disputed">
+    <div><dt>DEV-006</dt><dd><q>Same as last time. That thing happened again and it still isn't sorted.</q> The reference says can't tell on serious concern. The review proposes no, because "that thing" names no serious conduct.</dd></div>
+    <div><dt>DEV-013</dt><dd><q>A friend told me they heard this firm asks inappropriate questions. My own interview was straightforward, and I have no complaint about it.</q> The reference says neutral. Positive is defensible, and the guide does not fix that boundary.</dd></div>
+    <div><dt>DEV-030</dt><dd><q>The accessibility issue from the assessment has been dealt with, I think. Someone said it was fixed, but I don't know whether that means I get another assessment or just that they've closed the ticket.</q> The reference says neutral, and the sentiment is a judgment call.</dd></div>
+  </dl>
+  <p>Every published score uses the original labels. <a href="explore.html#reference-sensitivity">Scores under the alternative labels</a> are on Explore.</p>
+</section>
+
+<section class="section launch-wave" id="launch-wave" aria-labelledby="launch-wave-title" data-surface="ink">
+  <h2 id="launch-wave-title">18 decision-model releases in three weeks</h2>
+  <p>TypeSafe launched Jev on 15 September 2026. By 7 October model makers, gateways and the open-source community had shipped everything below. We list only dates we could confirm from the maker or the release itself.</p>
+  <div class="bm-scroll"><table class="bm-table">
+    <thead><tr><th scope="col">Date</th><th scope="col">Maker</th><th scope="col">Release</th><th scope="col">How it shipped</th></tr></thead>
+    <tbody>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[0].date">2026-09-15</td><td>TypeSafe</td><td>Jev 1.13</td><td>Hosted API</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[1].date">2026-09-18</td><td>Vercel</td><td>Jev on AI Gateway</td><td>API or gateway</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[3].date">2026-09-18</td><td>Community (TheoLeeCJ)</td><td>SemIf (ex-OpenJev)</td><td>Tooling</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[4].date">2026-09-22</td><td>Community (razorback16)</td><td>openjev vLLM serving</td><td>Tooling</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[5].date">2026-09-22</td><td>Nokia Applied Research</td><td>AnyJev</td><td>Tooling</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[6].date">2026-09-22</td><td>Upstage</td><td>Solar Decide</td><td>Hosted API</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[7].date">2026-09-24</td><td>Jared Palmer</td><td>Kev 1.0</td><td>Open weights</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[9].date">2026-09-24</td><td>Respan</td><td>Span-01</td><td>Hosted API</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[10].date">2026-09-24</td><td>Bespoke Labs</td><td>Nimble 9B</td><td>Open weights</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[11].date">2026-09-29</td><td>Ollama</td><td>Ollama 0.35 decision support</td><td>Tooling</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[13].date">2026-09-30</td><td>Jared Palmer</td><td>Kev-9B v2</td><td>Open weights</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[14].date">2026-10-01</td><td>Cloudflare</td><td>Clef and Clef-flash</td><td>Open weights</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[16].date">2026-10-01</td><td>AWS Strands Labs</td><td>Strands Decider 2B</td><td>Open weights</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[17].date">2026-10-01</td><td>Vercel</td><td>AI Gateway /v1/evaluate</td><td>API or gateway</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[18].date">2026-10-05</td><td>Liquid AI</td><td>d1 with vision</td><td>Hosted API</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[19].date">2026-10-06</td><td>OpenAI</td><td>Decisions API on gpt-6-luna</td><td>API or gateway</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[20].date">2026-10-07</td><td>Liquid AI</td><td>d1-3B and d1-omni-600M</td><td>Open weights</td></tr>
+      <tr><td class="bm-num" data-text-source="deck/data/timeline.json#entries[21].date">2026-10-07</td><td>Perplexity</td><td>Decider V1.1 27B</td><td>Hosted API</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="section study-cost" id="study-cost" aria-labelledby="study-cost-title" data-surface="ink">
+  <h2 id="study-cost-title">The whole study cost $12.65 on OpenRouter.</h2>
+  <p>OpenRouter billed $12.6537 over 15,135 saved generations, and that total includes the $<span class="num" data-source="deck/data/answer.json#seven_model_known_charge_usd.value">1.2013</span> the seven decision models cost over their series of nine passes each. Failed calls may add up to $3.8837 more.</p>
+  <p>A Jev pass through OpenRouter cost $<span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.knownCostUsd" data-round="4">0.0059</span> for <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.inputTokens">140,260</span> input tokens, and it matched <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh1.score.allFour">54</span>, <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh2.score.allFour">53</span> and <span class="num" data-source="jev-native-prompt-findings.json#passes.P0.fresh3.score.allFour">52</span> over three passes. On TypeSafe's direct API, Jev scored <span class="num" data-source="data.json#runs[id=typesafe-jev113-v2].metrics.all_four">54</span> on its first pass, and that route sends no bill.</p>
+  <p>Charges are the provider's known charge for returned answers; smoke tests and unknown charges are excluded. † marks an API-rate equivalent. An API-rate equivalent is what the same tokens cost at the published price, for routes that send no bill: the Claude and Codex subscriptions, Cloudflare's direct route and TypeSafe's direct API.</p>
+</section>
+
+<section class="section corrections" id="corrections" aria-labelledby="corrections-title" data-surface="ink">
+  <h2 id="corrections-title">Corrections</h2>
+  <div data-di-mount="corrections"></div>
+</section>
+
+<section class="section harness" id="harness" aria-labelledby="harness-title" data-surface="ink">
+  <h2 id="harness-title">classification-bench</h2>
+  <p>We rebuilt the scripts that ran this test as classification-bench, one runner that does the same on your own cases, labels and questions and keeps every request, answer, failure and charge. classification-bench is not public yet. Ask Adam for access.</p>
+  <details class="method-glossary"><summary>Terms used on this site</summary>
+    <dl>
+      <dt>Pass</dt><dd>One model, one prompt, one pass over all 60 reviews.</dd>
+      <dt>Configuration</dt><dd>One model with its route, effort and batch size held fixed.</dd>
+      <dt>Decision model</dt><dd>A model built to return one label from a fixed list in a single pass, through a native Choice interface.</dd>
+      <dt>Tokens</dt><dd>The pieces of text a provider bills for. Reasoning adds output tokens even when the answer is one word.</dd>
+      <dt>Request time</dt><dd>Measured by our client, network included. Providers did not report inference time, so the site makes no speed claim.</dd>
+    </dl>
+  </details>
+</section>
+
+<section class="section downloads" id="downloads" aria-labelledby="downloads-title" data-surface="ink">
+  <h2 id="downloads-title">Sources and downloads</h2>
+  <ul class="source-list">
+    <li><a href="./data.json">data.json</a> every original run, its answers and its cost</li>
+    <li><a href="./extended-run-catalog-v1.json">extended-run-catalog-v1.json</a> the repeat and continuation passes</li>
+    <li><a href="./supplemental-decision-runs-v1.json">supplemental-decision-runs-v1.json</a> the seven decision models, every pass</li>
+    <li><a href="./jev-native-prompt-findings.json">jev-native-prompt-findings.json</a> Jev's nine passes on OpenRouter</li>
+    <li><a href="./disputed-reviews-v1.json">disputed-reviews-v1.json</a> all 60 reviews with the seven decision models' answers</li>
+    <li><a href="./deep-insights-v1.json">deep-insights-v1.json</a> repeatability, calibration, the agreement rule and the corrections</li>
+    <li><a href="./native-agreement-policy-v1.json">native-agreement-policy-v1.json</a> all 21 decision-model pairs</li>
+    <li><a href="./deck/data/timeline.json">timeline.json</a> the launch dates above, each with the link where it was announced</li>
+    <li><a href="https://github.com/adambkovacs/candidate-experience-benchmark">The repository</a> the reviews, the reference, every saved answer and the scripts</li>
+  </ul>
+</section>
+</main><footer><img class="footer-logo" src="./site/aea-logo-horizontal-transparent-white.svg" alt="AI Enablement Academy" width="170" height="68" loading="lazy"><p><span class="footer-title">Candidate Experience Feedback Benchmark</span><br>A benchmark of 60 fictional candidate reviews by AI Enablement Academy.</p><nav aria-label="Footer"><a href="index.html">Read</a><a href="https://github.com/adambkovacs/candidate-experience-benchmark">Source repository</a><a href="#top">Back to top ↑</a></nav></footer>
 </body></html>

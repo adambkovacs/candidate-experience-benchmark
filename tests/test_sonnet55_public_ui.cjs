@@ -54,8 +54,8 @@ test('source-only Sonnet detail links recorded outputs without claiming comments
   vm.runInNewContext(source, context, {filename:'app.js'});
   context.__sonnet.state.data = {cases:[]};
   context.__sonnet.renderCases(context.__sonnet.sonnet55FirstPassRuns(report)[0]);
-  assert.match(panel.innerHTML, /has not loaded individual predictions/);
-  assert.match(panel.innerHTML, /Read the individual source records/);
+  assert.match(panel.innerHTML, /The 60 saved answers for this run are in its source file/);
+  assert.match(panel.innerHTML, /Source records ↗/);
   assert.doesNotMatch(panel.innerHTML, /No individual comments are available/);
 });
 
@@ -116,11 +116,11 @@ test('repeat explorer shows all four efforts and nine cells per effort without s
       report.cells[effort][pass][condition].development.state === 'complete')).length;
     assert.match(ui.get('repeat-summary').textContent, new RegExp(`${complete} of 9`));
     assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter /g) || []).length, complete);
-    assert.match(ui.get('repeat-interpretation').innerHTML, /36 planned development phases/);
+    assert.match(ui.get('repeat-interpretation').innerHTML, /Across four efforts, \d+ of 36 planned runs are complete/);
   }
   ui.select('low');
-  assert.match(ui.get('repeat-lead').textContent, /not replayed/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /API-equivalent calculation from saved usage/);
+  assert.match(ui.get('repeat-lead').textContent, /guard failure was kept and scored offline without a replay/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /API-rate price from saved usage/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Public rate ↗/);
   assert.match(ui.get('repeat-flips').innerHTML, /Pairwise changes between completed passes are listed below/);
   assert.match(ui.get('repeat-flips').innerHTML, /Pass 1 to Pass 2/);
@@ -152,8 +152,8 @@ test('closed Sonnet scores retain missing usage without claiming complete tokens
   const ui = await renderRepeats(partial);
   const usage = ui.get('repeat-usage-body').innerHTML;
   assert.match(usage, /Known usage for 5 of 6 requests/);
-  assert.match(usage, /1 request without priced usage; full estimate unknown/);
-  assert.match(usage, /6 requests without priced usage; full estimate unknown/);
+  assert.match(usage, /1 request without priced usage; full API-rate price unknown/);
+  assert.match(usage, /6 requests without priced usage; full API-rate price unknown/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter /g) || []).length, 9);
 });
 
@@ -181,7 +181,7 @@ test('unfinished Sonnet cells keep stopped, running and untouched states distinc
   assert.equal((chart.match(/<meter /g) || []).length, 6);
   assert.match(usage, /Pass 1 \(stopped; unscored\)/);
   assert.match(usage, /37 saved records of 60/);
-  assert.match(usage, /Known partial usage for 4 priced requests; not a subscription charge/);
+  assert.match(usage, /Known partial usage for 4 priced requests/);
   assert.match(usage, /Pass 3 \(not started\)/);
 });
 

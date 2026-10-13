@@ -15,7 +15,7 @@ function adapter(payload) {
   const context = { document: { querySelector: id => id === '#clef-first-pass-results' ? panel : null }, URL };
   vm.runInNewContext(source, context, { filename: 'app.js' });
   const runs = context.__clef.clefFirstPassRuns(payload);
-  context.__clef.renderClefFirstPass(runs, payload);
+  context.__clef.renderClefFirstPass(runs, payload, 54);
   return { runs, html: panel.innerHTML };
 }
 
@@ -29,7 +29,10 @@ test('two closed native P0 rows keep exact counts, records and source links', ()
   assert.ok(runs.every(run => /^[0-9a-f]{64}$/.test(run.sourceRecordSha256)));
   assert.match(html, /53<small>\/60/);
   assert.match(html, /45<small>\/60/);
-  assert.match(html, /At least one label differed between the models on <strong>12<\/strong> of the same 60 comments/);
+  assert.match(html, /The two models disagreed on at least one label for <strong[^>]*>12<\/strong> of 60 reviews/);
+  assert.match(html, /Cloudflare's direct route, which sends no bill/);
+  assert.match(html, /OpenRouter charged exactly that for the passes in the results table, where Clef matched <span[^>]*>54<\/span>\./);
+  assert.doesNotMatch(html, /Saved run/);
 });
 
 test('price estimates, unknown bounds, tokens and timing remain distinct', () => {
@@ -39,7 +42,10 @@ test('price estimates, unknown bounds, tokens and timing remain distinct', () =>
   assert.deepEqual(Array.from(runs, run => run.cost.estimatedUsd), [0.03184656, 0.01194246]);
   assert.deepEqual(Array.from(runs, run => run.cost.unknownUpperBoundUsd), [0.94374, 0.35394]);
   assert.ok(runs.every(run => run.cost.actualUsd === null && run.timing.inferenceSeconds === null));
-  assert.match(html, /Observed charge unavailable/);
+  assert.match(html, /\$0\.0318†<\/strong> for the pass\./);
+  assert.match(html, /\$0\.0119†<\/strong> for the pass\./);
+  assert.match(html, /the published price for the same <span[^>]*>132,694<\/span> input tokens\./);
+  assert.doesNotMatch(html, /Observed charge unavailable|provisional/);
   assert.doesNotMatch(html, /inference speed|provider billed/);
 });
 
@@ -47,7 +53,7 @@ test('partial or changed source evidence cannot become a scored Clef row', () =>
   const changed = structuredClone(report);
   changed.models.clef.records = 59;
   assert.equal(adapter(changed).runs.length, 0);
-  assert.match(adapter(changed).html, /unavailable from the saved evidence/);
+  assert.match(adapter(changed).html, /Clef first-pass results did not load/);
   const changedHash = structuredClone(report);
   changedHash.sourceSha256['results/clef-native-v1/clef/fresh1/P0/development/records.jsonl'] = 'bad';
   assert.equal(adapter(changedHash).runs.length, 0);
@@ -59,8 +65,8 @@ test('partial or changed source evidence cannot become a scored Clef row', () =>
 test('public section links source, describes one pass, and separates provider confidence', () => {
   const html = fs.readFileSync(path.join(site, 'explore.html'), 'utf8');
   assert.match(html, /id="clef-first-pass-results"/);
-  assert.match(html, /one closed P0 pass/);
-  assert.match(html, /provider's separate "confidence" field/);
-  assert.match(html, /clef-findings\.json/);
-  assert.match(html, /CLEF_FINDINGS_2026-10-02\.md/);
+  assert.match(html, /each ran one plain-prompt pass on Cloudflare's direct route/);
+  assert.match(html, /runs\[id=clef-openrouter-native-fresh1-p0\]\.metrics\.all_four">54<\/span> of 60/);
+  assert.match(app, /fetch\('\.\/clef-findings\.json'/);
+  assert.match(app, /<p class="clef-cost"><strong[^>]*>\$\{money\(run\.cost\.estimatedUsd\)\}†<\/strong> for the pass\.<\/p>/);
 });

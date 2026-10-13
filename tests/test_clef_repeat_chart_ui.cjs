@@ -31,13 +31,13 @@ test('the nine cells retain clean scores and separate interruption states', asyn
   for (const [score, count] of [[53, 3], [52, 1], [51, 2], [49, 1]]) {
     assert.equal((html.match(new RegExp(`<strong>${score}<span> \/ 60<\/span><\/strong>`, 'g')) || []).length, count);
   }
-  assert.match(html, /59 valid · 1 unknown/);
+  assert.match(html, /59 valid, 1 unknown/);
   assert.match(html, /48 known four-label matches/);
-  assert.match(html, /1 unknown · 59 not sent/);
+  assert.match(html, /1 unknown, 59 not sent/);
   assert.doesNotMatch(html, /<strong>0<span> \/ 60/);
   assert.equal((html.match(/<strong>Interrupted<\/strong>/g) || []).length, 2);
-  assert.match(html, /Seven full runs\. Two interrupted\./);
-  assert.match(html, /all four answers matched the provisional reference, out of the same 60 reviews/);
+  assert.match(html, /Clef: seven full runs\. Two interrupted\./);
+  assert.match(html, /all four answers matched the reference, out of 60\. These passes ran on Cloudflare Workers AI directly/);
   assert.match(html, /P0 stayed fixed/);
   assert.match(html, /P1 changed once/);
   assert.match(html, /Only one P2 run returned all 60 answers/);
@@ -73,7 +73,7 @@ test('prompt comparisons distinguish gains from losses and refuse inconsistent t
   assert.match(html, /Did the added instructions improve the answers/);
   assert.match(html, /Pass 1: P0 → P1<\/th><td>1 \/ 60<\/td><td>2 \/ 60/);
   assert.match(html, /Pass 2: P0 → P2<\/th><td>0 \/ 60<\/td><td>4 \/ 60/);
-  assert.match(html, /Four pairs involving interrupted P2 runs are excluded/);
+  assert.match(html, /Four pairs with an interrupted P2 run are left out/);
   const broken = structuredClone(report);
   broken.matchedPromptDifferences[0].gainedAllFour += 1;
   assert.equal((await render(broken)).html, '<p>Fallback evidence text</p>');

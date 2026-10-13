@@ -116,7 +116,7 @@
       if (changed) {
         cell.className = 'changed';
         cell.href = `?run=typesafe-jev113-v2&case=${id}#inspect`;
-        cell.setAttribute('aria-label', `Inspect Jev disagreement on ${id}`);
+        cell.setAttribute('aria-label', `Jev disagreement on ${id}`);
         cell.title = `Inspect ${id}`;
       } else cell.setAttribute('aria-hidden', 'true');
       fragment.appendChild(cell);
@@ -151,7 +151,7 @@
       select.addEventListener('change',show); show();
     } catch (error) {
       select.replaceChildren(new Option('Examples unavailable',''));
-      document.getElementById('story-change-text').textContent = 'The detailed examples could not load. Use the saved-answer source link below.';
+      document.getElementById('story-change-text').textContent = 'The detailed examples did not load.';
     }
   }
   loadChangedExamples();
@@ -190,10 +190,10 @@
 (() => {
   'use strict';
   const explanations = {
-    inputs: ['Fictional feedback, including difficult cases', "The 60 comments include praise, complaints, mixed experiences and unclear or off-topic text. They describe the candidate's experience of recruitment. They are not interviewers' assessments of candidates.", '#method', 'Read how the examples and reference answers were prepared'],
-    decisions: ['Four questions, because each answer leads to a different action', 'Sentiment describes the experience. Follow-up asks whether someone needs to respond. Serious concern covers issues such as harassment, discrimination or privacy breaches. Testimonial potential asks whether the comment could support a positive quote; it is not permission to publish it.', '#inspect', 'Read a comment and all four answers'],
-    prompts: ['We changed the instructions, not the comments', 'P0 supplies the task, label definitions and response format. P1 adds a classifier role and explicit instructions. P2 adds step-by-step decision rules. Jev uses versions of its choice questions; chat models receive chat instructions.', '#explore', 'Compare the three instruction sets'],
-    repeats: ['We asked again to check whether the answers changed', 'The repeat study plans three separate passes for each eligible setup and instruction set. Some are still unfinished. Compare individual answers as well as totals: the same score can hide different decisions. Repeating 60 comments does not create new independent examples.', '#repeat-analysis', 'See completed passes and changed answers']
+    inputs: ['Sixty fictional comments, some written to be hard', "The reference marks 9 comments as testimonial-worthy, 25 as serious concerns and 35 as needing follow-up; others are mixed, unclear or off-topic. Each describes a candidate's experience of recruitment.", '#method', 'How the comments and reference answers were prepared'],
+    decisions: ['Four questions, because each answer leads to a different action', 'Sentiment describes the experience. Follow-up asks whether someone needs to respond. Serious concern covers issues such as harassment, discrimination or privacy breaches. Testimonial potential asks whether the comment could support a positive quote; it is not permission to publish it.', '#inspect', 'One comment and all four answers'],
+    prompts: ['Three instruction sets on the same comments', 'P0 supplies the task, label definitions and response format. P1 adds a classifier role and explicit instructions. P2 adds step-by-step decision rules. Jev uses versions of its choice questions; chat models receive chat instructions.', '#explore', 'The three instruction sets'],
+    repeats: ['Each setup ran up to three times', 'Every eligible setup and instruction set gets three separate passes, and some are unfinished. The same score can hide different answers.', '#repeat-analysis', 'Completed passes and changed answers']
   };
   const explanation = document.getElementById('study-explanation');
   const steps = [...document.querySelectorAll('[data-study-step]')];
@@ -236,6 +236,6 @@
       });
     });
   }).catch(() => {
-    document.getElementById('story-prompt-change').textContent = 'The comparison controls could not load. The chart above shows the published P1 to P2 result. Follow the comparison link for source records.';
+    document.getElementById('story-prompt-change').textContent = 'The comparison controls did not load. The chart shows the published P1 to P2 result.';
   });
 })();

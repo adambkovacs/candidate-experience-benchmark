@@ -60,11 +60,11 @@
   function render(groups) {
     const scale = Math.max(4, ...groups.flatMap(items => items.flatMap(item => [item.lost, item.gained])));
     target.innerHTML = `<figure class="liquid-prompt-chart__figure" aria-labelledby="liquid-prompt-chart-title">
-      <div class="liquid-prompt-chart__heading"><p class="liquid-prompt-chart__kicker">Liquid d1 / native Choice</p><h3 id="liquid-prompt-chart-title">Prompt changes, review by review</h3><p>Each comparison uses the same 60 development reviews. A changed answer is separate from a gained or lost all-four match.</p></div>
+      <div class="liquid-prompt-chart__heading"><h3 id="liquid-prompt-chart-title">Liquid d1: prompt changes, review by review</h3><p>Bars count reviews that gained or lost an all-four match. A review can change an answer without either.</p></div>
       <div class="liquid-prompt-chart__legend" aria-label="Bar legend"><span><i class="liquid-prompt-chart__swatch liquid-prompt-chart__swatch--loss" aria-hidden="true"></i> Lost all-four match</span><span><i class="liquid-prompt-chart__swatch liquid-prompt-chart__swatch--gain" aria-hidden="true"></i> Gained all-four match</span></div>
       <p class="liquid-prompt-chart__axis">Bar scale: 0 to ${scale} reviews on each side</p>
       <div class="liquid-prompt-chart__groups">${groups.map((items, index) => `<section aria-labelledby="liquid-prompt-pass-${index + 1}"><h4 id="liquid-prompt-pass-${index + 1}">Pass ${index + 1}</h4><ol>${items.map(item => row(item, scale)).join('')}</ol></section>`).join('')}</div>
-      <figcaption>Matches use the frozen provisional reference answers. The three passes repeat these reviews; they are not 180 independent cases. <a href="${source}">Read the Liquid findings and source hashes</a>.</figcaption>
+      <figcaption><a href="${source}">Liquid findings</a></figcaption>
     </figure>`;
   }
 
@@ -74,6 +74,6 @@
     if (!response.ok) throw Error('Liquid findings unavailable');
     return response.json();
   }).then(feed => render(readPairs(feed))).catch(() => {
-    target.innerHTML = '<p class="liquid-prompt-chart__unavailable" role="alert">The Liquid prompt comparison could not be loaded. <a href="./liquid-d1-native-full-findings.json">Open the findings file</a>.</p>';
+    target.innerHTML = '<p class="liquid-prompt-chart__unavailable" role="alert">The Liquid prompt comparison did not load. <a href="./liquid-d1-native-full-findings.json">Liquid findings</a></p>';
   }).finally(() => target.setAttribute('aria-busy', 'false'));
 })();

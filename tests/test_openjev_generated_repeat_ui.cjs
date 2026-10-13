@@ -105,7 +105,7 @@ test('optional generated feed accepts only 404 and rejects malformed or server r
   assert.match(absent.get('repeat-results').innerHTML, /existing-fixture/);
   for (const [feed, status] of [[null, 200], [{schema: 'wrong'}, 200], [null, 500]]) {
     const broken = await render(feed, status);
-    assert.match(broken.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(broken.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });
 
@@ -116,8 +116,8 @@ for (const closed of [0, 1, 2, 9]) {
     assert.match(ui.get('repeat-lead').textContent, new RegExp(`${closed} of 9 planned prompt/pass combinations`));
     assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, closed);
     assert.doesNotMatch(ui.get('repeat-usage-body').innerHTML, /\$0\.00/);
-    assert.match(ui.get('repeat-lead').textContent, /Requested-on effective reasoning is not measured/);
-    if (closed !== 9) assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range unavailable/);
+    assert.match(ui.get('repeat-lead').textContent, /Whether requested-on actually reasoned was not measured/);
+    if (closed !== 9) assert.match(ui.get('repeat-chart').innerHTML, /No three-pass range until all three passes finish/);
     ui.select('openjev-generated-on-fresh-generated-p0p1p2');
     assert.match(ui.get('repeat-lead').textContent, /0 of 9 planned prompt\/pass combinations/);
   });

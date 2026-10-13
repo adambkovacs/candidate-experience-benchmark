@@ -76,8 +76,8 @@ test('five local configurations show fresh passes with closed-only scores', asyn
   for (const name of names) assert.match(ui.get('repeat-results').innerHTML, new RegExp(name));
   assert.match(ui.get('repeat-lead').textContent, /2 of 9 planned prompt\/pass combinations/);
   assert.match(ui.get('repeat-lead').textContent, /three fresh local passes/);
-  assert.match(ui.get('repeat-lead').textContent, /Earlier local results are observational/);
-  assert.match(ui.get('repeat-lead').textContent, /loaded engine version, model load time and local cost are unknown/);
+  assert.match(ui.get('repeat-lead').textContent, /Earlier local results are not counted here/);
+  assert.match(ui.get('repeat-lead').textContent, /engine version, model load time and local cost were not recorded/);
   const chart = ui.get('repeat-chart').innerHTML;
   assert.equal((chart.match(/class="repeat-bar-row"/g) || []).length, 9);
   assert.match(chart, /Fresh pass 1/);
@@ -87,7 +87,7 @@ test('five local configurations show fresh passes with closed-only scores', asyn
   assert.equal((chart.match(/<meter/g) || []).length, 2);
   assert.match(ui.get('repeat-deltas').innerHTML, /<td>-2<\/td>/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /42\.3/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
 });
 
 test('three-pass local changes render only when the feed supplies them', async () => {
@@ -110,5 +110,5 @@ test('only an unpublished local feed 404 is optional', async () => {
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
   const unavailable = await render(null, 500, old);
-  assert.match(unavailable.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(unavailable.get('repeat-results').innerHTML, /Repeat results did not load/);
 });

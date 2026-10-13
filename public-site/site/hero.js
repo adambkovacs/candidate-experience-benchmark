@@ -8,7 +8,7 @@ const frame = stage && stage.querySelector('.hero-stage-frame');
 const reduceQuery = matchMedia('(prefers-reduced-motion: reduce)');
 
 const COLS = 10, ROWS = 6, N = COLS * ROWS;
-const SETTLE = 1.7, STAGGER = 0.7, FOV = 35, TILT = -0.3, SIZE = 0.28; // SIZE in grid units (1 unit = point spacing)
+const SETTLE = 0.7, STAGGER = 0.25, FOV = 35, TILT = -0.3, SIZE = 0.28; // SIZE in grid units (1 unit = point spacing)
 const rand = k => { const x = Math.sin(k * 91.7 + 13.1) * 43758.5453; return x - Math.floor(x); }; // seeded, as in deck/scene.js
 const easeOut = p => 1 - (1 - p) ** 3;
 // Raw sRGB triples: the shader writes them straight to the sRGB canvas, so no colour-space conversion on the way.
@@ -24,7 +24,7 @@ const webgl2 = () => {
     return !!probe;
   } catch { return false; }
 };
-const idle = cb => ('requestIdleCallback' in globalThis ? requestIdleCallback(cb, {timeout: 700}) : setTimeout(cb, 120));
+const idle = cb => ('requestIdleCallback' in globalThis ? requestIdleCallback(cb, {timeout: 200}) : setTimeout(cb, 120));
 
 if (frame && !reduceQuery.matches && webgl2()) {
   const wake = new IntersectionObserver(entries => {
@@ -73,7 +73,7 @@ async function boot() {
     grid.set([col - (COLS - 1) / 2, (ROWS - 1) / 2 - row, 0], i * 3);
     field.set([(rand(i * 3) - 0.5) * 17, (rand(i * 3 + 1) - 0.5) * 10, (rand(i * 3 + 2) - 0.5) * 9], i * 3);
     drift.set([(rand(i + 101) - 0.5) * 3, (rand(i + 202) - 0.5) * 2, rand(i + 303) * 3], i * 3);
-    begin[i] = 0.3 + (col / (COLS - 1)) * STAGGER + rand(i + 404) * 0.15; // left to right over 0.7s, seeded jitter
+    begin[i] = 0.05 + (col / (COLS - 1)) * STAGGER + rand(i + 404) * 0.05; // left to right over 0.25s, seeded jitter
   }
   const paper = rgb('#fbfcfe');
   const targets = Array.from({length: N}, (_, i) => rgb(diff.has(i) ? '#f57c00' : i === ring ? '#9cc3f2' : '#fbfcfe'));
@@ -101,8 +101,8 @@ async function boot() {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     const tan = Math.tan(THREE.MathUtils.degToRad(FOV / 2));
-    // Keep the whole grid (9 x 5 units plus points) in frame with margin, whichever side binds.
-    const depth = Math.max(6.6 / (2 * tan), 10.8 / (2 * tan * camera.aspect));
+    // Keep the whole grid (9 x 5 units) in frame with one point spacing of margin on every side, plus room for the pointer drift.
+    const depth = Math.max(7.6 / (2 * tan), 11.8 / (2 * tan * camera.aspect));
     camera.position.set(0, 0, depth);
     camera.updateProjectionMatrix();
     uniforms.uScale.value = h * renderer.getPixelRatio() / (2 * tan);
@@ -117,7 +117,10 @@ async function boot() {
   const follow = event => { aim.x = event.clientX / innerWidth - 0.5; aim.y = event.clientY / innerHeight - 0.5; };
   if (matchMedia('(pointer: fine)').matches) addEventListener('pointermove', follow, {passive: true});
 
-  const born = performance.now();
+  // A late first frame (cold start, slow device) skips the drift-in and draws the settled grid at once, so the orange
+  // marks are at full strength by about 2s after navigation: 0.9s plus the 1.05s worst-case settle at most.
+  const settled = 0.35 + SETTLE;
+  const born = performance.now() - (performance.now() > 900 ? settled * 1000 : 0);
   let raf = 0, onScreen = true, first = true;
   const draw = now => {
     raf = requestAnimationFrame(draw);
@@ -127,7 +130,9 @@ async function boot() {
     const intro = easeOut(clamp01(t / 0.8));
     for (let i = 0; i < N; i++) {
       const settle = easeOut(clamp01((t - begin[i]) / SETTLE));
-      const landed = clamp01((t - begin[i] - SETTLE) / 0.6);
+      // Colour lands while the point settles. Worst case: begin 0.35s + 0.4s + 0.3s = 1.05s after the first frame, ring included,
+      // the same as the position settle (0.35s + 0.7s). The deck settles in 0.7s (deck/MOTION.md).
+      const landed = clamp01((t - begin[i] - 0.4) / 0.3);
       for (let a = 0; a < 3; a++) {
         const k = i * 3 + a;
         pos[k] = field[k] + (grid[k] - field[k]) * settle + drift[k] * scroll + Math.sin(t * 0.4 + k * 1.7) * 0.03 * settle;
@@ -141,7 +146,7 @@ async function boot() {
     if (ring !== undefined) {
       ringMesh.position.set(pos[ring * 3], pos[ring * 3 + 1], pos[ring * 3 + 2] + 0.01);
       ringMesh.scale.setScalar(1 + pulse);
-      ringMaterial.opacity = clamp01((t - begin[ring] - SETTLE) / 0.6) * (1 - scroll) * 0.95;
+      ringMaterial.opacity = clamp01((t - begin[ring] - 0.4) / 0.3) * (1 - scroll) * 0.95;
     }
     camera.position.x += (aim.x * 0.8 - camera.position.x) * 0.05;
     camera.position.y += (-aim.y * 0.5 - camera.position.y) * 0.05;

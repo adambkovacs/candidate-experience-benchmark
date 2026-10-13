@@ -65,7 +65,7 @@ test('optional AnyJev feed preserves existing results on 404 but fails on server
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
   const broken = await render(null, 500);
-  assert.match(broken.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(broken.get('repeat-results').innerHTML, /Repeat results did not load/);
 });
 
 test('pending native raw pass renders one condition and explicit limitations', async () => {
@@ -76,10 +76,10 @@ test('pending native raw pass renders one condition and explicit limitations', a
   assert.match(ui.get('repeat-chart').innerHTML, /Not completed/);
   assert.doesNotMatch(ui.get('repeat-condition').innerHTML, /P1|P2/);
   assert.equal(ui.get('repeat-deltas').innerHTML, '');
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not correctness/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not observed hashes/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not isolated inference time/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not correctness|Provisional v0\.2/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not observed hashes/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not isolated inference time/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
 });
 
 test('closed native raw IDs stay plain text without unsupported historical inspect links', async () => {

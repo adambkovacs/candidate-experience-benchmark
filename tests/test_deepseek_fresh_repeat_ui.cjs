@@ -85,13 +85,13 @@ test('actual provider tokens, charges, and client duration appear in closed deve
     assert.ok(row.includes(usage.tokens.prompt_tokens.toLocaleString('en-US')), `${condition} prompt tokens`);
     assert.ok(row.includes(usage.tokens.completion_tokens.toLocaleString('en-US')), `${condition} completion tokens`);
     const cost = '$' + Number(usage.actualCostUsd).toLocaleString('en-US',
-      {minimumFractionDigits: 2, maximumFractionDigits: 8});
+      {minimumFractionDigits: 4, maximumFractionDigits: 4});
     assert.ok(row.includes(cost), `${condition} observed provider charge`);
     assert.ok(row.includes(usage.requestSecondsTotal.toFixed(1)), `${condition} client HTTP seconds`);
-    assert.match(row, /<td>Unavailable<\/td>/, `${condition} has no invented token-price estimate`);
+    assert.match(row, /<td>Unknown<\/td>/, `${condition} has no invented token-price estimate`);
   }
   if (actual.series[0].passes.fresh1.P2?.status !== 'completed') {
-    assert.match(usageRow(ui, 'P2', 'Fresh pass 1'), /Unavailable/);
+    assert.match(usageRow(ui, 'P2', 'Fresh pass 1'), /Unknown/);
   }
 });
 
@@ -111,16 +111,16 @@ test('an unclosed slot cannot expose stale score, tokens, charge, or duration', 
   const row = usageRow(ui, 'P2', 'Fresh pass 1');
   assert.ok(row);
   assert.doesNotMatch(row, /999|\$999/);
-  assert.match(row, /Unavailable/);
+  assert.match(row, /Unknown/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /#inspect|<a\s/);
 });
 
 test('optional 404 remains usable; 500 and malformed DeepSeek payloads fail visibly', async () => {
   const missing = await render(null, 404, actual.series[0].configuration);
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
-  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
+  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /did not load/);
   const failed = await render(null, 500, actual.series[0].configuration);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   for (const payload of [
     {series: [actual.series[0]]},
     {...actual, schema: 'unexpected'},
@@ -128,6 +128,6 @@ test('optional 404 remains usable; 500 and malformed DeepSeek payloads fail visi
     {...actual, series: [{...actual.series[0], method: 'historical'}]},
   ]) {
     const malformed = await render(payload, 200, actual.series[0].configuration);
-    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

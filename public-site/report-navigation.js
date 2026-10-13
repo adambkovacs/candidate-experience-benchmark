@@ -4,7 +4,7 @@
   const $=id=>document.getElementById(id);
   const values=new Set(['decision','general','all']);
   const search=new URL(location.href).searchParams;
-  let cohort=values.has(search.get('cohort')) ? search.get('cohort') : search.has('run') ? 'all' : 'decision';
+  let cohort=values.has(search.get('cohort')) ? search.get('cohort') : 'all'; // W1 exception at the lead's request: every model by default
   const advanced=new Set(['tuned','rules','unknown']);
   let customCategory=advanced.has(search.get('category')) ? search.get('category') : '';
   if(customCategory) cohort='all';
@@ -29,13 +29,11 @@
     document.querySelectorAll('#report-cohort [data-cohort]').forEach(button=>button.setAttribute('aria-pressed',String(!customCategory&&button.dataset.cohort===cohort)));
     if(ready){
       const count=savedCount(runs,customCategory||cohort);
-      $('report-lens-count').textContent=`${count} closed saved ${count===1?'run':'runs'} ${customCategory?'in this custom category':'in this view'} · the same 60 reviews per run`;
+      $('report-lens-count').textContent=`Showing ${count} ${count===1?'run':'runs'}${customCategory?' in this category':''}.`;
     }
     $('report-lens-note').textContent=customCategory
-      ? `Custom category: ${globalThis.BenchmarkCategories?.categories?.[customCategory]||customCategory}. The chart, ranking and run explorer use this same filter. Choose a view above to reset it.`
-      : cohort==='all'
-      ? 'All models here means the merged saved-run explorer. Prompt, repeat and other report-only evidence remains in the detailed sections below. Each repeat reuses the same 60 reviews.'
-      : 'A model can appear in more than one category. Each run appears once within a view; repeat passes reuse the same 60 reviews.';
+      ? `Custom category: ${globalThis.BenchmarkCategories?.categories?.[customCategory]||customCategory}. The chart, ranking and run list all use it.`
+      : '';
   }
   function syncControls(){
     if(!ready) return;
@@ -71,7 +69,7 @@
     paint();syncControls();
     globalThis.dispatchEvent(new CustomEvent('benchmark:cohortchange',{detail:{cohort,category:customCategory,initial:true}}));
   },{once:true});
-  globalThis.addEventListener('benchmark:saved-runs-error',()=>{$('report-lens-count').textContent='The saved-run view could not load. Source reports remain linked below.';},{once:true});
+  globalThis.addEventListener('benchmark:saved-runs-error',()=>{$('report-lens-count').textContent='The saved runs did not load.';},{once:true});
   globalThis.BenchmarkReportNavigation=Object.freeze({getCohort:()=>cohort,setCohort,savedCount});
   paint();
 })();

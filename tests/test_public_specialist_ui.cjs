@@ -33,12 +33,12 @@ function fixture() {
 test('the all-model ranking can show every route and saved specialist outcome', () => {
   assert.match(html, /<select id="overview-surface"><option value="all">All routes<\/option>/);
   assert.match(html, /id="overview-specialists"[^>]*>See local routes/);
-  assert.match(html, /A complete run saved a result for all 60 comments/);
+  assert.match(html, /One row per setup, best pass first\./);
   assert.doesNotMatch(html, /id="overview-hosted"/);
   const {ui, elements} = fixture();
   ui.state.cohort = 'all';
   ui.renderOverview();
-  assert.match(elements['#overview-count'].textContent, /4 of 4 complete P0 runs shown/);
+  assert.match(elements['#overview-count'].textContent, /4 of 4 complete P0 setups shown/);
   assert.match(elements['#overview-rows'].innerHTML, /semif-direct/);
   assert.match(elements['#overview-rows'].innerHTML, /laya-expanded/);
   assert.doesNotMatch(elements['#overview-rows'].innerHTML, /semif-partial/);
@@ -49,14 +49,14 @@ test('local route filter keeps complete specialists including invalid outcomes',
   ui.state.cohort = 'all';
   elements['#overview-surface'].value = 'local';
   ui.renderOverview();
-  assert.match(elements['#overview-count'].textContent, /2 of 2 complete local P0 runs shown/);
+  assert.match(elements['#overview-count'].textContent, /2 of 2 complete local P0 setups shown/);
   assert.match(elements['#overview-rows'].innerHTML, /semif-direct/);
   assert.match(elements['#overview-rows'].innerHTML, /laya-expanded/);
   assert.doesNotMatch(elements['#overview-rows'].innerHTML, /hosted/);
   assert.doesNotMatch(elements['#overview-rows'].innerHTML, /typesafe-jev113-v2/);
   elements['#overview-surface'].value = 'hosted';
   ui.renderOverview();
-  assert.match(elements['#overview-count'].textContent, /2 of 2 complete hosted \/ API P0 runs shown/);
+  assert.match(elements['#overview-count'].textContent, /2 of 2 complete hosted \/ API P0 setups shown/);
   assert.doesNotMatch(elements['#overview-rows'].innerHTML, /semif-direct/);
 });
 
@@ -71,4 +71,17 @@ test('report-backed local routes do not appear under hosted results', () => {
   elements['#overview-surface'].value = 'hosted';
   ui.renderOverview();
   assert.doesNotMatch(elements['#overview-rows'].innerHTML,/extended-local-stage/);
+});
+
+test('repeat passes of one setup collapse into one ranking row that lists every pass', () => {
+  const {ui, elements} = fixture();
+  ui.state.cohort = 'all';
+  ui.state.data.runs = [1, 2, 3].map(pass => ({id: `clef-openrouter-native-fresh${pass}-p0`, repeatPass: `fresh${pass}`,
+    condition: 'P0', complete: true, records: 60, valid: 60, metrics: {all_four: [54, 53, 52][pass - 1]}, surface: 'OpenRouter', model: 'Clef'}));
+  ui.renderOverview();
+  assert.match(elements['#overview-count'].textContent, /1 of 1 complete P0 setups shown/);
+  assert.equal((elements['#overview-rows'].innerHTML.match(/data-overview-run=/g) || []).length, 1);
+  assert.match(elements['#overview-rows'].innerHTML, /data-overview-run="clef-openrouter-native-fresh1-p0"/);
+  assert.match(elements['#overview-rows'].innerHTML, /3 passes: 54, 53, 52/);
+  assert.match(elements['#overview-rows'].innerHTML, /54 \/ 60/);
 });

@@ -82,10 +82,10 @@ test('stopped phase keeps known charges distinct from its unknown bound', async 
   assert.match(stopped, /stopped, unscored/);
   assert.match(stopped, /2 attempted/);
   assert.match(stopped, /1 of 2 reported/);
-  assert.match(stopped, /\$0\.00028017 known/);
-  assert.match(stopped, /Unknown charge up to \$0\.01974272; not observed/);
+  assert.match(stopped, /\$0\.0003<br>/);
+  assert.match(stopped, /plus up to \$0\.0197 unrecorded/);
   const firstP2 = usageRow(ui, 'P2', 'Fresh pass 1');
-  assert.match(firstP2, /Unknown charge up to \$0\.01974272; not observed/);
+  assert.match(firstP2, /plus up to \$0\.0197 unrecorded/);
   const unsent = usageRow(ui, 'P1', 'Fresh pass 3');
   assert.match(unsent, /Not sent/);
   assert.doesNotMatch(ui.get('repeat-usage-body').innerHTML, /NaN|undefined/);
@@ -95,7 +95,7 @@ test('optional absence remains usable but malformed or failed feed is visible', 
   const absent = await render(null, 404, cleanId);
   assert.match(absent.get('repeat-results').innerHTML, /repeat-config/);
   const failed = await render(null, 500, cleanId);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   for (const payload of [
     {...saved, completedConditions: 6},
     {...saved, stoppedPhases: [{...saved.stoppedPhases[0], score: {allFour: 60}}]},
@@ -107,6 +107,6 @@ test('optional absence remains usable but malformed or failed feed is visible', 
       P0: {status: 'completed', score: {allFour: 60}}}}}
   ]) {
     const malformed = await render(payload);
-    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

@@ -66,7 +66,7 @@ test('descriptive feed replaces duplicate preliminary low series and keeps other
   assert.match(selector, new RegExp(`value="${id}"`));
   assert.doesNotMatch(selector, new RegExp(`value="${genericId}"`));
   assert.match(selector, /value="openrouter-paid-deepseek-v41-flash-off"/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not a clean matched-three series/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /P2 has no score because 11 of its 60 comments were never sent/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/repeat-bar-row/g) || []).length, 9);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 2);
   assert.match(ui.get('repeat-chart').innerHTML, /Stopped: 46 valid, 1 invalid, 2 service errors, 11 unsent; no score/);
@@ -81,10 +81,10 @@ test('P2 stays unscored with partial usage and separate unknown bounds', async (
   const row = usageRow(ui, 'P2', 'Fresh pass 1');
   assert.match(row, /stopped, unscored/);
   assert.match(row, /49 attempted/);
-  assert.match(row, /Partial; see accounting note above/);
-  assert.doesNotMatch(row, /0\.2138112/);
-  assert.match(ui.get('repeat-lead').textContent, /DEV-040 and DEV-049 each retain a separate unknown-charge upper bound/);
-  assert.match(ui.get('repeat-lead').textContent, /private provider bytes cannot be rechecked here/);
+  assert.match(row, /<td>Partial<\/td>/);
+  assert.doesNotMatch(row, /0\.2138/);
+  assert.match(ui.get('repeat-lead').textContent, /plus up to \$0\.1069 unrecorded for each of DEV-040 and DEV-049/);
+  assert.match(ui.get('repeat-lead').textContent, /Charges across the two continuations total \$0\.0431/);
   assert.match(ui.get('repeat-deltas').innerHTML, /Not completed/);
   assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /P2 Fresh pass 1.*?<meter/);
 });
@@ -94,7 +94,7 @@ test('optional 404 retains preliminary series; 500 and malformed feed fail visib
   assert.match(missing.get('repeat-results').innerHTML, new RegExp(`value="${genericId}"`));
   assert.doesNotMatch(missing.get('repeat-results').innerHTML, new RegExp(`value="${id}"`));
   const failed = await render(null, 500, id);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   const bad = [];
   let item = clone(actual); item.schema = 'wrong'; bad.push(item);
   item = clone(actual); item.series[0].seriesId = genericId; bad.push(item);
@@ -108,6 +108,6 @@ test('optional 404 retains preliminary series; 500 and malformed feed fail visib
   item = clone(actual); item.series[0].secondInterruptionCheckpoint.publicSnapshot.sha256 = '0'; bad.push(item);
   for (const payload of bad) {
     const ui = await render(payload, 200, id);
-    assert.match(ui.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(ui.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

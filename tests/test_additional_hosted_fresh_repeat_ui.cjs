@@ -89,7 +89,7 @@ test('both additional hosted series are separate from historical results and sho
   const row = usageRow(ui, 'P0', 'Fresh pass 1');
   assert.match(row, /1,234/);
   assert.match(row, /456/);
-  assert.match(row, /\$0\.01234/);
+  assert.match(row, /\$0\.0123/);
   assert.match(row, /87\.6/);
   ui.select(`${low}-fresh-matched3-v2`);
   assert.match(ui.get('repeat-chart').innerHTML, /46 out of 60/);
@@ -107,8 +107,8 @@ test('published hosted ON P1 composite is visible without clean repeat credit', 
   assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${on}-fresh-matched3"`));
   assert.match(ui.get('repeat-chart').innerHTML, /54 out of 60/);
   assert.match(ui.get('repeat-chart').innerHTML, /52 out of 60/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-049 remains an unknown timeout/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /no clean repeat credit/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-049 timed out with no answer/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /plus up to \$0\.0299 unrecorded for the timeout/);
   assert.match(ui.get('repeat-chart').innerHTML, /56 out of 60/);
   assert.match(ui.get('repeat-lead').textContent, new RegExp(`${published.series.find(s => s.configuration === on).completedConditions} of 9`));
 });
@@ -119,9 +119,9 @@ test('published DeepSeek high retains its billed invalid and includes only close
   const ui = await render(published, 200, `${high}-fresh-matched3`);
   assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${high}-fresh-matched3"`));
   assert.match(ui.get('repeat-chart').innerHTML, /57 out of 60/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-030 as an invalid/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not repaired or replayed/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /Later phases appear below only after/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /DEV-030 came back truncated by the length limit, was billed and counts as invalid/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /The score is 57\/60 with 59 valid responses/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /Later phases appear once their responses and charges are checked/);
   assert.match(ui.get('repeat-lead').textContent, new RegExp(`${published.series.find(s => s.configuration === high).completedConditions} of 9`));
 });
 
@@ -131,7 +131,7 @@ test('revised-price DeepSeek P2 is selectable without cross-configuration prompt
   const ui = await render(published, 200, `${revisedHigh}-fresh-repeat`);
   assert.match(ui.get('repeat-results').innerHTML, new RegExp(`value="${revisedHigh}-fresh-repeat"`));
   assert.match(ui.get('repeat-chart').innerHTML, /58 out of 60/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /do not form a matched prompt comparison/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /there is no P0 to P2 comparison here/);
   assert.match(ui.get('repeat-lead').textContent, /different price controls/);
 });
 
@@ -154,16 +154,16 @@ test('open phases cannot expose stale scores, derived values, tokens, costs or d
   assert.doesNotMatch(ui.get('repeat-deltas').innerHTML, /999/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /999|DEV-999/);
   const row = usageRow(ui, 'P1', 'Fresh pass 1');
-  assert.match(row, /Unavailable/);
+  assert.match(row, /Unknown/);
   assert.doesNotMatch(row, /999|\$999/);
 });
 
 test('optional 404 remains usable, while 500 and malformed feeds fail visibly', async () => {
   const missing = await render(null, 404, qwen);
   assert.match(missing.get('repeat-results').innerHTML, /repeat-config/);
-  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /could not be loaded/);
+  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /did not load/);
   const failed = await render(null, 500, qwen);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   const good = fixture();
   for (const payload of [
     {}, {...good, schema: 'unexpected'},
@@ -174,6 +174,6 @@ test('optional 404 remains usable, while 500 and malformed feeds fail visibly', 
     {...good, series: [{...good.series[0], configuration: 'unknown'}]},
   ]) {
     const malformed = await render(payload, 200, qwen);
-    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

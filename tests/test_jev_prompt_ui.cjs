@@ -134,16 +134,16 @@ test('accepts a fresh read-only source-bound build', async () => {
   const {target, errors} = await render(actual);
   assert.deepEqual(errors, []);
   assert.match(target.innerHTML, /P0, P1, and P2 each matched 54\/60/);
-  assert.match(target.innerHTML, /original parent saved 17 valid responses/);
-  assert.match(target.innerHTML, /separate continuation attempted those 42 positions: 40 valid/);
-  assert.match(target.innerHTML, /57 valid, 1 invalid, 2 unknown-cost attempts, and 0 unsent/);
+  assert.match(target.innerHTML, /stopped after 17 valid answers/);
+  assert.match(target.innerHTML, /A second run covered those 42: 40 valid/);
+  assert.match(target.innerHTML, /57 valid answers, 1 invalid, 2 requests with unknown charges and 0 unsent/);
 });
 
 test('keeps interrupted P2 out of complete score cards and preserves parent counts', async () => {
   const {target} = await render();
-  assert.match(target.innerHTML, /parent saved 17 valid responses/);
-  assert.match(target.innerHTML, /left 42 positions unsent/);
-  assert.match(target.innerHTML, /50\/60 all-four figure is interrupted coverage, not a clean repeat or ranking result/);
+  assert.match(target.innerHTML, /stopped after 17 valid answers/);
+  assert.match(target.innerHTML, /leaving 42 reviews unsent/);
+  assert.match(target.innerHTML, /50 of 60 matching on all four\. We do not count it as a clean repeat/);
   assert.doesNotMatch(target.innerHTML, /class="condition-score">15/);
   assert.doesNotMatch(target.innerHTML, /class="condition-score">50/);
 });
@@ -153,8 +153,8 @@ test('shows distinct P2 pass 3 without granting pass 2 clean-repeat credit', asy
   assert.deepEqual(errors, []);
   assert.match(target.innerHTML, /P2 pass 3 completed separately/);
   assert.match(target.innerHTML, /All 60 responses were valid, with 54\/60 all-four matches/);
-  assert.match(target.innerHTML, /1\/60 answer vectors changed \(DEV-030\)/);
-  assert.match(target.innerHTML, /interrupted P2 pass 2 remains ineligible as a clean repeat/);
+  assert.match(target.innerHTML, /1 of 60 reviews changed an answer \(DEV-030\)/);
+  assert.match(target.innerHTML, /P1 and P2 pass 3 differed on \d+ of 60 reviews/);
   assert.match(target.innerHTML, /P2 Pass 3/);
   const missing = fixture();
   delete missing.passes.P2.fresh3;
@@ -177,7 +177,7 @@ test('derives changed values from an internally consistent fixture', async () =>
   assert.match(target.innerHTML, /P0 matched 53\/60, P1 52\/60, and P2 51\/60/);
   assert.match(target.innerHTML, /P1 and P2 differed on 2 reviews/);
   assert.match(target.innerHTML, /52\/60, 50\/60, and 54\/60/);
-  assert.match(target.innerHTML, /1 answer vector changed/);
+  assert.match(target.innerHTML, /1 review changed at least one answer/);
 });
 
 test('separates answer changes from probabilities, confidence, usage, and timing', async () => {
@@ -189,10 +189,11 @@ test('separates answer changes from probabilities, confidence, usage, and timing
   assert.match(target.innerHTML, /152,500/);
   assert.match(target.innerHTML, /140,260/);
   assert.match(target.innerHTML, /163,120/);
-  assert.match(target.innerHTML, /\$0\.006405000/);
-  assert.match(target.innerHTML, /client time includes network and local work; it is not pure inference time/i);
-  assert.match(target.innerHTML, /Read the machine-readable evidence/);
-  assert.match(target.innerHTML, /Read the source-bound findings/);
+  assert.match(target.innerHTML, /\$0\.0064</);
+  assert.match(target.innerHTML, /DEV-018 and DEV-060 returned no usage, so their charges are unknown/);
+  assert.match(target.innerHTML, /Findings data \(JSON\)/);
+  assert.match(target.innerHTML, /Findings write-up/);
+  assert.doesNotMatch(target.innerHTML, /provisional|calibrated probability/i);
 });
 
 test('rejects any clean-repeat credit or changed parent snapshot', async () => {
@@ -211,9 +212,9 @@ test('page wires one accessible Jev prompt section beside Kev', () => {
   assert.equal((page.match(/id="jev-prompt-results"/g) || []).length, 1);
   assert.equal((page.match(/id="jev-prompt-analysis"/g) || []).length, 1);
   assert.match(page, /<section[^>]+id="jev-prompt-analysis"[^>]+aria-labelledby="jev-prompt-title"/);
-  assert.match(page, /<h2 id="jev-prompt-title">How did Jev change across three instruction sets\?<\/h2>/);
-  assert.match(page, /<a href="#jev-prompt-analysis">Jev prompt case<\/a>/);
-  assert.match(page, /<script defer src="\.\/jev-prompts\.js\?v=20261006-native-prompts-v1"><\/script>/);
+  assert.match(page, /<h2 id="jev-prompt-title">[^<]+<\/h2>/);
+  assert.match(page, /<a href="#jev-prompt-analysis">[^<]+<\/a>/);
+  assert.match(page, /<script defer src="\.\/jev-prompts\.js\?v=20261013-fix2"><\/script>/);
   assert.ok(page.indexOf('id="kev-prompt-analysis"') < page.indexOf('id="jev-prompt-analysis"'));
   assert.match(page, /<noscript><p class="analysis-caveat" role="alert">/);
 });

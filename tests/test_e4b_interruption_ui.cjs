@@ -45,16 +45,16 @@ test('E4B closed interruption shows a descriptive P2 without changing clean scor
   assert.equal(ui.requested.filter(item => item === url).length, 1);
   assert.match(ui.get('repeat-summary').textContent, /4 of 9 planned prompt-and-pass runs have final results/);
   assert.match(ui.get('repeat-summary').textContent, /58 valid saved responses, two unknown timeouts and no unsent/);
-  assert.match(ui.get('repeat-summary').textContent, /48\/60 all-four figure is descriptive and gets no clean repeat credit/);
+  assert.match(ui.get('repeat-summary').textContent, /It scored 48\/60 all-four as an interrupted pass/);
   assert.equal((ui.get('repeat-chart').innerHTML.match(/<meter/g) || []).length, 4);
-  assert.match(ui.get('repeat-chart').innerHTML, /Descriptive interrupted: 48\/60 matches, 58 valid, 2 unknown, 0 unsent; no clean-pass credit/);
+  assert.match(ui.get('repeat-chart').innerHTML, /Interrupted: 48\/60 matches, 58 valid, 2 unknown, 0 unsent/);
   assert.doesNotMatch(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>/);
   const explanation = ui.get('repeat-interpretation').innerHTML;
   assert.match(explanation, /58 valid saved responses, 2 unknown timeouts, and 0 comments unsent/);
   assert.match(explanation, /historical cutoff had 50 valid responses, 2 unknown timeouts and 8 unsent comments/);
   assert.match(explanation, /7\/8 all-four matches/);
   assert.match(explanation, /<details><summary>What happened to this pass\?/);
-  assert.match(explanation, /Both timeout intervals overlapped recorded host sleep/);
+  assert.match(explanation, /both timeouts overlapped a host sleep/);
   assert.match(explanation, /docs\/HOST_INTERRUPTION_2026-10-01\.md/);
   assert.match(explanation, /development\.completion\.json/);
   assert.match(explanation, /suffix\.completion\.json/);
@@ -63,7 +63,7 @@ test('E4B closed interruption shows a descriptive P2 without changing clean scor
   assert.match(ui.get('repeat-usage-body').innerHTML, /60 attempted/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /159,051/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /25,073/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Includes host sleep; not model inference time/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Includes host sleep/);
 });
 
 test('optional missing feed leaves local series usable; malformed evidence fails visibly', async () => {
@@ -71,7 +71,7 @@ test('optional missing feed leaves local series usable; malformed evidence fails
   assert.match(missing.get('repeat-summary').textContent, /4 of 9 planned prompt-and-pass runs/);
   assert.doesNotMatch(missing.get('repeat-interpretation').innerHTML, /What happened to this pass/);
   const failed = await render(null, 500);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   for (const bad of [
     {...interrupted, savedValid: 51},
     {...interrupted, finalScore: {allFour: 50}},
@@ -84,7 +84,7 @@ test('optional missing feed leaves local series usable; malformed evidence fails
     {...interrupted, sourceBindings: [{path: 'private/account.json', sha256: 'a'.repeat(64)}]},
   ]) {
     const ui = await render(bad);
-    assert.match(ui.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(ui.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });
 

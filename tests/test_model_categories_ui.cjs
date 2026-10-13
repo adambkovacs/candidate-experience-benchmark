@@ -100,6 +100,6 @@ test('both public views load the shared mapping before rendering category contro
   assert.match(repeats, /modelType\(s\)\.categories \|\| \[modelType\(s\)\.category\]/);
   assert.match(repeats, /modelType\(s\)\.trainingLineage === trainingLineage/);
   assert.match(repeats, /modelType\(s\)\.interfaceKind === interfaceKind/);
-  assert.match(html, /Fresh native OpenJev P0 results/);
+  assert.match(html, /OpenJev completed all three native P0 triplets/);
   assert.doesNotMatch(html, /Fresh native Jev P0 results/);
 });

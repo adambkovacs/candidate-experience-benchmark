@@ -86,7 +86,7 @@ test('OpenJev feed is optional only on 404; malformed and server errors are visi
   assert.match(missing.get('repeat-results').innerHTML, /existing-fixture/);
   for (const [feed, status] of [[null, 500], [null, 200], [{schema: 'wrong'}, 200]]) {
     const broken = await render(feed, status);
-    assert.match(broken.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(broken.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });
 
@@ -95,7 +95,7 @@ for (const closed of [0, 1, 2, 3]) {
     const ui = await render(fixture(closed));
     assert.match(ui.get('repeat-results').innerHTML, /OpenJev fixed|OpenJev adaptive|OpenJev thinking/);
     assert.match(ui.get('repeat-lead').textContent, new RegExp(`${closed} of 3 planned native P0 passes`));
-    assert.match(ui.get('repeat-lead').textContent, /Historical observations are excluded/);
+    assert.match(ui.get('repeat-lead').textContent, /Earlier runs are not part of these three fresh passes/);
     assert.match(ui.get('repeat-condition').innerHTML, /P0: Native OpenJev P0/);
     assert.doesNotMatch(ui.get('repeat-condition').innerHTML, /P1|P2/);
     assert.equal(ui.get('repeat-deltas').innerHTML, '');
@@ -105,9 +105,9 @@ for (const closed of [0, 1, 2, 3]) {
     assert.doesNotMatch(chart, /<strong>60<small>/);
     assert.equal((ui.get('repeat-usage-body').innerHTML.match(/123\.3/g) || []).length, closed);
     assert.doesNotMatch(ui.get('repeat-usage-body').innerHTML, /\$0\.00/);
-    assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable/);
-    assert.match(ui.get('repeat-lead').textContent, /Client HTTP time includes server and transport overhead/);
-    if (closed < 3) assert.match(chart, /Three-pass range unavailable/);
+    assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
+    assert.match(ui.get('repeat-lead').textContent, /Request time is as our client measured it/);
+    if (closed < 3) assert.match(chart, /No three-pass range until all three passes finish/);
     else assert.match(chart, /Three-pass range: <strong>49–51<\/strong>/);
     ui.select('openjev-adaptive-fresh-native-p0');
     assert.match(ui.get('repeat-lead').textContent, /0 of 3 planned native P0 passes/);

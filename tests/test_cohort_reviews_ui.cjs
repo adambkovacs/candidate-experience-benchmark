@@ -108,7 +108,7 @@ test('unusable positions never become answer differences or invented predictions
   const markup = api.detailMarkup(row, 'general', 'https://example.test/?search=old#review-evidence');
   assert.equal((markup.match(/No usable four-field answer saved for this position\./g) || []).length, row.unusable);
   assert.equal((markup.match(/<td colspan="4">/g) || []).length, row.unusable);
-  assert.match(markup, /Frozen proposed reference/);
+  assert.match(markup, /<th scope="row">Reference<\/th>/);
   assert.match(markup, /Saved status/);
   const changed = structuredClone(data);
   const invalid = changed.runs.find(run => run.cases.some(answer => answer.prediction === null));
@@ -144,7 +144,7 @@ test('saved links and review copy stay source-bound and escape comment text', ()
   const row = summary.reviews.find(item => item.review.id === 'DEV-030');
   const markup = api.detailMarkup(row, 'decision', 'https://example.test/');
   assert.match(markup, /docs\/REFERENCE_REVIEW_V1\.md/);
-  assert.match(markup, /needs human adjudication/);
+  assert.match(markup, /sentiment reference is disputed/);
   assert.match(markup, /results\/.*\/.*public-projection\.json|development\.public\.json/);
   const changed = structuredClone(row);
   changed.review.feedback = '<img src=x onerror=alert(1)>';
@@ -157,9 +157,9 @@ test('report cohort events update the panel and preserve its general stratum wit
   assert.equal(ui.controls['cohort-review-cohort'].value, 'general');
   assert.equal(ui.controls['cohort-review-stratum'].value, 'historical');
   assert.equal(new URL(ui.context.location.href).searchParams.get('reviewGeneralStratum'), 'historical');
-  assert.match(ui.controls['cohort-review-count'].textContent, /117 distinct first-P0 configurations/);
+  assert.match(ui.controls['cohort-review-count'].textContent, /117 first-pass setups/);
   ui.buttons[2].click();
-  assert.match(ui.controls['cohort-review-count'].textContent, /124 distinct first-P0 configurations/);
+  assert.match(ui.controls['cohort-review-count'].textContent, /124 first-pass setups/);
   ui.controls['cohort-review-cohort'].value = 'decision';
   const before = ui.historyUrls.length;
   ui.controls['cohort-review-cohort'].dispatchEvent({type:'change'});
@@ -172,12 +172,12 @@ test('report cohort events update the panel and preserve its general stratum wit
 test('explicit panel deep links synchronize the shared cohort without erasing advanced categories', async () => {
   const linked = await mountedPanel('https://example.test/report?reviewCohort=general&reviewGeneralStratum=historical');
   assert.equal(linked.context.BenchmarkReportNavigation.getCohort(), 'general');
-  assert.match(linked.controls['cohort-review-count'].textContent, /117 distinct first-P0 configurations/);
+  assert.match(linked.controls['cohort-review-count'].textContent, /117 first-pass setups/);
   const custom = await mountedPanel('https://example.test/report?category=tuned&reviewCohort=general');
   assert.equal(new URL(custom.context.location.href).searchParams.get('category'), 'tuned');
   custom.context.dispatchEvent({type:'benchmark:saved-runs-ready', detail:{runs:[]}});
   assert.equal(custom.controls['cohort-review-cohort'].value, 'general');
-  assert.match(custom.controls['cohort-review-count'].textContent, /32 distinct first-P0 configurations/);
+  assert.match(custom.controls['cohort-review-count'].textContent, /32 first-pass setups/);
   custom.controls['cohort-review-stratum'].value = 'historical';
   custom.controls['cohort-review-stratum'].dispatchEvent({type:'change'});
   assert.equal(new URL(custom.context.location.href).searchParams.get('category'), 'tuned');
@@ -190,5 +190,5 @@ test('explicit panel deep links synchronize the shared cohort without erasing ad
 test('filtered review counts identify the whole-cohort denominator for outcome totals', async () => {
   const ui = await mountedPanel('https://example.test/report?reviewCohort=general&reviewCohortSubset=testimonial');
   assert.equal(ui.controls['cohort-review-count'].textContent,
-    '9 of 60 reviews shown · Across all 60 reviews: 32 distinct first-P0 configurations · 1920 run-review positions · 374 differ · 176 unusable.');
+    'Showing 9 of 60 reviews across 32 first-pass setups.');
 });

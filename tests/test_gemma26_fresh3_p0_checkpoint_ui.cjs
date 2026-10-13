@@ -49,7 +49,7 @@ test('P0 checkpoint adds eight scored phases and preserves three historical cuto
   for (const id of [latestId, ...['gemma26-continuation-findings.json',
     'gemma26-second-continuation-findings.json', 'gemma26-postabort-findings.json'].map(
     name => feeds[`./${name}`].seriesId)]) assert.ok(page.includes(`value="${id}"`), id);
-  assert.match(page, /P0 checkpoint \(8 of 9\)/);
+  assert.match(page, /8 of 9 stages scored/);
   assert.match(ui.get('repeat-summary').textContent, /8 of 9 phases/);
   assert.match(ui.get('repeat-summary').textContent, /59, 56 and 58/);
   assert.match(ui.get('repeat-summary').textContent, /60, 59 and 60/);
@@ -62,11 +62,11 @@ test('P0 checkpoint adds eight scored phases and preserves three historical cuto
   assert.match(ui.get('repeat-flips').innerHTML, /1 \/ 59 changed/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-002/);
   assert.match(ui.get('repeat-interpretation').innerHTML, /gemma26-fresh3-p0-checkpoint\.json/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /earlier P2 cutoff/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /Earlier P2 cutoff/);
   assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /P1 remains unsent/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.01918032 reported/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /\$0\.0192<br><small>60\/60 requests/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /87,568 reported/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /provider bill unavailable/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /60\/60 requests<\/small><\/td><td>Unknown/);
   ui.get('repeat-field').value = 'sentiment';
   ui.get('repeat-field').change();
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-005/);
@@ -81,7 +81,7 @@ test('missing checkpoint preserves prior cutoff; corrupt checkpoint fails visibl
   const absent = await render(null, 404, prior);
   assert.match(absent.get('repeat-summary').textContent, /7 of 9 phases/);
   const failed = await render(null, 500, prior);
-  assert.match(failed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.match(failed.get('repeat-results').innerHTML, /Repeat results did not load/);
   const sourceFeed = feeds['./gemma26-fresh3-p0-checkpoint.json'];
   for (const bad of [
     {...sourceFeed, scoredSeriesConditions: 9},
@@ -89,6 +89,6 @@ test('missing checkpoint preserves prior cutoff; corrupt checkpoint fails visibl
       allThreeSharedValid: {...sourceFeed.conditions.P0.allThreeSharedValid, denominator: 60}}}},
   ]) {
     const malformed = await render(bad);
-    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+    assert.match(malformed.get('repeat-results').innerHTML, /Repeat results did not load/);
   }
 });

@@ -9,6 +9,7 @@
 
   const FIELDS = ['sentiment', 'follow_up_needed', 'serious_concern_reported', 'testimonial_potential'];
   const LABELS = ['Sentiment', 'Follow-up needed', 'Serious concern', 'Testimonial potential'];
+  const valueLabel = value => value === 'insufficient_information' ? "Can't tell" : String(value ?? '').replace(/_/g, ' ');
   const CHOICES = {
     sentiment: ['positive', 'negative', 'mixed', 'neutral', 'insufficient_information'],
     follow_up_needed: ['yes', 'no', 'insufficient_information'],
@@ -16,6 +17,8 @@
     testimonial_potential: ['yes', 'no', 'insufficient_information']
   };
   const GITHUB = 'https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/';
+  // Readable names from site/labels.js; without it (node tests) the slug stands in.
+  const runName = run => globalThis.BM_LABEL ? globalThis.BM_LABEL.run({model: run.model, id: run.runId, effort: run.controls?.effort, surface: run.controls?.route}) : String(run.model ?? '');
   const STRATA = {decision: 'native-first-P0', fresh: 'declared-fresh1-P0', historical: 'historical-first-P0'};
   const EXPECTED = {'native-first-P0': 7, 'declared-fresh1-P0': 32, 'historical-first-P0': 117};
   const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character =>
@@ -120,17 +123,17 @@
 
   function detailMarkup(row, cohort, baseUrl) {
     const review = row.review;
-    const caveat = review.id === 'DEV-006' ? 'A serious-concern reference correction was proposed, but the frozen key remains in use.' :
-      ['DEV-013', 'DEV-030'].includes(review.id) ? 'The sentiment reference still needs human adjudication.' :
-      row.offTopic ? 'The frozen reference marks this comment off-topic for recruitment.' : '';
-    const referenceCells = FIELDS.map(field => `<td><code>${escapeHtml(review.reference[field])}</code></td>`).join('');
+    const caveat = review.id === 'DEV-006' ? 'The serious-concern reference is disputed; a correction is proposed and not applied.' :
+      ['DEV-013', 'DEV-030'].includes(review.id) ? 'The sentiment reference is disputed.' :
+      row.offTopic ? 'The reference marks this comment off-topic for recruitment.' : '';
+    const referenceCells = FIELDS.map(field => `<td><code>${escapeHtml(valueLabel(review.reference[field]))}</code></td>`).join('');
     const answerRows = row.answers.map(({run, answer}) => {
       const cells = answer.prediction === null
         ? '<td colspan="4">No usable four-field answer saved for this position.</td>'
-        : FIELDS.map(field => `<td${answer.prediction[field] !== review.reference[field] ? ' class="cohort-diff"' : ''}><code>${escapeHtml(answer.prediction[field])}</code></td>`).join('');
-      return `<tr><th scope="row">${escapeHtml(run.model)}<small>${escapeHtml(run.runId)}</small><a href="${escapeHtml(explorerUrl(run.runId, review.id, cohort, baseUrl))}">Open this run and review ↗</a><a href="${escapeHtml(run.sourceUrl)}" target="_blank" rel="noopener noreferrer">Saved source ↗</a><small>SHA-256 ${escapeHtml(run.sourceSha256)}</small></th><td><code>${escapeHtml(answer.status)}</code></td>${cells}</tr>`;
+        : FIELDS.map(field => `<td${answer.prediction[field] !== review.reference[field] ? ' class="cohort-diff"' : ''}><code>${escapeHtml(valueLabel(answer.prediction[field]))}</code></td>`).join('');
+      return `<tr><th scope="row">${escapeHtml(runName(run))}<small><code>${escapeHtml(run.runId)}</code></small><a href="${escapeHtml(explorerUrl(run.runId, review.id, cohort, baseUrl))}">Run and review ↗</a><a href="${escapeHtml(run.sourceUrl)}" target="_blank" rel="noopener noreferrer">Saved answers ↗</a></th><td><code>${escapeHtml(valueLabel(answer.status))}</code></td>${cells}</tr>`;
     }).join('');
-    return `<article class="cohort-review-detail"><p class="eyebrow">${escapeHtml(review.id)} / Frozen development review</p><blockquote>${escapeHtml(review.feedback)}</blockquote><p class="cohort-review-tally"><strong>${row.disagree} / ${row.denominator}</strong> usable answers differ on at least one field · ${row.unusable} / ${row.denominator} unusable or absent · ${row.match} / ${row.denominator} match all four.</p>${caveat ? `<p class="cohort-review-caveat">${escapeHtml(caveat)} <a href="${GITHUB}docs/REFERENCE_REVIEW_V1.md" target="_blank" rel="noopener noreferrer">Read the reference review ↗</a></p>` : ''}<div class="cohort-reference"><p>Frozen proposed reference</p><dl>${FIELDS.map((field,index) => `<div><dt>${LABELS[index]}</dt><dd>${escapeHtml(review.reference[field])}</dd></div>`).join('')}</dl></div><details class="cohort-answer-details"><summary>Read ${row.denominator} exact saved answers and source records</summary><p>A difference is measured against the frozen proposed reference. An unusable position has no fabricated answer.</p><div class="cohort-answer-scroll" tabindex="0"><table><caption>One row per distinct selected first-P0 configuration; each row is this same comment.</caption><thead><tr><th scope="col">Model and source</th><th scope="col">Saved status</th>${LABELS.map(label => `<th scope="col">${label}</th>`).join('')}</tr></thead><tbody><tr class="cohort-reference-row"><th scope="row">Frozen proposed reference</th><td>Reference</td>${referenceCells}</tr>${answerRows}</tbody></table></div></details><p class="cohort-review-source">Original comment and references: <a href="${GITHUB}data/pilot/inputs.jsonl" target="_blank" rel="noopener noreferrer">input records ↗</a> · <a href="${GITHUB}data/pilot/proposed_labels.jsonl" target="_blank" rel="noopener noreferrer">frozen reference records ↗</a>.</p></article>`;
+    return `<article class="cohort-review-detail"><h4>${escapeHtml(review.id)}</h4><blockquote>${escapeHtml(review.feedback)}</blockquote><p class="cohort-review-tally"><strong>${row.disagree} / ${row.denominator}</strong> usable answers differ on at least one field, ${row.unusable} / ${row.denominator} are unusable or absent and ${row.match} / ${row.denominator} match all four.</p>${caveat ? `<p class="cohort-review-caveat">${escapeHtml(caveat)} <a href="${GITHUB}docs/REFERENCE_REVIEW_V1.md" target="_blank" rel="noopener noreferrer">Reference review ↗</a></p>` : ''}<div class="cohort-reference"><p>Reference</p><dl>${FIELDS.map((field,index) => `<div><dt>${LABELS[index]}</dt><dd>${escapeHtml(valueLabel(review.reference[field]))}</dd></div>`).join('')}</dl></div><details class="cohort-answer-details"><summary>${row.denominator} saved answers</summary><div class="cohort-answer-scroll" tabindex="0"><table><caption>One row per first-pass configuration.</caption><thead><tr><th scope="col">Model and source</th><th scope="col">Saved status</th>${LABELS.map(label => `<th scope="col">${label}</th>`).join('')}</tr></thead><tbody><tr class="cohort-reference-row"><th scope="row">Reference</th><td>Reference</td>${referenceCells}</tr>${answerRows}</tbody></table></div></details></article>`;
   }
 
   async function init() {
@@ -151,7 +154,7 @@
         ? params.get('reviewCohortSubset') : 'all';
       let search = (params.get('reviewCohortSearch') || '').slice(0, 200);
       let selected = reviewIds.includes(params.get('reviewCohortCase')) ? params.get('reviewCohortCase') : null;
-      mount.innerHTML = `<div class="cohort-reviews-shell"><div class="cohort-reviews-head"><p class="eyebrow">First P0 / the same 60 comments</p><h3 id="cohort-reviews-title">Difficult reviews across selected runs</h3><p>Choose a first-pass cohort. General LLMs use the declared fresh1/pass1 set by default; historical first P0 runs are a separate choice. The combined view adds seven native decision runs to the chosen general set. Other specialist setups and later repeats are outside this panel. <a href="./cross-category-v1.json">Download the saved comparison data ↗</a></p></div><div class="cohort-review-controls"><label><span>Compare</span><select id="cohort-review-cohort"><option value="decision">Decision models · 7</option><option value="general">General LLMs</option><option value="all">Selected general + decision</option></select></label><label><span>General set</span><select id="cohort-review-stratum"><option value="fresh">Declared fresh1/pass1 · 32</option><option value="historical">Historical first P0 · 117</option></select></label><label><span>Find a comment</span><input id="cohort-review-search" type="search" placeholder="Review ID or comment text" autocomplete="off"></label><label><span>Show reviews</span><select id="cohort-review-subset"><option value="all">All 60</option><option value="disagree">At least one difference</option><option value="testimonial">Reference testimonial: yes</option><option value="off-topic">Off-topic under reference</option></select></label></div><p class="cohort-review-count" id="cohort-review-count" role="status" aria-live="polite"></p><div class="cohort-review-body"><div class="cohort-review-list" id="cohort-review-list" role="group" aria-label="Choose a review"></div><div id="cohort-review-selected" aria-live="polite"></div></div><p class="cohort-review-method">Each count uses distinct selected first-P0 configurations as its denominator. The same 60 comments recur in every run. Unusable outcomes are counted separately from answer differences. Routes, prompts and interfaces vary, so these counts do not isolate a model-family effect. <a href="${GITHUB}results/cross-category-v1/findings.md" target="_blank" rel="noopener noreferrer">Read methods and limitations ↗</a></p></div>`;
+      mount.innerHTML = `<div class="cohort-reviews-shell"><div class="cohort-reviews-head"><h3 id="cohort-reviews-title">Difficult reviews, first pass</h3><p>Each review shows how many first-pass configurations differ from the reference on at least one decision.</p></div><div class="cohort-review-controls"><label><span>Models</span><select id="cohort-review-cohort"><option value="decision">Decision models, 7</option><option value="general">General LLMs</option><option value="all">General and decision</option></select></label><label><span>General set</span><select id="cohort-review-stratum"><option value="fresh">Fresh first passes, 32</option><option value="historical">Earlier first passes, 117</option></select></label><label><span>Search</span><input id="cohort-review-search" type="search" placeholder="Review ID or comment text" autocomplete="off"></label><label><span>Reviews</span><select id="cohort-review-subset"><option value="all">All 60</option><option value="disagree">At least one difference</option><option value="testimonial">Reference testimonial: yes</option><option value="off-topic">Off-topic under reference</option></select></label></div><p class="cohort-review-count" id="cohort-review-count" role="status" aria-live="polite"></p><div class="cohort-review-body"><div class="cohort-review-list" id="cohort-review-list" role="group" aria-label="Reviews" style="min-width:0"></div><div id="cohort-review-selected" aria-live="polite" style="min-width:0"></div></div><p class="cohort-review-method">Counts are out of the distinct first-pass configurations in the chosen group. Unusable answers are counted separately from differences. <a href="${GITHUB}results/cross-category-v1/findings.md" target="_blank" rel="noopener noreferrer">Method notes ↗</a></p></div>`;
       const $ = id => mount.querySelector(`#${id}`);
       $('cohort-review-cohort').value = cohort;
       $('cohort-review-stratum').value = stratum;
@@ -166,10 +169,10 @@
         const summary = summarize(data, cohort, stratum);
         const rows = filterReviews(summary, {search, subset});
         if (!rows.some(row => row.review.id === selected)) selected = rows[0]?.review.id || null;
-        $('cohort-review-count').textContent = `${rows.length} of 60 reviews shown · Across all 60 reviews: ${summary.denominator} distinct first-P0 configurations · ${summary.positions} run-review positions · ${summary.disagree} differ · ${summary.unusable} unusable.`;
+        $('cohort-review-count').textContent = `Showing ${rows.length === 60 ? 'all 60' : `${rows.length} of 60`} reviews across ${summary.denominator} first-pass setups.`;
         $('cohort-review-list').innerHTML = rows.length ? rows.map(row =>
-          `<button type="button" data-review="${row.review.id}" aria-pressed="${row.review.id === selected}"><span class="cohort-review-list-meta"><strong>${row.review.id}</strong><span>${row.disagree} / ${row.denominator} differ</span></span><span class="cohort-review-excerpt">${escapeHtml(row.review.feedback)}</span><small>${row.unusable} unusable · ${row.testimonial ? 'testimonial reference: yes · ' : ''}${row.offTopic ? 'off-topic reference' : 'same 60-comment set'}</small></button>`).join('') : '<p class="cohort-review-empty">No saved reviews match these controls.</p>';
-        $('cohort-review-selected').innerHTML = selected ? detailMarkup(rows.find(row => row.review.id === selected), cohort) : '<p class="cohort-review-empty">Change the search or filter to see a review.</p>';
+          `<button type="button" data-review="${row.review.id}" aria-pressed="${row.review.id === selected}"><span class="cohort-review-list-meta"><strong>${row.review.id}</strong><span>${row.disagree} / ${row.denominator} differ</span></span><span class="cohort-review-excerpt">${escapeHtml(row.review.feedback)}</span><small>${[`${row.unusable} unusable`, row.testimonial && 'testimonial reference: yes', row.offTopic && 'off-topic reference'].filter(Boolean).join(', ')}</small></button>`).join('') : '<p class="cohort-review-empty">No reviews match.</p>';
+        $('cohort-review-selected').innerHTML = selected ? detailMarkup(rows.find(row => row.review.id === selected), cohort) : '<p class="cohort-review-empty">No review matches.</p>';
         $('cohort-review-list').querySelectorAll('[data-review]').forEach(button => button.addEventListener('click', () => {
           selected = button.dataset.review;
           paint(true);
@@ -206,7 +209,7 @@
       if (!customCategory && ['decision', 'general', 'all'].includes(params.get('reviewCohort')))
         navigation?.setCohort?.(cohort);
     } catch (error) {
-      mount.innerHTML = `<p class="cohort-review-empty">The saved comparison could not be verified. <a href="${GITHUB}results/cross-category-v1/findings.md">Read the source findings ↗</a>.</p>`;
+      mount.innerHTML = `<p class="cohort-review-empty">The review comparison did not load. <a href="${GITHUB}results/cross-category-v1/findings.md">Findings ↗</a></p>`;
       console.error('Cohort review source error:', error);
     }
   }

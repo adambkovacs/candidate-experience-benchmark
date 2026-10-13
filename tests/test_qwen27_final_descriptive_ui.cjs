@@ -42,10 +42,10 @@ test('nine scored phases show ranges and shared-valid changes without hiding int
   assert.match(ui.get('repeat-chart').innerHTML, /Three-pass range: <strong>56–59/);
   assert.match(ui.get('repeat-flips').innerHTML, /3 \/ 59/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-006/);
-  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was excluded/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown original charge up to/);
-  assert.match(ui.get('repeat-usage-body').innerHTML, /Unavailable overall/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not a clean three-pass test/);
+  assert.match(ui.get('repeat-flips').innerHTML, /1 comment was left out/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /plus up to \$0\.0470 unrecorded/);
+  assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown overall/);
+  assert.match(ui.get('repeat-interpretation').innerHTML, /Why fresh pass 3 was interrupted/);
   ui.select(xhigh);
   assert.match(ui.get('repeat-summary').textContent, /57 to 58 matches out of 60/);
   assert.match(ui.get('repeat-flips').innerHTML, /4 \/ 59/);
@@ -67,13 +67,13 @@ test('malformed report fails visibly; optional absence does not erase other seri
     const bad = structuredClone(report);
     mutate(bad);
     assert.match((await render({payload: bad})).get('repeat-results').innerHTML,
-      /Repeat results could not be loaded/);
+      /Repeat results did not load/);
   }
   const missing = await render({status: 404,
     selected: 'openrouter-paid-qwen3.8-27b-medium-interrupted-composite-v2'});
-  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /Repeat results could not be loaded/);
+  assert.doesNotMatch(missing.get('repeat-results').innerHTML, /Repeat results did not load/);
   assert.match((await render({status: 500})).get('repeat-results').innerHTML,
-    /Repeat results could not be loaded/);
+    /Repeat results did not load/);
 });
 
 test('all-recorded coverage includes final descriptive Qwen series with scoredConditions', async () => {
