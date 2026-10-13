@@ -41,7 +41,7 @@ test('historical subscription detail keeps charge unknown and links public rate'
   assert.match(summary.innerHTML, /API-rate estimate.*\$0\.60676/s);
   assert.doesNotMatch(summary.innerHTML, /Actual subscription charge and quota use are unknown/);
   assert.match(summary.innerHTML, /https:\/\/platform\.claude\.com\/docs\/en\/models\/fable-5-1\/overview/);
-  assert.match(context.__prices.costSummary(run), /API-rate estimate \$0\.60676/);
+  assert.equal(context.__prices.costSummary(run), '$0.60676');
 });
 
 test('unpriced subscription run shows missing estimate reason', () => {

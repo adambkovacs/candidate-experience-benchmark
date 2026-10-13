@@ -246,16 +246,21 @@
       const response = await fetch('./cross-category-v1.json', {cache: 'no-store'});
       if (!response.ok) throw Error(`HTTP ${response.status}`);
       const data = validate(await response.json());
-      const natives = data.runs.filter(run => run.stratum === 'native-first-P0');
-      const strata = {'historical-first-P0': data.runs.filter(run => run.stratum === 'historical-first-P0'),
-                      'declared-fresh1-P0': data.runs.filter(run => run.stratum === 'declared-fresh1-P0')};
+      // Pickers list the strongest runs first; sort is stable, so ties keep feed order.
+      const byScore = rows => [...rows].sort((a, b) => b.scores.all_four - a.scores.all_four);
+      const natives = byScore(data.runs.filter(run => run.stratum === 'native-first-P0'));
+      const strata = {'historical-first-P0': byScore(data.runs.filter(run => run.stratum === 'historical-first-P0')),
+                      'declared-fresh1-P0': byScore(data.runs.filter(run => run.stratum === 'declared-fresh1-P0'))};
+      // ponytail: named defaults (Opus 5.5 high, Gemma 4 26B thinking-on fresh pass); top score if the feed drops them.
+      const preferredGeneral = ['opus55-high-batch10', 'extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0'];
+      const defaultGeneral = key => strata[key].find(row => preferredGeneral.includes(row.runId)) || strata[key][0];
       const params = new URL(location.href).searchParams;
       let cohort = Object.hasOwn(strata, params.get('crossCohort')) ? params.get('crossCohort') : 'historical-first-P0';
-      let general = strata[cohort].find(row => row.runId === params.get('crossGeneral')) || strata[cohort][0];
+      let general = strata[cohort].find(row => row.runId === params.get('crossGeneral')) || defaultGeneral(cohort);
       let native = natives.find(row => row.runId === params.get('crossNative')) || natives[0];
       let selectedCase = ids.includes(params.get('crossCase')) ? params.get('crossCase') : ids[0];
       mount.innerHTML = `<div class="section-intro"><h2 id="cross-category-title">General models against decision models, review by review.</h2><p>149 general-model first passes and the seven decision models on OpenRouter, all on the base prompt. Each pairing shows where both match the reference, where only one does, and where an answer was unusable.</p></div>
-        <div class="cross-shell"><div class="cross-selectors"><label for="cross-cohort">General cohort<select id="cross-cohort"><option value="historical-first-P0">Earlier first passes · 117 runs</option><option value="declared-fresh1-P0">Fresh first passes · 32 runs</option></select></label><label for="cross-general">General run<select id="cross-general"></select></label><label for="cross-native">Decision model<select id="cross-native">${natives.map(row => `<option value="${esc(row.runId)}">${esc(row.model)}</option>`).join('')}</select></label></div><div id="cross-pair" aria-live="polite"></div>${renderDifficult(data)}</div>
+        <div class="cross-shell"><div class="cross-selectors"><label for="cross-cohort">General cohort<select id="cross-cohort"><option value="historical-first-P0">Earlier first passes · 117 runs</option><option value="declared-fresh1-P0">Fresh first passes · 32 runs</option></select></label><label for="cross-general">General run<select id="cross-general"></select></label><label for="cross-native">Decision model<select id="cross-native">${natives.map(row => `<option value="${esc(row.runId)}">${esc(row.model)} · ${esc(row.scores.all_four)}/60</option>`).join('')}</select></label></div><div id="cross-pair" aria-live="polite"></div>${renderDifficult(data)}</div>
         <p class="cross-method">The seven decision-model runs leave out the earlier Jev, Kev, Laya and direct Cloudflare runs. <a href="${github}results/cross-category-v1/findings.md">Findings ↗</a></p>`;
       const cohortInput = mount.querySelector('#cross-cohort');
       const generalInput = mount.querySelector('#cross-general');
@@ -263,7 +268,7 @@
       const pair = mount.querySelector('#cross-pair');
       function update(writeUrl) {
         cohortInput.value = cohort;
-        generalInput.innerHTML = strata[cohort].map(row => `<option value="${esc(row.runId)}">${esc(row.model)} · ${esc(row.runId)}</option>`).join('');
+        generalInput.innerHTML = strata[cohort].map(row => `<option value="${esc(row.runId)}">${esc(row.model)} · ${esc(row.scores.all_four)}/60 · ${esc(row.runId)}</option>`).join('');
         generalInput.value = general.runId;
         nativeInput.value = native.runId;
         pair.innerHTML = renderPair(general, native, data.cases);
@@ -277,7 +282,7 @@
           history.replaceState(null, '', url.pathname + url.search + url.hash);
         }
       }
-      cohortInput.addEventListener('change', () => {cohort = cohortInput.value; general = strata[cohort][0]; update(true);});
+      cohortInput.addEventListener('change', () => {cohort = cohortInput.value; general = defaultGeneral(cohort); update(true);});
       generalInput.addEventListener('change', () => {general = strata[cohort].find(row => row.runId === generalInput.value); update(true);});
       nativeInput.addEventListener('change', () => {native = natives.find(row => row.runId === nativeInput.value); update(true);});
       pair.addEventListener('click', event => {

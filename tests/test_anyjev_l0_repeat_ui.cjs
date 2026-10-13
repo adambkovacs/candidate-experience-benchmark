@@ -105,5 +105,5 @@ test('closed L0 three-pass range and comparable flips keep native IDs unlinked',
   assert.match(ui.get('repeat-flips').innerHTML, /1 comment was left out/);
   assert.match(ui.get('repeat-flips').innerHTML, /DEV-001/);
   assert.doesNotMatch(ui.get('repeat-flips').innerHTML, /#inspect|<a\s/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not correctness/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not correctness|Provisional v0\.2/);
 });

@@ -45,6 +45,28 @@
     return Promise.race([load,new Promise(resolve=>{timer=setTimeout(()=>resolve(null),8000);})])
       .finally(()=>clearTimeout(timer));
   };
+  const optionalJevFindings = () => {
+    const load=Promise.resolve().then(()=>fetch('./jev-native-prompt-findings.json',{cache:'no-store'}))
+      .then(response=>response.ok ? response.json() : null).catch(()=>null);
+    if(typeof setTimeout!=='function') return load;
+    let timer;
+    return Promise.race([load,new Promise(resolve=>{timer=setTimeout(()=>resolve(null),3000);})])
+      .finally(()=>clearTimeout(timer));
+  };
+  // Catalog defect: build_extended_run_catalog_v1.py labels these OpenRouter passes TypeSafe with an estimate; the findings feed holds the route and known charge.
+  function applyJevFindings(runs,findings){
+    if(!findings?.passes||!Array.isArray(findings.sourceBindings)||
+      !findings.sourceBindings.some(binding=>/jev-openrouter-native/.test(binding?.path||''))) return;
+    for(const run of runs){
+      const match=/^extended-typesafe-jev113-native-prompts-(fresh[123])-p([012])$/.exec(run?.id||'');
+      const pass=match ? findings.passes[`P${match[2]}`]?.[match[1]] : null;
+      if(n(pass?.knownCostUsd)===null) continue; // no findings entry: keep the catalog values
+      run.surface='OpenRouter native Choice';
+      run.provider='OpenRouter';
+      run.cost={...run.cost,knownUsd:n(pass.knownCostUsd),estimatedUsd:null,
+        unknownUpperBoundUsd:n(pass.unknownUpperBoundUsd) ?? run.cost?.unknownUpperBoundUsd ?? null};
+    }
+  }
   function extendedCatalogRuns(report,existing=[]){
     const prefix='https://github.com/adambkovacs/candidate-experience-benchmark/blob/main/';
     if(report?.schema!=='extended-run-catalog-v1'||!Number.isInteger(report.runCount)||
@@ -133,15 +155,15 @@
   }
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const n = value => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
-  const count = value => n(value) === null ? 'Unavailable' : Math.round(n(value)).toLocaleString();
+  const count = value => n(value) === null ? 'Unknown' : Math.round(n(value)).toLocaleString();
   const money = value => n(value) === null ? 'Unknown' : '$' + n(value).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:9});
-  const duration = value => n(value) === null ? 'Unavailable' : n(value) >= 60 ? (n(value)/60).toLocaleString(undefined,{maximumFractionDigits:1})+' min' : n(value).toLocaleString(undefined,{maximumFractionDigits:1})+' sec';
+  const duration = value => n(value) === null ? 'Unknown' : n(value) >= 60 ? (n(value)/60).toLocaleString(undefined,{maximumFractionDigits:1})+' min' : n(value).toLocaleString(undefined,{maximumFractionDigits:1})+' sec';
   const url = value => {try {const parsed = new URL(value);return ['https:','http:'].includes(parsed.protocol) ? parsed.href : null;} catch {return null;}};
   const has = value => n(value) !== null;
   const complete = run => run.complete === true && n(run.records) === 60;
   const localRun = run => run.surface === 'Local / specialist' || /^Local\b/i.test(run.surface || '') || run.provider === 'local';
   const savedResponses = run => run.sourceFamily ? run.savedResponses : run.savedResponses ?? run.records;
-  const missing = run => n(savedResponses(run)) === null ? 'Unavailable' : count(Math.max(0, 60 - n(savedResponses(run))));
+  const missing = run => n(savedResponses(run)) === null ? 'Unknown' : count(Math.max(0, 60 - n(savedResponses(run))));
   const savedSummary = run => has(savedResponses(run)) ? `${count(savedResponses(run))} / 60 saved` : 'saved count not recorded';
   const missingSummary = run => has(savedResponses(run)) ? ` · ${missing(run)} without a saved response` : '';
   const savedTag = run => has(savedResponses(run)) ? `${count(savedResponses(run))} of 60 saved` : 'Saved count not recorded';
@@ -151,7 +173,7 @@
     : 'Partial tally with no saved count; not a final score.';
   const metricName = {all_four:'All four match',sentiment:'Sentiment matches',follow_up_needed:'Follow-up matches',serious_concern_reported:'Serious concern matches',testimonial_potential:'Testimonial matches',valid:'Valid responses'};
   const score = run => $('#metric').value === 'valid' ? run.valid : run.metrics?.[$('#metric').value];
-  const inferenceTime = timing => n(timing?.inferenceSeconds) !== null && n(timing?.inferenceReportedRequests) > 0 ? duration(timing.inferenceSeconds) : 'Unavailable';
+  const inferenceTime = timing => n(timing?.inferenceSeconds) !== null && n(timing?.inferenceReportedRequests) > 0 ? duration(timing.inferenceSeconds) : 'Unknown';
   const observedCost = cost => n(cost?.actualUsd) !== null ? money(cost.actualUsd) : n(cost?.knownUsd) !== null ? money(cost.knownUsd) : 'Unknown';
   const priceEntry = run => {
     if (run.cost?.estimateKind === 'published_input_rate') return null;
@@ -168,9 +190,17 @@
   };
   const costSummary = run => {
     const cost=runCost(run),price=priceEntry(run);
-    const charge=n(cost?.actualUsd) !== null ? 'Charge ' + money(cost.actualUsd) : n(cost?.knownUsd) !== null ? 'Charge ' + money(cost.knownUsd) : null;
-    const estimate=price ? `API-rate estimate ${money(price.estimateUsd)}` : n(cost?.estimatedUsd) !== null ? `API-rate estimate ${cost.estimateKind === 'known_usage_only' ? 'for known usage ' : ''}${money(cost.estimatedUsd)}` : null;
-    return [charge,estimate].filter(Boolean).join(' · ') || 'Cost unknown';
+    // ponytail: the figure only; the basis is stated once above each list (costBasis).
+    const charge=n(cost?.actualUsd) ?? n(cost?.knownUsd);
+    if (charge !== null) return money(charge);
+    if (price) return money(price.estimateUsd);
+    if (n(cost?.estimatedUsd) !== null) return money(cost.estimatedUsd)+(cost.estimateKind === 'known_usage_only' ? ' for known usage' : '');
+    return 'Cost unknown';
+  };
+  const costBasis = selector => {
+    const list=$(selector);
+    if (!list || typeof list.insertAdjacentHTML !== 'function' || list.previousElementSibling?.classList?.contains('cost-basis')) return;
+    list.insertAdjacentHTML('beforebegin','<p class="cost-basis">Charges are provider bills. Subscription routes and direct routes without a bill show the API-rate equivalent.</p>');
   };
   const providerGenerationTime = timing => n(timing?.providerGenerationSeconds) !== null && n(timing?.providerGenerationReportedRequests) > 0 ? duration(timing.providerGenerationSeconds) : null;
   const experimentId = run => run.parentBaselineId || run.id.replace(/--p[12]$/i,'');
@@ -255,7 +285,7 @@
     const target=$('#clef-first-pass-results');if(!target)return;
     if (runs.length!==2) {target.innerHTML='<p class="empty-state">The Clef first-pass results did not load.</p>';return;}
     const fields=[['Sentiment','sentiment'],['Follow-up','follow_up_needed'],['Serious concern','serious_concern_reported'],['Testimonial','testimonial_potential']];
-    target.innerHTML=`<div class="clef-comparison">${runs.map(run=>`<article class="clef-model-card"><h4>${esc(run.model)}</h4><p class="clef-major"><strong>${run.metrics.all_four}<small>/60</small></strong><span>reviews with all four decisions matching the reference</span></p><p>${run.valid} of 60 answers in the required format, ${count(run.tokens.input)} input and ${count(run.tokens.output)} output tokens.</p><dl>${fields.map(([label,key])=>`<div><dt>${label}</dt><dd><meter min="0" max="60" value="${run.metrics[key]}" aria-label="${esc(run.model)} ${label}: ${run.metrics[key]} of 60 match">${run.metrics[key]} of 60</meter><strong>${run.metrics[key]}/60</strong></dd></div>`).join('')}</dl><p class="clef-cost">API-rate estimate <strong>${money(run.cost.estimatedUsd)}</strong> for the pass.</p><a href="${esc(run.sourceRecordsUrl)}" target="_blank" rel="noopener noreferrer">Saved run ↗</a></article>`).join('')}</div><p class="clef-paired">The two models disagreed on at least one label for <strong>${esc(report.paired.predictionVectorDisagreementCount)}</strong> of 60 reviews. Both ran one P0 pass on the direct Cloudflare Workers AI route, before the OpenRouter runs. The ranking's Clef ${Number.isInteger(openRouterScore) ? `${openRouterScore} of 60 comes` : 'score comes'} from a later pass through OpenRouter.</p>`;
+    target.innerHTML=`<div class="clef-comparison">${runs.map(run=>`<article class="clef-model-card"><h4>${esc(run.model)}</h4><p class="clef-major"><strong>${run.metrics.all_four}<small>/60</small></strong><span>reviews with all four decisions matching the reference</span></p><p>${run.valid} of 60 answers in the required format, ${count(run.tokens.input)} input and ${count(run.tokens.output)} output tokens.</p><dl>${fields.map(([label,key])=>`<div><dt>${label}</dt><dd><meter min="0" max="60" value="${run.metrics[key]}" aria-label="${esc(run.model)} ${label}: ${run.metrics[key]} of 60 match">${run.metrics[key]} of 60</meter><strong>${run.metrics[key]}/60</strong></dd></div>`).join('')}</dl><p class="clef-cost"><strong>${money(run.cost.estimatedUsd)}</strong> for the pass.</p><a href="${esc(run.sourceRecordsUrl)}" target="_blank" rel="noopener noreferrer">Saved run ↗</a></article>`).join('')}</div><p class="clef-paired">The two models disagreed on at least one label for <strong>${esc(report.paired.predictionVectorDisagreementCount)}</strong> of 60 reviews. Both ran one P0 pass on the direct Cloudflare Workers AI route, before the OpenRouter runs. That route recorded no bill, so both costs are at the published API rate. The ranking's Clef ${Number.isInteger(openRouterScore) ? `${openRouterScore} of 60 comes` : 'score comes'} from a later pass through OpenRouter.</p>`;
   }
   function groups() {
     state.experiments = new Map();
@@ -472,13 +502,13 @@
     const runs = visibleRuns();
     $('#result-count').textContent = `${runs.length} shown / ${state.data.runs.length} saved runs`;
     $('#score-heading').textContent = `${metricName[$('#metric').value]}, of 60`;
-    $('#comparison-list').innerHTML = runs.length ? runs.map(r => `<button type="button" class="comparison-row${r.id === state.selectedId ? ' selected' : ''}" data-run="${esc(r.id)}" aria-label="Inspect ${esc(label(r))}, ${esc(r.condition)}"><span class="run-name">${esc(r.model)}<span class="run-meta">${esc([modelType(r).categoryLabel,modelType(r).trainingLabel,modelType(r).interfaceLabel,effortText(r),r.surface,passText(r),complete(r)?null:`partial tally · ${savedSummary(r)}${missingSummary(r)}`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(r.id)}</span></span><span>${esc(r.condition)}</span><span class="metric-value"><strong>${has(r.valid) ? esc(r.valid) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally'}</small></span><span class="metric-value"><strong>${has(score(r)) ? esc(score(r)) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally, not final'}</small></span><span class="run-runtime"><span>In ${esc(count(runTokens(r).input))} · Out ${esc(count(runTokens(r).output))}</span><small>Reasoning ${esc(count(runTokens(r).reasoning))} · ${esc(costSummary(r))}</small>${n(r.cost?.unknownUpperBoundUsd) > 0 ? `<small>plus up to ${esc(money(r.cost.unknownUpperBoundUsd))} unrecorded</small>` : ''}${inferenceTime(r.timing) !== 'Unavailable' || providerGenerationTime(r.timing) ? `<small>${esc([inferenceTime(r.timing) !== 'Unavailable' ? `Inference ${inferenceTime(r.timing)}` : null,providerGenerationTime(r.timing) ? `Provider generation ${providerGenerationTime(r.timing)}` : null].filter(Boolean).join(' · '))}</small>` : ''}</span></button>`).join('') : '<p class="empty-state">No runs match these filters.</p>';
+    $('#comparison-list').innerHTML = runs.length ? runs.map(r => `<button type="button" class="comparison-row${r.id === state.selectedId ? ' selected' : ''}" data-run="${esc(r.id)}" aria-label="Inspect ${esc(label(r))}, ${esc(r.condition)}"><span class="run-name">${esc(r.model)}<span class="run-meta">${esc([modelType(r).categoryLabel,modelType(r).trainingLabel,modelType(r).interfaceLabel,effortText(r),r.surface,passText(r),complete(r)?null:`partial tally · ${savedSummary(r)}${missingSummary(r)}`].filter(Boolean).join(' · '))}</span><span class="run-id">${esc(r.id)}</span></span><span>${esc(r.condition)}</span><span class="metric-value"><strong>${has(r.valid) ? esc(r.valid) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally'}</small></span><span class="metric-value"><strong>${has(score(r)) ? esc(score(r)) : '—'}</strong><small> / 60${complete(r) ? '' : ' · partial tally, not final'}</small></span><span class="run-runtime"><span>In ${esc(count(runTokens(r).input))} · Out ${esc(count(runTokens(r).output))}</span><small>${has(runTokens(r).reasoning) ? `Reasoning ${esc(count(runTokens(r).reasoning))} · ` : ''}${esc(costSummary(r))}</small>${n(r.cost?.unknownUpperBoundUsd) > 0 ? `<small>plus up to ${esc(money(r.cost.unknownUpperBoundUsd))} unrecorded</small>` : ''}${inferenceTime(r.timing) !== 'Unknown' || providerGenerationTime(r.timing) ? `<small>${esc([inferenceTime(r.timing) !== 'Unknown' ? `Inference ${inferenceTime(r.timing)}` : null,providerGenerationTime(r.timing) ? `Provider generation ${providerGenerationTime(r.timing)}` : null].filter(Boolean).join(' · '))}</small>` : ''}</span></button>`).join('') : '<p class="empty-state">No runs match these filters.</p>';
     $('#comparison-list').querySelectorAll('[data-run]').forEach(button => button.addEventListener('click',() => selectRun(button.dataset.run,true)));
   }
   const decisionLabels = {sentiment:'Sentiment',follow_up_needed:'Follow-up needed',serious_concern_reported:'Serious concern reported',testimonial_potential:'Testimonial potential'};
   const readableValue = value => String(value ?? '').replaceAll('_',' ');
   function caseValue(value) {
-    if (value === null || value === undefined || value === '') return 'Unavailable';
+    if (value === null || value === undefined || value === '') return 'Unknown';
     if (typeof value === 'object') return Object.entries(value).map(([key,v]) => `${decisionLabels[key] || readableValue(key)}: ${typeof v === 'object' ? JSON.stringify(v) : readableValue(v)}`).join(' · ');
     return String(value);
   }
@@ -566,7 +596,7 @@
     const partial=tokens.complete === false;
     const prefix=partial ? 'Known ' : '';
     const rows=[['Input tokens','input'],['Output tokens','output'],['Cached input tokens','cachedInput'],['Cache-write tokens','cacheWrite'],['Reasoning tokens','reasoning']].map(([name,key]) => dataRow(partial ? prefix+name.toLowerCase() : name,count(tokens[key])));
-    rows.push(dataRow('Requests with token usage',n(tokens.reportedRequests) === null ? 'Unavailable' : `${count(tokens.reportedRequests)} / ${count(tokens.totalRequests)}`));
+    rows.push(dataRow('Requests with token usage',n(tokens.reportedRequests) === null ? 'Unknown' : `${count(tokens.reportedRequests)} / ${count(tokens.totalRequests)}`));
     const coverage=partial ? 'Totals leave out requests that returned no usage. ' : '';
     const definition=priceEntry(run) ? (run.surface === 'Claude subscription' ? 'Claude input excludes separately reported cache reads and writes. ' : 'Codex input includes cached input. ') : '';
     return resourceSection('Tokens',rows,definition+coverage);
@@ -589,7 +619,7 @@
     const actualLabel='Charge';
     const inferred=inferenceTime(timing);
     const generation=providerGenerationTime(timing);
-    const inferenceNote=inferred === 'Unavailable' ? (n(timing.requests) > 0 ? 'The provider reported no inference time for this run.' : 'No inference or request time was recorded for this run.') : `${count(timing.inferenceReportedRequests)} requests reported server inference time. ${timing.inferenceBasis || ''}`;
+    const inferenceNote=inferred === 'Unknown' ? (n(timing.requests) > 0 ? 'The provider reported no inference time for this run.' : 'No inference or request time was recorded for this run.') : `${count(timing.inferenceReportedRequests)} requests reported server inference time. ${timing.inferenceBasis || ''}`;
     const evidence=url(run.evidenceUrl);
     $('#usage-summary').innerHTML=`<div class="usage-heading"><h3>${esc(run.model)} <small>${esc([effortText(run),run.surface,run.condition,passText(run)].filter(Boolean).join(' · '))}</small></h3>${evidence ? `<a href="${esc(evidence)}" target="_blank" rel="noopener noreferrer">Source report ↗</a>` : ''}</div><div class="usage-grid"><article><span class="usage-label">Server inference time</span><strong>${esc(inferred)}</strong><p>${esc(inferenceNote)}</p>${generation ? `<dl><div><dt>Provider generation median</dt><dd>${esc(generation)}</dd></div><div><dt>Requests with generation time</dt><dd>${esc(count(timing.providerGenerationReportedRequests))} / ${esc(count(timing.providerGenerationTotalRequests))}</dd></div></dl>${timing.providerGenerationBasis ? `<p>${esc(timing.providerGenerationBasis)}</p>` : ''}` : ''}</article><article><span class="usage-label">Token use</span><dl><div><dt>Input</dt><dd>${esc(count(tokens.input))}</dd></div><div><dt>Cache read</dt><dd>${esc(count(tokens.cachedInput))}</dd></div><div><dt>Cache write</dt><dd>${esc(count(tokens.cacheWrite))}</dd></div><div><dt>Output</dt><dd>${esc(count(tokens.output))}</dd></div><div><dt>Reasoning</dt><dd>${esc(count(tokens.reasoning))}</dd></div></dl><p>${esc(coverage)}. ${tokens.complete === false ? 'Totals cover only requests with usage data.' : ''}</p></article><article><span class="usage-label">Cost</span><dl><div><dt>${esc(actualLabel)}</dt><dd>${esc(observedCost(cost))}</dd></div><div><dt>${cost.estimateKind === 'known_usage_only' ? 'API-rate estimate for known usage' : 'API-rate estimate'}</dt><dd>${esc(money(cost.estimatedUsd))}</dd></div>${n(cost.unknownUpperBoundUsd) > 0 ? `<div><dt>Unrecorded charge, up to</dt><dd>${esc(money(cost.unknownUpperBoundUsd))}</dd></div>` : ''}</dl><p>${price ? 'Reasoning tokens count as output.' : ''}${price && url(price.rate?.sourceUrl) ? ` <a href="${esc(url(price.rate.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a> (${esc(price.rate.checkedDate)}).` : url(cost.sourceUrl) ? ` <a href="${esc(url(cost.sourceUrl))}" target="_blank" rel="noopener noreferrer">Public model price ↗</a>.` : ''}${price?.estimateUsd === null ? ` No estimate: ${esc(price.estimateStatus.replace(/_/g,' '))}.` : ''}${run.id === 'typesafe-jev113-v2' ? ' The unrecorded amount is the reservation held for one failed request.' : ''}</p></article></div>`;
   }
@@ -649,7 +679,7 @@
       const response=await fetch('./data-provider-errors-v1.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
       const data=await response.json();if(!Array.isArray(data.runs)||n(data.denominator)!==60)throw new Error('Invalid public data');
       state.data={...data,runs:data.runs.filter(r => r?.id && ['P0','P1','P2'].includes(r.condition)),cases:Array.isArray(data.cases)?data.cases:[],roster:Array.isArray(data.roster)?data.roster:[]};
-      const [pricing,sonnet55,clef,decisionRuns,extendedRuns]=await Promise.all([optionalPricing(),optionalSonnet55(),optionalClef(),optionalDecisionRuns(),optionalExtendedRuns()]);
+      const [pricing,sonnet55,clef,decisionRuns,extendedRuns,jevFindings]=await Promise.all([optionalPricing(),optionalSonnet55(),optionalClef(),optionalDecisionRuns(),optionalExtendedRuns(),optionalJevFindings()]);
       if (pricing?.schema === 'subscription-price-estimates-v1' && pricing.runs && typeof pricing.runs === 'object') state.pricing=pricing;
       state.data.runs.push(...sonnet55FirstPassRuns(sonnet55).filter(run=>!state.data.runs.some(existing=>existing.id===run.id)));
       const clefRuns=clefFirstPassRuns(clef);
@@ -657,12 +687,14 @@
       renderClefFirstPass(clefRuns,clef,(decisionRuns?.runs || []).find(run=>run?.id==='clef-openrouter-native-fresh1-p0')?.metrics?.all_four);
       state.data.runs.push(...supplementalDecisionRuns(decisionRuns,state.data.runs));
       const catalogRuns=extendedCatalogRuns(extendedRuns,state.data.runs);
+      applyJevFindings(catalogRuns,jevFindings);
       state.data.runs.push(...catalogRuns);
       const catalogStatus=$('#extended-run-status');
       if(catalogStatus) catalogStatus.innerHTML=catalogRuns.length
         ? `${catalogRuns.length} more report-backed stages appear in the chart and the run list. <a href="./extended-run-catalog-v1.json">Stage catalog</a>`
         : 'The report-backed repeat stages did not load, so the chart and run list leave them out. <a href="#repeat-analysis">Repeat results</a>';
       const queryMetric=new URL(location.href).searchParams.get('metric');if(queryMetric && Object.prototype.hasOwnProperty.call(metricName,queryMetric))$('#metric').value=queryMetric;
+      costBasis('#overview-rows');costBasis('#comparison-list');
       groups();renderExperimentSelect();renderModelSelect();renderSectionRunPickers();
       ['#overview-condition','#overview-surface'].forEach(selector=>$(selector).addEventListener('change',()=>{state.overviewAll=false;renderOverview();}));
       $('#overview-specialists').addEventListener('click',()=>{$('#overview-surface').value='local';globalThis.BenchmarkReportNavigation?.setCohort('all');state.overviewAll=true;renderOverview();});

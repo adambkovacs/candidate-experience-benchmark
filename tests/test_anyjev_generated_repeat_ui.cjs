@@ -64,8 +64,8 @@ test('closed generated phases preserve invalid outcomes and fixed-60 scores', as
   assert.match(limits, /strict parser does not repair fenced JSON/);
   assert.match(limits, /when none qualify, there is no stability figure/);
   assert.match(limits, /historical generated observations are ineligible/);
-  assert.match(limits, /private tokenizer/);
-  assert.match(limits, /local hardware and electricity cost are unknown/);
+  assert.doesNotMatch(limits, /private tokenizer|Provisional v0\.2|not isolated inference time/);
+  assert.doesNotMatch(limits, /local hardware and electricity cost are unknown/);
   const chart = ui.get('repeat-chart').innerHTML;
   assert.match(chart, /value="0"[^>]*aria-label="P0 Fresh pass 1 All four decisions: 0 out of 60"/);
   assert.match(chart, /value="1"[^>]*aria-label="P2 Fresh pass 1 All four decisions: 1 out of 60"/);

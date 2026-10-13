@@ -34,6 +34,30 @@
     }
     return [...points.values()].sort((a,b)=>b.matches-a.matches || b.valid-a.valid);
   }
+  // Fit x to the plotted runs (min valid minus a pad, floored to 5) so points do not pile against 60.
+  function xDomain(points){
+    if(!points.length) return [0,60];
+    const min=Math.min(...points.map(point=>point.valid));
+    return [Math.max(0,Math.floor((min-2)/5)*5),60];
+  }
+  function ticks(lo,hi){
+    // 3 to 7 equal intervals; prefer a step that is a multiple of 5.
+    const span=hi-lo,fits=[4,5,6,3,7].filter(k=>span%k===0),steps=fits.find(k=>(span/k)%5===0)||fits[0]||5;
+    return Array.from({length:steps+1},(_,i)=>Math.round(lo+span*i/steps));
+  }
+  // X ticks sit in a row under the plot; the -8px margin centres the end labels on the axis ends.
+  function axis(className,values){
+    const plot=$('outcome-plot'),frame=plot.parentElement;
+    if(!frame?.querySelector) return;
+    let row=frame.querySelector(`.${className}`);
+    if(!row){
+      row=document.createElement('div');row.className=className;row.setAttribute('aria-hidden','true');row.style.marginInline='-8px';
+      plot.insertAdjacentElement('afterend',row);
+    }
+    row.innerHTML=values.map(value=>`<span>${value}</span>`).join('');
+  }
+  // Y ticks live inside the plot so they track its height; the ±8px stretch centres labels on the gridlines.
+  const yTicks=`<div class="outcome-y-ticks" aria-hidden="true" style="top:-8px;bottom:-8px;left:auto;right:calc(100% + 6px)">${[60,45,30,15,0].map(value=>`<span>${value}</span>`).join('')}</div>`;
   function filtered(){
     const condition=$('outcome-condition').value,category=$('outcome-category').value;
     return all.filter(run=>(condition==='all'||run.condition===condition) && (!category||(run.category.categories || [run.category.category]).includes(category)));
@@ -62,11 +86,14 @@
     $('outcome-coordinate').innerHTML=points.length
       ?points.map(point=>`<option value="${esc(point.key)}">${point.valid}/60 valid · ${point.matches}/60 match · ${point.runs.length} ${point.runs.length===1?'run':'runs'}</option>`).join('')
       :'<option value="">No matching points</option>';
+    const [lo,hi]=xDomain(points),xTicks=ticks(lo,hi);
+    axis('outcome-x-ticks',xTicks);
+    if($('outcome-plot').style) $('outcome-plot').style.backgroundSize=`${(100/(xTicks.length-1)).toFixed(4)}% 25%`;
     $('outcome-plot').innerHTML=points.map(point=>{
       const categories=[...new Set(point.runs.flatMap(run=>run.category.categories || [run.category.category]))];
       const type=categories.length===1?categories[0]:'mixed';
-      return `<button type="button" class="outcome-point" data-point="${esc(point.key)}" data-category="${esc(type)}" style="left:${(point.valid/60*100).toFixed(4)}%;bottom:${(point.matches/60*100).toFixed(4)}%" aria-label="${point.valid} of 60 valid; ${point.matches} of 60 all four match; ${point.runs.length} ${point.runs.length===1?'run':'runs'}" aria-pressed="false">${point.runs.length>1?`<span aria-hidden="true">${point.runs.length}</span>`:''}</button>`;
-    }).join('');
+      return `<button type="button" class="outcome-point" data-point="${esc(point.key)}" data-category="${esc(type)}" style="left:${((point.valid-lo)/(hi-lo)*100).toFixed(4)}%;bottom:${(point.matches/60*100).toFixed(4)}%" aria-label="${point.valid} of 60 valid; ${point.matches} of 60 all four match; ${point.runs.length} ${point.runs.length===1?'run':'runs'}" aria-pressed="false">${point.runs.length>1?`<span aria-hidden="true">${point.runs.length}</span>`:''}</button>`;
+    }).join('')+yTicks;
     $('outcome-plot').querySelectorAll('[data-point]').forEach(button=>button.addEventListener('click',()=>{
       const point=points.find(item=>item.key===button.dataset.point);
       if(point) selectPoint(point);
@@ -103,7 +130,7 @@
       $('outcome-point-count').textContent='';
     }
   }
-  globalThis.OutcomeChart=Object.freeze({prepare,group});
+  globalThis.OutcomeChart=Object.freeze({prepare,group,xDomain,ticks});
   globalThis.addEventListener('benchmark:saved-runs-ready',event=>init(event.detail),{once:true});
   globalThis.addEventListener('benchmark:saved-runs-error',()=>{
     $('outcome-count').textContent='The chart did not load.';

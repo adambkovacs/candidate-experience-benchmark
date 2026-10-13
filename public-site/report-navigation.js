@@ -4,7 +4,7 @@
   const $=id=>document.getElementById(id);
   const values=new Set(['decision','general','all']);
   const search=new URL(location.href).searchParams;
-  let cohort=values.has(search.get('cohort')) ? search.get('cohort') : search.has('run') ? 'all' : 'decision';
+  let cohort=values.has(search.get('cohort')) ? search.get('cohort') : 'all'; // W1 exception at the lead's request: every model by default
   const advanced=new Set(['tuned','rules','unknown']);
   let customCategory=advanced.has(search.get('category')) ? search.get('category') : '';
   if(customCategory) cohort='all';

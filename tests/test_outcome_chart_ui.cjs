@@ -97,6 +97,24 @@ test('prompt and category filters select exact source-bound runs', async () => {
   assert.equal(elements['outcome-coordinate'].value, elements['outcome-plot'].buttons.at(-1).dataset.point);
 });
 
+test('x domain fits the plotted runs and points use it', async () => {
+  const { elements, chart } = mount();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual([...chart.xDomain([{ valid: 35 }, { valid: 60 }])], [30, 60]);
+  assert.deepEqual([...chart.xDomain([{ valid: 58 }])], [55, 60]);
+  assert.deepEqual([...chart.xDomain([{ valid: 1 }])], [0, 60]);
+  assert.deepEqual([...chart.xDomain([])], [0, 60]);
+  assert.deepEqual([...chart.ticks(0, 60)], [0, 15, 30, 45, 60]);
+  assert.deepEqual([...chart.ticks(30, 60)], [30, 35, 40, 45, 50, 55, 60]);
+  assert.deepEqual([...chart.ticks(40, 60)], [40, 45, 50, 55, 60]);
+  const html = elements['outcome-plot'].innerHTML;
+  const valids = [...html.matchAll(/data-point="(\d+):\d+"/g)].map(match => Number(match[1]));
+  const [lo] = chart.xDomain(valids.map(valid => ({ valid })));
+  const lowest = Math.min(...valids);
+  assert.match(html, new RegExp(`data-point="${lowest}:\\d+"[^>]*left:${((lowest - lo) / (60 - lo) * 100).toFixed(4)}%`));
+  assert.match(html, /data-point="60:\d+"[^>]*left:100\.0000%/);
+});
+
 test('partial rows never contribute scores, and malformed closed rows fail closed', () => {
   const { chart } = mount();
   const partial = feed.runs.find(run => run.complete !== true);

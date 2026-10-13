@@ -76,9 +76,9 @@ test('pending native raw pass renders one condition and explicit limitations', a
   assert.match(ui.get('repeat-chart').innerHTML, /Not completed/);
   assert.doesNotMatch(ui.get('repeat-condition').innerHTML, /P1|P2/);
   assert.equal(ui.get('repeat-deltas').innerHTML, '');
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not correctness/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not observed hashes/);
-  assert.match(ui.get('repeat-interpretation').innerHTML, /not isolated inference time/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not correctness|Provisional v0\.2/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not observed hashes/);
+  assert.doesNotMatch(ui.get('repeat-interpretation').innerHTML, /not isolated inference time/);
   assert.match(ui.get('repeat-usage-body').innerHTML, /Unknown/);
 });
 

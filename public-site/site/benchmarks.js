@@ -21,7 +21,10 @@
     : `<span class="bm-n" data-source="${esc(source)}">${esc(fmt ? fmt(value) : value)}</span>`;
   const d = (text, formula) => `<span class="bm-n" data-derived="${esc(formula)}">${esc(text)}</span>`;
   const usd = v => `$${Number(v)}`;
-  const busy = (el, on) => { el.setAttribute('aria-busy', on ? 'true' : 'false'); el.classList.toggle('bm-loading', on); };
+  const mark = box => box.classList.toggle('bm-overflows', box.scrollWidth > box.clientWidth + 1);
+  const watch = new ResizeObserver(entries => entries.forEach(entry => mark(entry.target)));
+  const fit = el => el.querySelectorAll('.bm-scroll').forEach(box => { mark(box); watch.observe(box); });
+  const busy = (el, on) => { el.setAttribute('aria-busy', on ? 'true' : 'false'); el.classList.toggle('bm-loading', on); if (!on) fit(el); };
   const fail = el => { busy(el, false); el.innerHTML = '<p class="bm-note">These results did not load.</p>'; };
   const wrap = (table, note) => `<div class="bm-scroll">${table}</div>${note ? `<p class="bm-note">${note}</p>` : ''}`;
 
@@ -43,7 +46,7 @@
     const c = run?.cost || {};
     const o = origin(run);
     for (const key of ['knownUsd', 'actualUsd']) if (c[key] != null) return o ? n(c[key], `${o}#runs[id=${run.id}].cost.${key}`, usd) : d(usd(c[key]), `${run.id}.cost.${key}`);
-    if (c.estimatedUsd != null) return d(`${usd(c.estimatedUsd)} at API rates`, `${run.id}.cost.estimatedUsd (API-rate estimate merged by app.js)`);
+    if (c.estimatedUsd != null) return d(usd(c.estimatedUsd), `${run.id}.cost.estimatedUsd (API-rate equivalent merged by app.js)`) + '<sup class="bm-api">a</sup>';
     return DASH;
   }
 
@@ -53,7 +56,8 @@
   // ponytail: configuration = saved stage name minus its pass and prompt suffix, the same cut s07_repeatability.py makes.
   const base = run => run.sourceStage ? run.sourceStage.split('/')[0]
     : run.id.replace(/--pass\d-p\d$/, '').replace(/-fresh\d-p\d$/, '').replace(/--p\d$/, '');
-  const passIndex = run => { const m = /(\d)$/.exec(run.repeatPass || ''); return m ? Number(m[1]) : 1; };
+  // Pass number from repeatPass, else from the id (--pass2-p0, -fresh3-p1); a run with neither is pass 1.
+  const passIndex = run => { const m = /(\d)$/.exec(run.repeatPass || '') || /(?:--pass|fresh)(\d)(?:-p\d)?$/.exec(run.id); return m ? Number(m[1]) : 1; };
   const effort = e => e == null || /^not.applicable$|^na$|^none$/i.test(e) ? '–' : e;
   const shortModel = m => String(m).replace(/^[\w.-]+\//, '');
 
@@ -76,7 +80,10 @@
     const {rows, placed} = configurations(snapshot.runs);
     // The catalog files Jev's nine prompt passes under TypeSafe with an estimate; they ran on OpenRouter native Choice
     // and carry a known charge (jev-native-prompt-findings.json). The direct TypeSafe run has no bill.
-    const jev = await feed('jev-native-prompt-findings.json');
+    const [jev, price] = await Promise.all(['jev-native-prompt-findings.json', 'subscription-price-estimates.json'].map(feed));
+    // Subscription runs (Claude, Codex) carry no charge; their API-rate equivalent lives in the price feed by run id.
+    const rate = run => { const v = run && price.runs?.[run.id]?.estimateUsd;
+      return v == null ? '' : n(v, `subscription-price-estimates.json#runs["${run.id}"].estimateUsd`, usd) + '<sup class="bm-api">a</sup>'; };
     for (const c of rows) {
       if (/typesafe-jev113-native-prompts/.test(c.key)) {
         c.route = 'OpenRouter native Choice';
@@ -91,6 +98,7 @@
       <label>Model type<select data-f="type"><option value="">All</option><option>Decision</option><option>General</option></select></label>
       <label>Find a model<input type="search" data-f="q" autocomplete="off"></label>
       <label>Sort by<select data-f="sort"><option value="P0.1">P0 pass 1</option><option value="P1.1">P1 pass 1</option><option value="P2.1">P2 pass 1</option><option value="model">Model name</option></select></label>
+      <label>Columns<select data-f="view"><option value="passes">Every prompt and pass</option><option value="decisions">Each decision, P0 pass 1</option></select></label>
       <p class="bm-count" role="status"></p></div><div class="bm-body"></div>`;
     let all = false;
     const pick = sel => el.querySelector(`[data-f="${sel}"]`);
@@ -101,7 +109,7 @@
       return `<td class="bm-num bm-pass${i === 1 ? ' bm-first' : ''}">${metric(run, 'all_four')}${stop}</td>`;
     }).join('')).join('');
     const draw = () => {
-      const t = pick('type').value, q = pick('q').value.trim().toLowerCase(), s = pick('sort').value;
+      const t = pick('type').value, q = pick('q').value.trim().toLowerCase(), s = pick('sort').value, byPass = pick('view').value === 'passes';
       let list = rows.filter(c => (!t || c.type === t) && (!q || `${c.model} ${c.key} ${c.route}`.toLowerCase().includes(q)));
       list.sort(s === 'model' ? (a, b) => a.model.localeCompare(b.model) : (a, b) => score(b.cells[s]) - score(a.cells[s]) || a.model.localeCompare(b.model));
       const shown = all ? list : list.slice(0, 40);
@@ -109,18 +117,20 @@
       const body = shown.map(c => {
         const first = c.cells['P0.1'];
         return `<tr><th scope="row"><span class="bm-model">${esc(shortModel(c.model))}</span><span class="bm-id">${esc(c.key)}</span></th>
-          <td>${c.type}</td><td>${esc(c.route)}</td><td>${esc(c.effort)}</td>${passCells(c)}
-          ${FIELDS.map(f => `<td class="bm-num">${first ? metric(first, f) : DASH}</td>`).join('')}<td class="bm-num">${c.costCell || (first ? cost(first) : DASH)}</td></tr>`;
+          <td>${c.type}</td><td>${esc(c.route)}</td><td>${esc(c.effort)}</td>${byPass ? passCells(c)
+          : ['all_four', ...FIELDS].map(f => `<td class="bm-num">${first ? metric(first, f) : DASH}</td>`).join('')}<td class="bm-num bm-cost">${c.costCell || rate(first) || (first ? cost(first) : DASH)}</td></tr>`;
       }).join('');
       el.querySelector('.bm-body').innerHTML = wrap(`<table class="bm-table bm-wide"><thead>
         <tr><th rowspan="2" scope="col">Model and configuration</th><th rowspan="2" scope="col">Type</th><th rowspan="2" scope="col">Route</th><th rowspan="2" scope="col">Effort</th>
-        <th colspan="3" scope="colgroup">P0 base task</th><th colspan="3" scope="colgroup">P1 classifier instructions</th><th colspan="3" scope="colgroup">P2 decision rules</th>
-        <th colspan="4" scope="colgroup">P0 pass 1, each decision</th><th rowspan="2" scope="col">Cost of P0 pass 1</th></tr>
-        <tr>${'<th scope="col">1</th><th scope="col">2</th><th scope="col">3</th>'.repeat(3)}${FIELD_HEAD.map(h => `<th scope="col">${h}</th>`).join('')}</tr></thead>
+        ${byPass ? '<th colspan="3" scope="colgroup">P0 base task</th><th colspan="3" scope="colgroup">P1 classifier instructions</th><th colspan="3" scope="colgroup">P2 decision rules</th>'
+          : '<th colspan="5" scope="colgroup">P0 pass 1, out of 60</th>'}<th rowspan="2" scope="col">Cost of P0 pass 1</th></tr>
+        <tr>${byPass ? '<th scope="col">1</th><th scope="col">2</th><th scope="col">3</th>'.repeat(3)
+          : ['All four', ...FIELD_HEAD].map(h => `<th scope="col">${h}</th>`).join('')}</tr></thead>
         <tbody>${body}</tbody></table>`,
-        `All-four matches out of 60 for each prompt and pass. A dash means that pass has no saved score, and a small i marks a pass that was interrupted. Cost is the provider charge for one pass of 60 reviews; Claude and Codex ran on subscriptions, so their cost is the API-rate equivalent. ${total} configurations from ${placed} saved run-passes.`)
+        `All-four matches out of 60 for each prompt and pass. A dash means the merged run feed holds no score for that pass. Some repeats sit only in per-family files, such as Sonnet 5.5, whose nine passes are on the Read page. A small i marks a pass that was interrupted. Cost is the provider charge for one pass of 60 reviews. Claude and Codex ran on subscriptions, so their cost, marked a, is what the same tokens would cost at API rates. A dash in the cost column means no charge was recorded. ${total} configurations from ${placed} saved run-passes.`)
         + (!all && list.length > 40 ? `<button type="button" class="bm-more">Show all ${list.length} configurations</button>` : '');
       el.querySelector('.bm-more')?.addEventListener('click', () => { all = true; draw(); });
+      fit(el);
     };
     el.addEventListener('input', draw);
     draw();
@@ -185,7 +195,7 @@
       const rows = FIELDS.map((f, i) => {
         const ref = r.reference[f];
         const jv = jev ? jev.prediction[f] : ref;
-        const jcell = jev ? `<span class="bm-word" data-text-source="findings.json#charts.jev.cases[id=${r.id}].prediction.${f}">${word(jv)}</span>`
+        const jcell = jev ? `<span class="bm-word" data-derived="display label of findings.json#charts.jev.cases[id=${r.id}].prediction.${f}">${word(jv)}</span>`
           : `<span class="bm-word" data-derived="${r.id} not in findings.json#charts.jev.disagreementCaseIds, so Jev matched the reference">${word(jv)}</span>`;
         return `<tr><th scope="row">${QUESTION[i]}</th><td class="bm-ref">${word(ref)}</td><td${jv !== ref ? ' class="bm-diff"' : ''}>${jcell}</td>${models.map(m => {
           const a = r.answers.find(x => x.model_id === m.id)?.prediction?.[f];
@@ -215,6 +225,7 @@
         return `<tr><th scope="row">${name}</th>${['all_four', ...FIELDS].map(f => `<td class="bm-num">${run ? metric(run, f) : DASH}</td>`).join('')}</tr>`; }).join('');
       el.querySelector('.bm-body').innerHTML = wrap(`<table class="bm-table"><thead><tr><th scope="col">Model</th><th scope="col">All four</th>${FIELD_HEAD.map(h => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`,
         'Matches out of 60 on the first pass. A dash means that model has no first pass at this prompt.');
+      fit(el);
     };
     el.addEventListener('change', draw);
     draw();

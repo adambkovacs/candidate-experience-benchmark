@@ -47,8 +47,9 @@ test('deep-linked run opens all-model view and switching synchronizes both explo
   assert.ok(ui.historyUrls.at(-1).includes('cohort=general'));
 });
 
-test('default view is decision; explicit all cohort is preserved when a run is linked',()=>{
-  assert.equal(mount('https://example.test/report').context.BenchmarkReportNavigation.getCohort(),'decision');
+test('default view is all models; explicit cohorts are preserved',()=>{
+  assert.equal(mount('https://example.test/report').context.BenchmarkReportNavigation.getCohort(),'all');
+  assert.equal(mount('https://example.test/report?cohort=decision').context.BenchmarkReportNavigation.getCohort(),'decision');
   assert.equal(mount('https://example.test/report?cohort=all&run=example').context.BenchmarkReportNavigation.getCohort(),'all');
 });
 

@@ -122,11 +122,11 @@ async function run(name, { path, width, height, reducedMotion = 'no-preference',
   entry.checks.afterScroll = await page.evaluate(() => ({
     stillHidden: document.querySelectorAll('.js-reveal').length,
     faint: [...document.querySelectorAll('main > *, body > footer')].filter(el => +getComputedStyle(el).opacity < 0.99).map(el => el.id || el.className),
-    countups: [...document.querySelectorAll('[data-countup]')].map(el => el.textContent.trim()).join(' '),
+    countups: [...document.querySelectorAll('#rule dd .num, #rule .queue-figure > b .num')].map(el => el.textContent.trim()).join(' '),
     stickyHeads: document.querySelectorAll('table.has-sticky-head').length
   }));
   if (entry.checks.afterScroll.stillHidden || entry.checks.afterScroll.faint.length) fail(entry, 'blocks not fully visible after scrolling', entry.checks.afterScroll);
-  if (path === 'index.html' && entry.checks.afterScroll.countups !== '53 0 7 58 0 2 35') fail(entry, 'count-ups did not land on their text', entry.checks.afterScroll.countups);
+  if (path === 'index.html' && entry.checks.afterScroll.countups !== '53 0 7 58 0 2 35') fail(entry, 'rule numbers are not complete on entry', entry.checks.afterScroll.countups);
   if (screenshots && shots) {
     entry.phase = 'screenshots';
     const tag = path.replace('.html', '');
@@ -183,10 +183,10 @@ async function interact(page, entry) {
   await page.click('[data-study-step="decisions"]');
   await page.waitForTimeout(300);
   check('study steps', (await text('#study-explanation')) !== before, before.slice(0, 60));
-  await page.click('.main-nav a[href="#review-evidence"]');
+  await page.click('.main-nav a[href="#hard-matrix"]');
   await page.waitForTimeout(1800);
-  const nav = await page.evaluate(() => ({ hash: location.hash, current: document.querySelector('.main-nav a[aria-current]')?.hash, top: Math.round(document.getElementById('review-evidence').getBoundingClientRect().top) }));
-  check('nav jump', nav.hash === '#review-evidence' && nav.current === '#review-evidence' && nav.top >= 0 && nav.top < 260, nav);
+  const nav = await page.evaluate(() => ({ hash: location.hash, current: document.querySelector('.main-nav a[aria-current]')?.hash, top: Math.round(document.getElementById('hard-matrix').getBoundingClientRect().top) }));
+  check('nav jump', nav.hash === '#hard-matrix' && nav.current === '#hard-matrix' && nav.top >= 0 && nav.top < 260, nav);
   return out;
 }
 

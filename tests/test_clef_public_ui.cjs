@@ -41,7 +41,8 @@ test('price estimates, unknown bounds, tokens and timing remain distinct', () =>
   assert.deepEqual(Array.from(runs, run => run.cost.estimatedUsd), [0.03184656, 0.01194246]);
   assert.deepEqual(Array.from(runs, run => run.cost.unknownUpperBoundUsd), [0.94374, 0.35394]);
   assert.ok(runs.every(run => run.cost.actualUsd === null && run.timing.inferenceSeconds === null));
-  assert.match(html, /API-rate estimate <strong>\$0\.03184656<\/strong>/);
+  assert.match(html, /<strong>\$0\.03184656<\/strong> for the pass\./);
+  assert.match(html, /That route recorded no bill, so both costs are at the published API rate\./);
   assert.doesNotMatch(html, /Observed charge unavailable|provisional/);
   assert.doesNotMatch(html, /inference speed|provider billed/);
 });
@@ -65,5 +66,5 @@ test('public section links source, describes one pass, and separates provider co
   assert.match(html, /One closed base-task pass each on Cloudflare's direct route/);
   assert.match(html, /runs\[id=clef-openrouter-native-fresh1-p0\]\.metrics\.all_four">54<\/span> of 60/);
   assert.match(app, /fetch\('\.\/clef-findings\.json'/);
-  assert.match(app, /API-rate estimate <strong>\$\{money\(run\.cost\.estimatedUsd\)\}<\/strong>/);
+  assert.match(app, /<p class="clef-cost"><strong>\$\{money\(run\.cost\.estimatedUsd\)\}<\/strong> for the pass\.<\/p>/);
 });

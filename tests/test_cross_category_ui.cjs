@@ -177,3 +177,15 @@ test('review links clear seven-native filters while preserving unrelated context
   assert.equal(ui.reviewUrl('DEV-029'), '/?cohort=general&crossCase=DEV-030&review=DEV-029#review-evidence');
   context.location.href = 'https://example.test/?cohort=general';
 });
+
+test('default pairing names the strongest first passes, not the weakest', () => {
+  const top = stratum => Math.max(...feed.runs.filter(run => run.stratum === stratum).map(run => run.scores.all_four));
+  const run = id => feed.runs.find(row => row.runId === id);
+  assert.equal(run('opus55-high-batch10').stratum, 'historical-first-P0');
+  assert.equal(run('opus55-high-batch10').scores.all_four, top('historical-first-P0'));
+  assert.equal(run('extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0').stratum, 'declared-fresh1-P0');
+  assert.equal(run('extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0').scores.all_four, top('declared-fresh1-P0'));
+  assert.equal(run('solar-decide-native-fresh1-p0').scores.all_four, top('native-first-P0'));
+  assert.match(script, /preferredGeneral = \['opus55-high-batch10', 'extended-openrouter-paid-gemma4-26b-a4b-on-fresh1-p0'\]/);
+  assert.match(script, /sort\(\(a, b\) => b\.scores\.all_four - a\.scores\.all_four\)/);
+});

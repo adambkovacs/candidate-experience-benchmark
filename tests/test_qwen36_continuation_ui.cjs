@@ -87,10 +87,10 @@ test('known charges and separate per-request unknown bounds remain distinct', as
   const cleanRow = usageRow(ui, 'P2', 'Fresh pass 3');
   assert.ok(firstRow.includes(money(first.usage.knownCostUsd)));
   assert.ok(secondRow.includes(money(failedP1.usage.knownCostUsd)));
-  assert.ok(firstRow.includes(`Unknown charge up to ${money('0.0299008')}`));
-  assert.ok(secondRow.includes(`Unknown charge up to ${money('0.0299008')}`));
-  assert.doesNotMatch(secondRow, /Unknown charge up to \$0\.0598016/);
-  assert.doesNotMatch(cleanRow, /Unknown charge up to/);
+  assert.ok(firstRow.includes(`plus up to ${money('0.0299008')} unrecorded`));
+  assert.ok(secondRow.includes(`plus up to ${money('0.0299008')} unrecorded`));
+  assert.doesNotMatch(secondRow, /plus up to \$0\.0598016/);
+  assert.doesNotMatch(cleanRow, /plus up to/);
   assert.match(ui.get('repeat-lead').textContent, /plus up to \$0\.0299008 unrecorded for each of DEV-006 and DEV-031/);
   assert.match(ui.get('repeat-lead').textContent, /\(\$0\.0598016 together\)/);
 });
